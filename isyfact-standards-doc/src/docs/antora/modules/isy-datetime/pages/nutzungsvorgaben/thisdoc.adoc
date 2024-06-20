@@ -6,10 +6,10 @@
 
 Im xref:konzept/master.adoc[] werden die Anforderungen und Vorgaben zu Datum und Zeit der IsyFact definiert, um eine einheitliche Umsetzung in der gesamten Anwendungslandschaft zu gewährleisten.
 
-Dieses Dokument beschreibt alle Aspekte, die bei der Entwicklung einer Anwendung zu berücksichtigen sind, um die definierten Anforderungen zu erfüllen.
+Dieses Dokument beschreibt alle Aspekte, die bei der Entwicklung eines IT-Systems zu berücksichtigen sind, um die definierten Anforderungen zu erfüllen.
 Die IsyFact stellt eine eigene xref:glossary:glossary:master.adoc#glossar-bibliothek[Bibliothek] (`isy-datetime`) bereit, um die Anforderungen einheitlich umsetzen zu können.
 Kern dieses Dokuments sind Vorgaben zur Nutzung der _Java 8 Date and Time API_ des JSR 310 und die Verwendung der zuvor genannten Bibliothek.
-Das Dokument richtet sich daher vorrangig an Entwickler, Konstrukteure und technische Chefdesigner von xref:glossary:glossary:master.adoc#glossar-anwendungssystem[Anwendungssystemen], die gemäß den Vorgaben der IsyFact umgesetzt werden.
+Das Dokument richtet sich daher vorrangig an Entwickler, Konstrukteure und technische Chefdesigner von xref:glossary:glossary:master.adoc#glossar-it-system[IT-Systemen], die gemäß den Vorgaben der IsyFact umgesetzt werden.
 
 [[aufbau-und-zweck-des-dokuments]]
 == Aufbau und Zweck des Dokuments

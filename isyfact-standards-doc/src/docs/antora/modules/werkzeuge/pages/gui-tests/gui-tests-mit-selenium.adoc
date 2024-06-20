@@ -13,13 +13,13 @@ Ebenfalls findet `Selenium` immer stärkeren Einsatz bei Automatisierung der kom
 == Setup
 Zum Aufsetzen von `Selenium` und dem Erstellen von webbasierten GUI-Tests mit Selenium, sollte die ausführliche Entwickler-Dokumentation von `Selenium` herangezogen werden: +
 
-xref:glossary:literaturextern:inhalt.adoc#litextern-selenium[Selenium Dokumentation]
+https://www.selenium.dev/documentation/[Selenium Dokumentation]
 
 [[selenium-basic-steps-install]]
 === Selenium installieren
 In Maven: `selenium-java` dependency in die pom.xml einfügen:
 
-[[listing-einbindungs-elenium-maven]]
+[[listing-einbindung-selenium-maven]]
 .Einbindung von Selenium in der pom.xml
 [source,xml,subs="verbatim,attributes"]
 ----
@@ -82,7 +82,7 @@ driver.quit();
 
 [[selenium-basic-steps-eight-basic-actions]]
 ==== Acht grundlegende Funktionen
-xref:glossary:literaturextern:inhalt.adoc#litextern-selenium-getting-started[Grundlegende Funktion in Selenium - Offizielle Dokumentation]
+https://www.selenium.dev/documentation/webdriver/getting_started/first_script/[Grundlegende Funktion in Selenium - Offizielle Dokumentation]
 
 [[selenium-problems]]
 == Problematiken
@@ -101,10 +101,6 @@ Das zeigt sich in folgenden Dimensionen:
 Daher ist ein Verständnis von `HTML/CSS` erforderlich, um automatisierte Abläufe zu beschreiben
 * In `Selenium` werden nur Referenzen von DOM Elementen gehalten, nichts wird zwischen gespeichert
 * `Selenium` adressiert die Asynchronität des Browsers nur oberflächlich
-
-[[selenium-problems-jsf]]
-=== JSF
-* Die Generierung / Das Rendering von JSF Pages ist zum Teil so dynamisch, sodass IDs von Web-Elementen immer neu erzeugt werden und damit schwer über `Selenium` zu adressieren sind
 
 [[selenium-best-practices]]
 == Best Practices
@@ -156,12 +152,11 @@ public void testAssertFunctions() {
 === WebElement Finding bei asynchronen Änderungen
 Grundlegende Informationen, wie man WebElemente über Selenium findet: +
 
-xref:glossary:literaturextern:inhalt.adoc#litextern-selenium-finders[Finders]
+https://www.selenium.dev/documentation/webdriver/elements/finders/[Finders]
 
-xref:glossary:literaturextern:inhalt.adoc#litextern-selenium-locators[Locators]
+https://www.selenium.dev/documentation/webdriver/elements/locators/[Locators]
 
-JSF kann hier durch dynamische Generierung Probleme bei der Suche nach WebElement-Ids bereiten.
-Daher kann auf zwei alternative Möglichkeiten zurückgegriffen werden:
+Sollten Probleme bei der Suche nach WebElement-Ids entstehen (z.B. da diese dynamisch generiert werden), kann auf zwei alternative Möglichkeiten zurückgegriffen werden:
 
 ==== XPath
 XPath ist eine Alternative zum WebElement-Finding per ID.
@@ -174,7 +169,7 @@ Da HTML und XML eine ähnliche Struktur haben, fällt es `Selenium` leicht, bei 
     WebElement checkbox = driver.findElement(
                     By.xpath("/html/body/div[2]/div[1]/div/h4[1]/b/html[1]/body[1]/div[2]/div[1]/div[1]/h4[1]/b[1]"));
 ----
-Aber auch die XPath-Pfade können durch die Asynchronität des Browsers und JSFs dynamischer Generierung verändert werden.
+Aber auch die XPath-Pfade können durch die Asynchronität des Browsers oder durch dynamische Generierung ihr Ziel verfehlen.
 
 ==== Css Selector
 Etwas sicherer und eventuell beständiger ist der Css Selector. 

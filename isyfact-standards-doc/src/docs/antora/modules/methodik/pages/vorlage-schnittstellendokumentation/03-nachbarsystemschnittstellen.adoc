@@ -4,7 +4,7 @@
 [[nachbarsystemschnittstellen]]
 == Nachbarsystemschnittstellen
 
-_Ein UML-Komponentendiagramm gibt einen Überblick über die vom Anwendungssystem angebotenen Schnittstellen._
+_Ein UML-Komponentendiagramm gibt einen Überblick über die von der Anwendung angebotenen Schnittstellen._
 
 [[image-angebotene-nachbarschnittstelle]]
 .Angebotene Schnittstellen
@@ -52,9 +52,8 @@ _Wenn das Diagramm der Schnittstelle zu umfangreich wird, kann es auf mehrere Di
 .NST_Meldung_durchführen
 image::vorlage-schnittstellendokumentation/nst-meldung-durchfuehren.png[]
 
+._Erstellung des Diagramms im Enterprise Architect_
 ****
-*Erstellung des Diagramms im Enterprise Architect:*
-
 Man zieht die Nachbarsystemschnittstelle aus dem UML-Profil „Nachbarschnittstellen“ in ein Composite Structure Diagramm und benennt sie richtig.
 Die Schnittstellenentitätstypen werden erst erstellt und dann in diesem Diagramm verwendet.
 Zwischen den Schnittstellenentitätstypen werden Verknüpfungen definiert.
@@ -69,9 +68,9 @@ Beide Verknüpfungen stammen aus dem UML-Profil „Nachbarschnittstellen“.
 
 |*Kurzbeschreibung* |_Welche fachlichen Dienste werden durch die Schnittstelle bereitgestellt?
 Welchen fachlichen Hintergrund haben die ausgetauschten Daten?_
-|*Synchron/Asynchron* |_Bei synchronen Schnittstellen blockiert der aufrufende Bearbeitungsablauf so lange, bis das aufgerufene Anwendungssystem eine Antwort zurückgesendet hat (enge Kopplung).
+|*Synchron/Asynchron* |_Bei synchronen Schnittstellen blockiert der aufrufende Bearbeitungsablauf so lange, bis die aufgerufene Anwendung eine Antwort zurückgesendet hat (enge Kopplung).
 Bei asynchronen Schnittstellen fährt der aufrufende Bearbeitungsablauf sofort mit weiteren, lokalen Schritten fort (lose Kopplung).
-Falls eine Reaktion vom aufgerufenen Anwendungssystem erwartet wird, so muss sie über einen asynchronen Mechanismus wie z.B. ein Aufgabensystem in den Bearbeitungsprozess wieder eingegliedert werden._
+Falls eine Reaktion von der aufgerufenen Anwendung erwartet wird, so muss sie über einen asynchronen Mechanismus wie z.B. ein Aufgabensystem in den Bearbeitungsprozess wieder eingegliedert werden._
 |*Verwendete +
 Entitätstypen (Input)* |_Liste der Schnittstellenentitätstypen, die Parameter beim Aufruf der Schnittstelle durch ein Nachbarsystem sind.
 Durch das Schnittstellendiagramm ist diese Information bereits dargestellt, daher ist die Auflistung optional._
@@ -287,8 +286,8 @@ Die Datentypen werden in einem Datentypverzeichnis verwaltet. Beispiele: ISBN, F
 
 _Im Fall von trivialer Fachlichkeit (z.B. Beschreibungstexte, einfache Nummern) verzichten wir auf fachliche Datentypen und verwenden direkt die technischen Basistypen Zeichenkette, Ganzzahl, Kommazahl etc. Eigenschaften des Attributes und der Datentyp sollten voneinander getrennt werden._
 
-_Typischerweise verwenden verschiedene Anwendungssysteme ähnliche Datentypen.
-Innerhalb einer Anwendungslandschaft müssen gleich benannte Datentypen auch den gleichen Inhalt haben. Ähnliche, aber inhaltlich unterschiedliche Datentypen sollten auch über die Anwendungssysteme der Anwendungslandschaft explizit unterschiedlich benannt werden, um hier Verwirrung zu vermeiden._
+_Typischerweise verwenden verschiedene Anwendungen ähnliche Datentypen.
+Innerhalb einer Anwendungslandschaft müssen gleich benannte Datentypen auch den gleichen Inhalt haben. Ähnliche, aber inhaltlich unterschiedliche Datentypen sollten auch über die Anwendungen der Anwendungslandschaft explizit unterschiedlich benannt werden, um hier Verwirrung zu vermeiden._
 
 
 [[table-datentypen]]

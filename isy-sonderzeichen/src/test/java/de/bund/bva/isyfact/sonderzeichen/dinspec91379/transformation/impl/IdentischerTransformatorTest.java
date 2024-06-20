@@ -30,8 +30,8 @@ import org.junit.Test;
 
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
-import de.bund.bva.isyfact.sonderzeichen.dinspec91379.transformation.ZeichenKategorie;
 import de.bund.bva.isyfact.sonderzeichen.dinspec91379.transformation.TestData;
+import de.bund.bva.isyfact.sonderzeichen.dinspec91379.transformation.ZeichenKategorie;
 
 /**
  * Tests the IdentischerTransformator.

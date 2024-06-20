@@ -7,7 +7,7 @@
 
 Im Anwendungskern werden die fachlichen Funktionen der Anwendung realisiert.
 Diese Funktionen sind im Anwendungskern genau einmal implementiert und können von unterschiedlichen Komponenten einer Anwendung genutzt werden.
-Eine Meldung in einer Geschäftsanwendung kann z.B. sowohl über die GUI als auch über einen Batch oder einen Serviceaufruf vorgenommen werden.
+Eine Meldung in einer Geschäftsanwendung kann z.B. sowohl über einen Serviceaufruf als auch einen Batch vorgenommen werden.
 Alle diese Aufrufer nutzen dieselbe Implementierung.
 Der Anwendungskern wird aus Fachkomponenten und Komponenten zur Nutzung externer Services aufgebaut.
 
@@ -25,7 +25,7 @@ Daher werden im Folgenden Spring-Kenntnisse vorausgesetzt.
 [[ueberblick]]
 == Überblick
 
-Gemäß den Vorgaben der Referenzarchitektur der xref:referenzarchitektur/master.adoc[Referenzarchitektur] basiert die Architektur eines IT-Systems auf der bekannten Drei-Schichten-Architektur.
+Gemäß den Vorgaben der xref:referenzarchitektur-it-system/master.adoc[] basiert die Architektur eines IT-Systems auf der bekannten Drei-Schichten-Architektur.
 Eine dieser Schichten ist die Anwendungskernschicht mit der Komponente Anwendungskern.
 
 Im Anwendungskern werden die fachlichen Funktionen der Anwendung realisiert.
@@ -37,7 +37,7 @@ In folgender Abbildung ist die <<referenzarchitektur-it-system>> grafisch darges
 
 [[referenzarchitektur-it-system]]
 .Referenzarchitektur eines IT-Systems
-image::blaupausen:detailkonzept-anwendungskern/IFRefArcITSsys.png[]
+image::blaupausen:referenzarchitektur-it-system/architektur-it-system-awk.dn.svg[]
 
 In diesem Dokument werden die Vorgaben zum Bau der Komponente Anwendungskern im Detail beschrieben.
 Als zentrales Framework für die Implementierung des Anwendungskerns wird das Spring-Framework verwendet.

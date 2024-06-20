@@ -70,7 +70,7 @@ Im Dokument wird unter Batchlogik diese Klassensammlung und keine Komponente ver
 
 .Die Anwendungslogik eines Batches (Zielarchitektur)
 [id="image-AnwLogBat",reftext="{figure-caption} {counter:figures}"]
-image::blaupausen:detailkonzept-batch/AnwLogBat.png[align="center"]
+image::blaupausen:detailkonzept-batch/architektur-it-system-batch-parts.dn.svg[]
 
 [[checkpoint-restart-logik]]
 ==== Checkpoint / Restart Logik
@@ -163,17 +163,17 @@ Die Einbindung weiterer Datenbanken ist in xref:isy-persistence:konzept/vorgaben
 === Batches als eigenes IT-System
 
 Batches existieren meistens als weiterer Zugangsweg in der Nutzungsschicht einer bestehenden Geschäftsanwendung
-(siehe <<image-AnwLogBat>>), da sie auf den Daten des jeweiligen Anwendungssystems operieren.
+(siehe <<image-AnwLogBat>>), da sie auf den Daten der jeweiligen Anwendung operieren.
 
 Es kann allerdings auch Batches geben, die unabhängig von einer bestimmten Geschäftsanwendung sind.
 Dies kann beispielsweise der Fall sein, wenn ein Import-Batch angelieferte Dateien in verschiedene Geschäftsanwendungen importiert.
-Wenn Batches nicht eindeutig einem Anwendungssystem zugeordnet werden können, kann man sie auch als eigenständiges IT-System implementieren.
+Wenn Batches nicht eindeutig einer Anwendung zugeordnet werden können, kann man sie auch als eigenständiges IT-System implementieren.
 Dieses „Batch-System“ kann dann die Service-Schnittstellen anderer Geschäftsanwendungen aufrufen.
 Insgesamt ist dies jedoch als Sonderfall zu betrachten.
 In der Regel gehören Batches zu Geschäftsanwendungen, sie enthalten damit den fachlichen Code dieser Anwendung und
 nutzen diesen nicht über Service-Schnittstellen (siehe Kapitel <<das-deployment-eines-batches>>).
 
-In diesem Fall ist das Anwendungssystem architektonisch ein eigenständiges IT-System nach Zielarchitektur, nur ohne Service und GUI Bereiche in der Nutzungsschicht.
+In diesem Fall ist die Anwendung architektonisch ein eigenständiges IT-System nach Zielarchitektur, das in der Nutzungsschicht alleinig die Batch-Komponente enthält.
 
 Batches die zu einer Geschäftsanwendung gehören sollen jedoch nicht als eigenständiges IT-System umgesetzt werden.
 
@@ -197,7 +197,7 @@ Annahmen in Bezug auf) die Batchlogik stellen.
 
 Für die umzusetzende Batchlogik gelten folgende Anforderungen:
 
-* Sie sollen keine Fachlogik enthalten, sondern die Komponenten des Anwendungskerns verwenden.
+* Sie sollen keine Geschäftslogik enthalten, sondern die Komponenten des Anwendungskerns verwenden.
 Abweichungen sind nur aus zwingenden Performance-Gründen erlaubt.
 Dies ist jeweils mit dem technischen Chefarchitekten abzustimmen und im Systementwurf zu dokumentieren.
 Falls in Ausnahmefällen direkte Datenbankzugriffe notwendig sind, sind alle weiteren Verarbeitungen an die Fach-Komponenten zu delegieren.
@@ -272,7 +272,7 @@ Multithreading innerhalb eines Batches wird nicht unterstützt.
 Der Batchrahmen ist das Framework, in welches sich die Logik eines konkreten Batches einfügt.
 Der Batchrahmen ruft (anhand einer Konfiguration) diese Logik auf.
 Da eine Batch-Anwendung über Spring verwaltet wird, wird die Batchlogik als Spring-Bean konfiguriert, als sogenannte _Ausführungsbean_.
-Diese Bean wiederum ruft die Geschäftsanwendungs-Komponenten auf, welche die fachliche Logik enthalten.
+Diese Bean wiederum ruft die Geschäftsanwendungs-Komponenten auf, welche die Geschäftslogik enthalten.
 
 
 Für eine Beispielanwendung zeigt <<image-BeanGriffBat>> eine Auswahl der vorhandenen Beans.
@@ -389,7 +389,7 @@ Batches im Status „Abbruch“ müssen mit „-restart“ gestartet werden oder
 |`-ignoriereRestart` |Auch bei Fehlern Start akzeptieren, nicht auf Restart beharren.
 |`-ignoriereLauf` |Auch bei Status "laeuft" Start akzeptieren.
 |`-testmodus` |Startet den Batch im Testmodus.
-Dieser arbeitet analog zum normalen Wirkbetrieb, jedoch werden keine Änderungen an Datenbeständen vom Anwendungssystem oder Nachbarsystemen durchgeführt.
+Dieser arbeitet analog zum normalen Wirkbetrieb, jedoch werden keine Änderungen an Datenbeständen der Anwendung oder der Nachbarsysteme durchgeführt.
 Ein detailliertes Konzept ist in Kapitel <<testmodus>> beschrieben.
 |`-laufzeit <Minuten>` |Gibt eine maximale Laufzeit in Minuten an.
 Wird die angegebene Zeit überschritten, wird der aktuelle Datensatz zu Ende bearbeitet.
@@ -496,7 +496,7 @@ Wie in Kapitel <<grobe-architektur-des-batchrahmens>> beschrieben, werden für e
 Für den Kontext der eigentlichen Geschäftsanwendung können die Spring-Konfigurationsdateien übernommen werden.
 In ihnen müssen folgende Anpassungen vorgenommen werden:
 
-* Beans, die für die Batch-Verarbeitung nicht benötigt werden, sollten entfernt werden (Service-Beans, GUI-Beans).
+* Service-Beans, die für die Batch-Verarbeitung nicht benötigt werden, sollten entfernt werden.
 * Damit die Entity-Klassen des Batchrahmens gefunden werden können, muss in der Spring-Konfiguration der Batches ein Entity-Scan hinzugefügt werden:
 
  @EntityScan("de.bund.bva.isyfact.batchrahmen.persistence.rahmen")
@@ -895,7 +895,7 @@ Ereignis eingetreten ist:
 [[testmodus]]
 === Testmodus
 
-Der Batch im Testmodus arbeitet analog zum normalen Wirkbetrieb, jedoch werden keine Änderungen an Datenbeständen vom Anwendungssystem oder Nachbarsystemen durchgeführt.
+Der Batch im Testmodus arbeitet analog zum normalen Wirkbetrieb, jedoch werden keine Änderungen an Datenbeständen der Anwendung oder der Nachbarsysteme durchgeführt.
 Der Testmodus ist für den Betrieb wichtig, um Abschätzungen der Laufzeit durchführen zu können und somit den Batchbetrieb planen können.
 Weiter ist der Testlauf für Bereinigungsläufe wichtig, da so der Fachbereich sehen kann, welche Änderungen durch den Bereinigungslauf ausgeführt werden würden.
 
@@ -1014,12 +1014,12 @@ Mittlerweile wurde dies durch eine UUID ersetzt.
 Zusätzlich erhält jeder zu verarbeitende Satz auch eine eigene Korrelations-ID, welche an die Korrelations-ID des Batches angehängt wird. Die entstehende Korrelations-ID Kette wird dann dem Aufruf-Kontext hinzugefügt.
 
 [[fachliche-logik-in-den-komponenten-der-geschaeftsanwendung-implementieren]]
-=== Fachliche Logik in den Komponenten der Geschäftsanwendung implementieren
+=== Geschäftslogik in den Komponenten der Geschäftsanwendung implementieren
 
-Falls für die Verarbeitung im Batch Fachlogik benötigt wird, welche für die Webanwendung nicht benötigt wird, ist diese trotzdem den Geschäftsanwendungskomponenten hinzuzufügen.
-Die Ausführungsbean erhält die Referenzen auf die Komponenten über Dependency Injection und ruft die Fachlogik dort auf.
+Falls für die Verarbeitung im Batch Geschäftslogik benötigt wird, welche für die Webanwendung nicht benötigt wird, ist diese trotzdem den Anwendungskomponenten hinzuzufügen.
+Die Ausführungsbean erhält die Referenzen auf die Komponenten über Dependency Injection und ruft die Geschäftslogik dort auf.
 
-Auch wenn in Sonderfällen Datenbank-Aufrufe direkt durch die Ausführungsbean ausgeführt werden müssen, ist die sonstige fachliche Logik an die Fachkomponenten der Geschäftsanwendung zu delegieren.
+Auch wenn in Sonderfällen Datenbank-Aufrufe direkt durch die Ausführungsbean ausgeführt werden müssen, ist die sonstige Geschäftslogik an die Fachkomponenten der Geschäftsanwendung zu delegieren.
 
 [[plausibilitaetspruefung-in-der-initialisierung]]
 === Plausibilitätsprüfung in der Initialisierung
@@ -1182,7 +1182,7 @@ Reguläre Batches werden meist ebenfalls über ein Shell-Skript gestartet, ihre 
 Das Skript startet also nur das zugehörige Programm.
 
 Der Vorteil von Shell-Batches ist, dass sie etwas schlanker sind und daher auch schneller entwickelt werden können.
-Komplexe fachliche Logik sollte aber immer als dediziertes Batchprogramm umgesetzt werden, da diese auf lange Sicht besser wartbar sind.
+Komplexe Geschäftslogik sollte aber immer als dediziertes IT-System umgesetzt werden, da diese auf lange Sicht besser wartbar sind.
 
 Ein Beispiel für Shell-Batches sind einmalige SQL-Migrationen.
 Das Shell-Skript baut dabei eine Verbindung mit dem Datenbank-Server auf und führt eine SQL-Datei aus.

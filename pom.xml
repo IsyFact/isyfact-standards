@@ -33,16 +33,12 @@
     <modules>
         <module>isyfact-standards-bom</module>
         <module>isyfact-products-bom</module>
-        <module>isy-aufrufkontext</module>
         <module>isy-batchrahmen</module>
         <module>isy-datetime</module>
         <module>isy-exception-core</module>
-        <module>isy-konfiguration</module>
         <module>isy-logging</module>
         <module>isy-persistence</module>
         <module>isy-polling</module>
-        <module>isy-serviceapi-core</module>
-        <module>isy-sicherheit</module>
         <module>isy-task</module>
         <module>isy-ueberwachung</module>
         <module>isy-util</module>
@@ -76,9 +72,10 @@
         <maven.surefire.argline>
             -Xmx1g -Dfile.encoding=${project.build.sourceEncoding} @{maven.jacoco.argLine}
         </maven.surefire.argline>
+        <maven-surefire.version>3.2.5</maven-surefire.version>
 
         <!-- Plugin versions used in several places -->
-        <maven.enforcer.plugin.version>3.0.0</maven.enforcer.plugin.version>
+        <maven.enforcer.plugin.version>3.4.1</maven.enforcer.plugin.version>
         <maven.javadoc.plugin.version>3.3.2</maven.javadoc.plugin.version>
         <asciidoctor.maven.plugin.version>2.0.0</asciidoctor.maven.plugin.version>
         <asciidoctorj.pdf.version>1.5.4</asciidoctorj.pdf.version>
@@ -209,7 +206,7 @@
                 <plugin>
                     <groupId>org.jacoco</groupId>
                     <artifactId>jacoco-maven-plugin</artifactId>
-                    <version>0.8.7</version>
+                    <version>0.8.12</version>
                     <executions>
                         <execution>
                             <goals>
@@ -231,7 +228,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>2.22.2</version>
+                    <version>${maven-surefire.version}</version>
                     <configuration>
                         <argLine>${maven.surefire.argline}</argLine>
 
@@ -244,7 +241,7 @@
                 <plugin>
                     <groupId>com.github.spotbugs</groupId>
                     <artifactId>spotbugs-maven-plugin</artifactId>
-                    <version>4.8.1.0</version>
+                    <version>4.8.5.0</version>
                     <configuration>
                         <effort>Max</effort>
                         <threshold>high</threshold>
@@ -372,7 +369,7 @@
                 </plugin>
                 <plugin>
                     <groupId>org.cyclonedx</groupId>
-                    <artifactId> cyclonedx-maven-plugin</artifactId>
+                    <artifactId>cyclonedx-maven-plugin</artifactId>
                     <version>2.7.9</version>
                     <configuration>
                         <outputFormat>json</outputFormat>
@@ -470,7 +467,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-clean-plugin</artifactId>
-                <version>3.1.0</version>
+                <version>3.3.2</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -534,12 +531,12 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-project-info-reports-plugin</artifactId>
-                <version>3.0.0</version>
+                <version>3.5.0</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-report-plugin</artifactId>
-                <version>2.19.1</version>
+                <version>${maven-surefire.version}</version>
             </plugin>
             <!-- Create checkstyle report -->
             <plugin>
@@ -560,7 +557,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-pmd-plugin</artifactId>
-                <version>3.6</version>
+                <version>3.22.0</version>
                 <configuration>
                     <sourceEncoding>${project.build.sourceEncoding}</sourceEncoding>
                     <targetJdk>${java.release.version}</targetJdk>

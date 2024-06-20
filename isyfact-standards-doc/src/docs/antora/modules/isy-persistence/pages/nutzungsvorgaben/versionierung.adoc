@@ -100,10 +100,10 @@ Das signalisiert, dass das Schema bereit ist, die Schema-übergreifenden Operati
 Vor der Ausführung der Skripte im Ordner `uebergreifend` wird geprüft, dass der Status des Hauptschemas auf `bereit` steht.
 Erst nach der erfolgreichen Ausführung aller Schritte des Schemas `uebergreifend` wird der Status auf `gueltig` gesetzt.
 
-Mit den übergreifenden Skripten sollen auch die Zugriffsrechte für die Queue(s) eines Anwendungssystems vergeben werden, sofern diese existieren.
+Mit den übergreifenden Skripten sollen auch die Zugriffsrechte für die Queue(s) eines IT-Systems vergeben werden, sofern diese existieren.
 Die entsprechenden Datenbanknutzer der Systeme, die Zugriff auf die Queue(s) haben sollen, sind dann in der Datei `91_environment.sql` einzutragen.
 In einem Skript `93-X.sql` können dann die Rechte je nach Bedarf vergeben werden.
-Auf diese Weise legt das Anwendungssystem selbst fest, welche anderen Systeme Zugriff auf die Queue(s) haben.
+Auf diese Weise legt das IT-System selbst fest, welche anderen Systeme Zugriff auf die Queue(s) haben.
 
 [[pruefen-der-schemaversion]]
 == Prüfen der Schema-Version

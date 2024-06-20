@@ -12,7 +12,7 @@ Um das zu erreichen, müssen Konventionen für die Programmierung festgelegt wer
 
 [[grundsaetzliches]]
 == Grundsätzliches
-Es gelten immer allgemein anerkannte Best- und Good Practices der Softwareentwicklung, insbesondere wie in xref:glossary:literaturextern:inhalt.adoc#litextern-martin2008[Clean Code] festgehalten. Anti-Patterns und Bad Practice sind demnach zu vermeiden. Es liegt in der Verantwortung der Entwickler, aktuelle Entwicklung der modernen Softwareentwicklung zu verfolgen. An Stellen, an denen es es mehrere plausible Lösungen gibt, gelten die IsyFact Programmierkonventionen.
+Es gelten immer allgemein anerkannte Best- und Good Practices der Softwareentwicklung, insbesondere wie in https://www.oreilly.com/library/view/clean-code-a/9780136083238/[Clean Code: A Handbook of Agile Software Craftsmanship (Martin, 2008)] und https://clean-code-developer.de/[Clean Code Developer] festgehalten. Anti-Patterns und Bad Practice sind demnach zu vermeiden. Es liegt in der Verantwortung der Entwickler, aktuelle Entwicklung der modernen Softwareentwicklung zu verfolgen. An Stellen, an denen es es mehrere plausible Lösungen gibt, gelten die IsyFact Programmierkonventionen.
 
 Das vorliegende Dokument behandelt zunächst reine TypeScript-Projekte. Ist ein Framework (wie z.B. Angular) im Einsatz, sind immer selber etablierte Konventionen zu suchen, die sich auf dieses Framework beziehen und die immer Priorität gegenüber hier festgeschriebenen Konventionen haben. Nur an Stellen, in denen sich kein Konflikt ergibt, sind die hier festgeschriebenen Regeln anzuwenden; Vorrang haben in allen Belangen immer Best Practices und Vorgaben der Frameworks.
 
@@ -22,13 +22,13 @@ Zudem werden möglichst wenig eigene Vorgaben gemacht und stattdessen auf existi
 == Regelsets
 
 === Öffentliche Regelsets
-Es gilt der xref:glossary:literaturextern:inhalt.adoc#google-typescript-styleguide[Google TypeScript Style Guide].
+Es gilt der https://google.github.io/styleguide/tsguide.html[Google TypeScript Style Guide].
 
-Für Angular-Projekte gilt der xref:glossary:literaturextern:inhalt.adoc#google-typescript-styleguide[Google Angular Coding Style Guide].
+Für Angular-Projekte gilt der https://angular.io/guide/styleguide[Google Angular Coding Style Guide].
 
 === isy-eslint-plugin
 
-Zur statischen Codeanalyse wird das Tool xref:glossary:literaturextern:inhalt.adoc#eslint[ESLint] verwendet. Hierzu wird das isy-eslint-plugin bereitgestellt, das viele übliche Code Smells und fragwürdige Patterns abfängt und als Fehler ausgibt und somit Einheitlichkeit in solchen Fällen schafft. Die technisch Einbindung ist in der readme-Datei des Repositories beschrieben. Die Regeln sind grundsätzlich eher streng ausgelegt, dürfen aber in begründeten und dokumentierten Einzelfällen überschrieben werden.
+Zur statischen Codeanalyse wird das Tool https://eslint.org/[ESLint] verwendet. Hierzu wird das isy-eslint-plugin bereitgestellt, das viele übliche Code Smells und fragwürdige Patterns abfängt und als Fehler ausgibt und somit Einheitlichkeit in solchen Fällen schafft. Die technisch Einbindung ist in der readme-Datei des Repositories beschrieben. Die Regeln sind grundsätzlich eher streng ausgelegt, dürfen aber in begründeten und dokumentierten Einzelfällen überschrieben werden.
 
 Die Einhaltung der Regeln sollte automatisiert geprüft werden; beim Einsatz einer CI/CD-Pipeline sollte es also einen entsprechenden Job geben.
 
@@ -72,7 +72,7 @@ Alle am Projekt beteiligten Personen müssten diese „Vokabeln“ neu lernen.
 [[dokumentationskommentare-jsdoc]]
 === Dokumentationskommentare
 
-Wird kein anderes Dokumentationssystem (wie z.B. xref:glossary:literaturextern:inhalt.adoc#compodoc[compodoc] für Angular) eingesetzt, werden alle Methoden und Klassen mit xref:glossary:literaturextern:inhalt.adoc#jsdoc[JSDoc]-Kommentaren versehen.
+Wird kein anderes Dokumentationssystem (wie z.B. https://compodoc.app/[compodoc] für Angular) eingesetzt, werden alle Methoden und Klassen mit https://jsdoc.app/[JSDoc]-Kommentaren versehen.
 
 Für die Erstellung von Dokumentationskommentaren gelten die folgenden Regeln:
 
@@ -80,7 +80,7 @@ Für die Erstellung von Dokumentationskommentaren gelten die folgenden Regeln:
 === Versionierung und Änderungshistorie
 
 Änderungen werden mittels eines Version Control System (z.B. git) nachverfolgt.
-Dazu ist es zwingend erforderlich, die durchgeführten Änderungen bzw. die Ursache dafür beim Commit ausreichend zu dokumentieren. Commits werden nach xref:glossary:literaturextern:inhalt.adoc#conventional-commits[Conventional Commits] formatiert.
+Dazu ist es zwingend erforderlich, die durchgeführten Änderungen bzw. die Ursache dafür beim Commit ausreichend zu dokumentieren. Commits werden nach https://www.conventionalcommits.org/en/v1.0.0/[Conventional Commits] formatiert.
 Die Sprache hierfür ist analog zum Code englisch, fachliche Bezeichner - sofern nötig - werden in Deutsch gehalten.
 
 // end::inhalt[]

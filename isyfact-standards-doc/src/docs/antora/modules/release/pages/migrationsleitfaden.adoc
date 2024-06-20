@@ -14,7 +14,23 @@ Die auf dieser Seite aufgeführten Hinweise sollen der Entwicklung bei der Umste
 [[kapitel-bausteine]]
 == Bausteine
 
+Folgende Bausteine entfallen in IsyFact 4:
+
+* `isy-aufrufkontext`: wird mit dem Wegfall der HttpInvoker nicht länger benötigt
+* `isy-konfiguration`: ersetzt durch Spring Configuration Properties
+* `isy-sicherheit`: ersetzt durch Spring Security OAuth2 und `isy-security`
+* `isy-serviceapi-core`: HttpInvoker-Schnittstellen müssen durch entsprechende REST-Schnittstellen ersetzt werden (siehe auch xref:isy-service-rest:konzept/master.adoc[]/xref:isy-service-rest:nutzungsvorgaben/master.adoc[]).
+
 ...
+
+[[isy-ueberwachung]]
+=== Überwachung
+
+In IsyFact 3 muss die Absicherung der Endpoints aus den Nutzungsvorgaben abgeleitet und pro Anwendung implementiert werden.
+
+In IsyFact 4 stellt der Baustein `isy-ueberwachung` über die AutoConfiguration eine
+Standardabsicherung für Endpoints und entsprechende Konfigurationsparameter bereit.
+Eine detaillierte Beschreibung zur Konfiguration und Anpassungsmöglichkeiten sind in den xref:isy-ueberwachung:nutzungsvorgaben/master.adoc#absicherung-von-endpoints[Nutzungsvorgaben Überwachung] zu finden.
 
 [[kapitel-dokumentation]]
 == Dokumentation

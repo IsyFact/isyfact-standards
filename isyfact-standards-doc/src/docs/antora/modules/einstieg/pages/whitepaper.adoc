@@ -11,7 +11,7 @@ include::einstieg:page$einstieg.adoc[tags=whitepaper,leveloffset=1]
 [[die-fuenf-saeulen]]
 == Die fünf Säulen der IsyFact
 
-*Die IsyFact umfasst: Blaupausen, Bausteine, eine Betriebsplattform, methodische Vorgaben zum Software-Engineering und Entwicklungswerkzeuge.*
+*Die IsyFact umfasst: Referenzarchitektur, Bausteine, eine Betriebsplattform, methodische Vorgaben zum Software-Engineering und Entwicklungswerkzeuge.*
 
 Die IsyFact stellt Ihre Inhalte strukturiert in fünf *Säulen* zur Verfügung.
 
@@ -22,10 +22,10 @@ image::einstieg:sf-saeulen.dn.svg[]
 
 Die folgenden Abschnitte beschreiben die einzelnen Säulen im Detail.
 
-[[blaupausen]]
-=== Blaupausen
+[[referenzarchitektur]]
+=== Referenzarchitektur
 
-include::blaupausen:page$blaupausen.adoc[tag=whitepaper,leveloffset=2]
+include::referenzarchitektur:index.adoc[tag=whitepaper,leveloffset=2]
 
 [[bausteine]]
 === Bausteine
@@ -57,6 +57,6 @@ include::einstieg:page$produkte.adoc[tag=whitepaper]
 
 Die IsyFact-Standards sind an folgenden Orten dokumentiert:
 
-* xref:glossary:literaturextern:inhalt.adoc#litextern-url-isyfact-bva[Webseite des Bundesverwaltungsamts zur IsyFact],
-* xref:glossary:literaturextern:inhalt.adoc#litextern-url-isyfact-online-docs[Online-Dokumentation der IsyFact],
-* xref:glossary:literaturextern:inhalt.adoc#litextern-url-isyfact-github[Quellcode der IsyFact auf GitHub].
+* http://isyfact.de[Webseite des Bundesverwaltungsamts zur IsyFact],
+* https://isyfact.github.io[Online-Dokumentation der IsyFact],
+* https://github.com/IsyFact[Quellcode der IsyFact auf GitHub].

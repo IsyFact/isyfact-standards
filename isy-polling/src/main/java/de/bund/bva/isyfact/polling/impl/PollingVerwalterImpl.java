@@ -17,7 +17,6 @@
 package de.bund.bva.isyfact.polling.impl;
 
 import java.io.IOException;
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -33,7 +32,6 @@ import javax.management.ReflectionException;
 import javax.management.remote.JMXConnector;
 import javax.management.remote.JMXConnectorFactory;
 
-import de.bund.bva.isyfact.polling.config.IsyPollingProperties;
 import org.springframework.beans.factory.InitializingBean;
 
 import de.bund.bva.isyfact.logging.IsyLogger;
@@ -44,6 +42,7 @@ import de.bund.bva.isyfact.polling.common.exception.PollingClusterUnbekanntExcep
 import de.bund.bva.isyfact.polling.common.exception.PollingUeberpruefungTechnicalException;
 import de.bund.bva.isyfact.polling.common.konstanten.EreignisSchluessel;
 import de.bund.bva.isyfact.polling.common.konstanten.Fehlerschluessel;
+import de.bund.bva.isyfact.polling.config.IsyPollingProperties;
 
 /**
  * Implementierung der Komponente PollingVerwalter.

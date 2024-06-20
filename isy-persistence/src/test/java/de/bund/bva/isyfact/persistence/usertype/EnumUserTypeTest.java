@@ -25,7 +25,6 @@ import static org.mockito.Mockito.when;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import java.util.Properties;
 
 import org.junit.Before;
@@ -114,22 +113,22 @@ public class EnumUserTypeTest {
     @Test
     public void testNullSafeGet() throws SQLException{
     	ResultSet rs = mock(ResultSet.class);
-    	when(rs.getString("name")).thenReturn("E");
+    	when(rs.getString(0)).thenReturn("E");
     	when(rs.wasNull()).thenReturn(false);
-    	String [] names = new String[]{"name"};
+
     	userType.setEnumClass(Vorgangsstatus.class);
-    	Object obj = userType.nullSafeGet(rs, names, null, null);
+    	Object obj = userType.nullSafeGet(rs, 0, null, null);
     	assertEquals(Vorgangsstatus.ERLEDIGT, (Vorgangsstatus)obj);
     }
     
     @Test
     public void testNullSafeGetNull() throws SQLException{
     	ResultSet rs = mock(ResultSet.class);
-    	when(rs.getString("name")).thenReturn("NONE");
+    	when(rs.getString(0)).thenReturn("NONE");
     	when(rs.wasNull()).thenReturn(true);
-    	String [] names = new String[]{"name"};
+
     	userType.setEnumClass(Vorgangsstatus.class);
-    	Object obj = userType.nullSafeGet(rs, names, null, null);
+    	Object obj = userType.nullSafeGet(rs, 0, null, null);
     	assertEquals(null, (Vorgangsstatus)obj);
     }
     
@@ -138,7 +137,7 @@ public class EnumUserTypeTest {
     	PreparedStatement st = mock(PreparedStatement.class);
     	userType.setEnumClass(Vorgangsstatus.class);
     	userType.nullSafeSet(st, null, 0, null);
-    	verify(st, times(1)).setNull(0, userType.sqlTypes()[0]);
+    	verify(st, times(1)).setNull(0, userType.getSqlType());
     }
     
     @Test

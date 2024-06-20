@@ -3,7 +3,7 @@ package de.bund.bva.isyfact.ueberwachung.autoconfigure;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.ServletRegistration;
+import jakarta.servlet.ServletRegistration;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
+import de.bund.bva.isyfact.ueberwachung.config.ActuatorSecurityConfigurationProperties;
 import de.bund.bva.isyfact.ueberwachung.config.LoadbalancerSecurityConfiguration;
 import de.bund.bva.isyfact.ueberwachung.config.LoadbalancerServletConfigurationProperties;
 import de.bund.bva.isyfact.ueberwachung.service.loadbalancer.LoadbalancerServlet;
@@ -27,6 +28,12 @@ public class IsyUeberwachungAutoConfiguration {
     @ConfigurationProperties(prefix = "isy.ueberwachung.loadbalancer")
     public LoadbalancerServletConfigurationProperties loadbalancerServletConfigurationProperties() {
         return new LoadbalancerServletConfigurationProperties();
+    }
+
+    @Bean
+    @ConfigurationProperties(prefix = "isy.ueberwachung.security")
+    public ActuatorSecurityConfigurationProperties actuatorSecurityConfigurationProperties() {
+        return new ActuatorSecurityConfigurationProperties();
     }
 
     @Bean

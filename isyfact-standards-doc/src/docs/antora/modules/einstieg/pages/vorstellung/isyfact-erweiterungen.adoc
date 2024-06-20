@@ -3,7 +3,7 @@
 include::glossary:licence:partial$licence.adoc[]
 
 Aktuell werden nur wenige Erweiterungen, wie in den xref:vorstellung/rahmenbedingungen.adoc#aktueller-stand-und-weiterentwicklung[Rahmenbedingungen] beschrieben, unter einer Open-Source-Lizenz zur Verfügung gestellt.
-Auf der xref:glossary:literaturextern:inhalt.adoc#litextern-register-factory-bausteine[Webseite der Register Factory] befindet sich eine Übersicht über vorhandene Bausteine, die in Zukunft potenziell als IsyFact-Erweiterung zur Verfügung gestellt werden.
+Auf der https://www.bva.bund.de/DE/Das-BVA/Aufgaben/I/Informationstechnik/RegisterFactory/Produkt/produkt_rf_node.html#doc241990bodyText2[Webseite der Register Factory] befindet sich eine Übersicht über vorhandene Bausteine, die in Zukunft potenziell als IsyFact-Erweiterung zur Verfügung gestellt werden.
 Teilweise können diese auf Anfrage herausgegeben werden.
 
 NOTE: Bei Interesse wenden Sie sich bitte per E-Mail (isyfact@bva.bund.de) an uns.
@@ -19,15 +19,6 @@ Diese werden im Folgenden dargestellt:
 Das Bedienkonzept beschreibt die Gestaltungsregeln, Lösungsmuster und Workflows für fachliche Abläufe in Benutzeroberflächen.
 Ziel des Bedienkonzepts ist es, dass sich Sachbearbeiter möglichst schnell zwischen unterschiedlichen Anwendungen orientieren können.
 
-[[webjsf]]
-=== Web JSF
-Der Baustein Web JSF enthält alle notwendigen Abhängigkeiten, Spring-Konfigurationen, JSF-Komponenten (Composite Components) sowie zugehörige XHTML-Templates zur Erstellung einer GUI mit JSF.
-
 [[webangular]]
-=== Web Angular
-Der Baustein Web Angular stellt querschnittlich nutzbare Komponenten und Services zur Verwendung mit dem Angular Web Framework zur Verfügung.
-
-[[sicherheitkeycloak]]
-=== Sicherheit Keycloak
-Der Baustein Sicherheit Keycloak erweitert den Baustein Sicherheit um Funktionalität zur Verwendung des Keycloak Authorization Servers.
-Konkret beinhaltet die Erweiterung die Implementierung des IAM-Services für Keycloak sowie einen Filter zur Authentifizierung von REST-Aufrufen.
+=== Angular
+Der Baustein Angular stellt querschnittlich nutzbare Komponenten und Services zur Verwendung mit dem Angular Web Framework zur Verfügung.

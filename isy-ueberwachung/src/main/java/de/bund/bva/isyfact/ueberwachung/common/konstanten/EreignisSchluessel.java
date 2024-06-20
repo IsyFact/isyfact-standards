@@ -19,9 +19,12 @@ package de.bund.bva.isyfact.ueberwachung.common.konstanten;
 /**
  * Diese Klasse enthält Ereignisschlüssel für das Logging.
  */
-public class EreignisSchluessel {
+public final class EreignisSchluessel {
 
-    private EreignisSchluessel() {}
+    private EreignisSchluessel() {
+        // private constructor to hide the implicit public one.
+    }
+
     /** Standard-Ereignis für Debug/Info-Ausgaben ohne eigene Ereignis-ID. */
     public static final String PLUEB00001 = "PLUEB00001";
 
@@ -40,7 +43,7 @@ public class EreignisSchluessel {
     @Deprecated
     public static final String PLUEB00004 = "PLUEB00004";
 
-    /** Loadbalancer wurde abgefragt, aber isAlive-Datei existiert, aber es konnte keine Antwort gesendet werden */
+    /** Loadbalancer wurde abgefragt, aber isAlive-Datei existiert, aber es konnte keine Antwort gesendet werden. */
     public static final String IS_ALIVE_EXISTIERT_IO_EXCEPTION = "PLUEB00006";
 
     /** Loadbalancer wurde abgefragt, aber isAlive-Datei existiert nicht. */
@@ -52,6 +55,6 @@ public class EreignisSchluessel {
     /** Nicht-essentielles Nachbarsystem {} nicht erreicht. Status: {} */
     public static final String NACHBARSYSTEM_NICHT_ESSENTIELL_NICHT_ERREICHBAR = "PLUEB00003";
 
-    /** Bei der Anfrage des Nachbarsystems {} ist ein Fehler aufgetreten: {} */
+    /** Bei der Anfrage des Nachbarsystems {} ist ein Fehler aufgetreten: {}. */
     public static final String NACHBARSYSTEM_ANFRAGEFEHLER = "PLUEB00004";
 }

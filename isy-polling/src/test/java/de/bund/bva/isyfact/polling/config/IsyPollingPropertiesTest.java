@@ -1,74 +1,71 @@
 package de.bund.bva.isyfact.polling.config;
 
-import java.util.HashMap;
-import java.util.Map;
+import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.BeanCreationException;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.boot.test.context.runner.ApplicationContextRunner;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Configuration;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+class IsyPollingPropertiesTest {
 
-public class IsyPollingPropertiesTest {
+    ApplicationContextRunner contextRunner = new ApplicationContextRunner(AnnotationConfigApplicationContext::new)
+        .withUserConfiguration(TestConfig.class);
 
     @Test
-    public void testPropertiesGesetzt() {
-        Map<String, Object> properties = new HashMap<>();
+    void testPropertiesGesetzt() {
+        contextRunner.withPropertyValues(
+            "isy.logging.anwendung.name=test",
+            "isy.logging.anwendung.typ=test",
+            "isy.logging.anwendung.version=test",
 
-        properties.put("isy.logging.anwendung.name", "test");
-        properties.put("isy.logging.anwendung.typ", "test");
-        properties.put("isy.logging.anwendung.version", "test");
+            "isy.polling.jmx.domain=testdomain",
 
-        properties.put("isy.polling.jmx.domain", "testdomain");
+            "isy.polling.jmx.verbindungen.server1.host=host1",
+            "isy.polling.jmx.verbindungen.server1.port=9001",
+            "isy.polling.jmx.verbindungen.server1.benutzer=userid1",
+            "isy.polling.jmx.verbindungen.server1.passwort=pwd1",
 
-        properties.put("isy.polling.jmx.verbindungen.server1.host", "host1");
-        properties.put("isy.polling.jmx.verbindungen.server1.port", "9001");
-        properties.put("isy.polling.jmx.verbindungen.server1.benutzer", "userid1");
-        properties.put("isy.polling.jmx.verbindungen.server1.passwort", "pwd1");
+            "isy.polling.jmx.verbindungen.server2.host=host2",
+            "isy.polling.jmx.verbindungen.server2.port=9002",
+            "isy.polling.jmx.verbindungen.server2.benutzer=userid2",
+            "isy.polling.jmx.verbindungen.server2.passwort=pwd2",
 
-        properties.put("isy.polling.jmx.verbindungen.server2.host", "host2");
-        properties.put("isy.polling.jmx.verbindungen.server2.port", "9002");
-        properties.put("isy.polling.jmx.verbindungen.server2.benutzer", "userid2");
-        properties.put("isy.polling.jmx.verbindungen.server2.passwort", "pwd2");
+            "isy.polling.cluster.POSTFACH1_CLUSTER.name=Postfachabruf-1",
+            "isy.polling.cluster.POSTFACH1_CLUSTER.wartezeit=600",
+            "isy.polling.cluster.POSTFACH2_CLUSTER.name=Postfachabruf-2",
+            "isy.polling.cluster.POSTFACH2_CLUSTER.wartezeit=700",
+            "isy.polling.cluster.POSTFACH2_CLUSTER.jmxverbindungen=server1,server2"
+        ).run(context -> {
+            IsyPollingProperties isyPollingProperties = context.getBean(IsyPollingProperties.class);
 
-        properties.put("isy.polling.cluster.POSTFACH1_CLUSTER.name", "Postfachabruf-1");
-        properties.put("isy.polling.cluster.POSTFACH1_CLUSTER.wartezeit", "600");
-        properties.put("isy.polling.cluster.POSTFACH2_CLUSTER.name", "Postfachabruf-2");
-        properties.put("isy.polling.cluster.POSTFACH2_CLUSTER.wartezeit", "700");
-        properties.put("isy.polling.cluster.POSTFACH2_CLUSTER.jmxverbindungen", "server1,server2");
+            assertThat(isyPollingProperties.getJmx().getDomain()).isEqualTo("testdomain");
+            assertThat(isyPollingProperties.getJmx().getVerbindungen()).hasSize(2);
+            assertThat(isyPollingProperties.getJmx().getVerbindungen().get("server2")).isNotNull();
+            assertThat(isyPollingProperties.getJmx().getVerbindungen().get("server2").getHost()).isEqualTo("host2");
 
-        ConfigurableApplicationContext context =
-            new SpringApplicationBuilder().sources(TestConfig.class).properties(properties).run();
+            assertThat(isyPollingProperties.getCluster().get("POSTFACH1_CLUSTER").getName()).isEqualTo("Postfachabruf-1");
 
-        IsyPollingProperties isyPollingProperties = context.getBean(IsyPollingProperties.class);
-
-        assertEquals("testdomain", isyPollingProperties.getJmx().getDomain());
-        assertEquals(2, isyPollingProperties.getJmx().getVerbindungen().size());
-        assertNotNull(isyPollingProperties.getJmx().getVerbindungen().get("server2"));
-        assertEquals("host2", isyPollingProperties.getJmx().getVerbindungen().get("server2").getHost());
-
-        assertEquals("Postfachabruf-1", isyPollingProperties.getCluster().get("POSTFACH1_CLUSTER").getName());
-
-        assertEquals(2,
-            isyPollingProperties.getCluster().get("POSTFACH2_CLUSTER").getJmxverbindungen().size());
-        assertEquals("server1",
-            isyPollingProperties.getCluster().get("POSTFACH2_CLUSTER").getJmxverbindungen().get(0));
-        assertEquals("server2",
-            isyPollingProperties.getCluster().get("POSTFACH2_CLUSTER").getJmxverbindungen().get(1));
+            assertThat(isyPollingProperties.getCluster().get("POSTFACH2_CLUSTER").getJmxverbindungen()).hasSize(2);
+            assertThat(isyPollingProperties.getCluster().get("POSTFACH2_CLUSTER").getJmxverbindungen().get(0))
+                .isEqualTo("server1");
+            assertThat(isyPollingProperties.getCluster().get("POSTFACH2_CLUSTER").getJmxverbindungen().get(1))
+                .isEqualTo("server2");
+        });
     }
 
-
-    @Test(expected = BeanCreationException.class)
-    public void testPropertiesNichtGesetzt() {
-        Map<String, Object> properties = new HashMap<>();
-
-        properties.put("isy.polling.jmx.verbindungen.server1.port", "-1");
-
-        new SpringApplicationBuilder().sources(TestConfig.class).properties(properties).run();
+    @Test
+    void testPropertiesNichtGesetzt() {
+        contextRunner.withPropertyValues(
+            "isy.polling.jmx.verbindungen.server1.port=-1"
+        ).run(context ->
+            assertThat(context).hasFailed()
+                .getFailure()
+                .cause()
+                .isInstanceOf(BeanCreationException.class)
+        );
     }
 
     @Configuration

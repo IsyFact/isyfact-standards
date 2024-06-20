@@ -138,7 +138,6 @@ Das folgende Listing zeigt beispielhaft ein EA-Modell._
     📂 <<IT-System>> Geschäftskomponente XYZ
       📂 Anwendungskern
         📂 <<A-Komponente>> Auskunft
-        📂 <<A-Komponente>> Basisdaten
         📂 <<T-Komponente>> Berechtigung
         📂 <<A-Komponente>> Meldung
         📂 <<A-Komponente>> Protokoll
@@ -266,13 +265,11 @@ _Zur Einordnung in die Systemlandschaft kann eine Abbildung ähnlich der folgend
 Für konkrete Entwürfe muss die Grafik durch eine nicht anonymisierte aktuelle Version der zugehörigen Systemlandschaft ersetzt werden._
 ====
 
-:desc-image-einbettung-anwendungssystem: Einbettung von <Anwendungssystem (roten Rahmen platzieren)> in die Systemlandschaft.
+:desc-image-einbettung-anwendung: Einbettung von <Anwendung (roten Rahmen platzieren)> in die Systemlandschaft.
 
-[id="image-einbettung-anwendungssystem", reftext = "{figure-caption} {counter:figures}"]
-.{desc-image-einbettung-anwendungssystem}
-image::vorlage-systementwurf/einbettung-anwendungssystem.png[align = center, title-align=center]
-
-
+[id="image-einbettung-anwendung", reftext = "{figure-caption} {counter:figures}"]
+.{desc-image-einbettung-anwendung}
+image::vorlage-systementwurf/einbettung-anwendung.png[align = center, title-align=center]
 
 [[randbedingungen-annahmen]]
 === Randbedingungen und Annahmen
@@ -311,12 +308,11 @@ Die folgende Tabelle führt die vom IT-System verwendeten Elemente der IsyFact a
 |===
 |Thema |Status |Version |Referenz
 4+|*Allgemein*  {set:cellbgcolor:#D9D9D9}
-| {set:cellbgcolor} IsyFact-Referenzarchitektur |berücksichtigt |1.0 |xref:blaupausen:referenzarchitektur/master.adoc[IsyFact Referenzarchitektur]
-4+|*Blaupausen* {set:cellbgcolor:#D9D9D9}
+| {set:cellbgcolor} IsyFact-Referenzarchitektur |berücksichtigt |4.0 |xref:referenzarchitektur:index.adoc[]
+4+|*Referenzarchitektur* {set:cellbgcolor:#D9D9D9}
 |Anwendungskern {set:cellbgcolor}|berücksichtigt |_Standard_ |
 |Batch |berücksichtigt |_Standard_ |
 |Datenzugriff |berücksichtigt |_Standard_ |
-|Web GUI |berücksichtigt |_Standard_ |
 |Service |berücksichtigt |_Standard_ |
 |Interne Servicekommunikation |berücksichtigt |_Standard_ |
 4+|*Bausteine (Standard)*  {set:cellbgcolor:#D9D9D9}
@@ -618,7 +614,7 @@ Das IT-System [yellow]#<SYSTEM># benötigt gemäß Produktkatalog der Referenzar
 === Architektur des Teilsystems A
 ====
 _Bei der Beschreibung des Gesamtsystems in 3.1 wurden Teilsysteme eingeführt.
-Diese werden jetzt in eigenen Unterkapiteln der Reihe nach beschrieben. Ggf. kann es sinnvoll sein, ein Kapitel voran zu stellen, das Gemeinsamkeiten aller Teilsysteme erklärt._
+Diese werden jetzt in eigenen Unterkapiteln der Reihe nach beschrieben. Ggf. kann es sinnvoll sein, ein Kapitel voranzustellen, das Gemeinsamkeiten aller Teilsysteme erklärt._
 
 _Dieses Kapitel enthält vornehmlich eine Top-down Beschreibung des Teilsystems.
 Die Beschreibung umfasst die Aufteilung des Systems in Komponenten und deren Bezug zur Systemspezifikation.
@@ -630,20 +626,18 @@ _Schließlich finden sich in diesem Kapitel noch Details, auf die der Chefdesign
 
 *_Beschreibung der Teilsysteme_*
 
-_Die Teilsysteme haben (soweit es sich um Geschäftsanwendungen handelt) folgende, fest vorgegebene T-Architektur:_
-====
+_Die Teilsysteme haben, wenn es sich um Geschäftsanwendungen handelt, folgende, fest vorgegebene T-Architektur:_
 
-:desc-image-darstellung-teilsysteme: Darstellung der Teilsysteme
+:desc-image-darstellung-teilsysteme: Technisches Architektur eines Teilsystems
 [id="image-darstellung-teilsysteme", reftext = "{figure-caption} {counter:figures}"]
 .{desc-image-darstellung-teilsysteme}
-image::vorlage-systementwurf/darstellung-teilsysteme.png[align = center, title-align=center, width=75%]
+image::vorlage-systementwurf/architektur-it-system.dn.svg[]
 
-====
 _Die konkrete Ausgestaltung dieser Architektur mit den konkreten Komponenten ist Inhalt dieses Unterkapitels._
 
 _Dazu wird zunächst eine Übersicht über das Teilsystem gegeben, anschließend werden bei Bedarf die einzelnen Komponenten detailliert._
 
-_Falls es sich bei dem Teilsystem z. B. um ein Sevicegateway oder einen Querschnittlichen Service handelt, muss die Gliederung im Sinne des oben gesagten. angepasst werden._
+_Falls es sich bei dem Teilsystem z. B. um ein Service-Gateway oder einen Querschnittlichen Service handelt, muss die Gliederung im Sinne des oben gesagten. angepasst werden._
 ====
 
 [[ueberblick]]
@@ -681,7 +675,7 @@ Keine Zusatzinformationen tragende Stereotypen wie << use >> sind explizit zu ve
 image::vorlage-systementwurf/ueberblick-teilsysteme.png[align = center, title-align=center]
 
 ====
-_Die Komponentenstruktur des Anwendungskerns findet sich in der GUI, Batch, Service und Persistenz wieder.
+_Die Struktur des Anwendungskerns findet sich in den Komponenten Batch, Service und Persistenz wieder.
 Der Designer muss abwägen, ob eine differenzierte Darstellung dieser Komponenten hier einen Nutzen bringt._
 ====
 
@@ -799,22 +793,6 @@ _In diesem Abschnitt können sich Themen finden wie z. B._
 * _Ggf. die Konstruktion der persistenten Entitäten und DAOs_
 ====
 
-[[gui]]
-==== GUI
-
-====
-_Die allgemeinen Vorgaben zur GUI sind in einem eigenen Konzept der IsyFact beschrieben und werden hier nicht wiederholt.
-Ggf. werden hier Spezialisierungen und zusätzliche Festlegungen zur GUI beschrieben._
-
-_In diesem Abschnitt wird in angemessener Tiefe die konkrete Konstruktion der GUI beschrieben, in der Regel die Konstruktion der einzelnen Masken und Abläufe._
-
-_Hier wird der Rückbezug zur Systemspezifikation gezogen, indem folgende Inhalte zugeordnet werden:_
-
-* _Die Dialoge (DIA) der Spezifikation den WebFlow-Konfigurationen_
-* _Die Masken (MAS) der Spezifikation den einzelnen Seiten_
-* _Die Maskenelemente (MEL) den einzelnen JSF GUI-Komponenten_
-====
-
 [[batch]]
 ==== Batch
 
@@ -837,7 +815,7 @@ _Die allgemeinen Vorgaben zu Services sind in eigenen Konzepten der IsyFact besc
 Ggf. werden hier Spezialisierungen und zusätzliche Festlegungen zu Services beschrieben._
 
 _In diesem Abschnitt ist die konkrete Konstruktion der einzelnen Services beschrieben, in der Regel mit einem eigenen Abschnitt pro Service, den das System anbietet.
-Dies sind Services, die per httpInvoker bereitgestellt werden.
+Dies sind Services, die per REST bereitgestellt werden.
 Services, die externen Nutzern zur Verfügung gestellt werden, werden im Rahmen der Dokumentation des Teilsystems Service-Gateway beschrieben.
 Die eigentliche Servicedokumentation für externe Nutzer ist dabei dann ein eigenes Dokument._
 
@@ -901,8 +879,7 @@ Die Datenmodelle werden als UML-Klassendiagramme erstellt._
 
 *[.underline]#Vorgehen zur Konstruktion#*
 
-_Die Entitäten des Datenmodells sollen den Komponenten des Anwendungskerns zugeordnet werden, z. B. zu „Meldung“ oder „Auskunft“.
-Für die Komponenten, die nicht einer dieser Komponenten zugeordnet werden können, dient die Komponente „Basisdaten“.
+_Die Entitäten des Datenmodells sollen den Komponenten des Anwendungskerns zugeordnet werden.
 Dazu werden in die Diagramme Boundaries eingezeichnet, die die Entitäten einer Komponente einrahmen._
 
 _Das Vorgehen zur Konstruktion der Entitäten ist dabei in der Regel das folgende:_

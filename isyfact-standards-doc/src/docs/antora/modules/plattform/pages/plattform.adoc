@@ -13,7 +13,7 @@ Neben der reinen technischen Plattform sieht die Plattform der IsyFact auch Konz
 
 [[betriebsplattform-isyfact]]
 .Betriebsplattform der IsyFact
-image::blaupausen:referenzarchitektur/ti-architektur-awl-pru.dn.svg[]
+image::referenzarchitektur:technisch-infrastrukturell/ti-architektur-awl-pru.dn.svg[]
 
 Die Plattform entspricht dem SAGA/BSI Netzkonzept mit drei Zonen:
 
@@ -21,7 +21,7 @@ Die Plattform entspricht dem SAGA/BSI Netzkonzept mit drei Zonen:
 * Logikebene (Logik- und Verarbeitungszone)
 * Datenhaltungsebene (Datenzone)
 
-NOTE: SAGA sind die „Standards und Architekturen für E-Government“ der deutschen Bundesverwaltung, siehe: xref:glossary:literaturextern:inhalt.adoc#litextern-saga-5[SAGA] - seit SAGA 5 wird bzgl. des Netzkonzeptes auf das BSI verwiesen.
+NOTE: SAGA sind die „Standards und Architekturen für E-Government“ der deutschen Bundesverwaltung, siehe: https://www.cio.bund.de/Webs/CIO/DE/digitaler-wandel/Achitekturen_und_Standards/IT_Architektur_Bund/IT_Architektur_Bund-node.html[SAGA] - seit SAGA 5 wird bzgl. des Netzkonzeptes auf das BSI verwiesen.
 
 Die Plattform definiert einen allgemeinen Rahmen für den Anwendungsbetrieb und kann an die speziellen Anforderungen unterschiedlicher Betriebsorganisationen angepasst werden.
 Soweit möglich werden Produkte aus dem Open Source-Umfeld eingesetzt, wie beispielsweise der Apache HTTP Server als Webserver oder Apache Tomcat als Applikationsserver.

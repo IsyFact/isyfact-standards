@@ -1,16 +1,50 @@
 # 4.0.0
+## FEATURES
+- `ISY-1025`: Versionsanhebung `maven-surefire-plugin` auf 3.2.5
+    * Automatische Auswahl der benötigten JUnit Engines
+- `ISY-876`: [isy-bedienkonzept] Ergänzung der Anzeigeposition von Toasts unten rechts
+- `ISY-948`: Spring Cache Abstraction als verpflichtende Bibliothek für anwendungsseitige Caches eingeführt
+- `ISY-748`: [isyfact-standards-doc] Versionsanhebung `isy-checkstyle-config` auf 0.2.0
+    * Gruppierung der `jakarta.*` imports
+- `ISY-305`: [isy-security] Implementierung von IsySecurityTokenUtil zum Auslesen von Attributen aus dem Bearer Token
+- `ISY-1040`: [isyfact-standards-doc] Anpassung des logback.xml-Konfigurationspfads im IF2-Migrationsleitfaden
+- `IFS-2786`: [isyfact-standards-doc] Migrationsleitfaden IsyFact 2 entfernt
+- `IFS-2784`: [isyfact-standards-doc] Externe Verweise direkt verlinkt statt über `literaturextern` und URLs korrigiert
+- `IFS-2816`: [isyfact-standards-doc] Begriff "Blaupause" durch "Referenzarchitektur" ersetzt
+- `IFS-3665`: [isyfact-standards-doc] "Leitfaden Dokumentation" nach `isy-documentation` verschoben
+- `IFS-3692`: [isyfact-standards-doc] Seite "Referenzarchitekur" nach Architektursichten aufgeteilt
+## BUG FIXES
+## BREAKING CHANGES
+- `ISY-1122`: Bausteine `isy-sicherheit`, `isy-aufrufkontext`, `isy-serviceapi-core` und `isy-konfiguration` entfernt
+- `ISY-889`: Spring Boot Versionsanhebung auf 3.2.x
+    * inkludiert ausserdem folgende Versionsanhebungen:
+        * Spring Framework 5.x -> 6.x
+        * Spring Security 5.x -> 6.x
+        * Hibernate 5.x -> 6.x
 - `ISY-779`: `isyfact-bom` entfernt
     * [isyfact-standards-bom] `isyfact-standards-bom` importiert dependencyManagement aus `isyfact-products-bom`
     * [isyfact-standards-doc] Bezug und Nutzung der IsyFact nach Entfernung der IsyFact-BOM beschrieben
 - `ISY-737`: [isyfact-standards] Java Compile Target 17
-- `ISY-876`: [isy-bedienkonzept] Ergänzung der Anzeigeposition von Toasts unten rechts
-- `ISY-948` : Spring Cache Abstraction als verpflichtende Bibliothek für anwendungsseitige Caches eingeführt
-- `ISY-748`: [isyfact-standards-doc] Versionsanhebung `isy-checkstyle-config` auf 0.2.0
-  * Gruppierung der jakarta.* imports
-- `ISY-305`: [isy-security] Implementierung von IsySecurityTokenUtil zum Auslesen von Attributen aus dem Bearer Token
-- `ISY-1040`: [isyfact-standards-doc] Anpassung des logback.xml-Konfigurationspfads im IF2-Migrationsleitfaden
-- `IFS-2786`: [isyfact-standards-doc] Migrationsleitfaden IsyFact 2 entfernt
+- `IFS-1259`: [isyfact-standards-doc] Basisdaten (d.h. Möglichkeit der gemeinsamen Nutzung von Geschäftsobjekten durch mehrere Fachkomponenten) entfernt
+- `IFS-3676`: [isyfact-standards-doc] IT-Systeme dürfen keine UI-Komponenten mehr enthalten.
+- `IFS-3699`: [isyfact-standards-doc] Baustein Sicherheit entfernt.
+- `IFS-3700`: [isyfact-standards-doc] Baustein Http Invoker entfernt.
+- `IFS-3697`: [isyfact-products-bom] Update JMeter Core auf 5.6.x
+- `IFS-3701`: [isyfact-standards-doc] Baustein JSF entfernt.
+- `IFS-3736`: [isyfact-standards-doc] Abbildung von Anwendungen in IT-Systeme ("technischer Schnitt") beschrieben.
+
+
+# 3.0.1
+- `ISY-701`: Google Guava Versionsanhebung auf 33.1.0
+- `ISY-704`: Open CSV Versionsanhebung auf 5.9
+- `ISY-987`: Spring Framework Versionsanhebung auf 5.3.33
+- `ISY-1073`: Spring Security Versionsanhebung auf 5.7.12
+- `ISY-929`: Nimbus JOSE+JWT Versionsanhebung auf 9.37.2
+- `ISY-1036`: Apache Commons Collections Versionsanhebung auf 3.2.2
+- `ISY-1045`: Apache Commons FileUpload Versionsanhebung auf 1.5
+
 # 3.0.0
+- `IFS-2383`: Grafiken der TI-Architektur aller Umgebungen neu erstellt und an aktuelle Gegebenheiten angepasst.
 - `ISY-653` : Erweitern des `TimeoutWiederholungHttpInvokerRequestExecutor` um die Token-Beschaffung aus dem Security Context bei Nichtverfügbarkeit des `AufrufKontextVerwalter`.
 - `ISY-183`: [isyfact-standards-doc] Migrationsleitfaden zur Entfernung der Bridge-Module
 - `ISY-54`: [isyfact-standards-doc] Migrationsleitfaden zur Umstellung auf isy-security
@@ -66,7 +100,7 @@
 - `IFS-2153`: [isy-task] Umstellung isy-task auf Spring Boot
   * Übersetzungen hinzugefügt
 - `ISY-139`: [isyfact-products-bom] Spring Boot Versionsanhebung auf 2.7.15
-- [isy-sonderzeichen] Hinzufügen eines neuen Packages mit Transformatoren für die DIN Norm 91379
+- `IFS-3443`: [isy-sonderzeichen] Hinzufügen eines neuen Packages mit Transformatoren für die DIN Norm 91379
 - `IFS-1853`: [isy-batchrahmen] Umstellung von `isy-sicherheit` und `isy-aufrufkontext` auf neuen Baustein `isy-security`
 - `IFS-2416`: [isyfact-standards-bom] zentrale Versionsverwaltung von `isy-security`
 - `IFS-2416`: [isy-task] Umstellung von isy-sicherheit auf isy-security
@@ -81,6 +115,7 @@
   * `FilterRegistrationBean<HttpHeaderNestedDiagnosticContextFilter>` überschreibbar
 - `ISY-655`: [isy-serviceapi-core] Beheben einer ClassNotFoundException beim Starten von Anwendungen mit IsyServiceApiCoreAutoConfiguration
 - `ISY-727`: [isy-batchrahmen] Behebung von SonarCloud Security Issues
+- `ISY-1061`: [isyfact-standards-doc] Ergänzung der Dokumentation zum Zurücksetzen der Korrelations-ID aus dem MdcHelper
 
 ## BREAKING CHANGE
 
@@ -129,6 +164,8 @@
 - `IFS-1397`: [isy-products-bom] Versionsanhebung von Spring Boot auf 2.5.12 (Fix CVE-2022-22965)
 
 # 2.4.0
+- `IFS-1162`: Interne Verschlüsselung als SOLL-Anforderung an eine Systemlandschaft beschrieben
+- `IFS-1092`: Übertragungswege von Daten in der internen Servicekommunikation beschrieben
 - `IFS-590`: [isy-logging] Instanziierung LogApplicationListener Parameter in korrekter Reihenfolge
 - `IFS-601`: [isy-products-bom] Einbindung folgender Produkte über die Spring Boot Dependencies: JPA, JTA, Spring, Hibernate, Jackson, QueryDSL, SLF4J, Logback, JUnit, Mockito, AssertJ, H2.
 - `IFS-661`: [isy-task] CompletionWatchdog loggt Stacktrace bei Exception
@@ -166,6 +203,7 @@
 - `IFS-1175`: [isy-task] Eigenen FehlertextProvider für isy-task erstellt
 
 # 2.3.0
+- `IFS-624`: SAGA-Referenzen durch Architekturrichtlinie der IT des Bundes ersetzt
 - `IFS-1004`: [isy-sonderzeichen]
     * Refactoring des DIN-SPEC-Packages von isy-sonderzeichen
     * Entfernen des `core`-Unterpakets des DIN-SPEC-Packages von isy-sonderzeichen

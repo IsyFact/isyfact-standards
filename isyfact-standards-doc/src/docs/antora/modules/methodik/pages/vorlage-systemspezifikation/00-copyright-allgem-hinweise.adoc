@@ -1,5 +1,3 @@
-// tag::inhalt[]
-
 _Dieser Lizenztext bezieht sich auf die Vorlage.
 In Dokumenten, die auf der Vorlage basieren, ist dieser Text zu löschen._
 
@@ -19,7 +17,7 @@ Es wird vom Auftragnehmer in Zusammenarbeit mit dem Auftraggeber erstellt._
 
 __Die Gliederungen von Lasten- und Pflichtenheft unterscheiden sich laut Dokumentvorlage aus dem V-Modell nur minimal.
 Das Lastenheft wird in der Praxis aber entweder weniger formal notiert als das hier beschriebene Pflichtenheft oder in Form einer Anforderungsliste__footnote:[Siehe 40_Methodik\10_Systemspezifikation\IsyFact-Vorlage-Anforderungsliste.xlsx] _erstellt.
-Im Lastenheft notiert der Kunde seine Anforderungen an das neu zu erstellende Anwendungssystem oder an die Änderungen daran._
+Im Lastenheft notiert der Kunde seine Anforderungen an die neu zu erstellende Anwendung oder an die Änderungen daran._
 
 _Das Pflichtenheft für ein neu zu erstellendes System soll der hier beschriebenen Spezifikationsmethodik genügen.
 Hierbei kann es abhängig von der Funktionalität sinnvoll sein, von den hier aufgestellten Regeln abzuweichen, um die Spezifikation verständlicher und kompakter zu gestalten.
@@ -32,8 +30,8 @@ Für größere Änderungen kann es Sinn machen, Teile der hier beschriebenen Met
 _Zur Ablösung eines Altsystems durch ein neu erstelltes System muss die Datenmigration, eine Inbetriebnahmeplanung und ein Prozess zur Schulung der Mitarbeiter beschrieben werden.
 Diese Punkte werden hier nicht dokumentiert._
 
-_Sowohl Systemspezifikationen neu erstellter Anwendungssysteme als auch Änderungen an bestehenden Anwendungssystemen werden nach Inbetriebnahme in eine zentrale „Masterspezifikation“ integriert.
-Zu diesem Zeitpunkt müssen auch informell beschriebene bzw. informell abgesprochene Änderungen in die Systemspezifikation des jeweiligen Anwendungssystems nach dieser Spezifikationsmethodik zurückfließen._
+_Sowohl Systemspezifikationen neu erstellter Anwendungen als auch Änderungen an bestehenden Anwendungen werden nach Inbetriebnahme in eine zentrale „Masterspezifikation“ integriert.
+Zu diesem Zeitpunkt müssen auch informell beschriebene bzw. informell abgesprochene Änderungen in die Systemspezifikation der jeweiligen Anwendung nach dieser Spezifikationsmethodik zurückfließen._
 
 _Die Gliederungen in den Dokumentvorlagen des V-Modells XT sind für die Spezifikation von Softwaresystemen nicht konkret genug, um auszuschließen, dass wesentliche Anforderungen vergessen werden.
 Auf Basis der Erfahrungen in bisherigen Projekten wurde die vorliegende Dokumentvorlage erstellt, die eine Konkretisierung der Vorlagen aus dem V-Modell XT ist.
@@ -62,7 +60,7 @@ _Die Gliederung der Überschriften soll dem Muster aus diesem Dokument entsprech
 Die Inhalte der jeweiligen Kapitel werden nachfolgend beschrieben._
 
 ****
-Für die Erstellung der UML- Diagramme, die in diesem Dokument als Beispiele aufgeführt sind, wurde das Werkzeug „Enterprise Architect“ der Firma SparxSystems verwendet.
+Für die Erstellung der UML-Diagramme, die in diesem Dokument als Beispiele aufgeführt sind, wurde das Werkzeug „Enterprise Architect“ der Firma SparxSystems verwendet.
 Abschnitte in dieser Darstellung erklären, wie das jeweils davor abgebildete Diagramm im Enterprise Architect zu erstellen ist.
 
 *Anstelle des Enterprise Architect kann auch jedes andere Modellierungswerkzeug eingesetzt werden, dass den Sprachumfang von UML in hinreichender Breite abdeckt.*
@@ -71,6 +69,3 @@ Falls Sie den Enterprise Architect einsetzen, können Sie Kapitel 14 generelle H
 *Bitte dieses Kapitel zuerst lesen!* Wichtig sind insbesondere die zu verwendenden UML-Profile, die zu verwendende Paket-Struktur und die Tipps zum Umgang.
 ****
 ====
-
-// end::inhalt[]
-

@@ -1,0 +1,87 @@
+= IT-Systeme und IT-Systemtypen
+
+include::glossary:licence:partial$licence.adoc[]
+
+include::documentation-guide::partial$content-new-page.adoc[]
+
+Die software-technische Referenzarchitektur bildet Anwendungen auf IT-Systeme ab.
+Für diese Abbildung gelten die folgenden, fundamentalen Eigenschaften:
+
+* Die Abbildung geschieht unabhängig vom Anwendungstyp.
+Sie ist für alle Anwendungstypen gleich.
+* Die Zerlegung in IT-Systeme geschieht anhand der fachlichen Zerlegung der Anwendung in der xref:methodik:vorlagen.adoc#dokumentation-anwendung[Systemspezifikation].
+* Spezialisierungen der IT-Systeme spiegeln die (technische) Rolle des IT-Systems bei der Umsetzung der Anwendung wider.
+
+Das *IT-System* bildet einen Oberbegriff für die technische Umsetzung eines Teils der Anwendung.
+Seine wichtigste Eigenschaft ist, dass es eine in sich abgeschlossene, ausführbare Einheit (vgl. _deployment unit_) darstellt.
+Spezialisierungen des IT-Systems, auch *IT-Systemtypen* genannt, besitzen eine jeweils eigene Systemarchitektur und einen eigenen Technologie-Stack, um die jeweiligen Teile der Anwendung möglichst effektiv umsetzen zu können.
+Die software-technische Referenzarchitektur kennt drei IT-Systemtypen: das *Backend*, das *Frontend* und den *Batch*.
+
+Die nachfolgende Abbildung verdeutlicht den Zusammenhang zwischen den Begrifflichkeiten Anwendung und IT-System.
+Sie geht auch auf die jeweiligen Spezialisierungen (d. h. Anwendungstypen und IT-Systemtypen) ein und benennt den Teil der Referenzarchitektur, in dem die Begriffe definiert und beschrieben sind.
+
+.Zusammenhang zwischen Anwendung und IT-System
+image::software-technisch/beziehung-anwendung-it-system.dn.svg[]
+
+Eine Anwendung besteht, egal welchem Anwendungstyp sie entspricht, immer aus mindestens einem IT-System.
+Dabei muss dieses IT-System entweder ein Backend oder ein Frontend sein, da eine Anwendung stets Geschäftslogik zur Verarbeitung oder Darstellung von Daten enthält.
+Weitere IT-Systeme anderer IT-Systemtypen erweitern den Funktionsumfang einer Anwendung.
+
+Die Frage, in welche IT-Systeme eine Anwendung zerlegt wird, ist eine Entwurfsentscheidung, die im xref:methodik:vorlagen.adoc#dokumentation-anwendung[Systementwurf] dokumentiert wird.
+Die software-technische Referenzarchitektur beschreibt ein xref:software-technisch/it-system-zerlegung.adoc[Verfahren zur Zerlegung], das wiederum auf der fachlichen Zerlegung in Anwendungskomponenten beruht.
+
+[[it-systemtypen]]
+== IT-Systemtypen
+
+IT-Systemtypen fokussieren sich auf einen bestimmten Teil der Fachlichkeit einer Anwendung und sind maßgeblich für dessen Umsetzung.
+Zwischen den IT-Systemtypen gibt es keine Überschneidungen.
+Das bedeutet: Anhand der spezifizierten Fachlichkeit einer Anwendung kann direkt abgelesen werden, welche IT-Systemtypen zur Umsetzung der Anwendung notwendig sind.
+
+[[abbildung-it-systemtypen-fachlichkeit]]
+.Abbildung von IT-Systemtypen auf ihre maßgeblich umgesetzte Fachlichkeit
+[cols="1s,3",options="header"]
+|===
+|IT-Systemtyp
+|Maßgeblich umgesetzte Fachlichkeit
+
+|Backend
+|Anwendungskomponenten (ANK), Nachbarsystemschnittstellen (NST)
+
+|Frontend
+|Dialoge (DIA), Masken (MAS)
+
+|Batch
+|Batch (BAT)
+|===
+
+Weitere Fachlichkeit wie z. B. Datenmodelle oder Akteure stehen mit der Fachlichkeit aus <<abbildung-it-systemtypen-fachlichkeit,obiger Tabelle>> in Zusammenhang und werden durch die jeweiligen IT-Systemtypen mit umgesetzt.
+
+[[backend]]
+=== Backend
+
+include::glossary::terms-definitions.adoc[tag=backend-definition]
+
+Backends setzen auf den xref:einstieg:produktkatalog/technologiestackJavaSpring.adoc[].
+Sie nutzen Spring Boot als Anwendungsframework und weitere Produkte von Spring sowie JEE-Standards und xref:bausteine:bausteine.adoc[] der IsyFact zur Umsetzung der Services.
+
+Die Systemarchitektur und die Umsetzung querschnittlicher, technischer Aspekte für Backends beschreibt die xref:blaupausen:referenzarchitektur-it-system/master.adoc[software-technische Referenzarchitektur für Backends].
+
+[[frontend]]
+=== Frontend
+
+include::glossary::terms-definitions.adoc[tag=frontend-definition]
+
+Frontends setzen auf den xref:einstieg:produktkatalog/technologiestackTypescriptAngular.adoc[].
+Sie nutzen Angular als Anwendungsframework und weitere, zu Angular kompatible, Produkte sowie De-facto-Standards und xref:bausteine:bausteine.adoc[] der IsyFact zur Umsetzung der GUIs.
+
+Die Systemarchitektur und die Umsetzung querschnittlicher, technischer Aspekte für Frontends beschreibt die xref:software-technisch/frontend.adoc[software-technische Referenzarchitektur für Frontends].
+
+[[batch]]
+=== Batch
+
+include::glossary::terms-definitions.adoc[tag=batch-definition]
+
+Batches setzen wie Backends auf den xref:einstieg:produktkatalog/technologiestackJavaSpring.adoc[].
+Sie nutzen Spring Boot als Anwendungsframework und weitere Produkte von Spring sowie JEE-Standards und xref:bausteine:bausteine.adoc[] der IsyFact zur Umsetzung der Services.
+
+Die Systemarchitektur und die Umsetzung querschnittlicher, technischer Aspekte für Batches beschreibt die xref:blaupausen:detailkonzept-komponente-batch/master.adoc[software-technische Referenzarchitektur für Batches].
