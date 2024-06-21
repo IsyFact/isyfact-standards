@@ -1,4 +1,4 @@
-name: Build Maven
+name: Check Maven
 on:
   pull_request:
     branches:
@@ -15,11 +15,11 @@ on:
 
 jobs:
   Version:
-    uses: IsyFact/isyfact-standards/.github/workflows/next_version.yml@master
+    uses: IsyFact/isy-github-actions-templates/.github/workflows/next_version.yml@v1.0.0
 
   Maven:
     needs: [Version]
-    uses: IsyFact/isyfact-standards/.github/workflows/maven_build_template.yml@master
+    uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_build_template.yml@v1.0.0
     with:
       jdk-version: 8
       version: ${{ needs.Version.outputs.next-version }}
@@ -29,7 +29,7 @@ jobs:
   Snapshot:
     if: github.event_name == 'push'
     needs: [Version, Maven]
-    uses: IsyFact/isyfact-standards/.github/workflows/maven_deploy_template.yml@master
+    uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_deploy_template.yml@v1.0.0
     with:
       jdk-version: 8
       version: ${{ needs.Version.outputs.next-version }}
