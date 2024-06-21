@@ -4,14 +4,16 @@ include::glossary:licence:partial$licence.adoc[]
 
 [[einfuehrung-und-allgemeine-Prinzipien]]
 == Einführung und allgemeine Prinzipien
-Das Bedienkonzept & der Styleguide nehmen eine zentrale Rolle in der Entwicklung von Anwendungen und Websites ein, indem es als umfassendes Regelwerk dient, das die Gestaltung und Interaktionselemente definiert.
-Es bildet das Fundament für eine konsistente und benutzerfreundliche Benutzeroberfläche und fungiert als Leitfaden für Designer, Entwickler und Fachlichkeit gleichermaßen.
+Das Bedienkonzept & der Styleguide nehmen eine zentrale Rolle in der Entwicklung von Anwendungen und Webseiten ein.
+Sie dienen als umfassendes Regelwerk, das die Gestaltung und Interaktionselemente definiert.
+Sie bilden das Fundament für eine konsistente und benutzerfreundliche Benutzeroberfläche und fungiert als Leitfaden für Designer, Entwickler und Fachlichkeit gleichermaßen.
+
 Das Hauptziel des Bedienkonzepts ist es, eine herausragende Benutzererfahrung zu schaffen, die die Zufriedenheit und Produktivität der Benutzer maximiert.
 Es soll sicherstellen, dass Benutzer die Anwendung ohne Schwierigkeiten nutzen können und dabei ihre Ziele effizient erreichen.
-In den folgenden Kapiteln werden diese Konzepte weiter ausgearbeitet und konkrete Richtlinien und Best Practices für die Entwicklung von Benutzeroberflächen für Webanwendungen bereitgestellt.
 
-Eine LiveDemo aller hier beschriebenen Richtlinien finden Sie unter:
+In den folgenden Kapiteln wird das Bedienkonzept weiter ausgearbeitet und konkrete Richtlinien und Best Practices für die Entwicklung von Benutzeroberflächen für Webanwendungen bereitgestellt.
 
+Eine Live-Demo zu den Richtlinien dieses Bedienkonzepts finden Sie unter:
 https://isyfact.github.io/isy-angular-widgets/
 
 [[einfuehrung-in-das-bedienkonzept]]
@@ -21,32 +23,36 @@ https://isyfact.github.io/isy-angular-widgets/
 
 Dieses Konzept ist für jede Webanwendung relevant, unabhängig von ihrer Komplexität oder Zielgruppe.
 Es ist gültig für alle Neuentwicklungen und Überarbeitungen von Frontends, die einem Major Change oder Technologiewechsel unterliegen.
-Ausgeschlossen sind minimale Bugfixes und grundsätzliche Wartung von Altanwendungen.
+Ausgeschlossen sind minimale Bugfixes und die grundsätzliche Wartung von Altanwendungen.
 Der Styleguide ist gültig ab Q1 – 2024.
-Die Gültigkeit des Bedienkonzepts für Altanwendungen bleibt zum damaligen Zeitpunkt mit den damaligen gültigen Inhalten weiterhin aktiv.
+Die Gültigkeit des Bedienkonzepts für Altanwendungen bleibt zum damaligen Zeitpunkt mit den damalig gültigen Inhalten weiterhin aktiv.
 
 
 *_Bedeutung des Bedienkonzepts & Styleguides_*
 
-Das Bedienkonzept & Styleguide ist weit mehr als nur ein Dokument mit Gestaltungsrichtlinien.
+Das Bedienkonzept und der Styleguide sind weit mehr als nur ein Dokument mit Gestaltungsrichtlinien.
 Es ist ein umfassendes Werkzeug, das die Grundlage für die Entwicklung einer erfolgreichen Benutzeroberfläche bildet.
-Indem es einheitliche Standards und Best Practices festlegt, trägt es maßgeblich zur Erreichung der Ziele einer Anwendung oder Website bei.
+Indem es einheitliche Standards und Best Practices festlegt, trägt es maßgeblich zur Erreichung der Ziele einer Anwendung oder Webseite bei.
 Diese Ziele können von der Steigerung der Benutzerzufriedenheit über die Verbesserung der Effizienz bis hin zur Stärkung der Markenidentität reichen.
 
 *_Rolle von Designer, Entwickler und Fachlichkeit_*
 
-Designer und Entwickler spielen eine entscheidende Rolle bei der Umsetzung des Bedienkonzepts & Styleguides.
-Während Designer für die Gestaltung der Benutzeroberfläche verantwortlich sind und sicherstellen, dass sie den festgelegten Standards entspricht, liegt es in der Verantwortung der Entwickler, diese Gestaltung in eine funktionierende Anwendung oder Website umzusetzen.
+Designer und Entwickler spielen eine entscheidende Rolle bei der Umsetzung des Bedienkonzepts und Styleguides.
+Während Designer für die Gestaltung der Benutzeroberfläche verantwortlich sind und sicherstellen, dass sie den festgelegten Standards entspricht, liegt es in der Verantwortung der Entwickler, diese Gestaltung in eine funktionierende Anwendung oder Webseite umzusetzen.
 Eine enge Zusammenarbeit zwischen Design- und Entwicklungsteams ist unerlässlich, um sicherzustellen, dass das Endprodukt den gestalterischen und funktionalen Anforderungen entspricht.
 
 *_Technische Kompatibilität und Struktur des Dokuments_*
 
 Darüber hinaus berücksichtigt das Bedienkonzept die technische Kompatibilität mit verschiedenen Geräten und Browsern, um sicherzustellen, dass die Anwendung einer breiten Palette von Benutzern zugänglich ist.
 Soweit notwendig wird auf browserspezifische Eigenheiten eingegangen.
-Beim Erstellen von Webseiten anhand diesem Bedienkonzepts muss die korrekte Darstellung und Funktionsweise der Webseiten inklusive der Browserfunktionen, wie bspw. "Vor- und Zurück", geprüft werden.
-Dazu müssen für jedes Projekt der Nutzerkreis, sowie welche Browser und Versionen hauptsächlich eingesetzt werden, ermittelt und geprüft werden. Das Bedienkonzept gibt nur ein minimales Set von zu unterstützenden Browserversionen vor, die projektspezifisch nach Bedarf erweitert werden sollten.
 
-Die Tests der Benutzeroberfläche sollen mindestens mit folgenden Browsern getestet werden, dabei sind folgende Auflösungen zu berücksichtigen:
+Wenn Webseiten anhand dieses Bedienkonzepts erstellt werden, müssen die korrekte Darstellung und Funktionsweisen der Webseiten inklusive ihrer Browser-Funktionen, wie bspw. "Vor" und "Zurück", geprüft werden.
+Dafür müssen für jedes Projekt der Nutzerkreis, sowie welche Browser und Versionen hauptsächlich eingesetzt werden, ermittelt und geprüft werden.
+Das Bedienkonzept gibt nur ein minimales Set von zu unterstützenden Browserversionen vor, die projektspezifisch nach Bedarf erweitert werden sollten.
+
+//ToDo: Hier stehen keine Browser, mit denen getestet werden soll. Laut V3 sollte hier eine Tabelle sein.
+Die Tests der Benutzeroberfläche sollen mindestens mit folgenden Browsern getestet werden.
+Dabei sind folgende Auflösungen zu berücksichtigen:
 
 * 2560 x1440 2K
 * 1920 x 1080 Full HD
@@ -55,23 +61,24 @@ Die Tests der Benutzeroberfläche sollen mindestens mit folgenden Browsern getes
 
 Die Struktur dieses Dokuments folgt einem klaren und übersichtlichen Format, das eine einfache Navigation und Verständnis ermöglicht.
 Es beginnt mit allgemeinen Prinzipien, die das Fundament jedes Elements bilden.
-Folgend werden die einzelnen Bedienelemente beschrieben, welche in unterschiedlicher gruppierter Anwendung ein Pattern bilden. Abgebildet werden hier exemplarisch die „Most-used“-Pattern.
-Diese Patterns bilden in verschiedenen Konstellationen mit weiterem Pattern und Bedienelementen typische Use Cases, wie z.B. Formulare.
-Diese Use Cases sind auch exemplarisch – Ein Formular kann und muss mit dem Schwerpunkt der optimalen Fachlichkeit konzipiert werden.
+Folgend werden die einzelnen Bedienelemente beschrieben, welche in unterschiedlicher gruppierter Anwendung ein Pattern bilden.
+Abgebildet werden hier exemplarisch die „Most-used“-Pattern.
+Diese Patterns bilden in verschiedenen Konstellationen mit weiteren Pattern und Bedienelementen typische Use Cases, wie z.B. Formulare.
+Diese Use Cases sind auch exemplarisch – ein Formular kann und muss mit dem Schwerpunkt der optimalen Fachlichkeit konzipiert werden.
 
 *_Einhaltung von Standards und Best Practices_*
 
-Das Bedienkonzept & Styleguide legt Standards und Best Practices fest, die von Designern und Entwicklern eingehalten werden müssen.
-Diese Standards können sich auf verschiedene Aspekte der Gestaltung und Interaktion beziehen, darunter Typografie, Farbgebung, Bedienelemente und Barrierefreiheit.
+Das Bedienkonzept legt Standards und Best Practices fest, die von Designern und Entwicklern eingehalten werden müssen.
+Diese Standards können sich auf verschiedene Aspekte der Gestaltung und Interaktion beziehen, wie Typografie, Farbgebung, Bedienelemente und Barrierefreiheit.
 Indem sie sich an diese Standards halten, gewährleisten Designer und Entwickler nicht nur die Konsistenz der Benutzeroberfläche, sondern auch deren Kompatibilität mit verschiedenen Geräten und Plattformen.
-Wie bei jeder digitalen Anwendung unterliegt auch dieser Styleguide einer ständigen Weiterentwicklung.
+Wie bei jeder digitalen Anwendung unterliegt auch dieses Bedienkonzept einer ständigen Weiterentwicklung.
 Die Entwicklungen und Änderungen werden entsprechend dem Stand der Technik und der rechtlichen Gegebenheiten aktualisiert und gekennzeichnet.
 
 *_Kontinuierliche Weiterentwicklung und Pflege_*
 
-Ein Bedienkonzept & Styleguide ist kein statisches Dokument, sondern sollte kontinuierlich weiterentwickelt und gepflegt werden.
-Mit dem Fortschreiten der Technologie und den sich ändernden Anforderungen der Benutzer ist es wichtig, den Styleguide regelmäßig zu überprüfen und anzupassen, um sicherzustellen, dass er stets den aktuellen Standards und Best Practices entspricht.
-Diese kontinuierliche Weiterentwicklung erfordert eine enge Zusammenarbeit zwischen allen Beteiligten und eine offene Kommunikation über Änderungen und Aktualisierungen- insbesondere zwischen Umsetzungsprojekten, Stakeholdern und den Designern, die mit diesem Dokument arbeiten.
+Ein Bedienkonzept ist kein statisches Dokument, sondern sollte kontinuierlich weiterentwickelt und gepflegt werden.
+Mit dem Fortschreiten der Technologie und den sich ändernden Anforderungen der Benutzer ist es wichtig, das Bedienkonzept regelmäßig zu überprüfen und anzupassen, um sicherzustellen, dass er stets den aktuellen Standards und Best Practices entspricht.
+Diese kontinuierliche Weiterentwicklung erfordert eine enge Zusammenarbeit zwischen allen Beteiligten und eine offene Kommunikation über Änderungen und Aktualisierungen - insbesondere zwischen Umsetzungsprojekten, Stakeholdern und den Designern, die mit diesem Dokument arbeiten.
 
 [[allgemeine-prinzipien]]
 === Allgemeine Prinzipien
