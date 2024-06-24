@@ -10,7 +10,7 @@ Das Hauptziel des Bedienkonzepts ist es, eine herausragende Benutzererfahrung zu
 Es soll sicherstellen, dass Benutzer die Anwendung ohne Schwierigkeiten nutzen können und dabei ihre Ziele effizient erreichen.
 In den folgenden Kapiteln werden diese Konzepte weiter ausgearbeitet und konkrete Richtlinien und Best Practices für die Entwicklung von Benutzeroberflächen für Webanwendungen bereitgestellt.
 
-Eine LiveDemo aller hier beschriebenen Richtlinien finden Sie unter:
+Eine LiveDemo aller hier beschriebenen Richtlinien finden Sie unter:!
 
 https://isyfact.github.io/isy-angular-widgets/
 
