@@ -255,11 +255,10 @@ Dieser Abschnitt beschreibt die primäre und sekundäre Farbpalette, sowie die V
 * Die Standardpalette (zum Zeitpunkt: dd.mm.yyyy) wird im Bereich Barrierefreiheit mit einer Kontrast-Tabelle angegeben.
 * Die Verwendung einer Anwendungsfarbe muss vom Projekt auf Barrierefreiheit geprüft werden und ist frei wählbar.
 
-
 == Barrierefreiheit
 
 Die Zugänglichkeit ist ein wichtiges Prinzip, um sicherzustellen, dass alle Benutzer unabhängig von ihren Fähigkeiten die Anwendung nutzen können.
-Hier werden die Richtlinien zur Barrierefreiheit gemäß den Standards, wie z.B. WCAG und Methoden zur Verbesserung der Zugänglichkeit erläutert.
+Hier werden die Richtlinien zur Barrierefreiheit gemäß den Standards, wie z.B. WCAG, und Methoden zur Verbesserung der Zugänglichkeit erläutert.
 
 Zugänglichkeitsstandards müssen berücksichtigt werden:
 
@@ -273,7 +272,7 @@ Die detaillierten Anforderungen sind zu finden unter:
 
 Vor der Auflistung der einzelnen Kriterien sind im Kontext der IsyFact besondere Kriterien der Barrierefreiheit herauszustellen und bei der fachlichen Konzeption bereits zu berücksichtigen.
 Alle hier genannten Maßnahmen sind zur Steigerung der Awareness und Transparenz aufgelistet.
-In der Regel sind die genannten Anforderungen durch die Anwendung der Standardelemente der ISY-Fact sichergestellt oder die Möglichkeit geboten die fachlichen Elemente sicherzustellen.
+In der Regel sind die genannten Anforderungen durch die Anwendung der Standardelemente der IsyFact sichergestellt oder die Möglichkeit geboten die fachlichen Elemente sicherzustellen.
 
 * Sorge dafür, dass alle Elemente auch ohne Maus erreichbar und bedienbar sind.
 * Eingabefelder müssen nach der Aktivierung eines Hochkontrastmodus/Farbfilters zu 50% bestehen bleiben – eine einzelne Linie als Bestandteil ist nicht ausreichend als Identifizierung eines Eingabefeldes.
@@ -283,64 +282,84 @@ Für Haupt & Einstiegsseiten, Seiten mit rechtlicher Relevanz muss der Kontrast 
 * Es sollten keine Schriftgrafiken genutzt werden.
 * Alle Bilder benötigen ein inhaltlich sinnvolles beschreibendes Alt-Attribut.
 * Bilder, die ausschließlich der Gestaltung dienen (z.B. Trennlinien), müssen als solche (Schmuckgrafik) gekennzeichnet werden.
-* Tastatur-Navigation: Nicht alle Benutzer können eine Maus verwenden.
-Daher ist es wichtig, dass alle Interaktionen auf der Website auch über die Tastatur möglich sind.
+* _Tastatur-Navigation:_
+Nicht alle Benutzer können eine Maus verwenden.
+Daher ist es wichtig, dass alle Interaktionen auf der Webseite auch über die Tastatur möglich sind.
 Dies bedeutet, dass alle Navigationselemente, Links und interaktiven Elemente leicht per Tastatur zugänglich sein müssen.
-* Vermeidung von reinen Farbunterscheidungen: Informationen sollten nicht allein durch Farbe vermittelt werden, da einige Benutzer Farben nicht unterscheiden können.
-Nutzen Sie daher auch andere visuelle Elemente wie Symbole oder Muster, um wichtige Informationen zu vermitteln.
-* Vermeide schwache Kontraste z.B. hellblau auf grau.
+* _Vermeidung von reinen Farbunterscheidungen:_
+Informationen sollten nicht allein durch Farbe vermittelt werden, da einige Benutzer Farben nicht unterscheiden können.
+Nutzen Sie daher auch andere visuelle Elemente, wie Symbole oder Muster, um wichtige Informationen zu vermitteln.
+* Vermeide schwache Kontraste z.B. hellblau auf Grau.
 * Löse keine Aktionen durch Bedienelemente aus, wenn diese nicht dazu vorgesehen sind (z.B. Radiobutton und Checkboxen).
 
 Die richtige Verwendung von Alt-Attributen für Bilder und ARIA-Labels für andere Bedienelemente ist von großer Bedeutung.
 
 === Alt-Attribute für Bilder
 
-Bedeutung der Alt-Attribute:
-Alt-Attribute (alternative Texte) sind textuelle Beschreibungen, die in den HTML-Code von Bildern eingebettet werden. Sie dienen mehreren wichtigen Zwecken:
+*_Bedeutung der Alt-Attribute:_*
 
-* Zugänglichkeit: Screenreader verwenden Alt-Attribute, um sehbehinderten oder blinden Benutzern den Inhalt und Zweck eines Bildes zu vermitteln.
-* Fehlertoleranz: Wenn ein Bild aus irgendeinem Grund nicht geladen werden kann, zeigt der Browser den Alt-Text anstelle des Bildes an.
+Alt-Attribute (alternative Texte) sind textuelle Beschreibungen, die in den HTML-Code von Bildern eingebettet werden.
+Sie dienen mehreren wichtigen Zwecken:
+
+* _Zugänglichkeit:_
+Screenreader verwenden Alt-Attribute, um sehbehinderten oder blinden Benutzern den Inhalt und Zweck eines Bildes zu vermitteln.
+* _Fehlertoleranz:_
+Wenn ein Bild aus irgendeinem Grund nicht geladen werden kann, zeigt der Browser den Alt-Text anstelle des Bildes an.
 
 *_Best Practices für das Schreiben von Alt-Attributen_*
 
 Beim Erstellen von Alt-Texten sollten folgende Richtlinien beachtet werden:
 
-* Beschreibend und prägnant: Der Alt-Text sollte den Inhalt und Zweck des Bildes kurz und genau beschreiben.
+* _Beschreibend und prägnant:_
+Der Alt-Text sollte den Inhalt und Zweck des Bildes kurz und genau beschreiben.
 Beispiel:
 [source,xml]
 <img src="blume.jpg" alt="Gelbe Tulpe im Frühlingsgarten">.
 
-* Kontextbezogen: Der Alt-Text sollte den Kontext berücksichtigen, in dem das Bild verwendet wird.
-Beispiel: Bei einem Bild eines Einkaufswagens auf einer E-Commerce-Seite könnte der Alt-Text lauten:
+* _Kontextbezogen:_
+Der Alt-Text sollte den Kontext berücksichtigen, in dem das Bild verwendet wird.
+Beispiel:
+Bei einem Bild eines Einkaufswagens auf einer E-Commerce-Seite könnte der Alt-Text lauten:
 [source,xml]
 <img src="cart.png" alt="Einkaufswagen">.
 
-* Keine redundante Information: Informationen, die bereits im umgebenden Text enthalten sind, müssen nicht im Alt-Text wiederholt werden.
-Beispiel: Wenn ein Bild neben einer Überschrift „Teamfoto 2024“ steht, sollte der Alt-Text nicht einfach „Teamfoto 2024“ wiederholen.
-* Vermeidung von Keyword-Stuffing: Der Alt-Text sollte nicht mit Schlüsselwörtern überladen werden, da dies sowohl die Zugänglichkeit als auch die SEO beeinträchtigt.
-* Verwendung von leeren Alt-Attributen für dekorative Bilder: Wenn ein Bild rein dekorativ ist und keinen informativen Wert hat, sollte das Alt-Attribut leer sein (alt=""), um Screenreader zu signalisieren, dass sie das Bild ignorieren können.
+* _Keine redundante Information:_
+Informationen, die bereits im umgebenden Text enthalten sind, müssen nicht im Alt-Text wiederholt werden.
+Beispiel:
+Wenn ein Bild neben einer Überschrift „Teamfoto 2024“ steht, sollte der Alt-Text nicht einfach „Teamfoto 2024“ wiederholen.
+* _Vermeidung von Keyword-Stuffing:_
+Der Alt-Text sollte nicht mit Schlüsselwörtern überladen werden, da dies sowohl die Zugänglichkeit als auch die SEO beeinträchtigt.
+* _Verwendung von leeren Alt-Attributen für dekorative Bilder:_
+Wenn ein Bild rein dekorativ ist und keinen informativen Wert hat, sollte das Alt-Attribut leer sein (alt=""), um Screenreader zu signalisieren, dass sie das Bild ignorieren können.
 
 === ARIA-Labels für andere Bedienelemente
 
-Bedeutung von ARIA-Labels:
-ARIA (Accessible Rich Internet Applications) Labels sind ein Set von Attributen, die entwickelt wurden, um die Zugänglichkeit von dynamischen Webinhalten und Benutzeroberflächen zu verbessern.
+*_Bedeutung von ARIA-Labels:_*
+
+ARIA-Labels (Accessible Rich Internet Applications) sind ein Set von Attributen, die entwickelt wurden, um die Zugänglichkeit von dynamischen Webinhalten und Benutzeroberflächen zu verbessern.
 Sie bieten zusätzliche Informationen für Screenreader, insbesondere für Elemente, die keine standardisierten HTML-Attribute zur Beschreibung ihres Zwecks haben.
 
 *_Implementierung von ARIA-Labels:_*
-ARIA-Labels kommen zum Einsatz, wenn ein Bedienelement keinen eindeutigen, für Screenreader zugänglichen Text enthält. Hier sind die wichtigsten ARIA-Attribute und ihre Anwendungen:
 
-* aria-label: Wird verwendet, um ein Element zu beschreiben. Es ist besonders nützlich für Bedienelemente ohne sichtbaren Text.
+ARIA-Labels kommen zum Einsatz, wenn ein Bedienelement keinen eindeutigen, für Screenreader zugänglichen Text enthält.
+Hier sind die wichtigsten ARIA-Attribute und ihre Anwendungen:
+
+* _aria-label:_
+Wird verwendet, um ein Element zu beschreiben.
+Es ist besonders nützlich für Bedienelemente ohne sichtbaren Text.
 Beispiel:
 [source,xml]
 <button aria-label="Schließen">X</button>.
 
-* aria-labelledby: Verweist auf ein anderes Element, dessen Text als Beschriftung dient.
+* _aria-labelledby:_
+Verweist auf ein anderes Element, dessen Text als Beschriftung dient.
 Beispiel:
 [source,xml]
 <button aria-labelledby="closeButtonText">X</button>
 <span id="closeButtonText" hidden>Schließen</span>.
 
-* aria-describedby: Gibt ein anderes Element an, das eine ausführlichere Beschreibung des aktuellen Elements enthält.
+* _aria-describedby:_
+Gibt ein anderes Element an, das eine ausführlichere Beschreibung des aktuellen Elements enthält.
 Beispiel:
 [source,xml]
 <input type="text" aria-describedby="nameDesc">
@@ -350,12 +369,17 @@ Beispiel:
 
 Um sicherzustellen, dass ARIA-Labels effektiv eingesetzt werden, sollten folgende Richtlinien beachtet werden:
 
-* Klarheit und Präzision: ARIA-Labels sollten klar und präzise sein, um den Zweck des Elements genau zu vermitteln.
-* Vermeidung von Redundanz: ARIA-Labels sollten nicht redundant zu bereits vorhandenen textuellen Beschreibungen sein.
-* Konsistenz: Die Verwendung von ARIA-Labels sollte konsistent über die gesamte Webseite hinweg erfolgen, um eine einheitliche Benutzererfahrung zu gewährleisten.
-* Testen: Die implementierten ARIA-Labels sollten regelmäßig mit verschiedenen Screenreadern getestet werden, um sicherzustellen, dass sie korrekt interpretiert werden.
+* _Klarheit und Präzision:_
+ARIA-Labels sollten klar und präzise sein, um den Zweck des Elements genau zu vermitteln.
+* _Vermeidung von Redundanz:_
+ARIA-Labels sollten nicht redundant zu bereits vorhandenen textuellen Beschreibungen sein.
+* _Konsistenz:_
+Die Verwendung von ARIA-Labels sollte konsistent über die gesamte Webseite hinweg erfolgen, um eine einheitliche Benutzererfahrung zu gewährleisten.
+* _Testen:_
+Die implementierten ARIA-Labels sollten regelmäßig mit verschiedenen Screenreadern getestet werden, um sicherzustellen, dass sie korrekt interpretiert werden.
 
-Zusammenfassung:
+*_Zusammenfassung:_*
+
 Alt-Attribute und ARIA-Labels sind unverzichtbare Werkzeuge, um die Zugänglichkeit und Benutzerfreundlichkeit von Webseiten und Webanwendungen zu gewährleisten.
 Durch sorgfältige Planung und Implementierung dieser Attribute können Designer und Entwickler sicherstellen, dass ihre Inhalte für alle Benutzer zugänglich sind.
 Das Beachten der Best Practices beim Schreiben von Alt-Attributen und der Implementierung von ARIA-Labels trägt wesentlich dazu bei, eine inklusive und effiziente Benutzererfahrung zu schaffen.
@@ -365,8 +389,10 @@ Das Beachten der Best Practices beim Schreiben von Alt-Attributen und der Implem
 Das lang-Attribut informiert Browser und assistive Technologien über die Sprache des Inhalts.
 Dies hat mehrere Vorteile:
 
-* Zugänglichkeit: Screenreader verwenden das lang-Attribut, um die richtige Aussprache und Sprachregeln anzuwenden, was für Benutzer mit Sehbehinderungen von entscheidender Bedeutung ist.
-* Mehrsprachige Webseiten: Das lang-Attribut ermöglicht es, verschiedene Sprachversionen einer Webseite korrekt zu kennzeichnen und so die Benutzererfahrung zu verbessern.
+* _Zugänglichkeit:_
+Screenreader verwenden das lang-Attribut, um die richtige Aussprache und Sprachregeln anzuwenden, was für Benutzer mit Sehbehinderungen von entscheidender Bedeutung ist.
+* _Mehrsprachige Webseiten:_
+Das lang-Attribut ermöglicht es, verschiedene Sprachversionen einer Webseite korrekt zu kennzeichnen und so die Benutzererfahrung zu verbessern.
 
 Nutzen Sie die standardisierten ISO 639-1 Sprachcodes (zwei Buchstaben), um die Sprache zu definieren (z.B. de = deutsch).
 Dabei gilt es folgende Grundregeln zu beachten:
@@ -381,7 +407,7 @@ Dies stellt sicher, dass alle Inhalte auf der Seite als in dieser Sprache verfas
 Wenn einzelne Abschnitte oder Elemente in einer anderen Sprache verfasst sind, sollte das lang-Attribut entsprechend auf diesen Elementen angewendet werden.
 Dies ist besonders wichtig für mehrsprachige Webseiten, Dokumente und die korrekte Aussprache durch Screenreader.
 
-Wenn nötig, geben Sie spezifische Sprachvarianten oder Dialekte mit Hilfe von Codes für Regionen oder Länder an (z.B. en-US für amerikanisches Englisch, en-GB für britisches Englisch).
+Wenn nötig, geben Sie spezifische Sprachvarianten oder Dialekte mithilfe von Codes für Regionen oder Länder an (z.B. en-US für amerikanisches Englisch, en-GB für britisches Englisch).
 
 Verwenden Sie das lang-Attribut nur, wenn der Text tatsächlich in einer anderen Sprache verfasst ist.
 Setzen Sie das Attribut nicht aus ästhetischen oder stilistischen Gründen ein.
@@ -389,7 +415,6 @@ Setzen Sie das Attribut nicht aus ästhetischen oder stilistischen Gründen ein.
 *_Beispiel:_*
 
 [source,xml]
-<!DOCTYPE html>
 <html lang="de">
     <head>
         <meta charset="UTF-8">
