@@ -429,12 +429,12 @@ Setzen Sie das Attribut nicht aus ästhetischen oder stilistischen Gründen ein.
 
 == Technische Rahmenbedingungen
 
-Die technischen Rahmenbedingungen legen fest, welche Technologien und Plattformen für die Umsetzung des Bedienkonzepts und Styleguides verwendet werden sollen.
+Die technischen Rahmenbedingungen legen fest, welche Technologien und Plattformen für die Umsetzung des Bedienkonzepts verwendet werden sollen.
 Diese Einleitung bietet einen Überblick über die infrastrukturellen Anforderungen und unterstützten Technologien.
 
 * Prime NG.
 * Primär kommen in den Neuentwicklungen die durch die IsyFact zur Verfügung gestellten Bausteine zum Einsatz.
-* Das Styling der Anwendung wird primär aus dem hier zu Grunde liegenden Prinzipien erstellt.
+* Das Styling der Anwendung wird primär aus dem hier zugrunde liegenden Prinzipien erstellt.
 Dafür wird die entsprechende SCSS und CSS in die Anwendung integriert.
 * Es ist möglich „harte Overrides“ im CSS vorzunehmen, davon wird jedoch abgeraten.
 Dadurch ist die Wartbarkeit stark beeinträchtigt und die Aufwände können sich in der Pflege der Anwendung stark erhöhen.
