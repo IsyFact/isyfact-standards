@@ -443,6 +443,7 @@ Dadurch ist die Wartbarkeit stark beeinträchtigt und die Aufwände können sich
 == Bedienelemente
 
 *_Einleitung und Allgemeines:_*
+
 Bedienelemente sind die Bausteine der Benutzeroberfläche, die es den Benutzern ermöglichen, mit der Anwendung zu interagieren.
 Dieser Abschnitt definiert die verschiedenen Bedienelemente und legt fest, wie sie gestaltet und angeordnet werden sollen, um eine intuitive Benutzererfahrung zu gewährleisten.
 
@@ -450,6 +451,7 @@ Dieser Abschnitt definiert die verschiedenen Bedienelemente und legt fest, wie s
 
 Überschriften ermöglichen es Benutzern, schnell die Hauptthemen einer Seite zu erfassen und sich zu orientieren.
 Sie definieren Überschriften, die Hierarchie und das visuelle Erscheinungsbild, um Konsistenz und eine optimale Benutzererfahrung sicherzustellen.
+
 Überschriften spielen eine wichtige Rolle.
 Sie helfen, Inhalte in logische Abschnitte zu gliedern, wodurch Benutzer die Informationen leichter aufnehmen und navigieren können.
 
@@ -457,100 +459,129 @@ Sie helfen, Inhalte in logische Abschnitte zu gliedern, wodurch Benutzer die Inf
 
 *_Hierarchie und Struktur_*
 
-Hierarchische Ordnung: Überschriften sollten in einer klaren hierarchischen Struktur verwendet werden.
+_Hierarchische Ordnung:_
+Überschriften sollten in einer klaren hierarchischen Struktur verwendet werden.
 Die Hauptüberschrift (<h1>) sollte nur einmal pro Seite verwendet werden, gefolgt von Unterüberschriften (<h2>, <h3>, etc.) in absteigender Reihenfolge.
 
 *_Konsistenz und Lesbarkeit_*
 
-Einheitliches Design: Überschriften sollten über die gesamte Webseite hinweg einheitlich gestaltet sein, um ein kohärentes Erscheinungsbild zu gewährleisten.
+_Einheitliches Design:_
+Überschriften sollten über die gesamte Webseite hinweg einheitlich gestaltet sein, um ein kohärentes Erscheinungsbild zu gewährleisten.
 Dies umfasst Schriftart, -größe, -farbe und -stil.
 
-Abstände und Margins: Angemessene Abstände vor und nach den Überschriften verbessern die Lesbarkeit und visuelle Struktur der Seite.
+_Abstände und Margins:_
+Angemessene Abstände vor und nach den Überschriften verbessern die Lesbarkeit und visuelle Struktur der Seite.
 
 *_Zugänglichkeit_*
 
-Beschreibende Texte: Überschriften sollten aussagekräftig und beschreibend sein, um den Inhalt des folgenden Abschnitts klar zu kommunizieren.
+_Beschreibende Texte:_
+Überschriften sollten aussagekräftig und beschreibend sein, um den Inhalt des folgenden Abschnitts klar zu kommunizieren.
 Dies hilft sowohl Benutzern als auch Suchmaschinen, die Relevanz des Inhalts zu erkennen.
 
-Verwendung von ARIA-Rollen: In Fällen, in denen Überschriften nicht aus Standard-HTML-Überschriftentags bestehen, können ARIA-Rollen verwendet werden, um die Struktur zu erhalten.
-
+_Verwendung von ARIA-Rollen:_
+In Fällen, in denen Überschriften nicht aus Standard-HTML-Überschriften-Tags bestehen, können ARIA-Rollen verwendet werden, um die Struktur zu erhalten.
 Beispiel:
 [source,xml]
 <div role="heading" aria-level="2">Unterüberschrift</div>
 
 *_Typografie und Design_*
 
-Schriftart ist Bundes Sans und mindestens 14pt.
+_Klarheit und Lesbarkeit:_
+Die zu verwendende Schriftart ist Bundes Sans und mindestens 14pt groß.
 Die Hauptüberschrift sollte deutlich größer und auffälliger als der normale Text sein.
-Der Kontrast sollte mindestens 4,5:1 sein.
+
+_Kontrast:_
+Der Kontrast sollte mindestens 4,5:1 sein, um die Lesbarkeit zu maximieren.
 
 *_Stile und Akzente_*
 
-Farben: Farben können verwendet werden, um Hierarchie zu betonen, sollten jedoch mit Bedacht gewählt werden, um ein harmonisches Gesamtbild zu bewahren. Es wird empfohlen die Standardfarben zu nutzen.
+_Fettdruck und Kursivschrift:_
+Verwenden Sie Fettdruck oder Kursivschrift, um wichtige Überschriften hervorzuheben, jedoch sparsam, um eine Überladung zu vermeiden.
+
+_Farben:_
+Farben können verwendet werden, um Hierarchie zu betonen, sollten jedoch mit Bedacht gewählt werden, um ein harmonisches Gesamtbild zu bewahren.
+Es wird empfohlen die Standardfarben zu nutzen.
 
 === Hyperlink
 
 Hyperlinks folgen per Default einem einheitlichen Styling.
-Links sind in der Regel unterstrichen. Daher ist es nicht ratsam dies zu ändern, da der Nutzer es gelernt hat weiterführende Informationen/Links in einem Fließtext oder auf einer Seite anhand des unterstrichenen Textes zu erkennen.
+Links sind in der Regel unterstrichen.
+Daher ist es nicht ratsam dies zu ändern, da der Nutzer es gelernt hat weiterführende Informationen/Links in einem Fließtext oder auf einer Seite anhand des unterstrichenen Textes zu erkennen.
 Viele Webseiten greifen per CSS in das Styling ein und färben Links entsprechend ihrer Designregeln.
 
-Hyperlinks können einen State normal, hovered/focus und clicked haben.
+Hyperlinks können einen Status (State) normal, hovered/focus und clicked haben.
  
 [[image-Hyperlinks]]
 .States von Hyperlinks
 image::24_BE_Links.png[align="center"]
 
-Hyperlinks dürfen nicht nur durch eine andere Farbe erkennbar sein. Sie benötigen zwingend ein farbunabhängiges Element zum Identifizieren und zum Erkennen des States.
+Hyperlinks dürfen nicht nur durch eine andere Farbe erkennbar sein.
+Sie benötigen zwingend ein farbunabhängiges Element zum Identifizieren und Erkennen des States.
 Hyperlinks sind verlinkte Texte (oder auch Grafiken), die im Wesentlichen als Navigations-Mechanismus dienen – so z.B. um andere Inhalte wie Fenster zu öffnen.
 Wird die Maus über einen Hyperlink bewegt, ändert sich der Cursor vom Pfeil zum Handsymbol.
-Fachlicher Hinweis: Hyperlinks sollten einen aussagekräftigen Text zur Verfügung stellen.
+
+_Fachlicher Hinweis:_
+Hyperlinks sollten einen aussagekräftigen Text zur Verfügung stellen.
 Generische Phrasen wie „Hier klicken“ sind nicht hilfreich und sollten vermieden werden.
 
 === Label
 
-Label dienen dazu, Eingabefelder und andere Bedienelemente klar zu kennzeichnen, sodass Benutzer genau verstehen, welche Informationen erforderlich sind und welche Aktionen durchgeführt werden können. Ein konsistentes und gut durchdachtes Design von Labels trägt wesentlich zur Verbesserung der Nutzererfahrung bei.
-Labels sind nicht nur visuelle Hinweise, sondern auch wesentliche Bestandteile der Barrierefreiheit. Sie ermöglichen es Screenreadern, die Beziehung zwischen einem Eingabefeld und seiner Beschreibung zu verstehen, was besonders für sehbehinderte Benutzer von großer Bedeutung ist. Ein korrekt implementiertes Label sorgt dafür, dass alle Benutzer, unabhängig von ihren Fähigkeiten, Formulare und andere interaktive Elemente problemlos nutzen können.
+Labels dienen dazu, Eingabefelder und andere Bedienelemente klar zu kennzeichnen, sodass Benutzer genau verstehen, welche Informationen erforderlich sind und welche Aktionen durchgeführt werden können.
+Ein konsistentes und gut durchdachtes Design von Labels trägt wesentlich zur Verbesserung der Nutzererfahrung bei.
+
+Labels sind nicht nur visuelle Hinweise, sondern auch wesentliche Bestandteile der Barrierefreiheit.
+Sie ermöglichen es Screenreadern, die Beziehung zwischen einem Eingabefeld und seiner Beschreibung zu verstehen, was besonders für sehbehinderte Benutzer von großer Bedeutung ist.
+Ein korrekt implementiertes Label sorgt dafür, dass alle Benutzer, unabhängig von ihren Fähigkeiten, Formulare und andere interaktive Elemente problemlos nutzen können.
 
 ==== Best Practices für die Verwendung von Labels
 
 *_Klarheit und Prägnanz_*
 
-Eindeutige Beschreibung: Labels sollten klar und eindeutig beschreiben, was von den Benutzern erwartet wird.
+_Eindeutige Beschreibung:_
+Labels sollten klar und eindeutig beschreiben, was von den Benutzern erwartet wird.
 Beispielsweise sollte ein Label für ein Namensfeld "Vollständiger Name" und nicht nur "Name" lauten.
 
-Kurze Formulierungen: Labels sollten kurz und prägnant sein, um die Benutzerfreundlichkeit zu maximieren.
+_Kurze Formulierungen:_
+Labels sollten kurz und prägnant sein, um die Benutzerfreundlichkeit zu maximieren.
 Vermeide Labels mit mehr als drei Wörtern.
 
 *_Platzierung und Ausrichtung_*
 
-Nähe zum Eingabefeld: Labels sollten in unmittelbarer Nähe des zugehörigen Eingabefelds platziert werden, entweder darüber oder links davon, um eine klare Zuordnung zu gewährleisten.
+_Nähe zum Eingabefeld:_
+Labels sollten in unmittelbarer Nähe des zugehörigen Eingabefelds platziert werden - entweder darüber oder links davon, um eine klare Zuordnung zu gewährleisten.
 
-Ausrichtung: Labels können linksbündig oder rechtsbündig zum Eingabefeld ausgerichtet sein, wobei linksbündige Labels tendenziell besser lesbar und benutzerfreundlicher sind.
+_Ausrichtung:_
+Labels können linksbündig oder rechtsbündig zum Eingabefeld ausgerichtet sein, wobei linksbündige Labels tendenziell besser lesbar und benutzerfreundlicher sind.
 
 *_Zugänglichkeit_*
 
-HTML-For-Attribut: Jedes Label sollte das for-Attribut verwenden, das mit der id des entsprechenden Eingabefelds übereinstimmt.
+_HTML-For-Attribut:_
+Jedes Label sollte das for-Attribut verwenden, das mit der id des entsprechenden Eingabefelds übereinstimmt.
 Dies stellt sicher, dass Screenreader die Verbindung zwischen Label und Eingabefeld korrekt interpretieren können.
-
 Beispiel:
 [source,xml]
 <label for="email">E-Mail-Adresse</label>
 <input type="email" id="email">
 
-Vermeidung von Platzhaltern als Labels: Platzhaltertexte (placeholder) sollten nicht als Ersatz für Labels verwendet werden, da sie verschwinden, sobald der Benutzer mit der Eingabe beginnt, was die Benutzerfreundlichkeit und Zugänglichkeit beeinträchtigen können.
+_Vermeidung von Platzhaltern als Labels:_
+Platzhaltertexte (Placeholder) sollten nicht als Ersatz für Labels verwendet werden, da sie verschwinden, sobald der Benutzer mit der Eingabe beginnt.
+Dies kann die Benutzerfreundlichkeit und Zugänglichkeit beeinträchtigen.
 
 *_Stil und Design_*
 
-Lesbarkeit: Labels sollten in einer gut lesbaren Schriftart und -größe dargestellt werden.
+_Lesbarkeit:_
+Labels sollten in einer gut lesbaren Schriftart und -größe dargestellt werden.
 Der Kontrast muss mindestens 4,5:1 betragen, um auch bei schlechten Lichtverhältnissen gut lesbar zu sein.
 
-Konsistenz: Die Gestaltung von Labels sollte über die gesamte Webseite hinweg konsistent sein. Einheitliche Schriftarten, Größen und Abstände tragen zur Benutzerfreundlichkeit und einem professionellen Erscheinungsbild bei. 
+_Konsistenz:_
+Die Gestaltung von Labels sollte über die gesamte Webseite hinweg konsistent sein.
+Einheitliche Schriftarten, Größen und Abstände tragen zur Benutzerfreundlichkeit und einem professionellen Erscheinungsbild bei.
 
 *_Interaktive Elemente_*
 
-Schaltflächen und Links: Labels können auch für interaktive Elemente wie Schaltflächen und Links verwendet werden.
+_Schaltflächen und Links:_
+Labels können auch für interaktive Elemente wie Schaltflächen und Links verwendet werden.
 Hier sollten ARIA-Labels (aria-label) oder ARIA-Beschreibungen (aria-labelledby) eingesetzt werden, um die Zugänglichkeit zu verbessern.
-
 Beispiel:
 [source,xml]
 <button aria-label="Schließen">X</button>
@@ -558,16 +589,16 @@ Beispiel:
 === Eingabefeld
 
 Eingabefelder sind grundlegende Interaktionselemente in einer Benutzeroberfläche, die es den Benutzern ermöglichen, Daten einzugeben, zu bearbeiten oder auszuwählen.
-Sie spielen eine zentrale Rolle bei der Interaktion zwischen Benutzer und System und kommen in verschiedensten Formen und Kontexten vor, sei es in Form von Textfeldern, Dropdown-Menüs, Auswahllisten oder Datumsauswahlkalendern.
+Sie spielen eine zentrale Rolle bei der Interaktion zwischen Benutzer und System.
+Sie kommen in verschiedensten Formen und Kontexten vor, sei es in Form von Textfeldern, Dropdown-Menüs, Auswahllisten oder Datumsauswahlkalendern.
 Die Gestaltung und Platzierung von Eingabefeldern hat direkten Einfluss auf die Benutzererfahrung und die Effizienz der Dateneingabe.
-Die nachfolgenden Angaben beziehen sich immer auf Neuentwicklungen und Aktualisierungen.
 
-Altanwendungen, die nicht angepasst werden müssen, können weiterhin ihrem zum Umsetzungszeitpunkt gültigen Styleguide und Bedienkonzept entsprechen.
+Die nachfolgenden Angaben beziehen sich immer auf Neuentwicklungen und Aktualisierungen.
+Altanwendungen, die nicht angepasst werden müssen, können weiterhin ihrem zum Umsetzungszeitpunkt gültigen Bedienkonzept entsprechen.
 Alle hier gezeigten Grafiken beziehen sich auf die aktuelle und zukünftige Umsetzung.
-Eingabefelder sind dynamisch. Sie bestehen aus dem Eingabefeld an sich, einem vorbelegten Placeholder und einer evtl. daraus entstehenden Mask zur Anzeige des erwarteten Formats.
-Im normalen Status ist das Eingabefeld mit einem bündigen static Label in dunkelgrau versehen.
-Der Platzhalter ist in einem helleren grau gehalten.
-Platzhalter müssen sinnvolle Eingabeunterstützungen (im einfachsten Fall das Label selbst) enthalten.
+
+Eingabefelder sind dynamisch.
+Sie bestehen aus dem Eingabefeld an sich, einem vorbelegten Placeholder und optional aus einer daraus entstehenden Vorschau (Mask) zur Anzeige des erwarteten Formats.
 
 *_Normal:_*
 
@@ -575,7 +606,9 @@ Platzhalter müssen sinnvolle Eingabeunterstützungen (im einfachsten Fall das L
 .Eingabefeld mit Platzhalter
 image::24_BE_eingabefeld_normal.png[align="center"]
 
-Aktive Eingabefelder sind inkl. dem Label in der Highlightfarbe (blau) dargestellt. Sie haben zusätzlich zur veränderten Farbe eine 1px dickere Border und die Schrift vergrößert sich um 2pt.
+Im normalen Status ist das Eingabefeld mit einem bündigen static Label in dunkelgrau versehen.
+Der Platzhalter ist in einem helleren grau gehalten.
+Platzhalter müssen sinnvolle Eingabeunterstützungen (im einfachsten Fall das Label selbst) enthalten.
 
 *_Aktiv:_*
 
@@ -583,9 +616,14 @@ Aktive Eingabefelder sind inkl. dem Label in der Highlightfarbe (blau) dargestel
 .Eingabefeld aktiv
 image::24_BE_eingabefeld_aktiv.png[align="center"]
 
-Aktive Eingabefelder verlieren ihren Platzhalter und können entweder geleert werden (siehe Abbildung 2 oder eine Mask enthalten, um das erwartete Eingabeformat anzuzeigen und als Bedienhilfe die Fehlerwahrscheinlichkeit zu minimieren.
+Aktive Eingabefelder sind inkl. dem Label in der Highlight-Farbe (blau) dargestellt.
+Sie haben zusätzlich zur veränderten Farbe eine 1px dickere Border und die Schrift vergrößert sich um 2pt.
 
-*_Maskoption:_* (exemplarisch, in der Umsetzung kann nur ein Eingabefeld aktiv sein):
+Aktive Eingabefelder verlieren ihren Platzhalter und können entweder geleert werden (siehe Abbildung <<image-eingabefeldaktiv>>) oder eine Mask enthalten (siehe Abbildung <<image-eingabefeldmask>>).
+Um das erwartete Eingabeformat anzuzeigen und als Bedienhilfe die Fehlerwahrscheinlichkeit zu minimieren, werden Masks verwendet.
+
+*_Mask-Optionen_*
+(exemplarisch, in der Umsetzung kann nur ein Eingabefeld aktiv sein):
 
 [[image-eingabefeldmask]]
 .Eingabefeld mit Mask
@@ -596,8 +634,6 @@ Die Mask ist dem erwarteten Inhalt entsprechend fachlich logisch und nachvollzie
 Zum Beispiel entspricht „mobile number“ dem Pattern: +0012 345 / 678 999 oder Ländervorwahl, Vorwahl, Rufnummer.
 Masks können dabei auch frei gestaltet werden und den fachlichen Bedürfnissen entsprechend angepasst werden, wie bspw. für Aktenzeichen.
 Eine Mask kann in Einzelfällen auch dem Platzhalter entsprechen.
-Wenn eine Eingabe in einem Eingabefeld getätigt wurde und das Feld wieder verlassen wird, wechselt das Eingabefeld seinen Status wieder auf die Werte des „normal“ Eingabefelds.
-Der Platzhalter ist verschwunden und die Eingabe wird in der Schriftfarbe angezeigt.
 
 *_Befülltes Eingabefeld:_*
 
@@ -605,7 +641,8 @@ Der Platzhalter ist verschwunden und die Eingabe wird in der Schriftfarbe angeze
 .Eingabefeld befüllt nicht aktiv
 image::24_BE_eingabefeld_filled.png[align="center"]
 
-Disabled Eingabefelder sind grau hinterlegt und geben zusätzlich über einen Mousecursor-Wechsel beim Hovern den disabled state wieder.
+Wenn eine Eingabe in einem Eingabefeld getätigt wurde und das Feld wieder verlassen wird, wechselt das Eingabefeld seinen Status wieder auf die Werte des „normalen“ Eingabefelds.
+Der Platzhalter ist verschwunden und die Eingabe wird in der Schriftfarbe angezeigt.
 
 *_Disabled:_*
 
@@ -613,18 +650,17 @@ Disabled Eingabefelder sind grau hinterlegt und geben zusätzlich über einen Mo
 .Eingabefeld disabled
 image::24_BE_eingabefeld_disabled.png[align="center"]
 
-Ein Eingabefeld mit Inputoption ist von der Basis dem eines normalen Eingabefelds identisch.
-Am Ende des Eingabefelds ist die Möglichkeit eine Eingabeoption zu aktivieren (im Beispiel: Sonderzeichen-Picker), z.B.: Sonderzeichen-Picker oder Datumseingabe.
-Die Schaltfläche der Inputoption ist mindestens 44px x 44px.
+Deaktivierte Eingabefelder (disabled) sind grau hinterlegt und geben zusätzlich über einen Mouse-Cursor-Wechsel beim Hovern den disabled State wieder.
 
-*_Eingabefeld mit Inputoption:_*
+*_Eingabefeld mit Input-Option:_*
 
 [[image-eingabefeldinputoption]]
-.Eingabefeld mit Inputoption
+.Eingabefeld mit Input-Option
 image::24_BE_eingabefeld_inputoption.png[align="center"]
 
-Eingabefelder mit Fehlermeldung sind rot.
-Das Eingabefeld und das Label färben sich rot und es wird ein inhaltlich logischer Hinweistext angegeben, damit die Eingabe korrigiert werden kann.
+Ein Eingabefeld mit Input-Option ist von der Basis identisch zu einem <<image-eingabefeldplatzhalter,normalen Eingabefeld>>.
+Am Ende des Eingabefelds gibt es die Möglichkeit eine Eingabeoption zu aktivieren, wie z.B. die Optionen Sonderzeichen-Picker (zu sehen in der Abbildung <<image-eingabefeldinputoption>>) oder Datumseingabe.
+Die Schaltfläche der Input-Option ist mindestens 44px x 44px.
 
 *_Eingabefeld mit Fehlermeldung und Hinweis:_*
 
@@ -632,22 +668,31 @@ Das Eingabefeld und das Label färben sich rot und es wird ein inhaltlich logisc
 .Eingabefeld mit Fehlermeldung und Hinweis
 image::24_BE_eingabefeld_error.png[align="center"]
 
+Eingabefelder mit Fehlermeldung sind rot.
+Das Eingabefeld und das Label färben sich rot und es wird ein inhaltlich logischer Hinweistext angegeben, damit die Eingabe korrigiert werden kann.
+
 Eingabefelder, die eine Erläuterung benötigen, sollen diese immer so kurz wie möglich und so lang wie nötig gestalten.
+
 Erläuterungen können dabei in verschiedenen Möglichkeiten realisiert werden, sortiert von kurz nach lang:
 
 * Als Platzhalter im Eingabefeld selbst.
 * Als Klammeranhang am Label, um das Label zu erläutern – z.B.: Name (gemeint ist der eingetragene Familienname).
-* Als maximal 2 zeiliger Hinweistext unter oder über dem Label (bitte nach Entscheidung konsistent in der gesamten Anwendung damit fortfahren).
-* Alle Erläuterungstexte die Länger als 2 Zeilen einer Eingabefeldlänge benötigen, sind zu komplex gestalten und bedürfen einer fachlichen Neugestaltung.
+* Als maximal 2-zeiliger Hinweistext unter oder über dem Label (bitte nach Entscheidung konsistent in der gesamten Anwendung damit fortfahren).
+* Alle Erläuterungstexte, die länger als 2 Zeilen einer Eingabefeldlänge benötigen, sind zu komplex gestalten und bedürfen einer fachlichen Neugestaltung.
 Sollte dies nicht möglich sein, so ist ein vorangegangenes Textelement über dem Eingabefeld notwendig.
-* Erläuterungshilfen, sollen nicht dynamisch versteckt werden – Entweder ist die Erläuterung notwendig = sichtbar oder nicht notwendig = entfernen.
+* Erläuterungshilfen, sollen nicht dynamisch versteckt werden – entweder ist die Erläuterung notwendig = sichtbar oder nicht notwendig = entfernen.
+
 Grundlegende Hinweise zur Gestaltung von Eingabefeldern und Labeln:
-* Labels enden nicht mit einem Doppelpunkt. Bei sehr langen Labels sollten sinnvolle Abkürzungen verwendet werden.
-* Die unmittelbare Nähe der Labels zu den zugehörigen Bedienelementen verbessert die visuelle Verbindung und ermöglicht es, den Benutzern Formulare schneller und effizienter auszufüllen.
+
+* Labels enden nicht mit einem Doppelpunkt.
+Bei sehr langen Labels sollten sinnvolle Abkürzungen verwendet werden.
+* Die unmittelbare Nähe der Labels zu den zugehörigen Bedienelementen verbessert die visuelle Verbindung und ermöglicht es den Benutzern, Formulare schneller und effizienter auszufüllen.
 * Gleichmäßige Feld-Längen unterstützen den Lesefluss des Benutzers.
-* Die Feld-Längen sollten erwartungskonform gewählt werden. Soll z.B. eine Postleitzahl innerhalb Deutschlands eingegeben werden, so macht es Sinn die Feld-Länge auf 5 Stellen zu begrenzen. Optisch kann das Eingabefeld der Konsistenz entsprechend länger sein.
+* Die Feld-Längen sollten erwartungskonform gewählt werden.
+Soll z.B. eine Postleitzahl innerhalb Deutschlands eingegeben werden, so macht es Sinn die Feld-Länge auf 5 Stellen zu begrenzen.
+Optisch kann das Eingabefeld der Konsistenz entsprechend länger sein.
 * Pflichtfelder werden mit einem Asterisk (*) gekennzeichnet.
-* Der Asterisk unterliegt denselben Regeln wie das Label (Aktiv = Highlightfarbe, Fehler = Fehlermeldungsfarbe).
+* Der Asterisk unterliegt denselben Regeln wie das Label (aktiv = <<image-eingabefeldaktiv,Highlight-Farbe>>, Fehler = <<image-eingabefelderror,Fehlermeldungsfarbe>>).
 
 *_Exemplarische Vermaßung der verschiedenen Eingabefelder:_*
 
@@ -657,9 +702,11 @@ image::24_BE_eingabefeld_vermassung.png[align="center"]
 
 Die Angaben beziehen sich auf die in der Grafik vorzufindenden Elemente.
 Ein Eingabefeld kann den fachlichen Bedingungen entsprechend kürzer oder auch länger sein.
-Die Mindesthöhe von 44px darf nicht unterschritten werden, um die Barrierefreiheit von Inputoptionen zu gewährleisten.
+Die Mindesthöhe von 44px darf nicht unterschritten werden, um die Barrierefreiheit von Input-Optionen zu gewährleisten.
+
 Die Schriftgröße sollte 14pt nicht unterschreiten.
-Der Abstand eines Eingabefelds zum darunter liegenden Label eines weiteren Eingabefelds soll ca. dem doppelten Abstand zwischen einem Label-Eingabefeld-Paars entsprechen, um eine eindeutige Zuordnung zu gewährleisten.
+
+Der Abstand eines Eingabefelds zum darunter liegenden Label eines weiteren Eingabefelds soll ca. dem doppelten Abstand zwischen einem Label-Eingabefeld-Paar entsprechen, um eine eindeutige Zuordnung zu gewährleisten.
 
 Eingabefelder können auch eine unbestimmte Menge an Zeichen erwarten.
 Dann spricht man von Textboxen. Sie unterscheiden sich in der Größe und Form von gewöhnlichen Eingabefeldern.
@@ -670,7 +717,8 @@ image::24_BE_Textbox.png[align="center"]
 
 Textboxen lassen sich per Default in ihrer Größe verändern, damit der gesamte Inhalt angezeigt werden kann.
 Textboxen sollten mindestens so groß gestaltetet werden, dass der am häufigsten zu erwartende Inhalt hineinpasst, ohne manuell die Box zu verändern.
-Hinweis: Textboxen haben die gleichen States und Styles wie Eingabefelder.
+
+_Hinweis:_ Textboxen haben die gleichen States und Styles wie Eingabefelder.
 
 === Liste
 
