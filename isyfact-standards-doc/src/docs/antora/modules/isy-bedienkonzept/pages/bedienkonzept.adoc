@@ -1037,7 +1037,8 @@ image::24_DP_mehrspaltige_inhaltliche_Gruppe.png[align="center"]
 
 *_Einleitung und Allgemeines:_*
 
-Use Cases stellen typische Szenarien oder Seiten dar, die bestimmte Funktionalitäten oder Aktionen erfordern. Dieser Abschnitt kombiniert Designpattern, um benutzerfreundliche Lösungen für spezifische Anwendungsfälle zu präsentieren und ihre Umsetzung anhand von Beispiel-Screens zu veranschaulichen.
+Use Cases stellen typische Szenarien oder Seiten dar, die bestimmte Funktionalitäten oder Aktionen erfordern.
+Dieser Abschnitt kombiniert Designpatterns, um benutzerfreundliche Lösungen für spezifische Anwendungsfälle zu präsentieren und ihre Umsetzung anhand von Beispiel-Screens zu veranschaulichen.
 
 === Formulare
 
@@ -1046,7 +1047,7 @@ Formulare können einem 1-spaltigen, 2-spaltigen oder 3-spaltigen Layout folgen.
 Dabei sind alle Spalten innerhalb eines Formulars gleich breit aufgebaut.
 
 Die nachfolgenden Angaben beziehen sich immer auf Neuentwicklungen und Aktualisierungen.
-Altanwendungen, die nicht angepasst werden müssen, können weiterhin ihrem zum Umsetzungszeitpunkt gültigen Styleguide und Bedienkonzept entsprechen.
+Altanwendungen, die nicht angepasst werden müssen, können weiterhin ihrem zum Umsetzungszeitpunkt gültigen Bedienkonzept entsprechen.
 Alle hier gezeigten Grafiken beziehen sich auf die aktuelle und zukünftige Umsetzung.
 
 *_Beispielhaftes Formular 3-spaltig:_*
@@ -1055,20 +1056,22 @@ Alle hier gezeigten Grafiken beziehen sich auf die aktuelle und zukünftige Umse
 .3 Spalten Layout
 image::24_UC_3_spalten.png[align="center"]
 
-Damit ein Formular ein Formular ist, besteht es mindestens aus einer Eingabefeldgruppe und einer beliebigen Anzahl weiterer Elemente.
-Alle Regeln für Eingabefelder und Label haben hier auch ihre Gültigkeit (siehe Bedienelement: Eingabefeld).
+Damit ein Formular auch ein Formular ist, besteht es mindestens aus einer <<Eingabefeldgruppen,Eingabefeldgruppe>> und einer beliebigen Anzahl weiterer Elemente.
+Alle Regeln für <<Eingabefeld,Eingabefelder>> und <<Label>> haben hier auch ihre Gültigkeit.
+
 Die inhaltliche Gruppierung folgt dabei keinem starren Muster, sondern kann fachlich entsprechend angepasst werden.
 Diese Gruppierung der Inhalte kann dabei sowohl horizontal als auch vertikal gestaltet werden.
 Hierbei ist wichtig, dass die Inhaltselemente über eine Gruppenüberschrift logisch zusammengefasst werden.
 
 *_Exemplarische inhaltliche Nutzung der Spalten:_*
 
+//ToDo: Bilduntertitel anpassen. Entweder 3 Spaltig oder 2 Zeilig
 [[image-vertikalerschnitt]]
 .2 Spalten Layout mit unterschiedlich breiten inhaltlichen Gruppen
 image::24_UC_vertikaler_schnitt.png[align="center"]
 
 Durch die saubere Anwendung der Gruppenüberschriften, Titeln und Eingabefeldgruppen ist auch ein Wechsel der vertikalen Gruppierungsgröße nicht negativ auffällig.
-Jede inhaltliche Gruppe ( 3-spaltig in der ersten Gruppe (rosa, orange, gelb) und 1-spaltig in der nächsten Gruppe (grün)) wird ganzheitlich als logisches Element wahrgenommen.
+Jede inhaltliche Gruppe (3-spaltig in der ersten Gruppe (rosa, orange, gelb) und 1-spaltig in der nächsten Gruppe (grün)) wird ganzheitlich als logisches Element wahrgenommen.
 
 *_Wahrnehmung der inhaltlichen Gruppen:_*
 
@@ -1077,15 +1080,17 @@ Jede inhaltliche Gruppe ( 3-spaltig in der ersten Gruppe (rosa, orange, gelb) un
 image::24_UC_horizontale_inhaltlichte_gruppe.png[align="center"]
 
 Gleichmäßige Feldlängen unterstützen den Lesefluss des Benutzers.
-Letzte Eingabefelder können bei Bedarf ihrem Inhalt entsprechen gekürzt werden.
+Die letzten Eingabefelder können bei Bedarf ihrem Inhalt entsprechend gekürzt werden.
 Dies unterstützt die inhaltlich logische Gruppierung und signalisiert dem Nutzer auch visuell ein Ende der inhaltlichen Gruppe.
+
 Bei geringeren Auflösungen sollten sie, dem bekannten responsiven Verhalten entsprechend, untereinander angeordnet werden, um sich der begrenzten Breite anzupassen.
+
 Die Größenanpassung erfolgt innerhalb von gewissen Bereichen:
 
 * Wird das Browserfenster kleiner als der darzustellende Inhalt (i.d.R. bei Tablets und Smartphones), so wird das gesamte Fenster vertikal scrollbar
 * Der vertikale Abstand zwischen Gruppen und Formularinhalten bleibt unabhängig von der Bildschirmgröße konstant
 * Der Abstand zwischen Eingabefeldern und Labels bleibt ebenfalls unverändert
-* Bei einer Veränderung der Browserfenster Größe sollten sich die Breiten der Spalten dynamisch an den verfügbaren Platz anpassen, ohne dabei die Lesbarkeit zu beeinträchtigen
+* Bei einer Veränderung der Browserfenster-Größe sollten sich die Breiten der Spalten dynamisch an den verfügbaren Platz anpassen, ohne dabei die Lesbarkeit zu beeinträchtigen
 
 *_Beispielhafte Gesamtumsetzung eines Formulars im Anwendungsrahmen:_*
 
