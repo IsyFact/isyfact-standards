@@ -722,27 +722,44 @@ _Hinweis:_ Textboxen haben die gleichen States und Styles wie Eingabefelder.
 
 === Liste
 
-Listen sind zentrale Bestandteile einer jeden Website und insbesondere von Fachanwendungen. Sie dienen dazu, Inhalte zu strukturieren und schnell zu erfassen.Listen ermöglichen es dem Nutzer darüber zulässige Werte auszuwählen. Dadurch werden Fehleingaben und unerwartete Ergebnisse reduziert.
-Listen sind in ihrer alleinigen Form recht simpel. Sie bestehen optische aus einem geschlossenen Rahmen und bestenfalls aus logisch sortierten Elementen. Listen können in den verschiedensten Ausprägungen eingesetzt werden: Eingabefeld + Liste, Eingabefeld + Suchbox + Liste, Menüitem + Liste, etc…
+Listen sind zentrale Bestandteile einer jeden Webseite und insbesondere von Fachanwendungen.
+Sie dienen dazu, Inhalte zu strukturieren und schnell zu erfassen.
+Listen ermöglichen es dem Nutzer darüber zulässige Werte auszuwählen.
+Dadurch werden Fehleingaben und unerwartete Ergebnisse reduziert.
+
+Listen sind in ihrer alleinigen Form recht simpel.
+Sie bestehen optisch aus einem geschlossenen Rahmen und bestenfalls aus logisch sortierten Elementen.
+
+Listen können in den verschiedensten Ausprägungen eingesetzt werden:
+
+* Eingabefeld + Liste
+* Eingabefeld + Suchbox + Liste
+* Menüitem + Liste
+* uvm
+
 Die einfachste Form einer Liste ist die rein textuelle Liste.
 
 [[image-Liste]]
 .Einfache Liste
 image::24_BE_liste.png[align="center"]
 
-Eine Liste kann theoretisch beliebig viele Einträge enthalten, was aber die Usability verschlechtert. Im optimalen Fall haben Liste eine logisch relevante überschaubare Anzahl an Einträgen. Die Einträge sind eindeutig und prägnant. Bei langen Einträgen können auch sinnvolle Abkürzungen genutzt werden.
-Die Listenelemente sind mindestens 44px hoch und entsprechend dem dazugehörigen Element breit (hier exemplarisch das Eingabefeld).
-Aktive Elemente sind in der Highlightfarbe und hinterlegt dargestellt.
+Eine Liste kann theoretisch beliebig viele Einträge enthalten, was aber die Usability verschlechtert.
+Im optimalen Fall haben Liste eine logisch relevante überschaubare Anzahl an Einträgen.
+Die Einträge sind eindeutig und prägnant.
+Bei langen Einträgen können auch sinnvolle Abkürzungen genutzt werden.
 
-*_Do´s_*
+Die Listenelemente sind mindestens 44px hoch und entsprechend dem dazugehörigen Element breit (hier exemplarisch das Eingabefeld).
+Aktive Elemente sind in der Highlight-Farbe und hinterlegt dargestellt.
+
+*_Do's_*
 
 * Gestalte Listen inhaltlich so einfach wie möglich.
 * Sollten Listen viele Einträge haben, sorge mit anderen Elementen für die Durchsuchbarkeit, Filterung oder Kategorisierung.
-* Listen helfen bei komplexen Eingaben Fehler zu vermeiden.
+* Listen helfen bei komplexen Eingaben, Fehler zu vermeiden.
 * Kombiniere Listen mit unterschiedlichen interaktiven Elementen, um dem Nutzer eine Hilfestellung zu bieten.
 * Erwäge die Nutzung einer Radio-Button-Gruppe bei einer kleinen Liste.
 
-*_Dont´s_*
+*_Don'ts_*
 
 * Listeneinträge sind nie mehrzeilig.
 * Listeneinträge sind nicht doppelt vorhanden und nicht eindeutig unterscheidbar.
@@ -753,16 +770,19 @@ Aktive Elemente sind in der Highlightfarbe und hinterlegt dargestellt.
 
 Checkboxen sind ein wesentliches Element der Benutzeroberfläche, das in vielen Web- und Anwendungsdesigns verwendet wird.
 Sie ermöglichen es Benutzern, mehrere Optionen aus einer (offenen) Liste auszuwählen und spielen eine wichtige Rolle bei der Interaktivität und Benutzerführung.
-Ein gut gestaltetes Checkbox-Design verbessert die Lesbarkeit und Zugänglichkeit, was besonders wichtig ist, um sicherzustellen, dass alle Benutzer, einschließlich derjenigen mit Behinderungen, die Anwendung problemlos nutzen können.
+Ein gut gestaltetes Checkbox-Design verbessert die Lesbarkeit und Zugänglichkeit.
+Dies ist besonders wichtig, um sicherzustellen, dass alle Benutzer, einschließlich derjenigen mit Behinderungen, die Anwendung problemlos nutzen können.
 Letztlich fördern konsistente Checkbox-Designs eine bessere Benutzererfahrung und erhöhen die Effizienz bei der Datenerfassung und Interaktion.
 
 [[image-Checkboxen]]
 .Checkboxen
 image::24_BE_checkboxen.png[align="center"]
 
-Checkboxen sind 24px x 24px groß, haben aber für mobile Geräte mindestens eine 44px x 44px große Clicktargetarea.
+Checkboxen sind 24px x 24px groß, haben aber für mobile Geräte mindestens einen 44px x 44px großen Klickbereich (Click-Target-Area).
 Checkboxen haben immer ein rechtsstehendes Label mit einer Schriftgröße von mindestens 14pt (hier exemplarisch 16pt).
-Eine Checkbox repräsentiert eine unabhängige, nicht-exklusive Auswahl. Der Benutzer kann beliebige Optionen auswählen.
+
+Eine Checkbox repräsentiert eine unabhängige, nicht-exklusive Auswahl.
+Der Benutzer kann beliebige Optionen auswählen.
 Dabei können Checkboxen vertikal angeordnet werden.
 
 [[image-Checkboxen-vertikal]]
@@ -775,40 +795,47 @@ Oder auch horizontal angeordnet werden.
 .Horizontale Gruppe von Checkboxen
 image::24_BE_checkboxen_horizontal.png[align="center"]
 
-Wichtig ist, dass jede Checkbox ihrem Label zuzuordnen ist. Für eine homogene Darstellung sind folgende Abstände einzuhalten.
+Wichtig ist, dass jede Checkbox ihrem Label zugeordnet ist.
+Für eine homogene Darstellung sind folgende Abstände einzuhalten.
 
 [[image-Checkboxen-mit-Einheiten]]
 .Vermaßung von Checkboxen horizontal und vertikal
 image::24_BE_checkboxen_measured.png[align="center"]
 
-*_Do´s_*
+*_Do's_*
 
 * Das Ein- oder Ausschalten einer Checkbox kann dazu genutzt werden, um andere Elemente dynamisch zu aktivieren/anzuzeigen oder zu deaktivieren/unsichtbar zu machen, z.B. „Abweichende Lieferanschrift“ (einzige zulässige Funktion).
-* Nicht nur die Box und Targetarea sollten klickbar sein, auch das Label.
+* Nicht nur die Box und Target-Area, sondern auch das Label sollten klickbar sein.
 * Eine Gruppe von Checkboxen sollte immer eine Beschriftung aufweisen, die entsprechend bei einer einzelnen Checkbox entfallen kann.
-* Für optimale Lesbarkeit sollten Checkboxen vertikal untereinander angeordnet sein.
+* Für optimale Lesbarkeit sollten Checkboxen untereinander angeordnet sein.
 * Solange die Werte der untergeordneten Optionen gleich sind (alle „Aus“ oder alle „An“), zeigt dies die übergeordnete Checkbox mit dem entsprechenden Wert an.
 * Sind die Werte der untergeordneten Optionen jedoch nicht mehr homogen gesetzt, so schaltet die übergeordnete Checkbox in den Zustand „nicht definiert“.
 Dieser Zustand wird häufig mit einem Quadrat innerhalb der Checkbox symbolisiert.
 
-*_Dont´s_*
+*_Don'ts_*
 
-* Checkboxen sind kein alleinstehender Ein- und Ausschalter, dafür gibt es p-inputSwitch.
+* Checkboxen sind kein alleinstehender Ein- und Ausschalter, dafür gibt es die technische Komponente _p-inputSwitch_.
 * Eine Checkbox soll keine Funktionen (drucken, speichern, etc…) auslösen oder Seiten öffnen/verlinken.
 
 === Radiobutton
 
-Radiobuttons sind ein wesentliches Element der Benutzeroberfläche, das in vielen Web- und Anwendungsdesigns verwendet wird. Sie ermöglichen es Benutzern, eine Option aus einer (offenen) Liste auszuwählen und spielen eine wichtige Rolle bei der Interaktivität und Benutzerführung. Ein gut gestaltetes Radiobutton-Design verbessert die Lesbarkeit und Zugänglichkeit, was besonders wichtig ist, um sicherzustellen, dass alle Benutzer, einschließlich derjenigen mit Behinderungen, die Anwendung problemlos nutzen können. Letztlich fördern konsistente Checkbox-Designs eine bessere Benutzererfahrung und erhöhen die Effizienz bei der Datenerfassung und Interaktion.
+//ToDo: Das ist genau der gleiche Einleitungstext, wie bei den Checkboxen. Evtl. Verweis auf Checkboxen und den Text verkürzen?
+Radiobuttons sind ein wesentliches Element der Benutzeroberfläche, das in vielen Web- und Anwendungsdesigns verwendet wird.
+Sie ermöglichen es Benutzern, eine Option aus einer (offenen) Liste auszuwählen und spielen eine wichtige Rolle bei der Interaktivität und Benutzerführung.
+Ein gut gestaltetes Radiobutton-Design verbessert die Lesbarkeit und Zugänglichkeit.
+Dies ist besonders wichtig, um sicherzustellen, dass alle Benutzer, einschließlich derjenigen mit Behinderungen, die Anwendung problemlos nutzen können.
+Letztlich fördern konsistente Radiobutton-Designs eine bessere Benutzererfahrung und erhöhen die Effizienz bei der Datenerfassung und Interaktion.
 
 [[image-Radiobutton]]
 .Radiobuttons
 image::24_BE_radiobutton.png[align="center"]
 
-Radiobuttons sind 24px groß, haben aber für mobile Geräte mindestens eine 44px x 44px große Clicktargetarea.
+Radiobuttons sind 24px groß, haben aber für mobile Geräte mindestens einen 44px x 44px großen Klickbereich (Click-Target-Area).
 Radiobuttons haben immer ein rechtsstehendes Label mit einer Schriftgröße von mindestens 14pt (hier exemplarisch 16pt).
+
 Ein Radiobutton repräsentiert eine exklusive Auswahl.
 Der Benutzer kann innerhalb der Gruppe genau eine Option auswählen.
-Dabei können Checkboxen vertikal angeordnet werden.
+Dabei können Radiobuttons vertikal angeordnet werden.
 
 [[image-Radiobutton-vertikal]]
 .Vertikale Gruppe von Radiobuttons
@@ -820,24 +847,25 @@ Oder auch horizontal angeordnet werden.
 .Horizontale Gruppe von Radiobuttons
 image::24_BE_radiobutton_horizontal.png[align="center"]
 
-Wichtig ist, dass jede Checkbox ihrem Label zuzuordnen ist.
+Wichtig ist, dass jeder Radiobutton seinem Label zugeordnet ist.
 Für eine homogene Darstellung sind folgende Abstände einzuhalten.
 
 [[image-Radiobutton-mit-Einheiten]]
 .Vermaßung von Radiobuttons horizontal und vertikal
 image::24_BE_radiobutton_measured.png[align="center"]
 
-*_Do´s_*
+*_Do's_*
 
-* Die Verwendung von Radio Buttons empfiehlt sich für eine kleinere Anzahl an Optionen.
+* Die Verwendung von Radiobuttons empfiehlt sich für eine kleinere Anzahl an Optionen.
 Ist die Menge der zur Verfügung stehenden Optionen sehr groß oder hat der Platzbedarf eine große Bedeutung, so kann der Einsatz eines Dropdowns in Betracht gezogen werden.
-* Eine Gruppe von Radio Buttons sollte immer eine Beschriftung aufweisen.
-* Für optimale Lesbarkeit sollten Radio Buttons vertikal und untereinander angeordnet sein.
-* Sollte es wahrscheinlich sein, dass keine (oder alle) der angebotenen Optionen zutrifft, sollte eine Meta-Option wie „Keine Option“ („Alle“) angeboten werden.
+* Eine Gruppe von Radiobuttons sollte immer eine Beschriftung aufweisen.
+* Für optimale Lesbarkeit sollten Radiobuttons untereinander angeordnet sein.
+* Falls alle oder keine der angebotenen Optionen zutreffen, sollte eine zusätzliche allgemeine Meta-Option, wie zum Beispiel "Keine Option" oder "Alle", hinzugefügt werden.
 
-*_Dont´s_*
+*_Don'ts_*
 
-* Ein Radio Button darf nicht genutzt werden, um unmittelbar Funktionen auszuführen oder Aktionen auszulösen. Für diese Zwecke sollten Buttons verwendet werden.
+* Ein Radiobutton darf nicht genutzt werden, um unmittelbar Funktionen auszuführen oder Aktionen auszulösen.
+Für diese Zwecke sollten Buttons verwendet werden.
 
 === Tabview
 
@@ -852,39 +880,42 @@ Es ermöglicht Entwicklern, Inhalte logisch zu organisieren und sorgt für eine 
 .Tabview
 image::24_BE_tabmenu.png[align="center"]
 
-Ein Tabview hat initial einen aktivierten, aber nicht markierten/fokussierten State (siehe obige Abbildung).
+Ein Tabview hat initial einen aktivierten, aber nicht markierten/fokussierten State (siehe <<image-Tabview>>).
 Sobald ein Tab aktiv ausgewählt wird, wird auch die Markierung im Reiter visuell deutlich.
-Der aktive Tab erhält eine 3px dicke Markierungslinie und ein gefärbtes Label in der Highlightfarbe (hier exemplarisch blau).
+Der aktive Tab erhält eine 3px dicke Markierungslinie und ein gefärbtes Label in der Highlight-Farbe (hier exemplarisch blau).
 
 [[image-Tabview-active]]
 .Tabview mit aktivem Reiter
 image::24_BE_tabmenu_active.png[align="center"]
 
-Tabview können ihre Reiter auch mit visuellen Icons unterstützen.
-Diese verhalten sich analog zum Tablabel.
+Tabviews können ihre Reiter auch mit visuellen Icons unterstützen.
+Diese verhalten sich analog zum Tab-Label.
 
 [[image-Tabview-mit-Icons]]
-.Tabview mit Icons
+.Tabview mit Icons und aktivem Reiter
 image::24_BE_tabmenu_icon.png[align="center"]
 
-Es ist ratsam Tabview zu nutzen, wenn der Inhalt nicht ohne massives Scrolling innerhalb des Screens dargestellt werden kann.
+Es ist ratsam ein Tabview zu nutzen, wenn der Inhalt nicht ohne massives Scrolling innerhalb des Screens dargestellt werden kann.
 Dabei ist eine fachlich logische Aufgliederung vorauszusetzen.
 Die optimale Anzahl an Tabs liegt bei 4-7 Tabs.
-Sollte es fachlich zwingend notwendig sein, mehr Tabs anzubieten, so kann ein „Taboverflow“ via Scrolling eingesetzt werden, dieses Element ist ein“ Überlangentabview“.
+
+Sollte es fachlich zwingend notwendig sein, mehr Tabs anzubieten, so kann technisch ein „Taboverflow“ via Scrolling eingesetzt werden.
+Dieses Element ist ein „Überlangen-Tabview“.
 
 [[image-Tabview-overlong]]
-.Initiales Aussehen eines Überlängentabview
+.Initiales Aussehen eines Überlängen-Tabview
 image::24_BE_tabmenu_long1.png[align="center"]
 
-Das Tabview nutzt dabei die volle, ihm zur Verfügung stehende, Breite und faded den letzten sichtbaren Menüpunkt aus.
-Darüber liegt ein Pfeil, der es ermöglicht die nächsten Tabs zu erreichen. Wurde dieser gedrückt, so springt das Tabview entsprechend viele Einträge weiter.
+Das Tabview nutzt dabei die volle, ihm zur Verfügung stehende, Breite und blasst (faded) den letzten sichtbaren Menüpunkt aus.
+Darüber liegt ein Pfeil, der es ermöglicht, zu den nächsten Tabs zu gelangen.
+Wurde dieser gedrückt, so springt das Tabview entsprechend viele Einträge weiter.
 
 [[image-Tabview-overlong-skipped]]
-.Überlängentabview mit mindestens einem Seitensprung
+.Überlängen-Tabview mit mindestens einem Seitensprung
 image::24_BE_tabmenu_long2.png[align="center"]
 
 Die Schriftgröße eines Labels im Tabview sollte 14pt nicht unterschreiten.
-Ist die Standardschriftgröße gewählt, so erhöht sie sich diese bei aktiven Elementen um 2pt (hier exemplarisch auf 16pt).
+Ist die Standardschriftgröße gewählt, so erhöht sich diese bei aktiven Elementen um 2pt (hier exemplarisch auf 16pt).
 Die Höhe eines Tabreiters ist mindestens 44px.
 Die Breite ist abhängig vom Label.
 Icons sind mindestens 17px x 17 px groß.
@@ -893,23 +924,24 @@ Icons sind mindestens 17px x 17 px groß.
 .Exemplarische Vermaßung des Tabview
 image::24_BE_tabmenu_measured.png[align="center"]
 
-*_Do´s:_*
+*_Do's:_*
 
 * Setze Tabs ein, wenn die Komplexität der UI reduziert werden soll und eine sinnvolle Gruppierung einzelner Bereiche vorgenommen werden kann.
 * Die optimale Anzahl an Tabs ist 4 – 7.
-* Labels für die Tabreiter sollten kurz und aussagekräftig sein. Es kann auch mit sinnvollen und verständlichen Abkürzungen gearbeitet werden.
+* Labels für die Tabreiter sollten kurz und aussagekräftig sein.
+Es kann auch mit sinnvollen und verständlichen Abkürzungen gearbeitet werden.
 * Muss der Inhalt verschiedener Tabreiter verglichen/abgestimmt werden, ist eventuell ein dynamisches Panel das passendere Element.
 * Sollten es weniger als 3 Tabreiter sein, ist eventuell ein dynamisches Panel das passendere Element.
-* Verzichte, wenn möglich, auf ein Überlängentabmenü.
+* Verzichte, wenn möglich, auf ein Überlängen-Tabview.
 
-*_Dont´s:_*
+*_Don'ts:_*
 
 * Gestalte keine Seiten mit nur einem Tabreiter.
 * Tabreiter stellen nicht verschiedene Sichten zu gleichen Daten dar.
-* Tabreiter sind kein Prozess. Für so etwas wird ein Wizard genutzt.
+* Tabreiter sind keine Prozessschritte.
+Für so etwas wird ein Wizard genutzt.
 * Tabreiter sollen keine Abhängigkeiten zueinander haben.
 * Nutze keine Labels, die länger als 26 Zeichen sind.
-
 
 == Designpattern
 
