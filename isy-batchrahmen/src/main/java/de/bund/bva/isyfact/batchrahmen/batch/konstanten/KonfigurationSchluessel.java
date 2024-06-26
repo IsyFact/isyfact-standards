@@ -80,6 +80,12 @@ public final class KonfigurationSchluessel {
      */
     public static final String PROPERTY_BATCH_OAUTH2_CLIENT_REGISTRATION_ID = "batch.oauth2ClientRegistrationId";
 
+    /**
+     * Property name for the time frame before expiry in seconds during which a token is considered as already expired
+     * before the actual token expiration.
+     */
+    public static final String PROPERTY_BATCH_OAUTH2_MINIMUM_TOKEN_VALIDITY = "batch.oauth2MinimumTokenValidity";
+
     /***************************************************************************
      * COMMAND LINE PARAMETERS *
      **************************************************************************/

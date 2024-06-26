@@ -1,10 +1,13 @@
 package de.bund.bva.isyfact.security.oauth2.util;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.time.Duration;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -13,9 +16,14 @@ import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import org.springframework.security.authentication.TestingAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.oidc.StandardClaimNames;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.server.resource.authentication.AbstractOAuth2TokenAuthenticationToken;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 
 public class IsySecurityTokenUtilTest {
 
@@ -154,6 +162,51 @@ public class IsySecurityTokenUtilTest {
 
         assertTrue(optDisplayName.isPresent());
         assertEquals("test_login", optDisplayName.get());
+    }
+
+    @Test
+    public void testHasTokenExpiredWhenTokenExpired() {
+        Instant expiresAt = Instant.now().plus(1, ChronoUnit.MINUTES);
+
+        Jwt token = Mockito.mock(Jwt.class);
+        when(token.getExpiresAt()).thenReturn(expiresAt);
+
+        SecurityContextHolder.getContext().setAuthentication(new JwtAuthenticationToken(token));
+
+        assertTrue(IsySecurityTokenUtil.hasTokenExpired(Duration.ofSeconds(61)));
+        verify(token).getExpiresAt();
+    }
+
+    @Test
+    public void testHasTokenExpiredWhenTokenNotExpired() {
+        Instant expiresAt = Instant.now().plus(1, ChronoUnit.DAYS);
+
+        Jwt token = Mockito.mock(Jwt.class);
+        when(token.getExpiresAt()).thenReturn(expiresAt);
+
+        SecurityContextHolder.getContext().setAuthentication(new JwtAuthenticationToken(token));
+
+        assertFalse(IsySecurityTokenUtil.hasTokenExpired(Duration.ofSeconds(60)));
+        verify(token).getExpiresAt();
+    }
+
+    @Test
+    public void testHasTokenExpiredWhenTokenWithoutExpiredAtProperty() {
+        Jwt token = Mockito.mock(Jwt.class);
+        when(token.getExpiresAt()).thenReturn(null);
+
+        SecurityContextHolder.getContext().setAuthentication(new JwtAuthenticationToken(token));
+
+        assertTrue(IsySecurityTokenUtil.hasTokenExpired(Duration.ofSeconds(60)));
+        verify(token).getExpiresAt();
+    }
+
+    @Test
+    public void getAuthenticationTokenThrowsExceptionWhenTokenIsNotOAuth2() {
+        Authentication notOAuth2Authentication = new TestingAuthenticationToken("principal", "credentials");
+        SecurityContextHolder.getContext().setAuthentication(notOAuth2Authentication);
+
+        assertThrows(OAuth2AuthenticationException.class, IsySecurityTokenUtil::getAuthenticationToken);
     }
 
     private void mockSecurityContextWithTokenAttributes(Map<String, Object> attributes) {

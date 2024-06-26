@@ -16,6 +16,7 @@
  */
 package de.bund.bva.isyfact.batchrahmen.core.rahmen.impl;
 
+import java.time.Duration;
 import java.util.Date;
 import java.util.Optional;
 import java.util.UUID;
@@ -57,8 +58,6 @@ import de.bund.bva.isyfact.security.oauth2.client.Authentifizierungsmanager;
 
 /**
  * Implementation of the 'Batchrahmen-Funktionalitaet'.
- *
- * @param <T> is the type of 'AufrufKontextes' to be used.
  */
 public class BatchrahmenImpl implements Batchrahmen, InitializingBean,
         ApplicationContextAware, DisposableBean {
@@ -67,6 +66,11 @@ public class BatchrahmenImpl implements Batchrahmen, InitializingBean,
      * Logger.
      */
     private static final IsyLogger LOG = IsyLoggerFactory.getLogger(BatchrahmenImpl.class);
+
+    /**
+     * Default time frame before token expiry in seconds during which a token is considered as already expired.
+     */
+    private static final long DEFAULT_TOKEN_EXPIRATION_TIME_OFFSET = 60;
 
     /**
      * Access to the EntityManager.
@@ -120,6 +124,16 @@ public class BatchrahmenImpl implements Batchrahmen, InitializingBean,
     private Optional<Authentifizierungsmanager> authentifizierungsmanagerOptional = Optional.empty();
 
     /**
+     * The configured OAuth 2.0 client registration ID to use for authentication.
+     */
+    private String oauth2ClientRegistrationId;
+
+    /**
+     * The configured minimum validity for the authentication token.
+     */
+    private Duration minimumTokenValidity;
+
+    /**
      * @return TransactionStatus
      */
     public TransactionStatus starteTransaktion() {
@@ -161,11 +175,13 @@ public class BatchrahmenImpl implements Batchrahmen, InitializingBean,
             // Initialization phase
             this.batchLaeuft = true;
 
-            try {
-                String oauth2ClientRegistrationId = verarbInfo.getKonfiguration().getAsString(KonfigurationSchluessel.PROPERTY_BATCH_OAUTH2_CLIENT_REGISTRATION_ID);
-                authentifizierungsmanagerOptional.ifPresent(am -> am.authentifiziere(oauth2ClientRegistrationId));
+            minimumTokenValidity = getAndValidateMinimumTokenValidity(verarbInfo);
 
-                if (!authentifizierungsmanagerOptional.isPresent()) {
+            try {
+                oauth2ClientRegistrationId = verarbInfo.getKonfiguration().getAsString(KonfigurationSchluessel.PROPERTY_BATCH_OAUTH2_CLIENT_REGISTRATION_ID);
+                if (authentifizierungsmanagerOptional.isPresent()) {
+                    authentifizierungsmanagerOptional.get().authentifiziere(oauth2ClientRegistrationId);
+                } else {
                     throw new IllegalArgumentException("Es wurde eine " + KonfigurationSchluessel.PROPERTY_BATCH_OAUTH2_CLIENT_REGISTRATION_ID + " gesetzt, jedoch wurde kein Authentifizierungsmanager gefunden.");
                 }
             } catch (BatchrahmenKonfigurationException e) {
@@ -193,6 +209,7 @@ public class BatchrahmenImpl implements Batchrahmen, InitializingBean,
 
                 MdcHelper.pushKorrelationsId(UUID.randomUUID().toString());
 
+                refreshAuthentication();
                 ergebnis = verarbInfo.getBean().verarbeiteSatz();
 
                 MdcHelper.entferneKorrelationsId();
@@ -217,7 +234,10 @@ public class BatchrahmenImpl implements Batchrahmen, InitializingBean,
             if (ergebnis != null) {
                 dbschl = ergebnis.getDatenbankSchluessel();
             }
+
+            refreshAuthentication();
             beendeBatch(verarbInfo, protokoll, dbschl);
+
             erfolgreich = true;
         } finally {
             try {
@@ -455,6 +475,33 @@ public class BatchrahmenImpl implements Batchrahmen, InitializingBean,
             throw new BatchrahmenKonfigurationException(NachrichtenSchluessel.ERR_KONF_BEAN_PFLICHT, beanName);
         }
         return bean;
+    }
+
+    private Duration getAndValidateMinimumTokenValidity(VerarbeitungsInformationen verarbInfo) {
+        long minimumTokenValiditySeconds = verarbInfo.getKonfiguration().getAsLong(
+                KonfigurationSchluessel.PROPERTY_BATCH_OAUTH2_MINIMUM_TOKEN_VALIDITY, DEFAULT_TOKEN_EXPIRATION_TIME_OFFSET);
+
+        if (minimumTokenValiditySeconds < 0) {
+            throw new BatchrahmenKonfigurationException(
+                    NachrichtenSchluessel.ERR_KONF_PARAMETER_UNGUELTIG, String.valueOf(minimumTokenValiditySeconds),
+                    KonfigurationSchluessel.PROPERTY_BATCH_OAUTH2_MINIMUM_TOKEN_VALIDITY);
+        }
+
+        return Duration.ofSeconds(minimumTokenValiditySeconds);
+    }
+
+    /**
+     * Refreshs the authentication as long as its expiration is within {@link #minimumTokenValidity}.
+     * This method is a noop in case authentication is not configured for the current batch.
+     */
+    private void refreshAuthentication() {
+        if (authentifizierungsmanagerOptional.isPresent() && oauth2ClientRegistrationId != null) {
+            try {
+                authentifizierungsmanagerOptional.get().authentifiziere(oauth2ClientRegistrationId, minimumTokenValidity);
+            } catch (ClientAuthorizationException e) {
+                LOG.error(BatchRahmenEreignisSchluessel.EPLBAT00001, "Fehler bei der Authentifizierung: {}", e.getMessage());
+            }
+        }
     }
 
     /**

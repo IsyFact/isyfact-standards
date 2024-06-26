@@ -2,13 +2,11 @@ package de.bund.bva.isyfact.batchrahmen;
 
 import jakarta.annotation.Nullable;
 
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.PlatformTransactionManager;
 
+import de.bund.bva.isyfact.batchrahmen.batch.BasicAuthenticationTestBatch;
 import de.bund.bva.isyfact.batchrahmen.batch.BasicTestBatch;
 import de.bund.bva.isyfact.batchrahmen.batch.ErrorTestBatch;
 import de.bund.bva.isyfact.batchrahmen.batch.GesicherterTestBatch;
@@ -41,6 +39,11 @@ public class BatchrahmenTestConfig {
     @Bean
     public BasicTestBatch basicTestBatch() {
         return new BasicTestBatch();
+    }
+
+    @Bean
+    public BasicAuthenticationTestBatch basicAuthenticationTestBatch() {
+        return new BasicAuthenticationTestBatch();
     }
 
     @Bean
