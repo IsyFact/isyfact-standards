@@ -64,7 +64,7 @@ Es beginnt mit allgemeinen Prinzipien, die das Fundament jedes Elements bilden.
 Folgend werden die einzelnen Bedienelemente beschrieben, welche in unterschiedlicher gruppierter Anwendung ein Pattern bilden.
 Abgebildet werden hier exemplarisch die „Most-used“-Pattern.
 Diese Patterns bilden in verschiedenen Konstellationen mit weiteren Pattern und Bedienelementen typische Use Cases, wie z.B. Formulare.
-Diese Use Cases sind auch exemplarisch – ein Formular kann und muss mit dem Schwerpunkt der optimalen Fachlichkeit konzipiert werden.
+Diese Use Cases sind auch exemplarisch – ein Formular kann und muss mit dem Schwerpunkt der *optimalen Fachlichkeit* konzipiert werden.
 
 *_Einhaltung von Standards und Best Practices_*
 
@@ -133,7 +133,7 @@ Dieses Prinzip wird im Kapitel <<Barrierefreiheit>> und unter den einzelnen <<Be
 
 Usability ist ein Schlüsselaspekt des Bedienkonzepts und bezieht sich auf die Benutzerfreundlichkeit einer Anwendung.
 Eine hohe Usability gewährleistet, dass Benutzer die Anwendung intuitiv und effizient nutzen können, ohne auf Hindernisse oder Schwierigkeiten zu stoßen.
-Dafür nutzt die Usability die zuvor genannten allgemeinen Designprinzipien.
+Dafür nutzt die Usability die zuvor genannten <<allgemeine-prinzipien,allgemeinen Designprinzipien>>.
 
 In Fachanwendungen, die oft komplexe Funktionen und Workflows umfassen, ist eine hohe Usability besonders wichtig.
 Fachanwendungen werden oft von professionellen Benutzern verwendet, die spezifische Aufgaben effizient erledigen müssen.
@@ -275,7 +275,7 @@ Alle hier genannten Maßnahmen sind zur Steigerung der Awareness und Transparenz
 In der Regel sind die genannten Anforderungen durch die Anwendung der Standardelemente der IsyFact sichergestellt oder die Möglichkeit geboten die fachlichen Elemente sicherzustellen.
 
 * Sorge dafür, dass alle Elemente auch ohne Maus erreichbar und bedienbar sind.
-* Eingabefelder müssen nach der Aktivierung eines Hochkontrastmodus/Farbfilters zu 50% bestehen bleiben – eine einzelne Linie als Bestandteil ist nicht ausreichend als Identifizierung eines Eingabefeldes.
+* <<Eingabefeld,Eingabefelder>> müssen nach der Aktivierung eines Hochkontrastmodus/Farbfilters zu 50% bestehen bleiben – eine einzelne Linie als Bestandteil ist nicht ausreichend als Identifizierung eines Eingabefeldes.
 * Die Textgröße soll im Standard mindestens 14pt betragen.
 * Der Textkontrast muss immer mindestens 4,5:1 und bei großen Texten mindestens 3:1 betragen.
 Für Haupt & Einstiegsseiten, Seiten mit rechtlicher Relevanz muss der Kontrast 7:1 betragen.
@@ -616,7 +616,7 @@ Platzhalter müssen sinnvolle Eingabeunterstützungen (im einfachsten Fall das L
 .Eingabefeld aktiv
 image::24_BE_eingabefeld_aktiv.png[align="center"]
 
-Aktive Eingabefelder sind inkl. dem Label in der Highlight-Farbe (blau) dargestellt.
+Aktive Eingabefelder sind inkl. dem Label in der Highlightfarbe (blau) dargestellt.
 Sie haben zusätzlich zur veränderten Farbe eine 1px dickere Border und die Schrift vergrößert sich um 2pt.
 
 Aktive Eingabefelder verlieren ihren Platzhalter und können entweder geleert werden (siehe Abbildung <<image-eingabefeldaktiv>>) oder eine Mask enthalten (siehe Abbildung <<image-eingabefeldmask>>).
@@ -692,7 +692,7 @@ Bei sehr langen Labels sollten sinnvolle Abkürzungen verwendet werden.
 Soll z.B. eine Postleitzahl innerhalb Deutschlands eingegeben werden, so macht es Sinn die Feld-Länge auf 5 Stellen zu begrenzen.
 Optisch kann das Eingabefeld der Konsistenz entsprechend länger sein.
 * Pflichtfelder werden mit einem Asterisk (*) gekennzeichnet.
-* Der Asterisk unterliegt denselben Regeln wie das Label (aktiv = <<image-eingabefeldaktiv,Highlight-Farbe>>, Fehler = <<image-eingabefelderror,Fehlermeldungsfarbe>>).
+* Der Asterisk unterliegt denselben Regeln wie das Label (aktiv = <<image-eingabefeldaktiv,Highlightfarbe>>, Fehler = <<image-eingabefelderror,Fehlermeldungsfarbe>>).
 
 *_Exemplarische Vermaßung der verschiedenen Eingabefelder:_*
 
@@ -749,7 +749,7 @@ Die Einträge sind eindeutig und prägnant.
 Bei langen Einträgen können auch sinnvolle Abkürzungen genutzt werden.
 
 Die Listenelemente sind mindestens 44px hoch und entsprechend dem dazugehörigen Element breit (hier exemplarisch das Eingabefeld).
-Aktive Elemente sind in der Highlight-Farbe und hinterlegt dargestellt.
+Aktive Elemente sind in der Highlightfarbe und hinterlegt dargestellt.
 
 *_Do's_*
 
@@ -882,7 +882,7 @@ image::24_BE_tabmenu.png[align="center"]
 
 Ein Tabview hat initial einen aktivierten, aber nicht markierten/fokussierten State (siehe <<image-Tabview>>).
 Sobald ein Tab aktiv ausgewählt wird, wird auch die Markierung im Reiter visuell deutlich.
-Der aktive Tab erhält eine 3px dicke Markierungslinie und ein gefärbtes Label in der Highlight-Farbe (hier exemplarisch blau).
+Der aktive Tab erhält eine 3px dicke Markierungslinie und ein gefärbtes Label in der Highlightfarbe (hier exemplarisch blau).
 
 [[image-Tabview-active]]
 .Tabview mit aktivem Reiter
@@ -945,13 +945,13 @@ Für so etwas wird ein Wizard genutzt.
 
 == Designpattern
 
-Designpattern sind wiederkehrende Lösungen für Designprobleme, die sich über verschiedene Teile der Anwendung erstrecken können.
+Designpatterns sind wiederkehrende Lösungen für Designprobleme, die sich über verschiedene Teile der Anwendung erstrecken können.
 Dieser Abschnitt beschreibt die Konzepte von Designpatterns, ihre Bedeutung für die Konsistenz und Effizienz der Benutzeroberfläche, sowie ihre Rolle bei der Gestaltung eines benutzerzentrierten Designs.
 
 === Eingabefeldliste (Dropdown)
 
 Ein Eingabefeld mit hinterlegten Werten ist in seiner einfachsten Form ein Eingabefeld mit Liste.
-Die Liste ist die bekannteste Art eines interaktiven Eingabefelds besser bekannt als Dropdown.
+Die Liste ist die bekannteste Art eines interaktiven Eingabefelds, besser bekannt als Dropdown.
 Eingabefeldlisten setzen Standards für interaktive Eingabefelder, Dropdown-Menüs, enthaltene Kontrollkästchen und andere interaktive Elemente.
 Dadurch wird sichergestellt, dass alle Eingabefelder auf der Webseite oder in der Anwendung einheitlich gestaltet sind und den besten Praktiken hinsichtlich Benutzerfreundlichkeit und Barrierefreiheit entsprechen.
 Ein konsistentes Design fördert die Orientierung und das Vertrauen der Benutzer, was letztendlich zu einer höheren Zufriedenheit und Effizienz führt.
@@ -971,18 +971,19 @@ Aktive Elemente sind in der Highlightfarbe und hinterlegt dargestellt.
 
 === Eingabefeldgruppen
 
-Eingabefeldgruppen sind in fast jeder Anwendung oder Website vorhanden.
+Eingabefeldgruppen sind in fast jeder Anwendung oder Webseite vorhanden.
 Sie haben stets einen unterschiedlichen fachlichen Schnitt, lassen sich aber in den häufigsten Anwendungsfällen in homogene Gruppen definieren.
 Bekannte Gruppen sind personenbezogene Daten wie z.B.: Angaben zur Person, Ortsdaten/Adresse, Bezahldaten.
+
 Diese Gruppen bestehen immer aus mindestens einer Gruppenüberschrift/Gruppenlabel, mehreren Eingabefeldern und ggf. weiteren Bedienelementen.
 Die nachfolgenden Angaben beziehen sich immer auf Neuentwicklungen und Aktualisierungen.
-Altanwendungen, die nicht angepasst werden müssen, können weiterhin ihrem zum Umsetzungszeitpunkt gültigen Styleguide und Bedienkonzept entsprechen.
+Altanwendungen, die nicht angepasst werden müssen, können weiterhin ihrem zum Umsetzungszeitpunkt gültigen Bedienkonzept entsprechen.
 Alle hier gezeigten Grafiken beziehen sich auf die aktuelle und zukünftige Umsetzung.
 
-*_Beispiel einer Eingabefeldgruppe "Personendaten":_*
+*_Beispiel einer Eingabefeldgruppe "Persönliche Angaben":_*
 
 [[image-eingabefeldgruppe]]
-.Eingabefeldgruppe Beispiel: persönliche Daten
+.Eingabefeldgruppe Beispiel: Persönliche Angaben
 image::24_DP_persoenliche_angaben.png[align="center"]
 
 Verwendet wird ein 1-spaltiges inhaltliches Layout.
@@ -996,32 +997,36 @@ Sie können durch ihre inhaltliche logische Struktur dem grundlegenden 3-spaltig
 .Eingabefeldgruppe mit bedingten Pflichtfeldern
 image::24_DP_bedingte_pflichtfeldgruppe.png[align="center"]
 
-Erklärung:
+_Erklärung:_
+
 Bedingt ein Pflichtfeld nur eine Teilmenge einer Auswahl an Eingabemöglichkeiten, so lässt sich dies über eine bedingte Pflichtfeldgruppe darstellen.
 Hier ist die Eingabe mindestens einer Option Voraussetzung, um den Prozess abzuschließen.
-Im konkreten Beispiel: Identitätsnachweisdokument.
-Der Prozess sieht vor das ein Nachweis über die Identität erbracht wird.
+
+_Im konkreten Beispiel: Identitätsnachweisdokument_
+
+Der Prozess sieht vor, dass ein Nachweis über die Identität erbracht wird.
 Dies kann jedoch über verschiedene Dokumente erfolgen.
 Somit wird unter der Gruppe „Identitätsnachweisdokument“ in verschiedenen Eingabefeldern die Möglichkeit gegeben sich für eine Nachweisart zu entscheiden und entsprechend ihrer Art entweder eine Auswahl zu treffen oder eine entsprechende Nummer anzugeben.
+
 Dabei ist nicht das einzelne Eingabefeld ein Pflichtfeld, sondern der Nachweis an sich.
-Dieser wird positiv bestätigt, sobald eine in der Gruppe enthaltenen Möglichkeit ausgewählt/befüllt wurde.
+Sobald eine Möglichkeit innerhalb der Gruppe ausgewählt/befüllt wurde, wird die bedingte Pflichtfeldgruppe für den Identitätsnachweis als positiv bestätigt.
 
 Dies ist technisch ein sogenanntes „Fieldset“.
 
-Für komplexere fachliche Konstellationen, kann über eine textuelle Hilfestellung mit Signalwörtern gearbeitet werden.
-Der Einsatz solcher komplexen bedingten Pflichtfelder ist aus Sicht der Benutzerfreundlichkeit nur im absoluten Ausnahmefall zu wählen.
+Für komplexere fachliche Konstellationen kann über eine textuelle Hilfestellung mit Signalwörtern gearbeitet werden.
+Der Einsatz solcher komplexen bedingten Pflichtfelder ist aus Sicht der Benutzerfreundlichkeit nur im *absoluten Ausnahmefall* zu wählen.
 Vielmehr sollte überlegt werden, ob es einen verständlicheren fachlichen Lösungsansatz gibt.
 
 *_Beispielhafte Verwendung von Gruppen und inhaltlich logischer Gruppierung:_*
 
-* Personendaten (rosa overlay, vertikal gruppiert)
-* Identitätsnachweis (orange overlay, vertikal gruppiert)
+* Personendaten (rosa Overlay, vertikal gruppiert)
+* Identitätsnachweis (oranger Overlay, vertikal gruppiert)
 
 [[image-variationeingabefeldgruppen]]
 .Verschiedene Eingabefeldgruppen vertikal gruppiert
 image::24_DP_variation_eingabefeldgruppen.png[align="center"]
 
-Hier wird deutlich das in einem mehrspaltigen Layout verschiedene Kombinationen an Eingabefeldern in 2-spaltiger (horizontal) Anordnung einer Hauptgruppe (in lila) unterliegen.
+Hier wird deutlich das in einem mehrspaltigen Layout verschiedene Kombinationen an Eingabefeldern in 2-spaltiger (horizontaler) Anordnung einer Hauptgruppe (in Lila) unterliegen.
 Die blockartige Anordnung erleichtert das Erfassen und ermöglicht eine thematische Untergruppen-Clusterung.
 
 [[image-mehrspaltigegruppen]]
