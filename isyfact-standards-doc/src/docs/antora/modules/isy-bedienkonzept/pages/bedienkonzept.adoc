@@ -709,7 +709,8 @@ Die Schriftgröße sollte 14pt nicht unterschreiten.
 Der Abstand eines Eingabefelds zum darunter liegenden Label eines weiteren Eingabefelds soll ca. dem doppelten Abstand zwischen einem Label-Eingabefeld-Paar entsprechen, um eine eindeutige Zuordnung zu gewährleisten.
 
 Eingabefelder können auch eine unbestimmte Menge an Zeichen erwarten.
-Dann spricht man von Textboxen. Sie unterscheiden sich in der Größe und Form von gewöhnlichen Eingabefeldern.
+Dann wird von einer Textbox gesprochen.
+Diese unterscheiden sich in der Größe und Form von gewöhnlichen Eingabefeldern.
  
 [[image-Textbox]]
 .Textbox
@@ -1100,49 +1101,55 @@ image::24_UC_fullexample_formular.png[align="center"]
 
 == Eingabehilfen und Fehlermeldungen
 
-Eingabehilfen und Fehlermeldungen sind essenziell wichtig, um die Benutzerfreundlichkeit einer Anwendung zu starten, im folgenden Kapitel sollen die Grundlagen zur erfolgreichen Gestaltung von Eingabehilfen und Fehlermeldungen erläutert werden.
+Eingabehilfen und Fehlermeldungen sind essenziell wichtig, um die Benutzerfreundlichkeit einer Anwendung zu erhöhen.
+Im folgenden Kapitel sollen die Grundlagen zur erfolgreichen Gestaltung von Eingabehilfen und Fehlermeldungen erläutert werden.
 
 === Eingabehilfen
 
-==== Korrekte Labels:
+==== Korrekte Labels
 
-Auch Labels sind schon Eingabehilfen.
-Klare und präzise Beschriftungen (Labels) sind für die Benutzerführung entscheidend, insbesondere für Formulare und Eingabefelder.
+Auch <<Label,Labels>> sind schon Eingabehilfen.
+Klare und präzise Beschriftungen (Labels) sind für die Benutzerführung entscheidend, insbesondere für <<Formulare>> und <<Eingabefeld,Eingabefelder>>.
 Jedes Eingabefeld muss ein entsprechendes Label haben, das den Benutzern genau sagt, welche Art von Information erwartet wird.
 Beispielsweise sollte ein Anmeldeformular separate Felder für "Benutzername" und "Passwort" haben, jeweils mit deutlich sichtbaren Labels.
 
-==== Gute Platzhaltertexte:
+==== Gute Platzhaltertexte
 
 Platzhaltertexte sind nützlich, um Benutzern zusätzliche Hinweise oder Beispiele für die erwarteten Eingaben zu geben.
-Sie sollten jedoch nicht als Ersatz für Labels dienen. Idealerweise sollten Platzhaltertexte kurz und prägnant sein, um den Benutzern zu helfen, die Anforderungen des jeweiligen Eingabefelds besser zu verstehen, ohne den Platz zu überladen oder den Fokus zu stören.
+Sie sollten jedoch nicht als Ersatz für Labels dienen.
+Idealerweise sollten Platzhaltertexte kurz und prägnant sein, um den Benutzern zu helfen, die Anforderungen des jeweiligen Eingabefelds besser zu verstehen, ohne den Platz zu überladen oder den Fokus zu stören.
 
-Beispiel 1, man erwartet einen Nachnamen im Eingabefeld
+*Beispiel 1:* es wird ein Nachname im Eingabefeld erwartet
 
 *_Do:_*
 Nachname
 
-*_Dont:_*
+*_Don't:_*
 Dein Nachname
 
-Beispiel 2, man erwartet eine Telefonnummer
+*Beispiel 2:* es wird eine Telefonnummer erwartet
 
 *_Do:_*
 +49 123 1234567
 
-*_Dont:_*
+*_Don't:_*
 Deine Telefon- oder Handynummer
 
 Sobald der Benutzer in das Eingabefeld klickt, wird der Platzhalter ausgeblendet und es besteht die Möglichkeit eine Mask anzeigen zu lassen.
-Im Kapitel Eingabefelder sind Masks als Element dargestellt. Sie geben das gewünschte Eingabepattern vor und lassen sich fast vollständig frei gestalten.
-Gute Hinweistexte zur Erläuterung bei Eingabefeldern und Fehlermeldungen:
+Im Kapitel <<Eingabefeld,Eingabefelder>> sind <<image-eingabefeldmask,Masks>> als Element dargestellt.
+Sie geben das gewünschte Eingabepattern vor und lassen sich fast vollständig frei gestalten.
+
+_Gute Hinweistexte zur Erläuterung bei Eingabefeldern und Fehlermeldungen:_
+
 Bei komplexeren Formularen oder spezifischen Eingabeanforderungen können Hinweistexte hilfreich sein, um den Benutzern zusätzliche Anleitungen oder Kontext zu bieten.
 Diese Texte sollten in der Nähe des entsprechenden Eingabefelds platziert werden und sollten klar und präzise sein.
 Sie können beispielsweise erklären, welche Art von Informationen erwartet werden oder auf spezielle Formatierungsanforderungen hinweisen.
 
 ==== Autosuggestion
 
-Autosuggestion ist eine Zusatzfunktion, die in Eingabefeldern ergänzt werden können.
-Sie dient dazu, Eingaben durch Vorschläge zu vervollständigen und somit zu beschleunigen. Diese Eingabehilfe erscheint direkt unter dem Textfeld.
+Autosuggestion ist eine Zusatzfunktion, die in <<Eingabefeld,Eingabefeldern>> ergänzt werden können.
+Sie dient dazu, Eingaben durch Vorschläge zu vervollständigen und somit zu beschleunigen.
+Diese Eingabehilfe erscheint direkt unter dem Textfeld.
 Sie schließt sich, wenn der Benutzer außerhalb der Eingabehilfe klickt oder innerhalb der Eingabehilfe seine Auswahl trifft.
 
 [[image-autosuggestion]]
@@ -1159,6 +1166,8 @@ Gibt es mehr als 10 mögliche passende Werte, so werden die ersten 10 Werte ange
 Feedback-Konzepte für Ladezeiten sind ein sehr wichtiges Instrument zur Erreichung guter User Experience.
 Für längere Operationen kann ein Fortschritts-Balken (Progress Bar) genutzt werden, der sich entsprechend dem Fortschritt des Vorgangs füllt.
 Für kürzere Vorgänge kann ein Fortschritts-Spinner (kreisrunde Fortschrittsanzeige) verwendet werden.
+
+//ToDo: Ist hier die Spaltenfilterung innerhalb von Tabellen gemeint?
 Mit dem Toggle-Filter kann durch einen Klick auf einen Button eine Liste von Objekten oder Formularen nach bestimmten vordefinierten Kriterien eingeschränkt werden.
 
 [[image-spinnerbar]]
@@ -1166,35 +1175,43 @@ Mit dem Toggle-Filter kann durch einen Klick auf einen Button eine Liste von Obj
 image::24_EF_spinner_and_bar.png[align="center"]
 
 [[image-spinnerbarlist]]
-.Spinner und Progressbar in einer Liste angewandt
+.Spinner in einer Liste angewandt
 image::24_EF_spinner_and_bar_in_list.png[align="center"]
 
-* Generell sollten Vorgänge oder Operationen, die mehr als eine Sekunde in Anspruch nehmen, eine Rückmeldung in Form einer Fortschrittsanzeige an den Benutzer geben
-* Die Form der Fortschrittsanzeige richtet sich dabei nach der Länge des Vorgangs und dem Anwendungskontext
+_Grundlegende Anwendungshinweise:_
+
+* Generell sollten Vorgänge oder Operationen, die mehr als eine Sekunde in Anspruch nehmen, eine Rückmeldung in Form einer Fortschrittsanzeige an den Benutzer geben.
+* Die Form der Fortschrittsanzeige richtet sich dabei nach der Länge des Vorgangs und dem Anwendungskontext.
 * Fortschrittsanzeigen werden in der Regel nur für Wartezeiten verwendet, die sich aus System-Operationen ergeben.
-Für Wartezeiten, die sich auf die Bedienung des Benutzers zurückführen lassen, werden keine Fortschrittsanzeigen eingesetzt
+Für Wartezeiten, die sich auf die Bedienung des Benutzers zurückführen lassen, werden keine Fortschrittsanzeigen eingesetzt.
 
-Balken oder Spinner:
+*Balken oder Spinner*
 
-*_Fortschritts-Balken (Progress Bar)_*
+*_Fortschritts-Balken (Progress Bar):_*
 
-* Fortschritts-Balken werden in der Regel für Ladevorgänge mit bestimmbarer Gesamtlänge verwendet
-* Ein Balken zeigt den Grad der Zielerreichung an. Dabei füllt sich der Balken von links (0%) nach rechts (100%)
+* Fortschritts-Balken werden in der Regel für Ladevorgänge mit bestimmbarer Gesamtlänge verwendet.
+* Ein Balken zeigt den Grad der Zielerreichung an.
+Dabei füllt sich der Balken von links (0%) nach rechts (100%).
 
-*_Fortschritts-Spinner (kreisrunde Fortschrittsanzeige)_*
+*_Fortschritts-Spinner (kreisrunde Fortschrittsanzeige):_*
 
-* Fortschritts-Spinner werden für Ladevorgänge verwendet, deren Gesamtlänge unbekannt ist
-* Für die Dauer der Operation dreht sich der Fortschritts-Spinner und signalisiert dem Benutzer damit, dass sich ein Prozess im Vorgang befindet. Der Fortschritts-Spinner empfiehlt sich aufgrund seiner geringen Ausmaße insbesondere in Situationen, in denen Platzbedarf von großer Bedeutung ist
+* Fortschritts-Spinner werden für Ladevorgänge verwendet, deren Gesamtlänge unbekannt ist.
+* Für die Dauer der Operation dreht sich der Fortschritts-Spinner und signalisiert dem Benutzer damit, dass sich ein Prozess im Vorgang befindet.
+Der Fortschritts-Spinner empfiehlt sich aufgrund seiner geringen Ausmaße insbesondere in Situationen, in denen Platzbedarf von großer Bedeutung ist.
 
 === Fehlermeldungen
 
-Korrekte Darstellung von Fehlern und Hilfestellung bei der Korrektur:
+_Korrekte Darstellung von Fehlern und Hilfestellungen bei der Korrektur:_
+
 Fehlermeldungen sind unvermeidlich, aber wie sie präsentiert werden, kann einen großen Unterschied für die Benutzererfahrung ausmachen.
 Fehlermeldungen sollten deutlich sichtbar sein, in verständlicher Sprache verfasst sein und klare Anweisungen zur Behebung des Fehlers enthalten.
-Idealerweise sollten Fehlermeldungen in unmittelbarer Nähe betroffenen Objekts platziert werden (siehe als Beispiel: Eingabefelder - Fehlermeldung, um Benutzern sofortiges Feedback zu geben und sie bei der Fehlerbehebung zu unterstützen.
+Idealerweise sollten Fehlermeldungen in unmittelbarer Nähe von betroffenen Objekten platziert werden (siehe als Beispiel: <<image-eingabefelderror,Eingabefelder - Fehlermeldung>>), um Benutzern sofortiges Feedback zu geben und sie bei der Fehlerbehebung zu unterstützen.
+
 Neben Fehlermeldungen, die am Eingabeobjekt auftreten können, kann zusätzlich ein zusammenfassender Hinweis angezeigt werden (Achtung: dynamisch nachgeladene Elemente müssen auch einem Screenreader mitgeteilt werden, sodass auch Personen mit Einschränkungen diese Hinweise mitbekommen).
-Dies geschieht mit Hilfe von Toast-Notifications, welche immer am unteren rechten Rand des Browserfensters angezeigt werden.
-Jede Toast Notification muss eine Schließen-Aktion für den Benutzer anbieten.
+Dies geschieht mithilfe von Toast-Notifications, welche immer am unteren rechten Rand des Browserfensters angezeigt werden.
+
+Jede Toast-Notification muss eine Schließen-Aktion für den Benutzer anbieten.
+//ToDo: Verweis?
 Um die Barrierefreiheit einzuhalten, muss die Notification dauerhaft eingeblendet bleiben, bis der Benutzer sie schließt, siehe WCAG 2.1 Kriterium 1.4.13a.
 
 Folgende Meldungsarten können als Toast-Notification verwendet werden:
@@ -1205,5 +1222,5 @@ Folgende Meldungsarten können als Toast-Notification verwendet werden:
 * Erfolg
 
 [[image-toastnotification]]
-.Verschiedene Toast Notifications
+.Verschiedene Toast-Notifications
 image::24_UC_toast_notification.png[align="center"]
