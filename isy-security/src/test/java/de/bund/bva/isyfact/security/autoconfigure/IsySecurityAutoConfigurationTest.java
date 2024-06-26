@@ -15,13 +15,19 @@ import org.springframework.boot.test.context.runner.WebApplicationContextRunner;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.config.core.GrantedAuthorityDefaults;
 import org.springframework.security.oauth2.client.registration.ClientRegistration;
+import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
+
+import com.nimbusds.jwt.proc.JWTProcessor;
 
 import de.bund.bva.isyfact.security.AbstractOidcProviderTest;
 import de.bund.bva.isyfact.security.config.IsyOAuth2ClientConfigurationProperties;
 import de.bund.bva.isyfact.security.config.IsySecurityConfigurationProperties;
+import de.bund.bva.isyfact.security.config.JWTConfigurationProperties;
 import de.bund.bva.isyfact.security.core.Berechtigungsmanager;
 import de.bund.bva.isyfact.security.core.Security;
+import de.bund.bva.isyfact.security.core.TenantJwsKeySelector;
+import de.bund.bva.isyfact.security.core.TenantJwtIssuerValidator;
 import de.bund.bva.isyfact.security.oauth2.client.Authentifizierungsmanager;
 import de.bund.bva.isyfact.security.oauth2.client.annotation.AuthenticateInterceptor;
 import de.bund.bva.isyfact.security.oauth2.client.authentication.ClientCredentialsAuthorizedClientAuthenticationProvider;
@@ -256,19 +262,67 @@ public class IsySecurityAutoConfigurationTest extends AbstractOidcProviderTest {
     }
 
     @Test
+    public void testContextStartsWithoutMultiTenancy() {
+        contextRunner
+                .withPropertyValues(
+                        "spring.security.oauth2.resourceserver.jwt.issuer-uri=http://localhost:9095/auth/realms/testrealm")
+                .run(context -> assertThat(context)
+                        .hasNotFailed()
+                        .doesNotHaveBean(JWTConfigurationProperties.class)
+                        .doesNotHaveBean(TenantJwsKeySelector.class)
+                        .doesNotHaveBean(TenantJwtIssuerValidator.class)
+                        .doesNotHaveBean(JwtDecoder.class)
+                        .doesNotHaveBean(JWTProcessor.class)
+                );
+    }
+
+    @Test
+    public void testContextStartsWithoutMultiTenancyWithMultiTenancyProperties() {
+        contextRunner
+                .withPropertyValues(
+                        "spring.security.oauth2.resourceserver.jwt.issuer-uri=http://localhost:9095/auth/realms/testrealm",
+                        "isy.security.oauth2.resourceserver.jwt.tenants.tenant1.issuer-uri=http://localhost:9095/auth/realms/testrealm1",
+                        "isy.security.oauth2.resourceserver.jwt.tenants.tenant1.jwks-uri=http://localhost:9096/auth/realms/testrealm1")
+                .run(context -> assertThat(context)
+                        .hasNotFailed()
+                        .doesNotHaveBean(JWTConfigurationProperties.class)
+                        .doesNotHaveBean(TenantJwsKeySelector.class)
+                        .doesNotHaveBean(TenantJwtIssuerValidator.class)
+                        .doesNotHaveBean(JwtDecoder.class)
+                        .doesNotHaveBean(JWTProcessor.class)
+                );
+    }
+
+    @Test
+    public void testContextStartsWithMultiTenancySpringPropertyMissing() {
+        contextRunner
+                .withPropertyValues(
+                        "isy.security.oauth2.resourceserver.jwt.tenants.tenant1.issuer-uri=http://localhost:9095/auth/realms/testrealm1",
+                        "isy.security.oauth2.resourceserver.jwt.tenants.tenant1.jwks-uri=http://localhost:9096/auth/realms/testrealm1")
+                .run(context -> assertThat(context)
+                        .hasNotFailed()
+                        .hasSingleBean(JWTConfigurationProperties.class)
+                        .hasSingleBean(TenantJwsKeySelector.class)
+                        .hasSingleBean(TenantJwtIssuerValidator.class)
+                        .hasSingleBean(JwtDecoder.class)
+                        .hasSingleBean(JWTProcessor.class)
+                );
+    }
+
+    @Test
     void isySecurityAutoConfigurationNoMappingFile() {
         contextRunner
-            .withPropertyValues(
-                "isy.security.role-privileges-mapping-file=/resources/sicherheit/noRollenrechte.xml"
-            )
-            .run(context -> {
-                    assertThat(context)
-                        .hasNotFailed()
-                        .hasSingleBean(RolePrivilegesMapper.class);
+                .withPropertyValues(
+                        "isy.security.role-privileges-mapping-file=/resources/sicherheit/noRollenrechte.xml"
+                )
+                .run(context -> {
+                            assertThat(context)
+                                    .hasNotFailed()
+                                    .hasSingleBean(RolePrivilegesMapper.class);
 
-                    RolePrivilegesMapper mapper = context.getBean(RolePrivilegesMapper.class);
-                    assertThat(mapper.getAllPrivileges()).isEmpty();
-                }
-            );
+                            RolePrivilegesMapper mapper = context.getBean(RolePrivilegesMapper.class);
+                            assertThat(mapper.getAllPrivileges()).isEmpty();
+                        }
+                );
     }
 }
