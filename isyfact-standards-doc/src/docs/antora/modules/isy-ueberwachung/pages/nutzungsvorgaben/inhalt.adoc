@@ -462,20 +462,20 @@ boolean pruefeSystem() {
 }
 ----
 
-[[implementierung-von-liveness-und-readiness-Zustaenden]]
-==== Implementierung von Liveness und Readiness Zuständen
+[[liveness-und-readiness-zustaende]]
+==== Liveness und Readiness Zustände
 
-Wie in Kapitel xref:konzept/master.adoc#informationen-ueber-den-systemzustand[Informationen über den Systemzustand] beschrieben sind _Liveness_ und _Readiness_ optionale Zustände, die einem feingranularen Monitoring dienen.
+Wie in Kapitel xref:konzept/master.adoc#informationen-ueber-den-systemzustand[Informationen über den Systemzustand] beschrieben sind _Liveness_ und _Readiness_ Zustände, die einem feingranularen Monitoring dienen.
 
-Anwendungen nach dem IsyFact Standard sollen Informationen über diese Zustände zur Verfügung stellen.
-Diese sind aktuell konzeptionell beschrieben und nicht in der `isy-überwachung`-Bibliothek implementiert.
-Die tatsächlich sinnvolle Nutzung der Zustände hängt stark von den betrieblichen Gegebenheiten und der zu überwachenden Anwendung ab.
-Daher werden hier Vorgaben für die bedarfsgerechte Implementierung gemacht.
+Anwendungen nach dem IsyFact Standard sollen, neben dem Health-Zustand, Informationen über diese Zustände zur Verfügung stellen.
+_Liveness_ und _Readiness_ sind konzeptionell beschrieben und werden nicht von der `isy-überwachung`-Bibliothek zur Verfügung gestellt.
+Die tatsächlich korrekte Abbildung der Zustände hängt von den betrieblichen Gegebenheiten und der zu überwachenden Anwendung ab.
+Daher werden hier Vorgaben für die bedarfsgerechte Darstellung von _Liveness_ und _Readiness_ gemacht.
 
-[[auslesen-von-liveness-und-readiness-probes]]
-===== Auslesen von Liveness und Readiness Probes
+[[bereitstellen-von-liveness-und-readiness-probes]]
+===== Bereitstellen von Liveness und Readiness Probes
 
-_Liveness_ und _Readiness_ Probes können in der Anwendungskonfiguration aktiviert werden durch (vgl. https://www.baeldung.com/spring-liveness-readiness-probes[Baeldung: Liveness und Readiness Probes in Spring Boot]):
+_Liveness_ und _Readiness_ Probes können in der Anwendungskonfiguration aktiviert werden: (vgl. https://www.baeldung.com/spring-liveness-readiness-probes[Baeldung: Liveness und Readiness Probes in Spring Boot]):
 
 .Aktivierung von Liveness und Readiness in den `application.properties`
 [id="listing-enable-liveness-readiness-states",reftext="{listing-caption} {counter:listings }"]
@@ -486,41 +486,47 @@ management.health.livenessState.enabled=true
 management.health.readinessState.enabled=true
 ----
 
-Damit werden die der Anwendung zur Verfügung stehenden Informationen genutzt, um den jeweiligen Zustand zu bestimmen und über den Spring `ApplicationContext` zu veröffentlichen.
+Damit werden die der Anwendung zur Verfügung stehenden Informationen aus dem `ApplicationContext` und dem Lebenszyklus der Anwendung genutzt, um die Ausprägung des jeweiligen Zustands zu bestimmen.
 Verfügt die Anwendung über keine Abhängigkeiten, die die Zustände beeinflussen, ist die beschriebene Aktivierung zur Verwendung der Zustände ausreichend.
 Ob Abhängigkeiten mit Einfluss auf die Zustände gemäß deren xref:konzept/inhalt.adoc#Liveness-und-Readiness[Definition] bestehen, ist von den Entwickelnden zu beurteilen.
 
 [[update-des-liveness-states]]
 ===== Update des Liveness States
 
-Für den Liveness Zustand sind Abhängigkeiten, die eine Erweiterung notwendig machen, selten gegeben.
-Wenn der `ApplicationContext` erfolgreich gestartet ist, geht Spring Boot davon aus, dass die Anwendung in einem korrekten Zustand ist.
-Die Anwendung wird als alive betrachtet, sobald der `Context` aufgefrischt wird
-(vgl. https://docs.spring.io/spring-boot/docs/current/reference/html/features.html#features.spring-application.application-availability.liveness[Spring Boot Liveness]).
+In den meisten Fällen reicht für die korrekte Abbildung des _Liveness_-Zustands, die vom Spring Boot Actuator standardmäßige Ermittlung des Zustands aus.
+Wenn der `ApplicationContext` erfolgreich initialisiert ist, geht Spring Boot grundsätzlich davon aus, dass die Anwendung in einem korrekten Zustand ist.
+Die Anwendung wird dann als alive betrachtet (vgl. https://docs.spring.io/spring-boot/reference/features/spring-application.html#features.spring-application.application-events-and-listeners[Spring Boot Liveness Event]).
+Ist der _Liveness_-Zustand neben dem funktionierenden `ApplicationContext`  von der korrekten Funktion von weiteren, anwendungsspezifischen Komponenten abhängig, müssen die Komponenten im _Liveness_-Zustand berücksichtigt werden.
 
-Ist der _Liveness_-Zustand neben dem funktionierenden `ApplicationContext`  von weiteren, anwendungsspezifische Komponenten abhängig, muss dieser entsprechend aktualisiert werden.
-Dies ist der Fall, wenn die Anwendung in einem Zustand sein kein, der einen Neustart notwendig macht.
+[NOTE]
+====
+Wenn ein Szenario in der Anwendung vorliegt, das einen Neustart erforderlich macht, ist dies im _Liveness_-Status zu berücksichtigen.
+====
+
 Ein Beispiel für einen solchen Fall ist ein nicht mehr ordnungsgemäß funktionierender Cache.
 In einem solchen Fall sind die Vorgaben im Kapitel <<konkrete-implementierung-zustandsaenderungen>> zu beachten.
 
 [NOTE]
 ====
 _Liveness_ darf nicht durch Check externer Systeme beeinflusst werden.
-Andernfalls könnte es sein, dass einem Fehlschlagen eines externen Systems (Datenbank, Web API, externer Cache, ...) ein Neustart des Systems folgt, welcher Fehlerkaskaden über die Plattform auslöst.
+Andernfalls könnte es sein, dass einem Fehlschlagen eines externen Systems (Datenbank, Web API, externer Cache, ...) ein Neustart des Systems folgt, welcher Fehlerkaskaden über die Anwendungslandschaft auslöst.
 ====
 
 [[update-des-readiness-states]]
 ===== Update des Readiness States
 
-Häufiger als beim _Liveness_-Zustand sind für das korrekte Abbilden der _Readiness_ einer Anwendung weitere Zustandsindikatoren notwendig.
-Diese Zustandsindikatoren bilden Umständen ab die, die Fähigkeit der Anwendung Anfragen korrekt zu verarbeiten, beeinflussen.
-Dies können anwendungsinterne Vorgänge sein, z.B. das vollständige Laden von notwendigen Daten oder die Erreichbarkeit angebundener externen Systeme.
-Angebundene Systeme, die im Readiness-Zustand berücksichtigt werden müssen, sind die gemäß dem IsyFact Standard als essenziell eingestufte Nachbarsysteme (Vgl. xref:konzept/inhalt.adoc#nachbarsystemcheck-liveness-Readiness[Konzept-Essenzielle Nachbarsysteme].)
+In vielen Fällen sind für das korrekte Abbilden der _Readiness_ einer Anwendung weitere Zustandsindikatoren notwendig.
+Die Zustandsindikatoren zeigen an, ob die Anwendung Anfragen korrekt verarbeiten kann.
+Diese Fähigkeit kann von anwendungsinternen Vorgängen abhängen, z.B. der Abschluss des vollständigen Ladens von notwendigen Daten, oder die Erreichbarkeit angebundener externer Systeme.
+Angebundene Systeme, die aus Sicht der Anwendung nutzbar zur Verfügung stehen müssen, sind im _Readiness_-Zustand zu berücksichtigen.
+Gemäß dem IsyFact Vorgaben zählen dazu alle als essenziell eingestuften Nachbarsysteme (Vgl. xref:konzept/inhalt.adoc#nachbarsystemcheck-liveness-Readiness[Überwachungskonzept-Essenzielle Nachbarsysteme].)
+
 
 [[konkrete-implementierung-zustandsaenderungen]]
 ===== Konkrete Implementierung von Zustandsänderungen
 
-Grundsätzlich besteht für jede Komponente die Möglichkeit den Zustand der Anwendung direkt über ein `AvailabilityChangeEvent` zu verändern.
+Grundsätzlich besteht für jede Komponente die Möglichkeit, den Zustand der Anwendung direkt über ein `AvailabilityChangeEvent` zu verändern.
+Durch die dieses Events wird die Zustandsänderung in den Gesamtstatus der Anwendung integriert.
 Damit ist eine vorhandene Implementierung um eine Veränderung des jeweils relevanten Zustands erweiterbar z.B. bei der Verarbeitung von _Exceptions_.
 
 .AvailabilityChangeEvent
@@ -531,14 +537,16 @@ AvailabilityChangeEvent.publish(context, LivenessState.BROKEN);
 AvailabilityChangeEvent.publish(context, ReadinessState.REFUSING_TRAFFIC);
 ----
 
-Sind weitere Indikatoren für den _Liveness_- oder _Readiness_-Zustand relevant, ist die Nutzung von Gruppen sinnvoll (Vgl. https://docs.spring.io/spring-boot/docs/2.2.x/reference/html/production-ready-features.html#health-groups[Spring Boot Health Groups]).
-Dieses Vorgehen gewährleistet eine gute Übersicht und erleichtert die Veränderbarkeit der Überwachung, wenn auf Anwendungsänderungen oder veränderte Betriebsbedingungen zu reagieren ist.
-Darüber hinaus lassen sich für die korrekte Bestimmung der Readiness vorkonfiguriert Informationen aus dem `HealthIndicator` angebundener Systeme integrieren, wenn diese als Abhängigkeiten im Klassenpfad vorkommen.
-Eine Liste der vorkonfigurierten `HealthIndicators` ist in der https://docs.spring.io/spring-boot/reference/actuator/endpoints.html#actuator.endpoints.health.auto-configured-health-indicators[hier] einzusehen.
-Wird die _Readiness_ des Systems von der Erreichbarkeit weiterer essenzieller Nachbarsysteme beeinflusst, sind diese als Komponenten zu implementieren.
+Sind weitere Indikatoren für den _Liveness_- oder _Readiness_-Zustand relevant, sind Gruppen zu nutzen (Vgl. https://docs.spring.io/spring-boot/docs/2.2.x/reference/html/production-ready-features.html#health-groups[Spring Boot Health Groups]).
+Dieses Vorgehen ermöglicht eine strukturierte Übersicht und erleichtert die Veränderbarkeit der Überwachung, wenn auf Anwendungsänderungen oder veränderte Betriebsbedingungen zu reagieren ist.
+Darüber hinaus lassen sich für die korrekte Abbildung der _Readiness_ vorkonfiguriert Informationen angebundener Systeme nutzen.
+Spring Boot Actuator bietet, über vorkonfigurierte `HealthIndictor`-Interfaces, die Integration der health-Informationen angebundener Systeme an.
+Diese müssen über Spring Boot-Mechanismen angebunden sein und über zugehörige Konfigurationsdateien im Klassenpfad vorkommen.
+Eine Liste der vorkonfigurierten `HealthIndicators` und detaillierte Informationen sind https://docs.spring.io/spring-boot/reference/actuator/endpoints.html#actuator.endpoints.health.auto-configured-health-indicators[hier] einzusehen.
+Wird die _Readiness_ des Systems von der Erreichbarkeit weiterer essenzieller Nachbarsysteme beeinflusst, sind diese als Komponenten unter der Verwendung des `HealthIndicator`-Interface zu implementieren.
 Bei einer Verwendung der Bibliothek `isy-überwachung`  kann hierfür der `NachbarsystemIndicator` genutzt werden.
-Sind weitere Komponenten zu implementieren, sind die Vorgaben des Kapitels <<implementierung-weiterer-eigener-health-indikatoren>> zu beachten.
-In den `application.properties` ist der Indicator in der jeweiligen Gruppe hinzuzufügen:
+Sind weitere Komponenten in den Zuständen zu berücksichtigen, sind die Vorgaben des Kapitels <<implementierung-weiterer-eigener-health-indikatoren>> zu beachten.
+In den `application.properties` sind alle Indikatoren (`<customCheck>`) in der jeweiligen Gruppe hinzuzufügen:
 
 .Aktivierung und Gruppierung von _Liveness_ und _Readiness_ in den `application.properties`
 [id="gruppe-liveness-readiness-application-properties",reftext="{listing-caption} {counter:listings }"]
@@ -548,24 +556,28 @@ management.endpoint.health.group.readiness.include=readinessState, <customCheck>
 management.endpoint.health.group.liveness.include=livenessState, <customCheck>
 ----
 
+Mit dieser Konfiguration in den `application.properties` werden alle in der Gruppe aufgeführten Indikatoren über eine logische UND-Verknüfung in dem jeweiligen Status berücksichtigt.
+
+
 [[logging-der-zustandsaenderung]]
 ===== Logging der Zustandsänderung
 
-Wenn sich der Zustand ändert ist dies im Logging zu protokollieren.
+Wenn sich der Zustand ändert, ist dies im Logging zu protokollieren.
 Dieses Vorgehen ist gegenüber dem Protokollieren jeder Zustandsprüfung zu bevorzugen.
 Das Protokollvolumen wird reduziert und Probleme zu erkennen wird vereinfacht.
-
 
 .`EventListener` zum Loggen der Zustandsänderung
 [id="eventlistener-zum-loggen-der-Zustandsaenderung",reftext="{listing-caption} {counter:listings }"]
 [source,properties]
 [source, java]
 ----
+
 @EventListener
 public void onApplicationEvent(AbstractHealthIndicator healthIndicator) {
-    // Log der Veränderung des Liveness- oder Readiness-Zustands
+    // Log der Veränderung des Liveness- oder Readiness-Zustands mit einer Fallunterscheidung
 }
 ----
+
 
 [[anbindung-eines-monitoring-systems]]
 === Anbindung eines Monitoring-Systems
