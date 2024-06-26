@@ -4,16 +4,23 @@ import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+import java.time.Duration;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.authentication.ProviderManager;
+import org.springframework.security.authentication.TestingAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.test.context.ActiveProfiles;
 
@@ -138,6 +145,48 @@ public class AuthentifizierungsmanagerTest extends AbstractOidcProviderTest {
         assertEquals("123456", value.getBhknz());
 
         assertEquals(mockJwt, SecurityContextHolder.getContext().getAuthentication());
+    }
+
+    @Test
+    public void testAuthRefreshesIfTokenIsNotOAuth2() {
+        Authentication notOAuth2Authentication = new TestingAuthenticationToken("principal", "credentials");
+        SecurityContextHolder.getContext().setAuthentication(notOAuth2Authentication);
+
+        authentifizierungsmanager.authentifiziere("cc-client", Duration.ofSeconds(60));
+
+        // refreshed because existing authentication got replaced with the mockJwt
+        assertEquals(mockJwt, SecurityContextHolder.getContext().getAuthentication());
+    }
+
+    @Test
+    public void testAuthRefreshesIfTokenIsExpired() {
+        Instant expiresAt = Instant.now().plus(1, ChronoUnit.MINUTES);
+        Jwt token = Mockito.mock(Jwt.class);
+        when(token.getExpiresAt()).thenReturn(expiresAt);
+
+        SecurityContextHolder.getContext().setAuthentication(new JwtAuthenticationToken(token));
+
+        authentifizierungsmanager.authentifiziere("cc-client", Duration.ofSeconds(60));
+
+        // refreshed because existing authentication got replaced with the mockJwt
+        assertEquals(mockJwt, SecurityContextHolder.getContext().getAuthentication());
+    }
+
+    @Test
+    public void testAuthDoesNotRefreshIfTokenIsOAuth2AndNotExpired() {
+        Duration tokenExpiryDelta = Duration.ofSeconds(60);
+
+        Instant expiresAt = Instant.now().plus(tokenExpiryDelta).plusSeconds(1);
+        Jwt token = Mockito.mock(Jwt.class);
+        when(token.getExpiresAt()).thenReturn(expiresAt);
+        JwtAuthenticationToken authentication = new JwtAuthenticationToken(token);
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        authentifizierungsmanager.authentifiziere("cc-client", tokenExpiryDelta);
+
+        // not refreshed because authentication stays the same
+        assertEquals(authentication, SecurityContextHolder.getContext().getAuthentication());
     }
 
     @Test
