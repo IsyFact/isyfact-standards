@@ -1,12 +1,10 @@
-// tag::inhalt[]
-
 [[nichtfunktionale-anforderungen]]
 == Nichtfunktionale Anforderungen
 
-_Die Spezifikation der nichtfunktionalen Anforderungen umfasst alle Anforderungen, die nicht der Fachlichkeit und dem funktionalen Verhalten des Anwendungssystems zugerechnet werden können und die nicht in anderen Abschnitten der Spezifikation behandelt werden.
+_Die Spezifikation der nichtfunktionalen Anforderungen umfasst alle Anforderungen, die nicht der Fachlichkeit und dem funktionalen Verhalten der Anwendung zugerechnet werden können und die nicht in anderen Abschnitten der Spezifikation behandelt werden.
 Nichtfunktionale Anforderungen, die in anderen Spezifikationsabschnitten behandelt werden, sind vor allem die Benutzbarkeitsanforderungen der Dialogspezifikation und die Projektanforderungen._
 
-_Nichtfunktionale Anforderungen verdienen besondere Berücksichtigung, da sie gerne vernachlässigt werden, mitunter schwer umzusetzen sind und gleichzeitig eine hohe Bedeutung für den Projekterfolg haben können (z.B. Laufzeitverhalten des Anwendungssystems)._
+_Nichtfunktionale Anforderungen verdienen besondere Berücksichtigung, da sie gerne vernachlässigt werden, mitunter schwer umzusetzen sind und gleichzeitig eine hohe Bedeutung für den Projekterfolg haben können (z.B. Laufzeitverhalten der Anwendung)._
 
 _Erfahrungsgemäß können hier beschriebene Anforderungen projektweite Auswirkungen entfalten oder zu erheblichen Mehraufwänden führen.
 Deshalb sind solche Anforderungen sehr gewissenhaft aufzustellen und auf das fachlich notwendige Maß zu beschränken._
@@ -17,7 +15,7 @@ Eine solche Forderung kann aber je nach Komplexität der Anwendungsarchitektur d
 [[performanz-antwortzeitverhalten]]
 === Performanz und Antwortzeitverhalten
 
-_Die Anforderungen an das Antwortzeitverhalten im Dialog und die Verarbeitungsdauer im Batch sind wichtige Parameter für die technische Architektur des Anwendungssystems.
+_Die Anforderungen an das Antwortzeitverhalten im Dialog und die Verarbeitungsdauer im Batch sind wichtige Parameter für die technische Architektur der Anwendung.
 Oft erhält man hier Angaben wie "Antwortzeit im Dialog max. 10 Sekunden".
 Idealerweise sollten aber Performanz-Anforderungen je Anwendungsfall spezifiziert werden.
 Hier ist dann der Ort, an dem diese Informationen dann noch einmal tabellarisch zusammengefasst dargestellt werden._
@@ -80,7 +78,7 @@ Die Mengengerüste sind eine wichtige Bezugsgröße für nichtfunktionale Anford
 Zum Beispiel sind Performanzanforderungen nur dann aussagekräftig, wenn sie sich als Voraussetzung und Annahme auf ein konkretes Mengengerüst beziehen.
 Das Mengengerüst selbst ist auch eine wichtige Anforderung, die für die Konstruktion große Bedeutung besitzt._
 
-_Die maximale Last, die das Anwendungssystem verarbeiten können muss, wird spezifiziert.
+_Die maximale Last, welche die Anwendung verarbeiten können muss, wird spezifiziert.
 Idealerweise kann das je Anwendungsfall angegeben werden.
 Außerdem sind Angaben zu der maximalen gleichzeitig zu erwartenden Benutzeranzahl (parallele Sessions) zu machen._
 
@@ -91,7 +89,7 @@ Außerdem sind Angaben zu der maximalen gleichzeitig zu erwartenden Benutzeranza
 .Lastverhalten und Mengengerüst
 [cols="1,4",options="header"]
 |====
-|*Kurzbeschreibung* |_<Das System> muss in der Lage sein, in Stoßzeiten <Zahl> <Auskünfte/Meldungen/… pro Zeiteinheit> zu verarbeiten._
+|*Kurzbeschreibung* |_<Das System> muss in der Lage sein, in Stoßzeiten <Zahl> <Auskünfte/Meldungen/ … pro Zeiteinheit> zu verarbeiten._
 |*Prüfkriterien* |_<Test in Staging-Umgebung mit Echtdaten / Verwendung von JMeter / …> < Nachbarsysteme werden durch Stubs ersetzt / …>_
 |*Quellen* |_<Quelle der Anforderung>_
 |*Priorisierung* |_<hoch / mittel / niedrig>_
@@ -106,12 +104,12 @@ _Dieser Abschnitt ist ein Platzhalter, um zu verdeutlichen, dass ab hier weitere
 === Verfügbarkeit
 
 _In diesem Kapitel werden besondere Anforderungen an die Verfügbarkeit spezifiziert.
-Die Verfügbarkeit wird über einen Prozentwert gemessen, der unter Berücksichtigung von definierten Betriebs- und Wartungsfenstern angibt, wie ausfallsicher ein Anwendungssystem sein soll und tatsächlich ist.
+Die Verfügbarkeit wird über einen Prozentwert gemessen, der unter Berücksichtigung von definierten Betriebs- und Wartungsfenstern angibt, wie ausfallsicher eine Anwendung sein soll und tatsächlich ist.
 Spezifiziert wird die geplante Betriebszeit, unterschieden nach Online und Batchbetrieb.
 Zum Beispiel wird hier angegeben, dass der Dialog jeweils Montag bis Freitag von 07:00 bis 19:00 Uhr zur Verfügung stehen muss.
-Alternativ wird auch einfach nur ein Prozentwert angegeben, zum Beispiel 99%._
+Alternativ wird auch einfach nur ein Prozentwert angegeben, zum Beispiel 99 %._
 
-_Wichtig ist, dass klar spezifiziert wird, wie die Verfügbarkeit des Anwendungssystems exakt definiert ist._
+_Wichtig ist, dass klar spezifiziert wird, wie die Verfügbarkeit der Anwendung exakt definiert ist._
 Abbildung 24 _gibt einen Überblick, was zu berücksichtigen ist._
 
 [[verfuegbarkeit-2]]
@@ -165,7 +163,7 @@ _Dieser Abschnitt ist ein Platzhalter, um zu verdeutlichen, dass ab hier weitere
 === Datensicherheit
 
 _In diesem werden besondere Anforderungen an den Schutz von Daten vor Verlust und unberechtigter Veränderung spezifiziert.
-Das zu spezifizierende Anwendungssystem wird sich nach seiner Fertigstellung in eine bestehende Systemlandschaft integrieren.
+Die zu spezifizierende Anwendung wird sich nach seiner Fertigstellung in eine bestehende Systemlandschaft integrieren.
 I.d.R. sind für die Systemlandschaft bereits Regeln zur Datensicherheit definiert, die dokumentiert und zu berücksichtigen sind.
 Gelten für das neue System keine besonderen Regeln, reicht hier der Verweis auf ein übergeordnetes Dokument._
 
@@ -200,6 +198,3 @@ Nichtabstreitbarkeit beschreibt die Eigenschaft, dass der Empfang von Nachrichte
 ==== NFA_<Name der Anforderung>
 
 _Dieser Abschnitt ist ein Platzhalter, um zu verdeutlichen, dass ab hier weitere nichtfunktionale Anforderungen zu beschreiben sind._
-
-// end::inhalt[]
-

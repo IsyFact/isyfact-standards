@@ -52,7 +52,7 @@ Aus den Vorgaben zum <<design-von-fehlerklassen>> resultiert die folgende Except
 
 .Exception-Hierarchie innerhalb einer Anwendung
 [id="image-006",reftext="{figure-caption} {counter:figures}"]
-image::isy-exception-core:nutzungsvorgaben/fehlerbehandlung006.svg[align="center",width=100%,pdfwidth=100%]
+image::isy-exception-core:nutzungsvorgaben/fehlerbehandlung006.dn.svg[]
 
 <<image-006>> zeigt die verschiedenen Hierarchiestufen von Fehlern.
 Auf oberster Ebene befinden sich die abstrakten Implementierungen für checked (`BaseException`) und unchecked (`TechnicalRuntimeException`) Exceptions.

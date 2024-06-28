@@ -1,4 +1,3 @@
-// tag::inhalt[]
 [[projektgrundlagen]]
 == Projektgrundlagen
 
@@ -19,15 +18,12 @@ Es werden die folgenden Themen behandelt:_
 [[fachlicher-architekturueberblick]]
 === Fachlicher Architekturüberblick
 
-_Der Architekturüberblick beschreibt die Einordnung des zu entwickelnden Anwendungssystems in die Anwendungslandschaft des Auftraggebers aus fachlicher Sicht.
+_Der Architekturüberblick beschreibt die Einordnung der zu entwickelnden Anwendung in die Anwendungslandschaft des Auftraggebers aus fachlicher Sicht.
 Er identifiziert die Nachbarsysteme und stellt deren Schnittstellen dar.
-Das Anwendungssystem wird grob in Anwendungskomponenten gegliedert, wobei sich diese Gliederung hier ausschließlich an der Fachlichkeit orientiert._
+Die Anwendung wird grob in Anwendungskomponenten gegliedert, wobei sich diese Gliederung hier ausschließlich an der Fachlichkeit orientiert._
 
 _Der Architekturüberblick sollte knapp und klar gestaltet werden.
-Ein gutes Übersichtsbild zeigt die Einordnung des Anwendungssystems in die bestehende Anwendungslandschaft und kann einen Eindruck von der Komplexität des Vorhabens aufzeigen._
+Ein gutes Übersichtsbild zeigt die Einordnung der Anwendung in die bestehende Anwendungslandschaft und kann einen Eindruck von der Komplexität des Vorhabens aufzeigen._
 
 _Im Rahmen der Masterspezifikation wird ein Architekturüberblick der gesamten Anwendungslandschaft gepflegt, in die sich die Anwendung einordnet.
 Dieser ist nach Inbetriebnahme zu aktualisieren._
-
-// end::inhalt[]
-

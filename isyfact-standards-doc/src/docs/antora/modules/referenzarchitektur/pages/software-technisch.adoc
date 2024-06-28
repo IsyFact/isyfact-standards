@@ -1,43 +1,37 @@
 = Software-technische Referenzarchitektur
 
-Die software-technische Referenzarchitektur beschreibt, wie die in der fachlichen Referenzarchitektur definierten Elemente (Anwendungssysteme, Anwendungskomponenten, fachliche Entitäten, Anwendungsfälle etc.) software-technisch in Form von IT-Systemen, Komponenten, Klassen, physischen Datenmodellen etc. umgesetzt werden.
+include::glossary:licence:partial$licence.adoc[]
+
+Die software-technische Referenzarchitektur beschreibt, wie die in der fachlichen Referenzarchitektur definierten xref:glossary:glossary:master.adoc#glossar-anwendung[Anwendungen] software-technisch in Form von xref:glossary:glossary:master.adoc#glossar-it-system[IT-Systemen] umgesetzt werden.
 
 Eine zentrale Eigenschaft der software-technischen Referenzarchitektur ist, dass sie nicht zwischen xref:glossary:glossary:master.adoc#glossar-anwendungstyp[Anwendungstypen] unterscheidet.
-Ungeachtet ihrer Fachlichkeit von Anwendung ist ihre Umsetzung der technischen Architektur gleich.
-Die software-technische Referenzarchitektur definiert hierzu das xref:glossary:glossary:master.adoc#glossar-it-system[IT-System], und beschreibt dessen Umsetzung in der xref:blaupausen:referenzarchitektur-it-system/master.adoc[].
-
-Die software-technische Referenzarchitektur ist eine vollwertige JEE-Architektur.
-Jedoch wird eine zentrale Spezifikation von JEE nicht genutzt: die EJB-Spezifikation aus dem Bereich Enterprise Application.
-Dies hat vor allem Performance- und Komplexitätsgründe.
-Es hat zur Folge, dass als Application Server ein Servlet-Container ausreichend ist.
+Die software-technische Umsetzung von Anwendungen ist ungeachtet ihrer Fachlichkeit gleich.
+Die software-technische Referenzarchitektur definiert hierzu das xref:glossary:glossary:master.adoc#glossar-it-system[*IT-System*] als Oberbegriff, und beschreibt die Umsetzung einer Anwendung mittels einer Menge von IT-Systemen, die jedes für sich eine bestimmte Ausprägung besitzen.
+Diese Ausprägung ist technisch motiviert und umfasst aktuell *Backends*, *Frontends* und *Batches*.
 
 == Definition der Systemlandschaft
 
 Der Begriff der Anwendungslandschaft ist fachlich motiviert.
 Die technische Entsprechung hierfür ist der Begriff der xref:glossary:glossary:master.adoc#glossar-systemlandschaft[Systemlandschaft].
 Eine Systemlandschaft, die eine Anwendungslandschaft nach den IsyFact-Standards umsetzt, wird im Folgenden als _IsyFact-Systemlandschaft_ bezeichnet.
-Eine solche IsyFact-Systemlandschaft beinhaltet alle software-technisch umgesetzten Anwendungssysteme der Anwendungslandschaft sowie technische Systeme zur Unterstützung (z.B. Datenbanken, Web-Server, usw).
+Eine solche IsyFact-Systemlandschaft beinhaltet alle IT-Systeme als technische Umsetzung der Anwendungen  der Anwendungslandschaft sowie technische Systeme zur Unterstützung (z.B. Datenbanken oder Web-Server).
 
-Die technische Architektur eines IT-Systems wird in xref:blaupausen:referenzarchitektur-it-system/master.adoc[] definiert.
+Die Architektur eines IT-Systems wird in xref:blaupausen:referenzarchitektur-it-system/master.adoc[] definiert.
 Im Folgenden wird, aufbauend auf diesem Konzept, beschrieben:
 
-* welche Eigenschaften bezogen auf die technische Referenzarchitektur die Typen von Anwendungssystemen in einer IsyFact-Systemlandschaft besitzen (s. <<strukturierung-der-systemlandschaft>>),
+* welche Eigenschaften bezogen auf die technische Referenzarchitektur die Anwendungstypen in einer IsyFact-Systemlandschaft besitzen (s. <<strukturierung-der-systemlandschaft>>),
 * welche Vorgaben für die <<verwendung-von-produkten>> existieren.
 
 [[strukturierung-der-systemlandschaft]]
 == Strukturierung der Systemlandschaft
 
-Wichtige Grundlagen für die Software-Referenzarchitektur sind die Schnittstellen und Aufruf-Beziehungen der IT-Systeme vom Typ _Geschäftsanwendung_,
-_Querschnittsanwendung_ sowie _Portal_ und _Service-Gateway_.
-Aufruf-Beziehungen werden stets unterschieden in _interne Aufrufe_, in welchen ein IT-System einer IsyFact-Systemlandschaft mit einem anderen
-IT-System derselben IsyFact-Systemlandschaft kommuniziert, und _externe Aufrufe_, in welchen ein IT-System der IsyFact-Systemlandschaft mit einem
-Anwender oder einem IT-System außerhalb dieser IsyFact-Systemlandschaft kommuniziert: Interne und externe Aufrufe unterscheiden sich sowohl in ihrer
-Authentifizierung und Autorisierung als auch (bei automatisierten Schnittstellen) in der verwendeten Technologie.
+Wichtige Grundlagen für die Software-Referenzarchitektur sind die Schnittstellen und Aufruf-Beziehungen der IT-Systeme vom Typ _Geschäftsanwendung_, _Querschnittsanwendung_ sowie _Portal_ und _Service-Gateway_.
+Aufruf-Beziehungen werden stets unterschieden in _interne Aufrufe_, in welchen ein IT-System einer IsyFact-Systemlandschaft mit einem anderen IT-System derselben IsyFact-Systemlandschaft kommuniziert, und _externe Aufrufe_, in welchen ein IT-System der IsyFact-Systemlandschaft mit einem Anwender oder einem IT-System außerhalb dieser IsyFact-Systemlandschaft kommuniziert.
+Interne und externe Aufrufe unterscheiden sich sowohl in ihrer Authentifizierung und Autorisierung als auch (bei automatisierten Schnittstellen) in der verwendeten Technologie.
 
-Im Folgenden werden die Schnittstellen und Aufrufbeziehungen pro Anwendungssystemtyp erläutert.
+Im Folgenden werden die Schnittstellen und Aufrufbeziehungen pro Anwendungstyp erläutert.
 
-*Das xref:glossary:glossary:master.adoc#glossar-service-gateway[Service-Gateway]:* Service-Gateway-Systeme haben die Aufgabe, Aufrufe von internen Anwendungssystemen an externe Systeme und Aufrufe von externen Systemen
-an interne Anwendungssysteme weiterzuleiten und dabei unterschiedliche Schnittstellentechnologien zu überbrücken.
+*Das xref:glossary:glossary:master.adoc#glossar-service-gateway[Service-Gateway]:* Service-Gateway-Systeme haben die Aufgabe, Aufrufe von internen Anwendungen an externe Systeme und Aufrufe von externen Systemen an interne Anwendungen weiterzuleiten und dabei unterschiedliche Schnittstellentechnologien zu überbrücken.
 
 Für die Weiterleitung von Aufrufen enthält ein Service-Gateway die folgenden Funktionalitäten:
 
@@ -49,7 +43,7 @@ Ein Service-Gateway-System besitzt weder eine eigene Datenhaltung noch eigene Fa
 
 *Die xref:glossary:glossary:master.adoc#glossar-geschaeftsanwendung[Geschäftsanwendung]*: Eine Geschäftsanwendung implementiert allgemein die Geschäftsprozesse einer Domäne.
 Geschäftsanwendungen können monolithisch strukturiert sein und alle Schichten der Software-Architektur umfassen, von der Benutzeroberfläche über Prozesse und xref:glossary:glossary:master.adoc#glossar-geschaeftslogik[Geschäftslogik] bis hin zur Datenspeicherung.
-Sie können aber auch jeweils nur Teile davon implementieren, sodass z.B. eine Geschäftsanwendung eine GUI bereitstellt, eine weitere die Fachlogik implementiert und eine dritte schließlich die Persistierung der Daten realisiert.
+Sie können aber auch jeweils nur Teile davon implementieren, sodass z.B. eine Geschäftsanwendung eine GUI bereitstellt, eine weitere die Geschäftslogik implementiert und eine dritte schließlich die Persistierung der Daten realisiert.
 In diesem Fall würde die Gesamtfunktionalität durch das Zusammenwirken der drei Geschäftsanwendungen erbracht.
 
 Die Geschäftsanwendungen einer IsyFact-Systemlandschaft können sich intern gegenseitig über ihre Service-Schnittstellen aufrufen.
@@ -236,8 +230,8 @@ image::software-technisch/extintServ.png[]
 Zur Umsetzung der Servicekommunikation gibt es Service-Bausteine, die ausgewählte Schnittstellentechnologien in die Referenzarchitektur integrieren.
 
 
-[[nutzungsarten-eines-anwendungssystems]]
-== Nutzungsarten eines Anwendungssystems
+[[nutzungsarten-einer-anwendung]]
+== Nutzungsarten einer Anwendung
 
 Nachdem in xref:blaupausen:referenzarchitektur-it-system/master.adoc[] die technische Architektur vorgestellt wurde, soll in diesem Abschnitt konkret vorgestellt werden, wie auf Basis dieser Architektur Anwendungen entworfen werden.
 
@@ -248,7 +242,7 @@ Im Folgenden wird ein Beispiel-Szenario zur Nutzung eines IT-Systems vorgestellt
 ====
 Für eine zur Architektur konforme Umsetzung dieser Anforderungen müssen verschiedene IT-Systeme umgesetzt werden:
 
-*Die Geschäftsanwendung:* Die Geschäftsanwendung soll in diesem Beispiel die Präsentationslogik, die Geschäftslogik und die Datenhaltung in einem Anwendungssystem realisieren.
+*Die Geschäftsanwendung:* Die Geschäftsanwendung soll in diesem Beispiel die Präsentationslogik, die Geschäftslogik und die Datenhaltung in einem IT-System realisieren.
 Sie implementiert dazu drei software-architektonische Schichten:
 
 * Die *Nutzungsschicht*, in der die Services abgebildet sind,
@@ -301,7 +295,7 @@ Interne und externe Anwender rufen über das Portal die Geschäftsanwendung auf 
 Erst nach erfolgreicher Authentifizierung leitet das Portal den Anwender zusammen mit den Autorisierungsinformationen an die Geschäftsanwendung weiter.
 
 * *Service-Gateway:* +
-Das Service-Gateway hat die Aufgabe, Anfragen von _externen Anwendungssystemen_ entgegenzunehmen und zusammen mit den Autorisierungsinformationen an den passenden Service der Geschäftsanwendung weiterzuleiten.
+Das Service-Gateway hat die Aufgabe, Anfragen von _externen Anwendungen_ entgegenzunehmen und zusammen mit den Autorisierungsinformationen an den passenden Service der Geschäftsanwendung weiterzuleiten.
 Aktuell übernimmt das Service-Gateway auch die Authentifizierung von externen Anwendungen.
 Dazu leitet es die von der externen Anwendung erhaltenen Authentifizierungsdaten an den IAM-Service weiter.
 Nach erfolgreicher Authentifizierung leitet das Service-Gateway die Anfrage zusammen mit den Autorisierungsinformationen an die Geschäftsanwendung weiter.
