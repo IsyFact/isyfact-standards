@@ -237,41 +237,81 @@ Dabei ergeben sich die unterschiedlichen Kommunikations-Kanäle _Portal_, _Servi
 
 Alle drei Komponenten unterscheiden sich in ihrem Aufbau, ihrer Konfiguration und ihrer Funktionalität, so dass jede genau die speziellen Kommunikationskanal-Eigenheiten am besten bedienen kann.
 Zur Umsetzung und sicherheitsrelevanten Trennung dieser Kommunikationskanäle werden diese als eigenständige Mandanten betrachtet und können somit auch als mehrere Instanzen pro Kanal eingerichtet werden.
-Dadurch ist es möglich fachliche Unterschiede über den gleichen technischen Kanal bei der Authentifizierung zu machen.
+Dadurch ist es möglich fachliche Unterschiede über den gleichen technischen Kanal-Typ bei der Authentifizierung zu machen.
 
-Das nachfolgende Kapitel  erläutert diese Mandanten spezifische Trennung.
+Das nachfolgende Kapitel  erläutert diese Mandanten spezifische Behandlung.
 
 [[ways-of-authentication-as-multi-tenant]]
 ==== Authentifizierungswege als Mandanten
 Die bisher aufgezeigten Authentifizierungswege über _Portal_-, _Service_- und _Authentication-Gateway_ werden in Bezug auf `isy-security` als jeweilig unterschiedliche Manadanten behandelt bzw. konfiguriert.
 Aber auch pro Authentifizierungsweg ist es möglich unterschiedliche Mandanten sprich mehrere Instanzen des gleichen Typs einzurichten.
 
-Das bedeutet, dass für jeden Mandanten unterschiedliche Konfigurationen möglich sind.
-Ein _Portal_-Gateway bedarf beispielsweise einer anderen oder gar erweiterten Konfiguration gegenüber einem _Service_-Gateway.
-Das _Authentication_-Gateway wiederum erfüllt neuere und erweiterte Sicherheitsanforderungen der Authentifizierung als die beiden anderen Kanäle bisher.
-Wiederum eine weitere Instanz eines Authentication-Gateways bedarf einer fachlichen Trennung gegenüber dem bisherigen Authentication-Gateway und wird mit einer weiteren IAM-Instanz verbunden.
+Alle drei Kanäle sind technisch als SpringBoot-Anwendung implementiert und werden per Spring-Konfiguration auf ihre Spezifika eingestellt.
+Für eine Mandanten spezifische Konfiguration sind nun im Spring-Property-Tree einige Properties mit einer Mandanten spezifischen Erweiterung vordefiniert.
 
-Dies beruht auf der Art und Weise, wie die Authentifzierung mit `isy-security`, dem ausgestellten Access-Token bei valider Nutzer-Authentifizierung und der nachfolgenden Token-Validierung während des fachlichen Prozesses stattfindet.
+So existiert zum Beispiel für den Property-Pfad
 
-So bedarf beispielsweise die Authentifizierung einer externen Webclient-Anwendung über das _Portal_-Gateway eine Konfiguration des IAM-Service, die berücksichtigt, dass der Aufruf des IAM-Service hier eine Unterscheidung zwischen _internem_ und _externem_ Aufruf benötigt.
+`spring.security.oauth2.resourceserver.jwt`
+
+die Möglichkeit, entweder hier direkt das Property `issuer-uri` anzuhängen oder für den Fall von Mandanten spezifischer Definition die Möglichkeit den Pfad zu erweitern auf
+
+`spring.security.oauth2.resourceserver.jwt.tenants.<tenand-id>`
+
+so dass eine Mandantenspezifische Gruppierung der beiden Properties `issuer-uri` und `jwk-set-uri` möglich wird.
+
+Wozu eine derartige Gruppierung benötigt wird, zeigt nun das nachfolgende Bild die Kommunikationswege auf, die ein WebClient über ein Portal zur Authentifizierung und Autorisierung durchläuft.
+
+.Kommunikationswege einer WebClient-Authentifizierung über Portal
+[id="image-webclient-portal_authentication",reftext="{figure-caption} {counter:figures}"]
+image::isy-security:konzept/WebClient_Portal_Authentication.dn.svg[align="center"]
+
+Schrittweise Erklärung des Kommunikationsablaufs:
+
+- Eine Anwendung in Anwendungslandschaft AWL-x startet einen WebClient
+- (1) Dieser für AWL-1 externe WebClient sendet seine Requests an das _Portal_ in der AWL-1
+- Das _Portal_ (Apache tomcat mit _openid-connect_ Modul) erkennt die ausstehende Authentifizierung und
+- (2) liefert an den externen WebClient einen Redirect „Login mit der *externen* Issuer-URI“, um (3) direkt im IAM/KeyCloak der AWL-1 den (4) LoginDialog zu öffnen.
+- (5) In diesem Dialog gibt der User des WebClients sein _Username_ und _Passwort_ ein, aus dem im _IAM/KeyCloak_ bei valider Authentifizierung ein _OneTime AutorisationCode_ erzeugt und (6) als Redirect an den _WebClient_ zurückgegeben wird.
+- (7) Den Redirect mit dem _AutorisationCode_ sendet der _WebClient_ wieder an das _Portal_, das (8) diesen über die *interne* Issuer-URI an den _IAM/KeyCloak_ in der AWL-1 weiterleitet.
+- Der _IAM/KeyCloak_ der AWL-1 validiert den _AutorisationCode_ und (9) liefert dann ein _Access-Token_ mit der *internen* Issuer-URI im `iss-Claim` des Tokens an das Portal zurück, das das Token nun Session-bezogen verwaltet und (10) dem WebClient eine erfolgreiche Authentifizierung zurückmeldet.
+- Der _WebClient_ (11) sendet nun innerhalb dieser authentifizierten Session seine fachlichen Requests an das _Portal_, das (12) die ankommenden Requests mit dem Session-bezogenen Access-Token anreichert und an die entsprechende Anwendung in der AWL-1 weiterleitet.
+- (13) In der Anwendung wird das Token nun validiert wozu ggf. über die *interne* Issuer-URI das Zertifikat aus dem IAM der AWL-1 vorher nachgeladen werden muss.
+
+Das bedeutet, dass für jeden Mandanten unterschiedliche Konfigurationen möglich oder auch notwendig sind.
+
+So bedarf, wie das obige Beispiel zeigt, die Authentifizierung einer externen _WebClient_-Anwendung über das _Portal-Gateway_ eine Konfiguration des IAM-Service, die berücksichtigt, dass der Aufruf des IAM-Service hier eine Unterscheidung zwischen *internem* und *externem* Aufruf benötigt.
 Um dies zu ermöglichen bietet die _Spring-Konfiguration_ folgende beiden Properties:
 
 - `spring.security.oauth2.resourceserver.jwt.issuer-uri`
 - `spring.security.oauth2.resourceserver.jwt.jwk-set-uri`
 
+
+Ein _Portal-Gateway_ benötigt somit eine erweiterte Konfiguration gegenüber einem _Service-Gateway_. Denn es sind für das Szenario einer _Portal_-Authentifikation das Property `issuer-uri` in *interner* und *externer* Form notwendig.
+Das würde dann Mandanten spezifisch gruppiert in der Art konfiguriert werden
+
+- `spring.security.oauth2.resourceserver.jwt.#tenants.awl-1_portal#.issuer-uri`
+- `spring.security.oauth2.resourceserver.jwt.#tenants.awl-1_portal#.jwk-set-uri`
+
+Sollte in der gleichen Anwendungslandschaft AWL eine weitere Instanz eines Portals, aber gegen eine andere IAM/KeyCloak-Instanz betrieben werden, dann bedarf es genau diese beiden Properties doppelt in der Konfiguration anzulegen und statt der Tenand-Id=`awl-1_portal` eine andere eindeutige _Tenand-Id_ (`awl-1_portal-2`) zu verwenden.
+
+Nun zur fachlichen Bedeutung der beiden Properties `issuer-uri` und `jwk-set-uri`.
+
 *Property `issuer-uri`*
 
-Das Property `issuer-uri` wird im Normalfall mit der URL des Authentifizierungsservers des IAM initialisiert.
-Diese URL wird bei der Token-Generierung als Inhalt in das Token gepackt, so dass bei der späteren Token-Validierung diese URL für die ggf. notwendige Ermittlung der benötigten Zertifikate verwendet werden kann.
+Das Property `issuer-uri` wird mit der URL des _Authentifizierungsservers_ des IAM initialisiert.
+Diese URL wird einerseits zum Aufruf von Requests an das IAM verwendet, aber andererseits auch vom Authentifizierungserver bei der Token-Generierung als Kriterium geprüft und letztendlich als Inhalt in das `iss-Claim` des Tokens gepackt, so dass bei der späteren Token-Validierung diese URL für die ggf. notwendige Ermittlung bzw. Nachladung der benötigten Zertifikate verwendet werden kann.
 
-Wird jetzt allerdings, wie beim Portal-Gateway für die `issuer-uri` eine URL benötigt, die von einer _externen Anwendung_ erreichbar ist, dann wird diese URL mit dem Token zusammen bei der Token-Validierung wiederverwendet.
-Aber dann kann bei der späteren Token-Validierung in der  _internen ServiceBean_ der Authentifizierungsserver des IAM nicht über diese _externe URL_ erreicht werden.
+Wird jetzt allerdings, wie bei einer Authentifizierung über das Portal-Gateway, in der `issuer-uri` eine *externe* URL benötigt, damit eine _externen Anwendung_ den _IAM/KeyCloak_ überhaupt von ausserhalb der AWL erreichen kann, dann würde diese *externe* URL auch bei der späteren Token-Validierung herangezogen.
+
+Die Verwendung einer *externen* URI, um von einer *internen* _ServiceBean_ bei der _Token-Validierung_ den *internen* _Authentifizierungsserver_ des IAM zu erreichen, würde nicht funktionerieren.
 
 *Property `jwk-set-uri`*
 
 Um diesen Konflikt zu lösen wird das zweite Property `jwk-set-uri` verwendet.
-Sobald also beide Properties für einen Mandant gesetzt sind, dann wird der Wert von `jwk-set-uri` für den Zugriff auf den Authentifizierungsserver der IAM verwendet und der Wert von `issuer-uri` wird nur bei der Token-Validierung herangezogen.
-Gegebenenfalls erweitert Spring intern bei der Token-Validierung die `issuer-uri` um den Standard-Pfad `protocol/openid-connect/certs` um das notwendige Zertifikat zu ermitteln.
+
+Sobald also beide Properties für einen Mandant gesetzt sind, dann wird der Wert von `issuer-uri` für den Zugriff auf den Authentifizierungsserver der IAM verwendet und der Wert von  `jwk-set-uri` wird nur bei der Token-Validierung herangezogen.
+
+Gegebenenfalls erweitert Spring intern bei der Token-Validierung die  `jwk-set-uri` um den Standard-Pfad von KeyCloak `protocol/openid-connect/certs` um das notwendige Zertifikat zu ermitteln.
 
 *Konfigurations-Details*
 
