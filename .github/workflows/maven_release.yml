@@ -42,12 +42,12 @@ jobs:
           fi
 
   DependencyScan:
-    uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_dependency_scan_template.yml@v1.0.0
+    uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_dependency_scan_template.yml@v1.1.0
     with:
       jdk-version: 17
       snyk-organization: ${{ vars.SNYK_ORG_ID }}
       snyk-reference: release/3.x
-      snyk-arguments: "--maven-aggregate-project --severity-threshold=critical"
+      snyk-arguments: "--maven-aggregate-project"
     secrets:
       SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
