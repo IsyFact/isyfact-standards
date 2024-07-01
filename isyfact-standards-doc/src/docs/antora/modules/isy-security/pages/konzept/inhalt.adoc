@@ -266,20 +266,24 @@ Sollten für einen der drei Authentifizierungskanäle mehrere Instanzen notwendi
 - `spring.security.oauth2.resourceserver.jwt.tenants.*sgw-2*`
 
 
+Nun zur fachlichen Bedeutung der beiden Properties `issuer-uri` und `jwk-set-uri`.
+
 *Property `issuer-uri`*
 
-Das Property `issuer-uri` wird im Normalfall mit der URL des Authentifizierungsservers des IAM initialisiert.
-Diese URL wird bei der Token-Generierung als Inhalt in das Token gepackt, so dass bei der späteren Token-Validierung diese URL für die ggf. notwendige Ermittlung der benötigten Zertifikate verwendet werden kann.
+Das Property `issuer-uri` wird im Normalfall mit der URL des _Authentifizierungsservers_ des IAM initialisiert.
+Diese URL wird einerseits zum Aufruf von Requests an das IAM verwendet, aber andererseits auch vom Authentifizierungserver bei der Token-Generierung als Validierungskriterium gegengeprüft und letztendlich als Inhalt in das `iss-Claim` des Tokens eingepackt, so dass bei der späteren Token-Validierung diese URL für die ggf. notwendige Ermittlung bzw. Nachladung der benötigten Zertifikate verwendet werden kann.
 
-Wird jetzt allerdings, wie beim Portal-Gateway für die `issuer-uri` eine URL benötigt, die von einer _externen Anwendung_ erreichbar ist, dann wird diese URL mit dem Token zusammen bei der Token-Validierung wiederverwendet.
-Aber dann kann bei der späteren Token-Validierung in der  _internen ServiceBean_ der Authentifizierungsserver des IAM nicht über diese _externe URL_ erreicht werden.
+Wird jetzt allerdings, wie bei einer Authentifizierung über das _Portal-Gateway_, in der `issuer-uri` eine *externe* URL benötigt, damit eine _externen Anwendung_ den _IAM/KeyCloak_ überhaupt von ausserhalb der AWL erreichen kann, dann würde diese *externe* URL auch bei der späteren Token-Validierung herangezogen.
+
+Aber würde eine *interne* _ServiceBean_ bei der _Token-Validierung_ eine *externe* URI auf den *internen* _Authentifizierungsserver_ des IAM verwenden, dann würde dies sicherlich nicht funktionieren.
+
+Um diesen Konflikt zu lösen wird das zweite Property `jwk-set-uri` eingesetzt.
 
 *Property `jwk-set-uri`*
 
-Um diesen Konflikt zu lösen wird das zweite Property `jwk-set-uri` verwendet.
-Sobald also beide Properties für einen Mandant gesetzt sind, dann wird der Wert von `jwk-set-uri` für den Zugriff auf den Authentifizierungsserver der IAM verwendet und der Wert von `issuer-uri` wird nur bei der Token-Validierung zur Pürfung des `iss`-Claims herangezogen.
+Sobald also beide Properties für einen Mandant gesetzt sind, dann wird der Wert von `issuer-uri` für den *externen* Zugriff auf den Authentifizierungsserver des IAM verwendet und der Wert von  `jwk-set-uri` wird nur bei der *internen* Token-Validierung herangezogen.
 
-Gegebenenfalls erweitert Spring intern bei der Token-Validierung die `issuer-uri` um den Standard-Pfad `protocol/openid-connect/certs`, um das notwendige Zertifikat zu ermitteln.
+Gegebenenfalls erweitert Spring bzw. KeyCloak intern bei der Token-Validierung die  `jwk-set-uri` um den Standard-Pfad von KeyCloak `protocol/openid-connect/certs` um das notwendige Zertifikat zu ermitteln.
 
 *Konfigurations-Details*
 
