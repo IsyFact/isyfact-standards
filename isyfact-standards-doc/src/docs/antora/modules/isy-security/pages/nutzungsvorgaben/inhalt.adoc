@@ -485,14 +485,55 @@ Folgendes Beispiel (<<listing-absichern-einer-service-methode>>) verdeutlicht di
 [source,java]
 ----
 @Secured({ "PRIV_RechtA", "PRIV_RechtB" })
-public void abgesicherteMethode(...) {
-    ...
+public void abgesicherteMethode(/* ... */) {
+    // ...
 }
 ----
 
 Als Parameter wird ein Array von Rechten übergeben.
 Die Rechte sind disjunktiv verknüpft.
-Die Autorisierung erfolgt dementsprechend wenn der Nutzer mindestens eins der in der `Secured` Annotation übergebenen Rechte besitzt.
+Die Autorisierung erfolgt dementsprechend wenn der Nutzer mindestens eines der in der `Secured`-Annotation übergebenen Rechte besitzt.
+
+Um konjunktive Verknüpfungen umzusetzen, sollte die Annotation `@PreAuthorize` aus Spring Security verwendet werden.
+`@PreAuthorize` ist für die Prüfung eines einzigen Rechtes äquivalent zu `@Secured`, nutzt aber die Spring Expression Language (SpEL).
+
+Dadurch sind Ausdrücke möglich wie:
+
+[source,java]
+----
+@PreAuthorize("hasAuthority('PRIV_Recht_A') and hasAuthority('PRIV_Recht_B')")
+----
+
+Standardmäßig aktiviert die isy-security AutoConfiguration Method Security durch die `@EnableMethodSecurity`-Annotation mit der Option `securedEnabled = true`.
+Die Option `prePostEnabled` ist per default aktiv.
+
+[[listing-enable-method-security]]
+.Standard Aktivierung der Method Security per AutoConfiguration
+[source,java]
+----
+@Configuration
+@EnableMethodSecurity(securedEnabled = true)
+public class IsyEnableMethodSecurityAutoConfiguration {
+    // ...
+}
+----
+
+Sollte der Bedarf bestehen, die `@EnableMethodSecurity`-Annotation zu überschreiben, die `@EnableGlobalMethodSecurity`-Annotation zu verwenden oder Method Security zu deaktivieren, so wird empfohlen die entsprechende AutoConfiguration Klasse aus isy-security zu excludieren:
+
+[source,properties]
+----
+spring.autoconfigure.exclude=de.bund.bva.isyfact.security.autoconfigure.IsyEnableMethodSecurityAutoConfiguration
+----
+
+[IMPORTANT]
+====
+Method Level Security ist für die Nutzung in der Service Schicht.
+Die Verwendung an `@Controller` Klassen/Methoden kann zu Fehlern führen und wird nicht empfohlen.
+Für Webcontroller ohne Service-Schicht kann https://docs.spring.io/spring-security/reference/servlet/authorization/authorize-http-requests.html[Request Level Autorisierung] genutzt werden.
+
+Das mehrfache setzen der `@EnableMethodSecurity`-Annotation sollte vermieden werden.
+Mit abweichender Konfiguration kann dies zu unerwartetem Verhalten und Fehlern führen.
+====
 
 [[attr-token-abfragen]]
 == Attribute aus dem Bearer Token abfragen

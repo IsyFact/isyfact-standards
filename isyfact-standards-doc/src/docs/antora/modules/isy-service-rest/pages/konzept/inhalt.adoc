@@ -879,7 +879,9 @@ Nähere Informationen zu OAuth2 gibt es auf der xref:literaturextern:inhalt.adoc
 Informationen zur Bearer Propagation gibt es in der xref:literaturextern:inhalt.adoc#litextern-spring-oauth2-bearertoken-resolver[offiziellen Spring Dokumentation].
 ====
 
-Um eine Klasse oder einzelne Methoden zu sichern, ist die `@Secured` Annotation des Bausteins Security zu verwendet.
+Um eine Klasse oder einzelne Methoden zu sichern, wird empfohlen, die `@Secured`-Annotation von Spring Security in der Service-Schicht zu verwenden.
+Die Verwendung auf einzelnen Webcontroller Klassen/Methoden wird nicht empfohlen.
+Für Webcontroller ohne Service Schicht kann https://docs.spring.io/spring-security/reference/servlet/authorization/authorize-http-requests.html[Request Level Autorisierung] genutzt werden.
 
 Generell ist das xref:isy-security:konzept/master.adoc#prinzipien-der-sicherheitsarchitektur[Konzept der Sicherheitsarchitektur] zu beachten.
 

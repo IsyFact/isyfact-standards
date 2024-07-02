@@ -1,6 +1,6 @@
 package de.bund.bva.isyfact.security.authentication;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,7 +16,7 @@ import de.bund.bva.isyfact.security.IsySecurityTestConfiguration;
 @SpringBootTest(classes = { IsySecurityTestConfiguration.class, AuthorityPrefixTest.AnnotationTest.class })
 public class AuthorityPrefixTest {
 
-    private static final String[] TEST_AUTHORITIES = { "PRIV_test", "ROLE_test" };
+    private static final String[] TEST_AUTHORITIES = {"PRIV_test"};
 
     @Autowired
     private AnnotationTest annotationTest;

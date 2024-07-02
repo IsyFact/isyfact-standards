@@ -297,17 +297,15 @@ Dies verdeutlicht die Abgrenzung zu Rollen, für die Spring das Präfix `ROLE_` 
 Werden mehrere Rechte an die Annotation übergeben, so sind sie bei `@Gesichert` konjunktiv verknüpft (= alle übergebenen Rechte müssen vorhanden sein).
 Bei der Verwendung von `@Secured` sind die übergebenen Rechte hingegen disjunktiv verknüpft (= es genügt, wenn eines der Rechte vorhanden ist).
 
-Um konjunktive Verknüpfungen auch weiterhin umzusetzen, sollte `@PreAuthorize`  verwendet werden.
-`@PreAuthorize` ist für die Prüfung eines einzigen Rechtes äquivalent zu `@Secured`, nutzt aber die Spring Expression Language.
-Daher sind Ausdrücke möglich wie
+Um konjunktive Verknüpfungen auch weiterhin umzusetzen, sollte die Annotation `@PreAuthorize` aus Spring Security verwendet werden.
+`@PreAuthorize` ist für die Prüfung eines einzigen Rechtes äquivalent zu `@Secured`, nutzt aber die Spring Expression Language (SpEL).
 
-[source]
+Dadurch sind Ausdrücke möglich wie
+
+[source,java]
 ----
 @PreAuthorize("hasAuthority('PRIV_Recht_A') and hasAuthority('PRIV_Recht_B')")
 ----
-In `isy-security` ist die Verwendung von `@PreAuthorize` nicht aktiviert.
-Falls `@PreAuthorize` verwendet werden soll, muss die Verwendung im aufrufenden Projekt mit der Konfiguration `@EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)` erlaubt werden.
-Alternativ kann in diesem Fall auch die neuere Annotation `@EnableMethodSecurity` verwendet werden, bei der `prePostEnabled = true` standardmäßig gesetzt ist.
 ====
 
 [[sicherheit-berechtigungsmanager]]
