@@ -404,7 +404,7 @@ Der Pfad der Datei kann wie folgt angepasst werden:
 [cols="3m,2m,2m,8",options="header"]
 |===
 |Parameter |Wertebereich |Default |Beschreibung
-|isy.security.role-privilege-mapping-file | Resource | classpath:/resources/sicherheit/rollenrechte.xml | Pfad zu der XML-Datei, welche die Rollen-/Berechtigungszuordnungen enthält.
+|isy.security.role-privileges-mapping-file | Resource | classpath:/resources/sicherheit/rollenrechte.xml | Pfad zu der XML-Datei, welche die Rollen-/Berechtigungszuordnungen enthält.
 |===
 
 Der Baustein liefert ein xref:nutzungsvorgaben/master.adoc#anhang-rollen-rechte-schema[XML-Schema für den Aufbau der Konfigurationsdatei] mit.
