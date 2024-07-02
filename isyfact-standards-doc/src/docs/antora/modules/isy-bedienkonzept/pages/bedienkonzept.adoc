@@ -249,7 +249,7 @@ Dabei soll der Kontrast so hoch wie möglich gewählt werden.
 
 [[image-Farbpalette]]
 .Colormatrix
-image::24_BE_Colormatrix.png[align="center"]
+image::24_BE_colormatrix.png[align="center"]
 
 Eine interaktive und erweiterbare Tabelle ist unter:
 * https://contrast-grid.eightshapes.com/?version=1.1.0&background-colors=&foreground-colors=%23000000%2C%20Black%0D%0A%23FFFFFF%2C%20White%0D%0A%23F2F2F2%2C%20light%20Grey%0D%0A%23DDDDDD%2C%20Grey%0D%0A%2383878c%2C%20medium%20Grey%0D%0A%23404040%2C%20Charcoal%0D%0A%23212529%2C%20dark%20Grey%0D%0A%230055B9%2C%20Active%20and%20Primary%0D%0A%2366AEE5%2C%20Primary%20disabled%0D%0A%23D45C00%2C%20Secondary%0D%0A%23A4252C%2C%20Alert%0D%0A%23498205%2C%20Success%0D%0A%23D47D00%2C%20Warning%0D%0A%23008EDB%2C%20Info%0D%0A%238378DE%2C%20Help%0D%0A%0D%0A%0D%0A%0D%0A%0D%0A%0D%0A&es-color-form__tile-size=regular&es-color-form__show-contrast=aaa&es-color-form__show-contrast=aa&es-color-form__show-contrast=aa18&es-color-form__show-contrast=dnp[Color Contrast Matrix]
@@ -392,10 +392,10 @@ Farben tragen maßgeblich zur visuellen Identität einer Anwendung bei und beein
 * Die Standardpalette (zum Zeitpunkt: dd.mm.yyyy) wird im Bereich Barrierefreiheit mit einer Kontrast-Tabelle angegeben
 * Verwendung einer Anwendungsfarbe muss vom Projekt auf Barrierefreiheit geprüft werden und ist frei wählbar
 
-Es kommt folgende Farbpallete zum Einsatz:
+Es kommt folgende Farbpalette zum Einsatz:
 [[image-Farbpalette]]
 .Farbpalette
-image::24_BE_Farbpalette.png[align="center"]
+image::24_BE_farbpalette.png[align="center"]
 
 Die Farben sind entsprechend ihres Namens und ihrer bekannten Bedeutung zu nutzen! z.B. Rot = Fehler.
 
