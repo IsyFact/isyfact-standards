@@ -240,20 +240,19 @@ Nutzen Sie daher auch andere visuelle Elemente wie Symbole oder Muster, um wicht
 
 === Barrierefreier Einsatz von Farben
 
-Farben sind ein Hauptbestandteil um die Website zu gestalten und den Nutzenden zu unterstützen.
-Damit es dem Nutzenden möglich ist alle Elemente zu erkennen ist bei großer Schrift mindestens ein Kontrast von 3:1 notwendig.
+Farben sind ein Hauptbestandteil um die (Web-)Applikationen zu gestalten und um die Nutzenden zu unterstützen.
+Um eine gute Erkennbarkeit der Elemente sicherzustellen, muss bei großer Schrift ein Kontrast von mindestens 3:1 gewährleistet sein.
+
 Nachfolgend sind alle in der Anwendung zur Verfügung stehenden Farben miteinander in ein Kontrastverhältnis gebracht.
 Farbkombinationen, die rot gelabeled sind und keinen ausreichenden Kontrast aufweisen, dürfen nicht verwendet werden.
 Andere Farbkombinationen sind entsprechend ihrem Text/Elementgröße frei zu wählen.
 Dabei soll der Kontrast so hoch wie möglich gewählt werden.
 
 [[image-Farbpalette]]
-.Colormatrix
+.Farbmatrix
 image::24_BE_colormatrix.png[align="center"]
 
-Eine interaktive und erweiterbare Tabelle ist unter:
-* https://contrast-grid.eightshapes.com/?version=1.1.0&background-colors=&foreground-colors=%23000000%2C%20Black%0D%0A%23FFFFFF%2C%20White%0D%0A%23F2F2F2%2C%20light%20Grey%0D%0A%23DDDDDD%2C%20Grey%0D%0A%2383878c%2C%20medium%20Grey%0D%0A%23404040%2C%20Charcoal%0D%0A%23212529%2C%20dark%20Grey%0D%0A%230055B9%2C%20Active%20and%20Primary%0D%0A%2366AEE5%2C%20Primary%20disabled%0D%0A%23D45C00%2C%20Secondary%0D%0A%23A4252C%2C%20Alert%0D%0A%23498205%2C%20Success%0D%0A%23D47D00%2C%20Warning%0D%0A%23008EDB%2C%20Info%0D%0A%238378DE%2C%20Help%0D%0A%0D%0A%0D%0A%0D%0A%0D%0A%0D%0A&es-color-form__tile-size=regular&es-color-form__show-contrast=aaa&es-color-form__show-contrast=aa&es-color-form__show-contrast=aa18&es-color-form__show-contrast=dnp[Color Contrast Matrix]
-zu finden.
+Eine interaktive und erweiterbare Tabelle ist unter https://contrast-grid.eightshapes.com/?version=1.1.0&background-colors=&foreground-colors=%23000000%2C%20Black%0D%0A%23FFFFFF%2C%20White%0D%0A%23F2F2F2%2C%20light%20Grey%0D%0A%23DDDDDD%2C%20Grey%0D%0A%2383878c%2C%20medium%20Grey%0D%0A%23404040%2C%20Charcoal%0D%0A%23212529%2C%20dark%20Grey%0D%0A%230055B9%2C%20Active%20and%20Primary%0D%0A%2366AEE5%2C%20Primary%20disabled%0D%0A%23D45C00%2C%20Secondary%0D%0A%23A4252C%2C%20Alert%0D%0A%23498205%2C%20Success%0D%0A%23D47D00%2C%20Warning%0D%0A%23008EDB%2C%20Info%0D%0A%238378DE%2C%20Help%0D%0A%0D%0A%0D%0A%0D%0A%0D%0A%0D%0A&es-color-form__tile-size=regular&es-color-form__show-contrast=aaa&es-color-form__show-contrast=aa&es-color-form__show-contrast=aa18&es-color-form__show-contrast=dnp[Farbmatrix] zu finden.
 
 Die folgenden Links verweisen auf weitere Informationen zur Kontrast-Analyse:
 
@@ -441,10 +440,9 @@ Icons können als zusätzliches Element in genutzt werden, um Funktionen und Inh
 Dabei sollten Icons primär immer mit Text genutzt werden und so wenig wie möglich alleinstehend sein.
 Wenn Icons alleine als Icon button oder Aktionselement genutzt werden, sollte sich auf eine kleinstmögliche Menge beschränkt werden.
 Es wird empfohlen alleinstehende icons mit einem weit verbreiteten und allgemeinen klaren Zweck zu nutzen.
-In der folgenden Tabelle sind mögliche Icons und deren Funktion dargestellt sowie die dazugehörige CSS-Klasse.
 
-Eine Gesamtübersicht der zur Verfügung stehenden Icons finden Sie unter:
-https://www.primefaces.org/diamond/icons.xhtml[Prime Faces Icons]
+In der folgenden Tabelle sind mögliche Icons und deren Funktion dargestellt sowie die dazugehörige CSS-Klasse.
+Eine Gesamtübersicht der zur Verfügung stehenden Icons ist unter https://www.primefaces.org/diamond/icons.xhtml[Prime Faces Icons] zu finden.
 
 .Übersicht häufig verwendeter Icons
 ifdef::backend-pdf[]
@@ -506,7 +504,7 @@ a|image::isy-bedienkonzept:primeicons/pencil.svg[width=32,height=32]
 
 a|image::isy-bedienkonzept:primeicons/user.svg[width=32,height=32]
 |pi-user
-|Benutzer, User
+|Benutzende, Anwendende, Nutzende, Person
 
 a|image::isy-bedienkonzept:primeicons/image.svg[width=32,height=32]
 |pi-image
@@ -613,8 +611,7 @@ a|image::isy-bedienkonzept:primeicons/save.svg[width=32,height=32]
 
 a|image::isy-bedienkonzept:primeicons/search.svg[width=32,height=32]
 |pi-search
-|Suchen, Suche wiederholen, Neue Suche, Durchsuchen,
-letzte Suche
+|Suchen, Suche wiederholen. Neue Suche, Durchsuchen, letzte Suche
 
 a|image::isy-bedienkonzept:primeicons/arrow-circle-left.svg[width=32,height=32]
 |pi-arrow-circle-left
@@ -631,14 +628,6 @@ a|image::isy-bedienkonzept:primeicons/refresh.svg[width=32,height=32]
 a|image::isy-bedienkonzept:primeicons/clock.svg[width=32,height=32]
 |pi-clock
 |Zeit, Time Picker
-
-a|image::isy-bedienkonzept:primeicons/share-alt.svg[width=32,height=32]
-|pi-share-alt
-|Zurückgeben (an Sender)
-
-a|image::isy-bedienkonzept:primeicons/user.svg[width=32,height=32]
-|pi-user
-|Zuständigkeit
 
 a|image::isy-bedienkonzept:primeicons/star-fill.svg[width=32,height=32]
 |pi-star-fill
