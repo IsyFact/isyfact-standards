@@ -28,7 +28,9 @@
         <logback-jackson.version>0.1.5</logback-jackson.version>
         <ojdbc8.version>19.11.0.0</ojdbc8.version>
         <ucp.version>19.11.0.0</ucp.version>
+        <!-- Bean mapping: Orika TODO: remove with ISY-895 -->
         <orika-core.version>1.5.4</orika-core.version>
+        <mapstruct.version>1.5.5.Final</mapstruct.version>
         <pojobuilder.version>4.3.0</pojobuilder.version>
         <xstream.version>1.4.20</xstream.version>
         <opencsv.version>5.9</opencsv.version>
@@ -175,11 +177,23 @@
                 <version>${ucp.version}</version>
             </dependency>
 
-            <!-- Bean mapping: Orika -->
+            <!-- Bean mapping: Orika TODO: remove with ISY-895 -->
             <dependency>
                 <groupId>ma.glasnost.orika</groupId>
                 <artifactId>orika-core</artifactId>
                 <version>${orika-core.version}</version>
+            </dependency>
+
+            <!-- Bean mapping: MapStruct-->
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct</artifactId>
+                <version>${org.mapstruct.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct-processor</artifactId>
+                <version>${org.mapstruct.version}</version>
             </dependency>
 
             <!-- Code generation: pojobuilder -->
