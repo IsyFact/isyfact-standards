@@ -10,4 +10,4 @@ jobs:
       - name: Checkout project
         uses: actions/checkout@v3
       - name: Run GitHub Action for ORT
-        uses: oss-review-toolkit/ort-ci-github-action@v1
+        uses: IsyFact/isy-github-actions-templates/.github/workflows/oss_review_toolkit_template.yml@mariusarltmsg-patch-1
