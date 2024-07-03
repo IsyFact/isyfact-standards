@@ -3,11 +3,4 @@ on:
   push:
 jobs:
   ort:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Use HTTPS instead of SSH for Git cloning
-        run: git config --global url.https://github.com/.insteadOf ssh://git@github.com/
-      - name: Checkout project
-        uses: actions/checkout@v3
-      - name: Run GitHub Action for ORT
-        uses: IsyFact/isy-github-actions-templates/.github/workflows/oss_review_toolkit_template.yml@mariusarltmsg-patch-1
+    uses: IsyFact/isy-github-actions-templates/.github/workflows/oss_review_toolkit_template.yml@mariusarltmsg-patch-1
