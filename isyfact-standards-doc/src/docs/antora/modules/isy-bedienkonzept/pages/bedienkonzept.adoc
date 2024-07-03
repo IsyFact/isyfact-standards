@@ -44,7 +44,7 @@ Eine enge Zusammenarbeit zwischen Design- und Entwicklungsteams ist unerlässlic
 
 *_Technische Kompatibilität und Struktur des Dokuments_*
 
-Darüber hinaus berücksichtigt das Bedienkonzept die technische Kompatibilität mit verschiedenen Geräten und Browsern, um sicherzustellen, dass die Anwendung einer breiten Palette von Nutzenden zugänglich ist.
+Darüber hinaus berücksichtigt das Bedienkonzept die technische Kompatibilität mit verschiedenen Geräten, um sicherzustellen, dass die Anwendung einer breiten Palette von Nutzenden zugänglich ist.
 Soweit notwendig wird auf browserspezifische Eigenheiten eingegangen.
 
 Wenn Webseiten anhand dieses Bedienkonzepts erstellt werden, müssen die korrekte Darstellung und Funktionsweisen der Webseiten inklusive ihrer Browser-Funktionen, wie bspw. "Vor" und "Zurück", geprüft werden.
@@ -52,7 +52,7 @@ Dafür müssen für jedes Projekt der Nutzerkreis, sowie welche Browser und Vers
 Das Bedienkonzept gibt nur ein minimales Set von zu unterstützenden Browserversionen vor, die projektspezifisch nach Bedarf erweitert werden sollten.
 
 //ToDo: Hier stehen keine Browser, mit denen getestet werden soll. Laut V3 sollte hier eine Tabelle sein.
-Die Tests der Benutzungsoberfläche sollen mindestens mit folgenden Browsern getestet werden.
+
 Dabei sind folgende Auflösungen zu berücksichtigen:
 
 * 2560 x1440 2K
@@ -256,6 +256,7 @@ Dieser Abschnitt beschreibt die primäre und sekundäre Farbpalette, sowie die V
 * Die Standardpalette (zum Zeitpunkt: dd.mm.yyyy) wird im Bereich Barrierefreiheit mit einer Kontrast-Tabelle angegeben.
 * Die Verwendung einer Anwendungsfarbe muss vom Projekt auf Barrierefreiheit geprüft werden und ist frei wählbar.
 
+[[barrierefreiheit]]
 == Barrierefreiheit
 
 Die Zugänglichkeit ist ein wichtiges Prinzip, um sicherzustellen, dass alle, unabhängig von ihren Fähigkeiten, die Anwendung nutzen können.
@@ -428,6 +429,7 @@ Setzen Sie das Attribut nicht aus ästhetischen oder stilistischen Gründen ein.
     </body>
 </html>
 
+[[technische Rahmenebedingungen]]
 == Technische Rahmenbedingungen
 
 Die technischen Rahmenbedingungen legen fest, welche Technologien und Plattformen für die Umsetzung des Bedienkonzepts verwendet werden sollen.
@@ -441,6 +443,7 @@ Dafür wird die entsprechende SCSS und CSS in die Anwendung integriert.
 Dadurch ist die Wartbarkeit stark beeinträchtigt und die Aufwände können sich in der Pflege der Anwendung stark erhöhen.
 * Die Anwendung ist primär für die Nutzung auf Desktopgeräten konzipiert, kann aber mit ihrer Responsivität auch auf mobilen Geräten (sofern möglich) genutzt werden.
 
+[[bedienelemente]]
 == Bedienelemente
 
 *_Einleitung und Allgemeines:_*
@@ -945,6 +948,7 @@ Für so etwas wird ein Wizard genutzt.
 * Tabreiter sollen keine Abhängigkeiten zueinander haben.
 * Nutze keine Labels, die länger als 26 Zeichen sind.
 
+[[designpattern]]
 == Designpattern
 
 Designpatterns sind wiederkehrende Lösungen für Designprobleme, die sich über verschiedene Teile der Anwendung erstrecken können.
@@ -1100,6 +1104,7 @@ Die Größenanpassung erfolgt innerhalb von gewissen Bereichen:
 .Beispielhafte Gesamtumsetzung eines Beispielformulars im Anwendungsrahmen
 image::24_UC_fullexample_formular.png[align="center"]
 
+[[eingabehilfen-und-Fehlermeldungen]]
 == Eingabehilfen und Fehlermeldungen
 
 Eingabehilfen und Fehlermeldungen sind essenziell wichtig, um die Nutzungsfreundlichkeit einer Anwendung zu erhöhen.
