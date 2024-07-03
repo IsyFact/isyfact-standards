@@ -238,6 +238,7 @@ Nutzen Sie daher auch andere visuelle Elemente wie Symbole oder Muster, um wicht
 * Vermeide schwache Kontraste z.B. hellblau auf grau.
 * Löse keine Aktionen durch Bedienelemente aus, wenn diese nicht dazu vorgesehen sind (z.B. Radiobutton und Checkboxen).
 
+[[barrierefreier-einsatz-von-farben]]
 === Barrierefreier Einsatz von Farben
 
 Farben sind ein Hauptbestandteil um die (Web-)Applikationen zu gestalten und um die Nutzenden zu unterstützen.
@@ -380,33 +381,33 @@ Dafür wird die entsprechende SCSS und CSS in die Anwendung integriert.
 Dadurch ist die Wartbarkeit stark beeinträchtigt und die Aufwände können sich in der Pflege der Anwendung stark erhöhen.
 * Die Anwendung ist primär für die Nutzung auf Desktopgeräten konzipiert, kann aber mit ihrer Responsivität auch auf mobilen Geräten (sofern möglich) genutzt werden.
 
-
 == Basiselemente
 
 === Farben
 
-Farben tragen maßgeblich zur visuellen Identität einer Anwendung bei und beeinflussen die Stimmung und Wahrnehmung der Benutzer.
+Farben tragen maßgeblich zur visuellen Identität einer (Web-)Applikation bei und beeinflussen die Stimmung und Wahrnehmung der Nutzenden:
 
-* Die Standardpalette wird vom IsyFact Theme mit ausgeliefert und entsprechend der aktuellen gesetzlichen Entwicklung aktualisiert und kann von dem hier dokumentierten Stand abweichen
-* Die Standardpalette (zum Zeitpunkt: dd.mm.yyyy) wird im Bereich Barrierefreiheit mit einer Kontrast-Tabelle angegeben
-* Verwendung einer Anwendungsfarbe muss vom Projekt auf Barrierefreiheit geprüft werden und ist frei wählbar
+* Die Standardpalette wird vom IsyFact Theme mit ausgeliefert und entsprechend der aktuellen gesetzlichen Entwicklung aktualisiert.
+Deshalb kann die Palette von dem hier dokumentierten Stand abweichen.
+* Die Standardpalette (zum Zeitpunkt: dd.mm.yyyy) wird im Bereich Barrierefreiheit mit einer Kontrast-Tabelle angegeben.
+* Verwendung einer Anwendungsfarbe muss vom Projekt auf Barrierefreiheit geprüft werden und ist frei wählbar.
 
 Es kommt folgende Farbpalette zum Einsatz:
 [[image-Farbpalette]]
 .Farbpalette
 image::24_BE_farbpalette.png[align="center"]
 
-Die Farben sind entsprechend ihres Namens und ihrer bekannten Bedeutung zu nutzen! z.B. Rot = Fehler.
+Die Farben sind entsprechend ihres Namens und ihrer bekannten Bedeutung zu nutzen (z.B. Rot = Fehler)!
 
 *_Do's_*
 
-Grün = Erfolg, Bestätigung, Korrekt, etc...
-Rot = Fehler, Abbruch, Stopp, etc...
+* Grün = Erfolg, Bestätigung, Korrekt, etc...
+* Rot = Fehler, Abbruch, Stopp, etc...
 
 *_Don'ts_*
 
-Grün = Abbruch, Fehler, Stopp, etc...
-Lila = Weiter, Sekundärbutton, Löschen, etc...
+* Grün = Abbruch, Fehler, Stopp, etc...
+* Lila = Weiter, Sekundärbutton, Löschen, etc...
 
 ==== Applikationsfarben
 
@@ -418,30 +419,26 @@ Die Farben sollten auch so gewählt werden, dass ein harmonisches Gesamtbild erh
 Die Applikationsfarbe kommt an folgenden Stellen zum Einsatz:
 
 * Hauptnavigation – Farbbalken unterhalb des Headers
-
 * Submenü (Flyout) – Farbbalken am oberen Rand des Menüs
-
 * Widget auf Dashboard – Farbbalken am oberen Rand
-
 * Titelzeile von Detailseiten – Hintergrundfarbe der Titelzeile
-
 * Dialoge der Applikation – Farbbalken oberhalb der Titelzeile
 
 *_Do's_*
 
-*  Die Applikationsfarbe repräsentiert eine Gruppe von Applikationen oder eine einzelne Applikation, sofern sie keiner Gruppe zugeordnet werden kann.
-*  Eine Applikationsgruppe kann immer nur eine Farbe annehmen.
+* Die Applikationsfarbe repräsentiert eine Gruppe von Applikationen oder eine einzelne Applikation, sofern sie keiner Gruppe zugeordnet werden kann.
+* Eine Applikationsgruppe kann immer nur eine Farbe annehmen.
 Die Applikationen innerhalb einer Gruppe erhalten keine unterschiedlichen Farben.
-*  Die Farben sollten so gewählt werden, dass ein harmonisches Gesamtbild erhalten bleibt.
+* Die Farben sollten so gewählt werden, dass ein harmonisches Gesamtbild erhalten bleibt.
 
 === Icons
 
-Icons können als zusätzliches Element in genutzt werden, um Funktionen und Inhalt auch visuell kenntlich zu machen.
+Icons können als zusätzliches Element genutzt werden, um Funktionen und Inhalt auch visuell kenntlich zu machen.
 Dabei sollten Icons primär immer mit Text genutzt werden und so wenig wie möglich alleinstehend sein.
-Wenn Icons alleine als Icon button oder Aktionselement genutzt werden, sollte sich auf eine kleinstmögliche Menge beschränkt werden.
-Es wird empfohlen alleinstehende icons mit einem weit verbreiteten und allgemeinen klaren Zweck zu nutzen.
+Wenn Icons alleine als Icon-Buttons oder Aktionselemente genutzt werden, sollte sich auf eine kleinstmögliche Menge beschränkt werden.
+Es wird empfohlen alleinstehende Icons mit einem weit verbreiteten und allgemeinen klaren Zweck zu nutzen.
 
-In der folgenden Tabelle sind mögliche Icons und deren Funktion dargestellt sowie die dazugehörige CSS-Klasse.
+In der folgenden Tabelle sind mögliche Icons und deren Funktion dargestellt, sowie die dazugehörige CSS-Klasse.
 Eine Gesamtübersicht der zur Verfügung stehenden Icons ist unter https://www.primefaces.org/diamond/icons.xhtml[Prime Faces Icons] zu finden.
 
 .Übersicht häufig verwendeter Icons
