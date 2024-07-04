@@ -238,14 +238,33 @@ Nutzen Sie daher auch andere visuelle Elemente wie Symbole oder Muster, um wicht
 * Vermeide schwache Kontraste z.B. hellblau auf grau.
 * Löse keine Aktionen durch Bedienelemente aus, wenn diese nicht dazu vorgesehen sind (z.B. Radiobutton und Checkboxen).
 
-Die richtige Verwendung von Alt-Attributen für Bilder und ARIA-Labels für andere Bedienelemente ist von großer Bedeutung.
+[[barrierefreier-einsatz-von-farben]]
+=== Barrierefreier Einsatz von Farben
+
+Farben sind ein Hauptbestandteil um die (Web-)Applikationen zu gestalten und um die Nutzenden zu unterstützen.
+Um eine gute Erkennbarkeit der Elemente sicherzustellen, muss bei großer Schrift ein Kontrast von mindestens 3:1 gewährleistet sein.
+
+Nachfolgend sind alle in der Anwendung zur Verfügung stehenden Farben miteinander in ein Kontrastverhältnis gebracht.
+Farbkombinationen, die rot gelabeled sind und keinen ausreichenden Kontrast aufweisen, dürfen nicht verwendet werden.
+Andere Farbkombinationen sind entsprechend ihrem Text/Elementgröße frei zu wählen.
+Dabei soll der Kontrast so hoch wie möglich gewählt werden.
+
+[[image-Farbpalette]]
+.Farbmatrix
+image::24_BE_colormatrix.png[align="center"]
+
+Eine interaktive und erweiterbare Tabelle ist unter https://contrast-grid.eightshapes.com/?version=1.1.0&background-colors=&foreground-colors=%23000000%2C%20Black%0D%0A%23FFFFFF%2C%20White%0D%0A%23F2F2F2%2C%20light%20Grey%0D%0A%23DDDDDD%2C%20Grey%0D%0A%2383878c%2C%20medium%20Grey%0D%0A%23404040%2C%20Charcoal%0D%0A%23212529%2C%20dark%20Grey%0D%0A%230055B9%2C%20Active%20and%20Primary%0D%0A%2366AEE5%2C%20Primary%20disabled%0D%0A%23D45C00%2C%20Secondary%0D%0A%23A4252C%2C%20Alert%0D%0A%23498205%2C%20Success%0D%0A%23D47D00%2C%20Warning%0D%0A%23008EDB%2C%20Info%0D%0A%238378DE%2C%20Help%0D%0A%0D%0A%0D%0A%0D%0A%0D%0A%0D%0A&es-color-form__tile-size=regular&es-color-form__show-contrast=aaa&es-color-form__show-contrast=aa&es-color-form__show-contrast=aa18&es-color-form__show-contrast=dnp[Farbmatrix] zu finden.
+
+Die folgenden Links verweisen auf weitere Informationen zur Kontrast-Analyse:
+
+* http://whocanuse.com[WhoCanUse?]
+* http://leserlich.info/kapitel/farben.php[leserlich.info]
 
 === Alt-Attribute für Bilder
 
-Bedeutung der Alt-Attribute:
 Alt-Attribute (alternative Texte) sind textuelle Beschreibungen, die in den HTML-Code von Bildern eingebettet werden. Sie dienen mehreren wichtigen Zwecken:
 
-* Zugänglichkeit: Screenreader verwenden Alt-Attribute, um sehbehinderten oder blinden Benutzern den Inhalt und Zweck eines Bildes zu vermitteln.
+* Zugänglichkeit: Screenreader verwenden Alt-Attribute, um sehbehinderten oder blinden Benutzenden den Inhalt und Zweck eines Bildes zu vermitteln.
 * Fehlertoleranz: Wenn ein Bild aus irgendeinem Grund nicht geladen werden kann, zeigt der Browser den Alt-Text anstelle des Bildes an.
 
 *_Best Practices für das Schreiben von Alt-Attributen_*
@@ -361,6 +380,256 @@ Dafür wird die entsprechende SCSS und CSS in die Anwendung integriert.
 * Es ist möglich „harte Overrides“ im CSS vorzunehmen, davon wird jedoch abgeraten.
 Dadurch ist die Wartbarkeit stark beeinträchtigt und die Aufwände können sich in der Pflege der Anwendung stark erhöhen.
 * Die Anwendung ist primär für die Nutzung auf Desktopgeräten konzipiert, kann aber mit ihrer Responsivität auch auf mobilen Geräten (sofern möglich) genutzt werden.
+
+== Basiselemente
+
+=== Farben
+
+Farben tragen maßgeblich zur visuellen Identität einer (Web-)Applikation bei und beeinflussen die Stimmung und Wahrnehmung der Nutzenden:
+
+* Die Standardpalette wird vom IsyFact Theme mit ausgeliefert und entsprechend der aktuellen gesetzlichen Entwicklung aktualisiert.
+Deshalb kann die Palette von dem hier dokumentierten Stand abweichen.
+* Die Standardpalette (zum Zeitpunkt: dd.mm.yyyy) wird im Bereich Barrierefreiheit mit einer Kontrast-Tabelle angegeben.
+* Verwendung einer Anwendungsfarbe muss vom Projekt auf Barrierefreiheit geprüft werden und ist frei wählbar.
+
+Es kommt folgende Farbpalette zum Einsatz:
+[[image-Farbpalette]]
+.Farbpalette
+image::24_BE_farbpalette.png[align="center"]
+
+Die Farben sind entsprechend ihres Namens und ihrer bekannten Bedeutung zu nutzen (z.B. Rot = Fehler)!
+
+*_Do's_*
+
+* Grün = Erfolg, Bestätigung, Korrekt, etc...
+* Rot = Fehler, Abbruch, Stopp, etc...
+
+*_Don'ts_*
+
+* Grün = Abbruch, Fehler, Stopp, etc...
+* Lila = Weiter, Sekundärbutton, Löschen, etc...
+
+==== Applikationsfarben
+
+Pro Applikationsgruppe kann eine Farbe definiert werden, welche an verschiedenen Stellen des Applikationsportals eingesetzt wird und so einen Wiedererkennungswert schafft.
+Kann eine Applikation keiner Gruppe zugeordnet werden, so kann sie ihre eigene Farbe erhalten.
+Bei der Wahl der Farben sind die generellen Richtlinien zur Benutzung von Farben zu berücksichtigen.
+Die Farben sollten auch so gewählt werden, dass ein harmonisches Gesamtbild erhalten bleibt.
+
+Die Applikationsfarbe kommt an folgenden Stellen zum Einsatz:
+
+* Hauptnavigation – Farbbalken unterhalb des Headers
+* Submenü (Flyout) – Farbbalken am oberen Rand des Menüs
+* Widget auf Dashboard – Farbbalken am oberen Rand
+* Titelzeile von Detailseiten – Hintergrundfarbe der Titelzeile
+* Dialoge der Applikation – Farbbalken oberhalb der Titelzeile
+
+*_Do's_*
+
+* Die Applikationsfarbe repräsentiert eine Gruppe von Applikationen oder eine einzelne Applikation, sofern sie keiner Gruppe zugeordnet werden kann.
+* Eine Applikationsgruppe kann immer nur eine Farbe annehmen.
+Die Applikationen innerhalb einer Gruppe erhalten keine unterschiedlichen Farben.
+* Die Farben sollten so gewählt werden, dass ein harmonisches Gesamtbild erhalten bleibt.
+
+=== Icons
+
+Icons können als zusätzliches Element genutzt werden, um Funktionen und Inhalt auch visuell kenntlich zu machen.
+Dabei sollten Icons primär immer mit Text genutzt werden und so wenig wie möglich alleinstehend sein.
+Wenn Icons alleine als Icon-Buttons oder Aktionselemente genutzt werden, sollte sich auf eine kleinstmögliche Menge beschränkt werden.
+Es wird empfohlen alleinstehende Icons mit einem weit verbreiteten und allgemeinen klaren Zweck zu nutzen.
+
+In der folgenden Tabelle sind mögliche Icons und deren Funktion dargestellt, sowie die dazugehörige CSS-Klasse.
+Eine Gesamtübersicht der zur Verfügung stehenden Icons ist unter https://www.primefaces.org/diamond/icons.xhtml[Prime Faces Icons] zu finden.
+
+.Übersicht häufig verwendeter Icons
+ifdef::backend-pdf[]
+[cols="^1a,2,5", options="header", align="center"]
+endif::[]
+ifdef::backend-html5[]
+[cols="^1,2,5", options="header", align="center"]
+endif::[]
+|====
+|Icon |CSS-Klasse |Funktionen
+
+a|image::isy-bedienkonzept:primeicons/times.svg[width=32,height=32]
+|pi-times
+|Abbrechen, Ablehnen, Filterzelle leeren, Stornieren
+
+a|image::isy-bedienkonzept:primeicons/car.svg[width=32,height=32]
+|pi-car
+|Abholen
+
+a|image::isy-bedienkonzept:primeicons/sign-out.svg[width=32,height=32]
+|pi-sign-out
+|Abmelden
+
+a|image::isy-bedienkonzept:primeicons/sign-in.svg[width=32,height=32]
+|pi-sign-in
+|Anmelden
+
+a|image::isy-bedienkonzept:primeicons/unlock.svg[width=32,height=32]
+|pi-unlock
+|Aktivieren, Freischalten
+
+a|image::isy-bedienkonzept:primeicons/sync.svg[width=32,height=32]
+|pi-sync
+|Aktualisieren, Synchronisieren
+
+a|image::isy-bedienkonzept:primeicons/check.svg[width=32,height=32]
+|pi-check
+|Akzeptieren, Annehmen, Erledigen, Zustimmen
+
+a|image::isy-bedienkonzept:primeicons/paperclip.svg[width=32,height=32]
+|pi-paperclip
+|Anhänge
+
+a|image::isy-bedienkonzept:primeicons/reply.svg[width=32,height=32]
+|pi-reply
+|Antworten
+
+a|image::isy-bedienkonzept:primeicons/eye.svg[width=32,height=32]
+|pi-eye
+|Anzeigen
+
+a|image::isy-bedienkonzept:primeicons/file.svg[width=32,height=32]
+|pi-file
+|Archiv, aus Archiv zurück holen, Dokument erstellen, Erstmeldung
+
+a|image::isy-bedienkonzept:primeicons/pencil.svg[width=32,height=32]
+|pi-pencil
+|Bearbeiten, Bearbeitung fortsetzen, Editieren, Korrigieren
+
+a|image::isy-bedienkonzept:primeicons/user.svg[width=32,height=32]
+|pi-user
+|Benutzende, Anwendende, Nutzende, Person
+
+a|image::isy-bedienkonzept:primeicons/image.svg[width=32,height=32]
+|pi-image
+|Bild, Bild anzeigen
+
+a|image::isy-bedienkonzept:primeicons/language.svg[width=32,height=32]
+|pi-language
+|Buchstaben-Picker
+
+a|image::isy-bedienkonzept:primeicons/download.svg[width=32,height=32]
+|pi-download
+|Datei laden, Download, Herunterladen, Laden von Daten
+
+a|image::isy-bedienkonzept:primeicons/list.svg[width=32,height=32]
+|pi-list
+|Datensatz anzeigen, Detailauskunft, List Picker (Objektauswahl), Trefferliste
+
+a|image::isy-bedienkonzept:primeicons/share-alt.svg[width=32,height=32]
+|pi-share-alt
+|Daten senden, Daten übermitteln, Senden, Versenden, Teilen
+
+a|image::isy-bedienkonzept:primeicons/print.svg[width=32,height=32]
+|pi-print
+|Drucken
+
+a|image::isy-bedienkonzept:primeicons/cog.svg[width=32,height=32]
+|pi-cog
+|Einstellung, Einstellungen
+
+a|image::isy-bedienkonzept:primeicons/arrow-up-right.svg[width=32,height=32]
+|pi-arrow-up-right
+|Eintrag auswählen
+
+a|image::isy-bedienkonzept:primeicons/minus.svg[width=32,height=32]
+|pi-minus
+|Entfernen, Löschen
+
+a|image::isy-bedienkonzept:primeicons/plus.svg[width=32,height=32]
+|pi-plus
+|Ergänzen, Hinzufügen
+
+a|image::isy-bedienkonzept:primeicons/bell.svg[width=32,height=32]
+|pi-bell
+|Erinnerung
+
+a|image::isy-bedienkonzept:primeicons/upload.svg[width=32,height=32]
+|pi-upload
+|Hochladen, Upload
+
+a|image::isy-bedienkonzept:primeicons/exclamation-triangle.svg[width=32,height=32]
+|pi-exclamation-triangle
+|Fehler, Fehlerhaft, Warnung
+
+a|image::isy-bedienkonzept:primeicons/eraser.svg[width=32,height=32]
+|pi-eraser
+|Felder leeren
+
+a|image::isy-bedienkonzept:primeicons/check-circle.svg[width=32,height=32]
+|pi-check-circle
+|Fertig, Abgeschlossen
+
+a|image::isy-bedienkonzept:primeicons/history.svg[width=32,height=32]
+|pi-history
+|Historie
+
+a|image::isy-bedienkonzept:primeicons/info-circle.svg[width=32,height=32]
+|pi-info-circle
+|Info
+
+a|image::isy-bedienkonzept:primeicons/arrow-circle-down.svg[width=32,height=32]
+|pi-arrow-circle-down
+|Importieren
+
+//arrow circle up muss noch hochgeladen werden
+//a|image::isy-bedienkonzept:primeicons/arrow-circle-up.svg[width=32,height=32]
+//|pi-arrow-circle-up
+//|Exportieren
+
+a|image::isy-bedienkonzept:primeicons/calendar.svg[width=32,height=32]
+|pi-calendar
+|Kalender
+
+ifdef::backend-html5[]
+a|image::isy-bedienkonzept:primeicons/id-card.svg[width=32,height=32]
+|pi-id-card
+|Kontakt
+endif::[]
+
+a|image::isy-bedienkonzept:primeicons/trash.svg[width=32,height=32]
+|pi-trash
+|Löschen
+
+a|image::isy-bedienkonzept:primeicons/envelope.svg[width=32,height=32]
+|pi-envelope
+|Mail, Nachrichten
+
+a|image::isy-bedienkonzept:primeicons/folder-open.svg[width=32,height=32]
+|pi-folder-open
+|Seite öffnen
+
+a|image::isy-bedienkonzept:primeicons/save.svg[width=32,height=32]
+|pi-save
+|Sichern, Speichern
+
+a|image::isy-bedienkonzept:primeicons/search.svg[width=32,height=32]
+|pi-search
+|Suchen, Suche wiederholen. Neue Suche, Durchsuchen, letzte Suche
+
+a|image::isy-bedienkonzept:primeicons/arrow-circle-left.svg[width=32,height=32]
+|pi-arrow-circle-left
+|Vorheriger, Zurück (Navigation)
+
+a|image::isy-bedienkonzept:primeicons/arrow-circle-right.svg[width=32,height=32]
+|pi-arrow-circle-right
+|Weiter, Nächster
+
+a|image::isy-bedienkonzept:primeicons/refresh.svg[width=32,height=32]
+|pi-refresh
+|Wiederholen
+
+a|image::isy-bedienkonzept:primeicons/clock.svg[width=32,height=32]
+|pi-clock
+|Zeit, Time Picker
+
+a|image::isy-bedienkonzept:primeicons/star-fill.svg[width=32,height=32]
+|pi-star-fill
+|Wiedervorlage
+|====
 
 == Bedienelemente
 

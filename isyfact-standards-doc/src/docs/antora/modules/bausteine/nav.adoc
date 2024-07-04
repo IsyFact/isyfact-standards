@@ -1,7 +1,7 @@
 * xref:bausteine.adoc[]
 ** Datum & Zeit
-*** xref:isy-datetime:konzept/master.adoc[Konzept]
-*** xref:isy-datetime:nutzungsvorgaben/master.adoc[Nutzungsvorgaben]
+*** xref:isy-datetime-doc:ROOT:konzept/master.adoc[Konzept]
+*** xref:isy-datetime-doc:ROOT:nutzungsvorgaben/master.adoc[Nutzungsvorgaben]
 
 ** Fehlerbehandlung
 *** xref:isy-exception-core:konzept/master.adoc[Konzept]
