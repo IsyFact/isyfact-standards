@@ -228,45 +228,14 @@ OpenID Connect Abfragen zur Identität eines Benutzers, OpenID-Token oder Custom
 [[authentifizierung-und-autorisierung]]
 === Authentifizierung & Autorisierung
 
-Das nachfolgende Kapitel erläutert die Mandanten spezifische Trennung der Authentifizierungswege.
+==== Problematik per interner oder externer URL
 
-[[ways-of-authentication-as-multi-tenant]]
-==== Authentifizierungswege als Mandanten
-Die bisher aufgezeigten Authentifizierungswege über _Portal_-, _Service_- und _Authentication-Gateway_ werden in Bezug auf `isy-security` als jeweilig unterschiedliche Manadanten behandelt bzw. konfiguriert.
-Aber auch pro Authentifizierungsweg ist es möglich unterschiedliche Mandanten sprich mehrere Instanzen des gleichen Typs einzurichten.
+Sofern das IAM über zwei unterschiedliche URLs aufgerufen wird, müssen beide URLs der Anwendung, für die die Autorisierung erlangt wird, bekannt sein.
+Dies ist der Fall, wenn die interne URL des IAM, z.B. für Aufrufe innerhalb der Anwendungslandschaft, von der externen URL, z.B. für Aufrufe von außerhalb der Anwendungslandschaft, aufgrund von unterschiedlichen Netzen/Reverse-Proxies abweicht.
+Die aufgerufene URL (Issuer-URL) wird im ausgestellten Access-Token hinterlegt und mit der in der Geschäftsanwendung konfigurierten URL im Rahmen der Tokenprüfung abgeglichen.
+Die Prüfung schlägt oft fehl, da das Access-Token über die externe URL ausgestellt wurde, in der Geschäftsanwendung jedoch (nur) die interne URL konfiguriert ist.
 
-Das bedeutet, dass für jeden Mandanten unterschiedliche Konfigurationen möglich sind.
-Ein _Portal_-Gateway bedarf beispielsweise einer anderen oder gar erweiterten Konfiguration gegenüber einem _Service_-Gateway.
-Das _Authentication_-Gateway wiederum erfüllt neuere und erweiterte Sicherheitsanforderungen der Authentifizierung als die beiden anderen Kanäle bisher.
-Wiederum eine weitere Instanz eines Authentication-Gateways bedarf einer fachlichen Trennung gegenüber dem bisherigen Authentication-Gateway und wird mit einer weiteren IAM-Instanz verbunden.
-
-Dies beruht auf der Art und Weise, wie die Authentifzierung mit `isy-security`, dem ausgestellten Access-Token bei valider Nutzer-Authentifizierung und der nachfolgenden Token-Validierung während des fachlichen Prozesses stattfindet.
-
-So bedarf beispielsweise die Authentifizierung einer externen Webclient-Anwendung über das _Portal_-Gateway eine Konfiguration des IAM-Service, die berücksichtigt, dass der Aufruf des IAM-Service hier eine Unterscheidung zwischen _internem_ und _externem_ Aufruf benötigt.
-Um dies zu ermöglichen bietet die _Spring-Konfiguration_ folgende beiden Properties:
-
-- `spring.security.oauth2.resourceserver.jwt.tenants.<realm>.issuer-uri`
-- `spring.security.oauth2.resourceserver.jwt.tenants.<realm>.jwk-set-uri`
-
-*Mandanten-Bezug (realm)*
-
-Um nun für jeden Mandanten eine eindeutige Zuordnung der Properties herzustellen, enthält der Property-Key den Pfad
-`spring.security.oauth2.resourceserver.jwt.tenants.<realm>`
-
-Der Platzhalter `<realm>` wird in der konkreten Konfigurationsausprägung auf den Wert bzw. Namen des Mandanten gesetzt.
-So wäre beispielsweise für die drei Authentifizierungswege folgende Property-Pfade vorstellbar:
-
-- `spring.security.oauth2.resourceserver.jwt.tenants.*portal*`
-- `spring.security.oauth2.resourceserver.jwt.tenants.*sgw*`
-- `spring.security.oauth2.resourceserver.jwt.tenants.*agw*`
-
-Sollten für einen der drei Authentifizierungskanäle mehrere Instanzen notwendig werden, dann müssen sich deren Namen natürlich auch unterscheiden, wie beispielsweise:
-
-- `spring.security.oauth2.resourceserver.jwt.tenants.*sgw-1*`
-- `spring.security.oauth2.resourceserver.jwt.tenants.*sgw-2*`
-
-
-Nun zur fachlichen Bedeutung der beiden Properties `issuer-uri` und `jwk-set-uri`.
+Wie kann nun dieser Problematik per Konfiguration begegenet werden?
 
 *Property `issuer-uri`*
 
