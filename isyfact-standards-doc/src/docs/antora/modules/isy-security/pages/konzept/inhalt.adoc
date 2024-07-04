@@ -226,15 +226,15 @@ OpenID Connect Abfragen zur Identität eines Benutzers, OpenID-Token oder Custom
 
 [[authentifizierung-und-autorisierung]]
 === Authentifizierung & Autorisierung
-Gemäß der xref:https://isyfact.github.io/isyfact-standards-doku/current/blaupausen/referenzarchitektur/master.html#fachliche-referenzarchitektur[IsyFact-Referenzarchitektur] wird bei der Authentifizierung nach vordefinierten xref:https://isyfact.github.io/isyfact-standards-doku/dev/referenzarchitektur/software-technisch.html#prinzipien-der-sicherheitsarchitektur[Prinzipien der Sicherheitsarchitektur] unterschieden, wie das nachfolgende Bild zeigt:
+Gemäß der xref:isyfact-standards-doku:referenzarchitektur:fachlich.adoc#[IsyFact-Referenzarchitektur] wird bei der Authentifizierung nach vordefinierten xref:isyfact-standards-doku:referenzarchitektur:software-technisch.adoc#prinzipien-der-sicherheitsarchitektur[Prinzipien der Sicherheitsarchitektur] unterschieden, wie das nachfolgende Bild zeigt:
 
 .Authentifizierungswege als Mandanten
 [id="image-authorization-code-connections",reftext="{figure-caption} {counter:figures}"]
 image::konzept/security_multi-tenancy_with_multi_iams.dn.svg[align="center"]
 
-Dabei ergeben sich die unterschiedlichen Kommunikationskanäle _Portal_, _Service-Gateway_ oder _Authentication-Gateway_, über welche ein Authentifizierungs-Request an der Anwendungslandschaft ankommt bzw. verarbeitet wird.
+Dabei ergeben sich die unterschiedlichen Kommunikationskanäle _Portal_, _Service-Gateway_, _Authentication-Gateway_ oder _interne Anwendungs-Authentifizierung_ (Batch/Task/Kontextwechsel), über welche ein Authentifizierungs-Request an der Anwendungslandschaft ankommt bzw. verarbeitet wird.
 
-Alle drei Komponenten unterscheiden sich in ihrem Aufbau, ihrer Konfiguration und ihrer Funktionalität, so dass jede genau die speziellen Kommunikationskanal-Eigenheiten - siehe dazu Kapitel <<aufruf-weboberflaeche-portal>>, <<aufruf-service-gateway-ohne-authentication-gateway>> und <<aufruf-service-gateway-mit-authentication-gateway>> - am besten bedienen kann.
+Alle daran beteiligten Komponenten unterscheiden sich in ihrem Aufbau, ihrer Konfiguration und ihrer Funktionalität, so dass jede genau die speziellen Kommunikationskanal-Eigenheiten - siehe dazu Kapitel <<aufruf-weboberflaeche-portal>>, <<aufruf-service-gateway-ohne-authentication-gateway>>, <<aufruf-service-gateway-mit-authentication-gateway>> und <<ausfuehrung-batch-u-task>> bzw. <<aufruf-von-nachbarsystemen>> - am besten bedienen kann.
 Zur Umsetzung und sicherheitsrelevanten Trennung dieser Kommunikationskanäle werden diese als eigenständige Mandanten betrachtet und können somit auch als mehrere Instanzen pro Kanal eingerichtet werden.
 Dadurch ist es möglich fachliche Unterschiede über den gleichen technischen Kanal-Typ bei der Authentifizierung zu machen.
 
@@ -242,21 +242,21 @@ Das nachfolgende Kapitel  erläutert diese Mandanten spezifische Behandlung.
 
 [[ways-of-authentication-as-multi-tenant]]
 ==== Authentifizierungswege als Mandanten
-Die bisher aufgezeigten Authentifizierungswege über _Portal_-, _Service_- und _Authentication-Gateway_ werden in Bezug auf `isy-security` als jeweilig unterschiedliche Mandanten behandelt bzw. konfiguriert.
+Die bisher aufgezeigten Authentifizierungswege werden in Bezug auf `isy-security` als jeweilig unterschiedliche Mandanten behandelt bzw. konfiguriert.
 Aber auch pro Authentifizierungsweg ist es möglich unterschiedliche Mandanten sprich mehrere Instanzen des gleichen Typs einzurichten.
 
 Um nun für jeden Mandanten eine eindeutige Zuordnung bzw. eine Mandanten spezifische Gruppierung der Properties herzustellen, muss der Property-Key im Pfad den Namen des Mandanten beinhalten:
 
-`spring.security.oauth2.resourceserver.jwt.tenants.<realm>`
+`spring.security.oauth2.resourceserver.jwt.tenants.<mandant-id>`
 
-Der Platzhalter `<realm>` wird in der konkreten Konfigurationsausprägung auf den Namen des Mandanten gesetzt.
-So wäre beispielsweise für die drei Authentifizierungswege folgende Property-Pfade vorstellbar:
+Der Platzhalter `<mandant-id>` wird in der konkreten Konfigurationsausprägung auf den Namen des Mandanten gesetzt.
+So wäre beispielsweise für die drei Authentifizierungswege aus der Nutzungsschicht folgende Property-Pfade vorstellbar:
 
 - `spring.security.oauth2.resourceserver.jwt.tenants.*portal*`
 - `spring.security.oauth2.resourceserver.jwt.tenants.*sgw*`
 - `spring.security.oauth2.resourceserver.jwt.tenants.*agw*`
 
-Sollten für einen der drei Authentifizierungskanäle mehrere Instanzen notwendig werden, dann müssen sich deren Namen natürlich auch unterscheiden, wie beispielsweise:
+Sollten für einen Authentifizierungskanal mehrere Instanzen notwendig werden, dann müssen sich deren Namen natürlich auch unterscheiden, wie beispielsweise:
 
 - `spring.security.oauth2.resourceserver.jwt.tenants.*sgw-1*`
 - `spring.security.oauth2.resourceserver.jwt.tenants.*sgw-2*`
@@ -273,13 +273,13 @@ Schrittweise Erklärung des Kommunikationsablaufs:
 
 - Eine Anwendung in Anwendungslandschaft AWL-x startet einen WebClient
 - (1) Dieser für AWL-1 externe WebClient sendet seine Requests an das _Portal_ in der AWL-1
-- Das _Portal_ (Apache tomcat mit _openid-connect_ Modul) erkennt die ausstehende Authentifizierung und
-- (2) liefert an den externen WebClient einen Redirect „Login mit der *externen* Issuer-URI“, um (3) direkt im IAM/KeyCloak der AWL-1 den (4) LoginDialog zu öffnen.
-- (5) In diesem Dialog gibt der User des WebClients sein _Username_ und _Passwort_ ein, aus dem im _IAM/KeyCloak_ bei valider Authentifizierung ein _OneTime AutorisationCode_ erzeugt und (6) als Redirect an den _WebClient_ zurückgegeben wird.
-- (7) Den Redirect mit dem _AutorisationCode_ sendet der _WebClient_ wieder an das _Portal_, das (8) diesen über die *interne* Issuer-URI an den _IAM/KeyCloak_ in der AWL-1 weiterleitet.
-- Der _IAM/KeyCloak_ der AWL-1 validiert den _AutorisationCode_ und (9) liefert dann ein _Access-Token_ mit der *internen* Issuer-URI im `iss-Claim` des Tokens an das Portal zurück, das das Token nun Session-bezogen verwaltet und (10) dem WebClient eine erfolgreiche Authentifizierung zurückmeldet.
-- Der _WebClient_ (11) sendet nun innerhalb dieser authentifizierten Session seine fachlichen Requests an das _Portal_, das (12) die ankommenden Requests mit dem Session-bezogenen Access-Token anreichert und an die entsprechende Anwendung in der AWL-1 weiterleitet.
-- (13) In der Anwendung wird das Token nun validiert wozu ggf. über die *interne* Issuer-URI das Zertifikat aus dem IAM der AWL-1 vorher nachgeladen werden muss.
+- (2) Das _Portal_ (Apache tomcat mit _openid-connect_ Modul) erkennt die ausstehende Authentifizierung und
+- (3) liefert an den externen WebClient einen Redirect „Login mit der *externen* Issuer-URI“, um (4) direkt im IAM/KeyCloak der AWL-1 den (5) LoginDialog zu öffnen.
+- (6) In diesem Dialog gibt der User des WebClients sein _Username_ und _Passwort_ ein, aus dem im _IAM/KeyCloak_ bei valider Authentifizierung ein _OneTime AutorisationCode_ erzeugt und (7) als Redirect an den _WebClient_ zurückgegeben wird.
+- (8) Den Redirect mit dem _AutorisationCode_ sendet der _WebClient_ wieder an das _Portal_, das (9) diesen über die *interne* Issuer-URI an den _IAM/KeyCloak_ in der AWL-1 weiterleitet.
+- Der _IAM/KeyCloak_ der AWL-1 validiert den _AutorisationCode_ und (10) liefert dann ein _Access-Token_ mit der *internen* Issuer-URI im `iss-Claim` des Tokens an das Portal zurück, das das Token nun Session-bezogen verwaltet und (11) dem ursprünglichen Request des WebClients nun hinzufügt und an die Anwendung weiterleitet.
+- Der _WebClient_ (12) sendet nun innerhalb dieser authentifizierten Session seine weiteren fachlichen Requests an das _Portal_, das (13) die ankommenden Requests mit dem Session-bezogenen Access-Token anreichert und an die entsprechende Anwendung in der AWL-1 weiterleitet.
+- (14) In der Anwendung wird das Token nun validiert wozu ggf. über die *interne* Issuer-URI das Zertifikat aus dem IAM der AWL-1 vorher nachgeladen werden muss.
 
 So bedarf, wie das obige Beispiel zeigt, die Authentifizierung einer externen _WebClient_-Anwendung über das _Portal-Gateway_ eine Konfiguration des IAM-Service, die berücksichtigt, dass der Aufruf des IAM-Service hier eine Unterscheidung zwischen *internem* und *externem* Aufruf benötigt.
 Um dies zu ermöglichen bietet die _Spring-Konfiguration_ folgende beiden Properties:
@@ -294,7 +294,7 @@ Das würde dann Mandanten spezifisch gruppiert in der Art konfiguriert werden
 - `spring.security.oauth2.resourceserver.jwt.tenants.#portal#.issuer-uri`
 - `spring.security.oauth2.resourceserver.jwt.tenants.#portal#.jwk-set-uri`
 
-Sollte in der gleichen Anwendungslandschaft AWL eine weitere Instanz eines Portals, aber gegen eine andere IAM/KeyCloak-Instanz betrieben werden, dann bedarf es genau diese beiden Properties doppelt in der Konfiguration anzulegen und statt der Tenand-Id=`portal` eine andere eindeutige _Tenand-Id_ (`portal-2`) zu verwenden.
+Sollte in der gleichen Anwendungslandschaft AWL z.B. eine weitere Instanz eines Portals, aber gegen eine andere IAM/KeyCloak-Instanz betrieben werden, dann bedarf es genau diese beiden Properties doppelt in der Konfiguration anzulegen und statt der Tenant-Id=`portal` eine andere eindeutige _Tenant-Id_ (`portal-2`) zu verwenden.
 
 Nun zur fachlichen Bedeutung der beiden Properties `issuer-uri` und `jwk-set-uri`.
 
