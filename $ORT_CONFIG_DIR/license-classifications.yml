@@ -1,0 +1,244 @@
+categories:
+  - name: "allow"
+
+categorizations:
+  - id: "AGPL-1.0"
+    categories:
+      - "allow"
+  - id: "0BSD"
+    categories:
+      - "allow"
+  - id: "CC0-1.0"
+    categories:
+      - "allow"
+  - id: "Unlicense"
+    categories:
+      - "allow"
+  - id: "AFL-1.1"
+    categories:
+      - "allow"
+  - id: "AFL-1.2"
+    categories:
+      - "allow"
+  - id: "AFL-2.0"
+    categories:
+      - "allow"
+  - id: "AFL-2.1"
+    categories:
+      - "allow"
+  - id: "AFL-3.0"
+    categories:
+      - "allow"
+  - id: "AMPAS"
+    categories:
+      - "allow"
+  - id: "Apache-1.0"
+    categories:
+      - "allow"
+  - id: "Apache-1.1"
+    categories:
+      - "allow"
+  - id: "Apache-2.0"
+    categories:
+      - "allow"
+  - id: "Artistic-1.0"
+    categories:
+      - "allow"
+  - id: "Artistic-1.0-cl8"
+    categories:
+      - "allow"
+  - id: "Artistic-1.0-Perl"
+    categories:
+      - "allow"
+  - id: "Artistic-2.0"
+    categories:
+      - "allow"
+  - id: "Beerware"
+    categories:
+      - "allow"
+  - id: "BSD-2-Clause"
+    categories:
+      - "allow"
+  - id: "BSD-2-Clause-FreeBSD"
+    categories:
+      - "allow"
+  - id: "BSD-2-Clause-NetBSD"
+    categories:
+      - "allow"
+  - id: "BSD-2-Clause-Patent"
+    categories:
+      - "allow"
+  - id: "BSD-3-Clause"
+    categories:
+      - "allow"
+  - id: "BSD-3-Clause-Attribution"
+    categories:
+      - "allow"
+  - id: "BSD-3-Clause-Clear"
+    categories:
+      - "allow"
+  - id: "BSD-3-Clause-LBNL"
+    categories:
+      - "allow"
+  - id: "BSD-4-Clause"
+    categories:
+      - "allow"
+  - id: "BSD-4-Clause-UC"
+    categories:
+      - "allow"
+  - id: "BSD-Protection"
+    categories:
+      - "allow"
+  - id: "BSL-1.0"
+    categories:
+      - "allow"
+  - id: "CC-BY-1.0"
+    categories:
+      - "allow"
+  - id: "CC-BY-2.0"
+    categories:
+      - "allow"
+  - id: "CC-BY-2.5"
+    categories:
+      - "allow"
+  - id: "CC-BY-3.0"
+    categories:
+      - "allow"
+  - id: "CC-BY-4.0"
+    categories:
+      - "allow"
+  - id: "CDLA-Permissive-1.0"
+    categories:
+      - "allow"
+  - id: "CDLA-Permissive-2.0"
+    categories:
+      - "allow"
+  - id: "CERN-OHL-P-2.0"
+    categories:
+      - "allow"
+  - id: "FTL"
+    categories:
+      - "allow"
+  - id: "ISC"
+    categories:
+      - "allow"
+  - id: "ImageMagick"
+    categories:
+      - "allow"
+  - id: "JSON"
+    categories:
+      - "allow"
+  - id: "LPL-1.0"
+    categories:
+      - "allow"
+  - id: "LPL-1.02"
+    categories:
+      - "allow"
+  - id: "Libpng"
+    categories:
+      - "allow"
+  - id: "libtiff"
+    categories:
+      - "allow"
+  - id: "Linux-OpenIB"
+    categories:
+      - "allow"
+  - id: "MIT"
+    categories:
+      - "allow"
+  - id: "MIT-CMU"
+    categories:
+      - "allow"
+  - id: "MS-PL"
+    categories:
+      - "allow"
+  - id: "NCSA"
+    categories:
+      - "allow"
+  - id: "NIST-Software"
+    categories:
+      - "allow"
+  - id: "OpenSSL"
+    categories:
+      - "allow"
+  - id: "PHP-3.0"
+    categories:
+      - "allow"
+  - id: "PHP-3.01"
+    categories:
+      - "allow"
+  - id: "PostgreSQL"
+    categories:
+      - "allow"
+  - id: "PSF-2.0"
+    categories:
+      - "allow"
+  - id: "Python-2.0"
+    categories:
+      - "allow"
+  - id: "SGI-B-1.0"
+    categories:
+      - "allow"
+  - id: "SGI-B-1.1"
+    categories:
+      - "allow"
+  - id: "SGI-B-2.0"
+    categories:
+      - "allow"
+  - id: "SHL-0.5"
+    categories:
+      - "allow"
+  - id: "SHL-0.51"
+    categories:
+      - "allow"
+  - id: "TCP-wrappers"
+    categories:
+      - "allow"
+  - id: "UPL-1.0"
+    categories:
+      - "allow"
+  - id: "Unicode-DFS-2015"
+    categories:
+      - "allow"
+  - id: "Unicode-DFS-2016"
+    categories:
+      - "allow"
+  - id: "Unicode-TOU"
+    categories:
+      - "allow"
+  - id: "W3C"
+    categories:
+      - "allow"
+  - id: "W3C-19980720"
+    categories:
+      - "allow"
+  - id: "W3C-20150513"
+    categories:
+      - "allow"
+  - id: "WTFPL"
+    categories:
+      - "allow"
+  - id: "X11"
+    categories:
+      - "allow"
+  - id: "Xnet"
+    categories:
+      - "allow"
+  - id: "ZPL-1.1"
+    categories:
+      - "allow"
+  - id: "ZPL-2.0"
+    categories:
+      - "allow"
+  - id: "ZPL-2.1"
+    categories:
+      - "allow"
+  - id: "Zend-2.0"
+    categories:
+      - "allow"
+  - id: "Zlib"
+    categories:
+      - "allow"
+  - id: "zlib-acknowledgement"
+    categories:
+      - "allow"
