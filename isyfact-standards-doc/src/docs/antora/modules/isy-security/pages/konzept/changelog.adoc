@@ -1,6 +1,10 @@
 [[changelog]]
 = Changelog
 
+*Änderungen IsyFact 3.1.0*
+
+- `IFS-3834`: `isy-security`: Kapitel Authentifizierung & Autorisierung um Multi-Tenancy erweitert.
+
 *Änderungen IsyFact 3.0.0*
 
 // tag::release-3.0.0[]
