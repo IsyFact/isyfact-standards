@@ -23,9 +23,10 @@ package de.bund.bva.isyfact.logging.util;
  * #L%
  */
 
+import org.slf4j.MDC;
+
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.logging.IsyLoggerStandard;
-import org.slf4j.MDC;
 
 /**
  * Hilfsklasse zum Zugriff auf den MDC.

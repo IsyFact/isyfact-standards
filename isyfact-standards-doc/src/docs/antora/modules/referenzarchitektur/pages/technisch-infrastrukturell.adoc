@@ -1,0 +1,181 @@
+= Technisch-infrastrukturelle Referenzarchitektur
+
+include::glossary:licence:partial$licence.adoc[]
+
+Die technisch-infrastrukturelle Referenzarchitektur beschreibt den Aufbau der Betriebsumgebung für die IT-Systeme einer IsyFact-Systemlandschaft.
+Dazu gehören die physischen Geräte (Rechnersysteme, Netzwerkverbindungen und -komponenten, Drucker etc.), die installierte Systemsoftware (Betriebssystem, Applikationsserver, Middleware, Datenbanksystem) und das Zusammenspiel von Hardware und Systemsoftware.
+
+Auf der Ebene der technischen Infrastruktur können mehrere Instanzen einer Komponente aus der technischen Architektur betrieben werden.
+Auch können mehrere Komponenten auf einem gemeinsamen Rechnersystem laufen.
+
+Die technisch-infrastrukturelle Referenzarchitektur beschreibt folgende Umgebungen:
+
+* Produktionsumgebung,
+* Staging-Umgebung,
+* Schulungs- und externe Testumgebung,
+* Entwicklungs- und Abnahme-Testumgebung.
+
+Die Aufteilung in Zonen leitet sich aus dem SAGA 4-Standard ab.
+
+NOTE: Wir orientieren uns hier nach wie vor am SAGA 4-Standard, da SAGA 5 kein Zonenmodell mehr enthält.
+Leider gibt es zu SAGA 4 keine offizielle Quelle mehr.
+
+Ausgangspunkt für alle Umgebungen ist die <<produktionsumgebung-pru,Produktionsumgebung>>.
+Die anderen Umgebungen sind vereinfachte und verkleinerte Abbilder der Produktionsumgebung.
+
+[[umgebungen]]
+== Umgebungen
+
+Um neben dem operativen Betrieb einer IsyFact-Systemlandschaft parallel neue Versionen von Anwendungen entwickeln, testen und schulen zu können, sind mehrere Systemumgebungen notwendig.
+
+[[umgebungen-ueberblick]]
+.Überblick Systemumgebungen
+image::technisch-infrastrukturell/AlleSysUmgeb.png[]
+
+Die IsyFact unterscheidet sechs Systemumgebungen:
+
+* Produktionsumgebung
+* Staging-Umgebung
+* externe Schulungsumgebung
+* externe Testumgebung
+* Abnahmetestumgebung
+* Entwicklungstestumgebung
+
+Von internen Arbeitsplätzen sind prinzipiell alle Umgebungen erreichbar, sofern entsprechende Zugangsberechtigungen existieren.
+Die Administrationsarbeitsplätze befinden sich im Admin-Netz, von dem ebenfalls zu Administrationszwecken auf alle Systemumgebungen zugegriffen werden kann.
+Externe Anwender können nur bei entsprechender Berechtigung auf die Produktionsumgebung, die Schulungsumgebung und die externe Testumgebung zugreifen.
+Der Zugriff auf die Staging- sowie auf die Abnahmetestumgebung sowie die Entwicklungstestumgebung ist von Extern nicht zugelassen.
+
+Die technischen Aspekte der gesamten Systemumgebungen werden nachfolgend erläutert.
+Für eine bessere Übersichtlichkeit in den Abbildungen der einzelnen Systemumgebungen werden die Verbindungen mit dem Admin-Netz nicht dargestellt.
+
+[[legende-ti-architektur-systemumgebungen]]
+.Legende zur TI-Architektur der Systemumgebungen
+****
+Die Abbildungen der folgenden Abschnitte skizzieren die TI-Architektur der Systemumgebungen.
+Einzelne _Server_ werden durch Knoten dargestellt.
+Größere Knoten gruppieren einzelne Server zu einer logischen Einheit, die _Cluster_ genannt wird.
+Die Knoten eines Clusters sind auf mehrere Rechenzentren verteilt, um bestmögliche Ausfallsicherheit zu erreichen.
+
+Die Verbindungen zeigen die Kommunikation der Server untereinander.
+Der Datenfluss erfolgt in der Regel in beiden Richtungen.
+Besteht eine Verbindung zwischen mehreren Clustern, so entspricht dies Verbindungen zwischen allen Servern dieser Cluster.
+
+Sicherheitszonen werden durch ein gestricheltes Rechteck dargestellt.
+Zonenübergreifende Kommunikationsverbindungen werden von Firewalls kontrolliert.
+****
+
+[[produktionsumgebung-pru]]
+=== Produktionsumgebung (PRU)
+
+Mit dem Begriff „Produktionsumgebung“ wird die technische Infrastruktur bezeichnet, auf der der Wirkbetrieb einer IsyFact-Systemlandschaft abläuft.
+Alle nichtfunktionalen Anforderungen müssen von dieser Systemumgebung vollständig erfüllt werden.
+
+[[pru-architektur]]
+.TI-Architektur der Produktionsumgebung (<<legende-ti-architektur-systemumgebungen,Legende>>)
+image::technisch-infrastrukturell/ti-architektur-awl-pru.dn.svg[]
+
+Der Zugriff durch die Anwender (Clients) und die über externe Systeme angeschlossener Anwender erfolgt über das WAN bzw. das interne LAN.
+Die Kommunikation erfolgt per Secure HTTP (HTTPS) mit einem Browser oder ebenfalls per HTTPS oder SMTP via XML- oder Web-Service-Schnittstelle direkt aus der externen Anwendung über ein Service-Gateway-System.
+Innerhalb der Produktionsumgebung sollten die IT-Systeme ebenfalls verschlüsselt miteinander kommunizieren.
+
+Interne Drittsysteme, die aus dem internen LAN mit der IsyFact-Systemlandschaft kommunizieren, tun dies genau wie externe Anwendungen per HTTPS oder SMTP via XML- oder Web-Service-Schnittstellen über ein Service-Gateway-System.
+Die Authentifizierung geschieht über einen Identity & Access Management (IAM) Cluster, bzw. ein IAM-System.
+
+Administratoren greifen aus dem Admin-Netz direkt mittels Secure-Shell auf die Serversysteme der IsyFact-Systemlandschaft zu (Betriebssystem-Ebene).
+Aus dem Admin-Netz ist der Zugriff auf die Anwendungen nicht möglich.
+
+Web-Server und Service-Gateway-Systeme kommunizieren mit den Applikationsservern der Logik- und Verarbeitungszone.
+In der Produktionsumgebung
+wird aus Gründen der Vereinfachung davon ausgegangen, dass je Rechnersystem ein Applikationsserver betrieben wird.
+Zu empfehlen ist allerdings generell die Nutzung eines Rechnersystems mit mehreren Applikationsservern.
+
+Für die Datenhaltung wird i.d.R. ein auf einem relationalen Datenbank-Management-System (RDBMS) basierender Datenbank-Cluster eingesetzt.
+Bei Bedarf ist dieser ausfallsicher zu skalieren, z.B. durch die Bildung von zwei Clustern.
+Eine Ausprägung steuert die Primärdatenbank, die für die operative Bearbeitung von Auskünften und Meldungen zuständig ist.
+Der operative Datenbestand wird permanent in eine Standby-Datenbank auf dem zweiten Cluster gespiegelt, die für die Datensicherung und für die Erstellung von Auswertungen und Statistiken verwendet wird.
+Um Auswertungen auf Stichtagsbeständen durchführen zu können, wird ein dedizierter Datenbankserver vorgesehen.
+
+[[staging-umgebung-stu]]
+=== Staging-Umgebung (STU)
+
+Mit dem Begriff „Staging-Umgebung“ werden die Komponenten der technischen Infrastruktur bezeichnet, die zum internen Test verwendet werden und auf denen Probleme des Wirkbetriebs nachgestellt werden können.
+Eine solche Umgebung ist notwendig, um Problemanalysen durchzuführen und Lösungen für bekannte Probleme vor dem Einsatz im Wirkbetrieb auf ihre Funktionsfähigkeit hin zu prüfen.
+Die Staging-Umgebung dient auch zu Last- und Performance-Tests, zur Überprüfung der Installationsroutinen und zur Überprüfung der Ausfallsicherheit.
+Daher muss sie so ausgelegt sein, dass verlässliche Aussagen in Bezug auf die Produktionsumgebung möglich sind.
+
+Idealerweise ist die Staging-Umgebung eine exakte Kopie der Produktionsumgebung.
+Häufig ist dies jedoch aufgrund der sehr großen Anzahl Server und den damit verbundenen Investitionskosten für die benötigte Hardware und Software aus Wirtschaftlichkeitsaspekten nicht sinnvoll.
+
+Daher ist die Staging-Umgebung eine in Bezug auf die Anzahl der Cluster-Knoten kleinere Kopie der Produktionsumgebung.
+Das heißt, an Stellen, in denen in der Produktionsumgebung ein Cluster mit mehr als zwei Knoten verwendet wird, wird in der Staging-Umgebung ein Cluster mit 2 Knoten eingesetzt.
+In der Staging-Umgebung wird auch auf die Datenspiegelung verzichtet.
+
+Die Server der Staging-Umgebung stehen in eigenen Sicherheitszonen.
+Die Zonenaufteilung sollte vergleichbar zur Produktionsumgebung sein, da sonst Engpässe in der Netzwerkkommunikation (Bandbreite, Komponentendurchsatz) bei Tests nicht erkannt werden können.
+
+[[stu-architektur]]
+.TI-Architektur Staging-Umgebung (<<legende-ti-architektur-systemumgebungen,Legende>>)
+image::technisch-infrastrukturell/ti-architektur-awl-stu.dn.svg[]
+
+[[externe-testumgebung-xtu]]
+=== Externe Testumgebung (XTU)
+
+Die externe Testumgebung wird für Tests externer Nutzer verwendet.
+Damit ist diese Umgebung neben der Produktionsumgebung und der externen Schulungsumgebung die einzige von außen zugängliche Systemumgebung.
+
+[[xtu-architektur]]
+.TI-Architektur externe Testumgebung (<<legende-ti-architektur-systemumgebungen,Legende>>)
+image::technisch-infrastrukturell/ti-architektur-awl-xtu.dn.svg[]
+
+Im Vergleich zur Produktionsumgebung ist die Leistungsfähigkeit dieser Umgebung bei vollständiger Funktionalität deutlich reduziert.
+Da auch an die Verfügbarkeit der Umgebung geringere Anforderungen gestellt werden, wird auf die Aufteilung in verschiedene Netzwerkzonen und auf den Betrieb der Rechnersysteme im Cluster aus wirtschaftlichen Gründen verzichtet.
+Die IT-Systeme laufen dann auf einzelnen Rechnerknoten ab.
+
+[[externe-schulungsumgebung-xsu]]
+=== Externe Schulungsumgebung (XSU)
+
+Die externe Schulungsumgebung wird für die Durchführung von Schulungen verwendet, wobei auch externe Nutzer auf diese Umgebung zugreifen können.
+Sie ist eine Kopie der <<externe-testumgebung-xtu,externen Testumgebung>>.
+
+[[entwicklungstestumgebung-etu]]
+=== Entwicklungstestumgebung (ETU)
+
+Die Entwicklungstestumgebung (ETU) wird zur Durchführung von technischen Tests genutzt.
+An diese Umgebung sind keine Anforderungen an hohe Ausfallsicherheit und Leistungsfähigkeit gestellt.
+Die Leistungsfähigkeit kann sogar noch unter der externen Test- und Schulungsumgebung liegen, da davon auszugehen ist, dass die Tests nur von sehr wenigen gleichzeitig aktiven Benutzern durchgeführt werden.
+
+Die Rechnersysteme der Entwicklungstestumgebung werden nur vom internen LAN aus genutzt.
+Es gibt keine weitere Unterteilung in Sicherheitszonen.
+
+[[etu-architektur]]
+.TI-Architektur Entwicklungstestumgebung (<<legende-ti-architektur-systemumgebungen,Legende>>)
+image::technisch-infrastrukturell/ti-architektur-awl-etu.dn.svg[]
+
+[[abnahmetestumgebung-atu]]
+=== Abnahmetestumgebung (ATU)
+
+Die Abnahmetestumgebung wird zur Durchführung von funktionalen, d.h. fachlichen, Abnahmetests genutzt.
+Sie ist eine Kopie der <<entwicklungstestumgebung-etu,Entwicklungstestumgebung>>.
+
+[[minimalanforderungen-an-die-ablaufumgebung]]
+=== Minimalanforderungen an die Ablaufumgebung
+
+Als Ablaufumgebung benötigen die gemäß der xref:blaupausen:referenzarchitektur-it-system/master.adoc[] erstellten IT-Systeme einen Tomcat Servlet-Container.
+
+Service-Gateway-Systeme und das Portal benötigen zusätzlich noch einen Apache-Webserver.
+
+[[ti-architektur-anwendung]]
+== TI-Architektur einer Anwendung
+
+Auf der Ebene einzelner Anwendungen beschreibt die TI-Architektur:
+
+* in welchen Zonen sich die IT-Systeme einer Anwendung befinden,
+* welche Kommunikationsverbindungen und -protokolle sie zu welchen Nachbarsystemen benötigen,
+* ob eine Skalierung vorgesehen bzw. möglich ist und
+* welche Anforderungen an die Systemumgebung (z.B. ein Applikationsserver) bestehen.
+
+Die konkrete Ausprägung der TI-Architektur wird im xref:methodik:vorlage-systemhandbuch/antora-master.adoc[IsyFact Systemhandbuch (Vorlage)] beschrieben.
+
+.TI-Architektur einer Geschäftsanwendung mit Batch-Anwendung und Service-Gateway
+image::technisch-infrastrukturell/ti-architektur-ga.dn.svg[]

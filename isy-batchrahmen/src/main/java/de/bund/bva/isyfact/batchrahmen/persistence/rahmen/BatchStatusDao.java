@@ -16,9 +16,9 @@
  */
 package de.bund.bva.isyfact.batchrahmen.persistence.rahmen;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.LockModeType;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.LockModeType;
 
 import org.springframework.orm.jpa.EntityManagerFactoryUtils;
 

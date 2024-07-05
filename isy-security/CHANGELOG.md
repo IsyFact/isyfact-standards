@@ -1,3 +1,10 @@
+# 4.0.0
+
+- `ISY-305`: Implementierung von IsySecurityTokenUtil zum Auslesen von Attributen aus dem Bearer Token
+- `ISY-980`: Anpassung der Dokumentation aufgrund von Security-Umstellungen
+- `IFS-2804`: Entfernen der `@EnableMethodSecurity` Annotation von `IsySecurityAutoConfiguration`
+    - Die Annotation muss in der Anwendung selbst gesetzt werden um Method Security zu aktivieren
+
 # 3.0.0
 
 - `IFS-2561`: Die Konfiguration via `rollenrechte.xml` erfolgt optional. 
@@ -11,7 +18,7 @@
 - `IFS-2400`: Schnittstellen des Bausteins `isy-security`
     - `Security` und `Authentifizierungsmanager` Interface
     - Standard Implementierungen als Beans per Autokonfiguration bereitgestellt
-- `IFS-1855`: Umsetzung der Tokenweitergabe an Nachbarsysteme
+- `IFS-1885`: Umsetzung der Tokenweitergabe an Nachbarsysteme
 - `ISY-147`: Überarbeitung der Methoden des Authentifizierungsmanagers
     - Vereinheitlichung der Methodensignaturen
     - Ergänzung des BHKNZ als optionalen Parameter in allen Methoden (wird aktuell nur für den Resource Owner Password Credentials Flow ausgewertet)

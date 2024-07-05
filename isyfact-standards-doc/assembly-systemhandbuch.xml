@@ -21,7 +21,7 @@
     <fileSets>
         <fileSet>
             <directory>src/docs/antora/modules/methodik/images/vorlage-systemhandbuch</directory>
-            <outputDirectory>/images/vorlage-systemhandbuch</outputDirectory>
+            <outputDirectory>/images</outputDirectory>
         </fileSet>
     </fileSets>
 </assembly>

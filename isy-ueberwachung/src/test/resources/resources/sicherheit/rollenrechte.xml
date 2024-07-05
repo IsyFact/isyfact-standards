@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<tns:Anwendung AnwendungsId="Default" xmlns:tns="http://www.example.org/RollenRechteSchema"
-               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-               xsi:schemaLocation="http://www.example.org/RollenRechteSchema RollenRechteSchema.xsd ">
-
-    <!-- minimal rollenrechte.xml as workaround as the file is required by isy-security AutoConfiguration (via isy-task) -->
-    <tns:rollen RolleId="Rolle_Keine">
-    </tns:rollen>
-</tns:Anwendung>

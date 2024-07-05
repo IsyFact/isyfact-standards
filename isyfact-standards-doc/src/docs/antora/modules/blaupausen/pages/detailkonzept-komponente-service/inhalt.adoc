@@ -8,65 +8,67 @@ Services gliedern sich über eine technische Komponente „Service“ in die T-A
 
 .Referenzarchitektur eines IT-Systems
 [id="image-IFRefArcITSysServ",reftext="{figure-caption} {counter:figures}"]
-image::blaupausen:detailkonzept-service/IFRefArcITSysServ.png[align="center"]
+image::blaupausen:referenzarchitektur-it-system/architektur-it-system-service.dn.svg[]
 
 Diese technische Komponente besteht aus zwei Teilen: dem Service-Framework und der Servicelogik.
 
 Das *Service-Framework* bezeichnet die konkrete Technologie, mit der die Services des Anwendungskerns zur Verfügung gestellt werden.
 
-Die *Servicelogik* enthält Daten und Funktionalität, die für die Bereitstellung des Services relevant sind.
-
+Die *Servicelogik* gliedert sich, wie der Anwendungskern, in Fachkomponenten.
+Die Klassen der Fachkomponenten der *Servicelogik* werden vom Service-Framework aufgerufen. 
+Die Methoden der aufgerufenen Klassen nehmen Daten von außen entgegen und stellen Funktionalität, inklusive Daten des Anwendungskerns nach außen hin zur Verfügung.
 [[servicelogik]]
 == Servicelogik
 
-Die Servicelogik gliedert sich, wie der Anwendungskern, in *Fachkomponenten*.
 Die Fachkomponenten setzen im wesentlichen *Service-Schnittstellen* um.
-Sie decken vier wesentliche Aufgaben ab.
+Zu ihren Aufgaben gehört:
+
+Validierung:: Wenn für bestimmte Parameter einer Service-Methode Bedingungen definiert sind, 
+(z.B. dass ein bestimmter Parameter ein Pflicht-Parameter ist) so sollen diese Bedingungen bereits in der Service-Schnittstelle und nicht erst im Anwendungskern geprüft werden.
 
 Transformation:: Bei einem Service-Aufruf müssen die Transportobjekte der Service-Schnittstelle in passende Objekte des Anwendungskerns umgewandelt werden.
 Außerdem muss das Ergebnis des Anwendungskerns wieder in ein Transportobjekt der Service-Schnittstelle umgewandelt werden.
 Transportobjekte sind Klassen, deren einziger Zweck es ist, Daten zu transportieren.
 Sie definieren lediglich eine Datenstruktur.
 
-Fehlerbehandlung:: Ausnahme, die bei der Verarbeitung eines Service-Aufrufs oder im Anwendungskern  auftreten, werden in eine Ausnahme der Service-Schnittstelle umgewandelt.
+Fehlerbehandlung:: Ausnahmen, die bei der Verarbeitung eines Service-Aufrufs oder im Anwendungskern auftreten, werden in eine Ausnahme der Service-Schnittstelle umgewandelt.
 
-Autorisierung:: Für einen Service-Aufruf muss eine Anwendung überprüfen, ob der Aufrufer autorisiert ist die Service-Operation auszuführen.
+Autorisierung:: Bei jedem Service-Aufruf muss die aufgerufene Anwendung überprüfen, ob der Aufrufer autorisiert ist, die Service-Operation auszuführen. 
 
-Logging:: Die Komponente muss die Korrelations-ID in den Logging-Kontext einfügen.
+Logging:: Bei jedem Service-Aufruf muss die aufgerufene Anwendung die Korrelations-ID in den Logging-Kontext einfügen.
 
-IMPORTANT: Im Normalfall ist der Funktionsumfang der Fachkomponenten viel geringer als der Funktionsumfang der Entsprechungen im Anwendungskern.
+IMPORTANT: Im Normalfall ist der Funktionsumfang der Fachkomponenten der *Servicelogik* viel geringer als der Funktionsumfang ihrer Entsprechungen im Anwendungskern.
 Dies liegt darin begründet, dass die Servicelogik die Funktionalität des Anwendungskerns nutzt, um den Service bereitzustellen, und selbst keinerlei Geschäftslogik beinhaltet.
-Die Schnittstelle zwischen Fachkomponenten im Service und Anwendungskern ist daher eine interne Schnittstelle.
+Die Schnittstelle zwischen Servicelogik und Anwendungskern ist eine interne Schnittstelle.
 
 Die Service-Schnittstellen bestehen aus einer *Service-Fassade* und einer *Exception-Fassade*.
 
 === Service-Fassade
-Die Service-Fassade implementiert die Service-Operationen als Methoden.
-Ihre Hauptaufgabe ist die Transformation der Service-Aufrufe in interne Aufrufe des Anwendungskerns sowie die Transformation dessen Antworten in Antworten der Service-Schnittstelle.
-Dabei transformiert sie die Geschäftsobjekte des Anwendungskerns in Transportobjekte der Service-Schnittstelle und umgekehrt.
-Hierzu wird in der Regel ein Bean Mapper verwendet.
-In Einzelfällen können Teile der Transformation auch programmiert werden, sofern der Nutzen daraus den Aufwand nicht übersteigt.
+Die _Service-Fassade_ kümmert sich darum, eingehende Service-Aufrufe auf interne Aufrufe des Anwendungskerns abzubilden. 
+Transport-Objekte der Service-Schnittstelle werden dabei in Geschäftsobjekte des Anwendungskerns umgewandelt. 
+Für die vom Anwendungskern gelieferten Ergebnisse ist eine Transformation in umgekehrter Richtung erforderlich. 
 
-Die _Service-Fassade_ übernimmt auch die Autorisierung des Aufrufs.
+Die _Service-Fassade_ übernimmt darüberhinaus neben der Validierung der Aufrufparameter auch die Autorisierung des Aufrufs.
 Dazu nutzt sie die xref:isy-security:nutzungsvorgaben/master.adoc#autorisierung_service_schnittstelle[Möglichkeiten des Bausteins Security].
 Voraussetzung für die Autorisierung ist die Auswertung des mitgelieferten Access-Tokens.
 Über die Annotation `@Secured` wird die Berechtigung zum Zugriff auf die Methode anhand der Rechte des Aufrufers geprüft.
-Alternativ kann die Annotation `@Secured` auch an der _Service-Fassade_ selbst verwendet werden, wenn alle Methoden die gleichen Rechte erfordern.
+Alternativ kann die Annotation `@Secured` auch an der _Service-Fassade_ selbst verwendet werden, wenn alle ihre Methoden die gleichen Rechte erfordern.
+
+Bei Autorisierung, Validierung oder innerhalb der aufgerufenen Methoden des Anwendungskerns können Exceptions geworfen werden.
+Das zugehörige Exception-Handling jedoch ist nicht Aufgabe der Service-Fassade.
 
 === Exception-Fassade
-Die Exception-Fassade ist verantwortlich für die Umwandlung der durch den Anwendungskern oder die Service-Fassade geworfenen Exceptions in Exceptions der Service-Schnittstelle.
-Dies kann auf mehreren Wegen geschehen.
-Je nach gewählter Schnittstellentechnologie werden z. B. Annotationen oder eigens dafür geschriebene Klassen oder Methoden verwendet.
-
-Bevor die Exception-Fassade aufgerufen wird, muss die Korrelations-ID aus dem Aufrufkontext im Logging-Kontext registriert sein.
-Dies geschieht durch die Annotation `@StelltLoggingKontextBereit` an der Methode oder an der Service-Fassade selbst.
-Dabei gilt es zu beachten, dass die Annotation standardmäßig so konfiguriert ist, dass sie vor den Annotationen ohne Angabe einer Priorität ausgeführt wird, sodass diese immer Zugriff auf die Korrelations-ID haben.
-Diese Reihenfolge wird durch Einfügen der `Order` für den Advisor `stelltLoggingKontextBereitAdvisor` in der Autokonfiguration `IsyServiceApiCoreAutoConfiguration` erreicht.
+Die _Exception-Fassade_ ist verantwortlich für die Umwandlung der durch den Anwendungskern oder die Service-Fassade geworfenen Exceptions in Exceptions der Service-Schnittstelle.
+Für das Ergebnis der Umwandlung ist sicherzustellen, dass entweder Exceptions ohne Stacktraces oder ihnen entsprechende Transport-Objekte zurückgegeben werden.
+Für die Behandlung und Umwandlung der aufgefangenen Exceptions sollten Log-Einträge erzeugt werden. 
+Für das Logging ist sicherzustellen, dass zum Zeitpunkt der Erstellung der Log-Einträge eine Korrelations-ID verfügbar ist.
 
 [NOTE]
 ====
 Die weiteren Inhalte zum Aufbau, zur Realisierung und zur Nutzung von Service-Schnittstellen wurden wegen ihrer Abhängigkeit zur konkreten Schnittstellentechnologie in den entsprechenden Technologie-Baustein verschoben.
-Die Inhalte finden sich in den Dokumenten  xref:isy-serviceapi-core:konzept/master.adoc#einleitung[Konzept HTTP-Invoker] und xref:isy-service-rest:konzept/master.adoc#einleitung[Konzept REST-Schnittstellen], sowie xref:isy-serviceapi-core:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben HTTP-Invoker] und xref:isy-service-rest:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben REST-Schnittstellen].
+Die Inhalte finden sich in den Dokumenten  
+xref:isy-service-rest:konzept/master.adoc#einleitung[Konzept REST-Schnittstellen], sowie 
+xref:isy-service-rest:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben REST-Schnittstellen].
 ====
 
 [[uebertragung-von-metadaten]]
@@ -95,7 +97,7 @@ Die <<standardisierte-metadaten,folgende Tabelle>> zeigt, welche Metadaten in de
 
 |Korrelations-ID +
 //(deprecated)
-|X-Correlation-ID
+|X-Correlation-Id
 |ID zur Nachverfolgung von Aufrufen innerhalb einer Anwendungslandschaft.
 //Alte Benennung. +
 //*Wichtig:* Anwendungen müssen in der Übergangszeit beide Namen auflösen können.
@@ -113,26 +115,7 @@ Gibt es allerdings Anforderungen, aus denen heraus die Service-Fassade eine Tran
 Die Aufgabe fällt der Service-Fassade zu, weil es wichtig ist, dass die Fehlerbehandlung auf jeden Fall die Transaktion umschließt.
 Nur so ist gewährleistet, dass auch Fehler, die beim Commit entstehen, von der Fehlerbehandlung erfasst werden.
 
-Die Transaktionssteuerung wird an der jeweiligen Service-Methode angesetzt.
-Für das obige Beispiel verdeutlicht dies <<listing-service-fassade-tx>>.
-.Transaktionssteuerung in der Service-Fassade
-[id="listing-service-fassade-tx",reftext="{listing-caption} {counter:listings }"]
-[source,java]
-----
-public class BeispielServiceFassade {
-    ...
-    @StelltAufrufKontextBereit
-    @StelltLoggingKontextBereit
-    @Secured(Rechte.RECHT_ZUGRIFFBEISPIEL)
-    @Transactional(rollbackFor = Throwable.class, propagation = Propagation.REQUIRED)
-    public BeispielHolenAntwortTo holeBeispiel(
-        AufrufKontextTo kontext, BeispielHolenAnfrageTo anfrage)
-        throws BeispielException {
-        ...
-    }
-    ...
-}
-----
+Die Transaktionalität einzelner Service-Methoden wird über Annotationen (_@Transactional_) an diesen Methoden konfiguriert.
 
 Eine Sonderstellung nehmen Services ein, die im Fehlerfall keinen Fehler zurückgeben, sondern die Fehler in der Antwortnachricht übermitteln.
 Der AOP-Transaktionsmanager wird niemals ein Rollback durchführen, da alle Exceptions abgefangen werden, auf die er reagieren könnte.
@@ -142,7 +125,7 @@ Um auch in diesem Fall ein Rollback der Transaktion zu erzwingen, ist folgender 
 [id="listing-service-fassade-tx-rollback-only",reftext="{listing-caption} {counter:listings }"]
 [source,java]
 ----
-TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+	TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 ----
 
 
@@ -195,44 +178,13 @@ Innerhalb des Service-Gateways existiert keine Geschäftslogik, d.h. die Abbildu
 === Komplexerer Fall: Inkompatible Veränderung eines Services
 
 In einem komplexeren Fall kann es passieren, dass die Service-Schnittstelle einer Anwendung komplett umgestaltet wird, sodass die Aufrufe nicht mehr einfach aufeinander abgebildet werden können.
-Wird in so einem Fall ein neuer Service eingeführt, während der alte Service noch verfügbar bleiben muss, müssen die inkompatiblen Verarbeitungslogiken im Anwendungskern parallel erhalten bleiben.
+Wird in so einem Fall ein neuer Service eingeführt, während der alte Service noch verfügbar bleiben muss, müssen die inkompatiblen Verarbeitungslogiken im Anwendungskern parallel unterstützt werden.
 Auch hier enthält das Service-Gateway keine Geschäftslogik.
-
-=== Umsetzung
-Die Java-Klassen und -Interfaces eines Services existieren in allen Versionen der Service-Schnittstelle und unterscheiden sich inhaltlich
-durch die in der neuen Version durchgeführten Änderungen.
-
-NOTE: Für die Versionierung von Schnittstellen gelten gesonderte Vorgaben, die in  xref:werkzeuge:versionierungskontrolle/master.adoc[IsyFact Versionierung] definiert sind.
-
-Zur Veröffentlichung von API-kompatiblen Änderungen wird im Maven `pom.xml` eine einstellige Versionsnummer (Minor) gesetzt.
-Kompatible Änderungen sind beispielsweise Bugfixes, neue Operationen in der Schnittstelle oder neue, optionale Attribute im Datenmodell.
-
-.Realisierung der Versionierungsvorgaben für Schnittstellen bei HTTP Invoker
-[id="listing-versioning-pom", reftext="reftext="{listing-caption} {counter:listings }"]
-[source,xml]
-----
-<dependencies>
-    ...
-    <dependency>
-        <groupId>${Organisation.Domäne.Anwendungsname}</groupId>
-        <artifactId>${Anwendungsname}-${Schnittstellentechnologie}-sst-${Servicename}-v${Major-Version}</artifactId>
-        <version>${Minor-Version}</version>
-    </dependency>
-    ...
-</dependencies>
-----
-
-Bei inkompatiblen Änderungen der Schnittstelle wird die zweistellige Versionsnummer angepasst (Major und Minor); diese wird sowohl in der Artefakt-ID als auch in den Paketnamen der Schnittstelle verwendet.
-Inkompatible Änderungen der Schnittstelle sind z. B. das Entfernen von Attributen oder Operationen oder das Hinzufügen von Pflichtfeldern.
-
-Bei der Implementierung ist zu beachten, dass die Versionsnummer aus dem Package-Namen auch in die Implementierung übernommen wird.
 
 [[grenzen]]
 === Grenzen
-
 Eine Versionierung ist nur dann sinnvoll, wenn kleine Änderungen an der Schnittstelle zwischen den Versionen auftreten.
 Für den Fall, dass sich die Schnittstelle sowohl syntaktisch als auch semantisch grundlegend ändert, sollte anstatt einer neuen Version besser eine eigenständige, neue Schnittstelle entstehen.
-
 
 [[verfuegbarkeit]]
 == Verfügbarkeit

@@ -1,5 +1,8 @@
 package de.bund.bva.isyfact.datetime.format;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
 import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.Collection;
@@ -9,9 +12,6 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 /**
 

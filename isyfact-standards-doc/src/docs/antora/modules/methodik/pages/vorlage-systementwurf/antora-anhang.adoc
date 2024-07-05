@@ -2,7 +2,7 @@
 == Literaturverweise
 
 [[IsyFactReferenzarchitektur]]
-xref:blaupausen:referenzarchitektur/master.adoc[IsyFact Referenzarchitektur]
+xref:referenzarchitektur:index.adoc[Referenzarchitektur]
 
 [[KonzeptLogging]]
 xref:isy-logging:konzept/master.adoc[Konzept Logging]

@@ -74,18 +74,11 @@ Vererbungshierarchien zur Abbildung in relationalen Datenbanken sollten nur verw
 Sie sollten nur eine Oberklasse mit einigen Subklassen und höchstens zwei Vererbungsebenen umfassen.
 ****
 
-[[fachlogik-in-persistenzklassen-vermeiden]]
-=== Fachlogik in Persistenzlogik vermeiden
+[[logik-in-persistenzklassen-vermeiden]]
+=== Geschäftslogik in Persistenzlogik vermeiden
 
-Die Implementierung von fachlicher Logik in der gesamten Persistenzlogik, d.h. in den DAOs und Entitäten, ist zu vermeiden.
+Die Implementierung von Geschäftslogik in der gesamten Persistenzlogik, d.h. in den DAOs und Entitäten, ist zu vermeiden.
 Idealerweise sollten die Entitäten lediglich Getter- und Setter-Methoden für die persistierten Daten enthalten.
-Jegliche Fachlogik muss im Anwendungskern implementiert werden.
+Jegliche Geschäftslogik muss im Anwendungskern implementiert werden.
 
-Zur Fachlogik gehören auch Validierungen.
-
-[[embeddables-vorgaben]]
-=== Vorgaben für `@Embeddable`-Entitäten
-
-Für JPA-Entitäten mit der Annotation `@Embeddable` müssen die Methoden `equals` und `hashCode` implementiert werden.
-Die Methoden müssen dafür sämtliche Attribute mit einbeziehen.
-Zusätzlich muss das Interface `Serializable` implementiert werden.
+Zur Geschäftslogik gehören auch Validierungen.

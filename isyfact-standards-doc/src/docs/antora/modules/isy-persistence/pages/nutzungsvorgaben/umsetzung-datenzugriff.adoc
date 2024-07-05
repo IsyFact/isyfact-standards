@@ -54,10 +54,9 @@ Die Repositories werden als Spring-Beans in den Anwendungskern injiziert.
 Für jede Entität wird ein entsprechendes Repository als Interface angelegt.
 
 Die Repositories werden im Package der Fachkomponente abgelegt, welche die Datenhoheit über die Tabelle(n) des Repositories besitzt (zum Thema Datenhoheit siehe xref:blaupausen:referenzarchitektur-it-system/master.adoc#datenzugriff[Referenzarchitektur IT-System]).
-Falls die Datenhoheit keiner einzelnen Komponente zugewiesen werden kann, erhält die Komponente Basisdaten die Datenhoheit (siehe auch xref:blaupausen:detailkonzept-komponente-anwendungskern/master.adoc#fachkomponenten[Detailkonzept Komponente Anwendungskern]).
 Die Repositories werden nur von Klassen der Fachkomponente mit Datenhoheit aufgerufen.
 
-Gemäß der xref:blaupausen:referenzarchitektur-it-system/inhalt.adoc#datenzugriff[Referenzarchitektur] dürfen Entitäten nur von der Fachkomponente im Anwendungskern verändert werden, welche zur Fachkomponente im Datenzugriff gehört.
+Gemäß der xref:blaupausen:referenzarchitektur-it-system/master.adoc#datenzugriff[Referenzarchitektur] dürfen Entitäten nur von der Fachkomponente im Anwendungskern verändert werden, welche zur Fachkomponente im Datenzugriff gehört.
 Der Anwendungskern darf für andere Fachkomponenten nur Geschäftsobjekte an seiner Fachkomponentenschnittstelle anbieten.
 
 Für ein konkretes DAO ist ein eigenes Interface von der Basisschnittstelle `CrudRepository` abzuleiten.
@@ -124,7 +123,7 @@ public interface PersonRepository extends Repository<Person, Long> {
 ----
 
 NOTE: Eine Übersicht zur Ableitung von Queries aus Methodennamen befindet sich in der
-xref:glossary:literaturextern:inhalt.adoc#litextern-spring-data-jpa[Referenzdokumentation zu Spring Data JPA].
+https://docs.spring.io/spring-data/jpa/docs/2.7.x/reference/html/#repositories.query-methods.details[Referenzdokumentation zu Spring Data JPA].
 
 ==== Ableitung über eine manuell definierte Query.
 

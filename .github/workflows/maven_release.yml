@@ -5,7 +5,7 @@ on:
 
 jobs:
   Build:
-    uses: IsyFact/isyfact-standards/.github/workflows/maven_build_template.yml@master
+    uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_build_template.yml@v1.1.0
     with:
       version: ${{ github.ref_name }}
       sonar-skip: true
@@ -42,53 +42,36 @@ jobs:
           fi
 
   DependencyScan:
-    runs-on: ubuntu-latest
-    env:
+    uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_dependency_scan_template.yml@v1.1.0
+    with:
+      jdk-version: 17
+      snyk-organization: ${{ vars.SNYK_ORG_ID }}
+      snyk-reference: master
+      snyk-arguments: "--maven-aggregate-project"
+    secrets:
       SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-      - name: Setup snyk
-        uses: snyk/actions/setup@master
-      - name: Setup JDK
-        uses: actions/setup-java@v4
-        with:
-          java-version: 17
-          distribution: temurin
-          cache: maven
-      - name: Test for vulnerabilities
-        run: > 
-          snyk test 
-          --maven-aggregate-project --severity-threshold=critical --org=${{ vars.SNYK_ORG_ID }} --target-reference=master
 
   Deploy:
     needs: [QualityGate, DependencyScan]
-    uses: IsyFact/isyfact-standards/.github/workflows/maven_deploy_template.yml@master
+    uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_deploy_template.yml@v1.1.0
     with:
       version: ${{ github.ref_name }}
+      maven-opts: '-P centralRelease'
+      deploy-server-id: ossrh
+      sbom: true
+      sign: true
     secrets:
-      MAVEN_GPG_PRIVATE_KEY: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
-      MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
-      MAVEN_CENTRAL_USER_NAME: ${{ secrets.MAVEN_CENTRAL_USER_NAME }}
-      MAVEN_CENTRAL_TOKEN: ${{ secrets.MAVEN_CENTRAL_TOKEN }}
+      GPG_PRIVATE_KEY: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
+      GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
+      DEPLOY_SERVER_USER_NAME: ${{ secrets.MAVEN_CENTRAL_USER_NAME }}
+      DEPLOY_SERVER_TOKEN: ${{ secrets.MAVEN_CENTRAL_TOKEN }}
 
   DependencyMonitor:
-    runs-on: ubuntu-latest
-    needs: [Deploy]
-    env:
+    uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_dependency_scan_teplate.yml@v1.1.0
+    with:
+      jdk-version: 17
+      snyk-organization: ${{ vars.SNYK_ORG_ID }}
+      snyk-reference: ${{ github.ref_name }}
+      snyk-arguments: "--maven-aggregate-project"
+    secrets:
       SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-      - name: Setup snyk
-        uses: snyk/actions/setup@master
-      - name: Setup JDK
-        uses: actions/setup-java@v4
-        with:
-          java-version: 17
-          distribution: temurin
-          cache: maven
-      - name: Create dependency snapshot to monitor release for vulnerabilities
-        run: >
-          snyk monitor 
-          --maven-aggregate-project --target-reference=$GITHUB_REF_NAME --org=${{ vars.SNYK_ORG_ID }}

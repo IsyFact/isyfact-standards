@@ -1,2 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-de.bund.bva.isyfact.persistence.autoconfigure.IsyPersistenceAutoConfiguration

@@ -1,0 +1,14 @@
+name: Dependabot Auto Merge
+on:
+  pull_request:
+    branches:
+      - master
+      - 'release/**'
+    paths:
+      - '**/pom.xml'
+
+jobs:
+  DependabotAutoMerge:
+    uses: IsyFact/isy-github-actions-templates/.github/workflows/dependabot_auto_merge_template.yml@v1.1.0
+    secrets:
+      DEPENDABOT_TOKEN: ${{ secrets.DEPENDABOT_TOKEN }}

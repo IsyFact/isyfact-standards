@@ -4,14 +4,14 @@
 [[einleitung]]
 == Einleitung
 
-In diesem Konzept werden die Designvorgaben für die Überwachung von Anwendungen gemäß der xref:blaupausen:referenzarchitektur/master.adoc#einleitung[IsyFact Referenzarchitektur] vorgestellt.
+In diesem Konzept werden die Designvorgaben für die Überwachung von Anwendungen gemäß der xref:referenzarchitektur:index.adoc[] vorgestellt.
 
 Die Realisierung einer einheitlichen Überwachungsschnittstelle erlaubt dem Betrieb frühzeitig Probleme in der xref:glossary:glossary:master.adoc#glossar-anwendungslandschaft[Anwendungslandschaft] zu erkennen und darauf zu reagieren.
 Dadurch können Ausfallzeiten minimiert werden.
 
 Der Fokus des Konzepts liegt auf der Schaffung von einheitlichen Administrationsschnittstellen, welche dem Betrieb eine einfache Überwachung der Anwendungen erlauben.
 In Systementwürfen können Verfeinerungen der hier getroffenen Vorgaben gemacht werden.
-Weiterhin können die hier gemachten Vorgaben als Basis für die Beschreibung der Überwachungsschnittstelle im Betriebshandbuch der Anwendungssysteme verwendet werden.
+Weiterhin können die hier gemachten Vorgaben als Basis für die Beschreibung der Überwachungsschnittstelle im xref:methodik:vorlagen.adoc#dokumentation-anwendung[Systemhandbuch] verwendet werden.
 
 [[kurzeinfuehrung-in-spring-boot-actuator]]
 == Kurzeinführung in Spring Boot Actuator
@@ -22,7 +22,7 @@ Diese können über HTTP oder JMX bereitgestellt werden.
 Actuator bringt eine Reihe von eingebauten Endpoints mit und bietet auch die Möglichkeit, eigene Endpoints hinzuzufügen.
 So wird für Informationen über den Systemzustand die Endpoints `health`, `livenessProbe`, `ReadinessProbe` angeboten und über den Endpoint `metrics` können Metriken gelesen werden.
 
-Weitergehende Details zu den Actuator Endpoints können bei xref:glossary:literaturextern:inhalt.adoc#litextern-spring-boot-info-endpoint[Spring Boot Actuator Endpoint] nachgelesen werden.
+Weitergehende Details zu den Actuator Endpoints können bei https://docs.spring.io/spring-boot/docs/2.7.x/reference/html/actuator.html#actuator.endpoints.info[Spring Boot Actuator Endpoint] nachgelesen werden.
 
 [[informationen-ueber-den-systemzustand]]
 == Informationen über den Systemzustand
@@ -46,7 +46,7 @@ Durch diese Entkopplung wird die Systemstabilität durch häufige Aufrufe des En
 
 Der Status der `health`-Endpoints wird maßgeblich von Nachbarsystemchecks bestimmt. Einzelheiten finden sich dazu in Kapitel <<nachbarsystemcheck-health-endpoint>>.
 
-Implementiert und konfiguriert wurde bzw. wird der Health-Check als xref:isy-task:nutzungsvorgaben/master.adoc#erstellung-eines-tasks[Task].
+Implementiert und konfiguriert wurde bzw. wird der Health-Check als xref:isy-task:nutzungsvorgaben.adoc#erstellung-eines-tasks[Task].
 
 [[Liveness-und-Readiness]]
 === Liveness und Readiness
@@ -58,13 +58,13 @@ Erläutert wird, wie diese mit der Hilfe von _Liveness_- und _Readiness_-Probes 
 ==== Liveness
 Eine Anwendung wird als "live" (lebendig) angesehen, wenn diese in einem korrekten inneren Zustand ist.
 Ist eine Anwendung nicht "live", ist ihr innerer Zustand defekt und kann nicht wiederhergestellt werden.
-Die Anwendung muss daher auf jeden Fall neu gestartet werden (vgl. xref:glossary:literaturextern:inhalt.adoc#litextern-spring-api-liveness[Spring Boot `LivenessState`], xref:glossary:literaturextern:inhalt.adoc#litextern-kubernetes-liveness-Readiness-probes[Kubernetes Liveness und Readiness Probes]).
+Die Anwendung muss daher auf jeden Fall neu gestartet werden (vgl. https://docs.spring.io/spring-boot/docs/2.7.x/api/org/springframework/boot/availability/LivenessState.html[Spring Boot `LivenessState`], https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/[Kubernetes Liveness und Readiness Probes]).
 
 [[Readiness]]
 ==== Readiness
 Eine Anwendung wird als "ready" (bereit) angesehen, wenn sie live ist und bereit für Anfragen ist.
 Ist eine Anwendung nicht "ready", kann sie temporär keine Anfragen bearbeiten.
-Ist eine Anwendung nicht "ready", darf die Infrastruktur keine weiteren Anfragen an sie senden (vgl. xref:glossary:literaturextern:inhalt.adoc#litextern-spring-api-Readiness[Spring Boot `ReadinessState`], xref:glossary:literaturextern:inhalt.adoc#litextern-kubernetes-liveness-Readiness-probes[Kubernetes Liveness und Readiness Probes]).
+Ist eine Anwendung nicht "ready", darf die Infrastruktur keine weiteren Anfragen an sie senden (vgl. https://docs.spring.io/spring-boot/docs/current/api/org/springframework/boot/availability/ReadinessState.html[Spring Boot `ReadinessState`], https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/[Kubernetes Liveness und Readiness Probes]).
 
 Ein Service (d.h. eine Bündelung von Instanzen/Anwendungen, die denselben Service anbieten) wird als "ready" angesehen, wenn mindestens eine Instanz "ready" ist.
 Prüfungen der _Readiness_ von Services müssen über die Infrastruktur erfolgen.
@@ -100,7 +100,7 @@ Die im Endpoint `metrics` bereitgestellten Metriken werden von Micrometer erfass
 Micrometer bietet eine einfache anbieterneutrale Fassade für die gängigsten Überwachungssysteme und ermöglicht es, Metriken im Anwendungscode ohne Herstellerbindung zu implementieren.
 Seit Spring Boot 2.0 ist Micrometer die Standardbibliothek zur Bereitstellung von Anwendungsmetriken von Spring.
 
-NOTE: Für eine Liste der unterstützten Monitoring-Systeme siehe xref:glossary:literaturextern:inhalt.adoc#litextern-monitoring-systeme-unterstuetzt[unterstützte Monitoring-Systeme]
+NOTE: Für eine Liste der unterstützten Monitoring-Systeme siehe https://micrometer.io/docs/concepts#_supported_monitoring_systems[unterstützte Monitoring-Systeme]
 
 
 [[fachliche-moeglichkeiten]]
@@ -172,7 +172,7 @@ Ist das Vorhandensein einer `isAlive`-Datei aus betrieblichen Anforderungen nich
 [[availability]]
 === Availability
 
-Availability (Verfügbarkeit) eines Systems oder einer individuellen Systemkomponente ist definiert als der Prozentsatz eines Zeitraums, in welcher es ordnungsgemäß nach gesetzten Performance-Kriterien läuft (vgl. xref:glossary:literaturextern:inhalt.adoc#litextern-oracle-availability[Oracle: Definition von Availability]).
+Availability (Verfügbarkeit) eines Systems oder einer individuellen Systemkomponente ist definiert als der Prozentsatz eines Zeitraums, in welcher es ordnungsgemäß nach gesetzten Performance-Kriterien läuft (vgl. https://docs.oracle.com/cd/A97335_02/ias.102/a95201/avail.htm[Oracle: Definition von Availability]).
  +
  +
 
@@ -198,7 +198,7 @@ Dieser kann gegliedert in abgetrennte Zeiträume erfolgen, oder jeweils den letz
 Dieser ist wie die Performanz-Kriterien anwendungsspezifisch festzulegen.
 - [.underline]#Availability in Spring Boot#:
 In Spring Boot ist keine Definition von Availability gegeben.
-_Liveness_ und _Readiness_ wird stattdessen unter Availability zusammengefasst (vgl. xref:glossary:literaturextern:inhalt.adoc#litextern-spring-api-availability[Spring Boot AvailabilityState]).
+_Liveness_ und _Readiness_ wird stattdessen unter Availability zusammengefasst (vgl. https://docs.spring.io/spring-boot/docs/2.7.x/api/org/springframework/boot/availability/AvailabilityState.html[Spring Boot AvailabilityState]).
 - [.underline]#Bedeutung der Definition#:
 Es werden nicht-funktionale Anforderungen als Kriterien für Availability gesetzt.
 Diese stellen Anforderungen an die Anwendung, bzw. das System, auf welches diese verwendet wird, dar.
@@ -206,7 +206,7 @@ Die nicht-funktionalen Anforderungen, aus deren Erfüllung sich die Availability
 Sie müssen von der jeweiligen Anwendung gegeben werden, da für diese unterschiedliche Bedürfnisse an die Verfügbarkeit der jeweiligen Anwendung bestehen.
 Sind die nicht-funktionalen Kriterien erfüllt, dann ist die Anwendung/das System available. Availability als Messung des available Zustands über die Zeit stellt entsprechend dar, in welchem zeitlichen Umfang die nicht-funktionalen Kriterien erfüllt sind.
 - [.underline]#Praktischer Nutzen der Messung#:
-Availability wird zur quantitativen Messung der Resilienz eines Systems und der Feststellung des Erreichungsgrads eines angestrebten Resilienz-Ziels genutzt (vgl. xref:glossary:literaturextern:inhalt.adoc#litextern-aws-availability[aws: Berechnung von Availability]).
+Availability wird zur quantitativen Messung der Resilienz eines Systems und der Feststellung des Erreichungsgrads eines angestrebten Resilienz-Ziels genutzt (vgl. https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/availability.html[aws: Berechnung von Availability]).
 
 [[festlegungen-und-ausgrenzungen]]
 == Festlegungen und Ausgrenzungen

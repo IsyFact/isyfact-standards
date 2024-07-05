@@ -1,7 +1,8 @@
 name: Build Documentation
 on:
   push:
-    tags: ['*']
+    tags:
+      - '\d+.\d+.\d+'
 
 jobs:
   TriggerBuild:
@@ -10,4 +11,4 @@ jobs:
       GH_TOKEN: ${{ secrets.ANTORA_TRIGGER_TOKEN }}
     steps:
       - name: Trigger documentation build
-        run: gh workflow run antora_build.yml -R IsyFact/isy-antora-playbook
+        run: gh workflow run antora_build.yml -R IsyFact/isyfact.github.io

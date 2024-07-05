@@ -87,13 +87,12 @@ public class RecursiveToStringBuilder {
         if (o.getClass().isArray()) {
             appendArray(prefix, o, buffer, seen);
         } else if (o instanceof Map) {
-            appendMap(prefix, (Map<?, ?>)o, buffer, seen);
+            appendMap(prefix, (Map<?, ?>) o, buffer, seen);
         } else if (o instanceof Iterable) {
-            appendIterable(prefix, (Iterable<?>)o, buffer, seen);
+            appendIterable(prefix, (Iterable<?>) o, buffer, seen);
         } else if (shouldNotRecurse(o)) {
             buffer.append(o);
             buffer.append('\n');
-            return;
         } else {
             appendGeneric(prefix, o, buffer, seen);
         }
@@ -194,7 +193,7 @@ public class RecursiveToStringBuilder {
         buffer.append(o.getClass().getName()).append(" [\n");
         buffer.append(prefix);
         while (it.hasNext()) {
-            Map.Entry<?,?> entry = (Entry<?, ?>) it.next();
+            Map.Entry<?, ?> entry = (Entry<?, ?>) it.next();
             buffer.append(prefix);
             recursiveToString(prefix, entry.getKey(), buffer, seen);
             buffer.append(prefix);

@@ -1,9 +1,0 @@
-*Java Bibliothek / IT-System*
-
-[cols="5,2,3"]
-|====
-|Name |Art |Version
-m|isy-serviceapi-core |Bibliothek |v{page-component-version}
-m|isy-serviceapi-sst |Bibliothek |v{page-component-version}
-m|isy-exception-sst |Bibliothek |v{page-component-version}
-|====

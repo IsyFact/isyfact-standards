@@ -16,18 +16,18 @@
  */
 package de.bund.bva.isyfact.batchrahmen.batch.konfiguration;
 
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+
 import de.bund.bva.isyfact.batchrahmen.batch.konstanten.KonfigurationSchluessel;
 import de.bund.bva.isyfact.batchrahmen.batch.rahmen.BatchStartTyp;
 import de.bund.bva.isyfact.batchrahmen.core.exception.BatchrahmenKonfigurationException;
 import de.bund.bva.isyfact.batchrahmen.core.exception.BatchrahmenParameterException;
 import de.bund.bva.isyfact.batchrahmen.core.konstanten.NachrichtenSchluessel;
 import de.bund.bva.isyfact.batchrahmen.core.launcher.BatchLauncher;
-
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
 
 /**
  * The configuration for a {@link de.bund.bva.isyfact.batchrahmen.core.rahmen.Batchrahmen}-call.

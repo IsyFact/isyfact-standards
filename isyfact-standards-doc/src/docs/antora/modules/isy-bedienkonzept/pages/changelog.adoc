@@ -1,6 +1,10 @@
 [[changelog]]
 = Changelog
 
+// tag::release-4.0.0[]
+- `ISY-647`: Isyfact-Bedienkonzept Kapitel 6 wurde aufgrund der Umstellung von rechtsbündigen Labels auf Floating-Labels aktualisiert
+// end::release-4.0.0[]
+
 // *Änderungen IsyFact 3.0.0*
 
 // tag::release-3.0.0[]

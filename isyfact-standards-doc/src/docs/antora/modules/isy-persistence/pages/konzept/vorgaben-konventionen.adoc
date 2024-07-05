@@ -73,8 +73,6 @@ Standardmäßig verwendet Hibernate:
 Standardmäßig soll für alle Assoziationen Lazy Loading verwendet werden.
 Bytecode-Manipulationen für Lazy Loading sollen nicht verwendet werden.
 
-Die Verwendung der Annotationen `@LazyToOne` und `@LazyCollection` ist zu vermeiden, falls man nicht die Option `LazyCollectionOption.EXTRA` für extra große Collections benötigt.
-
 [[optimistic-locking]]
 === Optimistisches Locking standardmäßig verwenden
 
@@ -239,7 +237,7 @@ public class FilterExample {
 }
 ----
 
-CAUTION: Das Suchen per Identifier (z.B. mittels `itemRepository.findById(1)`) wendet keine Filter an, siehe xref:glossary:literaturextern:inhalt.adoc#litextern-hibernate-filter[filtering entities and associations].
+CAUTION: Das Suchen per Identifier (z.B. mittels `itemRepository.findById(1)`) wendet keine Filter an, siehe https://docs.jboss.org/hibernate/orm/5.6/userguide/html_single/Hibernate_User_Guide.html#pc-filtering[filtering entities and associations].
 
 
 [[verbot-von-bulk-queries]]
@@ -252,7 +250,7 @@ Sofern bei solchen Bulk-Operationen kaskadierende Änderungen benötigt werden (
 
 Begründung: Hibernate erzeugt bei der Ausführung von `BULK`-Queries unter bestimmten Umständen zur Laufzeit implizit Hilfstabellen (temporäre Tabellen mit dem Präfix `HT_`).
 
-NOTE: siehe xref:glossary:literaturextern:inhalt.adoc#litextern-multitable-bulk-operations[Multi-table Bulk Operations]
+NOTE: siehe https://in.relation.to/2005/07/20/multitable-bulk-operations/[Multi-table Bulk Operations]
 
 Dies führt dazu, dass der Datenbank-User der Anwendung entsprechende `CREATE TABLE`-Rechte benötigt, was i.d.R. nicht zugelassen ist.
 Weiterhin führt die Nutzung der temporären Tabellen in vielen Fällen zu Performance-Problemen.
@@ -296,7 +294,7 @@ Das identifizierende Attribut darf beliebige Typen besitzen: Es dürfen, neben n
 [[definition-von-1-zu-n-assoziationen]]
 === Definition von 1-zu-n-Assoziationen
 
-Eine 1-zu-n-Assoziation (siehe xref:glossary:literaturextern:inhalt.adoc#litextern-collection-mapping[Collection Mapping]) ist in der Regel als unsortierte Menge (`Set`) zu definieren, da in dieser keine Reihenfolge definiert ist.
+Eine 1-zu-n-Assoziation (siehe https://docs.jboss.org/hibernate/orm/5.6/userguide/html_single/Hibernate_User_Guide.html#collections[Collection Mapping]) ist in der Regel als unsortierte Menge (`Set`) zu definieren, da in dieser keine Reihenfolge definiert ist.
 Wird von der Anwendung eine Sortierung benötigt und sind alle für die Sortierung benötigten Attribute in der Entität enthalten, dann kann auch eine Liste (`List`) verwendet werden, da die Datenbank effizienter sortieren kann als eine Java-Implementierung.
 
 [[bidirektionale-assoziationen-vermeiden]]
@@ -535,16 +533,16 @@ public class Oberklasse { }
 ====
 Zur Vertiefung bieten sich die folgenden Quellen an:
 
-* xref:glossary:literaturextern:inhalt.adoc#litextern-jakarta-persistence[Jakarta Persistence],
-* xref:glossary:literaturextern:inhalt.adoc#litextern-hibernate-inheritance[Hibernate User Guide - Inheritance],
-* xref:glossary:literaturextern:inhalt.adoc#litextern-jpa-hibernate[Java Persistence with Hibernate].
+* https://jakarta.ee/specifications/persistence/3.0/jakarta-persistence-spec-3.0.html[Jakarta Persistence],
+* https://docs.jboss.org/hibernate/orm/5.6/userguide/html_single/Hibernate_User_Guide.html#entity-inheritance[Hibernate User Guide - Inheritance],
+* https://www.manning.com/books/java-persistence-with-hibernate[Java Persistence with Hibernate (Bauer, King, Second Edition, 2015, Manning Publications)] icon:book[].
 ====
 
 [[behandlung-von-zeitangaben]]
 === Behandlung von Datums- und Zeitangaben
 
 Es werden die Datums- und Zeitklassen aus der _Java 8 Date Time API_ verwendet.
-Hinweise zu deren Verwendung finden sich im xref:isy-datetime:konzept/master.adoc[Baustein Datum & Zeit].
+Hinweise zu deren Verwendung finden sich im xref:isy-datetime-doc:ROOT:konzept/master.adoc[Baustein Datum & Zeit].
 Der Baustein stellt zur Persistierung von Zeiträumen und ungewissen Datums- und Zeitangaben entsprechende Entitäten bereit.
 
 WARNING: Der folgende, hervorgehobene Absatz wird nur noch aus historischen Gründen erwähnt und ist obsolet.

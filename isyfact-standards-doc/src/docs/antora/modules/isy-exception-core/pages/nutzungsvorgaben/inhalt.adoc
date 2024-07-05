@@ -52,7 +52,7 @@ Aus den Vorgaben zum <<design-von-fehlerklassen>> resultiert die folgende Except
 
 .Exception-Hierarchie innerhalb einer Anwendung
 [id="image-006",reftext="{figure-caption} {counter:figures}"]
-image::isy-exception-core:nutzungsvorgaben/fehlerbehandlung006.svg[align="center",width=100%,pdfwidth=100%]
+image::isy-exception-core:nutzungsvorgaben/fehlerbehandlung006.dn.svg[]
 
 <<image-006>> zeigt die verschiedenen Hierarchiestufen von Fehlern.
 Auf oberster Ebene befinden sich die abstrakten Implementierungen für checked (`BaseException`) und unchecked (`TechnicalRuntimeException`) Exceptions.
@@ -294,8 +294,6 @@ Anwendungsschnittstellen verwendet werden, folgende Vorgaben gemacht:
 ** Übermittlung von Fehler-Kategorie (technisch/Art des fachlichen Fehlers)
 ** Übermittlung von Fehlernachricht (kein Stack-Trace!)
 
-Die Vorgaben für HTTP Invoker sind im xref:isy-serviceapi-core:nutzungsvorgaben/master.adoc[Nutzungsvorgaben HttpInvoker] beschrieben.
-
 Unabhängig von der eingesetzten Technologie gelten für die Antworten an das aufrufende Nachbarsystem folgende Anforderungen:
 
 *Technische Exceptions*
@@ -309,13 +307,6 @@ Der tatsächliche Fehler wird im Error-Log der aufgerufenen Anwendung gespeicher
 Fachliche Exceptions sind mit einer ausführlichen und für den Fehler spezifischen Fehler-Nachricht an das aufrufende Nachbarsystem zurückzugeben.
 Die Fehler-Nachricht muss für den Anwender verständlich sein und sollte zur Lösung/Vermeidung des Fehlers beitragen.
 
-
-[[isyfact-bibliotheken-fuer-fehlerbehandlung]]
-==== IsyFact-Bibliotheken für Fehlerbehandlung
-
-Die in den vorigen Abschnitten beschriebenen abstrakten Oberklassen, die zur Umsetzung der Exception-Hierarchie notwendig sind, werden über die IsyFact-Bibliotheken `isy-exception-core` und `isy-exception-sst` in neue Anwendungen integriert.
-
-Dabei enthält die Bibliothek `isy-exception-core` die notwendigen Klassen für den Anwendungskern, die Bibliothek `isy-exception-sst` die Klassen für die Schnittstellen (Transport-Exceptions).
 
 [[behandlung-von-exceptions]]
 === Behandlung von Exceptions
@@ -350,8 +341,8 @@ try {
 }
 ----
 
-Die letzte Variante ist die endgültige Fehlerbehandlung, die meistens in einer Komponente der Nutzungsschicht geschieht: GUI, Batch oder Service.
-Beschreibungen dazu finden sich in den jeweiligen Detailkonzepten oder den Bausteinen zur Umsetzung der Komponenten, d.h. zu GUI- oder Service-Frameworks.
+Die letzte Variante ist die endgültige Fehlerbehandlung, die meistens in einer Komponente der Nutzungsschicht geschieht: Batch oder Service.
+Beschreibungen dazu finden sich in den jeweiligen Detailkonzepten oder den Bausteinen zur Umsetzung der Komponenten.
 
 [[fehlertexte-und-deren-einsatz]]
 === Fehlertexte und deren Einsatz
@@ -515,7 +506,6 @@ public void increaseCount() throws MaximumCountReachedException {
 
 *Leere catch-Blöcke:* +
 Wenn dies der Fall ist, dann ist die Exception unnötig oder die Ausnahme muss behandelt werden.
-Siehe auch <<isyfact-bibliotheken-fuer-fehlerbehandlung>>.
 
 .Don't: Leerer catch-Block
 [id="listing-LeererCatchBlock2",reftext="{listing-caption} {counter:listings }"]

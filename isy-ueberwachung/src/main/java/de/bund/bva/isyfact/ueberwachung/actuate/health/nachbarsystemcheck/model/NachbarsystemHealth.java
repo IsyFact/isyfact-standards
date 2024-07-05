@@ -3,7 +3,7 @@ package de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.model
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.Status;

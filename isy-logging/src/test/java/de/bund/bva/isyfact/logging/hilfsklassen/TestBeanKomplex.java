@@ -27,8 +27,9 @@ import java.util.Arrays;
 import java.util.Formatter;
 import java.util.List;
 
-import ch.qos.logback.classic.PatternLayout;
 import de.bund.bva.isyfact.logging.impl.LogErrorKategorie;
+
+import ch.qos.logback.classic.PatternLayout;
 
 /**
  * Bean zum Testen der Serialisierung.

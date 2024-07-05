@@ -16,12 +16,29 @@ Die folgende Abbildung zeigt einen Überblick über die Bausteine im aktuellen R
 .Bausteine der IsyFact
 image::bausteine:bausteine.dn.svg[]
 
-Die nachfolgende Tabelle beschreibt die Bausteine. Sie stellen in der Regel ein Dokument aus architektonischer Sicht – das Konzept – und ein Dokument aus technischer Sicht – die Nutzungsvorgaben – sowie eine Software-Bibliothek zur Integration in eigene Anwendungssysteme bereit.
+.Legende
+[%collapsible]
+====
+****
+Jede Wabe steht für einen Baustein.
+Blau gefüllte Waben sind Teil der xref:einstieg:vorstellung/isyfact-standards.adoc[].
+Grau gefüllte Waben sind Teil der xref:einstieg:vorstellung/isyfact-erweiterungen.adoc[].
+
+Hellblau umrandete Waben bedeuten, dass der Baustein als Software-Bibliothek veröffentlicht wird.
+****
+====
+
+Die nachfolgende Tabelle beschreibt die Bausteine. Sie stellen in der Regel ein Dokument aus architektonischer Sicht – das Konzept – und ein Dokument aus technischer Sicht – die Nutzungsvorgaben – sowie eine Software-Bibliothek zur Integration in eigene Anwendungen bereit.
 
 [cols="1s,3a",options="header"]
 |===
 |Baustein
 |Funktion
+
+|Angular
+|Der Baustein _Angular_ bietet eine Frontend-Bibliothek, deren Komponenten anhand der Vorgaben im Bedienkonzept entwickelt und exemplarisch in der Demo-Anwendung des Bausteins gezeigt werden.
+Dadurch werden wiederverwendbare Widgets bereitgestellt, um User Interfaces zu vereinheitlichen.
+Der Baustein basiert auf Angular, PrimeNG und PrimeFlex.
 
 |Bedienkonzept
 |Das _Bedienkonzept_ beschreibt die Gestaltungsregeln, Lösungsmuster und Workflows für fachliche Abläufe in Benutzeroberflächen.
@@ -33,19 +50,10 @@ Ziel des Bedienkonzepts ist es, dass sich Sachbearbeiter möglichst schnell zwis
 |Fehlerbehandlung
 |Der Baustein _Fehlerbehandlung_ enthält das technische Konzept und eine Bibliothek zur einheitlichen Implementierung der Fehlerbehandlung.
 
-|icon:ban[title=Deprecation] [.line-through]#Http Invoker#
-|Der Baustein Http Invoker bietet die Möglichkeit, interne Services der Anwendungslandschaft mit der Technologie Spring Http Invoker zu realisieren.
-
 |JPA/Hibernate
 |Der Baustein beschreibt die Umsetzung des Datenzugriffs auf Basis von JPA und dem O/R-Mapper Hibernate.
 
-|icon:ban[title=Deprecation] [.line-through]#JSF#
-|Der Baustein _JSF_ ermöglicht es Anwendungen, grafische Oberflächen auf Basis von Java Server Faces umzusetzen.
-Er enthält architektonische sowie technische Vorgaben und beschreibt die konkrete Umsetzung.
-Dabei integriert er den Styleguide und stellt auf dessen Grundlage wiederverwendbare Widgets bereit.
-Der Baustein basiert auf JSF und Spring Webflow.
-
-|Konfiguration
+|icon:ban[title=Deprecation] [.line-through]#Konfiguration#
 |Der Baustein beschreibt typische Arten von Konfiguration und macht Vorgaben für deren Erstellung, Handhabung und Pflege.
 
 |Logging
@@ -59,11 +67,8 @@ Der Baustein unterstützt unterschiedliche Arten von Schnittstellen und sorgt da
 |Der Baustein _REST_ bietet die Möglichkeit, interne Services der Anwendungslandschaft als REST-Services zu realisieren.
 
 |Security
-|Als Nachfolger des Bausteins _Sicherheit_ übernimmt der Baustein _Security_ die Authentifizierungsanfragen von natürlichen Anwendern als auch von technischen Systemen und leitet diese in die entsprechenden Credential-Flows des IAM-Service.
+|Der Baustein _Security_ übernimmt die Authentifizierungsanfragen von natürlichen Anwendern als auch von technischen Systemen und leitet diese in die entsprechenden Credential-Flows des IAM-Service.
 Aus den vom IAM-Service erhaltenen Zugangsdaten übernimmt der Baustein das Rollen- und Rechte-Handling zur Autorisierung der Anwendungsaufrufe innerhalb der Aufrufkette der Fachanwendungen.
-
-|icon:ban[title=Deprecation] [.line-through]#Sicherheit#
-|Der Baustein übernimmt die Autorisierung von Anfragen, sowohl von menschlichen Anwendern als auch externen Systemen, und dient zur Verwaltung von Rollen und Rechten innerhalb von IT-Systemen.
 
 |Sonderzeichen
 |Der Baustein bietet wichtige Hinweise für den Umgang mit Sonderzeichen und enthält Transkriptionsregeln zur Übertragung von nicht-lateinischen Zeichen.

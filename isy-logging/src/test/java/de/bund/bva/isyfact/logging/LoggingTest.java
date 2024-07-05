@@ -30,7 +30,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import org.junit.Assert;
+import org.junit.Test;
+import org.slf4j.spi.LocationAwareLogger;
+
 import de.bund.bva.isyfact.exception.BaseException;
+import de.bund.bva.isyfact.exception.TechnicalException;
 import de.bund.bva.isyfact.exception.TechnicalRuntimeException;
 import de.bund.bva.isyfact.logging.exceptions.FehlerhafterLogeintrag;
 import de.bund.bva.isyfact.logging.exceptions.IsyLoggingFehlertextProvider;
@@ -39,10 +44,6 @@ import de.bund.bva.isyfact.logging.hilfsklassen.TestBeanKomplex;
 import de.bund.bva.isyfact.logging.impl.AbstractIsyDatentypMarker;
 import de.bund.bva.isyfact.logging.impl.FehlerSchluessel;
 import de.bund.bva.isyfact.logging.impl.IsyLocationAwareLoggerImpl;
-import de.bund.bva.isyfact.exception.TechnicalException;
-import org.junit.Assert;
-import org.junit.Test;
-import org.slf4j.spi.LocationAwareLogger;
 
 /**
  * Testfall zur Erstellung von Logeinträgen.

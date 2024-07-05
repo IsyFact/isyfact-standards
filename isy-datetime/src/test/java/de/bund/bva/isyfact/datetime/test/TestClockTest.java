@@ -1,5 +1,7 @@
 package de.bund.bva.isyfact.datetime.test;
 
+import static org.junit.Assert.assertEquals;
+
 import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -8,8 +10,6 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
 import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
 
 /**
 

@@ -5,7 +5,7 @@
 == Namenskonventionen
 
 Dieser Abschnitt beschreibt die Namenskonventionen der IsyFact.
-In komplexen Anwendungslandschaften werden xref:glossary:glossary:master.adoc#glossar-anwendungssystem[Anwendungssysteme] in der Regel in funktionale Kategorien eingeordnet und typisiert (z.B. Register und Geschäftsanwendungen).
+In komplexen Anwendungslandschaften werden xref:glossary:glossary:master.adoc#glossar-anwendung[Anwendungen] in der Regel in funktionale Kategorien eingeordnet und typisiert (z.B. Register und Geschäftsanwendungen).
 Bei weniger komplexen Kontexten, in denen nur eine einzige oder wenige Geschäftsanwendungen existieren, wird meist allgemein von „Geschäftsanwendungen“ gesprochen.
 
 In folgenden Vorgaben wird daher zwischen Geschäftsanwendungen und Registern unterschieden.
@@ -16,10 +16,10 @@ Für andere Kontexte können weitere Systemtypen eingeführt werden, für die en
 
 In diesem Abschnitt werden allgemeine Namenskonventionen festgehalten.
 
-[[namen-von-anwendungssystemen]]
-==== Namen von Anwendungssystemen
+[[namen-von-anwendungen]]
+==== Namen von Anwendungen
 
-Je nach Typ eines Anwendungssystems ist der Name unterschiedlich zu wählen.
+Je nach Anwendungstyp ist der Name unterschiedlich zu wählen.
 Die verschiedenen Varianten sind wie folgt abgebildet.
 
 [[geschaeftsanwendung]]
@@ -128,15 +128,15 @@ Sie sind vor allem der xref:vorlagen.adoc#dokumentation-anwendung[Vorlage zur Sy
 |*Beispiele* |ORG_Abteilung_Xyz
 |====
 
-[[anwendungssystem]]
-==== Anwendungssystem
+[[anwendung]]
+==== Anwendung
 
-.Anwendungssystem
+.Anwendung
 [id="table-Anwsys",reftext="{table-caption} {counter:tables}"]
 [cols="1,6m",options="header"]
 |====
-2+|Anwendungssystem
-|*Schema* |SYS_<anwendungssystemname>
+2+|Anwendung
+|*Schema* |SYS_<anwendung>
 |*Beispiele* |SYS_Register_Xyz
 |====
 
@@ -197,7 +197,7 @@ Sie sind vor allem der xref:vorlagen.adoc#dokumentation-anwendung[Vorlage zur Sy
 |====
 2+|Modellkomponente
 |*Schema* |MKO_<modellkomponente>
-|*Beispiele* |MKO_Basisdaten
+|*Beispiele* |MKO_Aktenverwaltung
 |====
 
 [[entitaetstyp]]
@@ -287,7 +287,7 @@ Sie sind vor allem der xref:vorlagen.adoc#dokumentation-anwendung[Vorlage zur Sy
 [[entwicklung]]
 === Entwicklung
 
-Dieser Abschnitt fasst die Namenskonventionen zusammen, die bei der Entwicklung eines Anwendungssystems nach IsyFact relevant sind.
+Dieser Abschnitt fasst die Namenskonventionen zusammen, die bei der Entwicklung einer Anwendung nach IsyFact relevant sind.
 Das sind vor allem Klassen- und Dateinamen.
 
 Einige der hier genannten Namenskonventionen sind von denen der Spezifikation abhängig, beziehungsweise werden davon abgeleitet.
@@ -301,7 +301,7 @@ include::methodik:page$java-programmierkonventionen/inhalt.adoc[tag=namenskonven
 [[technische-systemnamen]]
 ==== Technische Systemnamen
 
-Die technischen Systemnamen entsprechen der technischen Bezeichnung für ein IsyFact-konformes Anwendungssystem.
+Die technischen Systemnamen entsprechen der technischen Bezeichnung für eine IsyFact-konforme Anwendung.
 Sie werden unter anderem für Projektnamen in Eclipse, Dokument Basis / Context Root bei Schnittstellen-URLs und als Namen von Deployment-Einheiten (vgl. Kapitel <<rpm-pakete>>) verwendet.
 
 [[geschaeftsanwendung-1]]
@@ -444,19 +444,9 @@ include::blaupausen:page$detailkonzept-komponente-anwendungskern/inhalt.adoc[tag
 === Batchrahmen
 include::blaupausen:page$detailkonzept-komponente-batch/inhalt.adoc[tag=namenskonvention]
 
-[[schnittstellen]]
-=== Externe Schnittstellen
 [[rest-schnittstellen]]
-==== REST-Schnittstellen
+=== REST-Schnittstellen
 include::isy-service-rest:page$konzept/inhalt.adoc[tag=namenskonvention]
-
-[[http-invoker-schnittstellen]]
-==== Http-Invoker Schnittstellen
-include::isy-serviceapi-core:page$konzept/inhalt.adoc[tag=namenskonvention]
-
-[[web-gui]]
-=== Web-GUI
-include::blaupausen:page$detailkonzept-komponente-web-gui/inhalt.adoc[tag=namenskonvention]
 
 [[deploymentbetrieb-von-anwendungen]]
 === Deployment/Betrieb von Anwendungen
@@ -466,7 +456,7 @@ include::blaupausen:page$detailkonzept-komponente-web-gui/inhalt.adoc[tag=namens
 
 Für die Benennung von RPM-Paketen existiert eine Konvention, welche durch den RPM-Standard vorgeben wird.
 
-NOTE: Siehe xref:glossary:literaturextern:inhalt.adoc#litextern-rpm-packaging-guide[RPM Packaging Guide]
+NOTE: Siehe https://rpm-packaging-guide.github.io/#what-is-a-spec-file[RPM Packaging Guide]
 
 .RPM-Pakete
 [id="table-rpmpak",reftext="{table-caption} {counter:tables}"]
@@ -533,26 +523,6 @@ Die Installationspfade sind im xref:vorlage-systemhandbuch/antora-master.adoc[Sy
 [[dokumentation]]
 === Dokumentation
 
-Auch für die Dokumentation gelten Namenskonventionen.
-Wenn nicht gesondert beschrieben, gelten folgende Konventionen für alle Namen, die der Ablage der Dokumentation dienen und keine Anzeigenamen sind, also z.B. Dateinamen inklusive Asciidoc- und Bild-Dateien, Verzeichnisnamen, Namen für Antora-Komponenten und -Module und Anchor.
-Mit Kleinbuchstaben sind Kleinbuchstaben ohne Umlaute und Sonderzeichen gemeint.
-Ferner sind keine Füllwörter erlaubt (wie z.B. und, oder, für).
-Die Namen sollten den Inhalt widerspiegeln.
-
-NOTE: Bei einigen Namen in der IsyFact-Dokumentation ist die Umstellung der Namen gemäß Namenskonvention noch in Arbeit.
-
-[[table-namenskonvention-dokumentation]]
-.Namensschema für Dokumentation (keine Anzeigenamen)
-[cols="1s,4m",options="header"]
-|====
-2+|Namen in Dokumentation
-|Schema |<beliebig: Kleinbuchstaben, Bindestriche, einzelne Ziffern, wenn unbedingt nötig>
-|Beispiel |isyfact-standards
-|falsch |_isyfact, IsyFact, isyfact standards, lösung, standards-und-erweiterungen
-|====
-
-[[dokumentation-glossar]]
-==== Spezielle Namensschemata Dokumentation
-include::werkzeuge:page$dokumentation/bearbeitung/bearbeitung-antora.adoc[tag=namenskonvention]
+Die Namenskonventionen für die Dokumentation sind Teil des xref:documentation-guide:ROOT:namenskonventionen.adoc[Leitfadens Dokumentation].
 
 // end::inhalt[]

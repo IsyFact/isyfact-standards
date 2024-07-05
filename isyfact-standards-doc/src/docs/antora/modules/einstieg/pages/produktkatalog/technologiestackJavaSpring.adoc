@@ -12,11 +12,12 @@ Die hier aufgeführten Produkte dienen der Entwicklung und dem Test von Anwendun
 Das Framework Spring Boot legt selbst zahlreiche Versionen von Drittanbieter-Bibliotheken fest.
 Wann immer ein Produkt als Version dieses Icon (icon:leaf[title=Spring Boot Dependency]) enthält, wird die durch Spring Boot festgelegte Version verwendet.
 
-Produkte und ihre Versionen können in der Liste der xref:glossary:literaturextern:inhalt.adoc#litextern-spring-boot-managed-dependencies[Spring Boot Managed Dependencies] nachgeschlagen werden.
+Produkte und ihre Versionen können in der Liste der https://docs.spring.io/spring-boot/docs/2.7.x/reference/html/dependency-versions.html[Spring Boot Managed Dependencies] nachgeschlagen werden.
 ****
 
 // end::spring-boot-managed-dependencies[]
 
+[[Entwicklung]]
 == Entwicklung
 
 [.table_head_sticky.unordered_list_identation]
@@ -27,6 +28,7 @@ include::partial$/Produktkatalog_IsyFact_Produktvorgaben_Bibliotheken_Anwendungs
 |===
 --
 
+[[Test]]
 == Test
 
 [.table_head_sticky.unordered_list_identation]

@@ -1,3 +1,12 @@
+# 3.0.1
+- `ISY-701`: Google Guava Versionsanhebung auf 33.1.0
+- `ISY-704`: Open CSV Versionsanhebung auf 5.9
+- `ISY-987`: Spring Framework Versionsanhebung auf 5.3.33
+- `ISY-1073`: Spring Security Versionsanhebung auf 5.7.12
+- `ISY-929`: Nimbus JOSE+JWT Versionsanhebung auf 9.37.2
+- `ISY-1036`: Apache Commons Collections Versionsanhebung auf 3.2.2
+- `ISY-1045`: Apache Commons FileUpload Versionsanhebung auf 1.5
+
 # 3.0.0
 - `IFS-1465`: Spring Boot Versionsanhebung auf 2.7.1
 - `IFS-2021`: Spring Boot Versionsanhebung auf 2.7.9
@@ -5,9 +14,10 @@
 - `IFS-2537`: Spring Boot Versionsanhebung auf 2.7.11
     - spring-boot-maven-plugin Versionsanhebung auf 2.7.11
 - `IFS-2045`: Produkte Apache Tika, commons-beanutils und commons-io hinzugefügt
-- h2 wird über Spring Boot transitiv bezogen, wie im Produktkatalog gefordert
+- `ISY-200`: h2 wird über Spring Boot transitiv bezogen, wie im Produktkatalog gefordert
 - `ISY-139`: Spring Boot Versionsanhebung auf 2.7.15
 - `ISY-416`: Versionsanhebung von Metro Webservices auf 2.4.9
+- `ISY-698`: Versionsanhebung von jsoup auf 1.15.3
 
 # 2.4.2
 - `IFS-1466`: Versionsanhebung von Spring Boot auf 2.5.13

@@ -1,0 +1,45 @@
+= Migrationsleitfaden IsyFact {page-component-version}
+:icons: font
+:sectnums:
+
+include::glossary:licence:partial$licence.adoc[]
+
+Die auf dieser Seite aufgeführten Hinweise sollen der Entwicklung bei der Umstellung einer auf IsyFact 3.x basierenden Anwendung auf IsyFact {page-component-version} helfen.
+
+[[kapitel-geschaeftsanwendung]]
+== Geschäftsanwendung
+
+...
+
+[[kapitel-bausteine]]
+== Bausteine
+
+Folgende Bausteine entfallen in IsyFact 4:
+
+* `isy-aufrufkontext`: wird mit dem Wegfall der HttpInvoker nicht länger benötigt
+* `isy-konfiguration`: ersetzt durch Spring Configuration Properties
+* `isy-sicherheit`: ersetzt durch Spring Security OAuth2 und `isy-security`
+* `isy-serviceapi-core`: HttpInvoker-Schnittstellen müssen durch entsprechende REST-Schnittstellen ersetzt werden (siehe auch xref:isy-service-rest:konzept/master.adoc[]/xref:isy-service-rest:nutzungsvorgaben/master.adoc[]).
+
+...
+
+[[isy-security]]
+=== Security
+Method Security ist in der IsyFact 4 version von isy-security standardmäßig nicht mehr aktiviert und muss durch setzen der `@EnableMethodSecurity`- Annotation an einer `@Configuration`-Klasse aktiviert werden.
+
+Detaillierte Konfigurationsmöglichkeiten sind den
+xref:isy-security:nutzungsvorgaben/master.adoc#autorisierung_service_schnittstelle[Nutzungsvorgaben Security] und der https://docs.spring.io/spring-security/reference/servlet/authorization/method-security.html[Spring Security Dokumentation] zu entnehmen.
+
+[[isy-ueberwachung]]
+=== Überwachung
+
+In IsyFact 3 muss die Absicherung der Endpoints aus den Nutzungsvorgaben abgeleitet und pro Anwendung implementiert werden.
+
+In IsyFact 4 stellt der Baustein `isy-ueberwachung` über die AutoConfiguration eine
+Standardabsicherung für Endpoints und entsprechende Konfigurationsparameter bereit.
+Eine detaillierte Beschreibung zur Konfiguration und Anpassungsmöglichkeiten sind in den xref:isy-ueberwachung:nutzungsvorgaben/master.adoc#absicherung-von-endpoints[Nutzungsvorgaben Überwachung] zu finden.
+
+[[kapitel-dokumentation]]
+== Dokumentation
+
+...

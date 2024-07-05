@@ -27,7 +27,7 @@ Grundsätzlich können nach dem Schema `spring.jpa.properties.<Schlüssel>=<Wert
 spring.jpa.hibernate.ddl-auto=update
 spring.jpa.show-sql=false
 
-spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.Oracle12cDialect
+spring.jpa.properties.hibernate.dialect=<Database Dialect>
 spring.jpa.properties.hibernate.connection.isolation=4
 spring.jpa.properties.hibernate.connection.useUnicode=true
 spring.jpa.properties.hibernate.connection.characterEncoding=utf-8
@@ -66,14 +66,12 @@ private SomeEntity someEntity;
 Ist ein 1:1 assoziiertes Feld optional und kann den Wert `null` annehmen, kann Lazy Loading nur über Bytecode-Manipulation realisiert werden.
 Für n:1 Assoziationen wird genauso verfahren und das `fetch`-Attribut auf `FetchType.LAZY` gesetzt.
 Es ist erlaubt und erwünscht, dieses Verhalten für Assoziationen zu überschreiben, bei denen Eager Loading Sinn ergibt.
-Hierfür ist das Attribute `fetch` der jeweiligen Mapping-Annotation wie folgt zu setzen:
+Hierfür ist das Attribut `fetch` der jeweiligen Mapping-Annotation wie folgt zu setzen:
 
 [source,java]
 ----
 @OneToMany(fetch = FetchType.EAGER)
 ----
-
-Die Verwendung der Annotationen `@LazyToOne` und `@LazyCollection` ist zu vermeiden, falls man nicht den `@LazyCollection` Wert „Extra“ für extra große Collections benötigt.
 
 [[standardmaessig-optimistisches-locking-verwenden]]
 === Standardmäßig optimistisches Locking verwenden
@@ -133,7 +131,7 @@ public class PersistenceConfig {
 
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         vendorAdapter.setGenerateDdl(true);
-        vendorAdapter.setDatabase(Database.ORACLE);
+        vendorAdapter.setDatabase(...); <.>
         vendorAdapter.setShowSql(false);
         em.setJpaVendorAdapter(vendorAdapter);
 
@@ -148,6 +146,7 @@ public class PersistenceConfig {
     }
 }
 ----
+<.> Korrekten Hersteller setzen.
 
 Für die zweite Datenbankanbindung wird eine weitere Konfiguration angelegt <<listing-datasource2>>.
 
@@ -179,7 +178,7 @@ public class Persistence2Config {
 
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         vendorAdapter.setGenerateDdl(true);
-        vendorAdapter.setDatabase(Database.H2);
+        vendorAdapter.setDatabase(...); <.>
         vendorAdapter.setShowSql(false);
         em.setJpaVendorAdapter(vendorAdapter);
 
@@ -194,6 +193,7 @@ public class Persistence2Config {
     }
 }
 ----
+<.> Korrekten Hersteller setzen.
 
 Die Datei `application.properties` wird um den neuen Konfigurationsparameter `datasource.second.url` für die zweite Datenbankverbindung erweitert.
 
@@ -203,9 +203,9 @@ Die Datei `application.properties` wird um den neuen Konfigurationsparameter `da
 
 Primärschlüssel werden in JPA mittels der `@Id` und `@GeneratedValue` Annotation markiert.
 Der `GenerationType` der `@GeneratedValue` Annotation muss in jedem Fall `AUTO` sein.
-Als Generator kommt unter Oracle ein `@SequenceGenerator` zum Einsatz, der eine Datenbanksequenz benutzt.
+Als Generator kommt idealerweise ein `@SequenceGenerator` zum Einsatz, der eine Datenbanksequenz benutzt.
 
-Es muss unbedingt darauf geachtet werden, die Inkrementierung (`INCREMENT BY`) der zur ID-Generierung genutzt Datenbanksequenz auf denselben Wert einzustellen, der auch beim JPA `SequenceGenerator` mit `allocationSize` angegeben ist.
+Es muss unbedingt darauf geachtet werden, das Inkrement (`INCREMENT BY`) der zur ID-Generierung genutzten Datenbanksequenz auf denselben Wert einzustellen, der auch beim `SequenceGenerator` mit `allocationSize` angegeben ist.
 
 Ein Konfigurationsbeispiel kann folgendermaßen aussehen:
 

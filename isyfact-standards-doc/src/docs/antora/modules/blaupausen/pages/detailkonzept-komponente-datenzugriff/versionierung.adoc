@@ -29,11 +29,6 @@ Bei der Aktualisierung auf eine aktuellere Version ist folgendes Vorgehen vorges
 
 Im Gegensatz zu Schema-übergreifender Versionierung wird von Datenbank-übergreifender Versionierung dringlichst abgeraten.
 
-****
-Nur eine Lösung, _Oracle Database Links_, bietet im Zusammenspiel mit Oracle-Datenbanken eine generische, transaktionssichere Lösung für dieses Problem an.
-Allerdings sind Oracle Database Links laut Maßnahme M 4.71 des IT-Grundschutzes (xref:glossary:literaturextern:inhalt.adoc#litextern-it-grundschutz-m471[IT-Grundschutz M 4.71]) nur unter strengen Auflagen zulässig, die eine Verwendung erheblich erschweren.
-
-Mit dem Wegfall dieser Lösung gibt es aus Sicht der IsyFact keine geeignete Lösung, um Daten zwischen mehreren Schemata auf unterschiedlichen Datenbank-Instanzen zu bearbeiten.
-****
+NOTE: Der https://download.gsb.bund.de/BSI/ITGSK/IT-Grundschutz-Kataloge_2016_EL15_DE.pdf#page=3285[IT-Grundschutz (M 4.71) icon:file-pdf-o[]] sieht die Verwendung von _Database Links_, die für eine Datenbank-übergreifende Versionierung genutzt werden können, nur unter strengen Auflagen zulässig, die eine Verwendung erheblich erschweren.
 
 Unabhängig von der Lösung erschweren Datenbank-übergreifende Operationen die Fehlersuche im Falle einer fehlgeschlagenen Installation oder Aktualisierung wesentlich.

@@ -11,9 +11,9 @@ Hält sie sich noch an allgemein etablierte und bekannte Standards, verkürzt si
 Um das zu erreichen, müssen Konventionen für die Programmierung festgelegt werden.
 
 Die in diesem Dokument beschriebenen Richtlinien sind für die Erstellung von Programmen mit der IsyFact verbindlich.
-Die Strukturen zur Ablage des Quellcodes richten sich nach der Empfehlung von xref:glossary:literaturextern:inhalt.adoc#litextern-maven-standard-directory-layout[Apache Maven Standard Directory Layout] und wurden für die IsyFact erweitert.
+Die Strukturen zur Ablage des Quellcodes richten sich nach der Empfehlung von https://maven.apache.org/guides/introduction/introduction-to-the-standard-directory-layout.html[Apache Maven Standard Directory Layout] und wurden für die IsyFact erweitert.
 Die Programmierkonventionen basieren auf Synopse und präzisieren sie an einigen Stellen.
-Die in xref:glossary:literaturextern:inhalt.adoc#litextern-vermeulen2000[Vermeulen2000] beschriebenen Konventionen beruhen auf den Sun Coding Conventions xref:glossary:literaturextern:inhalt.adoc#litextern-sun1997-code-conventions[Sun 1997] und den Coding Standards der Firma Ambysoft xref:glossary:literaturextern:inhalt.adoc#litextern-ambler1999[Ambler1999].
+Die in https://en.wikipedia.org/wiki/The_Elements_of_Java_Style[The Elements of Java Style (Vermeulen et al., 2000)] icon:book[] beschriebenen Konventionen beruhen auf den https://www.oracle.com/technetwork/java/codeconventions-150003.pdf[Sun Coding Conventions (1997) icon:file-pdf-o[]] und den https://www.ambysoft.com/downloads/javaCodingStandards.pdf[Coding Standards der Firma Ambysoft icon:file-pdf-o[]].
 
 [[vorgaben-fuer-die-quellcodeablage]]
 == Vorgaben für die Quellcodeablage
@@ -156,7 +156,7 @@ project-root/
 
 Batch-Projekte bestehen hauptsächlich aus Startskripten und Konfigurationsdateien, um die Batches aufzurufen.
 Die Implementierung der Batches geschieht in der Anwendung, welche die Batches bereitstellt.
-Daher enthalten Batch-Projekte weder Quellcode, noch Tests.
+Daher enthalten Batch-Projekte weder Quellcode noch Tests.
 
 Batch-Projekte besitzen unter dem Wurzelverzeichnis (`project-root`) ein einzelnes Unterverzeichnis `src/main/resources`.
 Der Aufbau des Verzeichnisses wird im xref:blaupausen:detailkonzept-komponente-batch/master.adoc[Detailkonzept Komponente Batch] beschrieben.
@@ -217,7 +217,7 @@ Beispiele dafür sind Dokumente übergreifender Natur aus architektonischer, tec
 Dokumentationsprojekte besitzen unter dem Wurzelverzeichnis (`project-root`) ein einzelnes Unterverzeichnis `src/docs/asciidoc`.
 In diesem finden sich weitere Verzeichnisse, z. B. für Inhalte allgemeiner Natur, sowie für die Dokumente.
 Es empfiehlt sich, für jedes Dokument ein eigenes Verzeichnis zur Ablage spezifischer Inhalte (neben Texten z. B. auch Bilder und Diagramme) anzulegen.
-Vorgaben für die Struktur einzelner Dokumente finden sich in der xref:werkzeuge:dokumentation/einleitung/einfuehrung.adoc[Dokumentation gemäß IsyFact].
+Vorgaben für die Struktur einzelner Dokumente finden sich in der xref:methodik:vorgaben-dokumentation.adoc[Vorgaben zur Dokumentation].
 
 .Struktur eines Dokumentationsprojekts
 [id="listing-Projektstruktur-Dokumentation",reftext="{listing-caption} {counter:listings }"]
@@ -411,14 +411,14 @@ Die Package-Struktur folgt einer Konvention, die aus der fachlichen und technisc
 [id="listing-PackageStruktur",reftext="{listing-caption} {counter:listings }"]
 [source]
 ----
-<organisation>.<domäne>.<anwendungssystem>.<layer>.<subsystem/
+<organisation>.<domäne>.<anwendung>.<layer>.<subsystem/
 komponente>. ...
   <domäne>
 	= (Name gemäß fachlicher Architektur, z. B. "meinedomaene")
-  <anwendungssystem>
+  <anwendung>
 	= (Name gemäß fachlicher Architektur, z. B. "meineanwendung)
   <layer>
-	= common | gui | batch | service | core | persistence
+	= common | batch | service | core | persistence
   <subsystem/komponente>
 	= Name der Geschäftsanwendung bzw. querschnittlichen Komponente gemäß fachlicher Architektur
 ----
@@ -429,7 +429,7 @@ Unterhalb von `<subsystem/komponente>` werden die Packages projektspezifisch str
 Keine Sonderzeichen verwenden!
 ****
 
-Der Anwendungsname in `<anwendungssystem>` wird an Java-Package-Konventionen angepasst.
+Der Anwendungsname in `<anwendung>` wird an Java-Package-Konventionen angepasst.
 Leer- und Sonderzeichen in den Anwendungsnamen werden gestrichen.
 
 ****
@@ -707,10 +707,10 @@ Für die Erstellung von Dokumentationskommentaren gelten die folgenden Regeln:
 Alle Dokumentationskommentare werden einheitlich formatiert!
 ****
 
-* Schlüsselworte und Bezeichner im beschreibenden Text werden mit dem HTML-Tag *<code>...</code>* formatiert.
+* Schlüsselworte und Bezeichner im beschreibenden Text werden mit dem HTML-Tag *<code> ... </code>* formatiert.
 
-* Programmcode wird im beschreibenden Text mit dem HTML-Tag *<pre>...</pre>* formatiert.
-Damit wird gewährleistet, dass eine Darstellung des Codes in „dicktengleicher Schrift“ (Nichtproportionalschrift, Festbreitenschrift oder Monospaced Font) erfolgt und Einrückungen so wiedergegeben werden, wie sie beim Editieren eingegeben wurden.
+* Programmcode wird im beschreibenden Text mit dem HTML-Tag *<pre> ... </pre>* formatiert.
+Damit wird gewährleistet, dass eine Darstellung des Codes in "dicktengleicher Schrift" (Nichtproportionalschrift, Festbreitenschrift oder Monospaced Font) erfolgt und Einrückungen so wiedergegeben werden, wie sie beim Editieren eingegeben wurden.
 Es ist darauf zu achten, dass alle Leerzeichen berücksichtigt werden und kein automatischer Zeilenumbruch erfolgt.
 
 * Nicht mehr zu verwendende Konstrukte werden als `@deprecated` gekennzeichnet.
@@ -847,7 +847,7 @@ Kommentare werden nicht dazu verwendet, alte Versionen des Codes zu deaktivieren
 Wenn man alte Versionen wiederherstellen möchte, so ist dazu auf das Konfigurationsmanagement zurückzugreifen.
 Für die Analyse von Codeänderungen sind die bekannten DIFF-Werkzeuge einzusetzen.
 
-NOTE: Werkzeug, mit dem sich Unterschiede zwischen zwei Textdateien xref:glossary:literaturextern:inhalt.adoc#litextern-synopse[synoptisch] darstellen lassen (`diff` unter xref:glossary:literaturextern:inhalt.adoc#litextern-unix[Unix] oder UltraEdit).
+NOTE: Werkzeug, mit dem sich Unterschiede zwischen zwei Textdateien https://de.wikipedia.org/wiki/Synopse[synoptisch] darstellen lassen (`diff` unter https://de.wikipedia.org/wiki/Unix[Unix] oder UltraEdit).
 
 Änderungen werden mittels eines Version Control System (z. B. Subversion) nachverfolgt.
 Dazu ist es zwingend erforderlich, die durchgeführten Änderungen bzw. die Ursache dafür beim Check-in ausreichend zu dokumentieren.
@@ -912,7 +912,7 @@ Diese Methoden sind bewusst als _non-final_ Methoden angelegt, damit sie klassen
 Die von der Klasse `Object` vererbte Implementierung für die Methoden `equals()` und `hashCode()` stellt nur eine Basisimplementierung dar, die für alle Klassen genügt, deren Identität auf Objektgleichheit (gleiche Speicheradresse) basiert.
 Klassen, die eine eigene Identität, unabhängig von der Objektgleichheit, besitzen, müssen `equals()` und `hashCode()` implementieren.
 Dabei können leicht schwer identifizierbare Fehler auftreten.
-Die Implementierung von `equals()` und `hashCode()` ist nicht trivial, da sie bestimmte Eigenschaften (Reflexivity, Symmetry, Transitivity, Consistency und Non-nullity, s. xref:glossary:literaturextern:inhalt.adoc#litextern-bloch2008[Bloch2008]) erfüllen müssen.
+Die Implementierung von `equals()` und `hashCode()` ist nicht trivial, da sie bestimmte Eigenschaften (Reflexivity, Symmetry, Transitivity, Consistency und Non-nullity erfüllen müssen (siehe auch "Effective Java Second Edition" (Bloch, 2008) icon:book[]).
 
 Zur Implementierung von `equals()` und `hashCode()` müssen die Möglichkeiten der Hilfsklasse `java.util.Objects` verwendet werden, insbesondere die Methoden:
 

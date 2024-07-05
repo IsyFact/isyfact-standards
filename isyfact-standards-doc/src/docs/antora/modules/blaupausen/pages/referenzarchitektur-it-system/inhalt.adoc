@@ -1,4 +1,4 @@
-= Softwaretechnische Architektur: Inhalt
+= Referenzarchitektur IT-System: Inhalt
 
 // tag::inhalt[]
 == Technische Architektur
@@ -7,35 +7,29 @@ Die technische Architektur (xref:glossary:glossary:master.adoc#glossar-t-archite
 [[die-referenzarchitektur-eines-it-systems]]
 === Die Referenzarchitektur eines IT-Systems
 
-Die individuell erstellten Anwendungssysteme der Systemlandschaft müssen technisch gleichartig aufgebaut sein.
-Daher wird im Folgenden die Referenz-Architektur beschrieben, nach der diese Anwendungssysteme software-technisch in IT-Systeme umgesetzt werden.
+Die individuell erstellten Anwendungen der Anwendungslandschaft müssen technisch gleichartig aufgebaut sein.
+Daher wird im Folgenden die Referenzarchitektur beschrieben, nach der diese Anwendungen software-technisch in IT-Systeme umgesetzt werden.
 
 .Referenzarchitektur eines IT-Systems
 [id="image-RAITSys",reftext="{figure-caption} {counter:figures}"]
-image::blaupausen:referenzarchitektur-it-system/RAITSys.png[align="center"]
+image::blaupausen:referenzarchitektur-it-system/architektur-it-system.dn.svg[]
 
 In der *Persistenzschicht* ist alle Funktionalität enthalten, die zum Erzeugen, Suchen, Bearbeiten und Löschen von Datenobjekten benötigt wird.
 Der Datenzugriff auf das DBMS ist in dieser Schicht vollständig gekapselt.
 In Richtung Datenbank kommuniziert diese Schicht mittels JDBC und SQL, in Richtung des Anwendungskerns stellt die Schicht Geschäftsobjekte zur Verfügung.
 Die Persistenz nutzt dazu das Framework Hibernate über die Java Persistence API (JPA).
 
-Der *Anwendungskern* umfasst die fachliche Logik zur Datenbearbeitung, die mit dem System realisiert werden soll.
+Der *Anwendungskern* umfasst die Geschäftslogik zur Datenbearbeitung, die mit dem System realisiert werden soll.
 Dazu gehören zum Beispiel Datenvalidierungen oder Funktionen zum Verarbeiten von Geschäftsobjekten, die über den Datenzugriff geladen wurden.
 
-Die *Nutzungsschicht* ist eine Erweiterung der klassischen Drei-Schichten Architektur, in der die dritte Schicht als GUI oder Präsentation bezeichnet wird.
-In der Referenzarchitektur für ein IT-System wird diese Schicht noch zusätzlich erweitert um Batch und Service.
-
-* Aufgabe der *GUI* ist es, die Funktionalität der Anwendung für einen menschlichen Anwender zur Verfügung zu stellen.
-Dabei unterstützt die GUI den Bearbeitungsprozess einer fachlichen Aufgabe.
-Innerhalb des Bearbeitungsprozesses stellt sie Dialoge dar und transferiert die durch den Anwendungskern gelieferten Datenobjekte in eine präsentable Form.
-Dies kann sowohl durch eine Web-basierte HTML-GUI als auch durch eine sogenannte Rich-Client-Anwendung geschehen.
+Die *Nutzungsschicht* ist eine Erweiterung der klassischen Drei-Schichten Architektur:
 
 * Aufgabe des **Batch**es ist es, automatisierte Prozesse ohne einen direkten menschlichen Anwender durchzuführen.
 Dabei nutzt der Batch ebenfalls die Funktionen des Anwendungskerns.
 Auch hier gibt es spezielle Batch-Schritte, die exklusiv vom Batch benötigt werden und deshalb nicht Bestandteil des Anwendungskerns sind.
 Eine Besonderheit beim Batch ist, dass die Steuerung des Batch-Prozesses in der Regel über ein Scheduling-Werkzeug erfolgt.
 
-* Der dritte Aufrufende von Anwendungslogik sind andere Anwendungen, die mittels *Services* auf den Anwendungskern zugreifen.
+* Andere Anwendungen greifen mittels *Services* auf den Anwendungskern zu.
 Dieser Zugriff erfolgt nicht direkt auf den Anwendungskern, sondern über die Nutzungsschicht „Service“.
 Dadurch können auf einfache Art technische Attribute in die Außenschnittstelle aufgenommen werden und der Service des Anwendungskerns kann auf die Kommunikationstechnik abgebildet werden, die für die Kommunikation zwischen IT-Systemen verwendet wird.
 
@@ -84,6 +78,19 @@ Um zu prüfen, ob die Daten in der Zwischenzeit nicht durch einen anderen Anwend
 Um diesen großen Funktionsumfang abzudecken, wird ein Produkt zum objekt-relationalen Mapping gemäß JPA-Standard eingesetzt.
 Details hierzu sind im xref:isy-persistence:konzept.adoc[Baustein JPA/Hibernate] dokumentiert.
 
+*Caching:*
+Anwendungsspezifische Caches sind mit Spring Cache Abstraction zu implementieren.
+Die Caching-Funktionalität wird so mit Spring Cache Abstraction und einem Caching Provider (z.B. EHCache) bereitgestellt.
+Spring Cache Abstraction bietet eine effiziente und flexible Möglichkeit Caching in Anwendungen zu implementieren.
+Weitere und detaillierte Informationen sind in https://docs.spring.io/spring-framework/reference/integration/cache.html[der Spring Dokumentation] einzusehen.
+Durch die Verwendung von Spring Cache Abstraction wird, z.B. über die Nutzung von Annotationen, das Hinzufügen von Caching zu bestehenden Methoden erleichtert.
+Der zugrundeliegende Code ist nicht wesentlich zu verändern.
+Mit dem abstrahierten Caching ist die Cache-Implementierung unabhängig von dem genutzten Cache-Provider.
+Die Wahl des Cache-Providers ist gemäß einer notwendigen Skalierung und betrieblichen Gegebenheiten abzustimmen.
+EHCache wird empfohlen (Vlg. xref:einstieg:produktkatalog/technologiestackJavaSpring.adoc#Entwicklung[Produktkatalog: Entwicklung]).
+Für weitere Informationen zu EHCache sind in der https://www.ehcache.org/documentation/[EHCache Dokumentation] einzusehen.
+
+
 [[der-anwendungskern]]
 === Der Anwendungskern
 
@@ -113,107 +120,18 @@ Weitere Details können dem xref:detailkonzept-komponente-anwendungskern/master.
 === Datenzugriff
 
 In der Persistenz-Schicht sind die Fachkomponenten auch gemäß den Komponenten aus der fachlichen Architektur strukturiert.
-Die Komponenten des Anwendungskerns besitzen die Datenhoheit auf Objekte, die ihnen eindeutig zuzuordnen sind.
-Diese Objekte stammen aus den korrespondierenden Komponenten in der Persistenz-Schicht.
-Nur die korrespondierende Anwendungskern-Komponente darf Änderungen an den entsprechenden persistenten Objekten vornehmen.
-Die persistenten Objekte dürfen nicht über Komponentengrenzen hinweg herausgegeben werden.
-In diesem Fall wäre nicht sichergestellt, dass keine Änderungen außerhalb der Komponente passieren.
-Für den Transfer über Komponentengrenzen hinweg müssen eigene, nicht-persistente Schnittstellen-Objekte erzeugt werden, die dann aus den persistenten Objekten mittels eines Bean-Mappers befüllt werden können. +
-Wenn Objekte von mehreren Komponenten genutzt werden und keiner einzelnen Komponente zugeordnet werden können, sollten sie in einem eigenen querschnittlichen Package abgelegt werden.
+Die Komponenten des Anwendungskerns besitzen die Datenhoheit auf die Entitäten, die ihnen eindeutig zuzuordnen sind.
+Diese Entitäten stammen aus den korrespondierenden Komponenten in der Persistenz-Schicht.
+Nur die korrespondierende Anwendungskern-Komponente darf Änderungen an den entsprechenden persistenten Entitäten vornehmen.
 
-Vereinfachend können Anwendungskern-Komponenten persistente Daten an die xref:glossary:glossary:master.adoc#glossar-service[Service]-Schicht (s. Kapitel <<servicezugriffe>>) weitergeben.
-Dies ist insbesondere dann angebracht, wenn die Komponente ausschließlich durch eine Service-Komponente genutzt wird. +
-Da die Service-Schicht keine Logik enthält und daher ohnehin keine Änderung an solchen Entitäten vornehmen darf und eindeutig der Anwendungskern-Komponente zugeordnet ist, bedeutet dies keine Verletzung der Datenhoheit.
-Da die Anwendungskern-Komponente an Ihrer Schnittstelle nun potenziell persistente und nicht persistente Entitäten bereitstellt, müssen Verwechselungen vermieden werden, z.B. indem solche Methoden in getrennten Interfaces deklariert werden.
-
-.icon:university[title=Architekturregel] Architekturregel
+.icon:university[title=Architekturregel] Persistente Entitäten im Anwendungskern
 ****
 Persistente Entitäten dürfen nicht über den Anwendungskern hinaus herausgegeben werden. Sie haben im Anwendungskern zu verbleiben.
 ****
 
-
-[[gui]]
-=== GUI
-
-Bei grafischen Benutzeroberflächen (englisch: Graphical User Interface, GUI) gibt es eine Vielfalt unterschiedlichster Komplexitäten: von einfachen Stammdatensystemen über Dialogsysteme mit vielen einfachen Dialogen, die aber intensiv miteinander interagieren, bis zu Clients mit wenigen, aber sehr komplexen Dialogen.
-Eine gute Architektur muss für alle relevanten Varianten einen tragfähigen Rahmen schaffen.
-
-Im Wesentlichen müssen innerhalb einer xref:glossary:glossary:master.adoc#glossar-gui[GUI] verschiedene Aufgaben erledigt werden:
-
-* Die Masken und Informationen müssen am Bildschirm angezeigt werden.
-* Der Dialog muss auf Benutzerinteraktionen reagieren.
-* Einzelne Dialoge müssen ggf.
-zu Dialogabläufen zusammengefasst werden und benötigen Kontext-Informationen wie den aktuell angemeldeten Benutzer.
-Die Dialogabläufe bilden einen Workflow.
-Dieser ist in der Regel in der Dialogsteuerung abgebildet, er kann auch durch eine Workflow-Komponente gesteuert werden.
-* Der Dialog muss direkt mit dem Anwendungskern kommunizieren, um Daten zu lesen, die veränderten Daten zu speichern und komplexere fachliche Funktionen auszuführen.
-
-Vorgaben zur konkreten Bedienung sind im xref:isy-bedienkonzept:bedienkonzept.adoc[Bedienkonzept] beschrieben.
-
-Die Validierung auf GUI-Ebene ist optional.
-Sie wird empfohlen, wenn sie die Benutzererfahrung verbessert.
-Bei Syntaxfehlern kann die GUI beispielsweise einen Hinweis anzeigen, ohne den Server aufzurufen, wodurch Zeit gespart und die Leistung verbessert wird.
-Die Abwehr gegen Injection-Angriffen, beispielsweise Cross Site Scripting (XSS), wird in der GUI unabhängig davon dringend empfohlen.
-
-Trotzdem darf sich der Anwendungskern niemals auf die syntaktische Validierung der GUI verlassen und auch potenziell schädliche Eingabewerte berücksichtigen.
-Die fachliche Validierung der Eingabewerte erfolgt ebenfalls im Anwendungskern, da es sich um Geschäftslogik handelt und oft Datenbankabfragen erforderlich sind.
-
-[[Web-GUI]]
-==== Klassische Web-GUI
-
-Die in <<image-KompGUI>> dargestellte GUI-Architektur für eine klassische Webanwendung besteht aus 4 Komponenten, die die oben geschilderten wesentlichen Aufgaben übernehmen.
-Diese Komponenten sind der Dialograhmen, die Dialoge, die GUI-Bibliothek und die Dialoglogik.
-
-*Dialograhmen:* Die Komponente Dialograhmen definiert die Ablaufumgebung für Dialoge.
-Der Dialograhmen kennt die Dialogabläufe und die notwendigen Kontextinformationen.
-
-*Dialog:* Aufgaben der Dialogkomponenten sind die Reaktion auf Benutzerinteraktionen und den Datenzugriff des aktuellen Dialogs.
-
-*GUI-Bibliothek:* Die Komponente GUI-Bibliothek ist in der Lage, Masken am Bildschirm darzustellen und die einzelnen Elemente der Masken mit Informationen zu versorgen.
-
-*Dialoglogik:* Die Komponente Dialoglogik enthält die vom Dialog benötigten Fachklassen und übernimmt die direkte Kommunikation mit dem Anwendungskern.
-Liegt der Anwendungskern auf einem Server, so speichert der Anwendungskern auch Login-Informationen, Session-Daten und ähnliches.
-
-.Komponenten der GUI-Architektur
-[id="image-KompGUI",reftext="{figure-caption} {counter:figures}"]
-image::blaupausen:referenzarchitektur-it-system/KompGUI.png[align="center",pdfwidth=60%,width=60%]
-
-Die GUI-Architektur setzt eine Trennung der Dialogsteuerung und des Layouts um.
-Diese Trennung hat den Vorteil, dass das Layout der Bildschirmmasken bei Bedarf relativ einfach ausgetauscht werden kann.
-Während der Entwicklung können Spezialisten für das Layout unabhängig von den Spezialisten für die Umsetzung der Dialogsteuerung arbeiten.
-Für die Dialogsteuerung von Web-GUIs wird das Framework SpringWebFlow (GUI-Engine) verwendet, für das Layout JSF (GUI-Bibliothek).
-
-Ein am Client durchgeführter Arbeitsprozess besteht in der Regel aus mehr als einem Dialogschritt und damit aus mehr als einem Aufruf des Servers.
-Dabei sind zum Beispiel folgende Aufgaben zu lösen:
-
-* Über mehrere Dialogschritte müssen Zustandsinformationen erhalten werden.
-* Ergebnisse von aufwändigen Operationen sollen in einem Cache gehalten werden.
-
-Dieser Zustand muss innerhalb der Anwendung abgebildet werden.
-Hierzu wird ein zustandsloser Server realisiert und der Zustand wird in der Datenbank gehalten.
-Der Serverprozess selbst hat keinen Zustand.
-Sobald ein Aufruf durch den Client erfolgt, muss der Server zunächst den aktuellen Zustand rekonstruieren.
-Dies erfolgt dadurch, dass der Client eine Session-ID übergibt und der Server die benötigten Daten aus einem Datenbank-Zwischenspeicher unter diesem Schlüssel nachschlägt.
-Mit dieser Lösung lassen sich sehr einfach Loadbalancing- und Failover-Lösungen über Rechner-Cluster realisieren.
-
-Weiterführende technische Details zur GUI sind im xref:detailkonzept-komponente-web-gui/master.adoc[Detailkonzept Komponente Web-GUI] enthalten.
-
-[[SPA]]
-==== Single Page Application
-
-Eine GUI kann auch als xref:glossary:glossary:master.adoc#glossar-spa[Single Page Application (SPA)] umgesetzt werden.
-
-Dadurch ist eine Reduzierung der Last auf dem Server möglich und die Umsetzung von komplexeren Nutzerinteraktionen wird erleichtert;
-vor allem bei diesen Fällen kann sich eine Migration lohnen.
-Zudem können teilweise Offline-Funktionalitäten umgesetzt werden.
-
-Genauer zu prüfen ist der Einsatz von SPAs vor allem in Fällen, in denen Clients nur über sehr schwache Ressourcen verfügen.
-
-Folgende Komponenten kommen in einer SPA normalerweise zum Einsatz:
-
-* GUI-Framework: Das Framework kümmert sich darum, vom Browser korrekt renderbaren Code zu erzeugen und gibt die dazu nötigen Mittel vor. Für die IsyFact ist hier Angular vorgesehen.
-* GUI-Bibliothek(en): Die GUI-Bibliotheken bieten wiederverwendbare und stylebare Komponenten im Kontext des Frameworks an.
-* Dialoglogik: Die Dialoglogik liegt rein clientseitig vor; sie ist der Ort, an dem Front-End-Code entwickelt wird.
+Andernfalls ist nicht sichergestellt, dass andere Komponenten keine Änderungen an den persistenten Entitäten vornehmen.
+Für den Transfer über Komponentengrenzen hinweg - oder aus dem Anwendungskern hinaus - müssen alle Komponenten des Anwendungskerns die ihnen zugeordneten persistenten Entitäten auf Geschäftsobjekte abbilden.
+Wenn Entitäten von mehreren Komponenten genutzt werden und keiner einzelnen Komponente zugeordnet werden können, sollten sie in einem eigenen querschnittlichen Package abgelegt werden.
 
 
 [[batch]]
@@ -228,12 +146,12 @@ Aus Architektur-Sicht werden diese Anforderungen durch zwei Komponenten abgedeck
 Er übernimmt auch die Transaktionssteuerung und die Steuerung für einen Restart.
 
 *Batchlogik:* Die Batchlogik wird vom Batchrahmen aufgerufen, um die Funktionalität des Batchverarbeitungsprogramms zu aktivieren.
-Die Funktionalität, das heißt die fachliche Logik und die Arbeitsschritte eines Batches, werden als Anwendungsfälle erfasst.
+Die Funktionalität, das heißt die Geschäftslogik und die Arbeitsschritte eines Batches, werden als Anwendungsfälle erfasst.
 Wenn diese Anwendungsfälle auch von anderen Nutzern benötigt werden, dann sind sie im Anwendungskern implementiert.
 
 .Bestandteile von Batchverarbeitungsprogrammen
 [id="image-TeileBat",reftext="{figure-caption} {counter:figures}"]
-image::blaupausen:referenzarchitektur-it-system/TeileBat.png[align="center",pdfwidth=90%,width=90%]
+image::blaupausen:referenzarchitektur-it-system/architektur-it-system-batch.dn.svg[]
 
 Batches werden als eigener Prozess auf einem eigenen Server ausgeführt, das heißt sie laufen nicht in der virtuellen Maschine des Application Servers ab.
 Batches werden somit in einer eigenen Ablaufumgebung ausgeführt und greifen direkt auf die Datenbank oder auch auf Dateien zu.
@@ -266,34 +184,23 @@ Intern besteht die Komponente „Service“ aus zwei Teilen: dem Service-Framewo
 
 .Die Bestandteile von Services
 [id="image-TeileServ",reftext="{figure-caption} {counter:figures}"]
-image::blaupausen:referenzarchitektur-it-system/TeileServ.png[align="center"]
+image::blaupausen:referenzarchitektur-it-system/architektur-it-system-service.dn.svg[]
 
 *Service-Framework:* Das Service-Framework ist die Bezeichnung für die Technologie, mit der die Services des Anwendungskerns zur Verfügung gestellt werden.
 
-[NOTE]
-====
-Hierfür wird aktuell das Framework Spring HTTP Invoker verwendet.
-Ab IsyFact 2.0 ist die Verwendung von REST-Schnittstellen erlaubt.
-HTTP Invoker wird in folgenden Releases (IsyFact 2.x) als Schnittstellenformat abgelöst.
-Die Verwendung von REST-Schnittstellen wird einem gesonderten Konzept erläutert.
-====
-
-In der Regel wird ein extern angebotener Service noch durch zusätzliche Daten oder Logik ergänzt.
-Diese werden in der Komponente Service-Logik implementiert.
-
-*Service-Logik:* Die Service-Logik enthält Daten und Funktionalität, die für die Bereitstellung des Services relevant sind.
-Im Normalfall ist der Funktionsumfang der Komponente Service-Logik viel geringer als der Funktionsumfang der Entsprechungen im Anwendungskern.
+*Service-Logik:* Die Service-Logik selbst beinhaltetet (und nutzt) Funktionalität des Anwendungskerns.  
+Im Normalfall ist dabei der Funktionsumfang der Komponente Service-Logik viel geringer als der Funktionsumfang der Entsprechungen im Anwendungskern.
 Dies liegt darin begründet, dass die Komponente Service-Logik die Funktionalität des Anwendungskerns nutzt, um den Service bereitzustellen.
 Die Kernfunktionalität des Services ist also im Anwendungskern implementiert.
 Die Schnittstelle zwischen den Komponenten „Service“ und „Anwendungskern“ ist daher eine interne Schnittstelle.
 
-Weiterführende technische Details zu Services sind im xref:detailkonzept-komponente-service/master.adoc[Detailkonzept Komponente Service] enthalten.
+Weiterführende technische Details zu Services sind im xref:detailkonzept-komponente-service/master.adoc[Detailkonzept Komponente Service] beschrieben.
 
 
 [[unterstuetzung-technischer-funktionalitaeten]]
 === Unterstützung technischer Funktionalitäten
 
-Neben der GUI, Services, Batch, Anwendungskern und Persistenzschicht benötigt ein IT-System mehrere querschnittliche Funktionalitäten.
+Neben Services, Batch, Anwendungskern und Persistenzschicht benötigt ein IT-System mehrere querschnittliche Funktionalitäten.
 Diese querschnittlichen Funktionalitäten sind in jeweils eigenen Dokumenten beschrieben.
 Eine Übersicht dazu liefern die Beschreibungen der Bausteine der xref:einstieg:vorstellung/isyfact-standards.adoc#bausteine-der-isyfact-standards[IsyFact-Standard] sowie der xref:einstieg:vorstellung/isyfact-erweiterungen.adoc#bausteine-der-isyfact-erweiterungen[IsyFact-Erweiterungen].
 

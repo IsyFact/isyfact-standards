@@ -1,6 +1,6 @@
 package de.bund.bva.isyfact.security.oauth2.client;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Collections;
 
@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
@@ -30,7 +31,7 @@ import reactor.core.publisher.Mono;
 }, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 // clear context so WebClient will fetch a fresh access token
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
-public class ClientCredentialsExchangeFilterFunctionAuthenticationTest extends AbstractOidcProviderTest {
+class ClientCredentialsExchangeFilterFunctionAuthenticationTest extends AbstractOidcProviderTest {
 
     @LocalServerPort
     private int port;
@@ -53,7 +54,7 @@ public class ClientCredentialsExchangeFilterFunctionAuthenticationTest extends A
     }
 
     @Test
-    public void shouldAllowPingFromClientWithRole() {
+    void shouldAllowPingFromClientWithRole() {
         embeddedOidcProvider.addClient("client-credentials-test-client", "supersecretpassword", Collections.singleton("Rolle_A"));
 
         String body = webClient.get().uri(pingUri).exchangeToMono(response -> {
@@ -65,24 +66,24 @@ public class ClientCredentialsExchangeFilterFunctionAuthenticationTest extends A
     }
 
     @Test
-    public void shouldDenyPingFromClientWithoutRole() {
+    void shouldDenyPingFromClientWithoutRole() {
         embeddedOidcProvider.addClient("client-credentials-test-client", "supersecretpassword", Collections.emptySet());
 
-        HttpStatus status = webClient.get().uri(pingUri)
+        HttpStatusCode statusCode = webClient.get().uri(pingUri)
                 .exchangeToMono(response -> Mono.just(response.statusCode()))
                 .block();
 
-        assertEquals(HttpStatus.FORBIDDEN, status);
+        assertEquals(HttpStatus.FORBIDDEN, statusCode);
     }
 
     @Test
-    public void shouldDenyPingWithoutClient() {
+    void shouldDenyPingWithoutClient() {
         // create new WebClient without the ServletOAuth2AuthorizedClientExchangeFilterFunction
-        HttpStatus status = WebClient.create().get().uri(pingUri)
+        HttpStatusCode statusCode = WebClient.create().get().uri(pingUri)
                 .exchangeToMono(response -> Mono.just(response.statusCode()))
                 .block();
 
-        assertEquals(HttpStatus.UNAUTHORIZED, status);
+        assertEquals(HttpStatus.UNAUTHORIZED, statusCode);
     }
 
 }

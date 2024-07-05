@@ -1,1 +1,0 @@
-mvn license:update-file-header -Dlicense.licenseName=apache_v2 -Dlicense.inceptionYear=2015 -Dlicense.verbose -Dlicense.canUpdateCopyright=false -Dlicense.canUpdateDescription=true

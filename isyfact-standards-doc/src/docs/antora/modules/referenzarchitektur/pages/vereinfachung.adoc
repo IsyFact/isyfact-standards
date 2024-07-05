@@ -1,0 +1,111 @@
+= Vereinfachung der Referenzarchitektur
+
+include::glossary:licence:partial$licence.adoc[]
+
+In der bisher vorgestellten Form ist die Referenzarchitektur für die Umsetzung großer Anwendungslandschaften ausgelegt, also für den Einsatz für Anwendungen mit hohem Funktionsumfang und hohen Anforderungen an Verfügbarkeit, Performance und Lastverhalten.
+Deshalb folgt sie einem serviceorientierten Plattform-Ansatz.
+
+Bei geringeren Anforderungen, sowohl funktional als auch nichtfunktional, können Vereinfachungen vorgenommen werden.
+
+[[verzicht-auf-eine-soa-plattform]]
+== Verzicht auf eine SOA-Plattform
+
+Die Plattform-Architektur der IsyFact bietet verschiedene Vorteile:
+
+* Bereitstellen zentraler Services, z.B. der Druck auf einer Druckstraße oder alphanumerische Suche.
+Diese Services können einfach aus verschiedenen Anwendungen heraus genutzt werden.
+Sie werden oft durch Produkte umgesetzt und werden in der Regel als separate Prozesse betrieben.
+Hier vereinfacht die Referenzarchitektur die Nutzung dieser Services.
+* Nutzung zentraler Datenbestände, z.B. durch ein zentrales Schlüsselverzeichnis.
+* Bessere Handhabbarkeit der einzelnen Anwendungen: Die in den Anwendungen umgesetzte Fachlichkeit ist in der Regel sehr umfangreich.
+Daher bietet die Auflösung in Services ein wichtiges Mittel, um die Komplexität der einzelnen Systeme zu reduzieren und sie somit langfristig wartbar und veränderbar zu halten.
+* Flexibilität und Erweiterungsfähigkeit: Services einer Geschäftsanwendung können durch die serviceorientierte Architektur leicht in andere Geschäftsanwendungen eingebunden werden.
+
+In einigen Fällen bestehen diese Anforderungen nicht.
+Der Aufbau und Betrieb einer SOA-Plattform wäre in dem Fall nicht angemessen.
+In diesem Fall können Anwendungen auch in einer kompakten Form gebaut werden.
+Dies ist sinnvoll, wenn der Funktionsumfang der Anwendung beschränkt ist, keine zentralen Services oder Datenbestände genutzt werden sollen und keine größeren Erweiterungen in der Zukunft zu erwarten sind.
+Dieses Szenario ist in <<vereinfachung-soa-architektur,der folgenden Abbildung>> dargestellt.
+
+[[vereinfachung-soa-architektur]]
+.Vereinfachung der SOA-Architektur
+image::referenzarchitektur:einfachsoArch.png[]
+
+Links ist eine typische Umsetzung einer Geschäftsanwendung zu sehen.
+Sie ist über ein Portal in eine Anwendungslandschaft integriert, hat Außenschnittstellen, die über ein Service-Gateway angeboten werden und sie nutzen die zentralen Services "Output Management", "Alphanumerisches Suchverfahren" und "Schlüsselverzeichnis".
+
+In der Mitte ist dargestellt, dass es Anwendungen gibt, die diese Anforderungen nicht haben:
+
+* Sie werden stand-alone genutzt und sind nicht in ein Portal integriert.
+* Sie haben keine externen Schnittstellen.
+* Sie greifen nicht auf zentrale Schlüsseldaten zu.
+* Sie benötigen kein alphanumerisches Suchverfahren.
+* Das Output Management wird lediglich dazu benötigt, PDF-Dokumente zu erzeugen.
+Ein Ausdruck über eine zentrale Druckstraße erfolgt nicht.
+
+In einem solchen Fall kann eine kompakte Anwendung erstellt werden, die die Querschnittsanwendung „Output Management“ nicht via Service-Aufruf anspricht, sondern dieses als Bibliothek einbindet.
+Die xref:software-technisch.adoc[software-technische Referenzarchitektur] der Anwendung bleibt unverändert.
+
+[[installation-ohne-clusterung]]
+== Installation ohne Clustering
+
+Bei geringeren nicht-funktionalen Anforderungen kann auf eine Lastverteilung und Clustering für die Datenbank verzichtet werden.
+
+.Vereinfachung durch Wegfall von Clustering
+image::referenzarchitektur:noCluster.png[]
+
+[[verzicht-auf-das-saga-zonenmodell]]
+== Verzicht auf das SAGA-Zonenmodell
+
+Die xref:technisch-infrastrukturell.adoc[technisch-infrastrukturelle Referenzarchitektur] sieht ein Zonenmodell gemäß SAGA vor.
+Falls der SAGA-Standard nicht verpflichtend ist, sollte eine Kosten/Nutzen-Betrachtung durchgeführt werden.
+Fällt diese negativ aus, steht damit der Architekt eines Systems vor der Entscheidung, eine andere Architektur für die technische Infrastruktur zu wählen.
+Die Referenzarchitektur der IsyFact ermöglicht auch eine solche, nicht SAGA-konforme Umsetzung.
+Sinnvoll ist dies allerdings nur, wenn die Anwendung bereits einer vereinfachten Software-Architektur konzipiert ist, d.h. durch die <<vereinfachung-soa-architektur>>.
+
+Mögliche, alternative Architekturen für die technische Infrastruktur sind:
+
+* *Stand-Alone-Anwendung auf einem Nutzerrechner:* Hierbei wird die Anwendung wie jedes andere Programm auch lokal auf einem Rechner installiert.
+* *Zentral auf einem nur intern zugreifbaren Server:* Hier wird die Anwendung auf einem zentralen Server bereitgestellt, der z.B. nur für die Nutzer einer bestimmten Abteilung zugreifbar ist.
+
+[[erweiterungsmoeglichkeiten-einer-vereinfachten-architektur]]
+== Erweiterungsmöglichkeiten einer vereinfachten Architektur
+
+Wenn eine Anwendung nach einer vereinfachten Architektur entwickelt wurde, ist die Erweiterung zu einer SAGA-konformen, serviceorientierten Anwendung möglich, wenn vorher gewisse Randbedingungen beachtet wurden.
+
+[[installation-innerhalb-eines-clusters]]
+=== Installation innerhalb eines Clusters
+
+Um eine Anwendung innerhalb eines Clusters von Anwendungsservern zu betreiben, ist es notwendig, den Bearbeitungszustand nicht im Hauptspeicher des Serverprozesses zu halten, sondern ihn bei jedem Request in der Datenbank zu persistieren.
+Dies ist in der Referenzarchitektur der IsyFact vorgegeben, allerdings werden Verletzungen dieses Prinzips nicht auffallen, wenn man eine vereinfachte Anwendung auf nur einem Serverknoten betreibt.
+Daher ist vor dem Umzug auf einen Cluster die Anwendung durch geeignete Tests oder Code-Inspektionen zu überprüfen, ob konform zu den Vorgaben entwickelt wurde.
+Alternativ kann natürlich auch auf die Persistierung des Anwendungszustands verzichtet werden, wenn man bewusst auf die Installation in einem Cluster verzichten will.
+
+[[installation-innerhalb-einer-soa]]
+=== Installation innerhalb einer SOA
+
+Der Nutzung einer Anwendung innerhalb einer SOA ist problemlos möglich.
+Falls Services der Plattform genutzt werden sollen, können Aufrufe dieser Services ohne weitere Vorkehrungen implementiert werden.
+Genauso ist es möglich, innerhalb der Plattform Services anzubieten.
+
+[[anwendungsbeispiel-kleinverfahren]]
+== Anwendungsbeispiel: Kleinverfahren
+
+Unter einem *Kleinverfahren* versteht man im öffentlichen Sektor Anwendungen, die nur geringe Anforderungen an nichtfunktionale Eigenschaften haben.
+Typisch für solche Anwendungen sind:
+
+* Sie werden in der Praxis oft durch Implementierungen auf Excel- oder Access-Basis umgesetzt.
+* Sie haben nur wenige Nutzer.
+* Sie werden nur intern innerhalb einer Organisation genutzt.
+* Sie haben nur geringe Anforderungen an die Sicherheitsarchitektur.
+* Sie stehen von ihrer Funktionalität her für sich selbst und sind nicht Bestandteil einer Plattform.
+
+Ein solches Kleinverfahren kann mit einer vereinfachten Architektur umgesetzt werden.
+Dies umfasst:
+
+* <<verzicht-auf-eine-soa-plattform>>,
+* <<installation-ohne-clusterung,Verzicht auf Clustering>>,
+* <<verzicht-auf-das-saga-zonenmodell>>.
+
+Diese Vereinfachungen sind für ein Kleinverfahren nicht zwingend, sondern sie dienen dazu, das Verfahren in einem angemessenen Kosten-Nutzen-Verhältnis zu erstellen.
+Falls die Kosten-Nutzen-Betrachtung es erlaubt, kann auf die Vereinfachungen natürlich auch verzichtet werden.

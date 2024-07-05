@@ -43,8 +43,8 @@ Aufrufe ändern sich nicht durch Änderungen an der Infrastruktur (z. B. durch 
 
 [NOTE]
 ====
-Einen guten Überblick und Verweise auf detailliertere Beschreibungen bietet die xref:glossary:literaturextern:inhalt.adoc#litextern-wiki-rest[Wikipedia-Seite zu REST].
-Für einen tiefen Einstieg in die Grundlagen bietet sich die xref:glossary:literaturextern:inhalt.adoc#litextern-dissertation-roy-fielding[Dissertation von Roy Fielding] an.
+Einen guten Überblick und Verweise auf detailliertere Beschreibungen bietet die https://de.wikipedia.org/wiki/Representational_State_Transfer[Wikipedia-Seite zu REST].
+Für einen tiefen Einstieg in die Grundlagen bietet sich die https://www.ics.uci.edu/~fielding/pubs/dissertation/fielding_dissertation_2up.pdf[Dissertation von Roy Fielding icon:file-pdf-o[]] an.
 ====
 
 Das Reifegradmodell von Leonard Richardson (*Richardson Maturity Model*, s. <<image-richard-maturity-model>>) ordnet diese Eigenschaften vier Reifegraden zu.
@@ -81,7 +81,7 @@ In Ausnahmefällen kann auf die Einhaltung der Vorgabe zum Reifegrad (mindestens
 [[prozessorientierte-aufrufe]]
 *Prozessorientierte Aufrufe - Geschäftsvorfälle*
 
-Ein Ausnahmefall stellt die Abbildung von prozessorientierten Aufrufen dar, die häufig durch die Migration von bestehenden prozessorientierten Schnittstellen (z.B. RPC, httpInvoker) entstanden sind.
+Ein Ausnahmefall stellt die Abbildung von prozessorientierten Aufrufen dar, die häufig durch die Migration von bestehenden prozessorientierten Schnittstellen (z.B. RPC) entstanden sind.
 Die Abbildung auf eine ressourcenorientierte REST-Schnittstelle ist i.d.R. mit einer Neukonzeption der Anwendung unter einer ressourcenorientierten Denkweise verbunden.
 Der Aufwand für die Neukonzeption steht oft nicht im Verhältnis zum tatsächlichen (fachlichen) Nutzen.
 Aus diesem Grund dürfen prozessorientierte Aufrufe über einfache http-Aufrufe realisiert werden, die bis auf die Ressourcenorientierung und Verwendung der http-Verben, den übrigen Vorgaben des REST-Konzepts folgen.
@@ -455,8 +455,8 @@ Weitere Statuscodes sind in Abhängigkeit vom Fachverfahren möglich.
 
 [NOTE]
 ====
-Für die Auswahl weiterer Statuscodes bietet die entsprechende xref:glossary:literaturextern:inhalt.adoc#litextern-wikipedia-http-statuscode[Wikipedia-Seite zu HTTP-Statuscodes] einen guten Startpunkt.
-Empfehlenswert ist außerdem diese gut strukturierte Übersicht von xref:glossary:literaturextern:inhalt.adoc#litextern-restapitutorial-uebersicht-http-statuscodes[openapi-generator.tech], die Informationen von Wikipedia und des IETF übersichtlich aufbereitet.
+Für die Auswahl weiterer Statuscodes bietet die entsprechende https://de.wikipedia.org/wiki/HTTP-Statuscode[Wikipedia-Seite zu HTTP-Statuscodes] einen guten Startpunkt.
+Empfehlenswert ist außerdem diese gut strukturierte Übersicht von https://www.restapitutorial.com/httpstatuscodes.html[openapi-generator.tech], die Informationen von Wikipedia und des IETF übersichtlich aufbereitet.
 ====
 
 [[repraesentationen]]
@@ -498,7 +498,7 @@ Liegen Ressourcen in mehreren Repräsentationen vor (z. B. als JSON- und XML-Do
 
 [NOTE]
 ====
-Weitere Details zu Content Negotiation bietet die entsprechende xref:glossary:literaturextern:inhalt.adoc#litextern-spring-content-negotiation[Spring Wikipedia-Seite].
+Weitere Details zu Content Negotiation bietet die entsprechende https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-config/content-negotiation.html[Spring Dokumentation].
 ====
 
 REST-Services setzen in ihren Antworten einen fest definierten Inhaltstyp pro Repräsentation.
@@ -604,7 +604,7 @@ Die IsyFact legt folgende Technologien für die Umsetzung von REST-Schnittstelle
 |===
 ////
 |OpenAPI Generator
-|diverse Technologien werden unterstützt, darunter Java/Spring und Angular. Eine vollständige Liste ist unter xref:glossary:literaturextern:inhalt.adoc#litextern-openapi-generator-tech[openapi-generator.tech] verfügbar.
+|diverse Technologien werden unterstützt, darunter Java/Spring und Angular. Eine vollständige Liste ist unter https://openapi-generator.tech/docs/generators/[openapi-generator.tech] verfügbar.
 |Code Generator (Client/Server)
 ////
 
@@ -637,7 +637,7 @@ Alle auf IsyFact basierten Anwendungen müssen ihre REST-Schnittstellen mit der 
 Sowohl YAML als auch JSON sind als Format der Schnittstellendokumentation zulässig.
 Für die Erstellung der Schnittstellendokumentation ist grundsätzlich kein besonderes Tool erforderlich, ein Texteditor ist ausreichend.
 Das OpenAPI Format wird jedoch von diversen Entwicklungsumgebungen (z. B. IntelliJ) unterstützt, was die Bearbeitung erleichtert.
-//Alternativ kann auch der Editor unter xref:glossary:literaturextern:inhalt.adoc#litextern-openapi-generator-tech[openapi-generator.tech] verwendet werden, _OpenAPI 3.x_ wird hier ebenfalls unterstützt.
+//Alternativ kann auch der Editor unter https://openapi-generator.tech/docs/generators/[openapi-generator.tech] verwendet werden, _OpenAPI 3.x_ wird hier ebenfalls unterstützt.
 //Die Schnittstellendokumentation wird im zugehörigen Projekt im Ressources-Verzeichnis abgelegt.
 
 [[code-generierung]]
@@ -756,7 +756,7 @@ Daher ist die formale Prüfung der erste Schritt in der Verarbeitung von Daten u
 Eine geeignete Methode zur Prüfung der Daten auf formale Korrektheit ist die Validierung gegen das vorhandene Schema der Schnittstellenbeschreibung.
 Atlassian bietet den Swagger Request Validator als freie Software an (Apache 2.0 Lizenz).
 Damit lassen sich HTTP Requests und Responses gegen eine OpenAPI bzw. Swagger Spezifikation prüfen, OpenAPI v3 wird dabei bereits unterstützt.
-Der xref:glossary:literaturextern:inhalt.adoc#litextern-swagger-request-validator[Swagger Request Validator] hat keine weiteren Abhängigkeiten und kann somit unabhängig von HTTP APIs oder Frameworks verwendet werden.
+Der https://bitbucket.org/atlassian/swagger-request-validator[Swagger Request Validator] hat keine weiteren Abhängigkeiten und kann somit unabhängig von HTTP APIs oder Frameworks verwendet werden.
 
 [[fehlerbehandlung]]
 === Fehlerbehandlung
@@ -787,19 +787,21 @@ Fachlichen Fehlern muss ein entsprechend passender Fehlercode im Bereich 4xx zug
 [[entkopplung-von-fehlerbehandlung-und-service-logik]]
 ==== Entkopplung von Fehlerbehandlung und Service-Logik
 
-Die Fehlerbehandlung erfolgt nicht in der REST-Schnittstelle, sondern in einem separaten `RestExceptionHandler`, welcher die Exception Fassade für REST-Schnittstellen repräsentiert (vgl. <<image-fehlerbehandlung>>).
-
+Die Fehlerbehandlung erfolgt wie im Detailkonzept Service beschrieben, außerhalb der Service-Fassade, an zentraler Stelle, in einer Exception-Fassade.
+Die Exception-Fassade wird durch `RestExceptionHandler` Klassen implementiert, (vgl. <<image-fehlerbehandlung>>). 
+In der Exception-Fassade werden alle Exceptions aus Methoden des Anwendungskerns oder Methoden der Service-Endpoints gefangen, gelogged, 
+in Exception-Transport-Objekte umgewandelt und als Response zurückgegeben.
 
 .Entkopplung Fehlerbehandlung und Service-Logik
 [id="image-fehlerbehandlung",reftext = "{figure-caption} {counter:figures}"]
 image::isy-service-rest:konzept/fehlerbehandlung.dn.svg[align = center,title-align=center]
 
-Spring Webflux unterstützt ebenso wie Spring MVC die Annotation @RestControllerAdvice.
-Die Implementierung des RestExceptionsHandler kann daher über die Annotation einer Klasse mit @RestControllerAdvice erfolgen.
+Spring Webflux unterstützt dazu ebenso wie Spring MVC die Annotation `@RestControllerAdvice`.
+Die Implementierung der `RestExceptionHandler`-Funktionalität kann daher über die Annotation einer Klasse mit `@RestControllerAdvice` erfolgen.
 
 [NOTE]
 ====
-Details zur Implementierung können der xref:glossary:literaturextern:inhalt.adoc#litextern-spring-webflux[offiziellen Spring Dokumentation] entnommen werden.
+Details zur Implementierung können der https://docs.spring.io/spring-framework/docs/5.3.x/reference/html/web-reactive.html#webflux[offiziellen Spring Dokumentation] entnommen werden.
 ====
 
 [[einheitliche-fehlermeldungen]]
@@ -851,7 +853,7 @@ Fehler werden in einem Array zurückgegeben um auch das Senden mehrerer Fehler, 
      "timestamp": "2020-08-23T14:53:33.452+02:00",
      "status": 404,
      "error": "Not Found",
-     "message": "0001 Die Nachricht mit der ID=1 konnte nicht gefunden werden. 4321",
+     "message": "#0001 Die Nachricht mit der ID=1 konnte nicht gefunden werden. #4321",
      "path": "/ressource/1234"
     }
 ]
@@ -874,14 +876,15 @@ Bei einer reinen Weitergabe greift die Bearer Propagation.
 
 [NOTE]
 ====
-Nähere Informationen zu OAuth2 gibt es auf der xref:glossary:literaturextern:inhalt.adoc#litextern-oauth-homepage[OAuth Homepage].
+Nähere Informationen zu OAuth2 gibt es auf der https://oauth.net/2/[OAuth2 Homepage].
 
-Informationen zur Bearer Propagation gibt es in der xref:glossary:literaturextern:inhalt.adoc#litextern-spring-oauth2-bearertoken-resolver[offiziellen Spring Dokumentation].
+Informationen zur Bearer Propagation gibt es in der https://docs.spring.io/spring-security/site/docs/5.2.x/reference/html/oauth2.html#oauth2resourceserver-bearertoken-resolver[offiziellen Spring Dokumentation].
 ====
 
-Um eine Klasse oder einzelne Methoden zu sichern, ist die `@Secured` Annotation des Bausteins Security zu verwendet.
+Um eine Klasse oder einzelne Methoden zu sichern, wird empfohlen, die `@Secured` Annotation von Spring Security in der Service-Schicht zu verwenden.
+Die Verwendung auf einzelnen Webcontroller Klassen/Methoden wird nicht empfohlen. Für Webcontroller ohne Service Schicht kann https://docs.spring.io/spring-security/reference/servlet/authorization/authorize-http-requests.html[Request Level Autorisierung] genutzt werden.
 
-Generell ist das xref:isy-security:konzept/master.adoc#prinzipien-der-sicherheitsarchitektur[Konzept der Sicherheitsarchitektur] zu beachten.
+Generell ist das xref:isy-security:konzept/master.adoc[Konzept der Sicherheitsarchitektur] zu beachten.
 
 [[logging]]
 === Logging

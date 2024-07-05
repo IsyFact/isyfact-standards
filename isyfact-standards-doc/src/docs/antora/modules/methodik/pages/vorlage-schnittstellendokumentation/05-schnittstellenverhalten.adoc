@@ -27,10 +27,10 @@ Das Mengengerüst selbst ist auch ein wichtiger Aspekt, der für die Nutzung der
 === Verfügbarkeit
 
 _In diesem Kapitel werden besondere Aspekte der Verfügbarkeit dokumentiert.
-Die Verfügbarkeit wird über einen Prozentwert gemessen, der unter Berücksichtigung von definierten Betriebs- und Wartungsfenstern angibt, wie ausfallsicher ein Anwendungssystem sein sollte und tatsächlich ist.
+Die Verfügbarkeit wird über einen Prozentwert gemessen, der unter Berücksichtigung von definierten Betriebs- und Wartungsfenstern angibt, wie ausfallsicher eine Anwendung sein sollte und tatsächlich ist.
 Dokumentiert wird die geplante Betriebszeit.
 Zum Beispiel wird hier angegeben, dass die Schnittstelle jeweils Montag bis Freitag von 07:00 bis 19:00 Uhr zur Verfügung steht.
-lternativ wird auch einfach nur ein Prozentwert angegeben, zum Beispiel 99%._
+Alternativ wird auch einfach nur ein Prozentwert angegeben, zum Beispiel 99 %._
 
 
 // end::inhalt[]

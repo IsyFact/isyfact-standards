@@ -34,7 +34,10 @@
     <!-- Maximale Laenge eines einzelnen Logeintrags in Byte -->
     <!-- Wird diese Property nicht gesetzt, so wird der Wert per default auf 32000 gesetzt -->
     <!-- Bei einem Wet von 0 wird die Länge der Logeinträge nicht überprüft. -->
-    <property name="MAX_LENGTH" value="32000" /> -->
+    <property name="MAX_LENGTH" value="32000" />
+
+    <!-- Exclude MDC. -->
+    <property name="INCLUDE_MDC" value="false" />
 
     <include resource="resources/isylogging/logback/appender.xml" />
 
