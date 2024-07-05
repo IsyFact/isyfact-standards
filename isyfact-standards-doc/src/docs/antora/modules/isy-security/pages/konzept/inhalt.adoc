@@ -281,6 +281,37 @@ OpenID Connect Abfragen zur Identität eines Benutzers, OpenID-Token oder Custom
 [[authentifizierung-und-autorisierung]]
 === Authentifizierung & Autorisierung
 
+==== Problematik per interner oder externer URL
+
+Sofern das IAM über zwei unterschiedliche URLs aufgerufen wird, müssen beide URLs der Anwendung, für die die Autorisierung erlangt wird, bekannt sein.
+Dies ist der Fall, wenn die interne URL des IAM, z.B. für Aufrufe innerhalb der Anwendungslandschaft, von der externen URL, z.B. für Aufrufe von außerhalb der Anwendungslandschaft, aufgrund von unterschiedlichen Netzen/Reverse-Proxies abweicht.
+Die aufgerufene URL (Issuer-URL) wird im ausgestellten Access-Token hinterlegt und mit der in der Geschäftsanwendung konfigurierten URL im Rahmen der Tokenprüfung abgeglichen.
+Die Prüfung schlägt oft fehl, da das Access-Token über die externe URL ausgestellt wurde, in der Geschäftsanwendung jedoch (nur) die interne URL konfiguriert ist.
+
+Wie kann nun dieser Problematik per Konfiguration begegenet werden?
+
+*Property `issuer-uri`*
+
+Das Property `issuer-uri` wird im Normalfall mit der URL des _Authentifizierungsservers_ des IAM initialisiert.
+Diese URL wird einerseits zum Aufruf von Requests an das IAM verwendet, aber andererseits auch vom Authentifizierungserver bei der Token-Generierung als Validierungskriterium gegengeprüft und letztendlich als Inhalt in das `iss-Claim` des Tokens eingepackt, so dass bei der späteren Token-Validierung diese URL für die ggf. notwendige Ermittlung bzw. Nachladung der benötigten Zertifikate verwendet werden kann.
+
+Wird jetzt allerdings, wie bei einer Authentifizierung über das _Portal-Gateway_, in der `issuer-uri` eine *externe* URL benötigt, damit eine _externen Anwendung_ den _IAM/KeyCloak_ überhaupt von ausserhalb der AWL erreichen kann, dann würde diese *externe* URL auch bei der späteren Token-Validierung herangezogen.
+
+Aber würde eine *interne* _ServiceBean_ bei der _Token-Validierung_ eine *externe* URI auf den *internen* _Authentifizierungsserver_ des IAM verwenden, dann würde dies sicherlich nicht funktionieren.
+
+Um diesen Konflikt zu lösen wird das zweite Property `jwk-set-uri` eingesetzt.
+
+*Property `jwk-set-uri`*
+
+Sobald also beide Properties für einen Mandant gesetzt sind, dann wird der Wert von `issuer-uri` für den *externen* Zugriff auf den Authentifizierungsserver des IAM verwendet und der Wert von  `jwk-set-uri` wird nur bei der *internen* Token-Validierung herangezogen.
+
+Gegebenenfalls erweitert Spring bzw. KeyCloak intern bei der Token-Validierung die  `jwk-set-uri` um den Standard-Pfad von KeyCloak `protocol/openid-connect/certs` um das notwendige Zertifikat zu ermitteln.
+
+*Konfigurations-Details*
+
+Zur weiteren Vertiefung dieser Sonderkonstellation kann in der xref:https://docs.spring.io/spring-security/reference/servlet/oauth2/resource-server/jwt.html#oauth2resourceserver-jwt-jwkseturi[_Spring_-Dokumentation] und für Details bei der Implementierung bzw. Konfiguration kann in den xref:nutzungsvorgaben/inhalt.adoc#spring-konfiguration[Nutzungsvorgaben] nachgeschlagen werden.
+
+
 [[aufruf-weboberflaeche-portal]]
 ==== Aufruf Web-Oberfläche/Portal
 
