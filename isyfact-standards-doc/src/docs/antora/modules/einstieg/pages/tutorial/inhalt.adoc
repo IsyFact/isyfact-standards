@@ -64,7 +64,7 @@ Alle Konzepte und Vorgaben zum Thema Persistenz und Datenzugriff stehen im xref:
 Als Implementierung für die JPA wird Hibernate verwendet.
 * Das Datenbank-Mapping wird über Annotation in den Klassen der Entitäten festgelegt.
 * Der Zugriff auf Entitäten erfolgt immer über DAOs oder durch die Traversierung des persistenten Datenmodells.
-* DAOs stellen Zugriffsmethoden (Suchen, Schreiben, Löschen...) für genau eine Entität bereit.
+* DAOs stellen Zugriffsmethoden (Suchen, Schreiben, Löschen ...) für genau eine Entität bereit.
 * Datenbank-Queries werden im Normalfall aus den Methodennamen generiert.
   Sonst werden sie per `@Query`-Annotation an der Methode beschrieben.
 * Entitäten werden von genau einer fachlichen Komponente verwaltet.
@@ -237,7 +237,7 @@ In diesem Kapitel wird die Implementierung von Batches zu einer Anwendung beschr
 * Die Batch-Verarbeitung verwendet den Anwendungskern der zugehörigen Anwendung.
 Der Anwendungskern ist Teil des Batch-Deployments, d.h. der Code ist sowohl Teil der Server-Anwendung als auch der Batch-Anwendung in Bezug auf Deploymenteinheiten.
 * Zur Realisierung der Batchlogik wird eine Batch-Ausführungs-Bean implementiert.
-* Falls für die Verarbeitung im Batch eigene Fachlogik benötigt wird, ist diese trotzdem den entsprechenden Anwendungskomponenten der zugehörigen Geschäftsanwendung hinzuzufügen.
+* Falls für die Verarbeitung im Batch eigene Geschäftslogik benötigt wird, ist diese trotzdem den entsprechenden Anwendungskomponenten der zugehörigen Geschäftsanwendung hinzuzufügen.
 * Im Rahmen der Initialisierung hat die Ausführungs-Bean unter anderem die Aufgabe, die Konsistenz und Korrektheit der Eingabedaten zu prüfen.
 * Falls die zu verarbeitenden Sätze eines Batches das Ergebnis einer Datenbank-Query sind, ist in der Initialisierung die Query über eine Anwendungskomponente der zugehörigen Geschäftsanwendung abzusetzen.
 Diese Query soll die (fachlichen) Schlüssel von Entitäten, nicht Entitäten selbst auslesen.
@@ -245,7 +245,7 @@ Diese Query soll die (fachlichen) Schlüssel von Entitäten, nicht Entitäten se
 * Batches erzeugen ein Ausführungsprotokoll.
 Der Batchrahmen, die Steuerungsimplementierung, die jeden Batch und dessen Arbeitsschritte steuert, stellt die notwendige Implementierung bereit.
 Die Ausführungs-Bean übermittelt dem Batchrahmen Status-Informationen für das Protokoll.
-* Batches verwenden einen (konfigurierten) technischen Benutzer, um sich vor Start der fachlichen Verarbeitung am IAM-Service des Anwendungssystems oder der Anwendungslandschaft zu authentifizieren.
+* Batches verwenden einen (konfigurierten) technischen Benutzer, um sich vor Start der fachlichen Verarbeitung am IAM-Service der Anwendung oder der Anwendungslandschaft zu authentifizieren.
 * Alle Batches zu einer Anwendung werden als eigenständige Deployment-Einheit ausgeliefert.
 
 [[klassendesign-4]]
@@ -318,8 +318,6 @@ Zusätzlich müssen folgende Beans erstellt werden:
 
 * Eine Bean vom Typ `BatchRahmenMBean` zur Überwachung des Batchrahmens.
   Diese muss über den Spring MBeanExporter exportiert werden.
-* Eine Bean für den `AufrufKontextVerwalter`, die nicht den Scope `thread` hat. Ist in der Anwendungskonfiguration
-  bereits eine Bean dieses Typs definiert, kann sie mit der Annotation `@ExcludeFromBatchContext` ausschließen.
 * Eine Bean für einen `JpaTransactionManager`.
 * Die Konfigurationsklasse der Batch-Schicht muss mit der Annotation
 +
@@ -558,166 +556,6 @@ eine passende Fehler-ID ermittelt.
 Vor dem Werfen der so erzeugten Exception über die Schnittstelle wird ein Log-Eintrag erzeugt.
 
 Beim Umwandeln der internen Exceptions in Transport-Exceptions wird der Stack-Trace der internen Exceptions verworfen.
-
-
-[[aufrufkontextverwaltung]]
-=== Aufrufkontextverwaltung
-
-:linkaktuell: xref:isy-security:konzept/master.adoc[Konzept Security]
-include::glossary:miscellaneous:partial$deprecated-abschnitt.adoc[]
-
-****
-*Anmerkung zur Deprecation*
-
-Ab der IF 3.0 wird der Spring `SecurityContext` anstatt des `AufrufKontext` verwendet.
-Der `AufrufKontextVerwalter` kann somit auch nicht mehr verwendet werden.
-Die Verwendung des  `SecurityContext` anstelle des `AufrufKontext`-Objekts wird im Baustein xref:isy-security:konzept/master.adoc[`isy-security`] beschrieben.
-****
-
-Einige Komponenten der Anwendung, z.B. die Protokollierung oder die Autorisierung benötigen
-Kontextinformationen über den Aufrufer.
-Damit diese nicht durch die gesamte Anwendung gereicht werden müssen, kann in der Anwendung
-ein `AufrufKontextVerwalter` verwendet werden.
-
-[[designvorgaben-9]]
-==== Designvorgaben
-
-* Die Komponente wird so implementiert, dass sie spezifische Informationen über den Aufrufkontext speichern kann (z.B. Name des aufrufenden Benutzers).
-* Die Komponente kann in einer Anwendung so erweitert werden, dass sie beliebige weitere Kontext-Informationen aufnehmen kann.
-
-[[realisierung-9]]
-==== Realisierung
-
-[[einbinden-der-bibliothek-3]]
-===== Einbinden der Bibliothek
-
-Zur Realisierung des Aufrufkontextes müssen die in <<listing-bib-aufrufkontext>> aufgelisteten Bibliotheken eingebunden werden.
-
-Einbindung der Bibliotheken zur Nutzung des Aufrufkontextes
-[id="listing-bib-aufrufkontext",reftext="{listing-caption} {counter:listings}"]
-[source,xml]
-----
-<dependencies>
-    ...
-    <dependency>
-        <groupId>de.bund.bva.isyfact</groupId>
-        <artifactId>isy-aufrufkontext</artifactId>
-    </dependency>
-    ...
-</dependencies>
-----
-
-Die Bibliothek `isy-aufrufkontext` enthält die Komponente `AufrufKontextVerwalter`, welcher den benutzerspezifischen Aufrufkontext im Thread-Scope (alternativ Request-Scope) hält.
-
-[[konfiguration-der-bibliothek]]
-===== Konfiguration der Bibliothek
-
-Die Komponente `AufrufKontextVerwalter` wird als Spring-Bean konfiguriert.
-Dabei wird festgelegt, dass Spring eine neue Instanz für jeden Thread (alternativ Request) anlegen soll:
-
-.Spring-Konfiguration der Bean AufrufKontextVerwalter
-[id="listing-ARKxtVerw",reftext="{listing-caption} {counter:listings}"]
-
-[source,java]
-----
-@Bean
-@Scope(value="request", proxyMode = ScopedProxyMode.TARGET_CLASS)
-public AufrufKontextVerwalter aufrufKontextVerwalter(){
-    return new AufrufKontextVerwalterImpl();
-}
-----
-
-NOTE: Die Scopes `thread` und `request` werden mit dem Einbinden der Bibliothek `isy-sicherheit` registriert.
-
-Der vom AufrufKontextVerwalter verwaltete AufrufKontext wird beim Aufruf der Anwendung in der Service-Schnittstelle gesetzt und steht fortan, während der Verarbeitung des Requests, in der gesamten Anwendung zur Verfügung.
-
-Komponenten, die diese Informationen benötigen, erhalten dazu einfach eine Referenz auf den `AufrufKontextVerwalter` per Dependency Injection.
-
-Zur Entgegennahme des Aufrufkontextes an der Service-Schnittstelle wird die Annotation `@StelltAufrufKontextBereit` verwendet.
-Die Konfiguration ist im Dokument xref:isy-sicherheit:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Sicherheit] beschrieben.
-
-[[authentifizierung-und-autorisierung]]
-=== Authentifizierung und Autorisierung
-
-:linkaktuell: xref:isy-security:konzept/master.adoc#oauth2.0-zur-autorisierung[OAuth 2.0 zur Autorisierung]
-include::glossary:miscellaneous:partial$deprecated-abschnitt.adoc[]
-
-****
-*Anmerkung zur Deprecation*
-
-Ab der IF 3.0 wird der `AufrufKontext` nicht mehr verwendet und als Autorisierungsprotokoll wird OAuth 2.0 eingesetzt.
-Die Autorisierung nach OAuth 2.0 wird im Baustein xref:isy-security:konzept/master.adoc#oauth2.0-zur-autorisierung[`isy-security`] beschrieben.
-****
-
-Dieses Kapitel beschreibt die Realisierung der Authentifizierung und Autorisierung von Anfragen.
-
-[[designvorgaben-10]]
-==== Designvorgaben
-
-* Die Authentifizierung von Anfragen wird im Servicegateway und im Portal mithilfe des IAM-Services durchgeführt.
-* Prozesse, die innerhalb des Anwendungssystems oder der Anwendungslandschaft starten (z.B. Timertasks, Batches) verwenden einen technischen Benutzer und authentifizieren diesen selbständig gegen den IAM-Service.
-* Die Berechtigungsprüfung ist in der Anwendung deklarativ zu definieren bzw.
-zu programmieren.
-* Eine erste Berechtigungsprüfung erfolgt in der Service-Schnittstelle.
-Es wird geprüft, ob der Aufrufer den Service überhaupt verwenden darf.
-* In jeder Service-Methode wird ein Parameter `AufrufKontext` mit den Daten des aufrufenden Benutzers übermittelt.
-Dieser Parameter wird im `AufrufKontextVerwalter` hinterlegt und beim Aufruf weiterer Nachbarsysteme durchgereicht.
-
-[[realisierung-10]]
-==== Realisierung
-
-[[einbinden-der-bibliothek-4]]
-===== Einbinden der Bibliothek
-
-Zur Realisierung der Autorisierung müssen die in <<listing-bib-sicherheit>> aufgelisteten Bibliotheken eingebunden werden.
-
-.Einbindung der Bibliotheken zur Authentifizierung und Autorisierung
-[id="listing-bib-sicherheit",reftext="{listing-caption} {counter:listings}"]
-[source,xml]
-----
-<dependencies>
-    ...
-    <dependency>
-        <groupId>de.bund.bva.isyfact</groupId>
-        <artifactId>isy-sicherheit</artifactId>
-    </dependency>
-    <dependency>
-        <groupId>de.bund.bva.isyfact</groupId>
-        <artifactId>isy-serviceapi-sst</artifactId>
-    </dependency>
-    ...
-</dependencies>
-----
-
-Die Bibliothek `isy-sicherheit` enthält die Komponenten `Sicherheit` und `BerechtigungsManager`.
-
-Die Bibliothek `isy-serviceapi-sst` enthält das Transportobjekt `AufrufKontextTo`, das zur Übermittlung der Authentifizierungsdaten über Schnittstellenaufrufe benutzt wird.
-
-Zusätzlich wird als Abhängigkeit der `AufrufKontextVerwalter` (siehe <<aufrufkontextverwaltung>>) benötigt,
-der die Informationen zum Aufrufer kennt.
-
-[[konfiguration-der-sicherheitskomponente]]
-===== Konfiguration der Sicherheitskomponente
-
-Die Komponente Sicherheit wird als Spring-Bean in einer Konfigurationsklasse konfiguriert.
-
-Die einer Rolle zugeordneten Rechte werden in der Datei `/src/main/resources/resources/rollenrechte.xml` konfiguriert.
-
-[[pruefen-der-berechtigung]]
-===== Prüfen der Berechtigung
-
-Die Berechtigungsprüfung erfolgt in der Regel vor der fachlichen Verarbeitung in der Service-Schnittstelle oder im Dialog-Controller einer Anwendung.
-Dies erfolgt über Annotationen oder im Webflow (siehe xref:isy-sicherheit:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Sicherheit]).
-Es kann auch jederzeit auf das Bean Sicherheit zugegriffen werden, um einen Berechtigungsmanager zu verwenden.
-
-[source,java]
-----
-Berechtigungsmanager manager = sicherheit.getBerechtigungsManager();
-manager.pruefeRecht(RechteSchluessel.RECHT_MELDEN);
-----
-
-Über die Methoden des Berechtigungsmanagers (z.B. `hatRecht`, `pruefeRecht`) kann die Anwendung
-die Autorisierung durchführen.
 
 [[ueberwachung]]
 === Überwachung

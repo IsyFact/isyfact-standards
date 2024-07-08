@@ -411,11 +411,11 @@ Die Package-Struktur folgt einer Konvention, die aus der fachlichen und technisc
 [id="listing-PackageStruktur",reftext="{listing-caption} {counter:listings }"]
 [source]
 ----
-<organisation>.<domäne>.<anwendungssystem>.<layer>.<subsystem/
+<organisation>.<domäne>.<anwendung>.<layer>.<subsystem/
 komponente>. ...
   <domäne>
 	= (Name gemäß fachlicher Architektur, z. B. "meinedomaene")
-  <anwendungssystem>
+  <anwendung>
 	= (Name gemäß fachlicher Architektur, z. B. "meineanwendung)
   <layer>
 	= common | batch | service | core | persistence
@@ -429,7 +429,7 @@ Unterhalb von `<subsystem/komponente>` werden die Packages projektspezifisch str
 Keine Sonderzeichen verwenden!
 ****
 
-Der Anwendungsname in `<anwendungssystem>` wird an Java-Package-Konventionen angepasst.
+Der Anwendungsname in `<anwendung>` wird an Java-Package-Konventionen angepasst.
 Leer- und Sonderzeichen in den Anwendungsnamen werden gestrichen.
 
 ****

@@ -1,7 +1,7 @@
 Kategorie / Anwendungsbereich;Hersteller / Produkt;Version;Seit Release;Status;Lizenz;Erläuterung
 Test-Framework;http://www.junit.org[JUnit 4];<<spring-boot-dependencies,icon:leaf[]>>;2.4.0;bestandsgeschützt;Eclipse Public License 1.0;JUnit 5 ist bei der Erstellung von Tests zu präferieren.
 Test-Framework;http://www.junit.org[JUnit 5];<<spring-boot-dependencies,icon:leaf[]>>;2.4.0;verbindlich;Eclipse Public License 2.0;
-Lasttest-Treiber;https://jmeter.apache.org/[Apache Jmeter];2.13;1.0.0;verbindlich;;
+Lasttest-Treiber;https://jmeter.apache.org/[Apache Jmeter];5.6.x;4.0.0;verbindlich;;
 Mocking-Framework;http://mockito.org/[Mockito];<<spring-boot-dependencies,icon:leaf[]>>;3.0.0;verbindlich;MIT License;
 Mocking-Framework;http://wiremock.org/[WireMock];3.x;4.0.0;verbindlich;;
 Test-Framework (Addon);http://dbunit.sourceforge.net/[DBUnit];2.7.x;2.4.0;verbindlich;;

@@ -2,6 +2,7 @@ package de.bund.bva.isyfact.security;
 
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 
 /**
  * Test configuration for isy-security. Only scans for auto configurations.
@@ -11,6 +12,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
  */
 @SpringBootConfiguration
 @EnableAutoConfiguration
+@EnableMethodSecurity(securedEnabled = true)
 public class IsySecurityTestConfiguration {
 
 }

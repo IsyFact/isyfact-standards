@@ -6,7 +6,8 @@ import static de.bund.bva.isyfact.security.test.oidcprovider.OidcProviderMockBas
 import static de.bund.bva.isyfact.security.test.oidcprovider.OidcProviderMockBase.OIDC_CONFIG_ENDPOINT;
 import static de.bund.bva.isyfact.security.test.oidcprovider.OidcProviderMockBase.TOKEN_ENDPOINT;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import java.text.ParseException;
 import java.util.Collections;
@@ -89,8 +90,7 @@ class EmbeddedOidcProviderMockTest {
                     return response.bodyToMono(String.class);
                 }).block();
 
-        assertThat(body).contains("invalid_request");
-        assertThat(body).contains("Missing grant type");
+        assertThat(body).contains("invalid_request", "Missing grant type");
     }
 
     @Test
@@ -102,8 +102,7 @@ class EmbeddedOidcProviderMockTest {
                     return response.bodyToMono(String.class);
                 }).block();
 
-        assertThat(body).contains("unsupported_grant_type");
-        assertThat(body).contains("Invalid client-id or secret");
+        assertThat(body).contains("unsupported_grant_type", "Invalid client-id or secret");
     }
 
     @Test
@@ -116,8 +115,7 @@ class EmbeddedOidcProviderMockTest {
                     return response.bodyToMono(String.class);
                 }).block();
 
-        assertThat(body).contains("invalid_grant");
-        assertThat(body).contains("Missing username");
+        assertThat(body).contains("invalid_grant", "Missing username");
     }
 
     @Test
@@ -130,8 +128,7 @@ class EmbeddedOidcProviderMockTest {
                     return response.bodyToMono(String.class);
                 }).block();
 
-        assertThat(body).contains("invalid_grant");
-        assertThat(body).contains("Missing password");
+        assertThat(body).contains("invalid_grant", "Missing password");
     }
 
     @Test
@@ -233,8 +230,7 @@ class EmbeddedOidcProviderMockTest {
                     return response.bodyToMono(String.class);
                 }).block();
 
-        assertThat(body).contains("invalid_grant");
-        assertThat(body).contains("Invalid bhknz");
+        assertThat(body).contains("invalid_grant", "Invalid bhknz");
     }
 
     @Test
@@ -252,8 +248,7 @@ class EmbeddedOidcProviderMockTest {
                     return response.bodyToMono(String.class);
                 }).block();
 
-        assertThat(body).contains("invalid_grant");
-        assertThat(body).contains("Invalid bhknz");
+        assertThat(body).contains("invalid_grant", "Invalid bhknz");
     }
 
     @Test
@@ -271,8 +266,7 @@ class EmbeddedOidcProviderMockTest {
                     return response.bodyToMono(String.class);
                 }).block();
 
-        assertThat(body).contains("invalid_grant");
-        assertThat(body).contains("Invalid bhknz");
+        assertThat(body).contains("invalid_grant", "Invalid bhknz");
     }
 
     @Test
@@ -287,8 +281,7 @@ class EmbeddedOidcProviderMockTest {
                     return response.bodyToMono(String.class);
                 }).block();
 
-        assertThat(body).contains("invalid_grant");
-        assertThat(body).contains("Invalid username");
+        assertThat(body).contains("invalid_grant", "Invalid username");
     }
 
     @Test
@@ -303,8 +296,7 @@ class EmbeddedOidcProviderMockTest {
                     return response.bodyToMono(String.class);
                 }).block();
 
-        assertThat(body).contains("invalid_grant");
-        assertThat(body).contains("Invalid password");
+        assertThat(body).contains("invalid_grant", "Invalid password");
     }
 
     @Test

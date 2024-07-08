@@ -3,7 +3,7 @@
 // tag::inhalt[]
 
 [[software-architektur-security-baustein]]
-== Software-Architektur des Security Bausteins
+== Software-Architektur des Security-Bausteins
 
 Die Software-Architektur des Security-Bausteins bildet das Fundament für die Sicherheit von Anwendungen in modernen Softwarelösungen.
 Die korrekte Gestaltung und Implementierung dieser Architektur ist entscheidend, um Schutzmechanismen gegen potenzielle Sicherheitsbedrohungen zu etablieren.
@@ -15,7 +15,7 @@ Im Folgenden werden die xref:konzept/inhalt.adoc#aussensicht-der-komponente-secu
 === Security
 Das Interface `Security` stellt die zentrale Schnittstelle bereit, über die auf den Baustein zugegriffen wird.
 
-NOTE: Es empfiehlt sich, die Beans direkt zu 'autowiren' und das Interface hauptsächlich für eine Migration vom alten Sicherheitsbaustein `isy-sicherheit` auf den neuen Baustein `isy-security` zu verwenden.
+NOTE: Es empfiehlt sich, die Beans direkt zu 'autowiren'.
 
 Die folgenden Methoden bieten Zugriff auf eine Liste von allen im System hinterlegten Rollen, den Berechtigungsmanager und den optionalen Authentifizierungsmanager:
 
@@ -30,7 +30,7 @@ Zur Authentifizierung von OAuth 2.0 Clients stehen folgende Methoden zur Verfüg
 
 `void authentifiziere(String oauth2ClientRegistrationId)`::
 Authentifiziert einen OAuth 2.0 Client anhand seiner Client-Registration-ID. Unterstützt den `client_credentials` (_Client Credentials_ Flow) und `password` (_Resource Owner Password Credentials_ Flow) GrantType.
-Zusätzliche Authentifizierungsmerkmale werden aus den <<isyfact-specific-client-registration, IsyFact spezifischen Konfigurationsparametern>> mit der entsprechenden Client-Registration-ID abgefragt:
+Zusätzliche Authentifizierungsmerkmale werden aus den <<isyfact-specific-client-registration,IsyFact spezifischen Konfigurationsparametern>> mit der entsprechenden Client-Registration-ID abgefragt:
 * `bhknz`: Das BHKNZ kann als optionaler Parameter übergeben werden. Wird aktuell nur für den _Resource Owner-Password Credentials_ Flow ausgewertet.
 * `username` und `password`: Die Zugangsdaten des technischen Nutzers (Resource Owner), welche für den _Resource Owner Password Credentials_ Flow erforderlich sind.
 
@@ -77,23 +77,25 @@ Für die Authentifizierung mit einem `OAuth 2.0`-Client sind die folgenden Abhä
 .Maven Dependencies für Client Credentials
 [source,xml]
 ----
-<dependency>
-  <groupId>de.bund.bva.isyfact</groupId>
-  <artifactId>isy-security</artifactId>
-</dependency>
+<dependencies>
+    <dependency>
+      <groupId>de.bund.bva.isyfact</groupId>
+      <artifactId>isy-security</artifactId>
+    </dependency>
 
-<dependency>
-  <groupId>org.springframework.boot</groupId>
-  <artifactId>spring-boot-starter-oauth2-client</artifactId>
-</dependency>
-<dependency>
-  <groupId>org.springframework.boot</groupId>
-  <artifactId>spring-boot-starter-web</artifactId>
-</dependency>
-<dependency>
-  <groupId>org.springframework.boot</groupId>
-  <artifactId>spring-boot-starter-webflux</artifactId>
-</dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-oauth2-client</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-webflux</artifactId>
+    </dependency>
+</dependencies>
 ----
 
 [[konfigurationsparameter]]
@@ -233,7 +235,6 @@ Die im <<listing-client-registrations>> konfigurierten IsyFact-spezifischen Clie
 .Beispiel: Spring Security OAuth 2.0 Client-Registrations
 [source,properties]
 ----
-[...]
 spring.security.oauth2.client.provider.testrealm.issuer-uri=http://localhost:9095/auth/realms/testrealm
 
 ### Beispiel: ClientRegistration für den Client Credentials Flow
@@ -319,23 +320,25 @@ Dazu ist die Einbindung der folgenden Abhängigkeiten notwendig:
 .Maven Dependencies für Client Credentials
 [source,xml]
 ----
-<dependency>
-  <groupId>de.bund.bva.isyfact</groupId>
-  <artifactId>isy-security</artifactId>
-</dependency>
+<dependencies>
+    <dependency>
+      <groupId>de.bund.bva.isyfact</groupId>
+      <artifactId>isy-security</artifactId>
+    </dependency>
 
-<dependency>
-   <groupId>org.springframework.boot</groupId>
-   <artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
-</dependency>
-<dependency>
-   <groupId>org.springframework.boot</groupId>
-   <artifactId>spring-boot-starter-security</artifactId>
-</dependency>
-<dependency>
-   <groupId>org.springframework.boot</groupId>
-   <artifactId>spring-boot-starter-web</artifactId>
-</dependency>
+    <dependency>
+       <groupId>org.springframework.boot</groupId>
+       <artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
+    </dependency>
+    <dependency>
+       <groupId>org.springframework.boot</groupId>
+       <artifactId>spring-boot-starter-security</artifactId>
+    </dependency>
+    <dependency>
+       <groupId>org.springframework.boot</groupId>
+       <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+</dependencies>
 ----
 
 [[spring-konfiguration]]
@@ -405,7 +408,7 @@ Der Pfad der Datei kann wie folgt angepasst werden:
 [cols="3m,2m,2m,8",options="header"]
 |===
 |Parameter |Wertebereich |Default |Beschreibung
-|isy.security.role-privilege-mapping-file | Resource | classpath:/resources/sicherheit/rollenrechte.xml | Pfad zu der XML-Datei, welche die Rollen-/Berechtigungszuordnungen enthält.
+|isy.security.role-privileges-mapping-file | Resource | classpath:/resources/sicherheit/rollenrechte.xml | Pfad zu der XML-Datei, welche die Rollen-/Berechtigungszuordnungen enthält.
 |===
 
 Der Baustein liefert ein xref:nutzungsvorgaben/master.adoc#anhang-rollen-rechte-schema[XML-Schema für den Aufbau der Konfigurationsdatei] mit.
@@ -486,14 +489,49 @@ Folgendes Beispiel (<<listing-absichern-einer-service-methode>>) verdeutlicht di
 [source,java]
 ----
 @Secured({ "PRIV_RechtA", "PRIV_RechtB" })
-public void abgesicherteMethode(...) {
-    ...
+public void abgesicherteMethode(/* ... */) {
+    // ...
 }
 ----
 
 Als Parameter wird ein Array von Rechten übergeben.
 Die Rechte sind disjunktiv verknüpft.
-Die Autorisierung erfolgt dementsprechend wenn der Nutzer mindestens eins der in der `Secured` Annotation übergebenen Rechte besitzt.
+Die Autorisierung erfolgt dementsprechend wenn der Nutzer mindestens eines der in der `Secured`-Annotation übergebenen Rechte besitzt.
+
+Um konjunktive Verknüpfungen umzusetzen, sollte die Annotation `@PreAuthorize` aus Spring Security verwendet werden.
+`@PreAuthorize` ist für die Prüfung eines einzigen Rechtes äquivalent zu `@Secured`, nutzt aber die Spring Expression Language (SpEL).
+
+Dadurch sind Ausdrücke möglich wie:
+
+[source,java]
+----
+@PreAuthorize("hasAuthority('PRIV_Recht_A') and hasAuthority('PRIV_Recht_B')")
+----
+
+Die annotationsbasierte Autorisierung auf Methoden-/Klassenlevel muss durch setzen der `@EnableMethodSecurity`-Annotation an einer `@Configuration`-Klasse aktiviert werden.
+Dabei kann mit den Optionen `securedEnabled` und `prePostEnabled` die Verwendung von `@Secured` und `@PreAuthorize` aktiviert/deaktiviert werden.
+Die Option `prePostEnabled` ist standardmäßig aktiviert.
+
+[[listing-enable-method-security]]
+.Aktivierung der Method Security
+[source,java]
+----
+@Configuration
+@EnableMethodSecurity(securedEnabled = true, prePostEnabled = true)
+public class SecurityConfiguration {
+    // ...
+}
+----
+
+[IMPORTANT]
+====
+Method Level Security ist für die Nutzung in der Service Schicht.
+Die Verwendung an `@Controller` Klassen/Methoden kann zu Fehlern führen und wird nicht empfohlen.
+Für Webcontroller ohne Service-Schicht kann https://docs.spring.io/spring-security/reference/servlet/authorization/authorize-http-requests.html[Request Level Autorisierung] genutzt werden.
+
+Das mehrfache setzen der `@EnableMethodSecurity`-Annotation sollte vermieden werden.
+Mit abweichender Konfiguration kann dies zu unerwartetem Verhalten und Fehlern führen.
+====
 
 [[attr-token-abfragen]]
 == Attribute aus dem Bearer Token abfragen
@@ -578,17 +616,17 @@ Die einzige Voraussetzung ist, dass die Client Registration ID in einem dieser A
 ----
 @Authenticate("my-auth-client") // <1>
 void methodThatNeedsAuthentication() {
-    ...
+    // ...
 }
 
 @Authenticate("${test.auth.client-id}") // <2>
 void methodThatNeedsAuthentication() {
-    ...
+    // ...
 }
 
 @Authenticate(oauth2ClientRegistrationId = "my-auth-client") // <3>
 void methodThatNeedsAuthentication() {
-    ...
+    // ...
 }
 ----
 <1> Angabe der Client Registration ID ohne Verwendung von Attributnamen
@@ -598,25 +636,33 @@ void methodThatNeedsAuthentication() {
 [[testunterstuetzung]]
 == Testunterstützung
 
-In diesem Abschnitt wird *isy-security-test* beschrieben, das zum Erstellen von (automatisierten) Tests einen OpenId Connect Provider Mock bereitstellt.
+In diesem Abschnitt wird die Bibliothek `isy-security-test` beschrieben, die zum Erstellen von (automatisierten) Tests einen OpenId Connect Provider Mock bereitstellt.
 Der OpenId Connect Provider Mock wurde mithilfe von WireMock realisiert.
 Es werden die folgenden OAuth2 und OpenID Connect Verfahren unterstützt.
 
 * Client Credentials Flow
 * Resource Owner Password Credentials Flow
 
-Das folgende Beispiel zeigt die Initialisierung des EmbeddedOidcProviderMock mit einem Client mit genau einer Rolle und mit einem User mit derselben Rolle:
+Das folgende Beispiel zeigt die Initialisierung des `EmbeddedOidcProviderMock` mit einem Client mit genau einer Rolle und mit einem User mit derselben Rolle:
 
 [[listing-beispiel-oidc-mock]]
-.Beispiel für die Erstellung des EmbeddedOidcProviderMock
+.Beispiel für die Erstellung des `EmbeddedOidcProviderMock`
 [source,java]
 ----
-EmbeddedOidcProviderMock embeddedOidcProvider = new EmbeddedOidcProviderMock("localhost", 9095, "/auth/realms/testrealm");
+public EmbeddedOidcProviderMock createMock() {
+    EmbeddedOidcProviderMock mock =
+            new EmbeddedOidcProviderMock("localhost", 9095, "/auth/realms/testrealm");
 
-embeddedOidcProvider.addClient("client-credentials-client", "supersecretpassword", Collections.singleton("Test_Role"));
-embeddedOidcProvider.addUser("ressource-owner-password-credentials-client", "hypersecretpassword", "admin", "adminpassword", Optional.of("123456"), Collections.singleton("Test_Role"));
+    mock.addClient("client-credentials-client", "supersecretpassword",
+            Collections.singleton("Test_Role"));
+    mock.addUser("ressource-owner-password-credentials-client", "hypersecretpassword",
+            "admin", "adminpassword", Optional.of("123456"),
+            Collections.singleton("Test_Role"));
+
+    return mock;
+}
 ----
 
-Detaillierte Informationen zur Verwendung des EmbeddedOidcProviderMock können dem JavaDoc der Klasse entnommen werden.
+Detaillierte Informationen zur Verwendung des `EmbeddedOidcProviderMock` können der https://javadoc.io/doc/de.bund.bva.isyfact/isy-security-test/latest/de/bund/bva/isyfact/security/test/oidcprovider/EmbeddedOidcProviderMock.html[Dokumentation der Klasse] entnommen werden.
 
 // end::inhalt[]

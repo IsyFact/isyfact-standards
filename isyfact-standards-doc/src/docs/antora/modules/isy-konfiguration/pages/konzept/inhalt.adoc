@@ -8,7 +8,7 @@ In diesem Kapitel werden die Anforderungen an die Konfiguration von Anwendungen 
 Der Fokus liegt dabei auf der Schaffung von einheitlichen Administrationsschnittstellen, welche dem Betrieb eine einfache Konfiguration der Anwendungen erlauben.
 Alle Vorgaben sind beim Entwurf und der Realisierung von neuen Anwendungen nach IsyFact-Architektur zu berücksichtigen.
 Gegebenenfalls können in Systementwürfen Verfeinerungen der hier getroffenen Vorgaben gemacht werden.
-Weiterhin können die hier gemachten Vorgaben als Basis für die Beschreibung der Konfiguration im Betriebshandbuch der Anwendungssysteme verwendet werden.
+Weiterhin können die hier gemachten Vorgaben als Basis für die Beschreibung der Konfiguration im xref:methodik:vorlagen.adoc#dokumentation-anwendung[Systemhandbuch] verwendet werden.
 
 Für das Verständnis ist es wichtig die Konfigurationsparameter von den konkreten Parameterwerten für diese Konfigurationsparameter zu unterscheiden.
 Erstere sind fest von der Anwendungsimplementierung vorgegeben.
@@ -26,7 +26,7 @@ Dazu gehören sowohl vom Betrieb zu pflegende Konfigurationsdateien, als auch st
   Ausnahmen hiervon bedürfen besonderer technischer und organisatorischer Maßnahmen.
   Details dazu werden in dem Dokument xref:nutzungsvorgaben/master.adoc[Konfiguration - Nutzungsvorgaben] beschrieben.
 * Das Konfigurationskonzept berücksichtigt sowohl die Konfiguration für die Entwicklungsumgebung als auch geeignete Vorgehensweisen für die Konfiguration der Produktionsumgebung.
-* Alle Anwendungssysteme und Batches, die schreibend auf eine andere Geschäftsanwendung zugreifen, müssen auf die Nichtverfügbarkeit dieser Komponente vorbereitet sein.
+* Alle Anwendungen, die schreibend auf eine andere Anwendung zugreifen, müssen auf deren Nichtverfügbarkeit vorbereitet sein.
   Entweder können jene Systeme vorübergehend heruntergefahren sein, oder bestimmte Funktionen, z.B. der Schreibzugriff, können über Konfigurationsparameter deaktiviert sein.
   Systeme, bei denen Funktionen deaktiviert sind, zeigen Benutzern frühzeitig einen Hinweis an, welche Funktionen nicht zur Verfügung stehen.
   Ob eine Anwendung einen Konfigurationsparameter erhält oder heruntergefahren werden kann, muss für jede Anwendung, abhängig von deren Verfügbarkeitsanforderung, individuell entschieden werden.

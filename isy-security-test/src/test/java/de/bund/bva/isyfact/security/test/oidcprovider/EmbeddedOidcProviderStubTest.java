@@ -41,7 +41,7 @@ public class EmbeddedOidcProviderStubTest {
             new EmbeddedOidcProviderStub("oidc-provider", 9096, "/auth/realms/testrealm", tokenLifespan);
 
     @Test
-    public void testAccessTokenWithBhknz() throws ParseException {
+    void testAccessTokenWithBhknz() throws ParseException {
         UUID userId = UUID.randomUUID();
         String clientId = "testclient";
         String userName = "testuser";
@@ -69,7 +69,7 @@ public class EmbeddedOidcProviderStubTest {
     }
 
     @Test
-    public void testAccessTokenWithoutBhknz() throws ParseException {
+    void testAccessTokenWithoutBhknz() throws ParseException {
         UUID userId = UUID.randomUUID();
         String clientId = "testclient";
         String userName = "testuser";
@@ -89,7 +89,7 @@ public class EmbeddedOidcProviderStubTest {
     }
 
     @Test
-    public void testAccessTokenResponse() throws JsonProcessingException, ParseException {
+    void testAccessTokenResponse() throws JsonProcessingException, ParseException {
         String clientId = "testclient";
         String userName = "testuser";
         String bhknz = "123456";
@@ -108,7 +108,7 @@ public class EmbeddedOidcProviderStubTest {
     }
 
     @Test
-    public void testOIDCConfigResponse() throws JsonProcessingException {
+    void testOIDCConfigResponse() throws JsonProcessingException {
         String configResponse = oidcProviderStub.getOIDCConfigResponse("/certs", "/auth", "/token");
 
         JsonNode tree = mapper.readTree(configResponse);
@@ -120,7 +120,7 @@ public class EmbeddedOidcProviderStubTest {
     }
 
     @Test
-    public void testJwkResponse() throws JsonProcessingException {
+    void testJwkResponse() throws JsonProcessingException {
         RSAPublicKey expectedPublicKey = (RSAPublicKey) RsaKeyGenerator.decodePublicKey(oidcProviderStub.getPublicKey());
 
         String jwkResponse = oidcProviderStub.getJwksResponse();

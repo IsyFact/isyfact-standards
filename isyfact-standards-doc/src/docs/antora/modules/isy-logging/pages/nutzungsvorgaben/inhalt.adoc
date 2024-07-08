@@ -45,7 +45,7 @@ Logeinträge, die nicht ausgewertet werden (Selbstzweck), sind zu vermeiden.
 . *Logging muss qualitätsgesichert werden*: Logeinträge der Log-Level INFO, WARN, ERROR und FATAL müssen (analog zur fachlichen Funktionalität der Anwendung) einem Review unterzogen werden.
 ****
 
-[[kennzeichnung-von-logeinträgen]]
+[[kennzeichnung-von-logeintraegen]]
 === Kennzeichnung von Logeinträgen
 
 Jeder Logeintrag wird mit einem Log-Level gekennzeichnet.
@@ -264,15 +264,15 @@ Die Erzeugung der Logger-Instanz erfolgt mit der Logger-Factory, die durch `isy-
 [source,java]
 ----
 public class MyClass {
-...
+// ...
 private static final IsyLogger LOG = IsyLoggerFactory.getLogger(MyClass.class);
-... oder ...
+// ... oder ...
 private static final IsyLoggerStandard LOG = IsyLoggerFactory.getLogger(MyClass.class);
-... oder ...
+// ... oder ...
 private static final IsyLoggerFachdaten LOG = IsyLoggerFactory.getLogger(MyClass.class);
-... oder ...
+// ... oder ...
 private static final IsyLoggerTypisiert LOG = IsyLoggerFactory.getLogger(MyClass.class);
-...
+// ...
 }
 ----
 
@@ -394,9 +394,9 @@ Zu allen Methoden, die in <<loggen-von-technischen-daten>> beschrieben wurden, b
 Die Methoden tragen dabei jeweils das Suffix `Fachdaten` im Namen.
 
 Eine besondere Rolle innerhalb der fachlichen Daten spielen personenbezogenen Daten und insbesondere Daten gemäß Artikel 9 DSGVO.
-Diese sollten nur in absoluten Ausnahmefällen ins Log geschrieben werden und müssen zwingend mit speziellen Markern versehen werden (s. <<verwendung-von-markern-in-logeinträgen>>).
+Diese sollten nur in absoluten Ausnahmefällen ins Log geschrieben werden und müssen zwingend mit speziellen Markern versehen werden (s. <<verwendung-von-markern-in-logeintraegen>>).
 
-[[verwendung-von-markern-in-logeinträgen]]
+[[verwendung-von-markern-in-logeintraegen]]
 ==== Verwendung von Markern in Logeinträgen
 
 Zum beliebigen Markieren von Logeinträgen bietet `isy-logging` die Schnittstelle `IsyLoggerTypisiert` an.
@@ -485,8 +485,8 @@ Zur Verwendung des Invokers, muss eine Instanz des Interceptors als Klassenvaria
 [source,java]
 ----
 public class MyClass {
-private static final LoggingMethodInterceptor _LOG_INTERCEPTOR_ = new LoggingMethodInterceptor(true, true, false, false);
-...
+    private static final LoggingMethodInterceptor LOG_INTERCEPTOR = new LoggingMethodInterceptor(true, true, false, false);
+}
 ----
 
 Der Konstruktor besitzt folgende Signatur:
@@ -621,17 +621,17 @@ FilterRegistrationBean<HttpHeaderNestedDiagnosticContextFilter> httpHeaderNested
 }
 ----
 
-Falls die Anwendung Service-Schnittstellen besitzt, muss diese Bean im Anwendungssystem so überschrieben werden, dass sie für diese Schnittstellen deaktiviert ist.
+Falls die Anwendung Service-Schnittstellen besitzt, muss diese Bean so überschrieben werden, dass sie für diese Schnittstellen deaktiviert ist.
 Grund dafür ist, dass Service-Schnittstellen bereits eine Korrelations-ID generieren.
 Ohne das Überschreiben dieser Bean werden beim Aufruf einer Schnittstelle beide Mechanismen aktiv, sodass zwei neue Korrelations-IDs für eine einzige Aktion neu erzeugt werden.
 Dies ist zu vermeiden.
 
 Beim Überschreiben der Bean müssen die URL-Patterns so angegeben werden, dass die URLs der Endpunkte nicht enthalten sind.
-Die Verwendung des Asterisk-Platzhalters * ist dabei am Ende des URL-Patterns möglich.
-Stellt eine Anwendung beispielsweise REST-Schnittstellen unter `"/rest-endpoint1"`, `"/api/rest/example/endpoint2"` und `"/api/rest/example/endpoint3"` bereit, muss die Bean im Anwendungssystem wie folgt überschrieben werden:
+Die Verwendung des Asterisk-Platzhalters `*` ist dabei am Ende des URL-Patterns möglich.
+Stellt ein IT-System beispielsweise REST-Schnittstellen unter `"/rest-endpoint1"`, `"/api/rest/example/endpoint2"` und `"/api/rest/example/endpoint3"` bereit, muss die Bean wie folgt überschrieben werden:
 
-[[listing-filterRegistrationBean-anwendungssystem]]
-.Beispiel für Bean-Überschreibung im Anwendungssystem
+[[listing-filterRegistrationBean]]
+.Beispiel für Bean-Überschreibung im IT-System
 [source,java]
 ----
 @Bean
@@ -674,41 +674,6 @@ Sollte jedoch Multi-Threading innerhalb eines Requests vorhanden sein, so ist de
 Somit müssen alle Klassen, die das Interface Runnable implementieren, eine Methode vorsehen, um den MDC von der Klasse zu bekommen, die den Thread startet.
 Ansonsten besitzt der gestartete Thread nicht den Kontext des aufrufenden Threads.
 Zusätzlich muss im Thread eine weitere Unique-ID an die Korrelations-ID im MDC angehängt werden, so dass auch die Logeinträge des Threads eindeutig identifiziert werden können.
-
-*Anmerkung zum Parallelbetrieb von AufrufKontextVerwalter und MdcHelper*
-
-Innerhalb der Anwendung wird die Korrelations-ID sowohl über das AufrufKontext-Objekt im AufrufKontextVerwalter
-als auch über den MdcHelper verwaltet und zur Verfügung gestellt.
-
-An der Service-Schnittstelle werden dazu die Annotationen @StelltLoggingKontextBereit und @StelltAufrufKontextBereit
-in Zusammenspiel verwendet.
-
-Die Annotation @StelltLoggingKontextBereit liest die Korrelations-ID aus einem AufrufKontextTo, welches der annotierten
-Methode als Parameter übergeben wird und befüllt den Logging-Kontext, indem die Korrelations-ID in den MdcHelper geschrieben wird.
-
-Enthält das AufrufKontextTo keine (null) oder eine leere ("") Korrelations-ID, so wird eine neue Korrelations-ID generiert.
-Die neu generierte Korrelations-ID wird in das AufrufKontextTo-Objekt zurückgeschrieben und ebenfalls
-an den MdcHelper weitergegeben.
-
-Die @StelltLoggingKontextBereit-Annotation kann auch ohne vorhandenes AufrufKontextTo-Objekt verwendet werden.
-Dazu muss nutzeAufrufKontext auf false gesetzt werden.
-In diesem Fall wird eine neue Korrelations-ID generiert und in den MdcHelper geschrieben.
-
-Nach Aufruf des StelltLoggingKontextBereitInterceptors über die @StelltLoggingKontextBereit-Annotation
-ist die Korrelations-ID sowohl im MDC also auch im AufrufKontextTo vorhanden.
-
-Um die Daten des AufrufKontextTo in den AufrufKontextVerwalter zu schreiben, wird die Annotation @StelltAufrufKontextBereit
-verwendet.
-Im StelltAufrufKontextBereitInterceptor wird hierfür ein neues AufrufKontext-Objekt erstellt.
-Nach der Erstellung werden die Daten aus dem AufrufKontextTo in das AufrufKontext-Objekt übertragen und der AufrufKontext
-in den AufrufKontextVerwalter gesetzt.
-Der vorherige AufrufKontext wird hierbei zwischengespeichert und nach Aufruf der mit @StelltAufrufKontextBereit
-annotierten Methode wiederhergestellt.
-Entsprechend stehen die Daten aus dem AufrufKontextTo innerhalb des Methodenaufrufs in Form eines AufrufKontext-Objekts
-über den AufrufKontextVerwalter zur Verfügung.
-
-Nach dem Durchlaufen beider Interceptoren steht die Korrelations-ID sowohl im AufrufKontext(Verwalter) als auch über den
-MdcHelper zur Verfügung.
 
 [[konfiguration]]
 === Konfiguration
@@ -786,7 +751,7 @@ Hierfür wird folgende Konfiguration verwendet:
 </configuration>
 ----
 
-[[weitere-konfigurationsmöglichkeiten]]
+[[weitere-konfigurationsmoeglichkeiten]]
 ===== Weitere Konfigurationsmöglichkeiten
 
 In diesem Abschnitt werden weitere Möglichkeiten der Konfiguration von logback beschrieben, die bei Bedarf genutzt werden können:
@@ -807,7 +772,7 @@ Die maximale Länge eines Logeintrags wird wie folgt gesetzt:
 <property name="MAX_LENGTH" value="32000" />
 ----
 
-[[logging-für-einzelne-klassen-deaktivieren]]
+[[logging-fuer-einzelne-klassen-deaktivieren]]
 ===== Logging für einzelne Klassen deaktivieren
 
 Es kann sinnvoll sein, das Log-Level einer einzelnen Klasse oder eines Packages abweichend zum Root-Logger zu konfigurieren – bspw. falls ein Framework in einer bestimmten Klasse irreführende Logeinträge erzeugt.
@@ -1069,7 +1034,7 @@ Beispiele:
 * `StackOverflowError`
 |====
 
-[[beeinträchtigung-des-betriebs-erkennen-und-behandeln]]
+[[beeintraechtigung-des-betriebs-erkennen-und-behandeln]]
 ==== Beeinträchtigung des Betriebs erkennen und behandeln
 
 [cols="1s,4",options="header"]
@@ -1172,7 +1137,7 @@ Die Analyse der Nutzungshäufigkeit bestimmter kritischer Stellen der Anwendungs
 
 
 
-[[systemzustand-und--ereignisse-überwachen]]
+[[systemzustand-ereignisse-ueberwachen]]
 ==== Systemzustand und -ereignisse überwachen
 
 [cols="1s,4",options="header"]
@@ -1260,7 +1225,7 @@ Binärdaten dürfen daher nicht gelogged werden.
 2.  **Größe der Parameter beschränken**: Beim Loggen der Schnittstellenkommunikation können durch große Objektstrukturen ebenfalls sehr große Logeinträge entstehen.
 Das Loggen von Parametern kann durch entsprechende Konfiguration auf eine Maximalgröße beschränkt werden.
 3.  **Größe des Logeintrags beschränken**: Große Logeinträge können zu Fehlern bei der weiteren Verarbeitung führen.
-Daher sollte darauf geachtet werden, dass Logeinträge eine invidiuell definierte maximale Länge nicht überschreiten.
+Daher sollte darauf geachtet werden, dass Logeinträge eine individuell definierte maximale Länge nicht überschreiten.
 Zudem sollte diese maximale Länge in der Konfigurationsdatei `logback.xml` definiert sein (s. <<maximale-logeintragslaenge-festlegen>>).
 
 [[konfiguration-1]]
@@ -1349,14 +1314,14 @@ Entsprechende Vorgaben werden in den Nutzungskonzepten der jeweiligen Bausteine 
 
 [cols="2s,5"]
 |====
-|Beschreibung |Ein Anwendungssystem oder ein Batch wird gestartet oder beendet.
+|Beschreibung |Ein IT-System oder ein Batch wird gestartet oder beendet.
 |Logging |Der Vorgang wird durch den `LogApplicationListener` geloggt.
 Dieser muss gemäß <<LogApplicationListener>> konfiguriert sein.
 |Auswertungsszenario a|
 * Systemzustand und -ereignisse überwachen
 |====
 
-[[neueinlesen-eines-geänderten-konfigurationsparameters]]
+[[neueinlesen-eines-geaenderten-konfigurationsparameters]]
 ===== Neueinlesen eines geänderten Konfigurationsparameters
 
 include::glossary:miscellaneous:partial$deprecated-abschnitt.adoc[]
@@ -1387,7 +1352,7 @@ Dies ist insbesondere dann der Fall, wenn:
 * Es sich um eine technisch sehr komplexe oder proprietäre Schnittstelle handelt.
 * Ein „unerklärliches“ Verhalten im Systembetrieb festgestellt wurde, welches mit den Standard Debug-Ausgaben nicht nachvollzogen  werden kann.
 |Logging a|
-Das Erstellen der Logeinträge erfolgt mittels des LogInterceptors der bereits für die Szenarien in <<schwerwiegenden-fehler-erkennen-und-behandeln>> und <<beeinträchtigung-des-betriebs-erkennen-und-behandeln>> konfiguriert wurde.
+Das Erstellen der Logeinträge erfolgt mittels des LogInterceptors der bereits für die Szenarien in <<schwerwiegenden-fehler-erkennen-und-behandeln>> und <<beeintraechtigung-des-betriebs-erkennen-und-behandeln>> konfiguriert wurde.
 
 Zur Ausgabe der Schnittstellenkommunikation muss der Schalter loggeDaten auf true gesetzt werden (<<loggingmethodinterceptor>>).
 
@@ -1419,7 +1384,7 @@ Je nach Schwere des Fehlers wird die Exception in einem der folgenden Log-Level 
 
 * FATAL: Falls es sich um einen schwerwiegenden Fehler handelt (vgl. auch Szenario „Schwerwiegenden Fehler erkennen und behandeln“ in <<schwerwiegenden-fehler-erkennen-und-behandeln>>).
 * ERROR: Falls der Fehler zur Beeinträchtigung des Systembetriebs führt, das System aber weiterlaufen kann (vgl. auch Szenario „Beeinträchtigung des Betriebs erkennen und behandeln“ in
-<<beeinträchtigung-des-betriebs-erkennen-und-behandeln>>)
+<<beeintraechtigung-des-betriebs-erkennen-und-behandeln>>)
 * WARN: Wenn es sich um ein inkonsistentes / unerwartetes Systemverhalten handelt, welches der Entwicklungsabteilung mitgeteilt werden muss (vgl. auch Szenario „Unerwartetes Systemverhalten erkennen und behandeln“ in
 <<unerwartetes-systemverhalten-erkennen-und-behandeln>>).
 * INFO: Wenn es sich um einen „erwarteten“ Fehler handelt, der durch das System behandelt werden.
@@ -1470,7 +1435,7 @@ ungültige Logins mit Anwendernamen {} durchgeführt.", "29", "max_muster");`
 * Systemzustand und -ereignisse überwachen
 |====
 
-[[durchführen-einer-bulk-query]]
+[[durchfuehren-einer-bulk-query]]
 ===== Durchführen einer Bulk-Query
 
 [cols="2s,5"]
@@ -1487,7 +1452,7 @@ Es wurden \{} Sachverhalte gelöscht.", <Name der Query>, <Anzahl Datensätze>);
 * Fehleranalyse
 |====
 
-[[unterstützung-der-fehleranalyse-debug]]
+[[unterstuetzung-der-fehleranalyse-debug]]
 ===== Unterstützung der Fehleranalyse (Debug)
 
 [cols="2s,5"]
@@ -1581,7 +1546,7 @@ Der Aufruf dauerte <Dauer in Millisekunden> ms.
 |EISYLO01015 |INFO |PROFILING |Aufruf von <Klasse.Methode> des Nachbarsystems <systemname> unter der URL <url> mit Fehler beendet.
 Der Aufruf dauerte <Dauer in Millisekunden> ms.
 |EISYLO02001 |INFO |JOURNAL |ApplicationContext des Systems <Systemname> (Systemart) wurde gestartet oder aktualisiert.
-|EISYLO02002 |INFO |JOURNAL |Der ApplicationContext des Systems <Systemname> (Systemart) wurde gestopped.
+|EISYLO02002 |INFO |JOURNAL |Der ApplicationContext des Systems <Systemname> (Systemart) wurde gestoppt.
 |EISYLO02003 |INFO |JOURNAL |Die Systemversion ist <Versionsnummer>.
 |EISYLO02004 |INFO |JOURNAL |Der Laufzeitparameter <Parametername> besitzt den Wert <Wert>.
 |====

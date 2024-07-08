@@ -11,7 +11,7 @@ Dadurch können Ausfallzeiten minimiert werden.
 
 Der Fokus des Konzepts liegt auf der Schaffung von einheitlichen Administrationsschnittstellen, welche dem Betrieb eine einfache Überwachung der Anwendungen erlauben.
 In Systementwürfen können Verfeinerungen der hier getroffenen Vorgaben gemacht werden.
-Weiterhin können die hier gemachten Vorgaben als Basis für die Beschreibung der Überwachungsschnittstelle im Betriebshandbuch der Anwendungssysteme verwendet werden.
+Weiterhin können die hier gemachten Vorgaben als Basis für die Beschreibung der Überwachungsschnittstelle im xref:methodik:vorlagen.adoc#dokumentation-anwendung[Systemhandbuch] verwendet werden.
 
 [[kurzeinfuehrung-in-spring-boot-actuator]]
 == Kurzeinführung in Spring Boot Actuator

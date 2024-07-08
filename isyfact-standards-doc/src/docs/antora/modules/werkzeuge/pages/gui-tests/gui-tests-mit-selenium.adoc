@@ -19,7 +19,7 @@ https://www.selenium.dev/documentation/[Selenium Dokumentation]
 === Selenium installieren
 In Maven: `selenium-java` dependency in die pom.xml einfügen:
 
-[[listing-einbindungs-elenium-maven]]
+[[listing-einbindung-selenium-maven]]
 .Einbindung von Selenium in der pom.xml
 [source,xml,subs="verbatim,attributes"]
 ----
@@ -102,10 +102,6 @@ Daher ist ein Verständnis von `HTML/CSS` erforderlich, um automatisierte Abläu
 * In `Selenium` werden nur Referenzen von DOM Elementen gehalten, nichts wird zwischen gespeichert
 * `Selenium` adressiert die Asynchronität des Browsers nur oberflächlich
 
-[[selenium-problems-jsf]]
-=== JSF
-* Die Generierung / Das Rendering von JSF Pages ist zum Teil so dynamisch, sodass IDs von Web-Elementen immer neu erzeugt werden und damit schwer über `Selenium` zu adressieren sind
-
 [[selenium-best-practices]]
 == Best Practices
 Zu den oben genannten Problemen gibt es Best Practices, mit denen man diesen entgegen wirken kann.
@@ -160,8 +156,7 @@ https://www.selenium.dev/documentation/webdriver/elements/finders/[Finders]
 
 https://www.selenium.dev/documentation/webdriver/elements/locators/[Locators]
 
-JSF kann hier durch dynamische Generierung Probleme bei der Suche nach WebElement-Ids bereiten.
-Daher kann auf zwei alternative Möglichkeiten zurückgegriffen werden:
+Sollten Probleme bei der Suche nach WebElement-Ids entstehen (z.B. da diese dynamisch generiert werden), kann auf zwei alternative Möglichkeiten zurückgegriffen werden:
 
 ==== XPath
 XPath ist eine Alternative zum WebElement-Finding per ID.
@@ -174,7 +169,7 @@ Da HTML und XML eine ähnliche Struktur haben, fällt es `Selenium` leicht, bei 
     WebElement checkbox = driver.findElement(
                     By.xpath("/html/body/div[2]/div[1]/div/h4[1]/b/html[1]/body[1]/div[2]/div[1]/div[1]/h4[1]/b[1]"));
 ----
-Aber auch die XPath-Pfade können durch die Asynchronität des Browsers und JSFs dynamischer Generierung verändert werden.
+Aber auch die XPath-Pfade können durch die Asynchronität des Browsers oder durch dynamische Generierung ihr Ziel verfehlen.
 
 ==== Css Selector
 Etwas sicherer und eventuell beständiger ist der Css Selector. 

@@ -1,5 +1,7 @@
 = Technisch-infrastrukturelle Referenzarchitektur
 
+include::glossary:licence:partial$licence.adoc[]
+
 Die technisch-infrastrukturelle Referenzarchitektur beschreibt den Aufbau der Betriebsumgebung für die IT-Systeme einer IsyFact-Systemlandschaft.
 Dazu gehören die physischen Geräte (Rechnersysteme, Netzwerkverbindungen und -komponenten, Drucker etc.), die installierte Systemsoftware (Betriebssystem, Applikationsserver, Middleware, Datenbanksystem) und das Zusammenspiel von Hardware und Systemsoftware.
 
@@ -75,7 +77,7 @@ image::technisch-infrastrukturell/ti-architektur-awl-pru.dn.svg[]
 
 Der Zugriff durch die Anwender (Clients) und die über externe Systeme angeschlossener Anwender erfolgt über das WAN bzw. das interne LAN.
 Die Kommunikation erfolgt per Secure HTTP (HTTPS) mit einem Browser oder ebenfalls per HTTPS oder SMTP via XML- oder Web-Service-Schnittstelle direkt aus der externen Anwendung über ein Service-Gateway-System.
-Innerhalb der Produktionsumgebung sollten die Anwendungssysteme ebenfalls verschlüsselt miteinander kommunizieren.
+Innerhalb der Produktionsumgebung sollten die IT-Systeme ebenfalls verschlüsselt miteinander kommunizieren.
 
 Interne Drittsysteme, die aus dem internen LAN mit der IsyFact-Systemlandschaft kommunizieren, tun dies genau wie externe Anwendungen per HTTPS oder SMTP via XML- oder Web-Service-Schnittstellen über ein Service-Gateway-System.
 Die Authentifizierung geschieht über einen Identity & Access Management (IAM) Cluster, bzw. ein IAM-System.
@@ -128,7 +130,7 @@ image::technisch-infrastrukturell/ti-architektur-awl-xtu.dn.svg[]
 
 Im Vergleich zur Produktionsumgebung ist die Leistungsfähigkeit dieser Umgebung bei vollständiger Funktionalität deutlich reduziert.
 Da auch an die Verfügbarkeit der Umgebung geringere Anforderungen gestellt werden, wird auf die Aufteilung in verschiedene Netzwerkzonen und auf den Betrieb der Rechnersysteme im Cluster aus wirtschaftlichen Gründen verzichtet.
-Die Anwendungssysteme laufen dann auf einzelnen Rechnerknoten ab.
+Die IT-Systeme laufen dann auf einzelnen Rechnerknoten ab.
 
 [[externe-schulungsumgebung-xsu]]
 === Externe Schulungsumgebung (XSU)

@@ -1,7 +1,7 @@
 * xref:bausteine.adoc[]
 ** Datum & Zeit
-*** xref:isy-datetime:konzept/master.adoc[Konzept]
-*** xref:isy-datetime:nutzungsvorgaben/master.adoc[Nutzungsvorgaben]
+*** xref:isy-datetime-doc:ROOT:konzept/master.adoc[Konzept]
+*** xref:isy-datetime-doc:ROOT:nutzungsvorgaben/master.adoc[Nutzungsvorgaben]
 
 ** Fehlerbehandlung
 *** xref:isy-exception-core:konzept/master.adoc[Konzept]
@@ -39,10 +39,6 @@
 *** xref:isy-security:konzept/master.adoc[Konzept]
 *** xref:isy-security:nutzungsvorgaben/master.adoc[Nutzungsvorgaben]
 
-** Sicherheit
-*** xref:isy-sicherheit:konzept/master.adoc[Konzept]
-*** xref:isy-sicherheit:nutzungsvorgaben/master.adoc[Nutzungsvorgaben]
-
 ** Sonderzeichen
 *** xref:isy-sonderzeichen:konzept/sonderzeichen.adoc[Konzept]
 *** xref:isy-sonderzeichen:nutzungsvorgaben/master.adoc[Nutzungsvorgaben]
@@ -62,10 +58,6 @@
 
 ** Bedienkonzept
 *** xref:isy-bedienkonzept:bedienkonzept.adoc[Bedienkonzept]
-
-** JSF
-*** xref:isyfact-jsf-doku:isy-web:konzept/konzept.adoc[Konzept]
-*** xref:isyfact-jsf-doku:isy-web:nutzungsvorgaben/nutzungsvorgaben.adoc[Nutzungsvorgaben]
 
 ** Angular
 *** xref:isy-angular-widgets-doc:ROOT:konzept/konzept.adoc[Konzept]

@@ -19,7 +19,7 @@
         <spring.webflow.version>3.0.0</spring.webflow.version>
         <resilience4j.version>1.7.1</resilience4j.version>
         <apache.poi.version>4.1.2</apache.poi.version>
-        <greenmail.version>1.6.14</greenmail.version>
+        <greenmail.version>1.6.15</greenmail.version>
         <jsf-api.version>2.2.20</jsf-api.version>
         <jsf-impl.version>2.2.20</jsf-impl.version>
         <tomahawk20.version>1.1.14</tomahawk20.version>
@@ -28,7 +28,9 @@
         <logback-jackson.version>0.1.5</logback-jackson.version>
         <ojdbc8.version>19.11.0.0</ojdbc8.version>
         <ucp.version>19.11.0.0</ucp.version>
+        <!-- Bean mapping: Orika TODO: remove with ISY-895 -->
         <orika-core.version>1.5.4</orika-core.version>
+        <mapstruct.version>1.5.5.Final</mapstruct.version>
         <pojobuilder.version>4.3.0</pojobuilder.version>
         <xstream.version>1.4.20</xstream.version>
         <opencsv.version>5.9</opencsv.version>
@@ -37,7 +39,7 @@
         <commons-net.version>3.10.0</commons-net.version>
         <commons-validator.version>1.7</commons-validator.version>
         <jsoup.version>1.15.3</jsoup.version>
-        <ApacheJMeter_core.version>2.13</ApacheJMeter_core.version>
+        <ApacheJMeter_core.version>5.6.3</ApacheJMeter_core.version>
         <wiremock-standalone.version>3.4.2</wiremock-standalone.version>
         <dbunit.version>2.7.3</dbunit.version>
         <commons-beanutils.version>1.9.4</commons-beanutils.version>
@@ -175,11 +177,23 @@
                 <version>${ucp.version}</version>
             </dependency>
 
-            <!-- Bean mapping: Orika -->
+            <!-- Bean mapping: Orika TODO: remove with ISY-895 -->
             <dependency>
                 <groupId>ma.glasnost.orika</groupId>
                 <artifactId>orika-core</artifactId>
                 <version>${orika-core.version}</version>
+            </dependency>
+
+            <!-- Bean mapping: MapStruct-->
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct</artifactId>
+                <version>${org.mapstruct.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct-processor</artifactId>
+                <version>${org.mapstruct.version}</version>
             </dependency>
 
             <!-- Code generation: pojobuilder -->

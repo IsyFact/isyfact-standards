@@ -31,11 +31,6 @@
             </dependency>
             <dependency>
                 <groupId>de.bund.bva.isyfact</groupId>
-                <artifactId>isy-aufrufkontext</artifactId>
-                <version>${project.parent.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>de.bund.bva.isyfact</groupId>
                 <artifactId>isy-batchrahmen</artifactId>
                 <version>${project.parent.version}</version>
             </dependency>
@@ -56,11 +51,6 @@
             </dependency>
             <dependency>
                 <groupId>de.bund.bva.isyfact</groupId>
-                <artifactId>isy-konfiguration</artifactId>
-                <version>${project.parent.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>de.bund.bva.isyfact</groupId>
                 <artifactId>isy-logging</artifactId>
                 <version>${project.parent.version}</version>
             </dependency>
@@ -76,18 +66,8 @@
             </dependency>
             <dependency>
                 <groupId>de.bund.bva.isyfact</groupId>
-                <artifactId>isy-serviceapi-core</artifactId>
-                <version>${project.parent.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>de.bund.bva.isyfact</groupId>
                 <artifactId>isy-serviceapi-sst</artifactId>
                 <version>${isy-serviceapi-sst.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>de.bund.bva.isyfact</groupId>
-                <artifactId>isy-sicherheit</artifactId>
-                <version>${project.parent.version}</version>
             </dependency>
             <dependency>
                 <groupId>de.bund.bva.isyfact</groupId>

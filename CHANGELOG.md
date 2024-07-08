@@ -13,20 +13,27 @@
 - `IFS-2816`: [isyfact-standards-doc] Begriff "Blaupause" durch "Referenzarchitektur" ersetzt
 - `IFS-3665`: [isyfact-standards-doc] "Leitfaden Dokumentation" nach `isy-documentation` verschoben
 - `IFS-3692`: [isyfact-standards-doc] Seite "Referenzarchitekur" nach Architektursichten aufgeteilt
+- `ISY-909`: [isyfact-products-bom] Orika durch MapStruct ersetzt
 ## BUG FIXES
 ## BREAKING CHANGES
+- `ISY-1122`: Bausteine `isy-sicherheit`, `isy-aufrufkontext`, `isy-serviceapi-core` und `isy-konfiguration` entfernt
 - `ISY-889`: Spring Boot Versionsanhebung auf 3.2.x
-  * inkludiert ausserdem folgende Versionsanhebungen: 
-      * Spring Framework 5.x -> 6.x 
-      * Spring Security 5.x -> 6.x
-      * Hibernate 5.x -> 6.x
+    * inkludiert ausserdem folgende Versionsanhebungen:
+        * Spring Framework 5.x -> 6.x
+        * Spring Security 5.x -> 6.x
+        * Hibernate 5.x -> 6.x
 - `ISY-779`: `isyfact-bom` entfernt
     * [isyfact-standards-bom] `isyfact-standards-bom` importiert dependencyManagement aus `isyfact-products-bom`
     * [isyfact-standards-doc] Bezug und Nutzung der IsyFact nach Entfernung der IsyFact-BOM beschrieben
 - `ISY-737`: [isyfact-standards] Java Compile Target 17
 - `IFS-1259`: [isyfact-standards-doc] Basisdaten (d.h. Möglichkeit der gemeinsamen Nutzung von Geschäftsobjekten durch mehrere Fachkomponenten) entfernt
 - `IFS-3676`: [isyfact-standards-doc] IT-Systeme dürfen keine UI-Komponenten mehr enthalten.
+- `IFS-3699`: [isyfact-standards-doc] Baustein Sicherheit entfernt.
 - `IFS-3700`: [isyfact-standards-doc] Baustein Http Invoker entfernt.
+- `IFS-3697`: [isyfact-products-bom] Update JMeter Core auf 5.6.x
+- `IFS-3701`: [isyfact-standards-doc] Baustein JSF entfernt.
+- `IFS-3736`: [isyfact-standards-doc] Abbildung von Anwendungen in IT-Systeme ("technischer Schnitt") beschrieben.
+
 
 # 3.0.1
 - `ISY-701`: Google Guava Versionsanhebung auf 33.1.0

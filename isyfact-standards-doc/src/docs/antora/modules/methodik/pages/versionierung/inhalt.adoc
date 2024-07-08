@@ -55,10 +55,10 @@ Eine Aktualisierung auf eine *MAJOR*-Version führt mit sehr hoher Wahrscheinlic
 Wie zum Beispiel von IsyFact 1.x auf IsyFact 2.0.
 ====
 
-[[versionierung-von-anwendungen]]
-== Versionierung von Anwendungen
+[[versionierung-von-it-systemen]]
+== Versionierung von IT-Systemen
 
-Versionen von Anwendungssystemen folgen dem folgenden Muster:
+Versionen von IT-Systemen folgen dem folgenden Muster:
 
 |====
 ^m| *MAJOR.MINOR.PATCH[-LABEL]*
@@ -67,9 +67,9 @@ Versionen von Anwendungssystemen folgen dem folgenden Muster:
 Zusätzlich zu den im Kapitel <<allgemeine-nomenklatur-und-vorgaben>> getätigten Vorgaben und Empfehlungen gelten hier die folgenden
  Konkretisierungen:
 
-Auf Grundlage einer Versionsnummer von MAJOR.MINOR.PATCH werden bei Anwendungssystemen nach IsyFact die einzelnen Elemente folgendermaßen erhöht:
+Auf Grundlage einer Versionsnummer von MAJOR.MINOR.PATCH werden bei IT-Systemen nach IsyFact die einzelnen Elemente folgendermaßen erhöht:
 
-.  *MAJOR* wird nach Absprache erhöht, wenn signifikante Änderungen an der Anwendung veröffentlicht werden,
+.  *MAJOR* wird nach Absprache erhöht, wenn signifikante Änderungen am IT-System veröffentlicht werden,
 .  *MINOR* wird erhöht, wenn neue Funktionalitäten veröffentlicht werden, und
 .  *PATCH* wird erhöht, wenn es sich um reine Bugfixes handelt oder eine irreguläre Auslieferung (beispielsweise zur Fehlerbehebung) ist.
 
@@ -85,10 +85,10 @@ Das heißt, Fixes an Skripten sowie die Nachlieferungen fehlender Skripte müsse
 === Versionierung im SCM
 
 Die Benennung von Branches in einem SCM wie SVN oder Git hängt im Wesentlichen vom gewählten Workflow ab.
-Die Version eines finalen Tags einer Anwendung muss dem oben genannten Format folgen.
+Die Version eines finalen Tags eines IT-Systems muss dem oben genannten Format folgen.
 Finale Versionen dürfen kein Label enthalten.
 
-Wenn für eine Anwendung Entwicklungs- oder Integrationstags erstellt werden, beispielsweise für Continuous Delivery, müssen diese zusätzlich mit Build-Metadaten versehen werden, um möglichst genau feststellen zu können, welches Binärartefakt dem Tag zuzuordnen ist.
+Wenn für ein IT-System Entwicklungs- oder Integrationstags erstellt werden, beispielsweise für Continuous Delivery, müssen diese zusätzlich mit Build-Metadaten versehen werden, um möglichst genau feststellen zu können, welches Binärartefakt dem Tag zuzuordnen ist.
 Sie enthalten immer (MUST) einen alphanumerischen Identifier für den Build-Server und die Buildnummer.
 
 Diese sollten daher dem folgenden Schema folgen:
@@ -103,7 +103,7 @@ Diese sollten daher dem folgenden Schema folgen:
 [[versionierung-von-containern]]
 === Versionierung von Containern
 
-Zusätzlich zur Version der Anwendung muss der Container oder die Installationsdatei mit Build-Metadaten versehen werden, um möglichst genau feststellen zu können, welcher Entwicklungsstand enthalten ist.
+Zusätzlich zur Version des IT-Systems muss der Container oder die Installationsdatei mit Build-Metadaten versehen werden, um möglichst genau feststellen zu können, welcher Entwicklungsstand enthalten ist.
 
 [[rpm]]
 ==== RPM

@@ -1,8 +1,7 @@
-// tag::inhalt[]
 [[dialoge]]
 == Dialoge
 
-_In dem folgenden Abschnitt wird beschrieben, wie der Benutzer mit dem Anwendungssystem kommuniziert, d.h. welche Funktionen er wie in welchen Dialogen aufruft und welche Daten er pflegen kann.
+_In dem folgenden Abschnitt wird beschrieben, wie der Benutzer mit der Anwendung kommuniziert, d.h. welche Funktionen er wie in welchen Dialogen aufruft und welche Daten er pflegen kann.
 Die Beschreibung umfasst das statische Aussehen und das dynamische Verhalten der Dialoge._
 
 _Der Begriff „Dialog“ bezeichnet die gesamte Benutzerschnittstelle eines Anwendungsfalls (Masken, Zustände, Übergänge).
@@ -13,7 +12,7 @@ _Eine „Maske“ entspricht einem Bildschirmbereich zur Bearbeitung eines Arbei
 Eine Maske entspricht in der grafischen Benutzungsschnittstelle meist genau einem Fenster.
 Die Übergänge zwischen den Masken bzw. Zuständen eines Dialoges werden textuell bzw. grafisch beschrieben._
 
-_Wird die grafische Benutzeroberfläche innerhalb der Anwendungsfälle spezifiziert, hat das folgende Nachteile:_
+_Wird die grafische Benutzeroberfläche innerhalb der Anwendungsfälle spezifiziert, hat das die folgenden Nachteile:_
 
 * _Die Beschreibung der Anwendungsfälle wird sehr umfangreich und sehr detailliert und lenkt von der Beschreibung des fachlichen Ablaufes ab._
 * _Die Anwendungsfälle werden eventuell unnötigerweise zu detailliert beschrieben, da bestimmte Masken in mehreren Fällen benutzt werden und damit als separater Anwendungsfall ausgelagert werden können._
@@ -34,9 +33,8 @@ Falls nötig kann noch ein Adjektiv vor das Substantiv gestellt werden._
 .Dialog: DIA_Person_hinzufuegen
 image::vorlage-systemspezifikation/diapersonhinzufuegen.png[]
 
+._Erstellung des Diagramms im Enterprise Architect_
 ****
-Erstellung des Diagramms im Enterprise Architect:
-
 _Man erstellt ein Composite Structure Diagramm.
 Typischerweise beschreibt man die im Dialog verwendeten Masken zuerst (siehe Kapitel 6.3) und zieht die dort erzeugten Masken in das Diagramm.
 Dann nutzt man die Verbinder aus demselben UML-Profil „Dialoge“, um den Ablauf darzustellen.
@@ -59,9 +57,8 @@ Ein Übersichtsdiagramm zeigt die Masken je Anwendungskomponente._
 .Übersicht Masken
 image::vorlage-systemspezifikation/uebersicht-masken.png[]
 
+._Erstellung des Diagramms im Enterprise Architect_
 ****
-Erstellung des Diagramms im Enterprise Architect:
-
 _Man zieht die Ordner, die die Masken enthalten, in ein Composite Structure Diagramm._
 ****
 
@@ -81,9 +78,8 @@ Alternativ können sie auch in der Kurzbeschreibung der Maske aufgezählt werden
 .UML: MAS_Person_hinzufuegen
 image::vorlage-systemspezifikation/maspersonhinzufuegen.png[]
 
+._Erstellung des Diagramms im Enterprise Architect_
 ****
-Erstellung des Diagramms im Enterprise Architect:
-
 _Man zieht die Maske als zentrales Element des Diagramms aus dem UML-Profil „Dialoge“ in die Mitte eines „Composite Structure“-Diagramms und ordnet Entitäten aus dem Datenmodell oder Schnittstellenentitäten darum an.
 Die Verbinder stammen ebenfalls aus dem UML-Profil „Dialoge“._
 ****
@@ -97,9 +93,8 @@ Alternativ kann ein Masken-Prototyp (Englisch „Mockup“) mit anderen Mitteln 
 .Maske: MAS_Person_hinzufuegen
 image::vorlage-systemspezifikation/maspersonhinzufuegen-dialog.png[]
 
+._Erstellung des Diagramms im Enterprise Architect_
 ****
-Erstellung des Diagramms im Enterprise Architect:
-
 _Man zieht die Maske in ein Component Diagramm und vergrößert sie.
 Dann zieht man aus dem UML-Profil „Dialoge“ einzelne Maskenelemente in die Maske hinein, benennt sie und ordnet sie an._
 ****
@@ -123,6 +118,3 @@ _Dieser Abschnitt ist ein Platzhalter, um zu verdeutlichen, dass ab hier weitere
 ==== <Bezeichnung der Anwendungskomponente>
 
 _Dieser Abschnitt ist ein Platzhalter, um zu verdeutlichen, dass ab hier Masken der weiteren Anwendungskomponenten zu beschreiben sind._
-
-// end::inhalt[]
-
