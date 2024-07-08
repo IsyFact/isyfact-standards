@@ -5,14 +5,17 @@ include::glossary:licence:partial$licence.adoc[]
 [[einfuehrung-und-allgemeine-Prinzipien]]
 == Einführung und allgemeine Prinzipien
 
-Das Bedienkonzept & der Styleguide nehmen eine zentrale Rolle in der Entwicklung von Anwendungen und Webseiten ein.
-Sie dienen als umfassendes Regelwerk, das die Gestaltung und die Interaktionselemente definiert.
-Sie bilden das Fundament für eine konsistente und benutzerfreundliche Benutzungsoberfläche und fungieren als Leitfaden für Mitarbeitende im Bereich Design und Entwicklung, sowie für die Fachlichkeit gleichermaßen.
+Das Bedienkonzept nimmt eine zentrale Rolle in der Entwicklung von (Web-)Applikationen ein.
+Es dient als umfassendes Regelwerk, dass die Gestaltung und die Interaktionselemente definiert und bildet das Fundament für eine konsistente und benutzerfreundliche Benutzungsoberfläche.
 
 Das Hauptziel des Bedienkonzepts ist es, eine herausragende Benutzererfahrung zu schaffen, die die Zufriedenheit und Produktivität der Nutzenden maximiert.
-Es soll sicherstellen, dass Nutzenden die Anwendung ohne Schwierigkeiten nutzen können und dabei ihre Ziele effizient erreichen.
+Es soll sicherstellen, dass Nutzende die Anwendung ohne Schwierigkeiten nutzen können und dabei ihre Ziele *effizient* erreichen.
 
-In den folgenden Kapiteln wird das Bedienkonzept weiter ausgearbeitet und konkrete Richtlinien und Best Practices für die Entwicklung von Benutzungsoberflächen für Webanwendungen bereitgestellt.
+In den folgenden Kapiteln werden die benötigten Elemente zum Erreichen einer herausragenden Benutzeroberfläche vom "Kleinen" ins "Große" beschrieben.
+In den ersten Kapiteln werden der *allgemeine Rahmen und übergreifende Prinzipien* beschrieben.
+Darauf folgen die *Basiselemente* (wie z.B. Text und Farben), die essenziell wichtig sind und den Grundstein für die folgenden Kapitel legen.
+Die folgenden *Bedienelemente* sind die einfachste Ausprägung eines Interaktionselements.
+*Design Pattern* stellen eine Menge aus Bedienelementen und Basiselementen dar und können letztendlich in beliebiger weiterer Kombination als vollständiger *Use Case* beschrieben werden.
 
 Eine Live-Demo zu den Richtlinien dieses Bedienkonzepts finden Sie unter:
 https://isyfact.github.io/isy-angular-widgets/
@@ -22,50 +25,53 @@ https://isyfact.github.io/isy-angular-widgets/
 
 *_Gültigkeit und Anwendung_*
 
-Dieses Konzept ist für jede Webanwendung relevant, unabhängig von ihrer Komplexität oder Zielgruppe.
+Dieses Konzept ist für jede (Web-)Applikation relevant, unabhängig von ihrer Komplexität oder Zielgruppe.
 Es ist gültig für alle Neuentwicklungen und Überarbeitungen von Frontends, die einem Major Change oder Technologiewechsel unterliegen.
 Ausgeschlossen sind minimale Bugfixes und die grundsätzliche Wartung von Altanwendungen.
-Der Styleguide ist gültig ab Q1 – 2024.
+Das Bedienkonzept ist gültig ab Q1 – 2024.
 Die Gültigkeit des Bedienkonzepts für Altanwendungen bleibt zum damaligen Zeitpunkt mit den damalig gültigen Inhalten weiterhin aktiv.
 
 
-*_Bedeutung des Bedienkonzepts & Styleguides_*
+*_Bedeutung des Bedienkonzepts_*
 
-Das Bedienkonzept und der Styleguide sind weit mehr als nur ein Dokument mit Gestaltungsrichtlinien.
+Das Bedienkonzept ist weit mehr als nur ein Dokument mit Gestaltungsrichtlinien.
 Es ist ein umfassendes Werkzeug, das die Grundlage für die Entwicklung einer erfolgreichen Benutzungsoberfläche bildet.
-Indem es einheitliche Standards und Best Practices festlegt, trägt es maßgeblich zur Erreichung der Ziele einer Anwendung oder Webseite bei.
+Indem es einheitliche Standards und Best Practices festlegt, trägt es maßgeblich zur Erreichung der Ziele einer (Web-)Applikation bei.
 Diese Ziele können von der Steigerung der Bedienzufriedenheit über die Verbesserung der Effizienz bis hin zur Stärkung der Markenidentität reichen.
 
 *_Rolle von Designer, Entwickler und Fachlichkeit_*
 
-Designer und Entwickler spielen eine entscheidende Rolle bei der Umsetzung des Bedienkonzepts und Styleguides.
-Während Designer für die Gestaltung der Benutzungsoberfläche verantwortlich sind und sicherstellen, dass sie den festgelegten Standards entspricht, liegt es in der Verantwortung der Entwickler, diese Gestaltung in eine funktionierende Anwendung oder Webseite umzusetzen.
+Designer und Entwickler spielen eine entscheidende Rolle bei der Umsetzung des Bedienkonzepts.
+Während Designer für die Gestaltung der Benutzungsoberfläche verantwortlich sind und sicherstellen, dass sie den festgelegten Standards entspricht, liegt es in der Verantwortung der Entwickler, diese Gestaltung in eine funktionierende (Web-)Applikation umzusetzen.
 Eine enge Zusammenarbeit zwischen Design- und Entwicklungsteams ist unerlässlich, um sicherzustellen, dass das Endprodukt den gestalterischen und funktionalen Anforderungen entspricht.
+Insbesondere bei komplexen (Web-)Applikationen ist es ratsam frühst möglich die Fachlichkeit hinzuzuziehen und den erarbeiteten Konzeptionsstand zu evaluieren.
 
-*_Technische Kompatibilität und Struktur des Dokuments_*
+*_Technische Kompatibilität_*
 
-Darüber hinaus berücksichtigt das Bedienkonzept die technische Kompatibilität mit verschiedenen Geräten, um sicherzustellen, dass die Anwendung einer breiten Palette von Nutzenden zugänglich ist.
+Wenn (Web-)Applikationen anhand dieses Bedienkonzepts erstellt werden, müssen die korrekte Darstellung und Funktionsweisen der (Web-)Applikation inklusive ihrer Browser-Funktionen, wie bspw. "Vor" und "Zurück", geprüft werden.
+Dafür muss für jedes Prohjekt der primäre Browser und dessen Versionen ermittelt und geprüft werden.
+In der Regel und mindestens jedoch sollte sichergestellt sein, dass folgende Browser unterstützt werden.
+
+|===
+|Browser |Neuste Version aus Channel
+
+|Microsoft Edge
+|Stable Channel
+
+|Firefox
+|ESR
+
+|Chrome
+|Stable Channel
+|===
+
 Soweit notwendig wird auf browserspezifische Eigenheiten eingegangen.
-
-Wenn Webseiten anhand dieses Bedienkonzepts erstellt werden, müssen die korrekte Darstellung und Funktionsweisen der Webseiten inklusive ihrer Browser-Funktionen, wie bspw. "Vor" und "Zurück", geprüft werden.
-Dafür müssen für jedes Projekt der Nutzerkreis, sowie welche Browser und Versionen hauptsächlich eingesetzt werden, ermittelt und geprüft werden.
-Das Bedienkonzept gibt nur ein minimales Set von zu unterstützenden Browserversionen vor, die projektspezifisch nach Bedarf erweitert werden sollten.
-
-//ToDo: Hier stehen keine Browser, mit denen getestet werden soll. Laut V3 sollte hier eine Tabelle sein.
-
 Dabei sind folgende Auflösungen zu berücksichtigen:
 
 * 2560 x1440 2K
 * 1920 x 1080 Full HD
 * 1536 x 864 Tablet
 * 390x 873 Smartphone
-
-Die Struktur dieses Dokuments folgt einem klaren und übersichtlichen Format, das eine einfache Navigation und Verständnis ermöglicht.
-Es beginnt mit allgemeinen Prinzipien, die das Fundament jedes Elements bilden.
-Folgend werden die einzelnen Bedienelemente beschrieben, welche in unterschiedlicher gruppierter Anwendung ein Pattern bilden.
-Abgebildet werden hier exemplarisch die „Most-used“-Pattern.
-Diese Patterns bilden in verschiedenen Konstellationen mit weiteren Pattern und Bedienelementen typische Use Cases, wie z.B. Formulare.
-Diese Use Cases sind auch exemplarisch – ein Formular kann und muss mit dem Schwerpunkt der *optimalen Fachlichkeit* konzipiert werden.
 
 *_Einhaltung von Standards und Best Practices_*
 
@@ -78,7 +84,7 @@ Die Entwicklungen und Änderungen werden entsprechend dem Stand der Technik und 
 *_Kontinuierliche Weiterentwicklung und Pflege_*
 
 Ein Bedienkonzept ist kein statisches Dokument, sondern sollte kontinuierlich weiterentwickelt und gepflegt werden.
-Mit dem Fortschreiten der Technologie und den sich ändernden Anforderungen der Nutzenden ist es wichtig, das Bedienkonzept regelmäßig zu überprüfen und anzupassen, um sicherzustellen, dass er stets den aktuellen Standards und Best Practices entspricht.
+Mit dem Fortschreiten der Technologie und den sich ändernden Anforderungen der Nutzenden ist es wichtig, das Bedienkonzept regelmäßig zu überprüfen und anzupassen, um sicherzustellen, dass es stets den aktuellen Standards und Best Practices entspricht.
 Diese kontinuierliche Weiterentwicklung erfordert eine enge Zusammenarbeit zwischen allen Beteiligten und eine offene Kommunikation über Änderungen und Aktualisierungen - insbesondere zwischen Umsetzungsprojekten, Stakeholdern und den Designern, die mit diesem Dokument arbeiten.
 
 [[allgemeine-prinzipien]]
@@ -447,7 +453,7 @@ Setzen Sie das Attribut nicht aus ästhetischen oder stilistischen Gründen ein.
     </body>
 </html>
 
-[[technische Rahmenebedingungen]]
+[[technische-rahmenebedingungen]]
 == Technische Rahmenbedingungen
 
 Die technischen Rahmenbedingungen legen fest, welche Technologien und Plattformen für die Umsetzung des Bedienkonzepts verwendet werden sollen.
@@ -473,6 +479,7 @@ Deshalb kann die Palette von dem hier dokumentierten Stand abweichen.
 * Verwendung einer Anwendungsfarbe muss vom Projekt auf Barrierefreiheit geprüft werden und ist frei wählbar.
 
 Es kommt folgende Farbpalette zum Einsatz:
+
 [[image-Farbpalette]]
 .Farbpalette
 image::24_BE_farbpalette.png[align="center"]
