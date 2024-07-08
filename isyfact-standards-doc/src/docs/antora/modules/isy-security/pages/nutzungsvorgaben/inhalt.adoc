@@ -408,7 +408,7 @@ Der Pfad der Datei kann wie folgt angepasst werden:
 [cols="3m,2m,2m,8",options="header"]
 |===
 |Parameter |Wertebereich |Default |Beschreibung
-|isy.security.role-privilege-mapping-file | Resource | classpath:/resources/sicherheit/rollenrechte.xml | Pfad zu der XML-Datei, welche die Rollen-/Berechtigungszuordnungen enthält.
+|isy.security.role-privileges-mapping-file | Resource | classpath:/resources/sicherheit/rollenrechte.xml | Pfad zu der XML-Datei, welche die Rollen-/Berechtigungszuordnungen enthält.
 |===
 
 Der Baustein liefert ein xref:nutzungsvorgaben/master.adoc#anhang-rollen-rechte-schema[XML-Schema für den Aufbau der Konfigurationsdatei] mit.
@@ -496,7 +496,42 @@ public void abgesicherteMethode(/* ... */) {
 
 Als Parameter wird ein Array von Rechten übergeben.
 Die Rechte sind disjunktiv verknüpft.
-Die Autorisierung erfolgt dementsprechend wenn der Nutzer mindestens eins der in der `Secured` Annotation übergebenen Rechte besitzt.
+Die Autorisierung erfolgt dementsprechend wenn der Nutzer mindestens eines der in der `Secured`-Annotation übergebenen Rechte besitzt.
+
+Um konjunktive Verknüpfungen umzusetzen, sollte die Annotation `@PreAuthorize` aus Spring Security verwendet werden.
+`@PreAuthorize` ist für die Prüfung eines einzigen Rechtes äquivalent zu `@Secured`, nutzt aber die Spring Expression Language (SpEL).
+
+Dadurch sind Ausdrücke möglich wie:
+
+[source,java]
+----
+@PreAuthorize("hasAuthority('PRIV_Recht_A') and hasAuthority('PRIV_Recht_B')")
+----
+
+Die annotationsbasierte Autorisierung auf Methoden-/Klassenlevel muss durch setzen der `@EnableMethodSecurity`-Annotation an einer `@Configuration`-Klasse aktiviert werden.
+Dabei kann mit den Optionen `securedEnabled` und `prePostEnabled` die Verwendung von `@Secured` und `@PreAuthorize` aktiviert/deaktiviert werden.
+Die Option `prePostEnabled` ist standardmäßig aktiviert.
+
+[[listing-enable-method-security]]
+.Aktivierung der Method Security
+[source,java]
+----
+@Configuration
+@EnableMethodSecurity(securedEnabled = true, prePostEnabled = true)
+public class SecurityConfiguration {
+    // ...
+}
+----
+
+[IMPORTANT]
+====
+Method Level Security ist für die Nutzung in der Service Schicht.
+Die Verwendung an `@Controller` Klassen/Methoden kann zu Fehlern führen und wird nicht empfohlen.
+Für Webcontroller ohne Service-Schicht kann https://docs.spring.io/spring-security/reference/servlet/authorization/authorize-http-requests.html[Request Level Autorisierung] genutzt werden.
+
+Das mehrfache setzen der `@EnableMethodSecurity`-Annotation sollte vermieden werden.
+Mit abweichender Konfiguration kann dies zu unerwartetem Verhalten und Fehlern führen.
+====
 
 [[attr-token-abfragen]]
 == Attribute aus dem Bearer Token abfragen

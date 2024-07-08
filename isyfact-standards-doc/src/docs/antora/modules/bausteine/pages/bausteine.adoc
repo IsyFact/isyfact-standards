@@ -28,7 +28,7 @@ Hellblau umrandete Waben bedeuten, dass der Baustein als Software-Bibliothek ver
 ****
 ====
 
-Die nachfolgende Tabelle beschreibt die Bausteine. Sie stellen in der Regel ein Dokument aus architektonischer Sicht – das Konzept – und ein Dokument aus technischer Sicht – die Nutzungsvorgaben – sowie eine Software-Bibliothek zur Integration in eigene Anwendungssysteme bereit.
+Die nachfolgende Tabelle beschreibt die Bausteine. Sie stellen in der Regel ein Dokument aus architektonischer Sicht – das Konzept – und ein Dokument aus technischer Sicht – die Nutzungsvorgaben – sowie eine Software-Bibliothek zur Integration in eigene Anwendungen bereit.
 
 [cols="1s,3a",options="header"]
 |===

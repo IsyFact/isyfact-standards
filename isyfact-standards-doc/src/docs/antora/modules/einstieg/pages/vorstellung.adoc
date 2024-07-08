@@ -146,7 +146,7 @@ Darüber hinaus stellt das BVA die Register Factory auf Anfrage auch anderen Beh
 
 In diesem Kontext wird zwischen den Systemtypen _Register_ und _Geschäftsanwendungen_ unterschieden.
 Register dienen der Sammlung von Informationen und besitzen keine Präsentationslogik oder fachlichen Prozesse.
-Geschäftsanwendungen implementieren fachliche Logik, Prozesse und präsentieren die Daten aus den Registern.
+Geschäftsanwendungen implementieren Geschäftslogik, Prozesse und präsentieren die Daten aus den Registern.
 Die Anwendungsarchitektur der Register Factory und deren Bausteine und Methoden ließen sich aber ohne weiteres zur Entwicklung beliebiger fachlicher Anwendungen (_Geschäftsanwendungen_) benutzen.
 Register sind lediglich Spezialfälle solcher Geschäftsanwendungen.
 Um die Artefakte der Register Factory auch in anderen Kontexten zur Verfügung zu stellen, wurden die bestehenden Artefakte der Register Factory umstrukturiert und neu aufgeteilt in IsyFact (Standards und Erweiterungen) und Register Factory.

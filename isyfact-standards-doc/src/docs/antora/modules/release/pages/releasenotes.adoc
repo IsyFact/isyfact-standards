@@ -33,18 +33,34 @@ Die Seite "Referenzarchitektur" wurde nach Architektursichten aufgeteilt:
 
 Die restlichen Inhalte der Referenzarchitektur wurden thematisch gegliedert und  in der xref:referenzarchitektur:index.adoc[Navigation] z.T. neu angeordnet.
 
-=== Software-technische Sicht
-// TODO: Links zu den entsprechenden Seiten ergänzen, wenn vorhanden!
-IT-Systeme dürfen keine UI-Komponenten mehr enthalten.
-Zur Umsetzung von UIs sieht die Referenzarchitektur nur noch eigenständige Frontend-Anwendungen vor.
-Ergänzend hierzu beinhaltet die IsyFact einen Baustein zur Umsetzung dieser Anwendungen mit Angular.
+=== Fachliche Referenzarchitektur
 
-Datenzugriff:: Für die Überführung von persistenten Entitäten in Geschäftsobjekte sollen keine gesonderten Schnittstellenobjekte mehr genutzt werden.
+Die Begrifflichkeiten rund um Anwendungen wurden z.T. angepasst und neu definiert.
+Der Begriff xref:glossary:glossary:master.adoc#glossar-anwendungssystem[Anwendungssystem] entfällt zugunsten der Begriffe xref:glossary:glossary:master.adoc#glossar-anwendung[Anwendung] und xref:glossary:glossary:master.adoc#glossar-it-system[IT-System], da mit diesem Begriff manchmal das eine und manchmal das andere gemeint war.
+
+=== Software-technische Referenzarchitektur
+
+Die software-technische Referenzarchitektur sieht nun vor, eine  xref:referenzarchitektur:software-technisch/it-system-zerlegung.adoc[Anwendung in mehrere IT-Systeme zu zerlegen].
+Eine Abbildung einer Anwendung auf nur ein IT-System ist weiterhin möglich, stellt aber einen Spezialfall dar.
+Die Beschreibung dieses "technischen Schnitts" zieht auch eine neue Definition des xref:glossary:glossary:master.adoc#glossar-it-system[IT-Systems] nach sich.
+Neu eingeführt wurden die xref:glossary:glossary:master.adoc#glossar-it-systemtyp[IT-Systemtypen].
+Sie stellen konkrete Ausprägungen des IT-Systems dar, besitzen eine jeweils eigene Systemarchitektur und können auf verschiedenartige Technologie-Stacks setzen.
+Aktuell gibt es drei IT-Systemtypen: xref:glossary:glossary:master.adoc#backend[Backend], xref:glossary:glossary:master.adoc#frontend[Frontend] sowie xref:glossary:glossary:master.adoc#glossar-batch[Batch].
+
+Die IT-Systemtypen Backend und Batch enthalten keine UI-Komponenten.
+Zur Umsetzung von UIs sieht die Referenzarchitektur nur noch eigenständige Frontends vor.
+Ergänzend hierzu beinhaltet die IsyFact einen Baustein zur Umsetzung von Frontends mit xref:isy-angular-widgets-doc::konzept/konzept.adoc[Angular].
+
+==== Datenzugriff
+Für die Überführung von persistenten Entitäten in Geschäftsobjekte sollen keine gesonderten Schnittstellenobjekte mehr genutzt werden.
 Die Komponente Datenzugriff übergibt persistente Entitäten an den Anwendungskern.
 Der Anwendungskern darf keine persistenten Entitäten mehr herausgeben, auch nicht zwischen seinen Fachkomponenten.
 Entsprechende Ausnahmen wurden gestrichen.
 
-Anwendungskern:: Das Konzept der "Basisdaten" wurde gestrichen, in dem die Referenzarchitektur erlaubt hat, von Fachkomponenten gemeinsam benutzte Geschäftsobjekte zu definieren. Für diese Geschäftsobjekte gab es keine Komponente im Anwendungskern, sondern nur einen direkten Zugriff auf die dazugehörigen Entitäten. Die Referenzarchitektur sieht nun vor, dass Fachkomponenten ohne Ausnahme die vollständige Datenhoheit über ihre eigenen Geschäftsobjekte besitzen.
+==== Anwendungskern
+Das Konzept der "Basisdaten" wurde gestrichen, in dem die Referenzarchitektur erlaubt hat, von Fachkomponenten gemeinsam benutzte Geschäftsobjekte zu definieren.
+Für diese Geschäftsobjekte gab es keine Komponente im Anwendungskern, sondern nur einen direkten Zugriff auf die dazugehörigen Entitäten.
+Die Referenzarchitektur sieht nun vor, dass Fachkomponenten ohne Ausnahme die vollständige Datenhoheit über ihre eigenen Geschäftsobjekte besitzen.
 
 
 [[kapitel-bausteine]]

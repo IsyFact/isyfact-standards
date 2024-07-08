@@ -1,5 +1,3 @@
-// tag::inhalt[]
-
 [[offene-punkte]]
 == Offene Punkte
 
@@ -13,6 +11,3 @@ _Die zur Abnahme des Dokuments noch zu klärenden offenen Punkte in Listenform._
 |_1_ |_Ein offener Punkt_
 | |
 |====
-
-// end::inhalt[]
-

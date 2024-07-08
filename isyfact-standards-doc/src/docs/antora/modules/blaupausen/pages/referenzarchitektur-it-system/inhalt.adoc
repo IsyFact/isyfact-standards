@@ -7,8 +7,8 @@ Die technische Architektur (xref:glossary:glossary:master.adoc#glossar-t-archite
 [[die-referenzarchitektur-eines-it-systems]]
 === Die Referenzarchitektur eines IT-Systems
 
-Die individuell erstellten Anwendungssysteme der Systemlandschaft müssen technisch gleichartig aufgebaut sein.
-Daher wird im Folgenden die Referenzarchitektur beschrieben, nach der diese Anwendungssysteme software-technisch in IT-Systeme umgesetzt werden.
+Die individuell erstellten Anwendungen der Anwendungslandschaft müssen technisch gleichartig aufgebaut sein.
+Daher wird im Folgenden die Referenzarchitektur beschrieben, nach der diese Anwendungen software-technisch in IT-Systeme umgesetzt werden.
 
 .Referenzarchitektur eines IT-Systems
 [id="image-RAITSys",reftext="{figure-caption} {counter:figures}"]
@@ -19,7 +19,7 @@ Der Datenzugriff auf das DBMS ist in dieser Schicht vollständig gekapselt.
 In Richtung Datenbank kommuniziert diese Schicht mittels JDBC und SQL, in Richtung des Anwendungskerns stellt die Schicht Geschäftsobjekte zur Verfügung.
 Die Persistenz nutzt dazu das Framework Hibernate über die Java Persistence API (JPA).
 
-Der *Anwendungskern* umfasst die fachliche Logik zur Datenbearbeitung, die mit dem System realisiert werden soll.
+Der *Anwendungskern* umfasst die Geschäftslogik zur Datenbearbeitung, die mit dem System realisiert werden soll.
 Dazu gehören zum Beispiel Datenvalidierungen oder Funktionen zum Verarbeiten von Geschäftsobjekten, die über den Datenzugriff geladen wurden.
 
 Die *Nutzungsschicht* ist eine Erweiterung der klassischen Drei-Schichten Architektur:
@@ -146,7 +146,7 @@ Aus Architektur-Sicht werden diese Anforderungen durch zwei Komponenten abgedeck
 Er übernimmt auch die Transaktionssteuerung und die Steuerung für einen Restart.
 
 *Batchlogik:* Die Batchlogik wird vom Batchrahmen aufgerufen, um die Funktionalität des Batchverarbeitungsprogramms zu aktivieren.
-Die Funktionalität, das heißt die fachliche Logik und die Arbeitsschritte eines Batches, werden als Anwendungsfälle erfasst.
+Die Funktionalität, das heißt die Geschäftslogik und die Arbeitsschritte eines Batches, werden als Anwendungsfälle erfasst.
 Wenn diese Anwendungsfälle auch von anderen Nutzern benötigt werden, dann sind sie im Anwendungskern implementiert.
 
 .Bestandteile von Batchverarbeitungsprogrammen

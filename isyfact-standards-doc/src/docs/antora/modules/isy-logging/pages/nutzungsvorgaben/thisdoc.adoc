@@ -6,10 +6,10 @@
 
 Im Dokument xref:konzept/master.adoc#einleitung[Logging - Konzept] werden die Anforderungen und Vorgaben für das Logging der IsyFact definiert, um eine einheitliche Umsetzung in der gesamten xref:glossary:glossary:master.adoc#glossar-anwendungslandschaft[Anwendungslandschaft] zu gewährleisten.
 
-Das vorliegende Dokument beschreibt alle Aspekte, die bei der Entwicklung einer Anwendung zu berücksichtigen sind, um die definierten Anforderungen zu erfüllen.
+Das vorliegende Dokument beschreibt alle Aspekte, die bei der Entwicklung eines IT-Systems zu berücksichtigen sind, um die definierten Anforderungen zu erfüllen.
 Die IsyFact stellt eine eigene Bibliothek `isy-logging` bereit, um die Anforderungen einfach und einheitlich umsetzen zu können.
 Die Nutzung der Bibliothek ist ebenfalls in diesem Dokument beschrieben.
-Das Dokument richtet sich daher vorrangig an Entwickler, Konstrukteure und Technische Chefdesigner von Anwendungssystemen, die gemäß den Vorgaben der IsyFact umgesetzt werden.
+Das Dokument richtet sich daher vorrangig an Entwickler, Konstrukteure und Technische Chefdesigner von IT-Systemen, die gemäß den Vorgaben der IsyFact umgesetzt werden.
 
 *Abgrenzung*
 

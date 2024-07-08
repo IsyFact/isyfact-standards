@@ -853,7 +853,7 @@ Fehler werden in einem Array zurückgegeben um auch das Senden mehrerer Fehler, 
      "timestamp": "2020-08-23T14:53:33.452+02:00",
      "status": 404,
      "error": "Not Found",
-     "message": "0001 Die Nachricht mit der ID=1 konnte nicht gefunden werden. 4321",
+     "message": "#0001 Die Nachricht mit der ID=1 konnte nicht gefunden werden. #4321",
      "path": "/ressource/1234"
     }
 ]
@@ -881,7 +881,8 @@ Nähere Informationen zu OAuth2 gibt es auf der https://oauth.net/2/[OAuth2 Home
 Informationen zur Bearer Propagation gibt es in der https://docs.spring.io/spring-security/site/docs/5.2.x/reference/html/oauth2.html#oauth2resourceserver-bearertoken-resolver[offiziellen Spring Dokumentation].
 ====
 
-Um eine Klasse oder einzelne Methoden zu sichern, ist die `@Secured` Annotation des Bausteins Security zu verwendet.
+Um eine Klasse oder einzelne Methoden zu sichern, wird empfohlen, die `@Secured` Annotation von Spring Security in der Service-Schicht zu verwenden.
+Die Verwendung auf einzelnen Webcontroller Klassen/Methoden wird nicht empfohlen. Für Webcontroller ohne Service Schicht kann https://docs.spring.io/spring-security/reference/servlet/authorization/authorize-http-requests.html[Request Level Autorisierung] genutzt werden.
 
 Generell ist das xref:isy-security:konzept/master.adoc[Konzept der Sicherheitsarchitektur] zu beachten.
 

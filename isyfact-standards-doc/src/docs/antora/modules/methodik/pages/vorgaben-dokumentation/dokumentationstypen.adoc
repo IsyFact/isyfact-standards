@@ -335,7 +335,7 @@ a|* xref:methodik:vorlagen.adoc#table-dokumentation-anwendung[Vorlagen] +
 2+|Anwenderhandbuch
 
 |Ziel
-|Bedienungshinweise zur Benutzeroberfläche für Anwender von fachlichen Anwendungssystemen oder Querschnittsanwendungen.
+|Bedienungshinweise für Anwender zur grafischen Benutzeroberfläche von Anwendungen.
 
 |Inhalt
 a|

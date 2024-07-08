@@ -237,7 +237,7 @@ In diesem Kapitel wird die Implementierung von Batches zu einer Anwendung beschr
 * Die Batch-Verarbeitung verwendet den Anwendungskern der zugehörigen Anwendung.
 Der Anwendungskern ist Teil des Batch-Deployments, d.h. der Code ist sowohl Teil der Server-Anwendung als auch der Batch-Anwendung in Bezug auf Deploymenteinheiten.
 * Zur Realisierung der Batchlogik wird eine Batch-Ausführungs-Bean implementiert.
-* Falls für die Verarbeitung im Batch eigene Fachlogik benötigt wird, ist diese trotzdem den entsprechenden Anwendungskomponenten der zugehörigen Geschäftsanwendung hinzuzufügen.
+* Falls für die Verarbeitung im Batch eigene Geschäftslogik benötigt wird, ist diese trotzdem den entsprechenden Anwendungskomponenten der zugehörigen Geschäftsanwendung hinzuzufügen.
 * Im Rahmen der Initialisierung hat die Ausführungs-Bean unter anderem die Aufgabe, die Konsistenz und Korrektheit der Eingabedaten zu prüfen.
 * Falls die zu verarbeitenden Sätze eines Batches das Ergebnis einer Datenbank-Query sind, ist in der Initialisierung die Query über eine Anwendungskomponente der zugehörigen Geschäftsanwendung abzusetzen.
 Diese Query soll die (fachlichen) Schlüssel von Entitäten, nicht Entitäten selbst auslesen.
@@ -245,7 +245,7 @@ Diese Query soll die (fachlichen) Schlüssel von Entitäten, nicht Entitäten se
 * Batches erzeugen ein Ausführungsprotokoll.
 Der Batchrahmen, die Steuerungsimplementierung, die jeden Batch und dessen Arbeitsschritte steuert, stellt die notwendige Implementierung bereit.
 Die Ausführungs-Bean übermittelt dem Batchrahmen Status-Informationen für das Protokoll.
-* Batches verwenden einen (konfigurierten) technischen Benutzer, um sich vor Start der fachlichen Verarbeitung am IAM-Service des Anwendungssystems oder der Anwendungslandschaft zu authentifizieren.
+* Batches verwenden einen (konfigurierten) technischen Benutzer, um sich vor Start der fachlichen Verarbeitung am IAM-Service der Anwendung oder der Anwendungslandschaft zu authentifizieren.
 * Alle Batches zu einer Anwendung werden als eigenständige Deployment-Einheit ausgeliefert.
 
 [[klassendesign-4]]
