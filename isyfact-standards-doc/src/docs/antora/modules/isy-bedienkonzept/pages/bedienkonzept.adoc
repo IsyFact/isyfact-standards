@@ -39,17 +39,25 @@ Es ist ein umfassendes Werkzeug, das die Grundlage für die Entwicklung einer er
 Indem es einheitliche Standards und Best Practices festlegt, trägt es maßgeblich zur Erreichung der Ziele einer (Web-)Applikation bei.
 Diese Ziele können von der Steigerung der Bedienzufriedenheit über die Verbesserung der Effizienz bis hin zur Stärkung der Markenidentität reichen.
 
-*_Rolle von Designer, Entwickler und Fachlichkeit_*
+*_Rolle von Designenden, Entwickelnden und Fachlichkeit_*
 
-Designer und Entwickler spielen eine entscheidende Rolle bei der Umsetzung des Bedienkonzepts.
-Während Designer für die Gestaltung der Benutzungsoberfläche verantwortlich sind und sicherstellen, dass sie den festgelegten Standards entspricht, liegt es in der Verantwortung der Entwickler, diese Gestaltung in eine funktionierende (Web-)Applikation umzusetzen.
+Designende und Entwickelnde spielen eine entscheidende Rolle bei der Umsetzung des Bedienkonzepts.
+Während Designende für die Gestaltung der Benutzungsoberfläche verantwortlich sind und sicherstellen, dass sie den festgelegten Standards entspricht, liegt es in der Verantwortung der Entwickelnden, diese Gestaltung in eine funktionierende (Web-)Applikation umzusetzen.
 Eine enge Zusammenarbeit zwischen Design- und Entwicklungsteams ist unerlässlich, um sicherzustellen, dass das Endprodukt den gestalterischen und funktionalen Anforderungen entspricht.
 Insbesondere bei komplexen (Web-)Applikationen ist es ratsam frühst möglich die Fachlichkeit hinzuzuziehen und den erarbeiteten Konzeptionsstand zu evaluieren.
+
+*_Einhaltung von Standards und Best Practices_*
+
+Das Bedienkonzept legt Standards und Best Practices fest, die von Designern und Entwicklern eingehalten werden müssen.
+Diese Standards können sich auf verschiedene Aspekte der Gestaltung und Interaktion beziehen, wie Typografie, Farbgebung, Bedienelemente und Barrierefreiheit.
+Indem sie sich an diese Standards halten, gewährleisten Designer und Entwickler nicht nur die Konsistenz der Benutzungsoberfläche, sondern auch deren Kompatibilität mit verschiedenen Geräten und Plattformen.
+Wie bei jeder digitalen Anwendung unterliegt auch dieses Bedienkonzept einer ständigen Weiterentwicklung.
+Die Entwicklungen und Änderungen werden entsprechend dem Stand der Technik und der rechtlichen Gegebenheiten aktualisiert und gekennzeichnet.
 
 *_Technische Kompatibilität_*
 
 Wenn (Web-)Applikationen anhand dieses Bedienkonzepts erstellt werden, müssen die korrekte Darstellung und Funktionsweisen der (Web-)Applikation inklusive ihrer Browser-Funktionen, wie bspw. "Vor" und "Zurück", geprüft werden.
-Dafür muss für jedes Prohjekt der primäre Browser und dessen Versionen ermittelt und geprüft werden.
+Dafür muss für jedes Projekt der primäre Browser und dessen Versionen ermittelt und geprüft werden.
 In der Regel und mindestens jedoch sollte sichergestellt sein, dass folgende Browser unterstützt werden.
 
 |===
@@ -73,70 +81,15 @@ Dabei sind folgende Auflösungen zu berücksichtigen:
 * 1536 x 864 Tablet
 * 390x 873 Smartphone
 
-*_Einhaltung von Standards und Best Practices_*
-
-Das Bedienkonzept legt Standards und Best Practices fest, die von Designern und Entwicklern eingehalten werden müssen.
-Diese Standards können sich auf verschiedene Aspekte der Gestaltung und Interaktion beziehen, wie Typografie, Farbgebung, Bedienelemente und Barrierefreiheit.
-Indem sie sich an diese Standards halten, gewährleisten Designer und Entwickler nicht nur die Konsistenz der Benutzungsoberfläche, sondern auch deren Kompatibilität mit verschiedenen Geräten und Plattformen.
-Wie bei jeder digitalen Anwendung unterliegt auch dieses Bedienkonzept einer ständigen Weiterentwicklung.
-Die Entwicklungen und Änderungen werden entsprechend dem Stand der Technik und der rechtlichen Gegebenheiten aktualisiert und gekennzeichnet.
-
 *_Kontinuierliche Weiterentwicklung und Pflege_*
 
 Ein Bedienkonzept ist kein statisches Dokument, sondern sollte kontinuierlich weiterentwickelt und gepflegt werden.
 Mit dem Fortschreiten der Technologie und den sich ändernden Anforderungen der Nutzenden ist es wichtig, das Bedienkonzept regelmäßig zu überprüfen und anzupassen, um sicherzustellen, dass es stets den aktuellen Standards und Best Practices entspricht.
 Diese kontinuierliche Weiterentwicklung erfordert eine enge Zusammenarbeit zwischen allen Beteiligten und eine offene Kommunikation über Änderungen und Aktualisierungen - insbesondere zwischen Umsetzungsprojekten, Stakeholdern und den Designern, die mit diesem Dokument arbeiten.
 
-[[allgemeine-prinzipien]]
-=== Allgemeine Prinzipien
+=== Begrifflichkeiten des Designs
 
-Das Bedienkonzept basiert auf einer Reihe von allgemeinen Prinzipien, die als Leitfaden für die Gestaltung von Benutzungsoberflächen dienen.
-Diese Prinzipien umfassen Klarheit, Konsistenz, Feedback, Effizienz und Zugänglichkeit und bilden das Fundament für eine benutzerzentrierte Gestaltung.
-//ToDo: Verweise zu ISO 9241, Nielsen und lawsoflux hinzufügen?
-Viele dieser Prinzipien werden beispielsweise in der ISO 9241 und in Nielsen’s Web Usability Criteria beschrieben.
-Zusätzlich liefert https://lawsofux.com/[lawsofux] eine anschauliche Sammlung von Design Prinzipien.
-Als tiefergehende Grundlage zu den Designprinzipien können die Gestaltgesetze aus der Gestaltpsychologie herangezogen werden.
-
-*_Klarheit_*
-
-Im Design bezieht sich das Prinzip der "Klarheit" darauf, wie gut eine Webseite oder Anwendung für ihre Nutzenden verständlich und wie einfach sie zu navigieren ist.
-Klarheit bedeutet, dass Informationen klar präsentiert werden, sodass Besucher sofort verstehen, was die Webseite oder Anwendung bietet und wie sie sie nutzen können.
-Dies umfasst eine klare Strukturierung von Inhalten, eine leicht lesbare Typografie, gut platzierte Navigationselemente und eine konsistente visuelle Gestaltung.
-Durch die Priorisierung von Klarheit im Design können Designer sicherstellen, dass Nutzer sich leicht auf der Webseite oder Anwendung zurechtfinden und ihre Ziele effizient erreichen können.
-
-*_Konsistenz_*
-
-Im Design bezieht sich das Prinzip der "Konsistenz" auf die Notwendigkeit, ein einheitliches Erscheinungsbild und Verhalten über alle Seiten einer Website hinweg zu gewährleisten.
-Konsistenz bedeutet, dass Designelemente wie Farben, Schriftarten, Symbole und Layouts einheitlich angewendet werden, um eine nahtlose Benutzererfahrung zu schaffen.
-Durch die Aufrechterhaltung einer konsistenten Gestaltung können Nutzer die Webseite leichter verstehen und navigieren, da sie sich auf bereits bekannte Muster und Interaktionen verlassen können.
-Darüber hinaus trägt die Konsistenz dazu bei, das Markenimage zu stärken und das Vertrauen der Nutzenden in die Anwendung zu fördern.
-
-*_Feedback_*
-
-Das Designprinzip des "Feedbacks" bezieht sich auf die kontinuierliche Kommunikation zwischen der Webseite oder Anwendung und ihren Nutzenden während deren Interaktionen.
-Feedback ist entscheidend, um den Nutzenden Rückmeldungen darüber zu geben, ob ihre Aktionen erfolgreich waren oder nicht.
-Dies kann in Form von visuellem Feedback, wie zum Beispiel einer Farbänderung eines Buttons nach einem Klick, oder durch informative Nachrichten, wie Bestätigungsmeldungen nach dem Absenden eines Formulars, erfolgen.
-Durch effektives Feedback fühlen sich Nutzende unterstützt und informiert, was zu einer verbesserten Benutzererfahrung und einer höheren Zufriedenheit führt.
-Dies gilt insbesondere auch für Aspekte der Barrierefreiheit.
-Technische Standardmöglichkeiten sollen genutzt und ggf. mit entsprechenden Hilfsmitteln (wie ARIA-Elementen) angereichert werden.
-
-*_Effizienz_*
-
-Das Designprinzip der "Effizienz" bezieht sich darauf, wie gut eine Webseite die Bedürfnisse und Ziele ihrer Nutzenden mit minimalen Aufwänden erfüllt.
-Effizientes Design strebt danach, unnötige Komplexität zu vermeiden und die Interaktionen der Nutzenden so reibungslos wie möglich zu gestalten.
-Dies umfasst Aspekte wie schnelle Ladezeiten, intuitive Navigation, gut platzierte Call-to-Actions und eine klare Informationsarchitektur.
-Ein effizientes Design stellt sicher, dass Nutzende ihre Ziele schnell erreichen können ohne dabei Zeit oder Mühe zu verschwenden - sei es beim Finden von Informationen, beim Abschließen eines Kaufs oder beim Ausführen einer bestimmten Aktion.
-
-*_Zugänglichkeit_*
-
-Das Designprinzip der "Zugänglichkeit" soll sicherstellen, dass eine Webseite oder Anwendung für alle Nutzenden, unabhängig von ihren individuellen Fähigkeiten oder Einschränkungen, leicht zugänglich ist.
-Dies beinhaltet die Gestaltung und Entwicklung der Webseite unter Berücksichtigung verschiedener Bedürfnisse, wie zum Beispiel Sehbehinderungen, Hörbehinderungen oder motorische Einschränkungen.
-//ToDo: Beispiele für nicht benutzerfreundliche Technologien?
-Zugängliches Design beinhaltet die Verwendung von klaren und verständlichen Texten, ausreichendem Kontrast zwischen Text und Hintergrund, Tastaturzugänglichkeit, alternative Texte für Bilder und die Vermeidung von Technologien, die für einige Personengruppen hinderlich sein könnten.
-Ein zugängliches Design gewährleistet, dass alle Nutzenden die Informationen und Funktionen der Webseite nutzen können, was zu einer inklusiven und positiven Benutzererfahrung führt.
-Dieses Prinzip wird im Kapitel <<Barrierefreiheit>> und unter den einzelnen <<Bedienelemente,Bedienelementen>> detaillierter beschrieben.
-
-*_Begriff der Usability_*
+*_Begriff der Usability (UI)_*
 
 Usability ist ein Schlüsselaspekt des Bedienkonzepts und bezieht sich auf die Nutzungsfreundlichkeit einer Anwendung.
 Eine hohe Usability gewährleistet, dass Nutzende die Anwendung intuitiv und effizient nutzen können, ohne auf Hindernisse oder Schwierigkeiten zu stoßen.
@@ -148,7 +101,7 @@ Daher ist es entscheidend, dass die Anwendung nahtlos in die Arbeitsabläufe int
 Eine gute Usability in Fachanwendungen trägt zur Produktivität, Effizienz und Zufriedenheit der Nutzenden bei und kann somit erhebliche Auswirkungen auf den Erfolg und die Akzeptanz der Anwendung haben.
 Das Bedienkonzept zielt darauf ab, die Usability zu maximieren, indem es klare und konsistente Vorgaben und Interaktionsmuster definiert.
 
-*_Anwendungskomfort und Nutzungsfreundlichkeit_*
+*_Begriff der Nutzungsfreundlichkeit (UX)_*
 
 Ein zentrales Ziel des Bedienkonzepts ist es, eine konsistente und nutzerfreundliche Benutzungsoberfläche zu schaffen.
 Durch die Festlegung einheitlicher Gestaltungsrichtlinien und Interaktionselemente wird sichergestellt, dass sich Nutzende schnell und intuitiv in der Anwendung oder Webseite zurechtfinden.
@@ -170,97 +123,53 @@ Berücksichtigen Sie dabei Nutzende mit unterschiedlichen Fähigkeiten, Geräten
 //ToDo: In welchen Sectionen wird das genauer beschrieben? und/oder passt hier nicht!
 Weitere Informationen zu einer besseren Nutzungsfreundlichkeit sind am jeweiligen <<Bedienelemente,Bedienelement>>, dem Pattern und/oder Eingabehilfen und Fehlermeldungen zu finden.
 
+[[allgemeine-prinzipien]]
+=== Allgemeine Prinzipien
 
-*_Text_*
+Das Bedienkonzept basiert auf einer Reihe von allgemeinen Prinzipien, die als Leitfaden für die Gestaltung von Benutzungsoberflächen dienen.
+Diese Prinzipien umfassen Klarheit, Konsistenz, Feedback, Effizienz und Zugänglichkeit und bilden das Fundament für eine benutzerzentrierte Gestaltung.
+Viele dieser Prinzipien werden beispielsweise in der https://de.wikipedia.org/wiki/ISO_9241[ISO 9241] und in https://en.wikipedia.org/wiki/Web_usability#Web_Usability_Criteria[Nielsen’s Web Usability Criteria] beschrieben.
+Zusätzlich liefert https://lawsofux.com/[lawsofux] eine anschauliche Sammlung von Design Prinzipien.
 
-Die Textelemente spielen eine entscheidende Rolle bei der Kommunikation mit den Nutzenden.
-Dieser Abschnitt definiert die typografischen Standards, sprachlichen Richtlinien und Längenbeschränkungen, die dazu beitragen, dass die Texte klar, verständlich und ansprechend sind.
 
-Anwendungen des Bundes sollen über die IT-Landschaft hinweg ein einheitliches Look-and-Feel bieten.
-Dies wird über den Einsatz der IsyFact und deren Komponenten gewährleistet.
-Dafür ist es notwendig auch bei der Schrift (im weiteren Font) einheitlich vorzugehen.
-Zur Anwendung kommt primär:
+*_Klarheit_*
 
-*BundesSans*
+Im Design bezieht sich das Prinzip der "Klarheit" darauf, wie verständlich eine (Web-)Applikation und wie einfach sie zu navigieren ist.
+Klarheit bedeutet, dass Informationen klar präsentiert werden, sodass Besuchende sofort verstehen, was die (Web-)Applikation bietet und wie sie sie nutzen können.
+Dies umfasst eine klare Strukturierung von Inhalten, eine leicht lesbare Typografie, gut platzierte Navigationselemente und eine konsistente visuelle Gestaltung.
+Durch die Priorisierung von Klarheit im Design können Designende sicherstellen, dass Nutzende sich leicht auf der (Web-)Applikation zurechtfinden und ihre Ziele effizient erreichen können.
 
-Diese Schriftart wurde extra für Inhalte des Bundes entwickelt und zur Verfügung gestellt.
-Die BundesSans ist eine humanistische serifenlose Schrift.
-Rationalität und äußerste Klarheit kennzeichnen ihre Formensprache.
-Die BundesSans gehört zu den sogenannten humanistischen Serifenlosen und entspricht den Empfehlungen des DBSV hinsichtlich der Leserlichkeit von Schrift.
-Auch in der DIN 1450 – Leserlichkeit – werden Humanistische Antiqua- (mit Serifen) und Groteskschriften (ohne Serifen) als besonders gut leserlich bezeichnet.
+*_Konsistenz_*
 
-_Sprachumfang_
+Im Design bezieht sich das Prinzip der "Konsistenz" auf die Notwendigkeit, ein einheitliches Erscheinungsbild und Verhalten über alle Seiten einer Website hinweg zu gewährleisten.
+Konsistenz bedeutet, dass Designelemente wie Farben, Schriftarten, Symbole und Layouts einheitlich angewendet werden, um eine nahtlose Benutzererfahrung zu schaffen.
+Durch die Aufrechterhaltung einer konsistenten Gestaltung können Nutzende die (Web-)Applikation leichter verstehen und navigieren, da sie sich auf bereits bekannte Muster und Interaktionen verlassen können.
+Darüber hinaus trägt die Konsistenz dazu bei, das Markenimage zu stärken und das Vertrauen der Nutzenden in die Anwendung zu fördern.
 
-Folgende Sprachen werden von den Schriften BundesSerif, BundesSans und BundesSans Condensed unterstützt (nur lateinische Schriftzeichen):
+*_Feedback_*
 
-Afrikaans, Albanisch, Aromunisch, Arvanitisch, Aserbaidschanisch, Asturisch, Asu, Baskisch, Bemba, Bena, Bislama, Bosnisch, Bretonisch, Chamorro, Chichewa, Chiga, Dänisch, Deutsch, Embu, Englisch, Esperanto, Estnisch, Färöisch, Filipino, Finnisch, Frankoprovenzalisch, Französisch, Friulisch, Gagausisch, Galicisch, Grönländisch, Gusii, Hawaiisch, Inarisamisch, Indonesisch, Interlingua, Irisch, Isländisch, Istrorumänisch, Italienisch, Jiddisch, Jola Fogny, Kalenjin, Kamba, Kapverdisch, Karaimisch, Katalanisch, Kikuyu, Kinyarwanda, Kirundi, Kornisch, Krimtatarisch, Kroatisch, Ladinisch, Ladino, Lettisch, Litauisch, Luganda, Lulesamisch, Luo, Luxemburgisch, Luyia, Machame, Madagassisch, Makhuwa-Meetto, Makonde, Malaiisch, Maltesisch, Manx-Gälisch, Maori, Meru, Morisyen, Niederländisch, Niedersorbisch, Nkole, Nord-Ndebele, Nordsamisch, Nord-Sotho, Norwegisch (Bokmål), Norwegisch (Nynorsk), Obersorbisch, Okzitanisch, Oromo, Polnisch, Portugiesisch, Quechua, Rätoromanisch, Rombo, Rumänisch, Rwa, Samburu, Samoanisch, Sango, Sangu, Schottisch-Gälisch, Schwedisch, Sena, Serbisch, Shambala, Shona, Slowakisch, Slowenisch, Soga, Somali, Spanisch, Suaheli, Südsamisch, Süd-Sotho, Tahitianisch, Taita, Teso, Tongaisch, Tschechisch, Tsonga, Tswana, Türkisch, Turkmenisch, Umesamisch, Ungarisch, Usbekisch, Vunjo, Walisisch, Wallonisch, Walserdeutsch, Wepsisch, Wolof, Xhosa, Yapesisch, Zulu
+Das Designprinzip des "Feedbacks" bezieht sich auf die kontinuierliche Kommunikation zwischen der (Web-)Applikation und ihren Nutzenden während deren Interaktionen.
+Feedback ist entscheidend, um den Nutzenden Rückmeldungen darüber zu geben, ob ihre Aktionen erfolgreich waren oder nicht.
+Dies kann in Form von visuellem Feedback, wie zum Beispiel einer Farbänderung eines Buttons nach einem Klick, oder durch informative Nachrichten, wie Bestätigungsmeldungen nach dem Absenden eines Formulars, erfolgen.
+Durch effektives Feedback fühlen sich Nutzende unterstützt und informiert, was zu einer verbesserten Benutzererfahrung und einer höheren Zufriedenheit führt.
+Dies gilt insbesondere auch für Aspekte der Barrierefreiheit.
+Technische Standardmöglichkeiten sollen genutzt und ggf. mit entsprechenden Hilfsmitteln (wie ARIA-Elementen) angereichert werden.
 
-Die Liste entspricht der Sprachenzeichennorm ISO 639-1-3.
+*_Effizienz_*
 
-_Nicht-lateinische Fließtextschriften_
+Das Designprinzip der "Effizienz" bezieht sich darauf, wie gut eine (Web-)Applikation die Bedürfnisse und Ziele ihrer Nutzenden mit minimalen Aufwänden erfüllt.
+Effizientes Design strebt danach, unnötige Komplexität zu vermeiden und die Interaktionen der Nutzenden so reibungslos wie möglich zu gestalten.
+Dies umfasst Aspekte wie schnelle Ladezeiten, intuitive Navigation, gut platzierte Call-to-Actions und eine klare Informationsarchitektur.
+Ein effizientes Design stellt sicher, dass Nutzende ihre Ziele schnell erreichen können ohne dabei Zeit oder Mühe zu verschwenden - sei es beim Finden von Informationen, beim Abschließen eines Kaufs oder beim Ausführen einer bestimmten Aktion.
 
-Nicht-lateinische Schriften umfassen Schriftsysteme, die anstelle lateinischer Schriftzeichen z.B. arabische, kyrillische oder chinesische Zeichen beinhalten.
-Mit einem Schriftsystem lassen sich meist mehrere Sprachen schreiben (z.B. mit dem arabischen Schriftsystem Sprachen, wie Arabisch, Urdu, Paschtu, Persisch (Dari/Farsi)).
-Nicht-lateinischer Originaltext wird vom angegebenen Schriftfont erkannt und automatisch in den richtigen Schriftzeichen wiedergegeben.
-Die Notwendigkeit der Darstellung nicht-lateinischer Schriften ergibt sich durch die DIN 91379 „Zeichen und definierte Zeichensequenzen in Unicode für die elektronische Verarbeitung von Namen und den Datenaustausch in Europa“ mit Ausgabedatum 2022-08.
-Basierend auf UNICODE wurde für jedes nicht-lateinische Zeichen, das in EU-Mitgliedsstaaten verwendet wird (beispielsweise griechische oder kyrillische Zeichen), eine eindeutige Zuordnung zu einem lateinischen Zeichen vorgenommen.
-DIN 91379 wendet sich vorrangig an Behörden und Organisationen, die IT-Verfahren betreiben, welche dem behördenübergreifenden Datenaustausch oder dem Datenaustausch mit Bürgern und Wirtschaft dienen.
-Sie deckt in ihrer Gesamtheit die EU-Amtssprachen und die Amtssprachen Islands, Liechtensteins, Norwegens und der Schweiz ab, sowie die deutschen Minderheitensprachen.
-Damit dies gewährleistet wird, kommt sekundär:
+*_Zugänglichkeit_*
 
-*Liberation*
-
-zum Einsatz.
-Diese Schriftart wird nur fehlende UNICODEZeichen in der BundesSans ergänzen, wodurch eine Unkonformität mit der BITV durch eventuelle Verwechslungen mit einem großen I und kleinen l ausgeschlossen werden kann.
-In diesem konkreten Beispiel kommt die BundesSans zum Tragen.
-
-*_Barrierefreiheit von Text_*
-
-Zusätzlich zu einem klar leserlichen Schriftschnitt sind auch die Gestaltungsmerkmale von Text, Farbe und Größe entsprechend zu berücksichtigen.
-Die Standard-Schriftart für Bedienelemente und Inhalte ist BundesSans 14 pt regular in dunkelgrau.
-Grundsätzlich gilt, ausreichende Schriftgrößen sind abhängig vom Betrachtungsabstand, von der Art des Textes und von der Sehschärfe der Lesenden.
-//ToDo: Verweis?
-Individuelle Schriftgrößen können Sie mit dem Schriftgrößenrechner auf leserlich.info ermitteln und entsprechend dem Nutzerkreis anpassen.
-
-*_Richtlinien zur Anwendung:_*
-
-* Die Verwendung verschiedener Schriftarten, über die im Bedienkonzept hinaus vorgegebenen Schriftarten, muss vermieden werden.
-* Die Schriftgröße muss immer ausreichend groß sein.
-Ein Unterschreiten von Mindestgrößen zugunsten des Platzgewinns muss vermieden werden.
-Stattdessen werden andere, platzsparende Mechanismen angewandt, wie z.B. Expander (Progressive Disclosure).
-* Die Anzahl verschiedener Schriftgrößen muss auf ein notwendiges Minimum reduziert werden
-* Es muss sichergestellt sein, dass der Kontrast der Schriftfarbe zur Hintergrundfarbe ausreichend groß ist.
-Hier ist der Kontrast größtmöglich zu wählen (z.B. dunkelgraue (#212529) Schrift auf weißen Hintergrund).
-Ist dies aus technischer oder fachlicher Notwendigkeit nicht möglich, so muss der Kontrast bei kleiner Schrift mindestens 4,5:1 entsprechen.
-* Überschriften und großer/dicker Text muss mindestens einen Kontrast von 3:1 aufweisen.
-
-*_Grafiken_*
-
-Bilder und Grafiken ergänzen den Text und vermitteln Informationen auf visuelle Weise.
-Hier werden die Leitlinien für die Verwendung von Grafiken festgelegt, einschließlich Stilrichtlinien, Bildgrößen und im Ansatz deren Barrierefreiheit.
-Details werden im entsprechenden Kapitel genauer erläutert.
-
-* Bilder unterliegen in erster Linie der notwendigen Fachlichkeit.
-* Jedes Bild benötigt eine Bildunterschrift.
-* Jedes Bild benötigt ein aussagekräftiges Alt-Attribut.
-* Bilder dürfen nicht gegen deutsches Recht verstoßen, politisch, sexuell oder angreifend sein.
-* Bilder dürfen keine Schriftgrafiken enthalten; in Ausnahmen muss die Schriftgrafik durch z.B. Alt-Attribute ausreichend beschrieben sein.
-* Schmuckgrafiken können genutzt werden.
-* Schmuckgrafiken sollen, so wenig wie möglich genutzt werden.
-* Schmuckgrafiken müssen als solche gekennzeichnet sein.
-* Schmuckgrafiken benötigen keine Alt-Attribute.
-* Es ist darauf zu achten, dass durch Bilder kein horizontales Scrolling entsteht.
-* Es ist darauf zu achten, dass das Bildmaterial ausreichen hoch aufgelöst ist, sodass keine einzelnen Fragmente zu erkennen sind.
-
-*_Farben_*
-
-Farben tragen maßgeblich zur visuellen Identität einer Anwendung bei und beeinflussen die Stimmung und Wahrnehmung der Nutzenden.
-Dieser Abschnitt beschreibt die primäre und sekundäre Farbpalette, sowie die Verwendung von Farben für verschiedene Zwecke, unter Berücksichtigung von Kontrast und Barrierefreiheit.
-
-* Die Standardpalette wird vom IsyFact Theme mit ausgeliefert und entsprechend der aktuellen gesetzlichen Entwicklung aktualisiert und kann von dem hier dokumentierten Stand abweichen.
-//ToDo: Datum setzen!
-* Die Standardpalette (zum Zeitpunkt: dd.mm.yyyy) wird im Bereich Barrierefreiheit mit einer Kontrast-Tabelle angegeben.
-* Die Verwendung einer Anwendungsfarbe muss vom Projekt auf Barrierefreiheit geprüft werden und ist frei wählbar.
+Das Designprinzip der "Zugänglichkeit" soll sicherstellen, dass eine (Web-)Applikation für alle Nutzenden, unabhängig von ihren individuellen Fähigkeiten oder Einschränkungen, leicht zugänglich ist.
+Dies beinhaltet die Gestaltung und Entwicklung der (Web-)Applikation unter Berücksichtigung verschiedener Bedürfnisse, wie zum Beispiel Sehbehinderungen, Hörbehinderungen oder motorische Einschränkungen.
+//ToDo: Beispiele für nicht benutzerfreundliche Technologien?
+Zugängliches Design beinhaltet die Verwendung von klaren und verständlichen Texten, ausreichendem Kontrast zwischen Text und Hintergrund, Tastaturzugänglichkeit, alternative Texte für Bilder und die Vermeidung von Technologien, die für einige Personengruppen hinderlich sein könnten.
+Ein zugängliches Design gewährleistet, dass alle Nutzenden die Informationen und Funktionen der Webseite nutzen können, was zu einer inklusiven und positiven Benutzererfahrung führt.
+Dieses Prinzip wird im Kapitel <<Barrierefreiheit>> und unter den einzelnen <<Bedienelemente,Bedienelementen>> detaillierter beschrieben.
 
 [[barrierefreiheit]]
 == Barrierefreiheit
@@ -468,6 +377,87 @@ Dadurch ist die Wartbarkeit stark beeinträchtigt und die Aufwände können sich
 * Die Anwendung ist primär für die Nutzung auf Desktopgeräten konzipiert, kann aber mit ihrer Responsivität auch auf mobilen Geräten (sofern möglich) genutzt werden.
 
 == Basiselemente
+
+=== Text
+
+Die Textelemente spielen eine entscheidende Rolle bei der Kommunikation mit den Nutzenden.
+Dieser Abschnitt definiert die typografischen Standards, sprachlichen Richtlinien und Längenbeschränkungen, die dazu beitragen, dass die Texte klar, verständlich und ansprechend sind.
+
+Anwendungen des Bundes sollen über die IT-Landschaft hinweg ein einheitliches Look-and-Feel bieten.
+Dies wird über den Einsatz der IsyFact und deren Komponenten gewährleistet.
+Dafür ist es notwendig auch bei der Schrift (im weiteren Font) einheitlich vorzugehen.
+Zur Anwendung kommt primär:
+
+*BundesSans*
+
+Diese Schriftart wurde extra für Inhalte des Bundes entwickelt und zur Verfügung gestellt.
+Die BundesSans ist eine humanistische serifenlose Schrift.
+Rationalität und äußerste Klarheit kennzeichnen ihre Formensprache.
+Die BundesSans gehört zu den sogenannten humanistischen Serifenlosen und entspricht den Empfehlungen des DBSV hinsichtlich der Leserlichkeit von Schrift.
+Auch in der DIN 1450 – Leserlichkeit – werden Humanistische Antiqua- (mit Serifen) und Groteskschriften (ohne Serifen) als besonders gut leserlich bezeichnet.
+
+_Sprachumfang_
+
+Folgende Sprachen werden von den Schriften BundesSerif, BundesSans und BundesSans Condensed unterstützt (nur lateinische Schriftzeichen):
+
+Afrikaans, Albanisch, Aromunisch, Arvanitisch, Aserbaidschanisch, Asturisch, Asu, Baskisch, Bemba, Bena, Bislama, Bosnisch, Bretonisch, Chamorro, Chichewa, Chiga, Dänisch, Deutsch, Embu, Englisch, Esperanto, Estnisch, Färöisch, Filipino, Finnisch, Frankoprovenzalisch, Französisch, Friulisch, Gagausisch, Galicisch, Grönländisch, Gusii, Hawaiisch, Inarisamisch, Indonesisch, Interlingua, Irisch, Isländisch, Istrorumänisch, Italienisch, Jiddisch, Jola Fogny, Kalenjin, Kamba, Kapverdisch, Karaimisch, Katalanisch, Kikuyu, Kinyarwanda, Kirundi, Kornisch, Krimtatarisch, Kroatisch, Ladinisch, Ladino, Lettisch, Litauisch, Luganda, Lulesamisch, Luo, Luxemburgisch, Luyia, Machame, Madagassisch, Makhuwa-Meetto, Makonde, Malaiisch, Maltesisch, Manx-Gälisch, Maori, Meru, Morisyen, Niederländisch, Niedersorbisch, Nkole, Nord-Ndebele, Nordsamisch, Nord-Sotho, Norwegisch (Bokmål), Norwegisch (Nynorsk), Obersorbisch, Okzitanisch, Oromo, Polnisch, Portugiesisch, Quechua, Rätoromanisch, Rombo, Rumänisch, Rwa, Samburu, Samoanisch, Sango, Sangu, Schottisch-Gälisch, Schwedisch, Sena, Serbisch, Shambala, Shona, Slowakisch, Slowenisch, Soga, Somali, Spanisch, Suaheli, Südsamisch, Süd-Sotho, Tahitianisch, Taita, Teso, Tongaisch, Tschechisch, Tsonga, Tswana, Türkisch, Turkmenisch, Umesamisch, Ungarisch, Usbekisch, Vunjo, Walisisch, Wallonisch, Walserdeutsch, Wepsisch, Wolof, Xhosa, Yapesisch, Zulu
+
+Die Liste entspricht der Sprachenzeichennorm ISO 639-1-3.
+
+_Nicht-lateinische Fließtextschriften_
+
+Nicht-lateinische Schriften umfassen Schriftsysteme, die anstelle lateinischer Schriftzeichen z.B. arabische, kyrillische oder chinesische Zeichen beinhalten.
+Mit einem Schriftsystem lassen sich meist mehrere Sprachen schreiben (z.B. mit dem arabischen Schriftsystem Sprachen, wie Arabisch, Urdu, Paschtu, Persisch (Dari/Farsi)).
+Nicht-lateinischer Originaltext wird vom angegebenen Schriftfont erkannt und automatisch in den richtigen Schriftzeichen wiedergegeben.
+Die Notwendigkeit der Darstellung nicht-lateinischer Schriften ergibt sich durch die DIN 91379 „Zeichen und definierte Zeichensequenzen in Unicode für die elektronische Verarbeitung von Namen und den Datenaustausch in Europa“ mit Ausgabedatum 2022-08.
+Basierend auf UNICODE wurde für jedes nicht-lateinische Zeichen, das in EU-Mitgliedsstaaten verwendet wird (beispielsweise griechische oder kyrillische Zeichen), eine eindeutige Zuordnung zu einem lateinischen Zeichen vorgenommen.
+DIN 91379 wendet sich vorrangig an Behörden und Organisationen, die IT-Verfahren betreiben, welche dem behördenübergreifenden Datenaustausch oder dem Datenaustausch mit Bürgern und Wirtschaft dienen.
+Sie deckt in ihrer Gesamtheit die EU-Amtssprachen und die Amtssprachen Islands, Liechtensteins, Norwegens und der Schweiz ab, sowie die deutschen Minderheitensprachen.
+Damit dies gewährleistet wird, kommt sekundär:
+
+*Liberation*
+
+zum Einsatz.
+Diese Schriftart wird nur fehlende UNICODEZeichen in der BundesSans ergänzen, wodurch eine Unkonformität mit der BITV durch eventuelle Verwechslungen mit einem großen I und kleinen l ausgeschlossen werden kann.
+In diesem konkreten Beispiel kommt die BundesSans zum Tragen.
+
+*_Barrierefreiheit von Text_*
+
+Zusätzlich zu einem klar leserlichen Schriftschnitt sind auch die Gestaltungsmerkmale von Text, Farbe und Größe entsprechend zu berücksichtigen.
+Die Standard-Schriftart für Bedienelemente und Inhalte ist BundesSans 14 pt regular in dunkelgrau.
+Grundsätzlich gilt, ausreichende Schriftgrößen sind abhängig vom Betrachtungsabstand, von der Art des Textes und von der Sehschärfe der Lesenden.
+//ToDo: Verweis?
+Individuelle Schriftgrößen können Sie mit dem Schriftgrößenrechner auf leserlich.info ermitteln und entsprechend dem Nutzerkreis anpassen.
+
+*_Richtlinien zur Anwendung:_*
+
+* Die Verwendung verschiedener Schriftarten, über die im Bedienkonzept hinaus vorgegebenen Schriftarten, muss vermieden werden.
+* Die Schriftgröße muss immer ausreichend groß sein.
+Ein Unterschreiten von Mindestgrößen zugunsten des Platzgewinns muss vermieden werden.
+Stattdessen werden andere, platzsparende Mechanismen angewandt, wie z.B. Expander (Progressive Disclosure).
+* Die Anzahl verschiedener Schriftgrößen muss auf ein notwendiges Minimum reduziert werden
+* Es muss sichergestellt sein, dass der Kontrast der Schriftfarbe zur Hintergrundfarbe ausreichend groß ist.
+Hier ist der Kontrast größtmöglich zu wählen (z.B. dunkelgraue (#212529) Schrift auf weißen Hintergrund).
+Ist dies aus technischer oder fachlicher Notwendigkeit nicht möglich, so muss der Kontrast bei kleiner Schrift mindestens 4,5:1 entsprechen.
+* Überschriften und großer/dicker Text muss mindestens einen Kontrast von 3:1 aufweisen.
+
+*_Grafiken_*
+
+Bilder und Grafiken ergänzen den Text und vermitteln Informationen auf visuelle Weise.
+Hier werden die Leitlinien für die Verwendung von Grafiken festgelegt, einschließlich Stilrichtlinien, Bildgrößen und im Ansatz deren Barrierefreiheit.
+Details werden im entsprechenden Kapitel genauer erläutert.
+
+* Bilder unterliegen in erster Linie der notwendigen Fachlichkeit.
+* Jedes Bild benötigt eine Bildunterschrift.
+* Jedes Bild benötigt ein aussagekräftiges Alt-Attribut.
+* Bilder dürfen nicht gegen deutsches Recht verstoßen, politisch, sexuell oder angreifend sein.
+* Bilder dürfen keine Schriftgrafiken enthalten; in Ausnahmen muss die Schriftgrafik durch z.B. Alt-Attribute ausreichend beschrieben sein.
+* Schmuckgrafiken können genutzt werden.
+* Schmuckgrafiken sollen, so wenig wie möglich genutzt werden.
+* Schmuckgrafiken müssen als solche gekennzeichnet sein.
+* Schmuckgrafiken benötigen keine Alt-Attribute.
+* Es ist darauf zu achten, dass durch Bilder kein horizontales Scrolling entsteht.
+* Es ist darauf zu achten, dass das Bildmaterial ausreichen hoch aufgelöst ist, sodass keine einzelnen Fragmente zu erkennen sind.
 
 === Farben
 
