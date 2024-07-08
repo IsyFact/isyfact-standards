@@ -1,4 +1,4 @@
-name: Dependency Scan
+name: OSS Review Toolkit
 on:
   push:
 
