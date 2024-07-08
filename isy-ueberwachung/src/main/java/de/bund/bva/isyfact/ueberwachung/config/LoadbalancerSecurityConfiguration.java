@@ -1,28 +1,41 @@
 package de.bund.bva.isyfact.ueberwachung.config;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
-@Order(99) // apply before IsyKeycloakWebSecurityConfigurerAdapter
 @ConditionalOnClass({SecurityFilterChain.class, HttpSecurity.class})
-public class LoadbalancerSecurityConfiguration extends WebSecurityConfigurerAdapter {
+public class LoadbalancerSecurityConfiguration {
 
     /**
      * Path where Loadbalancer is publicly available.
      */
     public static final String LOADBALANCER_SERVLET_PATH = "/Loadbalancer";
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.requestMatchers().antMatchers(LOADBALANCER_SERVLET_PATH)
-                .and()
-                .authorizeRequests().anyRequest().permitAll();
+    /**
+     * Filter to always allow access to "/Loadbalancer" Endpoint.
+     * <p>The {@code @Order(99)} annotation applies the SecurityFilterChain before Beans without
+     * an @Order annotation.
+     *
+     * @param http {@link HttpSecurity}
+     *
+     * @return {@link SecurityFilterChain}
+     * @throws Exception if an error occurred when building the Object
+     */
+    @Bean
+    @Order(99)
+    SecurityFilterChain loadbalancerSecurityFilterChain(HttpSecurity http) throws Exception {
+        http.authorizeHttpRequests(
+            auth -> auth
+                .requestMatchers(LOADBALANCER_SERVLET_PATH)
+                .permitAll()
+        );
+        return http.build();
     }
 }

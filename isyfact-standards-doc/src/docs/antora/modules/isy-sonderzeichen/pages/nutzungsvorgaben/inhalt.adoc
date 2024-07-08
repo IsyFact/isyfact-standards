@@ -15,18 +15,7 @@ Unter Linux-Derivaten kann unter anderem mit dem Parameter
 
 `LC_CTYPE = UTF8`
 
-die Encodierung für jeden Benutzer individuell gesetzt werden. Weitere Locale-Parameter und deren Verwendung sind bei xref:glossary:literaturextern:inhalt.adoc#litextern-linux-locale-parameters[gnu.org] nachzulesen.
-
-[[oracle-datenbank]]
-=== Oracle Datenbank
-
-Die Zeichencodierung aller in der Plattform verwendeten Datenbanken muss ebenfalls einheitlich auf die Verwendung von Unicode v4.x in der UTF-8-Codierung gesetzt werden.
-
-Als Beispiel wird hier die Datenbank Oracle 11g betrachtet.
-Oracle unterstützt ab Version 10g Release 2 Unicode v4.0. Oracle empfiehlt xref:glossary:literaturextern:inhalt.adoc#litextern-oracle-globalization-support[Oracle, Globalization Support Guide 10g Release 2 (10.2)], neue Datenbanken als Unicode-Datenbanken anzulegen.
-Hierzu muss beim CREATE DATABASE die folgende Eigenschaft gesetzt werden:
-
-`CHARACTER SET AL32UTF8`
+die Encodierung für jeden Benutzer individuell gesetzt werden. Weitere Locale-Parameter und deren Verwendung sind bei https://www.gnu.org/software/gettext/manual/html_node/Locale-Environment-Variables.html[gnu.org] nachzulesen.
 
 [[hibernate]]
 === Hibernate
@@ -510,6 +499,6 @@ Die für die IsyFact zulässigen Zeichen werden im Folgenden aufgeführt (s. Kap
 ==== Zusätzliche Zeichen
 
 In der xref:nutzungsvorgaben/master.adoc#table-zusaetzliche-zeichen[Tabelle für zusätzliche Zeichen] sind die Zeichen dargestellt, die zusätzlich unterstützt werden.
-Damit die Zeichen in der Spalte „Glyph“ korrekt dargestellt werden, muss ein Font installiert sein, der alle Zeichen unterstützt. (z.B. Code2000, erhältlich unter xref:glossary:literaturextern:inhalt.adoc#litextern-code2000[Code2000]).
+Damit die Zeichen in der Spalte „Glyph“ korrekt dargestellt werden, muss ein Font installiert sein, der alle Zeichen unterstützt. (z.B. Code2000, erhältlich unter https://www.code2001.com/[Code2000]).
 
 // end::inhalt[]

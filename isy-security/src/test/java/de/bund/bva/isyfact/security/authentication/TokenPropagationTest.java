@@ -1,7 +1,10 @@
 package de.bund.bva.isyfact.security.authentication;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.mockito.Mockito.when;
 
 import java.util.Collections;
 
@@ -13,6 +16,7 @@ import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.OAuth2AccessToken;
 import org.springframework.security.oauth2.server.resource.authentication.BearerTokenAuthentication;
@@ -25,7 +29,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class TokenPropagationTest {
+class TokenPropagationTest {
 
     private WebClient webClient;
 
@@ -62,6 +66,7 @@ public class TokenPropagationTest {
 
         // Mock client response
         when(clientResponse.bodyToMono(Void.class)).thenReturn(Mono.empty());
+        when(clientResponse.statusCode()).thenReturn(HttpStatus.OK);
         when(exchangeFunction.exchange(argumentCaptor.capture())).thenReturn(Mono.just(clientResponse));
 
         // the web client doesn't have to actually perform a successful request
@@ -69,12 +74,15 @@ public class TokenPropagationTest {
         testUri = "http://localhost:" + port;
         // Build web client which contains ServletBearerExchangeFilterFunction (enables token propagation)
         webClient = WebClient.builder().baseUrl(testUri).exchangeFunction(exchangeFunction)
-                .filter(new ServletBearerExchangeFilterFunction()).build();
+            .filter(new ServletBearerExchangeFilterFunction()).build();
     }
 
     @Test
-    public void shouldPropagateBearerTokenInHeader() {
-        webClient.get().uri(testUri).retrieve().bodyToMono(Void.class).block();
+    void shouldPropagateBearerTokenInHeader() {
+        webClient.get()
+            .retrieve()
+            .bodyToMono(Void.class)
+            .block();
 
         ClientRequest request = verifyAndGetRequest();
 
@@ -82,10 +90,13 @@ public class TokenPropagationTest {
     }
 
     @Test
-    public void shouldNotPropagateBearerTokenInHeader() {
+    void shouldNotPropagateBearerTokenInHeader() {
         SecurityContextHolder.getContext().setAuthentication(null);
 
-        webClient.get().uri(testUri).retrieve().bodyToMono(Void.class).block();
+        webClient.get()
+            .retrieve()
+            .bodyToMono(Void.class)
+            .block();
 
         ClientRequest request = verifyAndGetRequest();
 

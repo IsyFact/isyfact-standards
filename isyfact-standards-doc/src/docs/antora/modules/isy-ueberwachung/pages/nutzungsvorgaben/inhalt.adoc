@@ -1,3 +1,5 @@
+:sourcedir: ../../../../../../../../isy-ueberwachung/src/
+
 = Nutzungsvorgaben Überwachung: Inhalt
 
 // tag::inhalt[]
@@ -14,7 +16,7 @@ Eine nähere Beschreibung des Konzeptes findet sich im Dokument xref:konzept/mas
 Der Fokus liegt dabei auf der Schaffung von einheitlichen Administrationsschnittstellen, welche dem Betrieb eine einfache Überwachung der Anwendungen erlauben.
 Alle Vorgaben sind beim Entwurf und der Realisierung von neuen Anwendungen nach IsyFact-Architektur zu berücksichtigen.
 Gegebenenfalls können in Systementwürfen Verfeinerungen der hier getroffenen Vorgaben gemacht werden.
-Weiterhin können die hier gemachten Vorgaben als Basis für die Beschreibung der Überwachungsschnittstelle im Betriebshandbuch der Anwendungssysteme verwendet werden.
+Weiterhin können die hier gemachten Vorgaben als Basis für die Beschreibung der Überwachungsschnittstelle im xref:methodik:vorlagen.adoc#dokumentation-anwendung[Systemhandbuch] verwendet werden.
 
 [[designvorgaben-fuer-die-ueberwachungsschnittstelle]]
 === Designvorgaben für die Überwachungsschnittstelle
@@ -224,7 +226,7 @@ gesetzt.
 Die im Konzept beschriebenen Überwachungsfunktionen dürfen keinen relevanten negativen Einfluss auf die Performance der Anwendung haben.
 Dazu sind neben der Einhaltung der in dem Dokument xref:konzept/master.adoc#einleitung[Überwachung - Konzept] beschriebenen Vorgaben noch einige grundlegende  Regeln zu beachten:
 
-* Da nicht auszuschließen ist, dass ein Überwachungswerkzeug sehr häufig Informationen aus den Endpoints abruft, darf das Bereitstellen der Informationen keine zeitaufwändigen Aktionen im xref:glossary:glossary:master.adoc#glossar-anwendungssystem[Anwendungssystem] veranlassen.
+* Da nicht auszuschließen ist, dass ein Überwachungswerkzeug sehr häufig Informationen aus den Endpoints abruft, darf das Bereitstellen der Informationen keine zeitaufwändigen Aktionen im xref:glossary:glossary:master.adoc#glossar-it-system[IT-System] veranlassen.
 * Bei der Bereitstellung weiterer Überwachungsinformationen ist darauf zu achten, dass die Ermittlung der Kennzahlen keinen relevanten negativen Einfluss auf die Performance der Anwendung hat.
 Insbesondere dürfen keine fachlichen Funktionen des xref:glossary:glossary:master.adoc#glossar-anwendungskern[Anwendungskerns] aufgerufen werden.
 
@@ -267,7 +269,7 @@ Die Werte der Keys werden über den Info-Endpoint bereitgestellt.
 
 Bei Bedarf können weitere statische Informationen durch zusätzliche Konfiguration von der Anwendung bereitgestellt werden.
 
-NOTE: Weiterführende Informationen enthält die xref:glossary:literaturextern:inhalt.adoc#litextern-spring-boot-info-endpoint[Dokumentation von Spring Boot zum Info-Endpoint].
+NOTE: Weiterführende Informationen enthält die https://docs.spring.io/spring-boot/docs/2.7.x/reference/html/actuator.html#actuator.endpoints.info[Dokumentation von Spring Boot zum Info-Endpoint].
 
 [[konfiguration-und-absicherung-von-endpoints]]
 ==== Konfiguration und Absicherung von Endpoints
@@ -289,7 +291,6 @@ Da der Endpoint `health` seine Informationen aus einem Cache abfragt, welcher vo
 .Properties zur Aktivierung des Tasks
 [id="listing-task-activation",reftext="{listing-caption} {counter:listings }"]
 ----
-isy.task.autostart=true
 isy.task.default.host=
 ----
 
@@ -324,54 +325,40 @@ isy.task.tasks.isyHealthTask.fixed-delay=30s
 [[absicherung-von-endpoints]]
 ===== Absicherung von Endpoints
 
-Der Zugriff auf Endpoints muss mit einer Authentifizierung abgesichert werden.
-Eine Konfiguration für Spring Security, die alle Endpoints mit HTTP Basic Authentication absichert,
-zeigt <<listing-endpointsecurityconfig>>.
-Der Benutzername und das Passwort werden in `application.properties` gepflegt.
+Standardmäßig wird der Zugriff auf Endpoints durch eine HTTP Basic Authentifizierung abgesichert, wenn die Dependencies:
 
+ * `org.springframework.security:spring-security-config` und
+ * `org.springframework.security:spring-security-web`
 
-.Absicherung der Endpoints mit Spring Security
-[id="listing-endpointsecurityconfig",reftext="{listing-caption} {counter:listings }"]
+im Klassenpfad verfügbar sind.
+
+Die Konfiguration von Benutzername und Passwort zum Zugriff auf die Endpoints ist optional und wird in der `application.properties` gepflegt (siehe <<listing-endpoint-security-properties>>).
+Ohne Konfiguration von Benutzername und Passwort bleibt die Absicherung aktiv und es kann nicht auf die Endpoints zugegriffen werden.
+
+.Konfiguration der Absicherung in `application.properties`
+[id="listing-endpoint-security-properties",reftext="{listing-caption} {counter:listings }"]
+[source,properties]
+----
+# Benutzername des Monitoring Users (Default: Null)
+isy.ueberwachung.security.username=<username>
+# Passwort des Monitoring Users (Default: Null)
+isy.ueberwachung.security.password=<password>
+----
+
+Die Standardabsicherung der Endpoints kann per Konfiguration deaktiviert werden:
+
+`spring.autoconfigure.exclude=de.bund.bva.isyfact.ueberwachung.autoconfigure.IsyActuatorSecurityAutoConfiguration`
+
+Dabei muss beachtet werden, dass über die Endpoints sensible Informationen bereitgestellt werden!
+
+Bei zusätzlichen Anforderungen an die Absicherung können die in <<listing-endpoint-security-config>> definierten Beans individuell überschrieben werden.
+
+.`IsyActuatorSecurityAutoConfiguration.java`
+[id="listing-endpoint-security-config",reftext="{listing-caption} {counter:listings }"]
 [source,java]
 ----
-@Configuration
-@EnableWebSecurity
-@Profile("produktion")
-public class ActuatorSecurityProduktionConfig extends WebSecurityConfigurerAdapter {
-
-    @Autowired
-    private UeberwachungSecurityConfigProperties properties;
-
-    private static final String ENDPOINT_ROLE = "ENDPOINT_ADMIN";
-
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-         auth.inMemoryAuthentication()
-             .withUser(properties.getUsername())
-             .password(passwordEncoder().encode(properties.getPassword()))
-             .roles(ENDPOINT_ROLE);
-    }
-
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.requestMatcher(EndpointRequest.toAnyEndpoint())
-                .authorizeHttpRequests(requests -> requests.anyRequest().hasRole(ENDPOINT_ROLE))
-                .httpBasic();
-    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-}
+include::{sourcedir}main/java/de/bund/bva/isyfact/ueberwachung/autoconfigure/IsyActuatorSecurityAutoConfiguration.java[tag=actuatorSecurity]
 ----
-
-[[abschalten-der-absicherung-fuer-die-entwicklung]]
-====== Abschalten der Absicherung für die Entwicklung
-
-Um die Authentifizierung für die Endpoints bei der Entwicklung abzuschalten, kann in <<listing-endpointsecurityconfig>>
-gezeigte Konfiguration über ein Spring-Profil (im Beispiel `produktion`) aktiviert bzw. deaktiviert werden.
-
 
 [[vorgaben-fuer-die-pruefung-der-verfuegbarkeit]]
 ==== Prüfung der Verfügbarkeit
@@ -449,10 +436,6 @@ Als Beispiel sei hier das IAM-System genannt.
 Zur Prüfung des IAM-Systems wird in der Regel eine Beispielanfrage an den Server gesendet.
 Ist vor das IAM-System ein Loadbalancer geschaltet, so kann es nach einem Fail-Over passieren, dass diese Beispielanfrage endlos läuft.
 ====
-* Anwendungen, die HTTP-Invoker Schnittstellen bereitstellen, müssen nach Vorgabe das Administration-Bean anbieten, um die Erreichbarkeit des Systems zu prüfen.
-Die Ping-Methode dieses Beans kann zur Implementierung eines Health-Indikators verwendet werden, wie in <<listing-CustomHealthIndicator>> dargestellt.
-+
-NOTE: Bei der Erstellung des AdministrationRemoteBean muss der Request-Timeout gesetzt werden, damit Ressourcen nicht zu lange blockiert werden.
 
 .Demonstration Future-Pattern
 [id="listing-Pruefmethode",reftext="{listing-caption} {counter:listings }"]
@@ -475,42 +458,6 @@ boolean pruefeSystem() {
 }
 ----
 
-.Beispiel: Implementierung eines eigenen Health-Indikators
-[id="listing-CustomHealthIndicator",reftext="{listing-caption} {counter:listings }"]
-[source,java]
-----
-/** Health configuration. */
-@Configuration
-@ConditionalOnAvailableEndpoint(endpoint = HealthEndpoint.class)
-public class HealthConfiguration {
-    /** Ping message. */
-    private final String pingMsg;
-
-    /**
-     * @param systemName current system name
-     */
-    HealthConfiguration(@Value("${system.name}") String systemName) {
-        pingMsg = "Ping from " + systemName;
-    }
-
-    /**
-     * App2 {@link HealthIndicator}; available in an entry named {@code app2}.
-     * @param app2AdminBean App2 {@link AdministrationRemoteBean}
-     */
-    @Bean
-    HealthIndicator app2HealthIndicator(AdministrationRemoteBean app2AdminBean) {
-        return () -> {
-            try {
-                app2AdminBean.ping(pingMsg);
-                return Health.up().build();
-            } catch (Exception e) {
-                return Health.down(e).build();
-            }
-        };
-    }
-}
-----
-
 [[implementierung-von-liveness-und-readiness-health-checks]]
 ==== Implementierung von Liveness und Readiness Health-Checks
 
@@ -521,7 +468,7 @@ Diese sind mit der IsyFact 3.0 ausschließlich konzeptionell beschrieben und nic
 [[auslesen-von-liveness-und-readiness-probes]]
 ===== Auslesen von Liveness und Readiness Probes
 
-_Liveness_ und _Readiness_ Probes können aktiviert werden durch (vgl. xref:glossary:literaturextern:inhalt.adoc#litextern-baeldung-spring-liveness-readiness-probes[Baeldung: Liveness und Readiness Probes in Spring Boot]):
+_Liveness_ und _Readiness_ Probes können aktiviert werden durch (vgl. https://www.baeldung.com/spring-liveness-readiness-probes[Baeldung: Liveness und Readiness Probes in Spring Boot]):
 
 [[listing-enable-liveness-readiness-states]]
 [source,properties]
@@ -540,15 +487,15 @@ Andernfalls könnte es sein, dass einem Fehlschlagen eines externen Systems (dat
 Der innere Zustand einer Spring Boot Application wird hauptsächlich über Springs `ApplicationContext` dargestellt.
 Wenn der `ApplicationContext` erfolgreich gestartet ist, geht Spring Boot davon aus, dass die Anwendung in einem korrekten Zustand ist.
 Die Anwendung wird als alive betrachtet, sobald der `Context` aufgefrischt wird
-(vgl. xref:glossary:literaturextern:inhalt.adoc#litextern-spring-liveness[Spring Boot Liveness]).
+(vgl. https://docs.spring.io/spring-boot/docs/current/reference/html/features.html#features.spring-application.application-availability.liveness[Spring Boot Liveness]).
 
-Neben dem funktionierenden `ApplicationContext` ist der _Liveness_-Zustand von weiteren, anwendungsspezifische Komponenten abhängig und muss entsprechend aktualisiert werden (vgl. xref:glossary:literaturextern:inhalt.adoc#litextern-baeldung-spring-liveness-readiness-probes[Baeldung: Liveness und Readiness Probes in Spring Boot]).
+Neben dem funktionierenden `ApplicationContext` ist der _Liveness_-Zustand von weiteren, anwendungsspezifische Komponenten abhängig und muss entsprechend aktualisiert werden (vgl. https://www.baeldung.com/spring-liveness-readiness-probes[Baeldung: Liveness und Readiness Probes in Spring Boot]).
 
 [[update-des-readiness-states]]
 ===== Update des Readiness States
 
 Für den *Readiness State* kann die Kommunikation durch Rest Aufrufe geprüft werden. D. h. _Readiness_ wird durch von Spring Boot bereitgestellte _Readiness_-Probes sichergestellt. Das System ist z. B. bei einem http 200 Ergebnis ready. Die Probes können wiederum durch einen Task-Scheduler durchgeführt werden (vgl.
-xref:glossary:literaturextern:inhalt.adoc#litextern-medium-enable-liveness-readiness-probes[Medium: Liveness und Readiness Probes]).
+https://medium.com/@salarai.de/how-to-enable-liveness-and-readiness-probes-in-a-spring-boot-application-a40cf3423db3[Medium: Liveness und Readiness Probes]).
 
 
 [[anbindung-eines-monitoring-systems]]
@@ -568,7 +515,7 @@ Soll beispielweise _Prometheus_ angebunden werden, muss die folgende Abhängigke
 ----
 
 Häufig ist keine weitere Konfiguration notwendig, da die Anbindung durch Spring Boot automatische konfiguriert wird.
-Die Konfiguration für die unterstützten Monitoring-System ist in xref:glossary:literaturextern:inhalt.adoc#litextern-monitoring-systeme[Monitoring-Systeme] beschrieben.
+Die Konfiguration für die unterstützten Monitoring-Systeme ist in https://micrometer.io/docs/[Monitoring-Systeme] beschrieben.
 
 [[anwendungen-deaktivierbar-machen]]
 === Anwendungen deaktivierbar machen

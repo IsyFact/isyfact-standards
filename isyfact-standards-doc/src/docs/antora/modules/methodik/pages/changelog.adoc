@@ -1,7 +1,15 @@
 [[changelog]]
 = Changelog
-*Änderungen IsyFact 3.0.0*
 
+*Änderungen IsyFact 4.0.0*
+
+// tag::release-4.0.0[]
+- `IFS-2786`: Migrationsleitfaden IsyFact 2 entfernt, da große Teile obsolet wurden.
+- `IFS-2788`: Redundanten Leitfaden zum Enterprise Architect (Teil der Systemspezifikation) entfernt.
+// end::release-4.0.0[]
+
+
+*Änderungen IsyFact 3.0.0*
 
 // tag::release-3.0.0[]
 - `IFS-2272`: Vorlage Systementwurf: SUSE Linux durch Linux 64bit Kernel >= 4.12 ersetzt

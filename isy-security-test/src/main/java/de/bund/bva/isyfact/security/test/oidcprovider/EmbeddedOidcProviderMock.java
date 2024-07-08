@@ -38,11 +38,6 @@ public class EmbeddedOidcProviderMock extends OidcProviderMockBase implements Af
 
     @Override
     public void beforeAll(ExtensionContext extensionContext) {
-        try {
-            Thread.sleep(2000); // workaround for multiple test classes with the OIDC provider mock
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
         if (oidcServerStub == null) {
             oidcServerStub = new WireMockServer(getPort());
             WireMock.configureFor(getPort());

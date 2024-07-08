@@ -15,34 +15,32 @@
     <description>Definiert die Versionen aller 3rd-Party Abhängigkeiten des Core Technology Stack der IsyFact.</description>
 
     <properties>
-        <spring.boot.version>2.7.17</spring.boot.version>
-        <spring.webflow.version>2.5.1.RELEASE</spring.webflow.version>
+        <spring.boot.version>3.2.5</spring.boot.version>
+        <spring.webflow.version>3.0.0</spring.webflow.version>
         <resilience4j.version>1.7.1</resilience4j.version>
         <apache.poi.version>4.1.2</apache.poi.version>
-        <greenmail.version>1.6.14</greenmail.version>
-        <javax.servlet-api.version>3.1.0</javax.servlet-api.version>
+        <greenmail.version>1.6.15</greenmail.version>
         <jsf-api.version>2.2.20</jsf-api.version>
         <jsf-impl.version>2.2.20</jsf-impl.version>
         <tomahawk20.version>1.1.14</tomahawk20.version>
-        <javax.el-api.version>3.0.0</javax.el-api.version>
         <metro.webservices.version>2.4.10</metro.webservices.version>
-        <logback-classic.version>1.2.13</logback-classic.version>
-        <logback-core.version>1.2.13</logback-core.version>
         <logback-json-classic.version>0.1.5</logback-json-classic.version>
         <logback-jackson.version>0.1.5</logback-jackson.version>
         <ojdbc8.version>19.11.0.0</ojdbc8.version>
         <ucp.version>19.11.0.0</ucp.version>
+        <!-- Bean mapping: Orika TODO: remove with ISY-895 -->
         <orika-core.version>1.5.4</orika-core.version>
+        <mapstruct.version>1.5.5.Final</mapstruct.version>
         <pojobuilder.version>4.3.0</pojobuilder.version>
         <xstream.version>1.4.20</xstream.version>
-        <opencsv.version>5.5.2</opencsv.version>
-        <guava.version>31.0.1-jre</guava.version>
+        <opencsv.version>5.9</opencsv.version>
+        <guava.version>33.1.0-jre</guava.version>
         <commons-cli.version>1.5.0</commons-cli.version>
         <commons-net.version>3.10.0</commons-net.version>
         <commons-validator.version>1.7</commons-validator.version>
-        <jsoup.version>1.14.3</jsoup.version>
-        <ApacheJMeter_core.version>2.13</ApacheJMeter_core.version>
-        <wiremock-jre8.version>2.32.0</wiremock-jre8.version>
+        <jsoup.version>1.15.3</jsoup.version>
+        <ApacheJMeter_core.version>5.6.3</ApacheJMeter_core.version>
+        <wiremock-standalone.version>3.4.2</wiremock-standalone.version>
         <dbunit.version>2.7.3</dbunit.version>
         <commons-beanutils.version>1.9.4</commons-beanutils.version>
         <tika-core.version>1.28.5</tika-core.version>
@@ -52,14 +50,6 @@
     <!-- Dependency management for IsyFact core technology stack. -->
     <dependencyManagement>
         <dependencies>
-            <!-- JEE APIs -->
-            <dependency>
-                <groupId>javax.servlet</groupId>
-                <artifactId>javax.servlet-api</artifactId>
-                <version>${javax.servlet-api.version}</version>
-                <scope>provided</scope>
-            </dependency>
-
             <!-- Web framework: Spring Webflow -->
             <dependency>
                 <groupId>org.springframework.webflow</groupId>
@@ -96,21 +86,19 @@
                 <version>${tomahawk20.version}</version>
             </dependency>
 
-            <!-- Expression Language -->
-            <!-- provided by Tomcat -->
-            <dependency>
-                <groupId>javax.el</groupId>
-                <artifactId>javax.el-api</artifactId>
-                <version>${javax.el-api.version}</version>
-                <scope>provided</scope>
-            </dependency>
-
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
                 <version>${spring.boot.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+
+            <!-- Override nimbus-jose-jwt 9.22 to mitigate CVE-2023-52428 -->
+            <dependency>
+                <groupId>com.nimbusds</groupId>
+                <artifactId>nimbus-jose-jwt</artifactId>
+                <version>9.37.3</version>
             </dependency>
 
             <!-- Web service framework (SOAP): Metro
@@ -165,16 +153,6 @@
                 <version>${resilience4j.version}</version>
             </dependency>
             <dependency>
-                <groupId>ch.qos.logback</groupId>
-                <artifactId>logback-classic</artifactId>
-                <version>${logback-classic.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>ch.qos.logback</groupId>
-                <artifactId>logback-core</artifactId>
-                <version>${logback-core.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>ch.qos.logback.contrib</groupId>
                 <artifactId>logback-json-classic</artifactId>
                 <version>${logback-json-classic.version}</version>
@@ -199,11 +177,23 @@
                 <version>${ucp.version}</version>
             </dependency>
 
-            <!-- Bean mapping: Orika -->
+            <!-- Bean mapping: Orika TODO: remove with ISY-895 -->
             <dependency>
                 <groupId>ma.glasnost.orika</groupId>
                 <artifactId>orika-core</artifactId>
                 <version>${orika-core.version}</version>
+            </dependency>
+
+            <!-- Bean mapping: MapStruct-->
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct</artifactId>
+                <version>${org.mapstruct.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct-processor</artifactId>
+                <version>${org.mapstruct.version}</version>
             </dependency>
 
             <!-- Code generation: pojobuilder -->
@@ -305,10 +295,11 @@
             </dependency>
 
             <!-- Testen, Mocking-Framework: WireMock -->
+            <!-- Use wiremock-standalone due to jetty incompatibility between spring boot >3.2.x and wiremock 3.x -->
             <dependency>
-                <groupId>com.github.tomakehurst</groupId>
-                <artifactId>wiremock-jre8</artifactId>
-                <version>${wiremock-jre8.version}</version>
+                <groupId>org.wiremock</groupId>
+                <artifactId>wiremock-standalone</artifactId>
+                <version>${wiremock-standalone.version}</version>
                 <scope>test</scope>
             </dependency>
 
@@ -354,26 +345,4 @@
             <!-- Testing, assertion API: AssertJ -->
         </dependencies>
     </dependencyManagement>
-
-    <profiles>
-        <profile>
-            <id>JDK-11</id>
-            <activation>
-                <jdk>[11,12)</jdk>
-            </activation>
-            <dependencyManagement>
-                <dependencies>
-                    <!-- JAX WS RI Standalone Zipped Bundle
-                    This library licensed under the Eclipse Distribution License (EDL) Version 1.0
-                    The full license text can be found in the LICENSES directory of this project. -->
-                    <dependency>
-                        <groupId>com.sun.xml.ws</groupId>
-                        <artifactId>jaxws-ri</artifactId>
-                        <version>2.3.7</version>
-                        <type>pom</type>
-                    </dependency>
-                </dependencies>
-            </dependencyManagement>
-        </profile>
-    </profiles>
 </project>

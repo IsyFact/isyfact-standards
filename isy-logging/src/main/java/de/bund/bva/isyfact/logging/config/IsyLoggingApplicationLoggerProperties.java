@@ -1,6 +1,6 @@
 package de.bund.bva.isyfact.logging.config;
 
-import javax.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotEmpty;
 
 import org.springframework.validation.annotation.Validated;
 

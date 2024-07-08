@@ -15,45 +15,47 @@ Schließlich etabliert das Glossar eine gemeinsame Sprache aller Projektbeteilig
 _Beispielhaft ein Glossar zu den in diesem Dokument verwendeten Begriffen:_
 
 [[table-glossar]]
-[cols="1,1,2,1", options="header"]
+[cols="1,1,2e,1", options="header"]
 |===
 |Begriff |Kategorie |Erläuterung |Synonym(e) oder Übersetzung(en)
-|_Anwendungskomponente_ |_Architektur_ |_Eine Anwendungskomponente beschreibt eine Menge funktional zusammenhängender Anwendungsfälle._ |
-|_Anwendungslandschaft_ |_Architektur_ |_Die Anwendungslandschaft einer Organisation ist bestimmt durch die Menge der von der Organisationseinheit betriebenen Anwendungssysteme._ |_IT-Anwendungslandschaft_
-|_Anwendungssystem_ |_Architektur_ |_Ein Anwendungssystem ist eine zusam­mengehörende, logische Einheit aus Funktionen, Daten und Benutzungsschnittstellen._ |_Anwendung, IT-System_
-|_Attribut_ |_Daten_ |_Als „Attribut“ versteht man eine dem Entitätstyp zugeordnete Information._ |
-|_Entität_ |_Daten_ |_Als Entität wird ein eindeutig zu bestimmendes Objekt bezeichnet, dem Informationen zugeordnet werden.
-Die Objekte können materiell oder immateriell sein._ |_Informationsobjekt, Objekt_
-|_Entitätstyp_ |_Daten_ |_Jede Entität (das einzelne Objekt) wird einem Entitätstyp zugeordnet.
-Entitäten sind konkrete Ausprägungen eines Entitätstyps._ |_Klasse_
-|_Fachlicher Datentyp_ |_Daten_ a|
-_Ein fachlicher Datentyp beschreibt das Format und den Wertebereich eines Nachbarsystemschnittstellen-Attributs.
-Die Namen der fachlichen Datentypen beginnen mit dem Präfix +„DTY_“+._
+|_Anwendungskomponente_ |_Architektur_ |Eine Anwendungskomponente beschreibt eine Menge funktional zusammenhängender Anwendungsfälle. |
+|_Anwendungslandschaft_ |_Architektur_ |Die Anwendungslandschaft einer Organisation ist bestimmt durch die Menge der von der Organisationseinheit betriebenen Anwendungen. |
+|_Anwendung_ |_Architektur_ |
+include::glossary::terms-definitions.adoc[tag="anwendung-definition"]
+|
+|_Attribut_ |_Daten_ |Als „Attribut“ versteht man eine dem Entitätstyp zugeordnete Information. |
+|_Entität_ |_Daten_ |Als Entität wird ein eindeutig zu bestimmendes Objekt bezeichnet, dem Informationen zugeordnet werden.
+Die Objekte können materiell oder immateriell sein. |_Informationsobjekt, Objekt_
+|_Entitätstyp_ |_Daten_ |Jede Entität (das einzelne Objekt) wird einem Entitätstyp zugeordnet.
+Entitäten sind konkrete Ausprägungen eines Entitätstyps. |_Klasse_
+|_Fachlicher Datentyp_ |_Daten_ |
+Ein fachlicher Datentyp beschreibt das Format und den Wertebereich eines Nachbarsystemschnittstellen-Attributs.
+Die Namen der fachlichen Datentypen beginnen mit dem Präfix +„DTY_“+.
 
-_Datentypen, die eine Liste von Schlüsselwertpaaren repräsentieren, heißen Aufzählungstypen.
-Namen von Aufzählungstypen beginnen mit dem Präfix +„DTY_“+ und enden mit dem Suffix „Code“._
+Datentypen, die eine Liste von Schlüsselwertpaaren repräsentieren, heißen Aufzählungstypen.
+Namen von Aufzählungstypen beginnen mit dem Präfix +„DTY_“+ und enden mit dem Suffix „Code“.
 
 |_Datentyp_
-|_Nachbarsystem_ |_Architektur_ |_Ein externes System mit dem über eine Schnittstelle kommuniziert wird._ |
-|_Nachbarsystemschnittstelle_ |_Architektur_ |_Die Nachbarsystemschnittstelle eines Systems ermöglicht es anderen Systemen, Daten mit diesem zu einem bestimmten fachlichen Zweck auszutauschen.
-Die Namen von Nachbarsystemschnittstellen sind in der fachlichen Schnittstellenbeschreibung durch den Präfix +"NST_"+ gekennzeichnet._ |_Schnittstellen_
-|_Nachbarsystemschnittstellen-Attribut_ |_Daten_ |_Ein Nachbarsystemschnittstellen-Attribut entspricht einer einzelnen fachlichen Information, die über die Nachbar­systemschnittstelle ausgetauscht wird.
+|_Nachbarsystem_ |_Architektur_ |Ein externes System, mit dem über eine Schnittstelle kommuniziert wird. |
+|_Nachbarsystemschnittstelle_ |_Architektur_ |Die Nachbarsystemschnittstelle eines Systems ermöglicht es anderen Systemen, Daten mit diesem zu einem bestimmten fachlichen Zweck auszutauschen.
+Die Namen von Nachbarsystemschnittstellen sind in der fachlichen Schnittstellenbeschreibung durch den Präfix +"NST_"+ gekennzeichnet. |_Schnittstellen_
+|_Nachbarsystemschnittstellen-Attribut_ |_Daten_ |Ein Nachbarsystemschnittstellen-Attribut entspricht einer einzelnen fachlichen Information, die über die Nachbar­systemschnittstelle ausgetauscht wird.
 Die Namen der Nachbarsystemschnittstellen-Attribute beginnen mit dem Präfix +„NSA_“+.
-Zum Beispiel enthält das Attribut NSA_Staat der Entität NSE_Geburtsort den Staat des Geburtsorts._ |
-|_Nachbarsystemschnittstellen-Entitätstyp_ |_Daten_ |_Nachbarsystemschnittstellen-Entitätstypen gruppieren einzelne, fachliche Attribute der Nachbarsystem-schnittstelle.
+Zum Beispiel enthält das Attribut NSA_Staat der Entität NSE_Geburtsort den Staat des Geburtsorts. |
+|_Nachbarsystemschnittstellen-Entitätstyp_ |_Daten_ |Nachbarsystemschnittstellen-Entitätstypen gruppieren einzelne, fachliche Attribute der Nachbarsystem-schnittstelle.
 Nachbarsystemschnittstellen-Entitäten sind konkrete Ausprägungen eines Entitätstyps.
-Die Namen der Nachbarsystemschnittstellen-Entitätstypen beginnen mit dem Präfix +"NSE_“+._ |
-|_Projekt_ |_Vorgehen_ |_Ein Projekt ist ein Vorhaben, bei dem innerhalb einer definierten Zeitspanne ein definiertes Ziel erreicht werden soll, und das sich dadurch auszeichnet, dass es im Wesentlichen ein einmaliges Vorhaben ist._ |_IT-Projekt_
-|_Protokollierung_ |_Nichtfunktionale Anforderungen_ a|
-_Die Protokollierung erfasst Informationen zu fachlichen Abläufen, um diese zu einem späteren Zeitpunkt nachvollziehbar zu machen._
+Die Namen der Nachbarsystemschnittstellen-Entitätstypen beginnen mit dem Präfix +"NSE_“+. |
+|_Projekt_ |_Vorgehen_ |Ein Projekt ist ein Vorhaben, bei dem innerhalb einer definierten Zeitspanne ein definiertes Ziel erreicht werden soll, und das sich dadurch auszeichnet, dass es im Wesentlichen ein einmaliges Vorhaben ist. |_IT-Projekt_
+|_Protokollierung_ |_Nichtfunktionale Anforderungen_ |
+Die Protokollierung erfasst Informationen zu fachlichen Abläufen, um diese zu einem späteren Zeitpunkt nachvollziehbar zu machen.
 
-_Es handelt sich nicht um Logging!_
+Es handelt sich nicht um Logging!
 
 |
-|_UML-Klassendiagramm_ |_Methodik_ |_Ein Klassendiagramm ist in der Informatik eine grafische Darstellung von Entitätstypen sowie der Assoziationen zwischen diesen Entitätstypen._ |
-|_UML-Komponenten­diagramm_ |_Methodik_ |_Das Komponentendiagramm ist ein Strukturdiagramm.
-Es zeigt eine bestimmte Sicht auf die Struktur des modellierten Anwendungssystems._ |
-|_Unified Modelling Language (UML)_ |_Methodik_ |_Die Unified Modeling Language (UML) ist eine von der Object Management Group (OMG) entwickelte und standardisierte Sprache für die Modellierung von Software und anderen Anwendungssystemen._ |
+|_UML-Klassendiagramm_ |_Methodik_ |Ein Klassendiagramm ist in der Informatik eine grafische Darstellung von Entitätstypen sowie der Assoziationen zwischen diesen Entitätstypen. |
+|_UML-Komponenten­diagramm_ |_Methodik_ |Das Komponentendiagramm ist ein Strukturdiagramm.
+Es zeigt eine bestimmte Sicht auf die Struktur der modellierten Anwendung. |
+|Unified Modelling Language (UML)_ |_Methodik_ |Die Unified Modeling Language (UML) ist eine von der Object Management Group (OMG) entwickelte und standardisierte Sprache für die Modellierung von Software und anderen Anwendungen. |
 |===
 
 [[fehlercodes-fehlertexte]]

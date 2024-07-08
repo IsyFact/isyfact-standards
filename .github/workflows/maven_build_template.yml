@@ -3,43 +3,47 @@ on:
   workflow_call:
     inputs:
       jdk-version:
-        description: 'Version of jdk that is used.'
+        description: 'JDK version'
         required: false
         type: number
         default: 17
       maven-opts:
-        description: 'Additional arguments passed to maven'
+        description: 'Custom Maven arguments'
         required: false
         type: string
         default: ''
       checkout-lfs:
-        description: 'Checkout files from Git LFS'
+        description: 'Enable Git LFS checkout'
         required: false
         type: boolean
         default: false
       version:
-        description: 'Version used for maven CI friendly versions'
+        description: 'Maven project version'
         required: false
         type: string
         default: '0.0.0-SNAPSHOT'
       sonar-skip:
-        description: 'Skip Sonar Scan job'
+        description: 'Skip SonarCloud scan'
         required: false
         type: boolean
         default: false
     secrets:
       SONAR_TOKEN:
-        description: 'Token to publish analysis result on sonar'
+        description: 'SonarCloud token to publish analysis result'
+        required: false
+      GH_PACKAGES_TOKEN:
+        description: 'Github Packages token'
         required: false
 
 env:
   MAVEN_CLI_OPTS: '--batch-mode --errors --fail-at-end -T 1C'
+  GH_PACKAGES_TOKEN: ${{ secrets.GH_PACKAGES_TOKEN }}
 
 jobs:
   Compile:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout project
+      - name: Checkout
         uses: actions/checkout@v4
         with:
           lfs: ${{ inputs.checkout-lfs }}
@@ -54,9 +58,9 @@ jobs:
 
   Test:
     runs-on: ubuntu-latest
-    needs: [Compile]
+    needs: Compile
     steps:
-      - name: Checkout project
+      - name: Checkout
         uses: actions/checkout@v4
         with:
           lfs: ${{ inputs.checkout-lfs }}
@@ -68,22 +72,28 @@ jobs:
           cache: maven
       - name: Run tests
         run: mvn $MAVEN_CLI_OPTS ${{ inputs.maven-opts }} -Drevision=${{ inputs.version }} -Dcheckstyle.skip test
-      - name: Create summary
+      - name: Create test coverage summary
         run: |
-          echo "| Module | Total Coverage |" >> $GITHUB_STEP_SUMMARY
-          echo "| --- | --- |" >> $GITHUB_STEP_SUMMARY
-          COUNTER=0
-          SUM=0
-          for REPORT in $(find . -path \*target/site/jacoco/index.html); do
-            MODULE=$(grep -o '<title>[^%].*</title>'  "$REPORT"| sed 's/<\/\?title>//g')
+          echo "| Module | Test Coverage |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| --- | --- |" >> "$GITHUB_STEP_SUMMARY"
+          
+          MODULE_COUNT=0
+          TOTAL_COVERAGE=0
+          
+          while IFS= read -r REPORT; do
+            MODULE=$(grep -o '<title>[^%].*</title>' "$REPORT" | sed 's/<\/\?title>//g')
             COVERAGE=$(grep -o 'Total[^%]*%' "$REPORT" | sed 's/<.*>/ /; s/Total//; s/ //; s/%//')
-            echo "| $MODULE | $COVERAGE % |" >> $GITHUB_STEP_SUMMARY
-            COUNTER=$((COUNTER+1))
-            SUM=$((SUM+COVERAGE))
-          done
-          [[ $COUNTER -gt 0 ]] && TOTAL_COVERAGE=$((SUM/COUNTER)) || TOTAL_COVERAGE=0
-          echo "| Overall | $TOTAL_COVERAGE % |" >> $GITHUB_STEP_SUMMARY
-      - name: Upload Reports
+            echo "| $MODULE | $COVERAGE % |" >> "$GITHUB_STEP_SUMMARY"
+            MODULE_COUNT=$((MODULE_COUNT+1))
+            TOTAL_COVERAGE=$((TOTAL_COVERAGE+COVERAGE))
+          done < <(find . -path \*target/site/jacoco/index.html)
+          
+          if [ $MODULE_COUNT -gt 1 ]; then
+            AVERAGE_COVERAGE=$((TOTAL_COVERAGE/MODULE_COUNT))
+            echo "| **Overall** | $AVERAGE_COVERAGE % |" >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Upload Test Reports
         if: success() || failure()
         uses: actions/upload-artifact@v4
         with:
@@ -94,11 +104,11 @@ jobs:
 
   CodeQuality:
     runs-on: ubuntu-latest
-    # Run quality checks if sonar is not configured for the project
+    # run quality checks if SonarCloud is not configured for the project
     if: vars.SONAR_PROJECT_KEY == ''
     needs: [Compile]
     steps:
-      - name: Checkout project
+      - name: Checkout
         uses: actions/checkout@v4
         with:
           lfs: ${{ inputs.checkout-lfs }}
@@ -108,44 +118,43 @@ jobs:
           java-version: ${{ inputs.jdk-version }}
           distribution: temurin
           cache: maven
-      - name: Run checkstyle
+      - name: Run Checkstyle
         run: >
           mvn $MAVEN_CLI_OPTS ${{ inputs.maven-opts }} -Drevision=${{ inputs.version }} 
           compile checkstyle:checkstyle-aggregate
-      - name: Run spotbugs
+      - name: Run SpotBugs
         run: >
           mvn $MAVEN_CLI_OPTS ${{ inputs.maven-opts }} -Drevision=${{ inputs.version }} 
           -Dcheckstyle.skip -Denforcer.skip -Dtidy.skip compile spotbugs:check
-      - name: Upload Reports
+      - name: Upload Quality Reports
         if: success() || failure()
         uses: actions/upload-artifact@v4
         with:
           name: Quality Reports
           path: |
             ${{ github.workspace }}/**/target/checkstyle-result.xml
-             ${{ github.workspace }}/**/target/spotbugs*.xml
+            ${{ github.workspace }}/**/target/spotbugs*.xml
 
-  SonarScan:
+  SonarCloudScan:
     runs-on: ubuntu-latest
-    # run also, if test or code quality jobs fail; skip dependabot pr as dependabot has separate secrets
-    if: vars.SONAR_PROJECT_KEY && !cancelled() && github.actor != 'dependabot[bot]' && !inputs.sonar-skip
+    if: vars.SONAR_PROJECT_KEY && !cancelled() && !inputs.sonar-skip
     needs: [Test, CodeQuality]
     steps:
-      - name: Checkout project
+      - name: Checkout
         uses: actions/checkout@v4
         with:
           lfs: ${{ inputs.checkout-lfs }}
-          # Shallow clones should be disabled for a better relevancy of analysis
+          # fetch full git history for comprehensive SonarCloud analysis
           fetch-depth: 0
-      - name: Set up JDK 17
+      - name: Set up JDK (17 or higher)
         uses: actions/setup-java@v4
         with:
-          # Sonar Plugin requires Java 17 or higher
-          java-version: 17
+          # set JDK to jdk-version if it's specified and > 17, otherwise defaults to 17
+          java-version: ${{ inputs.jdk-version > 17 && inputs.jdk-version || 17 }}
           distribution: temurin
           cache: maven
-      - name: Sonar Cache
-        uses: actions/cache@v3
+      - name: Cache SonarCloud
+        uses: actions/cache@v4
         with:
           path: ~/.sonar/cache
           key: ${{ runner.os }}-sonar
@@ -155,19 +164,21 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: Test Reports
-      - name: Sonar Scan
+      - name: Run SonarCloud Scan
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: >
-          mvn $MAVEN_CLI_OPTS ${{ inputs.maven-opts }} -Drevision=${{ inputs.version }}
+          mvn $MAVEN_CLI_OPTS ${{ inputs.maven-opts }}
+          -Drevision=${{ inputs.version }}
           -DskipTests -Dspotbugs.skip -Dcheckstyle.skip -Dmaven.javadoc.skip -Denforcer.skip
           -Dsonar.host.url=${{ vars.SONAR_HOST_URL }}
-          -Dsonar.organization=${{ vars.SONAR_ORGANIZATION }} -Dsonar.projectKey=${{ vars.SONAR_PROJECT_KEY }}
+          -Dsonar.organization=${{ vars.SONAR_ORGANIZATION }}
+          -Dsonar.projectKey=${{ vars.SONAR_PROJECT_KEY }}
           verify org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.1.2184:sonar
-      - name: Upload Meta Data
+      - name: Upload SonarCloud metadata
         uses: actions/upload-artifact@v4
         with:
-          name: Sonar Meta Data
+          name: SonarCloud Metadata
           path:
             ${{ github.workspace }}/target/sonar/report-task.txt

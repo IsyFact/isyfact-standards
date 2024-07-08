@@ -24,7 +24,6 @@ package de.bund.bva.isyfact.logging;
  */
 
 import org.junit.Assert;
-
 import org.junit.Test;
 
 import de.bund.bva.isyfact.logging.exceptions.LogKonfigurationFehler;

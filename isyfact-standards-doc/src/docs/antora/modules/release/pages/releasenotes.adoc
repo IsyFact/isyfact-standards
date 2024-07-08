@@ -1,0 +1,103 @@
+= Release Notes Version {page-component-version}
+:icons: font
+:sectnums:
+
+include::glossary:licence:partial$licence.adoc[]
+
+Ergänzend zu den Release Notes erläutert der xref:release:migrationsleitfaden.adoc[Migrationsleitfaden] die notwendigen Schritte zur Migration älterer Anwendungen auf das aktuelle Release.
+
+
+[[kapitel-aenderungen]]
+== Allgemeine Änderungen
+
+...
+
+[[kapitel-referenzarchitektur]]
+== Referenzarchitektur
+
+[CAUTION]
+====
+Dieses Release enthält architektonische "Breaking Changes".
+Anwendungen, die mit den vorigen Releases der IsyFact architektonisch im Einklang sind, sind es mit IsyFact {page-component-version} nicht mehr unbedingt.
+
+Widersprüche zur Referenzarchitektur führen in der Regel zu einem (partiellen) Redesign betroffener Anwendungen.
+====
+
+Der Begriff xref:glossary:glossary:master.adoc#glossar-referenzarchitektur["Referenzarchitektur"] löst den bisherigen Begriff xref:glossary:glossary:master.adoc#glossar-blaupause["Blaupause"] ab.
+
+Die Seite "Referenzarchitektur" wurde nach Architektursichten aufgeteilt:
+
+* xref:referenzarchitektur:fachlich.adoc[],
+* xref:referenzarchitektur:software-technisch.adoc[],
+* xref:referenzarchitektur:technisch-infrastrukturell.adoc[].
+
+Die restlichen Inhalte der Referenzarchitektur wurden thematisch gegliedert und  in der xref:referenzarchitektur:index.adoc[Navigation] z.T. neu angeordnet.
+
+=== Fachliche Referenzarchitektur
+
+Die Begrifflichkeiten rund um Anwendungen wurden z.T. angepasst und neu definiert.
+Der Begriff xref:glossary:glossary:master.adoc#glossar-anwendungssystem[Anwendungssystem] entfällt zugunsten der Begriffe xref:glossary:glossary:master.adoc#glossar-anwendung[Anwendung] und xref:glossary:glossary:master.adoc#glossar-it-system[IT-System], da mit diesem Begriff manchmal das eine und manchmal das andere gemeint war.
+
+=== Software-technische Referenzarchitektur
+
+Die software-technische Referenzarchitektur sieht nun vor, eine  xref:referenzarchitektur:software-technisch/it-system-zerlegung.adoc[Anwendung in mehrere IT-Systeme zu zerlegen].
+Eine Abbildung einer Anwendung auf nur ein IT-System ist weiterhin möglich, stellt aber einen Spezialfall dar.
+Die Beschreibung dieses "technischen Schnitts" zieht auch eine neue Definition des xref:glossary:glossary:master.adoc#glossar-it-system[IT-Systems] nach sich.
+Neu eingeführt wurden die xref:glossary:glossary:master.adoc#glossar-it-systemtyp[IT-Systemtypen].
+Sie stellen konkrete Ausprägungen des IT-Systems dar, besitzen eine jeweils eigene Systemarchitektur und können auf verschiedenartige Technologie-Stacks setzen.
+Aktuell gibt es drei IT-Systemtypen: xref:glossary:glossary:master.adoc#backend[Backend], xref:glossary:glossary:master.adoc#frontend[Frontend] sowie xref:glossary:glossary:master.adoc#glossar-batch[Batch].
+
+Die IT-Systemtypen Backend und Batch enthalten keine UI-Komponenten.
+Zur Umsetzung von UIs sieht die Referenzarchitektur nur noch eigenständige Frontends vor.
+Ergänzend hierzu beinhaltet die IsyFact einen Baustein zur Umsetzung von Frontends mit xref:isy-angular-widgets-doc::konzept/konzept.adoc[Angular].
+
+==== Datenzugriff
+Für die Überführung von persistenten Entitäten in Geschäftsobjekte sollen keine gesonderten Schnittstellenobjekte mehr genutzt werden.
+Die Komponente Datenzugriff übergibt persistente Entitäten an den Anwendungskern.
+Der Anwendungskern darf keine persistenten Entitäten mehr herausgeben, auch nicht zwischen seinen Fachkomponenten.
+Entsprechende Ausnahmen wurden gestrichen.
+
+==== Anwendungskern
+Das Konzept der "Basisdaten" wurde gestrichen, in dem die Referenzarchitektur erlaubt hat, von Fachkomponenten gemeinsam benutzte Geschäftsobjekte zu definieren.
+Für diese Geschäftsobjekte gab es keine Komponente im Anwendungskern, sondern nur einen direkten Zugriff auf die dazugehörigen Entitäten.
+Die Referenzarchitektur sieht nun vor, dass Fachkomponenten ohne Ausnahme die vollständige Datenhoheit über ihre eigenen Geschäftsobjekte besitzen.
+
+
+[[kapitel-bausteine]]
+== Bausteine
+
+=== Http Invoker
+
+Der Baustein wurde entfernt.
+Anwendungen müssen auf den xref:isy-service-rest:konzept/master.adoc[Baustein REST] migrieren.
+
+=== JSF
+
+Der Baustein wurde entfernt.
+Anwendungen müssen auf den xref:isy-angular-widgets-doc::konzept/konzept.adoc[Baustein Angular] migrieren.
+
+=== Sicherheit
+
+Der Baustein wurde entfernt.
+Anwendungen müssen auf den xref:isy-security:konzept/master.adoc[Baustein Security] migrieren.
+
+[[kapitel-deprecations]]
+== Deprecations
+
+...
+
+[[kapitel-dokumentation]]
+== Dokumentation
+
+=== Änderungen
+
+- Die Dokumentation verwendet keine Liste für externe Links mehr, sondern das https://docs.asciidoctor.org/asciidoc/latest/macros/url-macro/[URL-Makro] von AsciiDoc.
+- Das xref:glossary:glossary:master.adoc[] und der xref:documentation-guide:ROOT:index.adoc[] werden parallel zu den Releases der IsyFact gepflegt.
+Sie besitzen keine Version und sind damit über alle Releases hinweg gültig.
+Inhalte für spezifische Releases werden ausdrücklich ausgezeichnet.
+
+=== Entfernungen
+
+- Vorgaben zur Entwicklungsumgebung: Stark veraltete Inhalte und Produktvorgaben entfernt.
+- Migrationsleitfaden IsyFact 2: Große Teile werden durch das Release obsolet.
+- Redundantes Handbuch Enterprise Architect: Dopplung als Teil der Vorlage Systemspezifikation entfernt.

@@ -5,7 +5,7 @@ include::glossary:licence:partial$licence.adoc[]
 [[einfuehrung-in-software-factories]]
 == Einführung in Software Factories
 
-Eine Software Factory ist eine Sammlung von Architektur-Blaupausen, Bausteinen, einer Plattform, Methoden und Werkzeugen, die es erlaubt, Anwendungen weitgehend „automatisiert“ und standardisiert zu entwickeln.
+Eine Software Factory ist eine Sammlung, bestehend aus einer Referenzarchitektur, Bausteinen, einer Plattform, Methoden und Werkzeugen, die es erlaubt, Anwendungen weitgehend „automatisiert“ und standardisiert zu entwickeln.
 Dabei bedeutet „automatisiert“ hier nicht, dass der Quelltext des Softwaresystems ohne menschliches Zutun durch einen Automaten erzeugt würde.
 Es bezieht sich vielmehr darauf, dass alle wesentlichen technischen Architekturentscheidungen bereits durch die Software Factory getroffen sind, und diese auch entsprechende Komponenten zur Implementierung dieser Architektur bereithält.
 Architekten und Entwickler können sich damit im Normalfall auf die Umsetzung der jeweiligen Fachlichkeit der Anwendung konzentrieren.
@@ -14,7 +14,7 @@ Da die Anwendung jedoch nach wie vor manuell entwickelt (und nicht generiert wir
 [[isyfact-standards-und-erweiterungen]]
 == IsyFact: Standards und Erweiterungen
 
-Die *IsyFact* ist eine freie allgemeine Software Factory zum Bau von IT-Systemen, die vom Bundesverwaltungsamt (BVA) bereitgestellt wird.
+Die *IsyFact* ist eine freie allgemeine xref:glossary:glossary:master.adoc#glossar-software-factory[Software Factory] zum Bau von IT-Systemen, die vom Bundesverwaltungsamt (BVA) bereitgestellt wird.
 Sie umfasst Standards und Erweiterungen.
 
 [[isyfact-aufbau]]
@@ -32,8 +32,8 @@ Die Inhalte der IsyFact-Standards und IsyFact-Erweiterungen werden in gleicher W
 
 // tag::whitepaper[]
 
-Blaupausen::
-Blaupausen beschreiben die Konzepte, Architektur sowie Erstellung von Anwendungslandschaften und Geschäftsanwendungen auf fachlicher, software-technischer und technisch-infrastruktureller Ebene.
+Referenzarchitektur::
+Die Referenzarchitektur beschreibt die Konzepte, Architektur sowie Erstellung von Anwendungslandschaften und Geschäftsanwendungen auf fachlicher, software-technischer und technisch-infrastruktureller Ebene.
 
 Bausteine::
 Wiederverwendbare Softwarelösungen, querschnittliche Anwendungen sowie Programmierbibliotheken und -vorlagen zur Erstellung von Geschäftsanwendungen.
@@ -60,7 +60,7 @@ Da spezifisches Domänenwissen jedoch per Definition nicht Teil der IsyFact sein
 Dabei wird zunächst beschrieben, welche Teile der IsyFact für die jeweilige Domäne überhaupt relevant sind und zum Einsatz kommen sollen.
 Dann werden die Konzepte der IsyFact konkretisiert, und domänenspezifische Bausteine und Architekturen werden hinzugefügt.
 Diesen Vorgang bezeichnet man insgesamt als _Tailoring_.
-Das Resultat des Tailoring ist eine spezifische Factory für einen Anwendungskontext, wie sie z.B. beim Bundesverwaltungsamt in Form der xref:glossary:literaturextern:inhalt.adoc#litextern-register-factory[Register Factory] für den Kontext der Register Anwendungen erstellt wurde.
+Das Resultat des Tailoring ist eine spezifische Factory für einen Anwendungskontext, wie sie z.B. beim Bundesverwaltungsamt in Form der http://www.register-factory.de[Register Factory] für den Kontext der Register Anwendungen erstellt wurde.
 
 Das Tailoring ist ein sinnvoller Schritt, um möglichst viel Wissen über die Entwicklung von Anwendungen in Form einer Factory vorzuhalten.
 Es ist für die Nutzung der IsyFact jedoch nicht erforderlich.
@@ -146,7 +146,7 @@ Darüber hinaus stellt das BVA die Register Factory auf Anfrage auch anderen Beh
 
 In diesem Kontext wird zwischen den Systemtypen _Register_ und _Geschäftsanwendungen_ unterschieden.
 Register dienen der Sammlung von Informationen und besitzen keine Präsentationslogik oder fachlichen Prozesse.
-Geschäftsanwendungen implementieren fachliche Logik, Prozesse und präsentieren die Daten aus den Registern.
+Geschäftsanwendungen implementieren Geschäftslogik, Prozesse und präsentieren die Daten aus den Registern.
 Die Anwendungsarchitektur der Register Factory und deren Bausteine und Methoden ließen sich aber ohne weiteres zur Entwicklung beliebiger fachlicher Anwendungen (_Geschäftsanwendungen_) benutzen.
 Register sind lediglich Spezialfälle solcher Geschäftsanwendungen.
 Um die Artefakte der Register Factory auch in anderen Kontexten zur Verfügung zu stellen, wurden die bestehenden Artefakte der Register Factory umstrukturiert und neu aufgeteilt in IsyFact (Standards und Erweiterungen) und Register Factory.

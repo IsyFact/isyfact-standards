@@ -21,3 +21,10 @@ hs_err_pid*
 target/
 /isyfact-standards-doc/src/docs/antora/modules/methodik/attachments/vorlage-generated/
 .flattened-pom.xml
+
+# Ignore diagrams.net-specific files
+*.dn.svg.bkp
+*.xml.bkp
+
+# Ignore OS-specific files
+.DS_Store

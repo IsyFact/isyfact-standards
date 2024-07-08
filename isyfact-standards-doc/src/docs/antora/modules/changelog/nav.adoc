@@ -1,5 +1,0 @@
-* xref:aenderungen.adoc[Änderungen Version {page-component-display-version}]
-** xref:releasenotes.adoc[Release Notes]
-** xref:changelog.adoc[Changelog]
-** xref:migrationsleitfaden.adoc[Migrationsleitfaden IsyFact {page-component-display-version}]
-** xref:einstieg:migrationsleitfaden-if2/master.adoc[Migrationsleitfaden IsyFact 2]

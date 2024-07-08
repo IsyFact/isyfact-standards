@@ -1,13 +1,18 @@
-:doctitle: IsyFact Systemhandbuch <System>
-:document-type: Vorlage
-// Mögliche VS-Einstufungswerte = [OPEN-SOURCE | OFFEN | EINSTUFUNG_FEHLT | VS_NFD | VS_VERTRAULICH | GEHEIM | STRENG_GEHEIM]
-:vs-einstufung: OPEN-SOURCE
+= <Beispielsystem>: Systemhandbuch
+:doctype: book
+:pdf-theme: default-with-font-fallbacks
+:icons: font
+:toc:
+:toc-title: Inhaltsverzeichnis
+:figure-caption: Abbildung
+:table-caption: Tabelle
+:!chapter-signifier:
 
 toc::[]
-colophon::[factory="IsyFact-Standards", open-source="true"]
 
-// Inhalt
 include::inhalt.adoc[tags=inhalt]
 
 // Kapitelnummerierung ausschalten
 :sectnums!:
+
+include::inhalt.adoc[tags=quellen]

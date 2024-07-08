@@ -1,6 +1,37 @@
 [[changelog]]
 = Changelog
 
+*Änderungen IsyFact 4.0.0*
+
+// tag::release-4.0.0[]
+* Produkte entfernt:
+** Entwicklungsumgebungen und alle Plugins
+** Spring Http Invoker
+** Expression API
+** Spring Webflow
+** JSF
+** Tomahawk
+** jQuery
+** jQuery Timepicker
+** Bootstrap
+// end::release-4.0.0[]
+
+*Änderungen IsyFact 3.0.1*
+
+// tag::release-3.0.1[]
+* Anhebung von Versionen:
+** Open CSV auf 5.9.x
+** Google Guava auf 33.1.x
+
+* Überschreiben von Spring Boot verwalteten Versionen
+** Spring Framework BOM auf 5.3.33
+*** Spring Http Invoker
+*** Spring Web MVC
+*** Spring WebClient
+** Spring Security BOM auf 5.7.12
+
+// end::release-3.0.1[]
+
 *Änderungen IsyFact 3.0.0*
 
 // tag::release-3.0.0[]

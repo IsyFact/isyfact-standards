@@ -1,16 +1,5 @@
 * xref:werkzeuge.adoc[]
-** xref:dokumentation/einleitung/einfuehrung.adoc[]
-*** Antora (empfohlen)
-**** xref:dokumentation/erstellung/erstellung-antora.adoc[]
-***** xref:seitenvorlage.adoc[]
-***** xref:kopiervorlage.adoc[]
-**** xref:dokumentation/bearbeitung/bearbeitung-antora.adoc[]
-**** xref:dokumentation/generierung/generierung-antora.adoc[]
-*** AsciidoctorJ
-**** xref:dokumentation/erstellung/erstellung-asciidoctorj.adoc[]
-**** xref:dokumentation/bearbeitung/bearbeitung-asciidoctorj.adoc[]
-**** xref:dokumentation/generierung/generierung-asciidoctorj.adoc[]
-*** xref:dokumentation/changelog/changelog-doku.adoc[]
-** xref:entwicklungsumgebung/master.adoc[Entwicklungsumgebung]
+** xref:documentation-guide:ROOT:index.adoc[]
+** xref:dokumentation/changelog-doku.adoc[Changelogs]
 ** xref:versionierungskontrolle/master.adoc[]
 ** xref:gui-tests/gui-tests-mit-selenium.adoc[]

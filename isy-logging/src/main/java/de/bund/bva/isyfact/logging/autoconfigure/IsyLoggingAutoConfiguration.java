@@ -1,12 +1,6 @@
 package de.bund.bva.isyfact.logging.autoconfigure;
 
 
-import de.bund.bva.isyfact.logging.config.AbstractBoundaryLoggerProperties;
-import de.bund.bva.isyfact.logging.config.IsyLoggingApplicationLoggerProperties;
-import de.bund.bva.isyfact.logging.config.IsyLoggingBoundaryLoggerProperties;
-import de.bund.bva.isyfact.logging.config.IsyLoggingComponentLoggerProperties;
-import de.bund.bva.isyfact.logging.util.LogApplicationListener;
-import de.bund.bva.isyfact.logging.util.LoggingMethodInterceptor;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.springframework.aop.Advisor;
 import org.springframework.aop.aspectj.AspectJExpressionPointcut;
@@ -18,6 +12,13 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+
+import de.bund.bva.isyfact.logging.config.AbstractBoundaryLoggerProperties;
+import de.bund.bva.isyfact.logging.config.IsyLoggingApplicationLoggerProperties;
+import de.bund.bva.isyfact.logging.config.IsyLoggingBoundaryLoggerProperties;
+import de.bund.bva.isyfact.logging.config.IsyLoggingComponentLoggerProperties;
+import de.bund.bva.isyfact.logging.util.LogApplicationListener;
+import de.bund.bva.isyfact.logging.util.LoggingMethodInterceptor;
 
 /**
  * Spring autoconfiguration for including the isy-logging library in the Spring context.

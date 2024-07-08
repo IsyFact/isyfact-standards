@@ -2,7 +2,7 @@
 
 include::glossary:licence:partial$licence.adoc[]
 
-Unter *Historisierung* (auch xref:glossary:literaturextern:inhalt.adoc#litextern-temporale-datenhaltung[temporale Datenhaltung] genannt) versteht man das Festhalten der zeitlichen Entwicklung von Daten durch Speichern in einer Datenbank.
+Unter *Historisierung* (auch https://de.wikipedia.org/wiki/Temporale_Datenhaltung[temporale Datenhaltung] genannt) versteht man das Festhalten der zeitlichen Entwicklung von Daten durch Speichern in einer Datenbank.
 Bei den Datensätzen gibt es zwei relevante Aspekte: den Gültigkeitszeitraum eines Datensatzes und den Bearbeitungszeitpunkt eines Datensatzes.
 
 Der *Gültigkeitszeitraum* gibt an, wie lange ein Datensatz gültig ist.
@@ -27,7 +27,7 @@ Die Historisierung grenzt sich wie folgt von den Themen Archivierung, Datensiche
 
 Bei der Archivierung handelt es sich um die Aufbewahrung eines Datensatzes über eine längere Zeit hinweg.
 Dies ist meist aus rechtlichen Gründen notwendig z. B. wegen gesetzlicher Aufbewahrungsfristen.
-Bei der Archivierung sind dementsprechend Randbedingungen wie Integrität, Unveränderlichkeit und Vertraulichkeit einzuhalten (s. xref:glossary:literaturextern:inhalt.adoc#litextern-it-grundschutz-bsi[IT-Grundschutz BSI]).
+Bei der Archivierung sind dementsprechend Randbedingungen wie Integrität, Unveränderlichkeit und Vertraulichkeit einzuhalten (s. https://www.bsi.bund.de/DE/Themen/Unternehmen-und-Organisationen/Standards-und-Zertifizierung/IT-Grundschutz/it-grundschutz_node.html[IT-Grundschutz BSI]).
 
 [[abgrenzung-datensicherung-backup]]
 === Abgrenzung Datensicherung (Backup)

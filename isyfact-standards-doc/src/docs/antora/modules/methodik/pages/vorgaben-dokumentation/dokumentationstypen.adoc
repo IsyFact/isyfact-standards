@@ -9,57 +9,65 @@ Im Folgenden werden die Dokumentationstypen der IsyFact erläutert.
 Neben einer kurzen Beschreibung des _Ziels_ und _Inhalts_ werden die _Zielgruppen_ und der _Scope_ benannt.
 Unter _Vorlage / Beispiel_ findet sich ein Verweis auf vordefinierte Vorlagen oder ein repräsentatives konkretes Beispiel.
 
-[[saeule-blaupausen]]
-== Säule Blaupausen
+[[saeule-referenzarchitektur]]
+== Säule Referenzarchitektur
 
-Blaupausen werden mit folgenden Dokumentationstypen beschrieben:
+Die Referenzarchitektur wird mit folgenden Dokumentationstypen beschrieben:
 
 [[table-referenzarchitektur]]
-.Referenzarchitektur
+.Themenseite Referenzarchitektur
 [cols="1s,4",options="header"]
 |===
-2+|Referenzarchitektur
+2+|Themenseite Referenzarchitektur
 
 |Ziel
 |
-Die Referenzarchitektur definiert einen Strukturierungsrahmen für die Anwendungslandschaft und legt Prinzipien für die softwaretechnische Realisierung fest.
+Definition einheitlicher Vorgaben unter Berücksichtigung fachlicher, technischer und betrieblicher Anforderungen bezogen auf die Architektur einer Anwendung bzw. Anwendungslandschaft.
 
 |Inhalt
 a|
-* Definition einheitlicher Vorgaben unter Berücksichtigung fachlicher und technischer Anforderungen bezogen auf die Architektur einer Anwendung bzw. Anwendungslandschaft.
-* Enthält drei Architektursichten: fachlich, software-technisch, technische Infrastruktur.
-* Enthält Architekturvorgaben und Architekturentscheidungen.
+Thematisch zusammenhängende Seiten mit den folgenden Eigenschaften:
+
+* gegliedert nach drei Architektursichten: fachlich, software-technisch, technisch-infrastrukturell,
+* enthält Architekturvorgaben und setzt Architekturentscheidungen um.
 
 |Zielgruppe(n)
 |Architekten, (Entwickler)
 
 |Scope
-|Blaupause
+|Referenzarchitektur
 
 |Vorlage / Beispiel
 a|
-xref:blaupausen:referenzarchitektur/master.adoc[]
+Vorlage:
+
+* xref:documentation-guide::seitenvorlage.adoc[]
+
+Beispiele:
+
+* xref:referenzarchitektur:software-technisch.adoc[]
+* xref:blaupausen:detailkonzept-komponente-datenzugriff/persistenzlogik.adoc[]
 |===
 
 [[table-detailkonzept]]
 .Detailkonzept
 [cols="1s,4",options="header"]
 |===
-2+|Detailkonzept
+2+|icon:ban[title=Deprecation] [.line-through]#Detailkonzept#
 
 |Ziel
-|Vorgaben zur Umsetzung bezogen auf eine Blaupause, sofern sie eine technische Ausrichtung haben.
+|Vorgaben zur Umsetzung bezogen auf die Referenzarchitektur, sofern sie eine technische Ausrichtung haben.
 
 |Inhalt
 a|
-* Beschreibt Blaupausen für xref:glossary:glossary:master.adoc#glossar-t-architektur[software-technische Architektur] wie z.B. Batches, Datenzugriffe oder Services.
+* Bricht die Referenzarchitektur auf Aspekte der xref:glossary:glossary:master.adoc#glossar-t-architektur[software-technischen Architektur] wie z.B. Batches, Datenzugriff oder Services, herunter.
 * Enthält Architekturvorgaben und Architekturentscheidungen.
 
 |Zielgruppe(n)
 |Architekten, Entwickler, (IT-Betrieb)
 
 |Scope
-|Blaupause
+|Referenzarchitektur
 
 |Vorlage / Beispiel
 a|
@@ -146,8 +154,7 @@ a|
 |Baustein (allgemein)
 
 |Vorlage / Beispiel
-a|* xref:werkzeuge:dokumentation/changelog/changelog-doku.adoc[Vorgaben zu Changelogs] +
-* xref:changelog:changelog.adoc[Changelog der IsyFact]
+a|xref:werkzeuge:dokumentation/changelog-doku.adoc[Vorgaben zu Changelogs] +
 |===
 
 
@@ -204,7 +211,7 @@ a|
 * Schnittstellenverhalten
 * Weitergehende Informationen
 
-Abgrenzung zur <<table-technische-schnittstellendokumentation, technischen Schnittstellenspezifikation>>.
+Abgrenzung zur <<table-technische-schnittstellendokumentation,technischen Schnittstellenspezifikation>>.
 
 |Zielgruppe(n)
 |Fachabteilung, fachliche und technische Architekten, Entwickler, Nutzer der Schnittstelle, (alle)
@@ -273,7 +280,7 @@ a|
 * Status Codes
 * Fehlermeldungen
 
-Abgrenzung zur <<table-fachliche-schnittstellenspezifikation, fachlichen Schnittstellenspezifikation>>.
+Abgrenzung zur <<table-fachliche-schnittstellenspezifikation,fachlichen Schnittstellenspezifikation>>.
 
 |Zielgruppe(n)
 |Entwickler, Architekten, IT-Betrieb
@@ -328,7 +335,7 @@ a|* xref:methodik:vorlagen.adoc#table-dokumentation-anwendung[Vorlagen] +
 2+|Anwenderhandbuch
 
 |Ziel
-|Bedienungshinweise zur Benutzeroberfläche für Anwender von fachlichen Anwendungssystemen oder Querschnittsanwendungen.
+|Bedienungshinweise für Anwender zur grafischen Benutzeroberfläche von Anwendungen.
 
 |Inhalt
 a|
@@ -419,7 +426,7 @@ Die Methodik wird mit folgendem Dokumentationstyp beschrieben:
 |Beschreibung von Konventionen oder Vorgaben, die zu einer Methodik oder einem Vorgehensmodell gehören.
 
 |Inhalt
-a|* Beschreibung des Themas (s. xref:werkzeuge:seitenvorlage.adoc[])
+a|* Beschreibung des Themas (s. Vorlage/Beispiel)
 
 |Zielgruppe(n)
 |je nach Thema (meist Architekten, Entwickler, technische Autoren)
@@ -428,7 +435,7 @@ a|* Beschreibung des Themas (s. xref:werkzeuge:seitenvorlage.adoc[])
 |Methodik
 
 |Vorlage / Beispiel
-|xref:werkzeuge:seitenvorlage.adoc[]
+|xref:documentation-guide:ROOT:seitenvorlage.adoc[]
 |===
 
 == Säule Werkzeuge
@@ -445,7 +452,7 @@ Werkzeuge werden mit folgendem Dokumentationstyp beschrieben:
 |Beschreibung von Konventionen oder Vorgaben, die zu einem Werkzeug gehören.
 
 |Inhalt
-a|* Beschreibung des Werkzeugs (s. xref:werkzeuge:seitenvorlage.adoc[])
+a|* Beschreibung des Werkzeugs (s. Vorlage/Beispiel)
 
 |Zielgruppe(n)
 |je nach Thema (meist Architekten, Entwickler, technische Autoren)
@@ -454,6 +461,6 @@ a|* Beschreibung des Werkzeugs (s. xref:werkzeuge:seitenvorlage.adoc[])
 |Werkzeug
 
 |Vorlage / Beispiel
-a|* xref:werkzeuge:seitenvorlage.adoc[]
+a|* xref:documentation-guide:ROOT:seitenvorlage.adoc[]
 * xref:methodik:diagrammerstellung/diagramsnet.adoc[]
 |===

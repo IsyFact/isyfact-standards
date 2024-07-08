@@ -29,7 +29,7 @@ import io.micrometer.core.instrument.MeterRegistry;
                 "isy.task.authentication.enabled=true",
                 "spring.task.scheduling.pool.size=2",
         })
-public class TestTaskAuthentication extends AbstractOidcProviderTest {
+class TestTaskAuthentication extends AbstractOidcProviderTest {
 
     @Autowired
     private MeterRegistry registry;
@@ -76,7 +76,7 @@ public class TestTaskAuthentication extends AbstractOidcProviderTest {
     }
 
     @Test
-    public void testTaskSecured() throws Exception {
+    void testTaskSecured() throws Exception {
         String className = TestTaskAuthenticationTasks.class.getSimpleName();
         String annotatedMethodName = "scheduledTaskSecured";
 
@@ -87,7 +87,7 @@ public class TestTaskAuthentication extends AbstractOidcProviderTest {
     }
 
     @Test
-    public void testTaskSecuredInsufficientRights() throws Exception {
+    void testTaskSecuredInsufficientRights() throws Exception {
         String className = TestTaskAuthenticationTasks.class.getSimpleName();
         String annotatedMethodName = "scheduledTaskSecuredInsufficientRights";
 

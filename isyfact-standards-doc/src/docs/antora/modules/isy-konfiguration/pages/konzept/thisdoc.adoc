@@ -1,6 +1,8 @@
 = Konzept Konfiguration: Einleitung
 
 // tag::inhalt[]
+include::glossary:miscellaneous:partial$deprecated-baustein.adoc[]
+
 [[einleitung]]
 == Einleitung
 
@@ -9,7 +11,7 @@ Dieses Dokument enthält das technische Feinkonzept zur Konfiguration von Anwend
 [[aufbau-und-zweck-des-dokuments]]
 == Aufbau und Zweck des Dokuments
 
-In diesem Dokument werden die Designvorgaben für die Handhabung von Konfigurationen für Anwendungen gemäß der xref:blaupausen:referenzarchitektur/master.adoc#einleitung[IsyFact Referenzarchitektur] vorgestellt.
+In diesem Dokument werden die Designvorgaben für die Handhabung von Konfigurationen für Anwendungen gemäß der xref:referenzarchitektur:index.adoc[] vorgestellt.
 
 Die Vereinheitlichung der Konfiguration erleichtert nicht nur die Entwicklung der Anwendungen, sondern stellt vor allem eine Erleichterung des Betriebs der Anwendungen da.
 // end::inhalt[]

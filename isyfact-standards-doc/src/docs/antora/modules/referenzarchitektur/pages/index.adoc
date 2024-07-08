@@ -1,0 +1,94 @@
+= Referenzarchitektur
+
+include::glossary:licence:partial$licence.adoc[]
+
+// tag::whitepaper[]
+
+*Die Referenzarchitektur bildet einen Strukturierungsrahmen für Anwendungslandschaften.
+Sie betrachtet Anwendungslandschaften und Anwendungen dabei aus fachlicher Sicht, software-technischer Sicht und technisch-infrastruktureller Sicht.*
+
+*xref:referenzarchitektur:fachlich.adoc[]:* Sie umfasst eine fachliche Beschreibung der xref:glossary:glossary:master.adoc#glossar-anwendungslandschaft[Anwendungslandschaft].
+Diese wird in fachliche Komponenten zerlegt, die miteinander über fachliche Schnittstellen interagieren.
+Jegliche technische Aspekte sind dabei nicht von Belang.
+
+*xref:referenzarchitektur:software-technisch.adoc[]:* Sie umfasst die software-technische Beschreibung der xref:glossary:glossary:master.adoc#glossar-systemlandschaft[Systemlandschaft].
+Die gesamte Systemlandschaft wird in technische Komponenten zerlegt, die miteinander über technische Schnittstellen interagieren.
+Jegliche Abbildung auf physikalische Systeme und deren Infrastruktur sind dabei nicht von Belang.
+
+*xref:referenzarchitektur:technisch-infrastrukturell.adoc[]:* Sie umfasst die Beschreibung der Systemlandschaft aus dem Blickwinkel der technischen Infrastruktur.
+Es wird beschrieben, welche technischen Systeme existieren und welche technischen Komponenten auf ihnen laufen.
+
+Die Referenzarchitektur verfolgt im Wesentlichen fünf Ziele.
+
+*Einheitlichkeit:* Durch die Vorgaben der Referenzarchitektur wird eine Gleichartigkeit der verschiedenen Systeme in Hinblick auf ihre fachliche Strukturierung, ihre technologische Strukturierung und Umsetzung, die verwendeten Produkte, ihre Dokumentation und die Art ihres Betriebs erreicht.
+Hierdurch verbessert sich die Verständlichkeit, Wartbarkeit und Betreibbarkeit der Systeme.
+
+*Effizienz:* Durch die Verwendung vorhandener Querschnittsanwendungen, Bibliotheken, Generatoren, Beispielanwendungen und die Vorgaben der Referenzarchitektur können Anwendungen effizienter entwickelt und gewartet werden.
+Durch die infrastrukturelle und betriebliche Gleichartigkeit der Anwendungen können diese effizienter betrieben werden.
+
+*Sicherheit:* Die Referenzarchitektur sieht bewährte Technologien und Produkte, eine Infrastruktur nach der https://www.cio.bund.de/Webs/CIO/DE/digitaler-wandel/Achitekturen_und_Standards/IT_Architektur_Bund/IT_Architektur_Bund-node.html[Architekturrichtlinie für die IT des Bundes], und nach klaren architektonischen Vorgaben erstellte Anwendungen vor.
+Die Risiken für Ausfälle, Fehler oder Sicherheitslücken wird hierdurch reduziert und die Zukunftssicherheit der Anwendungen erhöht.
+
+*Erfahrung:* In die Definition der Referenzarchitektur sind wertvolle Erfahrungen zur Umsetzung großer und verteilter Softwaresysteme im Allgemeinen und Registern im Speziellen eingeflossen.
+Diverse Geschäftsanwendungen wurden mit der Referenzarchitektur umgesetzt und die Referenzarchitektur kontinuierlich verbessert.
+Durch die Verwendung der Referenzarchitektur wird diese Erfahrung nutzbar gemacht.
+Die mit dieser Referenzarchitektur erstellten Geschäftsanwendungen sind hierdurch äußerst effizient umsetzbar, wartbar, betreibbar und zukunftssicher.
+
+*Standards:* Durch die Referenzarchitektur werden Standards wie V-Modell XT, XML / XÖV oder Webservices genutzt und die Architekturrichtlinie für die IT des Bundes umgesetzt.
+
+== Fachliche Referenzarchitektur
+
+Die xref:referenzarchitektur:fachlich.adoc[fachliche Referenzarchitektur] strukturiert die Anwendungslandschaft hierarchisch in Domänen, Systeme und Komponenten.
+
+.Anwendungslandschaft
+image::referenzarchitektur:fachlich/fachliche-referenzarchitektur-anwendungslandschaft.dn.svg[]
+
+Anwendungen bieten dabei eine zusammengehörige, logische Einheit aus Funktionen, Daten und Schnittstellen.
+Es werden zwei Typen unterschieden:
+
+* *Geschäftsanwendungen* implementieren Geschäftslogik, Prozesse oder speichern Daten. Sie können Präsentationslogik enthalten, oder reine Datenspeicher im Hintergrund sein, die anderen Geschäftsanwendungen ihre Daten bereitstellen. Je nach Anwendungsdomäne kann es unterschiedliche Arten von Geschäftsanwendungen geben, die spezielle Aufgaben wahrnehmen.
+* *Querschnittsanwendungen* stellen Services für mehrere Geschäftsanwendungen bereit, beispielsweise ein Suchverfahren oder die Anwenderverwaltung.
+
+Eine Anwendung besteht aus Anwendungskomponenten, die eine Menge funktional zusammenhängender Anwendungsfälle beschreiben.
+
+Für den Zugriff der Anwender auf die Anwendungen dient eine Benutzeroberfläche im Portal.
+Externen Anwendungen stellen Service-Gateways die entsprechenden Schnittstellen über Web-Services zur Verfügung.
+
+== Software-technische Referenzarchitektur
+
+Die xref:referenzarchitektur:software-technisch.adoc[software-technische Referenzarchitektur] beschreibt die in der fachlichen Referenzarchitektur definierten Elemente in technischer Form von IT-Systemen, Komponenten, Klassen, Datenmodellen etc.
+
+Die Referenzarchitektur für IT-Systeme basiert auf der bekannten Drei-Schicht-Architektur.
+
+.Software-technische Referenzarchitektur
+image::blaupausen:referenzarchitektur-it-system/architektur-it-system.dn.svg[]
+
+Die *Datenhaltungsschicht* kapselt alle Funktionen zum Zugriff auf die Datenbanken.
+
+Die *Schicht des Anwendungskerns* umfasst die Geschäftslogik zur Datenbearbeitung des Systems, beispielsweise Validierungen, spezielle Dialogfunktionen oder Verarbeitung von Geschäftsobjekten.
+
+Die *Nutzungsschicht* bietet Funktionen der Anwendungen zur Nutzung, über Batches für Stapelverarbeitung oder als Service für eine Außenschnittstelle mit anderen IT-Systemen, an.
+
+Ergänzend zu Service, Batch, Anwendungskern und Datenhaltung gibt es in den IT-Systemen *querschnittliche Funktionalitäten* wie beispielsweise Fehlerbehandlung, Logging oder Authentifizierung und Autorisierung.
+
+Die Referenzarchitektur beschreibt die Nutzungsschichten Batch und Service sowie den Anwendungskern und den Datenzugriff.
+
+== Technisch-infrastrukturelle Referenzarchitektur
+
+Die xref:referenzarchitektur:technisch-infrastrukturell.adoc[technisch-infrastrukturelle Referenzarchitektur] beschreibt den Aufbau der Betriebsumgebung für die IT-Systeme einer IsyFact-konformen Anwendungslandschaft.
+Dazu gehören die physischen Geräte (Rechnersysteme, Netzwerkverbindungen und -komponenten, Drucker etc.), die installierte Systemsoftware (Betriebssystem, Applikationsserver, Middleware, Datenbanksystem) und das Zusammenspiel von Hardware und Systemsoftware.
+
+== Strukturierungsrahmen der IsyFact
+
+Ziel der IsyFact ist ein klarer Strukturierungsrahmen zwischen den drei Architektursichten.
+Die fachlichen Komponenten der A-Architektur werden dabei im Software-Entwicklungsprozess auf die Komponenten der T-Architektur abgebildet, welche wiederum Elementen der TI-Architektur zugeordnet sind.
+Die T-Ebene enthält gegebenenfalls zusätzliche technische Komponenten.
+Auf der TI-Ebene können mehrere Instanzen einer technischen Komponente betrieben werden.
+Auch können mehrere technische Komponenten auf einer gemeinsamen Hardware laufen.
+
+.Architektursichten
+image::referenzarchitektur:architektursichten-abbildung.png[]
+
+Ziel ist es, in jeder Sicht auf die Gesamtarchitektur eine für diese Sicht adäquate Zerlegung zu finden.
+
+// end::whitepaper[]

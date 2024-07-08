@@ -1,6 +1,7 @@
 package de.bund.bva.isyfact.security.autoconfigure;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.as;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import org.assertj.core.api.InstanceOfAssertFactories;
 import org.junit.jupiter.api.BeforeAll;

@@ -105,10 +105,9 @@
             <artifactId>spring-webmvc</artifactId>
             <scope>test</scope>
         </dependency>
-        <!-- wiremock puts jetty on the classpath which forces us to use it instead of httpcomponents for tests -->
         <dependency>
-            <groupId>org.eclipse.jetty</groupId>
-            <artifactId>jetty-reactive-httpclient</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
             <scope>test</scope>
         </dependency>
 
@@ -126,12 +125,6 @@
                     <artifactId>jboss-logging-processor</artifactId>
                 </exclusion>
             </exclusions>
-        </dependency>
-        <!-- required by hibernate-validator -->
-        <dependency>
-            <groupId>org.glassfish</groupId>
-            <artifactId>jakarta.el</artifactId>
-            <scope>test</scope>
         </dependency>
     </dependencies>
 </project>

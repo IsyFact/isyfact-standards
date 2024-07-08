@@ -1,7 +1,7 @@
 package de.bund.bva.isyfact.security.oauth2.client.annotation;
 
 import static de.bund.bva.isyfact.security.autoconfigure.IsyOAuth2ClientAutoConfiguration.ClientsConfiguredDependentBeans.AUTHENTICATE_INTERCEPTOR_BEAN;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;

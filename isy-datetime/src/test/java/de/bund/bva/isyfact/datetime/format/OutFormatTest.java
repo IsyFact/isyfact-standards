@@ -1,11 +1,11 @@
 package de.bund.bva.isyfact.datetime.format;
 
+import static org.junit.Assert.assertEquals;
+
 import java.time.Duration;
 import java.time.Period;
 
 import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
 
 /**
 

@@ -8,7 +8,7 @@
 - `IFS-2382`: Entfernt Mutable-Array Spotbugs Fehler
     #### _Breaking Change:_
     - Die Klassen `stringlatin1_1/core/transformation/ZeichenKategorie.java` und `dinspec91379/transformation/ZeichenKategorie.java` bieten für Abruf aller Möglichkeiten einen `getter` anstelle einer `public static Variable` an
-- Hinzufügen eines neuen Packages mit Transformatoren für die DIN Norm 91379
+- `IFS-3443`: Hinzufügen eines neuen Packages mit Transformatoren für die DIN Norm 91379
 
 # 2.4.0
 - `IFS-1176`: Fehler gefixt, bei dem der LegacyTransformator Texte ausgibt, die nicht konform zu String.Latin 1.1 sind

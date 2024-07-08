@@ -1,5 +1,7 @@
 package de.bund.bva.isyfact.datetime.format;
 
+import static org.junit.Assert.assertEquals;
+
 import java.time.OffsetTime;
 import java.time.ZoneOffset;
 import java.util.Arrays;
@@ -8,8 +10,6 @@ import java.util.Collection;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-
-import static org.junit.Assert.assertEquals;
 
 /**
 

@@ -1,9 +1,5 @@
 package de.bund.bva.isyfact.logging;
 
-import ch.qos.logback.classic.LoggerContext;
-import ch.qos.logback.classic.joran.JoranConfigurator;
-import ch.qos.logback.core.joran.spi.JoranException;
-
 import java.net.URL;
 
 import org.junit.Test;
@@ -11,6 +7,10 @@ import org.slf4j.LoggerFactory;
 
 import de.bund.bva.isyfact.logging.hilfsklassen.TestBeanKomplex;
 import de.bund.bva.isyfact.logging.util.MdcHelper;
+
+import ch.qos.logback.classic.LoggerContext;
+import ch.qos.logback.classic.joran.JoranConfigurator;
+import ch.qos.logback.core.joran.spi.JoranException;
 
 /**
  * Klasse zum Testen der richtigen Mdc Formattierung, wenn als Parameter ein Objekt mit rekusiever Referenz übergeben wird.

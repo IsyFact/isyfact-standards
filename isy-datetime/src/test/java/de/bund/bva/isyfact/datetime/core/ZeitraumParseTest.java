@@ -1,5 +1,7 @@
 package de.bund.bva.isyfact.datetime.core;
 
+import static org.junit.Assert.assertEquals;
+
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -13,8 +15,6 @@ import java.util.Collection;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-
-import static org.junit.Assert.assertEquals;
 
 /**
 

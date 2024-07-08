@@ -6,7 +6,8 @@ import static de.bund.bva.isyfact.security.test.oidcprovider.OidcProviderMockBas
 import static de.bund.bva.isyfact.security.test.oidcprovider.OidcProviderMockBase.OIDC_CONFIG_ENDPOINT;
 import static de.bund.bva.isyfact.security.test.oidcprovider.OidcProviderMockBase.TOKEN_ENDPOINT;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import java.text.ParseException;
 import java.util.Collections;
@@ -16,6 +17,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.endpoint.OAuth2ParameterNames;
 import org.springframework.security.oauth2.core.oidc.StandardClaimNames;
@@ -35,7 +37,7 @@ class EmbeddedOidcProviderMockTest {
 
     private static final String host = "localhost";
 
-    private static final int port = 9095;
+    private static final int port = 9096;
 
     private static final String issuerPath = "/auth/realms/testrealm";
 
@@ -65,35 +67,34 @@ class EmbeddedOidcProviderMockTest {
     }
 
     @Test
-    public void testOidcConfigEndpoint() {
-        HttpStatus status = webClient.get().uri(OIDC_CONFIG_ENDPOINT)
+    void testOidcConfigEndpoint() {
+        HttpStatusCode status = webClient.get().uri(OIDC_CONFIG_ENDPOINT)
                 .exchangeToMono(response -> Mono.just(response.statusCode())).block();
 
         assertEquals(HttpStatus.OK, status);
     }
 
     @Test
-    public void testJwksEndpoint() {
-        HttpStatus status = webClient.get().uri(JWKS_ENDPOINT)
+    void testJwksEndpoint() {
+        HttpStatusCode status = webClient.get().uri(JWKS_ENDPOINT)
                 .exchangeToMono(response -> Mono.just(response.statusCode())).block();
 
         assertEquals(HttpStatus.OK, status);
     }
 
     @Test
-    public void testTokenEndpointWithoutBodyFails() {
+    void testTokenEndpointWithoutBodyFails() {
         String body = webClient.post().uri(TOKEN_ENDPOINT)
                 .exchangeToMono(response -> {
                     assertEquals(HttpStatus.BAD_REQUEST, response.statusCode());
                     return response.bodyToMono(String.class);
                 }).block();
 
-        assertThat(body).contains("invalid_request");
-        assertThat(body).contains("Missing grant type");
+        assertThat(body).contains("invalid_request", "Missing grant type");
     }
 
     @Test
-    public void testTokenEndpointWithOnlyGrantTypeFails() {
+    void testTokenEndpointWithOnlyGrantTypeFails() {
         String body = webClient.post().uri(TOKEN_ENDPOINT)
                 .body(BodyInserters.fromFormData(OAuth2ParameterNames.GRANT_TYPE, AuthorizationGrantType.CLIENT_CREDENTIALS.getValue()))
                 .exchangeToMono(response -> {
@@ -101,12 +102,11 @@ class EmbeddedOidcProviderMockTest {
                     return response.bodyToMono(String.class);
                 }).block();
 
-        assertThat(body).contains("unsupported_grant_type");
-        assertThat(body).contains("Invalid client-id or secret");
+        assertThat(body).contains("unsupported_grant_type", "Invalid client-id or secret");
     }
 
     @Test
-    public void testTokenEndpointWithoutUsernameFails() {
+    void testTokenEndpointWithoutUsernameFails() {
         String body = webClient.post().uri(TOKEN_ENDPOINT)
                 .body(BodyInserters.fromFormData(OAuth2ParameterNames.GRANT_TYPE, AuthorizationGrantType.CLIENT_CREDENTIALS.getValue())
                         .with(OAuth2ParameterNames.PASSWORD, USER_PASSWORD)
@@ -115,12 +115,11 @@ class EmbeddedOidcProviderMockTest {
                     return response.bodyToMono(String.class);
                 }).block();
 
-        assertThat(body).contains("invalid_grant");
-        assertThat(body).contains("Missing username");
+        assertThat(body).contains("invalid_grant", "Missing username");
     }
 
     @Test
-    public void testTokenEndpointWithoutPasswordFails() {
+    void testTokenEndpointWithoutPasswordFails() {
         String body = webClient.post().uri(TOKEN_ENDPOINT)
                 .body(BodyInserters.fromFormData(OAuth2ParameterNames.GRANT_TYPE, AuthorizationGrantType.CLIENT_CREDENTIALS.getValue())
                         .with(OAuth2ParameterNames.USERNAME, USER_WITHOUT_BHKNZ)
@@ -129,12 +128,11 @@ class EmbeddedOidcProviderMockTest {
                     return response.bodyToMono(String.class);
                 }).block();
 
-        assertThat(body).contains("invalid_grant");
-        assertThat(body).contains("Missing password");
+        assertThat(body).contains("invalid_grant", "Missing password");
     }
 
     @Test
-    public void testUserWithoutBhknzDoesNotHaveBhknzInToken() throws JsonProcessingException, ParseException {
+    void testUserWithoutBhknzDoesNotHaveBhknzInToken() throws JsonProcessingException, ParseException {
         String body = webClient.post().uri(TOKEN_ENDPOINT)
                 .headers(headers -> headers.setBasicAuth(UC_ID, UC_SECRET))
                 .body(BodyInserters.fromFormData(OAuth2ParameterNames.GRANT_TYPE, AuthorizationGrantType.PASSWORD.getValue())
@@ -153,7 +151,7 @@ class EmbeddedOidcProviderMockTest {
     }
 
     @Test
-    public void testUserWithoutBhknzAndWithBhknzHeaderDoesNotHaveBhknzInToken() throws JsonProcessingException, ParseException {
+    void testUserWithoutBhknzAndWithBhknzHeaderDoesNotHaveBhknzInToken() throws JsonProcessingException, ParseException {
         String body = webClient.post().uri(TOKEN_ENDPOINT)
                 .headers(headers -> {
                     headers.setBasicAuth(UC_ID, UC_SECRET);
@@ -175,7 +173,7 @@ class EmbeddedOidcProviderMockTest {
     }
 
     @Test
-    public void testUserWithBhknzAndBhknzHeaderHasBhknzInToken1() throws JsonProcessingException, ParseException {
+    void testUserWithBhknzAndBhknzHeaderHasBhknzInToken1() throws JsonProcessingException, ParseException {
         String body = webClient.post().uri(TOKEN_ENDPOINT)
                 .headers(headers -> {
                     headers.setBasicAuth(UC_ID, UC_SECRET);
@@ -197,7 +195,7 @@ class EmbeddedOidcProviderMockTest {
     }
 
     @Test
-    public void testUserWithBhknzAndBhknzHeaderHasBhknzInToken2() throws JsonProcessingException, ParseException {
+    void testUserWithBhknzAndBhknzHeaderHasBhknzInToken2() throws JsonProcessingException, ParseException {
         String body = webClient.post().uri(TOKEN_ENDPOINT)
                 .headers(headers -> {
                     headers.setBasicAuth(UC_ID, UC_SECRET);
@@ -219,7 +217,7 @@ class EmbeddedOidcProviderMockTest {
     }
 
     @Test
-    public void testUserWithBhknzAndWithoutBhknzHeaderIsUnauthorized() {
+    void testUserWithBhknzAndWithoutBhknzHeaderIsUnauthorized() {
         // this test does not reflect how a dedicated OIDC provider might act
         // but instead tests the behaviour required by the mock to distinguish between users with and without bhknz
         String body = webClient.post().uri(TOKEN_ENDPOINT)
@@ -232,12 +230,11 @@ class EmbeddedOidcProviderMockTest {
                     return response.bodyToMono(String.class);
                 }).block();
 
-        assertThat(body).contains("invalid_grant");
-        assertThat(body).contains("Invalid bhknz");
+        assertThat(body).contains("invalid_grant", "Invalid bhknz");
     }
 
     @Test
-    public void testUserWithBhknzAndWithoutBhknzInHeaderIsUnauthorized() {
+    void testUserWithBhknzAndWithoutBhknzInHeaderIsUnauthorized() {
         String body = webClient.post().uri(TOKEN_ENDPOINT)
                 .headers(headers -> {
                     headers.setBasicAuth(UC_ID, UC_SECRET);
@@ -251,12 +248,11 @@ class EmbeddedOidcProviderMockTest {
                     return response.bodyToMono(String.class);
                 }).block();
 
-        assertThat(body).contains("invalid_grant");
-        assertThat(body).contains("Invalid bhknz");
+        assertThat(body).contains("invalid_grant", "Invalid bhknz");
     }
 
     @Test
-    public void testUserWithBhknzAndWithoutOUInHeaderIsUnauthorized() {
+    void testUserWithBhknzAndWithoutOUInHeaderIsUnauthorized() {
         String body = webClient.post().uri(TOKEN_ENDPOINT)
                 .headers(headers -> {
                     headers.setBasicAuth(UC_ID, UC_SECRET);
@@ -270,12 +266,11 @@ class EmbeddedOidcProviderMockTest {
                     return response.bodyToMono(String.class);
                 }).block();
 
-        assertThat(body).contains("invalid_grant");
-        assertThat(body).contains("Invalid bhknz");
+        assertThat(body).contains("invalid_grant", "Invalid bhknz");
     }
 
     @Test
-    public void testUserWithInvalidUsernameFails() {
+    void testUserWithInvalidUsernameFails() {
         String body = webClient.post().uri(TOKEN_ENDPOINT)
                 .headers(headers -> headers.setBasicAuth(UC_ID, UC_SECRET))
                 .body(BodyInserters.fromFormData(OAuth2ParameterNames.GRANT_TYPE, AuthorizationGrantType.PASSWORD.getValue())
@@ -286,12 +281,11 @@ class EmbeddedOidcProviderMockTest {
                     return response.bodyToMono(String.class);
                 }).block();
 
-        assertThat(body).contains("invalid_grant");
-        assertThat(body).contains("Invalid username");
+        assertThat(body).contains("invalid_grant", "Invalid username");
     }
 
     @Test
-    public void testUserWithInvalidPasswordFails() {
+    void testUserWithInvalidPasswordFails() {
         String body = webClient.post().uri(TOKEN_ENDPOINT)
                 .headers(headers -> headers.setBasicAuth(UC_ID, UC_SECRET))
                 .body(BodyInserters.fromFormData(OAuth2ParameterNames.GRANT_TYPE, AuthorizationGrantType.PASSWORD.getValue())
@@ -302,12 +296,11 @@ class EmbeddedOidcProviderMockTest {
                     return response.bodyToMono(String.class);
                 }).block();
 
-        assertThat(body).contains("invalid_grant");
-        assertThat(body).contains("Invalid password");
+        assertThat(body).contains("invalid_grant", "Invalid password");
     }
 
     @Test
-    public void testClientWorks() throws JsonProcessingException, ParseException {
+    void testClientWorks() throws JsonProcessingException, ParseException {
         String body = webClient.post().uri(TOKEN_ENDPOINT)
                 .headers(headers -> headers.setBasicAuth(CC_ID, CC_SECRET))
                 .body(BodyInserters.fromFormData(OAuth2ParameterNames.GRANT_TYPE, AuthorizationGrantType.CLIENT_CREDENTIALS.getValue()))

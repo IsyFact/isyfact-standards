@@ -125,9 +125,9 @@ _Kurze, prägnante fachliche Darstellung der Anwendung. [...]_
 
 [[fachlicher-kontext]]
 .{anwendung}: Fachlicher Kontext
-image::methodik:vorlage-systemhandbuch/fachlicher-kontext.dn.svg[]
+image::vorlage-systemhandbuch/fachlicher-kontext.dn.svg[]
 
-NOTE: Weitere fachliche Details können in der <<systemspezifikation>> nachgelesen werden.
+NOTE: Weitere fachliche Details können in der <<quellen,Systemspezifikation>> nachgelesen werden.
 
 ====
 Inhalt::
@@ -191,7 +191,7 @@ _Kurze, prägnante technische Darstellung der Anwendung. [...]_
 .{anwendung}: Technischer Kontext
 image::vorlage-systemhandbuch/technischer-kontext.dn.svg[]
 
-NOTE: Weitere technische Details können im <<systementwurf>> nachgelesen werden.
+NOTE: Weitere technische Details können im <<quellen,Systementwurf>> nachgelesen werden.
 
 ====
 Inhalt::
@@ -525,7 +525,7 @@ Es wird angenommen, dass diese Dateien in ein Verzeichnis kopiert wurden, das na
 .{desc-listing-benutzerverzeichnis-rollen}
 [source,subs="attributes"]
 ----
-cd /opt/plis-benutzerverzeichnis-batch/bin
+cd /opt/isy-benutzerverzeichnis-batch/bin
 
 ./batch-benutzerverzeichnis-import.sh –ExcelDatei BBV_FILES/xxx-rollen.xls -ignoriereRestart
 
@@ -548,42 +548,6 @@ _Spezifische Änderungen an den Dateien (z.B. Entfernen von Testbenutzern oder A
 Die Schlüssel und Mappings der Anwendung {anwendung} müssen in das Schlüsselverzeichnis importiert werden.
 Die entsprechende Datei ist mit den Schlüsseln und Mappings im Releaseletter der {anwendung-ga} angegeben.
 
-[[apache-konfiguration]]
-=== Apache Konfiguration
-
-NOTE: *Falls die Anwendung keine GUI besitzt, kann dieser Abschnitt entfallen.*
-
-Die {anwendung-ga} ist in der `mod_jk`-Konfiguration des Apache HTTP-Servers einzubinden.
-
-==== `uriworkermap.properties`
-
-:desc-listing-apache-request-tomcat: Redirect an den Worker
-[id="listing-apache-request-tomcat",reftext="{listing-caption} {counter:listings}"]
-.{desc-listing-apache-request-tomcat}
-[source,subs="attributes"]
-----
-/{it-system-ga}/={it-system-ga}Worker;use_server_errors=400
-----
-
-==== `workers.properties`
-
-:desc-listing-apache-request-tomcat-worker: Worker-Konfiguration
-[id="listing-apache-request-tomcat-worker",reftext="{listing-caption} {counter:listings}"]
-.{desc-listing-apache-request-tomcat-worker}
-[source,subs="attributes"]
-----
-worker.list=..., {it-system-ga}Worker
-
-# {anwendung-ga}: {it-system-ga}Worker
-worker.{it-system-ga}Worker.type=ajp13
-worker.{it-system-ga}Worker.host=(Host)
-worker.{it-system-ga}Worker.port=(IP)
-worker.{it-system-ga}Worker.cachesize=5
-worker.{it-system-ga}Worker.lbfactor=50
-worker.{it-system-ga}Worker.local_worker=1
-----
-
-Nach der Änderung muss der Apache neu gestartet werden.
 
 [[mail-server-konfiguration]]
 === Mail-Server Konfiguration
@@ -728,23 +692,8 @@ Folgende Werte müssen nach der Erstinstallation angepasst werden:
 [cols="2m,3a",options="header"]
 |===
 |Konfigurationsparameter |Beschreibung
-|behoerdenverzeichnis.service.url
-|Die Adresse des Behördenverzeichnisses.
-
-Beispiel: +
-`http(s)://isy.local.vm:50001/plis-behoerdenverzeichnis`
-
-|gui.behoerdenverzeichnis.url
-|Die Adresse der GUI des Behördenverzeichnisses.
-
-Beispiel: +
-`http(s)://isy.local.vm/plis-behoerdenverzeichnis`
-
-|schluesselverzeichnis.service.url
-|Die Adresse des Schlüsselverzeichnisses.
-
-Beispiel: +
-`http(s)://isy.local.vm:50002/plis-schluesselverzeichnis`
+|\{nachbarsystem}.\{endpunkt}.url
+|URL des Endpunkts (Service / UI) des Nachbarsystems.
 
 |batch.benutzer.kennung
 |System-Benutzer zum Ausführen der Batches.
@@ -812,9 +761,7 @@ Folgende Werte müssen nach der Erstinstallation angepasst werden:
 |===
 |Konfigurationsparameter |Beschreibung
 |database.url
-|Gibt die Adresse, den Port und die SID der Datenbank an.
-
-Beispiel: `jdbc:oracle:thin:@<Datenbankserver-Adresse>:<Datenbankport>:<SID>`
+|URL der Datenbankverbindung
 
 |database.username
 |Name des technischen Benutzers für den Zugriff auf die Datenbank.
@@ -1225,7 +1172,6 @@ disk.
 
 |HTTP Client
 |Metriken zum Aufruf Services via HTTP.
-Ausgenommen hiervon ist der Aufruf von HTTP Invoker Services!
 |http.client.requests
 
 |Cache
@@ -1246,35 +1192,6 @@ Ausfüllhinweise::
 _Metriken, die nicht angeboten werden, müssen aus der Tabelle entfernt werden._
 _Ebenso müssen Lücken gefüllt werden, da sie anwendungsspezifisch sind._
 ====
-
-[[informationen-ga-sgw]]
-==== Informationen der {anwendung-ga} und des {anwendung-sgw}
-
-:desc-table-service-metriken: Metriken für HTTP Invoker Services
-[id="table-service-metriken", reftext = "{table-caption} {counter:tables}"]
-.{desc-table-service-metriken}
-[cols="2s,2,2m", options="header"]
-|===
-|Metrik
-|Beschreibung
-|Namespace
-
-|Erfolgreiche Aufrufe
-|Liefert die Anzahl der nicht fehlerhaften Aufrufe in der letzten Minute.
-|anzahlAufrufe.LetzteMinute
-
-|Fehlerhafte Aufrufe
-|Liefert die Anzahl der fehlerhaften Aufrufe in der letzten Minute.
-|anzahlFehler.LetzteMinute
-
-|Fachlich fehlerhafte Aufrufe
-|Liefert die Anzahl der fachlich fehlerhaften Aufrufe in der letzten Minute.
-|anzahlFachlicheFehler.LetzteMinute
-
-|Durchschnittliche Dauer der Aufrufe
-|Liefert die durchschnittliche Dauer der letzten 10 Aufrufe in Millisekunden.
-|durchschnittsDauer.LetzteAufrufe
-|===
 
 [[monitoring-batches]]
 ==== Monitoring Batches
@@ -1576,13 +1493,19 @@ _Tabelle_
 
 // tag::quellen[]
 
+[[quellen]]
 == Quellen
 Dieses Kapitel gehört nicht zum Inhalt und listet die Dokumente auf, auf die das Systemhandbuch verweist.
 
-[[systemspezifikation]]
-=== Systemspezifikation
+=== Systemspezifikation & Systementwurf
 
-[[systementwurf]]
-=== Systementwurf
+ifeval::["{backend}" == "html5"]
+Die Dokumentation der IsyFact enthält ebenfalls xref:methodik:vorlagen.adoc#dokumentation-anwendung[Vorlagen zu diesen Dokumenten].
+endif::[]
+
+ifeval::["{backend}" == "pdf"]
+Die Dokumentation der IsyFact enthält ebenfalls https://isyfact.github.io[Vorlagen zu diesen Dokumenten].
+Folgen Sie hierzu den Menüpunkten "Methodik" und dann "Vorlagen".
+endif::[]
 
 // end::quellen[]

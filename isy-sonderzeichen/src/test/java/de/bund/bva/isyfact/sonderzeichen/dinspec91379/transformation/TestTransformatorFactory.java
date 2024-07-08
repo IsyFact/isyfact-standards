@@ -16,12 +16,14 @@
  */
 package de.bund.bva.isyfact.sonderzeichen.dinspec91379.transformation;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNull;
+
 import org.junit.Before;
 import org.junit.Test;
 
 import de.bund.bva.isyfact.sonderzeichen.dinspec91379.transformation.impl.IdentischerTransformator;
-
-import static org.junit.Assert.*;
 
 public class TestTransformatorFactory {
 

@@ -38,10 +38,10 @@ public class EmbeddedOidcProviderStubTest {
     private static final int tokenLifespan = 30;
 
     private final EmbeddedOidcProviderStub oidcProviderStub =
-            new EmbeddedOidcProviderStub("oidc-provider", 9095, "/auth/realms/testrealm", tokenLifespan);
+            new EmbeddedOidcProviderStub("oidc-provider", 9096, "/auth/realms/testrealm", tokenLifespan);
 
     @Test
-    public void testAccessTokenWithBhknz() throws ParseException {
+    void testAccessTokenWithBhknz() throws ParseException {
         UUID userId = UUID.randomUUID();
         String clientId = "testclient";
         String userName = "testuser";
@@ -54,7 +54,7 @@ public class EmbeddedOidcProviderStubTest {
         JWT token = JWTParser.parse(accessTokenString);
         JWTClaimsSet claims = token.getJWTClaimsSet();
 
-        assertEquals("http://oidc-provider:9095/auth/realms/testrealm", claims.getIssuer());
+        assertEquals("http://oidc-provider:9096/auth/realms/testrealm", claims.getIssuer());
         assertEquals(userId.toString(), claims.getSubject());
         assertThat(claims.getAudience()).containsOnly(clientId);
         assertEquals(userName, claims.getStringClaim(StandardClaimNames.PREFERRED_USERNAME));
@@ -69,7 +69,7 @@ public class EmbeddedOidcProviderStubTest {
     }
 
     @Test
-    public void testAccessTokenWithoutBhknz() throws ParseException {
+    void testAccessTokenWithoutBhknz() throws ParseException {
         UUID userId = UUID.randomUUID();
         String clientId = "testclient";
         String userName = "testuser";
@@ -80,7 +80,7 @@ public class EmbeddedOidcProviderStubTest {
         JWT token = JWTParser.parse(accessTokenString);
         JWTClaimsSet claims = token.getJWTClaimsSet();
 
-        assertEquals("http://oidc-provider:9095/auth/realms/testrealm", claims.getIssuer());
+        assertEquals("http://oidc-provider:9096/auth/realms/testrealm", claims.getIssuer());
         assertEquals(userId.toString(), claims.getSubject());
         assertThat(claims.getAudience()).containsOnly(clientId);
         assertEquals(userName, claims.getStringClaim(StandardClaimNames.PREFERRED_USERNAME));
@@ -89,7 +89,7 @@ public class EmbeddedOidcProviderStubTest {
     }
 
     @Test
-    public void testAccessTokenResponse() throws JsonProcessingException, ParseException {
+    void testAccessTokenResponse() throws JsonProcessingException, ParseException {
         String clientId = "testclient";
         String userName = "testuser";
         String bhknz = "123456";
@@ -108,19 +108,19 @@ public class EmbeddedOidcProviderStubTest {
     }
 
     @Test
-    public void testOIDCConfigResponse() throws JsonProcessingException {
+    void testOIDCConfigResponse() throws JsonProcessingException {
         String configResponse = oidcProviderStub.getOIDCConfigResponse("/certs", "/auth", "/token");
 
         JsonNode tree = mapper.readTree(configResponse);
 
-        assertEquals("http://oidc-provider:9095/auth/realms/testrealm", tree.get("issuer").asText());
-        assertEquals("http://oidc-provider:9095/auth/realms/testrealm/certs", tree.get("jwks_uri").asText());
-        assertEquals("http://oidc-provider:9095/auth/realms/testrealm/auth", tree.get("authorization_endpoint").asText());
-        assertEquals("http://oidc-provider:9095/auth/realms/testrealm/token", tree.get("token_endpoint").asText());
+        assertEquals("http://oidc-provider:9096/auth/realms/testrealm", tree.get("issuer").asText());
+        assertEquals("http://oidc-provider:9096/auth/realms/testrealm/certs", tree.get("jwks_uri").asText());
+        assertEquals("http://oidc-provider:9096/auth/realms/testrealm/auth", tree.get("authorization_endpoint").asText());
+        assertEquals("http://oidc-provider:9096/auth/realms/testrealm/token", tree.get("token_endpoint").asText());
     }
 
     @Test
-    public void testJwkResponse() throws JsonProcessingException {
+    void testJwkResponse() throws JsonProcessingException {
         RSAPublicKey expectedPublicKey = (RSAPublicKey) RsaKeyGenerator.decodePublicKey(oidcProviderStub.getPublicKey());
 
         String jwkResponse = oidcProviderStub.getJwksResponse();

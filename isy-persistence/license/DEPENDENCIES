@@ -2,10 +2,6 @@
 List of third-party dependencies grouped by their license type. No warranty on correctness and completeness. /
 Liste aller Abhängigkeiten zu Drittsoftware gruppiert nach deren Lizenzen. Keine Gewähr für Korrektheit und Vollständigkeit.
 
-	:
-
-		* (The "Oracle Technology Network License Agreement - Oracle
-
 	(Apache 2):
 
 		* Objenesis (org.objenesis:objenesis:2.6 - http://objenesis.org)

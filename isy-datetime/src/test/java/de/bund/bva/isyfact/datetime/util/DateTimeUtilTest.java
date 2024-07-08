@@ -1,5 +1,10 @@
 package de.bund.bva.isyfact.datetime.util;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
 import java.time.Clock;
 import java.time.DateTimeException;
 import java.time.LocalDate;
@@ -9,11 +14,10 @@ import java.time.OffsetDateTime;
 import java.time.OffsetTime;
 import java.time.ZonedDateTime;
 
-import de.bund.bva.isyfact.datetime.test.TestClock;
 import org.junit.After;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import de.bund.bva.isyfact.datetime.test.TestClock;
 
 /**
 

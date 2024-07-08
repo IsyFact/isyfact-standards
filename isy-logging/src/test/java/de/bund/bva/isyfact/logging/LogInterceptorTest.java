@@ -25,14 +25,12 @@ package de.bund.bva.isyfact.logging;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 import org.aopalliance.intercept.MethodInterceptor;
-import org.junit.Assert;
-
 import org.aopalliance.intercept.MethodInvocation;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.aop.Advisor;

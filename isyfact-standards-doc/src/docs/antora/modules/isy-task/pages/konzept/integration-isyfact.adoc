@@ -1,58 +1,91 @@
 = Integration der IsyFact in das Task Scheduling
+
 include::glossary:licence:partial$licence.adoc[]
+
 Die IsyFact stellt einige Anforderungen an die Ausführung fachlicher und technischer Operationen.
 Diese gelten auch für Tasks, die nicht direkt durch Anwender, sondern durch die Anwendung selbst eingeplant und ausgeführt werden.
+
 Die folgenden Kapitel beschreiben knapp die Anforderungen und konzentrieren sich dann auf die Umsetzung.
+
 [[logging]]
 == Logging
+
 Tasks müssen sich ins fachliche und technische Logging integrieren.
+
 Dazu bindet der Baustein Task Scheduling, vornehmlich im Around Advice und den damit zusammenhängenden Klassen,
 den xref:isy-logging:konzept/master.adoc#isylogger[IsyFact-Logger] aus dem Baustein Logging ein.
+
 Der Baustein schreibt per Default folgende Informationen ins Log:
+
 * Start und Ende der Ausführung eines Tasks (Log-Level: `INFO`),
 * Fehler in der Konfiguration eines Tasks (Log-Level: `ERROR`).
+
 .icon:university[title=Architekturregel] Logging für Tasks
 ****
 Der Anwendungscode für Tasks muss mindestens die folgenden Informationen ins Log schreiben:
+
 * Fachliche Fehlermeldungen (Log-Level: `INFO`),
 * Technische Fehlermeldungen (Log-Level: `ERROR`).
 ****
+
+
 [[nachvollziehbarkeit]]
 == Nachvollziehbarkeit
+
 Tasks müssen fachliche Operationen nachvollziehbar aufrufen.
 Das bedeutet, dass sich alle aufgerufenen fachlichen Operationen eindeutig einer bestimmten Ausführung eines Tasks zuordnen lassen.
+
 Dazu nutzt der Baustein Task Scheduling xref:isy-logging:konzept/master.adoc#korrelations-id[Korrelations-IDs].
 Der Around Advice generiert hierfür direkt nach seinem Aufruf eine neue Korrelations-ID und setzt diese im MDC (_Mapped Diagnostic Context_), bereitgestellt durch das Framework Logback.
 Direkt vor der Beendigung seines Aufrufs entfernt der Advice die Korrelations-ID wieder aus dem MDC.
+
 Bei der Umsetzung von Tasks ist weiter nichts zu beachten.
+
+
 [[authentifizierung]]
 == Authentifizierung
+
 Wie bereits erwähnt, rufen Tasks fachliche Operationen auf.
 Manche dieser Operationen sind abgesichert, d.h. sie erfordern bestimmte Rechte zum Aufruf.
 Diese Rechte sind authentifizierten Benutzern bzw. Clients zugeordnet.
+
 Die Absicherung des Bausteins Task Scheduling basiert auf dem _Standard OAuth2.0_ und nutzt hierfür den Baustein Security und dessen xref:isy-security:konzept/master.adoc#aussensicht-der-komponente-security[Schnittstelle zur Authentifizierung].
 Die Konfiguration von Tasks, sowie die globale Konfiguration aller Tasks, bietet dazu die Möglichkeit, Credentials (d.h. Benutzernamen & Passwörter oder Client-IDs & Client Secrets) sowie Behördenkennzeichen zu setzen.
+
 Bei der Umsetzung von Tasks muss die Konfiguration mit konkreten Werten belegt werden.
 Es kann aber auch global konfiguriert werden, dass keine Authentifizierung erforderlich ist.
+
+
 [[ueberwachung]]
 == Überwachung
+
 Tasks müssen dem Monitoring Informationen über ihre Ausführungen bereitstellen.
+
 Der Baustein Task Scheduling nutzt hierzu die Möglichkeiten des Frameworks xref:isy-ueberwachung:konzept/master.adoc#micrometer[Micrometer], das der Baustein Überwachung nutzt, und definiert folgende Metriken:
+
 * Anzahl erfolgreicher Ausführungen pro Task,
 * Anzahl nicht erfolgreicher Ausführungen pro Task,
 * Fehler (d.h. Klasse der Exception) bei nicht erfolgreichen Ausführungen.
+
 Die Metriken können bei Nutzung eines entsprechenden Monitoring-Produkts auch über die Zeit hinweg ausgewertet werden.
+
 Bei der Umsetzung von Tasks ist nichts weiter zu beachten.
 Für die Erhebung detaillierter Statistiken zur Ausführungszeit eines Tasks ermöglicht der Baustein Task Scheduling die Verwendung der Annotation `@Timed` von Micrometer.
 Sie wird, wie `@Scheduled`, an der Methode des Tasks gesetzt.
-NOTE: Mehr zu der Annotation `@Timed` findet sich in der xref:glossary:literaturextern:inhalt.adoc#litextern-micrometer-timed-annotation[Dokumentation von Micrometer].
+
+NOTE: Mehr zu der Annotation `@Timed` findet sich in der https://docs.micrometer.io/micrometer/reference/concepts/timers.html#_the_timed_annotation[Dokumentation von Micrometer].
+
 [[konfiguration]]
 == Konfiguration
+
 Tasks müssen über eine xref:isy-konfiguration:konzept/master.adoc#table-typKonfZiel2[betriebliche Konfiguration] konfigurierbar sein.
 Neben den bisher erwähnten Konfigurationsmöglichkeiten unterstützt der Baustein Task Scheduling noch das selektive Ausführen von Tasks.
 Dazu können Anwendungen Tasks über die Konfiguration:
+
 * aktivieren und deaktivieren,
 * nur auf bestimmten Maschinen ausführen.
+
 Die Zuordnung von Tasks zu Maschinen geschieht über den Hostnamen.
+
 Bei der Umsetzung von Tasks muss die entsprechende Konfiguration mit konkreten Werten belegt werden.
 Tasks sind per Default aktiviert, das muss nicht explizit konfiguriert werden.

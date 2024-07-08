@@ -16,19 +16,21 @@
  */
 package de.bund.bva.isyfact.util.common;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.naming.CompositeName;
 import javax.naming.InvalidNameException;
 
-import de.bund.bva.isyfact.util.common.test.MyNode;
-import de.bund.bva.isyfact.util.exception.MessageSourceFehlertextProvider;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import de.bund.bva.isyfact.util.common.test.MyNode;
+import de.bund.bva.isyfact.util.exception.MessageSourceFehlertextProvider;
 
 public class TestRecursiveToStringBuilder {
 

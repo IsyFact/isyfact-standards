@@ -13,31 +13,31 @@ Aus diesem Grund können Konventionen und Vorgaben zur Dokumentation von IsyFact
 Folgende Maßnahmen unterstützen die Standardisierung:
 
 Methodik und Richtlinien für fachliche und technische Modellierung::
-* xref:methodik:diagrammerstellung.adoc[]
+* xref:diagrammerstellung.adoc[]
 
 Methodik zur Dokumentation von Anwendungen::
-* xref:methodik:vorlagen.adoc#dokumentation-anwendung[Vorlagen zur Dokumentation von Anwendungen]
+* xref:vorlagen.adoc#dokumentation-anwendung[Vorlagen zur Dokumentation von Anwendungen]
 
 Methodik zur Dokumentation der IsyFact::
-* xref:methodik:vorgaben-dokumentation/dokumentationstypen.adoc[]
-* xref:werkzeuge:dokumentation/einleitung/einfuehrung.adoc[]
+* xref:vorgaben-dokumentation/dokumentationstypen.adoc[]
+* xref:documentation-guide:ROOT:index.adoc[]
 
 [[dokumentation-saeulen]]
 == Dokumentation der Säulen
 
 Ein allgemeiner Überblick über die IsyFact findet sich im Hauptknoten *xref:einstieg:einstieg.adoc[]* und seinen Unterseiten.
-Dazu zählen das xref:einstieg:tutorial/master.adoc[], das xref:einstieg:whitepaper.adoc[Whitepaper] und der xref:einstieg:migrationsleitfaden-if2/master.adoc[Migrationsleitfaden zur IsyFact 2].
+Dazu zählen das xref:einstieg:tutorial/master.adoc[] und das xref:einstieg:whitepaper.adoc[Whitepaper].
 
-Die xref:/vorgaben-dokumentation/dokumentationstypen.adoc#saeule-blaupause[Dokumentation der *Blaupausen*] enthält je ein xref:methodik:vorgaben-dokumentation/dokumentationstypen.adoc#table-detailkonzept[_Detailkonzept_] pro Blaupause.
+Die xref:vorgaben-dokumentation/dokumentationstypen.adoc#saeule-referenzarchitektur[Dokumentation der *Referenzarchitektur*] enthält xref:vorgaben-dokumentation/dokumentationstypen.adoc#table-detailkonzept[_Detailkonzepte_].
 
-Die xref:/vorgaben-dokumentation/dokumentationstypen.adoc#saeule-bausteine[Dokumentation der *Bausteine*] erfolgt abhängig von ihrer Ausprägung (u.a. Software-Bibliothek, Querschnittsanwendung). 
+Die xref:vorgaben-dokumentation/dokumentationstypen.adoc#saeule-bausteine[Dokumentation der *Bausteine*] erfolgt abhängig von ihrer Ausprägung (u.a. Software-Bibliothek, Querschnittsanwendung).
 In der folgenden Abbildung können die xref:methodik:vorgaben-dokumentation/dokumentationstypen.adoc[Dokumentationstypen] abgelesen werden, mit denen ein Baustein dokumentiert wird. 
 
 [[image-dokumentationstypen-bausteinauspraegung]]
 .Dokumentationstypen je Bausteinausprägung
 image::methodik:dokumentationstypen-bausteinauspraegung.dn.svg[]
 
-Die xref:/vorgaben-dokumentation/dokumentationstypen.adoc#saeule-plattform[Dokumentation der *Plattform*] enthält für jede von der IsyFact empfohlene oder eingesetzte Technologie zum Betrieb von IT-Systemen (z.B. HTTP- und Applikationsserver, Datenbanken) ein xref:methodik:vorgaben-dokumentation/dokumentationstypen.adoc#table-nutzungskonzept[_Nutzungskonzept_].
+Die xref:vorgaben-dokumentation/dokumentationstypen.adoc#saeule-plattform[Dokumentation der *Plattform*] enthält für jede von der IsyFact empfohlene oder eingesetzte Technologie zum Betrieb von IT-Systemen (z.B. HTTP- und Applikationsserver, Datenbanken) ein xref:vorgaben-dokumentation/dokumentationstypen.adoc#table-nutzungskonzept[_Nutzungskonzept_].
 
 Die Dokumentation der *Methodik* bietet neben der Dokumentation des methodischen Vorgehens Vorlagen für  Dokumentationstypen sowie hilfreiche Arbeitsmittel zur Durchführung eines IsyFact-Projektes.
 

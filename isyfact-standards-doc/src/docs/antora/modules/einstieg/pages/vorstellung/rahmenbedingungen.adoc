@@ -41,7 +41,7 @@ Die Einführung des xref:einstieg:vorstellung.adoc#isyfact-marktplatz[Marktplatz
 [[verwendete-software-produkte]]
 == Verwendete Software-Produkte
 
-Die IsyFact basiert auf einer Reihe von etablierten Software-Produkten, die die unterschiedlichen funktionalen Anforderungen eines Anwendungssystems realisieren.
+Die IsyFact basiert auf einer Reihe von etablierten Software-Produkten, die die unterschiedlichen funktionalen Anforderungen einer Anwendung realisieren.
 In den meisten Fällen sind dies kostenfreie Open-Source-Lösungen, in einigen Fällen, z.B. im Bereich Datenbanken, wird jedoch auch auf *kommerzielle Produkte* verwiesen.
 In solchen Fällen beziehen sich auch ggf. mitgelieferte Anleitungen und Skripte auf diese kommerziellen Produkte.
 Der Einsatz des jeweils genannten Produktes ist zwar in IsyFact vorgesehen, aber der Einsatz alternativer Produkte sollte mit überschaubarem Aufwand möglich sein.

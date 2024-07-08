@@ -86,7 +86,7 @@ Die Konfigurationswerte werden dabei in Java Standard-Typen (`String`, `int`, `b
 Für Zeitdauern, Zeitperioden und Dateigrößen wird eine erweiterte Syntax für die Konfigurationswerte verwendet.
 Die Werte dieser Konfigurationstypen werden automatisch in die komplexen Datentypen `Duration`, `Period` und `DataSize` umgewandelt.
 
-NOTE: Details hierzu können in der xref:glossary:literaturextern:inhalt.adoc#litextern-spring-boot-properties-conversion[Spring Boot Dokumentation zu "Properties Conversion"] nachgelesen werden.
+NOTE: Details hierzu können in der https://docs.spring.io/spring-boot/docs/2.7.x/reference/html/features.html#features.external-config.typesafe-configuration-properties.conversion[Spring Boot Dokumentation zu "Properties Conversion"] nachgelesen werden.
 
 Zur Überprüfung der Konfigurationswerte sollte Bean Validation eingesetzt werden.
 Damit können Werte auf Vorhandensein und korrektes Format geprüft werden.
@@ -229,7 +229,7 @@ sorgt beim Aufruf dafür, dass alle Konfigurationsdateien auf Änderungen geprü
 
 Die zuvor genannte Methode muss regelmäßig aufgerufen werden.
 Dazu stellt die Bibliothek `isy-task` einen Task bereit.
-Die Konfiguration dieses Tasks ist im Dokument xref:isy-task:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Task-Scheduling] beschrieben.
+Die Konfiguration dieses Tasks ist in den xref:isy-task:nutzungsvorgaben.adoc[] beschrieben.
 
 [[reagieren-auf-konfigurationsaenderungen]]
 ===== Reagieren auf Konfigurationsänderungen

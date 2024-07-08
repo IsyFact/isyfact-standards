@@ -23,7 +23,7 @@ public class BhknzHeaderConverterBuilder {
         return new BhknzHeaderConverter(bhknz);
     }
 
-    private class BhknzHeaderConverter implements Converter<OAuth2PasswordGrantRequest, HttpHeaders> {
+    private final class BhknzHeaderConverter implements Converter<OAuth2PasswordGrantRequest, HttpHeaders> {
 
         /** The BHKNZ to pass as part of the header. */
         private final String bhknz;

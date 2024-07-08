@@ -2,11 +2,12 @@ package de.bund.bva.isyfact.persistence.datetime.attributeconverter;
 
 import java.time.Period;
 import java.util.Objects;
-import javax.persistence.AttributeConverter;
-import javax.persistence.Converter;
+
+import jakarta.persistence.AttributeConverter;
+import jakarta.persistence.Converter;
 
 /**
- * {@link javax.persistence.AttributeConverter} für {@link Period}.
+ * {@link jakarta.persistence.AttributeConverter} für {@link Period}.
  * <p>
  * Das Speichern erfolgt in der ISO-8601-Darstellung als String.
  *

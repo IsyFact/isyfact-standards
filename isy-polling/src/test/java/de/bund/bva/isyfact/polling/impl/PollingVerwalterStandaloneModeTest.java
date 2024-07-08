@@ -19,11 +19,6 @@ package de.bund.bva.isyfact.polling.impl;
 import java.util.HashMap;
 import java.util.Map;
 
-import de.bund.bva.isyfact.polling.PollingMBean;
-import de.bund.bva.isyfact.polling.autoconfigure.IsyPollingAutoConfiguration;
-import de.bund.bva.isyfact.polling.config.IsyPollingProperties;
-import de.bund.bva.isyfact.polling.test.AbstractPollingStandaloneTest;
-import de.bund.bva.isyfact.polling.test.TestConfig;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -33,6 +28,12 @@ import org.springframework.jmx.export.MBeanExporter;
 import org.springframework.jmx.export.annotation.AnnotationJmxAttributeSource;
 import org.springframework.jmx.export.assembler.MetadataMBeanInfoAssembler;
 import org.springframework.jmx.support.RegistrationPolicy;
+
+import de.bund.bva.isyfact.polling.PollingMBean;
+import de.bund.bva.isyfact.polling.autoconfigure.IsyPollingAutoConfiguration;
+import de.bund.bva.isyfact.polling.config.IsyPollingProperties;
+import de.bund.bva.isyfact.polling.test.AbstractPollingStandaloneTest;
+import de.bund.bva.isyfact.polling.test.TestConfig;
 
 /**
  * Tests für den Polling Verwalter.

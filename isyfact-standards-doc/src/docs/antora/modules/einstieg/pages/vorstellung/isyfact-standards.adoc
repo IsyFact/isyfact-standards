@@ -9,7 +9,7 @@ Darüber hinaus werden die Bausteine der IsyFact-Standards kurz beschrieben.
 [[vorgaben-architektur]]
 == Vorgaben für die Architektur
 
-Die xref:blaupausen:referenzarchitektur/master.adoc#einleitung[IsyFact Referenzarchitektur] definiert die Architektur einzelner Anwendungssysteme bis hin zu Anwendungslandschaften.
+Die xref:referenzarchitektur:index.adoc[] definiert die Architektur einzelner Anwendungen bis hin zu Anwendungslandschaften.
 Dazu beschreibt sie drei Architektursichten:
 
 * Fachliche Architektur (A-Architektur),
@@ -19,23 +19,23 @@ Dazu beschreibt sie drei Architektursichten:
 Diese Architektursichten decken die wichtigsten Blickwinkel auf die Architektur ab: fachlich, technisch und betrieblich.
 Ein zentraler Vorteil der IsyFact besteht darin, dass die Architektursichten ineinander überführbar sind.
 So gibt es definierte Regeln, wie aus einer fachlichen Architektur eine softwaretechnische Architektur gebildet wird und wie sich aus diesen beiden Sichten die Architektur der technischen Infrastruktur entwickeln lässt.
-Diese _Abbildbarkeit_ sorgt dafür, dass bereits mit der Erstellung der fachlichen Architektur wichtige Weichen für die Umsetzung und den Betrieb der Anwendungssysteme gestellt werden.
+Diese _Abbildbarkeit_ sorgt dafür, dass bereits mit der Erstellung der fachlichen Architektur wichtige Weichen für die Umsetzung und den Betrieb der Anwendungen gestellt werden.
 
 Die folgenden Abschnitte beschreiben knapp die Vorgaben an die Architektur aus den jeweiligen Sichten heraus.
 Sie verweisen für weitere Details auf die jeweils relevanten Dokumente.
 
 [[vorgaben-fuer-die-a-architektur]]
 === Vorgaben für die A-Architektur
-Die allgemeine Referenzarchitektur muss für die zu bauenden Anwendungssysteme in einer fachlichen Architektur konkretisiert werden.
+Die allgemeine Referenzarchitektur muss für die zu bauenden Anwendungen in einer fachlichen Architektur konkretisiert werden.
 Die fachliche Architektur strukturiert die Anforderungen sowie die zu unterstützenden Geschäftsprozesse.
-Sie betrachtet dabei zwei Architekturebenen: Anwendungslandschaften und Anwendungssysteme.
+Sie betrachtet dabei zwei Architekturebenen: Anwendungslandschaften und Anwendungen.
 
 Die Ebene der Anwendungslandschaft schneidet die Anforderungen in fachliche Domänen und ordnet ihnen die Geschäftsprozesse zu.
 Innerhalb der Domänen werden wiederum Geschäftsanwendungen geschnitten, um klar definierte Teilaspekte der Fachlichkeit umzusetzen.
 Geschäftsanwendungen weisen eine hohe fachliche Kohäsion auf und kommunizieren zur Erfüllung ihrer Aufgaben in der Regel mit weiteren Geschäftsanwendungen.
 
 Die fachliche Architektur der Anwendungslandschaft beschreibt die Geschäftsprozesse sowie Funktionalitäten und Regeln, welche die Grundlage für die fachlichen Schnitte bilden.
-Neben der Struktur geht sie auch auf die Kommunikation der Geschäftsanwendungen untereinander sowie mit Anwendungssystemen anderer Anwendungslandschaften ein.
+Neben der Struktur geht sie auch auf die Kommunikation der Geschäftsanwendungen untereinander sowie mit Anwendungen anderer Anwendungslandschaften ein.
 
 Die fachliche Architektur der Geschäftsanwendungen wird in Spezifikationen dokumentiert.
 
@@ -54,16 +54,14 @@ Die xref:methodik:vorlagen.adoc#datenflussdiagramm[Vorlage zu Datenflussdiagramm
 
 [[vorgaben-fuer-die-t-architektur]]
 === Vorgaben für die T-Architektur
-Die softwaretechnische Architektur wird auf Basis der Spezifikation aus der fachlichen Architektur entwickelt.
+Die xref:referenzarchitektur:software-technisch.adoc[software-technische Referenzarchitektur] wird auf Basis der Spezifikation aus der fachlichen Architektur entwickelt.
+Die technischen Entsprechungen für die fachlich motivierte Anwendungslandschaft und die Anwendung sind die technisch motivierten Begriffe der Systemlandschaft und respektive des IT-Systems.
 
-Im Dokument xref:blaupausen:referenzarchitektur-it-system/master.adoc#einleitung[IsyFact Referenzarchitektur IT-Systeme] wird die softwaretechnische Architektur eingeführt und erläutert.
-Die technischen Entsprechungen für die fachlich motivierte Anwendungslandschaft und das Anwendungssystem sind die technisch motivierten Begriffe der Systemlandschaft und respektive des IT-Systems.
-
-Ein IT-System basiert auf einer Drei-Schichten-Architektur und besteht aus den Komponenten, die in <<refarch-technisch,der softwaretechnischen Referenzarchitektur eines IT-Systems>> dargestellt sind.
+Ein xref:blaupausen:referenzarchitektur-it-system/master.adoc[IT-System] basiert auf einer Drei-Schichten-Architektur und besteht aus den Komponenten, die in <<refarch-technisch,der softwaretechnischen Referenzarchitektur eines IT-Systems>> dargestellt sind.
 
 [[refarch-technisch]]
 .Softwaretechnische Referenzarchitektur eines IT-Systems
-image::blaupausen:referenzarchitektur-it-system/RAITSys.png[]
+image::blaupausen:referenzarchitektur-it-system/architektur-it-system.dn.svg[]
 
 Die Abbildung der fachlichen Architektur wird vor allem durch die Fachkomponenten sichtbar.
 Jede Fachkomponente besitzt, soweit sinnvoll, eine Entsprechung in jeder Komponente des IT-Systems.
@@ -89,12 +87,7 @@ Zur Umsetzung von Batches wird der Batchrahmen der IsyFact vorgeschrieben.
 Service::
 Services bieten fachliche Operationen nach außen an und stellen sie anderen IT-Systemen zur Nutzung bereit.
 Das xref:blaupausen:detailkonzept-komponente-service/master.adoc#einleitung[Detailkonzept Komponente Service] beschreibt die Vorgaben für Services sowie den Aufbau der Service-Komponente.
-Die konkrete Umsetzung mit dem Service-Framework HTTP Invoker sind im xref:isy-serviceapi-core:konzept/master.adoc#einleitung[Konzept HTTP-Invoker] sowie den xref:isy-serviceapi-core:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben HTTP-Invoker] beschrieben.
-
-GUI::
-Grafische Oberflächen bieten fachliche Operationen nach außen an und stellen sie Anwendern zur Nutzung bereit.
-Ihre Umsetzung geschieht als Web-GUI und folgt dem MVC-Pattern.
-Die genauen Festlegungen zur Web-GUI-Entwicklung finden sich im xref:blaupausen:detailkonzept-komponente-web-gui/master.adoc[Detailkonzept Komponente Web-GUI].
+Die konkrete Umsetzung mittels REST sind im xref:isy-service-rest:konzept/master.adoc[] sowie den xref:isy-service-rest:nutzungsvorgaben/master.adoc[] beschrieben.
 
 Die Erstellung von IT-Systemen wird durch einen Systementwurf konkretisiert und dokumentiert.
 
@@ -113,7 +106,7 @@ IT-Systeme müssen auf Basis dieser Produkte und Bibliotheken gebaut werden.
 === Vorgaben für die TI-Architektur
 Die Architektur der technischen Infrastruktur wird auf Grundlage der Spezifikation und des Entwurfs entwickelt.
 
-Die Grundlagen der TI-Architektur auf Ebene von Anwendungslandschaften und Anwendungssystemen ist in  der xref:blaupausen:referenzarchitektur/master.adoc#einleitung[Referenzarchitektur] beschrieben.
+Die Grundlagen der TI-Architektur auf Ebene von Anwendungslandschaften und Anwendungen ist in der xref:referenzarchitektur:technisch-infrastrukturell.adoc[technisch-infrastrukturellen Referenzarchitektur] beschrieben.
 Die zu verwendende Infrastruktur ist zum Teil durch den xref:einstieg:produkte.adoc#produktkatalog[Produktkatalog] vorgegeben.
 
 [[vorgaben-fuer-das-systemhandbuch]]
@@ -126,8 +119,7 @@ Sie enthält außerdem das Vorgehen zur Erstellung und Beispiele für die zu bes
 == Vorgaben für die Realisierung
 
 Die Realisierung hat gemäß den xref:methodik:java-programmierkonventionen/master.adoc#einleitung[Java Programmierkonventionen] zu erfolgen.
-Die Versionierung von Bibliotheken und Anwendungen muss sich nach den Vorgaben zur xref:werkzeuge:versionierungskontrolle/master.adoc#maven-plugin-versionierungskontrolle[IsyFact Versionierung] richten, die im Wesentlichen auf xref:glossary:literaturextern:inhalt.adoc#litextern-semantic-versioning[Semantic Versioning] basieren.
-Für die Entwicklungsumgebung gelten wenige Vorgaben, die in xref:werkzeuge:entwicklungsumgebung/master.adoc#einleitung[IsyFact Einrichtung Entwicklungsumgebung] zusammengefasst sind.
+Die Versionierung von Bibliotheken und Anwendungen muss sich nach den Vorgaben zur xref:werkzeuge:versionierungskontrolle/master.adoc#maven-plugin-versionierungskontrolle[IsyFact Versionierung] richten, die im Wesentlichen auf https://semver.org/spec/v2.0.0.html[Semantic Versioning] basieren.
 
 Die Bibliotheken der IsyFact werden als JAR (Java Archive) bereitgestellt und können über ihre Maven-Koordinaten leicht als Abhängigkeit in die Anwendungsentwicklung eingebunden werden.
 
@@ -145,8 +137,8 @@ Im Dokument xref:isy-exception-core:konzept/master.adoc#einleitung[Konzept Fehle
 [[datum-zeit]]
 === Datum & Zeit
 Der Baustein Datum & Zeit beschreibt die Verwendung der _Java 8 Date & Time API_ (`java.time`) in der IsyFact.
-Das xref:isy-datetime:konzept/master.adoc#einleitung[Konzept Datum/Zeit] beschreibt die konzeptionellen Grundlagen der Verarbeitung von Datums- und Zeitwerten.
-Die xref:isy-datetime:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Datum/Zeit] beschreiben alle Aspekte, die bei der Entwicklung einer Anwendung zu berücksichtigen sind.
+Das xref:isy-datetime-doc:ROOT:konzept/master.adoc#einleitung[Konzept Datum/Zeit] beschreibt die konzeptionellen Grundlagen der Verarbeitung von Datums- und Zeitwerten.
+Die xref:isy-datetime-doc:ROOT:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Datum/Zeit] beschreiben alle Aspekte, die bei der Entwicklung einer Anwendung zu berücksichtigen sind.
 
 [[administrative-ueberwachung-und-konfiguration]]
 === Administrative Überwachung und Konfiguration
@@ -179,7 +171,7 @@ Ein XML-Schema dazu findet sich im Anhang von xref:isy-security:nutzungsvorgaben
 Der Baustein verwendet als Grundlage das Spring Task Scheduling für die Steuerung (d.h. Planung und Ausführung) periodisch wiederkehrender Aufgaben.
 Aufgaben sind (in Abgrenzung zu Batches) innerhalb einer Anwendungskomponente angesiedelt und werden von der Anwendung selbstständig ausgeführt.
 Das xref:isy-task:konzept.adoc[] beschreibt die konzeptionellen Grundlagen der Steuerung von Aufgaben.
-Die xref:isy-task:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Task Scheduling] beschreiben alle Aspekte, die bei der Entwicklung einer Anwendung zu berücksichtigen sind, und alle bereits in der IsyFact definierten Aufgaben (wie z.B. das periodische Neuladen der Anwendungskonfiguration).
+Die xref:isy-task:nutzungsvorgaben.adoc[] beschreiben alle Aspekte, die bei der Entwicklung einer Anwendung zu berücksichtigen sind, und alle bereits in der IsyFact definierten Aufgaben (wie z.B. das periodische Neuladen der Anwendungskonfiguration).
 
 [[polling]]
 === Polling
@@ -195,12 +187,12 @@ Die zugrunde liegenden Schnittstellen-Technologien bieten dafür kein Standardve
 Der Baustein Polling definiert ein solches Verfahren.
 Die Nutzerdokumentation befindet sich unter xref:isy-polling:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Polling].
 
-[[http-invoker]]
-=== HTTP-Invoker
+[[rest]]
+=== REST
 
-Für den externen Zugriff auf Anwendungskomponenten werden deren Schnittstellen über das HTTP(S)-Protokoll exponiert.
-Dies ermöglicht eine standardisierte und lose Kopplung der Anwendungen untereinander, insbesondere da die Schnittstellen in verschiedenen, zeitgleich verfügbaren Versionen ausgeliefert werden.
-Dazu wird der HTTP-Invoker von Spring verwendet. Details sind zu finden unter xref:isy-serviceapi-core:konzept/master.adoc#einleitung[Konzept HTTP-Invoker].
+Für den externen Zugriff auf Anwendungskomponenten werden deren Schnittstellen über REST-Endpunkte exponiert.
+Dies ermöglicht eine standardisierte Kommunikation der Anwendungen untereinander und eine lose Kopplung der Anwendungen voneinander.
+Zur Standardisierung der REST-Schnittstellen gibt es den xref:isy-service-rest:konzept/master.adoc[Baustein REST].
 
 [[util]]
 === Util
