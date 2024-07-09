@@ -235,14 +235,14 @@ Dies ist der Fall, wenn die interne URL des IAM, z.B. für Aufrufe innerhalb der
 Die aufgerufene URL (Issuer-URL) wird im ausgestellten Access-Token hinterlegt und mit der in der Geschäftsanwendung konfigurierten URL im Rahmen der Tokenprüfung abgeglichen.
 Die Prüfung schlägt oft fehl, da das Access-Token über die externe URL ausgestellt wurde, in der Geschäftsanwendung jedoch (nur) die interne URL konfiguriert ist.
 
-Wie kann nun dieser Problematik per Konfiguration begegenet werden?
+Wie kann nun dieser Problematik per Konfiguration begegnet werden?
 
 *Property `issuer-uri`*
 
 Das Property `issuer-uri` wird im Normalfall mit der URL des _Authentifizierungsservers_ des IAM initialisiert.
 Diese URL wird einerseits zum Aufruf von Requests an das IAM verwendet, aber andererseits auch vom Authentifizierungserver bei der Token-Generierung als Validierungskriterium gegengeprüft und letztendlich als Inhalt in das `iss-Claim` des Tokens eingepackt, so dass bei der späteren Token-Validierung diese URL für die ggf. notwendige Ermittlung bzw. Nachladung der benötigten Zertifikate verwendet werden kann.
 
-Wird jetzt allerdings, wie bei einer Authentifizierung über das _Portal-Gateway_, in der `issuer-uri` eine *externe* URL benötigt, damit eine _externen Anwendung_ den _IAM/KeyCloak_ überhaupt von ausserhalb der AWL erreichen kann, dann würde diese *externe* URL auch bei der späteren Token-Validierung herangezogen.
+Wird jetzt allerdings, wie beispielsweise bei einer Authentifizierung über das _Portal-Gateway_, in der `issuer-uri` eine *externe* URL benötigt, damit eine _externe Anwendung_ den _IAM/KeyCloak_ überhaupt von ausserhalb der AWL erreichen kann, dann würde diese *externe* URL auch bei der späteren Token-Validierung herangezogen.
 
 Aber würde eine *interne* _ServiceBean_ bei der _Token-Validierung_ eine *externe* URI auf den *internen* _Authentifizierungsserver_ des IAM verwenden, dann würde dies sicherlich nicht funktionieren.
 
