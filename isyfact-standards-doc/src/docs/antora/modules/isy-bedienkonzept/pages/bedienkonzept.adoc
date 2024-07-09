@@ -146,7 +146,7 @@ Stellen Sie sicher, dass Informationen kontextbezogen und schrittweise offenbart
 * *Testen mit verschiedenen Nutzungsgruppen:* Um sicherzustellen, dass Ihre Oberfläche für eine breite Palette von Nutzenden zugänglich ist, ist es wichtig, Tests mit verschiedenen Personengruppen durchzuführen.
 Berücksichtigen Sie dabei Nutzende mit unterschiedlichen Fähigkeiten, Geräten und technischen Kenntnissen.
 
-Weitere Informationen zu einer besseren Benutzerfreundlichkeit sind am jeweiligen <<Bedienelemente,Bedienelement>>, dem Pattern und/oder Eingabehilfen und Fehlermeldungen zu finden (siehe Unterkapitel "Do's and Don'ts).
+Weitere Informationen zu einer besseren Benutzerfreundlichkeit sind am jeweiligen <<Bedienelemente,Bedienelement>>, dem <<Designpattern,Pattern>> und/oder Eingabehilfen und Fehlermeldungen zu finden (siehe Unterkapitel "Do's and Don'ts).
 
 [[allgemeine-prinzipien]]
 === Allgemeine Prinzipien
