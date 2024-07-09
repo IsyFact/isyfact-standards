@@ -9,7 +9,7 @@ Das Bedienkonzept nimmt eine zentrale Rolle in der Entwicklung von (Web-)Applika
 Es dient als umfassendes Regelwerk, dass die Gestaltung und die Interaktionselemente definiert und bildet das Fundament für eine konsistente und benutzerfreundliche Benutzungsoberfläche.
 
 Das Hauptziel des Bedienkonzepts ist es, eine herausragende Benutzererfahrung zu schaffen, die die Zufriedenheit und Produktivität der Nutzenden maximiert.
-Es soll sicherstellen, dass Nutzende die Anwendung ohne Schwierigkeiten nutzen können und dabei ihre Ziele *effizient* erreichen.
+Es soll sicherstellen, dass Nutzende die (Web-)Applikation ohne Schwierigkeiten nutzen können und dabei ihre Ziele *effizient* erreichen.
 
 In den folgenden Kapiteln werden die benötigten Elemente zum Erreichen einer herausragenden Benutzeroberfläche vom "Kleinen" ins "Große" beschrieben.
 In den ersten Kapiteln werden der *allgemeine Rahmen und übergreifende Prinzipien* beschrieben.
@@ -51,7 +51,7 @@ Insbesondere bei komplexen (Web-)Applikationen ist es ratsam frühst möglich di
 Das Bedienkonzept legt Standards und Best Practices fest, die von Designern und Entwicklern eingehalten werden müssen.
 Diese Standards können sich auf verschiedene Aspekte der Gestaltung und Interaktion beziehen, wie Typografie, Farbgebung, Bedienelemente und Barrierefreiheit.
 Indem sie sich an diese Standards halten, gewährleisten Designer und Entwickler nicht nur die Konsistenz der Benutzungsoberfläche, sondern auch deren Kompatibilität mit verschiedenen Geräten und Plattformen.
-Wie bei jeder digitalen Anwendung unterliegt auch dieses Bedienkonzept einer ständigen Weiterentwicklung.
+Wie bei jeder digitalen (Web-)Applikation unterliegt auch dieses Bedienkonzept einer ständigen Weiterentwicklung.
 Die Entwicklungen und Änderungen werden entsprechend dem Stand der Technik und der rechtlichen Gegebenheiten aktualisiert und gekennzeichnet.
 
 *_Technische Kompatibilität_*
@@ -87,41 +87,66 @@ Ein Bedienkonzept ist kein statisches Dokument, sondern sollte kontinuierlich we
 Mit dem Fortschreiten der Technologie und den sich ändernden Anforderungen der Nutzenden ist es wichtig, das Bedienkonzept regelmäßig zu überprüfen und anzupassen, um sicherzustellen, dass es stets den aktuellen Standards und Best Practices entspricht.
 Diese kontinuierliche Weiterentwicklung erfordert eine enge Zusammenarbeit zwischen allen Beteiligten und eine offene Kommunikation über Änderungen und Aktualisierungen - insbesondere zwischen Umsetzungsprojekten, Stakeholdern und den Designern, die mit diesem Dokument arbeiten.
 
-=== Begrifflichkeiten des Designs
+[[usability-und-benutzerfreundlichkeit]]
+=== Usability (UI) und Benutzerfreundlichkeit (UX)
+
+Obwohl die Begriffe oft synonym verwendet werden, gibt es wichtige Unterschiede und Zusammenhänge, die sie voneinander unterscheiden und gleichzeitig miteinander verbinden.
 
 *_Begriff der Usability (UI)_*
 
-Usability ist ein Schlüsselaspekt des Bedienkonzepts und bezieht sich auf die Nutzungsfreundlichkeit einer Anwendung.
-Eine hohe Usability gewährleistet, dass Nutzende die Anwendung intuitiv und effizient nutzen können, ohne auf Hindernisse oder Schwierigkeiten zu stoßen.
-Dafür nutzt die Usability die zuvor genannten <<allgemeine-prinzipien,allgemeinen Designprinzipien>>.
+Usability, oder Gebrauchstauglichkeit, bezieht sich auf die Benutzerfreundlichkeit einer Oberfläche (UI). Sie umfasst die Leichtigkeit, mit der Benutzende eine (Web-)Applikation verstehen, erlernen und bedienen können. Zu den Hauptkomponenten der Usability gehören:
 
-In Fachanwendungen, die oft komplexe Funktionen und Workflows umfassen, ist eine hohe Usability besonders wichtig.
-Fachanwendungen werden oft von professionellen Nutzenden verwendet, die spezifische Aufgaben effizient erledigen müssen.
-Daher ist es entscheidend, dass die Anwendung nahtlos in die Arbeitsabläufe integriert werden kann und eine keine steile Lernkurve notwendig ist.
-Eine gute Usability in Fachanwendungen trägt zur Produktivität, Effizienz und Zufriedenheit der Nutzenden bei und kann somit erhebliche Auswirkungen auf den Erfolg und die Akzeptanz der Anwendung haben.
-Das Bedienkonzept zielt darauf ab, die Usability zu maximieren, indem es klare und konsistente Vorgaben und Interaktionsmuster definiert.
+* *Effektivität:* Die Fähigkeit der Benutzenden, ihre Ziele präzise zu erreichen.
+* *Effizienz:* Die Schnelligkeit und der Aufwand, mit dem Benutzende ihre Ziele erreichen.
+* *Zufriedenheit:* Das Maß an Komfort und positive Erfahrung der Benutzende bei der Nutzung der (Web-)Applikation.
 
-*_Begriff der Nutzungsfreundlichkeit (UX)_*
+Usability ist eng mit dem Design der Benutzeroberfläche verknüpft. Eine gut gestaltete UI ermöglicht es den Benutzenden, intuitiv zu navigieren, schnell zu verstehen, wie sie Aufgaben ausführen können, und bietet klare, konsistente visuelle Hinweise.
+Besonders bei komplexen Fachanwendungen ist es wichtig, dass eine gute UI sich nahtlos in die fachlich notwendigen Geschäftsprozesse integrieren lässt.
 
-Ein zentrales Ziel des Bedienkonzepts ist es, eine konsistente und nutzerfreundliche Benutzungsoberfläche zu schaffen.
-Durch die Festlegung einheitlicher Gestaltungsrichtlinien und Interaktionselemente wird sichergestellt, dass sich Nutzende schnell und intuitiv in der Anwendung oder Webseite zurechtfinden.
-Konsistenz trägt nicht nur zur Bedienzufriedenheit bei, sondern erleichtert auch die Wiedererkennung und Nutzung der Benutzungsoberfläche über verschiedene Seiten und Funktionen hinweg.
+*_Begriff der Benutzerfreundlichkeit (UX)_*
 
-* *Klare Anweisungen und Fehlermeldungen:*
-Nutzer sollten stets verstehen, was von ihnen erwartet wird.
-Klare Anweisungen und verständliche Fehlermeldungen helfen dabei, Frustration zu vermeiden und den Nutzer durch den Prozess zu führen.
+Benutzerfreundlichkeit oder User Experience (UX) geht über die reine Usability hinaus und bezieht sich auf das gesamte Erlebnis, das ein Benutzender mit einem Produkt oder einer Dienstleistung hat.
+UX umfasst alle Aspekte der Interaktion des Benutzenden, einschließlich der emotionalen, psychologischen und praktischen Reaktionen auf das Produkt.
+
+*Hauptkomponenten der UX sind:*
+
+* *Nützlichkeit:* Ob das Produkt den Bedürfnissen und Anforderungen des Benutzenden entspricht.
+* *Verfügbarkeit:* Die Zugänglichkeit und Erreichbarkeit des Produkts für verschiedene Gruppen.
+* *Glaubwürdigkeit:* Das Vertrauen der Benutzenden in das Produkt und die Marke.
+* *Wert:* Die Wahrnehmung des Nutzens und der Wertschöpfung durch das Produkt.
+
+UX berücksichtigt nicht nur die Interaktion mit der Benutzeroberfläche, sondern auch die gesamte Benutzerreise, von der ersten Wahrnehmung des Produkts bis zur fortlaufenden Nutzung und Unterstützung.
+
+*_Zusammenhänge zwischen Usability (UI) und Benutzerfreundlichkeit (UX)_*
+
+Usability ist ein integraler Bestandteil der Benutzerfreundlichkeit. Eine benutzerfreundliche (Web-)Applikation muss eine hohe Usability aufweisen, da die Benutzeroberfläche der primäre Kontaktpunkt zwischen dem Benutzendem und der (Web-)Applikation ist.
+Gute Usability sorgt für:
+
+* *Reibungslose und intuitive Interaktion:* Benutzende können problemlos navigieren und ihre Ziele erreichen, was zu einer positiven UX beiträgt.
+* *Effizienz:* Benutzende verbringen weniger Zeit und Mühe, um Aufgaben zu erledigen, was ihre Zufriedenheit erhöht und die Gesamt-UX verbessert.
+
+*_Unterschiede zwischen Usability (UI) und Benutzerfreundlichkeit (UX)_*
+
+Trotz ihrer engen Verbindung gibt es klare Unterschiede zwischen Usability und UX:
+
+* *Fokusbereich:* Usability konzentriert sich auf die Effizienz und Effektivität der Benutzeroberfläche, während UX das gesamte Erlebnis des Benutzenden mit dem Produkt betrachtet.
+* *Umfang:* Usability befasst sich hauptsächlich mit den funktionalen Aspekten der Interaktion, wie Navigation und Bedienbarkeit, während UX auch emotionale und psychologische Faktoren einbezieht, wie Freude und Zufriedenheit.
+* *Messbarkeit:* Usability kann durch spezifische Metriken wie Fehlerquote, Zeitaufwand und Benutzerzufriedenheit gemessen werden.
+UX erfordert jedoch eine umfassendere Bewertung, die qualitative und quantitative Methoden kombiniert, um das gesamte Benutzererlebnis zu verstehen.
+
+*Grundlegende Do's die die Benutzerfreundlichkeit einer Benutzeroberfläche in (Web-)Applikationen erhöhen:*
+
+* *Klare Anweisungen und Fehlermeldungen:* Nutzende sollten stets verstehen, was von ihnen erwartet wird.
+Klare Anweisungen und verständliche Fehlermeldungen helfen dabei, Frustration zu vermeiden und den Nutzenden durch den Prozess zu führen.
 * *Validierung von Eingaben:*
 Validieren Sie Eingabefelder in Echtzeit, um Nutzende vor Fehlern zu warnen, bevor sie das Formular absenden.
 Dadurch wird vermieden, dass Nutzende nach dem Absenden des Formulars feststellen, dass sie fehlerhafte oder unvollständige Informationen eingegeben haben.
-* *Progressive Offenbarung von Informationen:*
-Überladen Sie die Benutzungsoberfläche nicht mit zu vielen Informationen auf einmal.
+* *Progressive Offenbarung von Informationen:* Überladen Sie die Benutzungsoberfläche nicht mit zu vielen Informationen auf einmal.
 Stellen Sie sicher, dass Informationen kontextbezogen und schrittweise offenbart werden, um Nutzende nicht zu überfordern.
-* *Testen mit verschiedenen Nutzungsgruppen:*
-Um sicherzustellen, dass Ihre Oberfläche für eine breite Palette von Nutzenden zugänglich ist, ist es wichtig, Tests mit verschiedenen Personengruppen durchzuführen.
+* *Testen mit verschiedenen Nutzungsgruppen:* Um sicherzustellen, dass Ihre Oberfläche für eine breite Palette von Nutzenden zugänglich ist, ist es wichtig, Tests mit verschiedenen Personengruppen durchzuführen.
 Berücksichtigen Sie dabei Nutzende mit unterschiedlichen Fähigkeiten, Geräten und technischen Kenntnissen.
 
-//ToDo: In welchen Sectionen wird das genauer beschrieben? und/oder passt hier nicht!
-Weitere Informationen zu einer besseren Nutzungsfreundlichkeit sind am jeweiligen <<Bedienelemente,Bedienelement>>, dem Pattern und/oder Eingabehilfen und Fehlermeldungen zu finden.
+Weitere Informationen zu einer besseren Benutzerfreundlichkeit sind am jeweiligen <<Bedienelemente,Bedienelement>>, dem Pattern und/oder Eingabehilfen und Fehlermeldungen zu finden (siehe Unterkapitel "Do's and Don'ts).
 
 [[allgemeine-prinzipien]]
 === Allgemeine Prinzipien
@@ -141,10 +166,10 @@ Durch die Priorisierung von Klarheit im Design können Designende sicherstellen,
 
 *_Konsistenz_*
 
-Im Design bezieht sich das Prinzip der "Konsistenz" auf die Notwendigkeit, ein einheitliches Erscheinungsbild und Verhalten über alle Seiten einer Website hinweg zu gewährleisten.
+Im Design bezieht sich das Prinzip der "Konsistenz" auf die Notwendigkeit, ein einheitliches Erscheinungsbild und Verhalten über alle Seiten einer (Web-)Applikation hinweg zu gewährleisten.
 Konsistenz bedeutet, dass Designelemente wie Farben, Schriftarten, Symbole und Layouts einheitlich angewendet werden, um eine nahtlose Benutzererfahrung zu schaffen.
 Durch die Aufrechterhaltung einer konsistenten Gestaltung können Nutzende die (Web-)Applikation leichter verstehen und navigieren, da sie sich auf bereits bekannte Muster und Interaktionen verlassen können.
-Darüber hinaus trägt die Konsistenz dazu bei, das Markenimage zu stärken und das Vertrauen der Nutzenden in die Anwendung zu fördern.
+Darüber hinaus trägt die Konsistenz dazu bei, das Markenimage zu stärken und das Vertrauen der Nutzenden in die (Web-)Applikation zu fördern.
 
 *_Feedback_*
 
@@ -168,13 +193,13 @@ Das Designprinzip der "Zugänglichkeit" soll sicherstellen, dass eine (Web-)Appl
 Dies beinhaltet die Gestaltung und Entwicklung der (Web-)Applikation unter Berücksichtigung verschiedener Bedürfnisse, wie zum Beispiel Sehbehinderungen, Hörbehinderungen oder motorische Einschränkungen.
 //ToDo: Beispiele für nicht benutzerfreundliche Technologien?
 Zugängliches Design beinhaltet die Verwendung von klaren und verständlichen Texten, ausreichendem Kontrast zwischen Text und Hintergrund, Tastaturzugänglichkeit, alternative Texte für Bilder und die Vermeidung von Technologien, die für einige Personengruppen hinderlich sein könnten.
-Ein zugängliches Design gewährleistet, dass alle Nutzenden die Informationen und Funktionen der Webseite nutzen können, was zu einer inklusiven und positiven Benutzererfahrung führt.
+Ein zugängliches Design gewährleistet, dass alle Nutzenden die Informationen und Funktionen der (Web-)Applikation nutzen können, was zu einer inklusiven und positiven Benutzererfahrung führt.
 Dieses Prinzip wird im Kapitel <<Barrierefreiheit>> und unter den einzelnen <<Bedienelemente,Bedienelementen>> detaillierter beschrieben.
 
 [[barrierefreiheit]]
 == Barrierefreiheit
 
-Die Zugänglichkeit ist ein wichtiges Prinzip, um sicherzustellen, dass alle, unabhängig von ihren Fähigkeiten, die Anwendung nutzen können.
+Die Zugänglichkeit ist ein wichtiges Prinzip, um sicherzustellen, dass alle, unabhängig von ihren Fähigkeiten, die (Web-)Applikation nutzen können.
 Hier werden die Richtlinien zur Barrierefreiheit gemäß den Standards, wie z.B. WCAG, und Methoden zur Verbesserung der Zugänglichkeit erläutert.
 
 Zugänglichkeitsstandards müssen berücksichtigt werden:
@@ -192,7 +217,7 @@ Alle hier genannten Maßnahmen sind zur Steigerung der Awareness und Transparenz
 In der Regel sind die genannten Anforderungen durch die Anwendung der Standardelemente der IsyFact sichergestellt oder die Möglichkeit geboten die fachlichen Elemente sicherzustellen.
 
 * Sorge dafür, dass alle Elemente auch ohne Maus erreichbar und bedienbar sind.
-* <<Eingabefeld,Eingabefelder>> müssen nach der Aktivierung eines Hochkontrastmodus/Farbfilters zu 50% bestehen bleiben – eine einzelne Linie als Bestandteil ist nicht ausreichend als Identifizierung eines Eingabefeldes.
+* <<Eingabefeld,Eingabefelder>> müssen nach der Aktivierung eines Hochkontrastmodus/Farbfilters zu 50 % bestehen bleiben – eine einzelne Linie als Bestandteil ist nicht ausreichend als Identifizierung eines Eingabefeldes.
 * Die Textgröße soll im Standard mindestens 14pt betragen.
 * Der Textkontrast muss immer mindestens 4,5:1 und bei großen Texten mindestens 3:1 betragen.
 Für Haupt & Einstiegsseiten, Seiten mit rechtlicher Relevanz muss der Kontrast 7:1 betragen.
@@ -201,7 +226,7 @@ Für Haupt & Einstiegsseiten, Seiten mit rechtlicher Relevanz muss der Kontrast 
 * Bilder, die ausschließlich der Gestaltung dienen (z.B. Trennlinien), müssen als solche (Schmuckgrafik) gekennzeichnet werden.
 * _Tastatur-Navigation:_
 Nicht alle Nutzenden können eine Maus verwenden.
-Daher ist es wichtig, dass alle Interaktionen auf der Webseite auch über die Tastatur möglich sind.
+Daher ist es wichtig, dass alle Interaktionen auf der (Web-)Applikation auch über die Tastatur möglich sind.
 Dies bedeutet, dass alle Navigationselemente, Links und interaktiven Elemente leicht per Tastatur zugänglich sein müssen.
 * _Vermeidung von reinen Farbunterscheidungen:_
 Informationen sollten nicht allein durch Farbe vermittelt werden, da einige Nutzende Farben nicht unterscheiden können.
@@ -271,7 +296,7 @@ Wenn ein Bild rein dekorativ ist und keinen informativen Wert hat, sollte das Al
 
 *_Bedeutung von ARIA-Labels:_*
 
-ARIA-Labels (Accessible Rich Internet Applications) sind ein Set von Attributen, die entwickelt wurden, um die Zugänglichkeit von dynamischen Webinhalten und Benutzungsoberflächen zu verbessern.
+ARIA-Labels (Accessible Rich Internet Applications) sind ein Set von Attributen, die entwickelt wurden, um die Zugänglichkeit von dynamischen Inhalten und Benutzungsoberflächen zu verbessern.
 Sie bieten zusätzliche Informationen für Screenreader, insbesondere für Elemente, die keine standardisierten HTML-Attribute zur Beschreibung ihres Zwecks haben.
 
 *_Implementierung von ARIA-Labels:_*
@@ -309,13 +334,13 @@ ARIA-Labels sollten klar und präzise sein, um den Zweck des Elements genau zu v
 * _Vermeidung von Redundanz:_
 ARIA-Labels sollten nicht redundant zu bereits vorhandenen textuellen Beschreibungen sein.
 * _Konsistenz:_
-Die Verwendung von ARIA-Labels sollte konsistent über die gesamte Webseite hinweg erfolgen, um eine einheitliche Benutzererfahrung zu gewährleisten.
+Die Verwendung von ARIA-Labels sollte konsistent über die gesamte (Web-)Applikation hinweg erfolgen, um eine einheitliche Benutzererfahrung zu gewährleisten.
 * _Testen:_
 Die implementierten ARIA-Labels sollten regelmäßig mit verschiedenen Screenreadern getestet werden, um sicherzustellen, dass sie korrekt interpretiert werden.
 
 *_Zusammenfassung:_*
 
-Alt-Attribute und ARIA-Labels sind unverzichtbare Werkzeuge, um die Zugänglichkeit und den Anwendungskomfort von Webseiten und Webanwendungen zu gewährleisten.
+Alt-Attribute und ARIA-Labels sind unverzichtbare Werkzeuge, um die Zugänglichkeit und den Anwendungskomfort von (Web-)Applikation zu gewährleisten.
 Durch sorgfältige Planung und Implementierung dieser Attribute können Designer und Entwickler sicherstellen, dass ihre Inhalte für alle Nutzenden zugänglich sind.
 Das Beachten der Best Practices beim Schreiben von Alt-Attributen und der Implementierung von ARIA-Labels trägt wesentlich dazu bei, eine inklusive und effiziente Benutzererfahrung zu schaffen.
 
@@ -326,8 +351,8 @@ Dies hat mehrere Vorteile:
 
 * _Zugänglichkeit:_
 Screenreader verwenden das lang-Attribut, um die richtige Aussprache und Sprachregeln anzuwenden, was für Nutzende mit Sehbehinderungen von entscheidender Bedeutung ist.
-* _Mehrsprachige Webseiten:_
-Das lang-Attribut ermöglicht es, verschiedene Sprachversionen einer Webseite korrekt zu kennzeichnen und so die Benutzererfahrung zu verbessern.
+* _Mehrsprachige (Web-)Applikation:_
+Das lang-Attribut ermöglicht es, verschiedene Sprachversionen einer (Web-)Applikation korrekt zu kennzeichnen und so die Benutzererfahrung zu verbessern.
 
 Nutzen Sie die standardisierten ISO 639-1 Sprachcodes (zwei Buchstaben), um die Sprache zu definieren (z.B. de = deutsch).
 Dabei gilt es folgende Grundregeln zu beachten:
@@ -340,7 +365,7 @@ Dies stellt sicher, dass alle Inhalte auf der Seite als in dieser Sprache verfas
 *_Festlegen der Sprache für spezifische Elemente_*
 
 Wenn einzelne Abschnitte oder Elemente in einer anderen Sprache verfasst sind, sollte das lang-Attribut entsprechend auf diesen Elementen angewendet werden.
-Dies ist besonders wichtig für mehrsprachige Webseiten, Dokumente und die korrekte Aussprache durch Screenreader.
+Dies ist besonders wichtig für mehrsprachige (Web-)Applikationen, Dokumente und die korrekte Aussprache durch Screenreader.
 
 Wenn nötig, geben Sie spezifische Sprachvarianten oder Dialekte mithilfe von Codes für Regionen oder Länder an (z.B. en-US für amerikanisches Englisch, en-GB für britisches Englisch).
 
@@ -353,10 +378,10 @@ Setzen Sie das Attribut nicht aus ästhetischen oder stilistischen Gründen ein.
 <html lang="de">
     <head>
         <meta charset="UTF-8">
-        <title>Mehrsprachige Webseite</title>
+        <title>Mehrsprachige (Web-)Applikation</title>
     </head>
     <body>
-        <h1>Willkommen auf unserer Webseite</h1>
+        <h1>Willkommen auf unserer (Web-)Applikation</h1>
             <p>Dies ist ein Beispieltext in deutscher Sprache.</p>
             <p lang="en">This is a sample text in English.</p>
     </body>
@@ -370,11 +395,11 @@ Diese Einleitung bietet einen Überblick über die infrastrukturellen Anforderun
 
 * Prime NG.
 * Primär kommen in den Neuentwicklungen die durch die IsyFact zur Verfügung gestellten Bausteine zum Einsatz.
-* Das Styling der Anwendung wird primär aus dem hier zugrunde liegenden Prinzipien erstellt.
-Dafür wird die entsprechende SCSS und CSS in die Anwendung integriert.
+* Das Styling der (Web-)Applikation wird primär aus dem hier zugrunde liegenden Prinzipien erstellt.
+Dafür wird die entsprechende SCSS und CSS in die (Web-)Applikation integriert.
 * Es ist möglich „harte Overrides“ im CSS vorzunehmen, davon wird jedoch abgeraten.
-Dadurch ist die Wartbarkeit stark beeinträchtigt und die Aufwände können sich in der Pflege der Anwendung stark erhöhen.
-* Die Anwendung ist primär für die Nutzung auf Desktopgeräten konzipiert, kann aber mit ihrer Responsivität auch auf mobilen Geräten (sofern möglich) genutzt werden.
+Dadurch ist die Wartbarkeit stark beeinträchtigt und die Aufwände können sich in der Pflege der (Web-)Applikation stark erhöhen.
+* Die (Web-)Applikation ist primär für die Nutzung auf Desktopgeräten konzipiert, kann aber mit ihrer Responsivität auch auf mobilen Geräten (sofern möglich) genutzt werden.
 
 == Basiselemente
 
@@ -383,7 +408,7 @@ Dadurch ist die Wartbarkeit stark beeinträchtigt und die Aufwände können sich
 Die Textelemente spielen eine entscheidende Rolle bei der Kommunikation mit den Nutzenden.
 Dieser Abschnitt definiert die typografischen Standards, sprachlichen Richtlinien und Längenbeschränkungen, die dazu beitragen, dass die Texte klar, verständlich und ansprechend sind.
 
-Anwendungen des Bundes sollen über die IT-Landschaft hinweg ein einheitliches Look-and-Feel bieten.
+(Web-)Applikationen des Bundes sollen über die IT-Landschaft hinweg ein einheitliches Look-and-Feel bieten.
 Dies wird über den Einsatz der IsyFact und deren Komponenten gewährleistet.
 Dafür ist es notwendig auch bei der Schrift (im weiteren Font) einheitlich vorzugehen.
 Zur Anwendung kommt primär:
@@ -427,7 +452,7 @@ Zusätzlich zu einem klar leserlichen Schriftschnitt sind auch die Gestaltungsme
 Die Standard-Schriftart für Bedienelemente und Inhalte ist BundesSans 14 pt regular in dunkelgrau.
 Grundsätzlich gilt, ausreichende Schriftgrößen sind abhängig vom Betrachtungsabstand, von der Art des Textes und von der Sehschärfe der Lesenden.
 //ToDo: Verweis?
-Individuelle Schriftgrößen können Sie mit dem Schriftgrößenrechner auf leserlich.info ermitteln und entsprechend dem Nutzerkreis anpassen.
+Individuelle Schriftgrößen können Sie mit dem Schriftgrößenrechner auf leserlich.info ermitteln und entsprechend dem Interessentenkreis anpassen.
 
 *_Richtlinien zur Anwendung:_*
 
@@ -470,7 +495,7 @@ Deshalb kann die Palette von dem hier dokumentierten Stand abweichen.
 
 Es kommt folgende Farbpalette zum Einsatz:
 
-[[image-Farbpalette]]
+[[image-Farben]]
 .Farbpalette
 image::24_BE_farbpalette.png[align="center"]
 
@@ -478,13 +503,13 @@ Die Farben sind entsprechend ihres Namens und ihrer bekannten Bedeutung zu nutze
 
 *_Do's_*
 
-* Grün = Erfolg, Bestätigung, Korrekt, etc...
-* Rot = Fehler, Abbruch, Stopp, etc...
+* Grün = Erfolg, Bestätigung, Korrekt, etc ...
+* Rot = Fehler, Abbruch, Stopp, etc ...
 
 *_Don'ts_*
 
-* Grün = Abbruch, Fehler, Stopp, etc...
-* Lila = Weiter, Sekundärbutton, Löschen, etc...
+* Grün = Abbruch, Fehler, Stopp, etc ...
+* Lila = Weiter, Sekundärbutton, Löschen, etc ...
 
 ==== Applikationsfarben
 
@@ -713,7 +738,7 @@ a|image::isy-bedienkonzept:primeicons/star-fill.svg[width=32,height=32]
 
 *_Einleitung und Allgemeines:_*
 
-Bedienelemente sind die Bausteine der Benutzungsoberfläche, die es den Nutzenden ermöglichen, mit der Anwendung zu interagieren.
+Bedienelemente sind die Bausteine der Benutzungsoberfläche, die es den Nutzenden ermöglichen, mit der (Web-)Applikation zu interagieren.
 Dieser Abschnitt definiert die verschiedenen Bedienelemente und legt fest, wie sie gestaltet und angeordnet werden sollen, um eine intuitive Benutzererfahrung zu gewährleisten.
 
 === Überschriften
@@ -735,7 +760,7 @@ Die Hauptüberschrift (<h1>) sollte nur einmal pro Seite verwendet werden, gefol
 *_Konsistenz und Lesbarkeit_*
 
 _Einheitliches Design:_
-Überschriften sollten über die gesamte Webseite hinweg einheitlich gestaltet sein, um ein kohärentes Erscheinungsbild zu gewährleisten.
+Überschriften sollten über die gesamte (Web-)Applikation hinweg einheitlich gestaltet sein, um ein kohärentes Erscheinungsbild zu gewährleisten.
 Dies umfasst Schriftart, -größe, -farbe und -stil.
 
 _Abstände und Margins:_
@@ -775,8 +800,8 @@ Es wird empfohlen die Standardfarben zu nutzen.
 
 Hyperlinks folgen per Default einem einheitlichen Styling.
 Links sind in der Regel unterstrichen.
-Daher ist es nicht ratsam dies zu ändern, da der Nutzer es gelernt hat weiterführende Informationen/Links in einem Fließtext oder auf einer Seite anhand des unterstrichenen Textes zu erkennen.
-Viele Webseiten greifen per CSS in das Styling ein und färben Links entsprechend ihrer Designregeln.
+Daher ist es nicht ratsam dies zu ändern, da der Nutzende es gelernt hat weiterführende Informationen/Links in einem Fließtext oder auf einer Seite anhand des unterstrichenen Textes zu erkennen.
+Viele (Web-)Applikation greifen per CSS in das Styling ein und färben Links entsprechend ihrer Designregeln.
 
 Hyperlinks können einen Status (State) normal, hovered/focus und clicked haben.
  
@@ -796,7 +821,7 @@ Generische Phrasen wie „Hier klicken“ sind nicht hilfreich und sollten vermi
 === Label
 
 Labels dienen dazu, Eingabefelder und andere Bedienelemente klar zu kennzeichnen, sodass Nutzende genau verstehen, welche Informationen erforderlich sind und welche Aktionen durchgeführt werden können.
-Ein konsistentes und gut durchdachtes Design von Labels trägt wesentlich zur Verbesserung der Nutzererfahrung bei.
+Ein konsistentes und gut durchdachtes Design von Labels trägt wesentlich zur Verbesserung der Benutzererfahrung bei.
 
 Labels sind nicht nur visuelle Hinweise, sondern auch wesentliche Bestandteile der Barrierefreiheit.
 Sie ermöglichen es Screenreadern, die Beziehung zwischen einem Eingabefeld und seiner Beschreibung zu verstehen, was besonders für sehbehinderte Nutzende von großer Bedeutung ist.
@@ -843,7 +868,7 @@ Labels sollten in einer gut lesbaren Schriftart und -größe dargestellt werden.
 Der Kontrast muss mindestens 4,5:1 betragen, um auch bei schlechten Lichtverhältnissen gut lesbar zu sein.
 
 _Konsistenz:_
-Die Gestaltung von Labels sollte über die gesamte Webseite hinweg konsistent sein.
+Die Gestaltung von Labels sollte über die gesamte (Web-)Applikation hinweg konsistent sein.
 Einheitliche Schriftarten, Größen und Abstände tragen zum Anwendungskomfort und einem professionellen Erscheinungsbild bei.
 
 *_Interaktive Elemente_*
@@ -992,9 +1017,9 @@ _Hinweis:_ Textboxen haben die gleichen States und Styles wie Eingabefelder.
 
 === Liste
 
-Listen sind zentrale Bestandteile einer jeden Webseite und insbesondere von Fachanwendungen.
+Listen sind zentrale Bestandteile einer jeden (Web-)Applikation und insbesondere von Fachanwendungen.
 Sie dienen dazu, Inhalte zu strukturieren und schnell zu erfassen.
-Listen ermöglichen es dem Nutzer darüber zulässige Werte auszuwählen.
+Listen ermöglichen es dem Nutzenden darüber zulässige Werte auszuwählen.
 Dadurch werden Fehleingaben und unerwartete Ergebnisse reduziert.
 
 Listen sind in ihrer alleinigen Form recht simpel.
@@ -1026,7 +1051,7 @@ Aktive Elemente sind in der Highlightfarbe und hinterlegt dargestellt.
 * Gestalte Listen inhaltlich so einfach wie möglich.
 * Sollten Listen viele Einträge haben, sorge mit anderen Elementen für die Durchsuchbarkeit, Filterung oder Kategorisierung.
 * Listen helfen bei komplexen Eingaben, Fehler zu vermeiden.
-* Kombiniere Listen mit unterschiedlichen interaktiven Elementen, um dem Nutzer eine Hilfestellung zu bieten.
+* Kombiniere Listen mit unterschiedlichen interaktiven Elementen, um dem Nutzenden eine Hilfestellung zu bieten.
 * Erwäge die Nutzung einer Radio-Button-Gruppe bei einer kleinen Liste.
 
 *_Don'ts_*
@@ -1038,10 +1063,10 @@ Aktive Elemente sind in der Highlightfarbe und hinterlegt dargestellt.
 
 === Checkbox
 
-Checkboxen sind ein wesentliches Element der Benutzungsoberfläche, das in vielen Web- und Anwendungsdesigns verwendet wird.
+Checkboxen sind ein wesentliches Element der Benutzungsoberfläche, das in vielen (Web-)Applikationen verwendet wird.
 Sie ermöglichen es Nutzenden, mehrere Optionen aus einer (offenen) Liste auszuwählen und spielen eine wichtige Rolle bei der Interaktivität und Benutzerführung.
 Ein gut gestaltetes Checkbox-Design verbessert die Lesbarkeit und Zugänglichkeit.
-Dies ist besonders wichtig, um sicherzustellen, dass alle Nutzenden, einschließlich derjenigen mit Behinderungen, die Anwendung problemlos nutzen können.
+Dies ist besonders wichtig, um sicherzustellen, dass alle Nutzenden, einschließlich derjenigen mit Behinderungen, die (Web-)Applikation problemlos nutzen können.
 Letztlich fördern konsistente Checkbox-Designs eine bessere Benutzererfahrung und erhöhen die Effizienz bei der Datenerfassung und Interaktion.
 
 [[image-Checkboxen]]
@@ -1085,15 +1110,15 @@ Dieser Zustand wird häufig mit einem Quadrat innerhalb der Checkbox symbolisier
 *_Don'ts_*
 
 * Checkboxen sind kein alleinstehender Ein- und Ausschalter, dafür gibt es die technische Komponente _p-inputSwitch_.
-* Eine Checkbox soll keine Funktionen (drucken, speichern, etc…) auslösen oder Seiten öffnen/verlinken.
+* Eine Checkbox soll keine Funktionen (drucken, speichern, etc …) auslösen oder Seiten öffnen/verlinken.
 
 === Radiobutton
 
 //ToDo: Das ist genau der gleiche Einleitungstext, wie bei den Checkboxen. Evtl. Verweis auf Checkboxen und den Text verkürzen?
-Radiobuttons sind ein wesentliches Element der Benutzungsoberfläche, das in vielen Web- und Anwendungsdesigns verwendet wird.
+Radiobuttons sind ein wesentliches Element der Benutzungsoberfläche, das in vielen (Web-)Applikationen verwendet wird.
 Sie ermöglichen es Nutzenden, eine Option aus einer (offenen) Liste auszuwählen und spielen eine wichtige Rolle bei der Interaktivität und Benutzerführung.
 Ein gut gestaltetes Radiobutton-Design verbessert die Lesbarkeit und Zugänglichkeit.
-Dies ist besonders wichtig, um sicherzustellen, dass alle Nutzenden, einschließlich derjenigen mit Behinderungen, die Anwendung problemlos nutzen können.
+Dies ist besonders wichtig, um sicherzustellen, dass alle Nutzenden, einschließlich derjenigen mit Behinderungen, die (Web-)Applikation problemlos nutzen können.
 Letztlich fördern konsistente Radiobutton-Designs eine bessere Benutzererfahrung und erhöhen die Effizienz bei der Datenerfassung und Interaktion.
 
 [[image-Radiobutton]]
@@ -1139,12 +1164,12 @@ Für diese Zwecke sollten Buttons verwendet werden.
 
 === Tabview
 
-Ein Tabview ist ein wesentliches Element im modernen Webdesign, das die Benutzererfahrung erheblich verbessert.
-Es bietet eine intuitive Möglichkeit, verschiedene Inhalte oder Abschnitte einer Webseite übersichtlich und platzsparend darzustellen.
+Ein Tabview ist ein wesentliches Element im modernen Design, das die Benutzererfahrung erheblich verbessert.
+Es bietet eine intuitive Möglichkeit, verschiedene Inhalte oder Abschnitte einer (Web-)Applikation übersichtlich und platzsparend darzustellen.
 Durch die Verwendung von Tabs können Nutzende schnell und einfach zwischen verschiedenen Bereichen navigieren, ohne die Seite ständig neu laden zu müssen.
 Dies fördert nicht nur die Nutzungsfreundlichkeit, sondern auch die Effizienz bei der Informationssuche.
-In der heutigen digitalen Welt, in der Nutzer eine schnelle und nahtlose Interaktion erwarten, ist ein gut gestaltetes Tabview ein unverzichtbares Werkzeug für jede Webseite.
-Es ermöglicht Entwicklern, Inhalte logisch zu organisieren und sorgt für eine klare Struktur, die die Nutzerbindung und Zufriedenheit steigert.
+In der heutigen digitalen Welt, in der Nutzenden eine schnelle und nahtlose Interaktion erwarten, ist ein gut gestaltetes Tabview ein unverzichtbares Werkzeug für jede (Web-)Applikation.
+Es ermöglicht Entwicklern, Inhalte logisch zu organisieren und sorgt für eine klare Struktur, die die Benutzerbindung und Zufriedenheit steigert.
 
 [[image-Tabview]]
 .Tabview
@@ -1216,7 +1241,7 @@ Für so etwas wird ein Wizard genutzt.
 [[designpattern]]
 == Designpattern
 
-Designpatterns sind wiederkehrende Lösungen für Designprobleme, die sich über verschiedene Teile der Anwendung erstrecken können.
+Designpatterns sind wiederkehrende Lösungen für Designprobleme, die sich über verschiedene Teile der (Web-)Applikation erstrecken können.
 Dieser Abschnitt beschreibt die Konzepte von Designpatterns, ihre Bedeutung für die Konsistenz und Effizienz der Benutzungsoberfläche, sowie ihre Rolle bei der Gestaltung eines benutzerzentrierten Designs.
 
 === Eingabefeldliste (Dropdown)
@@ -1224,7 +1249,7 @@ Dieser Abschnitt beschreibt die Konzepte von Designpatterns, ihre Bedeutung für
 Ein Eingabefeld mit hinterlegten Werten ist in seiner einfachsten Form ein Eingabefeld mit Liste.
 Die Liste ist die bekannteste Art eines interaktiven Eingabefelds, besser bekannt als Dropdown.
 Eingabefeldlisten setzen Standards für interaktive Eingabefelder, Dropdown-Menüs, enthaltene Kontrollkästchen und andere interaktive Elemente.
-Dadurch wird sichergestellt, dass alle Eingabefelder auf der Webseite oder in der Anwendung einheitlich gestaltet sind und den besten Praktiken hinsichtlich Nutzungsfreundlichkeit und Barrierefreiheit entsprechen.
+Dadurch wird sichergestellt, dass alle Eingabefelder auf der (Web-)Applikation einheitlich gestaltet sind und den besten Praktiken hinsichtlich Nutzungsfreundlichkeit und Barrierefreiheit entsprechen.
 Ein konsistentes Design fördert die Orientierung und das Vertrauen der Nutzenden, was letztendlich zu einer höheren Zufriedenheit und Effizienz führt.
 
 [[image-Eingabefeldliste-Dropdown]]
@@ -1242,7 +1267,7 @@ Aktive Elemente sind in der Highlightfarbe und hinterlegt dargestellt.
 
 === Eingabefeldgruppen
 
-Eingabefeldgruppen sind in fast jeder Anwendung oder Webseite vorhanden.
+Eingabefeldgruppen sind in fast jeder (Web-)Applikation vorhanden.
 Sie haben stets einen unterschiedlichen fachlichen Schnitt, lassen sich aber in den häufigsten Anwendungsfällen in homogene Gruppen definieren.
 Bekannte Gruppen sind personenbezogene Daten wie z.B.: Angaben zur Person, Ortsdaten/Adresse, Bezahldaten.
 
@@ -1352,7 +1377,7 @@ image::24_UC_horizontale_inhaltlichte_gruppe.png[align="center"]
 
 Gleichmäßige Feldlängen unterstützen den Lesefluss des Nutzendens.
 Die letzten Eingabefelder können bei Bedarf ihrem Inhalt entsprechend gekürzt werden.
-Dies unterstützt die inhaltlich logische Gruppierung und signalisiert dem Nutzer auch visuell ein Ende der inhaltlichen Gruppe.
+Dies unterstützt die inhaltlich logische Gruppierung und signalisiert dem Nutzenden auch visuell ein Ende der inhaltlichen Gruppe.
 
 Bei geringeren Auflösungen sollten sie, dem bekannten responsiven Verhalten entsprechend, untereinander angeordnet werden, um sich der begrenzten Breite anzupassen.
 
@@ -1372,7 +1397,7 @@ image::24_UC_fullexample_formular.png[align="center"]
 [[eingabehilfen-und-Fehlermeldungen]]
 == Eingabehilfen und Fehlermeldungen
 
-Eingabehilfen und Fehlermeldungen sind essenziell wichtig, um die Nutzungsfreundlichkeit einer Anwendung zu erhöhen.
+Eingabehilfen und Fehlermeldungen sind essenziell wichtig, um die Nutzungsfreundlichkeit einer (Web-)Applikation zu erhöhen.
 Im folgenden Kapitel sollen die Grundlagen zur erfolgreichen Gestaltung von Eingabehilfen und Fehlermeldungen erläutert werden.
 
 === Eingabehilfen
