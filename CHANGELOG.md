@@ -14,6 +14,9 @@
 - `IFS-3665`: [isyfact-standards-doc] "Leitfaden Dokumentation" nach `isy-documentation` verschoben
 - `IFS-3692`: [isyfact-standards-doc] Seite "Referenzarchitekur" nach Architektursichten aufgeteilt
 - `ISY-909`: [isyfact-products-bom] Orika durch MapStruct ersetzt
+- `IFS-2248`: [isy-batchrahmen, isy-security] Tokenerneuerung in isy-batchrahmen:
+    * `IsySecurityTokenUtil` und `IsyOAuth2Authentifizierungsmanager` stellen Funktionalität zur Token-Gültigkeitsüberprüfung und erneuten Authentifizierung bereit
+    * Funktionalität zur erneuten Authentifizierung wird von `BatchrahmenImpl` aufgerufen
 ## BUG FIXES
 ## BREAKING CHANGES
 - `ISY-1122`: Bausteine `isy-sicherheit`, `isy-aufrufkontext`, `isy-serviceapi-core` und `isy-konfiguration` entfernt
@@ -33,7 +36,7 @@
 - `IFS-3697`: [isyfact-products-bom] Update JMeter Core auf 5.6.x
 - `IFS-3701`: [isyfact-standards-doc] Baustein JSF entfernt.
 - `IFS-3736`: [isyfact-standards-doc] Abbildung von Anwendungen in IT-Systeme ("technischer Schnitt") beschrieben.
-
+- `IFS-3763`: [isyfact-standards-doc] Dokumentation der Änderungen zu IFS-2248 (Tokenerneuerung isy-batchrahmen)
 
 # 3.0.1
 - `ISY-701`: Google Guava Versionsanhebung auf 33.1.0
