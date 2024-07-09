@@ -3,13 +3,16 @@
 include::glossary:licence:partial$licence.adoc[]
 
 [[einfuehrung-und-allgemeine-Prinzipien]]
-== Einfuehrung und allgemeine Prinzipien
+== Einführung und allgemeine Prinzipien
 Das Bedienkonzept & der Styleguide nehmen eine zentrale Rolle in der Entwicklung von Anwendungen und Websites ein, indem es als umfassendes Regelwerk dient, das die Gestaltung und Interaktionselemente definiert.
 Es bildet das Fundament für eine konsistente und benutzerfreundliche Benutzeroberfläche und fungiert als Leitfaden für Designer, Entwickler und Fachlichkeit gleichermaßen.
 Das Hauptziel des Bedienkonzepts ist es, eine herausragende Benutzererfahrung zu schaffen, die die Zufriedenheit und Produktivität der Benutzer maximiert.
 Es soll sicherstellen, dass Benutzer die Anwendung ohne Schwierigkeiten nutzen können und dabei ihre Ziele effizient erreichen.
 In den folgenden Kapiteln werden diese Konzepte weiter ausgearbeitet und konkrete Richtlinien und Best Practices für die Entwicklung von Benutzeroberflächen für Webanwendungen bereitgestellt.
 
+Eine LiveDemo aller hier beschriebenen Richtlinien finden Sie unter:
+
+https://isyfact.github.io/isy-angular-widgets/
 
 [[einfuehrung-in-das-bedienkonzept]]
 === Einführung in das Bedienkonzept
@@ -118,7 +121,7 @@ Ein zentrales Ziel des Bedienkonzepts & Styleguides ist die Schaffung einer kons
 Durch die Festlegung einheitlicher Gestaltungsrichtlinien und Interaktionselemente wird sichergestellt, dass sich Benutzer schnell und intuitiv in der Anwendung oder Website zurechtfinden.
 Konsistenz trägt nicht nur zur Benutzerzufriedenheit bei, sondern erleichtert auch die Wiedererkennung und Nutzung der Benutzeroberfläche über verschiedene Seiten und Funktionen hinweg.
 
-*	Klare Anweisungen und Fehlermeldungen: Nutzer sollten stets verstehen, was von ihnen erwartet wird.
+* Klare Anweisungen und Fehlermeldungen: Nutzer sollten stets verstehen, was von ihnen erwartet wird.
 Klare Anweisungen und verständliche Fehlermeldungen helfen dabei, Frustration zu vermeiden und den Nutzer durch den Prozess zu führen.
 * Validierung von Eingaben: Validieren Sie Eingabefelder in Echtzeit, um Benutzer vor Fehlern zu warnen, bevor sie das Formular absenden.
 Dadurch wird vermieden, dass Benutzer nach dem Absenden des Formulars feststellen, dass sie fehlerhafte oder unvollständige Informationen eingegeben haben.
@@ -166,11 +169,10 @@ Individuelle Schriftgrößen können Sie mit dem Schriftgrößenrechner auf lese
 * Die Verwendung verschiedener Schriftarten, über die im Bedienkonzept hinaus vorgegebenen Schriftarten, muss vermieden werden.
 * Die Schriftgröße muss immer ausreichend groß sein. Ein Unterschreiten von Mindestgrößen zugunsten des Platzgewinns muss vermieden werden.
 Stattdessen werden andere, platzsparende Mechanismen angewandt, wie z.B. Expander (Progressive Disclosure).
-
-*Die Anzahl verschiedener Schriftgrößen muss auf ein notwendiges Minimum reduziert werden
-*	Es muss sichergestellt sein, dass der Kontrast der Schriftfarbe zur Hintergrundfarbe ausreichend groß ist.
+* Die Anzahl verschiedener Schriftgrößen muss auf ein notwendiges Minimum reduziert werden
+* Es muss sichergestellt sein, dass der Kontrast der Schriftfarbe zur Hintergrundfarbe ausreichend groß ist.
 Hier ist der Kontrast größtmöglich zu wählen (z.B. dunkelgraue (#212529) Schrift auf weißen Hintergrund).
-Ist dies aus technischer oder fachlicher Notwendigkeit nicht möglich, so muss der Kontrast bei kleiner Schrift mindestens 4:1 entsprechen.
+Ist dies aus technischer oder fachlicher Notwendigkeit nicht möglich, so muss der Kontrast bei kleiner Schrift mindestens 4,5:1 entsprechen.
 * Überschriften und großer/dicker Text muss mindestens einen Kontrast von 3:1 aufweisen.
 
 *_Grafiken_*
@@ -196,9 +198,9 @@ Details werden im entsprechenden Kapitel genauer erläutert.
 Farben tragen maßgeblich zur visuellen Identität einer Anwendung bei und beeinflussen die Stimmung und Wahrnehmung der Benutzer.
 Dieser Abschnitt beschreibt die primäre und sekundäre Farbpalette, sowie die Verwendung von Farben für verschiedene Zwecke, unter Berücksichtigung von Kontrast und Barrierefreiheit.
 
-*	Die Standardpalette wird vom IsyFact Theme mit ausgeliefert und entsprechend der aktuellen gesetzlichen Entwicklung aktualisiert und kann von dem hier dokumentierten Stand abweichen
-*	Die Standardpalette (zum Zeitpunkt: dd.mm.yyyy) wird im Bereich Barrierefreiheit mit einer Kontrast-Tabelle angegeben
-*	Verwendung einer Anwendungsfarbe muss vom Projekt auf Barrierefreiheit geprüft werden und ist frei wählbar
+* Die Standardpalette wird vom IsyFact Theme mit ausgeliefert und entsprechend der aktuellen gesetzlichen Entwicklung aktualisiert und kann von dem hier dokumentierten Stand abweichen
+* Die Standardpalette (zum Zeitpunkt: dd.mm.yyyy) wird im Bereich Barrierefreiheit mit einer Kontrast-Tabelle angegeben
+* Verwendung einer Anwendungsfarbe muss vom Projekt auf Barrierefreiheit geprüft werden und ist frei wählbar
 
 
 == Barrierefreiheit
@@ -208,49 +210,81 @@ Hier werden die Richtlinien zur Barrierefreiheit gemäß den Standards, wie z.B.
 
 Zugänglichkeitsstandards müssen berücksichtigt werden:
 
-*	WCAG 2.1 und EN 305419 mindestens bis zum Level AA.
-*	Für Haupt & Einstiegsseiten, Seiten mit rechtlicher Relevanz sollte das Level AAA berücksichtigt werden.
+* Alle Seiten mindestens bis zum Level AA.
+* Für Haupt- & Einstiegsseiten und Seiten mit rechtlicher Relevanz sollte das Level AAA berücksichtigt werden.
+
+Die detaillierten Anforderungen sind zu finden unter:
+
+* https://www.w3.org/TR/WCAG21/[WCAG 2.1]
+* https://www.barrierefreiheit-dienstekonsolidierung.bund.de/Webs/PB/DE/gesetze-und-richtlinien/en301549/en301549-node.html[EN 305419]
 
 Vor der Auflistung der einzelnen Kriterien sind im Kontext der IsyFact besondere Kriterien der Barrierefreiheit herauszustellen und bei der fachlichen Konzeption bereits zu berücksichtigen.
 Alle hier genannten Maßnahmen sind zur Steigerung der Awareness und Transparenz aufgelistet.
 In der Regel sind die genannten Anforderungen durch die Anwendung der Standardelemente der ISY-Fact sichergestellt oder die Möglichkeit geboten die fachlichen Elemente sicherzustellen.
 
-*	Eingabefelder müssen nach der Aktivierung eines Hochkontrastmodus/Farbfilters zu 50% bestehen bleiben – eine einzelne Linie als Bestandteil ist nicht ausreichend als Identifizierung eines Eingabefeldes.
-*	Die Textgröße soll im Standard mindestens 14pt betragen.
-*	Der Textkontrast muss immer mindestens 4:1 und bei großen Texten mindestens 3:1 betragen.
+* Sorge dafür, dass alle Elemente auch ohne Maus erreichbar und bedienbar sind.
+* Eingabefelder müssen nach der Aktivierung eines Hochkontrastmodus/Farbfilters zu 50% bestehen bleiben – eine einzelne Linie als Bestandteil ist nicht ausreichend als Identifizierung eines Eingabefeldes.
+* Die Textgröße soll im Standard mindestens 14pt betragen.
+* Der Textkontrast muss immer mindestens 4,5:1 und bei großen Texten mindestens 3:1 betragen.
 Für Haupt & Einstiegsseiten, Seiten mit rechtlicher Relevanz muss der Kontrast 7:1 betragen.
-*	Es dürfen keine Schriftgrafiken genutzt werden.
-*	Alle Bilder benötigen ein inhaltlich sinnvolles beschreibendes Alt-Attribut.
-*	Bilder die ausschließlich der Gestaltung dienen, wie Trennlinien müssen als solche (Schmuckgrafik) gekennzeichnet werden.
-*	Tastatur-Navigation: Nicht alle Benutzer können eine Maus verwenden.
+* Es sollten keine Schriftgrafiken genutzt werden.
+* Alle Bilder benötigen ein inhaltlich sinnvolles beschreibendes Alt-Attribut.
+* Bilder, die ausschließlich der Gestaltung dienen (z.B. Trennlinien), müssen als solche (Schmuckgrafik) gekennzeichnet werden.
+* Tastatur-Navigation: Nicht alle Benutzer können eine Maus verwenden.
 Daher ist es wichtig, dass alle Interaktionen auf der Website auch über die Tastatur möglich sind.
 Dies bedeutet, dass alle Navigationselemente, Links und interaktiven Elemente leicht per Tastatur zugänglich sein müssen.
-*	Vermeidung von reinen Farbunterscheidungen: Informationen sollten nicht allein durch Farbe vermittelt werden, da einige Benutzer Farben nicht unterscheiden können.
+* Vermeidung von reinen Farbunterscheidungen: Informationen sollten nicht allein durch Farbe vermittelt werden, da einige Benutzer Farben nicht unterscheiden können.
 Nutzen Sie daher auch andere visuelle Elemente wie Symbole oder Muster, um wichtige Informationen zu vermitteln.
+* Vermeide schwache Kontraste z.B. hellblau auf grau.
+* Löse keine Aktionen durch Bedienelemente aus, wenn diese nicht dazu vorgesehen sind (z.B. Radiobutton und Checkboxen).
 
-Die richtige Verwendung von Alt-Attributen für Bilder und ARIA-Labels für andere Bedienelemente ist von großer Bedeutung.
+[[barrierefreier-einsatz-von-farben]]
+=== Barrierefreier Einsatz von Farben
+
+Farben sind ein Hauptbestandteil um die (Web-)Applikationen zu gestalten und um die Nutzenden zu unterstützen.
+Um eine gute Erkennbarkeit der Elemente sicherzustellen, muss bei großer Schrift ein Kontrast von mindestens 3:1 gewährleistet sein.
+
+Nachfolgend sind alle in der Anwendung zur Verfügung stehenden Farben miteinander in ein Kontrastverhältnis gebracht.
+Farbkombinationen, die rot gelabeled sind und keinen ausreichenden Kontrast aufweisen, dürfen nicht verwendet werden.
+Andere Farbkombinationen sind entsprechend ihrem Text/Elementgröße frei zu wählen.
+Dabei soll der Kontrast so hoch wie möglich gewählt werden.
+
+[[image-Farbpalette]]
+.Farbmatrix
+image::24_BE_colormatrix.png[align="center"]
+
+Eine interaktive und erweiterbare Tabelle ist unter https://contrast-grid.eightshapes.com/?version=1.1.0&background-colors=&foreground-colors=%23000000%2C%20Black%0D%0A%23FFFFFF%2C%20White%0D%0A%23F2F2F2%2C%20light%20Grey%0D%0A%23DDDDDD%2C%20Grey%0D%0A%2383878c%2C%20medium%20Grey%0D%0A%23404040%2C%20Charcoal%0D%0A%23212529%2C%20dark%20Grey%0D%0A%230055B9%2C%20Active%20and%20Primary%0D%0A%2366AEE5%2C%20Primary%20disabled%0D%0A%23D45C00%2C%20Secondary%0D%0A%23A4252C%2C%20Alert%0D%0A%23498205%2C%20Success%0D%0A%23D47D00%2C%20Warning%0D%0A%23008EDB%2C%20Info%0D%0A%238378DE%2C%20Help%0D%0A%0D%0A%0D%0A%0D%0A%0D%0A%0D%0A&es-color-form__tile-size=regular&es-color-form__show-contrast=aaa&es-color-form__show-contrast=aa&es-color-form__show-contrast=aa18&es-color-form__show-contrast=dnp[Farbmatrix] zu finden.
+
+Die folgenden Links verweisen auf weitere Informationen zur Kontrast-Analyse:
+
+* http://whocanuse.com[WhoCanUse?]
+* http://leserlich.info/kapitel/farben.php[leserlich.info]
 
 === Alt-Attribute für Bilder
 
-Bedeutung der Alt-Attribute:
 Alt-Attribute (alternative Texte) sind textuelle Beschreibungen, die in den HTML-Code von Bildern eingebettet werden. Sie dienen mehreren wichtigen Zwecken:
 
-*	Zugänglichkeit: Screenreader verwenden Alt-Attribute, um sehbehinderten oder blinden Benutzern den Inhalt und Zweck eines Bildes zu vermitteln.
-*	SEO: Suchmaschinen nutzen Alt-Texte, um den Inhalt von Bildern zu indexieren, was die Auffindbarkeit der Webseite verbessern kann.
-*	Fehlertoleranz: Wenn ein Bild aus irgendeinem Grund nicht geladen werden kann, zeigt der Browser den Alt-Text anstelle des Bildes an.
+* Zugänglichkeit: Screenreader verwenden Alt-Attribute, um sehbehinderten oder blinden Benutzenden den Inhalt und Zweck eines Bildes zu vermitteln.
+* Fehlertoleranz: Wenn ein Bild aus irgendeinem Grund nicht geladen werden kann, zeigt der Browser den Alt-Text anstelle des Bildes an.
 
 *_Best Practices für das Schreiben von Alt-Attributen_*
 
 Beim Erstellen von Alt-Texten sollten folgende Richtlinien beachtet werden:
 
-*	Beschreibend und prägnant: Der Alt-Text sollte den Inhalt und Zweck des Bildes kurz und genau beschreiben
-Beispiel: <img src="blume.jpg" alt="Gelbe Tulpe im Frühlingsgarten">.
-*	Kontextbezogen: Der Alt-Text sollte den Kontext berücksichtigen, in dem das Bild verwendet wird.
-Beispiel: Bei einem Bild eines Einkaufswagens auf einer E-Commerce-Seite könnte der Alt-Text lauten: <img src="cart.png" alt="Einkaufswagen">.
-*	Keine redundante Information: Informationen, die bereits im umgebenden Text enthalten sind, müssen nicht im Alt-Text wiederholt werden.
+* Beschreibend und prägnant: Der Alt-Text sollte den Inhalt und Zweck des Bildes kurz und genau beschreiben.
+Beispiel:
+[source,xml]
+<img src="blume.jpg" alt="Gelbe Tulpe im Frühlingsgarten">.
+
+* Kontextbezogen: Der Alt-Text sollte den Kontext berücksichtigen, in dem das Bild verwendet wird.
+Beispiel: Bei einem Bild eines Einkaufswagens auf einer E-Commerce-Seite könnte der Alt-Text lauten:
+[source,xml]
+<img src="cart.png" alt="Einkaufswagen">.
+
+* Keine redundante Information: Informationen, die bereits im umgebenden Text enthalten sind, müssen nicht im Alt-Text wiederholt werden.
 Beispiel: Wenn ein Bild neben einer Überschrift „Teamfoto 2024“ steht, sollte der Alt-Text nicht einfach „Teamfoto 2024“ wiederholen.
-*	Vermeidung von Keyword-Stuffing: Der Alt-Text sollte nicht mit Schlüsselwörtern überladen werden, da dies sowohl die Zugänglichkeit als auch die SEO beeinträchtigt.
-*	Verwendung von leeren Alt-Attributen für dekorative Bilder: Wenn ein Bild rein dekorativ ist und keinen informativen Wert hat, sollte das Alt-Attribut leer sein (alt=""), um Screenreader zu signalisieren, dass sie das Bild ignorieren können.
+* Vermeidung von Keyword-Stuffing: Der Alt-Text sollte nicht mit Schlüsselwörtern überladen werden, da dies sowohl die Zugänglichkeit als auch die SEO beeinträchtigt.
+* Verwendung von leeren Alt-Attributen für dekorative Bilder: Wenn ein Bild rein dekorativ ist und keinen informativen Wert hat, sollte das Alt-Attribut leer sein (alt=""), um Screenreader zu signalisieren, dass sie das Bild ignorieren können.
 
 === ARIA-Labels für andere Bedienelemente
 
@@ -261,40 +295,341 @@ Sie bieten zusätzliche Informationen für Screenreader, insbesondere für Eleme
 *_Implementierung von ARIA-Labels:_*
 ARIA-Labels kommen zum Einsatz, wenn ein Bedienelement keinen eindeutigen, für Screenreader zugänglichen Text enthält. Hier sind die wichtigsten ARIA-Attribute und ihre Anwendungen:
 
-*	aria-label: Wird verwendet, um ein Element zu beschreiben. Es ist besonders nützlich für Bedienelemente ohne sichtbaren Text
-Beispiel: <button aria-label="Schließen">X</button>.
-*	aria-labelledby: Verweist auf ein anderes Element, dessen Text als Beschriftung dient.
-Beispiel: <button aria-labelledby="closeButtonText">X</button> <span id="closeButtonText" hidden>Schließen</span>.
-*	aria-describedby: Gibt ein anderes Element an, das eine ausführlichere Beschreibung des aktuellen Elements enthält
-Beispiel: <input type="text" aria-describedby="nameDesc"> <span id="nameDesc">Bitte geben Sie Ihren vollständigen Namen ein.</span>.
+* aria-label: Wird verwendet, um ein Element zu beschreiben. Es ist besonders nützlich für Bedienelemente ohne sichtbaren Text.
+Beispiel:
+[source,xml]
+<button aria-label="Schließen">X</button>.
+
+* aria-labelledby: Verweist auf ein anderes Element, dessen Text als Beschriftung dient.
+Beispiel:
+[source,xml]
+<button aria-labelledby="closeButtonText">X</button>
+<span id="closeButtonText" hidden>Schließen</span>.
+
+* aria-describedby: Gibt ein anderes Element an, das eine ausführlichere Beschreibung des aktuellen Elements enthält.
+Beispiel:
+[source,xml]
+<input type="text" aria-describedby="nameDesc">
+<span id="nameDesc">Bitte geben Sie Ihren vollständigen Namen ein.</span>.
 
 *_Best Practices für die Verwendung von ARIA-Labels_*
 
 Um sicherzustellen, dass ARIA-Labels effektiv eingesetzt werden, sollten folgende Richtlinien beachtet werden:
 
-*	Klarheit und Präzision: ARIA-Labels sollten klar und präzise sein, um den Zweck des Elements genau zu vermitteln.
-*	Vermeidung von Redundanz: ARIA-Labels sollten nicht redundant zu bereits vorhandenen textuellen Beschreibungen sein.
-*	Konsistenz: Die Verwendung von ARIA-Labels sollte konsistent über die gesamte Webseite hinweg erfolgen, um eine einheitliche Benutzererfahrung zu gewährleisten.
-*	Testen: Die implementierten ARIA-Labels sollten regelmäßig mit verschiedenen Screenreadern getestet werden, um sicherzustellen, dass sie korrekt interpretiert werden.
+* Klarheit und Präzision: ARIA-Labels sollten klar und präzise sein, um den Zweck des Elements genau zu vermitteln.
+* Vermeidung von Redundanz: ARIA-Labels sollten nicht redundant zu bereits vorhandenen textuellen Beschreibungen sein.
+* Konsistenz: Die Verwendung von ARIA-Labels sollte konsistent über die gesamte Webseite hinweg erfolgen, um eine einheitliche Benutzererfahrung zu gewährleisten.
+* Testen: Die implementierten ARIA-Labels sollten regelmäßig mit verschiedenen Screenreadern getestet werden, um sicherzustellen, dass sie korrekt interpretiert werden.
 
 Zusammenfassung:
 Alt-Attribute und ARIA-Labels sind unverzichtbare Werkzeuge, um die Zugänglichkeit und Benutzerfreundlichkeit von Webseiten und Webanwendungen zu gewährleisten.
 Durch sorgfältige Planung und Implementierung dieser Attribute können Designer und Entwickler sicherstellen, dass ihre Inhalte für alle Benutzer zugänglich sind.
 Das Beachten der Best Practices beim Schreiben von Alt-Attributen und der Implementierung von ARIA-Labels trägt wesentlich dazu bei, eine inklusive und effiziente Benutzererfahrung zu schaffen.
 
+=== Language Tag
+
+Das lang-Attribut informiert Browser und assistive Technologien über die Sprache des Inhalts.
+Dies hat mehrere Vorteile:
+
+* Zugänglichkeit: Screenreader verwenden das lang-Attribut, um die richtige Aussprache und Sprachregeln anzuwenden, was für Benutzer mit Sehbehinderungen von entscheidender Bedeutung ist.
+* Mehrsprachige Webseiten: Das lang-Attribut ermöglicht es, verschiedene Sprachversionen einer Webseite korrekt zu kennzeichnen und so die Benutzererfahrung zu verbessern.
+
+Nutzen Sie die standardisierten ISO 639-1 Sprachcodes (zwei Buchstaben), um die Sprache zu definieren (z.B. de = deutsch).
+Dabei gilt es folgende Grundregeln zu beachten:
+
+*_Festlegen der Hauptsprache eines Dokuments_*
+
+Das lang-Attribut sollte im <html>-Tag des Dokuments festgelegt werden, um die Hauptsprache der gesamten Seite anzugeben.
+Dies stellt sicher, dass alle Inhalte auf der Seite als in dieser Sprache verfasst erkannt werden.
+
+*_Festlegen der Sprache für spezifische Elemente_*
+
+Wenn einzelne Abschnitte oder Elemente in einer anderen Sprache verfasst sind, sollte das lang-Attribut entsprechend auf diesen Elementen angewendet werden.
+Dies ist besonders wichtig für mehrsprachige Webseiten, Dokumente und die korrekte Aussprache durch Screenreader.
+
+Wenn nötig, geben Sie spezifische Sprachvarianten oder Dialekte mit Hilfe von Codes für Regionen oder Länder an (z.B. en-US für amerikanisches Englisch, en-GB für britisches Englisch).
+
+Verwenden Sie das lang-Attribut nur, wenn der Text tatsächlich in einer anderen Sprache verfasst ist.
+Setzen Sie das Attribut nicht aus ästhetischen oder stilistischen Gründen ein.
+
+*_Beispiel:_*
+
+[source,xml]
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        <meta charset="UTF-8">
+        <title>Mehrsprachige Webseite</title>
+    </head>
+    <body>
+        <h1>Willkommen auf unserer Webseite</h1>
+            <p>Dies ist ein Beispieltext in deutscher Sprache.</p>
+            <p lang="en">This is a sample text in English.</p>
+    </body>
+</html>
+
 == Technische Rahmenbedingungen
 
 Die technischen Rahmenbedingungen legen fest, welche Technologien und Plattformen für die Umsetzung des Bedienkonzepts und Styleguides verwendet werden sollen.
 Diese Einleitung bietet einen Überblick über die infrastrukturellen Anforderungen und unterstützten Technologien.
 
-*	Prime NG.
-*	Primär kommen in den Neuentwicklungen die durch die IsyFact zur Verfügung gestellten Bausteine zum Einsatz.
-*	Das Styling der Anwendung wird primär aus dem hier zu Grunde liegenden Prinzipien erstellt.
+* Prime NG.
+* Primär kommen in den Neuentwicklungen die durch die IsyFact zur Verfügung gestellten Bausteine zum Einsatz.
+* Das Styling der Anwendung wird primär aus dem hier zu Grunde liegenden Prinzipien erstellt.
 Dafür wird die entsprechende SCSS und CSS in die Anwendung integriert.
-*	Es ist möglich „harte Overrides“ im CSS vorzunehmen, davon wird jedoch abgeraten.
+* Es ist möglich „harte Overrides“ im CSS vorzunehmen, davon wird jedoch abgeraten.
 Dadurch ist die Wartbarkeit stark beeinträchtigt und die Aufwände können sich in der Pflege der Anwendung stark erhöhen.
-*	Die Anwendung ist primär für die Nutzung auf Desktopgeräten konzipiert, kann aber mit ihrer Responsivität auch auf mobilen Geräten (sofern möglich) genutzt werden.
+* Die Anwendung ist primär für die Nutzung auf Desktopgeräten konzipiert, kann aber mit ihrer Responsivität auch auf mobilen Geräten (sofern möglich) genutzt werden.
 
+== Basiselemente
+
+=== Farben
+
+Farben tragen maßgeblich zur visuellen Identität einer (Web-)Applikation bei und beeinflussen die Stimmung und Wahrnehmung der Nutzenden:
+
+* Die Standardpalette wird vom IsyFact Theme mit ausgeliefert und entsprechend der aktuellen gesetzlichen Entwicklung aktualisiert.
+Deshalb kann die Palette von dem hier dokumentierten Stand abweichen.
+* Die Standardpalette (zum Zeitpunkt: dd.mm.yyyy) wird im Bereich Barrierefreiheit mit einer Kontrast-Tabelle angegeben.
+* Verwendung einer Anwendungsfarbe muss vom Projekt auf Barrierefreiheit geprüft werden und ist frei wählbar.
+
+Es kommt folgende Farbpalette zum Einsatz:
+[[image-Farbpalette]]
+.Farbpalette
+image::24_BE_farbpalette.png[align="center"]
+
+Die Farben sind entsprechend ihres Namens und ihrer bekannten Bedeutung zu nutzen (z.B. Rot = Fehler)!
+
+*_Do's_*
+
+* Grün = Erfolg, Bestätigung, Korrekt, etc...
+* Rot = Fehler, Abbruch, Stopp, etc...
+
+*_Don'ts_*
+
+* Grün = Abbruch, Fehler, Stopp, etc...
+* Lila = Weiter, Sekundärbutton, Löschen, etc...
+
+==== Applikationsfarben
+
+Pro Applikationsgruppe kann eine Farbe definiert werden, welche an verschiedenen Stellen des Applikationsportals eingesetzt wird und so einen Wiedererkennungswert schafft.
+Kann eine Applikation keiner Gruppe zugeordnet werden, so kann sie ihre eigene Farbe erhalten.
+Bei der Wahl der Farben sind die generellen Richtlinien zur Benutzung von Farben zu berücksichtigen.
+Die Farben sollten auch so gewählt werden, dass ein harmonisches Gesamtbild erhalten bleibt.
+
+Die Applikationsfarbe kommt an folgenden Stellen zum Einsatz:
+
+* Hauptnavigation – Farbbalken unterhalb des Headers
+* Submenü (Flyout) – Farbbalken am oberen Rand des Menüs
+* Widget auf Dashboard – Farbbalken am oberen Rand
+* Titelzeile von Detailseiten – Hintergrundfarbe der Titelzeile
+* Dialoge der Applikation – Farbbalken oberhalb der Titelzeile
+
+*_Do's_*
+
+* Die Applikationsfarbe repräsentiert eine Gruppe von Applikationen oder eine einzelne Applikation, sofern sie keiner Gruppe zugeordnet werden kann.
+* Eine Applikationsgruppe kann immer nur eine Farbe annehmen.
+Die Applikationen innerhalb einer Gruppe erhalten keine unterschiedlichen Farben.
+* Die Farben sollten so gewählt werden, dass ein harmonisches Gesamtbild erhalten bleibt.
+
+=== Icons
+
+Icons können als zusätzliches Element genutzt werden, um Funktionen und Inhalt auch visuell kenntlich zu machen.
+Dabei sollten Icons primär immer mit Text genutzt werden und so wenig wie möglich alleinstehend sein.
+Wenn Icons alleine als Icon-Buttons oder Aktionselemente genutzt werden, sollte sich auf eine kleinstmögliche Menge beschränkt werden.
+Es wird empfohlen alleinstehende Icons mit einem weit verbreiteten und allgemeinen klaren Zweck zu nutzen.
+
+In der folgenden Tabelle sind mögliche Icons und deren Funktion dargestellt, sowie die dazugehörige CSS-Klasse.
+Eine Gesamtübersicht der zur Verfügung stehenden Icons ist unter https://www.primefaces.org/diamond/icons.xhtml[Prime Faces Icons] zu finden.
+
+.Übersicht häufig verwendeter Icons
+ifdef::backend-pdf[]
+[cols="^1a,2,5", options="header", align="center"]
+endif::[]
+ifdef::backend-html5[]
+[cols="^1,2,5", options="header", align="center"]
+endif::[]
+|====
+|Icon |CSS-Klasse |Funktionen
+
+a|image::isy-bedienkonzept:primeicons/times.svg[width=32,height=32]
+|pi-times
+|Abbrechen, Ablehnen, Filterzelle leeren, Stornieren
+
+a|image::isy-bedienkonzept:primeicons/car.svg[width=32,height=32]
+|pi-car
+|Abholen
+
+a|image::isy-bedienkonzept:primeicons/sign-out.svg[width=32,height=32]
+|pi-sign-out
+|Abmelden
+
+a|image::isy-bedienkonzept:primeicons/sign-in.svg[width=32,height=32]
+|pi-sign-in
+|Anmelden
+
+a|image::isy-bedienkonzept:primeicons/unlock.svg[width=32,height=32]
+|pi-unlock
+|Aktivieren, Freischalten
+
+a|image::isy-bedienkonzept:primeicons/sync.svg[width=32,height=32]
+|pi-sync
+|Aktualisieren, Synchronisieren
+
+a|image::isy-bedienkonzept:primeicons/check.svg[width=32,height=32]
+|pi-check
+|Akzeptieren, Annehmen, Erledigen, Zustimmen
+
+a|image::isy-bedienkonzept:primeicons/paperclip.svg[width=32,height=32]
+|pi-paperclip
+|Anhänge
+
+a|image::isy-bedienkonzept:primeicons/reply.svg[width=32,height=32]
+|pi-reply
+|Antworten
+
+a|image::isy-bedienkonzept:primeicons/eye.svg[width=32,height=32]
+|pi-eye
+|Anzeigen
+
+a|image::isy-bedienkonzept:primeicons/file.svg[width=32,height=32]
+|pi-file
+|Archiv, aus Archiv zurück holen, Dokument erstellen, Erstmeldung
+
+a|image::isy-bedienkonzept:primeicons/pencil.svg[width=32,height=32]
+|pi-pencil
+|Bearbeiten, Bearbeitung fortsetzen, Editieren, Korrigieren
+
+a|image::isy-bedienkonzept:primeicons/user.svg[width=32,height=32]
+|pi-user
+|Benutzende, Anwendende, Nutzende, Person
+
+a|image::isy-bedienkonzept:primeicons/image.svg[width=32,height=32]
+|pi-image
+|Bild, Bild anzeigen
+
+a|image::isy-bedienkonzept:primeicons/language.svg[width=32,height=32]
+|pi-language
+|Buchstaben-Picker
+
+a|image::isy-bedienkonzept:primeicons/download.svg[width=32,height=32]
+|pi-download
+|Datei laden, Download, Herunterladen, Laden von Daten
+
+a|image::isy-bedienkonzept:primeicons/list.svg[width=32,height=32]
+|pi-list
+|Datensatz anzeigen, Detailauskunft, List Picker (Objektauswahl), Trefferliste
+
+a|image::isy-bedienkonzept:primeicons/share-alt.svg[width=32,height=32]
+|pi-share-alt
+|Daten senden, Daten übermitteln, Senden, Versenden, Teilen
+
+a|image::isy-bedienkonzept:primeicons/print.svg[width=32,height=32]
+|pi-print
+|Drucken
+
+a|image::isy-bedienkonzept:primeicons/cog.svg[width=32,height=32]
+|pi-cog
+|Einstellung, Einstellungen
+
+a|image::isy-bedienkonzept:primeicons/arrow-up-right.svg[width=32,height=32]
+|pi-arrow-up-right
+|Eintrag auswählen
+
+a|image::isy-bedienkonzept:primeicons/minus.svg[width=32,height=32]
+|pi-minus
+|Entfernen, Löschen
+
+a|image::isy-bedienkonzept:primeicons/plus.svg[width=32,height=32]
+|pi-plus
+|Ergänzen, Hinzufügen
+
+a|image::isy-bedienkonzept:primeicons/bell.svg[width=32,height=32]
+|pi-bell
+|Erinnerung
+
+a|image::isy-bedienkonzept:primeicons/upload.svg[width=32,height=32]
+|pi-upload
+|Hochladen, Upload
+
+a|image::isy-bedienkonzept:primeicons/exclamation-triangle.svg[width=32,height=32]
+|pi-exclamation-triangle
+|Fehler, Fehlerhaft, Warnung
+
+a|image::isy-bedienkonzept:primeicons/eraser.svg[width=32,height=32]
+|pi-eraser
+|Felder leeren
+
+a|image::isy-bedienkonzept:primeicons/check-circle.svg[width=32,height=32]
+|pi-check-circle
+|Fertig, Abgeschlossen
+
+a|image::isy-bedienkonzept:primeicons/history.svg[width=32,height=32]
+|pi-history
+|Historie
+
+a|image::isy-bedienkonzept:primeicons/info-circle.svg[width=32,height=32]
+|pi-info-circle
+|Info
+
+a|image::isy-bedienkonzept:primeicons/arrow-circle-down.svg[width=32,height=32]
+|pi-arrow-circle-down
+|Importieren
+
+//arrow circle up muss noch hochgeladen werden
+//a|image::isy-bedienkonzept:primeicons/arrow-circle-up.svg[width=32,height=32]
+//|pi-arrow-circle-up
+//|Exportieren
+
+a|image::isy-bedienkonzept:primeicons/calendar.svg[width=32,height=32]
+|pi-calendar
+|Kalender
+
+ifdef::backend-html5[]
+a|image::isy-bedienkonzept:primeicons/id-card.svg[width=32,height=32]
+|pi-id-card
+|Kontakt
+endif::[]
+
+a|image::isy-bedienkonzept:primeicons/trash.svg[width=32,height=32]
+|pi-trash
+|Löschen
+
+a|image::isy-bedienkonzept:primeicons/envelope.svg[width=32,height=32]
+|pi-envelope
+|Mail, Nachrichten
+
+a|image::isy-bedienkonzept:primeicons/folder-open.svg[width=32,height=32]
+|pi-folder-open
+|Seite öffnen
+
+a|image::isy-bedienkonzept:primeicons/save.svg[width=32,height=32]
+|pi-save
+|Sichern, Speichern
+
+a|image::isy-bedienkonzept:primeicons/search.svg[width=32,height=32]
+|pi-search
+|Suchen, Suche wiederholen. Neue Suche, Durchsuchen, letzte Suche
+
+a|image::isy-bedienkonzept:primeicons/arrow-circle-left.svg[width=32,height=32]
+|pi-arrow-circle-left
+|Vorheriger, Zurück (Navigation)
+
+a|image::isy-bedienkonzept:primeicons/arrow-circle-right.svg[width=32,height=32]
+|pi-arrow-circle-right
+|Weiter, Nächster
+
+a|image::isy-bedienkonzept:primeicons/refresh.svg[width=32,height=32]
+|pi-refresh
+|Wiederholen
+
+a|image::isy-bedienkonzept:primeicons/clock.svg[width=32,height=32]
+|pi-clock
+|Zeit, Time Picker
+
+a|image::isy-bedienkonzept:primeicons/star-fill.svg[width=32,height=32]
+|pi-star-fill
+|Wiedervorlage
+|====
 
 == Bedienelemente
 
@@ -330,17 +665,18 @@ Dies hilft sowohl Benutzern als auch Suchmaschinen, die Relevanz des Inhalts zu 
 
 Verwendung von ARIA-Rollen: In Fällen, in denen Überschriften nicht aus Standard-HTML-Überschriftentags bestehen, können ARIA-Rollen verwendet werden, um die Struktur zu erhalten.
 
-Beispiel: <div role="heading" aria-level="2">Unterüberschrift</div>
+Beispiel:
+[source,xml]
+<div role="heading" aria-level="2">Unterüberschrift</div>
 
 *_Typografie und Design_*
 
 Schriftart ist Bundes Sans und mindestens 14pt.
 Die Hauptüberschrift sollte deutlich größer und auffälliger als der normale Text sein.
-Der Kontrast sollte mindestens 4:1 sein.
+Der Kontrast sollte mindestens 4,5:1 sein.
 
 *_Stile und Akzente_*
 
-Fettdruck und Kursivschrift: Verwenden Sie Fettdruck oder Kursivschrift, um wichtige Überschriften hervorzuheben, jedoch sparsam, um eine Überladung zu vermeiden.
 Farben: Farben können verwendet werden, um Hierarchie zu betonen, sollten jedoch mit Bedacht gewählt werden, um ein harmonisches Gesamtbild zu bewahren. Es wird empfohlen die Standardfarben zu nutzen.
 
 === Hyperlink
@@ -372,31 +708,43 @@ Labels sind nicht nur visuelle Hinweise, sondern auch wesentliche Bestandteile d
 
 Eindeutige Beschreibung: Labels sollten klar und eindeutig beschreiben, was von den Benutzern erwartet wird.
 Beispielsweise sollte ein Label für ein Namensfeld "Vollständiger Name" und nicht nur "Name" lauten.
+
 Kurze Formulierungen: Labels sollten kurz und prägnant sein, um die Benutzerfreundlichkeit zu maximieren.
+Vermeide Labels mit mehr als drei Wörtern.
 
 *_Platzierung und Ausrichtung_*
 
 Nähe zum Eingabefeld: Labels sollten in unmittelbarer Nähe des zugehörigen Eingabefelds platziert werden, entweder darüber oder links davon, um eine klare Zuordnung zu gewährleisten.
+
 Ausrichtung: Labels können linksbündig oder rechtsbündig zum Eingabefeld ausgerichtet sein, wobei linksbündige Labels tendenziell besser lesbar und benutzerfreundlicher sind.
 
 *_Zugänglichkeit_*
 
 HTML-For-Attribut: Jedes Label sollte das for-Attribut verwenden, das mit der id des entsprechenden Eingabefelds übereinstimmt.
 Dies stellt sicher, dass Screenreader die Verbindung zwischen Label und Eingabefeld korrekt interpretieren können.
-Beispiel: <label for="email">E-Mail-Adresse</label> <input type="email" id="email">
+
+Beispiel:
+[source,xml]
+<label for="email">E-Mail-Adresse</label>
+<input type="email" id="email">
+
 Vermeidung von Platzhaltern als Labels: Platzhaltertexte (placeholder) sollten nicht als Ersatz für Labels verwendet werden, da sie verschwinden, sobald der Benutzer mit der Eingabe beginnt, was die Benutzerfreundlichkeit und Zugänglichkeit beeinträchtigen können.
 
 *_Stil und Design_*
 
 Lesbarkeit: Labels sollten in einer gut lesbaren Schriftart und -größe dargestellt werden.
-Der Kontrast muss mindestens 4:1 betragen, um auch bei schlechten Lichtverhältnissen gut lesbar zu sein.
+Der Kontrast muss mindestens 4,5:1 betragen, um auch bei schlechten Lichtverhältnissen gut lesbar zu sein.
+
 Konsistenz: Die Gestaltung von Labels sollte über die gesamte Webseite hinweg konsistent sein. Einheitliche Schriftarten, Größen und Abstände tragen zur Benutzerfreundlichkeit und einem professionellen Erscheinungsbild bei. 
 
 *_Interaktive Elemente_*
 
 Schaltflächen und Links: Labels können auch für interaktive Elemente wie Schaltflächen und Links verwendet werden.
 Hier sollten ARIA-Labels (aria-label) oder ARIA-Beschreibungen (aria-labelledby) eingesetzt werden, um die Zugänglichkeit zu verbessern.
-Beispiel: <button aria-label="Schließen">X</button>
+
+Beispiel:
+[source,xml]
+<button aria-label="Schließen">X</button>
 
 === Eingabefeld
 
@@ -404,6 +752,7 @@ Eingabefelder sind grundlegende Interaktionselemente in einer Benutzeroberfläch
 Sie spielen eine zentrale Rolle bei der Interaktion zwischen Benutzer und System und kommen in verschiedensten Formen und Kontexten vor, sei es in Form von Textfeldern, Dropdown-Menüs, Auswahllisten oder Datumsauswahlkalendern.
 Die Gestaltung und Platzierung von Eingabefeldern hat direkten Einfluss auf die Benutzererfahrung und die Effizienz der Dateneingabe.
 Die nachfolgenden Angaben beziehen sich immer auf Neuentwicklungen und Aktualisierungen.
+
 Altanwendungen, die nicht angepasst werden müssen, können weiterhin ihrem zum Umsetzungszeitpunkt gültigen Styleguide und Bedienkonzept entsprechen.
 Alle hier gezeigten Grafiken beziehen sich auf die aktuelle und zukünftige Umsetzung.
 Eingabefelder sind dynamisch. Sie bestehen aus dem Eingabefeld an sich, einem vorbelegten Placeholder und einer evtl. daraus entstehenden Mask zur Anzeige des erwarteten Formats.
@@ -414,7 +763,7 @@ Platzhalter müssen sinnvolle Eingabeunterstützungen (im einfachsten Fall das L
 *_Normal:_*
 
 [[image-eingabefeldplatzhalter]]
-.Eingabfeld mit Platzhalter
+.Eingabefeld mit Platzhalter
 image::24_BE_eingabefeld_normal.png[align="center"]
 
 Aktive Eingabefelder sind inkl. dem Label in der Highlightfarbe (blau) dargestellt. Sie haben zusätzlich zur veränderten Farbe eine 1px dickere Border und die Schrift vergrößert sich um 2pt.
@@ -422,7 +771,7 @@ Aktive Eingabefelder sind inkl. dem Label in der Highlightfarbe (blau) dargestel
 *_Aktiv:_*
 
 [[image-eingabefeldaktiv]]
-.Eingabfeld aktiv
+.Eingabefeld aktiv
 image::24_BE_eingabefeld_aktiv.png[align="center"]
 
 Aktive Eingabefelder verlieren ihren Platzhalter und können entweder geleert werden (siehe Abbildung 2 oder eine Mask enthalten, um das erwartete Eingabeformat anzuzeigen und als Bedienhilfe die Fehlerwahrscheinlichkeit zu minimieren.
@@ -430,7 +779,7 @@ Aktive Eingabefelder verlieren ihren Platzhalter und können entweder geleert we
 *_Maskoption:_* (exemplarisch, in der Umsetzung kann nur ein Eingabefeld aktiv sein):
 
 [[image-eingabefeldmask]]
-.Eingabfeld mit Mask
+.Eingabefeld mit Mask
 image::24_BE_eingabefeld_mask.png[align="center"]
 
 Eine Mask kann nur im aktiven State angezeigt werden und entspricht der regulären Schriftfarbe.
@@ -444,7 +793,7 @@ Der Platzhalter ist verschwunden und die Eingabe wird in der Schriftfarbe angeze
 *_Befülltes Eingabefeld:_*
 
 [[image-eingabefeldfilled]]
-.Eingabfeld befüllt nicht aktiv
+.Eingabefeld befüllt nicht aktiv
 image::24_BE_eingabefeld_filled.png[align="center"]
 
 Disabled Eingabefelder sind grau hinterlegt und geben zusätzlich über einen Mousecursor-Wechsel beim Hovern den disabled state wieder.
@@ -452,7 +801,7 @@ Disabled Eingabefelder sind grau hinterlegt und geben zusätzlich über einen Mo
 *_Disabled:_*
 
 [[image-eingabefelddisabled]]
-.Eingabfeld disabled
+.Eingabefeld disabled
 image::24_BE_eingabefeld_disabled.png[align="center"]
 
 Ein Eingabefeld mit Inputoption ist von der Basis dem eines normalen Eingabefelds identisch.
@@ -462,7 +811,7 @@ Die Schaltfläche der Inputoption ist mindestens 44px x 44px.
 *_Eingabefeld mit Inputoption:_*
 
 [[image-eingabefeldinputoption]]
-.Eingabfeld mit Inputoption
+.Eingabefeld mit Inputoption
 image::24_BE_eingabefeld_inputoption.png[align="center"]
 
 Eingabefelder mit Fehlermeldung sind rot.
@@ -471,30 +820,30 @@ Das Eingabefeld und das Label färben sich rot und es wird ein inhaltlich logisc
 *_Eingabefeld mit Fehlermeldung und Hinweis:_*
 
 [[image-eingabefelderror]]
-.Eingabfeld mit Fehlermeldung und Hinweis
+.Eingabefeld mit Fehlermeldung und Hinweis
 image::24_BE_eingabefeld_error.png[align="center"]
 
 Eingabefelder, die eine Erläuterung benötigen, sollen diese immer so kurz wie möglich und so lang wie nötig gestalten.
 Erläuterungen können dabei in verschiedenen Möglichkeiten realisiert werden, sortiert von kurz nach lang:
 
-*	Als Platzhalter im Eingabefeld selbst.
-*	Als Klammeranhang am Label, um das Label zu erläutern – z.B.: Name (gemeint ist der eingetragene Familienname).
-*	Als maximal 2 zeiliger Hinweistext unter oder über dem Label (bitte nach Entscheidung konsistent in der gesamten Anwendung damit fortfahren).
-*	Alle Erläuterungstexte die Länger als 2 Zeilen einer Eingabefeldlänge benötigen, sind zu komplex gestalten und bedürfen einer fachlichen Neugestaltung.
+* Als Platzhalter im Eingabefeld selbst.
+* Als Klammeranhang am Label, um das Label zu erläutern – z.B.: Name (gemeint ist der eingetragene Familienname).
+* Als maximal 2 zeiliger Hinweistext unter oder über dem Label (bitte nach Entscheidung konsistent in der gesamten Anwendung damit fortfahren).
+* Alle Erläuterungstexte die Länger als 2 Zeilen einer Eingabefeldlänge benötigen, sind zu komplex gestalten und bedürfen einer fachlichen Neugestaltung.
 Sollte dies nicht möglich sein, so ist ein vorangegangenes Textelement über dem Eingabefeld notwendig.
-*	Erläuterungshilfen, sollen nicht dynamisch versteckt werden – Entweder ist die Erläuterung notwendig = sichtbar oder nicht notwendig = entfernen.
+* Erläuterungshilfen, sollen nicht dynamisch versteckt werden – Entweder ist die Erläuterung notwendig = sichtbar oder nicht notwendig = entfernen.
 Grundlegende Hinweise zur Gestaltung von Eingabefeldern und Labeln:
-*	Labels enden nicht mit einem Doppelpunkt. Bei sehr langen Labels sollten sinnvolle Abkürzungen verwendet werden.
-*	Die unmittelbare Nähe der Labels zu den zugehörigen Bedienelementen verbessert die visuelle Verbindung und ermöglicht es, den Benutzern Formulare schneller und effizienter auszufüllen.
-*	Gleichmäßige Feld-Längen unterstützen den Lesefluss des Benutzers.
-*	Die Feld-Längen sollten erwartungskonform gewählt werden. Soll z.B. eine Postleitzahl innerhalb Deutschlands eingegeben werden, so macht es Sinn die Feld-Länge auf 5 Stellen zu begrenzen. Optisch kann das Eingabefeld der Konsistenz entsprechend länger sein.
-*	Pflichtfelder werden mit einem Asterisk (*) gekennzeichnet.
-*	Der Asterisk unterliegt denselben Regeln wie das Label (Aktiv = Highlightfarbe, Fehler = Fehlermeldungsfarbe).
+* Labels enden nicht mit einem Doppelpunkt. Bei sehr langen Labels sollten sinnvolle Abkürzungen verwendet werden.
+* Die unmittelbare Nähe der Labels zu den zugehörigen Bedienelementen verbessert die visuelle Verbindung und ermöglicht es, den Benutzern Formulare schneller und effizienter auszufüllen.
+* Gleichmäßige Feld-Längen unterstützen den Lesefluss des Benutzers.
+* Die Feld-Längen sollten erwartungskonform gewählt werden. Soll z.B. eine Postleitzahl innerhalb Deutschlands eingegeben werden, so macht es Sinn die Feld-Länge auf 5 Stellen zu begrenzen. Optisch kann das Eingabefeld der Konsistenz entsprechend länger sein.
+* Pflichtfelder werden mit einem Asterisk (*) gekennzeichnet.
+* Der Asterisk unterliegt denselben Regeln wie das Label (Aktiv = Highlightfarbe, Fehler = Fehlermeldungsfarbe).
 
 *_Exemplarische Vermaßung der verschiedenen Eingabefelder:_*
 
 [[image-eingabefeldvermassung]]
-.Eingabfelder und exemplarische Vermaßung
+.Eingabefelder und exemplarische Vermaßung
 image::24_BE_eingabefeld_vermassung.png[align="center"]
 
 Die Angaben beziehen sich auf die in der Grafik vorzufindenden Elemente.
@@ -530,17 +879,18 @@ Aktive Elemente sind in der Highlightfarbe und hinterlegt dargestellt.
 
 *_Do´s_*
 
-*	Gestalte Listen inhaltlich so einfach wie möglich.
-*	Sollten Listen viele Einträge haben, sorge mit anderen Elementen für die Durchsuchbarkeit, Filterung oder Kategorisierung.
-*	Listen helfen bei komplexen Eingaben Fehler zu vermeiden.
-*	Kombiniere Listen mit unterschiedlichen interaktiven Elementen, um dem Nutzer eine Hilfestellung zu bieten.
+* Gestalte Listen inhaltlich so einfach wie möglich.
+* Sollten Listen viele Einträge haben, sorge mit anderen Elementen für die Durchsuchbarkeit, Filterung oder Kategorisierung.
+* Listen helfen bei komplexen Eingaben Fehler zu vermeiden.
+* Kombiniere Listen mit unterschiedlichen interaktiven Elementen, um dem Nutzer eine Hilfestellung zu bieten.
+* Erwäge die Nutzung einer Radio-Button-Gruppe bei einer kleinen Liste.
 
 *_Dont´s_*
 
-*	Listeneinträge sind nie mehrzeilig.
-*	Listeneinträge sind nicht doppelt vorhanden und nicht eindeutig unterscheidbar.
-*	Listen sind unsortiert und sehr lang.
-*	Listeneinträge sind als ganze Sätze formuliert.
+* Listeneinträge sind nie mehrzeilig.
+* Listeneinträge sind nicht doppelt vorhanden und nicht eindeutig unterscheidbar.
+* Listen sind unsortiert und sehr lang.
+* Listeneinträge sind als ganze Sätze formuliert.
 
 === Checkbox
 
@@ -576,18 +926,18 @@ image::24_BE_checkboxen_measured.png[align="center"]
 
 *_Do´s_*
 
-*	Das Ein- oder Ausschalten einer Checkbox kann dazu genutzt werden, um andere Elemente dynamisch zu aktivieren/anzuzeigen oder zu deaktivieren/unsichtbar zu machen, z.B. „Abweichende Lieferanschrift“ (einzige zulässige Funktion).
-*	Nicht nur die Box und Targetarea sollten klickbar sein, auch das Label.
-*	Eine Gruppe von Checkboxen sollte immer eine Beschriftung aufweisen, die entsprechend bei einer einzelnen Checkbox entfallen kann.
-*	Für optimale Lesbarkeit sollten Checkboxen vertikal untereinander angeordnet sein.
-*	Solange die Werte der untergeordneten Optionen gleich sind (alle „Aus“ oder alle „An“), zeigt dies die übergeordnete Checkbox mit dem entsprechenden Wert an.
-*	Sind die Werte der untergeordneten Optionen jedoch nicht mehr homogen gesetzt, so schaltet die übergeordnete Checkbox in den Zustand „nicht definiert“.
+* Das Ein- oder Ausschalten einer Checkbox kann dazu genutzt werden, um andere Elemente dynamisch zu aktivieren/anzuzeigen oder zu deaktivieren/unsichtbar zu machen, z.B. „Abweichende Lieferanschrift“ (einzige zulässige Funktion).
+* Nicht nur die Box und Targetarea sollten klickbar sein, auch das Label.
+* Eine Gruppe von Checkboxen sollte immer eine Beschriftung aufweisen, die entsprechend bei einer einzelnen Checkbox entfallen kann.
+* Für optimale Lesbarkeit sollten Checkboxen vertikal untereinander angeordnet sein.
+* Solange die Werte der untergeordneten Optionen gleich sind (alle „Aus“ oder alle „An“), zeigt dies die übergeordnete Checkbox mit dem entsprechenden Wert an.
+* Sind die Werte der untergeordneten Optionen jedoch nicht mehr homogen gesetzt, so schaltet die übergeordnete Checkbox in den Zustand „nicht definiert“.
 Dieser Zustand wird häufig mit einem Quadrat innerhalb der Checkbox symbolisiert.
 
 *_Dont´s_*
 
-*	Checkboxen sind kein alleinstehender Ein- und Ausschalter, dafür gibt es p-inputSwitch.
-*	Eine Checkbox soll keine Funktionen (drucken, speichern, etc…) auslösen oder Seiten öffnen/verlinken.
+* Checkboxen sind kein alleinstehender Ein- und Ausschalter, dafür gibt es p-inputSwitch.
+* Eine Checkbox soll keine Funktionen (drucken, speichern, etc…) auslösen oder Seiten öffnen/verlinken.
 
 === Radiobutton
 
@@ -604,13 +954,13 @@ Der Benutzer kann innerhalb der Gruppe genau eine Option auswählen.
 Dabei können Checkboxen vertikal angeordnet werden.
 
 [[image-Radiobutton-vertikal]]
-.Vertikale Gruppe von Radionbuttons
+.Vertikale Gruppe von Radiobuttons
 image::24_BE_radiobutton_vertikal.png[align="center"]
 
 Oder auch horizontal angeordnet werden.
 
 [[image-Radiobutton-horizontal]]
-.Horizontale Gruppe von Radionbuttons
+.Horizontale Gruppe von Radiobuttons
 image::24_BE_radiobutton_horizontal.png[align="center"]
 
 Wichtig ist, dass jede Checkbox ihrem Label zuzuordnen ist.
@@ -622,16 +972,15 @@ image::24_BE_radiobutton_measured.png[align="center"]
 
 *_Do´s_*
 
-*	Die Verwendung von Radio Buttons empfiehlt sich für eine kleinere Anzahl an Optionen.
-Ist die Menge der zur Verfügung stehenden Optionen sehr groß oder hat der Platzbedarf eine große Bedeutung, so kann der Einsatz eines Dropdown Menüs in Betracht gezogen werden.
-
-*	Eine Gruppe von Radio Buttons sollte immer eine Beschriftung aufweisen.
-*	Für optimale Lesbarkeit sollten Radio Buttons vertikal und untereinander angeordnet sein.
-*	Sollte es wahrscheinlich sein, dass keine (oder alle) der angebotenen Optionen zutrifft, sollte eine Meta-Option wie „Keine Option“ („Alle“) angeboten werden.
+* Die Verwendung von Radio Buttons empfiehlt sich für eine kleinere Anzahl an Optionen.
+Ist die Menge der zur Verfügung stehenden Optionen sehr groß oder hat der Platzbedarf eine große Bedeutung, so kann der Einsatz eines Dropdowns in Betracht gezogen werden.
+* Eine Gruppe von Radio Buttons sollte immer eine Beschriftung aufweisen.
+* Für optimale Lesbarkeit sollten Radio Buttons vertikal und untereinander angeordnet sein.
+* Sollte es wahrscheinlich sein, dass keine (oder alle) der angebotenen Optionen zutrifft, sollte eine Meta-Option wie „Keine Option“ („Alle“) angeboten werden.
 
 *_Dont´s_*
 
-*	Ein Radio Button darf nicht genutzt werden, um unmittelbar Funktionen auszuführen oder Aktionen auszulösen. Für diese Zwecke sollten Buttons verwendet werden.
+* Ein Radio Button darf nicht genutzt werden, um unmittelbar Funktionen auszuführen oder Aktionen auszulösen. Für diese Zwecke sollten Buttons verwendet werden.
 
 === Tabview
 
@@ -654,7 +1003,7 @@ Der aktive Tab erhält eine 3px dicke Markierungslinie und ein gefärbtes Label 
 .Tabview mit aktivem Reiter
 image::24_BE_tabmenu_active.png[align="center"]
 
-Tabmview können ihre Reiter auch mit visuellen Icons unterstützen.
+Tabview können ihre Reiter auch mit visuellen Icons unterstützen.
 Diese verhalten sich analog zum Tablabel.
 
 [[image-Tabview-mit-Icons]]
@@ -689,20 +1038,20 @@ image::24_BE_tabmenu_measured.png[align="center"]
 
 *_Do´s:_*
 
-*	Setze Tabs ein, wenn die Komplexität der UI reduziert werden soll und eine sinnvolle Gruppierung einzelner Bereiche vorgenommen werden kann.
-*	Die optimale Anzahl an Tabs ist 4 – 7.
-*	Labels für die Tabreiter sollten kurz und aussagekräftig sein. Es kann auch mit sinnvollen und verständlichen Abkürzungen gearbeitet werden.
-*	Muss der Inhalt verschiedener Tabreiter verglichen/abgestimmt werden, ist eventuell ein dynamisches Panel das passendere Element.
-*	Sollten es weniger als 3 Tabreiter sein, ist eventuell ein dynamisches Panel das passendere Element.
-*	Verzichte, wenn möglich, auf ein Überlängentabmenü.
+* Setze Tabs ein, wenn die Komplexität der UI reduziert werden soll und eine sinnvolle Gruppierung einzelner Bereiche vorgenommen werden kann.
+* Die optimale Anzahl an Tabs ist 4 – 7.
+* Labels für die Tabreiter sollten kurz und aussagekräftig sein. Es kann auch mit sinnvollen und verständlichen Abkürzungen gearbeitet werden.
+* Muss der Inhalt verschiedener Tabreiter verglichen/abgestimmt werden, ist eventuell ein dynamisches Panel das passendere Element.
+* Sollten es weniger als 3 Tabreiter sein, ist eventuell ein dynamisches Panel das passendere Element.
+* Verzichte, wenn möglich, auf ein Überlängentabmenü.
 
 *_Dont´s:_*
 
-*	Gestalte keine Seiten mit nur einem Tabreiter.
-*	Tabreiter stellen nicht verschiedene Sichten zu gleichen Daten dar.
-*	Tabreiter sind kein Prozess. Für so etwas wird ein Wizard genutzt.
-*	Tabreiter sollen keine Abhängigkeiten zueinander haben.
-*	Nutze keine Labels, die länger als 26 Zeichen sind.
+* Gestalte keine Seiten mit nur einem Tabreiter.
+* Tabreiter stellen nicht verschiedene Sichten zu gleichen Daten dar.
+* Tabreiter sind kein Prozess. Für so etwas wird ein Wizard genutzt.
+* Tabreiter sollen keine Abhängigkeiten zueinander haben.
+* Nutze keine Labels, die länger als 26 Zeichen sind.
 
 
 == Designpattern
@@ -744,7 +1093,7 @@ Alle hier gezeigten Grafiken beziehen sich auf die aktuelle und zukünftige Umse
 *_Beispiel einer Eingabefeldgruppe "Personendaten":_*
 
 [[image-eingabefeldgruppe]]
-.Eingabfeldgruppe Beispiel: persönliche Daten
+.Eingabefeldgruppe Beispiel: persönliche Daten
 image::24_DP_persoenliche_angaben.png[align="center"]
 
 Verwendet wird ein 1-spaltiges inhaltliches Layout.
@@ -755,7 +1104,7 @@ Sie können durch ihre inhaltliche logische Struktur dem grundlegenden 3-spaltig
 *_Beispiel einer Eingabefeldgruppe mit bedingten Pflichtfeldern (ehem. Optionale Pflichtfelder):_*
 
 [[image-bedingtepflichtfeldgruppe]]
-.Eingabfeldgruppe mit bedingten Pflichtfeldern
+.Eingabefeldgruppe mit bedingten Pflichtfeldern
 image::24_DP_bedingte_pflichtfeldgruppe.png[align="center"]
 
 Erklärung:
@@ -776,8 +1125,8 @@ Vielmehr sollte überlegt werden, ob es einen verständlicheren fachlichen Lösu
 
 *_Beispielhafte Verwendung von Gruppen und inhaltlich logischer Gruppierung:_*
 
-*	Personendaten (rosa overlay, vertikal gruppiert)
-*	Identitätsnachweis (orange overlay, vertikal gruppiert)
+* Personendaten (rosa overlay, vertikal gruppiert)
+* Identitätsnachweis (orange overlay, vertikal gruppiert)
 
 [[image-variationeingabefeldgruppen]]
 .Verschiedene Eingabefeldgruppen vertikal gruppiert
@@ -800,13 +1149,13 @@ Use Cases stellen typische Szenarien oder Seiten dar, die bestimmte Funktionalit
 
 Inhalte von Formularen sollten sich an einem virtuellen, nicht visuell dargestellten Raster ausrichten.
 Formulare können einem 1-spaltigen, 2-spaltigen oder 3-spaltigen Layout folgen.
-Dabei sind alle Spalten innerhalb eines Formulars gleichbreit aufgebaut.
+Dabei sind alle Spalten innerhalb eines Formulars gleich breit aufgebaut.
 
 Die nachfolgenden Angaben beziehen sich immer auf Neuentwicklungen und Aktualisierungen.
 Altanwendungen, die nicht angepasst werden müssen, können weiterhin ihrem zum Umsetzungszeitpunkt gültigen Styleguide und Bedienkonzept entsprechen.
 Alle hier gezeigten Grafiken beziehen sich auf die aktuelle und zukünftige Umsetzung.
 
-*_Beispielhaftes Formular 3-Spaltig:_*
+*_Beispielhaftes Formular 3-spaltig:_*
 
 [[image-dreispaltenlayout]]
 .3 Spalten Layout
@@ -825,12 +1174,12 @@ Hierbei ist wichtig, dass die Inhaltselemente über eine Gruppenüberschrift log
 image::24_UC_vertikaler_schnitt.png[align="center"]
 
 Durch die saubere Anwendung der Gruppenüberschriften, Titeln und Eingabefeldgruppen ist auch ein Wechsel der vertikalen Gruppierungsgröße nicht negativ auffällig.
-Jede inhaltliche Gruppe ( 3-Spaltig in der ersten Gruppe (rosa, orange, gelb) und 1-Spaltig in der nächsten Gruppe (grün)) wird ganzheitlich als logisches Element wahrgenommen.
+Jede inhaltliche Gruppe ( 3-spaltig in der ersten Gruppe (rosa, orange, gelb) und 1-spaltig in der nächsten Gruppe (grün)) wird ganzheitlich als logisches Element wahrgenommen.
 
 *_Wahrnehmung der inhaltlichen Gruppen:_*
 
 [[image-wahrnehmunghorizontalegruppe]]
-.Wahrnehmung der der inhaltlichen Gruppen Hierarchie
+.Wahrnehmung der inhaltlichen Gruppen Hierarchie
 image::24_UC_horizontale_inhaltlichte_gruppe.png[align="center"]
 
 Gleichmäßige Feldlängen unterstützen den Lesefluss des Benutzers.
@@ -839,10 +1188,10 @@ Dies unterstützt die inhaltlich logische Gruppierung und signalisiert dem Nutze
 Bei geringeren Auflösungen sollten sie, dem bekannten responsiven Verhalten entsprechend, untereinander angeordnet werden, um sich der begrenzten Breite anzupassen.
 Die Größenanpassung erfolgt innerhalb von gewissen Bereichen:
 
-*	Wird das Browserfenster kleiner als der darzustellende Inhalt (i.d.R. bei Tablets und Smartphones), so wird das gesamte Fenster vertikal scrollbar
-*	Der vertikale Abstand zwischen Gruppen und Formularinhalten bleibt unabhängig von der Bildschirmgröße konstant
-*	Der Abstand zwischen Eingabefeldern und Labels bleibt ebenfalls unverändert
-*	Bei einer Veränderung der Browserfenstergröße sollten sich die Breiten der Spalten dynamisch an den verfügbaren Platz anpassen, ohne dabei die Lesbarkeit zu beeinträchtigen
+* Wird das Browserfenster kleiner als der darzustellende Inhalt (i.d.R. bei Tablets und Smartphones), so wird das gesamte Fenster vertikal scrollbar
+* Der vertikale Abstand zwischen Gruppen und Formularinhalten bleibt unabhängig von der Bildschirmgröße konstant
+* Der Abstand zwischen Eingabefeldern und Labels bleibt ebenfalls unverändert
+* Bei einer Veränderung der Browserfenster Größe sollten sich die Breiten der Spalten dynamisch an den verfügbaren Platz anpassen, ohne dabei die Lesbarkeit zu beeinträchtigen
 
 *_Beispielhafte Gesamtumsetzung eines Formulars im Anwendungsrahmen:_*
 
@@ -869,18 +1218,20 @@ Platzhaltertexte sind nützlich, um Benutzern zusätzliche Hinweise oder Beispie
 Sie sollten jedoch nicht als Ersatz für Labels dienen. Idealerweise sollten Platzhaltertexte kurz und prägnant sein, um den Benutzern zu helfen, die Anforderungen des jeweiligen Eingabefelds besser zu verstehen, ohne den Platz zu überladen oder den Fokus zu stören.
 
 Beispiel 1, man erwartet einen Nachnamen im Eingabefeld
-*_Do´s:_*
+
+*_Do:_*
 Nachname
 
-*_Dont´s_*
+*_Dont:_*
 Dein Nachname
 
 Beispiel 2, man erwartet eine Telefonnummer
-*_Do´s:_*
+
+*_Do:_*
 +49 123 1234567
 
-*_Dont´s:_*
-Deine Telefon oder Handynummer
+*_Dont:_*
+Deine Telefon- oder Handynummer
 
 Sobald der Benutzer in das Eingabefeld klickt, wird der Platzhalter ausgeblendet und es besteht die Möglichkeit eine Mask anzeigen zu lassen.
 Im Kapitel Eingabefelder sind Masks als Element dargestellt. Sie geben das gewünschte Eingabepattern vor und lassen sich fast vollständig frei gestalten.
@@ -900,7 +1251,7 @@ Sie schließt sich, wenn der Benutzer außerhalb der Eingabehilfe klickt oder in
 image::24_EF_autosuggestion.png[align="center"]
 
 Sobald der Benutzer mit der Eingabe beginnt, werden mögliche Werte, die mit der vom Benutzer gemachten Eingabe beginnen, in einem Menü unterhalb des Textfelds angezeigt.
-Der Benutzer kann nun weitertippen oder direkt einen Wert aus dem Menü auswählen und somit seine Eingabe verkürzen.
+Der Benutzer kann nun weiter tippen oder direkt einen Wert aus dem Menü auswählen und somit seine Eingabe verkürzen.
 Gibt es mehr als 10 mögliche passende Werte, so werden die ersten 10 Werte angezeigt, gefolgt von einer Information, dass mehr als 10 Einträge existieren.
 
 
@@ -919,20 +1270,22 @@ image::24_EF_spinner_and_bar.png[align="center"]
 .Spinner und Progressbar in einer Liste angewandt
 image::24_EF_spinner_and_bar_in_list.png[align="center"]
 
-*	Generell sollten Vorgänge oder Operationen, die mehr als eine Sekunde in Anspruch nehmen, eine Rückmeldung in Form einer Fortschrittsanzeige an den Benutzer geben
-*	Die Form der Fortschrittsanzeige richtet sich dabei nach der Länge des Vorgangs und dem Anwendungskontext
-*	Fortschrittsanzeigen werden in der Regel nur für Wartezeiten verwendet, die sich aus System-Operationen ergeben.
+* Generell sollten Vorgänge oder Operationen, die mehr als eine Sekunde in Anspruch nehmen, eine Rückmeldung in Form einer Fortschrittsanzeige an den Benutzer geben
+* Die Form der Fortschrittsanzeige richtet sich dabei nach der Länge des Vorgangs und dem Anwendungskontext
+* Fortschrittsanzeigen werden in der Regel nur für Wartezeiten verwendet, die sich aus System-Operationen ergeben.
 Für Wartezeiten, die sich auf die Bedienung des Benutzers zurückführen lassen, werden keine Fortschrittsanzeigen eingesetzt
 
 Balken oder Spinner:
 
-Fortschritts-Balken (Progress Bar)
+*_Fortschritts-Balken (Progress Bar)_*
 
-*	Fortschritts-Balken werden in der Regel für Ladevorgänge mit bestimmbarer Gesamtlänge verwendet
-*	Ein Balken zeigt den Grad der Zielerreichung an. Dabei füllt sich der Balken von links (0%) nach rechts (100%)
-Fortschritts-Spinner (kreisrunde Fortschrittsanzeige)
-*	Fortschritts-Spinner werden für Ladevorgänge verwendet, deren Gesamtlänge unbekannt ist
-*	Für die Dauer der Operation dreht sich der Fortschritts-Spinner und signalisiert dem Benutzer damit, dass sich ein Prozess im Vorgang befindet. Der Fortschritts-Spinner empfiehlt sich aufgrund seiner geringen Ausmaße insbesondere in Situationen, in denen Platzbedarf von großer Bedeutung ist
+* Fortschritts-Balken werden in der Regel für Ladevorgänge mit bestimmbarer Gesamtlänge verwendet
+* Ein Balken zeigt den Grad der Zielerreichung an. Dabei füllt sich der Balken von links (0%) nach rechts (100%)
+
+*_Fortschritts-Spinner (kreisrunde Fortschrittsanzeige)_*
+
+* Fortschritts-Spinner werden für Ladevorgänge verwendet, deren Gesamtlänge unbekannt ist
+* Für die Dauer der Operation dreht sich der Fortschritts-Spinner und signalisiert dem Benutzer damit, dass sich ein Prozess im Vorgang befindet. Der Fortschritts-Spinner empfiehlt sich aufgrund seiner geringen Ausmaße insbesondere in Situationen, in denen Platzbedarf von großer Bedeutung ist
 
 === Fehlermeldungen
 
@@ -947,11 +1300,11 @@ Um die Barrierefreiheit einzuhalten, muss die Notification dauerhaft eingeblende
 
 Folgende Meldungsarten können als Toast-Notification verwendet werden:
 
-*	Warnung
-*	Hinweis
-*	Fehler
-*	Erfolg
+* Warnung
+* Hinweis
+* Fehler
+* Erfolg
 
 [[image-toastnotification]]
-.Verschiedene Toastnotification
+.Verschiedene Toast Notifications
 image::24_UC_toast_notification.png[align="center"]

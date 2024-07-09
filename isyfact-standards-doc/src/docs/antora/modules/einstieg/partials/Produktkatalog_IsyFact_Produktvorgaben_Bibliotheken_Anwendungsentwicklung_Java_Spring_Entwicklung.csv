@@ -3,7 +3,7 @@ JEE API (Nutzung über Tomcat);https://javaee.github.io/servlet-spec/[Servlet AP
 JEE API;https://github.com/javaee/jpa-spec[JPA];<<spring-boot-dependencies,icon:leaf[]>>;2.2.0;verbindlich;Eclipse Public License v1.0;
 JEE API;https://github.com/javaee/jta-spec[JTA];<<spring-boot-dependencies,icon:leaf[]>>;2.2.0;verbindlich;CDDL + GPLv2 with classpath exception;
 JEE API;https://projects.eclipse.org/projects/ee4j.ca[Jakarta Annotations];1.3.5;3.0.0;verbindlich;Eclipse Public License v2.0;Nur einzusetzen, falls das JDK die Annotationen nicht mehr bereitstellt.
-Caching;https://docs.spring.io/spring-framework/docs/4.3.x/spring-framework-reference/html/cache.html;<<spring-boot-dependencies,icon:leaf[]>>;4.0.0;verbindlich;Apache 2.0 Software License;
+Caching;https://docs.spring.io/spring-framework/docs/4.3.x/spring-framework-reference/html/cache.html[Spring Cache Abstraction];<<spring-boot-dependencies,icon:leaf[]>>;4.0.0;verbindlich;Apache 2.0 Software License;
 Caching;http://www.ehcache.org/[EHCache];<<spring-boot-dependencies,icon:leaf[]>>;1.3.2;empfohlen;Apache 2.0 Software License;
 Anwendungs-framework;https://spring.io/projects/spring-boot[Spring Boot];3.2.x;4.0.0;verbindlich;Apache Software License;
 "Anwendungs-framework +
@@ -22,7 +22,7 @@ Web-Service Framework (SOAP);https://projects.eclipse.org/projects/ee4j.metro/[E
 Logging;http://www.slf4j.org/[SLF4J];"<<spring-boot-dependencies,icon:leaf[]>>";4.0.0;verbindlich;MIT License;"* Die Verwendung anderer Logging-Backends außer Logback ist nicht erlaubt.
 * Die Verwendung der Logging Bridges ist erlaubt, sofern dies erforderlich ist."
 Logging;http://logback.qos.ch/[Logback];"<<spring-boot-dependencies,icon:leaf[]>>";2.4.0;verbindlich;"EPL v1.0, LGPL 2.1";
-Bean-Mapping;https://github.com/orika-mapper/orika[Orika];1.5.x;2.0.0;verbindlich;Apache License 2.0;Orika ist ein Runtime-Mapper, d.h. Mappings werden zur Laufzeit erzeugt.
+Bean-Mapping;https://mapstruct.org/[MapStruct];1.5.x;4.0.0;verbindlich;Apache License 2.0;MapStruct ist ein Annotation-Processor, d.h. Mappings werden zur Compilezeit erzeugt.
 Code-Generierung;https://github.com/mkarneim/pojobuilder[pojobuilder];4.x;2.4.0;empfohlen;PUBLIC DOMAIN;pojobuilder generiert Code nach dem Builder-Pattern für bestehende Klassen.
 Code-Generierung;https://projectlombok.org/[Lombok];<<spring-boot-dependencies,icon:leaf[]>>;2.4.0;empfohlen;MIT License;Lombok kann ebenfalls das Builder-Pattern umsetzen, besitzt aber darüber hinaus deutlich mehr Funktionen als pojobuilder.
 XML Binding;https://github.com/javaee/jaxb-v2[JAXB];<<spring-boot-dependencies,icon:leaf[]>>;2.2.0;verbindlich;CDDL + GPLv2 with classpath exception;

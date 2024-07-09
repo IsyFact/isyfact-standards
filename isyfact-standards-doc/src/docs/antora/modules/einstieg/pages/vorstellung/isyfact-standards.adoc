@@ -9,7 +9,7 @@ Darüber hinaus werden die Bausteine der IsyFact-Standards kurz beschrieben.
 [[vorgaben-architektur]]
 == Vorgaben für die Architektur
 
-Die xref:referenzarchitektur:index.adoc[] definiert die Architektur einzelner Anwendungssysteme bis hin zu Anwendungslandschaften.
+Die xref:referenzarchitektur:index.adoc[] definiert die Architektur einzelner Anwendungen bis hin zu Anwendungslandschaften.
 Dazu beschreibt sie drei Architektursichten:
 
 * Fachliche Architektur (A-Architektur),
@@ -19,23 +19,23 @@ Dazu beschreibt sie drei Architektursichten:
 Diese Architektursichten decken die wichtigsten Blickwinkel auf die Architektur ab: fachlich, technisch und betrieblich.
 Ein zentraler Vorteil der IsyFact besteht darin, dass die Architektursichten ineinander überführbar sind.
 So gibt es definierte Regeln, wie aus einer fachlichen Architektur eine softwaretechnische Architektur gebildet wird und wie sich aus diesen beiden Sichten die Architektur der technischen Infrastruktur entwickeln lässt.
-Diese _Abbildbarkeit_ sorgt dafür, dass bereits mit der Erstellung der fachlichen Architektur wichtige Weichen für die Umsetzung und den Betrieb der Anwendungssysteme gestellt werden.
+Diese _Abbildbarkeit_ sorgt dafür, dass bereits mit der Erstellung der fachlichen Architektur wichtige Weichen für die Umsetzung und den Betrieb der Anwendungen gestellt werden.
 
 Die folgenden Abschnitte beschreiben knapp die Vorgaben an die Architektur aus den jeweiligen Sichten heraus.
 Sie verweisen für weitere Details auf die jeweils relevanten Dokumente.
 
 [[vorgaben-fuer-die-a-architektur]]
 === Vorgaben für die A-Architektur
-Die allgemeine Referenzarchitektur muss für die zu bauenden Anwendungssysteme in einer fachlichen Architektur konkretisiert werden.
+Die allgemeine Referenzarchitektur muss für die zu bauenden Anwendungen in einer fachlichen Architektur konkretisiert werden.
 Die fachliche Architektur strukturiert die Anforderungen sowie die zu unterstützenden Geschäftsprozesse.
-Sie betrachtet dabei zwei Architekturebenen: Anwendungslandschaften und Anwendungssysteme.
+Sie betrachtet dabei zwei Architekturebenen: Anwendungslandschaften und Anwendungen.
 
 Die Ebene der Anwendungslandschaft schneidet die Anforderungen in fachliche Domänen und ordnet ihnen die Geschäftsprozesse zu.
 Innerhalb der Domänen werden wiederum Geschäftsanwendungen geschnitten, um klar definierte Teilaspekte der Fachlichkeit umzusetzen.
 Geschäftsanwendungen weisen eine hohe fachliche Kohäsion auf und kommunizieren zur Erfüllung ihrer Aufgaben in der Regel mit weiteren Geschäftsanwendungen.
 
 Die fachliche Architektur der Anwendungslandschaft beschreibt die Geschäftsprozesse sowie Funktionalitäten und Regeln, welche die Grundlage für die fachlichen Schnitte bilden.
-Neben der Struktur geht sie auch auf die Kommunikation der Geschäftsanwendungen untereinander sowie mit Anwendungssystemen anderer Anwendungslandschaften ein.
+Neben der Struktur geht sie auch auf die Kommunikation der Geschäftsanwendungen untereinander sowie mit Anwendungen anderer Anwendungslandschaften ein.
 
 Die fachliche Architektur der Geschäftsanwendungen wird in Spezifikationen dokumentiert.
 
@@ -55,7 +55,7 @@ Die xref:methodik:vorlagen.adoc#datenflussdiagramm[Vorlage zu Datenflussdiagramm
 [[vorgaben-fuer-die-t-architektur]]
 === Vorgaben für die T-Architektur
 Die xref:referenzarchitektur:software-technisch.adoc[software-technische Referenzarchitektur] wird auf Basis der Spezifikation aus der fachlichen Architektur entwickelt.
-Die technischen Entsprechungen für die fachlich motivierte Anwendungslandschaft und das Anwendungssystem sind die technisch motivierten Begriffe der Systemlandschaft und respektive des IT-Systems.
+Die technischen Entsprechungen für die fachlich motivierte Anwendungslandschaft und die Anwendung sind die technisch motivierten Begriffe der Systemlandschaft und respektive des IT-Systems.
 
 Ein xref:blaupausen:referenzarchitektur-it-system/master.adoc[IT-System] basiert auf einer Drei-Schichten-Architektur und besteht aus den Komponenten, die in <<refarch-technisch,der softwaretechnischen Referenzarchitektur eines IT-Systems>> dargestellt sind.
 
@@ -106,7 +106,7 @@ IT-Systeme müssen auf Basis dieser Produkte und Bibliotheken gebaut werden.
 === Vorgaben für die TI-Architektur
 Die Architektur der technischen Infrastruktur wird auf Grundlage der Spezifikation und des Entwurfs entwickelt.
 
-Die Grundlagen der TI-Architektur auf Ebene von Anwendungslandschaften und Anwendungssystemen ist in der xref:referenzarchitektur:technisch-infrastrukturell.adoc[technisch-infrastrukturellen Referenzarchitektur] beschrieben.
+Die Grundlagen der TI-Architektur auf Ebene von Anwendungslandschaften und Anwendungen ist in der xref:referenzarchitektur:technisch-infrastrukturell.adoc[technisch-infrastrukturellen Referenzarchitektur] beschrieben.
 Die zu verwendende Infrastruktur ist zum Teil durch den xref:einstieg:produkte.adoc#produktkatalog[Produktkatalog] vorgegeben.
 
 [[vorgaben-fuer-das-systemhandbuch]]
@@ -137,8 +137,8 @@ Im Dokument xref:isy-exception-core:konzept/master.adoc#einleitung[Konzept Fehle
 [[datum-zeit]]
 === Datum & Zeit
 Der Baustein Datum & Zeit beschreibt die Verwendung der _Java 8 Date & Time API_ (`java.time`) in der IsyFact.
-Das xref:isy-datetime:konzept/master.adoc#einleitung[Konzept Datum/Zeit] beschreibt die konzeptionellen Grundlagen der Verarbeitung von Datums- und Zeitwerten.
-Die xref:isy-datetime:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Datum/Zeit] beschreiben alle Aspekte, die bei der Entwicklung einer Anwendung zu berücksichtigen sind.
+Das xref:isy-datetime-doc:ROOT:konzept/master.adoc#einleitung[Konzept Datum/Zeit] beschreibt die konzeptionellen Grundlagen der Verarbeitung von Datums- und Zeitwerten.
+Die xref:isy-datetime-doc:ROOT:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Datum/Zeit] beschreiben alle Aspekte, die bei der Entwicklung einer Anwendung zu berücksichtigen sind.
 
 [[administrative-ueberwachung-und-konfiguration]]
 === Administrative Überwachung und Konfiguration

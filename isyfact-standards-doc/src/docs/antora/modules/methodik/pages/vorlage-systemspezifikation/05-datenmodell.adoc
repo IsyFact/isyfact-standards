@@ -1,11 +1,7 @@
-= Vorlage Systemspezifikation
-
-// tag::inhalt[]
-
 [[datenmodell]]
 == Datenmodell
 
-_Das logische Datenmodell beschreibt die fachliche Sicht auf die Daten des Anwendungssystems.
+_Das logische Datenmodell beschreibt die fachliche Sicht auf die Daten der Anwendung.
 Es enthält Entitätstypen und ihre Beziehungen zueinander.
 Jeder Entitätstyp enthält Attribute und ihre fachlichen Datentypen (siehe Abschnitt „Datentypen“).
 Den Inhalt des logischen Datenmodells bildet eine Beschreibung der Entitätstypen, Assoziationen und Attribute._
@@ -43,7 +39,7 @@ _Ein Entitätstyp hat eine Reihe von Eigenschaften, die dabei helfen können zu 
 _Namen von Modellkomponenten beginnen mit dem Präfix +„MKO_“+ gefolgt von einem Substantiv, z.B. „MKO_Behörden“.
 Falls nötig kann noch ein Adjektiv vor das Substantiv gestellt werden._
 
-_Hier wird kurz textuell beschrieben, bezüglich welcher fachlichen Logik die Entitätstypen eine Modellkomponente bilden.
+_Hier wird kurz textuell beschrieben, bezüglich welcher Geschäftslogik die Entitätstypen eine Modellkomponente bilden.
 Ein UML-Klassendiagramm enthält alle Entitäten mit Attributen und Assoziationen zwischen diesen.
 Fachliche Schlüsselattribute müssen im UML-Klassendiagramm hervorgehoben werden (in +ETY_Person+  durch die Abtrennung "Schlüsselattribut")._
 
@@ -68,9 +64,8 @@ image::vorlage-systemspezifikation/beispieldiagramm-mkobestand-alternativss-uebe
 .Modellkomponente MKO_xy: Details
 image::vorlage-systemspezifikation/beispieldiagramm-mkobestandss-details.png[]
 
+._Erstellung des Diagramms im Enterprise Architect_
 ****
-Erstellung des Diagramms im Enterprise Architect:
-
 _Man zieht die Entitätstypen aus dem UML-Profil „Datenmodell“ in ein Klassendiagramm, gibt ihnen Namen (mit Präfix +„ETY_“+) und falls gewünscht Attribute.
 Die Attribute haben ihrerseits jeweils Namen (mit Präfix +„ATT_“+) und Datentypen (mit Präfix +„DTY_“+)._
 
@@ -95,13 +90,13 @@ Falls nötig kann noch ein Adjektiv vor das Substantiv gestellt werden._
 [cols="2,6", options="header"]
 |===
 2+| Entitätstyp
-|*Kurzbeschreibung* |_Die Beschreibung des Entitätstyps ermöglicht dem Leser, den Namen der Entität und ihre Bedeutung zu verstehen.
+|*Kurzbeschreibung* |_Die Beschreibung des Entitätstyps ermöglicht dem Leser, den Namen der Entität und ihre Bedeutung zu verstehen._
 
-Für die Begriffserklärung können Synonyme oder Oberbegriffe benutzt werden (Beispiel: „Ein Mitarbeiter ist eine natürliche Person“…").
+_Für die Begriffserklärung können Synonyme oder Oberbegriffe benutzt werden (Beispiel: „Ein Mitarbeiter ist eine natürliche Person …“)._
 
-Anschließend wird der Begriff inhaltlich und zeitlich abgegrenzt, d.h. wir erläutern, unter welchen Bedingungen eine Ausprägung zu diesem Entitätstyp gehört.
+_Anschließend wird der Begriff inhaltlich und zeitlich abgegrenzt, d.h. wir erläutern, unter welchen Bedingungen eine Ausprägung zu diesem Entitätstyp gehört._
 
-Die Beschreibung kann Beispiele, weitere Erläuterungen und Anmerkungen enthalten.
+_Die Beschreibung kann Beispiele, weitere Erläuterungen und Anmerkungen enthalten.
 Sie sollte auf eine standardisierte Weise erfolgen, so dass sich die Beschreibungen über das Datenmodell hinweg in der Form ähneln._
 |===
 
@@ -110,7 +105,7 @@ Sie sollte auf eine standardisierte Weise erfolgen, so dass sich die Beschreibun
 [cols="1s,1,1",options="header"]
 |====
 |*Attribut* |*Datentyp* |*Bedeutung*
-|_Name des Attributs beginnend mit dem Präfix +„ATT_“+.|_Verweis auf den fachlichen Datentyp (siehe Abschnitt „Datentypen“) oder auf einen einfachen Datentyp („Zeichenkette“, „Ganzzahl“, „Fließkommazahl“ etc.)._ a|
+|_Name des Attributs beginnend mit dem Präfix +„ATT_“+._|_Verweis auf den fachlichen Datentyp (siehe Abschnitt „Datentypen“) oder auf einen einfachen Datentyp („Zeichenkette“, „Ganzzahl“, „Fließkommazahl“ etc.)._ a|
 _Die Beschreibung des Attributes sollte einen inhaltlichen Mehrwert bringen (also Beschreibungen wie „Datum ist das Datum der Buchung“ vermeiden)._
 
 _Es hat sich bewährt, die Beschreibung soweit möglich mit „Enthält“ zu beginnen._
@@ -119,11 +114,8 @@ _Folgende Fragestellungen können bei der Beschreibung helfen:_
 
 
 * _Ist diese Information immer oder nur unter bestimmten Bedingungen vorhanden?_
-+
 * _Wann und wo entsteht diese Information?_
-+
 * _Wie entsteht diese Information im Unternehmen? (Die Information kann festgestellt, festgelegt und abgeleitet sein.)_
-+
 * _Für welchen Zeitraum bzw. bis zu welchem Zeitpunkt ist diese Information gültig?_
 
 |_Weitere Attribute in nachfolgenden Zeilen_ |_Weitere Datentypen_ |_Weitere Beschreibungen_
@@ -149,9 +141,9 @@ Beispiele: ISBN, Fahrgestellnummer, Aufzählungstypen._
 _Im Fall von trivialer Fachlichkeit (z.B. Beschreibungstexte, einfache Nummern) verzichten wir auf fachliche Datentypen und verwenden direkt die technischen Basistypen Zeichenkette, Ganzzahl, Kommazahl etc.
 Eigenschaften des Attributes und der Datentyp sollten voneinander getrennt werden._
 
-_Typischerweise verwenden verschiedene Anwendungssysteme ähnliche Datentypen.
+_Typischerweise verwenden verschiedene Anwendungen ähnliche Datentypen.
 Innerhalb einer Anwendungslandschaft müssen gleich benannte Datentypen auch den gleichen Inhalt haben.
-Ähnliche, aber inhaltlich unterschiedliche Datentypen sollten auch über die Anwendungssysteme der Anwendungslandschaft explizit unterschiedlich benannt werden, um hier Verwirrung zu vermeiden._
+Ähnliche, aber inhaltlich unterschiedliche Datentypen sollten auch über die Anwendungen der Anwendungslandschaft explizit unterschiedlich benannt werden, um hier Verwirrung zu vermeiden._
 
 _Falls Datentypen für Schlüsselwerte verwendet werden, welche im Schlüsselverzeichnis abgelegt sind, so ist in der Beschreibung des Datentyps die Schlüsselkategorie des SVZ zu nennen.
 Falls die Werte nicht im Schlüsselverzeichnis abgelegt sind, so ist ein Kapitel im Anhang der Spezifikation zu referenzieren, in dem alle fachlichen Ausprägungen des Schlüssels genannt werden._
@@ -161,9 +153,6 @@ Falls die Werte nicht im Schlüsselverzeichnis abgelegt sind, so ist ein Kapitel
 [cols="1s,1,1,1",options="header"]
 |====
 |*Datentyp* |*Basistyp* |*Bedeutung* |*Wertebereich*
-|_Name des Datentyps beginnend mit dem Präfix +„DTY_“+._ |_Technischer Basistyp wie „String“, „Integer, „Float“, „Alphanum“ oder ähnliche._ |_Fachliche Bedeutung des Datentyps.
+|_Name des Datentyps beginnend mit dem Präfix +„DTY_“+._ |_Technischer Basistyp wie „String“, „Integer“, „Float“, „Alphanum“ oder ähnliche._ |_Fachliche Bedeutung des Datentyps.
 Hier sollen auch Plausibilisierungen und Prüfungen beschrieben werden._ |_Mögliche Ausprägungen des Datentyps._
 |====
-
-// end::inhalt[]
-

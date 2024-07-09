@@ -9,14 +9,15 @@
 In diesem Kapitel werden die Anforderungen an die Überwachung von Anwendungen beschrieben.
 Für die Überwachung wird der Actuator von Spring Boot eingesetzt.
 Actuator bringt eine Reihe von eingebauten Endpoints mit und bietet auch die Möglichkeit, eigene Endpoints hinzuzufügen.
-So wird für Informationen über den Systemzustand der eingebauten Endpoint `health` angeboten und über den Endpoint `metrics` können Metriken gelesen werden.
+So werden für Informationen über den Systemzustand die eingebauten Endpunkte `health`, `liveness`,`readiness` angeboten.
+Über den Endpoint `metrics` können Metriken gelesen werden.
 Die bereitgestellten Metriken werden von Micrometer erfasst.
 Eine nähere Beschreibung des Konzeptes findet sich im Dokument xref:konzept/master.adoc#einleitung[Überwachung - Konzept].
 
 Der Fokus liegt dabei auf der Schaffung von einheitlichen Administrationsschnittstellen, welche dem Betrieb eine einfache Überwachung der Anwendungen erlauben.
 Alle Vorgaben sind beim Entwurf und der Realisierung von neuen Anwendungen nach IsyFact-Architektur zu berücksichtigen.
 Gegebenenfalls können in Systementwürfen Verfeinerungen der hier getroffenen Vorgaben gemacht werden.
-Weiterhin können die hier gemachten Vorgaben als Basis für die Beschreibung der Überwachungsschnittstelle im Betriebshandbuch der Anwendungssysteme verwendet werden.
+Weiterhin können die hier gemachten Vorgaben als Basis für die Beschreibung der Überwachungsschnittstelle im xref:methodik:vorlagen.adoc#dokumentation-anwendung[Systemhandbuch] verwendet werden.
 
 [[designvorgaben-fuer-die-ueberwachungsschnittstelle]]
 === Designvorgaben für die Überwachungsschnittstelle
@@ -226,7 +227,7 @@ gesetzt.
 Die im Konzept beschriebenen Überwachungsfunktionen dürfen keinen relevanten negativen Einfluss auf die Performance der Anwendung haben.
 Dazu sind neben der Einhaltung der in dem Dokument xref:konzept/master.adoc#einleitung[Überwachung - Konzept] beschriebenen Vorgaben noch einige grundlegende  Regeln zu beachten:
 
-* Da nicht auszuschließen ist, dass ein Überwachungswerkzeug sehr häufig Informationen aus den Endpoints abruft, darf das Bereitstellen der Informationen keine zeitaufwändigen Aktionen im xref:glossary:glossary:master.adoc#glossar-anwendungssystem[Anwendungssystem] veranlassen.
+* Da nicht auszuschließen ist, dass ein Überwachungswerkzeug sehr häufig Informationen aus den Endpoints abruft, darf das Bereitstellen der Informationen keine zeitaufwändigen Aktionen im xref:glossary:glossary:master.adoc#glossar-it-system[IT-System] veranlassen.
 * Bei der Bereitstellung weiterer Überwachungsinformationen ist darauf zu achten, dass die Ermittlung der Kennzahlen keinen relevanten negativen Einfluss auf die Performance der Anwendung hat.
 Insbesondere dürfen keine fachlichen Funktionen des xref:glossary:glossary:master.adoc#glossar-anwendungskern[Anwendungskerns] aufgerufen werden.
 
@@ -235,8 +236,8 @@ Insbesondere dürfen keine fachlichen Funktionen des xref:glossary:glossary:mast
 
 Der Info-Endpoint liefert statische Informationen über die Anwendung und ist im Baustein Überwachung aktiviert.
 Die Informationen müssen von der Anwendung explizit bereitgestellt werden.
-Es können z. B. Informationen über den Build und Quellcode-Stand (Git) der Anwendung geliefert werden. Durch die
-Einbindung von passenden Maven-Plugins können diese Informationen automatisch bei jedem Build erzeugt werden:
+Es können z. B. Informationen über den Build und Quellcode-Stand (Git) der Anwendung geliefert werden.
+Durch die Einbindung von passenden Maven-Plugins können diese Informationen automatisch bei jedem Build erzeugt werden:
 
 .Maven Konfiguration für Build- und GIT Informationen
 [id="listing-info-maven-config",reftext="{listing-caption} {counter:listings }"]
@@ -282,8 +283,10 @@ Authentifizierung abgesichert.
 
 Zur Überwachung einer Anwendung werden die folgenden eingebauten Endpoints verwendet:
 
-* `health`
-* `metrics`
+* `health`,
+* `liveness`,
+* `readiness`,
+* `metrics`.
 
 Diese sind bereits mit Standardwerten konfiguriert.
 Da der Endpoint `health` seine Informationen aus einem Cache abfragt, welcher von einem Task befüllt wird, werden die in <<listing-task-activation>> gezeigten Properties in `application.properties` gesetzt, um das Starten der Tasks zu aktivieren.
@@ -298,7 +301,7 @@ Endpoints können einzeln aktiviert oder deaktiviert werden.
 Damit wird gesteuert, ob der Endpoint erstellt wird und die dafür notwendigen Beans erzeugt werden.
 Für den Zugriff von außerhalb muss der Endpoint zusätzlich über eine Schnittstelle (HTTP oder JMX) bereitgestellt werden.
 
-Da von Spring standardmäßig fast alle Endpoints aktiviert sind, werden zunächst alle Endpoints ausgeschaltet, und anschließend die Endpoints `health` und `metrics` explizit wieder aktiviert.
+Da von Spring standardmäßig fast alle Endpoints aktiviert sind, werden zunächst alle Endpoints ausgeschaltet, und anschließend die Endpoints `health`, `liveness`, `readiness` und `metrics` explizit wieder aktiviert.
 Die Bereitstellung der Endpoints erfolgt nur über HTTP.
 
 Der Task für die Aktualisierung der Informationen für den Endpoint `health` muss regelmäßig ausgeführt werden.
@@ -363,15 +366,15 @@ include::{sourcedir}main/java/de/bund/bva/isyfact/ueberwachung/autoconfigure/Isy
 [[vorgaben-fuer-die-pruefung-der-verfuegbarkeit]]
 ==== Prüfung der Verfügbarkeit
 
-Anwendungen nach IsyFact-Architektur sollen Mechanismen bereitstellen, die es erlauben, die Verfügbarkeit der
-Anwendung durch eine betriebliche Überwachung zu prüfen.
+Anwendungen nach IsyFact-Architektur sollen Mechanismen bereitstellen, die es erlauben, die Verfügbarkeit der Anwendung durch eine betriebliche Überwachung zu prüfen.
 
 Grundlage dafür ist die Bereitstellung eines HealthEndpoints.
 
 [[implementierung-von-ping-und-pruefmethoden]]
 ===== Konfiguration des Nachbarsystem-HealthIndicator
 
-Jede Anwendung stellt einen HealthEndpoint unter `/actuator/health` bereit. Zur Konfiguration siehe auch <<konfiguration-von-endpoints>>.
+Jede Anwendung stellt einen HealthEndpoint unter `/actuator/health` bereit.
+Zur Konfiguration siehe auch <<konfiguration-von-endpoints>>.
 Dieser zeigt den Status des Systems abhängig von allen vorhandenen Health-Indikatoren (`HealthIndicator`).
 
 Der Baustein liefert einen Nachbarsystem-Indikator mit, der den HealthEndpoint aller konfigurierten Nachbarsysteme abfragt.
@@ -411,6 +414,7 @@ Diese wird im Logging Kontext benötigt.
 Konkret wird die Korrelations-ID im Task Scheduling gesetzt. `isy-ueberwachung` liefert
 nur eine Default-Konfiguration für einen `HealthIndicator`.
 
+[[implementierung-weiterer-eigener-health-indikatoren]]
 ==== Implementierung weiterer eigener Health-Indikatoren
 
 Es können weitere Indikatoren zur Überprüfung anderer Komponenten implementiert werden.
@@ -458,19 +462,23 @@ boolean pruefeSystem() {
 }
 ----
 
-[[implementierung-von-liveness-und-readiness-health-checks]]
-==== Implementierung von Liveness und Readiness Health-Checks
+[[liveness-und-readiness-zustaende]]
+==== Liveness und Readiness Zustände
 
-Wie in xref:konzept/master.adoc#informationen-ueber-den-systemzustand[Informationen über den Systemzustand] beschrieben sind _Liveness_ und _Readiness_ optionale Zustände, die einem feingranularen Monitoring dienen.
+Wie in Kapitel xref:konzept/master.adoc#informationen-ueber-den-systemzustand[Informationen über den Systemzustand] beschrieben sind _Liveness_ und _Readiness_ Zustände, die einem feingranularen Monitoring dienen.
 
-Diese sind mit der IsyFact 3.0 ausschließlich konzeptionell beschrieben und nicht in den Bibliotheken implementiert. Daher werden hier diesbezüglich ausschließlich grobe Implementierungsdetails gegeben, bzw. auf Literatur hingewiesen.
+Anwendungen nach dem IsyFact Standard sollen, neben dem Health-Zustand, Informationen über diese Zustände zur Verfügung stellen.
+_Liveness_ und _Readiness_ sind konzeptionell beschrieben und werden nicht von der `isy-überwachung`-Bibliothek zur Verfügung gestellt.
+Die tatsächlich korrekte Abbildung der Zustände hängt von den betrieblichen Gegebenheiten und der zu überwachenden Anwendung ab.
+Daher werden hier Vorgaben für die bedarfsgerechte Darstellung von _Liveness_ und _Readiness_ gemacht.
 
-[[auslesen-von-liveness-und-readiness-probes]]
-===== Auslesen von Liveness und Readiness Probes
+[[bereitstellen-von-liveness-und-readiness-probes]]
+===== Bereitstellen von Liveness und Readiness Probes
 
-_Liveness_ und _Readiness_ Probes können aktiviert werden durch (vgl. https://www.baeldung.com/spring-liveness-readiness-probes[Baeldung: Liveness und Readiness Probes in Spring Boot]):
+_Liveness_ und _Readiness_ Probes können in der Anwendungskonfiguration aktiviert werden: (vgl. https://www.baeldung.com/spring-liveness-readiness-probes[Baeldung: Liveness und Readiness Probes in Spring Boot]):
 
-[[listing-enable-liveness-readiness-states]]
+.Aktivierung von Liveness und Readiness in den `application.properties`
+[id="listing-enable-liveness-readiness-states",reftext="{listing-caption} {counter:listings }"]
 [source,properties]
 ----
 management.endpoint.health.probes.enabled=true
@@ -478,24 +486,97 @@ management.health.livenessState.enabled=true
 management.health.readinessState.enabled=true
 ----
 
+Damit werden die der Anwendung zur Verfügung stehenden Informationen aus dem `ApplicationContext` und dem Lebenszyklus der Anwendung genutzt, um die Ausprägung des jeweiligen Zustands zu bestimmen.
+Verfügt die Anwendung über keine Abhängigkeiten, die die Zustände beeinflussen, ist die beschriebene Aktivierung zur Verwendung der Zustände ausreichend.
+Ob Abhängigkeiten mit Einfluss auf die Zustände gemäß deren xref:konzept/inhalt.adoc#Liveness-und-Readiness[Definition] bestehen, ist von den Entwickelnden zu beurteilen.
+
 [[update-des-liveness-states]]
 ===== Update des Liveness States
 
-_Liveness_ soll nicht durch externe Checks wie Health-Checks gemessen werden.
-Andernfalls könnte es sein, dass einem Fehlschlagen eines externen Systems (database, Web API, externe cache, ...) ein Neustart des Systems folgt, welcher Fehlerkaskaden über die Plattform auslöst.
+In den meisten Fällen reicht für die korrekte Abbildung des _Liveness_-Zustands, die vom Spring Boot Actuator standardmäßige Ermittlung des Zustands aus.
+Wenn der `ApplicationContext` erfolgreich initialisiert ist, geht Spring Boot grundsätzlich davon aus, dass die Anwendung in einem korrekten Zustand ist.
+Die Anwendung wird dann als alive betrachtet (vgl. https://docs.spring.io/spring-boot/reference/features/spring-application.html#features.spring-application.application-events-and-listeners[Spring Boot Liveness Event]).
+Ist der _Liveness_-Zustand neben dem funktionierenden `ApplicationContext`  von der korrekten Funktion von weiteren, anwendungsspezifischen Komponenten abhängig, müssen die Komponenten im _Liveness_-Zustand berücksichtigt werden.
 
-Der innere Zustand einer Spring Boot Application wird hauptsächlich über Springs `ApplicationContext` dargestellt.
-Wenn der `ApplicationContext` erfolgreich gestartet ist, geht Spring Boot davon aus, dass die Anwendung in einem korrekten Zustand ist.
-Die Anwendung wird als alive betrachtet, sobald der `Context` aufgefrischt wird
-(vgl. https://docs.spring.io/spring-boot/docs/current/reference/html/features.html#features.spring-application.application-availability.liveness[Spring Boot Liveness]).
+[NOTE]
+====
+Wenn ein Szenario in der Anwendung vorliegt, das einen Neustart erforderlich macht, ist dies im _Liveness_-Status zu berücksichtigen.
+====
 
-Neben dem funktionierenden `ApplicationContext` ist der _Liveness_-Zustand von weiteren, anwendungsspezifische Komponenten abhängig und muss entsprechend aktualisiert werden (vgl. https://www.baeldung.com/spring-liveness-readiness-probes[Baeldung: Liveness und Readiness Probes in Spring Boot]).
+Ein Beispiel für einen solchen Fall ist ein nicht mehr ordnungsgemäß funktionierender Cache.
+In einem solchen Fall sind die Vorgaben im Kapitel <<konkrete-implementierung-zustandsaenderungen>> zu beachten.
+
+[NOTE]
+====
+_Liveness_ darf nicht durch Check externer Systeme beeinflusst werden.
+Andernfalls könnte es sein, dass einem Fehlschlagen eines externen Systems (Datenbank, Web API, externer Cache, ...) ein Neustart des Systems folgt, welcher Fehlerkaskaden über die Anwendungslandschaft auslöst.
+====
 
 [[update-des-readiness-states]]
 ===== Update des Readiness States
 
-Für den *Readiness State* kann die Kommunikation durch Rest Aufrufe geprüft werden. D. h. _Readiness_ wird durch von Spring Boot bereitgestellte _Readiness_-Probes sichergestellt. Das System ist z. B. bei einem http 200 Ergebnis ready. Die Probes können wiederum durch einen Task-Scheduler durchgeführt werden (vgl.
-https://medium.com/@salarai.de/how-to-enable-liveness-and-readiness-probes-in-a-spring-boot-application-a40cf3423db3[Medium: Liveness und Readiness Probes]).
+In vielen Fällen sind für das korrekte Abbilden der _Readiness_ einer Anwendung weitere Zustandsindikatoren notwendig.
+Die Zustandsindikatoren zeigen an, ob die Anwendung Anfragen korrekt verarbeiten kann.
+Diese Fähigkeit kann von anwendungsinternen Vorgängen abhängen, z.B. der Abschluss des vollständigen Ladens von notwendigen Daten, oder die Erreichbarkeit angebundener externer Systeme.
+Angebundene Systeme, die aus Sicht der Anwendung nutzbar zur Verfügung stehen müssen, sind im _Readiness_-Zustand zu berücksichtigen.
+Gemäß dem IsyFact Vorgaben zählen dazu alle als essenziell eingestuften Nachbarsysteme (Vgl. xref:konzept/inhalt.adoc#nachbarsystemcheck-liveness-Readiness[Überwachungskonzept-Essenzielle Nachbarsysteme].)
+
+
+[[konkrete-implementierung-zustandsaenderungen]]
+===== Konkrete Implementierung von Zustandsänderungen
+
+Grundsätzlich besteht für jede Komponente die Möglichkeit, den Zustand der Anwendung direkt über ein `AvailabilityChangeEvent` zu verändern.
+Durch die dieses Events wird die Zustandsänderung in den Gesamtstatus der Anwendung integriert.
+Damit ist eine vorhandene Implementierung um eine Veränderung des jeweils relevanten Zustands erweiterbar z.B. bei der Verarbeitung von _Exceptions_.
+
+.AvailabilityChangeEvent
+[id="listing-implementing-availability-change-events",reftext="{listing-caption} {counter:listings }"]
+[source, java]
+----
+AvailabilityChangeEvent.publish(context, LivenessState.BROKEN);
+AvailabilityChangeEvent.publish(context, ReadinessState.REFUSING_TRAFFIC);
+----
+
+Sind weitere Indikatoren für den _Liveness_- oder _Readiness_-Zustand relevant, sind Gruppen zu nutzen (Vgl. https://docs.spring.io/spring-boot/docs/2.2.x/reference/html/production-ready-features.html#health-groups[Spring Boot Health Groups]).
+Dieses Vorgehen ermöglicht eine strukturierte Übersicht und erleichtert die Veränderbarkeit der Überwachung, wenn auf Anwendungsänderungen oder veränderte Betriebsbedingungen zu reagieren ist.
+Darüber hinaus lassen sich für die korrekte Abbildung der _Readiness_ vorkonfiguriert Informationen angebundener Systeme nutzen.
+Spring Boot Actuator bietet, über vorkonfigurierte `HealthIndictor`-Interfaces, die Integration der health-Informationen angebundener Systeme an.
+Diese müssen über Spring Boot-Mechanismen angebunden sein und über zugehörige Konfigurationsdateien im Klassenpfad vorkommen.
+Eine Liste der vorkonfigurierten `HealthIndicators` und detaillierte Informationen sind https://docs.spring.io/spring-boot/reference/actuator/endpoints.html#actuator.endpoints.health.auto-configured-health-indicators[hier] einzusehen.
+Wird die _Readiness_ des Systems von der Erreichbarkeit weiterer essenzieller Nachbarsysteme beeinflusst, sind diese als Komponenten unter der Verwendung des `HealthIndicator`-Interface zu implementieren.
+Bei einer Verwendung der Bibliothek `isy-überwachung`  kann hierfür der `NachbarsystemIndicator` genutzt werden.
+Sind weitere Komponenten in den Zuständen zu berücksichtigen, sind die Vorgaben des Kapitels <<implementierung-weiterer-eigener-health-indikatoren>> zu beachten.
+In den `application.properties` sind alle Indikatoren (`<customCheck>`) in der jeweiligen Gruppe hinzuzufügen:
+
+.Aktivierung und Gruppierung von _Liveness_ und _Readiness_ in den `application.properties`
+[id="gruppe-liveness-readiness-application-properties",reftext="{listing-caption} {counter:listings }"]
+[source,properties]
+----
+management.endpoint.health.group.readiness.include=readinessState, <customCheck>
+management.endpoint.health.group.liveness.include=livenessState, <customCheck>
+----
+
+Mit dieser Konfiguration in den `application.properties` werden alle in der Gruppe aufgeführten Indikatoren über eine logische UND-Verknüfung in dem jeweiligen Status berücksichtigt.
+
+
+[[logging-der-zustandsaenderung]]
+===== Logging der Zustandsänderung
+
+Wenn sich der Zustand ändert, ist dies im Logging zu protokollieren.
+Dieses Vorgehen ist gegenüber dem Protokollieren jeder Zustandsprüfung zu bevorzugen.
+Das Protokollvolumen wird reduziert und Probleme zu erkennen wird vereinfacht.
+
+.`EventListener` zum Loggen der Zustandsänderung
+[id="eventlistener-zum-loggen-der-Zustandsaenderung",reftext="{listing-caption} {counter:listings }"]
+[source,properties]
+[source, java]
+----
+
+@EventListener
+public void onApplicationEvent(AbstractHealthIndicator healthIndicator) {
+    // Log der Veränderung des Liveness- oder Readiness-Zustands mit einer Fallunterscheidung
+}
+----
 
 
 [[anbindung-eines-monitoring-systems]]

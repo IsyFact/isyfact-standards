@@ -34,6 +34,17 @@ Zusätzliche Authentifizierungsmerkmale werden aus den <<isyfact-specific-client
 * `bhknz`: Das BHKNZ kann als optionaler Parameter übergeben werden. Wird aktuell nur für den _Resource Owner-Password Credentials_ Flow ausgewertet.
 * `username` und `password`: Die Zugangsdaten des technischen Nutzers (Resource Owner), welche für den _Resource Owner Password Credentials_ Flow erforderlich sind.
 
+`void authentifiziere(String oauth2ClientRegistrationId, Duration expirationTimeOffset)`::
+Authentifiziert einen OAuth 2.0 Client anhand seiner Client-Registration-ID mittels der Methode `authentifiziere(String oauth2ClientRegistrationId)`, falls das im SecurityContext vorhandene `AbstractOAuth2TokenAuthenticationToken` abgelaufen ist.
+Über den Parameter `expirationTimeOffset` wird eine Zeitspanne angegeben, während der das Token bereits vor dem eigentlichen Ablaufzeitpunkt als abgelaufen gilt.
+Eine Authentifizierung mittels `authentifiziere(String oauth2ClientRegistrationId)` wird ebenfalls dann vorgenommen, wenn keine `Authentication` vom Typ `AbstractOAuth2TokenAuthenticationToken` im SecurityContext vorliegt.
++
+[[authentifizierungsmanager-authentifiziere-method-grant-type-note]]
+[NOTE]
+Für den `client_credentials` (_Client Credentials_ Flow) GrantType erfolgt unabhängig vom Parameter `expirationTimeOffset`
+eine erneute Authentifizierung nur dann, wenn das Token weniger als 60 Sekunden vor Ablauf steht.
+Dieser Wert ist als Standardwert durch eine Implementierung in Spring Security vorgegeben.
+
 `void authentifiziereClient(String issuerLocation, String clientId, String clientSecret)`::
 `void authentifiziereClient(String issuerLocation, String clientId, String clientSecret, String bhknz)`::
 Authentifiziert einen OAuth 2.0 Client gegen die angegebene `issuerLocation` anhand seiner `clientId` und `clientSecret`.
@@ -408,7 +419,7 @@ Der Pfad der Datei kann wie folgt angepasst werden:
 [cols="3m,2m,2m,8",options="header"]
 |===
 |Parameter |Wertebereich |Default |Beschreibung
-|isy.security.role-privilege-mapping-file | Resource | classpath:/resources/sicherheit/rollenrechte.xml | Pfad zu der XML-Datei, welche die Rollen-/Berechtigungszuordnungen enthält.
+|isy.security.role-privileges-mapping-file | Resource | classpath:/resources/sicherheit/rollenrechte.xml | Pfad zu der XML-Datei, welche die Rollen-/Berechtigungszuordnungen enthält.
 |===
 
 Der Baustein liefert ein xref:nutzungsvorgaben/master.adoc#anhang-rollen-rechte-schema[XML-Schema für den Aufbau der Konfigurationsdatei] mit.
@@ -496,7 +507,42 @@ public void abgesicherteMethode(/* ... */) {
 
 Als Parameter wird ein Array von Rechten übergeben.
 Die Rechte sind disjunktiv verknüpft.
-Die Autorisierung erfolgt dementsprechend wenn der Nutzer mindestens eins der in der `Secured` Annotation übergebenen Rechte besitzt.
+Die Autorisierung erfolgt dementsprechend wenn der Nutzer mindestens eines der in der `Secured`-Annotation übergebenen Rechte besitzt.
+
+Um konjunktive Verknüpfungen umzusetzen, sollte die Annotation `@PreAuthorize` aus Spring Security verwendet werden.
+`@PreAuthorize` ist für die Prüfung eines einzigen Rechtes äquivalent zu `@Secured`, nutzt aber die Spring Expression Language (SpEL).
+
+Dadurch sind Ausdrücke möglich wie:
+
+[source,java]
+----
+@PreAuthorize("hasAuthority('PRIV_Recht_A') and hasAuthority('PRIV_Recht_B')")
+----
+
+Die annotationsbasierte Autorisierung auf Methoden-/Klassenlevel muss durch setzen der `@EnableMethodSecurity`-Annotation an einer `@Configuration`-Klasse aktiviert werden.
+Dabei kann mit den Optionen `securedEnabled` und `prePostEnabled` die Verwendung von `@Secured` und `@PreAuthorize` aktiviert/deaktiviert werden.
+Die Option `prePostEnabled` ist standardmäßig aktiviert.
+
+[[listing-enable-method-security]]
+.Aktivierung der Method Security
+[source,java]
+----
+@Configuration
+@EnableMethodSecurity(securedEnabled = true, prePostEnabled = true)
+public class SecurityConfiguration {
+    // ...
+}
+----
+
+[IMPORTANT]
+====
+Method Level Security ist für die Nutzung in der Service Schicht.
+Die Verwendung an `@Controller` Klassen/Methoden kann zu Fehlern führen und wird nicht empfohlen.
+Für Webcontroller ohne Service-Schicht kann https://docs.spring.io/spring-security/reference/servlet/authorization/authorize-http-requests.html[Request Level Autorisierung] genutzt werden.
+
+Das mehrfache setzen der `@EnableMethodSecurity`-Annotation sollte vermieden werden.
+Mit abweichender Konfiguration kann dies zu unerwartetem Verhalten und Fehlern führen.
+====
 
 [[attr-token-abfragen]]
 == Attribute aus dem Bearer Token abfragen
@@ -520,7 +566,8 @@ Die Methode getTokenAttribute im Berechtigungsmanager ist deprecated und wird in
 ====
 
 Für den direkten Zugriff per Security Context kann die `Authentication` abgefragt und per Cast als ein `AbstractOAuth2TokenAuthenticationToken` zugegriffen werden.
-Detaillierte Informationen hierzu können der Spring Dokumentation entnommen werden.
+Detaillierte Informationen hierzu können der Spring Dokumentation entnommen werden. +
+Zur Überprüfung, ob eine `Authentication` vom Typ `AbstractOAuth2TokenAuthenticationToken` im Security Context vorliegt, kann die Methode `hasOAuth2Token()` verwendet werden.
 
 Die IsySecurityTokenUtil Klasse bietet statische Methoden zum Auslesen von Token-Claims:
 
@@ -551,6 +598,10 @@ Beispiel zum Zugriff auf das Behördenkennzeichen mithilfe der IsySecurityTokenU
 ----
 Optional<String> bhknz = IsySecurityTokenUtil.getBhknz();
 ----
+Über die Methode `hasTokenExpired(Duration expirationTimeOffset)` kann die Gültigkeit für ein im Security Context liegendes `AbstractOAuth2TokenAuthenticationToken` abgefragt werden.
+Der Parameter `expirationTimeOffset` gibt eine Zeitspanne an, in der das Token vor dem eigentlichen Ablaufzeitpunkt bereits als abgelaufen gilt.
+Für den Fall, dass kein Wert für den Ablaufzeitpunkt im Token gesetzt ist, wird das Token als abgelaufen betrachtet und `true` zurückgegeben.
+
 IsySecurityTokenUtil ermöglicht es, Standard-Claims mithilfe von zusätzlichen Properties um benutzerdefinierte Claims zu erweitern. Die entsprechenden Property-Konfigurationen sind in der Datei "isy-security-token.properties" im Verzeichnis "resources/config" hinterlegt. Bei speziellen Anforderungen ist es möglich, die Datei anzupassen, um die Claims entsprechend zu modifizieren.
 
 [[table-parameter-service-claims]]

@@ -18,7 +18,7 @@ Eine *Software Factory* ist ein Mittel, um dieses Ziel zu erreichen.
 == Standardisierung und Modularisierung der Softwareentwicklung
 
 Die *IsyFact* ist eine Software Factory für den Bau von Informationssystemen in komplexen IT-Anwendungslandschaften.
-Sie bündelt bestehendes technisches Know-how, um Anwendungssysteme effizienter entwickeln und betreiben zu können.
+Sie bündelt bestehendes technisches Know-how, um Anwendungen effizienter entwickeln und betreiben zu können.
 Wie in einer Fabrik, in der gleichartige Teile durch standardisierte Fertigkomponenten gefertigt werden, bietet die IsyFact einen Ansatz in der Informationstechnik.
 Architektur, Konzepte, technische Infrastruktur, Querschnittsanwendungen, Programmierbibliotheken und Middleware sind standardisiert und können wiederverwendet werden.
 

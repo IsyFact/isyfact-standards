@@ -1,9 +1,7 @@
-// tag::inhalt[]
-
 [[querschnittskonzepte]]
 == Querschnittskonzepte
 
-_Die Spezifikation der Querschnittskonzepte enthält fachliche und technische Anforderungen, die für das gesamte zu erstellende Anwendungssystem gelten und in keinen der anderen Spezifikationsteile sinnvoll eingeordnet werden können oder mehrere andere Spezifikationsteile zugleich betreffen würden._
+_Die Spezifikation der Querschnittskonzepte enthält fachliche und technische Anforderungen, die für die gesamte zu erstellende Anwendung gelten und in keinen der anderen Spezifikationsteile sinnvoll eingeordnet werden können oder mehrere, andere Spezifikationsteile zugleich betreffen würden._
 
 _Die folgenden Querschnittskonzepte finden sich in fast jedem größeren Projekt:_
 
@@ -17,6 +15,3 @@ _Die folgenden Querschnittskonzepte finden sich in fast jedem größeren Projekt
 
 _Im Rahmen von Großprojekten können diese Querschnittskonzepte systemübergreifend erstellt, gepflegt und für jedes System in der Anwendungslandschaft des Großprojekts wiederverwendet werden.
 Hierdurch ergibt sich sowohl Kostenersparnis als auch eine einheitlichere Umsetzung der Anwendungslandschaft._
-
-// end::inhalt[]
-
