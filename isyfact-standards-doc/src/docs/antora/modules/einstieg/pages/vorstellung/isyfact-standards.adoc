@@ -137,8 +137,8 @@ Im Dokument xref:isy-exception-core:konzept/master.adoc#einleitung[Konzept Fehle
 [[datum-zeit]]
 === Datum & Zeit
 Der Baustein Datum & Zeit beschreibt die Verwendung der _Java 8 Date & Time API_ (`java.time`) in der IsyFact.
-Das xref:isy-datetime:konzept/master.adoc#einleitung[Konzept Datum/Zeit] beschreibt die konzeptionellen Grundlagen der Verarbeitung von Datums- und Zeitwerten.
-Die xref:isy-datetime:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Datum/Zeit] beschreiben alle Aspekte, die bei der Entwicklung einer Anwendung zu berücksichtigen sind.
+Das xref:isy-datetime-doc:ROOT:konzept/master.adoc#einleitung[Konzept Datum/Zeit] beschreibt die konzeptionellen Grundlagen der Verarbeitung von Datums- und Zeitwerten.
+Die xref:isy-datetime-doc:ROOT:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Datum/Zeit] beschreiben alle Aspekte, die bei der Entwicklung einer Anwendung zu berücksichtigen sind.
 
 [[administrative-ueberwachung-und-konfiguration]]
 === Administrative Überwachung und Konfiguration
