@@ -742,15 +742,25 @@ Der Batchrahmen verwendet den Baustein `isy-security`, um den in der Batch-Konfi
 
 Im Zuge des Batchlaufs können nun über den Baustein `isy-security` Berechtigungsprüfungen (z.B. im Anwendungskern) stattfinden.
 
+Nach der initialen Authentifizierung eines Benutzers führt der Batch vor jedem Verarbeitungsschritt eine Prüfung durch, ob das Authentifizierungstoken erneuert werden muss.
+Eine erneute Authentifizierung wird dann vorgenommen, wenn das Token als abgelaufen gilt.
+Ein Token gilt als abgelaufen, wenn es weniger als die via `oauth2MinimumTokenValidity` angegebenen Sekunden vor dem Ablauf steht oder im Token kein Wert für den Ablaufzeitpunkt angegeben ist.
+
 Folgende Informationen zum Benutzer sind anzugeben
 
 .Die Eigenschaften des Batchbenutzers
 [id="table-CharBatUse",reftext="{table-caption} {counter:tables}"]
-[cols="2,8",options="header"]
+[cols="2,2,8a",options="header"]
 |====
-|Property |Beschreibung
-|`oauth2ClientRegistrationId` |Die ID der OAuth 2.0 Client Registration aus `isy-security`, die zur Authentifizierung genutzt wird.
+|Property |Default |Beschreibung
+|`oauth2ClientRegistrationId` |null |Die ID der OAuth 2.0 Client Registration aus `isy-security`, die zur Authentifizierung genutzt wird.
 Die notwendigen Properties die für eine gültige `ClientRegistration` definiert werden müssen, sind in den Nutzungsvorgaben der Komponente `isy-security` beschrieben.
+|`oauth2MinimumTokenValidity` +
+(optional)|60 |Die Zeit in Sekunden, die ein Token mindestens weiterhin gültig sein muss, um nicht erneuert zu werden.
+Steht ein Token weniger als die über die Property angegebenen Sekunden vor dem Ablauf, so wird eine erneute Authentifizierung vorgenommen. +
+[NOTE]
+Abhängig vom gewählten Grant-Type wird eine erneute Authentifizierung gegebenenfalls nur dann durchgeführt, wenn ein durch die Spring-Implementierung vorgegebener Zeitraum vor dem Ablauf des Tokens überschritten wird.
+Für weitere Informationen siehe xref:isy-security:nutzungsvorgaben/master.adoc#authentifizierungsmanager-authentifiziere-method-grant-type-note[Hinweis zur Methode `authentifiziere`] im Kapitel Authentifizierungsmanager der Nutzungsvorgaben Security.
 |====
 
 In der Regel wird der Benutzer aus der betrieblichen Konfiguration der Anwendung oder alternativ aus den Aufrufparametern beim Batchstart gelesen.
@@ -758,7 +768,7 @@ In der Regel wird der Benutzer aus der betrieblichen Konfiguration der Anwendung
 In Ausnahmefällen ist es auch möglich, einen Batch zu implementieren, der ohne Benutzer laufen soll.
 Dies ist nur möglich, wenn bei Aufrufen des Anwendungskerns keine Autorisierungsprüfungen stattfinden und auch keine Nachbarsystemschnittstellen aufgerufen werden.
 
-Enthält eine Anwendung mehrere Batches, so enthält sie auch mehrere BatchKonfigurationen und kann jeden Batch mit einer eigenen `oauth2ClientRegistrationId` ausstatten.
+Enthält eine Anwendung mehrere Batches, so enthält sie auch mehrere BatchKonfigurationen und kann jeden Batch mit einer eigenen `oauth2ClientRegistrationId` und `oauth2MinimumTokenValidity` ausstatten.
 
 [[das-deployment-eines-batches]]
 === Das Deployment eines Batches
