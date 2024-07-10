@@ -43,6 +43,10 @@ public class ResourceServerMultiTenancyTest {
 
     /**
      * Authentication and authorization via EmbeddedOidcProviderMock based on WireMock.
+     * A ping using a token from embeddedOidcProvider1 and embeddedOidcProvider2 is possible (tested in shouldAllowPingFromTestrealm1() and shouldAllowPingFromTestrealm2()),
+     *     as both tenants are defined in application-multi-tenancy.yaml.
+     * A ping with a token from embeddedOidcProvider3 fails as unauthorized (tested in shouldDenyPingFromTestrealm3())
+     *     since no matching tenant is defined in application-multi-tenancy.yaml.
      */
     @RegisterExtension
     public static final EmbeddedOidcProviderMock embeddedOidcProvider1 = new EmbeddedOidcProviderMock(HOST, PORT1, ISSUER_PATH1);
