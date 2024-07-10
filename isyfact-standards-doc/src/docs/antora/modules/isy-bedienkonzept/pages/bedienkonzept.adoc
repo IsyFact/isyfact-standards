@@ -1053,11 +1053,11 @@ Aktive Elemente sind in der Highlightfarbe und hinterlegt dargestellt.
 
 === Checkbox
 
-Checkboxen sind ein wesentliches Element der Benutzeroberfläche, das in vielen Frontends verwendet wird.
-Sie ermöglichen es Nutzenden, mehrere Optionen aus einer (offenen) Liste auszuwählen und spielen eine wichtige Rolle bei der Interaktivität und Benutzerführung.
-Ein gut gestaltetes Checkbox-Design verbessert die Lesbarkeit und Zugänglichkeit.
-Dies ist besonders wichtig, um sicherzustellen, dass alle Nutzenden, einschließlich derjenigen mit Behinderungen, das Frontend problemlos nutzen können.
-Letztlich fördern konsistente Checkbox-Designs eine bessere Benutzererfahrung und erhöhen die Effizienz bei der Datenerfassung und Interaktion.
+Checkboxen ermöglichen es Nutzenden, *mehrere* Optionen aus einer (offenen) Liste auszuwählen und spielen eine wichtige Rolle bei der Interaktivität und Benutzerführung.
+Der gezielte Einsatz von Checkboxen bei kurzen Listen gibt dem Nutzenden die Möglichkeit seine Optionen schnell zu erkennen und auszufüllen.
+
+Checkboxen können auch alleinstehend, als boolean-Wert genutzt werden (z.B. als Bestätigung zum Lesen der AGB).
+
 
 [[image-checkboxen]]
 .Checkboxen
@@ -1104,12 +1104,10 @@ Dieser Zustand wird häufig mit einem Quadrat innerhalb der Checkbox symbolisier
 
 === Radiobutton
 
-//ToDo: Das ist genau der gleiche Einleitungstext, wie bei den Checkboxen. Evtl. Verweis auf Checkboxen und den Text verkürzen?
-Radiobuttons sind ein wesentliches Element der Benutzeroberfläche, das in vielen Frontends verwendet wird.
-Sie ermöglichen es Nutzenden, eine Option aus einer (offenen) Liste auszuwählen und spielen eine wichtige Rolle bei der Interaktivität und Benutzerführung.
-Ein gut gestaltetes Radiobutton-Design verbessert die Lesbarkeit und Zugänglichkeit.
-Dies ist besonders wichtig, um sicherzustellen, dass alle Nutzenden, einschließlich derjenigen mit Behinderungen, das Frontend problemlos nutzen können.
-Letztlich fördern konsistente Radiobutton-Designs eine bessere Benutzererfahrung und erhöhen die Effizienz bei der Datenerfassung und Interaktion.
+Radiobutton ermöglichen es Nutzenden, *eine* Optionen aus einer (offenen) Liste auszuwählen und spielen eine wichtige Rolle bei der Interaktivität und Benutzerführung.
+Beim Einsatz von Radiobuttons wird dem Nutzenden sehr schnell gezeigt, dass er sich zwischen allen Optionen für eine entscheiden muss
+
+Radiobuttons können nicht alleinstehend verwendet werden, da sie nicht wieder abwählbar sind.
 
 [[image-radiobutton]]
 .Radiobuttons
