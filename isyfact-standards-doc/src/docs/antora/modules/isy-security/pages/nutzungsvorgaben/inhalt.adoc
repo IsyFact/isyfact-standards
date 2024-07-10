@@ -481,7 +481,7 @@ Der Pfad der Datei kann wie folgt angepasst werden:
 Der Baustein liefert ein xref:nutzungsvorgaben/master.adoc#anhang-rollen-rechte-schema[XML-Schema für den Aufbau der Konfigurationsdatei] mit.
 
 NOTE: Die Bereitstellung einer Datei mit den erforderlichen Rollen und Rechten erfolgt optional.
-Im Falle einer nicht vorhanden`spring.security.oauth2.resourceserver.jwten Datei verbleibt die Liste der Rollen und Rechte leer, d. h. eine Absicherung der Anwendung findet nicht statt.
+Im Falle einer nicht vorhandenen Datei verbleibt die Liste der Rollen und Rechte leer, d. h. eine Absicherung der Anwendung findet nicht statt.
 Die Verantwortung zur korrekten Bereitstellung der erforderlichen Rollen und Rechten liegt bei der Anwendung.
 
 Dieser Zusammenhang wird mit einem Beispiel verdeutlicht: Die Geschäftsanwendung X spezifiziert zwei Rechte, `DialogA.Aufrufen` und `DialogB.Aufrufen`.
