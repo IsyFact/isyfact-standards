@@ -192,8 +192,7 @@ Ein effizientes Design stellt sicher, dass Nutzende ihre Ziele schnell erreichen
 
 Das Designprinzip der "Zugänglichkeit" soll sicherstellen, dass eine (Web-)Applikation für alle Nutzenden, unabhängig von ihren individuellen Fähigkeiten oder Einschränkungen, leicht zugänglich ist.
 Dies beinhaltet die Gestaltung und Entwicklung der (Web-)Applikation unter Berücksichtigung verschiedener Bedürfnisse, wie zum Beispiel Sehbehinderungen, Hörbehinderungen oder motorische Einschränkungen.
-//ToDo: Beispiele für nicht benutzerfreundliche Technologien?
-Zugängliches Design beinhaltet die Verwendung von klaren und verständlichen Texten, ausreichendem Kontrast zwischen Text und Hintergrund, Tastaturzugänglichkeit, alternative Texte für Bilder und die Vermeidung von Technologien, die für einige Personengruppen hinderlich sein könnten.
+Zugängliches Design beinhaltet die Verwendung von klaren und verständlichen Texten, ausreichendem Kontrast zwischen Text und Hintergrund, Tastaturzugänglichkeit, alternative Texte für Bilder und die Vermeidung von Technologien (z.B. Gestensteuerung), die für einige Personengruppen hinderlich sein könnten.
 Ein zugängliches Design gewährleistet, dass alle Nutzenden die Informationen und Funktionen der (Web-)Applikation nutzen können, was zu einer inklusiven und positiven Benutzererfahrung führt.
 Dieses Prinzip wird im Kapitel <<barrierefreiheit>> und unter den einzelnen <<bedienelemente,Bedienelementen>> detaillierter beschrieben.
 
@@ -241,7 +240,7 @@ Nutzen Sie daher auch andere visuelle Elemente, wie Symbole oder Muster, um wich
 Farben sind ein Hauptbestandteil um die (Web-)Applikationen zu gestalten und um die Nutzenden zu unterstützen.
 Um eine gute Erkennbarkeit der Elemente sicherzustellen, muss bei großer Schrift ein Kontrast von mindestens 3:1 gewährleistet sein.
 
-Nachfolgend sind alle in der Anwendung zur Verfügung stehenden Farben miteinander in ein Kontrastverhältnis gebracht.
+Nachfolgend sind alle in der (Web-)Anwendung zur Verfügung stehenden Farben miteinander in ein Kontrastverhältnis gebracht.
 Farbkombinationen, die rot gelabeled sind und keinen ausreichenden Kontrast aufweisen, dürfen nicht verwendet werden.
 Andere Farbkombinationen sind entsprechend ihrem Text/Elementgröße frei zu wählen.
 Dabei soll der Kontrast so hoch wie möglich gewählt werden.
@@ -405,87 +404,6 @@ Dadurch ist die Wartbarkeit stark beeinträchtigt und die Aufwände können sich
 [[basiselemente]]
 == Basiselemente
 
-=== Text
-
-Die Textelemente spielen eine entscheidende Rolle bei der Kommunikation mit den Nutzenden.
-Dieser Abschnitt definiert die typografischen Standards, sprachlichen Richtlinien und Längenbeschränkungen, die dazu beitragen, dass die Texte klar, verständlich und ansprechend sind.
-
-(Web-)Applikationen des Bundes sollen über die IT-Landschaft hinweg ein einheitliches Look-and-Feel bieten.
-Dies wird über den Einsatz der IsyFact und deren Komponenten gewährleistet.
-Dafür ist es notwendig auch bei der Schrift (im weiteren Font) einheitlich vorzugehen.
-Zur Anwendung kommt primär:
-
-*BundesSans*
-
-Diese Schriftart wurde extra für Inhalte des Bundes entwickelt und zur Verfügung gestellt.
-Die BundesSans ist eine humanistische serifenlose Schrift.
-Rationalität und äußerste Klarheit kennzeichnen ihre Formensprache.
-Die BundesSans gehört zu den sogenannten humanistischen Serifenlosen und entspricht den Empfehlungen des DBSV hinsichtlich der Leserlichkeit von Schrift.
-Auch in der DIN 1450 – Leserlichkeit – werden Humanistische Antiqua- (mit Serifen) und Groteskschriften (ohne Serifen) als besonders gut leserlich bezeichnet.
-
-_Sprachumfang_
-
-Folgende Sprachen werden von den Schriften BundesSerif, BundesSans und BundesSans Condensed unterstützt (nur lateinische Schriftzeichen):
-
-Afrikaans, Albanisch, Aromunisch, Arvanitisch, Aserbaidschanisch, Asturisch, Asu, Baskisch, Bemba, Bena, Bislama, Bosnisch, Bretonisch, Chamorro, Chichewa, Chiga, Dänisch, Deutsch, Embu, Englisch, Esperanto, Estnisch, Färöisch, Filipino, Finnisch, Frankoprovenzalisch, Französisch, Friulisch, Gagausisch, Galicisch, Grönländisch, Gusii, Hawaiisch, Inarisamisch, Indonesisch, Interlingua, Irisch, Isländisch, Istrorumänisch, Italienisch, Jiddisch, Jola Fogny, Kalenjin, Kamba, Kapverdisch, Karaimisch, Katalanisch, Kikuyu, Kinyarwanda, Kirundi, Kornisch, Krimtatarisch, Kroatisch, Ladinisch, Ladino, Lettisch, Litauisch, Luganda, Lulesamisch, Luo, Luxemburgisch, Luyia, Machame, Madagassisch, Makhuwa-Meetto, Makonde, Malaiisch, Maltesisch, Manx-Gälisch, Maori, Meru, Morisyen, Niederländisch, Niedersorbisch, Nkole, Nord-Ndebele, Nordsamisch, Nord-Sotho, Norwegisch (Bokmål), Norwegisch (Nynorsk), Obersorbisch, Okzitanisch, Oromo, Polnisch, Portugiesisch, Quechua, Rätoromanisch, Rombo, Rumänisch, Rwa, Samburu, Samoanisch, Sango, Sangu, Schottisch-Gälisch, Schwedisch, Sena, Serbisch, Shambala, Shona, Slowakisch, Slowenisch, Soga, Somali, Spanisch, Suaheli, Südsamisch, Süd-Sotho, Tahitianisch, Taita, Teso, Tongaisch, Tschechisch, Tsonga, Tswana, Türkisch, Turkmenisch, Umesamisch, Ungarisch, Usbekisch, Vunjo, Walisisch, Wallonisch, Walserdeutsch, Wepsisch, Wolof, Xhosa, Yapesisch, Zulu
-
-Die Liste entspricht der Sprachenzeichennorm ISO 639-1-3.
-
-_Nicht-lateinische Fließtextschriften_
-
-Nicht-lateinische Schriften umfassen Schriftsysteme, die anstelle lateinischer Schriftzeichen z.B. arabische, kyrillische oder chinesische Zeichen beinhalten.
-Mit einem Schriftsystem lassen sich meist mehrere Sprachen schreiben (z.B. mit dem arabischen Schriftsystem Sprachen, wie Arabisch, Urdu, Paschtu, Persisch (Dari/Farsi)).
-Nicht-lateinischer Originaltext wird vom angegebenen Schriftfont erkannt und automatisch in den richtigen Schriftzeichen wiedergegeben.
-Die Notwendigkeit der Darstellung nicht-lateinischer Schriften ergibt sich durch die DIN 91379 „Zeichen und definierte Zeichensequenzen in Unicode für die elektronische Verarbeitung von Namen und den Datenaustausch in Europa“ mit Ausgabedatum 2022-08.
-Basierend auf UNICODE wurde für jedes nicht-lateinische Zeichen, das in EU-Mitgliedsstaaten verwendet wird (beispielsweise griechische oder kyrillische Zeichen), eine eindeutige Zuordnung zu einem lateinischen Zeichen vorgenommen.
-DIN 91379 wendet sich vorrangig an Behörden und Organisationen, die IT-Verfahren betreiben, welche dem behördenübergreifenden Datenaustausch oder dem Datenaustausch mit Bürgern und Wirtschaft dienen.
-Sie deckt in ihrer Gesamtheit die EU-Amtssprachen und die Amtssprachen Islands, Liechtensteins, Norwegens und der Schweiz ab, sowie die deutschen Minderheitensprachen.
-Damit dies gewährleistet wird, kommt sekundär:
-
-*Liberation*
-
-zum Einsatz.
-Diese Schriftart wird nur fehlende UNICODEZeichen in der BundesSans ergänzen, wodurch eine Unkonformität mit der BITV durch eventuelle Verwechslungen mit einem großen I und kleinen l ausgeschlossen werden kann.
-In diesem konkreten Beispiel kommt die BundesSans zum Tragen.
-
-*_Barrierefreiheit von Text_*
-
-Zusätzlich zu einem klar leserlichen Schriftschnitt sind auch die Gestaltungsmerkmale von Text, Farbe und Größe entsprechend zu berücksichtigen.
-Die Standard-Schriftart für Bedienelemente und Inhalte ist BundesSans 14 pt regular in dunkelgrau.
-Grundsätzlich gilt, ausreichende Schriftgrößen sind abhängig vom Betrachtungsabstand, von der Art des Textes und von der Sehschärfe der Lesenden.
-//ToDo: Verweis?
-Individuelle Schriftgrößen können Sie mit dem Schriftgrößenrechner auf leserlich.info ermitteln und entsprechend dem Interessentenkreis anpassen.
-
-*_Richtlinien zur Anwendung:_*
-
-* Die Verwendung verschiedener Schriftarten, über die im Bedienkonzept hinaus vorgegebenen Schriftarten, muss vermieden werden.
-* Die Schriftgröße muss immer ausreichend groß sein.
-Ein Unterschreiten von Mindestgrößen zugunsten des Platzgewinns muss vermieden werden.
-Stattdessen werden andere, platzsparende Mechanismen angewandt, wie z.B. Expander (Progressive Disclosure).
-* Die Anzahl verschiedener Schriftgrößen muss auf ein notwendiges Minimum reduziert werden
-* Es muss sichergestellt sein, dass der Kontrast der Schriftfarbe zur Hintergrundfarbe ausreichend groß ist.
-Hier ist der Kontrast größtmöglich zu wählen (z.B. dunkelgraue (#212529) Schrift auf weißen Hintergrund).
-Ist dies aus technischer oder fachlicher Notwendigkeit nicht möglich, so muss der Kontrast bei kleiner Schrift mindestens 4,5:1 entsprechen.
-* Überschriften und großer/dicker Text muss mindestens einen Kontrast von 3:1 aufweisen.
-
-*_Grafiken_*
-
-Bilder und Grafiken ergänzen den Text und vermitteln Informationen auf visuelle Weise.
-Hier werden die Leitlinien für die Verwendung von Grafiken festgelegt, einschließlich Stilrichtlinien, Bildgrößen und im Ansatz deren Barrierefreiheit.
-Details werden im entsprechenden Kapitel genauer erläutert.
-
-* Bilder unterliegen in erster Linie der notwendigen Fachlichkeit.
-* Jedes Bild benötigt eine Bildunterschrift.
-* Jedes Bild benötigt ein aussagekräftiges Alt-Attribut.
-* Bilder dürfen nicht gegen deutsches Recht verstoßen, politisch, sexuell oder angreifend sein.
-* Bilder dürfen keine Schriftgrafiken enthalten; in Ausnahmen muss die Schriftgrafik durch z.B. Alt-Attribute ausreichend beschrieben sein.
-* Schmuckgrafiken können genutzt werden.
-* Schmuckgrafiken sollen, so wenig wie möglich genutzt werden.
-* Schmuckgrafiken müssen als solche gekennzeichnet sein.
-* Schmuckgrafiken benötigen keine Alt-Attribute.
-* Es ist darauf zu achten, dass durch Bilder kein horizontales Scrolling entsteht.
-* Es ist darauf zu achten, dass das Bildmaterial ausreichen hoch aufgelöst ist, sodass keine einzelnen Fragmente zu erkennen sind.
-
 === Farben
 
 Farben tragen maßgeblich zur visuellen Identität einer (Web-)Applikation bei und beeinflussen die Stimmung und Wahrnehmung der Nutzenden:
@@ -513,7 +431,7 @@ Die Farben sind entsprechend ihres Namens und ihrer bekannten Bedeutung zu nutze
 * Grün = Abbruch, Fehler, Stopp, etc ...
 * Lila = Weiter, Sekundärbutton, Löschen, etc ...
 
-==== Applikationsfarben
+=== Applikationsfarben
 
 Pro Applikationsgruppe kann eine Farbe definiert werden, welche an verschiedenen Stellen des Applikationsportals eingesetzt wird und so einen Wiedererkennungswert schafft.
 Kann eine Applikation keiner Gruppe zugeordnet werden, so kann sie ihre eigene Farbe erhalten.
@@ -735,13 +653,85 @@ a|image::isy-bedienkonzept:primeicons/star-fill.svg[width=32,height=32]
 |Wiedervorlage
 |====
 
-[[bedienelemente]]
-== Bedienelemente
+=== Text
 
-*_Einleitung und Allgemeines:_*
+Die Textelemente spielen eine entscheidende Rolle bei der Kommunikation mit den Nutzenden.
+Dieser Abschnitt definiert die typografischen Standards, sprachlichen Richtlinien und Längenbeschränkungen, die dazu beitragen, dass die Texte klar, verständlich und ansprechend sind.
 
-Bedienelemente sind die Bausteine der Benutzeroberfläche, die es den Nutzenden ermöglichen, mit der (Web-)Applikation zu interagieren.
-Dieser Abschnitt definiert die verschiedenen Bedienelemente und legt fest, wie sie gestaltet und angeordnet werden sollen, um eine intuitive Benutzererfahrung zu gewährleisten.
+(Web-)Applikationen des Bundes sollen über die IT-Landschaft hinweg ein einheitliches Look-and-Feel bieten.
+Dies wird über den Einsatz der IsyFact und deren Komponenten gewährleistet.
+Dafür ist es notwendig auch bei der Schrift (im weiteren Font) einheitlich vorzugehen.
+Zur Anwendung kommt primär:
+
+*BundesSans*
+
+Diese Schriftart wurde extra für Inhalte des Bundes entwickelt und zur Verfügung gestellt.
+Die BundesSans ist eine humanistische serifenlose Schrift.
+Rationalität und äußerste Klarheit kennzeichnen ihre Formensprache.
+Die BundesSans gehört zu den sogenannten humanistischen Serifenlosen und entspricht den Empfehlungen des DBSV hinsichtlich der Leserlichkeit von Schrift.
+Auch in der DIN 1450 – Leserlichkeit – werden Humanistische Antiqua- (mit Serifen) und Groteskschriften (ohne Serifen) als besonders gut leserlich bezeichnet.
+
+_Sprachumfang_
+
+Folgende Sprachen werden von den Schriften BundesSerif, BundesSans und BundesSans Condensed unterstützt (nur lateinische Schriftzeichen):
+
+Afrikaans, Albanisch, Aromunisch, Arvanitisch, Aserbaidschanisch, Asturisch, Asu, Baskisch, Bemba, Bena, Bislama, Bosnisch, Bretonisch, Chamorro, Chichewa, Chiga, Dänisch, Deutsch, Embu, Englisch, Esperanto, Estnisch, Färöisch, Filipino, Finnisch, Frankoprovenzalisch, Französisch, Friulisch, Gagausisch, Galicisch, Grönländisch, Gusii, Hawaiisch, Inarisamisch, Indonesisch, Interlingua, Irisch, Isländisch, Istrorumänisch, Italienisch, Jiddisch, Jola Fogny, Kalenjin, Kamba, Kapverdisch, Karaimisch, Katalanisch, Kikuyu, Kinyarwanda, Kirundi, Kornisch, Krimtatarisch, Kroatisch, Ladinisch, Ladino, Lettisch, Litauisch, Luganda, Lulesamisch, Luo, Luxemburgisch, Luyia, Machame, Madagassisch, Makhuwa-Meetto, Makonde, Malaiisch, Maltesisch, Manx-Gälisch, Maori, Meru, Morisyen, Niederländisch, Niedersorbisch, Nkole, Nord-Ndebele, Nordsamisch, Nord-Sotho, Norwegisch (Bokmål), Norwegisch (Nynorsk), Obersorbisch, Okzitanisch, Oromo, Polnisch, Portugiesisch, Quechua, Rätoromanisch, Rombo, Rumänisch, Rwa, Samburu, Samoanisch, Sango, Sangu, Schottisch-Gälisch, Schwedisch, Sena, Serbisch, Shambala, Shona, Slowakisch, Slowenisch, Soga, Somali, Spanisch, Suaheli, Südsamisch, Süd-Sotho, Tahitianisch, Taita, Teso, Tongaisch, Tschechisch, Tsonga, Tswana, Türkisch, Turkmenisch, Umesamisch, Ungarisch, Usbekisch, Vunjo, Walisisch, Wallonisch, Walserdeutsch, Wepsisch, Wolof, Xhosa, Yapesisch, Zulu
+
+Die Liste entspricht der Sprachenzeichennorm ISO 639-1-3.
+
+_Nicht-lateinische Fließtextschriften_
+
+Nicht-lateinische Schriften umfassen Schriftsysteme, die anstelle lateinischer Schriftzeichen z.B. arabische, kyrillische oder chinesische Zeichen beinhalten.
+Mit einem Schriftsystem lassen sich meist mehrere Sprachen schreiben (z.B. mit dem arabischen Schriftsystem Sprachen, wie Arabisch, Urdu, Paschtu, Persisch (Dari/Farsi)).
+Nicht-lateinischer Originaltext wird vom angegebenen Schriftfont erkannt und automatisch in den richtigen Schriftzeichen wiedergegeben.
+Die Notwendigkeit der Darstellung nicht-lateinischer Schriften ergibt sich durch die DIN 91379 „Zeichen und definierte Zeichensequenzen in Unicode für die elektronische Verarbeitung von Namen und den Datenaustausch in Europa“ mit Ausgabedatum 2022-08.
+Basierend auf UNICODE wurde für jedes nicht-lateinische Zeichen, das in EU-Mitgliedsstaaten verwendet wird (beispielsweise griechische oder kyrillische Zeichen), eine eindeutige Zuordnung zu einem lateinischen Zeichen vorgenommen.
+DIN 91379 wendet sich vorrangig an Behörden und Organisationen, die IT-Verfahren betreiben, welche dem behördenübergreifenden Datenaustausch oder dem Datenaustausch mit Bürgern und Wirtschaft dienen.
+Sie deckt in ihrer Gesamtheit die EU-Amtssprachen und die Amtssprachen Islands, Liechtensteins, Norwegens und der Schweiz ab, sowie die deutschen Minderheitensprachen.
+Damit dies gewährleistet wird, kommt sekundär:
+
+*Liberation*
+
+zum Einsatz.
+Diese Schriftart wird nur fehlende UNICODEZeichen in der BundesSans ergänzen, wodurch eine Unkonformität mit der BITV durch eventuelle Verwechslungen mit einem großen I und kleinen l ausgeschlossen werden kann.
+In diesem konkreten Beispiel kommt die BundesSans zum Tragen.
+
+*_Barrierefreiheit von Text_*
+
+Zusätzlich zu einem klar leserlichen Schriftschnitt sind auch die Gestaltungsmerkmale von Text, Farbe und Größe entsprechend zu berücksichtigen.
+Die Standard-Schriftart für Bedienelemente und Inhalte ist BundesSans 14 pt regular in dunkelgrau.
+Grundsätzlich gilt, ausreichende Schriftgrößen sind abhängig vom Betrachtungsabstand, von der Art des Textes und von der Sehschärfe der Lesenden.
+Individuelle Schriftgrößen können Sie mit dem Schriftgrößenrechner auf https://www.leserlich.info/werkzeuge/schriftgroessenrechner/index.php[leserlich.info] ermitteln und entsprechend dem Interessentenkreis anpassen.
+
+*_Richtlinien zur Anwendung:_*
+
+* Die Verwendung verschiedener Schriftarten, über die im Bedienkonzept hinaus vorgegebenen Schriftarten, muss vermieden werden.
+* Die Schriftgröße muss immer ausreichend groß sein.
+Ein Unterschreiten von Mindestgrößen zugunsten des Platzgewinns muss vermieden werden.
+Stattdessen werden andere, platzsparende Mechanismen angewandt, wie z.B. Expander (Progressive Disclosure).
+* Die Anzahl verschiedener Schriftgrößen muss auf ein notwendiges Minimum reduziert werden
+* Es muss sichergestellt sein, dass der Kontrast der Schriftfarbe zur Hintergrundfarbe ausreichend groß ist.
+Hier ist der Kontrast größtmöglich zu wählen (z.B. dunkelgraue (#212529) Schrift auf weißen Hintergrund).
+Ist dies aus technischer oder fachlicher Notwendigkeit nicht möglich, so muss der Kontrast bei kleiner Schrift mindestens 4,5:1 entsprechen.
+* Überschriften und großer/dicker Text muss mindestens einen Kontrast von 3:1 aufweisen.
+
+=== Grafiken
+
+Bilder und Grafiken ergänzen den Text und vermitteln Informationen auf visuelle Weise.
+Hier werden die Leitlinien für die Verwendung von Grafiken festgelegt, einschließlich Stilrichtlinien, Bildgrößen und im Ansatz deren Barrierefreiheit.
+Details werden im entsprechenden Kapitel genauer erläutert.
+
+* Bilder unterliegen in erster Linie der notwendigen Fachlichkeit.
+* Jedes Bild benötigt eine Bildunterschrift.
+* Jedes Bild benötigt ein aussagekräftiges Alt-Attribut.
+* Bilder dürfen nicht gegen deutsches Recht verstoßen, politisch, sexuell oder angreifend sein.
+* Bilder dürfen keine Schriftgrafiken enthalten; in Ausnahmen muss die Schriftgrafik durch z.B. Alt-Attribute ausreichend beschrieben sein.
+* Schmuckgrafiken können genutzt werden.
+* Schmuckgrafiken sollen, so wenig wie möglich genutzt werden.
+* Schmuckgrafiken müssen als solche gekennzeichnet sein.
+* Schmuckgrafiken benötigen keine Alt-Attribute.
+* Es ist darauf zu achten, dass durch Bilder kein horizontales Scrolling entsteht.
+* Es ist darauf zu achten, dass das Bildmaterial ausreichen hoch aufgelöst ist, sodass keine einzelnen Fragmente zu erkennen sind.
 
 === Überschriften
 
@@ -751,30 +741,23 @@ Sie definieren Überschriften, die Hierarchie und das visuelle Erscheinungsbild,
 Überschriften spielen eine wichtige Rolle.
 Sie helfen, Inhalte in logische Abschnitte zu gliedern, wodurch Nutzende die Informationen leichter aufnehmen und navigieren können.
 
-==== Best Practices für die Verwendung von Überschriften
+*_Best Practices für die Verwendung von Überschriften_*
 
-*_Hierarchie und Struktur_*
-
-_Hierarchische Ordnung:_
+* *Hierarchische Ordnung:*
 Überschriften sollten in einer klaren hierarchischen Struktur verwendet werden.
 Die Hauptüberschrift (<h1>) sollte nur einmal pro Seite verwendet werden, gefolgt von Unterüberschriften (<h2>, <h3>, etc.) in absteigender Reihenfolge.
-
-*_Konsistenz und Lesbarkeit_*
-
-_Einheitliches Design:_
+* *Einheitliches Design:*
 Überschriften sollten über die gesamte (Web-)Applikation hinweg einheitlich gestaltet sein, um ein kohärentes Erscheinungsbild zu gewährleisten.
 Dies umfasst Schriftart, -größe, -farbe und -stil.
-
-_Abstände und Margins:_
+* *Abstände und Margins:*
 Angemessene Abstände vor und nach den Überschriften verbessern die Lesbarkeit und visuelle Struktur der Seite.
 
 *_Zugänglichkeit_*
 
-_Beschreibende Texte:_
+* *Beschreibende Texte:*
 Überschriften sollten aussagekräftig und beschreibend sein, um den Inhalt des folgenden Abschnitts klar zu kommunizieren.
 Dies hilft sowohl Nutzenden als auch Suchmaschinen, die Relevanz des Inhalts zu erkennen.
-
-_Verwendung von ARIA-Rollen:_
+* *Verwendung von ARIA-Rollen:*
 In Fällen, in denen Überschriften nicht aus Standard-HTML-Überschriften-Tags bestehen, können ARIA-Rollen verwendet werden, um die Struktur zu erhalten.
 Beispiel:
 [source,xml]
@@ -782,22 +765,85 @@ Beispiel:
 
 *_Typografie und Design_*
 
-_Klarheit und Lesbarkeit:_
+* *Klarheit und Lesbarkeit:*
 Die zu verwendende Schriftart ist Bundes Sans und mindestens 14pt groß.
 Die Hauptüberschrift sollte deutlich größer und auffälliger als der normale Text sein.
-
-_Kontrast:_
+* *Kontrast:*
 Der Kontrast sollte mindestens 4,5:1 sein, um die Lesbarkeit zu maximieren.
 
 *_Stile und Akzente_*
 
-_Fettdruck und Kursivschrift:_
+* *Fettdruck und Kursivschrift:*
 Verwenden Sie Fettdruck oder Kursivschrift, um wichtige Überschriften hervorzuheben, jedoch sparsam, um eine Überladung zu vermeiden.
-
-_Farben:_
+* *Farben:*
 Farben können verwendet werden, um Hierarchie zu betonen, sollten jedoch mit Bedacht gewählt werden, um ein harmonisches Gesamtbild zu bewahren.
 Es wird empfohlen die Standardfarben zu nutzen.
 
+[[label]]
+=== Label
+
+Labels dienen dazu, Eingabefelder und andere Bedienelemente klar zu kennzeichnen, sodass Nutzende genau verstehen, welche Informationen erforderlich sind und welche Aktionen durchgeführt werden können.
+Ein konsistentes und gut durchdachtes Design von Labels trägt wesentlich zur Verbesserung der Benutzererfahrung bei.
+
+Labels sind nicht nur visuelle Hinweise, sondern auch wesentliche Bestandteile der Barrierefreiheit.
+Sie ermöglichen es Screenreadern, die Beziehung zwischen einem Eingabefeld und seiner Beschreibung zu verstehen, was besonders für sehbehinderte Nutzende von großer Bedeutung ist.
+Ein korrekt implementiertes Label sorgt dafür, dass alle Nutzenden, unabhängig von ihren Fähigkeiten, Formulare und andere interaktive Elemente problemlos nutzen können.
+
+*_Best Practices für die Verwendung von Labels_*
+
+* *Eindeutige Beschreibung:*
+Labels sollten klar und eindeutig beschreiben, was von den Nutzenden erwartet wird.
+Beispielsweise sollte ein Label für ein Namensfeld "Vollständiger Name" und nicht nur "Name" lauten.
+* *Kurze Formulierungen:*
+Labels sollten kurz und prägnant sein, um die Nutzungsfreundlichkeit zu maximieren.
+Vermeide Labels mit mehr als drei Wörtern.
+* *Nähe zum Eingabefeld:*
+Labels sollten in unmittelbarer Nähe des zugehörigen Eingabefelds platziert werden - entweder darüber oder links davon, um eine klare Zuordnung zu gewährleisten.
+* *Ausrichtung:*
+Labels können linksbündig oder rechtsbündig zum Eingabefeld ausgerichtet sein, wobei linksbündige Labels tendenziell besser lesbar und benutzerfreundlicher sind.
+
+*_Zugänglichkeit_*
+
+* *HTML-For-Attribut:*
+Jedes Label sollte das for-Attribut verwenden, das mit der id des entsprechenden Eingabefelds übereinstimmt.
+Dies stellt sicher, dass Screenreader die Verbindung zwischen Label und Eingabefeld korrekt interpretieren können.
+Beispiel:
+[source,xml]
+<label for="email">E-Mail-Adresse</label>
+<input type="email" id="email">
+
+* *Vermeidung von Platzhaltern als Labels:*
+Platzhaltertexte (Placeholder) sollten nicht als Ersatz für Labels verwendet werden, da sie verschwinden, sobald der Nutzende mit der Eingabe beginnt.
+Dies kann die Nutzungsfreundlichkeit und Zugänglichkeit beeinträchtigen.
+
+*_Stil und Design_*
+
+* *Lesbarkeit:*
+Labels sollten in einer gut lesbaren Schriftart und -größe dargestellt werden.
+Der Kontrast muss mindestens 4,5:1 betragen, um auch bei schlechten Lichtverhältnissen gut lesbar zu sein.
+* *Konsistenz:*
+Die Gestaltung von Labels sollte über die gesamte (Web-)Applikation hinweg konsistent sein.
+Einheitliche Schriftarten, Größen und Abstände tragen zum Anwendungskomfort und einem professionellen Erscheinungsbild bei.
+
+*_Interaktive Elemente_*
+
+//ToDo: Sobald Button Kapitel da ist, unter Schaltflächen den Verweis einfügen
+*Schaltflächen und Links:*
+Labels können auch für interaktive Elemente wie Schaltflächen und <<link,Links>> verwendet werden.
+Hier sollten ARIA-Labels (aria-label) oder ARIA-Beschreibungen (aria-labelledby) eingesetzt werden, um die Zugänglichkeit zu verbessern.
+Beispiel:
+[source,xml]
+<button aria-label="Schließen">X</button>
+
+[[bedienelemente]]
+== Bedienelemente
+
+*_Einleitung und Allgemeines:_*
+
+Bedienelemente sind die Bausteine der Benutzeroberfläche, die es den Nutzenden ermöglichen, mit der (Web-)Applikation zu interagieren.
+Dieser Abschnitt definiert die verschiedenen Bedienelemente und legt fest, wie sie gestaltet und angeordnet werden sollen, um eine intuitive Benutzererfahrung zu gewährleisten.
+
+[[link]]
 === Hyperlink
 
 Hyperlinks folgen per Default einem einheitlichen Styling.
@@ -820,68 +866,7 @@ _Fachlicher Hinweis:_
 Hyperlinks sollten einen aussagekräftigen Text zur Verfügung stellen.
 Generische Phrasen wie „Hier klicken“ sind nicht hilfreich und sollten vermieden werden.
 
-[[label]]
-=== Label
 
-Labels dienen dazu, Eingabefelder und andere Bedienelemente klar zu kennzeichnen, sodass Nutzende genau verstehen, welche Informationen erforderlich sind und welche Aktionen durchgeführt werden können.
-Ein konsistentes und gut durchdachtes Design von Labels trägt wesentlich zur Verbesserung der Benutzererfahrung bei.
-
-Labels sind nicht nur visuelle Hinweise, sondern auch wesentliche Bestandteile der Barrierefreiheit.
-Sie ermöglichen es Screenreadern, die Beziehung zwischen einem Eingabefeld und seiner Beschreibung zu verstehen, was besonders für sehbehinderte Nutzende von großer Bedeutung ist.
-Ein korrekt implementiertes Label sorgt dafür, dass alle Nutzenden, unabhängig von ihren Fähigkeiten, Formulare und andere interaktive Elemente problemlos nutzen können.
-
-==== Best Practices für die Verwendung von Labels
-
-*_Klarheit und Prägnanz_*
-
-_Eindeutige Beschreibung:_
-Labels sollten klar und eindeutig beschreiben, was von den Nutzenden erwartet wird.
-Beispielsweise sollte ein Label für ein Namensfeld "Vollständiger Name" und nicht nur "Name" lauten.
-
-_Kurze Formulierungen:_
-Labels sollten kurz und prägnant sein, um die Nutzungsfreundlichkeit zu maximieren.
-Vermeide Labels mit mehr als drei Wörtern.
-
-*_Platzierung und Ausrichtung_*
-
-_Nähe zum Eingabefeld:_
-Labels sollten in unmittelbarer Nähe des zugehörigen Eingabefelds platziert werden - entweder darüber oder links davon, um eine klare Zuordnung zu gewährleisten.
-
-_Ausrichtung:_
-Labels können linksbündig oder rechtsbündig zum Eingabefeld ausgerichtet sein, wobei linksbündige Labels tendenziell besser lesbar und benutzerfreundlicher sind.
-
-*_Zugänglichkeit_*
-
-_HTML-For-Attribut:_
-Jedes Label sollte das for-Attribut verwenden, das mit der id des entsprechenden Eingabefelds übereinstimmt.
-Dies stellt sicher, dass Screenreader die Verbindung zwischen Label und Eingabefeld korrekt interpretieren können.
-Beispiel:
-[source,xml]
-<label for="email">E-Mail-Adresse</label>
-<input type="email" id="email">
-
-_Vermeidung von Platzhaltern als Labels:_
-Platzhaltertexte (Placeholder) sollten nicht als Ersatz für Labels verwendet werden, da sie verschwinden, sobald der Nutzende mit der Eingabe beginnt.
-Dies kann die Nutzungsfreundlichkeit und Zugänglichkeit beeinträchtigen.
-
-*_Stil und Design_*
-
-_Lesbarkeit:_
-Labels sollten in einer gut lesbaren Schriftart und -größe dargestellt werden.
-Der Kontrast muss mindestens 4,5:1 betragen, um auch bei schlechten Lichtverhältnissen gut lesbar zu sein.
-
-_Konsistenz:_
-Die Gestaltung von Labels sollte über die gesamte (Web-)Applikation hinweg konsistent sein.
-Einheitliche Schriftarten, Größen und Abstände tragen zum Anwendungskomfort und einem professionellen Erscheinungsbild bei.
-
-*_Interaktive Elemente_*
-
-_Schaltflächen und Links:_
-Labels können auch für interaktive Elemente wie Schaltflächen und Links verwendet werden.
-Hier sollten ARIA-Labels (aria-label) oder ARIA-Beschreibungen (aria-labelledby) eingesetzt werden, um die Zugänglichkeit zu verbessern.
-Beispiel:
-[source,xml]
-<button aria-label="Schließen">X</button>
 
 [[eingabefeld]]
 === Eingabefeld
@@ -1369,9 +1354,8 @@ Hierbei ist wichtig, dass die Inhaltselemente über eine Gruppenüberschrift log
 
 *_Exemplarische inhaltliche Nutzung der Spalten:_*
 
-//ToDo: Bilduntertitel anpassen. Entweder 3 Spaltig oder 2 Zeilig
 [[image-vertikalerschnitt]]
-.2 Spalten Layout mit unterschiedlich breiten inhaltlichen Gruppen
+.3 Spalten Layout mit unterschiedlich breiten inhaltlichen Gruppen
 image::24_UC_vertikaler_schnitt.png[align="center"]
 
 Durch die saubere Anwendung der Gruppenüberschriften, Titeln und Eingabefeldgruppen ist auch ein Wechsel der vertikalen Gruppierungsgröße nicht negativ auffällig.
@@ -1471,9 +1455,6 @@ Feedback-Konzepte für Ladezeiten sind ein sehr wichtiges Instrument zur Erreich
 Für längere Operationen kann ein Fortschritts-Balken (Progress Bar) genutzt werden, der sich entsprechend dem Fortschritt des Vorgangs füllt.
 Für kürzere Vorgänge kann ein Fortschritts-Spinner (kreisrunde Fortschrittsanzeige) verwendet werden.
 
-//ToDo: Ist hier die Spaltenfilterung innerhalb von Tabellen gemeint?
-Mit dem Toggle-Filter kann durch einen Klick auf einen Button eine Liste von Objekten oder Formularen nach bestimmten vordefinierten Kriterien eingeschränkt werden.
-
 [[image-spinnerbar]]
 .Spinner und Progressbar
 image::24_EF_spinner_and_bar.png[align="center"]
@@ -1515,8 +1496,7 @@ Neben Fehlermeldungen, die am Eingabeobjekt auftreten können, kann zusätzlich 
 Dies geschieht mithilfe von Toast-Notifications, welche immer am unteren rechten Rand des Browserfensters angezeigt werden.
 
 Jede Toast-Notification muss eine Schließen-Aktion für den Nutzenden anbieten.
-//ToDo: Verweis?
-Um die Barrierefreiheit einzuhalten, muss die Notification dauerhaft eingeblendet bleiben, bis der Nutzende sie schließt, siehe WCAG 2.1 Kriterium 1.4.13a.
+Um die Barrierefreiheit einzuhalten, muss die Notification dauerhaft eingeblendet bleiben, bis der Nutzende sie schließt, siehe https://www.w3.org/WAI/WCAG21/Understanding/content-on-hover-or-focus.html[WCAG 2.1 Kriterium 1.4.13a].
 
 Folgende Meldungsarten können als Toast-Notification verwendet werden:
 
