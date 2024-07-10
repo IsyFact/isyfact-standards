@@ -227,31 +227,22 @@ OpenID Connect Abfragen zur Identität eines Benutzers, OpenID-Token oder Custom
 [[authentifizierung-und-autorisierung]]
 === Authentifizierung & Autorisierung
 
-==== Problematik per interner oder externer URL
+==== Aufruf des IAM-Systems über unterschiedliche URIs
 
-Sofern das IAM über zwei unterschiedliche URLs aufgerufen wird, müssen beide URLs der Anwendung, für die die Autorisierung erlangt wird, bekannt sein.
-Dies ist der Fall, wenn die interne URL des IAM, z.B. für Aufrufe innerhalb der Anwendungslandschaft, von der externen URL, z.B. für Aufrufe von außerhalb der Anwendungslandschaft, aufgrund von unterschiedlichen Netzen/Reverse-Proxies abweicht.
-Die aufgerufene URL (Issuer-URL) wird im ausgestellten Access-Token hinterlegt und mit der in der Geschäftsanwendung konfigurierten URL im Rahmen der Tokenprüfung abgeglichen.
+Wenn in einer Anwendungslandschaft das IAM über mehrere unterschiedliche URLs aufgerufen werden kann, dann benötigt eine Anwendung mindestens eine bis alle dieser URIs, um eine Authentifizierung mit dem IAM durchzuführen.
+
+Dies ist zum Beispiel der Fall, wenn eine interne URI des IAM für Aufrufe von innerhalb der Anwendungslandschaft und eine externe URI für Aufrufe von außerhalb der Anwendungslandschaft benötigt werden oder wenn aufgrund verschiedener Netzwerk-Zonen bzw. technischer Kommunikationskanäle die URLs sich unterscheiden müssen. Die nachfolgende Skizze zeigt dies schematisch auf.
+
+.schematische Skizze mehrere URIs des IAM
+[id="image-Authorization-Code-Connections",reftext="{figure-caption} {counter:figures}"]
+image::konzept/unterschiedliche-issuerURIs.dn.svg[align="center"]
+
+Die verwendete URL (Issuer-URL) zum Aufruf des IAM wird dort nach valider Authentifizierung im ausgestellten Access-Token hinterlegt und mit der in der Geschäftsanwendung konfigurierten URL im Rahmen der Tokenprüfung abgeglichen.
 Die Prüfung schlägt oft fehl, da das Access-Token über die externe URL ausgestellt wurde, in der Geschäftsanwendung jedoch (nur) die interne URL konfiguriert ist.
 
-Wie kann nun dieser Problematik per Konfiguration begegnet werden?
+Um nun in der Anwendung Access-Tokens erfolgreich zu validieren, die über eine in der Anwendung abweichend konfigurierte IAM-URL ausgestellt wurden, müssen alle genutzten URLs des IAM-Systems in der Anwendung hinterlegt werden. Dies geschieht über die Anwendungskonfiguration. Auf diese Weise können beliebig viele URLs konfiguriert werden.
 
-*Property `issuer-uri`*
-
-Das Property `issuer-uri` wird im Normalfall mit der URL des _Authentifizierungsservers_ des IAM initialisiert.
-Diese URL wird einerseits zum Aufruf von Requests an das IAM verwendet, aber andererseits auch vom Authentifizierungserver bei der Token-Generierung als Validierungskriterium gegengeprüft und letztendlich als Inhalt in das `iss-Claim` des Tokens eingepackt, so dass bei der späteren Token-Validierung diese URL für die ggf. notwendige Ermittlung bzw. Nachladung der benötigten Zertifikate verwendet werden kann.
-
-Wird jetzt allerdings, wie beispielsweise bei einer Authentifizierung über das _Portal-Gateway_, in der `issuer-uri` eine *externe* URL benötigt, damit eine _externe Anwendung_ den _IAM/KeyCloak_ überhaupt von ausserhalb der AWL erreichen kann, dann würde diese *externe* URL auch bei der späteren Token-Validierung herangezogen.
-
-Aber würde eine *interne* _ServiceBean_ bei der _Token-Validierung_ eine *externe* URI auf den *internen* _Authentifizierungsserver_ des IAM verwenden, dann würde dies sicherlich nicht funktionieren.
-
-Um diesen Konflikt zu lösen wird das zweite Property `jwk-set-uri` eingesetzt.
-
-*Property `jwk-set-uri`*
-
-Sobald also beide Properties für einen Mandant gesetzt sind, dann wird der Wert von `issuer-uri` für den *externen* Zugriff auf den Authentifizierungsserver des IAM verwendet und der Wert von  `jwk-set-uri` wird nur bei der *internen* Token-Validierung herangezogen.
-
-Gegebenenfalls erweitert Spring bzw. KeyCloak intern bei der Token-Validierung die  `jwk-set-uri` um den Standard-Pfad von KeyCloak `protocol/openid-connect/certs` um das notwendige Zertifikat zu ermitteln.
+Weitere Details zur Konfiguration mehrerer URLs eines IAM wird in den xref:nutzungsvorgaben/inhalt.adoc#konfiguration-von-multi-iam-urls[Nutzungsvorgaben - Konfiguration von mehreren IAM-URLs] beschrieben.
 
 *Konfigurations-Details*
 
