@@ -31,7 +31,6 @@ Ausgeschlossen sind minimale Bugfixes und die grundsätzliche Wartung von Altanw
 Das Bedienkonzept ist gültig ab Q1 – 2024.
 Die Gültigkeit des Bedienkonzepts für Altanwendungen bleibt zum damaligen Zeitpunkt mit den damalig gültigen Inhalten weiterhin aktiv.
 
-
 *_Bedeutung des Bedienkonzepts_*
 
 Das Bedienkonzept ist weit mehr als nur ein Dokument mit Gestaltungsrichtlinien.
@@ -178,7 +177,6 @@ Diese Prinzipien umfassen Klarheit, Konsistenz, Feedback, Effizienz und Zugängl
 Viele dieser Prinzipien werden beispielsweise in der https://de.wikipedia.org/wiki/ISO_9241[ISO 9241] und in https://en.wikipedia.org/wiki/Web_usability#Web_Usability_Criteria[Nielsen’s Web Usability Criteria] beschrieben.
 Zusätzlich liefert https://lawsofux.com/[lawsofux] eine anschauliche Sammlung von Designprinzipien.
 
-
 *_Klarheit_*
 
 Im Design bezieht sich das Prinzip der "Klarheit" darauf, wie verständlich ein Frontend und wie einfach sie zu navigieren ist.
@@ -189,7 +187,7 @@ Durch die Priorisierung von Klarheit im Design können Designende sicherstellen,
 *_Konsistenz_*
 
 Im Design bezieht sich das Prinzip der "Konsistenz" auf die Notwendigkeit, ein einheitliches Erscheinungsbild und Verhalten über alle Seiten eines Frontends hinweg zu gewährleisten.
-Konsistenz bedeutet, dass Designelemente wie Farben, Schriftarten, Symbole und Layouts einheitlich angewendet werden, um eine nahtlose Benutzererfahrung zu schaffen.
+Konsistenz bedeutet, dass Designelemente wie <<farben>>, <<text,Schriftarten>>, <<icons,Symbole>> und Layouts einheitlich angewendet werden, um eine nahtlose Benutzererfahrung zu schaffen.
 Durch die Aufrechterhaltung einer konsistenten Gestaltung können Nutzende das Frontend leichter verstehen und navigieren, da sie sich auf bereits bekannte Muster und Interaktionen verlassen können.
 Darüber hinaus trägt die Konsistenz dazu bei, das Markenimage zu stärken und das Vertrauen der Nutzenden in das Frontend zu fördern.
 
@@ -199,8 +197,8 @@ Das Designprinzip des "Feedbacks" bezieht sich auf die kontinuierliche Kommunika
 Feedback ist entscheidend, um den Nutzenden Rückmeldungen darüber zu geben, ob ihre Aktionen erfolgreich waren oder nicht.
 Dies kann in Form von visuellem Feedback, wie zum Beispiel einer Farbänderung eines Buttons nach einem Klick, oder durch informative Nachrichten, wie Bestätigungsmeldungen nach dem Absenden eines Formulars, erfolgen.
 Durch effektives Feedback fühlen sich Nutzende unterstützt und informiert, was zu einer verbesserten Benutzererfahrung und einer höheren Zufriedenheit führt.
-Dies gilt insbesondere auch für Aspekte der Barrierefreiheit.
-Technische Standardmöglichkeiten sollen genutzt und ggf. mit entsprechenden Hilfsmitteln (wie ARIA-Elementen) angereichert werden.
+Dies gilt insbesondere auch für Aspekte der <<barrierefreiheit>>.
+Technische Standardmöglichkeiten sollen genutzt und ggf. mit entsprechenden Hilfsmitteln (wie <<aria-labels,ARIA-Elementen>>) angereichert werden.
 
 *_Effizienz_*
 
@@ -213,7 +211,7 @@ Ein effizientes Design stellt sicher, dass Nutzende ihre Ziele schnell erreichen
 
 Das Designprinzip der "Zugänglichkeit" soll sicherstellen, dass ein Frontend für alle Nutzenden, unabhängig von ihren individuellen Fähigkeiten oder Einschränkungen, leicht zugänglich ist.
 Dies beinhaltet die Gestaltung und Entwicklung des Frontends unter Berücksichtigung verschiedener Bedürfnisse, wie zum Beispiel Sehbehinderungen, Hörbehinderungen oder motorische Einschränkungen.
-Zugängliches Design beinhaltet die Verwendung von klaren und verständlichen Texten, ausreichendem Kontrast zwischen Text und Hintergrund, Tastaturzugänglichkeit, alternative Texte für Bilder und die Vermeidung von Technologien (z.B. Gestensteuerung), die für einige Personengruppen hinderlich sein könnten.
+Zugängliches Design beinhaltet die Verwendung von klaren und verständlichen <<text,Texten>>, ausreichendem Kontrast zwischen Text und Hintergrund, Tastaturzugänglichkeit, alternative Texte für Bilder und die Vermeidung von Technologien (z.B. Gestensteuerung), die für einige Personengruppen hinderlich sein könnten.
 Ein zugängliches Design gewährleistet, dass alle Nutzenden die Informationen und Funktionen des Frontends nutzen können, was zu einer inklusiven und positiven Benutzererfahrung führt.
 Dieses Prinzip wird im Kapitel <<barrierefreiheit>> und unter den einzelnen <<bedienelemente,Bedienelementen>> detaillierter beschrieben.
 
@@ -234,8 +232,8 @@ Die detaillierten Anforderungen sind zu finden unter:
 * https://www.barrierefreiheit-dienstekonsolidierung.bund.de/Webs/PB/DE/gesetze-und-richtlinien/en301549/en301549-node.html[EN 305419]
 
 Vor der Auflistung der einzelnen Kriterien sind im Kontext der IsyFact besondere Kriterien der Barrierefreiheit herauszustellen und bei der fachlichen Konzeption bereits zu berücksichtigen.
-Alle hier genannten Maßnahmen sind zur Steigerung der Awareness und Transparenz aufgelistet.
-In der Regel sind die genannten Anforderungen durch die Anwendung der Standardelemente der IsyFact sichergestellt oder die Möglichkeit geboten die fachlichen Elemente sicherzustellen.
+In der Regel sind die genannten Anforderungen durch die Nutzung der Standardelemente der IsyFact erfüllt, oder es wird die Möglichkeit geboten, sicherzustellen, dass die fachlichen Elemente vorhanden sind.
+Alle hier genannten Maßnahmen sind zur Steigerung der Awareness und Transparenz aufgelistet:
 
 * Sorge dafür, dass alle Elemente auch ohne Maus erreichbar und bedienbar sind.
 * <<eingabefeld,Eingabefelder>> müssen nach der Aktivierung eines Hochkontrastmodus/Farbfilters zu 50 % bestehen bleiben – eine einzelne Linie als Bestandteil ist nicht ausreichend als Identifizierung eines Eingabefeldes.
@@ -243,30 +241,30 @@ In der Regel sind die genannten Anforderungen durch die Anwendung der Standardel
 * Der Textkontrast muss immer mindestens 4,5:1 und bei großen Texten mindestens 3:1 betragen.
 Für Haupt & Einstiegsseiten, Seiten mit rechtlicher Relevanz muss der Kontrast 7:1 betragen.
 * Es sollten keine Schriftgrafiken genutzt werden.
-* Alle Bilder benötigen ein inhaltlich sinnvolles beschreibendes Alt-Attribut.
+* Alle Bilder benötigen ein inhaltlich sinnvolles beschreibendes <<alt-tag,Alt-Attribut>>.
 * Bilder, die ausschließlich der Gestaltung dienen (z.B. Trennlinien), müssen als solche (Schmuckgrafik) gekennzeichnet werden.
 * *Tastatur-Navigation:*
 Nicht alle Nutzenden können eine Maus verwenden.
 Daher ist es wichtig, dass alle Interaktionen auf dem Frontend auch über die Tastatur möglich sind.
-Dies bedeutet, dass alle Navigationselemente, Links und interaktiven Elemente leicht per Tastatur zugänglich sein müssen.
+Dies bedeutet, dass alle Navigationselemente, <<link,Links>> und interaktiven Elemente leicht per Tastatur zugänglich sein müssen.
 * *Vermeidung von reinen Farbunterscheidungen:*
-Informationen sollten nicht allein durch Farbe vermittelt werden, da einige Nutzende Farben nicht unterscheiden können.
-Nutzen Sie daher auch andere visuelle Elemente, wie Symbole oder Muster, um wichtige Informationen zu vermitteln.
+Informationen sollten nicht allein durch <<farben,Farbe>> vermittelt werden, da einige Nutzende Farben nicht unterscheiden können.
+Nutzen Sie daher auch andere visuelle Elemente, wie <<icons,Symbole>> oder Muster, um wichtige Informationen zu vermitteln.
 * Vermeide schwache Kontraste z.B. hellblau auf Grau.
-* Löse keine Aktionen durch Bedienelemente aus, wenn diese nicht dazu vorgesehen sind (z.B. Radiobutton und Checkboxen).
+* Löse keine Aktionen durch <<bedienelemente>> aus, wenn diese nicht dazu vorgesehen sind (z.B. <<radiobutton>> und <<checkbox,Checkboxen>>).
 
 [[barrierefreier-einsatz-von-farben]]
 === Barrierefreier Einsatz von Farben
 
-Farben sind ein Hauptbestandteil um die Frontends zu gestalten und um die Nutzenden zu unterstützen.
+Farben sind ein Hauptbestandteil um Frontends zu gestalten und um die Nutzenden zu unterstützen.
 Um eine gute Erkennbarkeit der Elemente sicherzustellen, muss bei großer Schrift ein Kontrast von mindestens 3:1 gewährleistet sein.
 
-Nachfolgend sind alle in der Anwendung zur Verfügung stehenden Farben miteinander in ein Kontrastverhältnis gebracht.
+Nachfolgend sind alle in der Anwendung zur Verfügung stehenden <<farben>> miteinander in ein Kontrastverhältnis gebracht.
 Farbkombinationen, die rot gelabelt sind und keinen ausreichenden Kontrast aufweisen, dürfen nicht verwendet werden.
 Andere Farbkombinationen sind entsprechend ihrem Text/Elementgröße frei zu wählen.
 Dabei soll der Kontrast so hoch wie möglich gewählt werden.
 
-[[image-farbpalette]]
+[[image-farbmatrix]]
 .Farbmatrix
 image::24_BE_colormatrix.png[align="center"]
 
@@ -277,6 +275,7 @@ Die folgenden Links verweisen auf weitere Informationen zur Kontrast-Analyse:
 * http://whocanuse.com[WhoCanUse?]
 * http://leserlich.info/kapitel/farben.php[leserlich.info]
 
+[[alt-tag]]
 === Alt-Attribute für Bilder
 
 Alt-Attribute (alternative Texte) sind textuelle Beschreibungen, die in den HTML-Code von Bildern eingebettet werden.
@@ -309,10 +308,11 @@ Informationen, die bereits im umgebenden Text enthalten sind, müssen nicht im A
 Beispiel:
 Wenn ein Bild neben einer Überschrift „Teamfoto 2024“ steht, sollte der Alt-Text nicht einfach „Teamfoto 2024“ wiederholen.
 * *Vermeidung von Keyword-Stuffing:*
-Der Alt-Text sollte nicht mit Schlüsselwörtern überladen werden, da dies sowohl die Zugänglichkeit als auch die SEO beeinträchtigt.
+Der Alt-Text sollte nicht mit Schlüsselwörtern überladen werden, da dies die Zugänglichkeit beeinträchtigt.
 * *Verwendung von leeren Alt-Attributen für dekorative Bilder:*
-Wenn ein Bild rein dekorativ ist und keinen informativen Wert hat, sollte das Alt-Attribut leer sein (alt=""), um Screenreader zu signalisieren, dass sie das Bild ignorieren können.
+Wenn ein Bild rein dekorativ ist und keinen informativen Wert hat, sollte das Alt-Attribut leer sein (alt=""), um Screenreadern zu signalisieren, dass sie das Bild ignorieren können.
 
+[[aria-labels]]
 === ARIA-Labels für andere Bedienelemente
 
 *_Bedeutung von ARIA-Labels:_*
@@ -322,7 +322,7 @@ Sie bieten zusätzliche Informationen für Screenreader, insbesondere für Eleme
 
 *_Implementierung von ARIA-Labels:_*
 
-ARIA-Labels kommen zum Einsatz, wenn ein Bedienelement keinen eindeutigen, für Screenreader zugänglichen Text enthält.
+ARIA-Labels kommen zum Einsatz, wenn ein <<bedienelemente,Bedienelement>> keinen eindeutigen, für Screenreader zugänglichen Text enthält.
 Hier sind die wichtigsten ARIA-Attribute und ihre Anwendungen:
 
 * *aria-label:*
@@ -361,7 +361,7 @@ Die implementierten ARIA-Labels sollten regelmäßig mit verschiedenen Screenrea
 
 *_Zusammenfassung:_*
 
-Alt-Attribute und ARIA-Labels sind unverzichtbare Werkzeuge, um die Zugänglichkeit und den Anwendungskomfort von Frontends zu gewährleisten.
+<<alt-tag,Alt-Attribute>> und ARIA-Labels sind unverzichtbare Werkzeuge, um die Zugänglichkeit und Benutzerfreundlichkeit von Frontends zu gewährleisten.
 Durch sorgfältige Planung und Implementierung dieser Attribute können Designende und Entwickelnde sicherstellen, dass ihre Inhalte für alle Nutzenden zugänglich sind.
 Das Beachten der Best Practices beim Schreiben von Alt-Attributen und der Implementierung von ARIA-Labels trägt wesentlich dazu bei, eine inklusive und effiziente Benutzererfahrung zu schaffen.
 
@@ -375,7 +375,7 @@ Screenreader verwenden das lang-Attribut, um die richtige Aussprache und Sprachr
 * *Mehrsprachige Frontends:*
 Das lang-Attribut ermöglicht es, verschiedene Sprachversionen eines Frontends korrekt zu kennzeichnen und so die Benutzererfahrung zu verbessern.
 
-Nutzen Sie die standardisierten ISO 639-1 Sprachcodes (zwei Buchstaben), um die Sprache zu definieren (z.B. de = deutsch).
+Nutzt dafür die standardisierten ISO 639-1 Sprachcodes (zwei Buchstaben), um die Sprache zu definieren (z.B. de = deutsch).
 Dabei gilt es folgende Grundregeln zu beachten:
 
 *_Festlegen der Hauptsprache eines Dokuments_*
@@ -388,13 +388,12 @@ Dies stellt sicher, dass alle Inhalte auf der Seite als in dieser Sprache verfas
 Wenn einzelne Abschnitte oder Elemente in einer anderen Sprache verfasst sind, sollte das lang-Attribut entsprechend auf diesen Elementen angewendet werden.
 Dies ist besonders wichtig für mehrsprachige Frontends, Dokumente und die korrekte Aussprache durch Screenreader.
 
-Wenn nötig, geben Sie spezifische Sprachvarianten oder Dialekte mithilfe von Codes für Regionen oder Länder an (z.B. en-US für amerikanisches Englisch, en-GB für britisches Englisch).
+Wenn nötig, geben hierfür spezifische Sprachvarianten oder Dialekte mithilfe von Codes für Regionen oder Länder an (z.B. en-US für amerikanisches Englisch, en-GB für britisches Englisch).
 
-Verwenden Sie das lang-Attribut nur, wenn der Text tatsächlich in einer anderen Sprache verfasst ist.
-Setzen Sie das Attribut nicht aus ästhetischen oder stilistischen Gründen ein.
+Das lang-Attribut wird nur verwendet, wenn der Text tatsächlich in einer anderen Sprache verfasst ist.
+Es wird nicht aus ästhetischen oder stilistischen Gründen gesetzt.
 
 *_Beispiel:_*
-
 [source,xml]
 <html lang="de">
     <head>
@@ -416,8 +415,9 @@ Diese Einleitung bietet einen Überblick über die infrastrukturellen Anforderun
 
 * Für die Entwicklung von Frontends kommt primär die auf Angular basierte Widget Bibliothek https://primeng.org/installation[PrimeNG] zum Einsatz.
 * Ergänzend zu PrimeNG stellt die IsyFact einen Angular Baustein zur Verfügung.
-Dieser beinhaltet behördenspezifische Widgets, wie bspw. den Anwendungsrahmen oder Eingabefelder für Sonderzeichen, und ein IsyFact Theme.
-Über dieses Theme kann das Styling des Frontends anhand von SCSS und CSS angepasst werden.
+Dieser beinhaltet behördenspezifische Widgets, wie bspw. den Anwendungsrahmen oder Eingabefelder für Sonderzeichen.
+* Der Baustein liefert ein eigenes Theme, welches die im Bedienkonzept beschriebenen <<allgemeine-prinzipien>> weitestgehend umsetzt.
+Dieses Theme kann bei Bedarf auch durch ein projektspezifisches Theme ersetzt werden.
 * Das Frontend ist primär für die Nutzung auf Desktopgeräten konzipiert, kann aber mit ihrer Responsivität auch auf mobilen Geräten, sofern möglich, genutzt werden.
 
 [[basiselemente]]
@@ -430,12 +430,12 @@ Farben tragen maßgeblich zur visuellen Identität eines Frontends bei und beein
 
 * Die Standardpalette wird vom IsyFact Theme mit ausgeliefert und entsprechend der aktuellen gesetzlichen Entwicklung aktualisiert.
 Deshalb kann die Palette von dem hier dokumentierten Stand abweichen.
-* Die Standardpalette (zum Zeitpunkt: dd.mm.yyyy) wird im Bereich Barrierefreiheit mit einer Kontrast-Tabelle angegeben.
+* Die <<image-farbmatrix,Standardpalette>> (zum Zeitpunkt: 03.07.2024) wird im Bereich <<barrierefreiheit>> mit einer Kontrast-Tabelle angegeben.
 * Verwendung einer Anwendungsfarbe muss vom Projekt auf Barrierefreiheit geprüft werden und ist frei wählbar.
 
 Es kommt folgende Farbpalette zum Einsatz:
 
-[[image-farben]]
+[[image-farbpalette]]
 .Farbpalette
 image::24_BE_farbpalette.png[align="center"]
 
@@ -455,11 +455,12 @@ Die Farben sind entsprechend ihres Namens und ihrer bekannten Bedeutung zu nutze
 
 Pro Applikationsgruppe kann eine Farbe definiert werden, welche an verschiedenen Stellen des Applikationsportals eingesetzt wird und so einen Wiedererkennungswert schafft.
 Kann eine Applikation keiner Gruppe zugeordnet werden, so kann sie ihre eigene Farbe erhalten.
-Bei der Wahl der Farben sind die generellen Richtlinien zur Benutzung von Farben zu berücksichtigen.
+Bei der Wahl der Farben sind die generellen Richtlinien zur Benutzung von <<farben>> zu berücksichtigen.
 Die Farben sollten auch so gewählt werden, dass ein harmonisches Gesamtbild erhalten bleibt.
 
 Die Applikationsfarbe kommt an folgenden Stellen zum Einsatz:
 
+// ToDo: Beispielbild kann hier ergänzend eingefügt werden
 * Hauptnavigation – Farbbalken unterhalb des Headers
 * Submenü (Flyout) – Farbbalken am oberen Rand des Menüs
 * Widget auf Dashboard – Farbbalken am oberen Rand
@@ -473,14 +474,15 @@ Die Applikationsfarbe kommt an folgenden Stellen zum Einsatz:
 Die Applikationen innerhalb einer Gruppe erhalten keine unterschiedlichen Farben.
 * Die Farben sollten so gewählt werden, dass ein harmonisches Gesamtbild erhalten bleibt.
 
+[[icons]]
 === Icons
 
 Icons können als zusätzliches Element genutzt werden, um Funktionen und Inhalt auch visuell kenntlich zu machen.
-Dabei sollten Icons primär immer mit Text genutzt werden und so wenig wie möglich alleinstehend sein.
+Dabei sollten Icons primär immer mit <<text>> genutzt werden und so wenig wie möglich alleinstehend sein.
 Wenn Icons alleine als Icon-Buttons oder Aktionselemente genutzt werden, sollte sich auf eine kleinstmögliche Menge beschränkt werden.
 Es wird empfohlen alleinstehende Icons mit einem weit verbreiteten und allgemeinen klaren Zweck zu nutzen.
 
-In der folgenden Tabelle sind mögliche Icons und deren Funktion dargestellt, sowie die dazugehörige CSS-Klasse.
+In der folgenden Tabelle sind mögliche Icons und deren Funktionen dargestellt, sowie die dazugehörige CSS-Klasse.
 Eine Gesamtübersicht der zur Verfügung stehenden Icons ist unter https://www.primefaces.org/diamond/icons.xhtml[Prime Faces Icons] zu finden.
 
 .Übersicht häufig verwendeter Icons
@@ -673,6 +675,7 @@ a|image::isy-bedienkonzept:primeicons/star-fill.svg[width=32,height=32]
 |Wiedervorlage
 |====
 
+[[text]]
 === Text
 
 Die Textelemente spielen eine entscheidende Rolle bei der Kommunikation mit den Nutzenden.
@@ -683,7 +686,7 @@ Dies wird über den Einsatz der IsyFact und deren Komponenten gewährleistet.
 Dafür ist es notwendig auch bei der Schrift (im weiteren Font) einheitlich vorzugehen.
 Zur Anwendung kommt primär:
 
-*BundesSans*
+*_BundesSans_*
 
 Diese Schriftart wurde extra für Inhalte des Bundes entwickelt und zur Verfügung gestellt.
 Die BundesSans ist eine humanistische serifenlose Schrift.
@@ -704,13 +707,14 @@ _Nicht-lateinische Fließtextschriften_
 Nicht-lateinische Schriften umfassen Schriftsysteme, die anstelle lateinischer Schriftzeichen z.B. arabische, kyrillische oder chinesische Zeichen beinhalten.
 Mit einem Schriftsystem lassen sich meist mehrere Sprachen schreiben (z.B. mit dem arabischen Schriftsystem Sprachen, wie Arabisch, Urdu, Paschtu, Persisch (Dari/Farsi)).
 Nicht-lateinischer Originaltext wird vom angegebenen Schriftfont erkannt und automatisch in den richtigen Schriftzeichen wiedergegeben.
+
 Die Notwendigkeit der Darstellung nicht-lateinischer Schriften ergibt sich durch die DIN 91379 „Zeichen und definierte Zeichensequenzen in Unicode für die elektronische Verarbeitung von Namen und den Datenaustausch in Europa“ mit Ausgabedatum 2022-08.
 Basierend auf UNICODE wurde für jedes nicht-lateinische Zeichen, das in EU-Mitgliedsstaaten verwendet wird, beispielsweise griechische oder kyrillische Zeichen, eine eindeutige Zuordnung zu einem lateinischen Zeichen vorgenommen.
-DIN 91379 wendet sich vorrangig an Behörden und Organisationen, die IT-Verfahren betreiben, welche dem behördenübergreifenden Datenaustausch oder dem Datenaustausch mit Bürgern und Wirtschaft dienen.
+Die DIN 91379 wendet sich vorrangig an Behörden und Organisationen, die IT-Verfahren betreiben, welche dem behördenübergreifenden Datenaustausch oder dem Datenaustausch mit Bürgern und Wirtschaft dienen.
 Sie deckt in ihrer Gesamtheit die EU-Amtssprachen und die Amtssprachen Islands, Liechtensteins, Norwegens und der Schweiz ab, sowie die deutschen Minderheitensprachen.
 Damit dies gewährleistet wird, kommt sekundär:
 
-*Liberation*
+*_Liberation_*
 
 zum Einsatz.
 Diese Schriftart wird nur fehlende UNICODEZeichen in der BundesSans ergänzen, wodurch eine Unkonformität mit der BITV durch eventuelle Verwechslungen mit einem großen I und kleinen l ausgeschlossen werden kann.
@@ -843,7 +847,7 @@ Labels sollten in einer gut lesbaren Schriftart und -größe dargestellt werden.
 Der Kontrast muss mindestens 4,5:1 betragen, um auch bei schlechten Lichtverhältnissen gut lesbar zu sein.
 * *Konsistenz:*
 Die Gestaltung von Labels sollte über das gesamte Frontend hinweg konsistent sein.
-Einheitliche Schriftarten, Größen und Abstände tragen zum Anwendungskomfort und einem professionellen Erscheinungsbild bei.
+Einheitliche Schriftarten, Größen und Abstände tragen zur Benutzerfreundlichkeit und einem professionellen Erscheinungsbild bei.
 
 *_Interaktive Elemente_*
 
@@ -1070,6 +1074,7 @@ Aktive Elemente sind in der Highlightfarbe und hinterlegt dargestellt.
 * Listen sind unsortiert und sehr lang.
 * Listeneinträge sind als ganze Sätze formuliert.
 
+[[checkbox]]
 === Checkbox
 
 Checkboxen ermöglichen es Nutzenden, *mehrere* Optionen aus einer (offenen) Liste auszuwählen und spielen eine wichtige Rolle bei der Interaktivität und Benutzerführung.
@@ -1121,6 +1126,7 @@ Dieser Zustand wird häufig mit einem Quadrat innerhalb der Checkbox symbolisier
 * Checkboxen sind kein alleinstehender Ein- und Ausschalter, dafür gibt es die technische Komponente _p-inputSwitch_.
 * Eine Checkbox soll keine Funktionen (drucken, speichern, etc …) auslösen oder Seiten öffnen/verlinken.
 
+[[radiobutton]]
 === Radiobutton
 
 Radiobutton ermöglichen es Nutzenden, *eine* Option aus einer (offenen) Liste auszuwählen und spielen eine wichtige Rolle bei der Interaktivität und Benutzerführung.
@@ -1319,7 +1325,7 @@ Sobald eine Möglichkeit innerhalb der Gruppe ausgewählt/befüllt wurde, wird d
 Dies ist technisch ein sogenanntes „Fieldset“.
 
 Für komplexere fachliche Konstellationen kann über eine textuelle Hilfestellung mit Signalwörtern gearbeitet werden.
-Der Einsatz solcher komplexen bedingten Pflichtfelder ist aus Sicht des Anwendungskomforts nur im *absoluten Ausnahmefall* zu wählen.
+Der Einsatz solcher komplexen bedingten Pflichtfelder ist aus Sicht der Benutzerfreundlichkeit nur im *absoluten Ausnahmefall* zu wählen.
 Vielmehr sollte überlegt werden, ob es einen verständlicheren fachlichen Lösungsansatz gibt.
 
 *_Beispielhafte Verwendung von Gruppen und inhaltlich logischer Gruppierung:_*
