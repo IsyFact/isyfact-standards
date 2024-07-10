@@ -6,16 +6,16 @@ include::glossary:licence:partial$licence.adoc[]
 == Einführung und allgemeine Prinzipien
 
 Das Bedienkonzept nimmt eine zentrale Rolle in der Entwicklung von (Web-)Applikationen ein.
-Es dient als umfassendes Regelwerk, dass die Gestaltung und die Interaktionselemente definiert und bildet das Fundament für eine konsistente und benutzerfreundliche Benutzungsoberfläche.
+Es dient als umfassendes Regelwerk, dass die Gestaltung und die Interaktionselemente definiert, sowie als Fundament für eine konsistente und benutzerfreundliche Benutzungsoberfläche.
 
 Das Hauptziel des Bedienkonzepts ist es, eine herausragende Benutzererfahrung zu schaffen, die die Zufriedenheit und Produktivität der Nutzenden maximiert.
 Es soll sicherstellen, dass Nutzende die (Web-)Applikation ohne Schwierigkeiten nutzen können und dabei ihre Ziele *effizient* erreichen.
 
-In den folgenden Kapiteln werden die benötigten Elemente zum Erreichen einer herausragenden Benutzeroberfläche vom "Kleinen" ins "Große" beschrieben.
-In den ersten Kapiteln werden der *allgemeine Rahmen und übergreifende Prinzipien* beschrieben.
-Darauf folgen die *Basiselemente* (wie z.B. Text und Farben), die essenziell wichtig sind und den Grundstein für die folgenden Kapitel legen.
-Die folgenden *Bedienelemente* sind die einfachste Ausprägung eines Interaktionselements.
-*Design Pattern* stellen eine Menge aus Bedienelementen und Basiselementen dar und können letztendlich in beliebiger weiterer Kombination als vollständiger *Use Case* beschrieben werden.
+In den folgenden Kapiteln werden die benötigten Elemente zum Erreichen einer herausragenden Benutzungsoberfläche von "klein nach groß" beschrieben.
+*Der allgemeine Rahmen und die übergreifenden Prinzipien* werden in den ersten Kapiteln beschrieben.
+Darauf folgen die *<<basiselemente>>* (wie z.B. Text und Farben), die den Grundstein für die dahinterliegenden Kapitel schaffen und essenziell wichtig sind.
+Danach kommen die *<<bedienelemente>>*, die einfachste Ausprägung eines Interaktionselements.
+*<<design-pattern>>* stellen eine Menge aus Bedienelementen und Basiselementen dar und können letztendlich in beliebiger weiterer Kombination als vollständiger *<<use-cases,Use Case>>* beschrieben werden.
 
 Eine Live-Demo zu den Richtlinien dieses Bedienkonzepts finden Sie unter:
 https://isyfact.github.io/isy-angular-widgets/
@@ -48,9 +48,9 @@ Insbesondere bei komplexen (Web-)Applikationen ist es ratsam frühst möglich di
 
 *_Einhaltung von Standards und Best Practices_*
 
-Das Bedienkonzept legt Standards und Best Practices fest, die von Designern und Entwicklern eingehalten werden müssen.
+Das Bedienkonzept legt Standards und Best Practices fest, die von Designenden und Entwickelnden eingehalten werden müssen.
 Diese Standards können sich auf verschiedene Aspekte der Gestaltung und Interaktion beziehen, wie Typografie, Farbgebung, Bedienelemente und Barrierefreiheit.
-Indem sie sich an diese Standards halten, gewährleisten Designer und Entwickler nicht nur die Konsistenz der Benutzungsoberfläche, sondern auch deren Kompatibilität mit verschiedenen Geräten und Plattformen.
+Indem sie sich an diese Standards halten, gewährleisten Designende und Entwickelnde nicht nur die Konsistenz der Benutzungsoberfläche, sondern auch deren Kompatibilität mit verschiedenen Geräten und Plattformen.
 Wie bei jeder digitalen (Web-)Applikation unterliegt auch dieses Bedienkonzept einer ständigen Weiterentwicklung.
 Die Entwicklungen und Änderungen werden entsprechend dem Stand der Technik und der rechtlichen Gegebenheiten aktualisiert und gekennzeichnet.
 
@@ -58,7 +58,7 @@ Die Entwicklungen und Änderungen werden entsprechend dem Stand der Technik und 
 
 Wenn (Web-)Applikationen anhand dieses Bedienkonzepts erstellt werden, müssen die korrekte Darstellung und Funktionsweisen der (Web-)Applikation inklusive ihrer Browser-Funktionen, wie bspw. "Vor" und "Zurück", geprüft werden.
 Dafür muss für jedes Projekt der primäre Browser und dessen Versionen ermittelt und geprüft werden.
-In der Regel und mindestens jedoch sollte sichergestellt sein, dass folgende Browser unterstützt werden.
+In der Regel soll sichergestellt sein, dass folgende Browser unterstützt werden:
 
 |===
 |Browser |Neuste Version aus Channel
@@ -84,8 +84,9 @@ Dabei sind folgende Auflösungen zu berücksichtigen:
 *_Kontinuierliche Weiterentwicklung und Pflege_*
 
 Ein Bedienkonzept ist kein statisches Dokument, sondern sollte kontinuierlich weiterentwickelt und gepflegt werden.
-Mit dem Fortschreiten der Technologie und den sich ändernden Anforderungen der Nutzenden ist es wichtig, das Bedienkonzept regelmäßig zu überprüfen und anzupassen, um sicherzustellen, dass es stets den aktuellen Standards und Best Practices entspricht.
-Diese kontinuierliche Weiterentwicklung erfordert eine enge Zusammenarbeit zwischen allen Beteiligten und eine offene Kommunikation über Änderungen und Aktualisierungen - insbesondere zwischen Umsetzungsprojekten, Stakeholdern und den Designern, die mit diesem Dokument arbeiten.
+Mit dem Fortschreiten der Technologie und den sich ändernden Anforderungen der Nutzenden ist es wichtig, das Bedienkonzept regelmäßig zu überprüfen und anzupassen.
+Dadurch wird sichergestellt, dass das Bedienkonzept stets den aktuellen Standards und Best Practices entspricht.
+Diese kontinuierliche Weiterentwicklung erfordert eine enge Zusammenarbeit zwischen allen Beteiligten und eine offene Kommunikation über Änderungen und Aktualisierungen - insbesondere zwischen Umsetzungsprojekten, Stakeholdern und den Designenden, die mit diesem Dokument arbeiten.
 
 [[usability-und-benutzerfreundlichkeit]]
 === Usability (UI) und Benutzerfreundlichkeit (UX)
@@ -146,7 +147,7 @@ Stellen Sie sicher, dass Informationen kontextbezogen und schrittweise offenbart
 * *Testen mit verschiedenen Nutzungsgruppen:* Um sicherzustellen, dass Ihre Oberfläche für eine breite Palette von Nutzenden zugänglich ist, ist es wichtig, Tests mit verschiedenen Personengruppen durchzuführen.
 Berücksichtigen Sie dabei Nutzende mit unterschiedlichen Fähigkeiten, Geräten und technischen Kenntnissen.
 
-Weitere Informationen zu einer besseren Benutzerfreundlichkeit sind am jeweiligen <<Bedienelemente,Bedienelement>>, dem <<Designpattern,Pattern>> und/oder Eingabehilfen und Fehlermeldungen zu finden (siehe Unterkapitel "Do's and Don'ts).
+Weitere Informationen zu einer besseren Benutzerfreundlichkeit sind am jeweiligen <<Bedienelemente,Bedienelement>>, dem <<Design Pattern,Pattern>> und/oder Eingabehilfen und Fehlermeldungen zu finden (siehe Unterkapitel "Do's and Don'ts).
 
 [[allgemeine-prinzipien]]
 === Allgemeine Prinzipien
@@ -154,7 +155,7 @@ Weitere Informationen zu einer besseren Benutzerfreundlichkeit sind am jeweilige
 Das Bedienkonzept basiert auf einer Reihe von allgemeinen Prinzipien, die als Leitfaden für die Gestaltung von Benutzungsoberflächen dienen.
 Diese Prinzipien umfassen Klarheit, Konsistenz, Feedback, Effizienz und Zugänglichkeit und bilden das Fundament für eine benutzerzentrierte Gestaltung.
 Viele dieser Prinzipien werden beispielsweise in der https://de.wikipedia.org/wiki/ISO_9241[ISO 9241] und in https://en.wikipedia.org/wiki/Web_usability#Web_Usability_Criteria[Nielsen’s Web Usability Criteria] beschrieben.
-Zusätzlich liefert https://lawsofux.com/[lawsofux] eine anschauliche Sammlung von Design Prinzipien.
+Zusätzlich liefert https://lawsofux.com/[lawsofux] eine anschauliche Sammlung von Designprinzipien.
 
 
 *_Klarheit_*
@@ -249,7 +250,7 @@ Dabei soll der Kontrast so hoch wie möglich gewählt werden.
 .Farbmatrix
 image::24_BE_colormatrix.png[align="center"]
 
-Eine interaktive und erweiterbare Tabelle ist unter https://contrast-grid.eightshapes.com/?version=1.1.0&background-colors=&foreground-colors=%23000000%2C%20Black%0D%0A%23FFFFFF%2C%20White%0D%0A%23F2F2F2%2C%20light%20Grey%0D%0A%23DDDDDD%2C%20Grey%0D%0A%2383878c%2C%20medium%20Grey%0D%0A%23404040%2C%20Charcoal%0D%0A%23212529%2C%20dark%20Grey%0D%0A%230055B9%2C%20Active%20and%20Primary%0D%0A%2366AEE5%2C%20Primary%20disabled%0D%0A%23D45C00%2C%20Secondary%0D%0A%23A4252C%2C%20Alert%0D%0A%23498205%2C%20Success%0D%0A%23D47D00%2C%20Warning%0D%0A%23008EDB%2C%20Info%0D%0A%238378DE%2C%20Help%0D%0A%0D%0A%0D%0A%0D%0A%0D%0A%0D%0A&es-color-form__tile-size=regular&es-color-form__show-contrast=aaa&es-color-form__show-contrast=aa&es-color-form__show-contrast=aa18&es-color-form__show-contrast=dnp[Farbmatrix] zu finden.
+Eine interaktive und erweiterbare Tabelle ist unter link:++https://contrast-grid.eightshapes.com/?version=1.1.0&background-colors=&foreground-colors=%23000000%2C%20Black%0D%0A%23FFFFFF%2C%20White%0D%0A%23F2F2F2%2C%20light%20Grey%0D%0A%23DDDDDD%2C%20Grey%0D%0A%2383878c%2C%20medium%20Grey%0D%0A%23404040%2C%20Charcoal%0D%0A%23212529%2C%20dark%20Grey%0D%0A%230055B9%2C%20Active%20and%20Primary%0D%0A%2366AEE5%2C%20Primary%20disabled%0D%0A%23D45C00%2C%20Secondary%0D%0A%23A4252C%2C%20Alert%0D%0A%23498205%2C%20Success%0D%0A%23D47D00%2C%20Warning%0D%0A%23008EDB%2C%20Info%0D%0A%238378DE%2C%20Help%0D%0A%0D%0A%0D%0A%0D%0A%0D%0A%0D%0A&es-color-form__tile-size=regular&es-color-form__show-contrast=aaa&es-color-form__show-contrast=aa&es-color-form__show-contrast=aa18&es-color-form__show-contrast=dnp++[Farbmatrix] zu finden.
 
 Die folgenden Links verweisen auf weitere Informationen zur Kontrast-Analyse:
 
@@ -341,7 +342,7 @@ Die implementierten ARIA-Labels sollten regelmäßig mit verschiedenen Screenrea
 *_Zusammenfassung:_*
 
 Alt-Attribute und ARIA-Labels sind unverzichtbare Werkzeuge, um die Zugänglichkeit und den Anwendungskomfort von (Web-)Applikation zu gewährleisten.
-Durch sorgfältige Planung und Implementierung dieser Attribute können Designer und Entwickler sicherstellen, dass ihre Inhalte für alle Nutzenden zugänglich sind.
+Durch sorgfältige Planung und Implementierung dieser Attribute können Designende und Entwickelnde sicherstellen, dass ihre Inhalte für alle Nutzenden zugänglich sind.
 Das Beachten der Best Practices beim Schreiben von Alt-Attributen und der Implementierung von ARIA-Labels trägt wesentlich dazu bei, eine inklusive und effiziente Benutzererfahrung zu schaffen.
 
 === Language Tag
@@ -387,7 +388,7 @@ Setzen Sie das Attribut nicht aus ästhetischen oder stilistischen Gründen ein.
     </body>
 </html>
 
-[[technische-rahmenebedingungen]]
+[[technische-rahmenbedingungen]]
 == Technische Rahmenbedingungen
 
 Die technischen Rahmenbedingungen legen fest, welche Technologien und Plattformen für die Umsetzung des Bedienkonzepts verwendet werden sollen.
@@ -401,6 +402,7 @@ Dafür wird die entsprechende SCSS und CSS in die (Web-)Applikation integriert.
 Dadurch ist die Wartbarkeit stark beeinträchtigt und die Aufwände können sich in der Pflege der (Web-)Applikation stark erhöhen.
 * Die (Web-)Applikation ist primär für die Nutzung auf Desktopgeräten konzipiert, kann aber mit ihrer Responsivität auch auf mobilen Geräten (sofern möglich) genutzt werden.
 
+[[basiselemente]]
 == Basiselemente
 
 === Text
@@ -1169,7 +1171,7 @@ Es bietet eine intuitive Möglichkeit, verschiedene Inhalte oder Abschnitte eine
 Durch die Verwendung von Tabs können Nutzende schnell und einfach zwischen verschiedenen Bereichen navigieren, ohne die Seite ständig neu laden zu müssen.
 Dies fördert nicht nur die Nutzungsfreundlichkeit, sondern auch die Effizienz bei der Informationssuche.
 In der heutigen digitalen Welt, in der Nutzenden eine schnelle und nahtlose Interaktion erwarten, ist ein gut gestaltetes Tabview ein unverzichtbares Werkzeug für jede (Web-)Applikation.
-Es ermöglicht Entwicklern, Inhalte logisch zu organisieren und sorgt für eine klare Struktur, die die Benutzerbindung und Zufriedenheit steigert.
+Es ermöglicht Entwickelnden, Inhalte logisch zu organisieren und sorgt für eine klare Struktur, die die Benutzerbindung und Zufriedenheit steigert.
 
 [[image-Tabview]]
 .Tabview
@@ -1238,11 +1240,11 @@ Für so etwas wird ein Wizard genutzt.
 * Tabreiter sollen keine Abhängigkeiten zueinander haben.
 * Nutze keine Labels, die länger als 26 Zeichen sind.
 
-[[designpattern]]
-== Designpattern
+[[design-pattern]]
+== Design Pattern
 
-Designpatterns sind wiederkehrende Lösungen für Designprobleme, die sich über verschiedene Teile der (Web-)Applikation erstrecken können.
-Dieser Abschnitt beschreibt die Konzepte von Designpatterns, ihre Bedeutung für die Konsistenz und Effizienz der Benutzungsoberfläche, sowie ihre Rolle bei der Gestaltung eines benutzerzentrierten Designs.
+Design Patterns sind wiederkehrende Lösungen für Designprobleme, die sich über verschiedene Teile der (Web-)Applikation erstrecken können.
+Dieser Abschnitt beschreibt die Konzepte von Design Patterns, ihre Bedeutung für die Konsistenz und Effizienz der Benutzungsoberfläche, sowie ihre Rolle bei der Gestaltung eines benutzerzentrierten Designs.
 
 === Eingabefeldliste (Dropdown)
 
@@ -1329,12 +1331,13 @@ Die blockartige Anordnung erleichtert das Erfassen und ermöglicht eine thematis
 .Mehrspaltige inhaltliche Gruppe
 image::24_DP_mehrspaltige_inhaltliche_Gruppe.png[align="center"]
 
+[[use-cases]]
 == Use Cases
 
 *_Einleitung und Allgemeines:_*
 
 Use Cases stellen typische Szenarien oder Seiten dar, die bestimmte Funktionalitäten oder Aktionen erfordern.
-Dieser Abschnitt kombiniert Designpatterns, um benutzerfreundliche Lösungen für spezifische Anwendungsfälle zu präsentieren und ihre Umsetzung anhand von Beispiel-Screens zu veranschaulichen.
+Dieser Abschnitt kombiniert Design Patterns, um benutzerfreundliche Lösungen für spezifische Anwendungsfälle zu präsentieren und ihre Umsetzung anhand von Beispiel-Screens zu veranschaulichen.
 
 === Formulare
 
@@ -1394,7 +1397,7 @@ Die Größenanpassung erfolgt innerhalb von gewissen Bereichen:
 .Beispielhafte Gesamtumsetzung eines Beispielformulars im Anwendungsrahmen
 image::24_UC_fullexample_formular.png[align="center"]
 
-[[eingabehilfen-und-Fehlermeldungen]]
+[[eingabehilfen-und-fehlermeldungen]]
 == Eingabehilfen und Fehlermeldungen
 
 Eingabehilfen und Fehlermeldungen sind essenziell wichtig, um die Nutzungsfreundlichkeit einer (Web-)Applikation zu erhöhen.
