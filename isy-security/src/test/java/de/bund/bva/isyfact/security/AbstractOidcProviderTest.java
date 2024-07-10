@@ -23,7 +23,7 @@ public abstract class AbstractOidcProviderTest {
      * Authentication and authorization via EmbeddedOidcProviderMock based on WireMock.
      */
     @RegisterExtension
-    public static final EmbeddedOidcProviderMock embeddedOidcProvider = new EmbeddedOidcProviderMock(HOST, PORT, ISSUER_PATH);
+    public static final EmbeddedOidcProviderMock embeddedOidcProvider = new EmbeddedOidcProviderMock(HOST, PORT, ISSUER_PATH, 300);
 
     protected static void registerTestClients() {
         // client with authorization-grant-type=password

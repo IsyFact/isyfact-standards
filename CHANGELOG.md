@@ -7,6 +7,10 @@
 - `ISY-1061`: [isyfact-standards-doc] Ergänzung der Dokumentation zum Zurücksetzen der Korrelations-ID aus dem MdcHelper
 - `IFS-3665`: [isyfact-standards-doc] "Leitfaden Dokumentation" nach `isy-documentation` verschoben
 - `IFS-3833`: [isy-security] Implementierung von Multi-Tenanacy-Support
+- `IFS-2248`: [isy-batchrahmen, isy-security] Tokenerneuerung in isy-batchrahmen:
+  * `IsySecurityTokenUtil` und `IsyOAuth2Authentifizierungsmanager` stellen Funktionalität zur Token-Gültigkeitsüberprüfung und erneuten Authentifizierung bereit
+  * Funktionalität zur erneuten Authentifizierung wird von `BatchrahmenImpl` aufgerufen
+- `IFS-3763`: [isyfact-standards-doc] Dokumentation der Änderungen zu IFS-2248 (Tokenerneuerung isy-batchrahmen)
 
 # 3.0.1
 - `ISY-701`: Google Guava Versionsanhebung auf 33.1.0
