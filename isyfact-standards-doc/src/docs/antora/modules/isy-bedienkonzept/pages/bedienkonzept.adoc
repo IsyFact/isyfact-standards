@@ -2,16 +2,16 @@
 
 include::glossary:licence:partial$licence.adoc[]
 
-[[einfuehrung-und-allgemeine-Prinzipien]]
+[[einfuehrung-und-allgemeine-prinzipien]]
 == Einführung und allgemeine Prinzipien
 
 Das Bedienkonzept nimmt eine zentrale Rolle in der Entwicklung von (Web-)Applikationen ein.
-Es dient als umfassendes Regelwerk, dass die Gestaltung und die Interaktionselemente definiert, sowie als Fundament für eine konsistente und benutzerfreundliche Benutzungsoberfläche.
+Es dient als umfassendes Regelwerk, dass die Gestaltung und die Interaktionselemente definiert, sowie als Fundament für eine konsistente und benutzerfreundliche Benutzeroberfläche.
 
 Das Hauptziel des Bedienkonzepts ist es, eine herausragende Benutzererfahrung zu schaffen, die die Zufriedenheit und Produktivität der Nutzenden maximiert.
 Es soll sicherstellen, dass Nutzende die (Web-)Applikation ohne Schwierigkeiten nutzen können und dabei ihre Ziele *effizient* erreichen.
 
-In den folgenden Kapiteln werden die benötigten Elemente zum Erreichen einer herausragenden Benutzungsoberfläche von "klein nach groß" beschrieben.
+In den folgenden Kapiteln werden die benötigten Elemente zum Erreichen einer herausragenden Benutzeroberfläche von "klein nach groß" beschrieben.
 *Der allgemeine Rahmen und die übergreifenden Prinzipien* werden in den ersten Kapiteln beschrieben.
 Darauf folgen die *<<basiselemente>>* (wie z.B. Text und Farben), die den Grundstein für die dahinterliegenden Kapitel schaffen und essenziell wichtig sind.
 Danach kommen die *<<bedienelemente>>*, die einfachste Ausprägung eines Interaktionselements.
@@ -35,14 +35,14 @@ Die Gültigkeit des Bedienkonzepts für Altanwendungen bleibt zum damaligen Zeit
 *_Bedeutung des Bedienkonzepts_*
 
 Das Bedienkonzept ist weit mehr als nur ein Dokument mit Gestaltungsrichtlinien.
-Es ist ein umfassendes Werkzeug, das die Grundlage für die Entwicklung einer erfolgreichen Benutzungsoberfläche bildet.
+Es ist ein umfassendes Werkzeug, das die Grundlage für die Entwicklung einer erfolgreichen Benutzeroberfläche bildet.
 Indem es einheitliche Standards und Best Practices festlegt, trägt es maßgeblich zur Erreichung der Ziele einer (Web-)Applikation bei.
 Diese Ziele können von der Steigerung der Bedienzufriedenheit über die Verbesserung der Effizienz bis hin zur Stärkung der Markenidentität reichen.
 
 *_Rolle von Designenden, Entwickelnden und Fachlichkeit_*
 
 Designende und Entwickelnde spielen eine entscheidende Rolle bei der Umsetzung des Bedienkonzepts.
-Während Designende für die Gestaltung der Benutzungsoberfläche verantwortlich sind und sicherstellen, dass sie den festgelegten Standards entspricht, liegt es in der Verantwortung der Entwickelnden, diese Gestaltung in eine funktionierende (Web-)Applikation umzusetzen.
+Während Designende für die Gestaltung der Benutzeroberfläche verantwortlich sind und sicherstellen, dass sie den festgelegten Standards entspricht, liegt es in der Verantwortung der Entwickelnden, diese Gestaltung in eine funktionierende (Web-)Applikation umzusetzen.
 Eine enge Zusammenarbeit zwischen Design- und Entwicklungsteams ist unerlässlich, um sicherzustellen, dass das Endprodukt den gestalterischen und funktionalen Anforderungen entspricht.
 Insbesondere bei komplexen (Web-)Applikationen ist es ratsam frühst möglich die Fachlichkeit hinzuzuziehen und den erarbeiteten Konzeptionsstand zu evaluieren.
 
@@ -50,7 +50,7 @@ Insbesondere bei komplexen (Web-)Applikationen ist es ratsam frühst möglich di
 
 Das Bedienkonzept legt Standards und Best Practices fest, die von Designenden und Entwickelnden eingehalten werden müssen.
 Diese Standards können sich auf verschiedene Aspekte der Gestaltung und Interaktion beziehen, wie Typografie, Farbgebung, Bedienelemente und Barrierefreiheit.
-Indem sie sich an diese Standards halten, gewährleisten Designende und Entwickelnde nicht nur die Konsistenz der Benutzungsoberfläche, sondern auch deren Kompatibilität mit verschiedenen Geräten und Plattformen.
+Indem sie sich an diese Standards halten, gewährleisten Designende und Entwickelnde nicht nur die Konsistenz der Benutzeroberfläche, sondern auch deren Kompatibilität mit verschiedenen Geräten und Plattformen.
 Wie bei jeder digitalen (Web-)Applikation unterliegt auch dieses Bedienkonzept einer ständigen Weiterentwicklung.
 Die Entwicklungen und Änderungen werden entsprechend dem Stand der Technik und der rechtlichen Gegebenheiten aktualisiert und gekennzeichnet.
 
@@ -142,17 +142,17 @@ Klare Anweisungen und verständliche Fehlermeldungen helfen dabei, Frustration z
 * *Validierung von Eingaben:*
 Validieren Sie Eingabefelder in Echtzeit, um Nutzende vor Fehlern zu warnen, bevor sie das Formular absenden.
 Dadurch wird vermieden, dass Nutzende nach dem Absenden des Formulars feststellen, dass sie fehlerhafte oder unvollständige Informationen eingegeben haben.
-* *Progressive Offenbarung von Informationen:* Überladen Sie die Benutzungsoberfläche nicht mit zu vielen Informationen auf einmal.
+* *Progressive Offenbarung von Informationen:* Überladen Sie die Benutzeroberfläche nicht mit zu vielen Informationen auf einmal.
 Stellen Sie sicher, dass Informationen kontextbezogen und schrittweise offenbart werden, um Nutzende nicht zu überfordern.
 * *Testen mit verschiedenen Nutzungsgruppen:* Um sicherzustellen, dass Ihre Oberfläche für eine breite Palette von Nutzenden zugänglich ist, ist es wichtig, Tests mit verschiedenen Personengruppen durchzuführen.
 Berücksichtigen Sie dabei Nutzende mit unterschiedlichen Fähigkeiten, Geräten und technischen Kenntnissen.
 
-Weitere Informationen zu einer besseren Benutzerfreundlichkeit sind am jeweiligen <<Bedienelemente,Bedienelement>>, dem <<Design Pattern,Pattern>> und/oder Eingabehilfen und Fehlermeldungen zu finden (siehe Unterkapitel "Do's and Don'ts).
+Weitere Informationen zu einer besseren Benutzerfreundlichkeit sind am jeweiligen <<bedienelemente,Bedienelement>>, dem <<design-pattern,Pattern>> und/oder Eingabehilfen und Fehlermeldungen zu finden (siehe Unterkapitel "Do's and Don'ts).
 
 [[allgemeine-prinzipien]]
 === Allgemeine Prinzipien
 
-Das Bedienkonzept basiert auf einer Reihe von allgemeinen Prinzipien, die als Leitfaden für die Gestaltung von Benutzungsoberflächen dienen.
+Das Bedienkonzept basiert auf einer Reihe von allgemeinen Prinzipien, die als Leitfaden für die Gestaltung von Benutzeroberflächen dienen.
 Diese Prinzipien umfassen Klarheit, Konsistenz, Feedback, Effizienz und Zugänglichkeit und bilden das Fundament für eine benutzerzentrierte Gestaltung.
 Viele dieser Prinzipien werden beispielsweise in der https://de.wikipedia.org/wiki/ISO_9241[ISO 9241] und in https://en.wikipedia.org/wiki/Web_usability#Web_Usability_Criteria[Nielsen’s Web Usability Criteria] beschrieben.
 Zusätzlich liefert https://lawsofux.com/[lawsofux] eine anschauliche Sammlung von Designprinzipien.
@@ -195,7 +195,7 @@ Dies beinhaltet die Gestaltung und Entwicklung der (Web-)Applikation unter Berü
 //ToDo: Beispiele für nicht benutzerfreundliche Technologien?
 Zugängliches Design beinhaltet die Verwendung von klaren und verständlichen Texten, ausreichendem Kontrast zwischen Text und Hintergrund, Tastaturzugänglichkeit, alternative Texte für Bilder und die Vermeidung von Technologien, die für einige Personengruppen hinderlich sein könnten.
 Ein zugängliches Design gewährleistet, dass alle Nutzenden die Informationen und Funktionen der (Web-)Applikation nutzen können, was zu einer inklusiven und positiven Benutzererfahrung führt.
-Dieses Prinzip wird im Kapitel <<Barrierefreiheit>> und unter den einzelnen <<Bedienelemente,Bedienelementen>> detaillierter beschrieben.
+Dieses Prinzip wird im Kapitel <<barrierefreiheit>> und unter den einzelnen <<bedienelemente,Bedienelementen>> detaillierter beschrieben.
 
 [[barrierefreiheit]]
 == Barrierefreiheit
@@ -218,7 +218,7 @@ Alle hier genannten Maßnahmen sind zur Steigerung der Awareness und Transparenz
 In der Regel sind die genannten Anforderungen durch die Anwendung der Standardelemente der IsyFact sichergestellt oder die Möglichkeit geboten die fachlichen Elemente sicherzustellen.
 
 * Sorge dafür, dass alle Elemente auch ohne Maus erreichbar und bedienbar sind.
-* <<Eingabefeld,Eingabefelder>> müssen nach der Aktivierung eines Hochkontrastmodus/Farbfilters zu 50 % bestehen bleiben – eine einzelne Linie als Bestandteil ist nicht ausreichend als Identifizierung eines Eingabefeldes.
+* <<eingabefeld,Eingabefelder>> müssen nach der Aktivierung eines Hochkontrastmodus/Farbfilters zu 50 % bestehen bleiben – eine einzelne Linie als Bestandteil ist nicht ausreichend als Identifizierung eines Eingabefeldes.
 * Die Textgröße soll im Standard mindestens 14pt betragen.
 * Der Textkontrast muss immer mindestens 4,5:1 und bei großen Texten mindestens 3:1 betragen.
 Für Haupt & Einstiegsseiten, Seiten mit rechtlicher Relevanz muss der Kontrast 7:1 betragen.
@@ -297,7 +297,7 @@ Wenn ein Bild rein dekorativ ist und keinen informativen Wert hat, sollte das Al
 
 *_Bedeutung von ARIA-Labels:_*
 
-ARIA-Labels (Accessible Rich Internet Applications) sind ein Set von Attributen, die entwickelt wurden, um die Zugänglichkeit von dynamischen Inhalten und Benutzungsoberflächen zu verbessern.
+ARIA-Labels (Accessible Rich Internet Applications) sind ein Set von Attributen, die entwickelt wurden, um die Zugänglichkeit von dynamischen Inhalten und Benutzeroberflächen zu verbessern.
 Sie bieten zusätzliche Informationen für Screenreader, insbesondere für Elemente, die keine standardisierten HTML-Attribute zur Beschreibung ihres Zwecks haben.
 
 *_Implementierung von ARIA-Labels:_*
@@ -740,7 +740,7 @@ a|image::isy-bedienkonzept:primeicons/star-fill.svg[width=32,height=32]
 
 *_Einleitung und Allgemeines:_*
 
-Bedienelemente sind die Bausteine der Benutzungsoberfläche, die es den Nutzenden ermöglichen, mit der (Web-)Applikation zu interagieren.
+Bedienelemente sind die Bausteine der Benutzeroberfläche, die es den Nutzenden ermöglichen, mit der (Web-)Applikation zu interagieren.
 Dieser Abschnitt definiert die verschiedenen Bedienelemente und legt fest, wie sie gestaltet und angeordnet werden sollen, um eine intuitive Benutzererfahrung zu gewährleisten.
 
 === Überschriften
@@ -820,6 +820,7 @@ _Fachlicher Hinweis:_
 Hyperlinks sollten einen aussagekräftigen Text zur Verfügung stellen.
 Generische Phrasen wie „Hier klicken“ sind nicht hilfreich und sollten vermieden werden.
 
+[[label]]
 === Label
 
 Labels dienen dazu, Eingabefelder und andere Bedienelemente klar zu kennzeichnen, sodass Nutzende genau verstehen, welche Informationen erforderlich sind und welche Aktionen durchgeführt werden können.
@@ -882,9 +883,10 @@ Beispiel:
 [source,xml]
 <button aria-label="Schließen">X</button>
 
+[[eingabefeld]]
 === Eingabefeld
 
-Eingabefelder sind grundlegende Interaktionselemente in einer Benutzungsoberfläche, die es den Nutzenden ermöglichen, Daten einzugeben, zu bearbeiten oder auszuwählen.
+Eingabefelder sind grundlegende Interaktionselemente in einer Benutzeroberfläche, die es den Nutzenden ermöglichen, Daten einzugeben, zu bearbeiten oder auszuwählen.
 Sie spielen eine zentrale Rolle bei der Interaktion zwischen Nutzenden und System.
 Sie kommen in verschiedensten Formen und Kontexten vor, sei es in Form von Textfeldern, Dropdown-Menüs, Auswahllisten oder Datumsauswahlkalendern.
 Die Gestaltung und Platzierung von Eingabefeldern hat direkten Einfluss auf die Benutzererfahrung und die Effizienz der Dateneingabe.
@@ -988,7 +990,7 @@ Bei sehr langen Labels sollten sinnvolle Abkürzungen verwendet werden.
 Soll z.B. eine Postleitzahl innerhalb Deutschlands eingegeben werden, so macht es Sinn die Feld-Länge auf 5 Stellen zu begrenzen.
 Optisch kann das Eingabefeld der Konsistenz entsprechend länger sein.
 * Pflichtfelder werden mit einem Asterisk (*) gekennzeichnet.
-* Der Asterisk unterliegt denselben Regeln wie das Label (aktiv = <<image-eingabefeldaktiv,Highlightfarbe>>, Fehler = <<image-eingabefelderror,Fehlermeldungsfarbe>>).
+* Der Asterisk unterliegt denselben Regeln wie das Label (aktiv = <<image-eingabefeldaktiv,Highlightfarbe>>, Fehler = <<image-eingabefelderror,Fehlerbildungsfarbe>>).
 
 *_Exemplarische Vermaßung der verschiedenen Eingabefelder:_*
 
@@ -1065,7 +1067,7 @@ Aktive Elemente sind in der Highlightfarbe und hinterlegt dargestellt.
 
 === Checkbox
 
-Checkboxen sind ein wesentliches Element der Benutzungsoberfläche, das in vielen (Web-)Applikationen verwendet wird.
+Checkboxen sind ein wesentliches Element der Benutzeroberfläche, das in vielen (Web-)Applikationen verwendet wird.
 Sie ermöglichen es Nutzenden, mehrere Optionen aus einer (offenen) Liste auszuwählen und spielen eine wichtige Rolle bei der Interaktivität und Benutzerführung.
 Ein gut gestaltetes Checkbox-Design verbessert die Lesbarkeit und Zugänglichkeit.
 Dies ist besonders wichtig, um sicherzustellen, dass alle Nutzenden, einschließlich derjenigen mit Behinderungen, die (Web-)Applikation problemlos nutzen können.
@@ -1117,7 +1119,7 @@ Dieser Zustand wird häufig mit einem Quadrat innerhalb der Checkbox symbolisier
 === Radiobutton
 
 //ToDo: Das ist genau der gleiche Einleitungstext, wie bei den Checkboxen. Evtl. Verweis auf Checkboxen und den Text verkürzen?
-Radiobuttons sind ein wesentliches Element der Benutzungsoberfläche, das in vielen (Web-)Applikationen verwendet wird.
+Radiobuttons sind ein wesentliches Element der Benutzeroberfläche, das in vielen (Web-)Applikationen verwendet wird.
 Sie ermöglichen es Nutzenden, eine Option aus einer (offenen) Liste auszuwählen und spielen eine wichtige Rolle bei der Interaktivität und Benutzerführung.
 Ein gut gestaltetes Radiobutton-Design verbessert die Lesbarkeit und Zugänglichkeit.
 Dies ist besonders wichtig, um sicherzustellen, dass alle Nutzenden, einschließlich derjenigen mit Behinderungen, die (Web-)Applikation problemlos nutzen können.
@@ -1244,7 +1246,7 @@ Für so etwas wird ein Wizard genutzt.
 == Design Pattern
 
 Design Patterns sind wiederkehrende Lösungen für Designprobleme, die sich über verschiedene Teile der (Web-)Applikation erstrecken können.
-Dieser Abschnitt beschreibt die Konzepte von Design Patterns, ihre Bedeutung für die Konsistenz und Effizienz der Benutzungsoberfläche, sowie ihre Rolle bei der Gestaltung eines benutzerzentrierten Designs.
+Dieser Abschnitt beschreibt die Konzepte von Design Patterns, ihre Bedeutung für die Konsistenz und Effizienz der Benutzeroberfläche, sowie ihre Rolle bei der Gestaltung eines benutzerzentrierten Designs.
 
 === Eingabefeldliste (Dropdown)
 
@@ -1267,6 +1269,8 @@ image::24_DP_eingabefeldliste_aufgeklappt.png[align="center"]
 Die Listenelemente sind mindestens 44px hoch und entsprechend dem dazugehörigen Element breit (hier exemplarisch das Eingabefeld).
 Aktive Elemente sind in der Highlightfarbe und hinterlegt dargestellt.
 
+
+[[eingabefeldgruppen]]
 === Eingabefeldgruppen
 
 Eingabefeldgruppen sind in fast jeder (Web-)Applikation vorhanden.
@@ -1339,6 +1343,7 @@ image::24_DP_mehrspaltige_inhaltliche_Gruppe.png[align="center"]
 Use Cases stellen typische Szenarien oder Seiten dar, die bestimmte Funktionalitäten oder Aktionen erfordern.
 Dieser Abschnitt kombiniert Design Patterns, um benutzerfreundliche Lösungen für spezifische Anwendungsfälle zu präsentieren und ihre Umsetzung anhand von Beispiel-Screens zu veranschaulichen.
 
+[[formulare]]
 === Formulare
 
 Inhalte von Formularen sollten sich an einem virtuellen, nicht visuell dargestellten Raster ausrichten.
@@ -1355,8 +1360,8 @@ Alle hier gezeigten Grafiken beziehen sich auf die aktuelle und zukünftige Umse
 .3 Spalten Layout
 image::24_UC_3_spalten.png[align="center"]
 
-Damit ein Formular auch ein Formular ist, besteht es mindestens aus einer <<Eingabefeldgruppen,Eingabefeldgruppe>> und einer beliebigen Anzahl weiterer Elemente.
-Alle Regeln für <<Eingabefeld,Eingabefelder>> und <<Label>> haben hier auch ihre Gültigkeit.
+Damit ein Formular auch ein Formular ist, besteht es mindestens aus einer <<eingabefeldgruppen,Eingabefeldgruppe>> und einer beliebigen Anzahl weiterer Elemente.
+Alle Regeln für <<eingabefeld,Eingabefelder>> und <<label>> haben hier auch ihre Gültigkeit.
 
 Die inhaltliche Gruppierung folgt dabei keinem starren Muster, sondern kann fachlich entsprechend angepasst werden.
 Diese Gruppierung der Inhalte kann dabei sowohl horizontal als auch vertikal gestaltet werden.
@@ -1407,8 +1412,8 @@ Im folgenden Kapitel sollen die Grundlagen zur erfolgreichen Gestaltung von Eing
 
 ==== Korrekte Labels
 
-Auch <<Label,Labels>> sind schon Eingabehilfen.
-Klare und präzise Beschriftungen (Labels) sind für die Benutzerführung entscheidend, insbesondere für <<Formulare>> und <<Eingabefeld,Eingabefelder>>.
+Auch <<label,Labels>> sind schon Eingabehilfen.
+Klare und präzise Beschriftungen (Labels) sind für die Benutzerführung entscheidend, insbesondere für <<formulare>> und <<eingabefeld,Eingabefelder>>.
 Jedes Eingabefeld muss ein entsprechendes Label haben, das den Nutzenden genau sagt, welche Art von Information erwartet wird.
 Beispielsweise sollte ein Anmeldeformular separate Felder für "Anmeldename" und "Passwort" haben, jeweils mit deutlich sichtbaren Labels.
 
@@ -1435,7 +1440,7 @@ Dein Nachname
 Deine Telefon- oder Handynummer
 
 Sobald der Nutzende in das Eingabefeld klickt, wird der Platzhalter ausgeblendet und es besteht die Möglichkeit eine Mask anzeigen zu lassen.
-Im Kapitel <<Eingabefeld,Eingabefelder>> sind <<image-eingabefeldmask,Masks>> als Element dargestellt.
+Im Kapitel <<eingabefeld,Eingabefelder>> sind <<image-eingabefeldmask,Masks>> als Element dargestellt.
 Sie geben das gewünschte Eingabepattern vor und lassen sich fast vollständig frei gestalten.
 
 _Gute Hinweistexte zur Erläuterung bei Eingabefeldern und Fehlermeldungen:_
@@ -1446,7 +1451,7 @@ Sie können beispielsweise erklären, welche Art von Informationen erwartet werd
 
 ==== Autosuggestion
 
-Autosuggestion ist eine Zusatzfunktion, die in <<Eingabefeld,Eingabefeldern>> ergänzt werden können.
+Autosuggestion ist eine Zusatzfunktion, die in <<eingabefeld,Eingabefeldern>> ergänzt werden können.
 Sie dient dazu, Eingaben durch Vorschläge zu vervollständigen und somit zu beschleunigen.
 Diese Eingabehilfe erscheint direkt unter dem Textfeld.
 Sie schließt sich, wenn der Nutzende außerhalb der Eingabehilfe klickt oder innerhalb der Eingabehilfe seine Auswahl trifft.
