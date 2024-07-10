@@ -25,7 +25,7 @@ https://isyfact.github.io/isy-angular-widgets/
 
 *_Gültigkeit und Anwendung_*
 
-Dieses Konzept ist für jedes Frontend relevant, unabhängig von ihrer Komplexität oder Zielgruppe.
+Dieses Konzept ist für jedes Frontend relevant, unabhängig von dessen Komplexität oder Zielgruppe.
 Es ist gültig für alle Neuentwicklungen und Überarbeitungen von Frontends, die einem Major Change oder Technologiewechsel unterliegen.
 Ausgeschlossen sind minimale Bugfixes und die grundsätzliche Wartung von Altanwendungen.
 Das Bedienkonzept ist gültig ab Q1 – 2024.
@@ -37,27 +37,29 @@ Die Gültigkeit des Bedienkonzepts für Altanwendungen bleibt zum damaligen Zeit
 Das Bedienkonzept ist weit mehr als nur ein Dokument mit Gestaltungsrichtlinien.
 Es ist ein umfassendes Werkzeug, das die Grundlage für die Entwicklung einer erfolgreichen Benutzeroberfläche bildet.
 Indem es einheitliche Standards und Best Practices festlegt, trägt es maßgeblich zur Erreichung der Ziele eines Frontends bei.
-Diese Ziele können von der Steigerung der Bedienzufriedenheit über die Verbesserung der Effizienz bis hin zur Stärkung der Markenidentität reichen.
+Diese Ziele können von der Steigerung der Benutzerzufriedenheit über die Verbesserung der Effizienz bis hin zur Stärkung der Markenidentität reichen.
 
 *_Rolle von Designenden, Entwickelnden und Fachlichkeit_*
 
 Designende und Entwickelnde spielen eine entscheidende Rolle bei der Umsetzung des Bedienkonzepts.
 Während Designende für die Gestaltung der Benutzeroberfläche verantwortlich sind und sicherstellen, dass sie den festgelegten Standards entspricht, liegt es in der Verantwortung der Entwickelnden, diese Gestaltung in ein funktionierendes Frontend umzusetzen.
 Eine enge Zusammenarbeit zwischen Design- und Entwicklungsteams ist unerlässlich, um sicherzustellen, dass das Endprodukt den gestalterischen und funktionalen Anforderungen entspricht.
-Insbesondere bei komplexen Frontends ist es ratsam frühst möglich die Fachlichkeit hinzuzuziehen und den erarbeiteten Konzeptionsstand zu evaluieren.
+Insbesondere bei komplexen Frontends ist es ratsam frühst möglich die Fachlichkeit hinzuzuziehen und den erarbeiteten Stand der Konzeption zu evaluieren.
 
 *_Einhaltung von Standards und Best Practices_*
 
 Das Bedienkonzept legt Standards und Best Practices fest, die von Designenden und Entwickelnden eingehalten werden müssen.
-Diese Standards können sich auf verschiedene Aspekte der Gestaltung und Interaktion beziehen, wie Typografie, Farbgebung, Bedienelemente und Barrierefreiheit.
-Indem sie sich an diese Standards halten, gewährleisten Designende und Entwickelnde nicht nur die Konsistenz der Benutzeroberfläche, sondern auch deren Kompatibilität mit verschiedenen Geräten und Plattformen.
-Wie bei jedem digitalen Frontend unterliegt auch dieses Bedienkonzept einer ständigen Weiterentwicklung.
+Diese Standards können sich auf verschiedene Aspekte der Gestaltung und Interaktion beziehen, wie Typografie, <<farben,Farbgebung>>, <<bedienelemente>> und <<barrierefreiheit>>.
+Durch die Einhaltung dieser Standards gewährleisten Designende und Entwickelnde nicht nur eine konsistente Benutzeroberfläche, sondern auch die Kompatibilität dieser Oberfläche mit verschiedenen Geräten und Plattformen.
+
+Genau wie jedes digitale Frontend wird auch dieses Bedienkonzept ständig weiterentwickelt.
 Die Entwicklungen und Änderungen werden entsprechend dem Stand der Technik und der rechtlichen Gegebenheiten aktualisiert und gekennzeichnet.
 
 *_Technische Kompatibilität_*
 
 Wenn Frontends anhand dieses Bedienkonzepts erstellt werden, müssen die korrekte Darstellung und Funktionsweisen des Frontends inklusive ihrer Browser-Funktionen, wie bspw. "Vor" und "Zurück", geprüft werden.
 Dafür muss für jedes Projekt der primäre Browser und dessen Versionen ermittelt und geprüft werden.
+
 In der Regel soll sichergestellt sein, dass folgende Browser unterstützt werden:
 
 |===
@@ -76,10 +78,10 @@ In der Regel soll sichergestellt sein, dass folgende Browser unterstützt werden
 Soweit notwendig wird auf browserspezifische Eigenheiten eingegangen.
 Dabei sind folgende Auflösungen zu berücksichtigen:
 
-* 2560 x1440 2K
-* 1920 x 1080 Full HD
-* 1536 x 864 Tablet
-* 390x 873 Smartphone
+* *2K:* 2560 x 1440
+* *Full HD:* 1920 x 1080
+* *Tablet:* 1536 x 864
+* *Smartphone:* 390 x 873
 
 *_Kontinuierliche Weiterentwicklung und Pflege_*
 
@@ -99,11 +101,15 @@ Usability, oder Gebrauchstauglichkeit, bezieht sich auf die Benutzerfreundlichke
 Sie umfasst die Leichtigkeit, mit der Benutzende ein Frontend verstehen, erlernen und bedienen können.
 Zu den Hauptkomponenten der Usability gehören:
 
-* *Effektivität:* Die Fähigkeit der Benutzenden, ihre Ziele präzise zu erreichen.
-* *Effizienz:* Die Schnelligkeit und der Aufwand, mit dem Benutzende ihre Ziele erreichen.
-* *Zufriedenheit:* Das Maß an Komfort und positiver Erfahrung der Benutzenden bei der Nutzung des Frontends.
+* *Effektivität:*
+Die Fähigkeit der Benutzenden, ihre Ziele präzise zu erreichen.
+* *Effizienz:*
+Die Schnelligkeit und der Aufwand, mit dem Benutzende ihre Ziele erreichen.
+* *Zufriedenheit:*
+Das Maß an Komfort und positiver Erfahrung der Benutzenden bei der Nutzung des Frontends.
 
-Usability ist eng mit dem Design der Benutzeroberfläche verknüpft. Eine gut gestaltete UI ermöglicht es den Benutzenden, intuitiv zu navigieren, schnell zu verstehen, wie sie Aufgaben ausführen können, und bietet klare, konsistente visuelle Hinweise.
+Usability ist eng mit dem Design der Benutzeroberfläche verknüpft.
+Eine gut gestaltete UI ermöglicht es den Benutzenden, intuitiv zu navigieren, schnell zu verstehen, wie sie Aufgaben ausführen können, und bietet klare, konsistente visuelle Hinweise.
 Besonders bei komplexen Fachanwendungen ist es wichtig, dass eine gute UI sich nahtlos in die fachlich notwendigen Geschäftsprozesse integrieren lässt.
 
 *_Begriff der Benutzerfreundlichkeit (UX)_*
@@ -113,10 +119,14 @@ UX umfasst alle Aspekte der Interaktion des Benutzenden, einschließlich der emo
 
 *Hauptkomponenten der UX sind:*
 
-* *Nützlichkeit:* Ob das Produkt den Bedürfnissen und Anforderungen des Benutzenden entspricht.
-* *Verfügbarkeit:* Die Zugänglichkeit und Erreichbarkeit des Produkts für verschiedene Gruppen.
-* *Glaubwürdigkeit:* Das Vertrauen der Benutzenden in das Produkt und die Marke.
-* *Wert:* Die Wahrnehmung des Nutzens und der Wertschöpfung durch das Produkt.
+* *Nützlichkeit:*
+Ob das Produkt den Bedürfnissen und Anforderungen des Benutzenden entspricht.
+* *Verfügbarkeit:*
+Die Zugänglichkeit und Erreichbarkeit des Produkts für verschiedene Gruppen.
+* *Glaubwürdigkeit:*
+Das Vertrauen der Benutzenden in das Produkt und die Marke.
+* *Wert:*
+Die Wahrnehmung des Nutzens und der Wertschöpfung durch das Produkt.
 
 UX berücksichtigt nicht nur die Interaktion mit der Benutzeroberfläche, sondern auch die gesamte Benutzerreise, von der ersten Wahrnehmung des Produkts bis zur fortlaufenden Nutzung und Unterstützung.
 
@@ -126,31 +136,39 @@ Usability ist ein integraler Bestandteil der Benutzerfreundlichkeit.
 Ein benutzerfreundliches Frontend muss eine hohe Usability aufweisen, da die Benutzeroberfläche der primäre Kontaktpunkt zwischen dem Benutzendem und dem Frontend ist.
 Gute Usability sorgt für:
 
-* *Reibungslose und intuitive Interaktion:* Benutzende können problemlos navigieren und ihre Ziele erreichen, was zu einer positiven UX beiträgt.
-* *Effizienz:* Benutzende verbringen weniger Zeit und Mühe, um Aufgaben zu erledigen, was ihre Zufriedenheit erhöht und die Gesamt-UX verbessert.
+* *Reibungslose und intuitive Interaktion:*
+Benutzende können problemlos navigieren und ihre Ziele erreichen, was zu einer positiven UX beiträgt.
+* *Effizienz:*
+Benutzende verbringen weniger Zeit und Mühe, um Aufgaben zu erledigen, was ihre Zufriedenheit erhöht und die Gesamt-UX verbessert.
 
 *_Unterschiede zwischen Usability (UI) und Benutzerfreundlichkeit (UX)_*
 
-Trotz ihrer engen Verbindung gibt es klare Unterschiede zwischen Usability und UX:
+Trotz ihrer engen Verbindung gibt es klare Unterschiede zwischen UI und UX:
 
-* *Fokusbereich:* Usability konzentriert sich auf die Effizienz und Effektivität der Benutzeroberfläche, während UX das gesamte Erlebnis des Benutzenden mit dem Produkt betrachtet.
-* *Umfang:* Usability befasst sich hauptsächlich mit den funktionalen Aspekten der Interaktion, wie Navigation und Bedienbarkeit, während UX auch emotionale und psychologische Faktoren einbezieht, wie Freude und Zufriedenheit.
-* *Messbarkeit:* Usability kann durch spezifische Metriken wie Fehlerquote, Zeitaufwand und Benutzerzufriedenheit gemessen werden.
+* *Fokusbereich:*
+Usability konzentriert sich auf die Effizienz und Effektivität der Benutzeroberfläche, während UX das gesamte Erlebnis des Benutzenden mit dem Produkt betrachtet.
+* *Umfang:*
+Usability befasst sich hauptsächlich mit den funktionalen Aspekten der Interaktion, wie Navigation und Bedienbarkeit, während UX auch emotionale und psychologische Faktoren einbezieht, wie Freude und Zufriedenheit.
+* *Messbarkeit:*
+Usability kann durch spezifische Metriken wie Fehlerquote, Zeitaufwand und Benutzerzufriedenheit gemessen werden.
 UX erfordert jedoch eine umfassendere Bewertung, die qualitative und quantitative Methoden kombiniert, um das gesamte Benutzererlebnis zu verstehen.
 
-*Grundlegende Do's, die die Benutzerfreundlichkeit einer Benutzeroberfläche in Frontends erhöhen:*
+*_Grundlegende Do's, die die Benutzerfreundlichkeit einer Benutzeroberfläche in Frontends erhöhen:_*
 
-* *Klare Anweisungen und Fehlermeldungen:* Nutzende sollten stets verstehen, was von ihnen erwartet wird.
+* *Klare Anweisungen und Fehlermeldungen:*
+Nutzende sollten stets verstehen, was von ihnen erwartet wird.
 Klare Anweisungen und verständliche Fehlermeldungen helfen dabei, Frustration zu vermeiden und den Nutzenden durch den Prozess zu führen.
 * *Validierung von Eingaben:*
 Validieren Sie Eingabefelder in Echtzeit, um Nutzende vor Fehlern zu warnen, bevor sie das Formular absenden.
 Dadurch wird vermieden, dass Nutzende nach dem Absenden des Formulars feststellen, dass sie fehlerhafte oder unvollständige Informationen eingegeben haben.
-* *Progressive Offenbarung von Informationen:* Überladen Sie die Benutzeroberfläche nicht mit zu vielen Informationen auf einmal.
+* *Progressive Offenbarung von Informationen:*
+Überladen Sie die Benutzeroberfläche nicht mit zu vielen Informationen auf einmal.
 Stellen Sie sicher, dass Informationen kontextbezogen und schrittweise offenbart werden, um Nutzende nicht zu überfordern.
-* *Testen mit verschiedenen Nutzungsgruppen:* Um sicherzustellen, dass Ihre Oberfläche für eine breite Palette von Nutzenden zugänglich ist, ist es wichtig, Tests mit verschiedenen Personengruppen durchzuführen.
+* *Testen mit verschiedenen Nutzungsgruppen:*
+Um sicherzustellen, dass Ihre Oberfläche für eine breite Palette von Nutzenden zugänglich ist, ist es wichtig, Tests mit verschiedenen Personengruppen durchzuführen.
 Berücksichtigen Sie dabei Nutzende mit unterschiedlichen Fähigkeiten, Geräten und technischen Kenntnissen.
 
-Weitere Informationen zu einer besseren Benutzerfreundlichkeit sind am jeweiligen <<bedienelemente,Bedienelement>>, dem <<design-pattern,Pattern>> und/oder Eingabehilfen und Fehlermeldungen zu finden (siehe Unterkapitel "Do's and Don'ts).
+Weitere Informationen zu einer besseren Benutzerfreundlichkeit sind am jeweiligen <<bedienelemente,Bedienelement>>, am <<design-pattern>> oder an den <<eingabehilfen-und-fehlermeldungen>> zu finden (siehe jeweils bei den Unterkapiteln "Do's" und "Don'ts").
 
 [[allgemeine-prinzipien]]
 === Allgemeine Prinzipien
@@ -227,11 +245,11 @@ Für Haupt & Einstiegsseiten, Seiten mit rechtlicher Relevanz muss der Kontrast 
 * Es sollten keine Schriftgrafiken genutzt werden.
 * Alle Bilder benötigen ein inhaltlich sinnvolles beschreibendes Alt-Attribut.
 * Bilder, die ausschließlich der Gestaltung dienen (z.B. Trennlinien), müssen als solche (Schmuckgrafik) gekennzeichnet werden.
-* _Tastatur-Navigation:_
+* *Tastatur-Navigation:*
 Nicht alle Nutzenden können eine Maus verwenden.
 Daher ist es wichtig, dass alle Interaktionen auf dem Frontend auch über die Tastatur möglich sind.
 Dies bedeutet, dass alle Navigationselemente, Links und interaktiven Elemente leicht per Tastatur zugänglich sein müssen.
-* _Vermeidung von reinen Farbunterscheidungen:_
+* *Vermeidung von reinen Farbunterscheidungen:*
 Informationen sollten nicht allein durch Farbe vermittelt werden, da einige Nutzende Farben nicht unterscheiden können.
 Nutzen Sie daher auch andere visuelle Elemente, wie Symbole oder Muster, um wichtige Informationen zu vermitteln.
 * Vermeide schwache Kontraste z.B. hellblau auf Grau.
@@ -244,7 +262,7 @@ Farben sind ein Hauptbestandteil um die Frontends zu gestalten und um die Nutzen
 Um eine gute Erkennbarkeit der Elemente sicherzustellen, muss bei großer Schrift ein Kontrast von mindestens 3:1 gewährleistet sein.
 
 Nachfolgend sind alle in der Anwendung zur Verfügung stehenden Farben miteinander in ein Kontrastverhältnis gebracht.
-Farbkombinationen, die rot gelabeled sind und keinen ausreichenden Kontrast aufweisen, dürfen nicht verwendet werden.
+Farbkombinationen, die rot gelabelt sind und keinen ausreichenden Kontrast aufweisen, dürfen nicht verwendet werden.
 Andere Farbkombinationen sind entsprechend ihrem Text/Elementgröße frei zu wählen.
 Dabei soll der Kontrast so hoch wie möglich gewählt werden.
 
@@ -264,35 +282,35 @@ Die folgenden Links verweisen auf weitere Informationen zur Kontrast-Analyse:
 Alt-Attribute (alternative Texte) sind textuelle Beschreibungen, die in den HTML-Code von Bildern eingebettet werden.
 Sie dienen mehreren wichtigen Zwecken:
 
-* _Zugänglichkeit:_
+* *Zugänglichkeit:*
 Screenreader verwenden Alt-Attribute, um sehbehinderten oder blinden Nutzenden den Inhalt und Zweck eines Bildes zu vermitteln.
-* _Fehlertoleranz:_
+* *Fehlertoleranz:*
 Wenn ein Bild aus irgendeinem Grund nicht geladen werden kann, zeigt der Browser den Alt-Text anstelle des Bildes an.
 
 *_Best Practices für das Schreiben von Alt-Attributen_*
 
 Beim Erstellen von Alt-Texten sollten folgende Richtlinien beachtet werden:
 
-* _Beschreibend und prägnant:_
+* *Beschreibend und prägnant:*
 Der Alt-Text sollte den Inhalt und Zweck des Bildes kurz und genau beschreiben.
 Beispiel:
 [source,xml]
 <img src="blume.jpg" alt="Gelbe Tulpe im Frühlingsgarten">.
 
-* _Kontextbezogen:_
+* *Kontextbezogen:*
 Der Alt-Text sollte den Kontext berücksichtigen, in dem das Bild verwendet wird.
 Beispiel:
 Bei einem Bild eines Einkaufswagens auf einer E-Commerce-Seite könnte der Alt-Text lauten:
 [source,xml]
 <img src="cart.png" alt="Einkaufswagen">.
 
-* _Keine redundante Information:_
+* *Keine redundante Information:*
 Informationen, die bereits im umgebenden Text enthalten sind, müssen nicht im Alt-Text wiederholt werden.
 Beispiel:
 Wenn ein Bild neben einer Überschrift „Teamfoto 2024“ steht, sollte der Alt-Text nicht einfach „Teamfoto 2024“ wiederholen.
-* _Vermeidung von Keyword-Stuffing:_
+* *Vermeidung von Keyword-Stuffing:*
 Der Alt-Text sollte nicht mit Schlüsselwörtern überladen werden, da dies sowohl die Zugänglichkeit als auch die SEO beeinträchtigt.
-* _Verwendung von leeren Alt-Attributen für dekorative Bilder:_
+* *Verwendung von leeren Alt-Attributen für dekorative Bilder:*
 Wenn ein Bild rein dekorativ ist und keinen informativen Wert hat, sollte das Alt-Attribut leer sein (alt=""), um Screenreader zu signalisieren, dass sie das Bild ignorieren können.
 
 === ARIA-Labels für andere Bedienelemente
@@ -307,21 +325,21 @@ Sie bieten zusätzliche Informationen für Screenreader, insbesondere für Eleme
 ARIA-Labels kommen zum Einsatz, wenn ein Bedienelement keinen eindeutigen, für Screenreader zugänglichen Text enthält.
 Hier sind die wichtigsten ARIA-Attribute und ihre Anwendungen:
 
-* _aria-label:_
+* *aria-label:*
 Wird verwendet, um ein Element zu beschreiben.
 Es ist besonders nützlich für Bedienelemente ohne sichtbaren Text.
 Beispiel:
 [source,xml]
 <button aria-label="Schließen">X</button>.
 
-* _aria-labelledby:_
+* *aria-labelledby:*
 Verweist auf ein anderes Element, dessen Text als Beschriftung dient.
 Beispiel:
 [source,xml]
 <button aria-labelledby="closeButtonText">X</button>
 <span id="closeButtonText" hidden>Schließen</span>.
 
-* _aria-describedby:_
+* *aria-describedby:*
 Gibt ein anderes Element an, das eine ausführlichere Beschreibung des aktuellen Elements enthält.
 Beispiel:
 [source,xml]
@@ -332,13 +350,13 @@ Beispiel:
 
 Um sicherzustellen, dass ARIA-Labels effektiv eingesetzt werden, sollten folgende Richtlinien beachtet werden:
 
-* _Klarheit und Präzision:_
+* *Klarheit und Präzision:*
 ARIA-Labels sollten klar und präzise sein, um den Zweck des Elements genau zu vermitteln.
-* _Vermeidung von Redundanz:_
+* *Vermeidung von Redundanz:*
 ARIA-Labels sollten nicht redundant zu bereits vorhandenen textuellen Beschreibungen sein.
-* _Konsistenz:_
+* *Konsistenz:*
 Die Verwendung von ARIA-Labels sollte konsistent über das gesamte Frontend hinweg erfolgen, um eine einheitliche Benutzererfahrung zu gewährleisten.
-* _Testen:_
+* *Testen:*
 Die implementierten ARIA-Labels sollten regelmäßig mit verschiedenen Screenreadern getestet werden, um sicherzustellen, dass sie korrekt interpretiert werden.
 
 *_Zusammenfassung:_*
@@ -352,9 +370,9 @@ Das Beachten der Best Practices beim Schreiben von Alt-Attributen und der Implem
 Das lang-Attribut informiert Browser und assistive Technologien über die Sprache des Inhalts.
 Dies hat mehrere Vorteile:
 
-* _Zugänglichkeit:_
+* *Zugänglichkeit:*
 Screenreader verwenden das lang-Attribut, um die richtige Aussprache und Sprachregeln anzuwenden, was für Nutzende mit Sehbehinderungen von entscheidender Bedeutung ist.
-* _Mehrsprachige Frontends:_
+* *Mehrsprachige Frontends:*
 Das lang-Attribut ermöglicht es, verschiedene Sprachversionen eines Frontends korrekt zu kennzeichnen und so die Benutzererfahrung zu verbessern.
 
 Nutzen Sie die standardisierten ISO 639-1 Sprachcodes (zwei Buchstaben), um die Sprache zu definieren (z.B. de = deutsch).
@@ -405,6 +423,7 @@ Dieser beinhaltet behördenspezifische Widgets, wie bspw. den Anwendungsrahmen o
 [[basiselemente]]
 == Basiselemente
 
+[[farben]]
 === Farben
 
 Farben tragen maßgeblich zur visuellen Identität eines Frontends bei und beeinflussen die Stimmung und Wahrnehmung der Nutzenden:
@@ -598,7 +617,7 @@ a|image::isy-bedienkonzept:primeicons/arrow-circle-down.svg[width=32,height=32]
 |pi-arrow-circle-down
 |Importieren
 
-//arrow circle up muss noch hochgeladen werden
+// ToDo: arrow circle up muss noch hochgeladen werden
 //a|image::isy-bedienkonzept:primeicons/arrow-circle-up.svg[width=32,height=32]
 //|pi-arrow-circle-up
 //|Exportieren
@@ -676,7 +695,7 @@ _Sprachumfang_
 
 Folgende Sprachen werden von den Schriften BundesSerif, BundesSans und BundesSans Condensed unterstützt (nur lateinische Schriftzeichen):
 
-Afrikaans, Albanisch, Aromunisch, Arvanitisch, Aserbaidschanisch, Asturisch, Asu, Baskisch, Bemba, Bena, Bislama, Bosnisch, Bretonisch, Chamorro, Chichewa, Chiga, Dänisch, Deutsch, Embu, Englisch, Esperanto, Estnisch, Färöisch, Filipino, Finnisch, Frankoprovenzalisch, Französisch, Friulisch, Gagausisch, Galicisch, Grönländisch, Gusii, Hawaiisch, Inarisamisch, Indonesisch, Interlingua, Irisch, Isländisch, Istrorumänisch, Italienisch, Jiddisch, Jola Fogny, Kalenjin, Kamba, Kapverdisch, Karaimisch, Katalanisch, Kikuyu, Kinyarwanda, Kirundi, Kornisch, Krimtatarisch, Kroatisch, Ladinisch, Ladino, Lettisch, Litauisch, Luganda, Lulesamisch, Luo, Luxemburgisch, Luyia, Machame, Madagassisch, Makhuwa-Meetto, Makonde, Malaiisch, Maltesisch, Manx-Gälisch, Maori, Meru, Morisyen, Niederländisch, Niedersorbisch, Nkole, Nord-Ndebele, Nordsamisch, Nord-Sotho, Norwegisch (Bokmål), Norwegisch (Nynorsk), Obersorbisch, Okzitanisch, Oromo, Polnisch, Portugiesisch, Quechua, Rätoromanisch, Rombo, Rumänisch, Rwa, Samburu, Samoanisch, Sango, Sangu, Schottisch-Gälisch, Schwedisch, Sena, Serbisch, Shambala, Shona, Slowakisch, Slowenisch, Soga, Somali, Spanisch, Suaheli, Südsamisch, Süd-Sotho, Tahitianisch, Taita, Teso, Tongaisch, Tschechisch, Tsonga, Tswana, Türkisch, Turkmenisch, Umesamisch, Ungarisch, Usbekisch, Vunjo, Walisisch, Wallonisch, Walserdeutsch, Wepsisch, Wolof, Xhosa, Yapesisch, Zulu
+Afrikaans, Albanisch, Aserbaidschanisch, Asu, Baskisch, Bemba, Bena, Bosnisch, Bretonisch, Cebuano, Chiga, Deutsch, Dänisch, Embu, Englisch, Esperanto, Estnisch, Filipino, Finnisch, Französisch,  Friaulisch, Färöisch, Galizisch, Ganda, Grönländisch, Gusii, Hawaiianisch, Ido, Inari-Samisch, Indonesisch, Interlingua, Irisch, Isländisch, Italienisch, Javanisch, Jju, Jola-Fonyi, Kabuverdianu, Kalenjin, Kamba, Katalanisch, Kikuyu, Kinyarwanda, Kornisch, Korsisch, Kroatisch, Kurdisch, Kölnisch, Lettisch, Ligurisch, Litauisch, Lojban, Lombardisch, Luhya, Luo, Luxemburgisch, Machame, Makhuwa, Makhuwa-Meetto, Makonde, Malagasy, Malaiisch, Maltesisch, Manx, Meru, Mohawk, Morisyen, Māori, Niederdeutsch, Niederländisch. Niedersorbisch, Nord-Ndebele, Nord-Sami, Nord-Sotho, Norwegisch (Bokmål), Norwegisch (Nynorsk), Nyanja, Nyankole, Obersorbisch, Okzitanisch, Oromo, Polnisch, Portugiesisch, Quechua, Rejang, Rombo, Rukiga, Rumänisch, Rundi, Rwa, Rätoromanisch, Samburu, Samoanisch, Sango, Sangu, Sardisch, Schlesisch, Schottisches Gälisch, Schwedisch, Schweizerdeutsch, Sena, Shambala, Shona, Siswati, Slowakisch, Slowenisch, Soga, Somali, Spanisch, Sundanesisch, Swahili, Süd-Ndebele, Süd-Sotho, Taita, Taroko, Teso, Tongaisch, Tschechisch, Tsong, Tswana, Turkmenisch, Türkisch, Ungarisch, Usbekisch, Vunjo, Walisisch, Walliserdeutsch, Wallonisch, Westfriesisch, Wolastoqey, Wolof, Xhosa, Zhuang, Zulu
 
 Die Liste entspricht der Sprachenzeichennorm ISO 639-1-3.
 
@@ -686,7 +705,7 @@ Nicht-lateinische Schriften umfassen Schriftsysteme, die anstelle lateinischer S
 Mit einem Schriftsystem lassen sich meist mehrere Sprachen schreiben (z.B. mit dem arabischen Schriftsystem Sprachen, wie Arabisch, Urdu, Paschtu, Persisch (Dari/Farsi)).
 Nicht-lateinischer Originaltext wird vom angegebenen Schriftfont erkannt und automatisch in den richtigen Schriftzeichen wiedergegeben.
 Die Notwendigkeit der Darstellung nicht-lateinischer Schriften ergibt sich durch die DIN 91379 „Zeichen und definierte Zeichensequenzen in Unicode für die elektronische Verarbeitung von Namen und den Datenaustausch in Europa“ mit Ausgabedatum 2022-08.
-Basierend auf UNICODE wurde für jedes nicht-lateinische Zeichen, das in EU-Mitgliedsstaaten verwendet wird (beispielsweise griechische oder kyrillische Zeichen), eine eindeutige Zuordnung zu einem lateinischen Zeichen vorgenommen.
+Basierend auf UNICODE wurde für jedes nicht-lateinische Zeichen, das in EU-Mitgliedsstaaten verwendet wird, beispielsweise griechische oder kyrillische Zeichen, eine eindeutige Zuordnung zu einem lateinischen Zeichen vorgenommen.
 DIN 91379 wendet sich vorrangig an Behörden und Organisationen, die IT-Verfahren betreiben, welche dem behördenübergreifenden Datenaustausch oder dem Datenaustausch mit Bürgern und Wirtschaft dienen.
 Sie deckt in ihrer Gesamtheit die EU-Amtssprachen und die Amtssprachen Islands, Liechtensteins, Norwegens und der Schweiz ab, sowie die deutschen Minderheitensprachen.
 Damit dies gewährleistet wird, kommt sekundär:
@@ -962,7 +981,7 @@ Erläuterungen können dabei in verschiedenen Möglichkeiten realisiert werden, 
 * Als maximal 2-zeiliger Hinweistext unter oder über dem Label (bitte nach Entscheidung konsistent im gesamten Frontend damit fortfahren).
 * Alle Erläuterungstexte, die länger als 2 Zeilen einer Eingabefeldlänge benötigen, sind zu komplex gestalten und bedürfen einer fachlichen Neugestaltung.
 Sollte dies nicht möglich sein, so ist ein vorangegangenes Textelement über dem Eingabefeld notwendig.
-* Erläuterungshilfen, sollen nicht dynamisch versteckt werden – entweder ist die Erläuterung notwendig = sichtbar oder nicht notwendig = entfernen.
+* Erklärungshilfen, sollen nicht dynamisch versteckt werden – entweder ist die Erläuterung notwendig = sichtbar oder nicht notwendig = entfernen.
 
 //ToDo: Auflösen in Do's and Don'ts
 Grundlegende Hinweise zur Gestaltung von Eingabefeldern und Labeln:
@@ -1104,8 +1123,8 @@ Dieser Zustand wird häufig mit einem Quadrat innerhalb der Checkbox symbolisier
 
 === Radiobutton
 
-Radiobutton ermöglichen es Nutzenden, *eine* Optionen aus einer (offenen) Liste auszuwählen und spielen eine wichtige Rolle bei der Interaktivität und Benutzerführung.
-Beim Einsatz von Radiobuttons wird dem Nutzenden sehr schnell gezeigt, dass er sich zwischen allen Optionen für eine entscheiden muss
+Radiobutton ermöglichen es Nutzenden, *eine* Option aus einer (offenen) Liste auszuwählen und spielen eine wichtige Rolle bei der Interaktivität und Benutzerführung.
+Beim Einsatz von Radiobuttons wird dem Nutzenden sehr schnell gezeigt, dass er sich zwischen allen Optionen für eine entscheiden muss.
 
 Radiobuttons können nicht alleinstehend verwendet werden, da sie nicht wieder abwählbar sind.
 
@@ -1145,9 +1164,9 @@ Ist die Menge der zur Verfügung stehenden Optionen sehr groß oder hat der Plat
 * Für optimale Lesbarkeit sollten Radiobuttons untereinander angeordnet sein.
 * Falls alle oder keine der angebotenen Optionen zutreffen, sollte eine zusätzliche allgemeine Meta-Option, wie zum Beispiel "Keine Option" oder "Alle", hinzugefügt werden.
 
-*_Don'ts_*
+*_Don't_*
 
-* Ein Radiobutton darf nicht genutzt werden, um unmittelbar Funktionen auszuführen oder Aktionen auszulösen.
+Ein Radiobutton darf nicht genutzt werden, um unmittelbar Funktionen auszuführen oder Aktionen auszulösen.
 Für diese Zwecke sollten Buttons verwendet werden.
 
 === Tabview
@@ -1182,7 +1201,7 @@ Es ist ratsam ein Tabview zu nutzen, wenn der Inhalt nicht ohne massives Scrolli
 Dabei ist eine fachlich logische Aufgliederung vorauszusetzen.
 Die optimale Anzahl an Tabs liegt bei 4-7 Tabs.
 
-Sollte es fachlich zwingend notwendig sein, mehr Tabs anzubieten, so kann technisch ein „Taboverflow“ via Scrolling eingesetzt werden.
+Sollte es fachlich zwingend notwendig sein, mehr Tabs anzubieten, so kann technisch ein „TabOverflow“ via Scrolling eingesetzt werden.
 Dieses Element ist ein „Überlangen-Tabview“.
 
 [[image-tabview-overlong]]
@@ -1406,20 +1425,20 @@ Platzhaltertexte sind nützlich, um Nutzenden zusätzliche Hinweise oder Beispie
 Sie sollten jedoch nicht als Ersatz für Labels dienen.
 Idealerweise sollten Platzhaltertexte kurz und prägnant sein, um den Nutzenden zu helfen, die Anforderungen des jeweiligen Eingabefelds besser zu verstehen, ohne den Platz zu überladen oder den Fokus zu stören.
 
-*Beispiel 1:* es wird ein Nachname im Eingabefeld erwartet
+*_Beispiel 1:_* es wird ein Nachname im Eingabefeld erwartet
 
-*_Do:_*
+*Do:*
 Nachname
 
-*_Don't:_*
+*Don't:*
 Dein Nachname
 
-*Beispiel 2:* es wird eine Telefonnummer erwartet
+*_Beispiel 2:_* es wird eine Telefonnummer erwartet
 
-*_Do:_*
+*Do:*
 +49 123 1234567
 
-*_Don't:_*
+*Don't:*
 Deine Telefon- oder Handynummer
 
 Sobald der Nutzende in das Eingabefeld klickt, wird der Platzhalter ausgeblendet und es besteht die Möglichkeit eine Mask anzeigen zu lassen.
