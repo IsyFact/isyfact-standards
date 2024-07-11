@@ -226,13 +226,14 @@ OpenID Connect Abfragen zur Identität eines Benutzers, OpenID-Token oder Custom
 
 [[authentifizierung-und-autorisierung]]
 === Authentifizierung & Autorisierung
-Gemäß den Vorgaben des IdentityAccessManagements (IAM), das in der  xref:isyfact-standards-doku:referenzarchitektur:fachlich.adoc#[IsyFact-Referenzarchitektur] zum Einsatz kommt, wird die Authentifizierung & Autorisierung über Multi-Realm bzw. Multi-Tenancy organisiert. Nach den vordefinierten xref:isyfact-standards-doku:referenzarchitektur:software-technisch.adoc#prinzipien-der-sicherheitsarchitektur[Prinzipien der Sicherheitsarchitektur] ergeben sich unterschiedliche Zugriffswege, wie das nachfolgende Bild zeigt:
+Die Authentifizierung & Autorisierung wird über Multi-Tenancy strukturiert, um die unterschiedlichen Zugriffswege gemäß den  xref:isyfact-standards-doku:referenzarchitektur:software-technisch.adoc#prinzipien-der-sicherheitsarchitektur[Prinzipien der Sicherheitsarchitektur] darüber abzubilden, wie das nachfolgende Bild zeigt:
 
 .Authentifizierungswege als Tenants
 [id="image-multi-tenancy-multi-iam",reftext="{figure-caption} {counter:figures}"]
 image::konzept/security_multi-tenancy_with_multi_iams.dn.svg[align="center"]
 
-Die verschiedenen dargestellten Zugriffswege _Portal_, _Service-Gateway_, _Authentication-Gateway_ oder _interne Anwendungs-Authentifizierung_ (Batch/Task/Kontextwechsel) können als Tenants unterschieden werden. Dies wird - sofern gewünscht - durch den Sicherheitsbaustein _isy-security_ unterstützt.
+Die verschiedenen dargestellten Zugriffswege _Portal_, _Service-Gateway_, _Authentication-Gateway_ oder _interne Anwendungs-Authentifizierung_ (Batch/Task/Kontextwechsel) bis hin zu mehrfachen IAM-Instanzen können daher als einzelne Tenants nicht nur unterschieden, sondern auch als Multi-Instanzen des gleichen Typs identifiziert werden.
+Diese Trennung und Identifizierung wird - sofern gewünscht - durch den Sicherheitsbaustein _isy-security_ unterstützt.
 
 Die an den Zugriffwegen beteiligten Komponenten unterscheiden sich in ihrem Aufbau, ihrer Konfiguration und ihrer Funktionalität, so dass jede genau die speziellen Eigenheiten - siehe dazu Kapitel <<aufruf-weboberflaeche-portal>>, <<aufruf-service-gateway-ohne-authentication-gateway>>, <<aufruf-service-gateway-mit-authentication-gateway>> und <<ausfuehrung-batch-u-task>> bzw. <<aufruf-von-nachbarsystemen>> - am besten bedienen oder erfüllen kann.
 Die Umsetzung und sicherheitsrelevante Trennung dieser Zugriffswege werden als eigenständige Tenants betrachtet und können somit auch als mehrere Instanzen pro Zugriffsweg eingerichtet werden.
@@ -249,19 +250,19 @@ Aber auch pro Authentifizierungsweg ist es möglich unterschiedliche Tenants spr
 
 Um nun für jeden Tenant eine eindeutige Zuordnung bzw. eine Tenant spezifische Gruppierung der Properties herzustellen, muss der Property-Key im Pfad eine Kennung des Tenant beinhalten:
 
-`isy.security.oauth2.resourceserver.jwt.tenants.*<tenant-id>*`
+`<property-key-pfad>.tenants.*<tenant-id>*`
 
 Der Platzhalter `<tenant-id>` wird in der konkreten Konfigurationsausprägung auf einen aussagekräftigen bzw. eindeutigen Namen des Tenant gesetzt.
 So wäre beispielsweise für die drei Authentifizierungswege aus der Nutzungsschicht (in <<image-multi-tenancy-multi-iam>>) folgende Property-Pfade vorstellbar:
 
-- `isy.security.oauth2.resourceserver.jwt.tenants.*portal*`
-- `isy.security.oauth2.resourceserver.jwt.tenants.*sgw*`
-- `isy.security.oauth2.resourceserver.jwt.tenants.*agw*`
+- `<property-key-pfad>.tenants.*portal*`
+- `<property-key-pfad>.tenants.*sgw*`
+- `<property-key-pfad>.tenants.*agw*`
 
 Sollten für einen Authentifizierungskanal mehrere Instanzen notwendig werden, dann müssen sich deren Namen natürlich auch unterscheiden, wie beispielsweise:
 
-- `isy.security.oauth2.resourceserver.jwt.tenants.*sgw-1*`
-- `isy.security.oauth2.resourceserver.jwt.tenants.*sgw-2*`
+- `<property-key-pfad>.tenants.*sgw-1*`
+- `<property-key-pfad>.tenants.*sgw-2*`
 
 
 [[aufruf-weboberflaeche-portal]]
