@@ -3,7 +3,7 @@
 
 *Änderungen IsyFact 3.1.0*
 
-// tag::release-3.0.0[]
+// tag::release-3.1.0[]
 
 - `IFS-3821`: `isy-security`: Thematik zur internen und externen URL bei der Authentifizierung beschrieben
 
