@@ -283,7 +283,7 @@ OpenID Connect Abfragen zur Identität eines Benutzers, OpenID-Token oder Custom
 
 ==== Aufruf des IAM-Systems über unterschiedliche URIs
 
-Wenn in einer Anwendungslandschaft das IAM über mehrere unterschiedliche URIs aufgerufen werden kann, dann benötigt eine Anwendung mindestens eine bis alle dieser URIs, um eine vollständige Authentifizierung inklusive darauffolgender Tokenvalidierung und Autorisierung mit dem IAM durchzuführen.
+Wenn in einer Anwendungslandschaft das IAM über mehrere unterschiedliche URIs aufgerufen werden kann, dann benötigt eine Anwendung mindestens eine bis alle dieser URIs in seiner Konfiguration, um je nach Rolle eine Authentifizierung gegen den IAM zu starten oder eine Tokenvalidierung gegen den IAM durchzuführen.
 
 Dies ist zum Beispiel der Fall, wenn eine interne URI des IAM für Aufrufe von innerhalb der Anwendungslandschaft und eine externe URI für Aufrufe von außerhalb der Anwendungslandschaft benötigt werden oder wenn aufgrund verschiedener Netzwerk-Zonen bzw. technischer Kommunikationskanäle die URIs sich unterscheiden müssen.
 Die nachfolgende Skizze zeigt dies schematisch auf.
@@ -292,10 +292,15 @@ Die nachfolgende Skizze zeigt dies schematisch auf.
 [id="image-Authorization-Code-Connections",reftext="{figure-caption} {counter:figures}"]
 image::konzept/unterschiedliche-issuerURIs.dn.svg[align="center"]
 
-Die verwendete URI (Issuer-URI) zum Aufruf des IAM wird dort nach valider Authentifizierung im ausgestellten Access-Token hinterlegt und mit der in der Geschäftsanwendung konfigurierten URI im Rahmen der Tokenprüfung abgeglichen.
-Die Prüfung schlägt oft fehl, da das Access-Token über die externe URI ausgestellt wurde, in der Geschäftsanwendung jedoch (nur) die interne URI konfiguriert ist.
+So ist zum Beispiel das Portal in der Rolle der _"Authentifizierung startenden Anwendung"_ und benötigt aus seiner Konfiguration die *externe* und die *interne* _IAM-URI_ für den OpenIDConnect-Handshake mit dem WebClient.
+Die *externe IAM-URI* wird vom Portal als Redirect an den WebClient zurückgeliefert, so dass dieser den IAM direkt von extern aufrufen kann, um den IAM-Login-Dialog im WebClient zur Anzeige zu bringen.
+Die *interne IAM-URI* wird vom Portal benötigt, um für nachfolgende Schritte des OpenIDConnect-Handshakes direkt auf *internem* Wege mit dem IAM zu kommunizieren.
 
-Um nun in der Anwendung Access-Tokens erfolgreich zu validieren, die über eine in der Anwendung abweichend konfigurierte IAM-URI ausgestellt wurden, müssen alle genutzten URIs des IAM-Systems in der Anwendung hinterlegt werden.
+Ist die Geschäftsanwendung in der Rolle der _"AccessToken validierenden Instanz"_, so benötigt sie in ihrer Konfiguration alle _IAM-URIs_, um ein AccessToken zu validieren.
+Dazu gehört die zum ursprünglichen IAM-Aufruf verwendete URI (`issuer-uri`), die nun dabei gegen den Wert im `iss-Claim` des Tokens verifiziert wird.
+Die Prüfung schlägt oft fehl, da das Access-Token über die *externe IAM-URI* ausgestellt wurde, in der Geschäftsanwendung jedoch (nur) die *interne IAM-URI* zum Nachladen von Zertifikaten konfiguriert ist.
+
+Um nun in einer Geschäftsanwendung Access-Tokens erfolgreich zu validieren, die über eine in der Anwendung abweichend konfigurierte IAM-URI ausgestellt wurden, müssen alle genutzten URIs des IAM-Systems in der Anwendung hinterlegt werden.
 Dies geschieht über die Anwendungskonfiguration. Auf diese Weise können beliebig viele URIs konfiguriert werden.
 
 Weitere Details zur Konfiguration mehrerer URIs eines IAM wird in den xref:nutzungsvorgaben/inhalt.adoc#konfiguration-von-multi-iam-uris[Nutzungsvorgaben - Konfiguration von mehreren IAM-URIs] beschrieben.
