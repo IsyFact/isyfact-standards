@@ -14,10 +14,6 @@
     <name>IsyFact-Sonderzeichen</name>
     <description>Komponente zur Unterstützung der Verarbeitung von Sonderzeichen.</description>
 
-    <properties>
-        <spotbugs-annotations.version>4.2.3</spotbugs-annotations.version>
-    </properties>
-
     <dependencyManagement>
         <dependencies>
             <dependency>
