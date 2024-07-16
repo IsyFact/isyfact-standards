@@ -719,7 +719,7 @@ Daher muss in der GA auch der Tenant 3 (T 3) konfiguriert sein.
 
 * Fehlt eine der drei Tenant-Konfigurationen in der GA, so erhält der betroffene Tenant bzw. der dem Tenant zugewiesene Anwender/Anwendung keinen Zugriff auf die GA.
 
-.Authentifizierungswege als Tenants
+.Beispiel: Trennung nach Authentifizierungswegen
 [id="image-multi-tenancy-isyfact",reftext="{figure-caption} {counter:figures}"]
 image::konzept/multi_tenancy_isyfact.dn.svg[align="center"]
 
