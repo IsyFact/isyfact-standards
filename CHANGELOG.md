@@ -7,6 +7,7 @@
 - `ISY-748`: [isyfact-standards-doc] Versionsanhebung `isy-checkstyle-config` auf 0.2.0
     * Gruppierung der `jakarta.*` imports
 - `ISY-305`: [isy-security] Implementierung von IsySecurityTokenUtil zum Auslesen von Attributen aus dem Bearer Token
+- `IFS-2079`: Neues Modul für Parent-POM mit Plugin Management hinzugefügt
 - `ISY-1040`: [isyfact-standards-doc] Anpassung des logback.xml-Konfigurationspfads im IF2-Migrationsleitfaden
 - `IFS-2786`: [isyfact-standards-doc] Migrationsleitfaden IsyFact 2 entfernt
 - `IFS-2784`: [isyfact-standards-doc] Externe Verweise direkt verlinkt statt über `literaturextern` und URLs korrigiert
@@ -25,6 +26,7 @@
         * Spring Framework 5.x -> 6.x
         * Spring Security 5.x -> 6.x
         * Hibernate 5.x -> 6.x
+- `IFS-2079`: Eine implizite Ausführung von Plugins durch das Einbinden von IsyFact Standards als Parent ist nicht mehr möglich.
 - `ISY-779`: `isyfact-bom` entfernt
     * [isyfact-standards-bom] `isyfact-standards-bom` importiert dependencyManagement aus `isyfact-products-bom`
     * [isyfact-standards-doc] Bezug und Nutzung der IsyFact nach Entfernung der IsyFact-BOM beschrieben

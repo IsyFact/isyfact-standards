@@ -17,13 +17,6 @@
         <dependencies>
             <dependency>
                 <groupId>de.bund.bva.isyfact</groupId>
-                <artifactId>isyfact-standards-bom</artifactId>
-                <version>${project.parent.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>de.bund.bva.isyfact</groupId>
                 <artifactId>isyfact-products-bom</artifactId>
                 <version>${project.parent.version}</version>
                 <type>pom</type>
@@ -35,22 +28,27 @@
         <dependency>
             <groupId>de.bund.bva.isyfact</groupId>
             <artifactId>isy-datetime</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>de.bund.bva.isyfact</groupId>
-            <artifactId>isy-exception-sst</artifactId>
+            <version>${project.parent.version}</version>
         </dependency>
         <dependency>
             <groupId>de.bund.bva.isyfact</groupId>
             <artifactId>isy-logging</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>de.bund.bva.isyfact</groupId>
-            <artifactId>isy-serviceapi-sst</artifactId>
+            <version>${project.parent.version}</version>
         </dependency>
         <dependency>
             <groupId>de.bund.bva.isyfact</groupId>
             <artifactId>isy-task</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>de.bund.bva.isyfact</groupId>
+            <artifactId>isy-exception-sst</artifactId>
+            <version>1.10.0</version>
+        </dependency>
+        <dependency>
+            <groupId>de.bund.bva.isyfact</groupId>
+            <artifactId>isy-serviceapi-sst</artifactId>
+            <version>1.10.0</version>
         </dependency>
 
         <dependency>
