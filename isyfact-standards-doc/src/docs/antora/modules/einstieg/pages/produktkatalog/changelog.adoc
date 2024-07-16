@@ -4,6 +4,9 @@
 *Änderungen IsyFact 4.0.0*
 
 // tag::release-4.0.0[]
+* Anhebung von Versionen:
+** dbunit auf 2.8.x
+
 * Produkte entfernt:
 ** Entwicklungsumgebungen und alle Plugins
 ** Spring Http Invoker
