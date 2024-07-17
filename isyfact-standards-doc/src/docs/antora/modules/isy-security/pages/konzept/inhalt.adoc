@@ -674,7 +674,6 @@ Weitere Details zur Konfiguration mehrerer URIs eines IAM wird in den xref:nutzu
 
 Zur weiteren Vertiefung dieser Sonderkonstellation kann in der https://docs.spring.io/spring-security/reference/servlet/oauth2/resource-server/jwt.html#oauth2resourceserver-jwt-jwkseturi[_Spring_-Dokumentation] und für Details bei der Implementierung bzw. Konfiguration kann in den xref:nutzungsvorgaben/inhalt.adoc#spring-konfiguration[Nutzungsvorgaben] nachgeschlagen werden.
 
-
 [[rollen-und-rechte]]
 == Rollen & Rechte
 
