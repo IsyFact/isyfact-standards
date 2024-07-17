@@ -7,6 +7,7 @@
 - `ISY-1040`: [isyfact-standards-doc] Anpassung des logback.xml-Konfigurationspfads im IF2-Migrationsleitfaden
 - `ISY-1061`: [isyfact-standards-doc] Ergänzung der Dokumentation zum Zurücksetzen der Korrelations-ID aus dem MdcHelper
 - `IFS-3665`: [isyfact-standards-doc] "Leitfaden Dokumentation" nach `isy-documentation` verschoben
+- `IFS-3833`: [isy-security] Implementierung von Multi-Tenanacy-Support
 - `IFS-2248`: [isy-batchrahmen, isy-security] Tokenerneuerung in isy-batchrahmen:
   * `IsySecurityTokenUtil` und `IsyOAuth2Authentifizierungsmanager` stellen Funktionalität zur Token-Gültigkeitsüberprüfung und erneuten Authentifizierung bereit
   * Funktionalität zur erneuten Authentifizierung wird von `BatchrahmenImpl` aufgerufen

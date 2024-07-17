@@ -402,6 +402,39 @@ Der in `isy.security.roles-claim-name` konfigurierte Wert unterstützt keine Ver
 Es ist sicherzustellen, dass das konfigurierte Roles-Claim auch vom Identity Provider befüllt werden.
 ====
 
+[[konfiguration-von-multi-tenancy]]
+=== Konfiguration von Multi-Tenancy
+Für die Unterstützung von Multi-Tenancy ist es erforderlich, die Eigenschaft `spring.security.oauth2.resourceserver.jwt.issuer-uri` zu deaktivieren (auf `false` setzen) oder zu entfernen. Die nachstehenden Konfigurationsparameter werden zur Einstellung von Multi-Tenancy verwendet. Aus Gründen der Übersichtlichkeit wird das Präfix `isy.security.oauth2` in der unten aufgeführten Tabelle weggelassen.
+
+[[table-parameter-multi-tenancy]]
+.Konfigurationsparameter für Multi-Tenancy
+[cols="3m,2m,2m,8",options="header"]
+|===
+|Parameter |Wertebereich |Default |Beschreibung
+|resourceserver.jwt.tenants.<tenant>.issuer-uri  |String |_keiner_ | URI des Ausstellers des JWT, spezifisch für den Tenant
+|resourceserver.jwt.tenants.<tenant>.jwk-set-uri  |String |_keiner_ |URI des JWK-Sets, das die öffentlichen Schlüssel bereitstellt, welche zur Validierung der JWT-Signatur verwendet werden
+|===
+
+Nachfolgend ist eine Beispielkonfiguration für Multi-Tenancy dargestellt.
+
+:desc-listing-multi-tenancy-configuration-example: Multi-Tenancy Beispiel Konfiguration
+[id="listing-multi-tenancy-configuration-example",reftext="{listing-caption} {counter:listings}"]
+.{desc-listing-multi-tenancy-configuration-example}
+[source,properties="verbatim,attributes"]
+----
+
+isy.security.oauth2.resourceserver.jwt.tenants.tenant-1.issuer-uri=http(s)://<keycloak-host>:<keycloak-port>/auth/realms/<keycloak-realm-1> <1>
+isy.security.oauth2.resourceserver.jwt.tenants.tenant-1.jwk-set-uri=http(s)://<keycloak-host>:<keycloak-port>/auth/realms/<keycloak-realm-1>/protocol/openid-connect/certs <2>
+
+isy.security.oauth2.resourceserver.jwt.tenants.tenant-2.jwk-set-uri=http(s)://<keycloak-host>:<keycloak-port>/auth/realms/<keycloak-realm-2> <3>
+isy.security.oauth2.resourceserver.jwt.tenants.tenant-2.jwk-set-uri=http(s)://<keycloak-host>:<keycloak-port>/auth/realms/<keycloak-realm-2>/protocol/openid-connect/certs <4>
+----
+
+<1> URI des Ausstellers des JWT für tenant-1, z.B. die Authentifizierungs-URL von Keycloak für das Realm `<keycloak-realm-1>`.
+<2> URI des JWK-Sets für tenant-1, das die öffentlichen Schlüssel enthält, die zur Validierung der JWT-Signatur verwendet werden.
+<3> URI des Ausstellers des JWT für tenant-2, z.B. die Authentifizierungs-URL von Keycloak für das Realm `<keycloak-realm-2>`.
+<4> URI des JWK-Sets für tenant-2, das die öffentlichen Schlüssel enthält, die zur Validierung der JWT-Signatur verwendet werden.
+
 [[konfiguration-von-rollen-und-rechten]]
 === Konfiguration von Rollen und Rechten
 
