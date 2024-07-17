@@ -6,6 +6,7 @@
 - `ISY-1040`: [isyfact-standards-doc] Anpassung des logback.xml-Konfigurationspfads im IF2-Migrationsleitfaden
 - `ISY-1061`: [isyfact-standards-doc] Ergänzung der Dokumentation zum Zurücksetzen der Korrelations-ID aus dem MdcHelper
 - `IFS-3665`: [isyfact-standards-doc] "Leitfaden Dokumentation" nach `isy-documentation` verschoben
+- `IFS-3834`: [isyfact-standards-doc] Kapitel Authentifizierung & Autorisierung um Multi-Tenancy erweitert.
 
 # 3.0.1
 - `ISY-701`: Google Guava Versionsanhebung auf 33.1.0
