@@ -1,6 +1,13 @@
 [[changelog]]
 = Changelog
 
+*Änderungen IsyFact 4.0.0*
+
+// tag::release-4.0.0[]
+- `IFS-3821`: [isyfact-standards-doc] Thematik zur internen und externen URL bei der Authentifizierung beschrieben (Multiple Issuer-URIs)
+// end::release-4.0.0[]
+
+
 *Änderungen IsyFact 3.0.0*
 
 // tag::release-3.0.0[]

@@ -439,6 +439,56 @@ isy.security.oauth2.resourceserver.jwt.tenants.tenant-2.jwk-set-uri=http(s)://<k
 <3> URI des Ausstellers des JWT für tenant-2, z.B. die Authentifizierungs-URL von Keycloak für das Realm `<keycloak-realm-2>`.
 <4> URI des JWK-Sets für tenant-2, das die öffentlichen Schlüssel enthält, die zur Validierung der JWT-Signatur verwendet werden.
 
+[[konfiguration-von-multi-iam-uris]]
+=== Konfiguration von mehreren IAM-URIs
+Zur Konfiguration von mehreren IAM-URIs ist es erforderlich, die Konfigurationsproperties `issuer-uri` und `jwk-set-uri` entsprechend zu definieren.
+
+Der bisherige Property-Pfad
+
+- `*spring*.security.oauth2.resourceserver.jwt` ist durch
+- `*isy*.security.oauth2.resourceserver.jwt.tenants.*<tenant-id>*` zu ersetzen,
+
+wobei die `tenant-id` einzig als Gruppierungskriterium für die beiden Properties `issuer-uri` und `jwk-set-uri` eingesetzt wird.
+Somit kann diese beispielsweise mit fachlich aussagekräftigen Namen, wie der Name der Geschäftsanwendung, des Kommunikationskanals oder der Netzwerkzone, versehen werden.
+
+Die nachstehende Konfigurationstabelle zeigt eine Liste von Property-Pfad-Beispielen, um mehrere IAM-URIs zu definieren.
+Aus Gründen der Übersichtlichkeit wird das Präfix `isy.security.oauth2.resourceserver.jwt` in der unten aufgeführten Tabelle weggelassen.
+
+[[table-property-path-examples-for-multi-tenancy]]
+.Property-Pfad-Beispiele für Multi-IAM-URIs
+[cols="3,7",options="header"]
+|===
+|Parameter |Beschreibung
+| tenants.*portal*.issuer-uri
+tenants.*portal*.jwk-set-uri| Property-Set zur Definition einer *externen* und *internen* IAM-URI für das *Portal*
+| tenants.*sgw-1*.issuer-uri
+tenants.*sgw-1*.jwk-set-uri| Property-Set zur Definition einer *externen* und *internen* IAM-URI für das *ServiceGateway-1*
+| tenants.*sgw-2*.issuer-uri
+tenants.*sgw-2*.jwk-set-uri| Property-Set zur Definition zweier *interner* IAM-URIs für das *ServiceGateway-2*
+| tenants.*batch*.issuer-uri
+tenants.*batch*.jwk-set-uri| Property-Set zur Definition zweier *interner* IAM-URIs für den *Batch*
+| tenants.*ga-A-1*.issuer-uri
+tenants.*ga-A-1*.jwk-set-uri| Erstes Property-Set zur Definition einer *externen* und *internen* IAM-URI für die *Geschäftsanwendung-A*
+| tenants.*ga-A-2*.issuer-uri
+tenants.*ga-A-2*.jwk-set-uri| Zweites Property-Set zur Definition zweier *interner* IAM-URIs für die *Geschäftsanwendung-A*
+| tenants.*ga-A-3*.issuer-uri
+tenants.*ga-A-3*.jwk-set-uri| Drittes Property-Set zur weiteren Definition zweier *interner* IAM-URIs für die *Geschäftsanwendung-A*
+|===
+
+
+==== Verwendung und Auswertung des Property-Sets
+
+*Property `issuer-uri`*
+
+Der Wert von `issuer-uri` wird gegen den Inhalt des `iss-Claim` des Access-Tokens validiert.
+
+*Property `jwk-set-uri`*
+
+Der Wert von `jwk-set-uri` des zugehörigen Tenants wird zum Laden der IAM-Konfiguration, z.B. des IAM-Zertifikats, eingesetzt, um im zweiten Schritt Token-Signatur gegen das IAM-Zertifikat zu validieren.
+
+Wird nur der Parameter `issuer-uri` gesetzt, so wird dieser Wert auch für das Laden der IAM-Konfiguration genutzt.
+
+
 [[konfiguration-von-rollen-und-rechten]]
 === Konfiguration von Rollen und Rechten
 
