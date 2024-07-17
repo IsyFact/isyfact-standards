@@ -2,16 +2,22 @@
 
 include::glossary:licence:partial$licence.adoc[]
 
-[[einfuehrung-und-allgemeine-Prinzipien]]
-== Einführung und allgemeine Prinzipien
-Das Bedienkonzept & der Styleguide nehmen eine zentrale Rolle in der Entwicklung von Anwendungen und Websites ein, indem es als umfassendes Regelwerk dient, das die Gestaltung und Interaktionselemente definiert.
-Es bildet das Fundament für eine konsistente und benutzerfreundliche Benutzeroberfläche und fungiert als Leitfaden für Designer, Entwickler und Fachlichkeit gleichermaßen.
-Das Hauptziel des Bedienkonzepts ist es, eine herausragende Benutzererfahrung zu schaffen, die die Zufriedenheit und Produktivität der Benutzer maximiert.
-Es soll sicherstellen, dass Benutzer die Anwendung ohne Schwierigkeiten nutzen können und dabei ihre Ziele effizient erreichen.
-In den folgenden Kapiteln werden diese Konzepte weiter ausgearbeitet und konkrete Richtlinien und Best Practices für die Entwicklung von Benutzeroberflächen für Webanwendungen bereitgestellt.
+[[einfuehrung]]
+== Einführung
 
-Eine LiveDemo aller hier beschriebenen Richtlinien finden Sie unter:
+Das Bedienkonzept nimmt eine zentrale Rolle in der Entwicklung von xref:referenzarchitektur:software-technisch/frontend.adoc[Frontends] ein.
+Es dient als umfassendes Regelwerk, dass die Gestaltung und die Interaktionselemente definiert, sowie als Fundament für eine konsistente und benutzerfreundliche Benutzeroberfläche.
 
+Das Hauptziel des Bedienkonzepts ist es, eine herausragende Benutzererfahrung zu schaffen, die die Zufriedenheit und Produktivität der Nutzenden maximiert.
+Es soll sicherstellen, dass Nutzende das Frontend ohne Schwierigkeiten nutzen können und dabei ihre Ziele *effizient* erreichen.
+
+In den folgenden Kapiteln werden die benötigten Elemente zum Erreichen einer herausragenden Benutzeroberfläche von "klein nach groß" beschrieben.
+*Der allgemeine Rahmen und die übergreifenden Prinzipien* werden in den ersten Kapiteln beschrieben.
+Darauf folgen die *<<basiselemente>>* (wie z.B. Text und Farben), die den Grundstein für die dahinterliegenden Kapitel schaffen und essenziell wichtig sind.
+Danach kommen die *<<bedienelemente>>*, die einfachste Ausprägung eines Interaktionselements.
+*<<design-pattern>>* stellen eine Menge aus Bedienelementen und Basiselementen dar und können letztendlich in beliebiger weiterer Kombination als vollständiger *<<use-cases,Use Case>>* beschrieben werden.
+
+Eine Live-Demo zu den Richtlinien dieses Bedienkonzepts finden Sie unter:
 https://isyfact.github.io/isy-angular-widgets/
 
 [[einfuehrung-in-das-bedienkonzept]]
@@ -19,194 +25,201 @@ https://isyfact.github.io/isy-angular-widgets/
 
 *_Gültigkeit und Anwendung_*
 
-Dieses Konzept ist für jede Webanwendung relevant, unabhängig von ihrer Komplexität oder Zielgruppe.
+Dieses Konzept ist für jedes Frontend relevant, unabhängig von dessen Komplexität oder Zielgruppe.
 Es ist gültig für alle Neuentwicklungen und Überarbeitungen von Frontends, die einem Major Change oder Technologiewechsel unterliegen.
-Ausgeschlossen sind minimale Bugfixes und grundsätzliche Wartung von Altanwendungen.
-Der Styleguide ist gültig ab Q1 – 2024.
-Die Gültigkeit des Bedienkonzepts für Altanwendungen bleibt zum damaligen Zeitpunkt mit den damaligen gültigen Inhalten weiterhin aktiv.
+Ausgeschlossen sind minimale Bugfixes und die grundsätzliche Wartung von Altanwendungen.
+Das Bedienkonzept ist gültig ab Q1 – 2024.
+Die Gültigkeit des Bedienkonzepts für Altanwendungen bleibt zum damaligen Zeitpunkt mit den damalig gültigen Inhalten weiterhin aktiv.
 
+*_Bedeutung des Bedienkonzepts_*
 
-*_Bedeutung des Bedienkonzepts & Styleguides_*
-
-Das Bedienkonzept & Styleguide ist weit mehr als nur ein Dokument mit Gestaltungsrichtlinien.
+Das Bedienkonzept ist weit mehr als nur ein Dokument mit Gestaltungsrichtlinien.
 Es ist ein umfassendes Werkzeug, das die Grundlage für die Entwicklung einer erfolgreichen Benutzeroberfläche bildet.
-Indem es einheitliche Standards und Best Practices festlegt, trägt es maßgeblich zur Erreichung der Ziele einer Anwendung oder Website bei.
+Indem es einheitliche Standards und Best Practices festlegt, trägt es maßgeblich zur Erreichung der Ziele eines Frontends bei.
 Diese Ziele können von der Steigerung der Benutzerzufriedenheit über die Verbesserung der Effizienz bis hin zur Stärkung der Markenidentität reichen.
 
-*_Rolle von Designer, Entwickler und Fachlichkeit_*
+*_Rolle von Designenden, Entwickelnden und Fachlichkeit_*
 
-Designer und Entwickler spielen eine entscheidende Rolle bei der Umsetzung des Bedienkonzepts & Styleguides.
-Während Designer für die Gestaltung der Benutzeroberfläche verantwortlich sind und sicherstellen, dass sie den festgelegten Standards entspricht, liegt es in der Verantwortung der Entwickler, diese Gestaltung in eine funktionierende Anwendung oder Website umzusetzen.
+Designende und Entwickelnde spielen eine entscheidende Rolle bei der Umsetzung des Bedienkonzepts.
+Während Designende für die Gestaltung der Benutzeroberfläche verantwortlich sind und sicherstellen, dass sie den festgelegten Standards entspricht, liegt es in der Verantwortung der Entwickelnden, diese Gestaltung in ein funktionierendes Frontend umzusetzen.
 Eine enge Zusammenarbeit zwischen Design- und Entwicklungsteams ist unerlässlich, um sicherzustellen, dass das Endprodukt den gestalterischen und funktionalen Anforderungen entspricht.
-
-*_Technische Kompatibilität und Struktur des Dokuments_*
-
-Darüber hinaus berücksichtigt das Bedienkonzept die technische Kompatibilität mit verschiedenen Geräten und Browsern, um sicherzustellen, dass die Anwendung einer breiten Palette von Benutzern zugänglich ist.
-Soweit notwendig wird auf browserspezifische Eigenheiten eingegangen.
-Beim Erstellen von Webseiten anhand diesem Bedienkonzepts muss die korrekte Darstellung und Funktionsweise der Webseiten inklusive der Browserfunktionen, wie bspw. "Vor- und Zurück", geprüft werden.
-Dazu müssen für jedes Projekt der Nutzerkreis, sowie welche Browser und Versionen hauptsächlich eingesetzt werden, ermittelt und geprüft werden. Das Bedienkonzept gibt nur ein minimales Set von zu unterstützenden Browserversionen vor, die projektspezifisch nach Bedarf erweitert werden sollten.
-
-Die Tests der Benutzeroberfläche sollen mindestens mit folgenden Browsern getestet werden, dabei sind folgende Auflösungen zu berücksichtigen:
-
-* 2560 x1440 2K
-* 1920 x 1080 Full HD
-* 1536 x 864 Tablet
-* 390x 873 Smartphone
-
-Die Struktur dieses Dokuments folgt einem klaren und übersichtlichen Format, das eine einfache Navigation und Verständnis ermöglicht.
-Es beginnt mit allgemeinen Prinzipien, die das Fundament jedes Elements bilden.
-Folgend werden die einzelnen Bedienelemente beschrieben, welche in unterschiedlicher gruppierter Anwendung ein Pattern bilden. Abgebildet werden hier exemplarisch die „Most-used“-Pattern.
-Diese Patterns bilden in verschiedenen Konstellationen mit weiterem Pattern und Bedienelementen typische Use Cases, wie z.B. Formulare.
-Diese Use Cases sind auch exemplarisch – Ein Formular kann und muss mit dem Schwerpunkt der optimalen Fachlichkeit konzipiert werden.
+Insbesondere bei komplexen Frontends ist es ratsam frühst möglich die Fachlichkeit hinzuzuziehen und den erarbeiteten Stand der Konzeption zu evaluieren.
 
 *_Einhaltung von Standards und Best Practices_*
 
-Das Bedienkonzept & Styleguide legt Standards und Best Practices fest, die von Designern und Entwicklern eingehalten werden müssen.
-Diese Standards können sich auf verschiedene Aspekte der Gestaltung und Interaktion beziehen, darunter Typografie, Farbgebung, Bedienelemente und Barrierefreiheit.
-Indem sie sich an diese Standards halten, gewährleisten Designer und Entwickler nicht nur die Konsistenz der Benutzeroberfläche, sondern auch deren Kompatibilität mit verschiedenen Geräten und Plattformen.
-Wie bei jeder digitalen Anwendung unterliegt auch dieser Styleguide einer ständigen Weiterentwicklung.
+Das Bedienkonzept legt Standards und Best Practices fest, die von Designenden und Entwickelnden eingehalten werden müssen.
+Diese Standards können sich auf verschiedene Aspekte der Gestaltung und Interaktion beziehen, wie Typografie, <<farben,Farbgebung>>, <<bedienelemente>> und <<barrierefreiheit>>.
+Durch die Einhaltung dieser Standards gewährleisten Designende und Entwickelnde nicht nur eine konsistente Benutzeroberfläche, sondern auch die Kompatibilität dieser Oberfläche mit verschiedenen Geräten und Plattformen.
+
+Genau wie jedes digitale Frontend wird auch dieses Bedienkonzept ständig weiterentwickelt.
 Die Entwicklungen und Änderungen werden entsprechend dem Stand der Technik und der rechtlichen Gegebenheiten aktualisiert und gekennzeichnet.
+
+*_Technische Kompatibilität_*
+
+Wenn Frontends anhand dieses Bedienkonzepts erstellt werden, müssen die korrekte Darstellung und Funktionsweisen des Frontends inklusive ihrer Browser-Funktionen, wie bspw. "Vor" und "Zurück", geprüft werden.
+Dafür muss für jedes Projekt der primäre Browser und dessen Versionen ermittelt und geprüft werden.
+
+In der Regel soll sichergestellt sein, dass folgende Browser unterstützt werden:
+
+|===
+|Browser |Neuste Version aus Channel
+
+|Microsoft Edge
+|Stable Channel
+
+|Firefox
+|ESR
+
+|Chrome
+|Stable Channel
+|===
+
+Soweit notwendig wird auf browserspezifische Eigenheiten eingegangen.
+Dabei sind folgende Auflösungen zu berücksichtigen:
+
+* *2K:* 2560 x 1440
+* *Full HD:* 1920 x 1080
+* *Tablet:* 1536 x 864
+* *Smartphone:* 390 x 873
 
 *_Kontinuierliche Weiterentwicklung und Pflege_*
 
-Ein Bedienkonzept & Styleguide ist kein statisches Dokument, sondern sollte kontinuierlich weiterentwickelt und gepflegt werden.
-Mit dem Fortschreiten der Technologie und den sich ändernden Anforderungen der Benutzer ist es wichtig, den Styleguide regelmäßig zu überprüfen und anzupassen, um sicherzustellen, dass er stets den aktuellen Standards und Best Practices entspricht.
-Diese kontinuierliche Weiterentwicklung erfordert eine enge Zusammenarbeit zwischen allen Beteiligten und eine offene Kommunikation über Änderungen und Aktualisierungen- insbesondere zwischen Umsetzungsprojekten, Stakeholdern und den Designern, die mit diesem Dokument arbeiten.
+Ein Bedienkonzept ist kein statisches Dokument, sondern sollte kontinuierlich weiterentwickelt und gepflegt werden.
+Mit dem Fortschreiten der Technologie und den sich ändernden Anforderungen der Nutzenden ist es wichtig, das Bedienkonzept regelmäßig zu überprüfen und anzupassen.
+Dadurch wird sichergestellt, dass das Bedienkonzept stets den aktuellen Standards und Best Practices entspricht.
+Diese kontinuierliche Weiterentwicklung erfordert eine enge Zusammenarbeit zwischen allen Beteiligten und eine offene Kommunikation über Änderungen und Aktualisierungen - insbesondere zwischen Umsetzungsprojekten, Stakeholdern und den Designenden, die mit diesem Dokument arbeiten.
+
+[[usability-und-benutzerfreundlichkeit]]
+=== Usability (UI) und Benutzerfreundlichkeit (UX)
+
+Obwohl die Begriffe oft synonym verwendet werden, gibt es wichtige Unterschiede und Zusammenhänge, die sie voneinander unterscheiden und gleichzeitig miteinander verbinden.
+
+*_Begriff der Usability (UI)_*
+
+Usability, oder Gebrauchstauglichkeit, bezieht sich auf die Benutzerfreundlichkeit einer Oberfläche (UI).
+Sie umfasst die Leichtigkeit, mit der Benutzende ein Frontend verstehen, erlernen und bedienen können.
+Zu den Hauptkomponenten der Usability gehören:
+
+* *Effektivität:*
+Die Fähigkeit der Benutzenden, ihre Ziele präzise zu erreichen.
+* *Effizienz:*
+Die Schnelligkeit und der Aufwand, mit dem Benutzende ihre Ziele erreichen.
+* *Zufriedenheit:*
+Das Maß an Komfort und positiver Erfahrung der Benutzenden bei der Nutzung des Frontends.
+
+Usability ist eng mit dem Design der Benutzeroberfläche verknüpft.
+Eine gut gestaltete UI ermöglicht es den Benutzenden, intuitiv zu navigieren, schnell zu verstehen, wie sie Aufgaben ausführen können, und bietet klare, konsistente visuelle Hinweise.
+Besonders bei komplexen Fachanwendungen ist es wichtig, dass eine gute UI sich nahtlos in die fachlich notwendigen Geschäftsprozesse integrieren lässt.
+
+*_Begriff der Benutzerfreundlichkeit (UX)_*
+
+Benutzerfreundlichkeit oder User Experience (UX) geht über die reine Usability hinaus und bezieht sich auf das gesamte Erlebnis, das ein Benutzender mit einem Produkt oder einer Dienstleistung hat.
+UX umfasst alle Aspekte der Interaktion des Benutzenden, einschließlich der emotionalen, psychologischen und praktischen Reaktionen auf das Produkt.
+
+*Hauptkomponenten der UX sind:*
+
+* *Nützlichkeit:*
+Ob das Produkt den Bedürfnissen und Anforderungen des Benutzenden entspricht.
+* *Verfügbarkeit:*
+Die Zugänglichkeit und Erreichbarkeit des Produkts für verschiedene Gruppen.
+* *Glaubwürdigkeit:*
+Das Vertrauen der Benutzenden in das Produkt und die Marke.
+* *Wert:*
+Die Wahrnehmung des Nutzens und der Wertschöpfung durch das Produkt.
+
+UX berücksichtigt nicht nur die Interaktion mit der Benutzeroberfläche, sondern auch die gesamte Benutzerreise, von der ersten Wahrnehmung des Produkts bis zur fortlaufenden Nutzung und Unterstützung.
+
+*_Zusammenhänge zwischen Usability (UI) und Benutzerfreundlichkeit (UX)_*
+
+Usability ist ein integraler Bestandteil der Benutzerfreundlichkeit.
+Ein benutzerfreundliches Frontend muss eine hohe Usability aufweisen, da die Benutzeroberfläche der primäre Kontaktpunkt zwischen dem Benutzendem und dem Frontend ist.
+Gute Usability sorgt für:
+
+* *Reibungslose und intuitive Interaktion:*
+Benutzende können problemlos navigieren und ihre Ziele erreichen, was zu einer positiven UX beiträgt.
+* *Effizienz:*
+Benutzende verbringen weniger Zeit und Mühe, um Aufgaben zu erledigen, was ihre Zufriedenheit erhöht und die Gesamt-UX verbessert.
+
+*_Unterschiede zwischen Usability (UI) und Benutzerfreundlichkeit (UX)_*
+
+Trotz ihrer engen Verbindung gibt es klare Unterschiede zwischen UI und UX:
+
+* *Fokusbereich:*
+Usability konzentriert sich auf die Effizienz und Effektivität der Benutzeroberfläche, während UX das gesamte Erlebnis des Benutzenden mit dem Produkt betrachtet.
+* *Umfang:*
+Usability befasst sich hauptsächlich mit den funktionalen Aspekten der Interaktion, wie Navigation und Bedienbarkeit, während UX auch emotionale und psychologische Faktoren einbezieht, wie Freude und Zufriedenheit.
+* *Messbarkeit:*
+Usability kann durch spezifische Metriken wie Fehlerquote, Zeitaufwand und Benutzerzufriedenheit gemessen werden.
+UX erfordert jedoch eine umfassendere Bewertung, die qualitative und quantitative Methoden kombiniert, um das gesamte Benutzererlebnis zu verstehen.
+
+*_Grundlegende Do's, die die Benutzerfreundlichkeit einer Benutzeroberfläche in Frontends erhöhen:_*
+
+* *Klare Anweisungen und Fehlermeldungen:*
+Nutzende sollten stets verstehen, was von ihnen erwartet wird.
+Klare Anweisungen und verständliche Fehlermeldungen helfen dabei, Frustration zu vermeiden und den Nutzenden durch den Prozess zu führen.
+* *Validierung von Eingaben:*
+Validieren Sie Eingabefelder in Echtzeit, um Nutzende vor Fehlern zu warnen, bevor sie das Formular absenden.
+Dadurch wird vermieden, dass Nutzende nach dem Absenden des Formulars feststellen, dass sie fehlerhafte oder unvollständige Informationen eingegeben haben.
+* *Progressive Offenbarung von Informationen:*
+Überladen Sie die Benutzeroberfläche nicht mit zu vielen Informationen auf einmal.
+Stellen Sie sicher, dass Informationen kontextbezogen und schrittweise offenbart werden, um Nutzende nicht zu überfordern.
+* *Testen mit verschiedenen Nutzungsgruppen:*
+Um sicherzustellen, dass Ihre Oberfläche für eine breite Palette von Nutzenden zugänglich ist, ist es wichtig, Tests mit verschiedenen Personengruppen durchzuführen.
+Berücksichtigen Sie dabei Nutzende mit unterschiedlichen Fähigkeiten, Geräten und technischen Kenntnissen.
+
+Weitere Informationen zu einer besseren Benutzerfreundlichkeit sind am jeweiligen <<bedienelemente,Bedienelement>>, am <<design-pattern>> oder an den <<eingabehilfen-und-fehlermeldungen>> zu finden (siehe jeweils bei den Unterkapiteln "Do's" und "Don'ts").
 
 [[allgemeine-prinzipien]]
 === Allgemeine Prinzipien
 
 Das Bedienkonzept basiert auf einer Reihe von allgemeinen Prinzipien, die als Leitfaden für die Gestaltung von Benutzeroberflächen dienen.
 Diese Prinzipien umfassen Klarheit, Konsistenz, Feedback, Effizienz und Zugänglichkeit und bilden das Fundament für eine benutzerzentrierte Gestaltung.
-Viele dieser Prinzipien werden beispielsweise in der ISO 9241 und in Nielsen’s Web Usability Criteria beschrieben.
-Zusätzlich liefert lawsofux eine anschauliche Sammlung von Design Prinzipien. Als tiefergehende Grundlage zu den Designprinzipien können die Gestaltgesetze aus der Gestaltpsychologie herangezogen werden.
-Klarheit: Das Prinzip der "Klarheit" im Design bezieht sich darauf, wie gut eine Website oder Anwendung für ihre Benutzer verständlich und einfach zu navigieren ist.
-Klarheit bedeutet, dass Informationen klar präsentiert werden, sodass Besucher sofort verstehen, was die Website oder Anwendung bietet und wie sie sie nutzen können.
+Viele dieser Prinzipien werden beispielsweise in der https://de.wikipedia.org/wiki/ISO_9241[ISO 9241] und in https://en.wikipedia.org/wiki/Web_usability#Web_Usability_Criteria[Nielsen’s Web Usability Criteria] beschrieben.
+Zusätzlich liefert https://lawsofux.com/[lawsofux] eine anschauliche Sammlung von Designprinzipien.
+
+*_Klarheit_*
+
+Im Design bezieht sich das Prinzip der "Klarheit" darauf, wie verständlich ein Frontend und wie einfach sie zu navigieren ist.
+Klarheit bedeutet, dass Informationen klar präsentiert werden, sodass Besuchende sofort verstehen, was das Frontend bietet und wie sie es nutzen können.
 Dies umfasst eine klare Strukturierung von Inhalten, eine leicht lesbare Typografie, gut platzierte Navigationselemente und eine konsistente visuelle Gestaltung.
-Durch die Priorisierung von Klarheit im Design können Designer sicherstellen, dass Nutzer sich leicht auf der Website oder Anwendung zurechtfinden und ihre Ziele effizient erreichen können.
-Konsistenz: Das Prinzip der "Konsistenz" im Design bezieht sich auf die Notwendigkeit, ein einheitliches Erscheinungsbild und Verhalten über alle Seiten einer Website hinweg zu gewährleisten.
-Konsistenz bedeutet, dass Designelemente wie Farben, Schriftarten, Symbole und Layouts einheitlich angewendet werden, um eine nahtlose Benutzererfahrung zu schaffen.
-Durch die Aufrechterhaltung einer konsistenten Gestaltung können Nutzer die Website leichter verstehen und navigieren, da sie sich auf bereits bekannte Muster und Interaktionen verlassen können.
-Darüber hinaus trägt die Konsistenz dazu bei, das Markenimage zu stärken und das Vertrauen der Benutzer in der Anwendung zu fördern.
-Feedback: Das Designprinzip des "Feedbacks" im Design bezieht sich auf die kontinuierliche Kommunikation zwischen der Website oder Anwendung und ihren Benutzern während deren Interaktion.
-Feedback ist entscheidend, um den Benutzern Rückmeldungen darüber zu geben, ob ihre Aktionen erfolgreich waren oder nicht.
+Durch die Priorisierung von Klarheit im Design können Designende sicherstellen, dass Nutzende sich leicht auf dem Frontend zurechtfinden und ihre Ziele effizient erreichen können.
+
+*_Konsistenz_*
+
+Im Design bezieht sich das Prinzip der "Konsistenz" auf die Notwendigkeit, ein einheitliches Erscheinungsbild und Verhalten über alle Seiten eines Frontends hinweg zu gewährleisten.
+Konsistenz bedeutet, dass Designelemente wie <<farben>>, <<text,Schriftarten>>, <<icons,Symbole>> und Layouts einheitlich angewendet werden, um eine nahtlose Benutzererfahrung zu schaffen.
+Durch die Aufrechterhaltung einer konsistenten Gestaltung können Nutzende das Frontend leichter verstehen und navigieren, da sie sich auf bereits bekannte Muster und Interaktionen verlassen können.
+Darüber hinaus trägt die Konsistenz dazu bei, das Markenimage zu stärken und das Vertrauen der Nutzenden in das Frontend zu fördern.
+
+*_Feedback_*
+
+Das Designprinzip des "Feedbacks" bezieht sich auf die kontinuierliche Kommunikation zwischen dem Frontend und ihren Nutzenden während deren Interaktionen.
+Feedback ist entscheidend, um den Nutzenden Rückmeldungen darüber zu geben, ob ihre Aktionen erfolgreich waren oder nicht.
 Dies kann in Form von visuellem Feedback, wie zum Beispiel einer Farbänderung eines Buttons nach einem Klick, oder durch informative Nachrichten, wie Bestätigungsmeldungen nach dem Absenden eines Formulars, erfolgen.
-Durch effektives Feedback fühlen sich Benutzer unterstützt und informiert, was zu einer verbesserten Benutzererfahrung und einer höheren Zufriedenheit führt.
-Dies gilt insbesondere auch für Aspekte der Barrierefreiheit.
-Technische Standardmöglichkeiten sollen genutzt und ggf. mit entsprechenden Hilfsmitteln (wie z.B. ARIA-Elementen) angereichert werden.
-Effizienz: Das Designprinzip der "Effizienz" im Bereich des Designs bezieht sich darauf, wie gut eine Website die Bedürfnisse und Ziele ihrer Benutzer mit minimalen Aufwänden erfüllt.
-Effizientes Design strebt danach, unnötige Komplexität zu vermeiden und die Interaktionen der Benutzer so reibungslos wie möglich zu gestalten.
+Durch effektives Feedback fühlen sich Nutzende unterstützt und informiert, was zu einer verbesserten Benutzererfahrung und einer höheren Zufriedenheit führt.
+Dies gilt insbesondere auch für Aspekte der <<barrierefreiheit>>.
+Technische Standardmöglichkeiten sollen genutzt und ggf. mit entsprechenden Hilfsmitteln (wie <<aria-labels,ARIA-Elementen>>) angereichert werden.
+
+*_Effizienz_*
+
+Das Designprinzip der "Effizienz" bezieht sich darauf, wie gut ein Frontend die Bedürfnisse und Ziele ihrer Nutzenden mit minimalen Aufwänden erfüllt.
+Effizientes Design strebt danach, unnötige Komplexität zu vermeiden und die Interaktionen der Nutzenden so reibungslos wie möglich zu gestalten.
 Dies umfasst Aspekte wie schnelle Ladezeiten, intuitive Navigation, gut platzierte Call-to-Actions und eine klare Informationsarchitektur.
-Ein effizientes Design stellt sicher, dass Benutzer ihre Ziele schnell erreichen können, sei es das Finden von Informationen, das Abschließen eines Kaufs oder das Ausführen einer bestimmten Aktion, ohne dabei Zeit oder Mühe zu verschwenden.
-Zugänglichkeit: Das Designprinzip der "Zugänglichkeit" im Design zielt darauf ab, sicherzustellen, dass eine Website oder Anwendung für alle Benutzer unabhängig von ihren individuellen Fähigkeiten oder Einschränkungen leicht zugänglich ist.
-Dies beinhaltet die Gestaltung und Entwicklung der Website unter Berücksichtigung verschiedener Bedürfnisse, wie zum Beispiel Sehbehinderungen, Hörbehinderungen oder motorische Einschränkungen.
-Zugängliches Design beinhaltet die Verwendung von klaren und verständlichen Texten, ausreichendem Kontrast zwischen Text und Hintergrund, Tastaturzugänglichkeit, alternative Texte für Bilder und die Vermeidung von Technologien, die für einige Benutzergruppen hinderlich sein könnten.
-Ein zugängliches Design gewährleistet, dass alle Benutzer die Informationen und Funktionen der Website nutzen können, was zu einer inklusiven und positiven Benutzererfahrung führt.
-Dieses Prinzip wird im Kapitel: Barrierefreiheit und bei den einzelnen Elementen detaillierter dargestellt.
+Ein effizientes Design stellt sicher, dass Nutzende ihre Ziele schnell erreichen können ohne dabei Zeit oder Mühe zu verschwenden - sei es beim Finden von Informationen, beim Abschließen eines Kaufs oder beim Ausführen einer bestimmten Aktion.
 
-*_Begriff der Usability_*
+*_Zugänglichkeit_*
 
-Usability ist ein Schlüsselaspekt des Bedienkonzepts und bezieht sich auf die Benutzerfreundlichkeit einer Anwendung.
-Eine hohe Usability gewährleistet, dass Benutzer die Anwendung intuitiv und effizient nutzen können, ohne auf Hindernisse oder Schwierigkeiten zu stoßen.
-Dafür nutzt die Usability die zuvor genannten allgemeinen Design Prinzipien.
-In Fachanwendungen, die oft komplexe Funktionen und Workflows umfassen, ist eine hohe Usability besonders wichtig.
-Fachanwendungen werden oft von professionellen Benutzern verwendet, die spezifische Aufgaben effizient erledigen müssen.
-Daher ist es entscheidend, dass die Anwendung nahtlos in die Arbeitsabläufe integriert werden kann und eine steile Lernkurve vermieden wird.
-Eine gute Usability in Fachanwendungen trägt zur Produktivität, Effizienz und Zufriedenheit der Benutzer bei und kann somit erhebliche Auswirkungen auf den Erfolg und die Akzeptanz der Anwendung haben.
-Das Bedienkonzept zielt darauf ab, die Usability zu maximieren, indem es klare und konsistente Vorgaben und Interaktionsmuster definiert.
+Das Designprinzip der "Zugänglichkeit" soll sicherstellen, dass ein Frontend für alle Nutzenden, unabhängig von ihren individuellen Fähigkeiten oder Einschränkungen, leicht zugänglich ist.
+Dies beinhaltet die Gestaltung und Entwicklung des Frontends unter Berücksichtigung verschiedener Bedürfnisse, wie zum Beispiel Sehbehinderungen, Hörbehinderungen oder motorische Einschränkungen.
+Zugängliches Design beinhaltet die Verwendung von klaren und verständlichen <<text,Texten>>, ausreichendem Kontrast zwischen Text und Hintergrund, Tastaturzugänglichkeit, alternative Texte für Bilder und die Vermeidung von Technologien (z.B. Gestensteuerung), die für einige Personengruppen hinderlich sein könnten.
+Ein zugängliches Design gewährleistet, dass alle Nutzenden die Informationen und Funktionen des Frontends nutzen können, was zu einer inklusiven und positiven Benutzererfahrung führt.
+Dieses Prinzip wird im Kapitel <<barrierefreiheit>> und unter den einzelnen <<bedienelemente,Bedienelementen>> detaillierter beschrieben.
 
-*_Benutzerfreundlichkeit_*
-
-Ein zentrales Ziel des Bedienkonzepts & Styleguides ist die Schaffung einer konsistenten und benutzerfreundlichen Benutzeroberfläche.
-Durch die Festlegung einheitlicher Gestaltungsrichtlinien und Interaktionselemente wird sichergestellt, dass sich Benutzer schnell und intuitiv in der Anwendung oder Website zurechtfinden.
-Konsistenz trägt nicht nur zur Benutzerzufriedenheit bei, sondern erleichtert auch die Wiedererkennung und Nutzung der Benutzeroberfläche über verschiedene Seiten und Funktionen hinweg.
-
-* Klare Anweisungen und Fehlermeldungen: Nutzer sollten stets verstehen, was von ihnen erwartet wird.
-Klare Anweisungen und verständliche Fehlermeldungen helfen dabei, Frustration zu vermeiden und den Nutzer durch den Prozess zu führen.
-* Validierung von Eingaben: Validieren Sie Eingabefelder in Echtzeit, um Benutzer vor Fehlern zu warnen, bevor sie das Formular absenden.
-Dadurch wird vermieden, dass Benutzer nach dem Absenden des Formulars feststellen, dass sie fehlerhafte oder unvollständige Informationen eingegeben haben.
-* Progressive Offenbarung von Informationen: Überladen Sie die Benutzeroberfläche nicht mit zu vielen Informationen auf einmal.
-Stellen Sie sicher, dass Informationen kontextbezogen und schrittweise offenbart werden, um Benutzer nicht zu überfordern.
-* Testen mit verschiedenen Benutzergruppen: Um sicherzustellen, dass Ihre Oberfläche für eine breite Palette von Benutzern zugänglich ist, ist es wichtig, Tests mit verschiedenen Benutzergruppen durchzuführen.
-Berücksichtigen Sie dabei Benutzer mit unterschiedlichen Fähigkeiten, Geräten und technischen Kenntnissen.
-
-Weitere Informationen zu einer besseren Benutzerfreundlichkeit sind am jeweiligen Bedienelement, dem Pattern und/oder Eingabehilfen und Fehlermeldungen zu finden.
-
-
-*_Text_*
-
-Die Textelemente spielen eine entscheidende Rolle bei der Kommunikation mit den Benutzern.
-Dieser Abschnitt definiert die typografischen Standards, sprachlichen Richtlinien und Längenbeschränkungen, die dazu beitragen, dass die Texte klar, verständlich und ansprechend sind.
-Anwendungen des Bundes sollen über die IT-Landschaft hinweg ein einheitliches Look & Feel bieten.
-Dies wird über den Einsatz der IsyFact und deren Komponenten gewährleistet.
-Dazu ist es zudem notwendig auch bei der Schrift (im weiteren Font) einheitlich vorzugehen.
-Zur Anwendung kommt primär:
-BundesSans
-Diese Schriftart wurde extra für Inhalte des Bundes entwickelt und zur Verfügung gestellt.
-Die BundesSans ist eine humanistische serifenlose Schrift.
-Rationalität und äußerste Klarheit kennzeichnen ihre Formensprache. Die BundesSans gehört zu den sogenannten humanistischen Serifenlosen und entspricht den Empfehlungen des DBSV hinsichtlich der Leserlichkeit von Schrift.
-Auch in der DIN 1450 – Leserlichkeit – werden Humanistische Antiqua- (mit Serifen) und Groteskschriften (ohne Serifen) als besonders gut leserlich bezeichnet.
-Sprachumfang
-Folgende Sprachen werden von den Schriften BundesSerif, BundesSans und BundesSans Condensed unterstützt (nur lateinische Schriftzeichen):
-Afrikaans, Albanisch, Aromunisch, Arvanitisch, Aserbaidschanisch, Asturisch, Asu, Baskisch, Bemba, Bena, Bislama, Bosnisch, Bretonisch, Chamorro, Chichewa, Chiga, Dänisch, Deutsch, Embu, Englisch, Esperanto, Estnisch, Färöisch, Filipino, Finnisch, Frankoprovenzalisch, Französisch, Friulisch, Gagausisch, Galicisch, Grönländisch, Gusii, Hawaiisch, Inarisamisch, Indonesisch, Interlingua, Irisch, Isländisch, Istrorumänisch, Italienisch, Jiddisch, Jola Fogny, Kalenjin, Kamba, Kapverdisch, Karaimisch, Katalanisch, Kikuyu, Kinyarwanda, Kirundi, Kornisch, Krimtatarisch, Kroatisch, Ladinisch, Ladino, Lettisch, Litauisch, Luganda, Lulesamisch, Luo, Luxemburgisch, Luyia, Machame, Madagassisch, Makhuwa-Meetto, Makonde, Malaiisch, Maltesisch, Manx-Gälisch, Maori, Meru, Morisyen, Niederländisch, Niedersorbisch, Nkole, Nord-Ndebele, Nordsamisch, Nord-Sotho, Norwegisch (Bokmål), Norwegisch (Nynorsk), Obersorbisch, Okzitanisch, Oromo, Polnisch, Portugiesisch, Quechua, Rätoromanisch, Rombo, Rumänisch, Rwa, Samburu, Samoanisch, Sango, Sangu, Schottisch-Gälisch, Schwedisch, Sena, Serbisch, Shambala, Shona, Slowakisch, Slowenisch, Soga, Somali, Spanisch, Suaheli, Südsamisch, Süd-Sotho, Tahitianisch, Taita, Teso, Tongaisch, Tschechisch, Tsonga, Tswana, Türkisch, Turkmenisch, Umesamisch, Ungarisch, Usbekisch, Vunjo, Walisisch, Wallonisch, Walserdeutsch, Wepsisch, Wolof, Xhosa, Yapesisch, Zulu
-Die Liste entspricht der Sprachenzeichennorm ISO 639-1-3.
-Nicht-lateinische Fließtextschriften
-Nicht-lateinische Schriften umfassen Schriftsysteme, die anstelle lateinischer Schriftzeichen z.B. arabische, kyrillische oder chinesische Zeichen beinhalten. Mit einem Schriftsystem lassen sich meist mehrere Sprachen schreiben (z.B. mit dem arabischen Schriftsystem Sprachen, wie Arabisch, Urdu, Paschtu, Persisch (Dari/Farsi)). Nicht-lateinischer Originaltext wird vom angegebenen Schriftfont erkannt und automatisch in den richtigen Schriftzeichen wiedergegeben. Die Notwendigkeit der Darstellung nicht-lateinischer Schriften ergibt sich durch die DIN 91379 „Zeichen und definierte Zeichensequenzen in Unicode für die elektronische Verarbeitung von Namen und den Datenaustausch in Europa“ mit Ausgabedatum 2022-08. Basierend auf UNICODE wurde für jedes nicht-lateinische Zeichen, das in EU-Mitgliedsstaaten verwendet wird (beispielsweise griechische oder kyrillische Zeichen), eine eindeutige Zuordnung zu einem lateinischen Zeichen vorgenommen. DIN 91379 wendet sich vorrangig an Behörden und Organisationen, die IT-Verfahren betreiben, welche dem behördenübergreifenden Datenaustausch oder dem Datenaustausch mit Bürgern und Wirtschaft dienen. Sie deckt in ihrer Gesamtheit die EU-Amtssprachen und die Amtssprachen Islands, Liechtensteins, Norwegens und der Schweiz ab, sowie die deutschen Minderheitensprachen. Damit dies gewährleistet wird, kommt sekundär:
-Liberation
-zum Einsatz.
-Diese Schriftart wird nur fehlende UNICODEZeichen in der BundesSans ergänzen, wodurch eine Unkonformität mit der BITV durch eventuelle Verwechslungen mit einem großen I und kleinen l ausgeschlossen werden kann.
-In diesem konkreten Beispiel kommt die BundesSans zum Tragen.
-
-*_Barrierefreiheit von Text_*
-
-Zusätzlich zu einem klar leserlichen Schriftschnitt sind auch die Gestaltungsmerkmale von Text, Farbe und Größe entsprechend zu berücksichtigen.
-Die Standard-Schriftart für Bedienelemente und Inhalte ist BundesSans 14 pt regular in dunkelgrau.
-Grundsätzlich gilt, ausreichende Schriftgrößen sind abhängig vom Betrachtungsabstand, von der Art des Textes und von der Sehschärfe der Lesenden.
-Individuelle Schriftgrößen können Sie mit dem Schriftgrößenrechner auf leserlich.info ermitteln und entsprechend dem Nutzerkreis anpassen.
-
-*_Richtlinien zur Anwendung:_*
-
-* Die Verwendung verschiedener Schriftarten, über die im Bedienkonzept hinaus vorgegebenen Schriftarten, muss vermieden werden.
-* Die Schriftgröße muss immer ausreichend groß sein. Ein Unterschreiten von Mindestgrößen zugunsten des Platzgewinns muss vermieden werden.
-Stattdessen werden andere, platzsparende Mechanismen angewandt, wie z.B. Expander (Progressive Disclosure).
-* Die Anzahl verschiedener Schriftgrößen muss auf ein notwendiges Minimum reduziert werden
-* Es muss sichergestellt sein, dass der Kontrast der Schriftfarbe zur Hintergrundfarbe ausreichend groß ist.
-Hier ist der Kontrast größtmöglich zu wählen (z.B. dunkelgraue (#212529) Schrift auf weißen Hintergrund).
-Ist dies aus technischer oder fachlicher Notwendigkeit nicht möglich, so muss der Kontrast bei kleiner Schrift mindestens 4,5:1 entsprechen.
-* Überschriften und großer/dicker Text muss mindestens einen Kontrast von 3:1 aufweisen.
-
-*_Grafiken_*
-
-Bilder und Grafiken ergänzen den Text und vermitteln Informationen auf visuelle Weise.
-Hier werden die Leitlinien für die Verwendung von Grafiken festgelegt, einschließlich Stilrichtlinien, Bildgrößen und im Ansatz deren Barrierefreiheit.
-Details werden im entsprechenden Kapitel genauer erläutert.
-
-* Bilder unterliegen in erster Linie der notwendigen Fachlichkeit.
-* Jedes Bild benötigt eine Bildunterschrift.
-* Jedes Bild benötigt ein aussagekräftiges Alt-Attribut.
-* Bilder dürfen nicht gegen deutsches Recht verstoßen, politisch, sexuell oder angreifend sein.
-* Bilder dürfen keine Schriftgrafiken enthalten; in Ausnahmen muss die Schriftgrafik durch z.B. Alt-Attribute ausreichend beschrieben sein.
-* Schmuckgrafiken können genutzt werden.
-* Schmuckgrafiken sollen, so wenig wie möglich genutzt werden.
-* Schmuckgrafiken müssen als solche gekennzeichnet sein.
-* Schmuckgrafiken benötigen keine Alt-Attribute.
-* Es ist darauf zu achten, dass durch Bilder kein horizontales Scrolling entsteht.
-* Es ist darauf zu achten, dass das Bildmaterial ausreichen hoch aufgelöst ist, sodass keine einzelnen Fragmente zu erkennen sind.
-
-*_Farben_*
-
-Farben tragen maßgeblich zur visuellen Identität einer Anwendung bei und beeinflussen die Stimmung und Wahrnehmung der Benutzer.
-Dieser Abschnitt beschreibt die primäre und sekundäre Farbpalette, sowie die Verwendung von Farben für verschiedene Zwecke, unter Berücksichtigung von Kontrast und Barrierefreiheit.
-
-* Die Standardpalette wird vom IsyFact Theme mit ausgeliefert und entsprechend der aktuellen gesetzlichen Entwicklung aktualisiert und kann von dem hier dokumentierten Stand abweichen
-* Die Standardpalette (zum Zeitpunkt: dd.mm.yyyy) wird im Bereich Barrierefreiheit mit einer Kontrast-Tabelle angegeben
-* Verwendung einer Anwendungsfarbe muss vom Projekt auf Barrierefreiheit geprüft werden und ist frei wählbar
-
-
+[[barrierefreiheit]]
 == Barrierefreiheit
 
-Die Zugänglichkeit ist ein wichtiges Prinzip, um sicherzustellen, dass alle Benutzer unabhängig von ihren Fähigkeiten die Anwendung nutzen können.
-Hier werden die Richtlinien zur Barrierefreiheit gemäß den Standards, wie z.B. WCAG und Methoden zur Verbesserung der Zugänglichkeit erläutert.
+Die Zugänglichkeit ist ein wichtiges Prinzip, um sicherzustellen, dass alle, unabhängig von ihren Fähigkeiten, das Frontend nutzen können.
+Hier werden die Richtlinien zur Barrierefreiheit gemäß den Standards, wie z.B. WCAG, und Methoden zur Verbesserung der Zugänglichkeit erläutert.
 
 Zugänglichkeitsstandards müssen berücksichtigt werden:
 
@@ -219,94 +232,115 @@ Die detaillierten Anforderungen sind zu finden unter:
 * https://www.barrierefreiheit-dienstekonsolidierung.bund.de/Webs/PB/DE/gesetze-und-richtlinien/en301549/en301549-node.html[EN 305419]
 
 Vor der Auflistung der einzelnen Kriterien sind im Kontext der IsyFact besondere Kriterien der Barrierefreiheit herauszustellen und bei der fachlichen Konzeption bereits zu berücksichtigen.
-Alle hier genannten Maßnahmen sind zur Steigerung der Awareness und Transparenz aufgelistet.
-In der Regel sind die genannten Anforderungen durch die Anwendung der Standardelemente der ISY-Fact sichergestellt oder die Möglichkeit geboten die fachlichen Elemente sicherzustellen.
+In der Regel sind die genannten Anforderungen durch die Nutzung der Standardelemente der IsyFact erfüllt, oder es wird die Möglichkeit geboten, sicherzustellen, dass die fachlichen Elemente vorhanden sind.
+Alle hier genannten Maßnahmen sind zur Steigerung der Awareness und Transparenz aufgelistet:
 
 * Sorge dafür, dass alle Elemente auch ohne Maus erreichbar und bedienbar sind.
-* Eingabefelder müssen nach der Aktivierung eines Hochkontrastmodus/Farbfilters zu 50% bestehen bleiben – eine einzelne Linie als Bestandteil ist nicht ausreichend als Identifizierung eines Eingabefeldes.
+* <<eingabefeld,Eingabefelder>> müssen nach der Aktivierung eines Hochkontrastmodus/Farbfilters zu 50 % bestehen bleiben – eine einzelne Linie als Bestandteil ist nicht ausreichend als Identifizierung eines Eingabefeldes.
 * Die Textgröße soll im Standard mindestens 14pt betragen.
 * Der Textkontrast muss immer mindestens 4,5:1 und bei großen Texten mindestens 3:1 betragen.
 Für Haupt & Einstiegsseiten, Seiten mit rechtlicher Relevanz muss der Kontrast 7:1 betragen.
 * Es sollten keine Schriftgrafiken genutzt werden.
-* Alle Bilder benötigen ein inhaltlich sinnvolles beschreibendes Alt-Attribut.
+* Alle Bilder benötigen ein inhaltlich sinnvolles beschreibendes <<alt-tag,Alt-Attribut>>.
 * Bilder, die ausschließlich der Gestaltung dienen (z.B. Trennlinien), müssen als solche (Schmuckgrafik) gekennzeichnet werden.
-* Tastatur-Navigation: Nicht alle Benutzer können eine Maus verwenden.
-Daher ist es wichtig, dass alle Interaktionen auf der Website auch über die Tastatur möglich sind.
-Dies bedeutet, dass alle Navigationselemente, Links und interaktiven Elemente leicht per Tastatur zugänglich sein müssen.
-* Vermeidung von reinen Farbunterscheidungen: Informationen sollten nicht allein durch Farbe vermittelt werden, da einige Benutzer Farben nicht unterscheiden können.
-Nutzen Sie daher auch andere visuelle Elemente wie Symbole oder Muster, um wichtige Informationen zu vermitteln.
-* Vermeide schwache Kontraste z.B. hellblau auf grau.
-* Löse keine Aktionen durch Bedienelemente aus, wenn diese nicht dazu vorgesehen sind (z.B. Radiobutton und Checkboxen).
+* *Tastatur-Navigation:*
+Nicht alle Nutzenden können eine Maus verwenden.
+Daher ist es wichtig, dass alle Interaktionen auf dem Frontend auch über die Tastatur möglich sind.
+Dies bedeutet, dass alle Navigationselemente, <<link,Links>> und interaktiven Elemente leicht per Tastatur zugänglich sein müssen.
+* *Vermeidung von reinen Farbunterscheidungen:*
+Informationen sollten nicht allein durch <<farben,Farbe>> vermittelt werden, da einige Nutzende Farben nicht unterscheiden können.
+Nutzen Sie daher auch andere visuelle Elemente, wie <<icons,Symbole>> oder Muster, um wichtige Informationen zu vermitteln.
+* Vermeide schwache Kontraste z.B. hellblau auf Grau.
+* Löse keine Aktionen durch <<bedienelemente>> aus, wenn diese nicht dazu vorgesehen sind (z.B. <<radiobutton>> und <<checkbox,Checkboxen>>).
 
 [[barrierefreier-einsatz-von-farben]]
 === Barrierefreier Einsatz von Farben
 
-Farben sind ein Hauptbestandteil um die (Web-)Applikationen zu gestalten und um die Nutzenden zu unterstützen.
+Farben sind ein Hauptbestandteil um Frontends zu gestalten und um die Nutzenden zu unterstützen.
 Um eine gute Erkennbarkeit der Elemente sicherzustellen, muss bei großer Schrift ein Kontrast von mindestens 3:1 gewährleistet sein.
 
-Nachfolgend sind alle in der Anwendung zur Verfügung stehenden Farben miteinander in ein Kontrastverhältnis gebracht.
-Farbkombinationen, die rot gelabeled sind und keinen ausreichenden Kontrast aufweisen, dürfen nicht verwendet werden.
+Nachfolgend sind alle in der Anwendung zur Verfügung stehenden <<farben>> miteinander in ein Kontrastverhältnis gebracht.
+Farbkombinationen, die rot gelabelt sind und keinen ausreichenden Kontrast aufweisen, dürfen nicht verwendet werden.
 Andere Farbkombinationen sind entsprechend ihrem Text/Elementgröße frei zu wählen.
 Dabei soll der Kontrast so hoch wie möglich gewählt werden.
 
-[[image-Farbpalette]]
+[[image-farbmatrix]]
 .Farbmatrix
 image::24_BE_colormatrix.png[align="center"]
 
-Eine interaktive und erweiterbare Tabelle ist unter https://contrast-grid.eightshapes.com/?version=1.1.0&background-colors=&foreground-colors=%23000000%2C%20Black%0D%0A%23FFFFFF%2C%20White%0D%0A%23F2F2F2%2C%20light%20Grey%0D%0A%23DDDDDD%2C%20Grey%0D%0A%2383878c%2C%20medium%20Grey%0D%0A%23404040%2C%20Charcoal%0D%0A%23212529%2C%20dark%20Grey%0D%0A%230055B9%2C%20Active%20and%20Primary%0D%0A%2366AEE5%2C%20Primary%20disabled%0D%0A%23D45C00%2C%20Secondary%0D%0A%23A4252C%2C%20Alert%0D%0A%23498205%2C%20Success%0D%0A%23D47D00%2C%20Warning%0D%0A%23008EDB%2C%20Info%0D%0A%238378DE%2C%20Help%0D%0A%0D%0A%0D%0A%0D%0A%0D%0A%0D%0A&es-color-form__tile-size=regular&es-color-form__show-contrast=aaa&es-color-form__show-contrast=aa&es-color-form__show-contrast=aa18&es-color-form__show-contrast=dnp[Farbmatrix] zu finden.
+Eine interaktive und erweiterbare Tabelle ist unter link:++https://contrast-grid.eightshapes.com/?version=1.1.0&background-colors=&foreground-colors=%23000000%2C%20Black%0D%0A%23FFFFFF%2C%20White%0D%0A%23F2F2F2%2C%20light%20Grey%0D%0A%23DDDDDD%2C%20Grey%0D%0A%2383878c%2C%20medium%20Grey%0D%0A%23404040%2C%20Charcoal%0D%0A%23212529%2C%20dark%20Grey%0D%0A%230055B9%2C%20Active%20and%20Primary%0D%0A%2366AEE5%2C%20Primary%20disabled%0D%0A%23D45C00%2C%20Secondary%0D%0A%23A4252C%2C%20Alert%0D%0A%23498205%2C%20Success%0D%0A%23D47D00%2C%20Warning%0D%0A%23008EDB%2C%20Info%0D%0A%238378DE%2C%20Help%0D%0A%0D%0A%0D%0A%0D%0A%0D%0A%0D%0A&es-color-form__tile-size=regular&es-color-form__show-contrast=aaa&es-color-form__show-contrast=aa&es-color-form__show-contrast=aa18&es-color-form__show-contrast=dnp++[Farbmatrix] zu finden.
 
 Die folgenden Links verweisen auf weitere Informationen zur Kontrast-Analyse:
 
 * http://whocanuse.com[WhoCanUse?]
 * http://leserlich.info/kapitel/farben.php[leserlich.info]
 
+[[alt-tag]]
 === Alt-Attribute für Bilder
 
-Alt-Attribute (alternative Texte) sind textuelle Beschreibungen, die in den HTML-Code von Bildern eingebettet werden. Sie dienen mehreren wichtigen Zwecken:
+Alt-Attribute (alternative Texte) sind textuelle Beschreibungen, die in den HTML-Code von Bildern eingebettet werden.
+Sie dienen mehreren wichtigen Zwecken:
 
-* Zugänglichkeit: Screenreader verwenden Alt-Attribute, um sehbehinderten oder blinden Benutzenden den Inhalt und Zweck eines Bildes zu vermitteln.
-* Fehlertoleranz: Wenn ein Bild aus irgendeinem Grund nicht geladen werden kann, zeigt der Browser den Alt-Text anstelle des Bildes an.
+* *Zugänglichkeit:*
+Screenreader verwenden Alt-Attribute, um sehbehinderten oder blinden Nutzenden den Inhalt und Zweck eines Bildes zu vermitteln.
+* *Fehlertoleranz:*
+Wenn ein Bild aus irgendeinem Grund nicht geladen werden kann, zeigt der Browser den Alt-Text anstelle des Bildes an.
 
 *_Best Practices für das Schreiben von Alt-Attributen_*
 
 Beim Erstellen von Alt-Texten sollten folgende Richtlinien beachtet werden:
 
-* Beschreibend und prägnant: Der Alt-Text sollte den Inhalt und Zweck des Bildes kurz und genau beschreiben.
+* *Beschreibend und prägnant:*
+Der Alt-Text sollte den Inhalt und Zweck des Bildes kurz und genau beschreiben.
 Beispiel:
 [source,xml]
 <img src="blume.jpg" alt="Gelbe Tulpe im Frühlingsgarten">.
 
-* Kontextbezogen: Der Alt-Text sollte den Kontext berücksichtigen, in dem das Bild verwendet wird.
-Beispiel: Bei einem Bild eines Einkaufswagens auf einer E-Commerce-Seite könnte der Alt-Text lauten:
+* *Kontextbezogen:*
+Der Alt-Text sollte den Kontext berücksichtigen, in dem das Bild verwendet wird.
+Beispiel:
+Bei einem Bild eines Einkaufswagens auf einer E-Commerce-Seite könnte der Alt-Text lauten:
 [source,xml]
 <img src="cart.png" alt="Einkaufswagen">.
 
-* Keine redundante Information: Informationen, die bereits im umgebenden Text enthalten sind, müssen nicht im Alt-Text wiederholt werden.
-Beispiel: Wenn ein Bild neben einer Überschrift „Teamfoto 2024“ steht, sollte der Alt-Text nicht einfach „Teamfoto 2024“ wiederholen.
-* Vermeidung von Keyword-Stuffing: Der Alt-Text sollte nicht mit Schlüsselwörtern überladen werden, da dies sowohl die Zugänglichkeit als auch die SEO beeinträchtigt.
-* Verwendung von leeren Alt-Attributen für dekorative Bilder: Wenn ein Bild rein dekorativ ist und keinen informativen Wert hat, sollte das Alt-Attribut leer sein (alt=""), um Screenreader zu signalisieren, dass sie das Bild ignorieren können.
+* *Keine redundante Information:*
+Informationen, die bereits im umgebenden Text enthalten sind, müssen nicht im Alt-Text wiederholt werden.
+Beispiel:
+Wenn ein Bild neben einer Überschrift „Teamfoto 2024“ steht, sollte der Alt-Text nicht einfach „Teamfoto 2024“ wiederholen.
+* *Vermeidung von Keyword-Stuffing:*
+Der Alt-Text sollte nicht mit Schlüsselwörtern überladen werden, da dies die Zugänglichkeit beeinträchtigt.
+* *Verwendung von leeren Alt-Attributen für dekorative Bilder:*
+Wenn ein Bild rein dekorativ ist und keinen informativen Wert hat, sollte das Alt-Attribut leer sein (alt=""), um Screenreadern zu signalisieren, dass sie das Bild ignorieren können.
 
+[[aria-labels]]
 === ARIA-Labels für andere Bedienelemente
 
-Bedeutung von ARIA-Labels:
-ARIA (Accessible Rich Internet Applications) Labels sind ein Set von Attributen, die entwickelt wurden, um die Zugänglichkeit von dynamischen Webinhalten und Benutzeroberflächen zu verbessern.
+*_Bedeutung von ARIA-Labels:_*
+
+ARIA-Labels (Accessible Rich Internet Applications) sind ein Set von Attributen, die entwickelt wurden, um die Zugänglichkeit von dynamischen Inhalten und Benutzeroberflächen zu verbessern.
 Sie bieten zusätzliche Informationen für Screenreader, insbesondere für Elemente, die keine standardisierten HTML-Attribute zur Beschreibung ihres Zwecks haben.
 
 *_Implementierung von ARIA-Labels:_*
-ARIA-Labels kommen zum Einsatz, wenn ein Bedienelement keinen eindeutigen, für Screenreader zugänglichen Text enthält. Hier sind die wichtigsten ARIA-Attribute und ihre Anwendungen:
 
-* aria-label: Wird verwendet, um ein Element zu beschreiben. Es ist besonders nützlich für Bedienelemente ohne sichtbaren Text.
+ARIA-Labels kommen zum Einsatz, wenn ein <<bedienelemente,Bedienelement>> keinen eindeutigen, für Screenreader zugänglichen Text enthält.
+Hier sind die wichtigsten ARIA-Attribute und ihre Anwendungen:
+
+* *aria-label:*
+Wird verwendet, um ein Element zu beschreiben.
+Es ist besonders nützlich für Bedienelemente ohne sichtbaren Text.
 Beispiel:
 [source,xml]
 <button aria-label="Schließen">X</button>.
 
-* aria-labelledby: Verweist auf ein anderes Element, dessen Text als Beschriftung dient.
+* *aria-labelledby:*
+Verweist auf ein anderes Element, dessen Text als Beschriftung dient.
 Beispiel:
 [source,xml]
 <button aria-labelledby="closeButtonText">X</button>
 <span id="closeButtonText" hidden>Schließen</span>.
 
-* aria-describedby: Gibt ein anderes Element an, das eine ausführlichere Beschreibung des aktuellen Elements enthält.
+* *aria-describedby:*
+Gibt ein anderes Element an, das eine ausführlichere Beschreibung des aktuellen Elements enthält.
 Beispiel:
 [source,xml]
 <input type="text" aria-describedby="nameDesc">
@@ -316,14 +350,19 @@ Beispiel:
 
 Um sicherzustellen, dass ARIA-Labels effektiv eingesetzt werden, sollten folgende Richtlinien beachtet werden:
 
-* Klarheit und Präzision: ARIA-Labels sollten klar und präzise sein, um den Zweck des Elements genau zu vermitteln.
-* Vermeidung von Redundanz: ARIA-Labels sollten nicht redundant zu bereits vorhandenen textuellen Beschreibungen sein.
-* Konsistenz: Die Verwendung von ARIA-Labels sollte konsistent über die gesamte Webseite hinweg erfolgen, um eine einheitliche Benutzererfahrung zu gewährleisten.
-* Testen: Die implementierten ARIA-Labels sollten regelmäßig mit verschiedenen Screenreadern getestet werden, um sicherzustellen, dass sie korrekt interpretiert werden.
+* *Klarheit und Präzision:*
+ARIA-Labels sollten klar und präzise sein, um den Zweck des Elements genau zu vermitteln.
+* *Vermeidung von Redundanz:*
+ARIA-Labels sollten nicht redundant zu bereits vorhandenen textuellen Beschreibungen sein.
+* *Konsistenz:*
+Die Verwendung von ARIA-Labels sollte konsistent über das gesamte Frontend hinweg erfolgen, um eine einheitliche Benutzererfahrung zu gewährleisten.
+* *Testen:*
+Die implementierten ARIA-Labels sollten regelmäßig mit verschiedenen Screenreadern getestet werden, um sicherzustellen, dass sie korrekt interpretiert werden.
 
-Zusammenfassung:
-Alt-Attribute und ARIA-Labels sind unverzichtbare Werkzeuge, um die Zugänglichkeit und Benutzerfreundlichkeit von Webseiten und Webanwendungen zu gewährleisten.
-Durch sorgfältige Planung und Implementierung dieser Attribute können Designer und Entwickler sicherstellen, dass ihre Inhalte für alle Benutzer zugänglich sind.
+*_Zusammenfassung:_*
+
+<<alt-tag,Alt-Attribute>> und ARIA-Labels sind unverzichtbare Werkzeuge, um die Zugänglichkeit und Benutzerfreundlichkeit von Frontends zu gewährleisten.
+Durch sorgfältige Planung und Implementierung dieser Attribute können Designende und Entwickelnde sicherstellen, dass ihre Inhalte für alle Nutzenden zugänglich sind.
 Das Beachten der Best Practices beim Schreiben von Alt-Attributen und der Implementierung von ARIA-Labels trägt wesentlich dazu bei, eine inklusive und effiziente Benutzererfahrung zu schaffen.
 
 === Language Tag
@@ -331,10 +370,12 @@ Das Beachten der Best Practices beim Schreiben von Alt-Attributen und der Implem
 Das lang-Attribut informiert Browser und assistive Technologien über die Sprache des Inhalts.
 Dies hat mehrere Vorteile:
 
-* Zugänglichkeit: Screenreader verwenden das lang-Attribut, um die richtige Aussprache und Sprachregeln anzuwenden, was für Benutzer mit Sehbehinderungen von entscheidender Bedeutung ist.
-* Mehrsprachige Webseiten: Das lang-Attribut ermöglicht es, verschiedene Sprachversionen einer Webseite korrekt zu kennzeichnen und so die Benutzererfahrung zu verbessern.
+* *Zugänglichkeit:*
+Screenreader verwenden das lang-Attribut, um die richtige Aussprache und Sprachregeln anzuwenden, was für Nutzende mit Sehbehinderungen von entscheidender Bedeutung ist.
+* *Mehrsprachige Frontends:*
+Das lang-Attribut ermöglicht es, verschiedene Sprachversionen eines Frontends korrekt zu kennzeichnen und so die Benutzererfahrung zu verbessern.
 
-Nutzen Sie die standardisierten ISO 639-1 Sprachcodes (zwei Buchstaben), um die Sprache zu definieren (z.B. de = deutsch).
+Nutzt dafür die standardisierten ISO 639-1 Sprachcodes (zwei Buchstaben), um die Sprache zu definieren (z.B. de = deutsch).
 Dabei gilt es folgende Grundregeln zu beachten:
 
 *_Festlegen der Hauptsprache eines Dokuments_*
@@ -345,55 +386,56 @@ Dies stellt sicher, dass alle Inhalte auf der Seite als in dieser Sprache verfas
 *_Festlegen der Sprache für spezifische Elemente_*
 
 Wenn einzelne Abschnitte oder Elemente in einer anderen Sprache verfasst sind, sollte das lang-Attribut entsprechend auf diesen Elementen angewendet werden.
-Dies ist besonders wichtig für mehrsprachige Webseiten, Dokumente und die korrekte Aussprache durch Screenreader.
+Dies ist besonders wichtig für mehrsprachige Frontends, Dokumente und die korrekte Aussprache durch Screenreader.
 
-Wenn nötig, geben Sie spezifische Sprachvarianten oder Dialekte mit Hilfe von Codes für Regionen oder Länder an (z.B. en-US für amerikanisches Englisch, en-GB für britisches Englisch).
+Wenn nötig, geben hierfür spezifische Sprachvarianten oder Dialekte mithilfe von Codes für Regionen oder Länder an (z.B. en-US für amerikanisches Englisch, en-GB für britisches Englisch).
 
-Verwenden Sie das lang-Attribut nur, wenn der Text tatsächlich in einer anderen Sprache verfasst ist.
-Setzen Sie das Attribut nicht aus ästhetischen oder stilistischen Gründen ein.
+Das lang-Attribut wird nur verwendet, wenn der Text tatsächlich in einer anderen Sprache verfasst ist.
+Es wird nicht aus ästhetischen oder stilistischen Gründen gesetzt.
 
 *_Beispiel:_*
-
 [source,xml]
-<!DOCTYPE html>
 <html lang="de">
     <head>
         <meta charset="UTF-8">
-        <title>Mehrsprachige Webseite</title>
+        <title>Mehrsprachige Frontends</title>
     </head>
     <body>
-        <h1>Willkommen auf unserer Webseite</h1>
+        <h1>Willkommen auf unserem Frontend</h1>
             <p>Dies ist ein Beispieltext in deutscher Sprache.</p>
             <p lang="en">This is a sample text in English.</p>
     </body>
 </html>
 
+[[technische-rahmenbedingungen]]
 == Technische Rahmenbedingungen
 
-Die technischen Rahmenbedingungen legen fest, welche Technologien und Plattformen für die Umsetzung des Bedienkonzepts und Styleguides verwendet werden sollen.
+Die technischen Rahmenbedingungen legen fest, welche Technologien und Plattformen für die Umsetzung des Bedienkonzepts verwendet werden sollen.
 Diese Einleitung bietet einen Überblick über die infrastrukturellen Anforderungen und unterstützten Technologien.
 
-* Prime NG.
-* Primär kommen in den Neuentwicklungen die durch die IsyFact zur Verfügung gestellten Bausteine zum Einsatz.
-* Das Styling der Anwendung wird primär aus dem hier zu Grunde liegenden Prinzipien erstellt.
-Dafür wird die entsprechende SCSS und CSS in die Anwendung integriert.
-* Es ist möglich „harte Overrides“ im CSS vorzunehmen, davon wird jedoch abgeraten.
-Dadurch ist die Wartbarkeit stark beeinträchtigt und die Aufwände können sich in der Pflege der Anwendung stark erhöhen.
-* Die Anwendung ist primär für die Nutzung auf Desktopgeräten konzipiert, kann aber mit ihrer Responsivität auch auf mobilen Geräten (sofern möglich) genutzt werden.
+* Für die Entwicklung von Frontends kommt primär die auf Angular basierte Widget Bibliothek https://primeng.org/installation[PrimeNG] zum Einsatz.
+* Ergänzend zu PrimeNG stellt die IsyFact einen Angular Baustein zur Verfügung.
+Dieser beinhaltet behördenspezifische Widgets, wie bspw. den Anwendungsrahmen oder Eingabefelder für Sonderzeichen.
+* Der Baustein liefert ein eigenes Theme, welches die im Bedienkonzept beschriebenen <<allgemeine-prinzipien>> weitestgehend umsetzt.
+Dieses Theme kann bei Bedarf auch durch ein projektspezifisches Theme ersetzt werden.
+* Das Frontend ist primär für die Nutzung auf Desktopgeräten konzipiert, kann aber mit ihrer Responsivität auch auf mobilen Geräten, sofern möglich, genutzt werden.
 
+[[basiselemente]]
 == Basiselemente
 
+[[farben]]
 === Farben
 
-Farben tragen maßgeblich zur visuellen Identität einer (Web-)Applikation bei und beeinflussen die Stimmung und Wahrnehmung der Nutzenden:
+Farben tragen maßgeblich zur visuellen Identität eines Frontends bei und beeinflussen die Stimmung und Wahrnehmung der Nutzenden:
 
 * Die Standardpalette wird vom IsyFact Theme mit ausgeliefert und entsprechend der aktuellen gesetzlichen Entwicklung aktualisiert.
 Deshalb kann die Palette von dem hier dokumentierten Stand abweichen.
-* Die Standardpalette (zum Zeitpunkt: dd.mm.yyyy) wird im Bereich Barrierefreiheit mit einer Kontrast-Tabelle angegeben.
+* Die <<image-farbmatrix,Standardpalette>> (zum Zeitpunkt: 03.07.2024) wird im Bereich <<barrierefreiheit>> mit einer Kontrast-Tabelle angegeben.
 * Verwendung einer Anwendungsfarbe muss vom Projekt auf Barrierefreiheit geprüft werden und ist frei wählbar.
 
 Es kommt folgende Farbpalette zum Einsatz:
-[[image-Farbpalette]]
+
+[[image-farbpalette]]
 .Farbpalette
 image::24_BE_farbpalette.png[align="center"]
 
@@ -401,23 +443,24 @@ Die Farben sind entsprechend ihres Namens und ihrer bekannten Bedeutung zu nutze
 
 *_Do's_*
 
-* Grün = Erfolg, Bestätigung, Korrekt, etc...
-* Rot = Fehler, Abbruch, Stopp, etc...
+* Grün = Erfolg, Bestätigung, Korrekt, etc ...
+* Rot = Fehler, Abbruch, Stopp, etc ...
 
 *_Don'ts_*
 
-* Grün = Abbruch, Fehler, Stopp, etc...
-* Lila = Weiter, Sekundärbutton, Löschen, etc...
+* Grün = Abbruch, Fehler, Stopp, etc ...
+* Lila = Weiter, Sekundärbutton, Löschen, etc ...
 
-==== Applikationsfarben
+=== Applikationsfarben
 
 Pro Applikationsgruppe kann eine Farbe definiert werden, welche an verschiedenen Stellen des Applikationsportals eingesetzt wird und so einen Wiedererkennungswert schafft.
 Kann eine Applikation keiner Gruppe zugeordnet werden, so kann sie ihre eigene Farbe erhalten.
-Bei der Wahl der Farben sind die generellen Richtlinien zur Benutzung von Farben zu berücksichtigen.
+Bei der Wahl der Farben sind die generellen Richtlinien zur Benutzung von <<farben>> zu berücksichtigen.
 Die Farben sollten auch so gewählt werden, dass ein harmonisches Gesamtbild erhalten bleibt.
 
 Die Applikationsfarbe kommt an folgenden Stellen zum Einsatz:
 
+// ToDo: Beispielbild kann hier ergänzend eingefügt werden
 * Hauptnavigation – Farbbalken unterhalb des Headers
 * Submenü (Flyout) – Farbbalken am oberen Rand des Menüs
 * Widget auf Dashboard – Farbbalken am oberen Rand
@@ -431,14 +474,15 @@ Die Applikationsfarbe kommt an folgenden Stellen zum Einsatz:
 Die Applikationen innerhalb einer Gruppe erhalten keine unterschiedlichen Farben.
 * Die Farben sollten so gewählt werden, dass ein harmonisches Gesamtbild erhalten bleibt.
 
+[[icons]]
 === Icons
 
 Icons können als zusätzliches Element genutzt werden, um Funktionen und Inhalt auch visuell kenntlich zu machen.
-Dabei sollten Icons primär immer mit Text genutzt werden und so wenig wie möglich alleinstehend sein.
+Dabei sollten Icons primär immer mit <<text>> genutzt werden und so wenig wie möglich alleinstehend sein.
 Wenn Icons alleine als Icon-Buttons oder Aktionselemente genutzt werden, sollte sich auf eine kleinstmögliche Menge beschränkt werden.
 Es wird empfohlen alleinstehende Icons mit einem weit verbreiteten und allgemeinen klaren Zweck zu nutzen.
 
-In der folgenden Tabelle sind mögliche Icons und deren Funktion dargestellt, sowie die dazugehörige CSS-Klasse.
+In der folgenden Tabelle sind mögliche Icons und deren Funktionen dargestellt, sowie die dazugehörige CSS-Klasse.
 Eine Gesamtübersicht der zur Verfügung stehenden Icons ist unter https://www.primefaces.org/diamond/icons.xhtml[Prime Faces Icons] zu finden.
 
 .Übersicht häufig verwendeter Icons
@@ -575,7 +619,7 @@ a|image::isy-bedienkonzept:primeicons/arrow-circle-down.svg[width=32,height=32]
 |pi-arrow-circle-down
 |Importieren
 
-//arrow circle up muss noch hochgeladen werden
+// ToDo: arrow circle up muss noch hochgeladen werden
 //a|image::isy-bedienkonzept:primeicons/arrow-circle-up.svg[width=32,height=32]
 //|pi-arrow-circle-up
 //|Exportieren
@@ -631,134 +675,235 @@ a|image::isy-bedienkonzept:primeicons/star-fill.svg[width=32,height=32]
 |Wiedervorlage
 |====
 
-== Bedienelemente
+[[text]]
+=== Text
 
-*_Einleitung und Allgemeines:_*
-Bedienelemente sind die Bausteine der Benutzeroberfläche, die es den Benutzern ermöglichen, mit der Anwendung zu interagieren.
-Dieser Abschnitt definiert die verschiedenen Bedienelemente und legt fest, wie sie gestaltet und angeordnet werden sollen, um eine intuitive Benutzererfahrung zu gewährleisten.
+Die Textelemente spielen eine entscheidende Rolle bei der Kommunikation mit den Nutzenden.
+Dieser Abschnitt definiert die typografischen Standards, sprachlichen Richtlinien und Längenbeschränkungen, die dazu beitragen, dass die Texte klar, verständlich und ansprechend sind.
+
+Frontends des Bundes sollen über die IT-Landschaft hinweg ein einheitliches Look-and-Feel bieten.
+Dies wird über den Einsatz der IsyFact und deren Komponenten gewährleistet.
+Dafür ist es notwendig auch bei der Schrift (im weiteren Font) einheitlich vorzugehen.
+Zur Anwendung kommt primär:
+
+*_BundesSans_*
+
+Diese Schriftart wurde extra für Inhalte des Bundes entwickelt und zur Verfügung gestellt.
+Die BundesSans ist eine humanistische serifenlose Schrift.
+Rationalität und äußerste Klarheit kennzeichnen ihre Formensprache.
+Die BundesSans gehört zu den sogenannten humanistischen Serifenlosen und entspricht den Empfehlungen des DBSV hinsichtlich der Leserlichkeit von Schrift.
+Auch in der DIN 1450 – Leserlichkeit – werden Humanistische Antiqua- (mit Serifen) und Groteskschriften (ohne Serifen) als besonders gut leserlich bezeichnet.
+
+_Sprachumfang_
+
+Folgende Sprachen werden von den Schriften BundesSerif, BundesSans und BundesSans Condensed unterstützt (nur lateinische Schriftzeichen):
+
+Afrikaans, Albanisch, Aserbaidschanisch, Asu, Baskisch, Bemba, Bena, Bosnisch, Bretonisch, Cebuano, Chiga, Deutsch, Dänisch, Embu, Englisch, Esperanto, Estnisch, Filipino, Finnisch, Französisch,  Friaulisch, Färöisch, Galizisch, Ganda, Grönländisch, Gusii, Hawaiianisch, Ido, Inari-Samisch, Indonesisch, Interlingua, Irisch, Isländisch, Italienisch, Javanisch, Jju, Jola-Fonyi, Kabuverdianu, Kalenjin, Kamba, Katalanisch, Kikuyu, Kinyarwanda, Kornisch, Korsisch, Kroatisch, Kurdisch, Kölnisch, Lettisch, Ligurisch, Litauisch, Lojban, Lombardisch, Luhya, Luo, Luxemburgisch, Machame, Makhuwa, Makhuwa-Meetto, Makonde, Malagasy, Malaiisch, Maltesisch, Manx, Meru, Mohawk, Morisyen, Māori, Niederdeutsch, Niederländisch. Niedersorbisch, Nord-Ndebele, Nord-Sami, Nord-Sotho, Norwegisch (Bokmål), Norwegisch (Nynorsk), Nyanja, Nyankole, Obersorbisch, Okzitanisch, Oromo, Polnisch, Portugiesisch, Quechua, Rejang, Rombo, Rukiga, Rumänisch, Rundi, Rwa, Rätoromanisch, Samburu, Samoanisch, Sango, Sangu, Sardisch, Schlesisch, Schottisches Gälisch, Schwedisch, Schweizerdeutsch, Sena, Shambala, Shona, Siswati, Slowakisch, Slowenisch, Soga, Somali, Spanisch, Sundanesisch, Swahili, Süd-Ndebele, Süd-Sotho, Taita, Taroko, Teso, Tongaisch, Tschechisch, Tsong, Tswana, Turkmenisch, Türkisch, Ungarisch, Usbekisch, Vunjo, Walisisch, Walliserdeutsch, Wallonisch, Westfriesisch, Wolastoqey, Wolof, Xhosa, Zhuang, Zulu
+
+Die Liste entspricht der Sprachenzeichennorm ISO 639-1-3.
+
+_Nicht-lateinische Fließtextschriften_
+
+Nicht-lateinische Schriften umfassen Schriftsysteme, die anstelle lateinischer Schriftzeichen z.B. arabische, kyrillische oder chinesische Zeichen beinhalten.
+Mit einem Schriftsystem lassen sich meist mehrere Sprachen schreiben (z.B. mit dem arabischen Schriftsystem Sprachen, wie Arabisch, Urdu, Paschtu, Persisch (Dari/Farsi)).
+Nicht-lateinischer Originaltext wird vom angegebenen Schriftfont erkannt und automatisch in den richtigen Schriftzeichen wiedergegeben.
+
+Die Notwendigkeit der Darstellung nicht-lateinischer Schriften ergibt sich durch die DIN 91379 „Zeichen und definierte Zeichensequenzen in Unicode für die elektronische Verarbeitung von Namen und den Datenaustausch in Europa“ mit Ausgabedatum 2022-08.
+Basierend auf UNICODE wurde für jedes nicht-lateinische Zeichen, das in EU-Mitgliedsstaaten verwendet wird, beispielsweise griechische oder kyrillische Zeichen, eine eindeutige Zuordnung zu einem lateinischen Zeichen vorgenommen.
+Die DIN 91379 wendet sich vorrangig an Behörden und Organisationen, die IT-Verfahren betreiben, welche dem behördenübergreifenden Datenaustausch oder dem Datenaustausch mit Bürgern und Wirtschaft dienen.
+Sie deckt in ihrer Gesamtheit die EU-Amtssprachen und die Amtssprachen Islands, Liechtensteins, Norwegens und der Schweiz ab, sowie die deutschen Minderheitensprachen.
+Damit dies gewährleistet wird, kommt sekundär:
+
+*_Liberation_*
+
+zum Einsatz.
+Diese Schriftart wird nur fehlende UNICODEZeichen in der BundesSans ergänzen, wodurch eine Unkonformität mit der BITV durch eventuelle Verwechslungen mit einem großen I und kleinen l ausgeschlossen werden kann.
+In diesem konkreten Beispiel kommt die BundesSans zum Tragen.
+
+*_Barrierefreiheit von Text_*
+
+Zusätzlich zu einem klar leserlichen Schriftschnitt sind auch die Gestaltungsmerkmale von Text, Farbe und Größe entsprechend zu berücksichtigen.
+Die Standard-Schriftart für Bedienelemente und Inhalte ist BundesSans 14 pt regular in dunkelgrau.
+Grundsätzlich gilt, ausreichende Schriftgrößen sind abhängig vom Betrachtungsabstand, von der Art des Textes und von der Sehschärfe der Lesenden.
+Individuelle Schriftgrößen können Sie mit dem Schriftgrößenrechner auf https://www.leserlich.info/werkzeuge/schriftgroessenrechner/index.php[leserlich.info] ermitteln und entsprechend dem Interessentenkreis anpassen.
+
+*_Richtlinien zur Anwendung:_*
+
+* Die Verwendung verschiedener Schriftarten, über die im Bedienkonzept hinaus vorgegebenen Schriftarten, muss vermieden werden.
+* Die Schriftgröße muss immer ausreichend groß sein.
+Ein Unterschreiten von Mindestgrößen zugunsten des Platzgewinns muss vermieden werden.
+Stattdessen werden andere, platzsparende Mechanismen angewandt, wie z.B. Expander (Progressive Disclosure).
+* Die Anzahl verschiedener Schriftgrößen muss auf ein notwendiges Minimum reduziert werden
+* Es muss sichergestellt sein, dass der Kontrast der Schriftfarbe zur Hintergrundfarbe ausreichend groß ist.
+Hier ist der Kontrast größtmöglich zu wählen (z.B. dunkelgraue (#212529) Schrift auf weißen Hintergrund).
+Ist dies aus technischer oder fachlicher Notwendigkeit nicht möglich, so muss der Kontrast bei kleiner Schrift mindestens 4,5:1 entsprechen.
+* Überschriften und großer/dicker Text muss mindestens einen Kontrast von 3:1 aufweisen.
+
+=== Grafiken
+
+Bilder und Grafiken ergänzen den Text und vermitteln Informationen auf visuelle Weise.
+Hier werden die Leitlinien für die Verwendung von Grafiken festgelegt, einschließlich Stilrichtlinien, Bildgrößen und im Ansatz deren Barrierefreiheit.
+Details werden im entsprechenden Kapitel genauer erläutert.
+
+* Bilder unterliegen in erster Linie der notwendigen Fachlichkeit.
+* Jedes Bild benötigt eine Bildunterschrift.
+* Jedes Bild benötigt ein aussagekräftiges Alt-Attribut.
+* Bilder dürfen nicht gegen deutsches Recht verstoßen, politisch, sexuell oder angreifend sein.
+* Bilder dürfen keine Schriftgrafiken enthalten; in Ausnahmen muss die Schriftgrafik durch z.B. Alt-Attribute ausreichend beschrieben sein.
+* Schmuckgrafiken können genutzt werden.
+* Schmuckgrafiken sollen, so wenig wie möglich genutzt werden.
+* Schmuckgrafiken müssen als solche gekennzeichnet sein.
+* Schmuckgrafiken benötigen keine Alt-Attribute.
+* Es ist darauf zu achten, dass durch Bilder kein horizontales Scrolling entsteht.
+* Es ist darauf zu achten, dass das Bildmaterial ausreichen hoch aufgelöst ist, sodass keine einzelnen Fragmente zu erkennen sind.
 
 === Überschriften
 
-Überschriften ermöglichen es Benutzern, schnell die Hauptthemen einer Seite zu erfassen und sich zu orientieren.
+Überschriften ermöglichen es Nutzenden, schnell die Hauptthemen einer Seite zu erfassen und sich zu orientieren.
 Sie definieren Überschriften, die Hierarchie und das visuelle Erscheinungsbild, um Konsistenz und eine optimale Benutzererfahrung sicherzustellen.
+
 Überschriften spielen eine wichtige Rolle.
-Sie helfen, Inhalte in logische Abschnitte zu gliedern, wodurch Benutzer die Informationen leichter aufnehmen und navigieren können.
+Sie helfen, Inhalte in logische Abschnitte zu gliedern, wodurch Nutzende die Informationen leichter aufnehmen und navigieren können.
 
-==== Best Practices für die Verwendung von Überschriften
+*_Best Practices für die Verwendung von Überschriften_*
 
-*_Hierarchie und Struktur_*
-
-Hierarchische Ordnung: Überschriften sollten in einer klaren hierarchischen Struktur verwendet werden.
+* *Hierarchische Ordnung:*
+Überschriften sollten in einer klaren hierarchischen Struktur verwendet werden.
 Die Hauptüberschrift (<h1>) sollte nur einmal pro Seite verwendet werden, gefolgt von Unterüberschriften (<h2>, <h3>, etc.) in absteigender Reihenfolge.
-
-*_Konsistenz und Lesbarkeit_*
-
-Einheitliches Design: Überschriften sollten über die gesamte Webseite hinweg einheitlich gestaltet sein, um ein kohärentes Erscheinungsbild zu gewährleisten.
+* *Einheitliches Design:*
+Überschriften sollten über das gesamte Frontend hinweg einheitlich gestaltet sein, um ein kohärentes Erscheinungsbild zu gewährleisten.
 Dies umfasst Schriftart, -größe, -farbe und -stil.
-
-Abstände und Margins: Angemessene Abstände vor und nach den Überschriften verbessern die Lesbarkeit und visuelle Struktur der Seite.
+* *Abstände und Margins:*
+Angemessene Abstände vor und nach den Überschriften verbessern die Lesbarkeit und visuelle Struktur der Seite.
 
 *_Zugänglichkeit_*
 
-Beschreibende Texte: Überschriften sollten aussagekräftig und beschreibend sein, um den Inhalt des folgenden Abschnitts klar zu kommunizieren.
-Dies hilft sowohl Benutzern als auch Suchmaschinen, die Relevanz des Inhalts zu erkennen.
-
-Verwendung von ARIA-Rollen: In Fällen, in denen Überschriften nicht aus Standard-HTML-Überschriftentags bestehen, können ARIA-Rollen verwendet werden, um die Struktur zu erhalten.
-
+* *Beschreibende Texte:*
+Überschriften sollten aussagekräftig und beschreibend sein, um den Inhalt des folgenden Abschnitts klar zu kommunizieren.
+Dies hilft sowohl Nutzenden als auch Suchmaschinen, die Relevanz des Inhalts zu erkennen.
+* *Verwendung von ARIA-Rollen:*
+In Fällen, in denen Überschriften nicht aus Standard-HTML-Überschriften-Tags bestehen, können ARIA-Rollen verwendet werden, um die Struktur zu erhalten.
 Beispiel:
 [source,xml]
 <div role="heading" aria-level="2">Unterüberschrift</div>
 
 *_Typografie und Design_*
 
-Schriftart ist Bundes Sans und mindestens 14pt.
+* *Klarheit und Lesbarkeit:*
+Die zu verwendende Schriftart ist Bundes Sans und mindestens 14pt groß.
 Die Hauptüberschrift sollte deutlich größer und auffälliger als der normale Text sein.
-Der Kontrast sollte mindestens 4,5:1 sein.
+* *Kontrast:*
+Der Kontrast sollte mindestens 4,5:1 sein, um die Lesbarkeit zu maximieren.
 
 *_Stile und Akzente_*
 
-Farben: Farben können verwendet werden, um Hierarchie zu betonen, sollten jedoch mit Bedacht gewählt werden, um ein harmonisches Gesamtbild zu bewahren. Es wird empfohlen die Standardfarben zu nutzen.
+* *Fettdruck und Kursivschrift:*
+Verwenden Sie Fettdruck oder Kursivschrift, um wichtige Überschriften hervorzuheben, jedoch sparsam, um eine Überladung zu vermeiden.
+* *Farben:*
+Farben können verwendet werden, um Hierarchie zu betonen, sollten jedoch mit Bedacht gewählt werden, um ein harmonisches Gesamtbild zu bewahren.
+Es wird empfohlen die Standardfarben zu nutzen.
 
-=== Hyperlink
-
-Hyperlinks folgen per Default einem einheitlichen Styling.
-Links sind in der Regel unterstrichen. Daher ist es nicht ratsam dies zu ändern, da der Nutzer es gelernt hat weiterführende Informationen/Links in einem Fließtext oder auf einer Seite anhand des unterstrichenen Textes zu erkennen.
-Viele Webseiten greifen per CSS in das Styling ein und färben Links entsprechend ihrer Designregeln.
-
-Hyperlinks können einen State normal, hovered/focus und clicked haben.
- 
-[[image-Hyperlinks]]
-.States von Hyperlinks
-image::24_BE_Links.png[align="center"]
-
-Hyperlinks dürfen nicht nur durch eine andere Farbe erkennbar sein. Sie benötigen zwingend ein farbunabhängiges Element zum Identifizieren und zum Erkennen des States.
-Hyperlinks sind verlinkte Texte (oder auch Grafiken), die im Wesentlichen als Navigations-Mechanismus dienen – so z.B. um andere Inhalte wie Fenster zu öffnen.
-Wird die Maus über einen Hyperlink bewegt, ändert sich der Cursor vom Pfeil zum Handsymbol.
-Fachlicher Hinweis: Hyperlinks sollten einen aussagekräftigen Text zur Verfügung stellen.
-Generische Phrasen wie „Hier klicken“ sind nicht hilfreich und sollten vermieden werden.
-
+[[label]]
 === Label
 
-Label dienen dazu, Eingabefelder und andere Bedienelemente klar zu kennzeichnen, sodass Benutzer genau verstehen, welche Informationen erforderlich sind und welche Aktionen durchgeführt werden können. Ein konsistentes und gut durchdachtes Design von Labels trägt wesentlich zur Verbesserung der Nutzererfahrung bei.
-Labels sind nicht nur visuelle Hinweise, sondern auch wesentliche Bestandteile der Barrierefreiheit. Sie ermöglichen es Screenreadern, die Beziehung zwischen einem Eingabefeld und seiner Beschreibung zu verstehen, was besonders für sehbehinderte Benutzer von großer Bedeutung ist. Ein korrekt implementiertes Label sorgt dafür, dass alle Benutzer, unabhängig von ihren Fähigkeiten, Formulare und andere interaktive Elemente problemlos nutzen können.
+Labels dienen dazu, Eingabefelder und andere Bedienelemente klar zu kennzeichnen, sodass Nutzende genau verstehen, welche Informationen erforderlich sind und welche Aktionen durchgeführt werden können.
+Ein konsistentes und gut durchdachtes Design von Labels trägt wesentlich zur Verbesserung der Benutzererfahrung bei.
 
-==== Best Practices für die Verwendung von Labels
+Labels sind nicht nur visuelle Hinweise, sondern auch wesentliche Bestandteile der Barrierefreiheit.
+Sie ermöglichen es Screenreadern, die Beziehung zwischen einem Eingabefeld und seiner Beschreibung zu verstehen, was besonders für sehbehinderte Nutzende von großer Bedeutung ist.
+Ein korrekt implementiertes Label sorgt dafür, dass alle Nutzenden, unabhängig von ihren Fähigkeiten, Formulare und andere interaktive Elemente problemlos nutzen können.
 
-*_Klarheit und Prägnanz_*
+*_Best Practices für die Verwendung von Labels_*
 
-Eindeutige Beschreibung: Labels sollten klar und eindeutig beschreiben, was von den Benutzern erwartet wird.
+* *Eindeutige Beschreibung:*
+Labels sollten klar und eindeutig beschreiben, was von den Nutzenden erwartet wird.
 Beispielsweise sollte ein Label für ein Namensfeld "Vollständiger Name" und nicht nur "Name" lauten.
-
-Kurze Formulierungen: Labels sollten kurz und prägnant sein, um die Benutzerfreundlichkeit zu maximieren.
+* *Kurze Formulierungen:*
+Labels sollten kurz und prägnant sein, um die Benutzerfreundlichkeit zu maximieren.
 Vermeide Labels mit mehr als drei Wörtern.
-
-*_Platzierung und Ausrichtung_*
-
-Nähe zum Eingabefeld: Labels sollten in unmittelbarer Nähe des zugehörigen Eingabefelds platziert werden, entweder darüber oder links davon, um eine klare Zuordnung zu gewährleisten.
-
-Ausrichtung: Labels können linksbündig oder rechtsbündig zum Eingabefeld ausgerichtet sein, wobei linksbündige Labels tendenziell besser lesbar und benutzerfreundlicher sind.
+* *Nähe zum Eingabefeld:*
+Labels sollten in unmittelbarer Nähe des zugehörigen Eingabefelds platziert werden - entweder darüber oder links davon, um eine klare Zuordnung zu gewährleisten.
+* *Ausrichtung:*
+Labels können linksbündig oder rechtsbündig zum Eingabefeld ausgerichtet sein, wobei linksbündige Labels tendenziell besser lesbar und benutzerfreundlicher sind.
 
 *_Zugänglichkeit_*
 
-HTML-For-Attribut: Jedes Label sollte das for-Attribut verwenden, das mit der id des entsprechenden Eingabefelds übereinstimmt.
+* *HTML-For-Attribut:*
+Jedes Label sollte das for-Attribut verwenden, das mit der id des entsprechenden Eingabefelds übereinstimmt.
 Dies stellt sicher, dass Screenreader die Verbindung zwischen Label und Eingabefeld korrekt interpretieren können.
-
 Beispiel:
 [source,xml]
 <label for="email">E-Mail-Adresse</label>
 <input type="email" id="email">
 
-Vermeidung von Platzhaltern als Labels: Platzhaltertexte (placeholder) sollten nicht als Ersatz für Labels verwendet werden, da sie verschwinden, sobald der Benutzer mit der Eingabe beginnt, was die Benutzerfreundlichkeit und Zugänglichkeit beeinträchtigen können.
+* *Vermeidung von Platzhaltern als Labels:*
+Platzhaltertexte (Placeholder) sollten nicht als Ersatz für Labels verwendet werden, da sie verschwinden, sobald der Nutzende mit der Eingabe beginnt.
+Dies kann die Benutzerfreundlichkeit und Zugänglichkeit beeinträchtigen.
 
 *_Stil und Design_*
 
-Lesbarkeit: Labels sollten in einer gut lesbaren Schriftart und -größe dargestellt werden.
+* *Lesbarkeit:*
+Labels sollten in einer gut lesbaren Schriftart und -größe dargestellt werden.
 Der Kontrast muss mindestens 4,5:1 betragen, um auch bei schlechten Lichtverhältnissen gut lesbar zu sein.
-
-Konsistenz: Die Gestaltung von Labels sollte über die gesamte Webseite hinweg konsistent sein. Einheitliche Schriftarten, Größen und Abstände tragen zur Benutzerfreundlichkeit und einem professionellen Erscheinungsbild bei. 
+* *Konsistenz:*
+Die Gestaltung von Labels sollte über das gesamte Frontend hinweg konsistent sein.
+Einheitliche Schriftarten, Größen und Abstände tragen zur Benutzerfreundlichkeit und einem professionellen Erscheinungsbild bei.
 
 *_Interaktive Elemente_*
 
-Schaltflächen und Links: Labels können auch für interaktive Elemente wie Schaltflächen und Links verwendet werden.
+//ToDo: Sobald Button Kapitel da ist, unter Schaltflächen den Verweis einfügen
+*Schaltflächen und Links:*
+Labels können auch für interaktive Elemente wie Schaltflächen und <<link,Links>> verwendet werden.
 Hier sollten ARIA-Labels (aria-label) oder ARIA-Beschreibungen (aria-labelledby) eingesetzt werden, um die Zugänglichkeit zu verbessern.
-
 Beispiel:
 [source,xml]
 <button aria-label="Schließen">X</button>
 
+[[bedienelemente]]
+== Bedienelemente
+
+*_Einleitung und Allgemeines:_*
+
+Bedienelemente sind die Bausteine der Benutzeroberfläche, die es den Nutzenden ermöglichen, mit dem Frontend zu interagieren.
+Dieser Abschnitt definiert die verschiedenen Bedienelemente und legt fest, wie sie gestaltet und angeordnet werden sollen, um eine intuitive Benutzererfahrung zu gewährleisten.
+
+[[link]]
+=== Hyperlink
+
+Hyperlinks folgen per Default einem einheitlichen Styling.
+Links sind in der Regel unterstrichen.
+Daher ist es nicht ratsam dies zu ändern, da der Nutzende es gelernt hat weiterführende Informationen/Links in einem Fließtext oder auf einer Seite anhand des unterstrichenen Textes zu erkennen.
+Viele Frontends greifen per CSS in das Styling ein und färben Links entsprechend ihrer Designregeln.
+
+Hyperlinks können einen Status (State) normal, hovered/focus und clicked haben.
+ 
+[[image-hyperlinks]]
+.States von Hyperlinks
+image::24_BE_Links.png[align="center"]
+
+Hyperlinks dürfen nicht nur durch eine andere Farbe erkennbar sein.
+Sie benötigen zwingend ein farbunabhängiges Element zum Identifizieren und Erkennen des States.
+Hyperlinks sind verlinkte Texte (oder auch Grafiken), die im Wesentlichen als Navigations-Mechanismus dienen – so z.B. um andere Inhalte wie Fenster zu öffnen.
+Wird die Maus über einen Hyperlink bewegt, ändert sich der Cursor vom Pfeil zum Handsymbol.
+
+[TIP]
+Hyperlinks sollten einen aussagekräftigen Text zur Verfügung stellen.
+Generische Phrasen wie „Hier klicken“ sind nicht hilfreich und sollten vermieden werden.
+
+[[eingabefeld]]
 === Eingabefeld
 
-Eingabefelder sind grundlegende Interaktionselemente in einer Benutzeroberfläche, die es den Benutzern ermöglichen, Daten einzugeben, zu bearbeiten oder auszuwählen.
-Sie spielen eine zentrale Rolle bei der Interaktion zwischen Benutzer und System und kommen in verschiedensten Formen und Kontexten vor, sei es in Form von Textfeldern, Dropdown-Menüs, Auswahllisten oder Datumsauswahlkalendern.
+Eingabefelder sind grundlegende Interaktionselemente in einer Benutzeroberfläche, die es den Nutzenden ermöglichen, Daten einzugeben, zu bearbeiten oder auszuwählen.
+Sie spielen eine zentrale Rolle bei der Interaktion zwischen Nutzenden und System.
+Sie kommen in verschiedensten Formen und Kontexten vor, sei es in Form von Textfeldern, Dropdown-Menüs, Auswahllisten oder Datumsauswahlkalendern.
 Die Gestaltung und Platzierung von Eingabefeldern hat direkten Einfluss auf die Benutzererfahrung und die Effizienz der Dateneingabe.
-Die nachfolgenden Angaben beziehen sich immer auf Neuentwicklungen und Aktualisierungen.
 
-Altanwendungen, die nicht angepasst werden müssen, können weiterhin ihrem zum Umsetzungszeitpunkt gültigen Styleguide und Bedienkonzept entsprechen.
+Die nachfolgenden Angaben beziehen sich immer auf Neuentwicklungen und Aktualisierungen.
+Altanwendungen, die nicht angepasst werden müssen, können weiterhin ihrem zum Umsetzungszeitpunkt gültigen Bedienkonzept entsprechen.
 Alle hier gezeigten Grafiken beziehen sich auf die aktuelle und zukünftige Umsetzung.
-Eingabefelder sind dynamisch. Sie bestehen aus dem Eingabefeld an sich, einem vorbelegten Placeholder und einer evtl. daraus entstehenden Mask zur Anzeige des erwarteten Formats.
-Im normalen Status ist das Eingabefeld mit einem bündigen static Label in dunkelgrau versehen.
-Der Platzhalter ist in einem helleren grau gehalten.
-Platzhalter müssen sinnvolle Eingabeunterstützungen (im einfachsten Fall das Label selbst) enthalten.
+
+Eingabefelder sind dynamisch.
+Sie bestehen aus dem Eingabefeld an sich, einem vorbelegten Placeholder und optional aus einer daraus entstehenden Vorschau (Mask) zur Anzeige des erwarteten Formats.
 
 *_Normal:_*
 
@@ -766,7 +911,9 @@ Platzhalter müssen sinnvolle Eingabeunterstützungen (im einfachsten Fall das L
 .Eingabefeld mit Platzhalter
 image::24_BE_eingabefeld_normal.png[align="center"]
 
-Aktive Eingabefelder sind inkl. dem Label in der Highlightfarbe (blau) dargestellt. Sie haben zusätzlich zur veränderten Farbe eine 1px dickere Border und die Schrift vergrößert sich um 2pt.
+Im normalen Status ist das Eingabefeld mit einem bündigen static Label in dunkelgrau versehen.
+Der Platzhalter ist in einem helleren grau gehalten.
+Platzhalter müssen sinnvolle Eingabeunterstützungen (im einfachsten Fall das Label selbst) enthalten.
 
 *_Aktiv:_*
 
@@ -774,9 +921,14 @@ Aktive Eingabefelder sind inkl. dem Label in der Highlightfarbe (blau) dargestel
 .Eingabefeld aktiv
 image::24_BE_eingabefeld_aktiv.png[align="center"]
 
-Aktive Eingabefelder verlieren ihren Platzhalter und können entweder geleert werden (siehe Abbildung 2 oder eine Mask enthalten, um das erwartete Eingabeformat anzuzeigen und als Bedienhilfe die Fehlerwahrscheinlichkeit zu minimieren.
+Aktive Eingabefelder sind inkl. dem Label in der Highlightfarbe (blau) dargestellt.
+Sie haben zusätzlich zur veränderten Farbe eine 1px dickere Border und die Schrift vergrößert sich um 2pt.
 
-*_Maskoption:_* (exemplarisch, in der Umsetzung kann nur ein Eingabefeld aktiv sein):
+Aktive Eingabefelder verlieren ihren Platzhalter und können entweder geleert werden (siehe Abbildung <<image-eingabefeldaktiv>>) oder eine Mask enthalten (siehe Abbildung <<image-eingabefeldmask>>).
+Um das erwartete Eingabeformat anzuzeigen und als Bedienhilfe die Fehlerwahrscheinlichkeit zu minimieren, werden Masks verwendet.
+
+*_Mask-Optionen_*
+(exemplarisch, in der Umsetzung kann nur ein Eingabefeld aktiv sein):
 
 [[image-eingabefeldmask]]
 .Eingabefeld mit Mask
@@ -787,8 +939,6 @@ Die Mask ist dem erwarteten Inhalt entsprechend fachlich logisch und nachvollzie
 Zum Beispiel entspricht „mobile number“ dem Pattern: +0012 345 / 678 999 oder Ländervorwahl, Vorwahl, Rufnummer.
 Masks können dabei auch frei gestaltet werden und den fachlichen Bedürfnissen entsprechend angepasst werden, wie bspw. für Aktenzeichen.
 Eine Mask kann in Einzelfällen auch dem Platzhalter entsprechen.
-Wenn eine Eingabe in einem Eingabefeld getätigt wurde und das Feld wieder verlassen wird, wechselt das Eingabefeld seinen Status wieder auf die Werte des „normal“ Eingabefelds.
-Der Platzhalter ist verschwunden und die Eingabe wird in der Schriftfarbe angezeigt.
 
 *_Befülltes Eingabefeld:_*
 
@@ -796,7 +946,8 @@ Der Platzhalter ist verschwunden und die Eingabe wird in der Schriftfarbe angeze
 .Eingabefeld befüllt nicht aktiv
 image::24_BE_eingabefeld_filled.png[align="center"]
 
-Disabled Eingabefelder sind grau hinterlegt und geben zusätzlich über einen Mousecursor-Wechsel beim Hovern den disabled state wieder.
+Wenn eine Eingabe in einem Eingabefeld getätigt wurde und das Feld wieder verlassen wird, wechselt das Eingabefeld seinen Status wieder auf die Werte des „normalen“ Eingabefelds.
+Der Platzhalter ist verschwunden und die Eingabe wird in der Schriftfarbe angezeigt.
 
 *_Disabled:_*
 
@@ -804,18 +955,17 @@ Disabled Eingabefelder sind grau hinterlegt und geben zusätzlich über einen Mo
 .Eingabefeld disabled
 image::24_BE_eingabefeld_disabled.png[align="center"]
 
-Ein Eingabefeld mit Inputoption ist von der Basis dem eines normalen Eingabefelds identisch.
-Am Ende des Eingabefelds ist die Möglichkeit eine Eingabeoption zu aktivieren (im Beispiel: Sonderzeichen-Picker), z.B.: Sonderzeichen-Picker oder Datumseingabe.
-Die Schaltfläche der Inputoption ist mindestens 44px x 44px.
+Deaktivierte Eingabefelder (disabled) sind grau hinterlegt und geben zusätzlich über einen Mouse-Cursor-Wechsel beim Hovern den disabled State wieder.
 
-*_Eingabefeld mit Inputoption:_*
+*_Eingabefeld mit Input-Option:_*
 
 [[image-eingabefeldinputoption]]
-.Eingabefeld mit Inputoption
+.Eingabefeld mit Input-Option
 image::24_BE_eingabefeld_inputoption.png[align="center"]
 
-Eingabefelder mit Fehlermeldung sind rot.
-Das Eingabefeld und das Label färben sich rot und es wird ein inhaltlich logischer Hinweistext angegeben, damit die Eingabe korrigiert werden kann.
+Ein Eingabefeld mit Input-Option ist von der Basis identisch zu einem <<image-eingabefeldplatzhalter,normalen Eingabefeld>>.
+Am Ende des Eingabefelds gibt es die Möglichkeit eine Eingabeoption zu aktivieren, wie z.B. die Optionen Sonderzeichen-Picker (zu sehen in der Abbildung <<image-eingabefeldinputoption>>) oder Datumseingabe.
+Die Schaltfläche der Input-Option ist mindestens 44px x 44px.
 
 *_Eingabefeld mit Fehlermeldung und Hinweis:_*
 
@@ -823,22 +973,32 @@ Das Eingabefeld und das Label färben sich rot und es wird ein inhaltlich logisc
 .Eingabefeld mit Fehlermeldung und Hinweis
 image::24_BE_eingabefeld_error.png[align="center"]
 
+Eingabefelder mit Fehlermeldung sind rot.
+Das Eingabefeld und das Label färben sich rot und es wird ein inhaltlich logischer Hinweistext angegeben, damit die Eingabe korrigiert werden kann.
+
 Eingabefelder, die eine Erläuterung benötigen, sollen diese immer so kurz wie möglich und so lang wie nötig gestalten.
+
 Erläuterungen können dabei in verschiedenen Möglichkeiten realisiert werden, sortiert von kurz nach lang:
 
 * Als Platzhalter im Eingabefeld selbst.
 * Als Klammeranhang am Label, um das Label zu erläutern – z.B.: Name (gemeint ist der eingetragene Familienname).
-* Als maximal 2 zeiliger Hinweistext unter oder über dem Label (bitte nach Entscheidung konsistent in der gesamten Anwendung damit fortfahren).
-* Alle Erläuterungstexte die Länger als 2 Zeilen einer Eingabefeldlänge benötigen, sind zu komplex gestalten und bedürfen einer fachlichen Neugestaltung.
+* Als maximal 2-zeiliger Hinweistext unter oder über dem Label (bitte nach Entscheidung konsistent im gesamten Frontend damit fortfahren).
+* Alle Erläuterungstexte, die länger als 2 Zeilen einer Eingabefeldlänge benötigen, sind zu komplex gestalten und bedürfen einer fachlichen Neugestaltung.
 Sollte dies nicht möglich sein, so ist ein vorangegangenes Textelement über dem Eingabefeld notwendig.
-* Erläuterungshilfen, sollen nicht dynamisch versteckt werden – Entweder ist die Erläuterung notwendig = sichtbar oder nicht notwendig = entfernen.
+* Erklärungshilfen, sollen nicht dynamisch versteckt werden – entweder ist die Erläuterung notwendig = sichtbar oder nicht notwendig = entfernen.
+
+//ToDo: Auflösen in Do's and Don'ts
 Grundlegende Hinweise zur Gestaltung von Eingabefeldern und Labeln:
-* Labels enden nicht mit einem Doppelpunkt. Bei sehr langen Labels sollten sinnvolle Abkürzungen verwendet werden.
-* Die unmittelbare Nähe der Labels zu den zugehörigen Bedienelementen verbessert die visuelle Verbindung und ermöglicht es, den Benutzern Formulare schneller und effizienter auszufüllen.
-* Gleichmäßige Feld-Längen unterstützen den Lesefluss des Benutzers.
-* Die Feld-Längen sollten erwartungskonform gewählt werden. Soll z.B. eine Postleitzahl innerhalb Deutschlands eingegeben werden, so macht es Sinn die Feld-Länge auf 5 Stellen zu begrenzen. Optisch kann das Eingabefeld der Konsistenz entsprechend länger sein.
+
+* Labels enden nicht mit einem Doppelpunkt.
+Bei sehr langen Labels sollten sinnvolle Abkürzungen verwendet werden.
+* Die unmittelbare Nähe der Labels zu den zugehörigen Bedienelementen verbessert die visuelle Verbindung und ermöglicht es den Nutzenden, Formulare schneller und effizienter auszufüllen.
+* Gleichmäßige Feld-Längen unterstützen den Lesefluss des Nutzendens.
+* Die Feld-Längen sollten erwartungskonform gewählt werden.
+Soll z.B. eine Postleitzahl innerhalb Deutschlands eingegeben werden, so macht es Sinn die Feld-Länge auf 5 Stellen zu begrenzen.
+Optisch kann das Eingabefeld der Konsistenz entsprechend länger sein.
 * Pflichtfelder werden mit einem Asterisk (*) gekennzeichnet.
-* Der Asterisk unterliegt denselben Regeln wie das Label (Aktiv = Highlightfarbe, Fehler = Fehlermeldungsfarbe).
+* Der Asterisk unterliegt denselben Regeln wie das Label (aktiv = <<image-eingabefeldaktiv,Highlightfarbe>>, Fehler = <<image-eingabefelderror,Fehlerbildungsfarbe>>).
 
 *_Exemplarische Vermaßung der verschiedenen Eingabefelder:_*
 
@@ -848,252 +1008,293 @@ image::24_BE_eingabefeld_vermassung.png[align="center"]
 
 Die Angaben beziehen sich auf die in der Grafik vorzufindenden Elemente.
 Ein Eingabefeld kann den fachlichen Bedingungen entsprechend kürzer oder auch länger sein.
-Die Mindesthöhe von 44px darf nicht unterschritten werden, um die Barrierefreiheit von Inputoptionen zu gewährleisten.
+Die Mindesthöhe von 44px darf nicht unterschritten werden, um die Barrierefreiheit von Input-Optionen zu gewährleisten.
+
 Die Schriftgröße sollte 14pt nicht unterschreiten.
-Der Abstand eines Eingabefelds zum darunter liegenden Label eines weiteren Eingabefelds soll ca. dem doppelten Abstand zwischen einem Label-Eingabefeld-Paars entsprechen, um eine eindeutige Zuordnung zu gewährleisten.
+
+Der Abstand eines Eingabefelds zum darunter liegenden Label eines weiteren Eingabefelds soll ca. dem doppelten Abstand zwischen einem Label-Eingabefeld-Paar entsprechen, um eine eindeutige Zuordnung zu gewährleisten.
 
 Eingabefelder können auch eine unbestimmte Menge an Zeichen erwarten.
-Dann spricht man von Textboxen. Sie unterscheiden sich in der Größe und Form von gewöhnlichen Eingabefeldern.
+Dann wird von einer Textbox gesprochen.
+Diese unterscheiden sich in der Größe und Form von gewöhnlichen Eingabefeldern.
  
-[[image-Textbox]]
+[[image-textbox]]
 .Textbox
 image::24_BE_Textbox.png[align="center"]
 
 Textboxen lassen sich per Default in ihrer Größe verändern, damit der gesamte Inhalt angezeigt werden kann.
 Textboxen sollten mindestens so groß gestaltetet werden, dass der am häufigsten zu erwartende Inhalt hineinpasst, ohne manuell die Box zu verändern.
-Hinweis: Textboxen haben die gleichen States und Styles wie Eingabefelder.
+
+[TIP]
+Textboxen haben die gleichen States und Styles wie Eingabefelder.
 
 === Liste
 
-Listen sind zentrale Bestandteile einer jeden Website und insbesondere von Fachanwendungen. Sie dienen dazu, Inhalte zu strukturieren und schnell zu erfassen.Listen ermöglichen es dem Nutzer darüber zulässige Werte auszuwählen. Dadurch werden Fehleingaben und unerwartete Ergebnisse reduziert.
-Listen sind in ihrer alleinigen Form recht simpel. Sie bestehen optische aus einem geschlossenen Rahmen und bestenfalls aus logisch sortierten Elementen. Listen können in den verschiedensten Ausprägungen eingesetzt werden: Eingabefeld + Liste, Eingabefeld + Suchbox + Liste, Menüitem + Liste, etc…
+Listen sind zentrale Bestandteile in Frontends und insbesondere von Fachanwendungen.
+Sie dienen dazu, Inhalte zu strukturieren und schnell zu erfassen.
+Listen ermöglichen es dem Nutzenden darüber zulässige Werte auszuwählen.
+Dadurch werden Fehleingaben und unerwartete Ergebnisse reduziert.
+
+Listen sind in ihrer alleinigen Form recht simpel.
+Sie bestehen optisch aus einem geschlossenen Rahmen und bestenfalls aus logisch sortierten Elementen.
+
+Listen können in den verschiedensten Ausprägungen eingesetzt werden:
+
+* Eingabefeld + Liste
+* Eingabefeld + Suchbox + Liste
+* Menüitem + Liste
+* uvm
+
 Die einfachste Form einer Liste ist die rein textuelle Liste.
 
-[[image-Liste]]
+[[image-liste]]
 .Einfache Liste
 image::24_BE_liste.png[align="center"]
 
-Eine Liste kann theoretisch beliebig viele Einträge enthalten, was aber die Usability verschlechtert. Im optimalen Fall haben Liste eine logisch relevante überschaubare Anzahl an Einträgen. Die Einträge sind eindeutig und prägnant. Bei langen Einträgen können auch sinnvolle Abkürzungen genutzt werden.
+Eine Liste kann theoretisch beliebig viele Einträge enthalten, was aber die Usability verschlechtert.
+Im optimalen Fall haben Liste eine logisch relevante überschaubare Anzahl an Einträgen.
+Die Einträge sind eindeutig und prägnant.
+Bei langen Einträgen können auch sinnvolle Abkürzungen genutzt werden.
+
 Die Listenelemente sind mindestens 44px hoch und entsprechend dem dazugehörigen Element breit (hier exemplarisch das Eingabefeld).
 Aktive Elemente sind in der Highlightfarbe und hinterlegt dargestellt.
 
-*_Do´s_*
+*_Do's_*
 
 * Gestalte Listen inhaltlich so einfach wie möglich.
 * Sollten Listen viele Einträge haben, sorge mit anderen Elementen für die Durchsuchbarkeit, Filterung oder Kategorisierung.
-* Listen helfen bei komplexen Eingaben Fehler zu vermeiden.
-* Kombiniere Listen mit unterschiedlichen interaktiven Elementen, um dem Nutzer eine Hilfestellung zu bieten.
+* Listen helfen bei komplexen Eingaben, Fehler zu vermeiden.
+* Kombiniere Listen mit unterschiedlichen interaktiven Elementen, um dem Nutzenden eine Hilfestellung zu bieten.
 * Erwäge die Nutzung einer Radio-Button-Gruppe bei einer kleinen Liste.
 
-*_Dont´s_*
+*_Don'ts_*
 
 * Listeneinträge sind nie mehrzeilig.
 * Listeneinträge sind nicht doppelt vorhanden und nicht eindeutig unterscheidbar.
 * Listen sind unsortiert und sehr lang.
 * Listeneinträge sind als ganze Sätze formuliert.
 
+[[checkbox]]
 === Checkbox
 
-Checkboxen sind ein wesentliches Element der Benutzeroberfläche, das in vielen Web- und Anwendungsdesigns verwendet wird.
-Sie ermöglichen es Benutzern, mehrere Optionen aus einer (offenen) Liste auszuwählen und spielen eine wichtige Rolle bei der Interaktivität und Benutzerführung.
-Ein gut gestaltetes Checkbox-Design verbessert die Lesbarkeit und Zugänglichkeit, was besonders wichtig ist, um sicherzustellen, dass alle Benutzer, einschließlich derjenigen mit Behinderungen, die Anwendung problemlos nutzen können.
-Letztlich fördern konsistente Checkbox-Designs eine bessere Benutzererfahrung und erhöhen die Effizienz bei der Datenerfassung und Interaktion.
+Checkboxen ermöglichen es Nutzenden, *mehrere* Optionen aus einer (offenen) Liste auszuwählen und spielen eine wichtige Rolle bei der Interaktivität und Benutzerführung.
+Der gezielte Einsatz von Checkboxen bei kurzen Listen gibt dem Nutzenden die Möglichkeit seine Optionen schnell zu erkennen und auszufüllen.
 
-[[image-Checkboxen]]
+Checkboxen können auch alleinstehend, als boolean-Wert genutzt werden (z.B. als Bestätigung zum Lesen der AGB).
+
+
+[[image-checkboxen]]
 .Checkboxen
 image::24_BE_checkboxen.png[align="center"]
 
-Checkboxen sind 24px x 24px groß, haben aber für mobile Geräte mindestens eine 44px x 44px große Clicktargetarea.
+Checkboxen sind 24px x 24px groß, haben aber für mobile Geräte mindestens einen 44px x 44px großen Klickbereich (Click-Target-Area).
 Checkboxen haben immer ein rechtsstehendes Label mit einer Schriftgröße von mindestens 14pt (hier exemplarisch 16pt).
-Eine Checkbox repräsentiert eine unabhängige, nicht-exklusive Auswahl. Der Benutzer kann beliebige Optionen auswählen.
+
+Eine Checkbox repräsentiert eine unabhängige, nicht-exklusive Auswahl.
+Der Nutzende kann beliebige Optionen auswählen.
 Dabei können Checkboxen vertikal angeordnet werden.
 
-[[image-Checkboxen-vertikal]]
+[[image-checkboxen-vertikal]]
 .Vertikale Gruppe von Checkboxen
 image::24_BE_checkboxen_vertikal.png[align="center"]
 
 Oder auch horizontal angeordnet werden.
 
-[[image-Checkboxen-horizontal]]
+[[image-checkboxen-horizontal]]
 .Horizontale Gruppe von Checkboxen
 image::24_BE_checkboxen_horizontal.png[align="center"]
 
-Wichtig ist, dass jede Checkbox ihrem Label zuzuordnen ist. Für eine homogene Darstellung sind folgende Abstände einzuhalten.
+Wichtig ist, dass jede Checkbox ihrem Label zugeordnet ist.
+Für eine homogene Darstellung sind folgende Abstände einzuhalten.
 
-[[image-Checkboxen-mit-Einheiten]]
+[[image-checkboxen-mit-einheiten]]
 .Vermaßung von Checkboxen horizontal und vertikal
 image::24_BE_checkboxen_measured.png[align="center"]
 
-*_Do´s_*
+*_Do's_*
 
 * Das Ein- oder Ausschalten einer Checkbox kann dazu genutzt werden, um andere Elemente dynamisch zu aktivieren/anzuzeigen oder zu deaktivieren/unsichtbar zu machen, z.B. „Abweichende Lieferanschrift“ (einzige zulässige Funktion).
-* Nicht nur die Box und Targetarea sollten klickbar sein, auch das Label.
+* Nicht nur die Box und Target-Area, sondern auch das Label sollten klickbar sein.
 * Eine Gruppe von Checkboxen sollte immer eine Beschriftung aufweisen, die entsprechend bei einer einzelnen Checkbox entfallen kann.
-* Für optimale Lesbarkeit sollten Checkboxen vertikal untereinander angeordnet sein.
+* Für optimale Lesbarkeit sollten Checkboxen untereinander angeordnet sein.
 * Solange die Werte der untergeordneten Optionen gleich sind (alle „Aus“ oder alle „An“), zeigt dies die übergeordnete Checkbox mit dem entsprechenden Wert an.
 * Sind die Werte der untergeordneten Optionen jedoch nicht mehr homogen gesetzt, so schaltet die übergeordnete Checkbox in den Zustand „nicht definiert“.
 Dieser Zustand wird häufig mit einem Quadrat innerhalb der Checkbox symbolisiert.
 
-*_Dont´s_*
+*_Don'ts_*
 
-* Checkboxen sind kein alleinstehender Ein- und Ausschalter, dafür gibt es p-inputSwitch.
-* Eine Checkbox soll keine Funktionen (drucken, speichern, etc…) auslösen oder Seiten öffnen/verlinken.
+* Checkboxen sind kein alleinstehender Ein- und Ausschalter, dafür gibt es die technische Komponente _p-inputSwitch_.
+* Eine Checkbox soll keine Funktionen (drucken, speichern, etc …) auslösen oder Seiten öffnen/verlinken.
 
+[[radiobutton]]
 === Radiobutton
 
-Radiobuttons sind ein wesentliches Element der Benutzeroberfläche, das in vielen Web- und Anwendungsdesigns verwendet wird. Sie ermöglichen es Benutzern, eine Option aus einer (offenen) Liste auszuwählen und spielen eine wichtige Rolle bei der Interaktivität und Benutzerführung. Ein gut gestaltetes Radiobutton-Design verbessert die Lesbarkeit und Zugänglichkeit, was besonders wichtig ist, um sicherzustellen, dass alle Benutzer, einschließlich derjenigen mit Behinderungen, die Anwendung problemlos nutzen können. Letztlich fördern konsistente Checkbox-Designs eine bessere Benutzererfahrung und erhöhen die Effizienz bei der Datenerfassung und Interaktion.
+Radiobutton ermöglichen es Nutzenden, *eine* Option aus einer (offenen) Liste auszuwählen und spielen eine wichtige Rolle bei der Interaktivität und Benutzerführung.
+Beim Einsatz von Radiobuttons wird dem Nutzenden sehr schnell gezeigt, dass er sich zwischen allen Optionen für eine entscheiden muss.
 
-[[image-Radiobutton]]
+Radiobuttons können nicht alleinstehend verwendet werden, da sie nicht wieder abwählbar sind.
+
+[[image-radiobutton]]
 .Radiobuttons
 image::24_BE_radiobutton.png[align="center"]
 
-Radiobuttons sind 24px groß, haben aber für mobile Geräte mindestens eine 44px x 44px große Clicktargetarea.
+Radiobuttons sind 24px groß, haben aber für mobile Geräte mindestens einen 44px x 44px großen Klickbereich (Click-Target-Area).
 Radiobuttons haben immer ein rechtsstehendes Label mit einer Schriftgröße von mindestens 14pt (hier exemplarisch 16pt).
-Ein Radiobutton repräsentiert eine exklusive Auswahl.
-Der Benutzer kann innerhalb der Gruppe genau eine Option auswählen.
-Dabei können Checkboxen vertikal angeordnet werden.
 
-[[image-Radiobutton-vertikal]]
+Ein Radiobutton repräsentiert eine exklusive Auswahl.
+Der Nutzende kann innerhalb der Gruppe genau eine Option auswählen.
+Dabei können Radiobuttons vertikal angeordnet werden.
+
+[[image-radiobutton-vertikal]]
 .Vertikale Gruppe von Radiobuttons
 image::24_BE_radiobutton_vertikal.png[align="center"]
 
 Oder auch horizontal angeordnet werden.
 
-[[image-Radiobutton-horizontal]]
+[[image-radiobutton-horizontal]]
 .Horizontale Gruppe von Radiobuttons
 image::24_BE_radiobutton_horizontal.png[align="center"]
 
-Wichtig ist, dass jede Checkbox ihrem Label zuzuordnen ist.
+Wichtig ist, dass jeder Radiobutton seinem Label zugeordnet ist.
 Für eine homogene Darstellung sind folgende Abstände einzuhalten.
 
-[[image-Radiobutton-mit-Einheiten]]
+[[image-radiobutton-mit-einheiten]]
 .Vermaßung von Radiobuttons horizontal und vertikal
 image::24_BE_radiobutton_measured.png[align="center"]
 
-*_Do´s_*
+*_Do's_*
 
-* Die Verwendung von Radio Buttons empfiehlt sich für eine kleinere Anzahl an Optionen.
+* Die Verwendung von Radiobuttons empfiehlt sich für eine kleinere Anzahl an Optionen.
 Ist die Menge der zur Verfügung stehenden Optionen sehr groß oder hat der Platzbedarf eine große Bedeutung, so kann der Einsatz eines Dropdowns in Betracht gezogen werden.
-* Eine Gruppe von Radio Buttons sollte immer eine Beschriftung aufweisen.
-* Für optimale Lesbarkeit sollten Radio Buttons vertikal und untereinander angeordnet sein.
-* Sollte es wahrscheinlich sein, dass keine (oder alle) der angebotenen Optionen zutrifft, sollte eine Meta-Option wie „Keine Option“ („Alle“) angeboten werden.
+* Eine Gruppe von Radiobuttons sollte immer eine Beschriftung aufweisen.
+* Für optimale Lesbarkeit sollten Radiobuttons untereinander angeordnet sein.
+* Falls alle oder keine der angebotenen Optionen zutreffen, sollte eine zusätzliche allgemeine Meta-Option, wie zum Beispiel "Keine Option" oder "Alle", hinzugefügt werden.
 
-*_Dont´s_*
+*_Don't_*
 
-* Ein Radio Button darf nicht genutzt werden, um unmittelbar Funktionen auszuführen oder Aktionen auszulösen. Für diese Zwecke sollten Buttons verwendet werden.
+Ein Radiobutton darf nicht genutzt werden, um unmittelbar Funktionen auszuführen oder Aktionen auszulösen.
+Für diese Zwecke sollten Buttons verwendet werden.
 
 === Tabview
 
-Ein Tabview ist ein wesentliches Element im modernen Webdesign, das die Benutzererfahrung erheblich verbessert.
-Es bietet eine intuitive Möglichkeit, verschiedene Inhalte oder Abschnitte einer Webseite übersichtlich und platzsparend darzustellen.
-Durch die Verwendung von Tabs können Benutzer schnell und einfach zwischen verschiedenen Bereichen navigieren, ohne die Seite ständig neu laden zu müssen.
+Ein Tabview ist ein wesentliches Element im modernen Design, das die Benutzererfahrung erheblich verbessert.
+Es bietet eine intuitive Möglichkeit, verschiedene Inhalte oder Abschnitte eines Frontends übersichtlich und platzsparend darzustellen.
+Durch die Verwendung von Tabs können Nutzende schnell und einfach zwischen verschiedenen Bereichen navigieren, ohne die Seite ständig neu laden zu müssen.
 Dies fördert nicht nur die Benutzerfreundlichkeit, sondern auch die Effizienz bei der Informationssuche.
-In der heutigen digitalen Welt, in der Nutzer eine schnelle und nahtlose Interaktion erwarten, ist ein gut gestaltetes Tabview ein unverzichtbares Werkzeug für jede Webseite.
-Es ermöglicht Entwicklern, Inhalte logisch zu organisieren und sorgt für eine klare Struktur, die die Nutzerbindung und Zufriedenheit steigert.
+In der heutigen digitalen Welt, in der Nutzende eine schnelle und nahtlose Interaktion erwarten, ist ein gut gestaltetes Tabview ein unverzichtbares Werkzeug für jedes Frontend.
+Es ermöglicht Entwickelnden, Inhalte logisch zu organisieren und sorgt für eine klare Struktur, die die Benutzerbindung und Zufriedenheit steigert.
 
-[[image-Tabview]]
+[[image-tabview]]
 .Tabview
 image::24_BE_tabmenu.png[align="center"]
 
-Ein Tabview hat initial einen aktivierten, aber nicht markierten/fokussierten State (siehe obige Abbildung).
+Ein Tabview hat initial einen aktivierten, aber nicht markierten/fokussierten State (siehe <<image-tabview>>).
 Sobald ein Tab aktiv ausgewählt wird, wird auch die Markierung im Reiter visuell deutlich.
 Der aktive Tab erhält eine 3px dicke Markierungslinie und ein gefärbtes Label in der Highlightfarbe (hier exemplarisch blau).
 
-[[image-Tabview-active]]
+[[image-tabview-active]]
 .Tabview mit aktivem Reiter
 image::24_BE_tabmenu_active.png[align="center"]
 
-Tabview können ihre Reiter auch mit visuellen Icons unterstützen.
-Diese verhalten sich analog zum Tablabel.
+Tabviews können ihre Reiter auch mit visuellen Icons unterstützen.
+Diese verhalten sich analog zum Tab-Label.
 
-[[image-Tabview-mit-Icons]]
-.Tabview mit Icons
+[[image-tabview-mit-icons]]
+.Tabview mit Icons und aktivem Reiter
 image::24_BE_tabmenu_icon.png[align="center"]
 
-Es ist ratsam Tabview zu nutzen, wenn der Inhalt nicht ohne massives Scrolling innerhalb des Screens dargestellt werden kann.
+Es ist ratsam ein Tabview zu nutzen, wenn der Inhalt nicht ohne massives Scrolling innerhalb des Screens dargestellt werden kann.
 Dabei ist eine fachlich logische Aufgliederung vorauszusetzen.
 Die optimale Anzahl an Tabs liegt bei 4-7 Tabs.
-Sollte es fachlich zwingend notwendig sein, mehr Tabs anzubieten, so kann ein „Taboverflow“ via Scrolling eingesetzt werden, dieses Element ist ein“ Überlangentabview“.
 
-[[image-Tabview-overlong]]
-.Initiales Aussehen eines Überlängentabview
+Sollte es fachlich zwingend notwendig sein, mehr Tabs anzubieten, so kann technisch ein „TabOverflow“ via Scrolling eingesetzt werden.
+Dieses Element ist ein „Überlangen-Tabview“.
+
+[[image-tabview-overlong]]
+.Initiales Aussehen eines Überlängen-Tabview
 image::24_BE_tabmenu_long1.png[align="center"]
 
-Das Tabview nutzt dabei die volle, ihm zur Verfügung stehende, Breite und faded den letzten sichtbaren Menüpunkt aus.
-Darüber liegt ein Pfeil, der es ermöglicht die nächsten Tabs zu erreichen. Wurde dieser gedrückt, so springt das Tabview entsprechend viele Einträge weiter.
+Das Tabview nutzt dabei die volle, ihm zur Verfügung stehende, Breite und blasst (faded) den letzten sichtbaren Menüpunkt aus.
+Darüber liegt ein Pfeil, der es ermöglicht, zu den nächsten Tabs zu gelangen.
+Wurde dieser gedrückt, so springt das Tabview entsprechend viele Einträge weiter.
 
-[[image-Tabview-overlong-skipped]]
-.Überlängentabview mit mindestens einem Seitensprung
+[[image-tabview-overlong-skipped]]
+.Überlängen-Tabview mit mindestens einem Seitensprung
 image::24_BE_tabmenu_long2.png[align="center"]
 
 Die Schriftgröße eines Labels im Tabview sollte 14pt nicht unterschreiten.
-Ist die Standardschriftgröße gewählt, so erhöht sie sich diese bei aktiven Elementen um 2pt (hier exemplarisch auf 16pt).
+Ist die Standardschriftgröße gewählt, so erhöht sich diese bei aktiven Elementen um 2pt (hier exemplarisch auf 16pt).
 Die Höhe eines Tabreiters ist mindestens 44px.
 Die Breite ist abhängig vom Label.
 Icons sind mindestens 17px x 17 px groß.
 
-[[image-Tabview-measured]]
+[[image-tabview-measured]]
 .Exemplarische Vermaßung des Tabview
 image::24_BE_tabmenu_measured.png[align="center"]
 
-*_Do´s:_*
+*_Do's:_*
 
 * Setze Tabs ein, wenn die Komplexität der UI reduziert werden soll und eine sinnvolle Gruppierung einzelner Bereiche vorgenommen werden kann.
 * Die optimale Anzahl an Tabs ist 4 – 7.
-* Labels für die Tabreiter sollten kurz und aussagekräftig sein. Es kann auch mit sinnvollen und verständlichen Abkürzungen gearbeitet werden.
+* Labels für die Tabreiter sollten kurz und aussagekräftig sein.
+Es kann auch mit sinnvollen und verständlichen Abkürzungen gearbeitet werden.
 * Muss der Inhalt verschiedener Tabreiter verglichen/abgestimmt werden, ist eventuell ein dynamisches Panel das passendere Element.
 * Sollten es weniger als 3 Tabreiter sein, ist eventuell ein dynamisches Panel das passendere Element.
-* Verzichte, wenn möglich, auf ein Überlängentabmenü.
+* Verzichte, wenn möglich, auf ein Überlängen-Tabview.
 
-*_Dont´s:_*
+*_Don'ts:_*
 
 * Gestalte keine Seiten mit nur einem Tabreiter.
 * Tabreiter stellen nicht verschiedene Sichten zu gleichen Daten dar.
-* Tabreiter sind kein Prozess. Für so etwas wird ein Wizard genutzt.
+* Tabreiter sind keine Prozessschritte.
+Für so etwas wird ein Wizard genutzt.
 * Tabreiter sollen keine Abhängigkeiten zueinander haben.
 * Nutze keine Labels, die länger als 26 Zeichen sind.
 
+[[design-pattern]]
+== Design Pattern
 
-== Designpattern
-
-Designpattern sind wiederkehrende Lösungen für Designprobleme, die sich über verschiedene Teile der Anwendung erstrecken können.
-Dieser Abschnitt beschreibt die Konzepte von Designpatterns, ihre Bedeutung für die Konsistenz und Effizienz der Benutzeroberfläche, sowie ihre Rolle bei der Gestaltung eines benutzerzentrierten Designs.
+Design Patterns sind wiederkehrende Lösungen für Designprobleme, die sich über verschiedene Teile des Frontends erstrecken können.
+Dieser Abschnitt beschreibt die Konzepte von Design Patterns, ihre Bedeutung für die Konsistenz und Effizienz der Benutzeroberfläche, sowie ihre Rolle bei der Gestaltung eines benutzerzentrierten Designs.
 
 === Eingabefeldliste (Dropdown)
 
 Ein Eingabefeld mit hinterlegten Werten ist in seiner einfachsten Form ein Eingabefeld mit Liste.
-Die Liste ist die bekannteste Art eines interaktiven Eingabefelds besser bekannt als Dropdown.
+Die Liste ist die bekannteste Art eines interaktiven Eingabefelds, besser bekannt als Dropdown.
 Eingabefeldlisten setzen Standards für interaktive Eingabefelder, Dropdown-Menüs, enthaltene Kontrollkästchen und andere interaktive Elemente.
-Dadurch wird sichergestellt, dass alle Eingabefelder auf der Webseite oder in der Anwendung einheitlich gestaltet sind und den besten Praktiken hinsichtlich Benutzerfreundlichkeit und Barrierefreiheit entsprechen.
-Ein konsistentes Design fördert die Orientierung und das Vertrauen der Benutzer, was letztendlich zu einer höheren Zufriedenheit und Effizienz führt.
+Dadurch wird sichergestellt, dass alle Eingabefelder auf dem Frontend einheitlich gestaltet sind und den besten Praktiken hinsichtlich Benutzerfreundlichkeit und Barrierefreiheit entsprechen.
+Ein konsistentes Design fördert die Orientierung und das Vertrauen der Nutzenden, was letztendlich zu einer höheren Zufriedenheit und Effizienz führt.
 
-[[image-Eingabefeldliste-Dropdown]]
+[[image-eingabefeldliste-dropdown]]
 .Eingabefeld mit hinterlegten Auswahlmöglichkeiten
 image::24_DP_eingabefeldliste.png[align="center"]
 
 Beim Klick auf das gesamte Element klappt die Liste aus und ein Element kann angewählt werden.
 
-[[image-Eingabefeldliste-aktiv-Aktives-Dropdown]]
+[[image-eingabefeldliste-aktiv-aktives-dropdown]]
 .Aktives Dropdown
 image::24_DP_eingabefeldliste_aufgeklappt.png[align="center"]
 
 Die Listenelemente sind mindestens 44px hoch und entsprechend dem dazugehörigen Element breit (hier exemplarisch das Eingabefeld).
 Aktive Elemente sind in der Highlightfarbe und hinterlegt dargestellt.
 
+
+[[eingabefeldgruppen]]
 === Eingabefeldgruppen
 
-Eingabefeldgruppen sind in fast jeder Anwendung oder Website vorhanden.
+Eingabefeldgruppen sind in fast jedem Frontend vorhanden.
 Sie haben stets einen unterschiedlichen fachlichen Schnitt, lassen sich aber in den häufigsten Anwendungsfällen in homogene Gruppen definieren.
 Bekannte Gruppen sind personenbezogene Daten wie z.B.: Angaben zur Person, Ortsdaten/Adresse, Bezahldaten.
+
 Diese Gruppen bestehen immer aus mindestens einer Gruppenüberschrift/Gruppenlabel, mehreren Eingabefeldern und ggf. weiteren Bedienelementen.
 Die nachfolgenden Angaben beziehen sich immer auf Neuentwicklungen und Aktualisierungen.
-Altanwendungen, die nicht angepasst werden müssen, können weiterhin ihrem zum Umsetzungszeitpunkt gültigen Styleguide und Bedienkonzept entsprechen.
+Altanwendungen, die nicht angepasst werden müssen, können weiterhin ihrem zum Umsetzungszeitpunkt gültigen Bedienkonzept entsprechen.
 Alle hier gezeigten Grafiken beziehen sich auf die aktuelle und zukünftige Umsetzung.
 
-*_Beispiel einer Eingabefeldgruppe "Personendaten":_*
+*_Beispiel einer Eingabefeldgruppe "Persönliche Angaben":_*
 
 [[image-eingabefeldgruppe]]
-.Eingabefeldgruppe Beispiel: persönliche Daten
+.Eingabefeldgruppe Beispiel: Persönliche Angaben
 image::24_DP_persoenliche_angaben.png[align="center"]
 
 Verwendet wird ein 1-spaltiges inhaltliches Layout.
@@ -1107,44 +1308,51 @@ Sie können durch ihre inhaltliche logische Struktur dem grundlegenden 3-spaltig
 .Eingabefeldgruppe mit bedingten Pflichtfeldern
 image::24_DP_bedingte_pflichtfeldgruppe.png[align="center"]
 
-Erklärung:
+_Erklärung:_
+
 Bedingt ein Pflichtfeld nur eine Teilmenge einer Auswahl an Eingabemöglichkeiten, so lässt sich dies über eine bedingte Pflichtfeldgruppe darstellen.
 Hier ist die Eingabe mindestens einer Option Voraussetzung, um den Prozess abzuschließen.
-Im konkreten Beispiel: Identitätsnachweisdokument.
-Der Prozess sieht vor das ein Nachweis über die Identität erbracht wird.
+
+_Im konkreten Beispiel: Identitätsnachweisdokument_
+
+Der Prozess sieht vor, dass ein Nachweis über die Identität erbracht wird.
 Dies kann jedoch über verschiedene Dokumente erfolgen.
 Somit wird unter der Gruppe „Identitätsnachweisdokument“ in verschiedenen Eingabefeldern die Möglichkeit gegeben sich für eine Nachweisart zu entscheiden und entsprechend ihrer Art entweder eine Auswahl zu treffen oder eine entsprechende Nummer anzugeben.
+
 Dabei ist nicht das einzelne Eingabefeld ein Pflichtfeld, sondern der Nachweis an sich.
-Dieser wird positiv bestätigt, sobald eine in der Gruppe enthaltenen Möglichkeit ausgewählt/befüllt wurde.
+Sobald eine Möglichkeit innerhalb der Gruppe ausgewählt/befüllt wurde, wird die bedingte Pflichtfeldgruppe für den Identitätsnachweis als positiv bestätigt.
 
 Dies ist technisch ein sogenanntes „Fieldset“.
 
-Für komplexere fachliche Konstellationen, kann über eine textuelle Hilfestellung mit Signalwörtern gearbeitet werden.
-Der Einsatz solcher komplexen bedingten Pflichtfelder ist aus Sicht der Benutzerfreundlichkeit nur im absoluten Ausnahmefall zu wählen.
+Für komplexere fachliche Konstellationen kann über eine textuelle Hilfestellung mit Signalwörtern gearbeitet werden.
+Der Einsatz solcher komplexen bedingten Pflichtfelder ist aus Sicht der Benutzerfreundlichkeit nur im *absoluten Ausnahmefall* zu wählen.
 Vielmehr sollte überlegt werden, ob es einen verständlicheren fachlichen Lösungsansatz gibt.
 
 *_Beispielhafte Verwendung von Gruppen und inhaltlich logischer Gruppierung:_*
 
-* Personendaten (rosa overlay, vertikal gruppiert)
-* Identitätsnachweis (orange overlay, vertikal gruppiert)
+* Personendaten (rosa Overlay, vertikal gruppiert)
+* Identitätsnachweis (oranger Overlay, vertikal gruppiert)
 
 [[image-variationeingabefeldgruppen]]
 .Verschiedene Eingabefeldgruppen vertikal gruppiert
 image::24_DP_variation_eingabefeldgruppen.png[align="center"]
 
-Hier wird deutlich das in einem mehrspaltigen Layout verschiedene Kombinationen an Eingabefeldern in 2-spaltiger (horizontal) Anordnung einer Hauptgruppe (in lila) unterliegen.
+Hier wird deutlich das in einem mehrspaltigen Layout verschiedene Kombinationen an Eingabefeldern in 2-spaltiger (horizontaler) Anordnung einer Hauptgruppe (in Lila) unterliegen.
 Die blockartige Anordnung erleichtert das Erfassen und ermöglicht eine thematische Untergruppen-Clusterung.
 
 [[image-mehrspaltigegruppen]]
 .Mehrspaltige inhaltliche Gruppe
 image::24_DP_mehrspaltige_inhaltliche_Gruppe.png[align="center"]
 
+[[use-cases]]
 == Use Cases
 
 *_Einleitung und Allgemeines:_*
 
-Use Cases stellen typische Szenarien oder Seiten dar, die bestimmte Funktionalitäten oder Aktionen erfordern. Dieser Abschnitt kombiniert Designpattern, um benutzerfreundliche Lösungen für spezifische Anwendungsfälle zu präsentieren und ihre Umsetzung anhand von Beispiel-Screens zu veranschaulichen.
+Use Cases stellen typische Szenarien oder Seiten dar, die bestimmte Funktionalitäten oder Aktionen erfordern.
+Dieser Abschnitt kombiniert Design Patterns, um benutzerfreundliche Lösungen für spezifische Anwendungsfälle zu präsentieren und ihre Umsetzung anhand von Beispiel-Screens zu veranschaulichen.
 
+[[formulare]]
 === Formulare
 
 Inhalte von Formularen sollten sich an einem virtuellen, nicht visuell dargestellten Raster ausrichten.
@@ -1152,7 +1360,7 @@ Formulare können einem 1-spaltigen, 2-spaltigen oder 3-spaltigen Layout folgen.
 Dabei sind alle Spalten innerhalb eines Formulars gleich breit aufgebaut.
 
 Die nachfolgenden Angaben beziehen sich immer auf Neuentwicklungen und Aktualisierungen.
-Altanwendungen, die nicht angepasst werden müssen, können weiterhin ihrem zum Umsetzungszeitpunkt gültigen Styleguide und Bedienkonzept entsprechen.
+Altanwendungen, die nicht angepasst werden müssen, können weiterhin ihrem zum Umsetzungszeitpunkt gültigen Bedienkonzept entsprechen.
 Alle hier gezeigten Grafiken beziehen sich auf die aktuelle und zukünftige Umsetzung.
 
 *_Beispielhaftes Formular 3-spaltig:_*
@@ -1161,8 +1369,9 @@ Alle hier gezeigten Grafiken beziehen sich auf die aktuelle und zukünftige Umse
 .3 Spalten Layout
 image::24_UC_3_spalten.png[align="center"]
 
-Damit ein Formular ein Formular ist, besteht es mindestens aus einer Eingabefeldgruppe und einer beliebigen Anzahl weiterer Elemente.
-Alle Regeln für Eingabefelder und Label haben hier auch ihre Gültigkeit (siehe Bedienelement: Eingabefeld).
+Damit ein Formular auch ein Formular ist, besteht es mindestens aus einer <<eingabefeldgruppen,Eingabefeldgruppe>> und einer beliebigen Anzahl weiterer Elemente.
+Alle Regeln für <<eingabefeld,Eingabefelder>> und <<label>> haben hier auch ihre Gültigkeit.
+
 Die inhaltliche Gruppierung folgt dabei keinem starren Muster, sondern kann fachlich entsprechend angepasst werden.
 Diese Gruppierung der Inhalte kann dabei sowohl horizontal als auch vertikal gestaltet werden.
 Hierbei ist wichtig, dass die Inhaltselemente über eine Gruppenüberschrift logisch zusammengefasst werden.
@@ -1170,11 +1379,11 @@ Hierbei ist wichtig, dass die Inhaltselemente über eine Gruppenüberschrift log
 *_Exemplarische inhaltliche Nutzung der Spalten:_*
 
 [[image-vertikalerschnitt]]
-.2 Spalten Layout mit unterschiedlich breiten inhaltlichen Gruppen
+.3 Spalten Layout mit unterschiedlich breiten inhaltlichen Gruppen
 image::24_UC_vertikaler_schnitt.png[align="center"]
 
 Durch die saubere Anwendung der Gruppenüberschriften, Titeln und Eingabefeldgruppen ist auch ein Wechsel der vertikalen Gruppierungsgröße nicht negativ auffällig.
-Jede inhaltliche Gruppe ( 3-spaltig in der ersten Gruppe (rosa, orange, gelb) und 1-spaltig in der nächsten Gruppe (grün)) wird ganzheitlich als logisches Element wahrgenommen.
+Jede inhaltliche Gruppe (3-spaltig in der ersten Gruppe (rosa, orange, gelb) und 1-spaltig in der nächsten Gruppe (grün)) wird ganzheitlich als logisches Element wahrgenommen.
 
 *_Wahrnehmung der inhaltlichen Gruppen:_*
 
@@ -1182,16 +1391,18 @@ Jede inhaltliche Gruppe ( 3-spaltig in der ersten Gruppe (rosa, orange, gelb) un
 .Wahrnehmung der inhaltlichen Gruppen Hierarchie
 image::24_UC_horizontale_inhaltlichte_gruppe.png[align="center"]
 
-Gleichmäßige Feldlängen unterstützen den Lesefluss des Benutzers.
-Letzte Eingabefelder können bei Bedarf ihrem Inhalt entsprechen gekürzt werden.
-Dies unterstützt die inhaltlich logische Gruppierung und signalisiert dem Nutzer auch visuell ein Ende der inhaltlichen Gruppe.
+Gleichmäßige Feldlängen unterstützen den Lesefluss des Nutzendens.
+Die letzten Eingabefelder können bei Bedarf ihrem Inhalt entsprechend gekürzt werden.
+Dies unterstützt die inhaltlich logische Gruppierung und signalisiert dem Nutzenden auch visuell ein Ende der inhaltlichen Gruppe.
+
 Bei geringeren Auflösungen sollten sie, dem bekannten responsiven Verhalten entsprechend, untereinander angeordnet werden, um sich der begrenzten Breite anzupassen.
+
 Die Größenanpassung erfolgt innerhalb von gewissen Bereichen:
 
 * Wird das Browserfenster kleiner als der darzustellende Inhalt (i.d.R. bei Tablets und Smartphones), so wird das gesamte Fenster vertikal scrollbar
 * Der vertikale Abstand zwischen Gruppen und Formularinhalten bleibt unabhängig von der Bildschirmgröße konstant
 * Der Abstand zwischen Eingabefeldern und Labels bleibt ebenfalls unverändert
-* Bei einer Veränderung der Browserfenster Größe sollten sich die Breiten der Spalten dynamisch an den verfügbaren Platz anpassen, ohne dabei die Lesbarkeit zu beeinträchtigen
+* Bei einer Veränderung der Browserfenster-Größe sollten sich die Breiten der Spalten dynamisch an den verfügbaren Platz anpassen, ohne dabei die Lesbarkeit zu beeinträchtigen
 
 *_Beispielhafte Gesamtumsetzung eines Formulars im Anwendungsrahmen:_*
 
@@ -1199,59 +1410,66 @@ Die Größenanpassung erfolgt innerhalb von gewissen Bereichen:
 .Beispielhafte Gesamtumsetzung eines Beispielformulars im Anwendungsrahmen
 image::24_UC_fullexample_formular.png[align="center"]
 
+[[eingabehilfen-und-fehlermeldungen]]
 == Eingabehilfen und Fehlermeldungen
 
-Eingabehilfen und Fehlermeldungen sind essenziell wichtig, um die Benutzerfreundlichkeit einer Anwendung zu starten, im folgenden Kapitel sollen die Grundlagen zur erfolgreichen Gestaltung von Eingabehilfen und Fehlermeldungen erläutert werden.
+Eingabehilfen und Fehlermeldungen sind essenziell wichtig, um die Benutzerfreundlichkeit eines Frontends zu erhöhen.
+Im folgenden Kapitel sollen die Grundlagen zur erfolgreichen Gestaltung von Eingabehilfen und Fehlermeldungen erläutert werden.
 
 === Eingabehilfen
 
-==== Korrekte Labels:
+==== Korrekte Labels
 
-Auch Labels sind schon Eingabehilfen.
-Klare und präzise Beschriftungen (Labels) sind für die Benutzerführung entscheidend, insbesondere für Formulare und Eingabefelder.
-Jedes Eingabefeld muss ein entsprechendes Label haben, das den Benutzern genau sagt, welche Art von Information erwartet wird.
-Beispielsweise sollte ein Anmeldeformular separate Felder für "Benutzername" und "Passwort" haben, jeweils mit deutlich sichtbaren Labels.
+Auch <<label,Labels>> sind schon Eingabehilfen.
+Klare und präzise Beschriftungen (Labels) sind für die Benutzerführung entscheidend, insbesondere für <<formulare>> und <<eingabefeld,Eingabefelder>>.
+Jedes Eingabefeld muss ein entsprechendes Label haben, das den Nutzenden genau sagt, welche Art von Information erwartet wird.
+Beispielsweise sollte ein Anmeldeformular separate Felder für "Anmeldename" und "Passwort" haben, jeweils mit deutlich sichtbaren Labels.
 
-==== Gute Platzhaltertexte:
+==== Gute Platzhaltertexte
 
-Platzhaltertexte sind nützlich, um Benutzern zusätzliche Hinweise oder Beispiele für die erwarteten Eingaben zu geben.
-Sie sollten jedoch nicht als Ersatz für Labels dienen. Idealerweise sollten Platzhaltertexte kurz und prägnant sein, um den Benutzern zu helfen, die Anforderungen des jeweiligen Eingabefelds besser zu verstehen, ohne den Platz zu überladen oder den Fokus zu stören.
+Platzhaltertexte sind nützlich, um Nutzenden zusätzliche Hinweise oder Beispiele für die erwarteten Eingaben zu geben.
+Sie sollten jedoch nicht als Ersatz für Labels dienen.
+Idealerweise sollten Platzhaltertexte kurz und prägnant sein, um den Nutzenden zu helfen, die Anforderungen des jeweiligen Eingabefelds besser zu verstehen, ohne den Platz zu überladen oder den Fokus zu stören.
 
-Beispiel 1, man erwartet einen Nachnamen im Eingabefeld
+*_Beispiel 1:_* es wird ein Nachname im Eingabefeld erwartet
 
-*_Do:_*
+*Do:*
 Nachname
 
-*_Dont:_*
+*Don't:*
 Dein Nachname
 
-Beispiel 2, man erwartet eine Telefonnummer
+*_Beispiel 2:_* es wird eine Telefonnummer erwartet
 
-*_Do:_*
+*Do:*
 +49 123 1234567
 
-*_Dont:_*
+*Don't:*
 Deine Telefon- oder Handynummer
 
-Sobald der Benutzer in das Eingabefeld klickt, wird der Platzhalter ausgeblendet und es besteht die Möglichkeit eine Mask anzeigen zu lassen.
-Im Kapitel Eingabefelder sind Masks als Element dargestellt. Sie geben das gewünschte Eingabepattern vor und lassen sich fast vollständig frei gestalten.
-Gute Hinweistexte zur Erläuterung bei Eingabefeldern und Fehlermeldungen:
-Bei komplexeren Formularen oder spezifischen Eingabeanforderungen können Hinweistexte hilfreich sein, um den Benutzern zusätzliche Anleitungen oder Kontext zu bieten.
+Sobald der Nutzende in das Eingabefeld klickt, wird der Platzhalter ausgeblendet und es besteht die Möglichkeit eine Mask anzeigen zu lassen.
+Im Kapitel <<eingabefeld,Eingabefelder>> sind <<image-eingabefeldmask,Masks>> als Element dargestellt.
+Sie geben das gewünschte Eingabepattern vor und lassen sich fast vollständig frei gestalten.
+
+_Gute Hinweistexte zur Erläuterung bei Eingabefeldern und Fehlermeldungen:_
+
+Bei komplexeren Formularen oder spezifischen Eingabeanforderungen können Hinweistexte hilfreich sein, um den Nutzenden zusätzliche Anleitungen oder Kontext zu bieten.
 Diese Texte sollten in der Nähe des entsprechenden Eingabefelds platziert werden und sollten klar und präzise sein.
 Sie können beispielsweise erklären, welche Art von Informationen erwartet werden oder auf spezielle Formatierungsanforderungen hinweisen.
 
 ==== Autosuggestion
 
-Autosuggestion ist eine Zusatzfunktion, die in Eingabefeldern ergänzt werden können.
-Sie dient dazu, Eingaben durch Vorschläge zu vervollständigen und somit zu beschleunigen. Diese Eingabehilfe erscheint direkt unter dem Textfeld.
-Sie schließt sich, wenn der Benutzer außerhalb der Eingabehilfe klickt oder innerhalb der Eingabehilfe seine Auswahl trifft.
+Autosuggestion ist eine Zusatzfunktion, die in <<eingabefeld,Eingabefeldern>> ergänzt werden können.
+Sie dient dazu, Eingaben durch Vorschläge zu vervollständigen und somit zu beschleunigen.
+Diese Eingabehilfe erscheint direkt unter dem Textfeld.
+Sie schließt sich, wenn der Nutzende außerhalb der Eingabehilfe klickt oder innerhalb der Eingabehilfe seine Auswahl trifft.
 
 [[image-autosuggestion]]
 .Darstellung einer funktionalen Autosuggestion
 image::24_EF_autosuggestion.png[align="center"]
 
-Sobald der Benutzer mit der Eingabe beginnt, werden mögliche Werte, die mit der vom Benutzer gemachten Eingabe beginnen, in einem Menü unterhalb des Textfelds angezeigt.
-Der Benutzer kann nun weiter tippen oder direkt einen Wert aus dem Menü auswählen und somit seine Eingabe verkürzen.
+Sobald der Nutzende mit der Eingabe beginnt, werden mögliche Werte, die mit der vom Nutzenden gemachten Eingabe beginnen, in einem Menü unterhalb des Textfelds angezeigt.
+Der Nutzende kann nun weiter tippen oder direkt einen Wert aus dem Menü auswählen und somit seine Eingabe verkürzen.
 Gibt es mehr als 10 mögliche passende Werte, so werden die ersten 10 Werte angezeigt, gefolgt von einer Information, dass mehr als 10 Einträge existieren.
 
 
@@ -1260,43 +1478,49 @@ Gibt es mehr als 10 mögliche passende Werte, so werden die ersten 10 Werte ange
 Feedback-Konzepte für Ladezeiten sind ein sehr wichtiges Instrument zur Erreichung guter User Experience.
 Für längere Operationen kann ein Fortschritts-Balken (Progress Bar) genutzt werden, der sich entsprechend dem Fortschritt des Vorgangs füllt.
 Für kürzere Vorgänge kann ein Fortschritts-Spinner (kreisrunde Fortschrittsanzeige) verwendet werden.
-Mit dem Toggle-Filter kann durch einen Klick auf einen Button eine Liste von Objekten oder Formularen nach bestimmten vordefinierten Kriterien eingeschränkt werden.
 
 [[image-spinnerbar]]
 .Spinner und Progressbar
 image::24_EF_spinner_and_bar.png[align="center"]
 
 [[image-spinnerbarlist]]
-.Spinner und Progressbar in einer Liste angewandt
+.Spinner in einer Liste angewandt
 image::24_EF_spinner_and_bar_in_list.png[align="center"]
 
-* Generell sollten Vorgänge oder Operationen, die mehr als eine Sekunde in Anspruch nehmen, eine Rückmeldung in Form einer Fortschrittsanzeige an den Benutzer geben
-* Die Form der Fortschrittsanzeige richtet sich dabei nach der Länge des Vorgangs und dem Anwendungskontext
+_Grundlegende Anwendungshinweise:_
+
+* Generell sollten Vorgänge oder Operationen, die mehr als eine Sekunde in Anspruch nehmen, eine Rückmeldung in Form einer Fortschrittsanzeige an den Nutzenden geben.
+* Die Form der Fortschrittsanzeige richtet sich dabei nach der Länge des Vorgangs und dem Anwendungskontext.
 * Fortschrittsanzeigen werden in der Regel nur für Wartezeiten verwendet, die sich aus System-Operationen ergeben.
-Für Wartezeiten, die sich auf die Bedienung des Benutzers zurückführen lassen, werden keine Fortschrittsanzeigen eingesetzt
+Für Wartezeiten, die sich auf die Bedienung des Nutzendens zurückführen lassen, werden keine Fortschrittsanzeigen eingesetzt.
 
-Balken oder Spinner:
+*Balken oder Spinner*
 
-*_Fortschritts-Balken (Progress Bar)_*
+*_Fortschritts-Balken (Progress Bar):_*
 
-* Fortschritts-Balken werden in der Regel für Ladevorgänge mit bestimmbarer Gesamtlänge verwendet
-* Ein Balken zeigt den Grad der Zielerreichung an. Dabei füllt sich der Balken von links (0%) nach rechts (100%)
+* Fortschritts-Balken werden in der Regel für Ladevorgänge mit bestimmbarer Gesamtlänge verwendet.
+* Ein Balken zeigt den Grad der Zielerreichung an.
+Dabei füllt sich der Balken von links (0%) nach rechts (100%).
 
-*_Fortschritts-Spinner (kreisrunde Fortschrittsanzeige)_*
+*_Fortschritts-Spinner (kreisrunde Fortschrittsanzeige):_*
 
-* Fortschritts-Spinner werden für Ladevorgänge verwendet, deren Gesamtlänge unbekannt ist
-* Für die Dauer der Operation dreht sich der Fortschritts-Spinner und signalisiert dem Benutzer damit, dass sich ein Prozess im Vorgang befindet. Der Fortschritts-Spinner empfiehlt sich aufgrund seiner geringen Ausmaße insbesondere in Situationen, in denen Platzbedarf von großer Bedeutung ist
+* Fortschritts-Spinner werden für Ladevorgänge verwendet, deren Gesamtlänge unbekannt ist.
+* Für die Dauer der Operation dreht sich der Fortschritts-Spinner und signalisiert dem Nutzenden damit, dass sich ein Prozess im Vorgang befindet.
+Der Fortschritts-Spinner empfiehlt sich aufgrund seiner geringen Ausmaße insbesondere in Situationen, in denen Platzbedarf von großer Bedeutung ist.
 
 === Fehlermeldungen
 
-Korrekte Darstellung von Fehlern und Hilfestellung bei der Korrektur:
+_Korrekte Darstellung von Fehlern und Hilfestellungen bei der Korrektur:_
+
 Fehlermeldungen sind unvermeidlich, aber wie sie präsentiert werden, kann einen großen Unterschied für die Benutzererfahrung ausmachen.
 Fehlermeldungen sollten deutlich sichtbar sein, in verständlicher Sprache verfasst sein und klare Anweisungen zur Behebung des Fehlers enthalten.
-Idealerweise sollten Fehlermeldungen in unmittelbarer Nähe betroffenen Objekts platziert werden (siehe als Beispiel: Eingabefelder - Fehlermeldung, um Benutzern sofortiges Feedback zu geben und sie bei der Fehlerbehebung zu unterstützen.
+Idealerweise sollten Fehlermeldungen in unmittelbarer Nähe von betroffenen Objekten platziert werden (siehe als Beispiel: <<image-eingabefelderror,Eingabefelder - Fehlermeldung>>), um Nutzenden sofortiges Feedback zu geben und sie bei der Fehlerbehebung zu unterstützen.
+
 Neben Fehlermeldungen, die am Eingabeobjekt auftreten können, kann zusätzlich ein zusammenfassender Hinweis angezeigt werden (Achtung: dynamisch nachgeladene Elemente müssen auch einem Screenreader mitgeteilt werden, sodass auch Personen mit Einschränkungen diese Hinweise mitbekommen).
-Dies geschieht mit Hilfe von Toast-Notifications, welche immer am unteren rechten Rand des Browserfensters angezeigt werden.
-Jede Toast Notification muss eine Schließen-Aktion für den Benutzer anbieten.
-Um die Barrierefreiheit einzuhalten, muss die Notification dauerhaft eingeblendet bleiben, bis der Benutzer sie schließt, siehe WCAG 2.1 Kriterium 1.4.13a.
+Dies geschieht mithilfe von Toast-Notifications, welche immer am unteren rechten Rand des Browserfensters angezeigt werden.
+
+Jede Toast-Notification muss eine Schließen-Aktion für den Nutzenden anbieten.
+Um die Barrierefreiheit einzuhalten, muss die Notification dauerhaft eingeblendet bleiben, bis der Nutzende sie schließt, siehe https://www.w3.org/WAI/WCAG21/Understanding/content-on-hover-or-focus.html[WCAG 2.1 Kriterium 1.4.13a].
 
 Folgende Meldungsarten können als Toast-Notification verwendet werden:
 
@@ -1306,5 +1530,5 @@ Folgende Meldungsarten können als Toast-Notification verwendet werden:
 * Erfolg
 
 [[image-toastnotification]]
-.Verschiedene Toast Notifications
+.Verschiedene Toast-Notifications
 image::24_UC_toast_notification.png[align="center"]
