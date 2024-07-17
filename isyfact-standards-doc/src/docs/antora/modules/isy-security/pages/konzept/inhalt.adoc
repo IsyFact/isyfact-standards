@@ -669,6 +669,11 @@ Beim Einsatz von Multi-Tenancy ist daher genau zu planen, welcher Tenant (bzw. f
 Bei _n_ Benutzergruppen müssen dann bis zu _n_ unterschiedliche Tenant-Konfigurationen in der Anwendungskonfiguration existieren.
 Eine detaillierte Beschreibung anhand eines Beispiels findet sich im nächsten Kapitel.
 
+*Für IsyFact-Anwendungslandschaften werden mindestens folgende zwei Tenants gefordert:*
+
+. Tenant 1: Gruppierung aller interner und externer Systeme.
+. Tenant 2: Gruppierung aller interner und externer Anwender.
+
 
 [[multi-tenancy-isyfact]]
 ==== Umsetzung für mehrere Zugriffswege
