@@ -4,6 +4,8 @@
 - `ISY-980`: Anpassung der Dokumentation aufgrund von Security-Umstellungen
 - `IFS-2804`: `@EnableGlobalMethodSecurity` durch die modernere `@EnableMethodSecurity` Annotation ersetzt
   - Aktiviert standardmäßig @PreAuthorize, @PostAuthorize, @PreFilter und @PostFilter (`prePostEnabled = true`)
+- `IFS-3833`: Implementierung von Multi-Tenanacy-Support
+- `IFS-2248`: Bereitstellen von Funktionalität zur Token-Gültigkeitsüberprüfung und erneuten Authentifizierung
 
 # 3.0.0
 

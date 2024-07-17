@@ -34,6 +34,17 @@ Zusätzliche Authentifizierungsmerkmale werden aus den <<isyfact-specific-client
 * `bhknz`: Das BHKNZ kann als optionaler Parameter übergeben werden. Wird aktuell nur für den _Resource Owner-Password Credentials_ Flow ausgewertet.
 * `username` und `password`: Die Zugangsdaten des technischen Nutzers (Resource Owner), welche für den _Resource Owner Password Credentials_ Flow erforderlich sind.
 
+`void authentifiziere(String oauth2ClientRegistrationId, Duration expirationTimeOffset)`::
+Authentifiziert einen OAuth 2.0 Client anhand seiner Client-Registration-ID mittels der Methode `authentifiziere(String oauth2ClientRegistrationId)`, falls das im SecurityContext vorhandene `AbstractOAuth2TokenAuthenticationToken` abgelaufen ist.
+Über den Parameter `expirationTimeOffset` wird eine Zeitspanne angegeben, während der das Token bereits vor dem eigentlichen Ablaufzeitpunkt als abgelaufen gilt.
+Eine Authentifizierung mittels `authentifiziere(String oauth2ClientRegistrationId)` wird ebenfalls dann vorgenommen, wenn keine `Authentication` vom Typ `AbstractOAuth2TokenAuthenticationToken` im SecurityContext vorliegt.
++
+[[authentifizierungsmanager-authentifiziere-method-grant-type-note]]
+[NOTE]
+Für den `client_credentials` (_Client Credentials_ Flow) GrantType erfolgt unabhängig vom Parameter `expirationTimeOffset`
+eine erneute Authentifizierung nur dann, wenn das Token weniger als 60 Sekunden vor Ablauf steht.
+Dieser Wert ist als Standardwert durch eine Implementierung in Spring Security vorgegeben.
+
 `void authentifiziereClient(String issuerLocation, String clientId, String clientSecret)`::
 `void authentifiziereClient(String issuerLocation, String clientId, String clientSecret, String bhknz)`::
 Authentifiziert einen OAuth 2.0 Client gegen die angegebene `issuerLocation` anhand seiner `clientId` und `clientSecret`.
@@ -392,6 +403,39 @@ Es ist sicherzustellen, dass das konfigurierte Roles-Claim auch vom Identity Pro
 ====
 
 
+[[konfiguration-von-multi-tenancy]]
+=== Konfiguration von Multi-Tenancy
+Für die Unterstützung von Multi-Tenancy ist es erforderlich, die Eigenschaft `spring.security.oauth2.resourceserver.jwt.issuer-uri` zu deaktivieren (auf `false` setzen) oder zu entfernen. Die nachstehenden Konfigurationsparameter werden zur Einstellung von Multi-Tenancy verwendet. Aus Gründen der Übersichtlichkeit wird das Präfix `isy.security.oauth2` in der unten aufgeführten Tabelle weggelassen.
+
+[[table-parameter-multi-tenancy]]
+.Konfigurationsparameter für Multi-Tenancy
+[cols="3m,2m,2m,8",options="header"]
+|===
+|Parameter |Wertebereich |Default |Beschreibung
+|resourceserver.jwt.tenants.<tenant>.issuer-uri  |String |_keiner_ | URI des Ausstellers des JWT, spezifisch für den Tenant
+|resourceserver.jwt.tenants.<tenant>.jwk-set-uri  |String |_keiner_ |URI des JWK-Sets, das die öffentlichen Schlüssel bereitstellt, welche zur Validierung der JWT-Signatur verwendet werden
+|===
+
+Nachfolgend ist eine Beispielkonfiguration für Multi-Tenancy dargestellt.
+
+:desc-listing-multi-tenancy-configuration-example: Multi-Tenancy Beispiel Konfiguration
+[id="listing-multi-tenancy-configuration-example",reftext="{listing-caption} {counter:listings}"]
+.{desc-listing-multi-tenancy-configuration-example}
+[source,properties="verbatim,attributes"]
+----
+
+isy.security.oauth2.resourceserver.jwt.tenants.tenant-1.issuer-uri=http(s)://<keycloak-host>:<keycloak-port>/auth/realms/<keycloak-realm-1> <1>
+isy.security.oauth2.resourceserver.jwt.tenants.tenant-1.jwk-set-uri=http(s)://<keycloak-host>:<keycloak-port>/auth/realms/<keycloak-realm-1>/protocol/openid-connect/certs <2>
+
+isy.security.oauth2.resourceserver.jwt.tenants.tenant-2.jwk-set-uri=http(s)://<keycloak-host>:<keycloak-port>/auth/realms/<keycloak-realm-2> <3>
+isy.security.oauth2.resourceserver.jwt.tenants.tenant-2.jwk-set-uri=http(s)://<keycloak-host>:<keycloak-port>/auth/realms/<keycloak-realm-2>/protocol/openid-connect/certs <4>
+----
+
+<1> URI des Ausstellers des JWT für tenant-1, z.B. die Authentifizierungs-URL von Keycloak für das Realm `<keycloak-realm-1>`.
+<2> URI des JWK-Sets für tenant-1, das die öffentlichen Schlüssel enthält, die zur Validierung der JWT-Signatur verwendet werden.
+<3> URI des Ausstellers des JWT für tenant-2, z.B. die Authentifizierungs-URL von Keycloak für das Realm `<keycloak-realm-2>`.
+<4> URI des JWK-Sets für tenant-2, das die öffentlichen Schlüssel enthält, die zur Validierung der JWT-Signatur verwendet werden.
+
 [[konfiguration-von-multi-iam-uris]]
 === Konfiguration von mehreren IAM-URIs
 Zur Konfiguration von mehreren IAM-URIs ist es erforderlich, die Konfigurationsproperties `issuer-uri` und `jwk-set-uri` entsprechend zu definieren.
@@ -440,7 +484,6 @@ Der Wert von `issuer-uri` wird gegen den Inhalt des `iss-Claim` des Access-Token
 Der Wert von `jwk-set-uri` des zugehörigen Tenants wird zum Laden der IAM-Konfiguration, z.B. des IAM-Zertifikats, eingesetzt, um im zweiten Schritt Token-Signatur gegen das IAM-Zertifikat zu validieren.
 
 Wird nur der Parameter `issuer-uri` gesetzt, so wird dieser Wert auch für das Laden der IAM-Konfiguration genutzt.
-
 
 [[konfiguration-von-rollen-und-rechten]]
 === Konfiguration von Rollen und Rechten
@@ -608,7 +651,8 @@ Die Methode getTokenAttribute im Berechtigungsmanager ist deprecated und wird in
 ====
 
 Für den direkten Zugriff per Security Context kann die `Authentication` abgefragt und per Cast als ein `AbstractOAuth2TokenAuthenticationToken` zugegriffen werden.
-Detaillierte Informationen hierzu können der Spring Dokumentation entnommen werden.
+Detaillierte Informationen hierzu können der Spring Dokumentation entnommen werden. +
+Zur Überprüfung, ob eine `Authentication` vom Typ `AbstractOAuth2TokenAuthenticationToken` im Security Context vorliegt, kann die Methode `hasOAuth2Token()` verwendet werden.
 
 Die IsySecurityTokenUtil Klasse bietet statische Methoden zum Auslesen von Token-Claims:
 
@@ -639,6 +683,10 @@ Beispiel zum Zugriff auf das Behördenkennzeichen mithilfe der IsySecurityTokenU
 ----
 Optional<String> bhknz = IsySecurityTokenUtil.getBhknz();
 ----
+Über die Methode `hasTokenExpired(Duration expirationTimeOffset)` kann die Gültigkeit für ein im Security Context liegendes `AbstractOAuth2TokenAuthenticationToken` abgefragt werden.
+Der Parameter `expirationTimeOffset` gibt eine Zeitspanne an, in der das Token vor dem eigentlichen Ablaufzeitpunkt bereits als abgelaufen gilt.
+Für den Fall, dass kein Wert für den Ablaufzeitpunkt im Token gesetzt ist, wird das Token als abgelaufen betrachtet und `true` zurückgegeben.
+
 IsySecurityTokenUtil ermöglicht es, Standard-Claims mithilfe von zusätzlichen Properties um benutzerdefinierte Claims zu erweitern. Die entsprechenden Property-Konfigurationen sind in der Datei "isy-security-token.properties" im Verzeichnis "resources/config" hinterlegt. Bei speziellen Anforderungen ist es möglich, die Datei anzupassen, um die Claims entsprechend zu modifizieren.
 
 [[table-parameter-service]]

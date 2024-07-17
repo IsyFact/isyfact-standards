@@ -1,3 +1,6 @@
+# 3.1.0
+- `IFS-2591`: Spring Security Versionsanhebung auf 5.8.13 
+
 # 3.0.1
 - `ISY-701`: Google Guava Versionsanhebung auf 33.1.0
 - `ISY-704`: Open CSV Versionsanhebung auf 5.9

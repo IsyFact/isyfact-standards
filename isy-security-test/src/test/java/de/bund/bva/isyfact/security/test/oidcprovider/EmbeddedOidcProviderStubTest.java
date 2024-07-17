@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.security.interfaces.RSAPublicKey;
 import java.text.ParseException;
+import java.time.Duration;
 import java.time.Instant;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -102,9 +103,9 @@ public class EmbeddedOidcProviderStubTest {
         // test if valid JWT, content is validated in different tests
         assertNotNull(JWTParser.parse(tree.get("access_token").asText()));
         assertEquals("Bearer", tree.get("token_type").asText());
-        Instant expiresIn = Instant.ofEpochSecond(tree.get("expires_in").asLong());
-        assertTrue(expiresIn.isAfter(Instant.now()));
-        assertTrue(expiresIn.isBefore(Instant.now().plusSeconds(tokenLifespan).plusSeconds(60)));
+        Duration expiresIn = Duration.ofSeconds(tree.get("expires_in").asLong());
+        assertTrue(Instant.now().plus(expiresIn).isAfter(Instant.now()));
+        assertTrue(Instant.now().plus(expiresIn).isBefore(Instant.now().plusSeconds(tokenLifespan).plusSeconds(60)));
     }
 
     @Test
