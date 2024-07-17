@@ -11,6 +11,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.http.HttpHeaders;
+import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
@@ -95,6 +96,34 @@ public class TimeoutWiederholungHttpInvokerRequestExecutorTest {
     }
 
     /**
+     * Test if coming with a different Context will cause a ClassCastException
+     */
+    @Test
+    public void testPrepareConnectionWithCustomTokenFromAufrufKontextVerwalterUsingSecurityContext() {
+        final String tokenValue = "test2Token1234";
+        AufrufKontextVerwalter<?> aufrufKontextVerwalterStub = new AufrufKontextVerwalterStub<>();
+        aufrufKontextVerwalterStub.setBearerToken(tokenValue);
+        CustomAuthenticationToken authenticationToken = new CustomAuthenticationToken();
+        SecurityContextHolder.createEmptyContext();
+        SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+        executorStub = new TimeoutWiederholungHttpInvokerRequestExecutor(aufrufKontextVerwalterStub);
+
+        try {
+            executorStub.prepareConnection(connection, CONTENT_LENGTH);
+            //executorStub.
+        } catch (ClassCastException e) {
+            fail("Class should be tested in Method");
+        } catch (Exception e) {
+            fail("Expected no exception.");
+        }
+
+        List<String> authHeader = connection.getRequestProperties().get(HttpHeaders.AUTHORIZATION);
+        assertEquals(1, authHeader.size());
+        assertEquals("Bearer " + tokenValue, authHeader.get(0));
+
+    }
+
+    /**
      * Test if the Authorization header is not set if the bearer token in SecurityContext and AufrufKontextVerwalter {@code null}.
      */
     @Test
@@ -129,4 +158,22 @@ public class TimeoutWiederholungHttpInvokerRequestExecutorTest {
         assertEquals(timeout, connection.getReadTimeout());
     }
 
+    private static class CustomAuthenticationToken extends AbstractAuthenticationToken {
+        /**
+         * Creates a custom token.
+         */
+        public CustomAuthenticationToken() {
+            super(null);
+        }
+
+        @Override
+        public Object getCredentials() {
+            return null;
+        }
+
+        @Override
+        public Object getPrincipal() {
+            return null;
+        }
+    }
 }
