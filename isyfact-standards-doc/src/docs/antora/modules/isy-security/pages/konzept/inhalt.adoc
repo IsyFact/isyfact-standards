@@ -586,6 +586,8 @@ Wenn die IAM-Service-Implementierung dieses Feature unterstützt, dann wird ein 
 
 Wie in xref:konzept/master.adoc#aussensicht-der-komponente-security[Schnittstelle des Bausteins Security] beschrieben, wird bei den Authentifizierungsmethoden `authentifiziereClient()` und `authentifiziereSystem()` das Behördenkennzeichen als optionaler Parameter an den `Authentifizierungsmanager` übergeben, der es mit den anderen Authentifizierungsdaten zusammen an den IAM-Service weiterleitet.
 
+
+
 [[multi-tenancy]]
 === Unterstützung von Multi-Tenancy
 
@@ -613,6 +615,14 @@ Beim Einsatz von Multi-Tenancy ist daher genau zu planen, welcher Tenant (bzw. f
 Bei _n_ Benutzergruppen müssen dann bis zu _n_ unterschiedliche Tenant-Konfigurationen in der Anwendungskonfiguration existieren.
 Eine detaillierte Beschreibung anhand eines Beispiels findet sich im nächsten Kapitel.
 
+*Für IsyFact-Anwendungslandschaften werden mindestens folgende zwei Tenants für den Zugriff von außerhalb der Anwednungslandschaft gefordert:*
+
+. Tenant 1: Gruppierung aller Systeme mit Zugriffsweg über das Service-Gateway.
+. Tenant 2: Gruppierung aller Anwender mit Zugriffsweg über das Portal.
+
+Hintergrund: Ein Benutzer darf nur über einen festgelegten Zugriffsweg Zugriff auf die Anwendungslandschaft erhalten.
+Ein Anwender darf nur über das Portal auf die Anwendungslandschaft zugreifen, nicht aber über ein Service-Gateway.
+Bei technischen Nutzern (Systemen) ist dies genau umgekehrt.
 
 [[multi-tenancy-isyfact]]
 ==== Umsetzung für mehrere Zugriffswege

@@ -14,6 +14,7 @@
 - `IFS-3665`: [isyfact-standards-doc] "Leitfaden Dokumentation" nach `isy-documentation` verschoben
 - `IFS-3692`: [isyfact-standards-doc] Seite "Referenzarchitekur" nach Architektursichten aufgeteilt
 - `ISY-909`: [isyfact-products-bom] Orika durch MapStruct ersetzt
+- `IFS-3834`: [isyfact-standards-doc] Kapitel Authentifizierung & Autorisierung um Multi-Tenancy erweitert.
 - `IFS-2248`: [isy-batchrahmen, isy-security] Tokenerneuerung in isy-batchrahmen:
     * `IsySecurityTokenUtil` und `IsyOAuth2Authentifizierungsmanager` stellen Funktionalität zur Token-Gültigkeitsüberprüfung und erneuten Authentifizierung bereit
     * Funktionalität zur erneuten Authentifizierung wird von `BatchrahmenImpl` aufgerufen
