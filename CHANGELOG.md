@@ -36,7 +36,7 @@
 - `IFS-3697`: [isyfact-products-bom] Update JMeter Core auf 5.6.x
 - `IFS-3701`: [isyfact-standards-doc] Baustein JSF entfernt.
 - `IFS-3736`: [isyfact-standards-doc] Abbildung von Anwendungen in IT-Systeme ("technischer Schnitt") beschrieben.
-
+- `IFS-3763`: [isyfact-standards-doc] Dokumentation der Änderungen zu IFS-2248 (Tokenerneuerung isy-batchrahmen)
 
 # 3.0.1
 - `ISY-701`: Google Guava Versionsanhebung auf 33.1.0
