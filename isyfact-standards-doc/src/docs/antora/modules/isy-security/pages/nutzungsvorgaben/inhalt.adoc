@@ -394,7 +394,7 @@ Es ist sicherzustellen, dass das konfigurierte Roles-Claim auch vom Identity Pro
 
 [[konfiguration-von-multi-iam-uris]]
 === Konfiguration von mehreren IAM-URIs
-Zur Konfiguration von mehreren IAM-URIs ist es erforderlich, die Konfigurationsproperties `issuer-uri` und `jwk-set-uri` entsprechend zu definieren und mit besonderem Property-Pfad zu gruppieren.
+Zur Konfiguration von mehreren IAM-URIs ist es erforderlich, die Konfigurationsproperties `issuer-uri` und `jwk-set-uri` entsprechend zu definieren.
 
 Der bisherige Property-Pfad
 
@@ -408,50 +408,38 @@ Die nachstehende Konfigurationstabelle zeigt eine Liste von Property-Pfad-Beispi
 Aus Gründen der Übersichtlichkeit wird das Präfix `isy.security.oauth2.resourceserver.jwt` in der unten aufgeführten Tabelle weggelassen.
 
 [[table-property-path-examples-for-multi-tenancy]]
-.Property-Pfad-Beispiele für Multi IAM-URIs
+.Property-Pfad-Beispiele für Multi-IAM-URIs
 [cols="3,7",options="header"]
 |===
 |Parameter |Beschreibung
 | tenants.*portal*.issuer-uri
-tenants.*portal*.jwk-set-uri| Property-Set zur Definition einer *externen* und *internen* IAM-URI für den Mandant *Portal*
+tenants.*portal*.jwk-set-uri| Property-Set zur Definition einer *externen* und *internen* IAM-URI für das *Portal*
 | tenants.*sgw-1*.issuer-uri
-tenants.*sgw-1*.jwk-set-uri| Property-Set zur Definition einer *externen* und *internen* IAM-URI für den Mandant *ServiceGateway-1*
+tenants.*sgw-1*.jwk-set-uri| Property-Set zur Definition einer *externen* und *internen* IAM-URI für das *ServiceGateway-1*
 | tenants.*sgw-2*.issuer-uri
-tenants.*sgw-2*.jwk-set-uri| Property-Set zur Definition zweier *interner* IAM-URIs für den Mandant *ServiceGateway-2*
+tenants.*sgw-2*.jwk-set-uri| Property-Set zur Definition zweier *interner* IAM-URIs für das *ServiceGateway-2*
 | tenants.*batch*.issuer-uri
-tenants.*batch*.jwk-set-uri| Property-Set zur Definition zweier *interner* IAM-URIs für den Mandant *Batch*
+tenants.*batch*.jwk-set-uri| Property-Set zur Definition zweier *interner* IAM-URIs für den *Batch*
 | tenants.*ga-A-1*.issuer-uri
-tenants.*ga-A-1*.jwk-set-uri| Erstes Property-Set zur Definition einer *externen* und *internen* IAM-URI für den Mandant *Geschäftsanwendung-A*
+tenants.*ga-A-1*.jwk-set-uri| Erstes Property-Set zur Definition einer *externen* und *internen* IAM-URI für die *Geschäftsanwendung-A*
 | tenants.*ga-A-2*.issuer-uri
-tenants.*ga-A-2*.jwk-set-uri| Zweites Property-Set zur Definition zweier *interner* IAM-URIs für den Mandant *Geschäftsanwendung-A*
+tenants.*ga-A-2*.jwk-set-uri| Zweites Property-Set zur Definition zweier *interner* IAM-URIs für die *Geschäftsanwendung-A*
 | tenants.*ga-A-3*.issuer-uri
-tenants.*ga-A-3*.jwk-set-uri| Drittes Property-Set zur weiteren Definition zweier *interner* IAM-URIs für den Mandant *Geschäftsanwendung-A*
+tenants.*ga-A-3*.jwk-set-uri| Drittes Property-Set zur weiteren Definition zweier *interner* IAM-URIs für die *Geschäftsanwendung-A*
 |===
 
-Beispiele für Property-Werte sind in der <<listing-multi-tenancy-configuration-example>> zu finden.
 
 ==== Verwendung und Auswertung des Property-Sets
 
 *Property `issuer-uri`*
 
-Das Property `issuer-uri` wird im Normalfall - für die Rolle der _"Authentifizierung startenden Anwendung"_- mit der URI des _Authentifizierungsservers_ des IAM initialisiert.
-
-Befindet sich die Geschäftsanwendung aber in der Rolle _"AccessToken validierende Instanz"_, dann wird der Wert der `issuer-uri` gegen den Inhalt des `iss-Claim` des AccessTokens validiert.
-Sollte für die Token-Signaturprüfung noch keine IAM-Zertifikate vorliegen, dann wird auch die `issuer-uri` als IAM-URI zum Nachladung der benötigten Zertifikate verwendet.
-
-Wird jetzt allerdings, wie beispielsweise bei einer Authentifizierung über das _Portal_, in der `issuer-uri` eine *externe* URI benötigt, damit eine _externe Anwendung_ den _IAM_ überhaupt von ausserhalb der Anwendungslandschaft erreichen kann, dann würde diese *externe* URI auch bei der späteren Token-Validierung im `iss-Claim` stehen und zum Nachladen der IAM-Zertifikate herangezogen.
-
-Aber sobald eine *interne* _Geschäftsanwendung_ bei der _Token-Validierung_ eine *externe* URI auf den *internen* _Authentifizierungsserver_ des IAM verwendet, dann wird dies sicherlich einen Fehler ergeben und nicht funktionieren.
-
-Um diesen Konflikt zu lösen, wird in der Konfiguration für die Rolle _"AccessToken validierende Instanz"_ das zweite Property `jwk-set-uri` eingesetzt.
+Der Wert von `issuer-uri` wird gegen den Inhalt des `iss-Claim` des Access-Tokens validiert.
 
 *Property `jwk-set-uri`*
 
-Sobald für eine Anwendung in der Rolle _"AccessToken validierende Instanz"_ beide Properties zu einem Tenant gesetzt sind, dann wird der Wert von `issuer-uri` nur zur Prüfung gegen den Inhalt des `iss-Claim` des AccessTokens verwendet.
+Der Wert von `jwk-set-uri` des zugehörigen Tenants wird zum Laden der IAM-Konfiguration, z.B. des IAM-Zertifikats, eingesetzt, um im zweiten Schritt Token-Signatur gegen das IAM-Zertifikat zu validieren.
 
-Der Wert von `jwk-set-uri` des zugehörigen Tenants wird bei der Token-Validierung ggf. zum Nachladen des IAM-Zertifikats eingesetzt, um die Token-Signatur gegen das IAM-Zertifikat zu validieren.
-
-Gegebenenfalls erweitert das IAM intern bei der Token-Validierung die  `jwk-set-uri`, um den Standard-Pfad - zum Beispiel beim Einsatz von KeyCloak `protocol/openid-connect/certs` - um das notwendige Zertifikat zu ermitteln.
+Wird nur der Parameter `issuer-uri` gesetzt, so wird dieser Wert auch für das Laden der IAM-Konfiguration genutzt.
 
 
 [[konfiguration-von-rollen-und-rechten]]
