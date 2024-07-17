@@ -1,0 +1,12 @@
+isy:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          tenants:
+            tenant1:
+              issuer-uri: http://localhost:9095/auth/realms/testrealm1
+              jwk-set-uri: http://localhost:9095/auth/realms/testrealm1/protocol/openid-connect/certs
+            tenant2:
+              issuer-uri: http://localhost:9096/auth/realms/testrealm2
+              jwk-set-uri: http://localhost:9096/auth/realms/testrealm2/protocol/openid-connect/certs

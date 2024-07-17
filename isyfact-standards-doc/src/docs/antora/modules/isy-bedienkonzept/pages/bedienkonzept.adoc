@@ -714,6 +714,7 @@ Die DIN 91379 wendet sich vorrangig an Behörden und Organisationen, die IT-Verf
 Sie deckt in ihrer Gesamtheit die EU-Amtssprachen und die Amtssprachen Islands, Liechtensteins, Norwegens und der Schweiz ab, sowie die deutschen Minderheitensprachen.
 Damit dies gewährleistet wird, kommt sekundär:
 
+// ToDo: Ab hier nochmal reviewen
 *_Liberation_*
 
 zum Einsatz.
@@ -851,9 +852,8 @@ Einheitliche Schriftarten, Größen und Abstände tragen zur Benutzerfreundlichk
 
 *_Interaktive Elemente_*
 
-//ToDo: Sobald Button Kapitel da ist, unter Schaltflächen den Verweis einfügen
 *Schaltflächen und Links:*
-Labels können auch für interaktive Elemente wie Schaltflächen und <<link,Links>> verwendet werden.
+Labels können auch für interaktive Elemente wie <<button,Schaltflächen>> und <<link,Links>> verwendet werden.
 Hier sollten ARIA-Labels (aria-label) oder ARIA-Beschreibungen (aria-labelledby) eingesetzt werden, um die Zugänglichkeit zu verbessern.
 Beispiel:
 [source,xml]
@@ -866,6 +866,157 @@ Beispiel:
 
 Bedienelemente sind die Bausteine der Benutzeroberfläche, die es den Nutzenden ermöglichen, mit dem Frontend zu interagieren.
 Dieser Abschnitt definiert die verschiedenen Bedienelemente und legt fest, wie sie gestaltet und angeordnet werden sollen, um eine intuitive Benutzererfahrung zu gewährleisten.
+
+[[button]]
+=== Button
+
+Ein Button dient dazu, Aktionen auszulösen, wie das Einreichen von <<formulare,Formularen>>, das Navigieren zu anderen Seiten oder das Ausführen spezifischer Funktionen innerhalb der Anwendung.
+Bei der Gestaltung von Buttons ist es wichtig, auf klare Beschriftungen, ansprechende visuelle Gestaltung und intuitive Platzierung zu achten, um die Benutzerfreundlichkeit zu maximieren.
+Nachfolgend werden die verschiedenen Arten von Buttons und ihre Anwendung in der IsyFact beschrieben.
+
+[[colored-button]]
+==== Kolorierte Button
+
+Die primär zur Anwendung kommenden Buttons sind die kolorierten Buttons.
+Mit ihrer kräftigen <<farben,Farbe>> unterstützen sie den Nutzenden aktiv beim Erreichen eines Ziels (z.B. Absenden, Speichern, uvm).
+Deshalb werden sie auch CTA-Buttons (Call-To-Action Buttons) genannt.
+
+Buttons enthalten entweder ein <<label,Textlabel>>, ein <<icons,Icon>> oder eine Kombination aus beidem.
+Grundsätzlich sind beschriftete Buttons minimal abgerundete Rechtecke, die farblich gefüllt sind.
+Je nach Zustand des Buttons, die in der Abbildung <<image-standardbutton>> dargestellt sind, unterscheiden sich die eingesetzten Farben und Fokus-Border voneinander:
+
+[[image-standardbutton]]
+.Zustände von beschrifteten Buttons in Primärfarbe
+image::24_BE_Primary_Button_States.png[align="center"]
+
+In diesem Beispiel wurde die Primärfarbe verwendet, um die unterschiedlichen Zustände eines Buttons zu veranschaulichen.
+Als Primärfarbe wird blau verwendet mit weißer Schrift.
+In den Zuständen "Hover" und "Pressed" wird die Button-Farbe dunkler als im Normalzustand.
+Entsprechend wird die Button-Farbe im Zustand "Disabled" heller.
+Im "aktiven" bzw. "fokussierten" Zustand bekommt der Button einen Fokus-Rahmen, der einen helleren Ton hat als der Button selbst.
+Die Button-Farbe bleibt jedoch die gleiche, wie im Normalzustand.
+Dies lässt sich beim Einsatz der anderen Farben, wie in Abbildung <<image-buttoncolors>> exemplarisch zu sehen, ebenso anwenden.
+
+*_Farbwahl bei Buttons_*
+
+Kolorierte Buttons oder auch farbig gefüllte Buttons sind die am häufigsten verwendete Button-Variante.
+Die hier gezeigten Farben sind die einzig zulässigen Farben, die im Frontend für Button-Elemente verwendet werden dürfen:
+
+[[image-buttoncolors]]
+.Farben von Buttons
+image::24_BE_Colored_Buttons.png[align="center"]
+
+Hauptsächlich kommen die Primärfarbe blau und die Sekundärfarbe orange zum Einsatz, um die Wichtigkeit der einzelnen Aktionselemente innerhalb eines Frontends voneinander zu unterscheiden.
+Wenn mehrere Buttons in einem Frontend eingesetzt werden, wird der Button mit dem wichtigsten Ziel bzw. mit der am häufigsten genutzten Aktion innerhalb einer inhaltlichen Gruppe in der Primärfarbe dargestellt.
+Ein Beispiel dafür sind Log-In-Seiten von Social-Media-Plattformen.
+Die Hauptaufgabe dieser Seite ist es neue Mitgliedschaften zu generieren, weshalb der Registrieren-Button die Primärfarbe erhält und nicht der Log-In-Button.
+
+In der Regel wird nur ein Button innerhalb der sichtbaren Bedienoberfläche in der Primärfarbe eingefärbt.
+Dies hilft den Nutzenden sich auf die Hauptaktion zu fokussieren.
+Alle anderen Buttons werden in der Sekundärfarbe oder als <<inverted-button,Outlined Button>> dargestellt, falls keine spezifische Funktion zugrunde liegt.
+
+Für spezielle Aktionen gibt es neben der Primär- und Sekundärfarbe weitere Farben, wie grün für Erfolg oder rot für Alarm.
+Vor allem bei nicht wiederherstellbaren Aktionen, wie Löschen oder Entfernen, kann ein roter "Alarm"-Button sehr hilfreich sein.
+Diese Signalfarbe veranlasst den Nutzenden noch einmal über seine Aktion nachzudenken, da diese nach der Bestätigung endgültig ist.
+Jedoch sollte die Anzahl der genutzten Farben innerhalb einer Benutzeroberfläche mit Bedacht eingesetzt werden, um die Frontends nicht zu überladen.
+
+*_Platzierung der Buttons_*
+
+Bei der Platzierung der Buttons innerhalb eines Frontends wird zwischen zwei Use Cases unterschieden.
+Bei kleinen Dialogfenstern, in denen lediglich zwischen akzeptieren und abbrechen einer Aktion unterschieden wird, wird der Primär-Button rechts unten platziert.
+
+Auf <<formulare,Formularseiten>> oder auch Full-Page Designs ist die Häufigkeit der Verwendung der zur Verfügung stehenden Buttons ausschlaggebend.
+Primäre, einleitende, abschließende Aktionen können sehr präsent in der Mitte des Frontends angeordnet werden.
+Navigierende und häufiger verwendete Aktionen werden bevorzugt rechts angeordnet.
+
+Dies liegt daran, dass die Aufmerksamkeit der Nutzenden während dem Lesen oder Hinzufügen von Informationen dorthin gerichtet ist.
+Es ist darauf zu achten, dass die Anordnung der Buttons mit identischem Zweck über alle Frontends hinweg konsistent eingesetzt wird.
+
+*_Abgrenzung zu anderen Bedienelementen_*
+
+Da Buttons als Aktionselemente eingesetzt werden, dürfen diese nicht genutzt werden, um Selektionen aus einer Gruppe von Optionen zu treffen.
+Stattdessen werden <<radiobutton,Radiobuttons>>, <<checkbox,Checkboxen>> oder <<input-switch,Input Switches>> verwendet.
+Generell wird kein Button verwendet, wenn nur das Textlabel ohne farbliche und räumliche Abgrenzung zum Hintergrund eingesetzt wird, sondern ein <<link>>.
+Dies kommt bspw. bei Fließtexten oder Seitenleisten zum Einsatz.
+
+*_Do's_*
+
+* Beim Aktivieren eines Buttons wird immer eine Funktion ausgelöst oder eine (Fehler-)Meldung sichtbar.
+* Buttons mit dem wichtigsten Ziel bzw. mit der am häufigsten genutzten Aktion werden in der Primärfarbe dargestellt.
+Falls es unklar ist, welche Aktion wichtiger ist, wird die Standardaktion als primäre Aktion angesehen und entsprechend gefärbt.
+* Das <<label>> sollte kurz und selbsterklärend sein.
+* Das Label sollte die auszuführende Aktion widerspiegeln (z.B. Öffnen, Löschen, Speichern, Weiter).
+* Ruft ein Button einen Dialog auf, soll der resultierende Dialog als Titel die Beschriftung des Buttons wiederholen.
+* Die Schaltfläche für Buttons beträgt mindestens 44px x 44px.
+* Die Breite eines Buttons soll sich am enthaltenen Label orientieren.
+* Nebeneinanderstehende Buttons können unterschiedlich breit sein, wenn die jeweiligen Labels unterschiedlich groß sind.
+* Ein Button soll nach Möglichkeit so platziert werden, dass mögliche Beziehungen zu anderen Elementen deutlich werden.
+* Wenn nach einem Klick auf einen Button die Ergebnisaktion nicht sofort ersichtlich ist, soll dies durch ein System-Feedback (z. B. durch eine <<fortschrittsanzeige>>) veranschaulicht werden.
+
+*_Don'ts_*
+
+* Zum Selektieren oder Auswählen von Inhalten werden die Bedienelemente <<radiobutton>> und <<checkbox>> eingesetzt.
+* Zum Ein- oder Ausschalten von Inhalten werden spezielle <<input-switch>> verwendet.
+* Innerhalb von Fließtexten oder zum Verweisen auf externe Inhalte werden <<link,Links>> genutzt.
+* Um ein Frontend farblich nicht zu überladen, sollten die Button-Farben für spezielle Aktionen mit Bedacht eingesetzt werden.
+
+[[inverted-button]]
+==== Invertierte Button
+
+Falls die <<image-buttoncolors,farblich gefüllten Buttons>> das Frontend zu bunt werden lassen, weil es zu viele Funktionen auf einer Seite gibt, können nach der Primärfunktion die invertieren Varianten genutzt werden:
+
+[[image-buttoncolors-inverted]]
+.Farben von invertierten Buttons
+image::24_BE_Outlined_Buttons.png[align="center"]
+
+In der invertierten Button-Variante ist die Button-Farbe für jeden Aktionsbutton weiß und nur die Schrift und die Button-Border farblich eingefärbt.
+Die unterschiedlichen Button-Zustände lassen sich wie bei den farblich gefüllten Buttons voneinander abgrenzen.
+D.h. bei den Zuständen "Hover" und "Pressed" wird die Button-Farbe dunkler und beim Zustand "Disabled" heller.
+Im "aktiven" bzw. "fokussierten" Zustand bekommt der Button einen Fokus-Rahmen, der einen helleren Ton hat als der Button selbst.
+
+[TIP]
+Invertierte Buttons werden häufig genutzt, wenn es mehr als zwei Aktionen auf einer Seite gibt oder wenn einer Aktion ein besonderer Fokus eingeräumt werden soll, wie zum Beispiel beim "Registieren".
+
+[[icon-button]]
+==== Icon-Button
+
+Icon-Buttons sind Buttons die kein sichtbares Label haben, sondern nur aus einem aussagekräftigen <<icons,Icon>> bestehen.
+Sie sind rund und haben einen farbigen Rand, um sich vom Hintergrund oder anderen <<basiselemente,Basis>>- und <<bedienelemente,Bedienelementen>> abzugrenzen.
+Deshalb ist es essenziell, dass das Icon die dahinterstehende Funktionalität ausdrückt.
+Bei der Entwicklung muss darauf geachtet werden, dass Icon-Buttons über ein <<aria-labels,ARIA-Label>> für Screenreader zugänglich werden.
+
+Generell sollten Icon-Buttons mit Bedacht eingesetzt werden und können somit nicht jeden beliebigen beschrifteten Button ersetzen.
+Am häufigsten wird diese Button-Art in Kombination mit einer Aktion eines Bedienelements oder <<design-pattern,Design Patterns>> genutzt, wie zum Beispiel in der Aktionsspalte einer Tabelle oder zum Hinzufügen oder Löschen von Elementen.
+
+[[image-iconbuttons]]
+.Icon-Buttons
+image::24_BE_Round_Buttons.png[align="center"]
+
+Der Farbeinsatz und die verschiedenen Zustände der Icon-Buttons sind genauso wie bei den Button-Varianten zuvor.
+Für positive Aktionen wird das grüne Styling, für negative Aktionen das rote Styling und für informierende Aktionen das blaue Styling genutzt.
+Sie unterscheiden sich lediglich in der Form und Größe.
+
+Beim Hovern über einen Icon-Button kann ein Tooltip angezeigt werden, der die entsprechende Funktionalität beschreibt.
+Ist diese Beschreibung jedoch zu lang (mehr als 3 Wörter), ist das Icon nicht dafür geeignet einen beschrifteten Button zu ersetzen.
+
+*_Do's_*
+
+* Die Schaltfläche für Icon-Buttons beträgt mindestens 44px x 44px.
+* Ein Icon-Button ohne Border muss so platziert werden, dass Beziehungen zu anderen Elementen deutlich werden.
+
+*_Don't_*
+
+Icon-Buttons ohne Border sollten nie ohne einen Bezug zu anderen <<bedienelemente,Bedienelementen>> eingesetzt werden.
+
+*_Sonderfall:_*
+
+In speziellen Fällen werden Icon-Buttons auch ohne ihre Border dargestellt.
+Hierbei ist besonders wichtig, dass die Icon-Buttons passend zum Design Pattern gewählt werden.
+Diese werden bspw. innerhalb von Tabellenheadern verwendet zum Sortieren und Filtern der Tabelleninhalte und sehen wie folgt aus:
+
+[[image-iconbuttons-withoutborder]]
+.Icon-Buttons ohne Border
+image::24_BE_Icons.png[align="center"]
 
 [[link]]
 === Hyperlink
@@ -1175,6 +1326,31 @@ Ist die Menge der zur Verfügung stehenden Optionen sehr groß oder hat der Plat
 Ein Radiobutton darf nicht genutzt werden, um unmittelbar Funktionen auszuführen oder Aktionen auszulösen.
 Für diese Zwecke sollten Buttons verwendet werden.
 
+[[input-switch]]
+=== Input Switch
+
+Ein Input Switch, auch Eingabeschalter genannt, kommt zum Einsatz, wenn eine bestimmte Funktion oder Eigenschaft ein- und ausgeschaltet werden muss.
+Per Default ist immer ein Wert gesetzt, entweder inaktiv (ausgeschaltet) oder aktiv (eingeschaltet).
+
+Um den Nutzenden zu vermitteln welche Funktion oder Eigenschaft ein- bzw. ausgeschaltet werden kann, sollte ein <<label>> links oder rechts neben dem Input Switch platziert werden.
+Das verwendete Label sollte aussagekräftig und eindeutig sein.
+
+[[image-inputswitch]]
+.Input Switch
+image::24_BE_Input_Switch.png[align="center"]
+
+*_Do's_*
+
+* Benutze einen Input Switch zum Ein- und Ausschalten von Funktionen.
+* Benenne die Funktion eindeutig (z.B.: Zeige ausgeblendete Felder).
+
+*_Don'ts_*
+
+* Benutze den Input Switch nicht bei mehreren Optionen.
+* Baue den Input Switch nicht in Sätzen ein.
+* Bleibe konsistent und nutze entweder <<radiobutton,Radiobuttons>> oder Input Switches.
+Eine Kombination aus beiden <<bedienelemente,Bedienelementen>> zum Ein- und Ausschalten von Funktionalitäten ist nicht intuitiv für Nutzende.
+
 === Tabview
 
 Ein Tabview ist ein wesentliches Element im modernen Design, das die Benutzererfahrung erheblich verbessert.
@@ -1257,6 +1433,7 @@ Für so etwas wird ein Wizard genutzt.
 Design Patterns sind wiederkehrende Lösungen für Designprobleme, die sich über verschiedene Teile des Frontends erstrecken können.
 Dieser Abschnitt beschreibt die Konzepte von Design Patterns, ihre Bedeutung für die Konsistenz und Effizienz der Benutzeroberfläche, sowie ihre Rolle bei der Gestaltung eines benutzerzentrierten Designs.
 
+[[dropdown]]
 === Eingabefeldliste (Dropdown)
 
 Ein Eingabefeld mit hinterlegten Werten ist in seiner einfachsten Form ein Eingabefeld mit Liste.
@@ -1278,6 +1455,29 @@ image::24_DP_eingabefeldliste_aufgeklappt.png[align="center"]
 Die Listenelemente sind mindestens 44px hoch und entsprechend dem dazugehörigen Element breit (hier exemplarisch das Eingabefeld).
 Aktive Elemente sind in der Highlightfarbe und hinterlegt dargestellt.
 
+[[menu-button]]
+=== Menü-Button
+
+Menü-Buttons, technisch Split-Buttons, können zusammengehörige Funktionen zusammenfassen.
+Er ist eine Kombination aus einem <<button>> und einem <<dropdown,Dropdown>>.
+Die linke Hälfte des Buttons löst beim Betätigen eine Standardaktion aus (z.B. Speichern) und die rechte Hälfte öffnet eine Auswahl an Funktionen (z.B. Speichern als PDF, Speichern als XLS, uvm).
+
+Diese Button-Art wird hauptsächlich in Toolbars eingesetzt und muss immer mehrere Funktionen, die in einen logischen Zusammenhang zueinander stehen, beinhalten.
+Eine mögliche Verwendung ist, dass zusammenfassen von mehreren Exportmöglichkeiten.
+
+Menü-Buttons bestehen aus zwei Bestandteilen:
+
+* Einem <<icons,Icon>>, <<label>> oder einer Kombination von Icon und Label
+* Einem Pfeil-Icon
+
+[[image-menuebuttonbeispiel]]
+.Menü-Button
+image::24_DP_Menue_Button.png[align="center"]
+
+[TIP]
+Das Icon sollte inhaltlich eindeutig zur Funktion passen.
+Nutzen Sie bereits bekannte Symbole (z.B. Diskette = Speichern).
+Achten Sie bei der Gestaltung darauf, dass sie in ihrer Icon-Sprache über die gesamte Anwendung konsistent bleiben.
 
 [[eingabefeldgruppen]]
 === Eingabefeldgruppen
@@ -1472,7 +1672,7 @@ Sobald der Nutzende mit der Eingabe beginnt, werden mögliche Werte, die mit der
 Der Nutzende kann nun weiter tippen oder direkt einen Wert aus dem Menü auswählen und somit seine Eingabe verkürzen.
 Gibt es mehr als 10 mögliche passende Werte, so werden die ersten 10 Werte angezeigt, gefolgt von einer Information, dass mehr als 10 Einträge existieren.
 
-
+[[fortschrittsanzeige]]
 ==== Fortschrittsanzeige
 
 Feedback-Konzepte für Ladezeiten sind ein sehr wichtiges Instrument zur Erreichung guter User Experience.
