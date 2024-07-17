@@ -17,6 +17,7 @@
 - `IFS-2248`: [isy-batchrahmen, isy-security] Tokenerneuerung in isy-batchrahmen:
     * `IsySecurityTokenUtil` und `IsyOAuth2Authentifizierungsmanager` stellen Funktionalität zur Token-Gültigkeitsüberprüfung und erneuten Authentifizierung bereit
     * Funktionalität zur erneuten Authentifizierung wird von `BatchrahmenImpl` aufgerufen
+- `IFS-3821`: [isyfact-standards-doc] Thematik zur internen und externen URL bei der Authentifizierung beschrieben (Multiple Issuer-URI)
 ## BUG FIXES
 ## BREAKING CHANGES
 - `ISY-1122`: Bausteine `isy-sicherheit`, `isy-aufrufkontext`, `isy-serviceapi-core` und `isy-konfiguration` entfernt
