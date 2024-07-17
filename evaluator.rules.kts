@@ -1,14 +1,7 @@
-val allowedLicenses = licenseClassifications.licensesByCategory["allow"].orEmpty()
+funPackageRule.LicenseRule.isHandled()=
+        object:RuleMatcher{
+            overridevaldescription="isHandled($license)"
 
-rule("LicenseWhitelist") {
-    licenseFindings.forEach { finding ->
-        val license = finding.license
-        if (license !in allowedLicenses) {
-            issue(
-                    severity = Severity.ERROR,
-                    message = "License $license is not in the allowed list."
-            )
+            overridefunmatches()=
+            licenseinallowedLicenses&&("-exception"!inlicense.toString()||"WITH"inlicense.toString())
         }
-    }
-}
-}
