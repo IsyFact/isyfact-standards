@@ -25,7 +25,7 @@ Persistenz-Framework;https://spring.io/projects/spring-data-jpa[Spring Data JPA]
 Persistenz-Framework;http://www.hibernate.org[Hibernate];<<spring-boot-dependencies,icon:leaf[]>>;3.0.0;verbindlich;LGPL v2.1;
 Persistenz;https://www.liquibase.org[Liquibase];<<spring-boot-dependencies,icon:leaf[]>>;3.0.0;verbindlich;Apache Software License;
 JSON-Verarbeitung;https://github.com/FasterXML/jackson[Jackson];<<spring-boot-dependencies,icon:leaf[]>>;2.4.0;verbindlich;Apache Software License;
-Authentifizierung / Autorisierung;http://projects.spring.io/spring-security/[Spring Security];5.7.12;3.0.1;verbindlich;Apache Software License;
+Authentifizierung / Autorisierung;http://projects.spring.io/spring-security/[Spring Security];5.8.13;3.1.0;verbindlich;Apache Software License;
 Resilience-Framework;https://resilience4j.readme.io/[Resilience4J];1.x;2.2.0;verbindlich;Apache Software License;
 Web-Service Framework (SOAP);https://projects.eclipse.org/projects/ee4j.metro/[Eclipse Metro];2.4.9;3.0.0;verbindlich;Eclipse Distribution License 1.0;
 Logging;http://www.slf4j.org/[SLF4J];1.7.x;3.0.0;verbindlich;MIT License;"* Die Verwendung anderer Logging-Backends außer Logback ist nicht erlaubt.

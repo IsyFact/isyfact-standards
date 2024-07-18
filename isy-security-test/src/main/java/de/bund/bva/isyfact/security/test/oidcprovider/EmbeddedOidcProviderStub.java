@@ -178,10 +178,9 @@ public class EmbeddedOidcProviderStub {
     }
 
     public String getAccessTokenResponse(JwtClaimsSet claims) {
-        long lifetime = Instant.now().plusSeconds(tokenLifespan).getEpochSecond();
         Scope scope = Scope.parse("openid profile email");
 
-        BearerAccessToken accessToken = new BearerAccessToken(getAccessTokenString(claims), lifetime, scope);
+        BearerAccessToken accessToken = new BearerAccessToken(getAccessTokenString(claims), tokenLifespan, scope);
         AccessTokenResponse response = new AccessTokenResponse(new Tokens(accessToken, null));
 
         return response.toJSONObject().toJSONString();

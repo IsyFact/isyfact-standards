@@ -1,3 +1,7 @@
+# 3.1.0
+## Bug Fixes
+- `IFS-3871`: Vermeidet ClassCastException in TimeoutWiederholungHttpInvokerRequestExecutor bei Nutzung von AufrufkontextVerwalter
+
 # 3.0.0
 - `IFS-1166`: Autokonfiguration von isy-serviceapi-core nach isy-sicherheit
 - `IFS-1073`: Logausgabe zur Korrektur der Korrelations-Id entfernt
