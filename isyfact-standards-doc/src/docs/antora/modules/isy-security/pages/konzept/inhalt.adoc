@@ -587,7 +587,7 @@ Wenn die IAM-Service-Implementierung dieses Feature unterstützt, dann wird ein 
 Wie in xref:konzept/master.adoc#aussensicht-der-komponente-security[Schnittstelle des Bausteins Security] beschrieben, wird bei den Authentifizierungsmethoden `authentifiziereClient()` und `authentifiziereSystem()` das Behördenkennzeichen als optionaler Parameter an den `Authentifizierungsmanager` übergeben, der es mit den anderen Authentifizierungsdaten zusammen an den IAM-Service weiterleitet.
 
 [[multiple-uris]]
-=== Aufruf des IAM-Systems über unterschiedliche URIs
+=== Aufruf des IAM-Services über unterschiedliche URIs
 
 Wenn in einer Anwendungslandschaft der IAM-Service über mehrere unterschiedliche URIs aufgerufen werden kann, dann benötigt eine Anwendung mindestens eine bis alle dieser URIs in seiner Konfiguration, um eine Tokenvalidierung erfolgreich durchzuführen.
 
