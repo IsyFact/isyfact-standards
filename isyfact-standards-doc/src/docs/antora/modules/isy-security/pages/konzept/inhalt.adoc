@@ -640,6 +640,7 @@ Wenn die IAM-Service-Implementierung dieses Feature unterstützt, dann wird ein 
 
 Wie in xref:konzept/master.adoc#aussensicht-der-komponente-security[Schnittstelle des Bausteins Security] beschrieben, wird bei den Authentifizierungsmethoden `authentifiziereClient()` und `authentifiziereSystem()` das Behördenkennzeichen als optionaler Parameter an den `Authentifizierungsmanager` übergeben, der es mit den anderen Authentifizierungsdaten zusammen an den IAM-Service weiterleitet.
 
+
 [[multiple-uris]]
 === Aufruf des IAM-Services über unterschiedliche URIs
 
@@ -670,6 +671,98 @@ Weitere Details zur Konfiguration mehrerer URIs eines IAM wird in den xref:nutzu
 *Konfigurationsdetails*
 
 Zur weiteren Vertiefung dieser Sonderkonstellation kann in der https://docs.spring.io/spring-security/reference/servlet/oauth2/resource-server/jwt.html#oauth2resourceserver-jwt-jwkseturi[_Spring_-Dokumentation] und für Details bei der Implementierung bzw. Konfiguration kann in den xref:nutzungsvorgaben/inhalt.adoc#spring-konfiguration[Nutzungsvorgaben] nachgeschlagen werden.
+
+
+
+[[multi-tenancy]]
+=== Unterstützung von Multi-Tenancy
+
+Der Baustein `isy-security` unterstützt Multi-Tenancy, sodass eine Trennung von Benutzerarten, Zugriffswegen oder IAM-Instanzen in sogenannte Tenants möglich ist.
+Beispiele für eine Trennung nach:
+
+*Benutzerart:*
+
+* Trennung von Anwendern und Systemen
+* Trennung von internen und externen Anwendern
+
+*Zugriffsweg:*
+
+* Trennung zwischen sgw- und Portal-Authentifizierungen
+
+*IAM-Instanz:*
+
+* Nutzung mehrere interner und/oder externer IAM-Services
+
+Die Zuweisung der Benutzer zu einzelnen Tenants erfolgt im IAM-Service.
+
+Wichtig ist, dass alle Systeme, die entlang eines Zugriffsweges aufgerufen werden, jeweils für sich die tenant-spezifische Konfiguration benötigen.
+Dies bedeutet zum Beispiel, dass einer Geschäftsanwendung, die ein  Access-Token von einem speziellen Tenant bei der Autorisierung validieren möchte, die Konfiguration des Tenants in der anwendungseigenen Konfiguration vorliegen muss.
+Beim Einsatz von Multi-Tenancy ist daher genau zu planen, welcher Tenant (bzw. für welchen Tenant ausgegebene Access-Tokens) Zugriff auf welche Anwendung ermöglichen sollen.
+Bei _n_ Benutzergruppen müssen dann bis zu _n_ unterschiedliche Tenant-Konfigurationen in der Anwendungskonfiguration existieren.
+Eine detaillierte Beschreibung anhand eines Beispiels findet sich im nächsten Kapitel.
+
+*Für IsyFact-Anwendungslandschaften werden mindestens folgende zwei Tenants für den Zugriff von außerhalb der Anwednungslandschaft gefordert:*
+
+. Tenant 1: Gruppierung aller Systeme mit Zugriffsweg über das Service-Gateway.
+. Tenant 2: Gruppierung aller Anwender mit Zugriffsweg über das Portal.
+
+Hintergrund: Ein Benutzer darf nur über einen festgelegten Zugriffsweg Zugriff auf die Anwendungslandschaft erhalten.
+Ein Anwender darf nur über das Portal auf die Anwendungslandschaft zugreifen, nicht aber über ein Service-Gateway.
+Bei technischen Nutzern (Systemen) ist dies genau umgekehrt.
+
+[[multi-tenancy-isyfact]]
+==== Umsetzung für mehrere Zugriffswege
+
+.Authentifizierungswege als Tenants
+[id="image-multi-tenancy-multi-iam",reftext="{figure-caption} {counter:figures}"]
+image::konzept/security_multi-tenancy_with_multi_iams.dn.svg[align="center"]
+
+Die verschiedenen dargestellten Zugriffswege _Portal_, _Service-Gateway_, _Authentication-Gateway_ oder _interne Anwendungs-Authentifizierung_ (Batch/Task/Kontextwechsel) bis hin zu mehrfachen IAM-Instanzen können daher als einzelne Tenants nicht nur unterschieden, sondern auch als Multi-Instanzen des gleichen Typs identifiziert werden.
+
+Die an den Zugriffswegen beteiligten Komponenten unterscheiden sich in ihrem Aufbau, ihrer Konfiguration und ihrer Funktionalität, sodass jede genau die speziellen Eigenheiten - siehe dazu Kapitel <<aufruf-weboberflaeche-portal>>, <<aufruf-service-gateway-ohne-authentication-gateway>>, <<aufruf-service-gateway-mit-authentication-gateway>> und <<ausfuehrung-batch-u-task>> bzw. <<aufruf-von-nachbarsystemen>> - am besten bedienen oder erfüllen kann.
+Die Umsetzung und sicherheitsrelevante Trennung dieser Zugriffswege werden als eigenständige Tenants betrachtet und können somit auch als mehrere Instanzen pro Zugriffsweg eingerichtet werden.
+Dadurch ist es möglich fachliche Unterschiede über den gleichen technischen Zugriffsweg bei der Authentifizierung zu machen.
+
+Die bisher aufgezeigten Authentifizierungswege werden in Bezug auf `isy-security` als jeweilig unterschiedliche Tenants behandelt bzw. konfiguriert.
+Aber auch pro Authentifizierungsweg ist es möglich unterschiedliche Tenants sprich mehrere Instanzen des gleichen Typs einzurichten.
+
+Folgendes Beispiel zeigt die Trennung nach Zugriffswegen (<<image-multi-tenancy-isyfact>>):
+
+_In diesem Beispiel wurde ein weiterer IAM-Service aufgenommen, um die Möglichkeiten zur Nutzung mehrere IAM-Services zu verdeutlichen.
+Dieser kann auch außerhalb der Anwendungslandschaft betrieben werden.
+Die IsyFact sieht weiterhin die Nutzung eines einzelnen IAM-Service je Anwendungslandschaft vor._
+
+*Ausgangssituation*
+
+* Interne und externe Anwender werden Tenant 1 (T 1) zugewiesen.
+Ihnen steht der Zugang über das Portal zur Verfügung.
+
+* Externen Anwendungen wird der Tenant 2 (T 2) zugewiesen.
+Der Zugriff auf die Anwendungslandschaft erfolgt über das SGW.
+
+* Internen Anwendungen wird der Tenant 3 (T 3) zugewiesen.
+
+* Tenants 1 und 3 werden in IAM 1 verwaltet.
+
+* Tenant 2 wird in einem separaten IAM-Service (IAM 2) verwaltet.
+
+*Aufruf der Geschäftsanwendung (GA)*
+
+* Die Anwender greifen über das Portal auf die GA zu.
+Daher muss in der GA der Tenant 1 (T 1) konfiguriert sein.
+
+* Die externen Anwendungen greifen über das SGW auf die GA zu.
+Daher muss in der GA auch der Tenant 2 (T 2) konfiguriert sein.
+
+* Die interne Batch-Anwendung greift auf die GA zu.
+Daher muss in der GA auch der Tenant 3 (T 3) konfiguriert sein.
+
+* Fehlt eine der drei Tenant-Konfigurationen in der GA, so erhält der betroffene Tenant bzw. der dem Tenant zugewiesene Anwender/Anwendung keinen Zugriff auf die GA.
+
+.Beispiel: Trennung nach Authentifizierungswegen
+[id="image-multi-tenancy-isyfact",reftext="{figure-caption} {counter:figures}"]
+image::konzept/multi_tenancy_isyfact.dn.svg[align="center"]
+
 
 [[rollen-und-rechte]]
 == Rollen & Rechte
