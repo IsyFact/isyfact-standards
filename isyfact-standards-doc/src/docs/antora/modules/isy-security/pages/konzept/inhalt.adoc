@@ -586,6 +586,36 @@ Wenn die IAM-Service-Implementierung dieses Feature unterstützt, dann wird ein 
 
 Wie in xref:konzept/master.adoc#aussensicht-der-komponente-security[Schnittstelle des Bausteins Security] beschrieben, wird bei den Authentifizierungsmethoden `authentifiziereClient()` und `authentifiziereSystem()` das Behördenkennzeichen als optionaler Parameter an den `Authentifizierungsmanager` übergeben, der es mit den anderen Authentifizierungsdaten zusammen an den IAM-Service weiterleitet.
 
+[[multiple-uris]]
+=== Aufruf des IAM-Services über unterschiedliche URIs
+
+Wenn in einer Anwendungslandschaft der IAM-Service über mehrere unterschiedliche URIs aufgerufen werden kann, dann benötigt eine Anwendung mindestens eine bis alle dieser URIs in seiner Konfiguration, um eine Tokenvalidierung erfolgreich durchzuführen.
+
+Dies ist zum Beispiel der Fall, wenn eine interne URI des IAM-Services für Aufrufe von innerhalb der Anwendungslandschaft und eine externe URI für Aufrufe von außerhalb der Anwendungslandschaft benötigt wird oder wenn sich die URIs aufgrund verschiedener Netzwerkzonen bzw. technischer Kommunikationskanäle unterscheiden (müssen).
+Der Baustein `isy-security` bietet Unterstützung, um die Nutzung unterschiedlicher URIs für den IAM-Service zu ermöglichen.
+Die nachfolgende Skizze zeigt dies schematisch auf.
+
+.schematische Skizze mehrere URIs des IAM-Services
+[id="image-multiple-uris",reftext="{figure-caption} {counter:figures}"]
+image::konzept/unterschiedliche-issuerURIs.dn.svg[align="center"]
+
+Die *externe IAM-URI* wird vom Portal als Redirect an den WebClient zurückgeliefert, so dass dieser den IAM-Service direkt von extern aufrufen kann, um den IAM-Login-Dialog im WebClient zur Anzeige zu bringen.
+Nach erfolgreicher Authentifizierung wird die *externe IAM-URI* in den Access-Token (`iss-Claim`) geschrieben.
+Die *interne IAM-URI* wird von der Geschäftsanwendung benötigt, um direkt auf *internem* Wege mit dem IAM zu kommunizieren, z.B. zum Laden von Zertifikatsinformationen.
+
+Die Geschäftsanwendung benötigt in ihrer Konfiguration alle _IAM-URIs_, um alle Access-Token validieren zu können.
+Dazu gehört die zum ursprünglichen IAM-Aufruf verwendete URI (`issuer-uri`), die gegen den Wert im `iss-Claim` des Tokens verifiziert wird.
+Die Prüfung schlägt fehl, wenn das Access-Token über die *externe IAM-URI* ausgestellt wurde, in der Geschäftsanwendung jedoch (nur) die *interne IAM-URI* zum Nachladen von Zertifikaten konfiguriert ist.
+
+Um nun in einer Geschäftsanwendung Access-Tokens erfolgreich zu validieren, die über eine in der Anwendung abweichend konfigurierte IAM-URI ausgestellt wurden, müssen alle genutzten URIs des IAM-Services in der Anwendung hinterlegt werden.
+Dies geschieht über die Anwendungskonfiguration.
+Auf diese Weise können beliebig viele IAM-URIs konfiguriert werden.
+
+Weitere Details zur Konfiguration mehrerer URIs eines IAM wird in den xref:nutzungsvorgaben/inhalt.adoc#konfiguration-von-multi-iam-uris[Nutzungsvorgaben - Konfiguration von mehreren IAM-URIs] beschrieben.
+
+*Konfigurationsdetails*
+
+Zur weiteren Vertiefung dieser Sonderkonstellation kann in der https://docs.spring.io/spring-security/reference/servlet/oauth2/resource-server/jwt.html#oauth2resourceserver-jwt-jwkseturi[_Spring_-Dokumentation] und für Details bei der Implementierung bzw. Konfiguration kann in den xref:nutzungsvorgaben/inhalt.adoc#spring-konfiguration[Nutzungsvorgaben] nachgeschlagen werden.
 
 
 [[multi-tenancy]]
@@ -676,6 +706,7 @@ Daher muss in der GA auch der Tenant 3 (T 3) konfiguriert sein.
 .Beispiel: Trennung nach Authentifizierungswegen
 [id="image-multi-tenancy-isyfact",reftext="{figure-caption} {counter:figures}"]
 image::konzept/multi_tenancy_isyfact.dn.svg[align="center"]
+
 
 [[rollen-und-rechte]]
 == Rollen & Rechte

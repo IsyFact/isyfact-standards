@@ -4,7 +4,7 @@
 *Änderungen IsyFact 4.0.0*
 
 // tag::release-4.0.0[]
-
+- `IFS-3821`: `isy-security`: Thematik zur internen und externen URL bei der Authentifizierung beschrieben (Multiple Issuer-URIs)
 - `IFS-3834`: `isy-security`: Kapitel Authentifizierung & Autorisierung um Multi-Tenancy erweitert.
 - `IFS-3051`: `isy-security`: Kapitel zu Multi-Realms um konkrete Vorgabe erweitert.
 

@@ -14,6 +14,7 @@
 - `IFS-3665`: [isyfact-standards-doc] "Leitfaden Dokumentation" nach `isy-documentation` verschoben
 - `IFS-3692`: [isyfact-standards-doc] Seite "Referenzarchitekur" nach Architektursichten aufgeteilt
 - `ISY-909`: [isyfact-products-bom] Orika durch MapStruct ersetzt
+- `IFS-3821`: [isyfact-standards-doc] Thematik zur internen und externen URL bei der Authentifizierung beschrieben (Multiple Issuer-URIs)
 - `IFS-3833`: [isy-security] Implementierung von Multi-Tenanacy-Support
 - `IFS-3834`: [isyfact-standards-doc] Kapitel Authentifizierung & Autorisierung um Multi-Tenancy erweitert.
 - `IFS-2248`: [isy-batchrahmen, isy-security] Tokenerneuerung in isy-batchrahmen:
