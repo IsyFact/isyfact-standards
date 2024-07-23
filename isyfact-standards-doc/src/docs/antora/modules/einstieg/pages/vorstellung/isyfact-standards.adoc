@@ -148,7 +148,7 @@ Weiterhin wird in diesem Dokument gezeigt, wie die Überwachung und Administrati
 [[behandlung-von-internationalen-sonderzeichen]]
 === Behandlung von internationalen Sonderzeichen
 Geschäftsanwendungen müssen zum Teil mit Einträgen umgehen, die nicht den geläufigen Zeichenstandards und Codierungen unterliegen.
-Im Dokument xref:isy-sonderzeichen:konzept/sonderzeichen.adoc#einleitung[Konzept Sonderzeichen] werden Festlegungen getroffen, wie mit daraus resultierenden Problemstellungen umgegangen wird.
+Im Dokument xref:isy-sonderzeichen-doc:ROOT:konzept/master.adoc#einleitung[Konzept Sonderzeichen] werden Festlegungen getroffen, wie mit daraus resultierenden Problemstellungen umgegangen wird.
 In diesem Zusammenhang müssen oft auch Namen transkribiert werden.
 Die dafür zu verwendenden Regeln sind ebenfalls im Dokument enthalten.
 
