@@ -15,13 +15,13 @@ on:
 
 jobs:
   Version:
-    uses: IsyFact/isy-github-actions-templates/.github/workflows/next_version.yml@v1.1.0
+    uses: IsyFact/isy-github-actions-templates/.github/workflows/next_version.yml@v1.3.0
     with:
       next-version: 4.0.0
 
   Maven:
     needs: [Version]
-    uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_build_template.yml@v1.1.0
+    uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_build_template.yml@v1.3.0
     with:
       version: ${{ needs.Version.outputs.next-version }}
     secrets:
@@ -30,7 +30,7 @@ jobs:
   Snapshot:
     if: github.event_name == 'push'
     needs: [Version, Maven]
-    uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_deploy_template.yml@v1.1.0
+    uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_deploy_template.yml@v1.3.0
     with:
       version: ${{ needs.Version.outputs.next-version }}
       maven-opts: '-DaltDeploymentRepository=github::default::https://maven.pkg.github.com/IsyFact/isyfact-standards'
