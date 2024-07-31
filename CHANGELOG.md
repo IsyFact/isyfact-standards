@@ -1,5 +1,6 @@
 # 3.1.0
 ### Features
+- `IFS-3992`: [isyfact-standards-doc] Entfernung der Vorlage "Tailoring" Dokument
 - `ISY-808`: [isy-konfiguration] als deprecated markiert
 - `IFS-3612`: [isy-aufrufkontext] als deprecated markiert
 - `ISY-948`: Spring Cache Abstraction als verpflichtende Bibliothek für anwendungsseitige Caches eingeführt
