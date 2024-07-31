@@ -1,5 +1,6 @@
 # 4.0.0
 ## FEATURES
+- `IFS-3992`: [isyfact-standards-doc] Entfernung der Vorlage "Tailoring" Dokument
 - `ISY-1025`: Versionsanhebung `maven-surefire-plugin` auf 3.2.5
     * Automatische Auswahl der benötigten JUnit Engines
 - `ISY-876`: [isy-bedienkonzept] Ergänzung der Anzeigeposition von Toasts unten rechts
