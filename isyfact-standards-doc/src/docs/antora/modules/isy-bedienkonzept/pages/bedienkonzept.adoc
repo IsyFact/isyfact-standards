@@ -1459,6 +1459,7 @@ Wenn eine Zeile sich z.B. direkt in der Detailansicht öffnen lässt, so sollte 
 
 * Tabellen werden genutzt, um große Mengen von Daten oder Objekten anzuzeigen.
 * Tabellen sollten übersichtlich bleiben.
+Weniger wichtige Spalten können ausgeblendet werden.
 Es ist nicht zielführend alle Daten anzuzeigen.
 Die Fachlichkeit sollte sich auf ein subset von wichtigen Informationen beschränken.
 * Überlaufende Textlabels werden abgetrennt und mit einem Tooltip ergänzt.
