@@ -1440,10 +1440,10 @@ image::24_BE_Tabelle.png[align="center"]
 Tabellenzeilen sind standardmäßig nicht anwählbar, was aber durch eine fachliche Notwendigkeit umgesetzt werden kann.
 So steht es der Anwendung frei:
 
-* Keine Zeile auswählbar zu machen
-* Eine Zeile mit Klick auswählbar zu machen
-* Eine Zeile mit Doppelklick z.B. direkt in der Detailansicht zu öffnen
-* Eine Zeile mit einer Spalte und Checkbox auswählbar zu machen
+* Keine Zeile auswählbar zu machen.
+* Eine Zeile mit Klick auswählbar zu machen.
+* Eine Zeile mit Doppelklick z.B. direkt in der Detailansicht zu öffnen.
+* Eine Zeile mit einer Spalte und Checkbox auswählbar zu machen.
 
 [IMPORTANT]
 Es ist wichtig, das Verhalten der Tabelle innerhalb der Anwendung konsistent zu halten.
@@ -1452,8 +1452,8 @@ Unterschiedliches Verhalten von Tabellen ist *NICHT* zulässig!
 Wenn keine oder eine Zeile auswählbar ist, dann erfolgen die Folgeaktionen über die Aktionselemente.
 Wenn eine Zeile sich z.B. direkt in der Detailansicht öffnen lässt, so sollte dies die primäre Funktion der Aktionen sein.
 
-* Klick = Bearbeiten -> erste Aktion = Bearbeiten (wie im Beispiel)
-* Die aktive/Focus Zeile hat die Farbe Primary und der Hover entspricht dem PrimeNG Standard
+* Doppelklick = Detailansicht öffnen; folglich ist die erste/primäre Aktion = "Detailansicht öffnen".
+* Die aktive/fokussierte Zeile hat die Primärfarbe und der Hover entspricht dem PrimeNG Standard.
 
 *_Do's:_*
 
@@ -1461,20 +1461,21 @@ Wenn eine Zeile sich z.B. direkt in der Detailansicht öffnen lässt, so sollte 
 * Tabellen sollten übersichtlich bleiben.
 Weniger wichtige Spalten können ausgeblendet werden.
 Es ist nicht zielführend alle Daten anzuzeigen.
-Die Fachlichkeit sollte sich auf ein subset von wichtigen Informationen beschränken.
+Die Fachlichkeit sollte sich auf eine Teilmenge von wichtigen Informationen beschränken.
 * Überlaufende Textlabels werden abgetrennt und mit einem Tooltip ergänzt.
-* Wähle Spalten Titel so kurz wie möglich und prägnant. Abkürzungen sind zulässig.
-* Die initiale oder maximale Breite von Spalten muss sich an dem zu erwartenden Inhalten orientieren, auch wenn der Titel dadurch abgeschnitten wird (Es gibt keine feste maximale Buchstabenanzahl).
+* Wähle Spaltentitel so kurz wie möglich und prägnant.
+Abkürzungen sind zulässig.
+* Die initiale oder maximale Breite von Spalten muss sich an den zu erwartenden Inhalten orientieren, auch wenn der Titel dadurch abgeschnitten wird (es gibt keine feste maximale Buchstabenanzahl).
 * Die Spalten mit den größten Wortlängen sollten den maximal verfügbaren Platz einnehmen.
 * Vertikales Scrolling ist zu vermeiden.
 * Die Spalten sollten ihrer Wichtigkeit nach angeordnet werden.
 * Tabellen sollten nach Möglichkeit max. 20 Zeilen anzeigen und dann eine Paginierung nutzen.
 Sollte es fachlich notwendig sein, kann auch endless-scrolling eingesetzt werden.
-* Nutzt Symbole und Bilder zur schnelleren visuellen Unterscheidung von Listeneinträgen
+* Nutzt Symbole und Bilder zur schnelleren visuellen Unterscheidung von Listeneinträgen.
 
 *_Don'ts:_*
 
-* Erzeuge keine Tabellen mit 1 oder 2 Spalten.
+* Erzeuge keine Tabellen mit nur 1-2 Spalten.
 * Tabellen sollen nicht vertikal scrollen, also beschränke dich auf die nötigsten Informationen.
 * Wähle keine unnötig breite Spalte, weil ein einziger Eintrag länger ist als der Durchschnitt.
 * Verzichte auf Symbole oder Bilder, wenn diese sich nur wiederholen.
@@ -1483,10 +1484,10 @@ Sollte es fachlich notwendig sein, kann auch endless-scrolling eingesetzt werden
 ==== Sortierung in einer Tabelle
 
 Tabellen sollten aufgrund ihrer großen Datenmengen pro Spalte sortierbar sein.
-Daher bieten Tabellen eine auf und absteigende Sortierung an (Zwei Pfeile im Tabellenheader).
-Die Clicktargetarea des Icons ist dabei 44px x 44px groß (siehe Beispiel).
+Daher bieten Tabellen eine auf- und absteigende Sortierung an (zwei Pfeile im Tabellenheader).
+Der Klickbereich des Icons ist dabei 44px x 44px groß (siehe <<image-tabelle>>).
 
-* Der erste Klick auf die Sortierungsicons, sollte die Tabelle nach den Werten in der gewählten Spalte, aufsteigend sortieren.
+* Der erste Klick auf die Sortierungsicons sortiert die Tabelle nach den Werten in der gewählten Spalte aufsteigend.
 * Das wechselnde Icon zeigt die aktuelle Sortierung an.
 
 [[filterung-tabelle]]
@@ -1505,7 +1506,7 @@ Die Filter lassen sich in beliebiger Weise kombinieren.
 [[selektionsverhalten-tabelle]]
 ==== Selektionsverhalten in einer Tabelle
 
-Wie allgemeinen Kapitel zu Tabellen beschrieben, gibt es verschiedene Möglichkeiten ein Element in der Tabelle zu selektieren.
+Wie im allgemeinen Kapitel zu <<tabelle,Tabellen>> beschrieben, gibt es verschiedene Möglichkeiten ein Element in der Tabelle zu selektieren.
 Dabei ist die notwendige Fachlichkeit maßgeblich für das Verhalten verantwortlich.
 So kann es sein, dass es in einer Anwendung Sinn macht eine große Datenmenge auszuwählen und in einer anderen Anwendung wiederum gar keine Auswahl zu zulassen.
 Alle nachfolgenden Punkte sind Möglichkeiten die eingesetzt werden *können*.
@@ -1531,6 +1532,7 @@ Um dem Nutzenden den Umgang mit solchen Tabellen zu vereinfachen, werden zunäch
 *_Endless Scrolling_*
 
 Die Tabelle wird initial mit den ersten 10 oder 20 Zeilen angezeigt und es wird per default die Scrollbar angezeigt und beim Scrollen entsprechend viele weitere Datensätze angezeigt.
+
 [NOTE]
 Es kann Lazyloading verwendet werden.
 
