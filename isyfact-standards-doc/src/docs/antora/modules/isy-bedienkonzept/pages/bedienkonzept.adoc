@@ -1492,14 +1492,15 @@ Die Clicktargetarea des Icons ist dabei 44px x 44px groß (siehe Beispiel).
 [[filterung-tabelle]]
 ==== Filterung in einer Tabelle
 
-Es bietet sich an, dass Tabellen auch filterbar gestaltet werden. Dafür können verschiedene fachliche Filter definiert werden.
+Es bietet sich an, dass Tabellen auch filterbar gestaltet werden.
+Dafür können verschiedene fachliche Filter definiert werden.
 Die Filter lassen sich in beliebiger Weise kombinieren.
 Über den übergeordneten Icon-Button "Löschen" werden alle Filter gelöscht und die Tabelle aktualisiert.
 
 * Eine Spalte kann auch mehrere Filter anwenden.
 * Filter sind nur pro Spalte gültig.
 * Filter werden sofort nach Auswahl angewandt (Aktualisierung der Tabelle).
-* Aktive Filter sollten deutliche erkennbar sein.
+* Aktive Filter sollten deutlich erkennbar sein.
 
 [[selektionsverhalten-tabelle]]
 ==== Selektionsverhalten in einer Tabelle
@@ -1520,7 +1521,7 @@ Sollte ein entsprechendes Verhalten angewandt werden, so ist darauf zu achten, d
 
 Tabellen können sehr viele Daten enthalten und gegebenenfalls sehr lang werden.
 Um dem Nutzenden den Umgang mit solchen Tabellen zu vereinfachen, werden zunächst nicht alle Daten initial in der Tabelle angezeigt.
-Über einen "Mehr anzeigen"-Button, Endless Scrolling oder einen Paginator kann der Benutzer sich bei Bedarf mehr Daten anzeigen lassen.
+Über einen "Mehr anzeigen"-Button, Endless Scrolling oder einen Paginator kann der Benutzende sich bei Bedarf mehr Daten anzeigen lassen.
 
 *_Paginator_*
 
@@ -1529,7 +1530,7 @@ Um dem Nutzenden den Umgang mit solchen Tabellen zu vereinfachen, werden zunäch
 
 *_Endless Scrolling_*
 
-Die Tabelle wird initial mit den ersten 10 oder 20 Zeilen angezeigt und es wird per default die Scrollbar angezeigt und beim scrollen entsprechend viele weitere Datensätze angezeigt.
+Die Tabelle wird initial mit den ersten 10 oder 20 Zeilen angezeigt und es wird per default die Scrollbar angezeigt und beim Scrollen entsprechend viele weitere Datensätze angezeigt.
 [NOTE]
 Es kann Lazyloading verwendet werden.
 
