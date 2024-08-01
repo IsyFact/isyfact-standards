@@ -1247,7 +1247,7 @@ Dabei können Checkboxen vertikal angeordnet werden.
 
 [[image-checkboxen-vertikal]]
 .Vertikale Gruppe von Checkboxen
- image::24_BE_checkboxen_vertikal.png[align="center"]
+image::24_BE_checkboxen_vertikal.png[align="center"]
 
 Oder auch horizontal angeordnet werden.
 
@@ -1427,17 +1427,17 @@ Für so etwas wird ein Wizard genutzt.
 * Tabreiter sollen keine Abhängigkeiten zueinander haben.
 * Nutze keine Labels, die länger als 26 Zeichen sind.
 
-[[Tabelle]]
+[[tabelle]]
 === Tabelle
 
 Eine Tabelle dient der übersichtlichen Anzeige von größeren Datenmengen.
 Die Tabelle besteht aus mehreren Spalten, die zur Sortierung verwendet werden können.
 
-[[image-Table]]
+[[image-tabelle]]
 .Beispiel Tabelle
 image::24_BE_Tabelle.png[align="center"]
 
-Tabellen Zeilen sind standardmäßig nicht anwählbar, was aber durch eine fachliche Notwendigkeit umgesetzt werden kann.
+Tabellenzeilen sind standardmäßig nicht anwählbar, was aber durch eine fachliche Notwendigkeit umgesetzt werden kann.
 So steht es der Anwendung frei:
 
 * Keine Zeile auswählbar zu machen
@@ -1446,7 +1446,7 @@ So steht es der Anwendung frei:
 * Eine Zeile mit einer Spalte und Checkbox auswählbar zu machen
 
 [IMPORTANT]
-Wichtig ist es das Verhalten der Tabelle innerhalb der Anwendung konsistent zu halten.
+Es ist wichtig, das Verhalten der Tabelle innerhalb der Anwendung konsistent zu halten.
 Unterschiedliches Verhalten von Tabellen ist *NICHT* zulässig!
 
 Wenn keine oder eine Zeile auswählbar ist, dann erfolgen die Folgeaktionen über die Aktionselemente.
@@ -1478,7 +1478,7 @@ Sollte es fachlich notwendig sein, kann auch endless-scrolling eingesetzt werden
 * Wähle keine unnötig breite Spalte, weil ein einziger Eintrag länger ist als der Durchschnitt.
 * Verzichte auf Symbole oder Bilder, wenn diese sich nur wiederholen.
 
-[[Sortierung-Tabelle]]
+[[sortierung-tabelle]]
 ==== Sortierung in einer Tabelle
 
 Tabellen sollten aufgrund ihrer großen Datenmengen pro Spalte sortierbar sein.
@@ -1488,7 +1488,19 @@ Die Clicktargetarea des Icons ist dabei 44px x 44px groß (siehe Beispiel).
 * Der erste Klick auf die Sortierungsicons, sollte die Tabelle nach den Werten in der gewählten Spalte, aufsteigend sortieren.
 * Das wechselnde Icon zeigt die aktuelle Sortierung an.
 
-[[Selektionsverhalten-Tabelle]]
+[[filterung-tabelle]]
+==== Filterung in einer Tabelle
+
+Es bietet sich an, dass Tabellen auch filterbar gestaltet werden. Dafür können verschiedene fachliche Filter definiert werden.
+Die Filter lassen sich in beliebiger Weise kombinieren.
+Über den übergeordneten Icon-Button "Löschen" werden alle Filter gelöscht und die Tabelle aktualisiert.
+
+* Eine Spalte kann auch mehrere Filter anwenden.
+* Filter sind nur pro Spalte gültig.
+* Filter werden sofort nach Auswahl angewandt (Aktualisierung der Tabelle).
+* Aktive Filter sollten deutliche erkennbar sein.
+
+[[selektionsverhalten-tabelle]]
 ==== Selektionsverhalten in einer Tabelle
 
 Wie allgemeinen Kapitel zu Tabellen beschrieben, gibt es verschiedene Möglichkeiten ein Element in der Tabelle zu selektieren.
@@ -1502,12 +1514,12 @@ Sollte ein entsprechendes Verhalten angewandt werden, so ist darauf zu achten, d
 * Ausgewählte Zeilen müssen farbig hinterlegt sein.
 * Die erste Zeile kann per Default selektiert werden.
 
-[[Bigdata-Tabelle]]
+[[bigdata-tabelle]]
 ==== Große Datenmengen in einer Tabelle
 
 Tabellen können sehr viele Daten enthalten und gegebenenfalls sehr lang werden.
-Um dem Benutzer den Umgang mit solchen Tabellen zu vereinfachen, werden zunächst nicht alle Daten initial in der Tabelle angezeigt.
-Über einen Mehr anzeigen Button, Endless Scrolling oder einen Paginator kann der Benutzer sich bei Bedarf mehr Daten anzeigen lassen.
+Um dem Nutzenden den Umgang mit solchen Tabellen zu vereinfachen, werden zunächst nicht alle Daten initial in der Tabelle angezeigt.
+Über einen "Mehr anzeigen"-Button, Endless Scrolling oder einen Paginator kann der Benutzer sich bei Bedarf mehr Daten anzeigen lassen.
 
 *_Paginator_*
 
@@ -1516,14 +1528,14 @@ Um dem Benutzer den Umgang mit solchen Tabellen zu vereinfachen, werden zunächs
 
 *_Endless Scrolling_*
 
-* Die Tabelle wird initial mit den ersten 10 oder 20 Zeilen angezeigt und es wird per default die Scrollbar angezeigt und beim scrollen entsprechend viele weitere Datensätze angezeigt.
+Die Tabelle wird initial mit den ersten 10 oder 20 Zeilen angezeigt und es wird per default die Scrollbar angezeigt und beim scrollen entsprechend viele weitere Datensätze angezeigt.
 [NOTE]
 Es kann Lazyloading verwendet werden.
 
 *_"Mehr anzeigen"-Button_*
 
-* Die Tabelle wird initial mit den ersten 10 oder 20 Zeilen angezeigt und nach Klick auf den Button werden die nächsten 9 oder 19 Items nachgeladen.
-Sodass man erkennt, das man genau am Ende des letzten Eintrags weitermacht.
+Die Tabelle wird initial mit den ersten 10 oder 20 Zeilen angezeigt und nach Klick auf den "Mehr anzeigen"-Button werden die nächsten 9 oder 19 Items nachgeladen.
+Dadurch soll erkenntlich sein, dass es genau am Ende des letzten Eintrags weitergeht.
 
 [[design-pattern]]
 == Design Pattern
