@@ -1509,7 +1509,7 @@ Die Filter lassen sich in beliebiger Weise kombinieren.
 Wie im allgemeinen Kapitel zu <<tabelle,Tabellen>> beschrieben, gibt es verschiedene Möglichkeiten ein Element in der Tabelle zu selektieren.
 Dabei ist die notwendige Fachlichkeit maßgeblich für das Verhalten verantwortlich.
 So kann es sein, dass es in einer Anwendung Sinn macht eine große Datenmenge auszuwählen und in einer anderen Anwendung wiederum gar keine Auswahl zu zulassen.
-Alle nachfolgenden Punkte sind Möglichkeiten die eingesetzt werden *können*.
+Alle nachfolgenden Punkte sind Möglichkeiten, die eingesetzt werden *können*.
 Sollte ein entsprechendes Verhalten angewandt werden, so ist darauf zu achten, dass die Tabellen sich in der Anwendung konsistent verhalten.
 
 * Die Kennzeichnung eines Objektes (Name, ID, etc...) kann als Link zur Navigation zu weiteren Details genutzt werden.
