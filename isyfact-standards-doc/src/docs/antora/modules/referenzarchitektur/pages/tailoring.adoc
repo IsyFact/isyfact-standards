@@ -7,11 +7,11 @@ Daher trifft sie zunächst kaum Annahmen über die Struktur der Anwendungslandsc
 Sie unterscheidet einerseits zwischen Geschäftsanwendungen, welche die Geschäftsprozesse innerhalb der Anwendungslandschaft implementieren, und andererseits Querschnittsanwendungen, Service-Gateways und dem Portal, die als unterstützende Systeme wesentliche Strukturkonzepte der IsyFact umsetzen.
 
 In einem spezifischen xref:glossary:glossary:master.adoc#glossar-anwendungskontext[Anwendungskontext] wird man in der Regel jedoch viel weitergehende Festlegungen innerhalb der Referenzarchitektur treffen, um die Fachlichkeit des Kontexts abzubilden.
-Diese kontextspezifischen Festlegungen können in einem eigenen xref:methodik:vorlagen.adoc#tailoring[*Tailoring-Dokument*] festgehalten werden.
-Es beschreibt, wie die IsyFact im betreffenden Anwendungskontext einzusetzen ist.
-Insbesondere enthält das Tailoring-Dokument die Arten von kontextspezifischen Anwendungen und ihre Beziehungen untereinander.
+Diese kontextspezifischen Festlegungen können in einem eigenen Tailoring-Dokument festgehalten werden.
+Es soll beschreiben, wie die IsyFact im betreffenden Anwendungskontext eingesetzt wird.
+Insbesondere soll das Tailoring-Dokument die Arten von kontextspezifischen Anwendungen und ihre Beziehungen untereinander.
 
-Das Tailoring-Dokument erweitert so die Referenzarchitektur für einen Anwendungskontext.
+Ein Tailoring-Dokument erweitert so die Referenzarchitektur für einen Anwendungskontext.
 Dadurch ist es möglich, die xref:referenzarchitektur:software-technisch.adoc[software-technische Referenzarchitektur] und die xref:referenzarchitektur:technisch-infrastrukturell.adoc[technisch-infrastrukturelle Referenzarchitektur] in unterschiedlichen Kontexten zu verwenden und auf eine spezifische Fachlichkeit anzupassen.
 
 [[anpassung-referenzarchitektur]]

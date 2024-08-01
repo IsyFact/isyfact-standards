@@ -101,3 +101,4 @@ Inhalte für spezifische Releases werden ausdrücklich ausgezeichnet.
 - Vorgaben zur Entwicklungsumgebung: Stark veraltete Inhalte und Produktvorgaben entfernt.
 - Migrationsleitfaden IsyFact 2: Große Teile werden durch das Release obsolet.
 - Redundantes Handbuch Enterprise Architect: Dopplung als Teil der Vorlage Systemspezifikation entfernt.
+- Die Vorlage zum Tailoring Dokument wurde entfernt.
