@@ -192,6 +192,10 @@ Die Bridge zwischen Isyfact 1 und 2 ist obsolet weshalb folgende Module entfernt
 * isy-exception-sst
 * isy-sst-bridge
 
+=== Vorlagen
+
+Die Vorlage zum Tailoring Dokument wurde entfernt.
+
 [[kapitel-produkte]]
 == Produktkatalog
 
