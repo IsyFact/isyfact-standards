@@ -132,27 +132,3 @@ Das Template Produktauswahl liefert eine Vorlage zur Beschreibung der Hintergrü
 |Produktauswahl
 |xref:methodik:attachment$produktauswahl/Template_Produktauswahl.dotx[Download icon:file-word-o[]]
 |====
-
-
-[[tailoring]]
-== Tailoring-Dokument
-
-Das Tailoring-Dokument beschreibt die Anpassung der IsyFact-Referenzarchitektur auf einen bestimmten Anwendungskontext.
-
-Auf der Ebene der fachlichen Architektur ist die IsyFact kontext-neutral, um ein möglichst breites Spektrum von Anwendungskontexten abzudecken.
-Damit die IsyFact in einem bestimmten Anwendungskontext als praktischer Leitfaden und Vorlage für die Entwicklung dienen kann, sind weitere Festlegungen und Anpassungen der IsyFact an die Gegebenheiten des jeweiligen Anwendungskontexts notwendig.
-Dieser Vorgang wird als Tailoring bezeichnet, sein Ergebnis ist ein Tailoring-Dokument zur IsyFact für den Anwendungskontext.
-
-Alle im Tailoring-Dokument beschriebenen Sachverhalte beziehen sich auf die xref:blaupausen:referenzarchitektur/master.adoc[IsyFact Referenzarchitektur].
-Sofern im Tailoring-Dokument nichts anderes definiert wird, gelten die Festlegungen der IsyFact-Referenzarchitektur unverändert.
-
-[[table-tailoring]]
-.Vorlage zum Tailoring-Dokument
-[cols="1s,1",options="header"]
-|====
-.^|Vorlage
-.^|Quelldatei (Word)
-
-|Tailoring
-|xref:methodik:attachment$IsyFact-Tailoring.dotx[Download icon:file-word-o[]]
-|====

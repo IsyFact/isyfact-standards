@@ -14,8 +14,6 @@ Es bietet sich daher an, bei der Einarbeitung mit dieser „Säule“ zu beginne
 . *xref:plattform:plattform.adoc[] und xref:methodik:methodik.adoc[]* sollten wiederum im Ganzen gelesen werden, da sie querschnittlich die Basis des Systembetriebs bzw. der angewandten Methodik beschreiben.
 . Die *xref:werkzeuge:werkzeuge.adoc[]* sind erst bei der tatsächlichen Realisierung der Systeme relevant.
 Es ist jedoch sinnvoll sich im Voraus einen Überblick zu verschaffen.
-. Das *Tailoring*-Dokument bietet einen Überblick über die Zuschneidbarkeit der Factory.
-Dies ist insbesondere dann relevant, wenn eine eigene Factory etabliert werden soll.
 
 [[isyfact-einarbeitung]]
 .Einarbeitung in die IsyFact anhand der 5 Säulen
