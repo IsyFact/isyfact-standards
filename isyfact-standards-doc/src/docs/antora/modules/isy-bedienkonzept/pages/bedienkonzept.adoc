@@ -1247,7 +1247,7 @@ Dabei können Checkboxen vertikal angeordnet werden.
 
 [[image-checkboxen-vertikal]]
 .Vertikale Gruppe von Checkboxen
-image::24_BE_checkboxen_vertikal.png[align="center"]
+ image::24_BE_checkboxen_vertikal.png[align="center"]
 
 Oder auch horizontal angeordnet werden.
 
@@ -1426,6 +1426,104 @@ Es kann auch mit sinnvollen und verständlichen Abkürzungen gearbeitet werden.
 Für so etwas wird ein Wizard genutzt.
 * Tabreiter sollen keine Abhängigkeiten zueinander haben.
 * Nutze keine Labels, die länger als 26 Zeichen sind.
+
+[[Tabelle]]
+=== Tabelle
+
+Eine Tabelle dient der übersichtlichen Anzeige von größeren Datenmengen.
+Die Tabelle besteht aus mehreren Spalten, die zur Sortierung verwendet werden können.
+
+[[image-Table]]
+.Beispiel Tabelle
+image::24_BE_Tabelle.png[align="center"]
+
+Tabellen Zeilen sind standardmäßig nicht anwählbar, was aber durch eine fachliche Notwendigkeit umgesetzt werden kann.
+So steht es der Anwendung frei:
+
+* Keine Zeile auswählbar zu machen
+* Eine Zeile mit Klick auswählbar zu machen
+* Eine Zeile mit Doppelklick z.B. direkt in der Detailansicht zu öffnen
+* Eine Zeile mit einer Spalte und Checkbox auswählbar zu machen
+
+[IMPORTANT]
+Wichtig ist es das Verhalten der Tabelle innerhalb der Anwendung konsistent zu halten.
+Unterschiedliches Verhalten von Tabellen ist *NICHT* zulässig!
+
+Wenn keine oder eine Zeile auswählbar ist, dann erfolgen die Folgeaktionen über die Aktionselemente.
+Wenn eine Zeile sich z.B. direkt in der Detailansicht öffnen lässt, so sollte dies die primäre Funktion der Aktionen sein.
+
+* Klick = Bearbeiten -> erste Aktion = Bearbeiten (wie im Beispiel)
+* Die aktive/Focus Zeile hat die Farbe Primary und der Hover entspricht dem PrimeNG Standard
+
+*_Do's:_*
+
+* Tabellen werden genutzt, um große Mengen von Daten oder Objekten anzuzeigen.
+* Tabellen sollten übersichtlich bleiben.
+Es ist nicht zielführend alle Daten anzuzeigen.
+Die Fachlichkeit sollte sich auf ein subset von wichtigen Informationen beschränken.
+* Überlaufende Textlabels werden abgetrennt und mit einem Tooltip ergänzt.
+* Wähle Spalten Titel so kurz wie möglich und prägnant. Abkürzungen sind zulässig.
+* Die initiale oder maximale Breite von Spalten muss sich an dem zu erwartenden Inhalten orientieren, auch wenn der Titel dadurch abgeschnitten wird (Es gibt keine feste maximale Buchstabenanzahl).
+* Die Spalten mit den größten Wortlängen sollten den maximal verfügbaren Platz einnehmen.
+* Vertikales Scrolling ist zu vermeiden.
+* Die Spalten sollten ihrer Wichtigkeit nach angeordnet werden.
+* Tabellen sollten nach Möglichkeit max. 20 Zeilen anzeigen und dann eine Paginierung nutzen.
+Sollte es fachlich notwendig sein, kann auch endless-scrolling eingesetzt werden.
+* Nutzt Symbole und Bilder zur schnelleren visuellen Unterscheidung von Listeneinträgen
+
+*_Don'ts:_*
+
+* Erzeuge keine Tabellen mit 1 oder 2 Spalten.
+* Tabellen sollen nicht vertikal scrollen, also beschränke dich auf die nötigsten Informationen.
+* Wähle keine unnötig breite Spalte, weil ein einziger Eintrag länger ist als der Durchschnitt.
+* Verzichte auf Symbole oder Bilder, wenn diese sich nur wiederholen.
+
+[[Sortierung-Tabelle]]
+==== Sortierung in einer Tabelle
+
+Tabellen sollten aufgrund ihrer großen Datenmengen pro Spalte sortierbar sein.
+Daher bieten Tabellen eine auf und absteigende Sortierung an (Zwei Pfeile im Tabellenheader).
+Die Clicktargetarea des Icons ist dabei 44px x 44px groß (siehe Beispiel).
+
+* Der erste Klick auf die Sortierungsicons, sollte die Tabelle nach den Werten in der gewählten Spalte, aufsteigend sortieren.
+* Das wechselnde Icon zeigt die aktuelle Sortierung an.
+
+[[Selektionsverhalten-Tabelle]]
+==== Selektionsverhalten in einer Tabelle
+
+Wie allgemeinen Kapitel zu Tabellen beschrieben, gibt es verschiedene Möglichkeiten ein Element in der Tabelle zu selektieren.
+Dabei ist die notwendige Fachlichkeit maßgeblich für das Verhalten verantwortlich.
+So kann es sein, dass es in einer Anwendung Sinn macht eine große Datenmenge auszuwählen und in einer anderen Anwendung wiederum gar keine Auswahl zu zulassen.
+Alle nachfolgenden Punkte sind Möglichkeiten die eingesetzt werden *können*.
+Sollte ein entsprechendes Verhalten angewandt werden, so ist darauf zu achten, dass die Tabellen sich in der Anwendung konsistent verhalten.
+
+* Die Kennzeichnung eines Objektes (Name, ID, etc...) kann als Link zur Navigation zu weiteren Details genutzt werden.
+* Der Doppelklick auf eine Zeile kann z.B. die Details eines Elements öffnen.
+* Ausgewählte Zeilen müssen farbig hinterlegt sein.
+* Die erste Zeile kann per Default selektiert werden.
+
+[[Bigdata-Tabelle]]
+==== Große Datenmengen in einer Tabelle
+
+Tabellen können sehr viele Daten enthalten und gegebenenfalls sehr lang werden.
+Um dem Benutzer den Umgang mit solchen Tabellen zu vereinfachen, werden zunächst nicht alle Daten initial in der Tabelle angezeigt.
+Über einen Mehr anzeigen Button, Endless Scrolling oder einen Paginator kann der Benutzer sich bei Bedarf mehr Daten anzeigen lassen.
+
+*_Paginator_*
+
+* Der Paginator wird nach 10 oder 20 Zeilen am Ende der Tabelle angezeigt.
+* Der Paginator erlaubt es die nächste Seite anzuspringen, aber auch weiter entfernte Seiten auszuwählen.
+
+*_Endless Scrolling_*
+
+* Die Tabelle wird initial mit den ersten 10 oder 20 Zeilen angezeigt und es wird per default die Scrollbar angezeigt und beim scrollen entsprechend viele weitere Datensätze angezeigt.
+[NOTE]
+Es kann Lazyloading verwendet werden.
+
+*_"Mehr anzeigen"-Button_*
+
+* Die Tabelle wird initial mit den ersten 10 oder 20 Zeilen angezeigt und nach Klick auf den Button werden die nächsten 9 oder 19 Items nachgeladen.
+Sodass man erkennt, das man genau am Ende des letzten Eintrags weitermacht.
 
 [[design-pattern]]
 == Design Pattern
