@@ -1,0 +1,12 @@
+name: PR-Agent
+
+on:
+  pull_request:
+    types: [opened, reopened, ready_for_review]
+  issue_comment:
+
+jobs:
+  pr_agent_job:
+    uses: IsyFact/isy-github-actions-templates/.github/workflows/pr_agent_template.yml@v1.4.0
+    secrets:
+      OPENAI_KEY: ${{ secrets.OPENAI_KEY }}
