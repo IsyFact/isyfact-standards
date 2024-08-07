@@ -9,7 +9,7 @@ Die Software-Architektur des Security-Bausteins bildet das Fundament für die Si
 Die korrekte Gestaltung und Implementierung dieser Architektur ist entscheidend, um Schutzmechanismen gegen potenzielle Sicherheitsbedrohungen zu etablieren.
 In diesem Kapitel wird detailliert auf die verschiedenen Aspekte der Software-Architektur des Security-Bausteins eingegangen und bewährte Methoden sowie bewährte Praktiken vorgestellt, um eine robuste und zuverlässige Sicherheitsinfrastruktur zu schaffen.
 
-Im Folgenden werden die xref:konzept/inhalt.adoc#aussensicht-der-komponente-security[Interfaces des Bausteins Security] genauer erläutert.
+Im Folgenden werden die xref:konzept/master.adoc#aussensicht-der-komponente-security [Interfaces des Bausteins Security] genauer erläutert.
 
 [[security-interface]]
 === Security
@@ -72,7 +72,7 @@ Zur Formulierung von Berechtigungsprüfungen stehen folgende Methoden des Berech
 
 NOTE: Primär sollte die Berechtigungsprüfung über die Spring Annotation `@Secured` und nicht über die hier erwähnte Methode `pruefeRecht(String recht)` erfolgen.
 
-[[aufrufen-von-nachbarsystemen]]
+[[aufrufen_von_nachbarsystemen]]
 == Aufrufen von Nachbarsystemen
 
 Der Aufruf von Nachbarsystemen erfolgt auf Basis des reaktiven `Spring WebClient`.
@@ -135,7 +135,6 @@ Das Präfix sämtlicher Konfigurationsparameter `spring.security.oauth2` wird zu
 
 [[isyfact-specific-client-registration]]
 ==== Isyfact spezifische Konfigurationsparameter
-
 
 :linkaktuell: xref:spring-oauth2-client-registration[Client-Credentials-Flow]
 include::glossary:miscellaneous:partial$deprecated-abschnitt.adoc[]
