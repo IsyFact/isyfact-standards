@@ -1,6 +1,14 @@
 [[changelog]]
 = Changelog
 
+*Änderungen IsyFact 3.1.0*
+
+// tag::release-3.1.0[]
+
+- `IFS-3763`: Dokumentation der Änderungen zu IFS-2248 (Tokenerneuerung isy-batchrahmen)
+
+// end::release-3.1.0[]
+
 // *Änderungen IsyFact 3.0.0*
 
 // tag::release-3.0.0[]
