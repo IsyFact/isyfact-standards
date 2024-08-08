@@ -2,8 +2,25 @@
 
 == Änderungen IsyFact 3.1.0
 
-- Isy-Konfiguration wurde als deprecated gekennzeichnet
-- Dokumentation: Externe Verweise (`literaturextern`) von `isy-documentation` nach `isyfact-standards` verschoben.
+- Anhebung der Versionen mehrerer Abhängigkeiten der IsyFact und durch den Produktkatalog vorgegebenen Abhängigkeiten.
+
+=== Änderungen im Produktkatalog
+
+include::isyfact-standards-doku:einstieg:page$produktkatalog/changelog.adoc[tag=release-3.1.0]
+
+=== Änderungen Bausteine
+
+- `IFS-3612`: `isy-aufrufkontext` wurde als deprecated gekennzeichnet
+- `IFS-3665`: Dokumentation: Externe Verweise (`literaturextern`) von `isy-documentation` nach `isyfact-standards` verschoben
+include::isyfact-standards-doku:isy-konfiguration:page$konzept/changelog.adoc[tag=release-3.1.0]
+include::isyfact-standards-doku:isy-security:page$konzept/changelog.adoc[tag=release-3.1.0]
+include::isyfact-standards-doku:isy-security:page$nutzungsvorgaben/changelog.adoc[tag=release-3.1.0]
+include::isyfact-standards-doku:isy-service-rest:page$konzept/../changelog.adoc[tag=release-3.1.0]
+
+=== Änderungen Blaupausen
+
+include::isyfact-standards-doku:blaupausen:page$referenzarchitektur/changelog.adoc[tag=release-3.1.0]
+include::isyfact-standards-doku:blaupausen:page$detailkonzept-komponente-batch/changelog.adoc[tag=release-3.1.0]
 
 == Änderungen IsyFact 3.0.1
 

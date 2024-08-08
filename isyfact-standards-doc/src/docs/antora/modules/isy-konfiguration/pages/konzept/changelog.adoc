@@ -1,6 +1,14 @@
 [[changelog]]
 = Changelog
 
+// *Änderungen IsyFact 3.1.0*
+
+// tag::release-3.1.0[]
+
+- `ISY-808`: `isy-konfiguration` wurde als deprecated gekennzeichnet
+
+// end::release-3.1.0[]
+
 // *Änderungen IsyFact 3.0.0*
 
 // tag::release-3.0.0[]
