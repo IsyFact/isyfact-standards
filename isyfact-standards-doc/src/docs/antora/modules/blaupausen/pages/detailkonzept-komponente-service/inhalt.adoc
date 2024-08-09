@@ -350,7 +350,7 @@ Diese ist sinnvoll über die folgenden Parameter konfigurierbar:
 * Maximale Anzahl von Retries,
 * Timeout für Anfragen.
 
-Die Parameter sind Bestandteil der betrieblichen Konfiguration (s.  xref:isy-konfiguration:konzept/master.adoc#einleitung[Konzept Konfiguration]).
+Die Parameter sind Bestandteil der xref:referenzarchitektur:software-technisch/backend/konfiguration.adoc#betriebliche-konfiguration[betrieblichen Konfiguration].
 ====
 
 ==== Deaktivierung von Services

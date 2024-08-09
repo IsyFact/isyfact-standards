@@ -414,37 +414,6 @@ In `/src/main/resources/` muss die Datei `logback-spring.xml` angelegt werden.
 Diese definiert, wohin Log-Ausgaben geschrieben werden und wie das Layout dafür ist.
 Die Bibliothek `isy-logging` bringt fertig konfigurierte Layouts mit, die dort eingebunden werden.
 
-[[konfiguration]]
-=== Konfiguration
-
-include::glossary:miscellaneous:partial$deprecated-abschnitt.adoc[]
-
-In diesem Kapitel wird die Verarbeitung von Konfigurationen in Anwendungen beschrieben.
-
-[[designvorgaben-6]]
-==== Designvorgaben
-
-* Für die Konfiguration werden betriebliche, statische und Benutzerkonfigurationen unterschieden.
-Eine Definition und Kriterien zur Typisierung können in xref:isy-konfiguration:konzept/master.adoc#einleitung[Konzept Konfiguration] nachgelesen werden.
-* Die betriebliche Konfiguration wird in `/src/main/resources/config/application.properties` abgelegt.
-* Statische Konfigurationen werden als Datei in `/src/main/resources/resources` abgelegt.
-* Benutzerkonfigurationen werden in der Datenbank abgelegt.
-* Betriebliche Konfigurationen können in Ausnahmefällen zur Laufzeit aktualisiert werden.
-* Für das Laden von betrieblichen Konfigurationen werden `@ConfigurationProperties`-Klassen verwendet.
-
-[[realisierung-6]]
-==== Realisierung
-
-[[auslesen-von-konfigurationsparametern-in-der-anwendung]]
-===== Auslesen von Konfigurationsparametern in der Anwendung
-
-Für den Zugriff auf Konfigurationsparameter in `application.properties` werden Klassen erstellt, die beim Start
-der Anwendung mit den Werten aus `application.properties` befüllt werden.
-Der Zugriff auf diese Klassen ist typsicher und die Werte können zusätzlich mit Bean Validierung überprüft werden.
-Zur Verwendung in den Komponenten der Anwendung oder zur Konfiguration von Spring Beans werden diese Klassen per
-Dependency Injection verfügbar gemacht.
-Details zur Implementierung siehe xref:isy-konfiguration:konzept/master.adoc#einleitung[Konzept Konfiguration].
-
 [[fehlerbehandlung]]
 === Fehlerbehandlung
 

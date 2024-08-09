@@ -186,20 +186,6 @@ public void configureTasks(IsyTaskConfigurationProperties cp) {
 }
 ----
 
-==== Automatische Aktualisierung der Konfiguration
-
-include::glossary:miscellaneous:partial$deprecated-abschnitt.adoc[]
-
-Die automatische Prüfung und Aktualisierung der Konfiguration geschieht standardmäßig durch einen Task in der Bibliothek `isy-konfiguration`, welche von `isy-task` eingebunden wird.
-
-[source,java]
-----
-@Scheduled(fixedDelay = 300, timeUnit = TimeUnit.SECONDS)
-public void execute() {
-    konfiguration.checkAndUpdate();
-}
-----
-
 [[absicherung-von-tasks]]
 == Absicherung von Tasks
 

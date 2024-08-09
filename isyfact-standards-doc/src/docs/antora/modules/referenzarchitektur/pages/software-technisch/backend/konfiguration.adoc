@@ -1,0 +1,57 @@
+= Konfiguration
+
+include::documentation-guide::partial$licence.adoc[]
+
+[[konfiguration-arten]]
+== Arten von Konfiguration
+
+Backends unterscheiden drei wesentliche Arten von Konfiguration: <<statische-konfiguration>>, <<betriebliche-konfiguration>> sowie <<benutzer-konfiguration>>.
+
+[[statische-konfiguration]]
+[reftext="statische Konfiguration"]
+=== Statische Konfiguration
+
+Die statische Konfiguration umfasst alle Einstellungen, die im Backend "fest verdrahtet" sind.
+Sie ist nicht umgebungsabhängig, wird durch die Entwicklung ("Dev") gepflegt und als Teil des Backends ausgeliefert.
+Das Backend greift ausschließlich lesend auf sie zu.
+
+Die statische Konfiguration kann in Form von Quellcode und Konfigurationsdateien vorliegen.
+Zur Ablage von Konfigurationsdateien ist die Vorgabe zur xref:methodik:java-programmierkonventionen/master.adoc#listing-Projektstruktur[Struktur von Anwendungsprojekten] zu beachten.
+
+Die statische Konfiguration ist im Rahmen der Quellcode-Dokumentation oder des xref:methodik:vorlage-systementwurf/antora-master.adoc#querschnittskonzepte[Systementwurfs] dokumentiert.
+
+[[betriebliche-konfiguration]]
+[reftext="betriebliche Konfiguration"]
+=== Betriebliche Konfiguration
+
+Die betriebliche Konfiguration umfasst alle Einstellungen, die für einen reibungslosen Betrieb des Backends sorgen.
+Sie ist abhängig von der Betriebsumgebung und wird durch den Betrieb ("Ops") gepflegt.
+Das Backend greift ausschließlich lesend auf sie zu.
+
+Die betriebliche Konfiguration liegt in der Regel in Form von Konfigurationsdateien vor, kann aber auch über einen zentralen Service bezogen (und ggf. über diesen aktualisiert) werden.
+Zur Ablage von Konfigurationsdateien ist die Vorgabe zur xref:methodik:java-programmierkonventionen/master.adoc#listing-Projektstruktur[Struktur von Anwendungsprojekten] zu beachten.
+
+Die betriebliche Konfiguration ist im Rahmen des xref:methodik:vorlage-systemhandbuch/antora-master.adoc#konfiguration-anwendung[Systemhandbuchs] dokumentiert.
+
+[[benutzer-konfiguration]]
+=== Benutzer-Konfiguration
+
+Die Benutzer-Konfiguration umfasst alle Einstellungen, die von Anwendern des Backends gepflegt werden.
+Sie ist ein fachlicher Bestandteil des Backends.
+Das Backend greift lesend und schreibend auf die Benutzer-Konfiguration zu.
+
+Die Benutzer-Konfiguration liegt in der Regel in Form von Datenbank-Tabellen vor.
+Die Umsetzung geschieht analog zur xref:isy-persistence:nutzungsvorgaben/umsetzung-datenzugriff.adoc[].
+
+Die Benutzer-Konfiguration ist im Rahmen der xref:methodik:vorlage-systemspezifikation/master.adoc#datenmodell[Systemspezifikation] dokumentiert.
+
+== Umsetzung in Backends
+
+Backends nutzen zur Konfiguration im Wesentlichen die Möglichkeiten von Spring Boot sowie des Spring-Frameworks.
+
+Die Umsetzung der statischen Konfiguration geschieht vollständig mit Bordmitteln der beiden genannten Produkte.
+
+Zur Umsetzung der betrieblichen Konfiguration nutzen Backends maßgeblich https://docs.spring.io/spring-boot/reference/features/external-config.html#features.external-config.files[externe Konfigurationsdateien].
+Im Quellcode werden die betrieblichen Konfigurationsvariablen in der Regel https://docs.spring.io/spring-boot/reference/features/external-config.html#features.external-config.typesafe-configuration-properties[typsicher] in Klassen abgebildet und mittels Bean Validation geprüft.
+
+Die Umsetzung der Benutzer-Konfiguration geschieht analog zur xref:isy-persistence:konzept/vorgaben-konventionen.adoc[Umsetzung fachlicher Datenmodelle in persistente Entitäten].

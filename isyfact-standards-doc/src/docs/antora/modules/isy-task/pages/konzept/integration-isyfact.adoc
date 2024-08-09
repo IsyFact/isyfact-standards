@@ -78,7 +78,7 @@ NOTE: Mehr zu der Annotation `@Timed` findet sich in der https://docs.micrometer
 [[konfiguration]]
 == Konfiguration
 
-Tasks müssen über eine xref:isy-konfiguration:konzept/master.adoc#table-typKonfZiel2[betriebliche Konfiguration] konfigurierbar sein.
+Tasks müssen über eine xref:referenzarchitektur:software-technisch/backend/konfiguration.adoc#betriebliche-konfiguration[betriebliche Konfiguration] konfigurierbar sein.
 Neben den bisher erwähnten Konfigurationsmöglichkeiten unterstützt der Baustein Task Scheduling noch das selektive Ausführen von Tasks.
 Dazu können Anwendungen Tasks über die Konfiguration:
 

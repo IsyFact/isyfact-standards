@@ -19,10 +19,6 @@
 **** xref:isy-persistence:nutzungsvorgaben/historisierung.adoc[]
 **** xref:isy-persistence:nutzungsvorgaben/versionierung.adoc[]
 
-** Konfiguration
-*** xref:isy-konfiguration:konzept/master.adoc[Konzept]
-*** xref:isy-konfiguration:nutzungsvorgaben/master.adoc[Nutzungsvorgaben]
-
 ** Logging
 *** xref:isy-logging:konzept/master.adoc[Konzept]
 *** xref:isy-logging:nutzungsvorgaben/master.adoc[Nutzungsvorgaben]

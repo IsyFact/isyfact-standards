@@ -68,5 +68,5 @@ Außerdem nutzt er Spring AOP aus dem Spring Framework und die @AspectJ-Annotati
 Wie der Baustein diese Produkte nutzt, beschreibt die Seite "xref:isy-task:konzept/erweiterung-spring.adoc[]".
 
 Des Weiteren nutzt er mehrere Bausteine der IsyFact, um ihre Funktion für Tasks verfügbar zu machen.
-Dazu gehören die Bausteine xref:isy-logging:konzept/master.adoc[Logging], xref:isy-security:konzept/master.adoc[Security], xref:isy-ueberwachung:konzept/master.adoc[Überwachung] und xref:isy-konfiguration:konzept/master.adoc[Konfiguration].
+Dazu gehören die Bausteine xref:isy-logging:konzept/master.adoc[Logging], xref:isy-security:konzept/master.adoc[Security] und xref:isy-ueberwachung:konzept/master.adoc[Überwachung].
 Wie genau die Integration aussieht, beschreibt die Seite "xref:isy-task:konzept/integration-isyfact.adoc[]".

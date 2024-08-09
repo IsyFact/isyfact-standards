@@ -317,51 +317,6 @@ public class CoreConfig {
 Die Beans der Komponenten werden mit der Annotation `@Component` bzw. deren Spezialisierungen (`@Repository`, `@Service`, `@Controller` etc.) versehen.
    Externe Beans, die nicht annotiert werden können, werden in der Konfigurationsklasse der Schicht per `@Bean-Methoden` konfiguriert.
 
-[[konfigurationsparameter-ueber-property-objekte-konfigurieren]]
-==== Konfigurationsparameter über Property-Objekte konfigurieren
-
-include::glossary:miscellaneous:partial$deprecated-abschnitt.adoc[]
-
-Die Konfiguration der Anwendung wird (wie im xref:isy-konfiguration:konzept/master.adoc#einleitung[Konzept Konfiguration]  beschrieben) über die Datei `application.properties` durchgeführt.
-Diese Datei enthält sämtliche betrieblichen Konfigurationsparameter der Anwendung. 
-Das Setzen einzelner Konfigurationsparameter über `set`-Methoden ist nur in Ausnahmefällen erlaubt.
-Eine beispielhafte Konfiguration hat folgenden Inhalt:
-
-
-.Beispiel für Konfiguration des Anwendungskerns mittels Konfigurations-Bean
-[id="listing-konfigurationsbean",reftext="{listing-caption} {counter:listings }"]
-[source, java]
-----
-package de.beispiel.if2anwendung.core.config;
-
-...
-
-@Configuration
-@ComponentScan("de.bund.bva.pliscommon.konfiguration.common.impl")
-public class ReloadablePropertyKonfiguration {
-
-    @Bean
-    public ReloadablePropertyKonfiguration config() {
-         return new ReloadablePropertyKonfiguration(String[]{
-            "/config/allgemeine-anwendung.properties",
-            "/config/jpa.properties",
-            "/config/tasks.properties"
-         });
-   }
-}
-----
-Abweichungen für technische Beans sind erlaubt.
-
-[[abhaengigkeiten-von-komponenten-konfigurieren]]
-===== Abhängigkeiten von Komponenten konfigurieren
-
-Benötigte Beans müssen über Konstruktor-Parameter injiziert werden.
-Falls eine benötigte Bean nicht zum Zeitpunkt der Objekterzeugung vorhanden sein muss, sollte sie über eine `set`-Methode und nicht über einen Konstruktor-Parameter konfiguriert werden.
-Grund dafür ist, dass bei Konstruktor-Parametern eine zusätzliche Reihenfolge-Abhängigkeit erzeugt wird.
-
-Für den Fall, dass eine Bean Code zur Initialisierung ausführen soll, nachdem ihre Abhängigkeiten gesetzt sind, ist eine mit `@PostConstruct` annotierte Methode zu implementieren.
-Generell sind die standardisierten Lifecycle-Annotationen `@PostConstruct` und `@PreDestroy` den spring-spezifischen Interfaces `InitializingBean` und `DisposableBean` vorzuziehen.
-
 [[webapprootkey-konfigurieren]]
 ==== webAppRootKey konfigurieren
 
@@ -392,12 +347,11 @@ Neben der Konfiguration der Beans enthält eine Anwendung kaum Abhängigkeiten v
 
 In einigen Fällen existieren jedoch weitere Abhängigkeiten von Spring:
 
-* Für die Bereitstellung von JMX-Beans wird der Spring-MbeanExporter Mechanismus verwendet (siehe xref:isy-konfiguration:konzept/master.adoc#einleitung[Konzept Konfiguration]).
 * Beans werden per Namen aus dem Anwendungskontext ausgelesen.
 * Beans werden nicht per Dependency Injection, sondern über statische Methoden bereitgestellt.
 Hierüber entstehen Abhängigkeiten zur Instanziierungsreihenfolge der Beans durch Spring.
 
-Für die letzten beiden Themen werden im folgenden Vorgaben aufgestellt.
+Für die Themen werden im folgenden Vorgaben aufgestellt.
 
 [[keine-beans-per-namen-auslesen]]
 ==== Keine Beans per Namen auslesen
