@@ -63,7 +63,7 @@
 
         <!-- maven-enforcer-plugin configuration -->
         <enforced.jdk.version>[17,18)</enforced.jdk.version>
-        <enforced.maven.version>[3.1.1,4)</enforced.maven.version>
+        <enforced.maven.version>[3.6.3,4)</enforced.maven.version>
 
         <!-- Property is set by jacoco and user by surefire -->
         <maven.jacoco.argLine/>
