@@ -1,8 +1,10 @@
 name: OSS Review Toolkit
 on:
   push:
+  schedule:
+    - cron: '0 1 * * 1-5'
+
 
 jobs:
   ORT:
-    uses: IsyFact/isy-github-actions-templates/.github/workflows/oss_review_toolkit_template.yml@v1.2.0
-
+    uses: IsyFact/isy-github-actions-templates/.github/workflows/oss_review_toolkit_template.yml@mariusarltmsg-patch-1
