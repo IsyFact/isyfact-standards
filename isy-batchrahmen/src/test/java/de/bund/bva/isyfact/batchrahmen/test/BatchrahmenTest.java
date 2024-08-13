@@ -16,11 +16,13 @@
  */
 package de.bund.bva.isyfact.batchrahmen.test;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static com.github.tomakehurst.wiremock.client.WireMock.postRequestedFor;
+import static com.github.tomakehurst.wiremock.client.WireMock.resetAllRequests;
+import static com.github.tomakehurst.wiremock.client.WireMock.urlMatching;
+import static com.github.tomakehurst.wiremock.client.WireMock.verify;
+import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -36,6 +38,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import de.bund.bva.isyfact.batchrahmen.AnwendungTestConfig;
 import de.bund.bva.isyfact.batchrahmen.batch.rahmen.BatchReturnCode;
@@ -107,6 +110,12 @@ class BatchrahmenTest extends AbstractOidcProviderTest {
         } catch (URISyntaxException e) {
             fail(e.getMessage());
         }
+    }
+
+    @BeforeEach
+    public void clearSecurityContext() {
+        // the SecurityContext has to be cleared in order to avoid sharing it between different batch runs
+        SecurityContextHolder.clearContext();
     }
 
     /**
@@ -407,7 +416,7 @@ class BatchrahmenTest extends AbstractOidcProviderTest {
                 .run(new String[]{"-start", "-cfg", "/resources/batch/basic-test-batch-1-config.properties"}));
         final LoggerContext loggerContext = (LoggerContext) LoggerFactory.getILoggerFactory();
         final String actualBatchId = loggerContext.getProperty("BatchId");
-        assertEquals("BatchId ist in Batch LoggerContext gesetzt", "basicTestBatch-1", actualBatchId);
+        assertEquals("basicTestBatch-1", actualBatchId, "BatchId ist in Batch LoggerContext gesetzt");
     }
 
     @Test
@@ -424,4 +433,64 @@ class BatchrahmenTest extends AbstractOidcProviderTest {
         assertThat(returnVal)
                 .isEqualTo(BatchReturnCode.OK.getWert());
     }
+
+    /**
+     * Tests initial batch authentication call for the client credentials flow.
+     */
+    @Test
+    void testBatchInitialAuthenticationWithClientCredentials() {
+        // reset WireMock request call count
+        resetAllRequests();
+
+        assertEquals(BatchReturnCode.OK.getWert(), BatchLauncher.run(new String[]{"-start", "-cfg",
+                "/resources/batch/basic-test-batch-authenticated-client-credentials-config.properties"}));
+
+        // should be called 1 time for initial authentication, because the token is still valid for each batch step
+        verify(1, postRequestedFor(urlMatching(ISSUER_PATH + ".*")));
+    }
+
+    /**
+     * Tests initial batch authentication call for the password flow.
+     */
+    @Test
+    void testBatchInitialAuthenticationWithPassword() {
+        // reset WireMock request call count
+        resetAllRequests();
+
+        assertEquals(BatchReturnCode.OK.getWert(), BatchLauncher.run(new String[]{"-start", "-cfg",
+                "/resources/batch/basic-test-batch-authenticated-ropc-config.properties"}));
+
+        // should be called 1 time for initial authentication, because the token is still valid for each batch step
+        verify(1, postRequestedFor(urlMatching(ISSUER_PATH + ".*")));
+    }
+
+    /**
+     * Tests batch authentication calls for the password flow.
+     */
+    @Test
+    void testBatchAuthenticationWithPassword() {
+        // reset WireMock request call count
+        resetAllRequests();
+
+        assertEquals(BatchReturnCode.OK.getWert(), BatchLauncher.run(new String[]{"-start", "-cfg",
+                "/resources/batch/basic-authentication-test-batch-authenticated-ropc-config.properties"}));
+
+        // should be called 11 (1 + 10 + 1) times, because oauth2MinimumTokenValidity is set to the value of
+        // tokenLifespan, meaning re-authentication should be done for each step of the batch
+        // 1x initialisiere, 10x verarbeite, 1x beende
+        verify(12, postRequestedFor(urlMatching(ISSUER_PATH + ".*")));
+    }
+
+    /**
+     * Tests that an exception is thrown when the batch property oauth2MinimumTokenValidity is set to a negative number.
+     */
+    @Test
+    void testBatchInvalidOAuth2MinimumTokenValidityProperty() {
+        assertEquals(BatchReturnCode.FEHLER_KONFIGURATION.getWert(), BatchLauncher.run(new String[]{"-start", "-cfg",
+                "/resources/batch/basic-authentication-test-batch-invalid-minimum-token-validity-config.properties",
+                "-Batchrahmen.Ergebnisdatei", ERGEBNIS_DATEI}));
+        BatchProtokollTester bpt = new BatchProtokollTester(ERGEBNIS_DATEI);
+        assertTrue(bpt.enthaeltFehler("BAT110", "-10"));
+    }
+
 }
