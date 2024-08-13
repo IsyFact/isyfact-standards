@@ -57,7 +57,7 @@
 *** xref:isy-util:nutzungsvorgaben/master.adoc[Nutzungsvorgaben]
 
 ** Bedienkonzept
-*** xref:isy-bedienkonzept:bedienkonzept.adoc[Bedienkonzept]
+*** xref:isy-bedienkonzept-doc:ROOT:bedienkonzept.adoc[Bedienkonzept]
 
 ** Angular
 *** xref:isy-angular-widgets-doc:ROOT:konzept/konzept.adoc[Konzept]

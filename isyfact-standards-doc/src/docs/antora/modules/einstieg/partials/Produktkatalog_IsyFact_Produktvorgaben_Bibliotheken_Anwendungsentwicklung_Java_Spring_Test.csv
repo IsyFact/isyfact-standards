@@ -4,7 +4,7 @@ Test-Framework;http://www.junit.org[JUnit 5];<<spring-boot-dependencies,icon:lea
 Lasttest-Treiber;https://jmeter.apache.org/[Apache Jmeter];5.6.x;4.0.0;verbindlich;;
 Mocking-Framework;http://mockito.org/[Mockito];<<spring-boot-dependencies,icon:leaf[]>>;3.0.0;verbindlich;MIT License;
 Mocking-Framework;http://wiremock.org/[WireMock];3.x;4.0.0;verbindlich;;
-Test-Framework (Addon);http://dbunit.sourceforge.net/[DBUnit];2.7.x;2.4.0;verbindlich;;
+Test-Framework (Addon);http://dbunit.sourceforge.net/[DBUnit];2.8.x;4.0.0;verbindlich;;
 Utility-API;https://assertj.github.io/doc/[AssertJ];<<spring-boot-dependencies,icon:leaf[]>>;2.4.0;verbindlich;Apache License Version 2.0;
 In-Memory Datenbank;http://www.h2database.com/[H2];<<spring-boot-dependencies,icon:leaf[]>>;3.0.0;verbindlich;Mozilla Public License Version 2.0, Eclipse Public License v1.0;Kann für infrastrukturunabhängige Tests genutzt werden, die eine Persistenz benötigen.
 Mocking-Framework;https://greenmail-mail-test.github.io/greenmail[Greenmail];1.6.x;2.2.0;verbindlich;Apache License Version 2.0;Test Suite für E-Mail Server.
