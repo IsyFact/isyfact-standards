@@ -17,11 +17,11 @@ Die auf dieser Seite aufgeführten Hinweise sollen der Entwicklung bei der Umste
 Folgende Bausteine entfallen in IsyFact 4:
 
 * `isy-aufrufkontext`: wird mit dem Wegfall der HttpInvoker nicht länger benötigt
-* `isy-konfiguration`: ersetzt durch Spring Configuration Properties
-* `isy-sicherheit`: ersetzt durch Spring Security OAuth2 und `isy-security`
+* `isy-konfiguration`: ersetzt durch Bordmittel von Spring, beschrieben in der xref:referenzarchitektur:software-technisch/backend/konfiguration.adoc[Referenzarchitektur von Backends]
+* `isy-sicherheit`: ersetzt durch Spring Security OAuth2 und  `isy-security`
 * `isy-serviceapi-core`: HttpInvoker-Schnittstellen müssen durch entsprechende REST-Schnittstellen ersetzt werden (siehe auch xref:isy-service-rest:konzept/master.adoc[]/xref:isy-service-rest:nutzungsvorgaben/master.adoc[]).
 
-...
+
 
 [[isy-security]]
 === Security

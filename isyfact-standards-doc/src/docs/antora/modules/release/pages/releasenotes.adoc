@@ -66,20 +66,20 @@ Die Referenzarchitektur sieht nun vor, dass Fachkomponenten ohne Ausnahme die vo
 [[kapitel-bausteine]]
 == Bausteine
 
-=== Http Invoker
+=== Entfernungen
 
-Der Baustein wurde entfernt.
-Anwendungen müssen auf den xref:isy-service-rest:konzept/master.adoc[Baustein REST] migrieren.
+Die folgenden Bausteine wurden aus der IsyFact entfernt.
+Die folgende Tabelle zeigt, auf welche Bausteine bzw. Konzepte die Anwendungen migrieren müssen
 
-=== JSF
+[cols="1s,2",options="header"]
+|===
+|Entfernter Baustein|Migrieren auf
+|Http Invoker|xref:isy-service-rest:konzept/master.adoc[Baustein REST]
+|JSF|xref:isy-angular-widgets-doc::konzept/konzept.adoc[Baustein Angular]
+|Sicherheit|xref:isy-security:konzept/master.adoc[Baustein Security]
+|Konfiguration|xref:referenzarchitektur:software-technisch/backend/konfiguration.adoc[Referenzarchitektur: Konfiguration von Backends]
 
-Der Baustein wurde entfernt.
-Anwendungen müssen auf den xref:isy-angular-widgets-doc::konzept/konzept.adoc[Baustein Angular] migrieren.
-
-=== Sicherheit
-
-Der Baustein wurde entfernt.
-Anwendungen müssen auf den xref:isy-security:konzept/master.adoc[Baustein Security] migrieren.
+|===
 
 [[kapitel-deprecations]]
 == Deprecations
