@@ -1,6 +1,6 @@
 name: OSS Review Toolkit
 on:
-  push:
+  workflow_dispatch:
 
 jobs:
   ORT:
