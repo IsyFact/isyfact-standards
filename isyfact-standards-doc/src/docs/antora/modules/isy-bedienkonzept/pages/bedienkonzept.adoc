@@ -1427,6 +1427,120 @@ Für so etwas wird ein Wizard genutzt.
 * Tabreiter sollen keine Abhängigkeiten zueinander haben.
 * Nutze keine Labels, die länger als 26 Zeichen sind.
 
+[[tabelle]]
+=== Tabelle
+
+Eine Tabelle dient der übersichtlichen Anzeige von größeren Datenmengen.
+Die Tabelle besteht aus mehreren Spalten, die zur Sortierung verwendet werden können.
+
+[[image-tabelle]]
+.Beispiel Tabelle
+image::24_BE_Tabelle.png[align="center"]
+
+Tabellenzeilen sind standardmäßig nicht anwählbar, was aber durch eine fachliche Notwendigkeit umgesetzt werden kann.
+So steht es der Anwendung frei:
+
+* Keine Zeile auswählbar zu machen.
+* Eine Zeile mit Klick auswählbar zu machen.
+* Eine Zeile mit Doppelklick z.B. direkt in der Detailansicht zu öffnen.
+* Eine Zeile mit einer Spalte und Checkbox auswählbar zu machen.
+
+[IMPORTANT]
+Es ist wichtig, das Verhalten der Tabelle innerhalb der Anwendung konsistent zu halten.
+Unterschiedliches Verhalten von Tabellen ist *NICHT* zulässig!
+
+Wenn keine oder eine Zeile auswählbar ist, dann erfolgen die Folgeaktionen über die Aktionselemente.
+Wenn eine Zeile sich z.B. direkt in der Detailansicht öffnen lässt, so sollte dies die primäre Funktion der Aktionen sein.
+
+* Doppelklick = Detailansicht öffnen; folglich ist die erste/primäre Aktion = "Detailansicht öffnen".
+* Die aktive/fokussierte Zeile hat die Primärfarbe und der Hover entspricht dem PrimeNG Standard.
+
+*_Do's:_*
+
+* Tabellen werden genutzt, um große Mengen von Daten oder Objekten anzuzeigen.
+* Tabellen sollten übersichtlich bleiben.
+Weniger wichtige Spalten können ausgeblendet werden.
+Es ist nicht zielführend alle Daten anzuzeigen.
+Die Fachlichkeit sollte sich auf eine Teilmenge von wichtigen Informationen beschränken.
+* Überlaufende Textlabels werden abgetrennt und mit einem Tooltip ergänzt.
+* Wähle Spaltentitel so kurz wie möglich und prägnant.
+Abkürzungen sind zulässig.
+* Die initiale oder maximale Breite von Spalten muss sich an den zu erwartenden Inhalten orientieren, auch wenn der Titel dadurch abgeschnitten wird (es gibt keine feste maximale Buchstabenanzahl).
+* Die Spalten mit den größten Wortlängen sollten den maximal verfügbaren Platz einnehmen.
+* Vertikales Scrolling ist zu vermeiden.
+* Die Spalten sollten ihrer Wichtigkeit nach angeordnet werden.
+* Tabellen sollten nach Möglichkeit max. 20 Zeilen anzeigen und dann eine Paginierung nutzen.
+Sollte es fachlich notwendig sein, kann auch endless-scrolling eingesetzt werden.
+* Nutzt Symbole und Bilder zur schnelleren visuellen Unterscheidung von Listeneinträgen.
+
+*_Don'ts:_*
+
+* Erzeuge keine Tabellen mit nur 1-2 Spalten.
+* Tabellen sollen nicht vertikal scrollen, also beschränke dich auf die nötigsten Informationen.
+* Wähle keine unnötig breite Spalte, weil ein einziger Eintrag länger ist als der Durchschnitt.
+* Verzichte auf Symbole oder Bilder, wenn diese sich nur wiederholen.
+
+[[sortierung-tabelle]]
+==== Sortierung in einer Tabelle
+
+Tabellen sollten aufgrund ihrer großen Datenmengen pro Spalte sortierbar sein.
+Daher bieten Tabellen eine auf- und absteigende Sortierung an (zwei Pfeile im Tabellenheader).
+Der Klickbereich des Icons ist dabei 44px x 44px groß (siehe <<image-tabelle>>).
+
+* Der erste Klick auf die Sortierungsicons sortiert die Tabelle nach den Werten in der gewählten Spalte aufsteigend.
+* Das wechselnde Icon zeigt die aktuelle Sortierung an.
+
+[[filterung-tabelle]]
+==== Filterung in einer Tabelle
+
+Es bietet sich an, dass Tabellen auch filterbar gestaltet werden.
+Dafür können verschiedene fachliche Filter definiert werden.
+Die Filter lassen sich in beliebiger Weise kombinieren.
+Über den übergeordneten Icon-Button "Löschen" werden alle Filter gelöscht und die Tabelle aktualisiert.
+
+* Eine Spalte kann auch mehrere Filter anwenden.
+* Filter sind nur pro Spalte gültig.
+* Filter werden sofort nach Auswahl angewandt (Aktualisierung der Tabelle).
+* Aktive Filter sollten deutlich erkennbar sein.
+
+[[selektionsverhalten-tabelle]]
+==== Selektionsverhalten in einer Tabelle
+
+Wie im allgemeinen Kapitel zu <<tabelle,Tabellen>> beschrieben, gibt es verschiedene Möglichkeiten ein Element in der Tabelle zu selektieren.
+Dabei ist die notwendige Fachlichkeit maßgeblich für das Verhalten verantwortlich.
+So kann es sein, dass es in einer Anwendung Sinn macht eine große Datenmenge auszuwählen und in einer anderen Anwendung wiederum gar keine Auswahl zu zulassen.
+Alle nachfolgenden Punkte sind Möglichkeiten, die eingesetzt werden *können*.
+Sollte ein entsprechendes Verhalten angewandt werden, so ist darauf zu achten, dass die Tabellen sich in der Anwendung konsistent verhalten.
+
+* Die Kennzeichnung eines Objektes (Name, ID, etc...) kann als Link zur Navigation zu weiteren Details genutzt werden.
+* Der Doppelklick auf eine Zeile kann z.B. die Details eines Elements öffnen.
+* Ausgewählte Zeilen müssen farbig hinterlegt sein.
+* Die erste Zeile kann per Default selektiert werden.
+
+[[bigdata-tabelle]]
+==== Große Datenmengen in einer Tabelle
+
+Tabellen können sehr viele Daten enthalten und gegebenenfalls sehr lang werden.
+Um dem Nutzenden den Umgang mit solchen Tabellen zu vereinfachen, werden zunächst nicht alle Daten initial in der Tabelle angezeigt.
+Über einen "Mehr anzeigen"-Button, Endless Scrolling oder einen Paginator kann der Benutzende sich bei Bedarf mehr Daten anzeigen lassen.
+
+*_Paginator_*
+
+* Der Paginator wird nach 10 oder 20 Zeilen am Ende der Tabelle angezeigt.
+* Der Paginator erlaubt es die nächste Seite anzuspringen, aber auch weiter entfernte Seiten auszuwählen.
+
+*_Endless Scrolling_*
+
+Die Tabelle wird initial mit den ersten 10 oder 20 Zeilen angezeigt und es wird per default die Scrollbar angezeigt und beim Scrollen entsprechend viele weitere Datensätze angezeigt.
+
+[NOTE]
+Es kann Lazyloading verwendet werden.
+
+*_"Mehr anzeigen"-Button_*
+
+Die Tabelle wird initial mit den ersten 10 oder 20 Zeilen angezeigt und nach Klick auf den "Mehr anzeigen"-Button werden die nächsten 9 oder 19 Items nachgeladen.
+Dadurch soll erkenntlich sein, dass es genau am Ende des letzten Eintrags weitergeht.
+
 [[design-pattern]]
 == Design Pattern
 
