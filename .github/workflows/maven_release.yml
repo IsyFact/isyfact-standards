@@ -72,6 +72,6 @@ jobs:
       jdk-version: 17
       snyk-organization: ${{ vars.SNYK_ORG_ID }}
       snyk-reference: ${{ github.ref_name }}
-      snky-arguments: "--maven-aggregate-project"
+      snyk-arguments: "--maven-aggregate-project"
     secrets:
       SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
