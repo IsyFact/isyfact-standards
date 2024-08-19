@@ -1,3 +1,9 @@
+# 3.2.0
+### Features
+- `IFS-1629`: Standardmechanismus zur Absicherung der Actuator Endpunkte auf Basis von WebSecurityConfigurerAdapter bereitgestellt. Aktivieren durch setzen der Konfigurationsparameter:
+    * `isy.ueberwachung.security.username=<username>`
+    * `isy.ueberwachung.security.password=<password>`
+
 # 3.0.0
 - `IFS-1702`: Refaktorierung ServiceStatistik
     * Entkoppelt von Micrometer API
