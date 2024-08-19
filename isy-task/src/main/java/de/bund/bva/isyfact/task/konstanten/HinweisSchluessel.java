@@ -1,7 +1,7 @@
 package de.bund.bva.isyfact.task.konstanten;
 
 /**
- * Die Hinweisschlüssel von isy-task.
+ * The hint keys of isy-task.
  */
 public final class HinweisSchluessel {
 
