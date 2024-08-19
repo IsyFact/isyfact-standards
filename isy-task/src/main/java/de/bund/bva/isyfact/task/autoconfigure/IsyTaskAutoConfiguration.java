@@ -4,8 +4,10 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 import de.bund.bva.isyfact.security.oauth2.client.Authentifizierungsmanager;
@@ -42,9 +44,10 @@ public class IsyTaskAutoConfiguration {
             MeterRegistry registry,
             HostHandler hostHandler,
             IsyTaskConfigurationProperties isyTaskConfigurationProperties,
-            AuthenticatorFactory authenticatorFactory
+            AuthenticatorFactory authenticatorFactory,
+            MessageSource isyTaskMessageSource
     ) {
-        return new IsyTaskAspect(registry, hostHandler, isyTaskConfigurationProperties, authenticatorFactory);
+        return new IsyTaskAspect(registry, hostHandler, isyTaskConfigurationProperties, authenticatorFactory, isyTaskMessageSource);
     }
 
     @Bean
@@ -64,8 +67,17 @@ public class IsyTaskAutoConfiguration {
     @ConditionalOnMissingBean(AuthenticatorFactory.class)
     public AuthenticatorFactory authenticatorFactoryIsySecurity(
             IsyTaskConfigurationProperties configurationProperties,
-            Authentifizierungsmanager authentifizierungsmanager
+            Authentifizierungsmanager authentifizierungsmanager,
+            MessageSource isyTaskMessageSource
     ) {
-        return new IsySecurityAuthenticatorFactory(configurationProperties, authentifizierungsmanager);
+        return new IsySecurityAuthenticatorFactory(configurationProperties, authentifizierungsmanager, isyTaskMessageSource);
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public MessageSource isyTaskMessageSource () {
+        ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
+        messageSource.setBasenames("resources/isy-task/nachrichten/ereignisse", "resources/isy-task/nachrichten/hinweise");
+        return messageSource;
     }
 }
