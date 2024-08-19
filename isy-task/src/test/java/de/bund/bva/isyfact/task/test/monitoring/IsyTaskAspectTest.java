@@ -28,7 +28,6 @@ import de.bund.bva.isyfact.task.monitoring.IsyTaskAspect;
 import de.bund.bva.isyfact.task.security.Authenticator;
 import de.bund.bva.isyfact.task.security.AuthenticatorFactory;
 import de.bund.bva.isyfact.task.util.TaskId;
-import de.bund.bva.isyfact.util.spring.MessageSourceHolder;
 
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.MeterRegistry;
@@ -62,6 +61,9 @@ public class IsyTaskAspectTest {
     @Spy
     MeterRegistry meterRegistry = new SimpleMeterRegistry();
 
+    @Spy
+    ResourceBundleMessageSource resourceBundleMessageSource = new ResourceBundleMessageSource();
+
     TaskConfig testTaskConfig;
 
     @Before
@@ -73,12 +75,7 @@ public class IsyTaskAspectTest {
         taskConfigMap.put("class-myClass", testTaskConfig);
 
         doReturn(authenticator).when(authenticatorFactory).getAuthenticator(anyString());
-
-        ResourceBundleMessageSource resourceBundleMessageSource = new ResourceBundleMessageSource();
-        resourceBundleMessageSource.setBasenames("resources/isy-task/nachrichten");
-        MessageSourceHolder messageSourceHolder = new MessageSourceHolder();
-        messageSourceHolder.setMessageSource(resourceBundleMessageSource);
-
+        resourceBundleMessageSource.setBasenames("resources/isy-task/nachrichten/ereignisse", "resources/isy-task/nachrichten/hinweise");
         joinPoint = mock(ProceedingJoinPoint.class);
         JoinPoint.StaticPart staticPart = mock(JoinPoint.StaticPart.class);
         doReturn(staticPart).when(joinPoint).getStaticPart();
