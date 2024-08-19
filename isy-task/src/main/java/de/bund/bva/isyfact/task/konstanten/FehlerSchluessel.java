@@ -3,7 +3,11 @@ package de.bund.bva.isyfact.task.konstanten;
 /**
  * Die Fehlerschlüssel von isy-task.
  */
-public abstract class FehlerSchluessel {
+public final class FehlerSchluessel {
+
+    private FehlerSchluessel () {
+        // hide constructor, this class contains static content, there is no need to instantiate this class.
+    }
 
     public static final String HOSTNAME_STIMMT_NICHT_UEBEREIN = "ISYTA00001";
 
