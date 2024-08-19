@@ -3,7 +3,11 @@ package de.bund.bva.isyfact.task.konstanten;
 /**
  * The event keys of isy-task.
  */
-public abstract class Ereignisschluessel {
+public final class Ereignisschluessel {
+
+    private Ereignisschluessel () {
+        // hide constructor, this class contains static content, there is no need to instantiate this class.
+    }
 
     /** Info key if task was cancelled. **/
     public static final String TASK_WURDE_ABGEBROCHEN = "ISYTA10001";
