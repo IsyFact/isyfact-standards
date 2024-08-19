@@ -328,46 +328,29 @@ isy.task.tasks.isyHealthTask.fixed-delay=30s
 ===== Absicherung von Endpoints
 
 Der Zugriff auf Endpoints muss mit einer Authentifizierung abgesichert werden.
-Eine Konfiguration für Spring Security, die alle Endpoints mit HTTP Basic Authentication absichert,
-zeigt <<listing-endpointsecurityconfig>>.
-Der Benutzername und das Passwort werden in `application.properties` gepflegt.
+Eine Standard-Konfiguration für Spring Security, die alle Endpoints mit HTTP Basic Authentication absichert, wird durch die Klasse `IsyActuatorSecurityAutoConfiguration` bereitgestellt.
 
+Standardmäßig wird der Zugriff auf Endpoints durch eine HTTP Basic Authentifizierung aktiviert, wenn die *Dependencies*:
 
-.Absicherung der Endpoints mit Spring Security
-[id="listing-endpointsecurityconfig",reftext="{listing-caption} {counter:listings }"]
-[source,java]
+* `org.springframework.security:spring-security-config` und
+* `org.springframework.security:spring-security-web`
+
+im Klassenpfad verfügbar sind und *Benutzername* sowie *Passwort* zum Zugriff auf die Endpoints in der `application.properties` konfiguriert sind (siehe <<listing-endpoint-security-properties>>).
+Ohne Konfiguration von Benutzername und Passwort ist die Absicherung nicht aktiv.
+
+.Konfiguration der Absicherung in `application.properties`
+[id="listing-endpoint-security-properties",reftext="{listing-caption} {counter:listings }"]
+[source,properties]
 ----
-@Configuration
-@EnableWebSecurity
-@Profile("produktion")
-public class ActuatorSecurityProduktionConfig extends WebSecurityConfigurerAdapter {
-
-    @Autowired
-    private UeberwachungSecurityConfigProperties properties;
-
-    private static final String ENDPOINT_ROLE = "ENDPOINT_ADMIN";
-
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-         auth.inMemoryAuthentication()
-             .withUser(properties.getUsername())
-             .password(passwordEncoder().encode(properties.getPassword()))
-             .roles(ENDPOINT_ROLE);
-    }
-
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.requestMatcher(EndpointRequest.toAnyEndpoint())
-                .authorizeHttpRequests(requests -> requests.anyRequest().hasRole(ENDPOINT_ROLE))
-                .httpBasic();
-    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-}
+# Benutzername des Monitoring Users (Default: null)
+isy.ueberwachung.security.username=<username>
+# Passwort des Monitoring Users (Default: null)
+isy.ueberwachung.security.password=<password>
 ----
+
+Die Standardabsicherung der Endpoints kann per Konfiguration von der Spring AutoConfiguration ausgeschlossen und überschrieben werden, falls die Anforderungen der Anwendung von der Standardabsicherung abweichen:
+
+`spring.autoconfigure.exclude=de.bund.bva.isyfact.ueberwachung.autoconfigure.IsyActuatorSecurityAutoConfiguration`
 
 [[abschalten-der-absicherung-fuer-die-entwicklung]]
 ====== Abschalten der Absicherung für die Entwicklung
