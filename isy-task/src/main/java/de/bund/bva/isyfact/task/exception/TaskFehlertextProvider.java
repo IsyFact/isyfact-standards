@@ -17,9 +17,7 @@ public class TaskFehlertextProvider implements FehlertextProvider {
     public static final ResourceBundle FEHLERTEXT_BUNDLE = ResourceBundle.getBundle(
             "resources/isy-task/nachrichten/fehler", Locale.GERMANY);
 
-    /**
-     * {@inheritDoc}
-     */
+    @Override
     public String getMessage(String schluessel, String... parameter) {
         return MessageFormat.format(FEHLERTEXT_BUNDLE.getString(schluessel), (Object[]) parameter);
     }
