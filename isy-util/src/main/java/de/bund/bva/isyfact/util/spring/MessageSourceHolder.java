@@ -25,10 +25,17 @@ import org.springframework.context.NoSuchMessageException;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
- * This class holds a reference to the current MessageSource bean.
+ * This class holds a reference to the current {@link MessageSource} bean.
  * <p>
- * In addition, it offers convenience functions for reading resource bundle entries from the MessageSource.
+ * In addition, it offers convenience functions for reading resource bundle entries from the {@link MessageSource}.
+ *
+ * <p><b>WARNING: Due to the static implementation, it can happen that hints, events and error messages are not resolved correctly.
+ *
+ * @deprecated as of IsyFact 3 in favour of Spring's {@link MessageSource} bean.
+ * Applications should provide a {@link MessageSource} bean with a unique name (indicating the originating application).
+ * Class will be deleted in future version.
  */
+@Deprecated
 public final class MessageSourceHolder implements MessageSourceAware {
 
     /** Static reference to the MessageSource of the application. */
@@ -38,7 +45,7 @@ public final class MessageSourceHolder implements MessageSourceAware {
      * Reads a message from the resource bundles configured in Spring.
      *
      * @param schluessel the key of the resource bundle
-     * @param parameter the value for the placeholders to be replaced
+     * @param parameter  the value for the placeholders to be replaced
      * @return the message
      */
     public static String getMessage(String schluessel, String... parameter) {
@@ -49,8 +56,8 @@ public final class MessageSourceHolder implements MessageSourceAware {
      * Reads a message from the resource bundles configured in Spring.
      *
      * @param schluessel the key of the resource bundle
-     * @param parameter the value for the placeholders to be replaced
-     * @param locale the language of the message
+     * @param parameter  the value for the placeholders to be replaced
+     * @param locale     the language of the message
      * @return the message
      */
     public static String getMessage(String schluessel, Locale locale, String... parameter) {
@@ -77,10 +84,7 @@ public final class MessageSourceHolder implements MessageSourceAware {
      *
      * @param messageSource MessageSource-Bean of the application.
      */
-    @SuppressFBWarnings(
-            value = "ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD",
-            justification = "Solved with IFS-805"
-    )
+    @SuppressFBWarnings(value = "ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD", justification = "Solved with IFS-805")
     public void setMessageSource(MessageSource messageSource) {
         MessageSourceHolder.messageSource = messageSource;
     }
