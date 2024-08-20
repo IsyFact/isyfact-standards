@@ -15,3 +15,6 @@ jobs:
       snyk-organization: ${{ vars.SNYK_ORG_ID }}
     secrets:
       SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
+  ORT:
+    uses: IsyFact/isy-github-actions-templates/.github/workflows/oss_review_toolkit_template.yml@1.5.0
