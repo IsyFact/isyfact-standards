@@ -30,6 +30,11 @@ import java.util.Map.Entry;
  * This class generates a text output for objects that do not implement a suitable toString method.
  */
 public class RecursiveToStringBuilder {
+
+    private RecursiveToStringBuilder () {
+        // hide the constructor as it is a utility class
+    }
+
     /**
      * Maximum number of java primitive type entries from an array that will appear in output.
      */
