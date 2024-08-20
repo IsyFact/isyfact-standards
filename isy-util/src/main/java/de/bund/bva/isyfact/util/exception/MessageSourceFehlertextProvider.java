@@ -23,15 +23,10 @@ import de.bund.bva.isyfact.exception.FehlertextProvider;
 import de.bund.bva.isyfact.util.spring.MessageSourceHolder;
 
 /**
- * Diese Klasse implementiert einen {@link FehlertextProvider}, der zum Laden der Nachrichten den
- * {@link MessageSourceHolder} verwendet. Letztere muss als Spring-Bean in der Anwendung konfiguriert sein.
- * 
+ * This class implements a {@link FehlertextProvider} that uses the {@link MessageSourceHolder} to load the messages (must be configured as a Spring bean in the application).
  */
 public class MessageSourceFehlertextProvider implements FehlertextProvider {
 
-    /**
-     * {@inheritDoc}
-     */
     public String getMessage(String schluessel, String... parameter) {
         return MessageSourceHolder.getMessage(schluessel, parameter);
     }

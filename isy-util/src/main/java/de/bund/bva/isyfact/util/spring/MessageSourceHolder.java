@@ -18,46 +18,40 @@ package de.bund.bva.isyfact.util.spring;
 
 import java.util.Locale;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.springframework.context.MessageSource;
 import org.springframework.context.MessageSourceAware;
 import org.springframework.context.NoSuchMessageException;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 /**
- * Diese Klasse hält eine Referenz auf die aktuelle MessageSource-Bean.
+ * This class holds a reference to the current MessageSource bean.
  * <p>
- * Zusätzlich bietet sie Convenience-Funktionen zum Auslesen von Resourcebundle- Einträgen aus der
- * MessageSource.
- * 
+ * In addition, it offers convenience functions for reading resource bundle entries from the MessageSource.
  */
 public final class MessageSourceHolder implements MessageSourceAware {
 
-    /** Statischer Verweis auf die MessageSource der Anwendung. */
+    /** Static reference to the MessageSource of the application. */
     private static MessageSource messageSource;
 
     /**
-     * Liest eine Nachricht aus den in Spring konfigurierten Resource-Bundles aus.
-     * 
-     * @param schluessel
-     *            der Schlüssel des Resource-Bundles
-     * @param parameter
-     *            der Wert fuer die zu ersetzenden Platzhalter
-     * @return die Nachricht
+     * Reads a message from the resource bundles configured in Spring.
+     *
+     * @param schluessel the key of the resource bundle
+     * @param parameter the value for the placeholders to be replaced
+     * @return the message
      */
     public static String getMessage(String schluessel, String... parameter) {
         return getMessage(schluessel, Locale.GERMANY, parameter);
     }
 
     /**
-     * Liest eine Nachricht aus den in Spring konfigurierten Resource-Bundles aus.
-     * 
-     * @param schluessel
-     *            der Schlüssel des Resource-Bundles
-     * @param parameter
-     *            der Wert für die zu ersetzenden Platzhalter
-     * @param locale
-     *            die Sprache der Nachricht
-     * @return die Nachricht
+     * Reads a message from the resource bundles configured in Spring.
+     *
+     * @param schluessel the key of the resource bundle
+     * @param parameter the value for the placeholders to be replaced
+     * @param locale the language of the message
+     * @return the message
      */
     public static String getMessage(String schluessel, Locale locale, String... parameter) {
         try {
@@ -79,10 +73,9 @@ public final class MessageSourceHolder implements MessageSourceAware {
     }
 
     /**
-     * Setter für Spring.
-     * 
-     * @param messageSource
-     *            MessageSource-Bean der Anwendung.
+     * Setter for Spring.
+     *
+     * @param messageSource MessageSource-Bean of the application.
      */
     @SuppressFBWarnings(
             value = "ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD",
