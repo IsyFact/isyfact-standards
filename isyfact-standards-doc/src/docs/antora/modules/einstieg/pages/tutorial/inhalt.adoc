@@ -459,10 +459,9 @@ Die Bibliothek enthält anwendungsinterne Exception-Klassen und Hilfsklassen fü
 [[einbinden-der-bibliothek-1]]
 ===== Einbinden der Bibliothek
 
-Zur Realisierung der Fehlerbehandlung und Implementierung von Exceptions müssen die in <<listing-bib-fehlerbehandlung>>
-aufgelisteten Bibliotheken eingebunden werden.
+Zur Realisierung der Fehlerbehandlung und Implementierung von Exceptions muss die in <<listing-bib-fehlerbehandlung>> aufgelistete Bibliothek eingebunden werden.
 
-.Einbindung der Bibliotheken für die Fehlerbehandlung
+.Einbindung der Bibliothek für die Fehlerbehandlung
 [id="listing-bib-fehlerbehandlung",reftext="{listing-caption} {counter:listings}"]
 [source,xml]
 ----
@@ -472,25 +471,19 @@ aufgelisteten Bibliotheken eingebunden werden.
         <groupId>de.bund.bva.isyfact</groupId>
         <artifactId>isy-exception-core</artifactId>
     </dependency>
-    <dependency>
-        <groupId>de.bund.bva.isyfact</groupId>
-        <artifactId>isy-util</artifactId>
-    </dependency>
     ...
 </dependencies>
 ----
 
-`isy-exception-core` enthält abstrakte Exception-Klassen die in Anwendungen zu verwenden sind.
-`isy-util` enthält Hilfsklassen zum Laden von Fehlertexten.
+`isy-exception-core` enthält abstrakte Exception-Klassen und Interfaces die in Anwendungen zu verwenden sind.
 
 [[anlegen-der-exception-klassen]]
 ===== Anlegen der Exception-Klassen
 
 In jeder Anwendung wird für jede Exception-Art (technisch, fachlich) eine eigene Oberklasse angelegt.
-Diese erbt von der entsprechenden Klasse aus `isy-exception-core`. Zum Laden der
- Fehlertexte wird das Interface FehlertextProvider aus derselben Bibliothek verwendet.
-In `isy-util` ist die Implementierung `MessageSourceFehlertextProvider` enthalten.
-Diese unterstützt das Laden von Fehlertexten aus einer Spring-Message-Source.
+Diese erbt von der entsprechenden Klasse aus `isy-exception-core`.
+Zum Laden der Fehlertexte muss das Interface `FehlertextProvider` aus derselben Bibliothek implementiert und `getMessage` überschrieben werden.
+Hier empfiehlt sich der Einsatz von `java.util.ResourceBundle`, den `baseName` zu den Properties anzugeben.
 
 [[fehlerbehandlung-an-der-anwendungsschnittstelle]]
 ===== Fehlerbehandlung an der Anwendungsschnittstelle
