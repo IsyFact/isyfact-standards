@@ -423,7 +423,7 @@ Dieser `FehlertextProvider` ist pro Anwendung zu implementieren und befindet sic
 
 `<organisation>.<domäne>.<anwendung>.common.exception`
 
-Zu implementieren sind die zwei `getMessage()`-Methoden des Interfaces `FehlertextProvider` aus der Bibliothek `isy-exception-core`, siehe <<image-014>>.
+Zu implementieren ist die Methode `getMessage()` des Interfaces `FehlertextProvider` aus der Bibliothek `isy-exception-core`, siehe <<image-014>>.
 
 .Fehlertextprovider
 [id="image-014",reftext="{figure-caption} {counter:figures}"]
