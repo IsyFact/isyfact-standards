@@ -419,8 +419,8 @@ Diese Ober-Exceptions sind als abstrakt zu kennzeichnen.
 Die zugrundeliegenden Designprinzipien sind jedoch identisch umzusetzen.
 So wird für jede Bibliothek eine abstrakte Ober-Exception angelegt.
 Diese sorgt für das Laden der Nachrichten, erbt aber direkt von einer der `java.lang.Exception` bzw. `java.lang.RuntimeException`.
-* Fehlertexte werden in Resource-Bundles ausgelagert und über eine Fehler-ID identifiziert.
-Die Schlüssel der Fehler-IDs werden in einer Konstantenklasse zusammengefasst.
+* Fehlertexte werden in Resource-Bundles ausgelagert und über eine Ausnahme-ID identifiziert.
+Die Schlüssel der Ausnahme-IDs werden in einer Konstantenklasse zusammengefasst.
 * Exceptions werden grundsätzlich nur zur Signalisierung abnormer Ergebnisse bzw. Situationen eingesetzt.
 * Exceptions sind in der Regel zu behandeln und zu loggen.
 Ist es nicht möglich die Exception zu behandeln, muss sie an den Aufrufer weitergegeben werden.
@@ -509,9 +509,9 @@ Als Letztes wird ein Catch-Throwable-Block eingefügt.
 
 Hier wird für die aufgetretene Exception über `ExceptionMapper.createToException()`
 eine neue Transport-Exception erzeugt.
-Zur Ermittlung der Fehler-ID wird eine Klasse AusnahmeIdUtil angelegt.
+Zur Ermittlung der Ausnahme-ID wird eine Klasse AusnahmeIdUtil angelegt.
 Diese implementiert eine statische Methode `getAusnahmeId`, die zu einer übergebenen Exception
-eine passende Fehler-ID ermittelt.
+eine passende Ausnahme-ID ermittelt.
 Vor dem Werfen der so erzeugten Exception über die Schnittstelle wird ein Log-Eintrag erzeugt.
 
 Beim Umwandeln der internen Exceptions in Transport-Exceptions wird der Stack-Trace der internen Exceptions verworfen.
