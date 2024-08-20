@@ -27,21 +27,19 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 /**
- * Diese Klasse erzeugt eine Textausgabe für Objekte, die keine geeignete toString-Methode implementieren.
- *
+ * This class generates a text output for objects that do not implement a suitable toString method.
  */
 public class RecursiveToStringBuilder {
     /**
-     * Maximal Anzahl der java primitivtyp Einträge aus einer Array die in Ausgabe erscheinen wird.
+     * Maximum number of java primitive type entries from an array that will appear in output.
      */
     private static final int PRIMITIVE_ARRAY_MAX_OUTPUT_SIZE = 16;
 
     /**
-     * Rekursive Ausgabe von Objekten.
+     * Recursive output of objects.
      *
-     * @param o
-     *            Das auszugebende Objekt
-     * @return Das ausgegebende Objekt
+     * @param o The object to be output
+     * @return The object to be output
      */
     public static String recursiveToString(final Object o) {
         final StringBuilder buffer = new StringBuilder();
@@ -52,16 +50,12 @@ public class RecursiveToStringBuilder {
     }
 
     /**
-     * Rekursive Ausgabe von Objekten.
+     * Recursive output of objects.
      *
-     * @param prefix
-     *            Das Ausgabe-Präfix
-     * @param o
-     *            Das zu schreibende Objekt
-     * @param buffer
-     *            Der StringBuilder
-     * @param seen
-     *            Rückreferenzen
+     * @param prefix The output prefix
+     * @param o The object to be written
+     * @param buffer The StringBuilder
+     * @param seen Backreferences
      */
     private static void recursiveToString(final StringBuilder prefix, final Object o,
         final StringBuilder buffer, final Collection<Object> seen) {
@@ -100,16 +94,12 @@ public class RecursiveToStringBuilder {
     }
 
     /**
-     * Hinzufügen Stringdarstellung von Array-Objekt.
+     * Add string representation of array object.
      *
-     * @param prefix
-     *            Das Ausgabe-Präfix
-     * @param o
-     *            Das zu schreibende Array-Objekt
-     * @param buffer
-     *            Der StringBuilder
-     * @param seen
-     *            Rückreferenzen
+     * @param prefix The output prefix
+     * @param o The array object to be written
+     * @param buffer The StringBuilder
+     * @param seen references
      */
     private static void appendArray(final StringBuilder prefix, final Object o, final StringBuilder buffer,
         final Collection<Object> seen) {
@@ -149,16 +139,12 @@ public class RecursiveToStringBuilder {
     }
 
     /**
-     * Hinzufügen Stringdarstellung von Iterable-Objekt.
+     * Add string representation of Iterable object.
      *
-     * @param prefix
-     *            Das Ausgabe-Präfix
-     * @param o
-     *            Das zu schreibende Iterable-Objekt
-     * @param buffer
-     *            Der StringBuilder
-     * @param seen
-     *            Rückreferenzen
+     * @param prefix The output prefix
+     * @param o The iterable object to be written
+     * @param buffer The StringBuilder
+     * @param seen references
      */
     private static void appendIterable(final StringBuilder prefix, final Iterable<?> o,
         final StringBuilder buffer, final Collection<Object> seen) {
@@ -177,16 +163,12 @@ public class RecursiveToStringBuilder {
     }
 
     /**
-     * Hinzufügen Stringdarstellung von Map-Objekt.
+     * Add string representation of map object.
      *
-     * @param prefix
-     *            Das Ausgabe-Präfix
-     * @param o
-     *            Das zu schreibende Map-Objekt
-     * @param buffer
-     *            Der StringBuilder
-     * @param seen
-     *            Rückreferenzen
+     * @param prefix The output prefix
+     * @param o The map object to be written
+     * @param buffer The StringBuilder
+     * @param seen references
      */
     private static void appendMap(final StringBuilder prefix, final Map<?, ?> o, final StringBuilder buffer,
         final Collection<Object> seen) {
@@ -211,16 +193,12 @@ public class RecursiveToStringBuilder {
 
 
     /**
-     * Hinzufügen Stringdarstellung des Objekts.
+     * Add string representation of the object.
      *
-     * @param prefix
-     *            Das Ausgabe-Präfix
-     * @param o
-     *            Das zu schreibende Objekt
-     * @param buffer
-     *            Der StringBuilder
-     * @param seen
-     *            Rückreferenzen
+     * @param prefix The output prefix
+     * @param o The object to be written
+     * @param buffer The StringBuilder
+     * @param seen references
      */
     private static void appendGeneric(final StringBuilder prefix, final Object o, final StringBuilder buffer,
         final Collection<Object> seen) {
@@ -230,7 +208,7 @@ public class RecursiveToStringBuilder {
         buffer.append("{");
         buffer.append('\n');
 
-        // Bestimme alle Felder - auch die der vererbendene Klassen
+        // Determine all fields - including those of the inheriting classes
         Field[] fields = bestimmeAlleFelder(o);
 
         for (final Field field : fields) {
@@ -254,11 +232,10 @@ public class RecursiveToStringBuilder {
     }
 
     /**
-     * ermittelt alle Felder eines übergenenen Objekts.
+     * Determines all fields of a superordinate object.
      *
-     * @param o
-     *            Das Objekt
-     * @return Alle Felder.
+     * @param o The object
+     * @return All fields.
      */
     private static Field[] bestimmeAlleFelder(Object o) {
         List<Field> fields = new LinkedList<>();
@@ -273,12 +250,10 @@ public class RecursiveToStringBuilder {
     }
 
     /**
-     * ermittelt ob ein Objekt rekursiv ausgegeben werden soll.
+     * determines whether an object is to be output recursively.
      *
-     * @param o
-     *            Das zu prüfende Objekt
-     * @return <code>true</code> falls das Objekt nit rekursiv ausgegeben werden soll, ansonsten
-     *         <code>false</code>
+     * @param o The object to be checked
+     * @return {@code true} if the object is not to be output recursively, otherwise {@code false}
      */
     private static boolean shouldNotRecurse(final Object o) {
         try {
@@ -299,12 +274,10 @@ public class RecursiveToStringBuilder {
     }
 
     /**
-     * schreibt ein Objekt.
+     * writes an object.
      *
-     * @param o
-     *            Das zu schreibende Objekt
-     * @param buffer
-     *            Der StringBuilder der für die Ausgabe verwendet werden soll
+     * @param o The object to be written
+     * @param buffer The StringBuilder to be used for the output
      */
     private static void objectToString(final Object o, final StringBuilder buffer) {
         buffer.append(o.getClass().getName());
