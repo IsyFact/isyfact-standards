@@ -117,7 +117,7 @@
             <dependency>
                 <groupId>org.springframework.security</groupId>
                 <artifactId>spring-security-bom</artifactId>
-                <version>5.8.13</version>
+                <version>5.8.14</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
