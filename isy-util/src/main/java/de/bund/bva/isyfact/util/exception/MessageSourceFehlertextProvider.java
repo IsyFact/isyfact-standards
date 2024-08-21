@@ -31,6 +31,7 @@ import de.bund.bva.isyfact.util.spring.MessageSourceHolder;
 @Deprecated
 public class MessageSourceFehlertextProvider implements FehlertextProvider {
 
+    @Override
     public String getMessage(String schluessel, String... parameter) {
         return MessageSourceHolder.getMessage(schluessel, parameter);
     }
