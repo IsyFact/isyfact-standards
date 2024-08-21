@@ -1,3 +1,6 @@
+# 3.2.0
+- `IFS-2395`: `MessageSourceHolder` sowie `MessageSourceFehlertextProvider` als deprecated markiert
+
 # 2.4.0
 - `RF-1040`: Scope für Spotbugs-Annotations Abhängigkeit auf provided gesetzt
 

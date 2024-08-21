@@ -3,6 +3,7 @@
 - `IFS-1629`: Standardmechanismus zur Absicherung der Actuator-Endpunkte auf Basis von WebSecurityConfigurerAdapter wurde bereitgestellt. Aktivieren durch das Setzen der Konfigurationsparameter:
     * `isy.ueberwachung.security.username=<username>`
     * `isy.ueberwachung.security.password=<password>`
+- `IFS-2395`: [isy-util] `MessageSourceHolder` sowie `MessageSourceFehlertextProvider` als deprecated markiert
 
 ### Bug Fixes
 
