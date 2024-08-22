@@ -51,14 +51,13 @@ jobs:
     secrets:
       SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
-  Deploy:
+  DeployMavenCentral:
     needs: [QualityGate, DependencyScan]
     uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_deploy_template.yml@v1.5.0
     with:
       version: ${{ github.ref_name }}
       maven-opts: '-P centralRelease'
       deploy-server-id: ossrh
-      deploy-server-url: "https://oss.sonatype.org/service/local/repositories/releases/content"
       sbom: true
       sign: true
     secrets:
