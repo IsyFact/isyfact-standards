@@ -690,8 +690,8 @@ Folgende Aspekte sind bei der Logback-Konfiguration zu beachten:
 
 Alle Anwendungen dürfen ihre Logging-Konfiguration ausschließlich über die Konfigurationsdateien `logback.xml` und `application.properties` vornehmen.
 Die Auslieferung der Logging-Konfiguration geschieht mit den applikationsspezifischen Konfigurationsdateien für die jeweilige Umgebung.
-Die Ablage der Konfigurationsdatei in Sourcen und Kompilaten ist durch das xref:isy-konfiguration:konzept/master.adoc#einleitung[Konzept Konfiguration]) definiert.
-Die Konfigurationsdateien dürfen nicht in einem Archiv (JAR-Bibliothek) abgelegt werden, sondern müssen als einzelne Dateien installiert werden.
+Die Konfigurationsdateien sind Teil der xref:referenzarchitektur:software-technisch/backend/konfiguration.adoc#betriebliche-konfiguration[betrieblichen Konfiguration].
+Sie dürfen nicht in einem Archiv (JAR-Bibliothek) abgelegt werden, sondern müssen als einzelne Dateien installiert werden.
 
 [underline]#Konfiguration des Log-Levels#
 
@@ -1317,25 +1317,6 @@ Entsprechende Vorgaben werden in den Nutzungskonzepten der jeweiligen Bausteine 
 |Beschreibung |Ein IT-System oder ein Batch wird gestartet oder beendet.
 |Logging |Der Vorgang wird durch den `LogApplicationListener` geloggt.
 Dieser muss gemäß <<LogApplicationListener>> konfiguriert sein.
-|Auswertungsszenario a|
-* Systemzustand und -ereignisse überwachen
-|====
-
-[[neueinlesen-eines-geaenderten-konfigurationsparameters]]
-===== Neueinlesen eines geänderten Konfigurationsparameters
-
-include::glossary:miscellaneous:partial$deprecated-abschnitt.adoc[]
-
-[cols="2s,5"]
-|====
-|Beschreibung |Es wird festgestellt, dass sich ein Konfigurationsparameter der betrieblichen Konfiguration oder eine Laufzeitkonfiguration geändert hat.
-Der geänderte Wert wird im laufenden Betrieb übernommen.
-|Logging a|
-Es muss ein Logeintrag erstellt werden, der die Änderung des Konfigurationsparameters dokumentiert:
-
-`log.info("Der Konfigurationsparameter <Parameter> wurde geändert von <Alter Wert> auf <Neuer Wert>", <Name des Parameters>, <Alter Wert>, <Neuer Wert>)`
-
-Dies wird durch die Klasse `ReloadablePropertyKonfiguration` der Bibliothek `isy-konfiguration` bereits umgesetzt, so dass bei deren Verwendung hierfür nichts mehr zu tun ist.
 |Auswertungsszenario a|
 * Systemzustand und -ereignisse überwachen
 |====
