@@ -1,14 +1,12 @@
-name: Build Documentation
+name: Documentation Build
+
 on:
   push:
     tags:
-      - '\d+.\d+.\d+'
+      - '^\\d+\\.\\d+\\.\\d+$'
 
 jobs:
-  TriggerBuild:
-    runs-on: ubuntu-latest
-    env:
-      GH_TOKEN: ${{ secrets.ANTORA_TRIGGER_TOKEN }}
-    steps:
-      - name: Trigger documentation build
-        run: gh workflow run antora_build.yml -R IsyFact/isyfact.github.io
+  DocsBuild:
+    uses:  IsyFact/isy-github-actions-templates/.github/workflows/docs_build_template.yml@v1.4.0
+    secrets:
+      ANTORA_TRIGGER_TOKEN: ${{ secrets.ANTORA_TRIGGER_TOKEN }}
