@@ -1,3 +1,8 @@
+# 3.2.0
+### Features
+
+### Bug Fixes
+
 # 3.1.0
 ### Features
 - `IFS-3992`: [isyfact-standards-doc] Entfernung der Vorlage "Tailoring" Dokument
