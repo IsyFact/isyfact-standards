@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  Dependencies:
+  SnykScan:
     uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_dependency_scan_template.yml@v1.5.0
     with:
       snyk-reference: $GITHUB_REF_NAME
