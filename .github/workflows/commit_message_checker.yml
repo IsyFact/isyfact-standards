@@ -7,4 +7,4 @@ on:
 
 jobs:
   check-commit-message:
-    uses: IsyFact/isy-github-actions-templates/.github/workflows/commit_message_checker_template.yml@v1.4.0
+    uses: IsyFact/isy-github-actions-templates/.github/workflows/commit_message_checker_template.yml@v1.5.0
