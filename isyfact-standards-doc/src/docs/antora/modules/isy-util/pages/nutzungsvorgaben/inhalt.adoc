@@ -15,6 +15,15 @@ Zurzeit besteht sie aus folgender Klasse:
 [[package-exception]]
 === Package exception
 
+:linkaktuell: xref:isy-exception-core:nutzungsvorgaben/inhalt.adoc#fehlertextprovider[FehlertextProvider]
+include::glossary:miscellaneous:partial$deprecated-abschnitt.adoc[]
+
+****
+*Anmerkung zur Deprecation*
+
+Für Fehlermeldungen wird empfohlen, das Interface `de.bund.bva.isyfact.exception.FehlertextProvider` zu implementieren.
+****
+
 In `de.bund.bva.isyfact.util.exception` sind Klassen enthalten, die für die Fehlerbehandlung einzusetzen sind:
 
 * `MessageSourceFehlertextProvider`: Durch diese Klasse wird der `FehlertextProvider` implementiert, der sich im Package `de.bund.bva.isyfact.exception` der xref:glossary:glossary:master.adoc#glossar-bibliothek[Bibliothek] isy-exception-core befindet.
@@ -22,6 +31,15 @@ Der `FehlertextProvider` beschreibt Methoden zum Auslesen von Fehlertexten auf B
 
 [[package-spring]]
 === Package spring
+
+:linkaktuell: https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/context/MessageSource.html[org.springframework.context.MessageSource]
+include::glossary:miscellaneous:partial$deprecated-abschnitt.adoc[]
+
+****
+*Anmerkung zur Deprecation*
+
+Für die Benennung der `MessageSource`-Bean wird empfohlen, einen eindeutiger Namen zu wählen, damit diese via Spring-Boardmittel überschrieben werden kann.
+****
 
 Das Package `de.bund.bva.isyfact.util.spring` enthält Werkzeuge für den Umgang mit Spring:
 

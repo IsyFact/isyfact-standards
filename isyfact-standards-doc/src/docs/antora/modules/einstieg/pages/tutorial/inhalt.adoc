@@ -483,7 +483,7 @@ Zur Realisierung der Fehlerbehandlung und Implementierung von Exceptions muss di
 In jeder Anwendung wird für jede Exception-Art (technisch, fachlich) eine eigene Oberklasse angelegt.
 Diese erbt von der entsprechenden Klasse aus `isy-exception-core`.
 Zum Laden der Fehlertexte muss das Interface `FehlertextProvider` aus derselben Bibliothek implementiert und `getMessage` überschrieben werden.
-Hier empfiehlt sich der Einsatz von `java.util.ResourceBundle`, den `baseName` zu den Properties anzugeben.
+Hier empfiehlt sich der Einsatz eines `java.util.ResourceBundle`, dem als `baseName` der Pfad zu den Properties übergeben wird.
 
 [[fehlerbehandlung-an-der-anwendungsschnittstelle]]
 ===== Fehlerbehandlung an der Anwendungsschnittstelle
