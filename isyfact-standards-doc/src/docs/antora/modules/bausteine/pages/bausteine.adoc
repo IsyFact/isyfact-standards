@@ -53,9 +53,6 @@ Ziel des Bedienkonzepts ist es, dass sich Sachbearbeiter möglichst schnell zwis
 |JPA/Hibernate
 |Der Baustein beschreibt die Umsetzung des Datenzugriffs auf Basis von JPA und dem O/R-Mapper Hibernate.
 
-|icon:ban[title=Deprecation] [.line-through]#Konfiguration#
-|Der Baustein beschreibt typische Arten von Konfiguration und macht Vorgaben für deren Erstellung, Handhabung und Pflege.
-
 |Logging
 |Der Baustein ermöglicht die einheitliche Erstellung und vereinfachte Auswertung von Log-Dateien, Fehlern und Systemzuständen über Komponentengrenzen hinweg.
 
