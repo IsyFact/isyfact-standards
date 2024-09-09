@@ -46,7 +46,7 @@
                         <configuration>
                             <outputDirectory>${project.build.directory}</outputDirectory>
                             <attributes>
-                                <revnumber>IsyFact 3.1.x</revnumber>
+                                <revnumber>IsyFact 3.2.x</revnumber>
                                 <revdate>${maven.build.timestamp}</revdate>
                             </attributes>
                         </configuration>
