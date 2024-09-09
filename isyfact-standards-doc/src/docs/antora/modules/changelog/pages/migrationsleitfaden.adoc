@@ -520,6 +520,12 @@ Die Änderungen der Methodensignaturen sind in den nachfolgenden Tabellen beschr
 
 |===
 
+[[kapitel-persistence]]
+=== Persistence
+In IsyFact 3 werden `DataSourceProperties` von Spring Boot verwendet und lediglich um die Attribute `schemaVersion` und `schemaInvalidVersionAction` erweitert.
+Hierdurch haben sich die Namen der Konfigurationsschlüssel geändert und müssen angepasst werden.
+Details zur Konfiguration sind in den xref:isy-persistence:nutzungsvorgaben/konfiguration.adoc#konfiguration-der-datasource[Nutzungsvorgaben Persistence] zu finden.
+
 [[kapitel-dokumentation]]
 == Dokumentation
 
