@@ -46,7 +46,18 @@ spring.jpa.properties.hibernate.transaction.coordinator_class=jdbc
 
 Als Datasource-Implementierung muss die Implementierung aus `de.bund.bva.isyfact.persistence.datasource.IsyDataSource` genutzt werden.
 Bei der Verwendung von `isy-persistence` wird automatisch eine Bean mit dem Namen `appDataSource` erzeugt.
-Diese prüft die Version des Datenbankschemas (siehe Abschnitt xref:nutzungsvorgaben/versionierung.adoc#pruefen-der-schemaversion[Prüfen der Schema-Version]) und dient als Wrapper für die wirkliche Datasource des Connections-Pools, dessen Konfiguration im nächsten Abschnitt erläutert wird.
+Diese prüft die Version des Datenbankschemas (siehe Abschnitt xref:nutzungsvorgaben/versionierung.adoc#pruefen-der-schemaversion[Prüfen der Schema-Version]) und dient als Wrapper für die eigentliche Spring `DataSource`.
+
+Die Autokonfiguration der IsyFact 3 Version von `isy-persistence` verwendet Spring Boot Meachnismen, um die `DataSource` zu konfigurieren.
+Unter dem Prefix `isy.persistence.datasource` können alle Properties konfiguriert werden, welche in Spring unter dem Prefix `spring.datasource` bekannt sind (vgl. link:https://docs.spring.io/spring-boot/appendix/application-properties/index.html#appendix.application-properties.data[Common Application Properties]).
+Die Konfiguration bietet damit die Flexibilität, Datenbanken verschiedener Anbieter zu nutzen, sofern diese von Spring Boot unterstützt sind.
+
+[WARNING]
+====
+Die Nutzung der isy-persistence AutoConfiguration führt durch das Wrappen der DataSource in einer IsyDataSouce mit der `@Primary` und der `@DependsOnDatabaseInitialization` Annotation zu einer zyklischen Abhängigkeit zusammen mit der `SqlInitializationAutoConfiguration` von Spring Boot (betrifft `SqlDataSourceScriptDatabaseInitializer` Bean).
+
+Dieses Problem kann durch Setzen der Property `spring.sql.init.mode=never` in der `application.properties` gelöst werden.
+====
 
 [[standardmaessig-lazy-loading-verwenden]]
 === Standardmäßig Lazy Loading verwenden
