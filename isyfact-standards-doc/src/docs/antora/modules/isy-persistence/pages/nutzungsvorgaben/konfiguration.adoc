@@ -117,12 +117,10 @@ Einige Anwendungsfälle machen es notwendig, eine zweite Datenbank zu nutzen.
 Das ist beispielsweise notwendig, wenn Daten aus einem Altsystem über die Datenbank für andere Systeme bereitgestellt werden und diese Daten in eine IsyFact-Anwendung über einen Batch importiert werden sollen.
 Der Batch muss dann sowohl auf die Datenbank der IsyFact-Anwendung, als auch auf die Datenbank des Altsystems zugreifen.
 
-Die Anbindung einer zweiten Datenbank erfolgt analog zur Anbindung der primären Datenbank über Spring und die Nutzung über JPA.
+Die Anbindung einer zweiten Datenbank erfolgt analog zur Anbindung der primären Datenbank über Spring und die Nutzung von JPA.
 Dabei erfolgt der Zugriff auf die zweite Datenbank getrennt über einen weiteren Entity Manager und eine weitere Data Source.
 
-[[anbindung-einer-zweiten-datenbank]]
-=== Anbindung einer zweiten Datenbank
-Die Beans für die `EntityManagerFactory` und den `TransactionManager` müssen manuell konfiguriert werden <<listing-datasource1>>.
+Wird eine zweite Datenbank verwendet, müssen die Beans für `EntityManagerFactory` und den `TransactionManager` auch für die primäre Datenbank manuell konfiguriert werden <<listing-datasource1>>.
 Als `DataSource` wird hier die von `isy-persistence` automatisch konfigurierte `appDataSource` verwendet.
 
 .Konfiguration der ersten DataSource
@@ -159,6 +157,7 @@ public class PersistenceConfig {
 ----
 
 Für die zweite Datenbankanbindung wird eine weitere Konfiguration angelegt <<listing-datasource2>>.
+Dafür können die von isy-persistence erweiterten DatabaseProperties verwendet werden, um durch Verpacken der DataSource in einer IsyDataSource die Schema-validierung zu nutzen.
 
 .Konfiguration der zweiten DataSource
 [id="listing-datasource2",reftext="{listing-caption} {counter:listings }"]
@@ -168,22 +167,38 @@ Für die zweite Datenbankanbindung wird eine weitere Konfiguration angelegt <<li
 @EnableJpaRepositories(basePackages = "de.beispiel.zweidatasources.persistencesec", entityManagerFactoryRef = "entityManagerFactorySec", transactionManagerRef = "transactionManagerSec")
 public class Persistence2Config {
 
-    @Autowired
-    private Environment env;
+    @Bean("secondaryDatabaseProperties")
+    @ConfigurationProperties("isy.persistence.datasource2")
+    DatabaseProperties secondaryDatabaseProperties() {
+        return new DatabaseProperties();
+    }
 
-    @Bean
-    public DataSource dataSourceSec() {
-        JdbcDataSource dataSource = new JdbcDataSource();
-        dataSource.setUrl(env.getProperty("datasource.second.url"));
+    @Bean("secondaryDataSource")
+    @ConfigurationProperties(prefix = "isy.persistence.datasource2.config")
+    public DataSource secondaryDataSource(@Qualifier("secondaryDatabaseProperties") DataSourceProperties secondaryDatabaseProperties) {
+        return secondaryDatabaseProperties.initializeDataSourceBuilder().build();
+    }
 
-        return dataSource;
+    @Bean("secondaryAppDataSource")
+    @DependsOnDatabaseInitialization
+    public IsyDataSource secondaryAppDataSource(
+        @Qualifier("secondaryDataSource") DataSource secondaryDataSource,
+        @Qualifier("secondaryDatabaseProperties") DatabaseProperties secondaryDatabaseProperties
+    ) {
+        IsyDataSource isyDataSource = new IsyDataSource();
+        isyDataSource.setSchemaVersion(secondaryDatabaseProperties.getSchemaVersion());
+        isyDataSource.setInvalidSchemaVersionAction(secondaryDatabaseProperties.getSchemaInvalidVersionAction());
+        isyDataSource.setTargetDataSource(secondaryDataSource);
+        return isyDataSource;
     }
 
     @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactorySec(@Qualifier("dataSourceSec") DataSource dataSource) {
+    public LocalContainerEntityManagerFactoryBean entityManagerFactorySec(
+        @Qualifier("secondaryAppDataSource") DataSource secondaryAppDataSource
+    ) {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setPackagesToScan("de.beispiel.zweidatasource.persistencesec");
-        em.setDataSource(dataSource);
+        em.setDataSource(secondaryAppDataSource);
         em.setJpaDialect(new HibernateJpaDialect());
 
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
@@ -196,7 +211,7 @@ public class Persistence2Config {
     }
 
     @Bean
-    public PlatformTransactionManager transactionManagerSec(@Qualifier("entityManagerFactorySecc") EntityManagerFactory entityManagerFactory) {
+    public PlatformTransactionManager transactionManagerSec(@Qualifier("entityManagerFactorySec") EntityManagerFactory entityManagerFactory) {
         JpaTransactionManager transactionManager = new JpaTransactionManager();
         transactionManager.setEntityManagerFactory(entityManagerFactory);
         return transactionManager;
