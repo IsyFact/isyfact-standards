@@ -1,22 +1,26 @@
 package de.bund.bva.isyfact.persistence.autoconfigure;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+
 import java.util.HashMap;
 import java.util.Map;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.UnsatisfiedDependencyException;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.test.context.assertj.AssertableApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Configuration;
 
 import de.bund.bva.isyfact.persistence.datasource.IsyDataSource;
 
-public class IsyPersistenceAutoConfigurationTest {
+class IsyPersistenceAutoConfigurationTest {
 
-    @Test(expected = NoSuchBeanDefinitionException.class)
-    public void testDataSourceUrlPropertyNichtGesetzt() {
+    @Test
+    void testDataSourceUrlPropertyNichtGesetzt() {
         Map<String, Object> properties = new HashMap<>();
 
         properties.put("isy.logging.anwendung.name", "test");
@@ -24,24 +28,71 @@ public class IsyPersistenceAutoConfigurationTest {
         properties.put("isy.logging.anwendung.version", "test");
 
         ConfigurableApplicationContext context = new SpringApplicationBuilder()
-                .sources(TestConfig.class)
-                .properties(properties)
-                .run();
+            .sources(TestConfig.class)
+            .properties(properties)
+            .run();
 
-        context.getBean(IsyDataSource.class);
+        assertThatThrownBy(() -> context.getBean(IsyDataSource.class))
+            .isInstanceOf(NoSuchBeanDefinitionException.class)
+            .hasMessageContaining(
+                "No qualifying bean of type 'de.bund.bva.isyfact.persistence.datasource.IsyDataSource' available"
+            );
     }
 
-    @Test(expected = UnsatisfiedDependencyException.class)
-    public void testPropertiesFehlerhaft() {
+    @Test
+    void testPropertiesFehlerhaft() {
         Map<String, Object> properties = new HashMap<>();
 
         properties.put("isy.persistence.datasource.url", "test");
         properties.put("spring.sql.init.enabled", "false");
 
-        new SpringApplicationBuilder()
+        assertThatThrownBy(() ->
+            new SpringApplicationBuilder()
                 .sources(TestConfig.class)
                 .properties(properties)
-                .run();
+                .run())
+            .isInstanceOf(UnsatisfiedDependencyException.class)
+            .getRootCause()
+            .isInstanceOf(IllegalArgumentException.class)
+            .hasMessageContaining("URL must start with 'jdbc'");
+    }
+
+    @Test
+    void expectCyclicReferenceException() {
+        assertThatThrownBy(() ->
+            new SpringApplicationBuilder()
+                .sources(TestConfig.class)
+                .profiles("h2")
+                .run())
+            .isInstanceOf(UnsatisfiedDependencyException.class)
+            .hasMessageContaining("Is there an unresolvable circular reference?");
+    }
+
+    @Test
+    void validAutoConfiguration() {
+        Map<String, Object> properties = new HashMap<>();
+
+        properties.put("isy.logging.anwendung.name", "test");
+        properties.put("isy.logging.anwendung.typ", "test");
+        properties.put("isy.logging.anwendung.version", "test");
+        properties.put("spring.sql.init.mode", "never");
+
+        AssertableApplicationContext assertableContext = AssertableApplicationContext.get(
+            () -> new SpringApplicationBuilder()
+                .sources(
+                    TestConfig.class,
+                    DataSourceInitializerTest.TestDataSourceInitializationConfig.class
+                )
+                .profiles("h2")
+                .properties(properties)
+                .run()
+        );
+
+        assertThat(assertableContext)
+            .hasNotFailed()
+            .hasSingleBean(IsyDataSource.class)
+            .hasBean("dataSource")
+            .hasBean("appDataSource");
     }
 
     @Configuration
