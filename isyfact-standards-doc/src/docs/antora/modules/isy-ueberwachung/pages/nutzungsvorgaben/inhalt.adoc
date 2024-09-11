@@ -328,14 +328,14 @@ isy.task.tasks.isyHealthTask.fixed-delay=30s
 ===== Absicherung von Endpoints
 
 Der Zugriff auf Endpoints muss mit einer Authentifizierung abgesichert werden.
-Eine Standard-Konfiguration für Spring Security, die alle Endpoints mit HTTP Basic Authentication absichert, wird durch die Klasse `IsyActuatorSecurityAutoConfiguration` bereitgestellt.
+Eine Standardkonfiguration für Spring Security, die alle Endpunkte mit HTTP Basic Authentication absichert, wird durch die Klasse `IsyActuatorSecurityAutoConfiguration` bereitgestellt.
 
-Standardmäßig wird der Zugriff auf Endpoints durch eine HTTP Basic Authentifizierung aktiviert, wenn die *Dependencies*:
+Standardmäßig wird der Zugriff auf Endpunkte durch eine HTTP Basic Authentifizierung aktiviert, wenn die *Dependencies*:
 
 * `org.springframework.security:spring-security-config` und
 * `org.springframework.security:spring-security-web`
 
-im Klassenpfad verfügbar sind und *Benutzername* sowie *Passwort* zum Zugriff auf die Endpoints in der `application.properties` konfiguriert sind (siehe <<listing-endpoint-security-properties>>).
+im Klassenpfad verfügbar sind und *Benutzername* sowie *Passwort* zum Zugriff auf die Endpunkte in der `application.properties` konfiguriert sind (siehe <<listing-endpoint-security-properties>>).
 Ohne Konfiguration von Benutzername und Passwort ist die Absicherung nicht aktiv.
 
 .Konfiguration der Absicherung in `application.properties`
@@ -348,7 +348,7 @@ isy.ueberwachung.security.username=<username>
 isy.ueberwachung.security.password=<password>
 ----
 
-Die Standardabsicherung der Endpoints kann per Konfiguration von der Spring AutoConfiguration ausgeschlossen und überschrieben werden, falls die Anforderungen der Anwendung von der Standardabsicherung abweichen:
+Die Standardabsicherung der Endpunkte kann per Konfiguration von der Spring AutoConfiguration ausgeschlossen und überschrieben werden, falls die Anforderungen der Anwendung von der Standardabsicherung abweichen:
 
 `spring.autoconfigure.exclude=de.bund.bva.isyfact.ueberwachung.autoconfigure.IsyActuatorSecurityAutoConfiguration`
 
