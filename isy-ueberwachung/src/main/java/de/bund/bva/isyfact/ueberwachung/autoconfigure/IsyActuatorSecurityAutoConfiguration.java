@@ -18,13 +18,13 @@ import org.springframework.security.web.SecurityFilterChain;
 import de.bund.bva.isyfact.ueberwachung.config.ActuatorSecurityConfigurationProperties;
 
 /**
- * Configures HttpBasic authentication for actuator endpoints.
+ * Configures Http Basic Authentication for actuator endpoints.
  */
 @Configuration
 @ConditionalOnClass({SecurityFilterChain.class, HttpSecurity.class})
 public class IsyActuatorSecurityAutoConfiguration {
 
-    /** Enpoint role to identify the actuator Enpoint Admin. */
+    /** Endpoint role to identify the Actuator Endpoint Admin. */
     public static final String ENDPOINT_ROLE = "ENDPOINT_ADMIN";
 
     /**
@@ -39,7 +39,7 @@ public class IsyActuatorSecurityAutoConfiguration {
     }
 
     /**
-     * Password encoder for in memory authentication.
+     * Password encoder for in-memory authentication.
      *
      * @return {@link BCryptPasswordEncoder}
      */

@@ -1,6 +1,6 @@
 # 3.2.0
 ### Features
-- `IFS-1629`: Standardmechanismus zur Absicherung der Actuator Endpunkte auf Basis von WebSecurityConfigurerAdapter bereitgestellt. Aktivieren durch setzen der Konfigurationsparameter:
+- `IFS-1629`: Standardmechanismus zur Absicherung der Actuator-Endpunkte auf Basis von WebSecurityConfigurerAdapter wurde bereitgestellt. Aktivieren durch das Setzen der Konfigurationsparameter:
     * `isy.ueberwachung.security.username=<username>`
     * `isy.ueberwachung.security.password=<password>`
 
