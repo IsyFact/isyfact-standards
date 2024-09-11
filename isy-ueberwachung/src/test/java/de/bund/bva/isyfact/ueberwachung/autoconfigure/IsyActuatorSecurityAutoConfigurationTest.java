@@ -12,6 +12,12 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+/**
+ * Tests for {@link IsyActuatorSecurityAutoConfiguration}.
+ * <p>
+ * Tests the behavior of the AutoConfiguration, depending on the property (application.properties)
+ * and dependency (pom.xml) configuration.
+ */
 class IsyActuatorSecurityAutoConfigurationTest {
 
     private final ApplicationContextRunner contextRunner = new ApplicationContextRunner(AnnotationConfigApplicationContext::new)
@@ -20,6 +26,10 @@ class IsyActuatorSecurityAutoConfigurationTest {
             IsyActuatorSecurityAutoConfiguration.class
         ));
 
+    /**
+     * No user configured, so no security should be applied.
+     * (avoids a breaking change in IF3 applications)
+     */
     @Test
     void noUserConfigured() {
         contextRunner.run(context ->
@@ -31,6 +41,9 @@ class IsyActuatorSecurityAutoConfigurationTest {
         );
     }
 
+    /**
+     * User configured, so security should be applied.
+     */
     @Test
     void userWithoutPasswordConfigured() {
         contextRunner
@@ -46,6 +59,9 @@ class IsyActuatorSecurityAutoConfigurationTest {
             );
     }
 
+    /**
+     * Password without user configured. Username must not be empty.
+     */
     @Test
     void passwordWithoutUserConfigured() {
         contextRunner
@@ -62,6 +78,9 @@ class IsyActuatorSecurityAutoConfigurationTest {
             );
     }
 
+    /**
+     * Assuming Spring Security is not on the classpath, so security must not be applied.
+     */
     @Test
     void disabledWithDisabledSecurity() {
         // bean not available
