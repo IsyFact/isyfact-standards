@@ -4,20 +4,22 @@ on:
     branches:
       - master
       - 'release/**'
-    paths:
-      - '**/pom.xml'
+      - feature/IFS-2853_cve_scan_dependency_management
+#    paths:
+#      - '**/pom.xml'
   workflow_dispatch:
 
 jobs:
   SnykScan:
-    uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_dependency_scan_template.yml@v1.5.0
+    uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_dependency_scan_template.yml@feature/IFS-2853_cve_scan_dependency_management
     with:
       snyk-reference: $GITHUB_REF_NAME
       snyk-organization: ${{ vars.SNYK_ORG_ID }}
+      perform-scan: true
     secrets:
       SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
-  ORT:
-    uses: IsyFact/isy-github-actions-templates/.github/workflows/oss_review_toolkit_template.yml@v1.5.0
-    secrets:
-      ANTORA_TRIGGER_TOKEN: ${{ secrets.ANTORA_TRIGGER_TOKEN }}
+#  ORT:
+#    uses: IsyFact/isy-github-actions-templates/.github/workflows/oss_review_toolkit_template.yml@v1.5.0
+#    secrets:
+#      ANTORA_TRIGGER_TOKEN: ${{ secrets.ANTORA_TRIGGER_TOKEN }}
