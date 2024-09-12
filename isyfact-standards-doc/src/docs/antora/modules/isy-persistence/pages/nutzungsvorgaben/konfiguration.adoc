@@ -48,13 +48,13 @@ Als Datasource-Implementierung muss die Implementierung aus `de.bund.bva.isyfact
 Bei der Verwendung von `isy-persistence` wird automatisch eine Bean mit dem Namen `appDataSource` erzeugt.
 Diese prüft die Version des Datenbankschemas (siehe Abschnitt xref:nutzungsvorgaben/versionierung.adoc#pruefen-der-schemaversion[Prüfen der Schema-Version]) und dient als Wrapper für die eigentliche Spring `DataSource`.
 
-Die Autokonfiguration der IsyFact 3 Version von `isy-persistence` verwendet Spring Boot Meachnismen, um die `DataSource` zu konfigurieren.
-Unter dem Prefix `isy.persistence.datasource` können alle Properties konfiguriert werden, welche in Spring unter dem Prefix `spring.datasource` bekannt sind (vgl. link:https://docs.spring.io/spring-boot/appendix/application-properties/index.html#appendix.application-properties.data[Common Application Properties]).
+Die Autokonfiguration der IsyFact 3 Version von `isy-persistence` verwendet Spring Boot Mechanismen, um die `DataSource` zu konfigurieren.
+Unter dem Präfix `isy.persistence.datasource` können alle Properties konfiguriert werden, welche in Spring unter dem Präfix `spring.datasource` bekannt sind (vgl. link:https://docs.spring.io/spring-boot/appendix/application-properties/index.html#appendix.application-properties.data[Common Application Properties]).
 Die Konfiguration bietet damit die Flexibilität, Datenbanken verschiedener Anbieter zu nutzen, sofern diese von Spring Boot unterstützt sind.
 
 [WARNING]
 ====
-Die Nutzung der isy-persistence AutoConfiguration führt durch das Wrappen der DataSource in einer IsyDataSouce mit der `@Primary` und der `@DependsOnDatabaseInitialization` Annotation zu einer zyklischen Abhängigkeit zusammen mit der `SqlInitializationAutoConfiguration` von Spring Boot (betrifft `SqlDataSourceScriptDatabaseInitializer` Bean).
+Die Nutzung der `IsyPersistenceAutoConfiguration` führt durch das Verpacken der DataSource in eine `IsyDataSource` mit der `@Primary`- und `@DependsOnDatabaseInitialization`-Annotation zusammen mit der `SqlInitializationAutoConfiguration` von Spring Boot (betrifft `SqlDataSourceScriptDatabaseInitializer`-Bean) zu einer zyklischen Abhängigkeit.
 
 Dieses Problem kann durch Setzen der Property `spring.sql.init.mode=never` in der `application.properties` gelöst werden.
 ====
@@ -157,7 +157,7 @@ public class PersistenceConfig {
 ----
 
 Für die zweite Datenbankanbindung wird eine weitere Konfiguration angelegt <<listing-datasource2>>.
-Dafür können die von isy-persistence erweiterten DatabaseProperties verwendet werden, um durch Verpacken der DataSource in einer IsyDataSource die Schema-validierung zu nutzen.
+Dafür können die von isy-persistence erweiterten `DatabaseProperties` verwendet werden, um durch das Verpacken der DataSource in eine `IsyDataSource` die Schema-validierung zu nutzen.
 
 .Konfiguration der zweiten DataSource
 [id="listing-datasource2",reftext="{listing-caption} {counter:listings }"]
