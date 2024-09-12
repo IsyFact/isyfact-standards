@@ -51,7 +51,7 @@ class IsyPersistenceAutoConfigurationTest {
     }
 
     @Test
-    void expectCyclicReferenceException() {
+    void testExpectCyclicReferenceException() {
         contextRunner.withUserConfiguration(TestConfig.class)
             .withPropertyValues(
                 "isy.logging.anwendung.name=test",
@@ -77,7 +77,7 @@ class IsyPersistenceAutoConfigurationTest {
     }
 
     @Test
-    void validAutoConfiguration() {
+    void testValidAutoConfiguration() {
         contextRunner.withUserConfiguration(
                 TestConfig.class,
                 DataSourceInitializerTest.TestDataSourceInitializationConfig.class
