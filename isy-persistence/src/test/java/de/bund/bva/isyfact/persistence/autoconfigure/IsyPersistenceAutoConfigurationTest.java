@@ -58,7 +58,7 @@ class IsyPersistenceAutoConfigurationTest {
     }
 
     @Test
-    void expectCyclicReferenceException() {
+    void testExpectCyclicReferenceException() {
         assertThatThrownBy(() ->
             new SpringApplicationBuilder()
                 .sources(TestConfig.class)
@@ -69,7 +69,7 @@ class IsyPersistenceAutoConfigurationTest {
     }
 
     @Test
-    void validAutoConfiguration() {
+    void testValidAutoConfiguration() {
         Map<String, Object> properties = new HashMap<>();
 
         properties.put("isy.logging.anwendung.name", "test");
