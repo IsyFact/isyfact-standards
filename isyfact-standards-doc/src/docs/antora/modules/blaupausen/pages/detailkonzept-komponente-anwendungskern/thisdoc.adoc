@@ -25,7 +25,7 @@ Daher werden im Folgenden Spring-Kenntnisse vorausgesetzt.
 [[ueberblick]]
 == Überblick
 
-Gemäß den Vorgaben der xref:referenzarchitektur-it-system/master.adoc[] basiert die Architektur eines IT-Systems auf der bekannten Drei-Schichten-Architektur.
+Gemäß den Vorgaben der xref:referenzarchitektur:software-technisch/backend.adoc[] basiert die Architektur eines IT-Systems auf der bekannten Drei-Schichten-Architektur.
 Eine dieser Schichten ist die Anwendungskernschicht mit der Komponente Anwendungskern.
 
 Im Anwendungskern werden die fachlichen Funktionen der Anwendung realisiert.

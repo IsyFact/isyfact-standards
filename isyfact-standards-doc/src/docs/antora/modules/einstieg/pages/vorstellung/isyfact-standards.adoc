@@ -57,7 +57,7 @@ Die xref:methodik:vorlagen.adoc#datenflussdiagramm[Vorlage zu Datenflussdiagramm
 Die xref:referenzarchitektur:software-technisch.adoc[software-technische Referenzarchitektur] wird auf Basis der Spezifikation aus der fachlichen Architektur entwickelt.
 Die technischen Entsprechungen für die fachlich motivierte Anwendungslandschaft und die Anwendung sind die technisch motivierten Begriffe der Systemlandschaft und respektive des IT-Systems.
 
-Ein xref:blaupausen:referenzarchitektur-it-system/master.adoc[IT-System] basiert auf einer Drei-Schichten-Architektur und besteht aus den Komponenten, die in <<refarch-technisch,der softwaretechnischen Referenzarchitektur eines IT-Systems>> dargestellt sind.
+Ein xref:referenzarchitektur:software-technisch/backend.adoc[IT-System] basiert auf einer Drei-Schichten-Architektur und besteht aus den Komponenten, die in <<refarch-technisch,der softwaretechnischen Referenzarchitektur eines IT-Systems>> dargestellt sind.
 
 [[refarch-technisch]]
 .Softwaretechnische Referenzarchitektur eines IT-Systems

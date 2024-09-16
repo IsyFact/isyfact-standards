@@ -1,7 +1,0 @@
-= Referenzarchitektur IT-System
-
-include::glossary:licence:partial$licence.adoc[]
-
-include::documentation-guide::partial$content-revised-page.adoc[]
-
-include::inhalt.adoc[tags=inhalt]

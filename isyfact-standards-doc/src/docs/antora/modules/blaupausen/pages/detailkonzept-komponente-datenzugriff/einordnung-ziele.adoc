@@ -4,7 +4,7 @@ include::glossary:licence:partial$licence.adoc[]
 
 include::documentation-guide::partial$content-revised-page.adoc[]
 
-Gemäß den Vorgaben der xref:referenzarchitektur-it-system/master.adoc[] basiert die Architektur eines IT-Systems auf der bekannten Drei-Schichten-Architektur.
+Gemäß den Vorgaben der xref:referenzarchitektur:software-technisch/backend.adoc[] basiert die Architektur eines IT-Systems auf der bekannten Drei-Schichten-Architektur.
 Eine dieser Schichten ist die Persistenzschicht.
 In dieser Schicht ist alle Funktionalität enthalten, die zum Erzeugen, Suchen, Bearbeiten und Löschen von Datensätzen benötigt wird.
 Der Zugriff auf eine relationale Datenbank ist in dieser Schicht vollständig gekapselt.

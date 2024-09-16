@@ -1,6 +1,9 @@
-= Referenzarchitektur IT-System: Inhalt
+= Referenzarchitektur IT-System
 
-// tag::inhalt[]
+include::documentation-guide::partial$licence.adoc[]
+
+include::documentation-guide::partial$content-revised-page.adoc[]
+
 == Technische Architektur
 Die technische Architektur (xref:glossary:glossary:master.adoc#glossar-t-architektur[T-Architektur]) beschreibt die Strukturierung der IsyFact-Plattform in IT-Systeme, den Aufbau einzelner IT-Systeme und die verwendeten übergreifenden technischen Konzepte.
 
@@ -45,7 +48,7 @@ Um diese Komplexität beherrschen zu können, wird das IT-System in Komponenten 
 Damit die gesamte geforderte Funktionalität erreicht wird, müssen die einzelnen Komponenten miteinander kommunizieren und sich kennen.
 Dadurch entsteht ein Komponentengeflecht.
 Für die Verwaltung der Komponenten innerhalb des IT-Systems und deren Kopplung wird ein Framework verwendet.
-Details hierzu werden im xref:detailkonzept-komponente-anwendungskern/master.adoc[Detailkonzept Komponente Anwendungskern] festgelegt.
+Details hierzu werden im xref:blaupausen:detailkonzept-komponente-anwendungskern/master.adoc[Detailkonzept Komponente Anwendungskern] festgelegt.
 Technisch lässt sich ein IT-System in Schichten unterteilen, fachlich in Teilanwendungen.
 Details hierzu werden in Kapitel <<der-anwendungskern>> beschrieben.
 
@@ -94,13 +97,13 @@ Für weitere Informationen zu EHCache sind in der https://www.ehcache.org/docume
 [[der-anwendungskern]]
 === Der Anwendungskern
 
-include::blaupausen:page$detailkonzept-komponente-anwendungskern/inhalt.adoc[tags=anwendungskern-definition]
+include::blaupausen:detailkonzept-komponente-anwendungskern/inhalt.adoc[tags=anwendungskern-definition]
 
 Nicht Teil des Anwendungskerns sind spezielle Dialogabläufe, z.B. dialogspezifische Bearbeitungsverfahren wie die Anwenderführung über Wizards.
 Diese Prozesse, die nur durch einen einzigen Dialog genutzt werden, sind Teil der Schicht Nutzung.
 Der Anwendungskern stellt somit im Wesentlichen allgemein nutzbare xref:glossary:glossary:master.adoc#glossar-service[Services] zur Verfügung.
 
-include::blaupausen:page$detailkonzept-komponente-anwendungskern/inhalt.adoc[tags=fachkomponente-definition]
+include::blaupausen:detailkonzept-komponente-anwendungskern/inhalt.adoc[tags=fachkomponente-definition]
 
 *Komponenten-Framework:* Für querschnittliche Funktionalität innerhalb des Anwendungskerns wird das Spring-Framework genutzt.
 Hauptaufgabe des Frameworks ist es, die Komponenten zu konfigurieren und miteinander bekannt zu machen.
@@ -114,7 +117,7 @@ Für andere fachliche Komponenten des Anwendungskerns ist nicht zu unterscheiden
 Komponenten, die externe Services kapseln, sind im Idealfall von außen nicht von fachlichen Komponenten des Anwendungskerns unterscheidbar.
 Diese Komponenten haben damit zwei Hauptaufgaben: Sie müssen die technischen Aspekte der Kommunikation umsetzen und sie müssen Schnittstellendaten und Exceptions der aufgerufenen Services in die Datenformate der Anwendung transformieren.
 
-Weitere Details können dem xref:detailkonzept-komponente-anwendungskern/master.adoc[Detailkonzept Komponente Anwendungskern] entnommen werden.
+Weitere Details können dem xref:blaupausen:detailkonzept-komponente-anwendungskern/master.adoc[Detailkonzept Komponente Anwendungskern] entnommen werden.
 
 [[datenzugriff]]
 === Datenzugriff
@@ -168,7 +171,7 @@ Die Batch-Schritte haben eine genormte Schnittstelle für Aufruf und Rückgabewe
 Sie sind in der Regel restart-fähig.
 Es gibt einen Batch-Rahmen, der dies unterstützt.
 
-Weiterführende technische Details zum Batch sind im xref:detailkonzept-komponente-batch/master.adoc[Detailkonzept Komponente Batch] enthalten.
+Weiterführende technische Details zum Batch sind im xref:blaupausen:detailkonzept-komponente-batch/master.adoc[Detailkonzept Komponente Batch] enthalten.
 
 [[servicezugriffe]]
 === Servicezugriffe
@@ -194,7 +197,7 @@ Dies liegt darin begründet, dass die Komponente Service-Logik die Funktionalit�
 Die Kernfunktionalität des Services ist also im Anwendungskern implementiert.
 Die Schnittstelle zwischen den Komponenten „Service“ und „Anwendungskern“ ist daher eine interne Schnittstelle.
 
-Weiterführende technische Details zu Services sind im xref:detailkonzept-komponente-service/master.adoc[Detailkonzept Komponente Service] beschrieben.
+Weiterführende technische Details zu Services sind im xref:blaupausen:detailkonzept-komponente-service/master.adoc[Detailkonzept Komponente Service] beschrieben.
 
 
 [[unterstuetzung-technischer-funktionalitaeten]]
@@ -203,5 +206,3 @@ Weiterführende technische Details zu Services sind im xref:detailkonzept-kompon
 Neben Services, Batch, Anwendungskern und Persistenzschicht benötigt ein IT-System mehrere querschnittliche Funktionalitäten.
 Diese querschnittlichen Funktionalitäten sind in jeweils eigenen Dokumenten beschrieben.
 Eine Übersicht dazu liefern die Beschreibungen der Bausteine der xref:einstieg:vorstellung/isyfact-standards.adoc#bausteine-der-isyfact-standards[IsyFact-Standard] sowie der xref:einstieg:vorstellung/isyfact-erweiterungen.adoc#bausteine-der-isyfact-erweiterungen[IsyFact-Erweiterungen].
-
-// end::inhalt[]

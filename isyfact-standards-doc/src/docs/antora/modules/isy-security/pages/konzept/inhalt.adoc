@@ -4,7 +4,7 @@
 [[sicherheitsarchitektur-eines-it-systems]]
 == Sicherheitsarchitektur eines IT-Systems
 
-Der Baustein Security bildet eine Komponente des Querschnitts der xref:blaupausen:referenzarchitektur-it-system/master.adoc[].
+Der Baustein Security bildet eine Komponente des Querschnitts der xref:referenzarchitektur:software-technisch/backend.adoc[].
 Er ist von jedem IT-System zur Autorisierung von Zugriffen und Vorgängen zu verwenden.
 
 Die Mechanismen zur Absicherung IsyFact-konformer IT-Systeme haben zum Ziel, die Autorisierung von Zugriffen _systematisch_, _einheitlich_ und _einfach_ umzusetzen.

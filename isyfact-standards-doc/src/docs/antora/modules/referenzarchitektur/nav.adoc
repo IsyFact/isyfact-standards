@@ -3,7 +3,7 @@
 ** xref:software-technisch.adoc[software-technisch]
 *** xref:software-technisch/it-system.adoc[]
 **** xref:software-technisch/it-system-zerlegung.adoc[]
-**** xref:blaupausen:referenzarchitektur-it-system/master.adoc[Backend]
+**** xref:software-technisch/backend.adoc[Backend]
 ***** xref:blaupausen:detailkonzept-komponente-service/master.adoc[Service]
 ***** xref:blaupausen:detailkonzept-komponente-anwendungskern/master.adoc[Anwendungskern]
 ***** xref:blaupausen:detailkonzept-komponente-datenzugriff/einordnung-ziele.adoc[Datenzugriff]

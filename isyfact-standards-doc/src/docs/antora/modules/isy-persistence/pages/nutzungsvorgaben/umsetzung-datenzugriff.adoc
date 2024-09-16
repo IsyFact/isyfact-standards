@@ -53,10 +53,10 @@ Der Zugriff auf die Datenbank aus dem xref:glossary:glossary:master.adoc#glossar
 Die Repositories werden als Spring-Beans in den Anwendungskern injiziert.
 Für jede Entität wird ein entsprechendes Repository als Interface angelegt.
 
-Die Repositories werden im Package der Fachkomponente abgelegt, welche die Datenhoheit über die Tabelle(n) des Repositories besitzt (zum Thema Datenhoheit siehe xref:blaupausen:referenzarchitektur-it-system/master.adoc#datenzugriff[Referenzarchitektur IT-System]).
+Die Repositories werden im Package der Fachkomponente abgelegt, welche die Datenhoheit über die Tabelle(n) des Repositories besitzt (zum Thema Datenhoheit siehe xref:referenzarchitektur:software-technisch/backend.adoc#datenzugriff[Referenzarchitektur IT-System]).
 Die Repositories werden nur von Klassen der Fachkomponente mit Datenhoheit aufgerufen.
 
-Gemäß der xref:blaupausen:referenzarchitektur-it-system/master.adoc#datenzugriff[Referenzarchitektur] dürfen Entitäten nur von der Fachkomponente im Anwendungskern verändert werden, welche zur Fachkomponente im Datenzugriff gehört.
+Gemäß der xref:referenzarchitektur:software-technisch/backend.adoc#datenzugriff[Referenzarchitektur] dürfen Entitäten nur von der Fachkomponente im Anwendungskern verändert werden, welche zur Fachkomponente im Datenzugriff gehört.
 Der Anwendungskern darf für andere Fachkomponenten nur Geschäftsobjekte an seiner Fachkomponentenschnittstelle anbieten.
 
 Für ein konkretes DAO ist ein eigenes Interface von der Basisschnittstelle `CrudRepository` abzuleiten.
