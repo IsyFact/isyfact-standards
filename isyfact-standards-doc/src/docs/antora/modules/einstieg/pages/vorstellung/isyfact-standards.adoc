@@ -61,7 +61,7 @@ Ein xref:referenzarchitektur:software-technisch/backend.adoc[IT-System] basiert 
 
 [[refarch-technisch]]
 .Softwaretechnische Referenzarchitektur eines IT-Systems
-image::blaupausen:referenzarchitektur-it-system/architektur-it-system.dn.svg[]
+image::referenzarchitektur:software-technisch/backend/architektur-backend.dn.svg[]
 
 Die Abbildung der fachlichen Architektur wird vor allem durch die Fachkomponenten sichtbar.
 Jede Fachkomponente besitzt, soweit sinnvoll, eine Entsprechung in jeder Komponente des IT-Systems.

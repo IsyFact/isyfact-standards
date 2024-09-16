@@ -224,7 +224,7 @@ Das Thema umfasst die Nutzung des Anwendungskerns im Rahmen der Batch-Verarbeitu
 
 .Referenzarchitektur eines IT-Systems
 [id="image-RAIT",reftext="{figure-caption} {counter:figures}"]
-image::blaupausen:referenzarchitektur-it-system/architektur-it-system.dn.svg[]
+image::referenzarchitektur:software-technisch/backend/architektur-backend.dn.svg[]
 
 [[batch-verarbeitung]]
 === Batch-Verarbeitung

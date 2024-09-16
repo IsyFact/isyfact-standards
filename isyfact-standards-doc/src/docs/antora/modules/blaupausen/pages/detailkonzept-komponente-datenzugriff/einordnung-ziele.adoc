@@ -14,7 +14,7 @@ In <<referenzarchitekur-it-system-datenzugriff,der folgenden Abbildung>> ist die
 
 [[referenzarchitekur-it-system-datenzugriff]]
 .Referenzarchitektur eines IT-Systems
-image::blaupausen:referenzarchitektur-it-system/architektur-it-system-datenzugriff.dn.svg[]
+image::referenzarchitektur:software-technisch/backend/architektur-it-system-datenzugriff.dn.svg[]
 
 Das Detailkonzept Komponente Datenzugriff beschreibt die Vorgaben zur Umsetzung einer solchen Persistenzschicht im Detail.
 Die Implementierung der Zugriffsschicht wird durch die Verwendung eines standardisierten Frameworks erleichtert.

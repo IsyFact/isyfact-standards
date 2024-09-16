@@ -37,7 +37,7 @@ In folgender Abbildung ist die <<referenzarchitektur-it-system>> grafisch darges
 
 [[referenzarchitektur-it-system]]
 .Referenzarchitektur eines IT-Systems
-image::blaupausen:referenzarchitektur-it-system/architektur-it-system-awk.dn.svg[]
+image::referenzarchitektur:software-technisch/backend/architektur-it-system-awk.dn.svg[]
 
 In diesem Dokument werden die Vorgaben zum Bau der Komponente Anwendungskern im Detail beschrieben.
 Als zentrales Framework für die Implementierung des Anwendungskerns wird das Spring-Framework verwendet.

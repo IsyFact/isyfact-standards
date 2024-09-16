@@ -15,7 +15,7 @@ Diese drei Aspekte werden im Folgenden im Detail beschrieben.
 
 [[image-bestandteile-anwendungskern]]
 .Bestandteile des Anwendungskerns
-image::blaupausen:detailkonzept-anwendungskern/IFBestAWK.png[]
+image::referenzarchitektur:software-technisch/backend/anwendungskern.dn.svg[]
 
 // end::anwendungskern-definition[]
 
@@ -113,21 +113,29 @@ image::blaupausen:detailkonzept-anwendungskern/aufbau_fachkomponente_awk.dn.svg[
 [[das-anwendungskern-framework]]
 === Anwendungskern-Framework
 
+// tag::awk-framework-definition[]
+
 Für querschnittliche Funktionalität innerhalb des Anwendungskerns wird das Spring-Framework genutzt.
 Hauptaufgabe des Frameworks ist es, die Komponenten zu konfigurieren und miteinander bekanntzumachen.
 Dadurch wird die Trennung zwischen Fachlichkeit und Technik verbessert.
 Beispiel für querschnittliche Funktionalität ist die deklarative Steuerung von Transaktionen.
+
+// end::awk-framework-definition[]
 
 Die Vorgaben zur Nutzung und Konfiguration des Spring-Frameworks werden in Kapitel <<verwendung-des-spring-frameworks>> beschrieben.
 
 [[externe-services]]
 === Externe Services
 
+// tag::externer-service-definition[]
+
 Wenn der Anwendungskern fachliche Services benötigt, die von anderen IT-Systemen innerhalb der Plattform angeboten werden, so werden diese Services als Komponente im Anwendungskern abgebildet.
 Dadurch ist die Funktionalität sauber gekapselt, was die Wartbarkeit erhöht: Wenn der externe Service ausgetauscht werden soll, ist keine Änderung der gesamten Anwendung notwendig – es ist lediglich eine interne Änderung der externen Service-Komponente notwendig.
 Für andere fachliche Komponenten des Anwendungskerns ist nicht zu unterscheiden, ob es sich beim Aufruf einer Komponentenschnittstelle um eine in dieser Komponente implementierte Funktion oder um einen Serviceaufruf handelt.
 Komponenten, die externe Services kapseln, sind im Idealfall von außen nicht von fachlichen Komponenten des Anwendungskerns unterscheidbar.
 Neben der technischen Kommunikation erfolgt durch diese Komponenten auch die Abbildung von Schnittstellendaten und Exceptions auf die Daten der Anwendung.
+
+// end::externer-service-definition[]
 
 [[austausch-von-geschaeftsobjekten]]
 === Austausch von Geschäftsobjekten
@@ -139,7 +147,7 @@ In der xref:referenzarchitektur:index.adoc[] wurde bereits beschrieben, dass zur
 Das Ziel ist es, eine Durchmischung von Technologien zu verhindern, so darf z. B. außerhalb des Datenzugriffs kein SQL formuliert werden.
 
 *Fachliche Sicht:* Die fachliche Sicht beschreibt eine Teilaufgabe, z. B. Meldung, Auskunft oder Fristenkontrolle.
-Innerhalb dieser Teilaufgabe wird der Anwendungskern über Services oder Batches angesprochen, der wiederum über die Datenzugriffsschicht mit der Datenbank kommunizieren muss.
+Innerhalb dieser Teilaufgabe wird der Anwendungskern über Services oder Batches angesprochen, der wiederum über die Persistenzschicht mit der Datenbank kommunizieren muss.
 Daher zerlegt die fachliche Sicht das IT-System in fachliche Säulen.
 Diese fachlichen Säulen werden im folgenden Teilanwendungen genannt.
 Das Ziel ist die fachliche Trennung und Minimierung inhaltlicher Abhängigkeiten.
@@ -173,7 +181,7 @@ Neben seiner Kern-Funktionalität der Verwaltung, Konfiguration und aspektorient
 
 Die IsyFact verwendet ausgewählte Funktionalitäten des Spring-Frameworks in der Anwendungsentwicklung:
 
-* Konfiguration der Datenzugriffsschicht: beschrieben im xref:isy-persistence:nutzungsvorgaben/umsetzung-datenzugriff.adoc[Nutzungskonzept des Bausteins JPA/Hibernate],
+* Konfiguration der Persistenzschicht: beschrieben im xref:isy-persistence:nutzungsvorgaben/umsetzung-datenzugriff.adoc[Nutzungskonzept des Bausteins JPA/Hibernate],
 * Konfiguration des Logging über Spring: beschrieben in den xref:isy-logging:nutzungsvorgaben/master.adoc[],
 * Bereitstellung von Metriken zur Überwachung: beschrieben im xref:isy-ueberwachung:konzept/master.adoc[].
 
