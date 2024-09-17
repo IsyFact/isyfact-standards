@@ -7,12 +7,11 @@ include::documentation-guide::partial$content-revised-page.adoc[]
 include::glossary::terms-definitions.adoc[tag=backend-definition]
 
 Backends sind technisch gleichartig aufgebaut.
-
 Sie setzen auf eine https://de.wikipedia.org/wiki/Schichtenarchitektur#Drei-Schichten-Architektur[Drei-Schichten-Architektur], ergänzt um eine "Säule" querschnittlicher Funktionalität.
 
 [[image-RAITSys]]
 .Systemarchitektur eines Backends
-image::software-technisch/backend/architektur-backend.dn.svg[]
+image::software-technisch/backend/architektur-backend.dn.svg[width=80%, align=center]
 
 [[uebergreifende-technische-konzeption]]
 == Übergreifende Aspekte
@@ -22,23 +21,21 @@ Trotzdem gibt es Aspekte, die übergreifend geregelt sind, damit die Schichten z
 
 === Strukturierung des Backends
 
-Backends können, je nach Umfang der an sie gestellten Anforderungen, sehr komplex werden.
-Um diese Komplexität beherrschen zu können, wird ein Backend in _Fachkomponenten_ zerlegt, die jeweils genau festgelegte Teilfunktionalitäten erfüllen.
+Die Schichten des Backends sind maßgeblich in _Fachkomponenten_ strukturiert.
+Die Fachkomponenten entsprechen den durch das Backend umgesetzten Anwendungskomponenten.
+Neben den Fachkomponenten enthält jede Schicht ein Framework, das maßgeblich zur Umsetzung ihrer Kernaufgabe beiträgt.
 
 Backends setzen für die Verwaltung, xref:software-technisch/backend/konfiguration.adoc[] und Kopplung der Fachkomponenten nach dem Prinzip der _Dependency Injection_ Spring Boot und weitere Bestandteile von Spring ein.
 Details hierzu werden über die xref:blaupausen:detailkonzept-komponente-anwendungskern/master.adoc#verwendung-des-spring-frameworks[Vorgaben zur Verwendung des Spring-Frameworks] festgelegt.
 
-Technisch lässt sich ein IT-System in Schichten unterteilen, fachlich in Teilanwendungen.
-Details hierzu werden im xref:blaupausen:detailkonzept-komponente-anwendungskern/master.adoc[Anwendungskern] beschrieben.
-
 === Transaktionssteuerung
 
-Veränderungen am Datenbestand gehören zur Kernaufgabe von Informationssystemen.
-Diese Veränderungen können jedoch nicht beliebig erfolgen – sie müssen gewisse Eigenschaften haben, damit die Datenbestände nicht an Qualität verlieren: Sie müssen atomar, konsistent, isoliert und dauerhaft (https://de.wikipedia.org/wiki/ACID[ACID]) sein.
-Dazu werden die Veränderungen zu einer logischen Einheit zusammengefasst: einer Transaktion.
+Die Veränderung des Datenbestands gehört zur Kernaufgabe eines Backends.
+Hierzu setzen Backends Transaktionen ein.
+Transaktionen müssen die https://de.wikipedia.org/wiki/ACID[ACID-Eigenschaften] erfüllen, damit die Datenbestände nicht an Qualität verlieren: Sie müssen atomar, konsistent, isoliert und dauerhaft sein.
 
-In Backends ist der xref:blaupausen:detailkonzept-komponente-anwendungskern/master.adoc[Anwendungskern] für die Transaktionssteuerung zuständig.
-Ausnahmen hiervon sind in den Beschreibungen der Schichten beschrieben.
+In Backends ist der xref:blaupausen:detailkonzept-komponente-anwendungskern/master.adoc#transaktionssteuerung[Anwendungskern] für die Transaktionssteuerung zuständig.
+In Ausnahmefällen kann die Transaktionssteuerung auch über die xref:blaupausen:detailkonzept-komponente-service/master.adoc#transaktionssteuerung[Serviceschicht] erfolgen.
 
 === Caching
 
@@ -54,32 +51,48 @@ Der xref:einstieg:produktkatalog/technologiestackJavaSpring.adoc#Entwicklung[Pro
 Weitere Informationen zu EHCache sind in der https://www.ehcache.org/documentation/[offiziellen Dokumentation] einzusehen.
 
 
-[[der-anwendungskern]]
+[[anwendungskern]]
 == Anwendungskern
 
 include::blaupausen:detailkonzept-komponente-anwendungskern/inhalt.adoc[tags=anwendungskern-definition]
 
+[[awk-fachkomponenten]]
 === Fachkomponenten
 
 include::blaupausen:detailkonzept-komponente-anwendungskern/inhalt.adoc[tags=fachkomponente-definition]
 
-=== Komponenten-Framework
+[[awk-framework]]
+=== Anwendungskern-Framework
 
 include::blaupausen:detailkonzept-komponente-anwendungskern/inhalt.adoc[tags=awk-framework-definition]
 
+[[awk-externe-services]]
 === Externe Services
 
 include::blaupausen:detailkonzept-komponente-anwendungskern/inhalt.adoc[tags=externer-service-definition]
 
-Weitere Details können dem xref:blaupausen:detailkonzept-komponente-anwendungskern/master.adoc[Detailkonzept Komponente Anwendungskern] entnommen werden.
+[[awk-umsetzung]]
+=== Umsetzung
+
+Zur Konzeption und Umsetzung des Anwendungskerns definiert die Referenzarchitektur xref:blaupausen:detailkonzept-komponente-anwendungskern/master.adoc[weitere Vorgaben].
 
 [[persistenz]]
 == Persistenz
 
-In der Persistenzschicht sind die Fachkomponenten ebenfalls gemäß den Komponenten aus der fachlichen Architektur strukturiert.
-Die Komponenten des Anwendungskerns besitzen die Datenhoheit auf die Entitäten, die ihnen eindeutig zuzuordnen sind.
-Diese Entitäten stammen aus den korrespondierenden Komponenten in der Persistenzschicht.
-Nur die korrespondierende Anwendungskern-Komponente darf Änderungen an den entsprechenden persistenten Entitäten vornehmen.
+Die Persistenzschicht umfasst den Teil eines Backends, der den Datenbestand verwaltet.
+Sie kommuniziert hierzu in der Regel mit einer Datenbank und, mittels persistenten Entitäten, mit dem Anwendungskern.
+Der Aufbau der Persistenzschicht sowie ihre Kommunikation mit anderen Schichten ist in <<systemarchitektur-persistenz,folgender Grafik>> dargestellt.
+
+[[systemarchitektur-persistenz]]
+.Einbettung der Persistenzschicht in die Systemarchitektur
+image::software-technisch/backend/persistenz.dn.svg[width=80%,align=center]
+
+[[persistenz-fachkomponenten]]
+=== Fachkomponenten
+
+Die Fachkomponenten der Persistenzschicht entsprechen vom fachlichen Schnitt her denen des Anwendungskerns.
+Die Fachkomponenten des Anwendungskerns besitzen wiederum die Datenhoheit auf ihre "Entsprechungen" in der Persistenzschicht.
+Nur die Fachkomponente mit Datenhoheit darf Änderungen an den jeweiligen persistenten Entitäten vornehmen.
 
 .icon:university[title=Architekturregel] Persistente Entitäten im Anwendungskern
 ****
@@ -87,39 +100,71 @@ Persistente Entitäten dürfen nicht über den Anwendungskern hinaus herausgegeb
 ****
 
 Andernfalls ist nicht sichergestellt, dass andere Komponenten keine Änderungen an den persistenten Entitäten vornehmen.
-Für den Transfer über Komponentengrenzen hinweg - oder aus dem Anwendungskern hinaus - müssen alle Komponenten des Anwendungskerns die ihnen zugeordneten persistenten Entitäten auf Geschäftsobjekte abbilden.
-Wenn Entitäten von mehreren Komponenten genutzt werden und keiner einzelnen Komponente zugeordnet werden können, sollten sie in einem eigenen querschnittlichen Package abgelegt werden.
+Für den Transfer über Komponentengrenzen hinweg - oder aus dem Anwendungskern hinaus - müssen alle Komponenten des Anwendungskerns persistente Entitäten auf Geschäftsobjekte abbilden.
+
+[[persistenz-framework]]
+=== Persistenz-Framework
+
+Die Persistenzschicht kommuniziert in Richtung Datenbank auf Basis der Standards JDBC und SQL.
+In Richtung des Anwendungskerns stellt sie persistente Entitäten mittels Spring Data JPA bereit.
+Zur Umsetzung des objekt-relationalen Mapping verwendet die Persistenzschicht das Produkt Hibernate.
+
+[[persistenz-umsetzung]]
+=== Umsetzung
+
+Zur Konzeption der Persistenzschicht definiert die Referenzarchitektur xref:blaupausen:detailkonzept-komponente-datenzugriff/einordnung-ziele.adoc[weitere Vorgaben].
+Die Umsetzung geschieht mithilfe des xref:isy-persistence:konzept.adoc[Bausteins JPA/Hibernate].
 
 [[service]]
 == Service
 
 Backends können Funktionen des Anwendungskerns über die Serviceschicht anderen IT-Systemen zur Verfügung stellen.
-Der Aufbau der Serviceschicht sowie ihre Kommunikation mit anderen Schichten ist in <<image-TeileServ,folgender Grafik>> dargestellt.
+Der Aufbau der Serviceschicht sowie ihre Kommunikation mit anderen Schichten ist in <<systemarchitektur-service,folgender Grafik>> dargestellt.
 
-[[image-TeileServ]]
+[[systemarchitektur-service]]
 .Einbettung der Serviceschicht in die Systemarchitektur
-image::software-technisch/backend/service.dn.svg[]
+image::software-technisch/backend/service.dn.svg[width=80%,align=center]
 
-Die Serviceschicht besteht aus zwei Teilen: dem Service-Framework und der Servicelogik.
+[[service-fachkomponenten]]
+=== Fachkomponenten
 
-Das *Service-Framework* bezeichnet die konkrete Technologie, mit der die Services des Anwendungskerns zur Verfügung gestellt werden.
+Die Servicelogik beinhaltet, wie im Anwendungskern auch, Fachkomponenten.
+Diese Fachkomponenten setzen im wesentlichen Service-Schnittstellen mit den folgenden Aufgaben um:
 
-Die *Servicelogik* gliedert sich, wie der Anwendungskern, in Fachkomponenten.
-Die Fachkomponenten setzen im wesentlichen Service-Schnittstellen um.
-Zu ihren Aufgaben gehört:
+* Autorisierung und Tracing eingehender Anfragen,
+* Validierung der Transportobjekte,
+* Umwandlung von Transportobjekten in Geschäftsobjekte und umgekehrt,
+* fachliche Fehlerbehandlung.
 
-* Validierung von Transportobjekten,
-* Transformation von Transportobjekten in Geschäftsobjekte und umgekehrt,
-* Fehlerbehandlung,
-* Autorisierung,
-* Logging.
+[[service-framework]]
+=== Service-Framework
 
-Weiterführende technische Details zu Services sind im xref:blaupausen:detailkonzept-komponente-service/master.adoc[Detailkonzept Komponente Service] beschrieben.
+Service-Schnittstellen von Backends sind Webservices, die dem REST-Paradigma folgen.
+Technologisch erfolgt die Umsetzung als REST-Service mit Spring Web MVC bzw. Spring WebClient.
 
+[[service-umsetzung]]
+=== Umsetzung
+
+Zur Konzeption von Services definiert die Referenzarchitektur xref:blaupausen:detailkonzept-komponente-service/master.adoc[weitere Vorgaben].
+Die Umsetzung von Services geschieht mithilfe des xref:isy-service-rest:konzept/master.adoc[Bausteins REST].
 
 [[querschnitt]]
 == Querschnitt
 
-Neben dem fachspezifischen Teil enthält ein Backend ebenso auch querschnittliche Funktionalitäten.
-Diese querschnittlichen Funktionalitäten sind in jeweils eigenen Bausteinen beschrieben.
-Eine Übersicht dazu liefern die Beschreibungen der Bausteine der xref:einstieg:vorstellung/isyfact-standards.adoc#bausteine-der-isyfact-standards[IsyFact-Standards] sowie der xref:einstieg:vorstellung/isyfact-erweiterungen.adoc#bausteine-der-isyfact-erweiterungen[IsyFact-Erweiterungen].
+Neben der Geschäftslogik müssen Backends ebenso querschnittliche Funktionalität bereitstellen.
+Die IsyFact hilft hierbei durch eigens entwickelte xref:bausteine:bausteine.adoc[] sowie durch den Einsatz von Standard-Produkten aus dem xref:einstieg:produktkatalog/technologiestackJavaSpring.adoc[].
+
+Fehlerbehandlung::
+Vorgaben und Umsetzung mithilfe des xref:isy-exception-core:konzept/master.adoc[Bausteins Fehlerbehandlung]
+
+Konfiguration::
+xref:software-technisch/backend/konfiguration.adoc#konfiguration-arten[Vorgaben] aus der Referenzarchitektur, xref:software-technisch/backend/konfiguration.adoc#umsetzung[Umsetzung] mithilfe von Spring
+
+Logging & Tracing::
+Vorgaben und Umsetzung mithilfe des xref:isy-logging:konzept/master.adoc[Bausteins Logging]
+
+Autorisierung::
+Vorgaben und Umsetzung mithilfe des xref:isy-security-doc::konzept/master.adoc[Bausteins Security]
+
+Monitoring::
+Vorgaben und Umsetzung mithilfe des xref:isy-ueberwachung:konzept/master.adoc[Bausteins Überwachung]

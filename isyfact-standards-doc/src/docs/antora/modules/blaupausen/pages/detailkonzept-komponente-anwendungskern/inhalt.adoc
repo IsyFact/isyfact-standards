@@ -6,16 +6,13 @@
 
 // tag::anwendungskern-definition[]
 
-Der Anwendungskern ist der zentrale Baustein eines IT-Systems.
-Hier werden die fachlichen Funktionen der Anwendung realisiert.
+Der xref:glossary::terms-definitions.adoc#glossar-anwendungskern[Anwendungskern] ist der zentrale Bestandteil eines Backends.
+Hier werden die fachlichen Funktionen der zugehörigen xref:glossary::terms-definitions.adoc#glossar-anwendung[Anwendung] realisiert.
+Der Aufbau des Anwendungskerns sowie seine Kommunikation mit anderen Schichten ist in <<systemarchitektur-anwendungskern,folgender Grafik>> dargestellt.
 
-Der <<image-bestandteile-anwendungskern,Anwendungskern>> besteht aus zwei wesentlichen Bestandteilen: den Fachkomponenten und dem Anwendungskern-Framework.
-Weiterhin ist dort dargestellt, dass externe Services als Komponente in den Anwendungskern integriert sind.
-Diese drei Aspekte werden im Folgenden im Detail beschrieben.
-
-[[image-bestandteile-anwendungskern]]
-.Bestandteile des Anwendungskerns
-image::referenzarchitektur:software-technisch/backend/anwendungskern.dn.svg[]
+[[systemarchitektur-anwendungskern]]
+.Einbettung des Anwendungskerns in die Systemarchitektur
+image::referenzarchitektur:software-technisch/backend/anwendungskern.dn.svg[width=80%,align=center]
 
 // end::anwendungskern-definition[]
 
@@ -27,8 +24,6 @@ image::referenzarchitektur:software-technisch/backend/anwendungskern.dn.svg[]
 *Fachkomponenten* setzen die Anwendungskomponenten aus der fachlichen Architektur um.
 Sie bilden damit den Schnitt der Anwendungskomponenten in die technische Architektur ab.
 Fachkomponenten beinhalten möglichst wenig Technik und trennen so Anwendungslogik von Technologie.
-
-Eine allgemeine Anwendung enthält die Fachkomponenten _Erstellung_, _Teilnahme_ und _Verwaltung_.
 
 TIP: Fachkomponenten sind der Schlüssel für gute Wartbarkeit und einfache Weiterentwickelbarkeit des Anwendungskerns.
 Die Trennung von Anwendungslogik und Technik ist deshalb auch in anderen Schichten der technischen Architektur vorgesehen, z. B. in der Persistenz.
@@ -129,11 +124,10 @@ Die Vorgaben zur Nutzung und Konfiguration des Spring-Frameworks werden in Kapit
 
 // tag::externer-service-definition[]
 
-Wenn der Anwendungskern fachliche Services benötigt, die von anderen IT-Systemen innerhalb der Plattform angeboten werden, so werden diese Services als Komponente im Anwendungskern abgebildet.
-Dadurch ist die Funktionalität sauber gekapselt, was die Wartbarkeit erhöht: Wenn der externe Service ausgetauscht werden soll, ist keine Änderung der gesamten Anwendung notwendig – es ist lediglich eine interne Änderung der externen Service-Komponente notwendig.
-Für andere fachliche Komponenten des Anwendungskerns ist nicht zu unterscheiden, ob es sich beim Aufruf einer Komponentenschnittstelle um eine in dieser Komponente implementierte Funktion oder um einen Serviceaufruf handelt.
+Wenn der Anwendungskern fachliche Services benötigt, die von anderen IT-Systemen innerhalb der xref:glossary::terms-definitions.adoc#glossar-systemlandschaft[Systemlandschaft] angeboten werden, so werden diese Services als Komponente im Anwendungskern abgebildet.
 Komponenten, die externe Services kapseln, sind im Idealfall von außen nicht von fachlichen Komponenten des Anwendungskerns unterscheidbar.
-Neben der technischen Kommunikation erfolgt durch diese Komponenten auch die Abbildung von Schnittstellendaten und Exceptions auf die Daten der Anwendung.
+Dadurch ist die Funktionalität sauber gekapselt, was die Wartbarkeit erhöht: Technische Änderungen am externen Service führen nur zu Änderungen an der externen Service-Komponente.
+Externe Service-Komponenten übernehmen neben der technischen Kommunikation auch die Abbildung von Transportobjekten und -exceptions auf die Geschäftsobjekte und Exceptions des Backends.
 
 // end::externer-service-definition[]
 
