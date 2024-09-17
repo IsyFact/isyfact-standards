@@ -61,7 +61,7 @@ Die xref:referenzarchitektur:software-technisch.adoc[software-technische Referen
 Die Referenzarchitektur für IT-Systeme basiert auf der bekannten Drei-Schicht-Architektur.
 
 .Software-technische Referenzarchitektur
-image::software-technisch/backend/architektur-backend.dn.svg[]
+image::referenzarchitektur:software-technisch/backend/architektur-backend.dn.svg[]
 
 Die *Datenhaltungsschicht* kapselt alle Funktionen zum Zugriff auf die Datenbanken.
 
