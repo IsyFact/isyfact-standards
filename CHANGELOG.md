@@ -1,5 +1,6 @@
 # 4.0.0
 ## FEATURES
+- `IFS-4062`: [isyfact-standards-doc] Referenzarchitektur für Backends aufgrund von IFS-3736 neu verfasst
 - `IFS-3992`: [isyfact-standards-doc] Entfernung der Vorlage "Tailoring" Dokument
 - `ISY-1025`: Versionsanhebung `maven-surefire-plugin` auf 3.2.5
     * Automatische Auswahl der benötigten JUnit Engines

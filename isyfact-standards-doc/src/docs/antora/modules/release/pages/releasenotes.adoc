@@ -31,7 +31,7 @@ Die Seite "Referenzarchitektur" wurde nach Architektursichten aufgeteilt:
 * xref:referenzarchitektur:software-technisch.adoc[],
 * xref:referenzarchitektur:technisch-infrastrukturell.adoc[].
 
-Die restlichen Inhalte der Referenzarchitektur wurden thematisch gegliedert und  in der xref:referenzarchitektur:index.adoc[Navigation] z.T. neu angeordnet.
+Die restlichen Inhalte der Referenzarchitektur wurden thematisch gegliedert und in der xref:referenzarchitektur:index.adoc[Navigation] z.T. neu angeordnet.
 
 === Fachliche Referenzarchitektur
 
@@ -47,7 +47,7 @@ Neu eingeführt wurden die xref:glossary:glossary:master.adoc#glossar-it-systemt
 Sie stellen konkrete Ausprägungen des IT-Systems dar, besitzen eine jeweils eigene Systemarchitektur und können auf verschiedenartige Technologie-Stacks setzen.
 Aktuell gibt es drei IT-Systemtypen: xref:glossary:glossary:master.adoc#backend[Backend], xref:glossary:glossary:master.adoc#frontend[Frontend] sowie xref:glossary:glossary:master.adoc#glossar-batch[Batch].
 
-Die IT-Systemtypen Backend und Batch enthalten keine UI-Komponenten.
+Die xref:referenzarchitektur:software-technisch/backend.adoc[] beschreibt nun Backends als primäre Anbieter von fachlichen Services.
 Zur Umsetzung von UIs sieht die Referenzarchitektur nur noch eigenständige Frontends vor.
 Ergänzend hierzu beinhaltet die IsyFact einen Baustein zur Umsetzung von Frontends mit xref:isy-angular-widgets-doc::konzept/konzept.adoc[Angular].
 
