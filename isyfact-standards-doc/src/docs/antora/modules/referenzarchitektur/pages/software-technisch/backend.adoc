@@ -2,8 +2,6 @@
 
 include::documentation-guide::partial$licence.adoc[]
 
-include::documentation-guide::partial$content-revised-page.adoc[]
-
 include::glossary::terms-definitions.adoc[tag=backend-definition]
 
 Backends sind technisch gleichartig aufgebaut.
@@ -32,7 +30,7 @@ Details hierzu werden über die xref:blaupausen:detailkonzept-komponente-anwendu
 
 Die Veränderung des Datenbestands gehört zur Kernaufgabe eines Backends.
 Hierzu setzen Backends Transaktionen ein.
-Transaktionen müssen die https://de.wikipedia.org/wiki/ACID[ACID-Eigenschaften] erfüllen, damit die Datenbestände nicht an Qualität verlieren: Sie müssen atomar, konsistent, isoliert und dauerhaft sein.
+Transaktionen müssen die https://de.wikipedia.org/wiki/ACID[ACID-Eigenschaften] erfüllen, um grundlegende Anforderungen an Datenqualität zu erfüllen.
 
 In Backends ist der xref:blaupausen:detailkonzept-komponente-anwendungskern/master.adoc#transaktionssteuerung[Anwendungskern] für die Transaktionssteuerung zuständig.
 In Ausnahmefällen kann die Transaktionssteuerung auch über die xref:blaupausen:detailkonzept-komponente-service/master.adoc#transaktionssteuerung[Serviceschicht] erfolgen.
@@ -79,13 +77,7 @@ Zur Konzeption und Umsetzung des Anwendungskerns definiert die Referenzarchitekt
 [[persistenz]]
 == Persistenz
 
-Die Persistenzschicht umfasst den Teil eines Backends, der den Datenbestand verwaltet.
-Sie kommuniziert hierzu in der Regel mit einer Datenbank und, mittels persistenten Entitäten, mit dem Anwendungskern.
-Der Aufbau der Persistenzschicht sowie ihre Kommunikation mit anderen Schichten ist in <<systemarchitektur-persistenz,folgender Grafik>> dargestellt.
-
-[[systemarchitektur-persistenz]]
-.Einbettung der Persistenzschicht in die Systemarchitektur
-image::software-technisch/backend/persistenz.dn.svg[width=80%,align=center]
+include::blaupausen:detailkonzept-komponente-datenzugriff/einordnung-ziele.adoc[tags=persistenz-definition]
 
 [[persistenz-fachkomponenten]]
 === Fachkomponenten
@@ -152,6 +144,11 @@ Die Umsetzung von Services geschieht mithilfe des xref:isy-service-rest:konzept/
 == Querschnitt
 
 Neben der Geschäftslogik müssen Backends ebenso querschnittliche Funktionalität bereitstellen.
+
+[[systemarchitektur-querschnitt]]
+.Einbettung des Querschnitts in die Systemarchitektur
+image::software-technisch/backend/querschnitt.dn.svg[width=80%,align=center]
+
 Die IsyFact hilft hierbei durch eigens entwickelte xref:bausteine:bausteine.adoc[] sowie durch den Einsatz von Standard-Produkten aus dem xref:einstieg:produktkatalog/technologiestackJavaSpring.adoc[].
 
 Fehlerbehandlung::

@@ -6,7 +6,11 @@
 == Einleitung
 
 Im Anwendungskern werden die fachlichen Funktionen der Anwendung realisiert.
-Diese Funktionen sind im Anwendungskern genau einmal implementiert und können von unterschiedlichen Komponenten einer Anwendung genutzt werden.
+Dazu gehören zum Beispiel Datenvalidierungen oder Funktionen zum Verarbeiten von Geschäftsobjekten, die über die Komponente Datenzugriff geladen wurden.
+Außerdem übernimmt der Anwendungskern die Transaktionssteuerung.
+In Richtung Nutzungsschicht bietet der Anwendungskern nur Funktionalitäten an, die allgemein verwendbar sind und die im Prinzip von mehreren Nutzern verwendet werden könnten.
+
+Diese fachlichen Funktionen sind im Anwendungskern genau einmal implementiert und können von unterschiedlichen Komponenten einer Anwendung genutzt werden.
 Eine Meldung in einer Geschäftsanwendung kann z.B. sowohl über einen Serviceaufruf als auch einen Batch vorgenommen werden.
 Alle diese Aufrufer nutzen dieselbe Implementierung.
 Der Anwendungskern wird aus Fachkomponenten und Komponenten zur Nutzung externer Services aufgebaut.
@@ -20,29 +24,5 @@ Neben der Verwendung als Anwendungskern-Framework, bietet das Spring-Framework a
 Dieses Dokument richtet sich an Architekten und Entwickler.
 Neben der Festlegung der Architektur des Anwendungskerns ist die Hauptaufgabe dieses Dokuments, die Verwendung von Spring als Anwendungskern-Framework zu erläutern.
 Daher werden im Folgenden Spring-Kenntnisse vorausgesetzt.
-
-
-[[ueberblick]]
-== Überblick
-
-Gemäß den Vorgaben der xref:referenzarchitektur:software-technisch/backend.adoc[] basiert die Architektur eines IT-Systems auf der bekannten Drei-Schichten-Architektur.
-Eine dieser Schichten ist die Anwendungskernschicht mit der Komponente Anwendungskern.
-
-Im Anwendungskern werden die fachlichen Funktionen der Anwendung realisiert.
-Dazu gehören zum Beispiel Datenvalidierungen oder Funktionen zum Verarbeiten von Geschäftsobjekten, die über die Komponente Datenzugriff geladen wurden.
-Außerdem übernimmt der Anwendungskern die Transaktionssteuerung.
-In Richtung Nutzungsschicht bietet der Anwendungskern nur Funktionalitäten an, die allgemein verwendbar sind und die im Prinzip von mehreren Nutzern verwendet werden könnten.
-
-In folgender Abbildung ist die <<referenzarchitektur-it-system>> grafisch dargestellt, wobei die Anwendungskernschicht mit der Komponente Anwendungskern hervorgehoben ist.
-
-[[referenzarchitektur-it-system]]
-.Referenzarchitektur eines IT-Systems
-image::referenzarchitektur:software-technisch/backend/architektur-it-system-awk.dn.svg[]
-
-In diesem Dokument werden die Vorgaben zum Bau der Komponente Anwendungskern im Detail beschrieben.
-Als zentrales Framework für die Implementierung des Anwendungskerns wird das Spring-Framework verwendet.
-
-Neben der Verwendung als Anwendungskern-Framework bietet das Spring-Framework auch weitere Funktionalität, die die Entwicklung von Anwendungen für die Plattform vereinfacht.
-Daher werden in diesem Dokument auch Aspekte des Spring-Frameworks behandelt, die über die Verwendung im Anwendungskern hinausgehen.
 
 // end::inhalt[]
