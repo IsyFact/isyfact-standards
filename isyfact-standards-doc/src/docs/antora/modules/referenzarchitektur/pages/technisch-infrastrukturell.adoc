@@ -161,7 +161,9 @@ Sie ist eine Kopie der <<entwicklungstestumgebung-etu,Entwicklungstestumgebung>>
 [[minimalanforderungen-an-die-ablaufumgebung]]
 === Minimalanforderungen an die Ablaufumgebung
 
-Als Ablaufumgebung benötigen die gemäß der xref:software-technisch/backend.adoc[] erstellten IT-Systeme einen Tomcat Servlet-Container.
+include::documentation-guide::partial$content-revised.adoc[]
+
+Als Ablaufumgebung benötigen die gemäß der xref:software-technisch/backend.adoc[] erstellten Backends einen Tomcat Servlet-Container.
 
 Service-Gateway-Systeme und das Portal benötigen zusätzlich noch einen Apache-Webserver.
 

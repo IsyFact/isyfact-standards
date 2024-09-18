@@ -16,12 +16,6 @@ Die technische Entsprechung hierfür ist der Begriff der xref:glossary:glossary:
 Eine Systemlandschaft, die eine Anwendungslandschaft nach den IsyFact-Standards umsetzt, wird im Folgenden als _IsyFact-Systemlandschaft_ bezeichnet.
 Eine solche IsyFact-Systemlandschaft beinhaltet alle IT-Systeme als technische Umsetzung der Anwendungen  der Anwendungslandschaft sowie technische Systeme zur Unterstützung (z.B. Datenbanken oder Web-Server).
 
-Die Architektur eines IT-Systems wird in xref:software-technisch/backend.adoc[] definiert.
-Im Folgenden wird, aufbauend auf diesem Konzept, beschrieben:
-
-* welche Eigenschaften bezogen auf die technische Referenzarchitektur die Anwendungstypen in einer IsyFact-Systemlandschaft besitzen (s. <<strukturierung-der-systemlandschaft>>),
-* welche Vorgaben für die <<verwendung-von-produkten>> existieren.
-
 [[strukturierung-der-systemlandschaft]]
 == Strukturierung der Systemlandschaft
 
@@ -232,8 +226,9 @@ Zur Umsetzung der Servicekommunikation gibt es Service-Bausteine, die ausgewähl
 
 [[nutzungsarten-einer-anwendung]]
 == Nutzungsarten einer Anwendung
+include::documentation-guide::partial$content-revised.adoc[]
 
-Nachdem in xref:software-technisch/backend.adoc[] die technische Architektur vorgestellt wurde, soll in diesem Abschnitt konkret vorgestellt werden, wie auf Basis dieser Architektur Anwendungen entworfen werden.
+Nachdem in der xref:software-technisch/backend.adoc[] die technische Architektur vorgestellt wurde, soll in diesem Abschnitt konkret vorgestellt werden, wie auf Basis dieser Architektur Anwendungen entworfen werden.
 
 Die Nutzungsschicht eines IT-Systems bietet anderen IT-Systemen über Services und dem Betrieb über Batches Schnittstellen zur Nutzung der implementierten Fachlichkeit an.
 Im Folgenden wird ein Beispiel-Szenario zur Nutzung eines IT-Systems vorgestellt.

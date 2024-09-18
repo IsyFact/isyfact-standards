@@ -53,7 +53,7 @@ Der Zugriff auf die Datenbank aus dem xref:glossary:glossary:master.adoc#glossar
 Die Repositories werden als Spring-Beans in den Anwendungskern injiziert.
 Für jede Entität wird ein entsprechendes Repository als Interface angelegt.
 
-Die Repositories werden im Package der Fachkomponente abgelegt, welche die Datenhoheit über die Tabelle(n) des Repositories besitzt (zum Thema Datenhoheit siehe xref:referenzarchitektur:software-technisch/backend.adoc#persistenz[Referenzarchitektur IT-System]).
+Die Repositories werden im Package der Fachkomponente abgelegt, welche die Datenhoheit über die Tabelle(n) des Repositories besitzt (zum Thema Datenhoheit siehe xref:referenzarchitektur:software-technisch/backend.adoc#persistenz[Referenzarchitektur Backend]).
 Die Repositories werden nur von Klassen der Fachkomponente mit Datenhoheit aufgerufen.
 
 Gemäß der xref:referenzarchitektur:software-technisch/backend.adoc#persistenz[Referenzarchitektur] dürfen Entitäten nur von der Fachkomponente im Anwendungskern verändert werden, welche zur Fachkomponente im Datenzugriff gehört.

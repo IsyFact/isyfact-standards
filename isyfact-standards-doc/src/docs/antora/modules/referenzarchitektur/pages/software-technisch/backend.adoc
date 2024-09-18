@@ -1,4 +1,4 @@
-= Referenzarchitektur IT-System
+= Referenzarchitektur Backend
 
 include::documentation-guide::partial$licence.adoc[]
 
@@ -7,7 +7,7 @@ include::glossary::terms-definitions.adoc[tag=backend-definition]
 Backends sind technisch gleichartig aufgebaut.
 Sie setzen auf eine https://de.wikipedia.org/wiki/Schichtenarchitektur#Drei-Schichten-Architektur[Drei-Schichten-Architektur], ergänzt um eine "Säule" querschnittlicher Funktionalität.
 
-[[image-RAITSys]]
+[[systemarchitektur-backend]]
 .Systemarchitektur eines Backends
 image::software-technisch/backend/architektur-backend.dn.svg[width=80%, align=center]
 
