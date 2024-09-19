@@ -82,7 +82,7 @@
         <maven.enforcer.plugin.version>3.0.0</maven.enforcer.plugin.version>
         <maven.javadoc.plugin.version>3.3.2</maven.javadoc.plugin.version>
         <asciidoctor.maven.plugin.version>2.0.0</asciidoctor.maven.plugin.version>
-        <asciidoctorj.pdf.version>1.5.4</asciidoctorj.pdf.version>
+        <asciidoctorj.pdf.version>2.0.0</asciidoctorj.pdf.version>
         <isy.asciidoctor.extensions.version>2.6.0</isy.asciidoctor.extensions.version>
 
         <!-- Pfade für Dokumentation -->
