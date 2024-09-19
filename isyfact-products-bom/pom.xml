@@ -17,7 +17,7 @@
     <properties>
         <spring.boot.version>2.5.15</spring.boot.version>
         <spring.webflow.version>2.5.1.RELEASE</spring.webflow.version>
-        <resilience4j.version>1.7.1</resilience4j.version>
+        <resilience4j.version>2.0.0</resilience4j.version>
         <apache.poi.version>4.1.2</apache.poi.version>
         <greenmail.version>1.6.15</greenmail.version>
     </properties>
