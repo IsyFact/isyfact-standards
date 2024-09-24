@@ -301,6 +301,8 @@ include::methodik:page$java-programmierkonventionen/inhalt.adoc[tag=namenskonven
 [[technische-systemnamen]]
 ==== Technische Systemnamen
 
+include::documentation-guide::partial$content-revised.adoc[]
+
 Die technischen Systemnamen entsprechen der technischen Bezeichnung für eine IsyFact-konforme Anwendung.
 Sie werden unter anderem für Projektnamen in Eclipse, Dokument Basis / Context Root bei Schnittstellen-URLs und als Namen von Deployment-Einheiten (vgl. Kapitel <<rpm-pakete>>) verwendet.
 
