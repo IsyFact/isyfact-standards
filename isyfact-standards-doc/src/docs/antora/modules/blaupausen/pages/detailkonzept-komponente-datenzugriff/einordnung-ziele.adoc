@@ -4,17 +4,17 @@ include::glossary:licence:partial$licence.adoc[]
 
 include::documentation-guide::partial$content-revised-page.adoc[]
 
-Gemäß den Vorgaben der xref:referenzarchitektur-it-system/master.adoc[] basiert die Architektur eines IT-Systems auf der bekannten Drei-Schichten-Architektur.
-Eine dieser Schichten ist die Persistenzschicht.
-In dieser Schicht ist alle Funktionalität enthalten, die zum Erzeugen, Suchen, Bearbeiten und Löschen von Datensätzen benötigt wird.
-Der Zugriff auf eine relationale Datenbank ist in dieser Schicht vollständig gekapselt.
-In Richtung Datenbank kommuniziert diese Schicht mittels JDBC und SQL, in Richtung des Anwendungskerns stellt die Schicht persistente Objekte zur Verfügung.
+// tag::persistenz-definition[]
 
-In <<referenzarchitekur-it-system-datenzugriff,der folgenden Abbildung>> ist die Referenzarchitektur eines IT-Systems noch einmal dargestellt, wobei die Persistenzschicht mit der Komponente Datenhaltung hervorgehoben ist.
+Die Persistenzschicht umfasst den Teil eines Backends, der den Datenbestand verwaltet.
+Sie kommuniziert hierzu in der Regel mit einer Datenbank und, mittels persistenten Entitäten, mit dem Anwendungskern.
+Der Aufbau der Persistenzschicht sowie ihre Kommunikation mit anderen Schichten ist in <<systemarchitektur-persistenz,folgender Grafik>> dargestellt.
 
-[[referenzarchitekur-it-system-datenzugriff]]
-.Referenzarchitektur eines IT-Systems
-image::blaupausen:referenzarchitektur-it-system/architektur-it-system-datenzugriff.dn.svg[]
+[[systemarchitektur-persistenz]]
+.Einbettung der Persistenzschicht in die Systemarchitektur
+image::referenzarchitektur:software-technisch/backend/persistenz.dn.svg[width=80%,align=center]
+
+// end::persistenz-definition[]
 
 Das Detailkonzept Komponente Datenzugriff beschreibt die Vorgaben zur Umsetzung einer solchen Persistenzschicht im Detail.
 Die Implementierung der Zugriffsschicht wird durch die Verwendung eines standardisierten Frameworks erleichtert.

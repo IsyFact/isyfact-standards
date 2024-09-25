@@ -54,14 +54,21 @@ Die xref:methodik:vorlagen.adoc#datenflussdiagramm[Vorlage zu Datenflussdiagramm
 
 [[vorgaben-fuer-die-t-architektur]]
 === Vorgaben für die T-Architektur
+include::documentation-guide::partial$content-revised.adoc[]
+
 Die xref:referenzarchitektur:software-technisch.adoc[software-technische Referenzarchitektur] wird auf Basis der Spezifikation aus der fachlichen Architektur entwickelt.
 Die technischen Entsprechungen für die fachlich motivierte Anwendungslandschaft und die Anwendung sind die technisch motivierten Begriffe der Systemlandschaft und respektive des IT-Systems.
 
-Ein xref:blaupausen:referenzarchitektur-it-system/master.adoc[IT-System] basiert auf einer Drei-Schichten-Architektur und besteht aus den Komponenten, die in <<refarch-technisch,der softwaretechnischen Referenzarchitektur eines IT-Systems>> dargestellt sind.
+Die Referenzarchitektur kennt drei Typen von IT-Systemen: Backends, Frontends und Batches.
 
-[[refarch-technisch]]
-.Softwaretechnische Referenzarchitektur eines IT-Systems
-image::blaupausen:referenzarchitektur-it-system/architektur-it-system.dn.svg[]
+==== Backend
+
+xref:referenzarchitektur:software-technisch/backend.adoc[Backends] stellen Services für andere IT-Systeme bereit.
+Sie sind technisch gleichartig aufgebaut und setzen auf eine Drei-Schichten-Architektur, ergänzt um eine "Säule" querschnittlicher Funktionalität.
+
+[[systemarchitektur-backend]]
+.Systemarchitektur eines Backends
+image::referenzarchitektur:software-technisch/backend/architektur-backend.dn.svg[width=80%, align=center]
 
 Die Abbildung der fachlichen Architektur wird vor allem durch die Fachkomponenten sichtbar.
 Jede Fachkomponente besitzt, soweit sinnvoll, eine Entsprechung in jeder Komponente des IT-Systems.

@@ -16,12 +16,6 @@ Die technische Entsprechung hierfür ist der Begriff der xref:glossary:glossary:
 Eine Systemlandschaft, die eine Anwendungslandschaft nach den IsyFact-Standards umsetzt, wird im Folgenden als _IsyFact-Systemlandschaft_ bezeichnet.
 Eine solche IsyFact-Systemlandschaft beinhaltet alle IT-Systeme als technische Umsetzung der Anwendungen  der Anwendungslandschaft sowie technische Systeme zur Unterstützung (z.B. Datenbanken oder Web-Server).
 
-Die Architektur eines IT-Systems wird in xref:blaupausen:referenzarchitektur-it-system/master.adoc[] definiert.
-Im Folgenden wird, aufbauend auf diesem Konzept, beschrieben:
-
-* welche Eigenschaften bezogen auf die technische Referenzarchitektur die Anwendungstypen in einer IsyFact-Systemlandschaft besitzen (s. <<strukturierung-der-systemlandschaft>>),
-* welche Vorgaben für die <<verwendung-von-produkten>> existieren.
-
 [[strukturierung-der-systemlandschaft]]
 == Strukturierung der Systemlandschaft
 
@@ -232,8 +226,9 @@ Zur Umsetzung der Servicekommunikation gibt es Service-Bausteine, die ausgewähl
 
 [[nutzungsarten-einer-anwendung]]
 == Nutzungsarten einer Anwendung
+include::documentation-guide::partial$content-revised.adoc[]
 
-Nachdem in xref:blaupausen:referenzarchitektur-it-system/master.adoc[] die technische Architektur vorgestellt wurde, soll in diesem Abschnitt konkret vorgestellt werden, wie auf Basis dieser Architektur Anwendungen entworfen werden.
+Nachdem in der xref:software-technisch/backend.adoc[] die technische Architektur vorgestellt wurde, soll in diesem Abschnitt konkret vorgestellt werden, wie auf Basis dieser Architektur Anwendungen entworfen werden.
 
 Die Nutzungsschicht eines IT-Systems bietet anderen IT-Systemen über Services und dem Betrieb über Batches Schnittstellen zur Nutzung der implementierten Fachlichkeit an.
 Im Folgenden wird ein Beispiel-Szenario zur Nutzung eines IT-Systems vorgestellt.
@@ -256,7 +251,7 @@ Im vorliegenden Fall wird nur ein Service-Provider benötigt, da nur Aufrufe ent
 Diese werden authentifiziert, autorisiert, und an das zugehörige IT-System weitergeleitet.
 
 Damit ergeben sich die in <<ga-aufrufbeziehungen>> dargestellten IT-Systeme und Aufruf-Beziehungen.
-Die in dieser Abbildung angedeuteten Schichten eines IT-Systems (Batch, Service, Anwendungskern, Datenzugriff und Querschnitt) werden von der xref:blaupausen:referenzarchitektur-it-system/master.adoc[] erläutert.
+Die in dieser Abbildung angedeuteten Schichten eines IT-Systems (Batch, Service, Anwendungskern, Datenzugriff und Querschnitt) werden von der xref:software-technisch/backend.adoc[] erläutert.
 Wichtig in Hinblick auf diese Schichten sind folgende Punkte:
 
 * Die Komponente _Batch_ der Geschäftsanwendung wird im obigen Beispiel nicht implementiert, da die Geschäftsanwendung keine Schnittstelle für Batchläufe anbietet.

@@ -6,16 +6,13 @@
 
 // tag::anwendungskern-definition[]
 
-Der Anwendungskern ist der zentrale Baustein eines IT-Systems.
-Hier werden die fachlichen Funktionen der Anwendung realisiert.
+Der xref:glossary::terms-definitions.adoc#glossar-anwendungskern[Anwendungskern] ist der zentrale Bestandteil eines Backends.
+Hier werden die fachlichen Funktionen der zugehörigen xref:glossary::terms-definitions.adoc#glossar-anwendung[Anwendung] realisiert.
+Der Aufbau des Anwendungskerns sowie seine Kommunikation mit anderen Schichten ist in <<systemarchitektur-anwendungskern,folgender Grafik>> dargestellt.
 
-Der <<image-bestandteile-anwendungskern,Anwendungskern>> besteht aus zwei wesentlichen Bestandteilen: den Fachkomponenten und dem Anwendungskern-Framework.
-Weiterhin ist dort dargestellt, dass externe Services als Komponente in den Anwendungskern integriert sind.
-Diese drei Aspekte werden im Folgenden im Detail beschrieben.
-
-[[image-bestandteile-anwendungskern]]
-.Bestandteile des Anwendungskerns
-image::blaupausen:detailkonzept-anwendungskern/IFBestAWK.png[]
+[[systemarchitektur-anwendungskern]]
+.Einbettung des Anwendungskerns in die Systemarchitektur
+image::referenzarchitektur:software-technisch/backend/anwendungskern.dn.svg[width=80%,align=center]
 
 // end::anwendungskern-definition[]
 
@@ -27,8 +24,6 @@ image::blaupausen:detailkonzept-anwendungskern/IFBestAWK.png[]
 *Fachkomponenten* setzen die Anwendungskomponenten aus der fachlichen Architektur um.
 Sie bilden damit den Schnitt der Anwendungskomponenten in die technische Architektur ab.
 Fachkomponenten beinhalten möglichst wenig Technik und trennen so Anwendungslogik von Technologie.
-
-Eine allgemeine Anwendung enthält die Fachkomponenten _Erstellung_, _Teilnahme_ und _Verwaltung_.
 
 TIP: Fachkomponenten sind der Schlüssel für gute Wartbarkeit und einfache Weiterentwickelbarkeit des Anwendungskerns.
 Die Trennung von Anwendungslogik und Technik ist deshalb auch in anderen Schichten der technischen Architektur vorgesehen, z. B. in der Persistenz.
@@ -113,21 +108,28 @@ image::blaupausen:detailkonzept-anwendungskern/aufbau_fachkomponente_awk.dn.svg[
 [[das-anwendungskern-framework]]
 === Anwendungskern-Framework
 
+// tag::awk-framework-definition[]
+
 Für querschnittliche Funktionalität innerhalb des Anwendungskerns wird das Spring-Framework genutzt.
 Hauptaufgabe des Frameworks ist es, die Komponenten zu konfigurieren und miteinander bekanntzumachen.
 Dadurch wird die Trennung zwischen Fachlichkeit und Technik verbessert.
 Beispiel für querschnittliche Funktionalität ist die deklarative Steuerung von Transaktionen.
+
+// end::awk-framework-definition[]
 
 Die Vorgaben zur Nutzung und Konfiguration des Spring-Frameworks werden in Kapitel <<verwendung-des-spring-frameworks>> beschrieben.
 
 [[externe-services]]
 === Externe Services
 
-Wenn der Anwendungskern fachliche Services benötigt, die von anderen IT-Systemen innerhalb der Plattform angeboten werden, so werden diese Services als Komponente im Anwendungskern abgebildet.
-Dadurch ist die Funktionalität sauber gekapselt, was die Wartbarkeit erhöht: Wenn der externe Service ausgetauscht werden soll, ist keine Änderung der gesamten Anwendung notwendig – es ist lediglich eine interne Änderung der externen Service-Komponente notwendig.
-Für andere fachliche Komponenten des Anwendungskerns ist nicht zu unterscheiden, ob es sich beim Aufruf einer Komponentenschnittstelle um eine in dieser Komponente implementierte Funktion oder um einen Serviceaufruf handelt.
+// tag::externer-service-definition[]
+
+Wenn der Anwendungskern fachliche Services benötigt, die von anderen IT-Systemen innerhalb der xref:glossary::terms-definitions.adoc#glossar-systemlandschaft[Systemlandschaft] angeboten werden, so werden diese Services als Komponente im Anwendungskern abgebildet.
 Komponenten, die externe Services kapseln, sind im Idealfall von außen nicht von fachlichen Komponenten des Anwendungskerns unterscheidbar.
-Neben der technischen Kommunikation erfolgt durch diese Komponenten auch die Abbildung von Schnittstellendaten und Exceptions auf die Daten der Anwendung.
+Dadurch ist die Funktionalität sauber gekapselt, was die Wartbarkeit erhöht: Technische Änderungen am externen Service führen nur zu Änderungen an der externen Service-Komponente.
+Externe Service-Komponenten übernehmen neben der technischen Kommunikation auch die Abbildung von Transportobjekten und -exceptions auf die Geschäftsobjekte und Exceptions des Backends.
+
+// end::externer-service-definition[]
 
 [[austausch-von-geschaeftsobjekten]]
 === Austausch von Geschäftsobjekten
@@ -139,7 +141,7 @@ In der xref:referenzarchitektur:index.adoc[] wurde bereits beschrieben, dass zur
 Das Ziel ist es, eine Durchmischung von Technologien zu verhindern, so darf z. B. außerhalb des Datenzugriffs kein SQL formuliert werden.
 
 *Fachliche Sicht:* Die fachliche Sicht beschreibt eine Teilaufgabe, z. B. Meldung, Auskunft oder Fristenkontrolle.
-Innerhalb dieser Teilaufgabe wird der Anwendungskern über Services oder Batches angesprochen, der wiederum über die Datenzugriffsschicht mit der Datenbank kommunizieren muss.
+Innerhalb dieser Teilaufgabe wird der Anwendungskern über Services oder Batches angesprochen, der wiederum über die Persistenzschicht mit der Datenbank kommunizieren muss.
 Daher zerlegt die fachliche Sicht das IT-System in fachliche Säulen.
 Diese fachlichen Säulen werden im folgenden Teilanwendungen genannt.
 Das Ziel ist die fachliche Trennung und Minimierung inhaltlicher Abhängigkeiten.
@@ -173,7 +175,7 @@ Neben seiner Kern-Funktionalität der Verwaltung, Konfiguration und aspektorient
 
 Die IsyFact verwendet ausgewählte Funktionalitäten des Spring-Frameworks in der Anwendungsentwicklung:
 
-* Konfiguration der Datenzugriffsschicht: beschrieben im xref:isy-persistence:nutzungsvorgaben/umsetzung-datenzugriff.adoc[Nutzungskonzept des Bausteins JPA/Hibernate],
+* Konfiguration der Persistenzschicht: beschrieben im xref:isy-persistence:nutzungsvorgaben/umsetzung-datenzugriff.adoc[Nutzungskonzept des Bausteins JPA/Hibernate],
 * Konfiguration des Logging über Spring: beschrieben in den xref:isy-logging:nutzungsvorgaben/master.adoc[],
 * Bereitstellung von Metriken zur Überwachung: beschrieben im xref:isy-ueberwachung:konzept/master.adoc[].
 

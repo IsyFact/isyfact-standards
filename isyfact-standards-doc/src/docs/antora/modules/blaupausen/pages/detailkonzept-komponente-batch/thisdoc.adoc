@@ -4,11 +4,38 @@
 [[Einleitung]]
 == Einleitung
 
-Ein Batch bzw. die Batchverarbeitung bietet die Möglichkeit, Daten automatisiert und meist sequenziell zu verarbeiten.
-Er stellt eine Variante zur Dialogverarbeitung dar, bei welcher die Datenverarbeitung von Benutzerinteraktionen gesteuert wird.
+Ein xref:glossary:glossary:master.adoc#glossar-batch[Batch] realisiert eine eigenständige Verarbeitung ohne direkten Benutzereingriff während des Ablaufes.
+An einen Batch werden verschiedene Anforderungen gestellt: Ausführungszeitpunkt, Abhängigkeiten, Datenvolumen, ausgeführte Funktionalität, Eingaben, Ausgaben usw.
 
-Neben einer Liste von Anforderungen für die Umsetzung von Batches, stellt IsyFact den technischen Baustein _Batchrahmen_ zur Verfügung, die in diesem Dokument näher beschrieben werden.
+Aus Architektur-Sicht werden diese Anforderungen durch zwei Komponenten abgedeckt: den Batchrahmen und die Batchlogik.
 
+*Batchrahmen:* Der Batchrahmen stellt die Schnittstelle für den Aufruf der Batchfunktionalität zur Verfügung.
+Er übernimmt auch die Transaktionssteuerung und die Steuerung für einen Restart.
+
+*Batchlogik:* Die Batchlogik wird vom Batchrahmen aufgerufen, um die Funktionalität des Batchverarbeitungsprogramms zu aktivieren.
+Die Funktionalität, das heißt die Geschäftslogik und die Arbeitsschritte eines Batches, werden als Anwendungsfälle erfasst.
+Wenn diese Anwendungsfälle auch von anderen Nutzern benötigt werden, dann sind sie im Anwendungskern implementiert.
+
+[[image-TeileBat]]
+.Systemarchitektur eines Batches
+image::referenzarchitektur:software-technisch/batch/architektur-batch-system.dn.svg[]
+
+Batches werden als eigener Prozess auf einem eigenen Server ausgeführt, das heißt sie laufen nicht in der virtuellen Maschine des Application Servers ab.
+Batches werden somit in einer eigenen Ablaufumgebung ausgeführt und greifen direkt auf die Datenbank oder auch auf Dateien zu.
+Die benötigte Funktionalität des Anwendungskerns wird dem Batch als Bibliothek zur Verfügung gestellt und nicht über einen Service-Aufruf genutzt.
+Der Grund für diese Entscheidung liegt in den Datenmengen, die normalerweise von einem Batch verarbeitet werden: Die Übermittlung dieser Datenmengen über eine remote genutzte Schnittstelle ist ein möglicher Flaschenhals in der Anwendung.
+Dieser Flaschenhals wird durch die Nutzung der Anwendungskernfunktionalität als Bibliothek vermieden.
+
+Batch-Abläufe bestehen aus einem oder mehreren Batch-Schritten.
+Die einzelnen Batch-Schritte werden von einem Scheduler aufgerufen und zum vollständigen Batch-Ablauf verbunden.
+Ein Batch-Schritt wird von einem Programm implementiert, das mit entsprechenden Parametern vom Scheduler aufgerufen werden kann.
+Die hier beschriebenen Batches sind genau diese Batch-Schritte.
+
+Die Batch-Schritte haben eine genormte Schnittstelle für Aufruf und Rückgabewerte.
+Sie sind in der Regel restart-fähig.
+Es gibt einen Batch-Rahmen, der dies unterstützt.
+
+Weiterführende technische Details finden sich in den folgenden Kapiteln.
 In Kapitel xref:detailkonzept-komponente-batch/master.adoc#anforderungen[Anforderungen] werden die Anforderungen, in Kapitel xref:detailkonzept-komponente-batch/master.adoc#ausgrenzungen[Ausgrenzungen] die Ausgrenzungen definiert.
 Die Funktionsweise des Batchrahmens und die verschiedenen Startarten sowie die Konfiguration folgt in Kapitel xref:detailkonzept-komponente-batch/master.adoc#der-batchrahmen["Der Batchrahmen"].
 Dort werden auch die Transaktionssteuerung und die Restart-Funktionalität beschrieben, die es ermöglicht, abgebrochene Batches fortzusetzen.

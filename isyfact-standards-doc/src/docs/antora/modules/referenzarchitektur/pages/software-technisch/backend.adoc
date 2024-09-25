@@ -1,0 +1,168 @@
+= Referenzarchitektur Backend
+
+include::documentation-guide::partial$licence.adoc[]
+
+include::glossary::terms-definitions.adoc[tag=backend-definition]
+
+Backends sind technisch gleichartig aufgebaut.
+Sie setzen auf eine https://de.wikipedia.org/wiki/Schichtenarchitektur#Drei-Schichten-Architektur[Drei-Schichten-Architektur], ergänzt um eine "Säule" querschnittlicher Funktionalität.
+
+[[systemarchitektur-backend]]
+.Systemarchitektur eines Backends
+image::software-technisch/backend/architektur-backend.dn.svg[width=80%, align=center]
+
+[[uebergreifende-technische-konzeption]]
+== Übergreifende Aspekte
+
+Die Schichten beinhalten einen Großteil der Funktionalität eines Backends.
+Trotzdem gibt es Aspekte, die übergreifend geregelt sind, damit die Schichten zusammen ein lauffähiges Backend ergeben.
+
+=== Strukturierung des Backends
+
+Die Schichten des Backends sind maßgeblich in _Fachkomponenten_ strukturiert.
+Die Fachkomponenten entsprechen den durch das Backend umgesetzten Anwendungskomponenten.
+Neben den Fachkomponenten enthält jede Schicht ein Framework, das maßgeblich zur Umsetzung ihrer Kernaufgabe beiträgt.
+
+Backends setzen für die Verwaltung, xref:software-technisch/backend/konfiguration.adoc[] und Kopplung der Fachkomponenten nach dem Prinzip der _Dependency Injection_ Spring Boot und weitere Bestandteile von Spring ein.
+Details hierzu werden über die xref:blaupausen:detailkonzept-komponente-anwendungskern/master.adoc#verwendung-des-spring-frameworks[Vorgaben zur Verwendung des Spring-Frameworks] festgelegt.
+
+=== Transaktionssteuerung
+
+Die Veränderung des Datenbestands gehört zur Kernaufgabe eines Backends.
+Hierzu setzen Backends Transaktionen ein.
+Transaktionen müssen die https://de.wikipedia.org/wiki/ACID[ACID-Eigenschaften] erfüllen, um grundlegende Anforderungen an Datenqualität zu erfüllen.
+
+In Backends ist der xref:blaupausen:detailkonzept-komponente-anwendungskern/master.adoc#transaktionssteuerung[Anwendungskern] für die Transaktionssteuerung zuständig.
+In Ausnahmefällen kann die Transaktionssteuerung auch über die xref:blaupausen:detailkonzept-komponente-service/master.adoc#transaktionssteuerung[Serviceschicht] erfolgen.
+
+=== Caching
+
+Anwendungsspezifische Caches sind mit der Spring Cache Abstraction und einem geeigneten Caching Provider zu implementieren.
+
+Die https://docs.spring.io/spring-framework/reference/integration/cache.html[Spring Cache Abstraction] bietet eine effiziente und flexible Möglichkeit, Caching in Anwendungen zu implementieren.
+Durch ihre Verwendung wird das Hinzufügen von Caching, zum Beispiel über die Nutzung von Annotationen, zu bestehenden Methoden erleichtert.
+Der zugrundeliegende Code ist nicht wesentlich zu verändern.
+
+Mit dem so abstrahierten Caching ist die Cache-Implementierung unabhängig vom genutzten Cache-Provider.
+Die Wahl des Cache-Providers ist gemäß einer notwendigen Skalierung und betrieblichen Gegebenheiten abzustimmen.
+Der xref:einstieg:produktkatalog/technologiestackJavaSpring.adoc#Entwicklung[Produktkatalog] empfiehlt EHCache.
+Weitere Informationen zu EHCache sind in der https://www.ehcache.org/documentation/[offiziellen Dokumentation] einzusehen.
+
+
+[[anwendungskern]]
+== Anwendungskern
+
+include::blaupausen:detailkonzept-komponente-anwendungskern/inhalt.adoc[tags=anwendungskern-definition]
+
+[[awk-fachkomponenten]]
+=== Fachkomponenten
+
+include::blaupausen:detailkonzept-komponente-anwendungskern/inhalt.adoc[tags=fachkomponente-definition]
+
+[[awk-framework]]
+=== Anwendungskern-Framework
+
+include::blaupausen:detailkonzept-komponente-anwendungskern/inhalt.adoc[tags=awk-framework-definition]
+
+[[awk-externe-services]]
+=== Externe Services
+
+include::blaupausen:detailkonzept-komponente-anwendungskern/inhalt.adoc[tags=externer-service-definition]
+
+[[awk-umsetzung]]
+=== Umsetzung
+
+Zur Konzeption und Umsetzung des Anwendungskerns definiert die Referenzarchitektur xref:blaupausen:detailkonzept-komponente-anwendungskern/master.adoc[weitere Vorgaben].
+
+[[persistenz]]
+== Persistenz
+
+include::blaupausen:detailkonzept-komponente-datenzugriff/einordnung-ziele.adoc[tags=persistenz-definition]
+
+[[persistenz-fachkomponenten]]
+=== Fachkomponenten
+
+Die Fachkomponenten der Persistenzschicht entsprechen vom fachlichen Schnitt her denen des Anwendungskerns.
+Die Fachkomponenten des Anwendungskerns besitzen wiederum die Datenhoheit auf ihre "Entsprechungen" in der Persistenzschicht.
+Nur die Fachkomponente mit Datenhoheit darf Änderungen an den jeweiligen persistenten Entitäten vornehmen.
+
+.icon:university[title=Architekturregel] Persistente Entitäten im Anwendungskern
+****
+Persistente Entitäten dürfen nicht über den Anwendungskern hinaus herausgegeben werden.
+Sie haben im Anwendungskern zu verbleiben.
+****
+
+Andernfalls ist nicht sichergestellt, dass andere Komponenten keine Änderungen an den persistenten Entitäten vornehmen.
+Für den Transfer über Komponentengrenzen hinweg - oder aus dem Anwendungskern hinaus - müssen alle Komponenten des Anwendungskerns persistente Entitäten auf Geschäftsobjekte abbilden.
+
+[[persistenz-framework]]
+=== Persistenz-Framework
+
+Die Persistenzschicht kommuniziert in Richtung Datenbank auf Basis der Standards JDBC und SQL.
+In Richtung des Anwendungskerns stellt sie persistente Entitäten mittels Spring Data JPA bereit.
+Zur Umsetzung des objekt-relationalen Mapping verwendet die Persistenzschicht das Produkt Hibernate.
+
+[[persistenz-umsetzung]]
+=== Umsetzung
+
+Zur Konzeption der Persistenzschicht definiert die Referenzarchitektur xref:blaupausen:detailkonzept-komponente-datenzugriff/einordnung-ziele.adoc[weitere Vorgaben].
+Die Umsetzung geschieht mithilfe des xref:isy-persistence:konzept.adoc[Bausteins JPA/Hibernate].
+
+[[service]]
+== Service
+
+Backends können Funktionen des Anwendungskerns über die Serviceschicht anderen IT-Systemen zur Verfügung stellen.
+Der Aufbau der Serviceschicht sowie ihre Kommunikation mit anderen Schichten ist in <<systemarchitektur-service,folgender Grafik>> dargestellt.
+
+[[systemarchitektur-service]]
+.Einbettung der Serviceschicht in die Systemarchitektur
+image::software-technisch/backend/service.dn.svg[width=80%,align=center]
+
+[[service-fachkomponenten]]
+=== Fachkomponenten
+
+Die Servicelogik beinhaltet, wie im Anwendungskern auch, Fachkomponenten.
+Diese Fachkomponenten setzen im wesentlichen Service-Schnittstellen mit den folgenden Aufgaben um:
+
+* Autorisierung und Tracing eingehender Anfragen,
+* Validierung der Transportobjekte,
+* Umwandlung von Transportobjekten in Geschäftsobjekte und umgekehrt,
+* fachliche Fehlerbehandlung.
+
+[[service-framework]]
+=== Service-Framework
+
+Service-Schnittstellen von Backends sind Webservices, die dem REST-Paradigma folgen.
+Technologisch erfolgt die Umsetzung als REST-Service mit Spring Web MVC bzw. Spring WebClient.
+
+[[service-umsetzung]]
+=== Umsetzung
+
+Zur Konzeption von Services definiert die Referenzarchitektur xref:blaupausen:detailkonzept-komponente-service/master.adoc[weitere Vorgaben].
+Die Umsetzung von Services geschieht mithilfe des xref:isy-service-rest:konzept/master.adoc[Bausteins REST].
+
+[[querschnitt]]
+== Querschnitt
+
+Neben der Geschäftslogik müssen Backends ebenso querschnittliche Funktionalität bereitstellen.
+
+[[systemarchitektur-querschnitt]]
+.Einbettung des Querschnitts in die Systemarchitektur
+image::software-technisch/backend/querschnitt.dn.svg[width=80%,align=center]
+
+Die IsyFact hilft hierbei durch eigens entwickelte xref:bausteine:bausteine.adoc[] sowie durch den Einsatz von Standard-Produkten aus dem xref:einstieg:produktkatalog/technologiestackJavaSpring.adoc[].
+
+Fehlerbehandlung::
+Vorgaben und Umsetzung mithilfe des xref:isy-exception-core:konzept/master.adoc[Bausteins Fehlerbehandlung]
+
+Konfiguration::
+xref:software-technisch/backend/konfiguration.adoc#konfiguration-arten[Vorgaben] aus der Referenzarchitektur, xref:software-technisch/backend/konfiguration.adoc#umsetzung[Umsetzung] mithilfe von Spring
+
+Logging & Tracing::
+Vorgaben und Umsetzung mithilfe des xref:isy-logging:konzept/master.adoc[Bausteins Logging]
+
+Autorisierung::
+Vorgaben und Umsetzung mithilfe des xref:isy-security-doc::konzept/master.adoc[Bausteins Security]
+
+Monitoring::
+Vorgaben und Umsetzung mithilfe des xref:isy-ueberwachung:konzept/master.adoc[Bausteins Überwachung]
