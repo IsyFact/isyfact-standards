@@ -52,7 +52,6 @@ Die Anforderungsliste ist ein Instrument, um die Übersicht und die Nachvollzieh
 
 Die xref:methodik:vorlagen.adoc#datenflussdiagramm[Vorlage zu Datenflussdiagrammen] beschreibt die Erstellung von Datenflussdiagrammen und liefert eine Leseanleitung dazu.
 
-
 [[vorgaben-fuer-die-t-architektur]]
 === Vorgaben für die T-Architektur
 include::documentation-guide::partial$content-revised.adoc[]

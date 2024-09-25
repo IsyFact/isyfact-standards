@@ -29,7 +29,7 @@ Dieser Flaschenhals wird durch die Nutzung der Anwendungskernfunktionalität als
 Batch-Abläufe bestehen aus einem oder mehreren Batch-Schritten.
 Die einzelnen Batch-Schritte werden von einem Scheduler aufgerufen und zum vollständigen Batch-Ablauf verbunden.
 Ein Batch-Schritt wird von einem Programm implementiert, das mit entsprechenden Parametern vom Scheduler aufgerufen werden kann.
-Die hier beschrieben Batches sind genau diese Batch-Schritte.
+Die hier beschriebenen Batches sind genau diese Batch-Schritte.
 
 Die Batch-Schritte haben eine genormte Schnittstelle für Aufruf und Rückgabewerte.
 Sie sind in der Regel restart-fähig.

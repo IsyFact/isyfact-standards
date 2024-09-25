@@ -167,7 +167,8 @@ Parameter dieser Meldung sind Vor- und Nachname sowie das Geburtsdatum.
 Dazu gibt es einen Meldung-Service in der Version 1.0. Dieser wird in der Service-Schicht des IT-Systems implementiert.
 Ab einem Stichtag soll zusätzlich noch das Geschlecht gemeldet werden.
 Im bisherigen Datenbestand wird dieses neue Attribut auf den Wert „unbekannt“ gesetzt.
-Der bestehende Service wird um dieses Attribut erweitert und erhält die Versionsnummer 1.1. Anwendungskern und Persistenzschicht müssen ebenfalls erweitert werden.
+Der bestehende Service wird um dieses Attribut erweitert und erhält die Versionsnummer 1.1.
+Anwendungskern und Persistenzschicht müssen ebenfalls erweitert werden.
 Aus Gründen der Rückwärtskompatibilität soll aber weiterhin die Version 1.0 des Service angeboten werden.
 Dazu wird ein neuer Service innerhalb der Service-Schicht implementiert, der die Meldung entgegennimmt, das fehlende Attribut mit dem Wert „unbekannt“ ergänzt und dann den Anwendungskern aufruft.
 

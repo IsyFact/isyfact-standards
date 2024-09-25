@@ -40,7 +40,7 @@ In Ausnahmefällen kann die Transaktionssteuerung auch über die xref:blaupausen
 Anwendungsspezifische Caches sind mit der Spring Cache Abstraction und einem geeigneten Caching Provider zu implementieren.
 
 Die https://docs.spring.io/spring-framework/reference/integration/cache.html[Spring Cache Abstraction] bietet eine effiziente und flexible Möglichkeit, Caching in Anwendungen zu implementieren.
-Durch ihre Verwendung wird, z.B. über die Nutzung von Annotationen, das Hinzufügen von Caching zu bestehenden Methoden erleichtert.
+Durch ihre Verwendung wird das Hinzufügen von Caching, zum Beispiel über die Nutzung von Annotationen, zu bestehenden Methoden erleichtert.
 Der zugrundeliegende Code ist nicht wesentlich zu verändern.
 
 Mit dem so abstrahierten Caching ist die Cache-Implementierung unabhängig vom genutzten Cache-Provider.
@@ -88,7 +88,8 @@ Nur die Fachkomponente mit Datenhoheit darf Änderungen an den jeweiligen persis
 
 .icon:university[title=Architekturregel] Persistente Entitäten im Anwendungskern
 ****
-Persistente Entitäten dürfen nicht über den Anwendungskern hinaus herausgegeben werden. Sie haben im Anwendungskern zu verbleiben.
+Persistente Entitäten dürfen nicht über den Anwendungskern hinaus herausgegeben werden.
+Sie haben im Anwendungskern zu verbleiben.
 ****
 
 Andernfalls ist nicht sichergestellt, dass andere Komponenten keine Änderungen an den persistenten Entitäten vornehmen.
