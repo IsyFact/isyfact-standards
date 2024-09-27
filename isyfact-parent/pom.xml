@@ -10,7 +10,7 @@
     <name>IsyFact Parent-POM</name>
     <description>
         Das IsyFact Parent-POM stellt allgemeine Einstellungen, sowie Plugin-Management für die
-        Open-Source-Projekte der IsyFac bereit.
+        Open-Source-Projekte der IsyFact bereit.
     </description>
     <url>http://isyfact.de</url>
     <licenses>
