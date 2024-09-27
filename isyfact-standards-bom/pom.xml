@@ -89,6 +89,11 @@
             </dependency>
             <dependency>
                 <groupId>de.bund.bva.isyfact</groupId>
+                <artifactId>isy-security-test</artifactId>
+                <version>${project.parent.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>de.bund.bva.isyfact</groupId>
                 <artifactId>isy-sonderzeichen</artifactId>
                 <version>${project.parent.version}</version>
             </dependency>
