@@ -1,6 +1,18 @@
 [[changelog]]
 = Changelog
 
+*Änderungen IsyFact 3.2.0*
+
+// tag::release-3.2.0[]
+
+- `IFS-2395`: `MessageSourceHolder` sowie `MessageSourceFehlertextProvider` als deprecated markiert
+
+// end::release-3.2.0[]
+
+// tag::release-3.0.0[]
+
+// end::release-3.0.0[]
+
 // *Änderungen IsyFact 3.0.0*
 
 // tag::release-3.0.0[]
