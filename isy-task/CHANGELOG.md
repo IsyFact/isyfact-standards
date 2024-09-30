@@ -1,3 +1,6 @@
+# 3.2.0
+- `IFS-4212`: Dokumentation von `@OnceTask` korrigiert (`@ManualTask` existiert nicht)
+
 # 3.0.0
 - `IFS-2153`: Umstellung isy-task auf Spring Boot:
     * BREAKING CHANGE: Einführung von Spring Boot
