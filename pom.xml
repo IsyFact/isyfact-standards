@@ -195,6 +195,13 @@
                     <version>1.2.0</version>
                     <executions>
                         <execution>
+                            <id>tidy-before-check</id>
+                            <phase>validate</phase>
+                            <goals>
+                                <goal>pom</goal>
+                            </goals>
+                        </execution>
+                        <execution>
                             <id>check-pom-style</id>
                             <phase>process-resources</phase>
                             <goals>
