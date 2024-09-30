@@ -38,7 +38,7 @@ include::glossary:miscellaneous:partial$deprecated-abschnitt.adoc[]
 ****
 *Anmerkung zur Deprecation*
 
-Für die Benennung der `MessageSource`-Bean wird empfohlen, einen eindeutiger Namen zu wählen, damit diese via Spring-Boardmittel überschrieben werden kann.
+Für die Benennung der `MessageSource`-Bean wird empfohlen, einen eindeutigeren Namen zu wählen, damit diese mittels Spring-Bordmitteln überschrieben werden kann.
 ****
 
 Das Package `de.bund.bva.isyfact.util.spring` enthält Werkzeuge für den Umgang mit Spring:
