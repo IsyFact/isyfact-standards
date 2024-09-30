@@ -475,7 +475,7 @@ Zur Realisierung der Fehlerbehandlung und Implementierung von Exceptions muss di
 </dependencies>
 ----
 
-`isy-exception-core` enthält abstrakte Exception-Klassen und Interfaces die in Anwendungen zu verwenden sind.
+`isy-exception-core` enthält abstrakte Exception-Klassen und Interfaces, die in Anwendungen zu verwenden sind.
 
 [[anlegen-der-exception-klassen]]
 ===== Anlegen der Exception-Klassen
