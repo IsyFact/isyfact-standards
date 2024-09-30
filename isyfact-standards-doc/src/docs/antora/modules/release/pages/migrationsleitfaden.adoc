@@ -45,7 +45,7 @@ Eine detaillierte Beschreibung zur Konfiguration und Anpassungsmöglichkeiten si
 In IsyFact 3 wurden die Klassen `MessageSourceHolder` sowie `MessageSourceFehlertextProvider` auf `deprecated` gesetzt.
 
 In der IsyFact 4 muss jede Bibliothek/Anwendung eine eigene https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/context/MessageSource.html[org.springframework.context.MessageSource]-Bean für die Verwaltung von Nachrichten implementieren.
-Wenn Bedarf zur Anpassung der Nachrichten besteht, muss die jeweilige `MessageSource`-Bean via Spring-Bordmittel überschrieben werden.
+Wenn Bedarf zur Anpassung der Nachrichten besteht, muss die jeweilige `MessageSource`-Bean mittels Spring-Bordmitteln überschrieben werden.
 
 Für Fehlermeldungen wird empfohlen, das Interface `de.bund.bva.isyfact.exception.FehlertextProvider` aus `isy-exception-core` zu implementieren.
 
