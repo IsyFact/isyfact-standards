@@ -66,7 +66,6 @@
                 <artifactId>maven-source-plugin</artifactId>
             </plugin>
 
-
             <!-- Quality Gates 1 -->
             <!-- Check if all POMs are formatted according to the Maven-Team-Standard. -->
             <!-- Use mvn tidy:pom in order to tidy up the POM. -->
