@@ -52,9 +52,9 @@ Das Starten und Stoppen eines Tasks wird durch Einsatz der Annotationen vollstä
 [[manuelles-starten-stoppen]]
 === Manuelles Starten und Stoppen von Tasks
 
-Es ist ebenfalls möglich, Tasks händisch zu starten und/oder zu stoppen. Zu diesem Zweck wurde `isy-task` um die Annotation `ManualTask` erweitert. Darüber hinaus kommt der `TaskScheduler` aus dem Spring-Framework zum Einsatz.
+Es ist ebenfalls möglich, Tasks händisch zu starten und/oder zu stoppen. Zu diesem Zweck wurde `isy-task` um die Annotation `OnceTask` erweitert. Darüber hinaus kommt der `TaskScheduler` aus dem Spring-Framework zum Einsatz.
 
-Eine Klasse, die einen Task bzw. eine Funktion beinhaltet, die manuell gestartet und gestoppt werden soll, muss zunächst mit @Component annotiert werden und das Runnable-Interface implementieren, damit die mit `@ManualTask` annotierte Methode von `isy-task` verarbeitet werden kann.
+Eine Klasse, die einen Task bzw. eine Funktion beinhaltet, die manuell gestartet und gestoppt werden soll, muss zunächst mit @Component annotiert werden und das Runnable-Interface implementieren, damit die mit `@OnceTask` annotierte Methode von `isy-task` verarbeitet werden kann.
 
 [source, java]
 ----
@@ -66,7 +66,7 @@ public class ProgrammaticallyScheduledTask implements Runnable {
     private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
 
     @Override
-    @ManualTask
+    @OnceTask
     public void run() {
         for (int i = 0; i < 3; i++) {
             try {
@@ -121,7 +121,7 @@ public class TestTaskScheduledProgrammatically {
 }
 ----
 
-Erweiterte Funktionalität: Es muss nicht zwangsläufig das Runnable-Interface implementiert werden, alternativ kann eine beliebige Methode mit @ManualTask annotiert werden. Diese muss anschließend per Lambda dem Scheduler übergeben werden:
+Erweiterte Funktionalität: Es muss nicht zwangsläufig das Runnable-Interface implementiert werden, alternativ kann eine beliebige Methode mit @OnceTask annotiert werden. Diese muss anschließend per Lambda dem Scheduler übergeben werden:
 
 [source, java]
 ----
@@ -136,7 +136,7 @@ public class TestTaskScheduledProgrammatically {
     private TaskScheduler taskScheduler;
 
     @Autowired
-    // has an @ManualTask-annotated execute()-Method
+    // has an @OnceTask-annotated execute()-Method
     private AlternativeTask task;
 
     @Test

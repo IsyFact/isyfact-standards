@@ -5,6 +5,7 @@
     * `isy.ueberwachung.security.password=<password>`
 
 ### Bug Fixes
+- `IFS-4212`: Dokumentation von `@OnceTask` korrigiert (`@ManualTask` existiert nicht)
 
 # 3.1.0
 ### Features
