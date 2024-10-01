@@ -84,6 +84,16 @@
                 <groupId>org.apache.myfaces.tomahawk</groupId>
                 <artifactId>tomahawk20</artifactId>
                 <version>${tomahawk20.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>commons-collections</groupId>
+                        <artifactId>commons-collections</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>commons-logging</groupId>
+                        <artifactId>commons-logging</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
 
             <dependency>
@@ -188,12 +198,12 @@
             <dependency>
                 <groupId>org.mapstruct</groupId>
                 <artifactId>mapstruct</artifactId>
-                <version>${org.mapstruct.version}</version>
+                <version>${mapstruct.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.mapstruct</groupId>
                 <artifactId>mapstruct-processor</artifactId>
-                <version>${org.mapstruct.version}</version>
+                <version>${mapstruct.version}</version>
             </dependency>
 
             <!-- Code generation: pojobuilder -->
