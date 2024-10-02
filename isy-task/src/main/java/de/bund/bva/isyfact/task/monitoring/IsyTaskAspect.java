@@ -19,6 +19,7 @@ package de.bund.bva.isyfact.task.monitoring;
 
 import static de.bund.bva.isyfact.task.konstanten.HinweisSchluessel.VERWENDE_STANDARD_KONFIGURATION;
 
+import java.util.Locale;
 import java.util.UUID;
 import java.util.function.Function;
 import java.util.regex.Pattern;
@@ -27,6 +28,7 @@ import java.util.regex.PatternSyntaxException;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.springframework.context.MessageSource;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 
@@ -45,7 +47,6 @@ import de.bund.bva.isyfact.task.security.Authenticator;
 import de.bund.bva.isyfact.task.security.AuthenticatorFactory;
 import de.bund.bva.isyfact.task.util.TaskCounterBuilder;
 import de.bund.bva.isyfact.task.util.TaskId;
-import de.bund.bva.isyfact.util.spring.MessageSourceHolder;
 
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.MeterRegistry;
@@ -72,16 +73,21 @@ public class IsyTaskAspect {
     /** Get simple class name function. **/
     private final Function<Throwable, String> throwableClass = (ex) -> ex.getClass().getSimpleName();
 
+    /** MessageSource to determine the messages. **/
+    private final MessageSource messageSource;
+
     public IsyTaskAspect(
             MeterRegistry registry,
             HostHandler hostHandler,
             IsyTaskConfigurationProperties isyTaskConfigurationProperties,
-            AuthenticatorFactory authenticatorFactory
+            AuthenticatorFactory authenticatorFactory,
+            MessageSource messageSource
     ) {
         this.registry = registry;
         this.hostHandler = hostHandler;
         this.isyTaskConfigurationProperties = isyTaskConfigurationProperties;
         this.authenticatorFactory = authenticatorFactory;
+        this.messageSource = messageSource;
     }
 
     @Around("@annotation(org.springframework.scheduling.annotation.Scheduled) || @annotation(de.bund.bva.isyfact.task.annotation.OnceTask)")
@@ -104,7 +110,7 @@ public class IsyTaskAspect {
             isDeactivated = taskConfig.isDeaktiviert();
             host = taskConfig.getHost();
             if (host == null) {
-                String nachricht = MessageSourceHolder.getMessage(VERWENDE_STANDARD_KONFIGURATION, "hostname");
+                String nachricht = messageSource.getMessage(VERWENDE_STANDARD_KONFIGURATION, new String[] { "hostname" }, Locale.GERMANY);
                 logger.info(LogKategorie.JOURNAL, VERWENDE_STANDARD_KONFIGURATION, nachricht);
                 host = isyTaskConfigurationProperties.getDefault().getHost();
             }
@@ -122,7 +128,7 @@ public class IsyTaskAspect {
 
             // Step 2: Check for deactivated task config
             if (isDeactivated) {
-                logger.debug(MessageSourceHolder.getMessage(Ereignisschluessel.TASK_DEAKTIVIERT, taskId));
+                logger.debug(messageSource.getMessage(Ereignisschluessel.TASK_DEAKTIVIERT, new String[] { taskId }, Locale.GERMANY));
                 recordFailure(pjp, TaskDeactivatedException.class.getSimpleName());
                 return null;
             }
