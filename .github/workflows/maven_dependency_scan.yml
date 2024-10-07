@@ -9,7 +9,7 @@ on:
 
 jobs:
   Dependencies:
-    uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_dependency_scan_template.yml@v1.4.0
+    uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_dependency_scan_template.yml@v1.6.0
     with:
       jdk-version: 8
       snyk-reference: $GITHUB_REF_NAME
@@ -18,4 +18,4 @@ jobs:
       SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
   ORT:
-    uses: IsyFact/isy-github-actions-templates/.github/workflows/oss_review_toolkit_template.yml@1.5.0
+    uses: IsyFact/isy-github-actions-templates/.github/workflows/oss_review_toolkit_template.yml@v1.6.0
