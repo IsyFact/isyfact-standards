@@ -2,6 +2,8 @@
 
 include::glossary:licence:partial$licence.adoc[]
 
+include::documentation-guide::partial$content-deprecated.adoc[]
+
 include::thisdoc.adoc[tags=inhalt]
 
 include::inhalt.adoc[tags=inhalt]
