@@ -1,17 +1,18 @@
-name: Check Maven
+# Maven Build: Compile, Test, SonarCloudScan
+name: Maven Build
 on:
   pull_request:
     branches:
       - master
       - 'release/**'
     paths-ignore:
-      - 'isyfact-standards-doc'
+      - 'isyfact-standards-doc/**'
   push:
     branches:
       - master
       - 'release/**'
     paths-ignore:
-      - 'isyfact-standards-doc'
+      - 'isyfact-standards-doc/**'
 
 jobs:
   Version:
