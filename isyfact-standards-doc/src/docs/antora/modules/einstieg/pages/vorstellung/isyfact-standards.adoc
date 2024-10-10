@@ -54,7 +54,6 @@ Die xref:methodik:vorlagen.adoc#datenflussdiagramm[Vorlage zu Datenflussdiagramm
 
 [[vorgaben-fuer-die-t-architektur]]
 === Vorgaben für die T-Architektur
-include::documentation-guide::partial$content-revised.adoc[]
 
 Die xref:referenzarchitektur:software-technisch.adoc[software-technische Referenzarchitektur] wird auf Basis der Spezifikation aus der fachlichen Architektur entwickelt.
 Die technischen Entsprechungen für die fachlich motivierte Anwendungslandschaft und die Anwendung sind die technisch motivierten Begriffe der Systemlandschaft und respektive des IT-Systems.
@@ -63,43 +62,27 @@ Die Referenzarchitektur kennt drei Typen von IT-Systemen: Backends, Frontends un
 
 ==== Backend
 
-xref:referenzarchitektur:software-technisch/backend.adoc[Backends] stellen Services für andere IT-Systeme bereit.
-Sie sind technisch gleichartig aufgebaut und setzen auf eine Drei-Schichten-Architektur, ergänzt um eine "Säule" querschnittlicher Funktionalität.
+include::glossary::terms-definitions.adoc[tags=backend-definition]
 
-[[systemarchitektur-backend]]
-.Systemarchitektur eines Backends
-image::referenzarchitektur:software-technisch/backend/architektur-backend.dn.svg[width=80%, align=center]
+Weitere Details zum Aufbau und zur Umsetzung von Backends enthält die xref:referenzarchitektur:software-technisch/backend.adoc[software-technische Referenzarchitektur für Backends].
 
-Die Abbildung der fachlichen Architektur wird vor allem durch die Fachkomponenten sichtbar.
-Jede Fachkomponente besitzt, soweit sinnvoll, eine Entsprechung in jeder Komponente des IT-Systems.
-Somit bedingt die Architektur einer Geschäftsanwendung maßgeblich die Strukturierung des daraus entstehenden IT-Systems.
+==== Frontend
 
-Zu den dargestellten softwaretechnischen Komponenten gibt es jeweils ein Detailkonzept, das die technische Umsetzung der Komponente beschreibt.
-Dazu bietet die IsyFact fertige Bausteine an, die bei der Umsetzung helfen.
+include::glossary::terms-definitions.adoc[tags=frontend-definition]
 
-Datenzugriff::
-Der Datenzugriff erfolgt über JPA.
-Das xref:blaupausen:detailkonzept-komponente-datenzugriff/einordnung-ziele.adoc[] legt die genaue Verwendung von JPA fest und beschreibt die Prinzipien sowie das Vorgehen zur Persistierung von Datenmodellen.
+Weitere Details zum Aufbau und zur Umsetzung von Frontends enthält die xref:referenzarchitektur:software-technisch/frontend.adoc[software-technische Referenzarchitektur für Frontends].
 
-Anwendungskern::
-Der Anwendungskern setzt die Fachlichkeit mittels Fachkomponenten um.
-Der Schnitt der Fachkomponenten ist durch die fachliche Referenzarchitektur vorgegeben.
-Die Ergänzung durch technische Komponenten und weitere Vorgaben, z.B. zur Konfiguration der Komponenten, sind in xref:blaupausen:detailkonzept-komponente-anwendungskern/master.adoc#einleitung[Detailkonzept Komponente Anwendungskern] festgelegt.
+==== Batch
 
-Batch::
-Batches sind eine Möglichkeit zur Nutzung von IT-Systemen über zeitgesteuerte und automatisch ablaufende, fachliche Operationen.
-Das xref:blaupausen:detailkonzept-komponente-batch/master.adoc#einfuehrung[Detailkonzept Komponente Batch] beschreibt die Vorgaben für Batches sowie den Aufbau der Batch-Komponente.
-Zur Umsetzung von Batches wird der Batchrahmen der IsyFact vorgeschrieben.
+include::glossary::terms-definitions.adoc[tags=batch-definition]
 
-Service::
-Services bieten fachliche Operationen nach außen an und stellen sie anderen IT-Systemen zur Nutzung bereit.
-Das xref:blaupausen:detailkonzept-komponente-service/master.adoc#einleitung[Detailkonzept Komponente Service] beschreibt die Vorgaben für Services sowie den Aufbau der Service-Komponente.
-Die konkrete Umsetzung mittels REST sind im xref:isy-service-rest:konzept/master.adoc[] sowie den xref:isy-service-rest:nutzungsvorgaben/master.adoc[] beschrieben.
+Weitere Details zum Aufbau und zur Umsetzung von Batches enthält die xref:blaupausen:detailkonzept-komponente-batch/master.adoc[software-technische Referenzarchitektur für Batches].
 
-Die Erstellung von IT-Systemen wird durch einen Systementwurf konkretisiert und dokumentiert.
 
 [[vorgaben-fuer-den-systementwurf]]
 ==== Vorgaben für den Systementwurf
+Die Erstellung von IT-Systemen wird durch einen Systementwurf konkretisiert und dokumentiert.
+
 Systementwürfe besitzen, genau wie Spezifikationen, eine festgelegte Form und beschreiben stets gleichartige Inhalte.
 Die Vorgaben dazu befinden sich mitsamt Vorgehen und Beispielen in der Vorlage für den Systementwurf (xref:methodik:vorlage-systementwurf/antora-master.adoc[IsyFact Systementwurf]).
 
