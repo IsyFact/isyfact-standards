@@ -15,7 +15,7 @@ zusammenfassend darzustellen.
 
 
 Zunächst beschreibt das Kapitel *xref:tutorial/master.adoc#bezug-isyfact[Bezug IsyFact]*, wie sich die IsyFact in Entwicklungsprojekte einbinden lässt.
-Danach beleuchten die Kapitel *xref:tutorial/master.adoc#datenhaltung[Datenhaltung]* , *xref:tutorial/master.adoc#fachkomponenten-der-anwendung[Fachkomponenten der Anwendung]* und *xref:tutorial/master.adoc#anwendungsnutzung[Anwendungsnutzung]* jeweils einzelne Kernthemen der Anwendungsentwicklung.
+Danach beleuchten die Kapitel *xref:tutorial/master.adoc#datenhaltung[Datenhaltung]* , *xref:tutorial/master.adoc#fachkomponenten-der-anwendung[Fachkomponenten der Anwendung]* und *xref:tutorial/master.adoc#batch-verarbeitung[Batch-Verarbeitung]* jeweils Themen der Anwendungsentwicklung.
 Kapitel *xref:tutorial/master.adoc#querschnitt[Querschnitt]* fasst alle Querschnittsthemen zusammen.
 Jedes Teilkapitel beginnt in der Regel mit der Auflistung der wichtigsten Designvorgaben und einem Klassendiagramm.
 Es folgt eine Realisierungsanleitung, die alle wesentlichen Schritte zur Umsetzung in Kurzform enthält.

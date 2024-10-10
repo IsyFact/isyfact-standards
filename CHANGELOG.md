@@ -1,5 +1,6 @@
 # 4.0.0
 ## FEATURES
+- `IFS-4084`: [isyfact-standards-doc] Verwendungen des Begriffs IT-System im Einstieg korrigiert
 - `IFS-4062`: [isyfact-standards-doc] Referenzarchitektur für Backends aufgrund von IFS-3736 neu verfasst
 - `IFS-3992`: [isyfact-standards-doc] Entfernung der Vorlage "Tailoring" Dokument
 - `ISY-1025`: Versionsanhebung `maven-surefire-plugin` auf 3.2.5
@@ -14,10 +15,10 @@
 - `IFS-2784`: [isyfact-standards-doc] Externe Verweise direkt verlinkt statt über `literaturextern` und URLs korrigiert
 - `IFS-2816`: [isyfact-standards-doc] Begriff "Blaupause" durch "Referenzarchitektur" ersetzt
 - `IFS-3665`: [isyfact-standards-doc] "Leitfaden Dokumentation" nach `isy-documentation` verschoben
-- `IFS-3692`: [isyfact-standards-doc] Seite "Referenzarchitekur" nach Architektursichten aufgeteilt
+- `IFS-3692`: [isyfact-standards-doc] Seite "Referenzarchitektur" nach Architektursichten aufgeteilt
 - `ISY-909`: [isyfact-products-bom] Orika durch MapStruct ersetzt
 - `IFS-3821`: [isyfact-standards-doc] Thematik zur internen und externen URL bei der Authentifizierung beschrieben (Multiple Issuer-URIs)
-- `IFS-3833`: [isy-security] Implementierung von Multi-Tenanacy-Support
+- `IFS-3833`: [isy-security] Implementierung von Multi-Tenancy-Support
 - `IFS-3834`: [isyfact-standards-doc] Kapitel Authentifizierung & Autorisierung um Multi-Tenancy erweitert.
 - `IFS-2248`: [isy-batchrahmen, isy-security] Tokenerneuerung in isy-batchrahmen:
     * `IsySecurityTokenUtil` und `IsyOAuth2Authentifizierungsmanager` stellen Funktionalität zur Token-Gültigkeitsüberprüfung und erneuten Authentifizierung bereit
@@ -101,7 +102,7 @@
 - `IFS-1504`: [isy-sonderzeichen] Transformator für die normative Abbildung lateinischer Buchstaben auf Grundbuchstaben (Suchform) hinzugefügt
   * Integration von zugeliefertem Code aus `IFS-1270`
 - `IFS-2045`: [isyfact-products-bom] Produkte Apache Tika, commons-beanutils und commons-io hinzugefügt
-- `IFS-2287`: [isy-sonderzeichen]  Deprecation für String-Latin-1.1-Transformatoren setzen
+- `IFS-2287`: [isy-sonderzeichen] Deprecation für String-Latin-1.1-Transformatoren setzen
 - `IFS-1886`: [isy-sicherheit] Modul als `@Deprecated` markiert zugunsten von`isy-security`
 - `IFS-1940`: [isy-sicherheit] `IsySicherheitUtil` deprecated
 - `IFS-2382`: [isy-sonderzeichen] Entfernt Mutable-Array Spotbugs Fehler
@@ -233,7 +234,7 @@
 - `IFS-568`: [isy-util] Entfernt redundante Methode aus dem MessageSourceHolder
 - `IFS-600`: [isy-products-bom] Spring-Boot Versionsanhebung auf 2.3.8 und Fasterxml Jackson auf Version 2.11.2
 - `IFS-625`: Google.Guava von Version 19.0 auf 29.0 angehoben.
-- `IFS-656`: [isy-ueberwachung] ServiceStatstik: Durchschnitt threadsafe berechnet
+- `IFS-656`: [isy-ueberwachung] ServiceStatistik: Durchschnitt threadsafe berechnet
 - `IFS-694`: [isy-products-bom] Spring-Boot Versionsanhebung auf 2.2.9 und Fasterxml Jackson auf Version 2.10.5
 - `IFS-746`: [isy-task] Behebung von NullPointerException in TaskSchedulerImpl (wenn HostHandler false zurückgibt)
 - `IFS-783`: Konfiguration von Quality Gate 1; Umstellung auf GitLabCI Templates
@@ -248,7 +249,7 @@
 - `IFS-156`: [isy-sicherheit] Sonderlogik, die Underscores aus dem Attribut `durchfuehrenderSachbearbeiterName` des Aufrufkontextes entfernt erneut ausgebaut.
 - `IFS-223`: [isy-products-bom] Logging Bridges in products-pom ergänzt: jcl-over-slf4j, slf4j-jcl
 - `IFS-303`: [isy-polling] Surefire-Plugin bezieht Version aus standards-pom und argLine Anpassung JaCoCo
-- `IFS-323`: [isy-taks] Hostnamen werden jetzt mit Regex angegeben
+- `IFS-323`: [isy-task] Hostnamen werden jetzt mit Regex angegeben
 - `IFS-324`: Umzug des Tasks für Konfigurations-Updates von isy-task zu isy-konfiguration
 - `IFS-334`: Hinzufügen eines Profils für Jacoco und Anpassung der Surefire Config
 - `IFS-346`: [isy-logging, isy-serviceapi-core] Logging in REST-SGWs prinzipiell nur für Testumgebungen aktiv, aber auch im Produktivbetrieb verfügbar und per Konfiguration aktivierbar.

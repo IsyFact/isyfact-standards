@@ -216,23 +216,13 @@ NOTE: Für das Bundesverwaltungsamt ist dies z.B. `de.bund.bva`
 * Die Komponente mit `@Component` bzw. mit einer passenden Spezialisierung annotiert, damit sie von Spring als Bean konfiguriert wird.
 * Je nach Bedarf wird die Komponente anderen Komponenten per Dependency Injection bekannt gemacht.
 
-[[anwendungsnutzung]]
-== Anwendungsnutzung
-
-In diesem Kapitel wird die Realisierung von verschiedenen, technischen Zugangswegen zum Anwendungskern beschrieben.
-Das Thema umfasst die Nutzung des Anwendungskerns im Rahmen der Batch-Verarbeitung.
-
-.Referenzarchitektur eines IT-Systems
-[id="image-RAIT",reftext="{figure-caption} {counter:figures}"]
-image::referenzarchitektur:software-technisch/backend/architektur-backend.dn.svg[]
-
 [[batch-verarbeitung]]
-=== Batch-Verarbeitung
+== Batch-Verarbeitung
 
 In diesem Kapitel wird die Implementierung von Batches zu einer Anwendung beschrieben.
 
 [[designvorgaben-4]]
-==== Designvorgaben
+=== Designvorgaben
 
 * Die Batch-Verarbeitung verwendet den Anwendungskern der zugehörigen Anwendung.
 Der Anwendungskern ist Teil des Batch-Deployments, d.h. der Code ist sowohl Teil der Server-Anwendung als auch der Batch-Anwendung in Bezug auf Deploymenteinheiten.
@@ -249,7 +239,7 @@ Die Ausführungs-Bean übermittelt dem Batchrahmen Status-Informationen für das
 * Alle Batches zu einer Anwendung werden als eigenständige Deployment-Einheit ausgeliefert.
 
 [[klassendesign-4]]
-==== Klassendesign
+=== Klassendesign
 
 .Klassendesign eines Batches
 [id="image-KDBatch",reftext="{figure-caption} {counter:figures}"]
@@ -266,10 +256,10 @@ Die Transaktionssteuerung im Batch sieht vor, mehrere Arbeitsschritte in einer T
 Die Größe der Transaktion (Commit-Rate) wird über den Batchrahmen konfiguriert.
 
 [[realisierung-4]]
-==== Realisierung
+=== Realisierung
 
 [[einbinden-der-bibliothek]]
-===== Einbinden der Bibliothek
+==== Einbinden der Bibliothek
 
 Zur Realisierung von Batches muss die in <<listing-bib-batch>> aufgelistete Bibliothek eingebunden werden.
 
@@ -288,7 +278,7 @@ Zur Realisierung von Batches muss die in <<listing-bib-batch>> aufgelistete Bibl
 ----
 
 [[implementierung-der-batch-logik]]
-===== Implementierung der Batch-Logik
+==== Implementierung der Batch-Logik
 
 Die Batch-Logik wird implementiert, in dem eine Batch-Bean im Package `<organisation>.<domäne>.<anwendung>.batch` implementiert wird.
 Für die Realisierung ist es notwendig, dass die Batch-Bean das Interface `BatchAusfuehrungsBean` aus der Bibliothek `isy-batchrahmen` implementiert.
@@ -300,7 +290,7 @@ Details dazu werden im JavaDoc der Methode beschrieben.
 Der Parameter `BatchErgebnisProtokoll` enthält eine Referenz auf ein Protokollobjekt, welches der Batch verwendet, um Protokoll-Meldungen und Statistiken an den Batchrahmen zu übergeben.
 
 [[konfiguration-des-batches-und-batchrahmens]]
-===== Konfiguration des Batches und Batchrahmens
+==== Konfiguration des Batches und Batchrahmens
 
 Für jeden Batch muss eine Property-Datei in `/src/main/resources/resources/batch` angelegt werden.
 In dieser statischen Konfiguration werden unter anderem die Batch-ID und die Transaktionssteuerung konfiguriert.
@@ -310,7 +300,7 @@ Die betriebliche Konfiguration des Batches ist identisch zu derjenigen der zugeh
 Auch Parameter, die nur für den Batch benötigt werden, werden in die betriebliche Konfiguration der Geschäftsanwendung aufgenommen.
 
 [[spring-konfiguration-anlegen]]
-===== Spring-Konfiguration anlegen
+==== Spring-Konfiguration anlegen
 
 Für den Batchrahmen werden in der Konfigurationsklasse der Batch-Schicht die Spring-Beans des Batchrahmens und für jeden existierenden Batch die Ausführungs-Bean als Spring-Bean definiert.
 
@@ -330,7 +320,7 @@ Dazu müssen Beans, die nicht für Ausführung eines Batches instanziiert werden
 `@ExcludeFromBatchContext` annotiert werden.
 
 [[konfiguration-des-batch-deployments]]
-===== Konfiguration des Batch-Deployments
+==== Konfiguration des Batch-Deployments
 
 Für das Deployment des Batches wird ein neues Maven-Projekt `<system>-batch` angelegt.
 Dieses hat die Aufgabe das Deployment-Paket für den Batch zusammenzustellen.
