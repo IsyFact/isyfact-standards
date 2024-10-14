@@ -1,4 +1,4 @@
-= Verwendung des Spring-Frameworks
+= Verwendung von Spring
 
 include::documentation-guide::partial$licence.adoc[]
 

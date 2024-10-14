@@ -10,7 +10,7 @@
 ****** xref:blaupausen:detailkonzept-komponente-datenzugriff/persistenzlogik.adoc[]
 ****** xref:blaupausen:detailkonzept-komponente-datenzugriff/historisierung.adoc[]
 ****** xref:blaupausen:detailkonzept-komponente-datenzugriff/versionierung.adoc[]
-***** xref:software-technisch/backend/spring.adoc[Spring]
+***** xref:software-technisch/backend/spring.adoc[]
 ***** xref:software-technisch/backend/konfiguration.adoc[]
 **** xref:software-technisch/frontend.adoc[]
 **** xref:blaupausen:detailkonzept-komponente-batch/master.adoc[Batch]
