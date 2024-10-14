@@ -4,7 +4,6 @@ include::glossary:licence:partial$licence.adoc[]
 
 include::documentation-guide::partial$content-revised-page.adoc[]
 
-// tag::inhalt[]
 [[aufbau-des-anwendungskerns]]
 == Aufbau des Anwendungskerns
 
@@ -123,22 +122,23 @@ Beispiel für querschnittliche Funktionalität ist die deklarative Steuerung von
 
 Die Vorgaben zur Nutzung und Konfiguration des Spring-Frameworks werden in Kapitel <<verwendung-des-spring-frameworks>> beschrieben.
 
-[[externe-services]]
-=== Externe Services
+[[service-consumer]]
+=== Service Consumer
 
-// tag::externer-service-definition[]
+// tag::service-consumer-definition[]
 
-Wenn der Anwendungskern fachliche Services benötigt, die von anderen IT-Systemen innerhalb der xref:glossary::terms-definitions.adoc#glossar-systemlandschaft[Systemlandschaft] angeboten werden, so werden diese Services als Komponente im Anwendungskern abgebildet.
-Komponenten, die externe Services kapseln, sind im Idealfall von außen nicht von fachlichen Komponenten des Anwendungskerns unterscheidbar.
-Dadurch ist die Funktionalität sauber gekapselt, was die Wartbarkeit erhöht: Technische Änderungen am externen Service führen nur zu Änderungen an der externen Service-Komponente.
-Externe Service-Komponenten übernehmen neben der technischen Kommunikation auch die Abbildung von Transportobjekten und -exceptions auf die Geschäftsobjekte und Exceptions des Backends.
+Wenn Backends Services anderer IT-Systeme zur Erfüllung ihrer fachlichen Aufgaben benötigen, so werden diese als Komponente ("Service Consumer") im Anwendungskern abgebildet.
+Dabei ist es für ein Backend transparent, ob der Service innerhalb oder außerhalb der Anwendungslandschaft beheimatet ist.
+Service Consumer verhalten sich wie Fachkomponenten des Anwendungskerns.
+Sie übernehmen die technische Kommunikation mit dem Service sowie die Abbildung von Transportobjekten des Services auf Geschäftsobjekte und Exceptions des Backends.
+Dadurch ist ihre Funktionalität sauber gekapselt, sodass technische Änderungen am Service im Idealfall nur zu Änderungen am Service Consumer führen.
 
-// end::externer-service-definition[]
+// end::service-consumer-definition[]
 
 [[austausch-von-geschaeftsobjekten]]
 === Austausch von Geschäftsobjekten
 
-Der Anwendungskern hat die Hoheit über die Geschäftsobjekte des IT-Systems.
+Der Anwendungskern hat die Hoheit über die Geschäftsobjekte des Backends.
 In der xref:index.adoc[] wurde bereits beschrieben, dass zur Strukturierung eines IT-Systems zwei Sichten verwendet werden können:
 
 *Technische Sicht:* Die technische Sicht unterteilt die IT-Anwendung in Schichten für die jeweils eigene Technologien verwendet werden: Nutzung (Batch und Service), Anwendungskern und Datenzugriff.
@@ -470,13 +470,13 @@ Die Berechtigungsprüfung wird über Spring AOP mit den vom Baustein „Security
 [[aop-nicht-fuer-das-logging-von-exceptions-verwenden]]
 ==== AOP nicht für das Logging von Exceptions verwenden
 
-Sämtliche in einem IT-System geworfenen und nicht behandelten Ausnahmen müssen inklusive ihrer Stacktraces geloggt werden.
+Sämtliche in einem Backend geworfenen und nicht behandelten Ausnahmen müssen inklusive ihrer Stacktraces geloggt werden.
 Geloggt wird dies in den Methoden der Schnittstellen-Beans.
 Hierfür soll Spring-AOP nicht verwendet werden.
 
 Schnittstellen-Beans transformieren die Geschäftsobjekte des Anwendungskerns in Transportobjekte der Schnittstelle.
 Die Stack-Traces der Exceptions werden dabei nicht übertragen, da diese internen Informationen dem Aufrufer keinen Mehrwert bieten.
-Für das Logging des IT-Systems selbst sind sie jedoch wertvoll.
+Für das Logging des Backends selbst sind sie jedoch wertvoll.
 Statt AOP ist das im xref:blaupausen:detailkonzept-komponente-service/master.adoc[Detailkonzept Komponente Service] beschriebene Konstrukt der Exception-Fassade zu verwenden.
 
 [[dependency-injection]]
@@ -550,5 +550,3 @@ public class SomeBean {
 
 }
 ----
-
-// end::inhalt[]

@@ -64,10 +64,10 @@ include::backend/anwendungskern.adoc[tags=fachkomponente-definition]
 
 include::backend/anwendungskern.adoc[tags=awk-framework-definition]
 
-[[awk-externe-services]]
-=== Externe Services
+[[awk-service-consumer]]
+=== Service Consumer
 
-include::backend/anwendungskern.adoc[tags=externer-service-definition]
+include::backend/anwendungskern.adoc[tags=service-consumer-definition]
 
 [[awk-umsetzung]]
 === Umsetzung
