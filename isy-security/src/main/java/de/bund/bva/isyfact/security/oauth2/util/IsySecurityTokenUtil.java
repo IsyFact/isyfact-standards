@@ -18,7 +18,6 @@ import org.springframework.security.oauth2.server.resource.authentication.Abstra
  */
 public final class IsySecurityTokenUtil {
 
-
     /**
      * The resource bundle that contains the token configuration.
      */
@@ -27,21 +26,22 @@ public final class IsySecurityTokenUtil {
     /**
      * The JWT claim name that contains the login.
      */
-    private static final String LOGIN = getConfigPropertyValueAsString("login");
+    public static final String LOGIN = getConfigPropertyValueAsString("login");
 
     /**
      * The JWT claim name that contains the userId.
      */
-    private static final String USERID = getConfigPropertyValueAsString("userId");
+    public static final String USER_ID = getConfigPropertyValueAsString("userId");
 
     /**
      * The JWT claim name that contains the bhknz (Behoerdenkennzeichen).
      */
-    private static final String BHKNZ = getConfigPropertyValueAsString("bhknz");
+    public static final String BHKNZ = getConfigPropertyValueAsString("bhknz");
+
     /**
      * The JWT claim name that contains the display name.
      */
-    private static final String DISPLAYNAME = getConfigPropertyValueAsString("displayName");
+    public static final String DISPLAY_NAME = getConfigPropertyValueAsString("displayName");
 
     /**
      * The prefix for all configuration properties.
@@ -80,7 +80,7 @@ public final class IsySecurityTokenUtil {
      * @return the userId of the current user or the Subject identifier (sub) if the userId is not set
      */
     public static String getUserId() {
-        String userId = (String) getTokenAttribute(USERID);
+        String userId = (String) getTokenAttribute(USER_ID);
         if (userId == null) {
             return (String) getTokenAttribute(StandardClaimNames.SUB);
         } else {
@@ -104,7 +104,7 @@ public final class IsySecurityTokenUtil {
      * @return the display name of the current user or the login if the display name is not set
      */
     public static Optional<String> getDisplayName() {
-        String displayName = (String) getTokenAttribute(DISPLAYNAME);
+        String displayName = (String) getTokenAttribute(DISPLAY_NAME);
         if (displayName == null) {
             return getLogin();
         }
