@@ -16,20 +16,18 @@
  */
 package de.bund.bva.isyfact.persistence.datasource;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
+import de.bund.bva.isyfact.persistence.exception.PersistenzException;
+import org.junit.Before;
+import org.junit.Test;
 
+import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import javax.sql.DataSource;
-
-import org.junit.Before;
-import org.junit.Test;
-
-import de.bund.bva.isyfact.persistence.exception.PersistenzException;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.*;
 
 public class TestIsyDataSource {
 
@@ -94,18 +92,19 @@ public class TestIsyDataSource {
 		isyDataSource.setSchemaVersion("version");
 		isyDataSource.afterPropertiesSet();
 	}
-	
+
 	@Test
 	public void testAfterPropertiesSetResultSetIsNullActionWarn() throws SQLException {
 		when(dataSource.getConnection()).thenReturn(connection);
 		when(connection.prepareStatement(query)).thenReturn(statement);
-		when(statement.executeQuery()).thenReturn(null);
-		doThrow(SQLException.class).when(connection).close();
+		doThrow(new SQLException()).when(statement).executeQuery();
 		isyDataSource.setSchemaVersion("version");
 		isyDataSource.setInvalidSchemaVersionAction("warn");
+		isyDataSource.setNonCriticalDataSource(true);
 		isyDataSource.afterPropertiesSet();
+
 	}
-	
+
 	@Test(expected = PersistenzException.class)
 	public void testAfterPropertiesSetResultSetIsNull() throws SQLException {
 

@@ -84,12 +84,14 @@ public class TimeoutWiederholungHttpInvokerRequestExecutor extends SimpleHttpInv
                             "Warte {}ms bis zur Wiederholung des Aufrufs.", wiederholungenAbstand);
                         Thread.sleep(wiederholungenAbstand);
                     }
-                } catch (InterruptedException ex) {
-                    LOG.info(LogKategorie.PROFILING, EreignisSchluessel.TIMEOUT_WARTEZEIT_ABBRUCH,
+                }  catch (InterruptedException ex) {
+                Thread.currentThread().interrupt();
+                LOG.info(LogKategorie.PROFILING, EreignisSchluessel.TIMEOUT_WARTEZEIT_ABBRUCH,
                         "Warten auf Aufrufwiederholung abgebrochen", ex);
-                    throw requestException;
-                }
-                LOG.info(LogKategorie.PROFILING, EreignisSchluessel.TIMEOUT_WIEDERHOLUNG,
+                throw new IOException("Thread wurde unterbrochen, während er auf den erneuten Versuch des HTTP-Aufrufs wartete", ex);
+            }
+
+            LOG.info(LogKategorie.PROFILING, EreignisSchluessel.TIMEOUT_WIEDERHOLUNG,
                     "Wiederhole Aufruf...");
             }
         }

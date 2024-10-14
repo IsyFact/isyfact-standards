@@ -27,49 +27,50 @@ import de.bund.bva.isyfact.batchrahmen.core.konstanten.NachrichtenSchluessel;
 import de.bund.bva.isyfact.batchrahmen.persistence.rahmen.BatchStatus;
 import de.bund.bva.isyfact.batchrahmen.persistence.rahmen.BatchStatusDao;
 import de.bund.bva.isyfact.batchrahmen.core.exception.BatchrahmenParameterException;
+import de.bund.bva.isyfact.batchrahmen.persistence.rahmen.DefaultEntityManagerProvider;
+import de.bund.bva.isyfact.batchrahmen.persistence.rahmen.EntityManagerProvider;
 
 /**
- * Dieser Handler kapselt die Logik rund um die BatchStatus Tabelle.
- *
+ * This handler encapsulates the logic around the BatchStatus table.
  *
  */
 public class StatusHandler {
-    /** Referenz auf das DAO Objekt fuer die Status-Tabelle. */
+    /** Reference to the DAO object for the status table. */
     private BatchStatusDao batchStatusDao;
 
-    /** Id des Batches, wird zur Suche nach dem Status-Satz verwendet. */
+    /** Batch ID, used to search for the status record. */
     private String batchId;
 
     /**
-     * Setzt die benoetigten Querschnittsdaten in der Instanz.
+     * Sets the required cross-sectional data in the instance.
      *
      * @param factory
-     *            {@link EntityManagerFactory} Aktuelle EntityManagerFactory für den Zugriff auf die
-     *            Persistenz.
+     *            {@link EntityManagerFactory} Current EntityManagerFactory for access to
+     *            persistence.
      */
     public StatusHandler(EntityManagerFactory factory) {
-        this.batchStatusDao = new BatchStatusDao(factory);
+        EntityManagerProvider entityManagerProvider = new DefaultEntityManagerProvider(factory);
+        this.batchStatusDao = new BatchStatusDao(entityManagerProvider);
     }
 
     /**
-     * fuehrt folgende Aktionen aus:<br>
+     * performs the following actions:<br>
      * <ul>
-     * <li>Lesen bzw. Anlegen des Statusdatenbank-Satzes.
-     * <li>Pruefen, ob die Start-Parameter mit der Datenbank harmonieren.
-     * <li>Aktualisieren des Statusdatenbank-Satzes (Status laeuft etc.)
-     * <li>Bei Start: Aktualisieren der Konfigurationsparameter in der Datenbank
-     * <li>Bei Restart: Lesen der Konfigurationsparameter aus der Datenbank und aktualisieren der eigenen
-     * Konfiguration.
+     * <li>Read or create the status database record.
+     * <li>Check if the start parameters harmonize with the database.
+     * <li>Update the status database record (status running etc.)
+     * <li>On start: Update the configuration parameters in the database
+     * <li>On restart: Read the configuration parameters from the database and update the own
+     * configuration.
      * </ul>
      * @param konfiguration
-     *            Die Konfiguration des Batch-Aufrufs. Diese wird bei Restart auf die in der Statusdatenbank
-     *            abgelegte Konfiguration aktualisiert.
-     * @return Der BatchStatus Datensatz fuer den Batch.
+     *            The configuration of the batch call. This is updated to the configuration stored in the status database on restart.
+     * @return The BatchStatus record for the batch.
      */
     public BatchStatus statusSatzInitialisieren(BatchKonfiguration konfiguration) {
         this.batchId = konfiguration.getAsString(KonfigurationSchluessel.PROPERTY_BATCH_ID);
         String name = konfiguration.getAsString(KonfigurationSchluessel.PROPERTY_BATCH_NAME);
-        // Lesen des Batch-Status, ggf. Anlegen des Satzes
+        // Read the Batch Status, possibly create the record
         BatchStatus status = this.batchStatusDao.leseBatchStatus(this.batchId);
         if (status == null) {
             status = new BatchStatus();
@@ -83,12 +84,12 @@ public class StatusHandler {
     }
 
     /**
-     * Vermerkt das Laufen des Batches im BatchStatus.
+     * Records the batch as running in the BatchStatus.
      * @param konfiguration
-     *            Die BatchKonfiguration
+     *            The BatchConfiguration
      */
     public void setzteStatusSatzAufLaufend(BatchKonfiguration konfiguration) {
-        // Batch-Status aktualisieren.
+        // Update the batch status.
         BatchStatus status = leseBatchStatus();
         status.setBatchStatus(BatchStatusTyp.LAEUFT.getName());
         status.setDatumLetzterStart(new Timestamp(System.currentTimeMillis()));
@@ -99,22 +100,21 @@ public class StatusHandler {
     }
 
     /**
-     * Liest den Status-Satz für den Batch.
-     * @return Status-Satz des Batches oder <code>null</code> falls keiner existiert.
+     * Reads the status record for the batch.
+     * @return Status record of the batch or <code>null</code> if none exists.
      */
     public BatchStatus leseBatchStatus() {
-        // Lesen des Batch-Status, ggf. Anlegen des Satzes
+        // Read the batch status, possibly create the record
         return this.batchStatusDao.leseBatchStatus(this.batchId);
     }
 
     /**
-     * prueft, ob die Parameter fuer das Starten bzw. Restarten des Batches mit dem Status in der Datenbank
-     * zusammenpassen.
+     * Checks whether the parameters for starting or restarting the batch match the status in the database.
      *
      * @param status
-     *            der Status in der Datenbank
+     *            the status in the database
      * @param konfig
-     *            die angegebenen Parameter.
+     *            the specified parameters.
      */
     private void pruefeStatusDbGegenAufrufParameter(BatchStatus status, BatchKonfiguration konfig) {
         if (BatchStatusTyp.LAEUFT.getName().equals(status.getBatchStatus())
