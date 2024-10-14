@@ -2,8 +2,6 @@
 
 include::documentation-guide::partial$licence.adoc[]
 
-include::documentation-guide::partial$content-revised-page.adoc[]
-
 // tag::anwendungskern-definition[]
 
 Der xref:glossary::terms-definitions.adoc#glossar-anwendungskern[Anwendungskern] ist der zentrale Bestandteil eines Backends.
