@@ -24,7 +24,7 @@ Die Fachkomponenten entsprechen den durch das Backend umgesetzten Anwendungskomp
 Neben den Fachkomponenten enthält jede Schicht ein Framework, das maßgeblich zur Umsetzung ihrer Kernaufgabe beiträgt.
 
 Backends setzen für die Verwaltung, xref:software-technisch/backend/konfiguration.adoc[] und Kopplung der Fachkomponenten nach dem Prinzip der _Dependency Injection_ Spring Boot und weitere Bestandteile von Spring ein.
-Details hierzu werden über die xref:software-technisch/backend/anwendungskern.adoc#verwendung-des-spring-frameworks[Vorgaben zur Verwendung des Spring-Frameworks] festgelegt.
+Details hierzu werden über die Vorgaben zur xref:software-technisch/backend/spring.adoc[] festgelegt.
 
 === Transaktionssteuerung
 
