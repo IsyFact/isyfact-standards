@@ -167,7 +167,7 @@ Für jeden Entitätstyp wird eine nicht-persistente Schnittstellenklasse erstell
 Die Komponentenschnittstelle wird von einer Java-Klasse implementiert.
 Diese Klasse kann die Anwendungsfälle im einfachen Fall direkt implementieren oder an Anwendungsfall-Klassen delegieren.
 * Die interne Strukturierung von Komponenten ist nicht im Detail vorgeben.
-Für fachliche Komponenten wird eine Basisimplementierung im xref:blaupausen:detailkonzept-komponente-anwendungskern/master.adoc#fachkomponenten[Anwendungskern] beschrieben.
+Für fachliche Komponenten wird eine Basisimplementierung im xref:referenzarchitektur:software-technisch/backend/anwendungskern.adoc#fachkomponenten[Anwendungskern] beschrieben.
 
 [[klassendesign-1]]
 === Klassendesign
