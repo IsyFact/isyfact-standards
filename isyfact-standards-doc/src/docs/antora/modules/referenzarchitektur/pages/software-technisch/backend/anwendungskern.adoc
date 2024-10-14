@@ -4,9 +4,6 @@ include::glossary:licence:partial$licence.adoc[]
 
 include::documentation-guide::partial$content-revised-page.adoc[]
 
-[[aufbau-des-anwendungskerns]]
-== Aufbau des Anwendungskerns
-
 // tag::anwendungskern-definition[]
 
 Der xref:glossary::terms-definitions.adoc#glossar-anwendungskern[Anwendungskern] ist der zentrale Bestandteil eines Backends.
@@ -20,7 +17,7 @@ image::referenzarchitektur:software-technisch/backend/anwendungskern.dn.svg[widt
 // end::anwendungskern-definition[]
 
 [[fachkomponenten]]
-=== Fachkomponenten
+== Fachkomponenten
 
 // tag::fachkomponente-definition[]
 
@@ -109,7 +106,7 @@ Die folgende Abbildung fasst den <<image-aufbau-fachkomponente>> noch einmal gra
 image::software-technisch/backend/aufbau_fachkomponente_awk.dn.svg[]
 
 [[das-anwendungskern-framework]]
-=== Anwendungskern-Framework
+== Anwendungskern-Framework
 
 // tag::awk-framework-definition[]
 
@@ -123,7 +120,7 @@ Beispiel für querschnittliche Funktionalität ist die deklarative Steuerung von
 Die Vorgaben zur Nutzung und Konfiguration des Spring-Frameworks werden in Kapitel <<verwendung-des-spring-frameworks>> beschrieben.
 
 [[service-consumer]]
-=== Service Consumer
+== Service Consumer
 
 // tag::service-consumer-definition[]
 
@@ -135,40 +132,66 @@ Dadurch ist ihre Funktionalität sauber gekapselt, sodass technische Änderungen
 
 // end::service-consumer-definition[]
 
-[[austausch-von-geschaeftsobjekten]]
-=== Austausch von Geschäftsobjekten
+[[transaktionssteuerung]]
+== Transaktionssteuerung
 
-Der Anwendungskern hat die Hoheit über die Geschäftsobjekte des Backends.
-In der xref:index.adoc[] wurde bereits beschrieben, dass zur Strukturierung eines IT-Systems zwei Sichten verwendet werden können:
+An der Schnittstelle des Anwendungskerns findet die Transaktionssteuerung statt.
+Jeder Aufruf wird in einer eigenen Transaktion abgearbeitet.
+Die Transaktion wird beim Aufruf des Anwendungskerns gestartet und mit der Rückgabe des Ergebnisses abgeschlossen (Commit) und somit beendet.
+Falls bei der Verarbeitung einer Anfrage ein nicht behebbarer Fehler auftritt, wird dieser an den Aufrufer zurück übermittelt.
+In diesem Fall wird die Transaktion nicht fortgeschrieben, sondern zurückgerollt (Rollback).
 
-*Technische Sicht:* Die technische Sicht unterteilt die IT-Anwendung in Schichten für die jeweils eigene Technologien verwendet werden: Nutzung (Batch und Service), Anwendungskern und Datenzugriff.
-Das Ziel ist es, eine Durchmischung von Technologien zu verhindern, so darf z. B. außerhalb des Datenzugriffs kein SQL formuliert werden.
+Der Anwendungskern bietet an seiner Schnittstelle fachliche Operationen, in fachliche Komponenten gruppiert, an.
+Die fachlichen Operationen sind in der Regel zustandslos.
+Daher ist eine Transaktion über mehrere Aufrufe des Anwendungskerns oder ein Caching über Transaktionsgrenzen hinaus nicht notwendig und nach Möglichkeit zu vermeiden.
+Ist eine solche Steuerung trotzdem unumgänglich, muss sie über die xref:blaupausen:detailkonzept-komponente-service/master.adoc#transaktionssteuerung[Serviceschicht] erfolgen.
 
-*Fachliche Sicht:* Die fachliche Sicht beschreibt eine Teilaufgabe, z. B. Meldung, Auskunft oder Fristenkontrolle.
-Innerhalb dieser Teilaufgabe wird der Anwendungskern über Services oder Batches angesprochen, der wiederum über die Persistenzschicht mit der Datenbank kommunizieren muss.
-Daher zerlegt die fachliche Sicht das IT-System in fachliche Säulen.
-Diese fachlichen Säulen werden im folgenden Teilanwendungen genannt.
-Das Ziel ist die fachliche Trennung und Minimierung inhaltlicher Abhängigkeiten.
-Die Teilanwendungen sollen Fachlichkeit kapseln.
+[[transaktionssteuerung-mit-jpa]]
+=== Transaktionssteuerung mit JPA
 
-Damit kann eine IT-Anwendung sowohl vertikal in Teilanwendungen (fachliche Sicht) und horizontal in Schichten (technische Sicht) strukturiert werden, wie die <<image-schichten-und-teilanwendungen,folgende Abbildung>> verdeutlicht.
+Spring ermöglicht es, die Transaktionssteuerung mit Annotationen zu definieren.
+Hierbei kann auf Ebene einzelner Methoden oder der gesamten Klasse das Verhalten von Transaktionen vorgegeben werden.
 
-[[image-schichten-und-teilanwendungen]]
-.Schichten und Teilanwendungen
-image::software-technisch/backend/teilsysteme-aufbau.dn.svg[]
+Im Anwendungskern bieten sich dazu sich die Klassen der Implementierung der Schnittstelle an, die Aufrufer weiter an die Anwendungsfall-Klassen verweisen.
+Üblicherweise werden für eine feingranulare Steuerung die Methoden mit Annotationen versehen.
+Gibt es ein für die Klasse gemeinsames Verhalten, kann stattdessen auch die Klasse mit der Annotation versehen werden.
 
-Eine Teilanwendung erstreckt sich über alle technischen Schichten, kapselt aber die Fachlichkeit, zu der gewisse Geschäftsobjekte gehören.
-Um den Austausch von Objekten innerhalb einer Teilanwendung zwischen den Schichten zu vereinfachen, gleichzeitig aber unterschiedliche Teilanwendungen gegeneinander abzugrenzen, wird für die Verwendung von Objekten in Schnittstellen folgende Regel aufgestellt:
+.Verwendung der Annotation @Transactional an Klassen und Methoden
+[id="listing-transactional",reftext="{listing-caption} {counter:listings }"]
+[source,java]
+----
+@Transactional(rollbackFor = Throwable.class, propagation = Propagation.REQUIRED)
+public class FachkomponenteAImpl implements FachkomponenteA {
+    ...
+    @Transactional(rollbackFor = Throwable.class, propagation = Propagation.REQUIRED)
+    public Ergebnis fachlicheOperation(Aufrufparameter parameter) {
+        ...
+    }
+    ...
+}
+----
 
-* Zwischen zwei Teilanwendungen dürfen nur Objekte ausgetauscht werden, deren Modifikation keine Auswirkungen auf die liefernde Teilanwendung hat.
+Standardmäßig sollte der Propagation-Level auf `Propagation.REQUIRED` gesetzt sein.
+Damit wird eine neue Transaktion gestartet, falls noch keine Transaktion vorliegt.
+Hat aber die Nutzungsschicht bereits eine Transaktion gestartet, wird diese verwendet.
+Des Weiteren wird festgelegt, dass bei jedem Fehler ein Rollback durchgeführt wird.
 
-Das kann erreicht werden, indem nur Deep-Copies von Objekten an andere Teilanwendungen herausgegeben werden.
+Damit Spring die Annotation `@Transactional` auswertet, muss folgende Spring-Konfiguration in der Konfigurationsklasse des Anwendungskerns aktiv sein:
 
-Innerhalb einer Teilanwendung dürfen über die Schichten hinweg durchaus änderbare Objekte ausgetauscht werden.
-Die hierfür bereitgestellte Schnittstelle der Schicht gehört damit aber zur Teilanwendung darf von einer anderen Teilanwendung nicht genutzt werden.
+.Spring-Konfiguration zur Verwendung von @Transactional
+[id="listing-transaction-spring-config",reftext="{listing-caption} {counter:listings }"]
+[source,java]
+----
+@EnableTransactionManagement
+[...]
+public class CoreConfig
+{
+    ...
+}
+----
 
-In einer allgemeinen Anwendung ist z.B. „Aspektanwendung“ eine Teilanwendung.
-Zu dieser Teilanwendung gehören in der Schicht Nutzung die Oberfläche _Aspektanwendung_ und der Batch `AspektanwendungLoeschBatch`, in der Schicht Anwendungslogik die Fachkomponenten _Erstellen_, _Verwalten_ und _Datenpflege_ und in der Schicht Datenhaltung die Entitäten `Aspektanwendung`, `Zeitpunkt`, `Nutzer`, `Intervall` und `Nutzerintervall`.
+Durch diese Konfiguration erzeugt Spring passende AOP-Proxies, welche die Transaktionssteuerung übernehmen.
+
 
 [[verwendung-des-spring-frameworks]]
 == Verwendung des Spring-Frameworks
@@ -367,75 +390,6 @@ Dies ist mit einer Ausnahme verboten: Die Namen von Beans sollen nicht im Anwend
 Die Ausnahme gilt für den Zugriff von einem Anwendungskontext auf einen anderen (in Zusammenhang mit dem DispatcherServlet).
 In diesem Fall ist ein explizites Auslesen nicht zu vermeiden.
 Auszulesen ist in diesem Fall keine AWK-Komponente, sondern eine weitere Schnittstellen-Bean, welche nur für diesen Zweck verwendet wird.
-
-[[transaktionssteuerung]]
-=== Transaktionssteuerung
-
-An der Schnittstelle des Anwendungskerns findet die Transaktionssteuerung statt.
-Jeder Aufruf wird in einer eigenen Transaktion abgearbeitet.
-Die Transaktion wird beim Aufruf des Anwendungskerns gestartet und mit der Rückgabe des Ergebnisses abgeschlossen (Commit) und somit beendet.
-Falls bei der Verarbeitung einer Anfrage ein nicht behebbarer Fehler auftritt, wird dieser an den Aufrufer zurück übermittelt.
-In diesem Fall wird die Transaktion nicht fortgeschrieben, sondern zurückgerollt (Rollback).
-
-Der Anwendungskern bietet an seiner Schnittstelle fachliche Operationen, in fachliche Komponenten gruppiert, an.
-Die fachlichen Operationen sind in der Regel zustandslos.
-Daher ist eine Transaktion über mehrere Aufrufe des Anwendungskerns oder ein Caching über Transaktionsgrenzen hinaus nicht notwendig und nach Möglichkeit zu vermeiden.
-Ist eine solche Steuerung trotzdem unumgänglich, muss sie über die jeweils zuständige Nutzungsschicht (Batch oder Service) erfolgen.
-
-[NOTE]
-====
-Details zur Umsetzung von Transaktionen in der Nutzungsschicht finden sich in den jeweiligen Detailkonzepten:
-
-* xref:blaupausen:detailkonzept-komponente-batch/master.adoc[Detailkonzept Komponente Batch],
-* xref:blaupausen:detailkonzept-komponente-service/master.adoc[Detailkonzept Komponente Service].
-
-====
-
-[[transaktionssteuerung-mit-jpa]]
-==== Transaktionssteuerung mit JPA
-
-Spring ermöglicht es, die Transaktionssteuerung mit Annotationen zu definieren.
-Hierbei kann auf Ebene einzelner Methoden oder der gesamten Klasse das Verhalten von Transaktionen vorgegeben werden.
-
-Im Anwendungskern bieten sich dazu sich die Klassen der Implementierung der Schnittstelle an, die Aufrufer weiter an die Anwendungsfall-Klassen verweisen.
-Üblicherweise werden für eine feingranulare Steuerung die Methoden mit Annotationen versehen.
-Gibt es ein für die Klasse gemeinsames Verhalten, kann stattdessen auch die Klasse mit der Annotation versehen werden.
-
-.Verwendung der Annotation @Transactional an Klassen und Methoden
-[id="listing-transactional",reftext="{listing-caption} {counter:listings }"]
-[source,java]
-----
-@Transactional(rollbackFor = Throwable.class, propagation = Propagation.REQUIRED)
-public class FachkomponenteAImpl implements FachkomponenteA {
-    ...
-    @Transactional(rollbackFor = Throwable.class, propagation = Propagation.REQUIRED)
-    public Ergebnis fachlicheOperation(Aufrufparameter parameter) {
-        ...
-    }
-    ...
-}
-----
-
-Standardmäßig sollte der Propagation-Level auf `Propagation.REQUIRED` gesetzt sein.
-Damit wird eine neue Transaktion gestartet, falls noch keine Transaktion vorliegt.
-Hat aber die Nutzungsschicht bereits eine Transaktion gestartet, wird diese verwendet.
-Des Weiteren wird festgelegt, dass bei jedem Fehler ein Rollback durchgeführt wird.
-
-Damit Spring die Annotation `@Transactional` auswertet, muss folgende Spring-Konfiguration aktiv sein:
-
-.Spring-Konfiguration zur Verwendung von @Transactional
-[id="listing-transaction-spring-config",reftext="{listing-caption} {counter:listings }"]
-[source,java]
-----
-@EnableTransactionManagement
-[...]
-public class CoreConfig
-{
-    ...
-}
-----
-
-Durch diese Konfiguration erzeugt Spring passende AOP-Proxies, welche die Transaktionssteuerung übernehmen.
 
 [[aspektorientierte-programmierung-in-spring]]
 === Aspektorientierte Programmierung in Spring
