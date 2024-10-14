@@ -1,4 +1,8 @@
-= Detailkonzept Anwendungskern: Inhalt
+= Anwendungskern
+
+include::glossary:licence:partial$licence.adoc[]
+
+include::documentation-guide::partial$content-revised-page.adoc[]
 
 // tag::inhalt[]
 [[aufbau-des-anwendungskerns]]
@@ -103,7 +107,7 @@ Die folgende Abbildung fasst den <<image-aufbau-fachkomponente>> noch einmal gra
 
 [[image-aufbau-fachkomponente]]
 .Aufbau einer Fachkomponente
-image::blaupausen:detailkonzept-anwendungskern/aufbau_fachkomponente_awk.dn.svg[]
+image::software-technisch/backend/aufbau_fachkomponente_awk.dn.svg[]
 
 [[das-anwendungskern-framework]]
 === Anwendungskern-Framework
@@ -135,7 +139,7 @@ Externe Service-Komponenten übernehmen neben der technischen Kommunikation auch
 === Austausch von Geschäftsobjekten
 
 Der Anwendungskern hat die Hoheit über die Geschäftsobjekte des IT-Systems.
-In der xref:referenzarchitektur:index.adoc[] wurde bereits beschrieben, dass zur Strukturierung eines IT-Systems zwei Sichten verwendet werden können:
+In der xref:index.adoc[] wurde bereits beschrieben, dass zur Strukturierung eines IT-Systems zwei Sichten verwendet werden können:
 
 *Technische Sicht:* Die technische Sicht unterteilt die IT-Anwendung in Schichten für die jeweils eigene Technologien verwendet werden: Nutzung (Batch und Service), Anwendungskern und Datenzugriff.
 Das Ziel ist es, eine Durchmischung von Technologien zu verhindern, so darf z. B. außerhalb des Datenzugriffs kein SQL formuliert werden.
@@ -151,7 +155,7 @@ Damit kann eine IT-Anwendung sowohl vertikal in Teilanwendungen (fachliche Sicht
 
 [[image-schichten-und-teilanwendungen]]
 .Schichten und Teilanwendungen
-image::blaupausen:detailkonzept-anwendungskern/teilsysteme-aufbau.dn.svg[]
+image::software-technisch/backend/teilsysteme-aufbau.dn.svg[]
 
 Eine Teilanwendung erstreckt sich über alle technischen Schichten, kapselt aber die Fachlichkeit, zu der gewisse Geschäftsobjekte gehören.
 Um den Austausch von Objekten innerhalb einer Teilanwendung zwischen den Schichten zu vereinfachen, gleichzeitig aber unterschiedliche Teilanwendungen gegeneinander abzugrenzen, wird für die Verwendung von Objekten in Schnittstellen folgende Regel aufgestellt:
@@ -225,7 +229,7 @@ Beans werden grün dargestellt und besitzen „referenzierte“ Abhängigkeiten 
 
 [[image-spring-beans-beispiel-allgemeine-anwendung]]
 .Spring-Beans Beispiel einer allgemeinen Anwendung
-image::blaupausen:detailkonzept-anwendungskern/SpringBeansBeispiel.dn.svg[]
+image::software-technisch/backend/SpringBeansBeispiel.dn.svg[]
 
 Das Beispiel zeigt bereits, dass nicht alle Klassen der Anwendung als Beans konfiguriert werden: 
 Für die Komponente `Verwaltung` wird eine Klasse als Bean konfiguriert, welche die Funktionalität der Komponente bereitstellt.
@@ -382,8 +386,8 @@ Ist eine solche Steuerung trotzdem unumgänglich, muss sie über die jeweils zus
 ====
 Details zur Umsetzung von Transaktionen in der Nutzungsschicht finden sich in den jeweiligen Detailkonzepten:
 
-* xref:detailkonzept-komponente-batch/master.adoc[Detailkonzept Komponente Batch],
-* xref:detailkonzept-komponente-service/master.adoc[Detailkonzept Komponente Service].
+* xref:blaupausen:detailkonzept-komponente-batch/master.adoc[Detailkonzept Komponente Batch],
+* xref:blaupausen:detailkonzept-komponente-service/master.adoc[Detailkonzept Komponente Service].
 
 ====
 
@@ -473,7 +477,7 @@ Hierfür soll Spring-AOP nicht verwendet werden.
 Schnittstellen-Beans transformieren die Geschäftsobjekte des Anwendungskerns in Transportobjekte der Schnittstelle.
 Die Stack-Traces der Exceptions werden dabei nicht übertragen, da diese internen Informationen dem Aufrufer keinen Mehrwert bieten.
 Für das Logging des IT-Systems selbst sind sie jedoch wertvoll.
-Statt AOP ist das im xref:detailkonzept-komponente-service/master.adoc[Detailkonzept Komponente Service] beschriebene Konstrukt der Exception-Fassade zu verwenden.
+Statt AOP ist das im xref:blaupausen:detailkonzept-komponente-service/master.adoc[Detailkonzept Komponente Service] beschriebene Konstrukt der Exception-Fassade zu verwenden.
 
 [[dependency-injection]]
 === Dependency Injection
@@ -486,7 +490,7 @@ In der <<image-dependency-injection,folgenden Grafik>> ist das Entwurfsmuster de
 
 [[image-dependency-injection]]
 .Dependency Injection
-image::blaupausen:detailkonzept-anwendungskern/DependencyInjection.dn.svg[]
+image::software-technisch/backend/DependencyInjection.dn.svg[]
 
 Die <<table-vergleich-verfahren-dependency-injection,drei verschiedene Verfahren der _Dependency Injection_>> sowie die Einsatzszenarien verdeutlicht folgende Übersicht:
 

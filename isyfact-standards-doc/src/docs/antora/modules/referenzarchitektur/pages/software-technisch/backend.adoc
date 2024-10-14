@@ -24,7 +24,7 @@ Die Fachkomponenten entsprechen den durch das Backend umgesetzten Anwendungskomp
 Neben den Fachkomponenten enthält jede Schicht ein Framework, das maßgeblich zur Umsetzung ihrer Kernaufgabe beiträgt.
 
 Backends setzen für die Verwaltung, xref:software-technisch/backend/konfiguration.adoc[] und Kopplung der Fachkomponenten nach dem Prinzip der _Dependency Injection_ Spring Boot und weitere Bestandteile von Spring ein.
-Details hierzu werden über die xref:blaupausen:detailkonzept-komponente-anwendungskern/master.adoc#verwendung-des-spring-frameworks[Vorgaben zur Verwendung des Spring-Frameworks] festgelegt.
+Details hierzu werden über die xref:software-technisch/backend/anwendungskern.adoc#verwendung-des-spring-frameworks[Vorgaben zur Verwendung des Spring-Frameworks] festgelegt.
 
 === Transaktionssteuerung
 
@@ -32,7 +32,7 @@ Die Veränderung des Datenbestands gehört zur Kernaufgabe eines Backends.
 Hierzu setzen Backends Transaktionen ein.
 Transaktionen müssen die https://de.wikipedia.org/wiki/ACID[ACID-Eigenschaften] erfüllen, um grundlegende Anforderungen an Datenqualität zu erfüllen.
 
-In Backends ist der xref:blaupausen:detailkonzept-komponente-anwendungskern/master.adoc#transaktionssteuerung[Anwendungskern] für die Transaktionssteuerung zuständig.
+In Backends ist der Anwendungskern für die xref:software-technisch/backend/anwendungskern.adoc#transaktionssteuerung[Transaktionssteuerung] zuständig.
 In Ausnahmefällen kann die Transaktionssteuerung auch über die xref:blaupausen:detailkonzept-komponente-service/master.adoc#transaktionssteuerung[Serviceschicht] erfolgen.
 
 === Caching
@@ -52,27 +52,27 @@ Weitere Informationen zu EHCache sind in der https://www.ehcache.org/documentati
 [[anwendungskern]]
 == Anwendungskern
 
-include::blaupausen:detailkonzept-komponente-anwendungskern/inhalt.adoc[tags=anwendungskern-definition]
+include::backend/anwendungskern.adoc[tags=anwendungskern-definition]
 
 [[awk-fachkomponenten]]
 === Fachkomponenten
 
-include::blaupausen:detailkonzept-komponente-anwendungskern/inhalt.adoc[tags=fachkomponente-definition]
+include::backend/anwendungskern.adoc[tags=fachkomponente-definition]
 
 [[awk-framework]]
 === Anwendungskern-Framework
 
-include::blaupausen:detailkonzept-komponente-anwendungskern/inhalt.adoc[tags=awk-framework-definition]
+include::backend/anwendungskern.adoc[tags=awk-framework-definition]
 
 [[awk-externe-services]]
 === Externe Services
 
-include::blaupausen:detailkonzept-komponente-anwendungskern/inhalt.adoc[tags=externer-service-definition]
+include::backend/anwendungskern.adoc[tags=externer-service-definition]
 
 [[awk-umsetzung]]
 === Umsetzung
 
-Zur Konzeption und Umsetzung des Anwendungskerns definiert die Referenzarchitektur xref:blaupausen:detailkonzept-komponente-anwendungskern/master.adoc[weitere Vorgaben].
+Zur Konzeption und Umsetzung des Anwendungskerns definiert die Referenzarchitektur xref:software-technisch/backend/anwendungskern.adoc[weitere Vorgaben].
 
 [[persistenz]]
 == Persistenz
