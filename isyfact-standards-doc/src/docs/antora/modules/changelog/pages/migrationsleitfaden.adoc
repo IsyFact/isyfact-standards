@@ -280,6 +280,12 @@ Analog wurde bei allen Properties der zweiten Spalte, die mit einem Punkt beginn
 |`.cert-dn-header-name` |- |entfällt
 |===
 
+[WARNING]
+====
+Bei der Verwendung von `isy-sicherheit-keycloak` wurde die Absicherung gegen CSRF-Angriffe standardmäßig deaktiviert, da dies den Zugriff auf interne REST- und HTTP-Invoker-Schnittstellen vereinfacht.
+Dies ist mit `isy-security` nicht mehr der Fall, weshalb der automatisch von Spring Security konfigurierte CSRF-Filter mglw. deaktiviert werden muss.
+====
+
 [[sicherheit-annotation-gesichert]]
 ==== @Gesichert
 

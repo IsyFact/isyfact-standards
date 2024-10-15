@@ -1,12 +1,13 @@
 # 3.2.0
 ### Features
-- `IFS-1629`: Standardmechanismus zur Absicherung der Actuator-Endpunkte auf Basis von WebSecurityConfigurerAdapter wurde bereitgestellt. Aktivieren durch das Setzen der Konfigurationsparameter:
+- `IFS-1629`: [isy-ueberwachung] Standardmechanismus zur Absicherung der Actuator-Endpunkte auf Basis von WebSecurityConfigurerAdapter wurde bereitgestellt. Aktivieren durch das Setzen der Konfigurationsparameter:
     * `isy.ueberwachung.security.username=<username>`
     * `isy.ueberwachung.security.password=<password>`
 - `IFS-2395`: [isy-util] `MessageSourceHolder` sowie `MessageSourceFehlertextProvider` als deprecated markiert
+- `IFS-4006`: IsyFact Versionsanhebung auf 3.2.0
 
 ### Bug Fixes
-- `IFS-4212`: Dokumentation von `@OnceTask` korrigiert (`@ManualTask` existiert nicht)
+- `IFS-4212`: [isy-task] Dokumentation von `@OnceTask` korrigiert (`@ManualTask` existiert nicht)
 
 # 3.1.0
 ### Features
