@@ -1,5 +1,6 @@
 # 4.0.0
 ## FEATURES
+- `IFS-4190`: [isyfact-standards-doc] Referenzarchitektur des Anwendungskerns aufgrund von IFS-3736 neu verfasst
 - `IFS-4084`: [isyfact-standards-doc] Verwendungen des Begriffs IT-System im Einstieg korrigiert
 - `IFS-4064`: [isyfact-standards-doc] Referenzarchitektur für Backends aufgrund von IFS-3736 neu verfasst
 - `IFS-3992`: [isyfact-standards-doc] Entfernung der Vorlage "Tailoring" Dokument
