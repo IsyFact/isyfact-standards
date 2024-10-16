@@ -1,8 +1,8 @@
 name: isyfact-standards-doku
 title: IsyFact Standards
-version: '3.2.x'
-display_version: '3.2 (CURRENT)'
-prerelease: false
+version: '3.3.x'
+display_version: '3.3 (DEV)'
+prerelease: true
 start_page: einstieg:einstieg.adoc
 nav:
 - modules/einstieg/nav.adoc
