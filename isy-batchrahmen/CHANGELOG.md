@@ -1,5 +1,6 @@
 # 4.0.0
 - `IFS-2248`: Durchführen einer erneuten Authentifizierung bei Token-Ablauf in BatchrahmenImpl
+- `IFS-4248`: Erstellung eines `ClaimsOnlyOAuth2AuthenticationToken` für den Fall, dass keine Authentifizierung durchgeführt wird oder diese fehlschlägt
 
 # 3.0.0
 - `IFS-1148`: Fehler wegen zu langem Klassenpfad unter Windows behoben
