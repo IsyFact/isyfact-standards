@@ -11,6 +11,7 @@ import org.springframework.security.oauth2.core.oidc.StandardClaimNames;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.util.Assert;
 
+import de.bund.bva.isyfact.security.oauth2.util.IsySecurityTokenClaimNames;
 import de.bund.bva.isyfact.security.oauth2.util.IsySecurityTokenUtil;
 
 /**
@@ -44,22 +45,22 @@ public class ClaimsOnlyOAuth2Token extends AbstractOAuth2Token implements ClaimA
 
     @Nullable
     public String getLogin() {
-        return getClaimAsString(IsySecurityTokenUtil.LOGIN);
+        return getClaimAsString(IsySecurityTokenClaimNames.LOGIN);
     }
 
     @Nullable
     public String getUserId() {
-        return getClaimAsString(IsySecurityTokenUtil.USER_ID);
+        return getClaimAsString(IsySecurityTokenClaimNames.USER_ID);
     }
 
     @Nullable
     public String getBhknz() {
-        return getClaimAsString(IsySecurityTokenUtil.BHKNZ);
+        return getClaimAsString(IsySecurityTokenClaimNames.BHKNZ);
     }
 
     @Nullable
     public String getDisplayName() {
-        return getClaimAsString(IsySecurityTokenUtil.DISPLAY_NAME);
+        return getClaimAsString(IsySecurityTokenClaimNames.DISPLAY_NAME);
     }
 
     @Override
@@ -101,10 +102,10 @@ public class ClaimsOnlyOAuth2Token extends AbstractOAuth2Token implements ClaimA
             // Treat this as a token that has all claims easily accessible via IsySecurityTokenUtil already set,
             // similar to an empty AufrufKontext where the initial values are empty strings.
             // Do this here instead of in build() so the keys can be overwritten with null (if desired).
-            claims.put(IsySecurityTokenUtil.LOGIN, "");
-            claims.put(IsySecurityTokenUtil.USER_ID, "");
-            claims.put(IsySecurityTokenUtil.BHKNZ, "");
-            claims.put(IsySecurityTokenUtil.DISPLAY_NAME, "");
+            claims.put(IsySecurityTokenClaimNames.LOGIN, "");
+            claims.put(IsySecurityTokenClaimNames.USER_ID, "");
+            claims.put(IsySecurityTokenClaimNames.BHKNZ, "");
+            claims.put(IsySecurityTokenClaimNames.DISPLAY_NAME, "");
         }
 
         /**
@@ -116,7 +117,7 @@ public class ClaimsOnlyOAuth2Token extends AbstractOAuth2Token implements ClaimA
          * @return the {@link Builder} for further configurations
          */
         public Builder login(String login) {
-            claims.put(IsySecurityTokenUtil.LOGIN, login);
+            claims.put(IsySecurityTokenClaimNames.LOGIN, login);
             return this;
         }
 
@@ -129,7 +130,7 @@ public class ClaimsOnlyOAuth2Token extends AbstractOAuth2Token implements ClaimA
          * @return the {@link Builder} for further configurations
          */
         public Builder userId(String userId) {
-            claims.put(IsySecurityTokenUtil.USER_ID, userId);
+            claims.put(IsySecurityTokenClaimNames.USER_ID, userId);
             return this;
         }
 
@@ -142,7 +143,7 @@ public class ClaimsOnlyOAuth2Token extends AbstractOAuth2Token implements ClaimA
          * @return the {@link Builder} for further configurations
          */
         public Builder bhknz(String bhknz) {
-            claims.put(IsySecurityTokenUtil.BHKNZ, bhknz);
+            claims.put(IsySecurityTokenClaimNames.BHKNZ, bhknz);
             return this;
         }
 
@@ -155,7 +156,7 @@ public class ClaimsOnlyOAuth2Token extends AbstractOAuth2Token implements ClaimA
          * @return the {@link Builder} for further configurations
          */
         public Builder displayName(String displayName) {
-            claims.put(IsySecurityTokenUtil.DISPLAY_NAME, displayName);
+            claims.put(IsySecurityTokenClaimNames.DISPLAY_NAME, displayName);
             return this;
         }
 
