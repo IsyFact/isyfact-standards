@@ -10,7 +10,7 @@ import java.util.Map;
 import org.junit.jupiter.api.Test;
 import org.springframework.security.oauth2.server.resource.authentication.AbstractOAuth2TokenAuthenticationToken;
 
-import de.bund.bva.isyfact.security.oauth2.util.IsySecurityTokenUtil;
+import de.bund.bva.isyfact.security.oauth2.util.IsySecurityTokenClaimNames;
 
 public class ClaimsOnlyOAuth2TokenTest {
 
@@ -30,7 +30,7 @@ public class ClaimsOnlyOAuth2TokenTest {
         ClaimsOnlyOAuth2Token token = ClaimsOnlyOAuth2Token.withSubject(sub).login(login).build();
 
         assertEquals(sub, token.getSubject());
-        assertEquals(claims(entry(SUB, sub), entry(IsySecurityTokenUtil.LOGIN, login)), token.getClaims());
+        assertEquals(claims(entry(SUB, sub), entry(IsySecurityTokenClaimNames.LOGIN, login)), token.getClaims());
     }
 
     @Test
@@ -40,7 +40,7 @@ public class ClaimsOnlyOAuth2TokenTest {
         ClaimsOnlyOAuth2Token token = ClaimsOnlyOAuth2Token.withSubject(sub).bhknz(bhknz).build();
 
         assertEquals(sub, token.getSubject());
-        assertEquals(claims(entry(SUB, sub), entry(IsySecurityTokenUtil.BHKNZ, bhknz)), token.getClaims());
+        assertEquals(claims(entry(SUB, sub), entry(IsySecurityTokenClaimNames.BHKNZ, bhknz)), token.getClaims());
     }
 
     @Test
@@ -50,7 +50,7 @@ public class ClaimsOnlyOAuth2TokenTest {
         ClaimsOnlyOAuth2Token token = ClaimsOnlyOAuth2Token.withSubject(sub).userId(userId).build();
 
         assertEquals(sub, token.getSubject());
-        assertEquals(claims(entry(SUB, sub), entry(IsySecurityTokenUtil.USER_ID, userId)), token.getClaims());
+        assertEquals(claims(entry(SUB, sub), entry(IsySecurityTokenClaimNames.USER_ID, userId)), token.getClaims());
     }
 
     @Test
@@ -60,7 +60,7 @@ public class ClaimsOnlyOAuth2TokenTest {
         ClaimsOnlyOAuth2Token token = ClaimsOnlyOAuth2Token.withSubject(sub).displayName(displayName).build();
 
         assertEquals(sub, token.getSubject());
-        assertEquals(claims(entry(SUB, sub), entry(IsySecurityTokenUtil.DISPLAY_NAME, displayName)), token.getClaims());
+        assertEquals(claims(entry(SUB, sub), entry(IsySecurityTokenClaimNames.DISPLAY_NAME, displayName)), token.getClaims());
     }
 
     @Test
@@ -71,8 +71,8 @@ public class ClaimsOnlyOAuth2TokenTest {
                 .build();
 
         assertEquals(claims(
-                entry(SUB, sub), entry(IsySecurityTokenUtil.LOGIN, null), entry(IsySecurityTokenUtil.USER_ID, null),
-                entry(IsySecurityTokenUtil.BHKNZ, null), entry(IsySecurityTokenUtil.DISPLAY_NAME, null)
+                entry(SUB, sub), entry(IsySecurityTokenClaimNames.LOGIN, null), entry(IsySecurityTokenClaimNames.USER_ID, null),
+                entry(IsySecurityTokenClaimNames.BHKNZ, null), entry(IsySecurityTokenClaimNames.DISPLAY_NAME, null)
         ), token.getClaims());
     }
 
@@ -113,10 +113,10 @@ public class ClaimsOnlyOAuth2TokenTest {
     @SafeVarargs
     private static Map<String, String> claims(Map.Entry<String, String>... entries) {
         Map<String, String> map = new HashMap<>();
-        map.put(IsySecurityTokenUtil.LOGIN, "");
-        map.put(IsySecurityTokenUtil.USER_ID, "");
-        map.put(IsySecurityTokenUtil.BHKNZ, "");
-        map.put(IsySecurityTokenUtil.DISPLAY_NAME, "");
+        map.put(IsySecurityTokenClaimNames.LOGIN, "");
+        map.put(IsySecurityTokenClaimNames.USER_ID, "");
+        map.put(IsySecurityTokenClaimNames.BHKNZ, "");
+        map.put(IsySecurityTokenClaimNames.DISPLAY_NAME, "");
         for (Map.Entry<String, String> entry : entries) {
             map.put(entry.getKey(), entry.getValue());
         }
