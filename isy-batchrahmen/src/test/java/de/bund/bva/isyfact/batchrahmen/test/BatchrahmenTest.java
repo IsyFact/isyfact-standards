@@ -39,12 +39,14 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.jwt.Jwt;
 
 import de.bund.bva.isyfact.batchrahmen.AnwendungTestConfig;
 import de.bund.bva.isyfact.batchrahmen.batch.rahmen.BatchReturnCode;
 import de.bund.bva.isyfact.batchrahmen.batch.rahmen.BatchStartTyp;
 import de.bund.bva.isyfact.batchrahmen.config.AbstractOidcProviderTest;
 import de.bund.bva.isyfact.batchrahmen.core.launcher.BatchLauncher;
+import de.bund.bva.isyfact.security.authentication.ClaimsOnlyOAuth2Token;
 
 import ch.qos.logback.classic.LoggerContext;
 
@@ -138,6 +140,10 @@ class BatchrahmenTest extends AbstractOidcProviderTest {
         assertEquals(BatchReturnCode.OK.getWert(), BatchLauncher
                 .run(new String[]{"-start", "-cfg", "/resources/batch/basic-test-batch-1-config.properties"}));
         assertEquals("beendet", getBatchStatus("basicTestBatch-1"));
+
+        ClaimsOnlyOAuth2Token token = assertInstanceOf(ClaimsOnlyOAuth2Token.class,
+                SecurityContextHolder.getContext().getAuthentication().getCredentials());
+        assertEquals("basicTestBatch-1", token.getDisplayName());
     }
 
     /**
@@ -361,10 +367,14 @@ class BatchrahmenTest extends AbstractOidcProviderTest {
      * Tests the protection of a batch before processing a set.
      */
     @Test
-    void testGesicherterBatchGutFallRopc() throws Exception {
+    void testGesicherterBatchGutFallRopc() {
         assertEquals(BatchReturnCode.OK.getWert(), BatchLauncher.run(new String[]{"-start", "-cfg",
                 "/resources/batch/gesicherter-test-batch-authenticated-ropc-config.properties"}));
         assertEquals("beendet", getBatchStatus("gesicherterTestBatch-1"));
+
+        Jwt token = assertInstanceOf(Jwt.class, SecurityContextHolder.getContext().getAuthentication().getCredentials());
+        assertEquals(getIssuerLocation(), token.getIssuer().toString());
+        assertEquals("ropc-testclient-id", token.getClaimAsString("azp"));
     }
 
     /**
@@ -375,6 +385,10 @@ class BatchrahmenTest extends AbstractOidcProviderTest {
         assertEquals(BatchReturnCode.OK.getWert(), BatchLauncher.run(new String[]{"-start", "-cfg",
                 "/resources/batch/gesicherter-test-batch-authenticated-client-credentials-config.properties"}));
         assertEquals("beendet", getBatchStatus("gesicherterTestBatch-1"));
+
+        Jwt token = assertInstanceOf(Jwt.class, SecurityContextHolder.getContext().getAuthentication().getCredentials());
+        assertEquals(getIssuerLocation(), token.getIssuer().toString());
+        assertEquals("cc-testclient-id", token.getClaimAsString("azp"));
     }
 
     /**
@@ -385,6 +399,11 @@ class BatchrahmenTest extends AbstractOidcProviderTest {
         assertEquals(BatchReturnCode.FEHLER_KONFIGURATION.getWert(), BatchLauncher.run(new String[]{"-start", "-cfg",
                 "/resources/batch/gesicherter-test-batch-wrong-user-config.properties"}));
         assertEquals("abgebrochen", getBatchStatus("batchGesichertWrongUser"));
+
+        // authentication failed so we expect the batchname to be set in the claim
+        ClaimsOnlyOAuth2Token token = assertInstanceOf(ClaimsOnlyOAuth2Token.class,
+                SecurityContextHolder.getContext().getAuthentication().getCredentials());
+        assertEquals("batchGesichertWrongUser", token.getDisplayName());
     }
 
     /**
@@ -447,6 +466,10 @@ class BatchrahmenTest extends AbstractOidcProviderTest {
 
         // should be called 1 time for initial authentication, because the token is still valid for each batch step
         verify(1, postRequestedFor(urlMatching(ISSUER_PATH + ".*")));
+
+        Jwt token = assertInstanceOf(Jwt.class, SecurityContextHolder.getContext().getAuthentication().getCredentials());
+        assertEquals(getIssuerLocation(), token.getIssuer().toString());
+        assertEquals("cc-testclient-id", token.getClaimAsString("azp"));
     }
 
     /**
@@ -462,6 +485,10 @@ class BatchrahmenTest extends AbstractOidcProviderTest {
 
         // should be called 1 time for initial authentication, because the token is still valid for each batch step
         verify(1, postRequestedFor(urlMatching(ISSUER_PATH + ".*")));
+
+        Jwt token = assertInstanceOf(Jwt.class, SecurityContextHolder.getContext().getAuthentication().getCredentials());
+        assertEquals(getIssuerLocation(), token.getIssuer().toString());
+        assertEquals("ropc-testclient-id", token.getClaimAsString("azp"));
     }
 
     /**
@@ -479,6 +506,10 @@ class BatchrahmenTest extends AbstractOidcProviderTest {
         // tokenLifespan, meaning re-authentication should be done for each step of the batch
         // 1x initialisiere, 10x verarbeite, 1x beende
         verify(12, postRequestedFor(urlMatching(ISSUER_PATH + ".*")));
+
+        Jwt token = assertInstanceOf(Jwt.class, SecurityContextHolder.getContext().getAuthentication().getCredentials());
+        assertEquals(getIssuerLocation(), token.getIssuer().toString());
+        assertEquals("ropc-testclient-id", token.getClaimAsString("azp"));
     }
 
     /**
