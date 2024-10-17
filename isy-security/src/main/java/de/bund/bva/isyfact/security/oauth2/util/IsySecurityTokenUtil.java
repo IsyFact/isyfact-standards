@@ -3,7 +3,6 @@ package de.bund.bva.isyfact.security.oauth2.util;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.Optional;
-import java.util.ResourceBundle;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,49 +13,11 @@ import org.springframework.security.oauth2.server.resource.BearerTokenErrors;
 import org.springframework.security.oauth2.server.resource.authentication.AbstractOAuth2TokenAuthenticationToken;
 
 /**
- * This class contains utility methods for isy-security. It provides access to the claims of the current OAuth 2.0 token.
+ * This class contains utility methods for working with tokens in isy-security.
+ * It provides easy access to the claims defined in {@link IsySecurityTokenClaimNames}
+ * and all claims of the current OAuth 2.0 token.
  */
 public final class IsySecurityTokenUtil {
-
-    /**
-     * The resource bundle that contains the token configuration.
-     */
-    private static final ResourceBundle BUNDLE = ResourceBundle.getBundle("config.isy-security-token");
-
-    /**
-     * The JWT claim name that contains the login.
-     */
-    public static final String LOGIN = getConfigPropertyValueAsString("login");
-
-    /**
-     * The JWT claim name that contains the userId.
-     */
-    public static final String USER_ID = getConfigPropertyValueAsString("userId");
-
-    /**
-     * The JWT claim name that contains the bhknz (Behoerdenkennzeichen).
-     */
-    public static final String BHKNZ = getConfigPropertyValueAsString("bhknz");
-
-    /**
-     * The JWT claim name that contains the display name.
-     */
-    public static final String DISPLAY_NAME = getConfigPropertyValueAsString("displayName");
-
-    /**
-     * The prefix for all configuration properties.
-     */
-    private static final String PREFIX = "isy.security.oauth2.claim.";
-
-    /**
-     * Returns the value of the configuration property with the given suffix.
-     *
-     * @param suffix the suffix of the configuration property
-     * @return the String value of the configuration property
-     */
-    private static String getConfigPropertyValueAsString(String suffix) {
-        return BUNDLE.getString(PREFIX + suffix);
-    }
 
     /**
      * Utility class should not be instantiated.
@@ -70,7 +31,7 @@ public final class IsySecurityTokenUtil {
      * @return the login of the current user
      */
     public static Optional<String> getLogin() {
-        String login = (String) getTokenAttribute(LOGIN);
+        String login = (String) getTokenAttribute(IsySecurityTokenClaimNames.LOGIN);
         return Optional.ofNullable(login);
     }
 
@@ -80,7 +41,7 @@ public final class IsySecurityTokenUtil {
      * @return the userId of the current user or the Subject identifier (sub) if the userId is not set
      */
     public static String getUserId() {
-        String userId = (String) getTokenAttribute(USER_ID);
+        String userId = (String) getTokenAttribute(IsySecurityTokenClaimNames.USER_ID);
         if (userId == null) {
             return (String) getTokenAttribute(StandardClaimNames.SUB);
         } else {
@@ -94,7 +55,7 @@ public final class IsySecurityTokenUtil {
      * @return the bhknz of the current user
      */
     public static Optional<String> getBhknz() {
-        String bhknz = (String) getTokenAttribute(BHKNZ);
+        String bhknz = (String) getTokenAttribute(IsySecurityTokenClaimNames.BHKNZ);
         return Optional.ofNullable(bhknz);
     }
 
@@ -104,7 +65,7 @@ public final class IsySecurityTokenUtil {
      * @return the display name of the current user or the login if the display name is not set
      */
     public static Optional<String> getDisplayName() {
-        String displayName = (String) getTokenAttribute(DISPLAY_NAME);
+        String displayName = (String) getTokenAttribute(IsySecurityTokenClaimNames.DISPLAY_NAME);
         if (displayName == null) {
             return getLogin();
         }
@@ -131,7 +92,7 @@ public final class IsySecurityTokenUtil {
      * @param expirationTimeOffset
      *         the time frame before expiry during which the token is considered as already expired
      * @return {@code true} if the token has expired or the expiresAt property of the token is not set,
-     *         else {@code false}
+     * else {@code false}
      * @throws OAuth2AuthenticationException
      *         if the authenticated principal is not a {@link AbstractOAuth2TokenAuthenticationToken}
      */
@@ -161,11 +122,10 @@ public final class IsySecurityTokenUtil {
      * Checks if the {@link SecurityContextHolder} holds an {@link AbstractOAuth2TokenAuthenticationToken} object.
      *
      * @return {@code true} if the current authentication in the SecurityContext is an instance of
-     *         {@link AbstractOAuth2TokenAuthenticationToken}, else {@code false}
+     * {@link AbstractOAuth2TokenAuthenticationToken}, else {@code false}
      */
     public static boolean hasOAuth2Token() {
         Authentication currentAuthentication = SecurityContextHolder.getContext().getAuthentication();
         return currentAuthentication instanceof AbstractOAuth2TokenAuthenticationToken;
     }
-
 }
