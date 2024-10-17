@@ -28,6 +28,8 @@ import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.client.ClientAuthorizationException;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionDefinition;
@@ -54,6 +56,7 @@ import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.logging.LogKategorie;
 import de.bund.bva.isyfact.logging.util.MdcHelper;
+import de.bund.bva.isyfact.security.authentication.ClaimsOnlyOAuth2Token;
 import de.bund.bva.isyfact.security.oauth2.client.Authentifizierungsmanager;
 
 /**
@@ -177,18 +180,26 @@ public class BatchrahmenImpl implements Batchrahmen, InitializingBean,
 
             minimumTokenValidity = getAndValidateMinimumTokenValidity(verarbInfo);
 
-            try {
-                oauth2ClientRegistrationId = verarbInfo.getKonfiguration().getAsString(KonfigurationSchluessel.PROPERTY_BATCH_OAUTH2_CLIENT_REGISTRATION_ID);
-                if (authentifizierungsmanagerOptional.isPresent()) {
-                    authentifizierungsmanagerOptional.get().authentifiziere(oauth2ClientRegistrationId);
-                } else {
-                    throw new IllegalArgumentException("Es wurde eine " + KonfigurationSchluessel.PROPERTY_BATCH_OAUTH2_CLIENT_REGISTRATION_ID + " gesetzt, jedoch wurde kein Authentifizierungsmanager gefunden.");
+            // Set a claim only token in the security context for logging purposes in unauthenticated batches or
+            // authenticated batches where authentication fails (will get overwritten if authentication succeeds)
+            String batchName = konfiguration.getAsString(KonfigurationSchluessel.PROPERTY_BATCH_NAME);
+            Authentication token = ClaimsOnlyOAuth2Token.withSubject("Batch:" + batchName)
+                    .displayName(batchName)
+                    .build().asAuthentication();
+            SecurityContextHolder.getContext().setAuthentication(token);
+
+            oauth2ClientRegistrationId = verarbInfo.getKonfiguration().getAsString(KonfigurationSchluessel.PROPERTY_BATCH_OAUTH2_CLIENT_REGISTRATION_ID, null);
+            if (oauth2ClientRegistrationId != null) {
+                try {
+                    authentifizierungsmanagerOptional.orElseThrow(() ->
+                            new IllegalArgumentException("Es wurde eine " + KonfigurationSchluessel.PROPERTY_BATCH_OAUTH2_CLIENT_REGISTRATION_ID + " gesetzt, jedoch wurde kein Authentifizierungsmanager gefunden.")
+                    ).authentifiziere(oauth2ClientRegistrationId);
+                } catch (ClientAuthorizationException e) {
+                    LOG.error(BatchRahmenEreignisSchluessel.EPLBAT00001, "Fehler bei der Authentifizierung: {}", e.getMessage());
                 }
-            } catch (BatchrahmenKonfigurationException e) {
+            } else {
                 LOG.info(LogKategorie.JOURNAL, BatchRahmenEreignisSchluessel.EPLBAT00001,
                         "Es wurde keine oauth2ClientRegistrationId konfiguriert.");
-            } catch (ClientAuthorizationException e) {
-                LOG.error(BatchRahmenEreignisSchluessel.EPLBAT00001, "Fehler bei der Authentifizierung: {}", e.getMessage());
             }
 
             initialisiereBatch(verarbInfo, protokoll);
@@ -457,9 +468,9 @@ public class BatchrahmenImpl implements Batchrahmen, InitializingBean,
     }
 
     /**
-     * Reads a bean name from Property {@link BatchKonfiguration.PROPERTY_AUSFUEHRUNGSBEAN}
+     * Reads a bean name from Property {@link KonfigurationSchluessel#PROPERTY_AUSFUEHRUNGSBEAN}
      * and reads the bean with this name from the context.
-     * The Bean is casted to the {@link BatchAusfuehrungsBean} interface and returned.
+     * The Bean is cast to the {@link BatchAusfuehrungsBean} interface and returned.
      *
      * @param konfig the configuration
      * @return the Bean.
