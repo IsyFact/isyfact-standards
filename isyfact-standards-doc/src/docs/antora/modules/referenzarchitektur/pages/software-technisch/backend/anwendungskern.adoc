@@ -40,7 +40,7 @@ Die Aufgaben der Schnittstelle sind:
 * Ausnahmen der Anwendungsfallklassen in Ausnahmen der Schnittstelle zu übersetzen.
 
 *Geschäftsobjekte* dienen zur Kommunikation der Fachkomponente nach außen sowie zur Umsetzung der Fachlichkeit (z.B. für interne Berechnungen).
-Sie werden im Anwendungskern definiert, sind nicht persistent und können in der Nutzungsschicht wiederverwendet werden, sofern hierfür keine Anpassungen durch Mappings o.ä. nötig sind.
+Sie werden im Anwendungskern definiert, sind nicht persistent und können in der Serviceschicht wiederverwendet werden, sofern hierfür keine Anpassungen durch Mappings o.ä. nötig sind.
 Ein Geschäftsobjekt ist genau einer Fachkomponente zugeordnet, welche die Hoheit über es besitzt und seinen Lebenszyklus verwaltet.
 Sie werden primär nach ihrer Funktion benannt.
 
@@ -61,6 +61,7 @@ In einer allgemeinen Anwendung gibt es z.B. die Geschäftsobjekte `Aufgabe`, `Ze
 
 Eine *Anwendungsfallklasse* setzt genau einen Anwendungsfall um.
 Ihr Schnitt ergibt sich aus der fachlichen Architektur.
+Die Schnittstelle der Fachkomponente delegiert Aufrufe von außen an die jeweils passende Anwendungsfallklasse.
 Anwendungsfallklassen werden anhand des Namens des Anwendungsfalls aus der Spezifikation benannt und mit dem Präfix `Awf` gekennzeichnet.
 
 // tag::namenskonvention[]
@@ -98,6 +99,7 @@ AfuErmittlungEntscheidungsrelevanz
 // end::namenskonvention[]
 
 Die folgende Abbildung fasst den <<image-aufbau-fachkomponente>> noch einmal grafisch zusammen.
+Sie zeigt ebenso die Verwendungen und Aufrufbeziehungen innerhalb einer Fachkomponente.
 
 [[image-aufbau-fachkomponente]]
 .Aufbau einer Fachkomponente
@@ -134,7 +136,7 @@ Sind Klassen nicht von relevanter Bedeutung, so können sie beim Erzeugen der Sp
 // tag::service-consumer-definition[]
 
 Wenn Backends Services anderer IT-Systeme zur Erfüllung ihrer fachlichen Aufgaben benötigen, so werden diese als Komponente ("Service Consumer") im Anwendungskern abgebildet.
-Dabei ist es für ein Backend transparent, ob der Service innerhalb oder außerhalb der Anwendungslandschaft beheimatet ist.
+Dabei ist es für ein Backend unerheblich, ob der Service innerhalb oder außerhalb der Anwendungslandschaft beheimatet ist.
 Service Consumer verhalten sich wie Fachkomponenten des Anwendungskerns.
 Sie übernehmen die technische Kommunikation mit dem Service sowie die Abbildung von Transportobjekten des Services auf Geschäftsobjekte und Exceptions des Backends.
 Dadurch ist ihre Funktionalität sauber gekapselt, sodass technische Änderungen am Service im Idealfall nur zu Änderungen am Service Consumer führen.
@@ -152,7 +154,7 @@ In diesem Fall wird die Transaktion nicht fortgeschrieben, sondern zurückgeroll
 
 Der Anwendungskern bietet an seiner Schnittstelle fachliche Operationen, in fachliche Komponenten gruppiert, an.
 Die fachlichen Operationen sind in der Regel zustandslos.
-Daher ist eine Transaktion über mehrere Aufrufe des Anwendungskerns oder ein Caching über Transaktionsgrenzen hinaus nicht notwendig und nach Möglichkeit zu vermeiden.
+Daher ist eine Transaktion über mehrere Aufrufe des Anwendungskerns nach Möglichkeit zu vermeiden.
 Ist eine solche Steuerung trotzdem unumgänglich, muss sie über die xref:blaupausen:detailkonzept-komponente-service/master.adoc#transaktionssteuerung[Serviceschicht] erfolgen.
 
 [[transaktionssteuerung-mit-jpa]]
@@ -182,7 +184,7 @@ public class FachkomponenteAImpl implements FachkomponenteA {
 
 Standardmäßig sollte der Propagation-Level auf `Propagation.REQUIRED` gesetzt sein.
 Damit wird eine neue Transaktion gestartet, falls noch keine Transaktion vorliegt.
-Hat aber die Nutzungsschicht bereits eine Transaktion gestartet, wird diese verwendet.
+Hat aber die Serviceschicht bereits eine Transaktion gestartet, wird diese verwendet.
 Des Weiteren wird festgelegt, dass bei jedem Fehler ein Rollback durchgeführt wird.
 
 Damit Spring die Annotation `@Transactional` auswertet, muss folgende Spring-Konfiguration in der Konfigurationsklasse des Anwendungskerns aktiv sein:

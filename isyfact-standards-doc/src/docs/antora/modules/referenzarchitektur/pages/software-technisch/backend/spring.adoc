@@ -30,12 +30,11 @@ Komponentenorientierung wahren::
 Es soll nicht möglich sein, direkt auf Implementierungsklassen einer Komponente zuzugreifen.
 
 [[konfiguration-von-spring]]
-== Konfiguration von Spring
+== Vorgaben zur Konfiguration mit Spring
 
 Das grundlegende Konzept von Spring ist die _Spring-Bean_.
-Die Konfiguration von Spring teilt sich deshalb in zwei Teile: in die Konfiguration der Spring-Beans sowie in die Konfiguration von Spring selbst (innerhalb eines Tomcat Servers).
+Die Konfiguration von Spring teilt sich in zwei Teile: die Konfiguration der Spring-Beans sowie die Konfiguration von Spring selbst (innerhalb eines Tomcat Servers).
 Um die Konfiguration von Spring und der eingesetzten Bausteine einfach zu halten, werden die Autokonfigurationsmechanismen von Spring Boot eingesetzt.
-Diese Konfigurationsarten werden in den folgenden Kapiteln beschrieben.
 
 [[konfiguration-von-spring-beans]]
 === Konfiguration von Spring-Beans
@@ -46,16 +45,6 @@ Für diese Klassen kann man benötigte andere Spring-Beans oder Konfigurationspa
 
 Konfiguriert werden Spring-Beans und ihre Abhängigkeiten durch von Spring bereitgestellte Annotationen.
 Diese werden beim Start des Applikations-Containers gescannt und ausgewertet (_Component Scan_).
-
-Ein <<image-spring-beans-beispiel-allgemeine-anwendung,Spring-Beans Beispiel>> zeigt einen Ausschnitt der für eine allgemeine Anwendung erstellten Spring-Beans.
-Spring-Beans werden grün dargestellt und besitzen „referenzierte“ Abhängigkeiten zu benötigten anderen Spring-Beans.
-
-[[image-spring-beans-beispiel-allgemeine-anwendung]]
-.Spring-Beans Beispiel einer allgemeinen Anwendung
-image::software-technisch/backend/SpringBeansBeispiel.dn.svg[]
-
-Das Beispiel zeigt bereits, dass nicht alle Klassen der Anwendung als Spring-Beans konfiguriert werden:
-Für die Komponente `Verwaltung` wird eine Klasse als Spring-Bean konfiguriert, welche die Funktionalität der Komponente bereitstellt.
 Generell gilt, dass jede zentrale und wichtige Klasse aber als Spring-Bean konfiguriert werden sollte.
 
 Für die Modellierung und Konfiguration der Spring-Beans werden im folgenden Vorgaben aufgestellt.
@@ -74,20 +63,22 @@ Spring-Beans können entweder als Singletons mit nur einer Instanz, mit einer In
 Die Spring-Beans einer Anwendung sollen zustandslos sein und werden als Singleton-Beans erzeugt.
 Wo technisch erforderlich können auch andere Scopes verwendet werden.
 
-[[vorgaben-zur-spring-konfiguration]]
-==== Vorgaben zur Spring-Konfiguration
+NOTE: Eine genaue Beschreibung der Scopes bietet die https://docs.spring.io/spring-framework/reference/core/beans/factory-scopes.html[offizielle Spring-Dokumentation].
 
-Die Spring-Konfiguration der Anwendung ist nach folgenden Vorgaben zu erstellen.
+[[vorgaben-zur-spring-konfiguration]]
+=== Konfiguration von Backends
+
+Die Spring-Konfiguration des Backends ist nach folgenden Vorgaben zu erstellen.
 
 Der zentrale Ausgangspunkt für die Spring-Konfiguration ist die <<listing-applikationsklasse>>.
-Diese wird im Package der Anwendung (`<org>.<domäne>.<anwendung>`) erstellt.
+Diese wird im Package des Backends (`<org>.<domäne>.<anwendung>.<backend>`) erstellt.
 Sie ist mit `@Configuration` und `@EnableAutoConfiguration` annotiert.
 Damit wird die Autokonfiguration von Spring Boot eingeschaltet.
-Zusätzlich erbt die Klasse von `SpringBootServletInitializer`, damit die Anwendung im Tomcat deployt werden kann.
+Zusätzlich erbt die Klasse von `SpringBootServletInitializer`, damit das Backend im Tomcat deployt werden kann.
 Die Konfigurationsklassen der Schichten werden per `@Import`-Annotation eingebunden.
 
 [[listing-applikationsklasse]]
-.Applikationsklasse der Anwendung
+.Applikationsklasse eines Backends
 [source,java]
 ----
 package de.beispiel.if2anwendung;
@@ -153,9 +144,9 @@ im Parameter `allgemeine-anwendung` abgelegt.
 Da jede Webanwendung einen eindeutigen Namen besitzt, und damit einen eigenen Kontextparameter verwendet, wird das Überschreiben vermieden.
 
 [[direkte-verwendung-des-spring-frameworks]]
-== Direkte Verwendung von Spring
+== Vorgaben zur direkten Verwendung von Spring
 
-Neben der Konfiguration der Spring-Beans enthält eine Anwendung kaum Abhängigkeiten zu Spring.
+Neben der Konfiguration der Spring-Beans enthält eine Anwendung in der Regel kaum Abhängigkeiten zu Spring.
 Da die benötigten Objekte per Dependency Injection konfiguriert werden, müssen diese nach ihrer Konfiguration lediglich verwendet werden.
 
 In einigen Fällen existieren jedoch weitere Abhängigkeiten:
@@ -164,7 +155,7 @@ In einigen Fällen existieren jedoch weitere Abhängigkeiten:
 * Spring-Beans werden nicht per Dependency Injection, sondern über statische Methoden bereitgestellt.
 Hierüber entstehen Abhängigkeiten zur Instanziierungsreihenfolge der Spring-Beans durch Spring.
 
-Für die Themen werden im folgenden Vorgaben aufgestellt.
+Für diese Aspekte werden im folgenden Vorgaben aufgestellt.
 
 [[keine-beans-per-namen-auslesen]]
 === Keine Spring-Beans per Namen auslesen
@@ -176,7 +167,7 @@ In diesem Fall ist ein explizites Auslesen nicht zu vermeiden.
 Auszulesen ist in diesem Fall keine Komponente des Anwendungskerns, sondern eine weitere Schnittstellen-Bean, welche nur für diesen Zweck verwendet wird.
 
 [[aspektorientierte-programmierung-in-spring]]
-== Aspektorientierte Programmierung in Spring
+== Vorgaben zur aspektorientierte Programmierung in Spring
 
 Es ist möglich, für Spring-Beans Funktionalität in Form von Aspekten zu definieren.
 Ihr Einsatz kann über _Pointcuts_ konfiguriert werden.
@@ -187,7 +178,7 @@ Deshalb soll AOP nur für folgende Bereichen genutzt werden: die Steuerung von T
 
 Explizit nicht benutzt werden soll AOP für die Fehlerbehandlung.
 
-Die Verwendung von AOP für andere Bereiche ist nur in begründeten Ausnahmefällen erlaubt.
+Die Verwendung von AOP für andere Zwecke ist nur in begründeten Ausnahmefällen erlaubt.
 
 [[aop-fuer-transaktionssteuerung-verwenden]]
 === AOP für Transaktionssteuerung verwenden
@@ -209,28 +200,22 @@ Die Berechtigungsprüfung wird über Spring-AOP mit den vom xref:isy-security:nu
 === AOP nicht für das Logging von Exceptions verwenden
 
 Sämtliche in einem Backend geworfenen und nicht behandelten Ausnahmen müssen inklusive ihrer Stack-Traces geloggt werden.
-Geloggt wird dies in den Methoden der Schnittstellen-Beans.
+Geloggt wird dies in den Methoden der Schnittstellen-Beans der Serviceschicht.
 Hierfür soll Spring-AOP nicht verwendet werden.
 
 Schnittstellen-Beans transformieren die Geschäftsobjekte des Anwendungskerns in Transportobjekte der Schnittstelle.
 Die Stack-Traces der Exceptions werden dabei nicht übertragen, da diese internen Informationen dem Aufrufer keinen Mehrwert bieten.
 Für das Logging des Backends selbst sind sie jedoch wertvoll.
-Statt AOP ist das im xref:blaupausen:detailkonzept-komponente-service/master.adoc[Detailkonzept Komponente Service] beschriebene Konstrukt der Exception-Fassade zu verwenden.
+Statt AOP ist das in der Serviceschicht beheimatete Konstrukt der xref:blaupausen:detailkonzept-komponente-service/master.adoc#exception-fassade[Exception-Fassade] zu verwenden.
 
 [[dependency-injection]]
-== Dependency Injection
+== Vorgaben zur Dependency Injection
 
-Um im Anwendungskern das Single-Responsibility-Prinzip nicht zu verletzten, wird auf das Entwurfsmuster _Dependency Injection_ zurückgegriffen.
+Um im Anwendungskern das Single-Responsibility-Prinzip umzusetzen, wird auf das Entwurfsmuster _Dependency Injection_ zurückgegriffen.
 Dabei werden die Verantwortlichkeiten für den Aufbau des Abhängigkeitsnetzes zwischen den Objekten aus den einzelnen Klassen in eine zentrale Komponente überführt.
 Anders als bei der herkömmlichen Vorgehensweise in der objektorientierten Programmierung ist bei der _Dependency Injection_ nicht jedes Objekt selbst dafür zuständig, seine Abhängigkeiten (benötigte Objekte und Ressourcen) zu verwalten.
 
-In der <<image-dependency-injection,folgenden Grafik>> ist das Entwurfsmuster der _Dependency Injection_ exemplarisch visualisiert.
-
-[[image-dependency-injection]]
-.Dependency Injection
-image::software-technisch/backend/DependencyInjection.dn.svg[]
-
-Die <<table-vergleich-verfahren-dependency-injection,drei verschiedene Verfahren der _Dependency Injection_>> sowie die Einsatzszenarien verdeutlicht folgende Übersicht:
+Die <<table-vergleich-verfahren-dependency-injection,verschiedenen Verfahren der _Dependency Injection_>> sowie ihre Einsatzszenarien verdeutlicht folgende Übersicht:
 
 [[table-vergleich-verfahren-dependency-injection]]
 .Vergleich der Verfahren zur Dependency Injection
@@ -256,7 +241,7 @@ Da die _Constructor Injection_ diverse Vorteile gegenüber den beiden anderen Te
 ====
 
 [[constructor-injection]]
-=== Constructor Injection
+=== Verwendung von Constructor Injection
 
 Bei der _Constructor Injection_ werden alle Abhängigkeiten einer Klasse über die Konstruktoren von außen injiziert.
 Dadurch werden automatisch auch die benötigten Abhängigkeiten definiert, welche der Erzeuger des Objektes zur Verfügung stellen muss.
