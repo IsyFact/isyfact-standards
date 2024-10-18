@@ -57,6 +57,7 @@ Alternativ kann die Annotation `@Secured` auch an der _Service-Fassade_ selbst v
 Bei Autorisierung, Validierung oder innerhalb der aufgerufenen Methoden des Anwendungskerns können Exceptions geworfen werden.
 Das zugehörige Exception-Handling jedoch ist nicht Aufgabe der Service-Fassade.
 
+[[exception-fassade]]
 === Exception-Fassade
 Die _Exception-Fassade_ ist verantwortlich für die Umwandlung der durch den Anwendungskern oder die Service-Fassade geworfenen Exceptions in Exceptions der Service-Schnittstelle.
 Für das Ergebnis der Umwandlung ist sicherzustellen, dass entweder Exceptions ohne Stacktraces oder ihnen entsprechende Transport-Objekte zurückgegeben werden.
