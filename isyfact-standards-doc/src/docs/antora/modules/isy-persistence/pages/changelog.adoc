@@ -1,8 +1,14 @@
 [[changelog]]
 = Changelog
 
+*Änderungen IsyFact 3.2.0*
+
+// tag::release-3.2.0[]
+- `IFS-4010`: AutoConfiguration zirkuläre Referenz auflösen
+// end::release-3.2.0[]
+
 *Änderungen IsyFact 3.0.0*
 
 // tag::release-3.0.0[]
-* `IFS-1797`: Vorgaben zu Hibernate Annotationen LazyToOne und LazyCollections entfernt
+- `IFS-1797`: Vorgaben zu Hibernate Annotationen LazyToOne und LazyCollections entfernt
 // end::release-3.0.0[]
