@@ -9,7 +9,10 @@
     * `isy.ueberwachung.security.username=<username>`
     * `isy.ueberwachung.security.password=<password>`
 - `IFS-2395`: [isy-util] `MessageSourceHolder` sowie `MessageSourceFehlertextProvider` als deprecated markiert
+- `IFS-4010`: [isy-persistence] AutoConfiguration zirkuläre Referenz auflösen
+- `IFS-4212`: [isy-task] Dokumentation von `@OnceTask` korrigiert (`@ManualTask` existiert nicht)
 - `IFS-4006`: IsyFact Versionsanhebung auf 3.2.0
+
 
 ### Bug Fixes
 - `IFS-4212`: [isy-task] Dokumentation von `@OnceTask` korrigiert (`@ManualTask` existiert nicht)

@@ -1,3 +1,6 @@
+# 3.2.0
+- `IFS-4010` AutoConfiguration zirkuläre Referenz auflösen
+
 # 3.0.0
 - `IFS-1354`: Autokonfiguration mit initialisierbarer Datenbank
     * Für die Konfiguration der DataSource wurde zu den DataSourceProperties von Spring Boot gewechselt. Hierdurch haben sich die Namen der Konfigurationsschlüssel geändert und müssen angepasst werden.
