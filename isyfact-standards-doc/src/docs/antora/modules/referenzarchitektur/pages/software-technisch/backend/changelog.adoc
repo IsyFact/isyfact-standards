@@ -27,6 +27,7 @@
 
 // tag::release-2.2.0[]
 - `IFS-962`: Alte Tickets zur Anpassung der Dokumentation auf Aktualität geprüft und Dokumentation entsprechend angepasst.
+- `IFS-543`: Vorgabe für die Verwendung von Dependency-Injection eingefügt
 // end::release-2.2.0[]
 
 // *Änderungen IsyFact 2.1.0*

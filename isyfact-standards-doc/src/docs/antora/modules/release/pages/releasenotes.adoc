@@ -62,6 +62,11 @@ Das Konzept der "Basisdaten" wurde gestrichen, in dem die Referenzarchitektur er
 Für diese Geschäftsobjekte gab es keine Komponente im Anwendungskern, sondern nur einen direkten Zugriff auf die dazugehörigen Entitäten.
 Die Referenzarchitektur sieht nun vor, dass Fachkomponenten ohne Ausnahme die vollständige Datenhoheit über ihre eigenen Geschäftsobjekte besitzen.
 
+"Externe Services" im Anwendungskern heißen nun xref:referenzarchitektur:software-technisch/backend/anwendungskern.adoc#service-consumer["Service Consumer"], da der alte Begriff Verwechslungsgefahr mit Services, die außerhalb der Anwendungslandschaft beheimatet sind, aufwies.
+
+Das Konzept von Teilanwendungen als fachliche Schnitte durch das Backend wurde gestrichen, da Backends eng gekoppelte Anwendungskomponenten (ANK) aus der fachlichen Architektur umsetzen und ein vertikaler Schnitt durch ein Backend somit kaum Sinn ergibt.
+
+Die Vorgaben zur Verwendung von Spring wurden ausgelagert und sind nun als xref:referenzarchitektur:software-technisch/backend/spring.adoc[Unterseite zu Backends] zu finden.
 
 [[kapitel-bausteine]]
 == Bausteine

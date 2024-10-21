@@ -25,7 +25,7 @@ Die Unterseiten des Detailkonzepts legen xref:detailkonzept-komponente-datenzugr
 Das Thema Transaktionssteuerung wird nicht im Rahmen des Datenzugriffs behandelt, da Transaktionen in der IsyFact über den Anwendungskern bzw. die Nutzungsschicht gesteuert werden.
 Mehr zu diesem Thema ist in den anderen Detailkonzepten enthalten:
 
-* xref:detailkonzept-komponente-anwendungskern/master.adoc#transaktionssteuerung[Detailkonzept Komponente Anwendungskern],
+* xref:referenzarchitektur:software-technisch/backend/anwendungskern.adoc#transaktionssteuerung[Detailkonzept Komponente Anwendungskern],
 * xref:detailkonzept-komponente-batch/master.adoc#die-transaktionssteuerung[Detailkonzept Komponente Batch],
 * xref:detailkonzept-komponente-service/master.adoc#transaktionssteuerung[Detailkonzept Komponente Service].
 
