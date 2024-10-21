@@ -38,6 +38,9 @@
 - `IFS-4248`: [isy-batchrahmen] In Batches wird im Falle einer fehlgeschlagenen oder nicht vorhandenen Authentifizierung der SecurityContext mit dem Batch-Namen befüllt, damit dieser außerhalb der Batch-Klassen (über `IsySecurityTokenUtil`) verarbeitet werden kann (bspw. zum Speichern des Batch-Namens in einer Datenbank).
     Hiermit wird ein ähnliches Verhalten zu einem unauthentifizierten AufrufKontext wiederhergestellt.
 - `IFS-4316`: [isyfact-products-bom] Aktualisierung und Bereitstellung des Produktkatalogs der Isyfact.
+- `IFS-4236`: [isy-datetime], [isy-sonderzeichen] Beide Submodule wurden aus `isyfact-standards` entfernt und in eigenständige Repositories verschoben
+    * Sie werden ab sofort entkoppelt von der Isyfact versioniert und weiterentwickelt
+    * Sie werden aber weiterhin im Dependency-Management der `isyfact-standards-bom` angeboten.
 
 ## BUG FIXES
 - `IFS-4194`: Umstellung aller Verweise in der Referenzarchitektur aufs Glossar auf das aktuelle Format (`xref:glossary::terms-definitions.adoc`)
