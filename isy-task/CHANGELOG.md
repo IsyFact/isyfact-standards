@@ -1,3 +1,6 @@
+# 4.0.0
+- `IFS-2395`: Umstellung von IsyFact `MessageSourceHolder` auf Spring `MessageSource`
+ 
 # 3.0.0
 - `IFS-2153`: Umstellung isy-task auf Spring Boot:
     * BREAKING CHANGE: Einführung von Spring Boot

@@ -47,6 +47,7 @@
 - `IFS-3736`: [isyfact-standards-doc] Abbildung von Anwendungen in IT-Systeme ("technischer Schnitt") beschrieben.
 - `IFS-3763`: [isyfact-standards-doc] Dokumentation der Änderungen zu IFS-2248 (Tokenerneuerung isy-batchrahmen)
 - `IFS-3750`: [isyfact-standards-doc] Baustein Konfiguration entfernt.
+- `IFS-2395`: [isy-task] Umstellung von IsyFact `MessageSourceHolder` auf Spring `MessageSource`
 
 # 3.0.1
 - `ISY-701`: Google Guava Versionsanhebung auf 33.1.0

@@ -1,5 +1,8 @@
 package de.bund.bva.isyfact.task.security.impl;
 
+import java.util.Locale;
+
+import org.springframework.context.MessageSource;
 import org.springframework.util.StringUtils;
 
 import de.bund.bva.isyfact.logging.IsyLogger;
@@ -10,7 +13,6 @@ import de.bund.bva.isyfact.task.config.IsyTaskConfigurationProperties;
 import de.bund.bva.isyfact.task.konstanten.HinweisSchluessel;
 import de.bund.bva.isyfact.task.security.Authenticator;
 import de.bund.bva.isyfact.task.security.AuthenticatorFactory;
-import de.bund.bva.isyfact.util.spring.MessageSourceHolder;
 
 /**
  * Creates Authenticators for authentication with isy-security.
@@ -22,18 +24,24 @@ public class IsySecurityAuthenticatorFactory implements AuthenticatorFactory {
 
     private final Authentifizierungsmanager authentifizierungsmanager;
 
+    /** MessageSource to determine the messages. **/
+    private final MessageSource messageSource;
+
     /**
      * Creates new instance.
      *
      * @param configurationProperties   {@link IsyTaskConfigurationProperties} provides credentials
      * @param authentifizierungsmanager {@link Authentifizierungsmanager} for authentication
+     * @param messageSource {@link MessageSource} to determine the messages
      */
     public IsySecurityAuthenticatorFactory(
             IsyTaskConfigurationProperties configurationProperties,
-            Authentifizierungsmanager authentifizierungsmanager
+            Authentifizierungsmanager authentifizierungsmanager,
+            MessageSource messageSource
     ) {
         this.configurationProperties = configurationProperties;
         this.authentifizierungsmanager = authentifizierungsmanager;
+        this.messageSource = messageSource;
     }
 
     /**
@@ -52,14 +60,13 @@ public class IsySecurityAuthenticatorFactory implements AuthenticatorFactory {
         }
         String defaultOauth2ClientRegistrationId = configurationProperties.getDefault().getOauth2ClientRegistrationId();
         if (StringUtils.hasText(defaultOauth2ClientRegistrationId)) {
-            String nachricht = MessageSourceHolder
-                    .getMessage(HinweisSchluessel.VERWENDE_STANDARD_KONFIGURATION, "oauth2ClientRegistrationId");
+            String nachricht = messageSource.getMessage(HinweisSchluessel.VERWENDE_STANDARD_KONFIGURATION, new String[] { "oauth2ClientRegistrationId" }, Locale.GERMANY);
             LOG.info(LogKategorie.SICHERHEIT, HinweisSchluessel.VERWENDE_STANDARD_KONFIGURATION, nachricht);
             return new IsySecurityAuthenticator(authentifizierungsmanager, defaultOauth2ClientRegistrationId
             );
         } else {
             LOG.info(LogKategorie.SICHERHEIT, HinweisSchluessel.VERWENDE_KEINE_AUTHENTIFIZIERUNG,
-                    MessageSourceHolder.getMessage(HinweisSchluessel.VERWENDE_KEINE_AUTHENTIFIZIERUNG));
+                messageSource.getMessage(HinweisSchluessel.VERWENDE_KEINE_AUTHENTIFIZIERUNG, null, Locale.GERMANY));
             return new NoOpAuthenticator();
         }
     }
