@@ -17,6 +17,8 @@
     <properties>
         <isy-exception-sst.version>1.10.0</isy-exception-sst.version>
         <isy-serviceapi-sst.version>1.10.0</isy-serviceapi-sst.version>
+        <isy-datetime.version>4.0.0-SNAPSHOT</isy-datetime.version>
+        <isy-sonderzeichen.version>4.0.0-SNAPSHOT</isy-sonderzeichen.version>
     </properties>
 
     <!-- Dependency-Management für die Komponenten der IsyFact-Standards. -->
@@ -37,7 +39,7 @@
             <dependency>
                 <groupId>de.bund.bva.isyfact</groupId>
                 <artifactId>isy-datetime</artifactId>
-                <version>${project.parent.version}</version>
+                <version>${isy-datetime.version}</version>
             </dependency>
             <dependency>
                 <groupId>de.bund.bva.isyfact</groupId>
@@ -82,7 +84,7 @@
             <dependency>
                 <groupId>de.bund.bva.isyfact</groupId>
                 <artifactId>isy-sonderzeichen</artifactId>
-                <version>${project.parent.version}</version>
+                <version>${isy-sonderzeichen.version}</version>
             </dependency>
             <dependency>
                 <groupId>de.bund.bva.isyfact</groupId>
