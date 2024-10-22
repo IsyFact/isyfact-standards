@@ -9,10 +9,6 @@
 
 // end::release-3.2.0[]
 
-// tag::release-3.0.0[]
-
-// end::release-3.0.0[]
-
 // *Änderungen IsyFact 3.0.0*
 
 // tag::release-3.0.0[]

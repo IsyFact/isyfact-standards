@@ -2,11 +2,19 @@
 
 include::glossary:licence:partial$licence.adoc[]
 
-*Änderungen IsyFact 3.0.0*
+*Änderungen IsyFact 3.2.0*
+
+// tag::release-3.2.0[]
+
+- `IFS-4212`: Dokumentation von `@OnceTask` korrigiert (`@ManualTask` existiert nicht)
+
+// end::release-3.2.0[]
+
+// *Änderungen IsyFact 3.0.0*
 
 // tag::release-3.0.0[]
 
-* Task Scheduling auf Basis von Spring Boot
-** Konzept neu geschrieben
+// * Task Scheduling auf Basis von Spring Boot
+// ** Konzept neu geschrieben
 
 // end::release-3.0.0[]

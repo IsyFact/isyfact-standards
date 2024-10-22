@@ -8,6 +8,8 @@
 
 include::isyfact-standards-doku:isy-ueberwachung:page$nutzungsvorgaben/changelog.adoc[tag=release-3.2.0]
 include::isyfact-standards-doku:isy-util:nutzungsvorgaben/changelog.adoc[tag=release-3.2.0]
+include::isyfact-standards-doku:isy-persistence:changelog.adoc[tag=release-3.2.0]
+include::isyfact-standards-doku:isy-task:page$changelog.adoc[tag=release-3.2.0]
 
 == Änderungen IsyFact 3.1.0
 
