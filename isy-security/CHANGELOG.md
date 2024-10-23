@@ -1,3 +1,7 @@
+# 3.3.0
+
+- `IFS-4248`: Hinzufügen einer Klasse `ClaimsOnlyOAuth2AuthenticationToken`, welche innerhalb einer Anwendung verwendet werden kann, um Metadaten (bspw. der Name eines laufenden Batches) über den SecurityContext auszutauschen
+
 # 3.1.0
 
 - `ISY-305`: Implementierung von IsySecurityTokenUtil zum Auslesen von Attributen aus dem Bearer Token
