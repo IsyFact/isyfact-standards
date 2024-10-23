@@ -40,7 +40,7 @@ public class IsySecurityTokenUtilTest {
 
     @BeforeEach
     public void setUp() {
-        SecurityContextHolder.clearContext(); // Sicherstellen, dass der Kontext vor jedem Test zurückgesetzt wird
+        SecurityContextHolder.clearContext(); // Ensure that the context is cleared before each test is executed.
     }
 
     public static Stream<Authentication> getUserId() {
@@ -286,7 +286,7 @@ public class IsySecurityTokenUtilTest {
     }
 
     public static Stream<Authentication> hasTokenExpiredTrueWhenJwtBearerWithoutExpiredAtProperty() {
-        // set a non expired timestamp first and then remove the claim
+        // Set a non expired timestamp first and then remove the claim.
         Instant expiresAt = Instant.now().plus(1, ChronoUnit.DAYS);
         return Stream.of(
                 buildJwtAuthenticationToken(builder -> builder.expiresAt(expiresAt).claims(claim -> claim.remove(JwtClaimNames.EXP))),
