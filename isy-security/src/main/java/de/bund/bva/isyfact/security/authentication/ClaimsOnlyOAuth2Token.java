@@ -16,7 +16,7 @@ import de.bund.bva.isyfact.security.oauth2.util.IsySecurityTokenUtil;
 
 /**
  * An implementation of an {@link AbstractOAuth2Token} that contains only the claims of a JSON Web Token (JWT)
- * and no actual token value that could be used as for example a bearer token.
+ * and no actual token value that could be used, for example, as a bearer token.
  * <p>
  * This token is only intended for internal use within an application where it is assured that the application
  * will either not communicate with external systems or perform a proper authentication which overwrites this
@@ -101,7 +101,7 @@ public class ClaimsOnlyOAuth2Token extends AbstractOAuth2Token implements ClaimA
             claims.put(StandardClaimNames.SUB, subject);
             // Treat this as a token that has all claims easily accessible via IsySecurityTokenUtil already set,
             // similar to an empty AufrufKontext where the initial values are empty strings.
-            // Do this here instead of in build() so the keys can be overwritten with null (if desired).
+            // This approach allows the keys to be initialized with empty strings so that they can be overwritten with null (if desired).
             claims.put(IsySecurityTokenClaimNames.LOGIN, "");
             claims.put(IsySecurityTokenClaimNames.USER_ID, "");
             claims.put(IsySecurityTokenClaimNames.BHKNZ, "");
