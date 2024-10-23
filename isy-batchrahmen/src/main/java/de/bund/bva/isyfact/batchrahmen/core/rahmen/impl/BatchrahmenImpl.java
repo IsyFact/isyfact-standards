@@ -181,7 +181,7 @@ public class BatchrahmenImpl implements Batchrahmen, InitializingBean,
             minimumTokenValidity = getAndValidateMinimumTokenValidity(verarbInfo);
 
             // Set a claim only token in the security context for logging purposes in unauthenticated batches or
-            // authenticated batches where authentication fails (will get overwritten if authentication succeeds)
+            // authenticated batches where authentication fails (if the authentication succeeds, the token will be overwritten).
             String batchName = konfiguration.getAsString(KonfigurationSchluessel.PROPERTY_BATCH_NAME);
             Authentication token = ClaimsOnlyOAuth2Token.withSubject("Batch:" + batchName)
                     .displayName(batchName)
