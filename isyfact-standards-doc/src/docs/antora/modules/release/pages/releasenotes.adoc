@@ -97,7 +97,7 @@ Die Dokumentation zum xref:referenzarchitektur:software-technisch/batch.adoc[IT-
 [[kapitel-bausteine]]
 == Bausteine
 
-=== Entfernungen
+=== Gelöschte Bausteine
 
 Die folgenden Bausteine wurden aus der IsyFact entfernt.
 Die folgende Tabelle zeigt, auf welche Bausteine bzw. Konzepte die Anwendungen migrieren müssen
@@ -111,6 +111,20 @@ Die folgende Tabelle zeigt, auf welche Bausteine bzw. Konzepte die Anwendungen m
 |Konfiguration|xref:referenzarchitektur:software-technisch/backend/konfiguration.adoc[Referenzarchitektur: Konfiguration von Backends]
 
 |===
+
+=== Verschobene Bausteine
+Folgende Bausteine wurden in eigenständige Repositories umgezogen:
+
+[cols="1s,2",options="header"]
+|===
+|Altes Repository|Neues Repository
+|./isyfact-standards/isy-datetime|xref:https://github.com/IsyFact/isy-datetime/[isy-datetime auf Github]
+|./isyfact-standards/isy-sonderzeichen|xref:https://github.com/IsyFact/isy-sonderzeichen/[isy-sonderzeichen auf Github]
+
+|===
+
+* Beide Bausteine lassen sich weiterhin über die isyfact-standards-bom einbinden und auch die Group- und ArtifactIDs bleiben dieselben.
+* Die Version wird allerdings in zukünftigen Releases nicht mehr mit der Version der isyfact-standards synchron gehalten und entwickelt sich entkoppelt davon fort.
 
 [[kapitel-deprecations]]
 == Deprecations
