@@ -21,7 +21,12 @@ Folgende Bausteine entfallen in IsyFact 4:
 * `isy-sicherheit`: ersetzt durch Spring Security OAuth2 und  `isy-security`
 * `isy-serviceapi-core`: HttpInvoker-Schnittstellen müssen durch entsprechende REST-Schnittstellen ersetzt werden (siehe auch xref:isy-service-rest:konzept/master.adoc[]/xref:isy-service-rest:nutzungsvorgaben/master.adoc[]).
 
+Folgende Bausteine wurden in eigenständige Repositories umgezogen:
 
+* `isy-datetime` von ./isyfact-standards/isy-datetime nach https://github.com/IsyFact/isy-datetime/
+* `isy-sonderzeichen` ./isyfact-standards/isy-sonderzeichen nach https://github.com/IsyFact/isy-sonderzeichen/
+* Beide Bausteine lassen sich weiterhin über die isyfact-standards-bom einbinden und auch die Group- und ArtifactIDs bleiben dieselben.
+* Die Version wird allerdings in zukünftigen Releases nicht mehr mit der Version der isyfact-standards synchron gehalten und entwickelt sich entkoppelt davon fort.
 
 [[isy-security]]
 === Security
