@@ -33,7 +33,7 @@ Hierzu setzen Backends Transaktionen ein.
 Transaktionen müssen die https://de.wikipedia.org/wiki/ACID[ACID-Eigenschaften] erfüllen, um grundlegende Anforderungen an Datenqualität zu erfüllen.
 
 In Backends ist der Anwendungskern für die xref:software-technisch/backend/anwendungskern.adoc#transaktionssteuerung[Transaktionssteuerung] zuständig.
-In Ausnahmefällen kann die Transaktionssteuerung auch über die xref:blaupausen:detailkonzept-komponente-service/inhalt.adoc#transaktionssteuerung[Serviceschicht] erfolgen.
+In Ausnahmefällen kann die Transaktionssteuerung auch über die xref:software-technisch/backend/serviceschicht.adoc#transaktionssteuerung[Serviceschicht] erfolgen.
 
 === Caching
 
@@ -138,7 +138,7 @@ Technologisch erfolgt die Umsetzung als REST-Service mit Spring Web MVC bzw. Spr
 [[service-umsetzung]]
 === Umsetzung
 
-Zur Konzeption von Services definiert die Referenzarchitektur xref:blaupausen:detailkonzept-komponente-service/inhalt.adoc[weitere Vorgaben].
+Zur Konzeption von Services definiert die Referenzarchitektur xref:software-technisch/backend/serviceschicht.adoc[weitere Vorgaben].
 Die Umsetzung von Services geschieht mithilfe des xref:isy-service-rest:konzept/master.adoc[Bausteins REST].
 
 [[querschnitt]]

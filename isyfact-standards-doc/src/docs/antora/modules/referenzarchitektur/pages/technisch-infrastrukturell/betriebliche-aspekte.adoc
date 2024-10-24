@@ -18,7 +18,7 @@ image::referenzarchitektur:technisch-infrastrukturell/verfuegbar.png[]
 Der Aufbau der Produktionsumgebung ist so zu gestalten, dass die angestrebte Verfügbarkeit erreicht werden kann.
 
 TIP: Dies kann beispielsweise eine Verfügbarkeit von 7x24 Stunden und eine auf den Monat berechnete Verfügbarkeit von über 99 % sein.
-Eine Beispielrechnung findet sich im xref:blaupausen:detailkonzept-komponente-service/inhalt.adoc#verfuegbarkeit[Detailkonzept Service].
+Eine Beispielrechnung findet sich im xref:software-technisch/backend/serviceschicht.adoc#verfuegbarkeit[Detailkonzept Service].
 
 In der Produktionsumgebung einer IsyFact-Systemlandschaft wird die geforderte Verfügbarkeit über das Mittel der Redundanz realisiert.
 Jede Komponente der technischen Infrastruktur ist mehrfach vorhanden.

@@ -2,7 +2,7 @@
 
 include::documentation-guide::partial$licence.adoc[]
 
-Entsprechend der xref:referenzarchitektur:software-technisch/backend.adoc[] stellen Backends Services über die Serviceschicht zur Verfügung.
+Entsprechend der xref:software-technisch/backend.adoc[] stellen Backends Services über die Serviceschicht zur Verfügung.
 Zu beachten ist, dass die Services eines Backends somit lediglich innerhalb der Systemlandschaft verfügbar sind.
 Um diese Services auch externen Anwendungen zur Verfügung zu stellen, müssen die Services durch ein sogenanntes Service-Gateway exportiert werden.
 
@@ -163,7 +163,7 @@ Es ist möglich, pro Service-Version ein eigenes Service-Gateway zu erstellen (s
 
 [[image-archversServ]]
 .Architektur versionierter Services
-image::blaupausen:detailkonzept-service/archversServ.png[align="center",width=60%,pdfwidth=60%]
+image::referenzarchitektur:software-technisch/services/archversServ.png[align=center,width=60%]
 
 [[einfachster-fall-kompatible-erweiterung-eines-services]]
 === Einfacher Fall: Kompatible Erweiterung eines Services
@@ -357,7 +357,7 @@ Diese ist sinnvoll über die folgenden Parameter konfigurierbar:
 * Maximale Anzahl von Retries,
 * Timeout für Anfragen.
 
-Die Parameter sind Bestandteil der xref:referenzarchitektur:software-technisch/backend/konfiguration.adoc#betriebliche-konfiguration[betrieblichen Konfiguration].
+Die Parameter sind Bestandteil der xref:software-technisch/backend/konfiguration.adoc#betriebliche-konfiguration[betrieblichen Konfiguration].
 ====
 
 ==== Deaktivierung von Services
