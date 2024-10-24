@@ -27,7 +27,7 @@ Mehr zu diesem Thema ist in den anderen Detailkonzepten enthalten:
 
 * xref:referenzarchitektur:software-technisch/backend/anwendungskern.adoc#transaktionssteuerung[Detailkonzept Komponente Anwendungskern],
 * xref:detailkonzept-komponente-batch/master.adoc#die-transaktionssteuerung[Detailkonzept Komponente Batch],
-* xref:detailkonzept-komponente-service/master.adoc#transaktionssteuerung[Detailkonzept Komponente Service].
+* xref:detailkonzept-komponente-service/inhalt.adoc#transaktionssteuerung[Detailkonzept Komponente Service].
 
 ====
 

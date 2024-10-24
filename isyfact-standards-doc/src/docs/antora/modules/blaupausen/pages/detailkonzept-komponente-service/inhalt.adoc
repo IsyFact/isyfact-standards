@@ -1,13 +1,18 @@
-= Detailkonzept Service: Inhalt
+= Serviceschicht
 
-// tag::inhalt[]
+include::documentation-guide::partial$licence.adoc[]
+
+Entsprechend der xref:referenzarchitektur:software-technisch/backend.adoc[] stellen Backends Services über die Serviceschicht zur Verfügung.
+Zu beachten ist, dass die Services eines Backends somit lediglich innerhalb der Systemlandschaft verfügbar sind.
+Um diese Services auch externen Anwendungen zur Verfügung zu stellen, müssen die Services durch ein sogenanntes Service-Gateway exportiert werden.
+
 [[ueberblick]]
 == Überblick
 
-Services gliedern sich über eine technische Komponente „Service“ in die T-Architektur von IT-Systemen ein (siehe <<image-IFRefArcITSysServ>>).
+Services gliedern sich über eine technische Komponente "Service" in die T-Architektur von IT-Systemen ein (siehe <<image-IFRefArcITSysServ>>).
 
+[[image-IFRefArcITSysServ]]
 .Referenzarchitektur eines IT-Systems
-[id="image-IFRefArcITSysServ",reftext="{figure-caption} {counter:figures}"]
 image::referenzarchitektur:software-technisch/backend/service.dn.svg[]
 
 Diese technische Komponente besteht aus zwei Teilen: dem Service-Framework und der Servicelogik.
@@ -48,7 +53,7 @@ Die _Service-Fassade_ kümmert sich darum, eingehende Service-Aufrufe auf intern
 Transport-Objekte der Service-Schnittstelle werden dabei in Geschäftsobjekte des Anwendungskerns umgewandelt. 
 Für die vom Anwendungskern gelieferten Ergebnisse ist eine Transformation in umgekehrter Richtung erforderlich. 
 
-Die _Service-Fassade_ übernimmt darüberhinaus neben der Validierung der Aufrufparameter auch die Autorisierung des Aufrufs.
+Die _Service-Fassade_ übernimmt darüber hinaus neben der Validierung der Aufrufparameter auch die Autorisierung des Aufrufs.
 Dazu nutzt sie die xref:isy-security:nutzungsvorgaben/master.adoc#autorisierung_service_schnittstelle[Möglichkeiten des Bausteins Security].
 Voraussetzung für die Autorisierung ist die Auswertung des mitgelieferten Access-Tokens.
 Über die Annotation `@Secured` wird die Berechtigung zum Zugriff auf die Methode anhand der Rechte des Aufrufers geprüft.
@@ -122,8 +127,8 @@ Eine Sonderstellung nehmen Services ein, die im Fehlerfall keinen Fehler zurück
 Der AOP-Transaktionsmanager wird niemals ein Rollback durchführen, da alle Exceptions abgefangen werden, auf die er reagieren könnte.
 Um auch in diesem Fall ein Rollback der Transaktion zu erzwingen, ist folgender Aufruf durchzuführen:
 
+[[listing-service-fassade-tx-rollback-only]]
 .Rollback von Transaktionen im Fehlerfall ohne Exceptions
-[id="listing-service-fassade-tx-rollback-only",reftext="{listing-caption} {counter:listings }"]
 [source,java]
 ----
 	TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
@@ -144,7 +149,7 @@ Es kann vorkommen, dass in _einem_ Systemrelease neue Versionen von _mehreren_ S
 === Architektur
 
 IT-Systeme bieten pro Service-Version eine eigene Service-Schnittstelle an.
-Die Services verwenden alle denselben xref:glossary:glossary:master.adoc#glossar-anwendungskern[Anwendungskern].
+Die Services verwenden alle denselben xref:glossary::terms-definitions.adoc#glossar-anwendungskern[Anwendungskern].
 Die für die Versionierung notwendigen Transformationen sind Teil der jeweiligen Service-Schnittstelle (z.B. das Einfügen eines Standardwerts für neu hinzugefügte Attribute).
 In komplexen Fällen kann es auch notwendig sein, den Anwendungskern zu erweitern und die Versionierung dort zu behandeln.
 Die Entscheidung dafür ist im Systementwurf zu dokumentieren.
@@ -156,8 +161,8 @@ Im Service-Gateway erfolgt daher immer nur ein einfaches Mapping auf die entspre
 Der Ausgleich der Versionsunterschiede erfolgt ausschließlich im IT-System und nicht im Service-Gateway.
 Es ist möglich, pro Service-Version ein eigenes Service-Gateway zu erstellen (siehe <<image-archversServ>>).
 
+[[image-archversServ]]
 .Architektur versionierter Services
-[id="image-archversServ",reftext="{figure-caption} {counter:figures}"]
 image::blaupausen:detailkonzept-service/archversServ.png[align="center",width=60%,pdfwidth=60%]
 
 [[einfachster-fall-kompatible-erweiterung-eines-services]]
@@ -167,11 +172,11 @@ Ein IT-System stellt einen Service bereit, mit dem Personendaten gemeldet werden
 Parameter dieser Meldung sind Vor- und Nachname sowie das Geburtsdatum.
 Dazu gibt es einen Meldung-Service in der Version 1.0. Dieser wird in der Service-Schicht des IT-Systems implementiert.
 Ab einem Stichtag soll zusätzlich noch das Geschlecht gemeldet werden.
-Im bisherigen Datenbestand wird dieses neue Attribut auf den Wert „unbekannt“ gesetzt.
+Im bisherigen Datenbestand wird dieses neue Attribut auf den Wert "unbekannt" gesetzt.
 Der bestehende Service wird um dieses Attribut erweitert und erhält die Versionsnummer 1.1.
 Anwendungskern und Persistenzschicht müssen ebenfalls erweitert werden.
 Aus Gründen der Rückwärtskompatibilität soll aber weiterhin die Version 1.0 des Service angeboten werden.
-Dazu wird ein neuer Service innerhalb der Service-Schicht implementiert, der die Meldung entgegennimmt, das fehlende Attribut mit dem Wert „unbekannt“ ergänzt und dann den Anwendungskern aufruft.
+Dazu wird ein neuer Service innerhalb der Service-Schicht implementiert, der die Meldung entgegennimmt, das fehlende Attribut mit dem Wert "unbekannt" ergänzt und dann den Anwendungskern aufruft.
 
 Werden die beiden Services durch ein Service-Gateway nach außen verfügbar gemacht, existieren dort zwei parallele Mappings auf die jeweiligen Services des IT-Systems.
 Innerhalb des Service-Gateways existiert keine Geschäftslogik, d.h. die Abbildung von Version 1.0 auf 1.1 findet erst im IT-System statt.
@@ -247,12 +252,12 @@ Manche Systeme antworten bei Lastspitzen zu langsam.
 Der nicht funktionierende Knoten ist dadurch temporär nicht verfügbar, wodurch die verbleibenden Knoten die Last des ausgefallenen Knotens mitverarbeiten müssen.
 
 *Umschaltzeit bei Hard- oder Softwareausfall:* Bei Ausfall von Hard- oder Software sorgt ein Loadbalancer dafür, dass alle Anfragen nur an die noch funktionierenden Knoten weitergeleitet werden.
-In dem kurzen Zeitraum, bis der Loadbalancer einen Server-Knoten als ausgefallen markiert („Umschaltzeit“), kommt es jedoch zur Nichtverfügbarkeit von Services.
+In dem kurzen Zeitraum, bis der Loadbalancer einen Server-Knoten als ausgefallen markiert ("Umschaltzeit"), kommt es jedoch zur Nichtverfügbarkeit von Services.
 In diesem Zeitraum werden Anfragen nicht beantwortet die noch an den ausgefallenen Knoten geleitet werden.
 [NOTE]
 ====
 Die Regeln, nach denen der Loadbalancer entscheidet, wann ein Server-Knoten nicht mehr verfügbar ist, können üblicherweise konfiguriert werden.
-Beispielsweise kann ein Loadbalancer alle paar Sekunden per Script („Health-Check“) überprüfen, ob ein Server-Knoten noch verfügbar ist.
+Beispielsweise kann ein Loadbalancer alle paar Sekunden per Script ("Health-Check") überprüfen, ob ein Server-Knoten noch verfügbar ist.
 Erst nach einer festgelegten Anzahl fehlgeschlagener fachlicher Anfragen und negativem Health-Check leitet dann der Loadbalancer keine Anfragen mehr an diesen Knoten.
 Unabhängig von der Konfiguration kann es trotz Loadbalancer und Anwendungscluster zu wenigen nicht beantworteten Anfragen und somit
 zu einer Nichtverfügbarkeit kommen.
@@ -361,4 +366,3 @@ Aufgrund von Wartungsaktivitäten oder Batches (z. B. einer Datenmigration) in 
 Andere Services wie z. B. eine Auskunft können während dieser Zeit regulär ausgeführt werden.
 Während der Meldungsservice deaktiviert ist, wird dem Aufrufer eine entsprechende Fehlermeldung zurückgesendet.
 Da die Anforderung besteht, auch andere Services vorübergehend deaktivieren zu können, werden generell alle Services deaktivierbar gemacht.
-// end::inhalt[]

@@ -7,7 +7,11 @@
 - `IFS-1796`: Änderung der Architekturregel zur Weitergabe von Entitäten
 // end::release-4.0.0[]
 
+*Änderungen IsyFact 3.0.0*
+
 // tag::release-3.0.0[]
+
+* `IFS-1609`: Standardisierte Übertragung von Metadaten dokumentiert.
 
 // end::release-3.0.0[]
 

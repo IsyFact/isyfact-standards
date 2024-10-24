@@ -4,7 +4,7 @@
 *** xref:software-technisch/it-system.adoc[]
 **** xref:software-technisch/it-system-zerlegung.adoc[]
 **** xref:software-technisch/backend.adoc[Backend]
-***** xref:blaupausen:detailkonzept-komponente-service/master.adoc[Service]
+***** xref:blaupausen:detailkonzept-komponente-service/inhalt.adoc[]
 ***** xref:software-technisch/backend/anwendungskern.adoc[]
 ***** xref:blaupausen:detailkonzept-komponente-datenzugriff/einordnung-ziele.adoc[Datenzugriff]
 ****** xref:blaupausen:detailkonzept-komponente-datenzugriff/persistenzlogik.adoc[]
