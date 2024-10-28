@@ -2,80 +2,121 @@
 
 include::documentation-guide::partial$licence.adoc[]
 
-Entsprechend der xref:software-technisch/backend.adoc[] stellen Backends Services über die Serviceschicht zur Verfügung.
-Zu beachten ist, dass die Services eines Backends somit lediglich innerhalb der Systemlandschaft verfügbar sind.
-Um diese Services auch externen Anwendungen zur Verfügung zu stellen, müssen die Services durch ein sogenanntes Service-Gateway exportiert werden.
+// tag::serviceschicht-definition[]
 
-[[ueberblick]]
-== Überblick
+Die Serviceschicht stellt Services von Backends innerhalb einer Systemlandschaft zur Verfügung.
+Sie regelt die Autorisierung von Aufrufen, validiert die übergebenen Daten und ruft die entsprechenden fachlichen Operationen des Anwendungskerns auf.
+Der Aufbau der Serviceschicht sowie ihre Kommunikation mit anderen Schichten ist in <<systemarchitektur-serviceschicht,folgender Grafik>> dargestellt.
 
-Services gliedern sich über eine technische Komponente "Service" in die T-Architektur von IT-Systemen ein (siehe <<image-IFRefArcITSysServ>>).
+[[systemarchitektur-serviceschicht]]
+.Einbettung der Serviceschicht in die Systemarchitektur
+image::software-technisch/backend/service.dn.svg[width=80%,align=center]
 
-[[image-IFRefArcITSysServ]]
-.Referenzarchitektur eines IT-Systems
-image::referenzarchitektur:software-technisch/backend/service.dn.svg[]
+// end::serviceschicht-definition[]
 
-Diese technische Komponente besteht aus zwei Teilen: dem Service-Framework und der Servicelogik.
+[[fachkomponenten]]
+== Fachkomponenten
 
-Das *Service-Framework* bezeichnet die konkrete Technologie, mit der die Services des Anwendungskerns zur Verfügung gestellt werden.
+// tag::fachkomponente-definition[]
 
-Die *Servicelogik* gliedert sich, wie der Anwendungskern, in Fachkomponenten.
-Die Klassen der Fachkomponenten der *Servicelogik* werden vom Service-Framework aufgerufen. 
-Die Methoden der aufgerufenen Klassen nehmen Daten von außen entgegen und stellen Funktionalität, inklusive Daten des Anwendungskerns nach außen hin zur Verfügung.
-[[servicelogik]]
-== Servicelogik
+Die *Fachkomponenten* der Serviceschicht spiegeln die Fachkomponenten aus dem Anwendungskern wider.
+Sie nehmen die Daten der Anfragen von außen entgegen und stellen die Funktionalität und Daten des Anwendungskerns nach außen hin zur Verfügung.
+Zu den Aufgaben der Fachkomponenten gehören maßgeblich:
 
-Die Fachkomponenten setzen im wesentlichen *Service-Schnittstellen* um.
-Zu ihren Aufgaben gehört:
+* Autorisierung und Tracing eingehender Anfragen,
+* Validierung der Transportobjekte,
+* Transformation von Transportobjekten in Geschäftsobjekte und umgekehrt,
+* fachliche Fehlerbehandlung.
 
-Validierung:: Wenn für bestimmte Parameter einer Service-Methode Bedingungen definiert sind, 
-(z.B. dass ein bestimmter Parameter ein Pflicht-Parameter ist) so sollen diese Bedingungen bereits in der Service-Schnittstelle und nicht erst im Anwendungskern geprüft werden.
+Fachkomponenten arbeiten auf Parametern und Transportobjekten, deren Zweck darin besteht, Daten zwischen Backends und ihren Kommunikationspartnern zu übertragen.
 
-Transformation:: Bei einem Service-Aufruf müssen die Transportobjekte der Service-Schnittstelle in passende Objekte des Anwendungskerns umgewandelt werden.
-Außerdem muss das Ergebnis des Anwendungskerns wieder in ein Transportobjekt der Service-Schnittstelle umgewandelt werden.
-Transportobjekte sind Klassen, deren einziger Zweck es ist, Daten zu transportieren.
-Sie definieren lediglich eine Datenstruktur.
+// end::fachkomponente-definition[]
 
-Fehlerbehandlung:: Ausnahmen, die bei der Verarbeitung eines Service-Aufrufs oder im Anwendungskern auftreten, werden in eine Ausnahme der Service-Schnittstelle umgewandelt.
+[[fachkomponente-aufgaben]]
+=== Aufgaben einer Fachkomponente
 
-Autorisierung:: Bei jedem Service-Aufruf muss die aufgerufene Anwendung überprüfen, ob der Aufrufer autorisiert ist, die Service-Operation auszuführen. 
+Die Aufgaben einer Fachkomponente bedeuten genauer aufgeschlüsselt:
 
-Logging:: Bei jedem Service-Aufruf muss die aufgerufene Anwendung die Korrelations-ID in den Logging-Kontext einfügen.
+Autorisierung:: Bei jeder Anfrage muss die Fachkomponente überprüfen, ob der Aufrufer autorisiert ist, die Service-Operation auszuführen.
+Hierzu verwenden Backends den xref:isy-security:konzept/master.adoc[Baustein Security].
 
-IMPORTANT: Im Normalfall ist der Funktionsumfang der Fachkomponenten der *Servicelogik* viel geringer als der Funktionsumfang ihrer Entsprechungen im Anwendungskern.
-Dies liegt darin begründet, dass die Servicelogik die Funktionalität des Anwendungskerns nutzt, um den Service bereitzustellen, und selbst keinerlei Geschäftslogik beinhaltet.
-Die Schnittstelle zwischen Servicelogik und Anwendungskern ist eine interne Schnittstelle.
+Tracing:: Bei jeder Anfrage muss die Fachkomponente die Korrelations-ID in den Logging-Kontext einfügen.
+Hierzu verwenden Backends den xref:isyfact-standards-doku:isy-logging:konzept/master.adoc[Baustein Logging].
 
-Die Service-Schnittstellen bestehen aus einer *Service-Fassade* und einer *Exception-Fassade*.
+Validierung:: Bei jeder Anfrage muss die Fachkomponente die mitgelieferten Parameter und Transportobjekte auf Korrektheit prüfen.
+Beispiele hierfür sind das zwingende Vorhandensein bestimmter Parameter oder Transportobjekte sowie die Einhaltung von Datentypen.
+Hierzu verwenden Backends standardmäßig Bean Validation.
 
-=== Service-Fassade
+Transformation:: Bei jeder autorisierten und validierten Anfrage muss die Fachkomponente die Transportobjekte der Serviceschicht in Geschäftsobjekte des Anwendungskerns umwandeln und umgekehrt.
+Die Umwandlung kann programmatisch oder über das Produkt https://mapstruct.org/[MapStruct] erfolgen.
+
+Fehlerbehandlung:: Fachliche Fehler, die bei der Verarbeitung einer Anfrage in der Serviceschicht oder im Anwendungskern auftreten, müssen von der Fachkomponente an den Aufrufer zurückgegeben werden.
+Hierzu verwenden Backends den xref:isyfact-standards-doku:isy-exception-core:konzept/master.adoc[Baustein Fehlerbehandlung].
+
+Im Normalfall ist der Funktionsumfang der Fachkomponenten der Serviceschicht viel geringer als der Funktionsumfang ihrer Entsprechungen im Anwendungskern.
+Dies liegt darin begründet, dass die Serviceschicht die Funktionalität des Anwendungskerns nutzt, um den Service bereitzustellen, und selbst keinerlei Geschäftslogik beinhaltet.
+
+[[fachkomponente-aufbau]]
+=== Aufbau einer Fachkomponente
+
+Eine Fachkomponente besteht aus einer *Service-Fassade* und einer *Exception-Fassade*.
+
+[[service-fassade]]
+==== Service-Fassade
+
 Die _Service-Fassade_ kümmert sich darum, eingehende Service-Aufrufe auf interne Aufrufe des Anwendungskerns abzubilden. 
-Transport-Objekte der Service-Schnittstelle werden dabei in Geschäftsobjekte des Anwendungskerns umgewandelt. 
+Transportobjekte der Serviceschicht werden dabei in Geschäftsobjekte des Anwendungskerns umgewandelt.
 Für die vom Anwendungskern gelieferten Ergebnisse ist eine Transformation in umgekehrter Richtung erforderlich. 
 
-Die _Service-Fassade_ übernimmt darüber hinaus neben der Validierung der Aufrufparameter auch die Autorisierung des Aufrufs.
-Dazu nutzt sie die xref:isy-security:nutzungsvorgaben/master.adoc#autorisierung_service_schnittstelle[Möglichkeiten des Bausteins Security].
+Die Service-Fassade übernimmt darüber hinaus neben der Validierung der Aufrufparameter auch die Autorisierung des Aufrufs.
+Dazu nutzt sie den xref:isy-security:nutzungsvorgaben/master.adoc#autorisierung_service_schnittstelle[Baustein Security].
 Voraussetzung für die Autorisierung ist die Auswertung des mitgelieferten Access-Tokens.
 Über die Annotation `@Secured` wird die Berechtigung zum Zugriff auf die Methode anhand der Rechte des Aufrufers geprüft.
-Alternativ kann die Annotation `@Secured` auch an der _Service-Fassade_ selbst verwendet werden, wenn alle ihre Methoden die gleichen Rechte erfordern.
-
-Bei Autorisierung, Validierung oder innerhalb der aufgerufenen Methoden des Anwendungskerns können Exceptions geworfen werden.
-Das zugehörige Exception-Handling jedoch ist nicht Aufgabe der Service-Fassade.
+Alternativ kann die Annotation `@Secured` auch an der Service-Fassade selbst verwendet werden, wenn alle ihre Methoden die gleichen Rechte erfordern.
 
 [[exception-fassade]]
-=== Exception-Fassade
-Die _Exception-Fassade_ ist verantwortlich für die Umwandlung der durch den Anwendungskern oder die Service-Fassade geworfenen Exceptions in Exceptions der Service-Schnittstelle.
-Für das Ergebnis der Umwandlung ist sicherzustellen, dass entweder Exceptions ohne Stacktraces oder ihnen entsprechende Transport-Objekte zurückgegeben werden.
-Für die Behandlung und Umwandlung der aufgefangenen Exceptions sollten Log-Einträge erzeugt werden. 
-Für das Logging ist sicherzustellen, dass zum Zeitpunkt der Erstellung der Log-Einträge eine Korrelations-ID verfügbar ist.
+==== Exception-Fassade
 
-[NOTE]
-====
-Die weiteren Inhalte zum Aufbau, zur Realisierung und zur Nutzung von Service-Schnittstellen wurden wegen ihrer Abhängigkeit zur konkreten Schnittstellentechnologie in den entsprechenden Technologie-Baustein verschoben.
-Die Inhalte finden sich in den Dokumenten  
-xref:isy-service-rest:konzept/master.adoc#einleitung[Konzept REST-Schnittstellen], sowie 
-xref:isy-service-rest:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben REST-Schnittstellen].
-====
+Die _Exception-Fassade_ ist verantwortlich für die Umwandlung der durch den Anwendungskern oder die Service-Fassade geworfenen Exceptions in Exceptions der Serviceschicht.
+Für das Ergebnis der Umwandlung ist sicherzustellen, dass entweder Exceptions ohne Stack-Traces oder ihnen entsprechende Transportobjekte zurückgegeben werden.
+Für die Behandlung und Umwandlung der aufgefangenen Exceptions sollten Log-Einträge erzeugt werden. 
+Dabei ist sicherzustellen, dass zum Zeitpunkt der Erstellung der Log-Einträge eine Korrelations-ID verfügbar ist.
+
+== Service-Framework
+
+// tag::service-framework-definition[]
+
+Das Service-Framework definiert die REST-Endpunkte des Backends und stellt diese zur Verfügung.
+Es wandelt die in der HTTP-Anfrage übertragenen Daten in Transportobjekte um und ruft die entsprechende Fachkomponente auf.
+Ebenso erledigt es die Umwandlung des Ergebnisses in eine HTTP-Antwort.
+Zur Definition der REST-Endpunkte wird Spring Web MVC bzw. Spring WebClient verwendet.
+Zur Konfiguration der Serviceschicht wird das Spring-Framework genutzt.
+
+// end::service-framework-definition[]
+
+Die weiteren Inhalte zum Aufbau, zur Realisierung und zur Nutzung der Serviceschicht befinden sich im Baustein REST.
+Sie befinden sich im xref:isy-service-rest:konzept/master.adoc[] sowie den xref:isy-service-rest:nutzungsvorgaben/master.adoc[].
+
+[[transaktionssteuerung]]
+== Transaktionssteuerung
+
+In der Regel geschieht die Transaktionssteuerung im Anwendungskern.
+Die Ausnahme bilden Anforderungen, aus denen heraus die Service-Fassade einer Fachkomponente der Serviceschicht eine Transaktion über mehrere Aufrufe des Anwendungskerns hinweg bilden muss.
+In diesem Fall fällt die Steuerung der Transaktion der Service-Fassade zu, weil es wichtig ist, dass die Fehlerbehandlung in jedem Fall die Transaktion umschließt.
+Nur so ist gewährleistet, dass auch Fehler, die beim Commit bzw. Rollback entstehen, von der Fehlerbehandlung erfasst werden.
+
+Die Transaktionalität einzelner Service-Operationen wird über Annotationen (_@Transactional_) an den Methoden der Service-Fassade konfiguriert.
+
+Eine Sonderstellung nehmen Services ein, die im Fehlerfall keinen Fehler zurückgeben, sondern die Fehler in der Antwortnachricht übermitteln.
+Der AOP-Transaktionsmanager würde kein Rollback durchführen, da alle Exceptions abgefangen werden, auf die er reagieren könnte.
+Um auch in diesem Fall ein Rollback der Transaktion zu erzwingen, ist folgender Aufruf durchzuführen:
+
+[[listing-service-fassade-tx-rollback-only]]
+.Rollback von Transaktionen im Fehlerfall ohne Exceptions
+[source,java]
+----
+TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+----
 
 [[uebertragung-von-metadaten]]
 == Übertragung von Metadaten
@@ -112,28 +153,6 @@ Die <<standardisierte-metadaten,folgende Tabelle>> zeigt, welche Metadaten in de
 |Authorization
 |Vorgabe des Standards OAuth 2.0.
 |===
-
-[[transaktionssteuerung]]
-== Transaktionssteuerung
-
-In der Regel geschieht die Transaktionssteuerung im Anwendungskern.
-Gibt es allerdings Anforderungen, aus denen heraus die Service-Fassade eine Transaktion über mehrere Aufrufe des Anwendungskerns hinweg bilden muss, so muss diese Transaktion über die Service-Fassade gesteuert werden.
-Die Aufgabe fällt der Service-Fassade zu, weil es wichtig ist, dass die Fehlerbehandlung auf jeden Fall die Transaktion umschließt.
-Nur so ist gewährleistet, dass auch Fehler, die beim Commit entstehen, von der Fehlerbehandlung erfasst werden.
-
-Die Transaktionalität einzelner Service-Methoden wird über Annotationen (_@Transactional_) an diesen Methoden konfiguriert.
-
-Eine Sonderstellung nehmen Services ein, die im Fehlerfall keinen Fehler zurückgeben, sondern die Fehler in der Antwortnachricht übermitteln.
-Der AOP-Transaktionsmanager wird niemals ein Rollback durchführen, da alle Exceptions abgefangen werden, auf die er reagieren könnte.
-Um auch in diesem Fall ein Rollback der Transaktion zu erzwingen, ist folgender Aufruf durchzuführen:
-
-[[listing-service-fassade-tx-rollback-only]]
-.Rollback von Transaktionen im Fehlerfall ohne Exceptions
-[source,java]
-----
-	TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-----
-
 
 [[versionierung]]
 == Versionierung

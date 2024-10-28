@@ -111,29 +111,17 @@ Die Umsetzung geschieht mithilfe des xref:isy-persistence:konzept.adoc[Bausteins
 [[service]]
 == Service
 
-Backends können Funktionen des Anwendungskerns über die Serviceschicht anderen IT-Systemen zur Verfügung stellen.
-Der Aufbau der Serviceschicht sowie ihre Kommunikation mit anderen Schichten ist in <<systemarchitektur-service,folgender Grafik>> dargestellt.
-
-[[systemarchitektur-service]]
-.Einbettung der Serviceschicht in die Systemarchitektur
-image::software-technisch/backend/service.dn.svg[width=80%,align=center]
+include::backend/serviceschicht.adoc[tags=serviceschicht-definition]
 
 [[service-fachkomponenten]]
 === Fachkomponenten
 
-Die Servicelogik beinhaltet, wie im Anwendungskern auch, Fachkomponenten.
-Diese Fachkomponenten setzen im wesentlichen Service-Schnittstellen mit den folgenden Aufgaben um:
-
-* Autorisierung und Tracing eingehender Anfragen,
-* Validierung der Transportobjekte,
-* Umwandlung von Transportobjekten in Geschäftsobjekte und umgekehrt,
-* fachliche Fehlerbehandlung.
+include::backend/serviceschicht.adoc[tags=fachkomponente-definition]
 
 [[service-framework]]
 === Service-Framework
 
-Service-Schnittstellen von Backends sind Webservices, die dem REST-Paradigma folgen.
-Technologisch erfolgt die Umsetzung als REST-Service mit Spring Web MVC bzw. Spring WebClient.
+include::backend/serviceschicht.adoc[tags=service-framework-definition]
 
 [[service-umsetzung]]
 === Umsetzung
