@@ -17,11 +17,49 @@ Der Nutzer soll auch im Fehlerfall eine gewohnt schnelle Antwort vom System erha
 Die genaue Definition des Zeitrahmens, in dem die Fehlermeldung über die Nichtverfügbarkeit beim Aufrufer eintreffen muss, ist anwendungsspezifisch.
 Die Definition ist dementsprechend durch die jeweiligen Aufrufer vorzunehmen.
 
-[[verfuegbarkeit-und-ausfallsicherheit]]
-== Verfügbarkeit und Ausfallsicherheit
+[[definition-messung]]
+== Definition und Messung
 
-Die Verfügbarkeit wird über einen Prozentwert gemessen, der unter Berücksichtigung von definierten Betriebs- und Wartungsfenstern angibt, wie ausfallsicher ein System sein soll und tatsächlich ist.
-<<image-verfuegbar>> gibt einen Überblick, was bei der Messung der Verfügbarkeit zu berücksichtigen ist.
+Die Verfügbarkeit (_availability_) eines Systems oder einer individuellen Systemkomponente ist definiert als der Prozentsatz eines Zeitraums, in welcher es ordnungsgemäß nach gesetzten Performance-Kriterien läuft (vgl. https://docs.oracle.com/cd/A97335_02/ias.102/a95201/avail.htm[Oracle: Definition von Availability]).
+
+
+++++
+<math>
+  <mi>Availability</mi>
+  <mo>=</mo>
+  <mfrac displaystyle="true">
+    <mn>Erfüllungszeitraum der Performance-Kriterien</mn>
+    <mn>Definierter Zeitraum des System-/ Komponentenbetriebs</mn>
+  </mfrac>
+</math>
+++++
+
+Das grundlegende Performance-Kriterium einer Anwendung ist deren korrekter Zustand und deren Erreichbarkeit.
+Daher sind Health-Checks essenziell dafür, die Verfügbarkeit zu berechnen.
+
+Diskussion und Anmerkung:
+
+- [.underline]#"Definierter Zeitraum"#:
+Eine Messung über einen Zeitraum von einer Woche, einem Monat oder bis zu mehreren Jahren kann bestimmt werden.
+Dieser kann gegliedert in abgetrennte Zeiträume erfolgen, oder jeweils den letzten zurückliegenden Zeitraum betreffen.
+Dieser ist wie die Performanz-Kriterien anwendungsspezifisch festzulegen.
+- [.underline]#Verfügbarkeit in Spring Boot#:
+In Spring Boot ist keine Definition von Verfügbarkeit gegeben.
+_Liveness_ und _Readiness_ wird stattdessen unter _Availability_ zusammengefasst (vgl. https://docs.spring.io/spring-boot/docs/2.7.x/api/org/springframework/boot/availability/AvailabilityState.html[Spring Boot AvailabilityState]).
+- [.underline]#Bedeutung der Definition#:
+Es werden nicht-funktionale Anforderungen als Kriterien für Verfügbarkeit gesetzt.
+Diese stellen Anforderungen an die Anwendung, bzw. das System, auf welches diese verwendet wird, dar.
+Die nicht-funktionalen Anforderungen, aus deren Erfüllung sich die Verfügbarkeit ableitet, können nicht von den Standards vorgegeben werden.
+Sie müssen von der jeweiligen Anwendung gegeben werden, da für diese unterschiedlichen Bedürfnisse an die Verfügbarkeit der jeweiligen Anwendung bestehen.
+Sind die nicht-funktionalen Kriterien erfüllt, dann ist die Anwendung/das System verfügbar (_available_). Verfügbarkeit als Messung des _available_-Zustands über die Zeit stellt entsprechend dar, in welchem zeitlichen Umfang die nicht-funktionalen Kriterien erfüllt sind.
+- [.underline]#Praktischer Nutzen der Messung#:
+Verfügbarkeit wird zur quantitativen Messung der Resilienz eines Systems und der Feststellung des Erreichungsgrads eines angestrebten Resilienz-Ziels genutzt (vgl. https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/availability.html[aws: Berechnung von Availability]).
+
+[[messung-ausfallsicherheit]]
+=== Messung und Ausfallsicherheit
+
+Die Verfügbarkeit wird *unter Berücksichtigung von definierten Betriebs- und Wartungsfenstern* gemessen.
+<<image-verfuegbar,Die folgende Grafik>> gibt einen Überblick, was bei der Messung der Verfügbarkeit zu berücksichtigen ist.
 
 [[image-verfuegbar]]
 .Messung der Verfügbarkeit
