@@ -34,7 +34,7 @@ TIP: Dies kann beispielsweise eine Verfügbarkeit von 7x24 Stunden und eine auf 
 In der Produktionsumgebung einer IsyFact-Systemlandschaft wird die geforderte Verfügbarkeit über das Mittel der Redundanz realisiert.
 Jede Komponente der technischen Infrastruktur ist mehrfach vorhanden.
 Bei einem Ausfall einer Komponente kann der Wirkbetrieb immer noch über die andere Komponente abgewickelt werden (Failover).
-Die Zustandslosigkeit der Applikationsserver (s. xref:technisch-infrastrukturell.adoc[]) unterstützt diese Redundanz und das Failover.
+Die xref:technisch-infrastrukturell/betriebliche-aspekte.adoc#skalierung[Zustandslosigkeit der Applikationsserver] unterstützt diese Redundanz und das Failover.
 Beim Ausfall eines Applikationsservers gehen die notwendigen Informationen, um den Betrieb über einen anderen Applikationsserver abzuwickeln, nicht verloren.
 
 Neben der technischen Redundanz sollte auch eine räumliche Redundanz gegeben sein.
