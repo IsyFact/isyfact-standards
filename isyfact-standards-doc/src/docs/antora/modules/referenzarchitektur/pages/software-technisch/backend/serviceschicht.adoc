@@ -105,7 +105,7 @@ Die Ausnahme bilden Anforderungen, aus denen heraus die Service-Fassade einer Fa
 In diesem Fall fällt die Steuerung der Transaktion der Service-Fassade zu, weil es wichtig ist, dass die Fehlerbehandlung in jedem Fall die Transaktion umschließt.
 Nur so ist gewährleistet, dass auch Fehler, die beim Commit bzw. Rollback entstehen, von der Fehlerbehandlung erfasst werden.
 
-Die Transaktionalität einzelner Service-Operationen wird über Annotationen (_@Transactional_) an den Methoden der Service-Fassade konfiguriert.
+Die Transaktionalität einzelner Service-Operationen wird über Annotationen (`@Transactional`) an den Methoden der Service-Fassade konfiguriert.
 
 Eine Sonderstellung nehmen Services ein, die im Fehlerfall keinen Fehler zurückgeben, sondern die Fehler in der Antwortnachricht übermitteln.
 Der AOP-Transaktionsmanager würde kein Rollback durchführen, da alle Exceptions abgefangen werden, auf die er reagieren könnte.

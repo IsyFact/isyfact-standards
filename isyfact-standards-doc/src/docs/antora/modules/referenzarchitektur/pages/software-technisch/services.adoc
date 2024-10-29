@@ -158,6 +158,36 @@ Weitere Details zu JMS-Nachrichten finden sich in der JMS-Spezifikation im Kapit
 Besonders relevant für die Referenzarchitektur sind die Abschnitte https://jakarta.ee/specifications/messaging/3.0/jakarta-messaging-spec-3.0.html#jakarta-messaging-messages[3.3. Jakarta Messaging messages] sowie https://jakarta.ee/specifications/messaging/3.0/jakarta-messaging-spec-3.0.html#jakarta-messaging-message-body[3.11. Jakarta Messaging message body].
 ====
 
+== Kommunikation mit externen Systemen
+
+Die Kommunikation mit externen Systemen basiert auf Web-Services.
+Wird ein Service von einem externen System angeboten, wird er als *externer Service* bezeichnet.
+Hierbei muss man zwischen zwei Fällen unterscheiden:
+
+*Aufruf von Services der Systemlandschaft*: Durch die Systemlandschaft wird externen Systemen die Schnittstelle eines Backends in Form eines Web-Services zur Verfügung gestellt.
+Hierbei definiert das Backend selbst keinen Web-Service.
+Vielmehr definiert das Backend, wie bei der internen Kommunikation auch, eine Schnittstelle.
+Diese Schnittstelle wird dann durch ein eigenständiges IT-System als Web-Service exportiert.
+Dieses IT-System wird als *Service-Provider* bezeichnet.
+Für jede Schnittstelle, die als Web-Services exportiert werden soll, muss ein eigener Service-Provider definiert werden.
+
+*Nutzung von externen Services*: Ähnlich wie im vorigen Fall ruft das interne IT-System den externen Service nicht direkt auf.
+Es ruft ein eigenständiges IT-System auf, welches den externen Service als Schnittstelle in die Systemlandschaft importiert.
+Dieses IT-System wird als *Service-Consumer* bezeichnet.
+Das interne IT-System ruft dann lediglich die Schnittstelle des Service-Consumers auf.
+Für das interne IT-System ist dieser Aufruf nicht von einem Aufruf zu einem anderen internen IT-System zu unterscheiden.
+Für jeden Web-Service, der in die Systemlandschaft importiert werden soll, muss ein eigener Service-Consumer definiert werden.
+
+Die Gesamtheit aller Service-Provider und Service-Consumer wird als xref:glossary:glossary:master.adoc#glossar-service-gateway[Service-Gateway] bezeichnet.
+Die Service-Gateways stellen somit die zentrale Schnittstelle einer IsyFact-Systemlandschaft zur Außenwelt dar.
+
+Ein Service-Consumer macht diesen "externen Service" als "inneren Service" der Systemlandschaft verfügbar.
+Wird ein Service von einem Backend angeboten, so ist das ebenfalls ein "innerer Service".
+Wenn ein Service-Provider diesen "inneren Service" einer Anwendung außerhalb der Plattform zugänglich macht, ist dies ein "äußerer Service" der Systemlandschaft.
+Die Unterscheidung zwischen "innere" und "äußere" ist analog für die Begriffe "Request" und "Response" zu verwenden.
+
+image::software-technisch/services/kommunikation-externe-systeme.dn.svg[]
+
 [[versionierung]]
 == Versionierung
 
@@ -188,8 +218,8 @@ Es ist möglich, pro Service-Version ein eigenes Service-Gateway zu erstellen.
 .Architektur versionierter Services
 image::referenzarchitektur:software-technisch/services/versionierung.dn.svg[]
 
-[[einfachster-fall-kompatible-erweiterung-eines-services]]
-=== Einfacher Fall: Kompatible Erweiterung eines Services
+[[abwaertskompatible-erweiterung]]
+=== Abwärtskompatible Erweiterung eines Services
 
 Ein Backend stellt einen Service bereit, mit dem Personendaten gemeldet werden können.
 Parameter dieser Meldung sind Vor- und Nachname sowie das Geburtsdatum.
@@ -205,8 +235,8 @@ Dazu wird ein neuer Service innerhalb der Serviceschicht implementiert, der die 
 Werden die beiden Services durch ein Service-Gateway nach außen verfügbar gemacht, existieren dort zwei parallele Mappings auf die jeweiligen Services des Backends.
 Innerhalb des Service-Gateways existiert keine Geschäftslogik, d.h. die Abbildung von Version 1.0 auf 1.1 findet erst im Backend statt.
 
-[[komplexerer-fall-inkompatible-veraenderung-eines-services]]
-=== Komplexerer Fall: Inkompatible Veränderung eines Services
+[[inkompatible-veraenderung]]
+=== Inkompatible Veränderung eines Services
 
 In einem komplexeren Fall kann es passieren, dass Services von Backends so umgestaltet werden, dass die Aufrufe nicht mehr aufeinander abgebildet werden können.
 Wird in so einem Fall ein neuer Service eingeführt, während der alte Service noch verfügbar bleiben muss, müssen die inkompatiblen Verarbeitungslogiken im Anwendungskern parallel unterstützt werden.
@@ -215,32 +245,3 @@ Auch hier enthält das Service-Gateway keine Geschäftslogik.
 IMPORTANT: Eine Versionierung ist nur dann sinnvoll, wenn kleine Änderungen an der Schnittstelle zwischen den Versionen auftreten.
 Für den Fall, dass sich die Schnittstelle sowohl syntaktisch als auch semantisch grundlegend ändert, sollte anstatt einer neuen Version besser eine eigenständige, neue Schnittstelle entstehen.
 
-== Kommunikation mit externen Systemen
-
-Die Kommunikation mit externen Systemen basiert auf Web-Services.
-Wird ein Service von einem externen System angeboten, wird er als *externer Service* bezeichnet.
-Hierbei muss man zwischen zwei Fällen unterscheiden:
-
-*Aufruf von Services der Systemlandschaft*: Durch die Systemlandschaft wird externen Systemen die Schnittstelle eines Backends in Form eines Web-Services zur Verfügung gestellt.
-Hierbei definiert das Backend selbst keinen Web-Service.
-Vielmehr definiert das Backend, wie bei der internen Kommunikation auch, eine Schnittstelle.
-Diese Schnittstelle wird dann durch ein eigenständiges IT-System als Web-Service exportiert.
-Dieses IT-System wird als *Service-Provider* bezeichnet.
-Für jede Schnittstelle, die als Web-Services exportiert werden soll, muss ein eigener Service-Provider definiert werden.
-
-*Nutzung von externen Services*: Ähnlich wie im vorigen Fall ruft das interne IT-System den externen Service nicht direkt auf.
-Es ruft ein eigenständiges IT-System auf, welches den externen Service als Schnittstelle in die Systemlandschaft importiert.
-Dieses IT-System wird als *Service-Consumer* bezeichnet.
-Das interne IT-System ruft dann lediglich die Schnittstelle des Service-Consumers auf.
-Für das interne IT-System ist dieser Aufruf nicht von einem Aufruf zu einem anderen internen IT-System zu unterscheiden.
-Für jeden Web-Service, der in die Systemlandschaft importiert werden soll, muss ein eigener Service-Consumer definiert werden.
-
-Die Gesamtheit aller Service-Provider und Service-Consumer wird als xref:glossary:glossary:master.adoc#glossar-service-gateway[Service-Gateway] bezeichnet.
-Die Service-Gateways stellen somit die zentrale Schnittstelle einer IsyFact-Systemlandschaft zur Außenwelt dar.
-
-Ein Service-Consumer macht diesen "externen Service" als "inneren Service" der Systemlandschaft verfügbar.
-Wird ein Service von einem Backend angeboten, so ist das ebenfalls ein "innerer Service".
-Wenn ein Service-Provider diesen "inneren Service" einer Anwendung außerhalb der Plattform zugänglich macht, ist dies ein "äußerer Service" der Systemlandschaft.
-Die Unterscheidung zwischen "innere" und "äußere" ist analog für die Begriffe "Request" und "Response" zu verwenden.
-
-image::software-technisch/services/kommunikation-externe-systeme.dn.svg[]
