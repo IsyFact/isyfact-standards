@@ -17,7 +17,31 @@ Der Nutzer soll auch im Fehlerfall eine gewohnt schnelle Antwort vom System erha
 Die genaue Definition des Zeitrahmens, in dem die Fehlermeldung über die Nichtverfügbarkeit beim Aufrufer eintreffen muss, ist anwendungsspezifisch.
 Die Definition ist dementsprechend durch die jeweiligen Aufrufer vorzunehmen.
 
-== Beispielszenario
+[[verfuegbarkeit-und-ausfallsicherheit]]
+== Verfügbarkeit und Ausfallsicherheit
+
+Die Verfügbarkeit wird über einen Prozentwert gemessen, der unter Berücksichtigung von definierten Betriebs- und Wartungsfenstern angibt, wie ausfallsicher ein System sein soll und tatsächlich ist.
+<<image-verfuegbar>> gibt einen Überblick, was bei der Messung der Verfügbarkeit zu berücksichtigen ist.
+
+[[image-verfuegbar]]
+.Messung der Verfügbarkeit
+image::referenzarchitektur:technisch-infrastrukturell/verfuegbar.png[]
+
+Der Aufbau der Produktionsumgebung ist so zu gestalten, dass die angestrebte Verfügbarkeit erreicht werden kann.
+
+TIP: Dies kann beispielsweise eine Verfügbarkeit von 7x24 Stunden und eine auf den Monat berechnete Verfügbarkeit von über 99 % sein.
+
+In der Produktionsumgebung einer IsyFact-Systemlandschaft wird die geforderte Verfügbarkeit über das Mittel der Redundanz realisiert.
+Jede Komponente der technischen Infrastruktur ist mehrfach vorhanden.
+Bei einem Ausfall einer Komponente kann der Wirkbetrieb immer noch über die andere Komponente abgewickelt werden (Failover).
+Die Zustandslosigkeit der Applikationsserver (s. xref:technisch-infrastrukturell.adoc[]) unterstützt diese Redundanz und das Failover.
+Beim Ausfall eines Applikationsservers gehen die notwendigen Informationen, um den Betrieb über einen anderen Applikationsserver abzuwickeln, nicht verloren.
+
+Neben der technischen Redundanz sollte auch eine räumliche Redundanz gegeben sein.
+Die Komponenten der technischen Infrastruktur sollten über mehrere Rechenzentren redundant verteilt sein.
+Dadurch ist die Verfügbarkeit auch in Katastrophen-Szenarien (z.B. einem Brand in einem Rechenzentrum) sichergestellt.
+
+=== Beispielszenario
 
 Für das Szenario gehen wir im Folgenden davon aus, dass ein IT-System eine Gesamtverfügbarkeit von 98 % aufweisen soll.
 Hierbei ist zu beachten, dass IT-Systeme in der Regel andere IT-Systeme und Querschnittsanwendungen aufrufen, um Anfragen zu beantworten.
