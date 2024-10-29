@@ -22,7 +22,7 @@ Die Definition ist dementsprechend durch die jeweiligen Aufrufer vorzunehmen.
 
 Die Verfügbarkeit (_availability_) eines Systems oder einer individuellen Systemkomponente ist definiert als der Prozentsatz eines Zeitraums, in welcher es ordnungsgemäß nach gesetzten Performance-Kriterien läuft (vgl. https://docs.oracle.com/cd/A97335_02/ias.102/a95201/avail.htm[Oracle: Definition von Availability]).
 
-
+====
 ++++
 <math>
   <mi>Availability</mi>
@@ -33,6 +33,7 @@ Die Verfügbarkeit (_availability_) eines Systems oder einer individuellen Syste
   </mfrac>
 </math>
 ++++
+====
 
 Das grundlegende Performance-Kriterium einer Anwendung ist deren korrekter Zustand und deren Erreichbarkeit.
 Daher sind Health-Checks essenziell dafür, die Verfügbarkeit zu berechnen.
