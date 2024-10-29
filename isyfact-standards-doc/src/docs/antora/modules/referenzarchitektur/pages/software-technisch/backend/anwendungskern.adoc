@@ -1,0 +1,203 @@
+= Anwendungskern
+
+include::documentation-guide::partial$licence.adoc[]
+
+// tag::anwendungskern-definition[]
+
+Der xref:glossary::terms-definitions.adoc#glossar-anwendungskern[Anwendungskern] ist der zentrale Bestandteil eines Backends.
+Hier werden die fachlichen Funktionen der zugehörigen xref:glossary::terms-definitions.adoc#glossar-anwendung[Anwendung] realisiert.
+Der Aufbau des Anwendungskerns sowie seine Kommunikation mit anderen Schichten ist in <<systemarchitektur-anwendungskern,folgender Grafik>> dargestellt.
+
+[[systemarchitektur-anwendungskern]]
+.Einbettung des Anwendungskerns in die Systemarchitektur
+image::referenzarchitektur:software-technisch/backend/anwendungskern.dn.svg[width=80%,align=center]
+
+// end::anwendungskern-definition[]
+
+[[fachkomponenten]]
+== Fachkomponenten
+
+// tag::fachkomponente-definition[]
+
+*Fachkomponenten* setzen die Anwendungskomponenten aus der fachlichen Architektur um.
+Sie bilden damit den Schnitt der Anwendungskomponenten in die technische Architektur ab.
+Fachkomponenten beinhalten möglichst wenig Technik und trennen so Anwendungslogik von Technologie.
+
+TIP: Fachkomponenten sind der Schlüssel für gute Wartbarkeit und einfache Weiterentwickelbarkeit des Anwendungskerns.
+Die Trennung von Anwendungslogik und Technik ist deshalb auch in anderen Schichten der technischen Architektur vorgesehen, z. B. in der Persistenz.
+
+// end::fachkomponente-definition[]
+
+Von außen betrachtet besteht jede Fachkomponente aus einer Schnittstelle (Interface) und den von ihr verwendeten Geschäftsobjekten (Model) sowie Ausnahmen (Exceptions).
+Alle Zugriffe auf die Fachkomponente von außen, auch von anderen Fachkomponenten aus, geschehen über die Schnittstelle.
+
+Die *Schnittstelle* stellt eine Fassade (Facade) für mindestens eine Anwendungsfallklasse dar.
+Die Aufgaben der Schnittstelle sind:
+
+* Aufrufe von außen entgegenzunehmen,
+* Aufrufe an die entsprechenden Anwendungsfallklassen weiterzuleiten,
+* Antworten der Anwendungsfallklassen an den Aufrufer zurück zu übermitteln,
+* Ausnahmen der Anwendungsfallklassen in Ausnahmen der Schnittstelle zu übersetzen.
+
+*Geschäftsobjekte* dienen zur Kommunikation der Fachkomponente nach außen sowie zur Umsetzung der Fachlichkeit (z.B. für interne Berechnungen).
+Sie werden im Anwendungskern definiert, sind nicht persistent und können in der Serviceschicht wiederverwendet werden, sofern hierfür keine Anpassungen durch Mappings o.ä. nötig sind.
+Ein Geschäftsobjekt ist genau einer Fachkomponente zugeordnet, welche die Hoheit über es besitzt und seinen Lebenszyklus verwaltet.
+Sie werden primär nach ihrer Funktion benannt.
+
+// tag::namenskonvention[]
+
+[[namenskonvention-geschaeftsobjekt]]
+.Namenskonvention Geschäftsobjekt
+[cols="1s,4m",options="header"]
+|====
+2+|Geschäftsobjekt
+|Schema |<Entitaetsname>Bo
+|Beispiel |AkteBo
+|====
+
+// end::namenskonvention[]
+
+In einer allgemeinen Anwendung gibt es z.B. die Geschäftsobjekte `Aufgabe`, `Zeitpunkt` und `Nutzer`.
+
+Eine *Anwendungsfallklasse* setzt genau einen Anwendungsfall um.
+Ihr Schnitt ergibt sich aus der fachlichen Architektur.
+Die Schnittstelle der Fachkomponente delegiert Aufrufe von außen an die jeweils passende Anwendungsfallklasse.
+Anwendungsfallklassen werden anhand des Namens des Anwendungsfalls aus der Spezifikation benannt und mit dem Präfix `Awf` gekennzeichnet.
+
+// tag::namenskonvention[]
+
+[[namenskonvention-anwendungsfallklassen]]
+.Namenskonvention Anwendungsfallklassen
+[cols="1s,4m",options="header"]
+|====
+2+|Anwendungsfallklassen
+|Schema |Awf<Anwendungsfall>
+|Beispiele |AwfAntragVerarbeiten
+
+AwfEntscheidungDurchfuehren
+|====
+
+// end::namenskonvention[]
+
+Eine *Anwendungsfunktion* setzt Teil-Abläufe um, die in mehreren Anwendungsfällen verwendet werden.
+Anwendungsfunktionen werden somit von Anwendungsfallklassen aufgerufen.
+Anwendungsfunktionen werden anhand des Namen der Anwendungsfunktion aus der Spezifikation benannt und mit dem Präfix `Afu` gekennzeichnet.
+
+// tag::namenskonvention[]
+
+[[namenskonvention-anwendungsfunktion]]
+.Namenskonvention Anwendungsfunktion
+[cols="1s,4m",options="header"]
+|====
+2+|Anwendungsfunktion
+|Schema |Afu<Anwendungsfunktion>
+|Beispiele |AfuBerechnungFristdatum
+
+AfuErmittlungEntscheidungsrelevanz
+|====
+
+// end::namenskonvention[]
+
+Die folgende Abbildung fasst den <<image-aufbau-fachkomponente>> noch einmal grafisch zusammen.
+Sie zeigt ebenso die Verwendungen und Aufrufbeziehungen innerhalb einer Fachkomponente.
+
+[[image-aufbau-fachkomponente]]
+.Aufbau einer Fachkomponente
+image::software-technisch/backend/aufbau_fachkomponente_awk.dn.svg[]
+
+[[das-anwendungskern-framework]]
+== Anwendungskern-Framework
+
+// tag::awk-framework-definition[]
+
+Für querschnittliche Funktionalität innerhalb des Anwendungskerns wird das Spring-Framework genutzt.
+Hauptaufgabe des Frameworks ist es, die Komponenten zu konfigurieren und miteinander bekanntzumachen.
+Dadurch wird die Trennung zwischen Fachlichkeit und Technik verbessert.
+Beispiel für querschnittliche Funktionalität ist die deklarative Steuerung von Transaktionen.
+
+// end::awk-framework-definition[]
+
+Allgemeine Vorgaben hierzu sind in der xref:software-technisch/backend/spring.adoc[] beschrieben.
+
+[[konfiguration-fachkomponente]]
+=== Konfiguration von Fachkomponenten
+
+Fachkomponenten werden durchgängig mittels Spring konfiguriert.
+Das umfasst vor allem, aber nicht ausschließlich, die Fassade (Schnittstellen der Fachkomponente) und zugehörige Anwendungsfallklassen.
+
+Bei Anwendungsfunktionsklassen oder Hilfsklassen ist je nach Relevanz zu entscheiden, ob diese als eigene Spring Beans definiert werden.
+Im Zweifel sollte die Konfiguration über Spring bevorzugt werden.
+Wenn eine Klasse nur an einer Stelle genutzt wird, kann sie als Kompromiss auch als anonyme Spring Bean definiert werden.
+Sind Klassen nicht von relevanter Bedeutung, so können sie beim Erzeugen der Spring Bean programmatisch erzeugt werden.
+
+[[service-consumer]]
+== Service Consumer
+
+// tag::service-consumer-definition[]
+
+Wenn Backends Services anderer IT-Systeme zur Erfüllung ihrer fachlichen Aufgaben benötigen, so werden diese als Komponente ("Service Consumer") im Anwendungskern abgebildet.
+Dabei ist es für ein Backend unerheblich, ob der Service innerhalb oder außerhalb der Anwendungslandschaft beheimatet ist.
+Service Consumer verhalten sich wie Fachkomponenten des Anwendungskerns.
+Sie übernehmen die technische Kommunikation mit dem Service sowie die Abbildung von Transportobjekten des Services auf Geschäftsobjekte und Exceptions des Backends.
+Dadurch ist ihre Funktionalität sauber gekapselt, sodass technische Änderungen am Service im Idealfall nur zu Änderungen am Service Consumer führen.
+
+// end::service-consumer-definition[]
+
+[[transaktionssteuerung]]
+== Transaktionssteuerung
+
+An der Schnittstelle des Anwendungskerns findet die Transaktionssteuerung statt.
+Jeder Aufruf wird in einer eigenen Transaktion abgearbeitet.
+Die Transaktion wird beim Aufruf des Anwendungskerns gestartet und mit der Rückgabe des Ergebnisses abgeschlossen (Commit) und somit beendet.
+Falls bei der Verarbeitung einer Anfrage ein nicht behebbarer Fehler auftritt, wird dieser an den Aufrufer zurück übermittelt.
+In diesem Fall wird die Transaktion nicht fortgeschrieben, sondern zurückgerollt (Rollback).
+
+Der Anwendungskern bietet an seiner Schnittstelle fachliche Operationen, in fachliche Komponenten gruppiert, an.
+Die fachlichen Operationen sind in der Regel zustandslos.
+Daher ist eine Transaktion über mehrere Aufrufe des Anwendungskerns nach Möglichkeit zu vermeiden.
+Ist eine solche Steuerung trotzdem unumgänglich, muss sie über die xref:blaupausen:detailkonzept-komponente-service/master.adoc#transaktionssteuerung[Serviceschicht] erfolgen.
+
+[[transaktionssteuerung-mit-jpa]]
+=== Transaktionssteuerung mit JPA
+
+Spring ermöglicht es, die Transaktionssteuerung mit Annotationen zu definieren.
+Hierbei kann auf Ebene einzelner Methoden oder der gesamten Klasse das Verhalten von Transaktionen vorgegeben werden.
+
+Im Anwendungskern bieten sich dazu sich die Klassen der Implementierung der Schnittstelle an, die Aufrufer weiter an die Anwendungsfall-Klassen verweisen.
+Üblicherweise werden für eine feingranulare Steuerung die Methoden mit Annotationen versehen.
+Gibt es ein für die Klasse gemeinsames Verhalten, kann stattdessen auch die Klasse mit der Annotation versehen werden.
+
+[[listing-transactional]]
+.Verwendung der Annotation @Transactional an Klassen und Methoden
+[source,java]
+----
+@Transactional(rollbackFor = Throwable.class, propagation = Propagation.REQUIRED)
+public class FachkomponenteAImpl implements FachkomponenteA {
+
+    @Transactional(rollbackFor = Throwable.class, propagation = Propagation.REQUIRED)
+    public Ergebnis fachlicheOperation(Aufrufparameter parameter) {
+        // ...
+    }
+
+}
+----
+
+Standardmäßig sollte der Propagation-Level auf `Propagation.REQUIRED` gesetzt sein.
+Damit wird eine neue Transaktion gestartet, falls noch keine Transaktion vorliegt.
+Hat aber die Serviceschicht bereits eine Transaktion gestartet, wird diese verwendet.
+Des Weiteren wird festgelegt, dass bei jedem Fehler ein Rollback durchgeführt wird.
+
+Damit Spring die Annotation `@Transactional` auswertet, muss folgende Spring-Konfiguration in der Konfigurationsklasse des Anwendungskerns aktiv sein:
+
+[[listing-transaction-spring-config]]
+.Spring-Konfiguration zur Verwendung von @Transactional
+[source,java]
+----
+@EnableTransactionManagement
+public class CoreConfig
+{
+    // ...
+}
+----
+
+Durch diese Konfiguration erzeugt Spring passende AOP-Proxies, welche die Transaktionssteuerung übernehmen.
