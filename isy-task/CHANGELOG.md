@@ -1,6 +1,7 @@
 # 4.0.0
 - `IFS-2395`: Umstellung von IsyFact `MessageSourceHolder` auf Spring `MessageSource`
- 
+- `IFS-4329`: IsyTaskAutoConfiguration verhindert jetzt Task-Erstellung im Batch-Profil
+
 # 3.0.0
 - `IFS-2153`: Umstellung isy-task auf Spring Boot:
     * BREAKING CHANGE: Einführung von Spring Boot
