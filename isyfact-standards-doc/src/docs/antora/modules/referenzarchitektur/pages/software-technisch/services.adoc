@@ -1,0 +1,246 @@
+= Services
+
+include::documentation-guide::partial$licence.adoc[]
+
+IT-Systeme kommunizieren auf Basis von Services.
+Wenn ausschließlich IT-Systeme innerhalb der Systemlandschaft miteinander kommunizieren, spricht die Referenzarchitektur von *interner Servicekommunikation*.
+Wenn die Kommunikation auch Systeme einschließt, die außerhalb liegen, verwendet die Referenzarchitektur den Begriff *externe Servicekommunikation*.
+
+[[servicekommunikation-intern-extern]]
+.Interne und externe Servicekommunikation
+image::software-technisch/servicekommunikation.dn.svg[]
+
+IT-Systeme tauschen in der Kommunikation untereinander Daten aus.
+Diese lassen sich in Metadaten und Nutzdaten unterteilen.
+
+*Metadaten* können technischer oder fachlicher Natur sein.
+Sie sind nicht mit einer konkreten Anfrage verknüpft und werden in der Regel mit jedem Aufruf einer Schnittstelle übertragen.
+Zu den Metadaten gehören u.a.:
+
+* Daten zu übergreifenden Aspekten der Servicekommunikation wie z.B. Caching oder das Aushandeln von Formaten,
+* IDs zum Tracing von Service-Aufrufen,
+* Daten zur Authentifizierung und Autorisierung, oder
+* Metadaten dritter Systeme, die durchgeschleift werden.
+
+Metadaten werden in der Regel in Klartext übertragen und nicht verschlüsselt oder anderweitig kodiert.
+
+[IMPORTANT]
+====
+Die Verwendung von externen Standards bleibt davon unberührt.
+So überträgt der Standard OAuth 2 beispielsweise Informationen zur Autorisierung einer Anfrage BASE64-kodiert.
+====
+
+Die Übertragung von Metadaten geschieht in der Regel über Schlüssel-Wert-Paare (_key-value pairs_), z.B. in HTTP-Headern oder JMS-Properties.
+
+.icon:university[title=Architekturregel] Benennung von Metadaten
+****
+Metadaten sind, egal über welches Protokoll sie übertragen werden, *einheitlich benannt*.
+Gibt es eine durch einen Standard vorgegebene Benennung, ist diese zu verwenden.
+****
+
+Die <<standardisierte-metadaten,folgende Tabelle>> zeigt, welche Metadaten in der IsyFact standardisiert übertragen werden.
+
+[[standardisierte-metadaten]]
+.Benennung standardisierter Metadaten
+[cols="1s,1m,2",options="header"]
+|===
+|Metadaten|Benennung|Herleitung
+
+//|Korrelations-ID
+//|X-Trace-ID
+//|Neue Benennung in Vorbereitung zur Nutzung eines Standardprodukts für Tracing.
+
+|Korrelations-ID +
+//(deprecated)
+|X-Correlation-Id
+|ID zur Nachverfolgung von Aufrufen innerhalb einer Anwendungslandschaft.
+//Alte Benennung. +
+//*Wichtig:* Anwendungen müssen in der Übergangszeit beide Namen auflösen können.
+
+|Bearer Token
+|Authorization
+|Vorgabe des Standards OAuth 2.0.
+|===
+
+*Nutzdaten* auf der anderen Seite beinhalten alle Daten, die zur Verarbeitung eines konkreten Service-Aufrufs benötigt werden.
+Sie bilden die eigentliche, fachliche Schnittstelle und beschreiben sowohl die Daten der Anfrage sowie der Antwort.
+
+Die IsyFact standardisiert die Art und Weise, wie Nutzdaten spezifiziert, dokumentiert und technisch verarbeitet werden.
+
+[[kommunikationsarten]]
+== Kommunikationsarten
+
+IT-Systemen stehen mit der IsyFact drei Kommunikationsarten zur Verfügung: synchrone Service-Aufrufe, asynchrone Service-Aufrufe und Service-Aufrufe über Queues.
+
+
+[[synchrone-service-aufrufe]]
+=== Synchrone Service-Aufrufe
+
+Synchrone Service-Aufrufe bieten die Möglichkeit der direkten Kommunikation zwischen zwei IT-Systemen.
+Hierbei schickt der Sender eine Anfrage (englisch: _request_) an den Empfänger.
+Der Empfänger bearbeitet die Anfrage und schickt eine Antwort (englisch: _response_) an den Sender zurück.
+Der Sender wartet auf die Antwort, bevor er seine Verarbeitung fortsetzt.
+
+[[service-aufruf-synchron]]
+.Ablauf eines synchronen Service-Aufrufs
+image::software-technisch/synchroner-service-aufruf.dn.svg[]
+
+Deswegen sind synchrone Service-Aufrufe in der Regel eine vergleichsweise zeitintensive Operation.
+Häufig ist es sinnvoll, Service-Aufrufe nach Möglichkeit einzusparen.
+Das Sparen von Aufrufen kann jedoch auch Nachteile in Bezug auf Wartbarkeit bedeuten, wenn beispielsweise Redundanzen oder komplexe Caches implementiert werden müssen.
+Die Abwägung darüber muss während der Erstellung des Systementwurfs geschehen.
+
+.icon:university[title=Architekturregel] Verwendung von HTTP für Service-Aufrufe
+****
+Synchrone Service-Aufrufe finden über das Protokoll *HTTP* statt und werden sowohl zur internen als auch externen Servicekommunikation genutzt.
+HTTP-Anfragen bzw. HTTP-Antworten erlauben es an drei Stellen, anwendungsspezifische Daten zu übertragen: in der URL, in den Headern sowie im Body.
+
+[[http-message-aufbau]]
+.Aufbau von HTTP-Anfragen bzw. HTTP-Antworten
+image::referenzarchitektur:software-technisch/http-messages-aufbau.dn.svg[]
+Header enthalten Metadaten.
+Der Body enthält Nutzdaten.
+Bei Anfragen mittels `GET` und `DELETE`, die keinen Body erwarten, enthalten URL-Parameter Nutzdaten.
+****
+
+Allerdings gilt zu beachten, dass URLs (und damit auch die URL-Parameter) an vielen Stellen aufgezeichnet und in Logs geschrieben oder in Caches gehalten werden.
+Hierbei sind z.B. datenschutzrechtliche Aspekte zu prüfen, wenn URL-Parameter personenbezogene Daten enthalten.
+Im Zweifelsfall ist die Methode `POST` eine gangbare Alternative, um solche Nutzdaten im Body zu übertragen.
+
+[[asynchrone-service-aufrufe]]
+=== Asynchrone Service-Aufrufe
+
+Für asynchrone Service-Aufrufe gelten dieselben Vorgaben wie für <<synchrone-service-aufrufe,synchrone Service-Aufrufe>>.
+Sie unterscheiden sich im Ablauf dahingehend, dass der Sender nicht aktiv auf die Antwort des Empfängers wartet.
+Stattdessen wird die Verarbeitung erst durch die Antwort des Empfängers wieder aufgenommen, z.B. in Form eines Callbacks.
+
+[[service-aufruf-asynchron]]
+.Ablauf eines asynchronen Service-Aufrufs
+image::software-technisch/asynchroner-service-aufruf.dn.svg[]
+
+Asynchrone Service-Aufrufe können z.B. dann eingesetzt werden, wenn eine länger dauernde Verarbeitung durch den Empfänger eine direkte Rückmeldung unmöglich macht.
+
+[[queueing]]
+=== Queueing
+
+Beim Queueing baut ein Message-Broker eine Punkt-zu-Punkt-Verbindung zwischen zwei IT-Systemen auf.
+Dies geschieht in Form einer Queue.
+Ein IT-System tritt fest als Sender auf, eines als Empfänger.
+Der Sender ist nun in der Lage, dem Empfänger über die Queue Nachrichten zu schicken.
+Die Nachrichten sind anhand eines zentral definierten Formats strukturiert.
+Der Sender enthält keine direkte Antwort vom Empfänger.
+
+[[service-aufruf-queueing]]
+.Ablauf der Kommunikation beim Queueing
+image::software-technisch/queueing.dn.svg[]
+
+Für das Queueing infrage kommende Message-Broker müssen *JMS* (Jakarta Messaging, ehemals _Java Message Service_) unterstützen.
+Queueing wird ausschließlich in der internen Servicekommunikation eingesetzt.
+
+JMS-Nachrichten bestehen aus Header, Properties und einem Body.
+Die Properties unterteilen sich noch einmal in applikationsspezifische Properties, die nur für Publisher und Subscriber Bedeutung haben, sowie provider-spezifische und Standard-Properties, die zur Verarbeitung der JMS-Nachrichten durch den Message-Broker gedacht sind.
+
+[[jms-message-aufbau]]
+.Aufbau einer JMS-Nachricht
+image::software-technisch/jms-message-aufbau.dn.svg[]
+
+Applikationsspezifische Properties enthalten Metadaten.
+Der Body enthält Nutzdaten.
+Nutzdaten werden im XML-Format übertragen und mittels XSD spezifiziert.
+
+Diese Vorgabe steht vollständig in Einklang mit der JMS-Spezifikation.
+Für die Übertragung von Nutzdaten sieht die JMS-Spezifikation fünf Formate vor.
+Die Architekturvorgabe sieht die alleinige Nutzung der Ausprägung `TextMessage` vor, die Nutzdaten als Zeichenkette erwartet.
+
+[NOTE]
+====
+Weitere Details zu JMS-Nachrichten finden sich in der JMS-Spezifikation im Kapitel https://jakarta.ee/specifications/messaging/3.0/jakarta-messaging-spec-3.0.html#jakarta-messaging-message-model[3. Jakarta Messaging message model].
+Besonders relevant für die Referenzarchitektur sind die Abschnitte https://jakarta.ee/specifications/messaging/3.0/jakarta-messaging-spec-3.0.html#jakarta-messaging-messages[3.3. Jakarta Messaging messages] sowie https://jakarta.ee/specifications/messaging/3.0/jakarta-messaging-spec-3.0.html#jakarta-messaging-message-body[3.11. Jakarta Messaging message body].
+====
+
+[[versionierung]]
+== Versionierung
+
+Die Notwendigkeit, Services in mehreren Versionen anbieten zu können, ist bedingt durch die Vielzahl an Service-Nutzern, die bei Änderung an einem Service nicht alle zeitgleich auf die neue Version eines Service umschalten können.
+Daher ist es notwendig, dass in einem – möglichst klein zu haltenden – Übergangszeitraum mehrere Versionen eines Service parallel betrieben werden können.
+
+Die Versionierung wird auf der Ebene von Services, nicht Service-Operationen ausgeführt, da diese Ebene von ihrer Granularität zu den üblichen fachlichen Änderungen passt.
+
+Es kann vorkommen, dass in _einem_ Systemrelease neue Versionen von _mehreren_ Services ausgeliefert werden.
+
+[[architektur]]
+=== Architektur
+
+Backends bieten pro Service-Version eine eigene Service-Schnittstelle an.
+Die Services verwenden alle denselben xref:glossary::terms-definitions.adoc#glossar-anwendungskern[Anwendungskern].
+Die für die Versionierung notwendigen Transformationen sind Teil der jeweiligen Service-Schnittstelle (z.B. das Einfügen eines Standardwerts für neu hinzugefügte Attribute).
+In komplexen Fällen kann es auch notwendig sein, den Anwendungskern zu erweitern und die Versionierung dort zu behandeln.
+Die Entscheidung dafür ist im Systementwurf zu dokumentieren.
+
+Externe Services werden durch Service-Gateways bereitgestellt.
+Die Versionierung eines Services muss also auch auf Ebene des Service-Gateways durchgeführt werden.
+Ein Service-Gateway ist ein rein technischer Protokoll-Wandler, der Web-Services in interne Schnittstellen konvertiert.
+Im Service-Gateway erfolgt daher immer nur ein einfaches Mapping auf die entsprechenden Service-Schnittstellen der angebundenen Backends.
+Der Ausgleich der Versionsunterschiede erfolgt ausschließlich im Backend und nicht im Service-Gateway.
+Es ist möglich, pro Service-Version ein eigenes Service-Gateway zu erstellen.
+
+[[image-archversServ]]
+.Architektur versionierter Services
+image::referenzarchitektur:software-technisch/services/versionierung.dn.svg[]
+
+[[einfachster-fall-kompatible-erweiterung-eines-services]]
+=== Einfacher Fall: Kompatible Erweiterung eines Services
+
+Ein Backend stellt einen Service bereit, mit dem Personendaten gemeldet werden können.
+Parameter dieser Meldung sind Vor- und Nachname sowie das Geburtsdatum.
+Dazu gibt es einen Meldung-Service in der Version 1.0.
+Dieser wird in der Serviceschicht des Backends implementiert.
+Ab einem Stichtag soll zusätzlich noch der Geburtsort gemeldet werden.
+Im bisherigen Datenbestand wird dieses neue Attribut auf den Wert "unbekannt" gesetzt.
+Der bestehende Service wird um dieses Attribut erweitert und erhält die Versionsnummer 1.1.
+Anwendungskern und Persistenzschicht müssen ebenfalls erweitert werden.
+Aus Gründen der Rückwärtskompatibilität soll aber weiterhin die Version 1.0 des Service angeboten werden.
+Dazu wird ein neuer Service innerhalb der Serviceschicht implementiert, der die Meldung entgegennimmt, das fehlende Attribut mit dem Wert "unbekannt" ergänzt und dann den Anwendungskern aufruft.
+
+Werden die beiden Services durch ein Service-Gateway nach außen verfügbar gemacht, existieren dort zwei parallele Mappings auf die jeweiligen Services des Backends.
+Innerhalb des Service-Gateways existiert keine Geschäftslogik, d.h. die Abbildung von Version 1.0 auf 1.1 findet erst im Backend statt.
+
+[[komplexerer-fall-inkompatible-veraenderung-eines-services]]
+=== Komplexerer Fall: Inkompatible Veränderung eines Services
+
+In einem komplexeren Fall kann es passieren, dass Services von Backends so umgestaltet werden, dass die Aufrufe nicht mehr aufeinander abgebildet werden können.
+Wird in so einem Fall ein neuer Service eingeführt, während der alte Service noch verfügbar bleiben muss, müssen die inkompatiblen Verarbeitungslogiken im Anwendungskern parallel unterstützt werden.
+Auch hier enthält das Service-Gateway keine Geschäftslogik.
+
+IMPORTANT: Eine Versionierung ist nur dann sinnvoll, wenn kleine Änderungen an der Schnittstelle zwischen den Versionen auftreten.
+Für den Fall, dass sich die Schnittstelle sowohl syntaktisch als auch semantisch grundlegend ändert, sollte anstatt einer neuen Version besser eine eigenständige, neue Schnittstelle entstehen.
+
+== Kommunikation mit externen Systemen
+
+Die Kommunikation mit externen Systemen basiert auf Web-Services.
+Wird ein Service von einem externen System angeboten, wird er als *externer Service* bezeichnet.
+Hierbei muss man zwischen zwei Fällen unterscheiden:
+
+*Aufruf von Services der Systemlandschaft*: Durch die Systemlandschaft wird externen Systemen die Schnittstelle eines Backends in Form eines Web-Services zur Verfügung gestellt.
+Hierbei definiert das Backend selbst keinen Web-Service.
+Vielmehr definiert das Backend, wie bei der internen Kommunikation auch, eine Schnittstelle.
+Diese Schnittstelle wird dann durch ein eigenständiges IT-System als Web-Service exportiert.
+Dieses IT-System wird als *Service-Provider* bezeichnet.
+Für jede Schnittstelle, die als Web-Services exportiert werden soll, muss ein eigener Service-Provider definiert werden.
+
+*Nutzung von externen Services*: Ähnlich wie im vorigen Fall ruft das interne IT-System den externen Service nicht direkt auf.
+Es ruft ein eigenständiges IT-System auf, welches den externen Service als Schnittstelle in die Systemlandschaft importiert.
+Dieses IT-System wird als *Service-Consumer* bezeichnet.
+Das interne IT-System ruft dann lediglich die Schnittstelle des Service-Consumers auf.
+Für das interne IT-System ist dieser Aufruf nicht von einem Aufruf zu einem anderen internen IT-System zu unterscheiden.
+Für jeden Web-Service, der in die Systemlandschaft importiert werden soll, muss ein eigener Service-Consumer definiert werden.
+
+Die Gesamtheit aller Service-Provider und Service-Consumer wird als xref:glossary:glossary:master.adoc#glossar-service-gateway[Service-Gateway] bezeichnet.
+Die Service-Gateways stellen somit die zentrale Schnittstelle einer IsyFact-Systemlandschaft zur Außenwelt dar.
+
+Ein Service-Consumer macht diesen "externen Service" als "inneren Service" der Systemlandschaft verfügbar.
+Wird ein Service von einem Backend angeboten, so ist das ebenfalls ein "innerer Service".
+Wenn ein Service-Provider diesen "inneren Service" einer Anwendung außerhalb der Plattform zugänglich macht, ist dies ein "äußerer Service" der Systemlandschaft.
+Die Unterscheidung zwischen "innere" und "äußere" ist analog für die Begriffe "Request" und "Response" zu verwenden.
+
+image::software-technisch/services/kommunikation-externe-systeme.dn.svg[]

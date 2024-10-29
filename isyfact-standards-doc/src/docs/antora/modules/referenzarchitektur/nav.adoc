@@ -13,8 +13,10 @@
 ***** xref:software-technisch/backend/spring.adoc[]
 ***** xref:software-technisch/backend/konfiguration.adoc[]
 **** xref:software-technisch/frontend.adoc[]
-**** xref:blaupausen:detailkonzept-komponente-batch/master.adoc[Batch]
+**** xref:blaupausen:detailkonzept-komponente-batch/master .adoc[Batch]
+*** xref:software-technisch/services.adoc[]
 ** xref:technisch-infrastrukturell.adoc[technisch-infrastrukturell]
+*** xref:technisch-infrastrukturell/availability.adoc[]
 *** xref:technisch-infrastrukturell/betriebliche-aspekte.adoc[]
 ** Anpassung der Referenzarchitektur
 *** xref:tailoring.adoc[Tailoring]

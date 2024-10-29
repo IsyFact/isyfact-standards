@@ -108,26 +108,26 @@ Zur Umsetzung des objekt-relationalen Mapping verwendet die Persistenzschicht da
 Zur Konzeption der Persistenzschicht definiert die Referenzarchitektur xref:blaupausen:detailkonzept-komponente-datenzugriff/einordnung-ziele.adoc[weitere Vorgaben].
 Die Umsetzung geschieht mithilfe des xref:isy-persistence:konzept.adoc[Bausteins JPA/Hibernate].
 
-[[service]]
-== Service
+[[serviceschicht]]
+== Serviceschicht
 
 include::backend/serviceschicht.adoc[tags=serviceschicht-definition]
 
-[[service-fachkomponenten]]
+[[serviceschicht-fachkomponenten]]
 === Fachkomponenten
 
 include::backend/serviceschicht.adoc[tags=fachkomponente-definition]
 
-[[service-framework]]
+[[serviceschicht-framework]]
 === Service-Framework
 
 include::backend/serviceschicht.adoc[tags=service-framework-definition]
 
-[[service-umsetzung]]
+[[serviceschicht-umsetzung]]
 === Umsetzung
 
-Zur Konzeption von Services definiert die Referenzarchitektur xref:software-technisch/backend/serviceschicht.adoc[weitere Vorgaben].
-Die Umsetzung von Services geschieht mithilfe des xref:isy-service-rest:konzept/master.adoc[Bausteins REST].
+Zur Konzeption von Services definiert die Referenzarchitektur xref:software-technisch/services.adoc[weitere Vorgaben].
+Die Umsetzung der xref:software-technisch/backend/serviceschicht.adoc[] geschieht mithilfe des xref:isy-service-rest:konzept/master.adoc[Bausteins REST].
 
 [[querschnitt]]
 == Querschnitt
