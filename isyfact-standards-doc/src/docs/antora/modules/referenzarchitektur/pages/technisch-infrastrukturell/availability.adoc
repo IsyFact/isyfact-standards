@@ -11,7 +11,7 @@ Weiter könnte man Verfügbarkeit auf der Ebene von angebotenen Services und nic
 Von der Seite der Software ist zu beachten, dass sich in einer serviceorientierten Systemlandschaft die Ausfallwahrscheinlichkeiten multiplizieren, wenn Systeme einander aufrufen.
 
 *Schnelles Antwortzeitverhalten im Fehlerfall:* Die Nichtverfügbarkeit von Services ist ein Ausnahmefall, auf den angemessen reagiert werden muss.
-Sollte ein Service nicht verfügbar sein, ist es wichtig, dass die aufrufende Anwendung zügig eine Fehlermeldung erhält.
+Sollte ein Service nicht verfügbar sein, ist es wichtig, dass das aufrufende IT-System zügig eine Fehlermeldung erhält.
 Speziell bei Online-Anwendungen ist der schnelle Erhalt einer Fehlermeldung notwendig.
 Der Nutzer soll auch im Fehlerfall eine gewohnt schnelle Antwort vom System erhalten.
 Die genaue Definition des Zeitrahmens, in dem die Fehlermeldung über die Nichtverfügbarkeit beim Aufrufer eintreffen muss, ist anwendungsspezifisch.
@@ -35,7 +35,7 @@ Die Verfügbarkeit (_availability_) eines Systems oder einer individuellen Syste
 ++++
 ====
 
-Das grundlegende Performance-Kriterium einer Anwendung ist deren korrekter Zustand und deren Erreichbarkeit.
+Das grundlegende Performance-Kriterium eines IT-Systems ist dessen korrekter Zustand und dessen Erreichbarkeit.
 Daher sind Health-Checks essenziell dafür, die Verfügbarkeit zu berechnen.
 
 Diskussion und Anmerkung:
@@ -49,10 +49,10 @@ In Spring Boot ist keine Definition von Verfügbarkeit gegeben.
 _Liveness_ und _Readiness_ wird stattdessen unter _Availability_ zusammengefasst (vgl. https://docs.spring.io/spring-boot/docs/2.7.x/api/org/springframework/boot/availability/AvailabilityState.html[Spring Boot AvailabilityState]).
 - [.underline]#Bedeutung der Definition#:
 Es werden nicht-funktionale Anforderungen als Kriterien für Verfügbarkeit gesetzt.
-Diese stellen Anforderungen an die Anwendung, bzw. das System, auf welches diese verwendet wird, dar.
+Diese stellen Anforderungen an die IT-Systeme, auf welche diese verwendet wird, dar.
 Die nicht-funktionalen Anforderungen, aus deren Erfüllung sich die Verfügbarkeit ableitet, können nicht von den Standards vorgegeben werden.
-Sie müssen von der jeweiligen Anwendung gegeben werden, da für diese unterschiedlichen Bedürfnisse an die Verfügbarkeit der jeweiligen Anwendung bestehen.
-Sind die nicht-funktionalen Kriterien erfüllt, dann ist die Anwendung/das System verfügbar (_available_). Verfügbarkeit als Messung des _available_-Zustands über die Zeit stellt entsprechend dar, in welchem zeitlichen Umfang die nicht-funktionalen Kriterien erfüllt sind.
+Sie müssen von der jeweiligen Anwendung vorgegeben werden, da für diese unterschiedlichen Bedürfnisse an die Verfügbarkeit der jeweiligen Anwendung bestehen.
+Sind die nicht-funktionalen Kriterien erfüllt, dann ist die Anwendung bzw. das IT-System verfügbar (_available_). Verfügbarkeit als Messung des _available_-Zustands über die Zeit stellt entsprechend dar, in welchem zeitlichen Umfang die nicht-funktionalen Kriterien erfüllt sind.
 - [.underline]#Praktischer Nutzen der Messung#:
 Verfügbarkeit wird zur quantitativen Messung der Resilienz eines Systems und der Feststellung des Erreichungsgrads eines angestrebten Resilienz-Ziels genutzt (vgl. https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/availability.html[aws: Berechnung von Availability]).
 
@@ -83,7 +83,7 @@ Dadurch ist die Verfügbarkeit auch in Katastrophen-Szenarien (z.B. einem Brand 
 === Beispielszenario
 
 Für das Szenario gehen wir im Folgenden davon aus, dass ein IT-System eine Gesamtverfügbarkeit von 98 % aufweisen soll.
-Hierbei ist zu beachten, dass IT-Systeme in der Regel andere IT-Systeme und Querschnittsanwendungen aufrufen, um Anfragen zu beantworten.
+Hierbei ist zu beachten, dass IT-Systeme in der Regel andere IT-Systeme aufrufen, um Anfragen zu beantworten.
 Die Gesamtverfügbarkeit sinkt dadurch ab, da zur erfolgreichen Bearbeitung einer Anfrage alle Systeme zeitgleich verfügbar sein müssen.
 Im Szenario wird für alle Systeme ein Richtwert für die Verfügbarkeit von 99,7 % angenommen.
 Wie die <<table-GMTMT>> zeigt, ergibt sich eine Gesamtverfügbarkeit von über 98 % bei einer Verfügbarkeit von 99,7 % pro System.
@@ -99,7 +99,7 @@ Dabei müssen die berechneten oder gemessenen Verfügbarkeiten aller IT-Systeme 
 |IT-System |99,7 %
 |Aufgerufenes IT-System 1 |99,7 %
 |Aufgerufenes IT-System 2 |99,7 %
-|Aufgerufene Querschnittsanwendung |99,7 %
+|Aufgerufenes IT-System 3 |99,7 %
 |Service-Gateway (Infrastruktur) |99,7 %
 |Datenbank (Infrastruktur) |99,7 %
 |*Gesamtverfügbarkeit* |(99,7 %)^6^ = *98,21 %*
@@ -111,7 +111,7 @@ Dabei müssen die berechneten oder gemessenen Verfügbarkeiten aller IT-Systeme 
 Die möglichen Ursachen für Nichtverfügbarkeit sind unter anderem:
 
 [[ausfall-deployment]]
-*Deployment einer Anwendung:* Bei einem Re-Deployment einer Anwendung kommt es zu einer geplanten Auszeit.
+*Deployment eines IT-Systems:* Bei einem Re-Deployment eines IT-Systems kommt es zu einer geplanten Auszeit.
 
 *Überlastung während Lastspitzen:* Im Tagesverlauf variiert die Last, die ein System verarbeiten muss.
 Manche Systeme antworten bei Lastspitzen zu langsam.
@@ -132,9 +132,9 @@ Unabhängig von der Konfiguration kann es trotz Loadbalancer und Anwendungsclust
 zu einer Nichtverfügbarkeit kommen.
 ====
 
-*Batchläufe:* Wenn lang laufende Batches in Geschäftsanwendungen durchgeführt werden, dürfen in dieser Zeit keine Meldungen gemacht werden.
-So werden Dateninkonsistenzen vermieden.
-Meldungsaufrufe sind in dieser Zeit nicht verfügbar und werden von der Geschäftsanwendung nicht beantwortet.
+*Lang laufende Batches:* Wenn lang laufende Batches durchgeführt werden, dürfen in dieser Zeit u.U. keine Daten von außerhalb des Batches aus geschrieben werden, um Dateninkonsistenzen zu vermeiden.
+Schreibende Services sind in dieser Zeit u.U. nicht verfügbar.
+Aufrufe werden von den Backends der Anwendung mit einer entsprechenden Fehlermeldung beantwortet.
 
 [[retries-loadbalancer]]
 *Retries des Loadbalancers:* Tritt ein Ausfall von Hard- oder Software auf (siehe _Ausfall von Hard- oder Software_ oben), bekommt der Loadbalancer beim Weiterleiten einer Anfrage an einen ausgefallenen Knoten ein Timeout.
@@ -143,7 +143,7 @@ Für den Aufrufer hat der Service dadurch eine längere Antwortzeit.
 Der Aufrufer hat keine Möglichkeit dieses Timeout/Retry-Verhalten des Loadbalancers zu beeinflussen und auf seine Bedürfnisse anzupassen.
 Die lange Antwortzeit kann aufseiten des Aufrufers leicht zu einem Timeout führen.
 
-*Verschlimmerung von Nichtverfügbarkeiten:* Die aufrufende Anwendung reagiert nicht angemessen auf eine Nichtverfügbarkeit eines Service.
+*Verschlimmerung von Nichtverfügbarkeiten:* Das aufrufende IT-System reagiert nicht angemessen auf eine Nichtverfügbarkeit eines Service. +
 Beispiele:
 
 * Der Client versucht Retries, obwohl der Service-Aufruf aus fachlicher Sicht entfallen könnte (optionaler Aufruf).
@@ -170,7 +170,7 @@ Folgende Maßnahmen können ergriffen werden, um die Anforderungen an die Verfü
 === Anwendungscluster mit Loadbalancer
 
 Die TI-Architektur der IsyFact setzt die hohen Verfügbarkeitsanforderungen durch Clustering der Applikations- und Datenbankserver um.
-Anwendungen werden redundant auf mehr als einem Server installiert.
+IT-Systeme einer Anwendung werden redundant auf mehr als einem Server installiert.
 Kommt es zu einem <<ausfall-von-hw-oder-sw,Hard- oder Softwareausfall>> auf einem Server-Knoten, so werden alle Anfragen von einem vorgeschalteten Loadbalancer auf einen anderen Server-Knoten umgeleitet.
 Durch die Redundanz wird die Verfügbarkeit von Services bei auftretenden Hard- oder Softwareausfällen erhöht.
 Trotzdem kann es auch hier noch zu Nichtverfügbarkeit kommen.
@@ -231,7 +231,7 @@ Die Parameter sind Bestandteil der xref:software-technisch/backend/konfiguration
 
 === Deaktivierung von Services
 
-Aufgrund von Wartungsaktivitäten oder Batches (z. B. einer Datenmigration) in einer Fachanwendung kann es vorkommen, dass der Meldungsservice einer Fachanwendung vorübergehend deaktiviert wird.
-Andere Services wie z. B. eine Auskunft können während dieser Zeit regulär ausgeführt werden.
-Während der Meldungsservice deaktiviert ist, wird dem Aufrufer eine entsprechende Fehlermeldung zurückgesendet.
-Da die Anforderung besteht, auch andere Services vorübergehend deaktivieren zu können, werden generell alle Services deaktivierbar gemacht.
+Aufgrund von Wartungsaktivitäten oder Batches (z. B. einer Datenmigration) in einer Anwendung kann es vorkommen, dass schreibende Services ihrer Backends vorübergehend deaktiviert werden.
+Lesende Services können während dieser Zeit regulär ausgeführt werden.
+Während die schreibenden Services deaktiviert sind, wird dem Aufrufer eine entsprechende Fehlermeldung zurückgesendet.
+Da die Anforderung besteht, auch lesende Services vorübergehend deaktivieren zu können, werden generell alle Services deaktivierbar gemacht.
