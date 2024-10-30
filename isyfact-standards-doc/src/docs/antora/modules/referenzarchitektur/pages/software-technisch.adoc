@@ -72,46 +72,6 @@ Die software-technische Referenzarchitektur definiert HTTP als grundsätzliches 
 * Übertragung von Metadaten und Nutzdaten,
 * Versionierung von Services.
 
-[[nutzungsarten-einer-anwendung]]
-== Nutzungsarten einer Anwendung
-include::documentation-guide::partial$content-revised.adoc[]
-
-Nachdem in der xref:software-technisch/backend.adoc[] die technische Architektur vorgestellt wurde, soll in diesem Abschnitt konkret vorgestellt werden, wie auf Basis dieser Architektur Anwendungen entworfen werden.
-
-Die Nutzungsschicht eines IT-Systems bietet anderen IT-Systemen über Services und dem Betrieb über Batches Schnittstellen zur Nutzung der implementierten Fachlichkeit an.
-Im Folgenden wird ein Beispiel-Szenario zur Nutzung eines IT-Systems vorgestellt.
-
-.Erstellung einer Geschäftsanwendung mit einer SOAP-Schnittstelle
-====
-Für eine zur Architektur konforme Umsetzung dieser Anforderungen müssen verschiedene IT-Systeme umgesetzt werden:
-
-*Die Geschäftsanwendung:* Die Geschäftsanwendung soll in diesem Beispiel die Präsentationslogik, die Geschäftslogik und die Datenhaltung in einem IT-System realisieren.
-Sie implementiert dazu drei software-architektonische Schichten:
-
-* Die *Nutzungsschicht*, in der die Services abgebildet sind,
-* der *Anwendungskern*, in dem die Geschäftslogik abgebildet ist,
-* die *Persistenzschicht*, in der sowohl die Anwendungsdaten als auch der Zustand der Anwendungssitzung abgespeichert werden.
-
-Zur Implementierung der Geschäftslogik kann die Geschäftsanwendung auch xref:glossary:glossary:master.adoc#glossar-service-fachlich[Services] anderer Geschäftsanwendungen aufrufen.
-
-*Das Service-Gateway-System:* Wie in Kapitel <<strukturierung-der-systemlandschaft>> beschrieben, dient das Service-Gateway-System als Schnittstelle für die Kommunikation mit bzw. der Annahme der Aufrufe von externen Systemen.
-Im vorliegenden Fall wird nur ein Service-Provider benötigt, da nur Aufrufe entgegengenommen werden.
-Diese werden authentifiziert, autorisiert, und an das zugehörige IT-System weitergeleitet.
-
-Damit ergeben sich die in <<ga-aufrufbeziehungen>> dargestellten IT-Systeme und Aufruf-Beziehungen.
-Die in dieser Abbildung angedeuteten Schichten eines IT-Systems (Batch, Service, Anwendungskern, Datenzugriff und Querschnitt) werden von der xref:software-technisch/backend.adoc[] erläutert.
-Wichtig in Hinblick auf diese Schichten sind folgende Punkte:
-
-* Die Komponente _Batch_ der Geschäftsanwendung wird im obigen Beispiel nicht implementiert, da die Geschäftsanwendung keine Schnittstelle für Batchläufe anbietet.
-* Alle externen Aufrufe an die Geschäftsanwendung werden durch eine _Service-Komponente_ verarbeitet: Keine andere Komponente darf externe Schnittstellen bereitstellen, insbesondere nicht in den _Anwendungskern_.
-* Es wurden keine Aufrufe von Querschnittsanwendungen eingezeichnet.
-Für derartige Aufrufe gibt es keine Vorgaben: Sie können aus beliebigen Schichten von Geschäftsanwendungen und Service-Gateways aus aufgerufen werden.
-
-[[ga-aufrufbeziehungen]]
-.Aufrufbeziehungen für eine Geschäftsanwendung mit Service-Schnittstelle
-image::software-technisch/CallFAmGuX.png[]
-====
-
 [[prinzipien-der-sicherheitsarchitektur]]
 == Prinzipien der Sicherheitsarchitektur
 
