@@ -39,6 +39,20 @@ In IsyFact 4 stellt der Baustein `isy-ueberwachung` über die AutoConfiguration 
 Standardabsicherung für Endpoints und entsprechende Konfigurationsparameter bereit.
 Eine detaillierte Beschreibung zur Konfiguration und Anpassungsmöglichkeiten sind in den xref:isy-ueberwachung:nutzungsvorgaben/master.adoc#absicherung-von-endpoints[Nutzungsvorgaben Überwachung] zu finden.
 
+[[isy-util]]
+=== Utilities
+
+In IsyFact 3 wurden die Klassen `MessageSourceHolder` sowie `MessageSourceFehlertextProvider` auf `deprecated` gesetzt.
+
+In der IsyFact 4 muss jede Bibliothek/Anwendung eine eigene https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/context/MessageSource.html[org.springframework.context.MessageSource]-Bean für die Verwaltung von Nachrichten implementieren.
+Wenn Bedarf zur Anpassung der Nachrichten besteht, muss die jeweilige `MessageSource`-Bean mittels Spring-Bordmitteln überschrieben werden.
+
+Für Fehlermeldungen wird empfohlen, das Interface `de.bund.bva.isyfact.exception.FehlertextProvider` aus `isy-exception-core` zu implementieren.
+
+Weiterführende Informationen unter:
+
+- xref:isy-exception-core:nutzungsvorgaben/inhalt.adoc#fehlertextprovider[Nutzungsvorgaben Fehlerbehandlung - FehlertextProvider]
+
 [[kapitel-dokumentation]]
 == Dokumentation
 

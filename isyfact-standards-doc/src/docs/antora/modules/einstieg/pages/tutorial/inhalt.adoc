@@ -419,8 +419,8 @@ Diese Ober-Exceptions sind als abstrakt zu kennzeichnen.
 Die zugrundeliegenden Designprinzipien sind jedoch identisch umzusetzen.
 So wird für jede Bibliothek eine abstrakte Ober-Exception angelegt.
 Diese sorgt für das Laden der Nachrichten, erbt aber direkt von einer der `java.lang.Exception` bzw. `java.lang.RuntimeException`.
-* Fehlertexte werden in Resource-Bundles ausgelagert und über eine Fehler-ID identifiziert.
-Die Schlüssel der Fehler-IDs werden in einer Konstantenklasse zusammengefasst.
+* Fehlertexte werden in Resource-Bundles ausgelagert und über eine Ausnahme-ID identifiziert.
+Die Schlüssel der Ausnahme-IDs werden in einer Konstantenklasse zusammengefasst.
 * Exceptions werden grundsätzlich nur zur Signalisierung abnormer Ergebnisse bzw. Situationen eingesetzt.
 * Exceptions sind in der Regel zu behandeln und zu loggen.
 Ist es nicht möglich die Exception zu behandeln, muss sie an den Aufrufer weitergegeben werden.
@@ -459,10 +459,9 @@ Die Bibliothek enthält anwendungsinterne Exception-Klassen und Hilfsklassen fü
 [[einbinden-der-bibliothek-1]]
 ===== Einbinden der Bibliothek
 
-Zur Realisierung der Fehlerbehandlung und Implementierung von Exceptions müssen die in <<listing-bib-fehlerbehandlung>>
-aufgelisteten Bibliotheken eingebunden werden.
+Zur Realisierung der Fehlerbehandlung und Implementierung von Exceptions muss die in <<listing-bib-fehlerbehandlung>> aufgelistete Bibliothek eingebunden werden.
 
-.Einbindung der Bibliotheken für die Fehlerbehandlung
+.Einbindung der Bibliothek für die Fehlerbehandlung
 [id="listing-bib-fehlerbehandlung",reftext="{listing-caption} {counter:listings}"]
 [source,xml]
 ----
@@ -472,25 +471,19 @@ aufgelisteten Bibliotheken eingebunden werden.
         <groupId>de.bund.bva.isyfact</groupId>
         <artifactId>isy-exception-core</artifactId>
     </dependency>
-    <dependency>
-        <groupId>de.bund.bva.isyfact</groupId>
-        <artifactId>isy-util</artifactId>
-    </dependency>
     ...
 </dependencies>
 ----
 
-`isy-exception-core` enthält abstrakte Exception-Klassen die in Anwendungen zu verwenden sind.
-`isy-util` enthält Hilfsklassen zum Laden von Fehlertexten.
+`isy-exception-core` enthält abstrakte Exception-Klassen und Interfaces, die in Anwendungen zu verwenden sind.
 
 [[anlegen-der-exception-klassen]]
 ===== Anlegen der Exception-Klassen
 
 In jeder Anwendung wird für jede Exception-Art (technisch, fachlich) eine eigene Oberklasse angelegt.
-Diese erbt von der entsprechenden Klasse aus `isy-exception-core`. Zum Laden der
- Fehlertexte wird das Interface FehlertextProvider aus derselben Bibliothek verwendet.
-In `isy-util` ist die Implementierung `MessageSourceFehlertextProvider` enthalten.
-Diese unterstützt das Laden von Fehlertexten aus einer Spring-Message-Source.
+Diese erbt von der entsprechenden Klasse aus `isy-exception-core`.
+Zum Laden der Fehlertexte muss das Interface `FehlertextProvider` aus derselben Bibliothek implementiert und `getMessage` überschrieben werden.
+Hier empfiehlt sich der Einsatz eines `java.util.ResourceBundle`, dem als `baseName` der Pfad zu den Properties übergeben wird.
 
 [[fehlerbehandlung-an-der-anwendungsschnittstelle]]
 ===== Fehlerbehandlung an der Anwendungsschnittstelle
@@ -509,9 +502,9 @@ Als Letztes wird ein Catch-Throwable-Block eingefügt.
 
 Hier wird für die aufgetretene Exception über `ExceptionMapper.createToException()`
 eine neue Transport-Exception erzeugt.
-Zur Ermittlung der Fehler-ID wird eine Klasse AusnahmeIdUtil angelegt.
+Zur Ermittlung der Ausnahme-ID wird eine Klasse AusnahmeIdUtil angelegt.
 Diese implementiert eine statische Methode `getAusnahmeId`, die zu einer übergebenen Exception
-eine passende Fehler-ID ermittelt.
+eine passende Ausnahme-ID ermittelt.
 Vor dem Werfen der so erzeugten Exception über die Schnittstelle wird ein Log-Eintrag erzeugt.
 
 Beim Umwandeln der internen Exceptions in Transport-Exceptions wird der Stack-Trace der internen Exceptions verworfen.
