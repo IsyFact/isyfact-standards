@@ -39,7 +39,7 @@ Der somit aus mehreren Attributen zusammengesetzte fachliche Schlüssel wird gen
 [[schritt-2-erweiterung-des-daos]]
 === Schritt 2: Erweiterung des Data Access Objects
 
-Alle Zugriffe auf Entitäten werden gemäß xref:blaupausen:detailkonzept-komponente-datenzugriff/persistenzlogik.adoc#grundlagen[Referenzarchitektur] über das zugehörige Data Access Object (DAO) vorgenommen.
+Alle Zugriffe auf Entitäten werden gemäß xref:referenzarchitektur:software-technisch/backend/persistenzschicht.adoc#fachkomponenten[Referenzarchitektur] über das zugehörige Data Access Object (DAO) vorgenommen.
 Im Rahmen der Historisierung muss das DAO auch dafür sorgen, dass die Attribute `aktuellVon` und `aktuellBis` mit den korrekten Werten belegt sind.
 Es wird wie folgt angepasst und erweitert.
 

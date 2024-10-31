@@ -4,12 +4,12 @@ include::glossary:licence:partial$licence.adoc[]
 
 Eines der Ziele des Bausteins JPA/Hibernate ist die einfach und einheitliche Verwendung von JPA und Hibernate.
 Dazu stellt der Baustein eine Menge an Vorgaben und Konventionen bereit, auf denen die Umsetzungen beruhen.
-Die Vorgaben und Konventionen ergänzen die allgemeinen Vorgaben zur Erstellung eines Persistenz-Klassenmodells in der xref:blaupausen:detailkonzept-komponente-datenzugriff/persistenzlogik.adoc[Referenzarchitektur].
+Die Vorgaben und Konventionen ergänzen die allgemeinen xref:referenzarchitektur:software-technisch/backend/persistenzschicht.adoc#persistenz-klassenmodell-vorgaben[Vorgaben zur Erstellung eines Persistenz-Klassenmodells].
 
 [[aufbau-fachkomponenten]]
 == Aufbau der Fachkomponenten
 
-Der Baustein JPA/Hibernate ergänzt den xref:blaupausen:detailkonzept-komponente-datenzugriff/persistenzlogik.adoc#grundlagen[Aufbau der Fachkomponenten] aus der Referenzarchitektur um die Verwendung von Spring Data JPA.
+Der Baustein JPA/Hibernate ergänzt den xref:referenzarchitektur:software-technisch/backend/persistenzschicht.adoc#fachkomponenten[Aufbau der Fachkomponenten] aus der Referenzarchitektur um die Verwendung von Spring Data JPA.
 
 Data Access Objects (DAOs) werden über _Spring Data Repositories_ abgebildet.
 Der Name eines Repositories leitet sich von derjenigen Entität ab, die über das Repository bearbeitet wird.
@@ -307,13 +307,13 @@ Grund für die Vorgabe ist, dass Änderungen am "inversen Ende" der Assoziation 
 Falls wirklich eine bidirektionale Assoziation benötigt wird, sind in der Entität am "inversen Ende" der Assoziation Methoden zu definieren, welche die Assoziation korrekt manipulieren.
 
 Explizit verboten sind bidirektional traversierbare n-zu-m-Assoziationen.
-Hierfür sind zwei 1-zu-n- (bzw. n-zu-1-) Assoziationen zu definieren.
+Hierfür sind zwei 1-zu-n- bzw. n-zu-1-Assoziationen zu definieren.
 
 
 [[vererbungshierarchien]]
 === Vererbungshierarchien
 
-Die JPA-Spezifikation beschreibt mehrere Strategien des O/R-Mappings von Vererbungshierarchien, zu beachten ist auch xref:blaupausen:detailkonzept-komponente-datenzugriff/persistenzlogik.adoc#vererbung-im-persistenz-klassenmodell[Vererbung im Persistenz-Klassenmodell].
+Die JPA-Spezifikation beschreibt mehrere Strategien des O/R-Mappings von Vererbungshierarchien, zu beachten ist auch xref:referenzarchitektur:software-technisch/backend/persistenzschicht.adoc#vererbung-im-persistenz-klassenmodell[Vererbung im Persistenz-Klassenmodell].
 
 Es werden zunächst die Architekturregeln der IsyFact für die vier O/R-Mapping-Strategien vorgestellt.
 

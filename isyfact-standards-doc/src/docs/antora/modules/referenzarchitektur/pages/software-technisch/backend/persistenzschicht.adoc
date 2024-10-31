@@ -2,9 +2,7 @@
 
 include::glossary:licence:partial$licence.adoc[]
 
-include::documentation-guide::partial$content-revised-page.adoc[]
-
-// tag::persistenz-definition[]
+// tag::persistenzschicht-definition[]
 
 Die Persistenzschicht umfasst den Teil eines Backends, der den Datenbestand verwaltet.
 Sie kommuniziert hierzu in der Regel mit einer Datenbank und, mittels persistenten Entitäten, mit dem Anwendungskern.
@@ -14,39 +12,119 @@ Der Aufbau der Persistenzschicht sowie ihre Kommunikation mit anderen Schichten 
 .Einbettung der Persistenzschicht in die Systemarchitektur
 image::referenzarchitektur:software-technisch/backend/persistenz.dn.svg[width=80%,align=center]
 
-// end::persistenz-definition[]
+// end::persistenzschicht-definition[]
 
-Das Detailkonzept Komponente Datenzugriff beschreibt die Vorgaben zur Umsetzung einer solchen Persistenzschicht im Detail.
-Die Implementierung der Zugriffsschicht wird durch die Verwendung eines standardisierten Frameworks erleichtert.
-Die Unterseiten des Detailkonzepts legen xref:blaupausen:detailkonzept-komponente-datenzugriff/persistenzlogik.adoc[allgemeine Vorgaben für das Persistenz-Klassenmodell fest] und behandelt weiterführende Themen wie die xref:blaupausen:detailkonzept-komponente-datenzugriff/historisierung.adoc[Historisierung von Daten] und die xref:blaupausen:detailkonzept-komponente-datenzugriff/versionierung.adoc[Versionierung von Datenbankschemas].
+[[fachkomponenten]]
+== Fachkomponenten
+
+// tag::fachkomponente-definition[]
+
+Die Persistenzschicht gliedert sich, wie der Anwendungskern, in *Fachkomponenten*.
+Die Fachkomponenten der Persistenzschicht entsprechen vom fachlichen Schnitt her denen des Anwendungskerns.
+Sie beinhalten das Datenmodell (d.h. Modellkomponenten, Entitäten und Attribute) der fachlichen Architektur und bilden es auf die technische Ebene ab.
+
+Die Fachkomponenten des Anwendungskerns besitzen die Datenhoheit auf ihre fachlichen Entsprechungen in der Persistenzschicht.
+Nur die Fachkomponente mit Datenhoheit darf Änderungen an den jeweiligen persistenten Entitäten vornehmen.
+
+// end::fachkomponente-definition[]
+
+Die Fachkomponenten bestehen aus einer Schnittstelle (Data Access Object) und den persistenten Entitäten.
+Sie kümmern sich ausschließlich um die Verwaltung persistenter Entitäten und beinhalten selbst keinerlei Geschäftslogik.
+
+[[aufbau-fachkomponente-persistenz]]
+.Aufbau einer Fachkomponente der Persistenzschicht
+image::software-technisch/backend/aufbau_fachkomponente_persistenz.dn.svg[]
+
+Ein *Data Access Object (DAO)* beschreibt die Schnittstelle der Fachkomponente, d.h. die Operationen, die zum Speichern und Lesen der Entitäten aus der Datenbank nötig sind.
+
+*Persistente Entitäten* bilden Geschäftsobjekte ab und werden in der Regel nach ihnen benannt.
+
+//tag::namenskonvention[]
+
+.Namenskonvention Entität
+[id="table-entity",reftext="{table-caption} {counter:tables}"]
+[cols="1s,4m",options="header"]
+|====
+2+|Entität
+|Schema |<Geschäftsobjekt>
+|Beispiel |Akte
+|====
+//end::namenskonvention[]
+
+Ein *Persistenz-Klassenmodell* ist das Modell der Entitäten, welche dauerhaft abgespeichert werden sollen.
+
+[[persistenz-klassenmodell-vorgaben]]
+=== Vorgaben für das Persistenz-Klassenmodell
+
+Die folgenden Abschnitte beschreiben gewünschte Eigenschaften des Persistenz-Klassenmodells sowie Verwendungsregeln.
+
+[[persistenz-klassenmodell-und-datenbank-schema-sollen-moeglichst-aehnlich-sein]]
+==== Persistenz-Klassenmodell und Datenbank-Schema sollen möglichst ähnlich sein
+
+Im Idealfall wird jede Entität auf eine Tabelle des Datenbankschemas abgebildet.
+Eine solche Abbildung ist intuitiv und erleichtert das Verständnis der Anwendung und des Datenbankschemas, was wiederum in der Wartung ein großer Vorteil ist.
+
+Tatsächlich ist es aus Gründen der Datenbankperformance aber oft erforderlich, von diesem Idealfall abzuweichen.
+Hier gilt es, auf möglichst wenige Tabellen zuzugreifen, um an die benötigten Informationen zu gelangen.
+
+So ist es zum Beispiel sinnvoll, für 1:1-Beziehungen im Persistenz-Klassenmodell den Entitäten mit der Annotation `@Embeddable` zu versehen.
+Somit wird der Inhalt einer Datenbanktabelle auf mehr als eine Entität verteilt.
+Solche Entitäten können dann über das Lesen einer einzigen Tabellenzeile aus der Datenbank gefüllt werden.
+
+
+[[vererbung-im-persistenz-klassenmodell]]
+==== Vererbung im Persistenz-Klassenmodell
+
+Vererbungshierarchien können in relationalen Datenbanken nicht direkt umgesetzt werden.
+Die JPA-Spezifikation beschreibt deshalb mehrere Strategien des O/R-Mappings von Vererbungshierarchien.
+Sie werden im Baustein xref:isy-persistence:konzept/vorgaben-konventionen.adoc#vererbungshierarchien[JPA/Hibernate] zusammen mit Regeln für ihre Verwendung beschrieben.
+
+Für alle Strategien gilt, dass die abzubildende Vererbungshierarchie nicht zu umfangreich sein sollte.
+Datenbankzugriffe auf Tabellen mit großen Hierarchien sind meistens wenig performant.
+Außerdem lässt sich die Vererbungshierarchie anhand der Datenbanktabellen entweder nicht oder nur schwer erkennen, und die Tabellen können unübersichtlich werden.
+
+.icon:university[title=Architekturregel] Vererbungshierarchien im Persistenz-Klassenmodell
+****
+Vererbungshierarchien zur Abbildung in relationalen Datenbanken sollten nur verwendet werden, wenn das fachliche Datenmodell dadurch optimal wiedergegeben wird.
+Sie sollten nur eine Oberklasse mit einigen Subklassen und höchstens zwei Vererbungsebenen umfassen.
+****
+
+[[logik-in-persistenzklassen-vermeiden]]
+==== Geschäftslogik in Persistenzlogik vermeiden
+
+Die Implementierung von Geschäftslogik in der gesamten Persistenzlogik, d.h. in den DAOs und Entitäten, ist zu vermeiden.
+Idealerweise sollten die Entitäten lediglich Getter- und Setter-Methoden für die persistierten Daten enthalten.
+Jegliche Geschäftslogik muss im Anwendungskern implementiert werden.
+
+Zur Geschäftslogik gehören auch Validierungen.
+
+
+
+
+== ToDO
+
+Die Implementierung der Persistenzschicht wird durch die Verwendung eines standardisierten Frameworks erleichtert.
+Die Unterseiten des Detailkonzepts behandeln weiterführende Themen wie die xref:blaupausen:detailkonzept-komponente-datenzugriff/historisierung.adoc[Historisierung von Daten] und die xref:blaupausen:detailkonzept-komponente-datenzugriff/versionierung.adoc[Versionierung von Datenbankschemas].
 
 [WARNING]
 ====
-Das Thema Transaktionssteuerung wird nicht im Rahmen des Datenzugriffs behandelt, da Transaktionen in der IsyFact über den Anwendungskern bzw. die Nutzungsschicht gesteuert werden.
-Mehr zu diesem Thema ist in den anderen Detailkonzepten enthalten:
-
-* xref:software-technisch/backend/anwendungskern.adoc#transaktionssteuerung[Detailkonzept Komponente Anwendungskern],
-* xref:blaupausen:detailkonzept-komponente-batch/master.adoc#die-transaktionssteuerung[Detailkonzept Komponente Batch],
-* xref:software-technisch/backend/serviceschicht.adoc#transaktionssteuerung[Detailkonzept Komponente Service].
-
-
+Das Thema Transaktionssteuerung wird nicht im Rahmen der Persistenzschicht behandelt, da Transaktionen in der IsyFact über den xref:software-technisch/backend/anwendungskern.adoc#transaktionssteuerung[Anwendungskern] gesteuert werden.
 ====
 
 Die auf dieser Seite und den Unterseiten aufgestellten Vorgaben verfolgen mehrere Ziele.
 
 Einheitlichkeit der Verwendung von JPA::
-Die Konfiguration und Umsetzung des Datenzugriffs geschieht nachvollziehbar über festgelegte Mechanismen und ist, auf ein IT-System bezogen, stets gleich.
+Die Konfiguration und Umsetzung der Persistenz geschieht nachvollziehbar über festgelegte Mechanismen und ist, auf ein IT-System bezogen, stets gleich.
 
 Einfachheit der Verwendung von JPA::
-Die Komponente Datenzugriff muss leicht verständlich und wartbar sein.
-Dies umfasst die Definition des Persistenz-Klassenmodells sowie den Einsatz von JPA zur Umsetzung des Datenzugriffs.
+Die Persistenzschicht muss leicht verständlich und wartbar sein.
+Dies umfasst die Definition des Persistenz-Klassenmodells sowie den Einsatz von JPA.
 
 Schmale, definierte JPA-Schnittstelle::
 Die Verwendung und Konfiguration von JPA soll isoliert und über eine schmale Schnittstelle erfolgen.
-Die Komponente Datenzugriff soll auf JPA über die schmale Schnittstelle zugreifen.
-Die Stellen, an welchen JPA verwendet wird, sollen keine Geschäftslogik enthalten.
+Die Persistenzschicht soll auf JPA über die schmale Schnittstelle zugreifen und keine Geschäftslogik enthalten.
 
-Effizienz und Schnelligkeit der Komponente Datenzugriff::
+Effizienz und Schnelligkeit der Persistenzschicht::
 JPA und die gewählte JPA-Implementierung müssen effizient und schnell arbeiten.
 Datenbank-Aufrufe sollen möglichst effizient sein.
 Unnötige und mehrfache Zugriffe sollen vermieden werden.

@@ -46,7 +46,7 @@ Vorlage:
 Beispiele:
 
 * xref:referenzarchitektur:software-technisch.adoc[]
-* xref:blaupausen:detailkonzept-komponente-datenzugriff/persistenzlogik.adoc[]
+* xref:referenzarchitektur:software-technisch/backend.adoc[]
 |===
 
 [[table-detailkonzept]]

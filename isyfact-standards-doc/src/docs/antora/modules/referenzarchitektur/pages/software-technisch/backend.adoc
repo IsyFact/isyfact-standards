@@ -77,14 +77,12 @@ Zur Konzeption und Umsetzung des Anwendungskerns definiert die Referenzarchitekt
 [[persistenz]]
 == Persistenz
 
-include::backend/persistenzschicht.adoc[tags=persistenz-definition]
+include::backend/persistenzschicht.adoc[tags=persistenzschicht-definition]
 
 [[persistenz-fachkomponenten]]
 === Fachkomponenten
 
-Die Fachkomponenten der Persistenzschicht entsprechen vom fachlichen Schnitt her denen des Anwendungskerns.
-Die Fachkomponenten des Anwendungskerns besitzen wiederum die Datenhoheit auf ihre "Entsprechungen" in der Persistenzschicht.
-Nur die Fachkomponente mit Datenhoheit darf Änderungen an den jeweiligen persistenten Entitäten vornehmen.
+include::backend/persistenzschicht.adoc[tags=fachkomponente-definition]
 
 .icon:university[title=Architekturregel] Persistente Entitäten im Anwendungskern
 ****
