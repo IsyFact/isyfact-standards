@@ -109,15 +109,54 @@ Zur Umsetzung des objekt-relationalen Mapping verwendet die Persistenzschicht da
 
 // end::persistenz-framework-definition[]
 
+[[transaktionssteuerung]]
+== Transaktionssteuerung
+
+Das Thema Transaktionssteuerung wird nicht im Rahmen der Persistenzschicht behandelt, da Transaktionen in der IsyFact über den xref:software-technisch/backend/anwendungskern.adoc#transaktionssteuerung[Anwendungskern] gesteuert werden.
+
+[[versionierung]]
+== Versionierung von Datenbankschemas
+
+Die Struktur der Daten, die von einer Anwendung dauerhaft gespeichert werden, kann sich im Laufe des Lebenszyklus der Anwendung ändern.
+Das bedeutet, dass sich neben der Anwendung auch das Datenbankschema ändert.
+Die Anwendung und das Datenbankschema müssen zueinander passen.
+
+Die Verwaltung von Versionsinformationen für ein Datenbankschema soll sicherstellen, dass die Anwendung und Skripte (z.B. zur Datenmigration) erkennen können, ob ein Datenbankschema die erwartete Version hat.
+Zusätzlich sollen die Datenbankadministratoren nachvollziehen können, welche Änderungen am Datenbankschema bereits erfolgt sind.
+
+Neben dem bisherigen Verfahren zur Versionierung von Datenbankschemas, das auf einer Eigenentwicklung beruht, gibt es auch die Möglichkeit zur Nutzung von Liquibase.
+Beide Verfahren werden im xref:isy-persistence:konzept/versionierung.adoc[Baustein JPA/Hibernate] im Detail beschrieben.
+
+[[vorgaben]]
+=== Vorgaben zur Versionierung
+
+Falls es die Anforderungen erfordern, können mehrere Datenbankschemas zusammen versioniert werden.
+Dabei gibt es zwei mögliche Konstellationen:
+
+* Schema-übergreifende Versionierung innerhalb derselben Datenbank,
+* Datenbank-übergreifende Versionierung.
+
+Eine Schema-übergreifende Versionierung innerhalb derselben Datenbank ist möglich.
+Bei der Aktualisierung auf eine aktuellere Version ist folgendes Vorgehen vorgesehen:
+
+* Aktualisierung der einzelnen Schemas,
+* Ausführung Schema-übergreifender Operationen.
+
+Im Gegensatz zu Schema-übergreifender Versionierung wird von Datenbank-übergreifender Versionierung dringlichst abgeraten.
+
+NOTE: Der https://download.gsb.bund.de/BSI/ITGSK/IT-Grundschutz-Kataloge_2016_EL15_DE.pdf#page=3285[IT-Grundschutz (M 4.71) icon:file-pdf-o[]] sieht die Verwendung von _Database Links_, die für eine Datenbank-übergreifende Versionierung genutzt werden können, nur unter strengen Auflagen zulässig, die eine Verwendung erheblich erschweren.
+
+Unabhängig von der Lösung erschweren Datenbank-übergreifende Operationen die Fehlersuche im Falle einer fehlgeschlagenen Installation oder Aktualisierung wesentlich.
+
+
+
+
+
 == ToDo
 
 Die Implementierung der Persistenzschicht wird durch die Verwendung eines standardisierten Frameworks erleichtert.
-Die Unterseiten des Detailkonzepts behandeln weiterführende Themen wie die xref:blaupausen:detailkonzept-komponente-datenzugriff/historisierung.adoc[Historisierung von Daten] und die xref:blaupausen:detailkonzept-komponente-datenzugriff/versionierung.adoc[Versionierung von Datenbankschemas].
+Die Unterseiten des Detailkonzepts behandeln weiterführende Themen wie die xref:blaupausen:detailkonzept-komponente-datenzugriff/historisierung.adoc[Historisierung von Daten].
 
-[WARNING]
-====
-Das Thema Transaktionssteuerung wird nicht im Rahmen der Persistenzschicht behandelt, da Transaktionen in der IsyFact über den xref:software-technisch/backend/anwendungskern.adoc#transaktionssteuerung[Anwendungskern] gesteuert werden.
-====
 
 Die auf dieser Seite und den Unterseiten aufgestellten Vorgaben verfolgen mehrere Ziele.
 

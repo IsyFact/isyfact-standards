@@ -91,7 +91,7 @@ Zur Realisierung der Datenhaltung müssen folgende Aktivitäten durchgeführt we
 ==== Anlegen des Datenbankschemas
 
 Das Datenbankschema muss angelegt werden.
-Dazu werden die benötigten DDL-Anweisungen, wie in xref:blaupausen:detailkonzept-komponente-datenzugriff/versionierung.adoc[] beschrieben, in einem Verzeichnis abgelegt.
+Dazu werden die benötigten DDL-Anweisungen, wie in xref:referenzarchitektur:software-technisch/backend/persistenzschicht.adoc#versionierung[Versionierung von Datenbankschemas] beschrieben, in einem Verzeichnis abgelegt.
 
 
 Das initiale Datenmodell kann über das Tool `hbm2ddl` erzeugt werden.
