@@ -14,6 +14,25 @@ image::referenzarchitektur:software-technisch/backend/persistenz.dn.svg[width=80
 
 // end::persistenzschicht-definition[]
 
+Die Vorgaben zur Persistenzschicht verfolgen mehrere Ziele.
+
+Einheitlichkeit der Verwendung von JPA::
+Die Konfiguration und Umsetzung der Persistenz geschieht nachvollziehbar über festgelegte Mechanismen und ist, auf ein IT-System bezogen, stets gleich.
+
+Einfachheit der Verwendung von JPA::
+Die Persistenzschicht muss leicht verständlich und wartbar sein.
+Dies umfasst die Definition des Persistenz-Klassenmodells sowie den Einsatz von JPA.
+
+Schmale, definierte JPA-Schnittstelle::
+Die Verwendung und Konfiguration von JPA soll isoliert und über eine schmale Schnittstelle erfolgen.
+Die Persistenzschicht soll auf JPA über die schmale Schnittstelle zugreifen und keine Geschäftslogik enthalten.
+
+Effizienz und Schnelligkeit der Persistenzschicht::
+JPA und die gewählte JPA-Implementierung müssen effizient und schnell arbeiten.
+Datenbank-Aufrufe sollen möglichst effizient sein.
+Unnötige und mehrfache Zugriffe sollen vermieden werden.
+
+
 [[fachkomponenten]]
 == Fachkomponenten
 
@@ -213,23 +232,3 @@ Diese Anforderungen führen zu folgenden Festlegungen:
 
 * Eine automatische Historisierung von Daten, bei der jeder Datensatz in mehreren Versionen vorgehalten ist, wird nicht realisiert.
 * Eine Historisierung wird, fachlich begründet, für die betroffenen Datensätze explizit realisiert.
-
-== ToDo
-
-Die auf dieser Seite und den Unterseiten aufgestellten Vorgaben verfolgen mehrere Ziele.
-
-Einheitlichkeit der Verwendung von JPA::
-Die Konfiguration und Umsetzung der Persistenz geschieht nachvollziehbar über festgelegte Mechanismen und ist, auf ein IT-System bezogen, stets gleich.
-
-Einfachheit der Verwendung von JPA::
-Die Persistenzschicht muss leicht verständlich und wartbar sein.
-Dies umfasst die Definition des Persistenz-Klassenmodells sowie den Einsatz von JPA.
-
-Schmale, definierte JPA-Schnittstelle::
-Die Verwendung und Konfiguration von JPA soll isoliert und über eine schmale Schnittstelle erfolgen.
-Die Persistenzschicht soll auf JPA über die schmale Schnittstelle zugreifen und keine Geschäftslogik enthalten.
-
-Effizienz und Schnelligkeit der Persistenzschicht::
-JPA und die gewählte JPA-Implementierung müssen effizient und schnell arbeiten.
-Datenbank-Aufrufe sollen möglichst effizient sein.
-Unnötige und mehrfache Zugriffe sollen vermieden werden.
