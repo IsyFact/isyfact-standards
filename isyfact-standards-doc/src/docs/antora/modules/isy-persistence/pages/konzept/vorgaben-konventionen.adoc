@@ -15,7 +15,7 @@ Data Access Objects (DAOs) werden über _Spring Data Repositories_ abgebildet.
 Der Name eines Repositories leitet sich von derjenigen Entität ab, die über das Repository bearbeitet wird.
 
 [[aufbau-fachkomponente-datenzugriff]]
-.Aufbau einer Fachkomponente des Datenzugriffs mit Spring Data JPA
+.Aufbau einer Fachkomponente der Persistenzschicht mit Spring Data JPA
 image::isy-persistence:aufbau_fachkomponente_datenzugriff_spring_data.dn.svg[]
 
 //tag::namenskonvention[]

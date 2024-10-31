@@ -51,9 +51,9 @@ Die xref:referenzarchitektur:software-technisch/backend.adoc[] beschreibt nun Ba
 Zur Umsetzung von UIs sieht die Referenzarchitektur nur noch eigenständige Frontends vor.
 Ergänzend hierzu beinhaltet die IsyFact einen Baustein zur Umsetzung von Frontends mit xref:isy-angular-widgets-doc::konzept/konzept.adoc[Angular].
 
-==== Datenzugriff
-Für die Überführung von persistenten Entitäten in Geschäftsobjekte sollen keine gesonderten Schnittstellenobjekte mehr genutzt werden.
-Die Komponente Datenzugriff übergibt persistente Entitäten an den Anwendungskern.
+==== Persistenzschicht
+Für die Überführung von persistenten Entitäten in Geschäftsobjekte werden keine gesonderten Schnittstellenobjekte mehr genutzt.
+Die Persistenzschicht übergibt persistente Entitäten an den Anwendungskern.
 Der Anwendungskern darf keine persistenten Entitäten mehr herausgeben, auch nicht zwischen seinen Fachkomponenten.
 Entsprechende Ausnahmen wurden gestrichen.
 
