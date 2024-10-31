@@ -96,9 +96,7 @@ Für den Transfer über Komponentengrenzen hinweg - oder aus dem Anwendungskern 
 [[persistenz-framework]]
 === Persistenz-Framework
 
-Die Persistenzschicht kommuniziert in Richtung Datenbank auf Basis der Standards JDBC und SQL.
-In Richtung des Anwendungskerns stellt sie persistente Entitäten mittels Spring Data JPA bereit.
-Zur Umsetzung des objekt-relationalen Mapping verwendet die Persistenzschicht das Produkt Hibernate.
+include::backend/persistenzschicht.adoc[tags=persistenz-framework-definition]
 
 [[persistenz-umsetzung]]
 === Umsetzung

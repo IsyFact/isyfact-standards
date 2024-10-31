@@ -98,10 +98,18 @@ Jegliche Geschäftslogik muss im Anwendungskern implementiert werden.
 
 Zur Geschäftslogik gehören auch Validierungen.
 
+[[persistenz-framework]]
+== Persistenz-Framework
 
+// tag::persistenz-framework-definition[]
 
+Die Persistenzschicht kommuniziert in Richtung Datenbank auf Basis der Standards JDBC und SQL.
+In Richtung des Anwendungskerns stellt sie persistente Entitäten mittels Spring Data JPA bereit.
+Zur Umsetzung des objekt-relationalen Mapping verwendet die Persistenzschicht das Produkt Hibernate.
 
-== ToDO
+// end::persistenz-framework-definition[]
+
+== ToDo
 
 Die Implementierung der Persistenzschicht wird durch die Verwendung eines standardisierten Frameworks erleichtert.
 Die Unterseiten des Detailkonzepts behandeln weiterführende Themen wie die xref:blaupausen:detailkonzept-komponente-datenzugriff/historisierung.adoc[Historisierung von Daten] und die xref:blaupausen:detailkonzept-komponente-datenzugriff/versionierung.adoc[Versionierung von Datenbankschemas].
