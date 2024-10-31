@@ -55,7 +55,7 @@ Es reicht also folgender Abschnitt, um eine Bibliothek einzubinden:
 
 In diesem Kapitel wird die Implementierung der Datenhaltung einer Anwendung beschrieben.
 Die Datenhaltung besteht im Wesentlichen aus den Entitäten (Entity) und den zugehörigen Data Access Objects (DAOs).
-Alle Konzepte und Vorgaben zum Thema Persistenz und Datenzugriff stehen im xref:blaupausen:detailkonzept-komponente-datenzugriff/einordnung-ziele.adoc[] sowie im xref:isy-persistence:konzept.adoc[].
+Alle Konzepte und Vorgaben zum Thema Persistenz stehen in der xref:referenzarchitektur:software-technisch/backend/persistenzschicht.adoc[Referenzarchitektur] sowie im xref:isy-persistence:konzept.adoc[].
 
 [[designvorgaben]]
 === Designvorgaben

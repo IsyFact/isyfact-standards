@@ -1,4 +1,4 @@
-= Detailkonzept Komponente Datenzugriff
+= Persistenzschicht
 
 include::glossary:licence:partial$licence.adoc[]
 
@@ -18,16 +18,17 @@ image::referenzarchitektur:software-technisch/backend/persistenz.dn.svg[width=80
 
 Das Detailkonzept Komponente Datenzugriff beschreibt die Vorgaben zur Umsetzung einer solchen Persistenzschicht im Detail.
 Die Implementierung der Zugriffsschicht wird durch die Verwendung eines standardisierten Frameworks erleichtert.
-Die Unterseiten des Detailkonzepts legen xref:detailkonzept-komponente-datenzugriff/persistenzlogik.adoc[allgemeine Vorgaben für das Persistenz-Klassenmodell fest] und behandelt weiterführende Themen wie die xref:detailkonzept-komponente-datenzugriff/historisierung.adoc[Historisierung von Daten] und die xref:detailkonzept-komponente-datenzugriff/versionierung.adoc[Versionierung von Datenbankschemas].
+Die Unterseiten des Detailkonzepts legen xref:blaupausen:detailkonzept-komponente-datenzugriff/persistenzlogik.adoc[allgemeine Vorgaben für das Persistenz-Klassenmodell fest] und behandelt weiterführende Themen wie die xref:blaupausen:detailkonzept-komponente-datenzugriff/historisierung.adoc[Historisierung von Daten] und die xref:blaupausen:detailkonzept-komponente-datenzugriff/versionierung.adoc[Versionierung von Datenbankschemas].
 
 [WARNING]
 ====
 Das Thema Transaktionssteuerung wird nicht im Rahmen des Datenzugriffs behandelt, da Transaktionen in der IsyFact über den Anwendungskern bzw. die Nutzungsschicht gesteuert werden.
 Mehr zu diesem Thema ist in den anderen Detailkonzepten enthalten:
 
-* xref:referenzarchitektur:software-technisch/backend/anwendungskern.adoc#transaktionssteuerung[Detailkonzept Komponente Anwendungskern],
-* xref:detailkonzept-komponente-batch/master.adoc#die-transaktionssteuerung[Detailkonzept Komponente Batch],
-* xref:referenzarchitektur:software-technisch/backend/serviceschicht.adoc#transaktionssteuerung[Detailkonzept Komponente Service].
+* xref:software-technisch/backend/anwendungskern.adoc#transaktionssteuerung[Detailkonzept Komponente Anwendungskern],
+* xref:blaupausen:detailkonzept-komponente-batch/master.adoc#die-transaktionssteuerung[Detailkonzept Komponente Batch],
+* xref:software-technisch/backend/serviceschicht.adoc#transaktionssteuerung[Detailkonzept Komponente Service].
+
 
 ====
 

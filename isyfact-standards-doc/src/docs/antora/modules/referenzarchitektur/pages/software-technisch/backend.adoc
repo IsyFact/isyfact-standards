@@ -77,7 +77,7 @@ Zur Konzeption und Umsetzung des Anwendungskerns definiert die Referenzarchitekt
 [[persistenz]]
 == Persistenz
 
-include::blaupausen:detailkonzept-komponente-datenzugriff/einordnung-ziele.adoc[tags=persistenz-definition]
+include::backend/persistenzschicht.adoc[tags=persistenz-definition]
 
 [[persistenz-fachkomponenten]]
 === Fachkomponenten
@@ -105,7 +105,7 @@ Zur Umsetzung des objekt-relationalen Mapping verwendet die Persistenzschicht da
 [[persistenz-umsetzung]]
 === Umsetzung
 
-Zur Konzeption der Persistenzschicht definiert die Referenzarchitektur xref:blaupausen:detailkonzept-komponente-datenzugriff/einordnung-ziele.adoc[weitere Vorgaben].
+Zur Konzeption der Persistenzschicht definiert die Referenzarchitektur xref:software-technisch/backend/persistenzschicht.adoc[weitere Vorgaben].
 Die Umsetzung geschieht mithilfe des xref:isy-persistence:konzept.adoc[Bausteins JPA/Hibernate].
 
 [[serviceschicht]]

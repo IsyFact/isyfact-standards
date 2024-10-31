@@ -71,7 +71,7 @@ a|
 
 |Vorlage / Beispiel
 a|
-xref:blaupausen:detailkonzept-komponente-datenzugriff/einordnung-ziele.adoc[]
+xref:blaupausen:detailkonzept-komponente-batch/master.adoc[]
 |===
 
 [[saeule-bausteine]]
