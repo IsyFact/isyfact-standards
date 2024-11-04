@@ -105,7 +105,7 @@ Bei Anfragen mittels `GET` und `DELETE`, die keinen Body erwarten, enthalten URL
 
 Allerdings gilt zu beachten, dass URLs (und damit auch die URL-Parameter) an vielen Stellen aufgezeichnet und in Logs geschrieben oder in Caches gehalten werden.
 Hierbei sind z.B. datenschutzrechtliche Aspekte zu prüfen, wenn URL-Parameter personenbezogene Daten enthalten.
-Im Zweifelsfall ist die Methode `POST` eine gangbare Alternative, um solche Nutzdaten im Body zu übertragen.
+Im Zweifelsfall ist die Methode `POST` die empfohlene Alternative, um solche Nutzdaten im Body zu übertragen.
 
 [[asynchrone-service-aufrufe]]
 === Asynchrone Service-Aufrufe
@@ -162,7 +162,7 @@ Besonders relevant für die Referenzarchitektur sind die Abschnitte https://jaka
 
 Die Kommunikation mit externen Systemen basiert auf Web-Services.
 Wird ein Service von einem externen System angeboten, wird er als *externer Service* bezeichnet.
-Hierbei muss man zwischen zwei Fällen unterscheiden:
+Im Folgenden werden zwei Szenarien betrachtet:
 
 *Aufruf von Services der Systemlandschaft*: Durch die Systemlandschaft wird externen Systemen die Schnittstelle eines Backends in Form eines Web-Services zur Verfügung gestellt.
 Hierbei definiert das Backend selbst keinen Web-Service.
@@ -181,12 +181,13 @@ Für jeden Web-Service, der in die Systemlandschaft importiert werden soll, muss
 Die Gesamtheit aller Service-Provider und Service-Consumer wird als xref:glossary:glossary:master.adoc#glossar-service-gateway[Service-Gateway] bezeichnet.
 Die Service-Gateways stellen somit die zentrale Schnittstelle einer IsyFact-Systemlandschaft zur Außenwelt dar.
 
+.Nutzung von Service Gateways zur Kommunikation mit externen Systemen
+image::software-technisch/services/kommunikation-externe-systeme.dn.svg[]
+
 Ein Service-Consumer macht diesen "externen Service" als "inneren Service" der Systemlandschaft verfügbar.
 Wird ein Service von einem Backend angeboten, so ist das ebenfalls ein "innerer Service".
 Wenn ein Service-Provider diesen "inneren Service" einer Anwendung außerhalb der Plattform zugänglich macht, ist dies ein "äußerer Service" der Systemlandschaft.
 Die Unterscheidung zwischen "innere" und "äußere" ist analog für die Begriffe "Request" und "Response" zu verwenden.
-
-image::software-technisch/services/kommunikation-externe-systeme.dn.svg[]
 
 [[versionierung]]
 == Versionierung
@@ -202,7 +203,7 @@ Es kann vorkommen, dass in _einem_ Systemrelease neue Versionen von _mehreren_ S
 === Architektur
 
 Backends bieten pro Service-Version eine eigene Service-Schnittstelle an.
-Die Services verwenden alle denselben xref:glossary::terms-definitions.adoc#glossar-anwendungskern[Anwendungskern].
+Die unterschiedlichen Versionen des Services verwenden alle denselben xref:glossary::terms-definitions.adoc#glossar-anwendungskern[Anwendungskern].
 Die für die Versionierung notwendigen Transformationen sind Teil der jeweiligen Service-Schnittstelle (z.B. das Einfügen eines Standardwerts für neu hinzugefügte Attribute).
 In komplexen Fällen kann es auch notwendig sein, den Anwendungskern zu erweitern und die Versionierung dort zu behandeln.
 Die Entscheidung dafür ist im Systementwurf zu dokumentieren.

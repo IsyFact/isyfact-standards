@@ -59,25 +59,23 @@ Dies liegt darin begründet, dass die Serviceschicht die Funktionalität des Anw
 [[fachkomponente-aufbau]]
 === Aufbau einer Fachkomponente
 
-Eine Fachkomponente besteht aus einer *Service-Fassade* und einer *Exception-Fassade*.
+Eine Fachkomponente besteht aus einer Service-Fassade und einer Exception-Fassade.
 
 [[service-fassade]]
 ==== Service-Fassade
 
-Die _Service-Fassade_ kümmert sich darum, eingehende Service-Aufrufe auf interne Aufrufe des Anwendungskerns abzubilden. 
+Die *Service-Fassade* kümmert sich darum, eingehende Service-Aufrufe auf interne Aufrufe des Anwendungskerns abzubilden.
 Transportobjekte der Serviceschicht werden dabei in Geschäftsobjekte des Anwendungskerns umgewandelt.
-Für die vom Anwendungskern gelieferten Ergebnisse ist eine Transformation in umgekehrter Richtung erforderlich. 
+Für die vom Anwendungskern gelieferten Ergebnisse ist eine Transformation in umgekehrter Richtung erforderlich.
+Dabei führt die Service-Fassade eine Validierung der Aufrufparameter durch.
 
-Die Service-Fassade übernimmt darüber hinaus neben der Validierung der Aufrufparameter auch die Autorisierung des Aufrufs.
+Die Service-Fassade übernimmt darüber hinaus auch die Autorisierung des Aufrufs.
 Dazu nutzt sie den xref:isy-security:nutzungsvorgaben/master.adoc#autorisierung_service_schnittstelle[Baustein Security].
-Voraussetzung für die Autorisierung ist die Auswertung des mitgelieferten Access-Tokens.
-Über die Annotation `@Secured` wird die Berechtigung zum Zugriff auf die Methode anhand der Rechte des Aufrufers geprüft.
-Alternativ kann die Annotation `@Secured` auch an der Service-Fassade selbst verwendet werden, wenn alle ihre Methoden die gleichen Rechte erfordern.
 
 [[exception-fassade]]
 ==== Exception-Fassade
 
-Die _Exception-Fassade_ ist verantwortlich für die Umwandlung der durch den Anwendungskern oder die Service-Fassade geworfenen Exceptions in Exceptions der Serviceschicht.
+Die *Exception-Fassade* ist verantwortlich für die Umwandlung der durch den Anwendungskern oder die Service-Fassade geworfenen Exceptions in Exceptions der Serviceschicht.
 Für das Ergebnis der Umwandlung ist sicherzustellen, dass entweder Exceptions ohne Stack-Traces oder ihnen entsprechende Transportobjekte zurückgegeben werden.
 Für die Behandlung und Umwandlung der aufgefangenen Exceptions sollten Log-Einträge erzeugt werden. 
 Dabei ist sicherzustellen, dass zum Zeitpunkt der Erstellung der Log-Einträge eine Korrelations-ID verfügbar ist.
@@ -86,16 +84,15 @@ Dabei ist sicherzustellen, dass zum Zeitpunkt der Erstellung der Log-Einträge e
 
 // tag::service-framework-definition[]
 
-Das Service-Framework definiert die REST-Endpunkte des Backends und stellt diese zur Verfügung.
+Das Service-Framework definiert die Service-Endpunkte des Backends und stellt diese zur Verfügung.
 Es wandelt die in der HTTP-Anfrage übertragenen Daten in Transportobjekte um und ruft die entsprechende Fachkomponente auf.
 Ebenso erledigt es die Umwandlung des Ergebnisses in eine HTTP-Antwort.
-Zur Definition der REST-Endpunkte wird Spring Web MVC bzw. Spring WebClient verwendet.
+Zur Definition der Service-Endpunkte wird Spring Web MVC verwendet.
 Zur Konfiguration der Serviceschicht wird das Spring-Framework genutzt.
 
 // end::service-framework-definition[]
 
-Die weiteren Inhalte zum Aufbau, zur Realisierung und zur Nutzung der Serviceschicht befinden sich im Baustein REST.
-Sie befinden sich im xref:isy-service-rest:konzept/master.adoc[] sowie den xref:isy-service-rest:nutzungsvorgaben/master.adoc[].
+Die weiteren Inhalte zum Aufbau, zur Realisierung und zur Nutzung der Serviceschicht befinden sich im xref:isy-service-rest:konzept/master.adoc[] sowie den xref:isy-service-rest:nutzungsvorgaben/master.adoc[].
 
 [[transaktionssteuerung]]
 == Transaktionssteuerung
