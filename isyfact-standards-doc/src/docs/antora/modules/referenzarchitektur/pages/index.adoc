@@ -56,8 +56,6 @@ Externen Anwendungen stellen Service-Gateways die entsprechenden Schnittstellen 
 
 == Software-technische Referenzarchitektur
 
-include::documentation-guide::partial$content-revised.adoc[]
-
 include::software-technisch.adoc[tags=architektursicht-definition]
 
 == Technisch-infrastrukturelle Referenzarchitektur
