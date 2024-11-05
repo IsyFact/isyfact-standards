@@ -62,10 +62,10 @@ public class IsyFactApplication extends SpringBootServletInitializer {
     }
 }
 ----
-Diese Annotation ist equivalent zur gleichzeitigen Nutzung von der Annotationen `@EnableAutoConfiguration`, `@ComponentScan` und `@SpringBootConfiguration`.
-Die automatische Konfiguration, die extra Konfiguration der Applikationsklasse und das Komponenten-Scannen werden aktiviert.
+Diese Annotation ist äquivalent zur gleichzeitigen Nutzung der Annotationen `@EnableAutoConfiguration`, `@ComponentScan` und `@SpringBootConfiguration`.
+Die automatische Konfiguration, die extra Konfiguration der Applikationsklasse und das _Component Scanning_ werden aktiviert.
 Damit wird die explizite `@Import`-Anweisung meist überflüssig.
-Ist eine granulare Kontrolle bei Anwendungen, die die `@SpringBootApplication`-Annotation nutzen gewünscht, können mit `exclude`-Attributen Komponenten von der automatischen Konfiguration ausgeschlossen werden (Vlg. https://docs.spring.io/spring-boot/reference/using/auto-configuration.html#using.auto-configuration.disabling-specific[offizielle SpringBoot Dokumentation].
+Ist eine feinere Kontrolle bei Anwendungen, welche die `@SpringBootApplication`-Annotation nutzen, gewünscht, können mit `exclude`-Attributen Komponenten von der automatischen Konfiguration https://docs.spring.io/spring-boot/reference/using/auto-configuration.html#using.auto-configuration.disabling-specific[ausgeschlossen] werden.
 
 
 Konfiguration mit `@Configuration` und `@EnableAutoConfiguration`:
@@ -88,9 +88,9 @@ public class IsyFactApplication extends SpringBootServletInitializer {
 }
 ----
 
-Mit diesem Vorgehen wird explizite Kontrolle über die Konfiguration und das Komponenten-Scannen geboten.
+Mit diesem Vorgehen wird explizite Kontrolle über die Konfiguration und das _Component Scanning_ geboten.
 Dieses Vorgehen hat Vorteile bei der Isolation von Modulen in einem modularen System und um sicherzustellen, dass die Konfigurationen unabhängig bleiben.
-Alternativ zu diesem Zweck auch `@SpringBootConfiguration` genutzt werden.
+Alternativ kann zu diesem Zweck auch `@SpringBootConfiguration` genutzt werden.
 
 Für jede Schicht wird im Package der Schicht (`<org>.<domäne>.<anwendung>.<schicht>`) parallel zu den Interfaces der Komponentenschnittstellen eine mit `@Configuration` annotierte <<listing-konfigurationsklasse,Konfigurationsklasse>> erstellt.
 Diese wird zusätzlich mit `@ComponentScan` annotiert, wenn <<listing-applikationsklasse>> verwendet wird.
@@ -129,10 +129,10 @@ Spring ist ein Applikations-Container, welcher sogenannte Spring-Beans instanzii
 Spring-Beans sind beliebige Java-Klassen.
 Für diese Klassen kann man benötigte andere Spring-Beans oder Konfigurationsparameter konfigurieren, welche der Klasse daraufhin im Konstruktor oder per `set`-Methode übergeben werden.
 
-Konfiguriert werden Spring-Beans und ihre Abhängigkeiten durch die von Spring bereitgestellte Annotation `@Component` bzw. durch deren Spezialisierungen (`@Repositpory`, `@Service`, `@Contoller`, usw.).
-Diese werden beim Start des Applikations-Containers gescannt und ausgewertet (_Component Scan_).
+Konfiguriert werden Spring-Beans und ihre Abhängigkeiten durch die von Spring bereitgestellte Annotation `@Component` bzw. durch deren Spezialisierungen (`@Repository`, `@Service`, `@Contoller`, usw.).
+Diese werden beim Start des Applikations-Containers gescannt und ausgewertet (_Component Scanning_).
 Bei der Verwendung von `@SpringBootApplication` erfolgt das Scannen dieser Komponenten automatisch im gleichen Paket und den Unterpaketen der Applikationsklasse.
-Generell gilt, dass jede zentrale und wichtige Klasse aber als Spring-Bean konfiguriert werden sollte.
+Generell gilt, dass jede zentrale und wichtige Klasse als Spring-Bean konfiguriert werden sollte.
 
 Für die Modellierung und Konfiguration der Spring-Beans werden im folgenden Vorgaben aufgestellt.
 
