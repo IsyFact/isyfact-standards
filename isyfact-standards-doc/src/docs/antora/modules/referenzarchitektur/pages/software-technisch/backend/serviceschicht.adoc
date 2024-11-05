@@ -21,21 +21,13 @@ image::software-technisch/backend/service.dn.svg[width=80%,align=center]
 
 Die *Fachkomponenten* der Serviceschicht spiegeln die Fachkomponenten aus dem Anwendungskern wider.
 Sie nehmen die Daten der Anfragen von außen entgegen und stellen die Funktionalität und Daten des Anwendungskerns nach außen hin zur Verfügung.
-Zu den Aufgaben der Fachkomponenten gehören maßgeblich:
-
-* Autorisierung und Tracing eingehender Anfragen,
-* Validierung der Transportobjekte,
-* Transformation von Transportobjekten in Geschäftsobjekte und umgekehrt,
-* fachliche Fehlerbehandlung.
-
-Fachkomponenten arbeiten auf Parametern und Transportobjekten, deren Zweck darin besteht, Daten zwischen Backends und ihren Kommunikationspartnern zu übertragen.
 
 // end::fachkomponente-definition[]
 
 [[fachkomponente-aufgaben]]
 === Aufgaben einer Fachkomponente
 
-Die Aufgaben einer Fachkomponente bedeuten genauer aufgeschlüsselt:
+Zu den Aufgaben der Fachkomponenten gehören maßgeblich:
 
 Autorisierung:: Bei jeder Anfrage muss die Fachkomponente überprüfen, ob der Aufrufer autorisiert ist, die Service-Operation auszuführen.
 Hierzu verwenden Backends den xref:isy-security:konzept/master.adoc[Baustein Security].
