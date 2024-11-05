@@ -118,39 +118,6 @@ project-root/
 Die Struktur bei der Verwendung mehrerer Maven-Module wird im Abschnitt <<multi-modul-projekte>> erläutert.
 
 
-[[schnittstellenprojekte]]
-=== Schnittstellenprojekte
-
-Schnittstellenprojekte sind deutlich einfacher aufgebaut und beinhalten die Definition der Schnittstelle sowie ihrer Transportobjekte.
-Die Implementierung geschieht in der Anwendung, welche die Schnittstelle bereitstellt.
-
-Schnittstellenprojekte enthalten daher nur Quellcode und Dokumentation.
-Tests werden keine benötigt, da die Transportobjekte kein eigenes Verhalten besitzen.
-Sie sind einzig zur Datenübertragung vorgesehen.
-Ebenso verhält es sich mit Ressourcen und Skripten, die Teil der Implementierung (s. <<listing-Projektstruktur,Struktur eines Anwendungsprojekts>>) sind.
-
-Schnittstellenprojekte besitzen unter dem Wurzelverzeichnis (`project-root`) die Verzeichnisse `src/main/java` und `src/docs/asciidoc`.
-Der Aufbau des Verzeichnisses wird im xref:blaupausen:detailkonzept-komponente-service/master.adoc[Detailkonzept Komponente Service] beschrieben.
-
-.Struktur eines Schnittstellenprojekts
-[id="listing-Projektstruktur-Schnittstellen",reftext="{listing-caption} {counter:listings }"]
-[source, xml]
-----
-project-root/
-  |- src/main/java/ <1>
-  |
-  |- src/docs/asciidoc/ <2>
-  |
-  |- (.gitattributes)
-  |- .gitignore
-  |- CHANGELOG.md
-  |- (LICENSE.md)
-  |- pom.xml
-  |- README.md
-----
-<1> Definition der Schnittstelle (Interfaces), Transportobjekte und Transport-Exceptions
-<2> Technische Dokumentation der Schnittstelle im AsciiDoc-Format
-
 [[batchprojekte]]
 === Batch-Projekte
 

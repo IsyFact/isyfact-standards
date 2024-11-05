@@ -216,7 +216,7 @@ Die Verwendung von AOP für andere Zwecke ist nur in begründeten Ausnahmefälle
 === AOP für Transaktionssteuerung verwenden
 
 Für die Transaktionssteuerung ist Spring-AOP mit den dafür vorgesehenen Klassen von Spring einzusetzen.
-Die Umsetzung geschieht im xref:software-technisch/backend/anwendungskern.adoc#transaktionssteuerung[Anwendungskern] oder in der xref:blaupausen:detailkonzept-komponente-service/master.adoc#transaktionssteuerung[Serviceschicht].
+Die Umsetzung geschieht im xref:software-technisch/backend/anwendungskern.adoc#transaktionssteuerung[Anwendungskern] oder in der xref:software-technisch/backend/serviceschicht.adoc#transaktionssteuerung[Serviceschicht].
 Zusammengefasst gilt:
 
 * Instrumentiert werden alle Schnittstellenmethoden des Anwendungskerns.
@@ -238,7 +238,7 @@ Hierfür soll Spring-AOP nicht verwendet werden.
 Schnittstellen-Beans transformieren die Geschäftsobjekte des Anwendungskerns in Transportobjekte der Schnittstelle.
 Die Stack-Traces der Exceptions werden dabei nicht übertragen, da diese internen Informationen dem Aufrufer keinen Mehrwert bieten.
 Für das Logging des Backends selbst sind sie jedoch wertvoll.
-Statt AOP ist das in der Serviceschicht beheimatete Konstrukt der xref:blaupausen:detailkonzept-komponente-service/master.adoc#exception-fassade[Exception-Fassade] zu verwenden.
+Statt AOP ist das in der Serviceschicht beheimatete Konstrukt der xref:software-technisch/backend/serviceschicht.adoc#exception-fassade[Exception-Fassade] zu verwenden.
 
 [[dependency-injection]]
 == Vorgaben zur Dependency Injection

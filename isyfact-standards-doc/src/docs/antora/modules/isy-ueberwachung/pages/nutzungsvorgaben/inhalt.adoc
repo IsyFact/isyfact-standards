@@ -1,8 +1,8 @@
-:sourcedir: ../../../../../../../../isy-ueberwachung/src/
-
 = Nutzungsvorgaben Überwachung: Inhalt
 
 // tag::inhalt[]
+:sourcedir: ../../../../../../../../isy-ueberwachung/src/
+
 [[ueberwachung-von-anwendungen]]
 == Überwachung von Anwendungen
 

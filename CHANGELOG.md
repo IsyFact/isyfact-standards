@@ -1,5 +1,8 @@
 # 4.0.0
 ## FEATURES
+- `IFS-4192`: [isyfact-standards-doc] Referenzarchitektur der Serviceschicht aufgrund von IFS-3736 neu verfasst:
+  - Inhalte zu Kommunikation zwischen IT-Systemen mittels Services und Versionierung von Services auf neue Seite "Services" in der software-technischen Referenzarchitektur umgezogen,
+  - Inhalte zu Verfügbarkeit auf neue Seite "Verfügbarkeit" in der technisch-infrastrukturellen Referenzarchitektur umgezogen.
 - `IFS-4225`: [isyfact-standards-doc] Abschnitt Nutzungsarten einer Anwendung in der software-technischen Referenzarchitektur gelöscht
 - `IFS-3029`: [isyfact-standards-doc] Möglichkeiten der SpringBoot Konfiguration um `SpringBootApplication` und `SpringConfiguration` erweitert
 - `IFS-4190`: [isyfact-standards-doc] Referenzarchitektur des Anwendungskerns aufgrund von IFS-3736 neu verfasst
