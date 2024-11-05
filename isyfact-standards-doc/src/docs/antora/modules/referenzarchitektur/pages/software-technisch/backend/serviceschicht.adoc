@@ -1,0 +1,108 @@
+= Serviceschicht
+
+include::documentation-guide::partial$licence.adoc[]
+
+// tag::serviceschicht-definition[]
+
+Die Serviceschicht stellt Services von Backends innerhalb einer Systemlandschaft zur Verfügung.
+Sie regelt die Autorisierung von Aufrufen, validiert die übergebenen Daten und ruft die entsprechenden fachlichen Operationen des Anwendungskerns auf.
+Der Aufbau der Serviceschicht sowie ihre Kommunikation mit anderen Schichten ist in <<systemarchitektur-serviceschicht,folgender Grafik>> dargestellt.
+
+[[systemarchitektur-serviceschicht]]
+.Einbettung der Serviceschicht in die Systemarchitektur
+image::software-technisch/backend/service.dn.svg[width=80%,align=center]
+
+// end::serviceschicht-definition[]
+
+[[fachkomponenten]]
+== Fachkomponenten
+
+// tag::fachkomponente-definition[]
+
+Die *Fachkomponenten* der Serviceschicht spiegeln die Fachkomponenten aus dem Anwendungskern wider.
+Sie nehmen die Daten der Anfragen von außen entgegen und stellen die Funktionalität und Daten des Anwendungskerns nach außen hin zur Verfügung.
+
+// end::fachkomponente-definition[]
+
+[[fachkomponente-aufgaben]]
+=== Aufgaben einer Fachkomponente
+
+Zu den Aufgaben der Fachkomponenten gehören maßgeblich:
+
+Autorisierung:: Bei jeder Anfrage muss die Fachkomponente überprüfen, ob der Aufrufer autorisiert ist, die Service-Operation auszuführen.
+Hierzu verwenden Backends den xref:isy-security:konzept/master.adoc[Baustein Security].
+
+Tracing:: Bei jeder Anfrage muss die Fachkomponente die Korrelations-ID in den Logging-Kontext einfügen.
+Hierzu verwenden Backends den xref:isyfact-standards-doku:isy-logging:konzept/master.adoc[Baustein Logging].
+
+Validierung:: Bei jeder Anfrage muss die Fachkomponente die mitgelieferten Parameter und Transportobjekte auf Korrektheit prüfen.
+Beispiele hierfür sind das zwingende Vorhandensein bestimmter Parameter oder Transportobjekte sowie die Einhaltung von Datentypen.
+Hierzu verwenden Backends standardmäßig Bean Validation.
+
+Transformation:: Bei jeder autorisierten und validierten Anfrage muss die Fachkomponente die Transportobjekte der Serviceschicht in Geschäftsobjekte des Anwendungskerns umwandeln und umgekehrt.
+Die Umwandlung kann programmatisch oder über das Produkt https://mapstruct.org/[MapStruct] erfolgen.
+
+Fehlerbehandlung:: Fachliche Fehler, die bei der Verarbeitung einer Anfrage in der Serviceschicht oder im Anwendungskern auftreten, müssen von der Fachkomponente an den Aufrufer zurückgegeben werden.
+Hierzu verwenden Backends den xref:isyfact-standards-doku:isy-exception-core:konzept/master.adoc[Baustein Fehlerbehandlung].
+
+Im Normalfall ist der Funktionsumfang der Fachkomponenten der Serviceschicht viel geringer als der Funktionsumfang ihrer Entsprechungen im Anwendungskern.
+Dies liegt darin begründet, dass die Serviceschicht die Funktionalität des Anwendungskerns nutzt, um den Service bereitzustellen, und selbst keinerlei Geschäftslogik beinhaltet.
+
+[[fachkomponente-aufbau]]
+=== Aufbau einer Fachkomponente
+
+Eine Fachkomponente besteht aus einer Service-Fassade und einer Exception-Fassade.
+
+[[service-fassade]]
+==== Service-Fassade
+
+Die *Service-Fassade* kümmert sich darum, eingehende Service-Aufrufe auf interne Aufrufe des Anwendungskerns abzubilden.
+Transportobjekte der Serviceschicht werden dabei in Geschäftsobjekte des Anwendungskerns umgewandelt.
+Für die vom Anwendungskern gelieferten Ergebnisse ist eine Transformation in umgekehrter Richtung erforderlich.
+Dabei führt die Service-Fassade eine Validierung der Aufrufparameter durch.
+
+Die Service-Fassade übernimmt darüber hinaus auch die Autorisierung des Aufrufs.
+Dazu nutzt sie den xref:isy-security:nutzungsvorgaben/master.adoc#autorisierung_service_schnittstelle[Baustein Security].
+
+[[exception-fassade]]
+==== Exception-Fassade
+
+Die *Exception-Fassade* ist verantwortlich für die Umwandlung der durch den Anwendungskern oder die Service-Fassade geworfenen Exceptions in Exceptions der Serviceschicht.
+Für das Ergebnis der Umwandlung ist sicherzustellen, dass entweder Exceptions ohne Stack-Traces oder ihnen entsprechende Transportobjekte zurückgegeben werden.
+Für die Behandlung und Umwandlung der aufgefangenen Exceptions sollten Log-Einträge erzeugt werden. 
+Dabei ist sicherzustellen, dass zum Zeitpunkt der Erstellung der Log-Einträge eine Korrelations-ID verfügbar ist.
+
+== Service-Framework
+
+// tag::service-framework-definition[]
+
+Das Service-Framework definiert die Service-Endpunkte des Backends und stellt diese zur Verfügung.
+Es wandelt die in der HTTP-Anfrage übertragenen Daten in Transportobjekte um und ruft die entsprechende Fachkomponente auf.
+Ebenso erledigt es die Umwandlung des Ergebnisses in eine HTTP-Antwort.
+Zur Definition der Service-Endpunkte wird Spring Web MVC verwendet.
+Zur Konfiguration der Serviceschicht wird das Spring-Framework genutzt.
+
+// end::service-framework-definition[]
+
+Die weiteren Inhalte zum Aufbau, zur Realisierung und zur Nutzung der Serviceschicht befinden sich im xref:isy-service-rest:konzept/master.adoc[] sowie den xref:isy-service-rest:nutzungsvorgaben/master.adoc[].
+
+[[transaktionssteuerung]]
+== Transaktionssteuerung
+
+In der Regel geschieht die Transaktionssteuerung im Anwendungskern.
+Die Ausnahme bilden Anforderungen, aus denen heraus die Service-Fassade einer Fachkomponente der Serviceschicht eine Transaktion über mehrere Aufrufe des Anwendungskerns hinweg bilden muss.
+In diesem Fall fällt die Steuerung der Transaktion der Service-Fassade zu, weil es wichtig ist, dass die Fehlerbehandlung in jedem Fall die Transaktion umschließt.
+Nur so ist gewährleistet, dass auch Fehler, die beim Commit bzw. Rollback entstehen, von der Fehlerbehandlung erfasst werden.
+
+Die Transaktionalität einzelner Service-Operationen wird über Annotationen (`@Transactional`) an den Methoden der Service-Fassade konfiguriert.
+
+Eine Sonderstellung nehmen Services ein, die im Fehlerfall keinen Fehler zurückgeben, sondern die Fehler in der Antwortnachricht übermitteln.
+Der AOP-Transaktionsmanager würde kein Rollback durchführen, da alle Exceptions abgefangen werden, auf die er reagieren könnte.
+Um auch in diesem Fall ein Rollback der Transaktion zu erzwingen, ist folgender Aufruf durchzuführen:
+
+[[listing-service-fassade-tx-rollback-only]]
+.Rollback von Transaktionen im Fehlerfall ohne Exceptions
+[source,java]
+----
+TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+----

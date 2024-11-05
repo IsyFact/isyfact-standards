@@ -2,38 +2,13 @@
 
 include::glossary:licence:partial$licence.adoc[]
 
-Im Folgenden wird auf wichtige Aspekte des Betriebs einer Systemlandschaft eingegangen.
-Dazu gehören Verfügbarkeit, Ausfallsicherheit, Performance, Lastverteilung, Auslieferung, Installation, Versionswechsel, Monitoring und Datensicherung.
-
-[[verfuegbarkeit-und-ausfallsicherheit]]
-== Verfügbarkeit und Ausfallsicherheit
-
-Die Verfügbarkeit wird über einen Prozentwert gemessen, der unter Berücksichtigung von definierten Betriebs- und Wartungsfenstern angibt, wie ausfallsicher ein System sein soll und tatsächlich ist.
-<<image-verfuegbar>> gibt einen Überblick, was bei der Messung der Verfügbarkeit zu berücksichtigen ist.
-
-.Verfügbarkeit
-[id="image-verfuegbar",reftext="{figure-caption} {counter:figures}"]
-image::referenzarchitektur:technisch-infrastrukturell/verfuegbar.png[]
-
-Der Aufbau der Produktionsumgebung ist so zu gestalten, dass die angestrebte Verfügbarkeit erreicht werden kann.
-
-TIP: Dies kann beispielsweise eine Verfügbarkeit von 7x24 Stunden und eine auf den Monat berechnete Verfügbarkeit von über 99 % sein.
-Eine Beispielrechnung findet sich im xref:blaupausen:detailkonzept-komponente-service/master.adoc#verfuegbarkeit[Detailkonzept Service].
-
-In der Produktionsumgebung einer IsyFact-Systemlandschaft wird die geforderte Verfügbarkeit über das Mittel der Redundanz realisiert.
-Jede Komponente der technischen Infrastruktur ist mehrfach vorhanden.
-Bei einem Ausfall einer Komponente kann der Wirkbetrieb immer noch über die andere Komponente abgewickelt werden (Failover).
-Die Zustandslosigkeit der Applikationsserver (s. xref:technisch-infrastrukturell.adoc[]) unterstützt diese Redundanz und das Failover.
-Beim Ausfall eines Applikationsservers gehen die notwendigen Informationen, um den Betrieb über einen anderen Applikationsserver abzuwickeln, nicht verloren.
-
-Neben der technischen Redundanz sollte auch eine räumliche Redundanz gegeben sein.
-Die Komponenten der technischen Infrastruktur sollten über mehrere Rechenzentren redundant verteilt sein.
-Dadurch ist die Verfügbarkeit auch in Katastrophen-Szenarien (z.B. einem Brand in einem Rechenzentrum) sichergestellt.
+Im Folgenden wird auf weitere, wichtige Aspekte des Betriebs einer Systemlandschaft eingegangen.
+Dazu gehören Performance, Lastverteilung, Auslieferung, Installation, Versionswechsel, Monitoring und Datensicherung.
 
 [[performance]]
 == Performance
 
-Ein weiterer wichtiger Aspekt der technischen Infrastruktur ist die Performance der IT-Systeme in einer IsyFact-Systemlandschaft.
+Ein wichtiger Aspekt der technischen Infrastruktur ist die Performance der IT-Systeme in einer IsyFact-Systemlandschaft.
 Auf der Ebene der technischen Infrastruktur wird die Performance vor allem durch die folgenden Aspekte limitiert:
 
 *Leistungsfähigkeit eines Serverknotens:* Die Leistungsfähigkeit eines Serverknotens wird bestimmt durch seine Rechenleistung (Anzahl und Taktung der Prozessoren) und Größe des Hauptspeichers.

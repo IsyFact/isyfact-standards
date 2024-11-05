@@ -4,7 +4,7 @@
 *** xref:software-technisch/it-system.adoc[]
 **** xref:software-technisch/it-system-zerlegung.adoc[]
 **** xref:software-technisch/backend.adoc[Backend]
-***** xref:blaupausen:detailkonzept-komponente-service/master.adoc[Service]
+***** xref:software-technisch/backend/serviceschicht.adoc[]
 ***** xref:software-technisch/backend/anwendungskern.adoc[]
 ***** xref:blaupausen:detailkonzept-komponente-datenzugriff/einordnung-ziele.adoc[Datenzugriff]
 ****** xref:blaupausen:detailkonzept-komponente-datenzugriff/persistenzlogik.adoc[]
@@ -14,7 +14,9 @@
 ***** xref:software-technisch/backend/konfiguration.adoc[]
 **** xref:software-technisch/frontend.adoc[]
 **** xref:blaupausen:detailkonzept-komponente-batch/master.adoc[Batch]
+*** xref:software-technisch/services.adoc[]
 ** xref:technisch-infrastrukturell.adoc[technisch-infrastrukturell]
+*** xref:technisch-infrastrukturell/availability.adoc[]
 *** xref:technisch-infrastrukturell/betriebliche-aspekte.adoc[]
 ** Anpassung der Referenzarchitektur
 *** xref:tailoring.adoc[Tailoring]

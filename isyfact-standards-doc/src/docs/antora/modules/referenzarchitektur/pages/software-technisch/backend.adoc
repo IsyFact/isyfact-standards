@@ -33,7 +33,7 @@ Hierzu setzen Backends Transaktionen ein.
 Transaktionen müssen die https://de.wikipedia.org/wiki/ACID[ACID-Eigenschaften] erfüllen, um grundlegende Anforderungen an Datenqualität zu erfüllen.
 
 In Backends ist der Anwendungskern für die xref:software-technisch/backend/anwendungskern.adoc#transaktionssteuerung[Transaktionssteuerung] zuständig.
-In Ausnahmefällen kann die Transaktionssteuerung auch über die xref:blaupausen:detailkonzept-komponente-service/master.adoc#transaktionssteuerung[Serviceschicht] erfolgen.
+In Ausnahmefällen kann die Transaktionssteuerung auch über die xref:software-technisch/backend/serviceschicht.adoc#transaktionssteuerung[Serviceschicht] erfolgen.
 
 === Caching
 
@@ -108,38 +108,26 @@ Zur Umsetzung des objekt-relationalen Mapping verwendet die Persistenzschicht da
 Zur Konzeption der Persistenzschicht definiert die Referenzarchitektur xref:blaupausen:detailkonzept-komponente-datenzugriff/einordnung-ziele.adoc[weitere Vorgaben].
 Die Umsetzung geschieht mithilfe des xref:isy-persistence:konzept.adoc[Bausteins JPA/Hibernate].
 
-[[service]]
-== Service
+[[serviceschicht]]
+== Serviceschicht
 
-Backends können Funktionen des Anwendungskerns über die Serviceschicht anderen IT-Systemen zur Verfügung stellen.
-Der Aufbau der Serviceschicht sowie ihre Kommunikation mit anderen Schichten ist in <<systemarchitektur-service,folgender Grafik>> dargestellt.
+include::backend/serviceschicht.adoc[tags=serviceschicht-definition]
 
-[[systemarchitektur-service]]
-.Einbettung der Serviceschicht in die Systemarchitektur
-image::software-technisch/backend/service.dn.svg[width=80%,align=center]
-
-[[service-fachkomponenten]]
+[[serviceschicht-fachkomponenten]]
 === Fachkomponenten
 
-Die Servicelogik beinhaltet, wie im Anwendungskern auch, Fachkomponenten.
-Diese Fachkomponenten setzen im wesentlichen Service-Schnittstellen mit den folgenden Aufgaben um:
+include::backend/serviceschicht.adoc[tags=fachkomponente-definition]
 
-* Autorisierung und Tracing eingehender Anfragen,
-* Validierung der Transportobjekte,
-* Umwandlung von Transportobjekten in Geschäftsobjekte und umgekehrt,
-* fachliche Fehlerbehandlung.
-
-[[service-framework]]
+[[serviceschicht-framework]]
 === Service-Framework
 
-Service-Schnittstellen von Backends sind Webservices, die dem REST-Paradigma folgen.
-Technologisch erfolgt die Umsetzung als REST-Service mit Spring Web MVC bzw. Spring WebClient.
+include::backend/serviceschicht.adoc[tags=service-framework-definition]
 
-[[service-umsetzung]]
+[[serviceschicht-umsetzung]]
 === Umsetzung
 
-Zur Konzeption von Services definiert die Referenzarchitektur xref:blaupausen:detailkonzept-komponente-service/master.adoc[weitere Vorgaben].
-Die Umsetzung von Services geschieht mithilfe des xref:isy-service-rest:konzept/master.adoc[Bausteins REST].
+Zur Konzeption von Services definiert die Referenzarchitektur xref:software-technisch/services.adoc[weitere Vorgaben].
+Die Umsetzung der xref:software-technisch/backend/serviceschicht.adoc[] geschieht mithilfe des xref:isy-service-rest:konzept/master.adoc[Bausteins REST].
 
 [[querschnitt]]
 == Querschnitt

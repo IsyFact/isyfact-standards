@@ -155,7 +155,7 @@ In diesem Fall wird die Transaktion nicht fortgeschrieben, sondern zurückgeroll
 Der Anwendungskern bietet an seiner Schnittstelle fachliche Operationen, in fachliche Komponenten gruppiert, an.
 Die fachlichen Operationen sind in der Regel zustandslos.
 Daher ist eine Transaktion über mehrere Aufrufe des Anwendungskerns nach Möglichkeit zu vermeiden.
-Ist eine solche Steuerung trotzdem unumgänglich, muss sie über die xref:blaupausen:detailkonzept-komponente-service/master.adoc#transaktionssteuerung[Serviceschicht] erfolgen.
+Ist eine solche Steuerung trotzdem unumgänglich, muss sie über die xref:software-technisch/backend/serviceschicht.adoc#transaktionssteuerung[Serviceschicht] erfolgen.
 
 [[transaktionssteuerung-mit-jpa]]
 === Transaktionssteuerung mit JPA
