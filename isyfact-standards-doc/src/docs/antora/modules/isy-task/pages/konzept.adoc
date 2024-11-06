@@ -6,7 +6,7 @@ include::glossary:licence:partial$licence.adoc[]
 
 Das Konzept Task Scheduling beschreibt die konzeptionellen Grundlagen der Steuerung, d.h. Planung und Ausführung, von Tasks in der IsyFact.
 
-Tasks sind in diesem Kontext periodisch wiederkehrende Tätigkeiten, die innerhalb einer xref:glossary:glossary:master.adoc#glossar-anwendungskomponente[Anwendungskomponente] angesiedelt sind und zur Erfüllung der fachlichen oder technischen Anforderungen der Anwendung beitragen.
+Tasks sind in diesem Kontext periodisch wiederkehrende Tätigkeiten, die innerhalb einer xref:referenzarchitektur:fachlich.adoc#awl-fachliche-architektur[Anwendungskomponente] angesiedelt sind und zur Erfüllung der fachlichen oder technischen Anforderungen der Anwendung beitragen.
 Sie <<abgrenzung-aufgaben-batches,grenzen sich wesentlich>> von xref:glossary:glossary:master.adoc#glossar-batch[Batches] ab.
 
 [[abgrenzung-aufgaben-batches]]

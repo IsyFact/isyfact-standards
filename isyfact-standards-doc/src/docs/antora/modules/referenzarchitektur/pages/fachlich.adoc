@@ -30,8 +30,7 @@ Zwischen den Anwendungen unterschiedlicher Anwendungsdomänen sollten nur wenige
 *xref:glossary:glossary:master.adoc#glossar-anwendung[Anwendung]:*
 include::glossary::terms-definitions.adoc[tag="anwendung-definition"]
 
-
-*xref:glossary:glossary:master.adoc#glossar-anwendungskomponente[Anwendungskomponenten]:* Eine Anwendungskomponente beschreibt eine Menge funktional zusammenhängender Anwendungsfälle.
+*Anwendungskomponenten:* Eine Anwendungskomponente beschreibt eine Menge funktional zusammenhängender Anwendungsfälle.
 Anwendungskomponenten sind Bestandteile von Anwendungen.
 Im Rahmen weitergehender Architekturvorgaben beim Einsatz der IsyFact in einem konkreten Anwendungskontext wird man in der Regel auch vorgeben, welche Arten von Anwendungen es in diesem Kontext geben soll und aus welchen Komponenten sie bestehen.
 In <<awl-fachlich,der obigen Abbildung>> werden Anwendungskomponenten nicht dargestellt: Sie wären die Bestandteile der blauen und gelben Kästen.

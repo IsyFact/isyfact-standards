@@ -4,7 +4,7 @@ include::documentation-guide::partial$licence.adoc[]
 
 // tag::anwendungskern-definition[]
 
-Der xref:glossary::terms-definitions.adoc#glossar-anwendungskern[Anwendungskern] ist der zentrale Bestandteil eines Backends.
+Der Anwendungskern ist der zentrale Bestandteil eines Backends.
 Hier werden die fachlichen Funktionen der zugehörigen xref:glossary::terms-definitions.adoc#glossar-anwendung[Anwendung] realisiert.
 Der Aufbau des Anwendungskerns sowie seine Kommunikation mit anderen Schichten ist in <<systemarchitektur-anwendungskern,folgender Grafik>> dargestellt.
 
