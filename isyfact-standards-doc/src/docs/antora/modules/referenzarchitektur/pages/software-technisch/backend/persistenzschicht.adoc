@@ -91,7 +91,6 @@ So ist es zum Beispiel sinnvoll, für 1:1-Beziehungen im Persistenz-Klassenmodel
 Somit wird der Inhalt einer Datenbanktabelle auf mehr als eine Entität verteilt.
 Solche Entitäten können dann über das Lesen einer einzigen Tabellenzeile aus der Datenbank gefüllt werden.
 
-
 [[vererbung-im-persistenz-klassenmodell]]
 === Vererbung im Persistenz-Klassenmodell
 
