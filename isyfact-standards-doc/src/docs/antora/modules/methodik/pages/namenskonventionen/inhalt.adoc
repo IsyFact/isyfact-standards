@@ -428,12 +428,10 @@ m|<komponente> |Der Name der technischen Komponente: meist `gui` für eine ausge
 Der Name einer Web-Applikation (Webapp-Root) ist immer gleich dem <<technische-systemnamen,technischen Systemnamen>>.
 
 [[persistenz]]
-==== Persistenz
+==== Persistenzschicht
 include::isy-persistence:page$konzept/vorgaben-konventionen.adoc[tag=namenskonvention]
 
-===== Umsetzung des Datenzugriffs
-
-include::isy-persistence:page$nutzungsvorgaben/umsetzung-datenzugriff.adoc[tag=namenskonvention]
+include::isy-persistence:page$nutzungsvorgaben/umsetzung-persistenzschicht.adoc[tag=namenskonvention]
 
 ===== Historisierung
 

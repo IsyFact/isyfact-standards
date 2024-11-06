@@ -1158,7 +1158,7 @@ public VerarbeitungsErgebnis verarbeiteSatz() throws BatchAusfuehrungsException 
 ==== Sonderfall eigenständige Transaktionssteuerung
 
 Unter bestimmten Umständen kann es notwendig sein, die Transaktionssteuerung des Batchrahmens zu umgehen.
-Dies ist beispielsweise der Fall, wenn ein im Datenzugriff auftretender Fehler aus der Datenbank ignoriert werden soll.
+Dies ist beispielsweise der Fall, wenn ein in der Persistenzschicht auftretender Fehler aus der Datenbank ignoriert werden soll.
 Das Auftreten einer solchen Exception führt dazu, dass die Transaktion nur noch zurückgerollt werden kann, selbst wenn die Exception gefangen und ignoriert wird.
 
 Um dieser Problematik zu begegnen, kann in der Satzverarbeitung selbst die Transaktionsklammer nur für einen Satz geöffnet und nach der Verarbeitung entweder committed oder zurückgerollt werden.

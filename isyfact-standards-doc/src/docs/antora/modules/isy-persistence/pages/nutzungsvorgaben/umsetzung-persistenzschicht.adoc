@@ -1,8 +1,8 @@
-= Umsetzung des Datenzugriffs
+= Umsetzung der Persistenzschicht
 
 include::glossary:licence:partial$licence.adoc[]
 
-Die Umsetzung des Datenzugriffs mit JPA und Hibernate beachtet die xref:konzept/vorgaben-konventionen.adoc[] zu diesem Thema.
+Die Umsetzung der Persistenzschicht mit JPA und Hibernate beachtet die xref:konzept/vorgaben-konventionen.adoc[] zu diesem Thema.
 Das Produkt Spring Data JPA vereinfacht die Umsetzung weiter.
 
 [[umsetzung-daos]]
@@ -12,7 +12,7 @@ Für die Ablage der Data Access Objects (DAOs) und Entitäten gibt es eine Konve
 
 //tag::namenskonvention[]
 
-.Vorgaben zur Paketstruktur für Klassen des Datenzugriffs
+.Vorgaben zur Paketstruktur für Klassen der Persistenzschicht
 [[table-paketstruktur]]
 [cols="1s,4m",options="header"]
 |===
@@ -26,7 +26,7 @@ Für die Ablage der Data Access Objects (DAOs) und Entitäten gibt es eine Konve
 
 //end::namenskonvention[]
 
-Um den Anteil an Boilerplate Code bei der Umsetzung des Datenzugriffs deutlich zu reduzieren, werden (Spring Data) *Repositories* eingesetzt.
+Um den Anteil an Boilerplate Code bei der Umsetzung der Persistenzschicht deutlich zu reduzieren, werden (Spring Data) *Repositories* eingesetzt.
 Die häufig verwendeten CRUD-Methoden (Create, Read, Update, Delete) werden vom Interface `CrudRepository` (siehe <<listing-crudrepository>>) zur direkten Verwendung angeboten.
 Zur Implementierung werden zwei Typ-Parameter benötigt: der Typ der Entität `T` und der Typ des Primärschlüssels `ID`.
 
@@ -56,7 +56,7 @@ Für jede Entität wird ein entsprechendes Repository als Interface angelegt.
 Die Repositories werden im Package der Fachkomponente abgelegt, welche die Datenhoheit über die Tabelle(n) des Repositories besitzt (zum Thema Datenhoheit siehe xref:referenzarchitektur:software-technisch/backend.adoc#persistenz[Referenzarchitektur Backend]).
 Die Repositories werden nur von Klassen der Fachkomponente mit Datenhoheit aufgerufen.
 
-Gemäß der xref:referenzarchitektur:software-technisch/backend.adoc#persistenz[Referenzarchitektur] dürfen Entitäten nur von der Fachkomponente im Anwendungskern verändert werden, welche zur Fachkomponente im Datenzugriff gehört.
+Gemäß der xref:referenzarchitektur:software-technisch/backend.adoc#persistenz[Referenzarchitektur] dürfen Entitäten nur von der Fachkomponente im Anwendungskern verändert werden, welche zur Fachkomponente in der Persistenzschicht gehört.
 Der Anwendungskern darf für andere Fachkomponenten nur Geschäftsobjekte an seiner Fachkomponentenschnittstelle anbieten.
 
 Für ein konkretes DAO ist ein eigenes Interface von der Basisschnittstelle `CrudRepository` abzuleiten.
