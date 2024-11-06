@@ -6,5 +6,5 @@ on:
       - 'release/**'
 
 jobs:
-  check-commit-message:
-    uses: IsyFact/isyfact-standards/.github/workflows/commit_message_checker_template.yml@master
+  CommitMessageChecker:
+    uses: IsyFact/isy-github-actions-templates/.github/workflows/commit_message_checker_template.yml@v1.6.0
