@@ -16,13 +16,9 @@
 
     <properties>
         <spring.boot.version>3.2.5</spring.boot.version>
-        <spring.webflow.version>3.0.0</spring.webflow.version>
         <resilience4j.version>1.7.1</resilience4j.version>
         <apache.poi.version>4.1.2</apache.poi.version>
         <greenmail.version>1.6.15</greenmail.version>
-        <jsf-api.version>2.2.20</jsf-api.version>
-        <jsf-impl.version>2.2.20</jsf-impl.version>
-        <tomahawk20.version>1.1.14</tomahawk20.version>
         <metro.webservices.version>2.4.10</metro.webservices.version>
         <logback-json-classic.version>0.1.5</logback-json-classic.version>
         <logback-jackson.version>0.1.5</logback-jackson.version>
@@ -50,51 +46,6 @@
     <!-- Dependency management for IsyFact core technology stack. -->
     <dependencyManagement>
         <dependencies>
-            <!-- Web framework: Spring Webflow -->
-            <dependency>
-                <groupId>org.springframework.webflow</groupId>
-                <artifactId>spring-webflow</artifactId>
-                <version>${spring.webflow.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.webflow</groupId>
-                <artifactId>spring-binding</artifactId>
-                <version>${spring.webflow.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.webflow</groupId>
-                <artifactId>spring-faces</artifactId>
-                <version>${spring.webflow.version}</version>
-            </dependency>
-
-            <!-- JSF implementation: Oracle Mojarra JavaServer Faces -->
-            <dependency>
-                <groupId>com.sun.faces</groupId>
-                <artifactId>jsf-api</artifactId>
-                <version>${jsf-api.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.sun.faces</groupId>
-                <artifactId>jsf-impl</artifactId>
-                <version>${jsf-impl.version}</version>
-            </dependency>
-
-            <!-- JSF implementation addon: Apache MyFaces Tomahawk. -->
-            <dependency>
-                <groupId>org.apache.myfaces.tomahawk</groupId>
-                <artifactId>tomahawk20</artifactId>
-                <version>${tomahawk20.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>commons-collections</groupId>
-                        <artifactId>commons-collections</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>commons-logging</groupId>
-                        <artifactId>commons-logging</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
 
             <dependency>
                 <groupId>org.springframework.boot</groupId>
