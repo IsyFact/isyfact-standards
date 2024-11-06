@@ -287,14 +287,20 @@
             <!-- Logging: SLF4J -->
             <!-- Logging: Logback -->
             <!-- Application core framework, remoting: Spring -->
+            <!-- Service framework: Spring Web MVC, Spring WebClient -->
+            <!-- Http-Client: Apache Http-Components-HttpClient -->
             <!-- Authentication/autorisation: Spring Security -->
-            <!-- Persistence framework: Hibernate -->
+            <!-- Persistence framework: Hibernate, Spring Data JPA, Liquibase -->
             <!-- JSON processing: Jackson -->
             <!-- Dynamic SQL query generation: QueryDSL -->
-            <!-- Open Source Cache: ehcache -->
-            <!-- Testing, test framework: JUnit -->
+            <!-- Open Source Cache: ehcache, spring cache abstraction -->
+            <!-- JEE API: JPA, JTA, Jakarta Annotations -->
+            <!-- XML Binding: JAXB -->
+            <!-- Code generation: Lombok -->
+            <!-- Testing, test framework: JUnit, Testcontainers -->
             <!-- Testing, mocking framework: Mockito -->
             <!-- Testing, assertion API: AssertJ -->
+            <!-- Testing, in-memory-database: H2 -->
         </dependencies>
     </dependencyManagement>
 </project>
