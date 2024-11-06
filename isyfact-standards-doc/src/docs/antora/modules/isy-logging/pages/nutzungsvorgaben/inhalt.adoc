@@ -937,7 +937,7 @@ So können z.B. auch die Aufrufe fremder RemoteBean-Schnittstellen geloggt werde
 Es muss sichergestellt werden, dass alle Bibliotheken – auch solche die nicht nach den Vorgaben der IsyFact entwickelt wurden – logback, mit der in <<logback-konfiguration>> definierten Konfiguration, nutzen.
 Dadurch wird gewährleistet, dass die definierten Vorgaben zu Logdateien und Struktur der Logeinträge einheitlich  umgesetzt werden.
 
-Beim Einsatz von xref:glossary:glossary:master.adoc#glossar-bibliothek[Bibliotheken], die nicht nach der IsyFact entwickelt wurden, muss daher unterschieden werden:
+Beim Einsatz von Bibliotheken, die nicht nach der IsyFact entwickelt wurden, muss daher unterschieden werden:
 
 * **Die Bibliothek loggt mittels logback oder SLF4J**: Es sind keine Maßnahmen notwendig.
 
