@@ -20,7 +20,7 @@ image::referenzarchitektur:fachlich/fachliche-referenzarchitektur-anwendungsland
 
 Zur Strukturierung der xref:glossary:glossary:master.adoc#glossar-anwendungslandschaft[Anwendungslandschaft] werden drei fachliche Hierarchieebenen festgelegt:
 
-*xref:glossary:glossary:master.adoc#glossar-anwendungsdomaene[Anwendungsdomäne]:*
+*xref:glossary:glossary:master.adoc#glossar-domaene[Anwendungsdomäne]:*
 Auf der obersten Hierarchieebene werden Anwendungsdomänen gebildet.
 Eine Anwendungsdomäne gruppiert fachlich zusammengehörende Anwendungen zur Unterstützung von Geschäftsprozessen, die als eine Einheit angesehen werden können.
 In <<awl-fachlich,der obigen Abbildung>> wurden zwei Domänen gebildet.
