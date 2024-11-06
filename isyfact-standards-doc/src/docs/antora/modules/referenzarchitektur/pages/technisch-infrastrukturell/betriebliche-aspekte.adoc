@@ -11,7 +11,7 @@ Dazu gehören Performance, Lastverteilung, Auslieferung, Installation, Versionsw
 Ein wichtiger Aspekt der technischen Infrastruktur ist die Performance der IT-Systeme in einer IsyFact-Systemlandschaft.
 Auf der Ebene der technischen Infrastruktur wird die Performance vor allem durch die folgenden Aspekte limitiert:
 
-*Leistungsfähigkeit eines Serverknotens:* Die Leistungsfähigkeit eines Serverknotens wird bestimmt durch seine Rechenleistung (Anzahl und Taktung der Prozessoren) und Größe des Hauptspeichers.
+*Leistungsfähigkeit eines Serverknotens:* Die Leistungsfähigkeit eines Serverknotens wird bestimmt durch seine Rechenleistung (Anzahl und Taktung der Prozessoren) und Größe des Hauptspeichers.
 
 *Netzwerk-Durchsatz:* In einem verteilten System erfolgt die Verarbeitung von Informationen innerhalb einer Geschäftsfunktion meist durch die Zusammenarbeit von verschiedenen Knoten der Infrastruktur.
 Dazu müssen die Knoten miteinander kommunizieren.
@@ -74,7 +74,7 @@ Gleiches gilt, wenn sich zum Beispiel die Parameter eines Anwendungsservers änd
 Eine neue Version der Parameter liegt vor und damit liegt auch eine neue Konfiguration der Betriebsumgebung vor.
 Um nachvollziehen zu können, was sich wann warum geändert hat, ist es empfehlenswert, dass jede Veränderung an der Betriebsumgebung genehmigt und nachvollziehbar dokumentiert wird.
 
-*xref:glossary:glossary:master.adoc#glossar-auslieferung[Auslieferung]:* Mit dem Begriff „Auslieferung“ wird die Übergabe von Liefergegenständen aus der Hoheit der Software-Entwicklung in die Hoheit des Betriebs bezeichnet.
+*Auslieferung:* Mit dem Begriff „Auslieferung“ wird die Übergabe von Liefergegenständen aus der Hoheit der Software-Entwicklung in die Hoheit des Betriebs bezeichnet.
 Dabei werden im allgemeinen Software, Parameter und eine Dokumentation ausgeliefert.
 Bei der Software wird eine ablauffähige Einheit (RPM-Paket) ausgeliefert.
 Dieses RPM-Paket wird durch das Installationsprogramm unter Angabe der Parameter installiert.
@@ -82,7 +82,7 @@ Anschließend wird die installierte Software gemäß der in der Auslieferungsdok
 Die Auslieferungsdokumentation besteht aus einem Releaseletter, einem Betriebshandbuch und ggf. einem Benutzerhandbuch.
 Im Releaseletter werden Inhalt und Version der Pakete in Form einer Stückliste beschrieben.
 Weiterhin wird beschrieben, welche bekannten Fehler und Probleme es mit diesem Paket gibt.
-Im Releaseletter sind auch die Installationsanleitung inklusive der Parameter der Installation und die Aufstellung der mit dem xref:glossary:glossary:master.adoc#glossar-release[Release] geschlossenen Fehler-Meldungen enthalten.
+Im Releaseletter sind auch die Installationsanleitung inklusive der Parameter der Installation und die Aufstellung der mit dem Release geschlossenen Fehler-Meldungen enthalten.
 Eine Auslieferung umfasst ebenfalls Ergänzungen und Anpassungen der betroffenen Betriebshandbücher.
 
 Wie oben bereits erwähnt bezeichnet der Begriff Auslieferung einen Verantwortungsübergang zwischen zwei Organisationseinheiten.
