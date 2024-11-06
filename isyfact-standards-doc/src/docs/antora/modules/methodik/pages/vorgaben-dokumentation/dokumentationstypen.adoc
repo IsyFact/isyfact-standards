@@ -60,7 +60,7 @@ Beispiele:
 
 |Inhalt
 a|
-* Bricht die Referenzarchitektur auf Aspekte der xref:glossary:glossary:master.adoc#glossar-t-architektur[software-technischen Architektur] wie z.B. Batches, Datenzugriff oder Services, herunter.
+* Bricht die Referenzarchitektur auf Aspekte der xref:glossary:glossary:master.adoc#glossar-t-architektur[software-technischen Architektur] wie z.B. Batches, Persistenz oder Services, herunter.
 * Enthält Architekturvorgaben und Architekturentscheidungen.
 
 |Zielgruppe(n)
@@ -130,7 +130,7 @@ Nutzungsvorgaben sind keine Benutzerdokumentation.
 
 |Vorlage / Beispiel
 a|
-xref:isy-persistence:nutzungsvorgaben/umsetzung-datenzugriff.adoc[Nutzungsvorgaben JPA/Hibernate]
+xref:isy-persistence:nutzungsvorgaben/umsetzung-persistenzschicht.adoc[Nutzungsvorgaben JPA/Hibernate]
 |===
 
 

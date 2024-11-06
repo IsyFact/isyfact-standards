@@ -28,7 +28,8 @@ Die grundlegenden Prinzipien bei der technischen Abbildung sind, dass:
 * die Umsetzung in Form eines Patterns erfolgt, und dass
 * die Historisierung konsistent mit den bereits getroffenen Festlegungen zur Persistenz ist.
 
-Die Historisierung der Bearbeitung erfolgt *explizit*, d. h. die zu historisierenden Daten werden im Anwendungskern gepflegt und durch ihn persistiert.
+Die Historisierung der Bearbeitung erfolgt *explizit*.
+Das bedeutet, dass die zu historisierenden Daten im Anwendungskern gepflegt und durch ihn persistiert werden.
 
 ****
 Theoretisch wäre es auch möglich, die Historisierung auf der Ebene der Persistenzschicht durchzuführen.

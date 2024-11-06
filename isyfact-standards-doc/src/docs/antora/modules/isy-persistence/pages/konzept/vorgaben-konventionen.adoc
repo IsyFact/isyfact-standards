@@ -4,7 +4,7 @@ include::glossary:licence:partial$licence.adoc[]
 
 Eines der Ziele des Bausteins JPA/Hibernate ist die einfach und einheitliche Verwendung von JPA und Hibernate.
 Dazu stellt der Baustein eine Menge an Vorgaben und Konventionen bereit, auf denen die Umsetzungen beruhen.
-Die Vorgaben und Konventionen ergänzen die allgemeinen xref:referenzarchitektur:software-technisch/backend/persistenzschicht.adoc#persistenz-klassenmodell-vorgaben[Vorgaben zur Erstellung eines Persistenz-Klassenmodells].
+Die Vorgaben und Konventionen ergänzen die allgemeinen Vorgaben zur xref:referenzarchitektur:software-technisch/backend/persistenzschicht.adoc[].
 
 [[aufbau-fachkomponenten]]
 == Aufbau der Fachkomponenten
@@ -14,9 +14,9 @@ Der Baustein JPA/Hibernate ergänzt den xref:referenzarchitektur:software-techni
 Data Access Objects (DAOs) werden über _Spring Data Repositories_ abgebildet.
 Der Name eines Repositories leitet sich von derjenigen Entität ab, die über das Repository bearbeitet wird.
 
-[[aufbau-fachkomponente-datenzugriff]]
+[[aufbau-fachkomponente-persistenzschicht]]
 .Aufbau einer Fachkomponente der Persistenzschicht mit Spring Data JPA
-image::isy-persistence:aufbau_fachkomponente_datenzugriff_spring_data.dn.svg[]
+image::isy-persistence:aufbau_fachkomponente_persistenzschicht_spring_data.dn.svg[]
 
 //tag::namenskonvention[]
 
@@ -583,7 +583,7 @@ Diese Ablage ist problematisch, weil sie eine enge Kopplung des Java-Quellcodes 
 Während im Java-Quellcode lange, sprechende Namen bevorzugt werden, werden für die Ablage in der Datenbank kurze, Speicherplatz sparende Darstellungen präferiert.
 
 Aufgrund der genannten Schwächen stellt die Bibliothek `isy-persistence` zwei Hibernate User-Types zur Verfügung, um Enum-Werte auf eine Zeichenkette in der Datenbank abzubilden.
-Die Verwendung dieser User-Types beschreibt das xref:nutzungsvorgaben/umsetzung-datenzugriff.adoc#enum-variablen[Nutzungskonzept].
+Die Verwendung dieser User-Types beschreibt das xref:nutzungsvorgaben/umsetzung-persistenzschicht.adoc#enum-variablen[Nutzungskonzept].
 
 [[datenbankschema-anfangs-ueber-hbm2ddl-erzeugen]]
 === Datenbankschema anfangs über `hbm2ddl` erzeugen
