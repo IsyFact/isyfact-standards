@@ -55,7 +55,7 @@ Es reicht also folgender Abschnitt, um eine Bibliothek einzubinden:
 
 In diesem Kapitel wird die Implementierung der Datenhaltung einer Anwendung beschrieben.
 Die Datenhaltung besteht im Wesentlichen aus den Entitäten (Entity) und den zugehörigen Data Access Objects (DAOs).
-Alle Konzepte und Vorgaben zum Thema Persistenz und Datenzugriff stehen im xref:blaupausen:detailkonzept-komponente-datenzugriff/einordnung-ziele.adoc[] sowie im xref:isy-persistence:konzept.adoc[].
+Alle Konzepte und Vorgaben zum Thema Persistenz stehen in der xref:referenzarchitektur:software-technisch/backend/persistenzschicht.adoc[Referenzarchitektur] sowie im xref:isy-persistence:konzept.adoc[].
 
 [[designvorgaben]]
 === Designvorgaben
@@ -71,7 +71,7 @@ Als Implementierung für die JPA wird Hibernate verwendet.
 * Der Datenzugriff erfolgt über die Komponenten-Schnittstelle.
 * Für persistente Entitäten, die über eine Komponentenschnittstelle angeboten werden, werden eigene Schnittstellenobjekte definiert, die per Deep-Copy gefüllt werden. Hierfür wird ein Bean-Mapper verwendet.
 Innerhalb einer Teilanwendung dürfen persistente Entitäten allerdings über Komponentengrenzen hinweg genutzt werden.
-* DAOs und Entitäten werden in einer xref:isy-persistence:nutzungsvorgaben/umsetzung-datenzugriff.adoc[festgelegten Paketstruktur] abgelegt.
+* DAOs und Entitäten werden in einer xref:isy-persistence:nutzungsvorgaben/umsetzung-persistenzschicht.adoc[festgelegten Paketstruktur] abgelegt.
 +
 [NOTE]
 ====
@@ -91,7 +91,7 @@ Zur Realisierung der Datenhaltung müssen folgende Aktivitäten durchgeführt we
 ==== Anlegen des Datenbankschemas
 
 Das Datenbankschema muss angelegt werden.
-Dazu werden die benötigten DDL-Anweisungen, wie in xref:blaupausen:detailkonzept-komponente-datenzugriff/versionierung.adoc[] beschrieben, in einem Verzeichnis abgelegt.
+Dazu werden die benötigten DDL-Anweisungen, wie in xref:referenzarchitektur:software-technisch/backend/persistenzschicht.adoc#versionierung[Versionierung von Datenbankschemas] beschrieben, in einem Verzeichnis abgelegt.
 
 
 Das initiale Datenmodell kann über das Tool `hbm2ddl` erzeugt werden.

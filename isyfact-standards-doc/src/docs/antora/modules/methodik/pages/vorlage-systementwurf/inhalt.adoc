@@ -312,7 +312,7 @@ Die folgende Tabelle führt die vom IT-System verwendeten Elemente der IsyFact a
 4+|*Referenzarchitektur* {set:cellbgcolor:#D9D9D9}
 |Anwendungskern {set:cellbgcolor}|berücksichtigt |_Standard_ |
 |Batch |berücksichtigt |_Standard_ |
-|Datenzugriff |berücksichtigt |_Standard_ |
+|Persistenz |berücksichtigt |_Standard_ |
 |Service |berücksichtigt |_Standard_ |
 |Interne Servicekommunikation |berücksichtigt |_Standard_ |
 4+|*Bausteine (Standard)*  {set:cellbgcolor:#D9D9D9}
@@ -573,9 +573,14 @@ _<erläuternder Text>_
 .{desc-table-mengengeruest-dateien-auf-dem-lokalen-laufwerk}
 [cols="3,2,4", options="header"]
 |===
-|Datei |Größe |Bemerkung|
-...| | |
-...| | |
+|Datei |Größe |Bemerkung
+|...
+|
+|
+
+|...
+|
+|
 |===
 
 

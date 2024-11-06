@@ -2,7 +2,7 @@
 
 include::glossary:licence:partial$licence.adoc[]
 
-In den folgenden Abschnitten werden konkrete Vorgaben gemacht, welche Konfigurationen für die Umsetzung des Datenzugriffs verwendet werden sollen.
+In den folgenden Abschnitten werden konkrete Vorgaben gemacht, welche Konfigurationen für die Umsetzung der Persistenzschicht verwendet werden sollen.
 
 [[konfiguration-von-jpa-ueber-spring-beans-durchfuehren]]
 == Konfiguration von JPA über Spring Beans durchführen
