@@ -1,5 +1,5 @@
 ﻿Kategorie / Anwendungsbereich;Hersteller / Produkt;Version;Seit Release;Status;Lizenz;Erläuterung
-Code-Generierung;https://github.com/OpenAPITools/openapi-generator/[OpenApi Generator];5.3.1;2.4.0;verbindlich;Apache License 2.0;
+Code-Generierung;https://github.com/OpenAPITools/openapi-generator/[OpenApi Generator];>6.0.0;4.0.0;verbindlich;Apache License 2.0;
 Hilfeanwendung;https://xwiki.com/en/[Xwiki];8.2.x;1.6.0;verbindlich;LGPL 2.1;Vorerst ausschließlich für den BS Hilfeanwendung
 Test-Framework;https://selenium.dev[Selenium];<<spring-boot-dependencies,icon:leaf[]>>;3.0.0;empfohlen;Apache License Version 2.0;"* Tool für eine Browserautomatisierung der GUI Tests.
 * Konkret empfehlen sich folgende Bibliotheken: `selenium-java`, `selenium-api`, `selenium-support`, `selenium-remote-driver`, `selenium-firefox-driver`, `selenium-htmlunit-driver`"
