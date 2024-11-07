@@ -4,7 +4,7 @@ include::documentation-guide::partial$licence.adoc[]
 
 Das Spring-Framework ist ein Java EE Framework, welches im Kern sehr verständlich und leicht zu verwenden ist.
 In ihm werden die Bestandteile eines Systems als _Spring-Beans_ definiert.
-Neben seiner Kern-Funktionalität der Verwaltung, Konfiguration und aspektorientierten Erweiterung von Beans bietet Spring viele Funktionalitäten, welche die Entwicklung einer Anwendung erleichtern sollen.
+Neben seiner Kern-Funktionalität der Verwaltung, Konfiguration und aspektorientierten Erweiterung von Beans bietet Spring viele Funktionalitäten, welche die Entwicklung einer Anwendung erleichtern.
 
 Die folgenden Inhalte beschreiben die Nutzung von Spring für die allgemeine Umsetzung von Backends.
 Die Nutzung spezifischer Features von Spring sind Bestandteile der folgenden Bausteine:
@@ -35,6 +35,7 @@ Es soll nicht möglich sein, direkt auf Implementierungsklassen einer Komponente
 Das grundlegende Konzept von Spring ist die _Spring-Bean_.
 Die Konfiguration von Spring teilt sich in zwei Teile: die Konfiguration der Spring-Beans sowie die Konfiguration von Spring selbst (innerhalb eines Tomcat Servers).
 Um die Konfiguration von Spring und der eingesetzten Bausteine einfach zu halten, werden die Autokonfigurationsmechanismen von Spring Boot eingesetzt.
+Die Spring-Konfiguration des Backends ist nach folgenden Vorgaben zu erstellen.
 
 [[konfiguration-von-spring-beans]]
 === Konfiguration von Spring-Beans
@@ -43,9 +44,10 @@ Spring ist ein Applikations-Container, welcher sogenannte Spring-Beans instanzii
 Spring-Beans sind beliebige Java-Klassen.
 Für diese Klassen kann man benötigte andere Spring-Beans oder Konfigurationsparameter konfigurieren, welche der Klasse daraufhin im Konstruktor oder per `set`-Methode übergeben werden.
 
-Konfiguriert werden Spring-Beans und ihre Abhängigkeiten durch von Spring bereitgestellte Annotationen.
-Diese werden beim Start des Applikations-Containers gescannt und ausgewertet (_Component Scan_).
-Generell gilt, dass jede zentrale und wichtige Klasse aber als Spring-Bean konfiguriert werden sollte.
+Konfiguriert werden Spring-Beans und ihre Abhängigkeiten durch die von Spring bereitgestellte Annotation `@Component` bzw. durch deren Spezialisierungen (`@Repository`, `@Service`, `@Contoller`, usw.).
+Diese werden beim Start des Applikations-Containers gescannt und ausgewertet (_Component Scanning_).
+Bei der Verwendung von `@SpringBootApplication` erfolgt das Scannen dieser Komponenten automatisch im gleichen Paket und den Unterpaketen der Applikationsklasse.
+Generell gilt, dass jede zentrale und wichtige Klasse als Spring-Bean konfiguriert werden sollte.
 
 Für die Modellierung und Konfiguration der Spring-Beans werden im folgenden Vorgaben aufgestellt.
 
@@ -65,23 +67,42 @@ Wo technisch erforderlich können auch andere Scopes verwendet werden.
 
 NOTE: Eine genaue Beschreibung der Scopes bietet die https://docs.spring.io/spring-framework/reference/core/beans/factory-scopes.html[offizielle Spring-Dokumentation].
 
-[[vorgaben-zur-spring-konfiguration]]
-=== Konfiguration von Backends
+[[Konfigurationsmoeglichkeiten-der-Applikationsklasse]]
+=== Konfigurationsmöglichkeiten der Applikationsklasse
 
-Die Spring-Konfiguration des Backends ist nach folgenden Vorgaben zu erstellen.
-
-Der zentrale Ausgangspunkt für die Spring-Konfiguration ist die <<listing-applikationsklasse>>.
+Der zentrale Ausgangspunkt für die Spring-Konfiguration ist die Applikationsklasse.
 Diese wird im Package des Backends (`<org>.<domäne>.<anwendung>.<backend>`) erstellt.
-Sie ist mit `@Configuration` und `@EnableAutoConfiguration` annotiert.
-Damit wird die Autokonfiguration von Spring Boot eingeschaltet.
-Zusätzlich erbt die Klasse von `SpringBootServletInitializer`, damit das Backend im Tomcat deployt werden kann.
-Die Konfigurationsklassen der Schichten werden per `@Import`-Annotation eingebunden.
+Sie kann auf unterschiedliche Weise konfiguriert werden:
+
+Konfiguration mit `@SpringBootApplication`:
+
+[[listing-applikationsklasse-mit-springbootapplication-annotation]]
+.Applikationsklasse mit `@SpringBootApplication`
+[source, java]
+----
+package de.beispiel.ifanwendung;
+
+@SpringBootApplication // same as @SpringBootConfiguration @EnableAutoConfiguration @ComponentScan
+public class IsyFactApplication extends SpringBootServletInitializer {
+
+    @Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+        return application.sources(IsyFactApplication.class);
+    }
+}
+----
+Diese Annotation ist äquivalent zur gleichzeitigen Nutzung der Annotationen `@EnableAutoConfiguration`, `@ComponentScan` und `@SpringBootConfiguration`.
+Die automatische Konfiguration, optionale zusätzliche Konfigurationslogik in der Applikationsklasse und das _Component Scanning_ werden aktiviert.
+Ist eine feinere Kontrolle bei Anwendungen, welche die `@SpringBootApplication`-Annotation nutzen, gewünscht, können mit `exclude`-Attributen Komponenten von der automatischen Konfiguration https://docs.spring.io/spring-boot/reference/using/auto-configuration.html#using.auto-configuration.disabling-specific[ausgeschlossen] werden.
+
+
+Konfiguration mit `@Configuration` und `@EnableAutoConfiguration`:
 
 [[listing-applikationsklasse]]
-.Applikationsklasse eines Backends
+.Applikationsklasse mit expliziter Konfiguration
 [source,java]
 ----
-package de.beispiel.if2anwendung;
+package de.beispiel.ifanwendung;
 
 @Configuration
 @EnableAutoConfiguration
@@ -95,8 +116,12 @@ public class IsyFactApplication extends SpringBootServletInitializer {
 }
 ----
 
+Mit diesem Vorgehen wird explizite Kontrolle über die Konfiguration und das _Component Scanning_ geboten.
+Dieses Vorgehen hat Vorteile bei der Isolation von Modulen in einem modularen System und um sicherzustellen, dass die Konfigurationen unabhängig bleiben.
+Alternativ kann zu diesem Zweck auch `@SpringBootConfiguration` genutzt werden.
+
 Für jede Schicht wird im Package der Schicht (`<org>.<domäne>.<anwendung>.<schicht>`) parallel zu den Interfaces der Komponentenschnittstellen eine mit `@Configuration` annotierte <<listing-konfigurationsklasse,Konfigurationsklasse>> erstellt.
-Diese wird zusätzlich mit `@ComponentScan` annotiert.
+Diese wird zusätzlich mit `@ComponentScan` annotiert, wenn eine <<listing-applikationsklasse>> verwendet wird.
 Annotationen, die querschnittliche Aspekte konfigurieren (z.B. `@EnableTransactionManagement`), werden an die Konfigurationsklasse der inhaltlich passenden Schicht geschrieben.
 
 [[listing-konfigurationsklasse]]
@@ -119,6 +144,16 @@ public class CoreConfig {
 
 Die Spring-Beans der Komponenten werden mit der Annotation `@Component` bzw. deren Spezialisierungen (`@Repository`, `@Service`, `@Controller` etc.) versehen.
 Externe Spring-Beans, die nicht annotiert werden können, werden in der Konfigurationsklasse der Schicht per `@Bean`-Methoden konfiguriert.
+
+[[Empfehlungen-zu-Konfigurationsmoeglichkeiten-der-Applikationsklasse]]
+==== Empfehlungen zu Konfigurationsmöglichkeiten der Applikationsklasse
+
+* Grundsätzlich ist für die Applikationsklasse die `@SpringBootApplication`-Annotation zu verwenden.
+So wird die Konfiguration vereinfacht und Boiler-Plate-Code minimiert.
+* Die `@Configration`-Annotation in der Anwendungsklasse soll genutzt werden, wenn die explizite Kontrolle über die Konfiguration und das _Component Scanning_ notwendig ist, zum Beispiel bei der Isolation von Modulen in einem modularen System und um sicherzustellen, dass Konfigurationen unabhängig bleiben.
+* `@SpringBootConfiguration` ist für Randfälle zu nutzen.
+Dies ist zum Beispiel der Fall für spezielle Testkonfigurationen bei denen unerwünschte Autokonfigurationen Tests verlangsamen oder verkomplizieren können.
+
 
 [[webapprootkey-konfigurieren]]
 === webAppRootKey konfigurieren
