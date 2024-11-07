@@ -5,13 +5,14 @@
 
 // tag::release-4.0.0[]
 - `IFS-1796`: Änderung der Architekturregel zur Weitergabe von Entitäten
+- `IFS-1796`: Entfernung der Vorgabe zur Implementierung der Embeddable Annotation
 // end::release-4.0.0[]
 
 *Änderungen IsyFact 3.0.0*
 
 // tag::release-3.0.0[]
-
-* `IFS-1609`: Standardisierte Übertragung von Metadaten dokumentiert.
+- `IFS-821`: Detailkonzept Datenzugriff aufgeteilt. Hibernate-spezifische Teile sind in einen eigenen Baustein "JPA/Hibernate" ausgelagert worden.
+- `IFS-1609`: Standardisierte Übertragung von Metadaten dokumentiert.
 
 // end::release-3.0.0[]
 
@@ -52,8 +53,8 @@
 
 // end::release-1.7.0[]
 
-// *Änderungen IsyFact 1.6.0*
+*Änderungen IsyFact 1.6.0*
 
 // tag::release-1.6.0[]
-
+- `IFS-159`: Vorhalten von Skripten zum Aktualisieren von DB-Schemas konkretisiert
 // end::release-1.6.0[]

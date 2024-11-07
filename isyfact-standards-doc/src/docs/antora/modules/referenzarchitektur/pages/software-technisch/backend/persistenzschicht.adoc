@@ -1,0 +1,231 @@
+= Persistenzschicht
+
+include::glossary:licence:partial$licence.adoc[]
+
+// tag::persistenzschicht-definition[]
+
+Die Persistenzschicht umfasst den Teil eines Backends, der den Datenbestand verwaltet.
+Sie kommuniziert hierzu in der Regel mit einer Datenbank und, mittels persistenten Entitäten, mit dem Anwendungskern.
+Der Aufbau der Persistenzschicht sowie ihre Kommunikation mit anderen Schichten ist in <<systemarchitektur-persistenz,folgender Grafik>> dargestellt.
+
+[[systemarchitektur-persistenz]]
+.Einbettung der Persistenzschicht in die Systemarchitektur
+image::referenzarchitektur:software-technisch/backend/persistenz.dn.svg[width=80%,align=center]
+
+// end::persistenzschicht-definition[]
+
+Die Vorgaben zur Persistenzschicht verfolgen mehrere Ziele.
+
+Einheitlichkeit der Verwendung von JPA::
+Die Konfiguration und Umsetzung der Persistenz geschieht nachvollziehbar über festgelegte Mechanismen und ist, auf ein IT-System bezogen, stets gleich.
+
+Einfachheit der Verwendung von JPA::
+Die Persistenzschicht muss leicht verständlich und wartbar sein.
+Dies umfasst die Definition des Persistenz-Klassenmodells sowie den Einsatz von JPA.
+
+Schmale, definierte JPA-Schnittstelle::
+Die Verwendung und Konfiguration von JPA soll isoliert und über eine schmale Schnittstelle erfolgen.
+Die Persistenzschicht soll auf JPA über die schmale Schnittstelle zugreifen und keine Geschäftslogik enthalten.
+
+Effizienz und Schnelligkeit der Persistenzschicht::
+JPA und die gewählte JPA-Implementierung müssen effizient und schnell arbeiten.
+Datenbank-Aufrufe sollen möglichst effizient sein.
+Unnötige und mehrfache Zugriffe sollen vermieden werden.
+
+
+[[fachkomponenten]]
+== Fachkomponenten
+
+// tag::fachkomponente-definition[]
+
+Die Persistenzschicht gliedert sich, wie der Anwendungskern, in *Fachkomponenten*.
+Die Fachkomponenten der Persistenzschicht entsprechen vom fachlichen Schnitt her denen des Anwendungskerns.
+Sie beinhalten das Datenmodell (das heißt Modellkomponenten, Entitäten und Attribute) der fachlichen Architektur und bilden es auf der technischen Ebene ab.
+
+Die Fachkomponenten des Anwendungskerns besitzen die Datenhoheit auf die entsprechenden Fachkomponenten in der Persistenzschicht.
+Nur die Fachkomponente mit Datenhoheit darf Änderungen an den jeweiligen persistenten Entitäten vornehmen.
+
+// end::fachkomponente-definition[]
+
+Die Fachkomponenten bestehen aus einer Schnittstelle (Data Access Object) und den persistenten Entitäten.
+Sie kümmern sich ausschließlich um die Verwaltung persistenter Entitäten und beinhalten selbst keinerlei Geschäftslogik.
+
+[[aufbau-fachkomponente-persistenz]]
+.Aufbau einer Fachkomponente der Persistenzschicht
+image::software-technisch/backend/aufbau_fachkomponente_persistenz.dn.svg[]
+
+Ein *Data Access Object (DAO)* beschreibt die Schnittstelle der Fachkomponente, das heißt die Operationen, die zum Speichern und Lesen der Entitäten aus der Datenbank nötig sind.
+
+*Persistente Entitäten* bilden Geschäftsobjekte ab und werden in der Regel nach ihnen benannt.
+
+//tag::namenskonvention[]
+
+.Namenskonvention Entität
+[id="table-entity",reftext="{table-caption} {counter:tables}"]
+[cols="1s,4m",options="header"]
+|====
+2+|Entität
+
+|Schema
+|<Geschäftsobjekt>
+
+|Beispiel
+|Akte
+|====
+
+//end::namenskonvention[]
+
+Ein *Persistenz-Klassenmodell* ist das Modell der Entitäten, welche dauerhaft abgespeichert werden sollen.
+Die folgenden Abschnitte beschreiben gewünschte Eigenschaften des Persistenz-Klassenmodells sowie Verwendungsregeln.
+
+[[persistenz-klassenmodell-und-datenbank-schema-sollen-moeglichst-aehnlich-sein]]
+=== Persistenz-Klassenmodell und Datenbank-Schema sollen möglichst ähnlich sein
+
+Im Idealfall wird jede Entität auf eine Tabelle des Datenbankschemas abgebildet.
+Eine solche Abbildung ist intuitiv und erleichtert das Verständnis der Anwendung und des Datenbankschemas, was wiederum in der Wartung ein großer Vorteil ist.
+
+Tatsächlich ist es aus Gründen der Datenbankperformance aber oft erforderlich, von diesem Idealfall abzuweichen.
+Hier gilt es, auf möglichst wenige Tabellen zuzugreifen, um an die benötigten Informationen zu gelangen.
+
+So ist es zum Beispiel sinnvoll, für 1:1-Beziehungen im Persistenz-Klassenmodell die Entitäten mit der Annotation `@Embeddable` zu versehen.
+Somit wird der Inhalt einer Datenbanktabelle auf mehr als eine Entität verteilt.
+Solche Entitäten können dann über das Lesen einer einzigen Tabellenzeile aus der Datenbank gefüllt werden.
+
+[[vererbung-im-persistenz-klassenmodell]]
+=== Vererbung im Persistenz-Klassenmodell
+
+Vererbungshierarchien können in relationalen Datenbanken nicht direkt umgesetzt werden.
+Die JPA-Spezifikation beschreibt deshalb mehrere Strategien des O/R-Mappings von Vererbungshierarchien.
+Sie werden im Baustein xref:isy-persistence:konzept/vorgaben-konventionen.adoc#vererbungshierarchien[JPA/Hibernate] zusammen mit Regeln für ihre Verwendung beschrieben.
+
+Für alle Strategien gilt, dass die abzubildende Vererbungshierarchie nicht zu umfangreich sein sollte.
+Datenbankzugriffe auf Tabellen mit großen Hierarchien sind meistens wenig performant.
+Außerdem lässt sich die Vererbungshierarchie anhand der Datenbanktabellen entweder nicht oder nur schwer erkennen und die Tabellen können unübersichtlich werden.
+
+.icon:university[title=Architekturregel] Vererbungshierarchien im Persistenz-Klassenmodell
+****
+Vererbungshierarchien zur Abbildung in relationalen Datenbanken sollten nur verwendet werden, wenn das fachliche Datenmodell dadurch optimal wiedergegeben wird.
+Sie sollten nur eine Oberklasse mit einigen Subklassen und höchstens zwei Vererbungsebenen umfassen.
+****
+
+[[geschaeftslogik-in-persistenzlogik-vermeiden]]
+=== Geschäftslogik in Persistenzlogik vermeiden
+
+Die Implementierung von Geschäftslogik in der gesamten Persistenzlogik, das heißt in den DAOs und Entitäten, ist zu vermeiden.
+Idealerweise sollten die Entitäten lediglich Getter- und Setter-Methoden für die persistierten Daten enthalten.
+Jegliche Geschäftslogik muss im Anwendungskern implementiert werden.
+
+Zur Geschäftslogik gehören auch Validierungen.
+
+[[persistenz-framework]]
+== Persistenz-Framework
+
+// tag::persistenz-framework-definition[]
+
+Die Persistenzschicht kommuniziert in Richtung Datenbank auf Basis der Standards JDBC und SQL.
+In Richtung des Anwendungskerns stellt sie persistente Entitäten mittels Spring Data JPA bereit.
+Zur Umsetzung des objekt-relationalen Mapping verwendet die Persistenzschicht das Produkt Hibernate.
+
+// end::persistenz-framework-definition[]
+
+[[transaktionssteuerung]]
+== Transaktionssteuerung
+
+Das Thema Transaktionssteuerung wird nicht im Rahmen der Persistenzschicht behandelt, da Transaktionen in der IsyFact über den xref:software-technisch/backend/anwendungskern.adoc#transaktionssteuerung[Anwendungskern] gesteuert werden.
+
+[[versionierung]]
+== Versionierung von Datenbankschemas
+
+Die Struktur der Daten, die von einer Anwendung dauerhaft gespeichert werden, kann sich im Laufe des Lebenszyklus der Anwendung ändern.
+Das bedeutet, dass sich neben der Anwendung auch das Datenbankschema ändert.
+Die Anwendung und das Datenbankschema müssen zueinander passen.
+
+Die Verwaltung von Versionsinformationen für ein Datenbankschema soll sicherstellen, dass die Anwendung und Skripte (zum Beispiel zur Datenmigration) erkennen können, ob ein Datenbankschema die erwartete Version hat.
+Zusätzlich sollen die Datenbankadministratoren nachvollziehen können, welche Änderungen am Datenbankschema bereits erfolgt sind.
+
+Neben dem bisherigen Verfahren zur Versionierung von Datenbankschemas, das auf einer Eigenentwicklung beruht, gibt es auch die Möglichkeit zur Nutzung von Liquibase.
+Beide Verfahren werden im xref:isy-persistence:konzept/versionierung.adoc[Baustein JPA/Hibernate] im Detail beschrieben.
+
+Falls es die Anforderungen erfordern, können mehrere Datenbankschemas zusammen versioniert werden.
+Dabei gibt es zwei mögliche Konstellationen:
+
+* Schema-übergreifende Versionierung innerhalb derselben Datenbank,
+* Datenbank-übergreifende Versionierung.
+
+Eine Schema-übergreifende Versionierung innerhalb derselben Datenbank ist möglich.
+Bei der Aktualisierung auf eine aktuellere Version ist folgendes Vorgehen vorgesehen:
+
+* Aktualisierung der einzelnen Schemas,
+* Ausführung Schema-übergreifender Operationen.
+
+Im Gegensatz zu Schema-übergreifender Versionierung wird von Datenbank-übergreifender Versionierung dringlichst abgeraten.
+
+NOTE: Der https://download.gsb.bund.de/BSI/ITGSK/IT-Grundschutz-Kataloge_2016_EL15_DE.pdf#page=3285[IT-Grundschutz (M 4.71) icon:file-pdf-o[]] sieht die Verwendung von _Database Links_, die für eine Datenbank-übergreifende Versionierung genutzt werden können, nur unter strengen Auflagen zulässig, die eine Verwendung erheblich erschweren.
+
+Unabhängig von der Lösung erschweren Datenbank-übergreifende Operationen die Fehlersuche im Falle einer fehlgeschlagenen Installation oder Aktualisierung wesentlich.
+
+[[historisierung]]
+== Historisierung
+
+*Historisierung* (auch https://de.wikipedia.org/wiki/Temporale_Datenhaltung[temporale Datenhaltung] genannt) bezeichnet das Festhalten der zeitlichen Entwicklung von Daten durch das Speichern in einer Datenbank.
+Bei den Datensätzen gibt es zwei relevante Aspekte: den Gültigkeitszeitraum eines Datensatzes und den Bearbeitungszeitpunkt eines Datensatzes.
+
+Der *Gültigkeitszeitraum* gibt an, wie lange ein Datensatz gültig ist.
+Während der Beginn des Gültigkeitszeitraumes meistens genau bekannt ist, so kann das Ende der Gültigkeit so lange unbekannt sein, bis der Datensatz ungültig wird.
+
+.Gültigkeitszeitraum
+====
+Der Preis einer Ware oder Dienstleistung ist so lange gültig, bis er neu festgelegt wird.
+====
+
+Der *Bearbeitungszeitpunkt* definiert den Zeitpunkt, wann eine Entscheidung getroffen wurde und ist in vielen Fällen identisch mit dem Beginn des Gültigkeitszeitraumes.
+Er kann jedoch auch davon abweichen, wenn zum Beispiel für eine Ware eine Preisänderung zu einem bestimmten Datum im Voraus festgelegt wird.
+
+Eine Historisierung von Datensätzen wird durchgeführt, wenn Fragen über den Wert eines Datensatzes zu einem vergangenen Zeitpunkt beantwortet werden müssen (zum Beispiel was eine Ware zu einem bestimmten Zeitpunkt in der Vergangenheit kostete), oder wenn der Verlauf eines Wertes über die Zeit beobachtet werden muss (zum Beispiel wann und warum eine Änderung durchgeführt wurde).
+
+=== Abgrenzungen
+
+Die Historisierung grenzt sich wie folgt von den Themen Archivierung, Datensicherung, Protokollierung und Logging ab.
+
+[[abgrenzung-archivierung]]
+==== Abgrenzung zur Archivierung
+
+Bei der Archivierung handelt es sich um die Aufbewahrung eines Datensatzes über eine längere Zeit hinweg.
+Dies ist meist aus rechtlichen Gründen notwendig zum Beispiel wegen gesetzlicher Aufbewahrungsfristen.
+Bei der Archivierung sind dementsprechend Randbedingungen wie Integrität, Unveränderlichkeit und Vertraulichkeit einzuhalten (siehe https://www.bsi.bund.de/DE/Themen/Unternehmen-und-Organisationen/Standards-und-Zertifizierung/IT-Grundschutz/it-grundschutz_node.html[IT-Grundschutz BSI]).
+
+[[abgrenzung-datensicherung-backup]]
+==== Abgrenzung zur Datensicherung (Backup)
+
+Bei der Datensicherung handelt es sich um das redundante Aufbewahren von Datensätzen.
+Das Ziel ist es, bei Verlust oder ungewünschter Manipulation von Datensätzen diese Datensätze auf den gespeicherten Stand zurücksetzen zu können.
+
+[[abgrenzung-protokollierung]]
+==== Abgrenzung zur Protokollierung
+
+Ziel der Protokollierung ist das Nachvollziehen von Änderungen und Auskünften.
+Dazu werden je nach Bedarf die Suchschlüssel und Nettodaten von Aufrufen gespeichert.
+
+[[abgrenzung-logging]]
+==== Abgrenzung zum Logging
+
+Beim Logging werden Notizen zu technischen Aufrufen innerhalb eines Systems oder zwischen Anwendungen in Dateien abgelegt.
+Das Logging hat einen technischen Fokus und dient in der Regel als Hilfsinstrument zur Fehlerbehebung.
+
+[[anforderungen-festlegungen]]
+=== Anforderungen & Festlegungen
+
+Die beabsichtigte Nutzung der Historisierung lässt sich mit Blick auf die Referenzarchitektur zu Anforderungen verallgemeinern, die in diesem Abschnitt dargestellt werden.
+
+Für die Historisierung von Datensätzen in einer Anwendung gelten folgende Anforderungen und Grundsätze:
+
+* Es dürfen nur solche Daten historisiert werden, die auch angezeigt werden.
+* Die Speicherung von historischen Daten wird durch individuelle Löschfristen von Datensätzen begrenzt.
+* Datensätze müssen beim Eintreten bestimmter Ereignisse komplett, das heißt inklusive aller historisierten Datensätze, gelöscht werden.
+* Für die meisten Daten ist eine Historisierung weder notwendig noch erlaubt.
+Dies ist durch Vorgaben des Datenschutzes und der Geheimhaltung begründet.
+
+Diese Anforderungen führen zu folgenden Festlegungen:
+
+* Eine automatische Historisierung von Daten, bei der jeder Datensatz in mehreren Versionen vorgehalten ist, wird nicht realisiert.
+* Eine Historisierung wird, fachlich begründet, für die betroffenen Datensätze explizit realisiert.

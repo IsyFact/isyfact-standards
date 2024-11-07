@@ -31,7 +31,7 @@ Anwendungen können festlegen, dass dieses Attribut Teil des fachlichen Schlüss
 Dadurch ist es möglich, die Tabelle der Datenbank zu partitionieren, um die Verarbeitungsgeschwindigkeit zu erhöhen.
 
 In Ausnahmefällen darf auch eine eigene Tabelle zur Speicherung der Historie angelegt werden.
-Dadurch wird der Datenzugriff verlangsamt, da in diesem Fall immer zwei Tabellen statt einer geschrieben werden.
+Dadurch werden Schreiboperationen verlangsamt, da immer in zwei Tabellen statt in eine geschrieben wird.
 
 Durch das Einführen der Datumsattribute erweitert sich der fachliche Schlüssel des Datensatzes.
 Der somit aus mehreren Attributen zusammengesetzte fachliche Schlüssel wird genauso behandelt, wie jeder andere zusammengesetzte fachliche Schlüssel auch.
@@ -39,7 +39,7 @@ Der somit aus mehreren Attributen zusammengesetzte fachliche Schlüssel wird gen
 [[schritt-2-erweiterung-des-daos]]
 === Schritt 2: Erweiterung des Data Access Objects
 
-Alle Zugriffe auf Entitäten werden gemäß xref:blaupausen:detailkonzept-komponente-datenzugriff/persistenzlogik.adoc#grundlagen[Referenzarchitektur] über das zugehörige Data Access Object (DAO) vorgenommen.
+Alle Zugriffe auf Entitäten werden gemäß xref:referenzarchitektur:software-technisch/backend/persistenzschicht.adoc#fachkomponenten[Referenzarchitektur] über das zugehörige Data Access Object (DAO) vorgenommen.
 Im Rahmen der Historisierung muss das DAO auch dafür sorgen, dass die Attribute `aktuellVon` und `aktuellBis` mit den korrekten Werten belegt sind.
 Es wird wie folgt angepasst und erweitert.
 

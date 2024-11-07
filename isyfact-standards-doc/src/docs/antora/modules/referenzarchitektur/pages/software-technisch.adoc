@@ -2,12 +2,16 @@
 
 include::glossary:licence:partial$licence.adoc[]
 
+// tag::architektursicht-definition[]
+
 Die software-technische Referenzarchitektur beschreibt, wie die in der fachlichen Referenzarchitektur definierten xref:glossary:glossary:master.adoc#glossar-anwendung[Anwendungen] software-technisch in Form von xref:glossary:glossary:master.adoc#glossar-it-system[IT-Systemen] umgesetzt werden.
 
 Eine zentrale Eigenschaft der software-technischen Referenzarchitektur ist, dass sie nicht zwischen xref:glossary:glossary:master.adoc#glossar-anwendungstyp[Anwendungstypen] unterscheidet.
 Die software-technische Umsetzung von Anwendungen ist ungeachtet ihrer Fachlichkeit gleich.
 Die software-technische Referenzarchitektur definiert hierzu das xref:glossary:glossary:master.adoc#glossar-it-system[*IT-System*] als Oberbegriff, und beschreibt die Umsetzung einer Anwendung mittels einer Menge von IT-Systemen, die jedes für sich eine bestimmte Ausprägung besitzen.
 Diese Ausprägung ist technisch motiviert und umfasst aktuell *Backends*, *Frontends* und *Batches*.
+
+// end::architektursicht-definition[]
 
 == Definition der Systemlandschaft
 
