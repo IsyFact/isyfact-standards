@@ -6,6 +6,7 @@
   - Inhalte zu Kommunikation zwischen IT-Systemen mittels Services und Versionierung von Services auf neue Seite "Services" in der software-technischen Referenzarchitektur umgezogen,
   - Inhalte zu Verfügbarkeit auf neue Seite "Verfügbarkeit" in der technisch-infrastrukturellen Referenzarchitektur umgezogen.
 - `IFS-4225`: [isyfact-standards-doc] Abschnitt Nutzungsarten einer Anwendung in der software-technischen Referenzarchitektur gelöscht
+- `IFS-3029`: [isyfact-standards-doc] Möglichkeiten der SpringBoot Konfiguration um `SpringBootApplication` und `SpringConfiguration` erweitert
 - `IFS-4190`: [isyfact-standards-doc] Referenzarchitektur des Anwendungskerns aufgrund von IFS-3736 neu verfasst
 - `IFS-4084`: [isyfact-standards-doc] Verwendungen des Begriffs IT-System im Einstieg korrigiert
 - `IFS-4064`: [isyfact-standards-doc] Referenzarchitektur für Backends aufgrund von IFS-3736 neu verfasst
@@ -53,7 +54,6 @@
 - `IFS-3736`: [isyfact-standards-doc] Abbildung von Anwendungen in IT-Systeme ("technischer Schnitt") beschrieben.
 - `IFS-3763`: [isyfact-standards-doc] Dokumentation der Änderungen zu IFS-2248 (Tokenerneuerung isy-batchrahmen)
 - `IFS-3750`: [isyfact-standards-doc] Baustein Konfiguration entfernt.
-- `IFS-2395`: [isy-task] Umstellung von IsyFact `MessageSourceHolder` auf Spring `MessageSource`
 
 # 3.0.1
 - `ISY-701`: Google Guava Versionsanhebung auf 33.1.0
