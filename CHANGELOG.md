@@ -1,6 +1,6 @@
 # 4.0.0
 ## FEATURES
-- `IFS-4209`: [isyfact-standards-doc] Anpassung einiger Glossar-Referenzen aufgrund der Entfernung von Glossareinträgen in `isy-documentation`
+- `IFS-4209`: [isyfact-standards-doc] Anpassung einiger Glossar-Referenzen aufgrund der Entfernung von Glossareinträgen in [`isy-documentation`](https://github.com/IsyFact/isy-documentation)
 - `IFS-4193`: [isyfact-standards-doc] Referenzarchitektur der Persistenzschicht aufgrund von IFS-3736 neu verfasst
 - `IFS-4192`: [isyfact-standards-doc] Referenzarchitektur der Serviceschicht aufgrund von IFS-3736 neu verfasst:
   - Inhalte zu Kommunikation zwischen IT-Systemen mittels Services und Versionierung von Services auf neue Seite "Services" in der software-technischen Referenzarchitektur umgezogen,

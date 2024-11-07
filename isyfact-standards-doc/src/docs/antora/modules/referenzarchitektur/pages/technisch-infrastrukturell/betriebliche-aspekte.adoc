@@ -74,7 +74,7 @@ Gleiches gilt, wenn sich zum Beispiel die Parameter eines Anwendungsservers änd
 Eine neue Version der Parameter liegt vor und damit liegt auch eine neue Konfiguration der Betriebsumgebung vor.
 Um nachvollziehen zu können, was sich wann warum geändert hat, ist es empfehlenswert, dass jede Veränderung an der Betriebsumgebung genehmigt und nachvollziehbar dokumentiert wird.
 
-*Auslieferung:* Mit dem Begriff „Auslieferung“ wird die Übergabe von Liefergegenständen aus der Hoheit der Software-Entwicklung in die Hoheit des Betriebs bezeichnet.
+*Auslieferung:* Mit dem Begriff "Auslieferung“ wird die Übergabe von Liefergegenständen aus der Hoheit der Software-Entwicklung in die Hoheit des Betriebs bezeichnet.
 Dabei werden im allgemeinen Software, Parameter und eine Dokumentation ausgeliefert.
 Bei der Software wird eine ablauffähige Einheit (RPM-Paket) ausgeliefert.
 Dieses RPM-Paket wird durch das Installationsprogramm unter Angabe der Parameter installiert.
