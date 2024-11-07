@@ -77,7 +77,7 @@ Sie kann auf unterschiedliche Weise konfiguriert werden:
 Konfiguration mit `@SpringBootApplication`:
 
 [[listing-applikationsklasse-mit-springbootapplication-annotation]]
-.Applikationsklasse eines Backends mit `@SpringBootApplication`
+.Applikationsklasse mit `@SpringBootApplication`
 [source, java]
 ----
 package de.beispiel.ifanwendung;
@@ -99,10 +99,10 @@ Ist eine feinere Kontrolle bei Anwendungen, welche die `@SpringBootApplication`-
 Konfiguration mit `@Configuration` und `@EnableAutoConfiguration`:
 
 [[listing-applikationsklasse]]
-.Applikationsklasse eines Backends mit expliziter Konfiguration
+.Applikationsklasse mit expliziter Konfiguration
 [source,java]
 ----
-package de.beispiel.if2anwendung;
+package de.beispiel.ifanwendung;
 
 @Configuration
 @EnableAutoConfiguration
@@ -121,7 +121,7 @@ Dieses Vorgehen hat Vorteile bei der Isolation von Modulen in einem modularen Sy
 Alternativ kann zu diesem Zweck auch `@SpringBootConfiguration` genutzt werden.
 
 Für jede Schicht wird im Package der Schicht (`<org>.<domäne>.<anwendung>.<schicht>`) parallel zu den Interfaces der Komponentenschnittstellen eine mit `@Configuration` annotierte <<listing-konfigurationsklasse,Konfigurationsklasse>> erstellt.
-Diese wird zusätzlich mit `@ComponentScan` annotiert, wenn <<listing-applikationsklasse>> verwendet wird.
+Diese wird zusätzlich mit `@ComponentScan` annotiert, wenn eine <<listing-applikationsklasse>> verwendet wird.
 Annotationen, die querschnittliche Aspekte konfigurieren (z.B. `@EnableTransactionManagement`), werden an die Konfigurationsklasse der inhaltlich passenden Schicht geschrieben.
 
 [[listing-konfigurationsklasse]]
@@ -148,10 +148,10 @@ Externe Spring-Beans, die nicht annotiert werden können, werden in der Konfigur
 [[Empfehlungen-zu-Konfigurationsmoeglichkeiten-der-Applikationsklasse]]
 ==== Empfehlungen zu Konfigurationsmöglichkeiten der Applikationsklasse
 
-** Grundsätzlich ist für die Applikationsklasse die `@SpringBootApplication`-Annotation zu verwenden.
+* Grundsätzlich ist für die Applikationsklasse die `@SpringBootApplication`-Annotation zu verwenden.
 So wird die Konfiguration vereinfacht und Boiler-Plate-Code minimiert.
-** Die `@Configration`-Annotation in der Anwendungsklasse soll genutzt werden, wenn die explizite Kontrolle über die Konfiguration und das _Component Scanning_ notwendig ist, zum Beispiel bei der Isolation von Modulen in einem modularen System und um sicherzustellen, dass Konfigurationen unabhängig bleiben.
-** `@SpringBootConfiguration` ist für Randfälle zu nutzen.
+* Die `@Configration`-Annotation in der Anwendungsklasse soll genutzt werden, wenn die explizite Kontrolle über die Konfiguration und das _Component Scanning_ notwendig ist, zum Beispiel bei der Isolation von Modulen in einem modularen System und um sicherzustellen, dass Konfigurationen unabhängig bleiben.
+* `@SpringBootConfiguration` ist für Randfälle zu nutzen.
 Dies ist zum Beispiel der Fall für spezielle Testkonfigurationen bei denen unerwünschte Autokonfigurationen Tests verlangsamen oder verkomplizieren können.
 
 
