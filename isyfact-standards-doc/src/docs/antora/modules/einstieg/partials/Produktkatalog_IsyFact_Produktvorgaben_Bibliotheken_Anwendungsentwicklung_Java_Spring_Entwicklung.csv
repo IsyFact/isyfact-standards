@@ -40,7 +40,7 @@ Bibliothek mit Utilities zur Lösung gängiger Programmierprobleme, insbesondere
 Utility-API;http://commons.apache.org/[Apache Commons CLI];1.9.x;4.0.0;verbindlich;Apache Software License;Unterstützung für das Parsen von Kommandozeilenoptionen. Wird im Batchrahmen genutzt.
 Utility-API;http://commons.apache.org/[Apache Commons NET];"3.x +
 (>3.2.2)";1.0.0;verbindlich;Apache Software License;Unterstützung für den Download von Dateien von einem FTP Server.
-Utility-API;http://commons.apache.org/[Apache Commons Validator];1.7.x;2.4.0;verbindlich;Apache Software License;Validiert Dateien bei Server- und Client-seitigem Austausch und prüft diese auf Integrität.
+Utility-API;http://commons.apache.org/[Apache Commons Validator];1.7.x;4.0.0;empfohlen;Apache Software License;Diese Bibliothek soll nur verwendet werden, wenn die benötigten Validierungsfunktionen nicht im Hibernate Validator enthalten sind. Die Bibliothek validiert Dateien bei Server- und Client-seitigem Austausch und prüft diese auf Integrität.
 Utility-API;http://commons.apache.org/[Apache Commons BeanUtils];"1.9.x
 (>1.9.3)";1.8.1;verbindlich;Apache Software License;Apache Commons BeanUtils stellt einen einfach zu nutzenden Wrapper um die  Java APIs Reflection und Introspection bereit.
 Utility-API;http://commons.apache.org/[Apache Commons IO];2.x;2.4.0;verbindlich;Apache Software License;Apache Commons IO ist eine Bibliothek mit nützlichen Utilities um IO-Funktionalität zu implementieren.
@@ -52,7 +52,7 @@ Logback JSON Classic/Logback Jackson;https://logback.qos.ch/manual/[Logback];0.1
 GNU Lesser General Public License";
 JDBC-Treiber;https://www.oracle.com/database/technologies/oracledb-and-spring-springboot.html[Oracle];19.x;3.0.0;verbindlich;Oracle Technology Network Developer License;"Die Version des JDBC-Treibers muss zur Datenbank passsen. Es muss nicht immer der neueste Treiber sein. Patches mit JDBC-Treiber sind zu prüfen.
 Es wird empfohlen die Version 8 des OJDBC Treibers einzusetzen."
-Connection Pool;https://www.oracle.com/database/technologies/oracledb-and-spring-springboot.html[Oracle Universal Connection Pool (UCP)];19.x;3.0.0;verbindlich;Oracle Technology Network License;UCP unterstützt Oracle spezifische Features wie Advanced Queuing und hat sich in Hochlast-Anwendungen bewährt. Umfangreiche Konfigurationsmöglichkeiten und gutes Stale Connection Management (Timeouts etc);
+Connection Pool;https://www.oracle.com/database/technologies/oracledb-and-spring-springboot.html[Oracle Universal Connection Pool (UCP)];19.x;4.0.0;verbindlich;Oracle Technology Network License;UCP unterstützt Oracle spezifische Features wie Advanced Queuing und hat sich in Hochlast-Anwendungen bewährt. Umfangreiche Konfigurationsmöglichkeiten und gutes Stale Connection Management (Timeouts etc);
 Bean Validierung;https://docs.spring.io/spring-framework/reference/core/validation/beanvalidation.html[Java Bean Validation API];<<spring-boot-dependencies,icon:leaf[]>>;4.0.0;verbindlich;Apache Software License 2.0;Spring Boot setzt standardmäßig auf die Jakarta Bean Validation API.;
 Bean Validierung;https://hibernate.org/validator/documentation/[Hibernate Validator];<<spring-boot-dependencies,icon:leaf[]>>;4.0.0;verbindlich;Apache License 2.0;Der Hibernate Validator ist transitiv abhängig zum Jakarta Bean Validator.
 
