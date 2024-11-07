@@ -1,11 +1,11 @@
-= Datenflüsse in der Anwendungsdomäne XYZ
+= Datenflüsse in der Domäne XYZ
 
 // tag::inhalt[]
 
-[[datenfluesse-in-anwendungsdomaene-xyz]]
-== Datenflüsse in der Anwendungsdomäne XYZ
+[[datenfluesse-in-domaene-xyz]]
+== Datenflüsse in der Domäne XYZ
 
-Nachfolgend werden die Datenflüsse in der Anwendungsdomäne XYZ dargestellt.
+Nachfolgend werden die Datenflüsse in der Domäne XYZ dargestellt.
 Diese umfasst die folgenden fachlichen Datenbestände:
 
 * Adressdatenbank:
@@ -20,7 +20,7 @@ Diese umfasst die folgenden fachlichen Datenbestände:
 [[schreiben-in-datenbestand-1]]
 === Schreiben in Datenbestand 1
 
-Benutzer können ihre eigene Adressdaten selbst über ein Portal eingeben.
+Benutzer können ihre eigenen Adressdaten selbst über ein Portal eingeben.
 Darüber hinaus besteht die Möglichkeit einen Massenimport von Adressdaten zu durchzuführen, der z.B. durch Upload einer Adressliste erfolgt. …
 
 [[image-schreiben-in-datenbestand-1]]

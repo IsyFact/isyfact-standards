@@ -124,8 +124,8 @@ Ein beliebiges Attribut, das im Access-Token des Security Contexts abgelegt ist,
 === Aufruf von Nachbarsystemen
 
 Ein IT-System erwartet bei einem Aufruf, dass alle notwendigen Authentifizierungs- und Autorisierungsdaten in valider und gültiger Form übergeben werden.
-Folglich muss ein IT-System, das ein Nachbarsystem aufruft, diesem Aufruf ebenfalls gültige und valide Authentifzierungs- und Autorisierungsdaten mitgeben.
-Im Regelfall werden diese Daten der originären Anfrage als `SecurityContext` übergeben, der mit den Daten aus dem AccessToken zuvor initialisiert, wurde.
+Folglich muss ein IT-System, das ein Nachbarsystem aufruft, diesem Aufruf ebenfalls gültige und valide Authentifizierungs- und Autorisierungsdaten mitgeben.
+Im Regelfall werden diese Daten der originären Anfrage als `SecurityContext` übergeben, der mit den Daten aus dem Access-Token zuvor initialisiert, wurde.
 Dies geschieht durch die xref:validierung-der-token[Validierung des Access-Tokens] über den Sicherheitsbaustein `isy-security` des IT-Systems.
 Für eine fachliche und prozessbezogene Aufrufkette wird dieses `Access-Token` in allen weiteren Aufrufen wiederverwendet und unverändert weitergeleitet.
 
@@ -209,7 +209,7 @@ Er gilt für einen spezifischen Bereich und nur für eine bestimmte Zeit. +
 *Refresh-Token*
 
 'Meta'-Berechtigungsnachweis: Ermöglicht dem Client, ein neues Access-Token vom IAM-Service zu erhalten, ohne dass der Ressourcenbesitzer sich erneut ausweisen muss.
-Dieses neue Access-Token kann z.B. ein späteres Ablaufdatum (autom. Nutzungsverlängerung) oder andere Rechte (innerhalb aller an den Ressourcenbesitzer vergebenen Rechte) aufweisen.  +
+Dieses neue Access-Token kann zum Beispiel ein späteres Ablaufdatum (automatische Nutzungsverlängerung) oder andere Rechte (innerhalb aller an den Ressourcenbesitzer vergebenen Rechte) aufweisen.  +
 Wir übernehmen für die IsyFact die englische Bezeichnung "Refresh-Token".
 
 [[openidconnect-zur-authentifizierung]]
@@ -230,21 +230,21 @@ OpenID Connect Abfragen zur Identität eines Benutzers, OpenID-Token oder Custom
 [[aufruf-weboberflaeche-portal]]
 ==== Aufruf Web-Oberfläche/Portal
 
-Damit ein Anwender eine geschützte Anwendung über deren Web-Oberfläche (im Web-Browser) aufrufen kann, muss er über den IAM-Service authentifiziert und dazu autorisiert sein.
+Damit ein Anwender eine geschützte Anwendung über deren Web-Oberfläche (im Webbrowser) aufrufen kann, muss er über den IAM-Service authentifiziert und dazu autorisiert sein.
 Die IsyFact folgt der Empfehlung des OAuth 2.0 Frameworks und definiert den _Authorization Code Flow_ als Authentifizierungsweg.
 Dieser Ablauf stellt sicher, dass zum einen nur der IAM-Service die Authentifizierungsdaten des Nutzers erfährt und zum anderen, dass die Web-Oberfläche (Web-Client) keinen Zugriff auf das Access-Token bekommt.
 
 Als Voraussetzung für diesen Flow ist die Bereitstellung eines Vermittlers ('Relying Party') notwendig, der die Kommunikation zwischen Web-Oberfläche und Autorisierungsserver verwaltet.
 Dieser Vermittler muss ein OAuth2.0 _Confidential Client_ sein, also ein serverseitiges System.
-Dies kann ein als Reverse Proxy konfigurierter Webserver sein (z.B. Apache http-Server mit `mod_auth_openidc` Modul), der zwischen  Web-Client (Web-Browser) und Web-Anwendung geschaltet ist.
+Dies kann ein als Reverse Proxy konfigurierter Webserver sein (z.B. Apache http-Server mit `mod_auth_openidc` Modul), der zwischen  Web-Client (Webbrowser) und Web-Anwendung geschaltet ist.
 Das Webserver-Modul `mod_auth_openidc` koordiniert den Ablauf des _Authorization Code Flow_ mit _Confidential Client_ zwischen Nutzer und dem IAM-Service und verwaltet das Access-Token - der Baustein Security wird hierfür nicht verwendet.
-Die folgende Abbildung zeigt die System-Architektur mit dem Webserver in der Informations- u. Dienstezone vor der Anwendung und dem IAM-Service in der Logik- u. Verarbeitungszone.
+Die folgende Abbildung zeigt die System-Architektur mit dem Webserver in der Informations- und Dienstezone vor der Anwendung und dem IAM-Service in der Logik- u. Verarbeitungszone.
 
 .Beteiligte Systeme bei Aufruf über Web-Oberfläche / Portal
 [id="image-Authorization-Code-Connections",reftext="{figure-caption} {counter:figures}"]
 image::konzept/authorization-code-connections.dn.svg[align="center"]
 
-Ein menschlicher Nutzer, der eine Anwendung über deren Web-Oberfläche (im Web-Browser) bedienen möchte, ist im Besitz von Authentifizierungsdaten (Nutzername u. Passwort), mit denen er sich gegenüber dem IAM-System ausweisen kann.
+Ein menschlicher Nutzer, der eine Anwendung über deren Web-Oberfläche (im Webbrowser) bedienen möchte, ist im Besitz von Authentifizierungsdaten (Nutzername u. Passwort), mit denen er sich gegenüber dem IAM-System ausweisen kann.
 Wenn für einen Anwender (noch) keine gültige Session vorhanden ist, leitet der Webserver auf die Login-Seite des IAM-Systems um.
 Die hier eingegebenen Authentifizierungsdaten gelangen ausschließlich zum IAM-Service, wo sie geprüft werden.
 Bei positiver Authentifizierung stellt der IAM-Service erstmal einen kurzlebigen _Authorization Code_ aus.
@@ -310,7 +310,7 @@ oder in den xref:nutzungsvorgaben/inhalt.adoc#authentifizierungsmanager-interfac
 
 
 In einer zukünftigen Version von `IsyFact` wird in einer neu eingeführten aber separierten Komponente der Anwendungslandschaft (_Authentication-Gateway_) eine neue Authentifizierungslogik (xref:aufruf-service-gateway-mit-authentication-gateway[]) für die Authentifizierung von Anwendungen eingeführt.
-Die Authentifizierung wird von der eigentlichen fachlichen Anfrage getrennt, so dass sie nur einmal durchgeführt werden muss und das erhaltene Access-Token (innerhalb seiner Gültigkeit) auch für die weiteren fachlichen Anfragen verwendet werden kann.
+Die Authentifizierung wird von der eigentlichen fachlichen Anfrage getrennt, sodass sie nur einmal durchgeführt werden muss und das erhaltene Access-Token (innerhalb seiner Gültigkeit) auch für die weiteren fachlichen Anfragen verwendet werden kann.
 
 [[aufruf-service-gateway-mit-authentication-gateway]]
 ===== Direkte Authentifizierung am IAM-Service
@@ -354,6 +354,7 @@ image::konzept/Squenzdiagramm_ServiceGateway_plus_AuthGateway.dn.svg[align="cent
 
 [[absicherung-batch]]
 ===== Absicherung eines Batches
+
 Gemäß der IsyFact-Systemlandschaft - siehe xref:blaupausen:detailkonzept-komponente-batch/master.adoc#grobe-architektur-des-batchrahmens[Grobe Architektur des Batchrahmens] - ist ein Batch Teil eines IT-Systems und setzt sich - siehe xref:image-awlogbat[Fachliche Architektur eines Batch in der Anwendungslandschaft] - aus den Komponenten (1) Batch-Logik und -Steuerung sowie den dabei eingesetzten (2) Fachkomponenten zusammen.
 Da die Absicherung zur Ausführung eines Batches immer ohne User-Interaktionen stattfindet, ist dieser als _Confidential Client_ einzustufen, weil er in der Lage sein muss, die notwendige Vertraulichkeit zur Wahrung seiner Anmeldeinformationen sicherzustellen.
 
@@ -361,7 +362,7 @@ Da die Absicherung zur Ausführung eines Batches immer ohne User-Interaktionen s
 [id="image-awlogbat",reftext="{figure-caption} {counter:figures}"]
 image::blaupausen:detailkonzept-batch/architektur-it-system-batch-parts.dn.svg[]
 
-Ein Batch wird über ein Batch-Client oder Startprogramm – meist ein Shellscript, UC4, JobNetz, CronJob, o.ä. – initialisiert und gestartet.
+Ein Batch wird über einen Batch-Client oder ein Startprogramm – meist ein Shellscript, UC4, JobNetz, CronJob, oder ähnliches – initialisiert und gestartet.
 Diese Batch-Clients sind systemseitig dazu berechtigt, den dedizierten Batch auszuführen und damit zu starten.
 Somit ruft der Batch-Client die Komponente _Batch-Logik_ in der Nutzungsschicht der Anwendung auf, die die notwendigen Initialisierungen vornimmt.
 Genau hier erfolgt frühzeitig die Unterscheidung welcher _Credential_-Flow (xref:resource-owner-password-credential-flow[] oder xref:client-credential-flow[]) zur Authentifizierung und Autorisierung des Batch verwendet werden soll.
@@ -440,24 +441,24 @@ Dieser Flow soll gemäß OAuth2.0 Vorgaben nicht mehr verwendet werden und wird 
 
 Der _Resource-Owner-Password-Credential_-Flow, der als Authentifizierungsdaten die Attribute `Username` und `Passwort` verwendet, sollte nur eingesetzt werden, wenn die involvierte Client-Anwendung ein hohes Vertrauen zur Wahrung der Authentifizierungsdaten sicherstellt oder wenn keine andere Art der Berechtigungszuteilung verfügbar ist, da hierbei die Authentifizierungsdaten des Benutzers durch die Client-Anwendung gehen bzw. direkt in ihr gespeichert sind.
 In IsyFact wird dieses Verfahren eingesetzt, um eine selbständig laufende Anwendung (z.B. Batch, Task) als technischen Benutzer zu authentifizieren, der mit seinen ihm zugeteilten Rollen im an das IAM-System angeschlossene Benutzerverzeichnis verwaltet wird.
-So wird die Authentifizierung für einen techn. Benutzer über diesen Authorization-Flow abgebildet.
+So wird die Authentifizierung für einen technischen Benutzer über diesen Authorization-Flow abgebildet.
 
 .OAuth2.0 Resource-Owner-Password-Credential Flow
 [id="image-resourceowner-password-credential-flow",reftext="{figure-caption} {counter:figures}"]
 image::isy-security:konzept/Resource-Owner-Passwort-Credential-Flow.dn.svg[align="center"]
 
 Im vorherigen Bild wird der logische Ablauf des _Resource-Owner-Password-Credential_-Flows dargestellt.
-Hierbei wird die Konfiguration des techn. Benutzers als der _Resource-Owner_ dargestellt.
+Hierbei wird die Konfiguration des technischen Benutzers als der _Resource-Owner_ dargestellt.
 
-Einem _Confidential Client_ wird die Konfiguration (1.) eines techn. Benutzers mit den Authentifizierungsdaten `Username` und `Passwort` zugeordnet.
-Dieser techn. Benutzer muss mit seinen Rollen im Benutzerverzeichnis vorhanden und gepflegt sein.
+Einem _Confidential Client_ wird die Konfiguration (1.) eines technischen Benutzers mit den Authentifizierungsdaten `Username` und `Passwort` zugeordnet.
+Dieser technische Benutzer muss mit seinen Rollen im Benutzerverzeichnis vorhanden und gepflegt sein.
 Zusätzlich verlangt der _Resource-Owner-Password-Credential_-Flow eine Authentifizierung des _Confidential Client_ selbst.
 Die dafür verwendeten Authentifizierungsdaten `Client-ID` und `Client-Secret` müssen vor der Nutzung für die Client-Anwendung definiert und mit dem IAM-System abgestimmt sein.
 
 Die so konfigurierte (Confidential-Client)-Anwendung schickt (2.) dann im Access Token Request diese beiden Authentifizierungsdaten an den IAM-Service.
-Im IAM erfolgt mit den so übergebenen Authentifizierungsdaten die Authentifizierung sowohl des _Confidential Client_, als auch des techn. Benutzers als _Resource-Owner_, die im Ergebnis ein gültiges Access-Token mit den Rollen des techn. Benutzers als Antwort (3.) zurückgeliefert.
+Im IAM erfolgt mit den so übergebenen Authentifizierungsdaten die Authentifizierung sowohl des _Confidential Client_, als auch des technischen Benutzers als _Resource-Owner_, die im Ergebnis ein gültiges Access-Token mit den Rollen des technischen Benutzers als Antwort (3.) zurückgeliefert.
 
-Die Client-Anwendung kann dann, mit dem so erhaltenen Access-Token und in den Rollen des techn. Benutzers, ihre Fachanwendungen aufrufen.
+Die Client-Anwendung kann dann, mit dem so erhaltenen Access-Token und in den Rollen des technischen Benutzers, ihre Fachanwendungen aufrufen.
 Das Access-Token enthält alle notwendigen Daten, um zu verifizieren, ob die aufrufende Anwendung ordnungsgemäß authentifiziert und autorisiert ist.
 
 
@@ -571,10 +572,10 @@ Technische Nutzer (Clients) können ihr Access-Token nur durch eine erneute Auth
 *Konfiguration des Refresh-Tokens im IAM-System*
 
 Zur weiteren Erhöhung der Sicherheit kann und sollte das Refresh-Token mit Rotation konfiguriert werden, denn dann wird bei Aktualisierung des Access Token auch ein neues Refresh-Token ausgestellt.
-Eine eventuelle nochmalige Einreichung desselben Refresh-Token bedeutet, dass sich unbefugte Dritte dieses Refresh-Token aneignen konnten.
+Eine eventuelle nochmalige Einreichung desselben Refresh-Tokens bedeutet, dass sich unbefugte Dritte dieses Refresh-Token aneignen konnten.
 Das wird durch die 'Automatic Reuse Detection' im IAM-System erkannt und Gegenmaßnahmen ergriffen.
 
-Die Ablaufzeit des Refresh-Token bestimmt, wie lange der Benutzer an der Anwendung angemeldet ist und mit ihr arbeiten kann, ohne sich neu authentifizieren zu müssen.
+Die Ablaufzeit des Refresh-Tokens bestimmt, wie lange der Benutzer an der Anwendung angemeldet ist und mit ihr arbeiten kann, ohne sich neu authentifizieren zu müssen.
 Hierbei muss Sicherheit gegen Benutzerkomfort abgewogen werden.
 
 [[nutzung-des-behoerdenkennzeichens]]
@@ -599,7 +600,7 @@ Die nachfolgende Skizze zeigt dies schematisch auf.
 [id="image-multiple-uris",reftext="{figure-caption} {counter:figures}"]
 image::konzept/unterschiedliche-issuerURIs.dn.svg[align="center"]
 
-Die *externe IAM-URI* wird vom Portal als Redirect an den WebClient zurückgeliefert, so dass dieser den IAM-Service direkt von extern aufrufen kann, um den IAM-Login-Dialog im WebClient zur Anzeige zu bringen.
+Die *externe IAM-URI* wird vom Portal als Redirect an den WebClient zurückgeliefert, sodass dieser den IAM-Service direkt von extern aufrufen kann, um den IAM-Login-Dialog im WebClient zur Anzeige zu bringen.
 Nach erfolgreicher Authentifizierung wird die *externe IAM-URI* in den Access-Token (`iss-Claim`) geschrieben.
 Die *interne IAM-URI* wird von der Geschäftsanwendung benötigt, um direkt auf *internem* Wege mit dem IAM zu kommunizieren, z.B. zum Laden von Zertifikatsinformationen.
 
@@ -645,7 +646,7 @@ Beim Einsatz von Multi-Tenancy ist daher genau zu planen, welcher Tenant (bzw. f
 Bei _n_ Benutzergruppen müssen dann bis zu _n_ unterschiedliche Tenant-Konfigurationen in der Anwendungskonfiguration existieren.
 Eine detaillierte Beschreibung anhand eines Beispiels findet sich im nächsten Kapitel.
 
-*Für IsyFact-Anwendungslandschaften werden mindestens folgende zwei Tenants für den Zugriff von außerhalb der Anwednungslandschaft gefordert:*
+*Für IsyFact-Anwendungslandschaften werden mindestens folgende zwei Tenants für den Zugriff von außerhalb der Anwendungslandschaft gefordert:*
 
 . Tenant 1: Gruppierung aller Systeme mit Zugriffsweg über das Service-Gateway.
 . Tenant 2: Gruppierung aller Anwender mit Zugriffsweg über das Portal.
@@ -667,7 +668,7 @@ Die an den Zugriffswegen beteiligten Komponenten unterscheiden sich in ihrem Auf
 Die Umsetzung und sicherheitsrelevante Trennung dieser Zugriffswege werden als eigenständige Tenants betrachtet und können somit auch als mehrere Instanzen pro Zugriffsweg eingerichtet werden.
 Dadurch ist es möglich fachliche Unterschiede über den gleichen technischen Zugriffsweg bei der Authentifizierung zu machen.
 
-Die bisher aufgezeigten Authentifizierungswege werden in Bezug auf `isy-security` als jeweilig unterschiedliche Tenants behandelt bzw. konfiguriert.
+Die bisher aufgezeigten Authentifizierungswege werden in Bezug auf `isy-security` als jeweils unterschiedliche Tenants behandelt beziehungsweise konfiguriert.
 Aber auch pro Authentifizierungsweg ist es möglich unterschiedliche Tenants sprich mehrere Instanzen des gleichen Typs einzurichten.
 
 Folgendes Beispiel zeigt die Trennung nach Zugriffswegen (<<image-multi-tenancy-isyfact>>):
@@ -715,7 +716,7 @@ Die Vergabe von Rollen ist _das_ Mittel der Benutzeradministration, um Anwender 
 Die Vergabe von Rollen an einen Anwender (menschlicher und technischer) erfolgt im Querschnitt:
 in der Querschnittsanwendung Benutzerverzeichnis.
 
-Es ist konzeptionell beabsichtigt, dass die Administration per Rollen recht grobgranular erfolgt.
+Es ist konzeptionell beabsichtigt, dass die Administration per Rollen recht grob granular erfolgt.
 Eine administrative Vergabe feingranularer Rechte ist konzeptionell nicht erwünscht.
 Die individuelle Zuordnung von Rechten zu Anwendern ist daher prinzipiell nicht möglich.
 Rechte werden Anwendern ausschließlich indirekt über Rollen zugeordnet.
@@ -725,7 +726,7 @@ Welche Rechte einer Rolle zugeordnet sind, wird innerhalb der statischen Konfigu
 Die Geschäftsanwendung X bietet zwei Dialoge zur Administration von Anwendungseigenschaften.
 Die Dialoge sind über die Rolle `AnwendungX_Administrator` abgesichert.
 Innerhalb der Anwendung ist Dialog 1 mit dem Recht `AdministrierenDialog1` und Dialog 2 mit dem Recht `AdministrierenDialog2` abgesichert.
-Grobgranular wird die Rolle `AnwendungX_Administrator` einem Anwender zugeordnet.
+Grob granular wird die Rolle `AnwendungX_Administrator` einem Anwender zugeordnet.
 Innerhalb der Konfiguration des IT-Systems X sind beide Rechte konfiguriert und der Rolle `AnwendungX_Administrator` zugeordnet.
 Alle Anwender mit der Rolle `AnwendungX_Administrator` sind somit innerhalb der Anwendung autorisiert, die beiden Admin-Dialoge zu verwenden.
 ====
@@ -803,7 +804,7 @@ Daher werden diesen technischen Rollen im Regelfall weitere technische Rollen un
 [[technische-zugangsrollen]]
 ==== Technische Zugangsrollen
 
-Anwender gelangen in der Regel entweder über das xref:glossary:glossary:master.adoc#glossar-portal[Portal] oder den xref:glossary:glossary:master.adoc#glossar-service-gateway[Service-Gateway] in eine Anwendungslandschaft.
+Anwender gelangen in der Regel entweder über das xref:glossary:glossary:master.adoc#glossar-portal[Portal] oder das xref:glossary:glossary:master.adoc#glossar-service-gateway[Service-Gateway] in eine Anwendungslandschaft.
 Um den Zugriff über diese Schnittstellen zentral und einfach zu verwalten, können dafür entsprechende technische Rollen definiert werden (z.B. `Zugang_Portal` und `Zugang_Service_Gateway`).
 Diese Rollen können dann einfach fachlichen Rollen untergeordnet werden, um den jeweiligen Zugriff zu erlauben.
 
@@ -844,7 +845,7 @@ Das Schema zur Benennung einer fachlichen Rolle für Anwender kann folgendermaß
 
  <Fachlicher Systemname>_<Funktion>
 
-Der fachliche Systemname beschreibt die Geschäftsanwendung, bzw. die Anwendungsdomäne, in welcher die entsprechende Funktionalität bereitgestellt wird.
+Der fachliche Systemname beschreibt die Geschäftsanwendung, bzw. die Domäne, in welcher die entsprechende Funktionalität bereitgestellt wird.
 Er entspricht prinzipiell dem Systemnamen der Systemspezifikation, abzüglich technischer Kürzel.
 
 Da die Rollen für fachliche Operationen angelegt werden, sollten sie unabhängig von technischen Aspekten gelten.

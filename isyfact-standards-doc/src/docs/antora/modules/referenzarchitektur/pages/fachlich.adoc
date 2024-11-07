@@ -21,11 +21,11 @@ image::referenzarchitektur:fachlich/fachliche-referenzarchitektur-anwendungsland
 Zur Strukturierung der xref:glossary:glossary:master.adoc#glossar-anwendungslandschaft[Anwendungslandschaft] werden drei fachliche Hierarchieebenen festgelegt:
 
 *xref:glossary:glossary:master.adoc#glossar-domaene[Domäne]:*
-Auf der obersten Hierarchieebene werden Anwendungsdomänen gebildet.
-Eine Anwendungsdomäne gruppiert fachlich zusammengehörende Anwendungen zur Unterstützung von Geschäftsprozessen, die als eine Einheit angesehen werden können.
+Auf der obersten Hierarchieebene werden Domänen gebildet.
+Eine Domäne gruppiert fachlich zusammengehörende Anwendungen zur Unterstützung von Geschäftsprozessen, die als eine Einheit angesehen werden können.
 In <<awl-fachlich,der obigen Abbildung>> wurden zwei Domänen gebildet.
 
-Zwischen den Anwendungen unterschiedlicher Anwendungsdomänen sollten nur wenige, klar definierte Nutzungsbeziehungen existieren.
+Zwischen den Anwendungen unterschiedlicher Domänen sollten nur wenige, klar definierte Nutzungsbeziehungen existieren.
 
 *xref:glossary:glossary:master.adoc#glossar-anwendung[Anwendung]:*
 include::glossary::terms-definitions.adoc[tag="anwendung-definition"]
@@ -40,7 +40,7 @@ In <<awl-fachlich,der obigen Abbildung>> werden Anwendungskomponenten nicht darg
 Im Rahmen der Referenzarchitektur werden zunächst Geschäftsanwendungen und Querschnittsanwendungen als Typen von Anwendungen unterschieden.
 Eine weitergehende Unterscheidung der Geschäftsanwendungen muss durch ein xref:tailoring.adoc[Tailoring] der Referenzarchitektur erfolgen.
 
-*xref:glossary:glossary:master.adoc#glossar-geschaeftsanwendung[Geschäftsanwendung]:* Eine Geschäftsanwendung implementiert für sich genommen oder im Zusammenspiel mit anderen Geschäftsanwendungen einen oder mehrere Geschäftsprozesse einer Anwendungsdomäne.
+*xref:glossary:glossary:master.adoc#glossar-geschaeftsanwendung[Geschäftsanwendung]:* Eine Geschäftsanwendung implementiert für sich genommen oder im Zusammenspiel mit anderen Geschäftsanwendungen einen oder mehrere Geschäftsprozesse einer Domäne.
 Sie implementiert entweder die gesamte hierfür notwendige Funktionalität (monolithisch), von der Benutzerschnittstelle über die Geschäftslogik, die Prozesse bis hin zur Datenhaltung, oder sie implementiert nur einen Teilbereich der Funktionalität und greift für den Rest über Schnittstellen auf benachbarte Geschäftsanwendungen zu.
 
 .Trennung in Bestandsverwaltung und Benutzerinteraktion

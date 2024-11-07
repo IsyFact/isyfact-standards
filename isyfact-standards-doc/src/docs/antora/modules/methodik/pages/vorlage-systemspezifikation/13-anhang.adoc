@@ -133,7 +133,7 @@ _Das Schema zur Benennung einer fachlichen Rolle für GUI oder Service-Gateway i
 
 * *_<Fachlicher Systemname>_<Funktion>_*
 
-_Für <Fachlicher Systemname> wird der abgekürzte Name des Systems bzw. der Anwendungsdomäne aus der Spezifikation ohne Zusätze wie GA, Register eingesetzt, z. B. „CD_Auskunft“._
+_Für <Fachlicher Systemname> wird der abgekürzte Name des Systems bzw. der Domäne aus der Spezifikation ohne Zusätze wie GA, Register eingesetzt, z. B. „CD_Auskunft“._
 
 _Das Schema zur Benennung einer fachlichen Rolle für ein internes System (Batch/Task) ist:_
 
@@ -156,10 +156,22 @@ _Eine beispielhafte Liste mit Rollen, deren Beschreibung und zugeordneten Rechte
 [cols="1,2,1",options="header"]
 |====
 |*_Rolle_* |*_Beschreibung_* |*_Rechte_*
-|_Rolle_Nutzung_ |_Für den Zugriff auf das System ohne Administrationsfunktionalität._ |_Recht_1, Recht_2_
-|_Rolle_Reporting_ |_Für die Verwaltung von Reports._ |_Recht_3_
-|_Rolle_System_ |_Interne Rolle für den Systembenutzer._ |_Recht_4_
-|_Rolle_Batch_ |_Interne Rolle für den Batchbenutzer._ |_Recht_5_
+
+|_Rolle_Nutzung_
+|_Für den Zugriff auf das System ohne Administrationsfunktionalität._
+|_Recht_1, Recht_2_
+
+|_Rolle_Reporting_
+|_Für die Verwaltung von Reports._
+|_Recht_3_
+
+|_Rolle_System_
+|_Interne Rolle für den Systembenutzer._
+|_Recht_4_
+
+|_Rolle_Batch_
+|_Interne Rolle für den Batchbenutzer._
+|_Recht_5_
 |====
 
 _Eine beispielhafte Liste von Akteuren eines Systems und deren Rolle(n) sieht wie folgt aus:_
@@ -168,9 +180,15 @@ _Eine beispielhafte Liste von Akteuren eines Systems und deren Rolle(n) sieht wi
 [cols="1,1",options="header"]
 |====
 |*_Akteur_* |*_Rolle_*
-|_AKR_Nutzer_ |_Rolle_Nutzung_
-|_AKR_Reporter_ |_Rolle_Reporting_
-|_AKR_Interner_Nutzer_ |_Rolle_System, Rolle_Batch_
+
+|_AKR_Nutzer_
+|_Rolle_Nutzung_
+
+|_AKR_Reporter_
+|_Rolle_Reporting_
+
+|_AKR_Interner_Nutzer_
+|_Rolle_System, Rolle_Batch_
 |====
 
 [[weiterfuehrende-dokumente]]
@@ -182,5 +200,8 @@ _Liste mit Referenzen auf weiterführende Dokumentation._
 [cols="1,1,1",options="header"]
 |====
 |*Kürzel* |*Beschreibung* |*Ablage*
-|[Kürzel] |Eine Beschreibung des Dokuments |Verweis auf den Ablageort des Dokuments, z.B. eine URL.
+
+|[Kürzel]
+|Eine Beschreibung des Dokuments
+|Verweis auf den Ablageort des Dokuments, z.B. eine URL.
 |====

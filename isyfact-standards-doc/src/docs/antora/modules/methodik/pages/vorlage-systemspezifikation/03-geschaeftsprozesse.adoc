@@ -36,7 +36,7 @@ Dies bringt aber für die Analyse der Kernprozesse häufig keinen Mehrwert, sond
 Zum Beispiel lohnt es sich nicht, die Aktivitäten für Posteingang, Hauspost und Aktenhaltung zu modellieren – es sein denn, es geht um die Einführung eines Dokumenten-Management-Systems._
 
 _Die Modellierung von Geschäftsprozessen verfolgt immer ein konkretes Ziel.
-Dies ist meist die Feststellung von Optimierungsbedarfen bzgl. der Organisation der Abläufe oder der IT-Unterstützung.
+Dies ist meist die Feststellung von Optimierungsbedarfen bezüglich der Organisation der Abläufe oder der IT-Unterstützung.
 Je nach Ziel des Projekts muss im Vorfeld festgelegt werden, welche Elemente im Modell enthalten sein müssen und welche nicht für die Erreichung des Ziels notwendig sind.
 So ist für die Feststellung eines IT-Optimierungspotenzials die Modellierung von Anwendungen essenziell, weniger aber die Modellierung von Akteuren oder Wahrscheinlichkeiten für das Durchlaufen einzelner Zweige im Modell._
 
@@ -76,7 +76,7 @@ _Als zu verwendende Namenskonvention beginnen alle Geschäftsprozessnamen mit de
 Bei der Wahl des Namens ist darauf zu achten, dass dieser kurz und prägnant ist._
 
 _Der Geschäftsprozess wird textuell beschrieben, wobei das Ziel, die beteiligten Organisationseinheiten und der Ablauf benannt werden.
-Der Ablauf wird zusätzlich grafisch in einem Geschäftsprozessdiagramm (engl. Business Process Diagram - BPD) in der Geschäftsprozessmodellierungsnotation (engl. Business Process Modeling Notation - BPMN) dargestellt._
+Der Ablauf wird zusätzlich grafisch in einem Geschäftsprozessdiagramm (englisch Business Process Diagram - BPD) in der Geschäftsprozessmodellierungsnotation (englisch Business Process Modeling Notation - BPMN) dargestellt._
 
 [[gep-meldung]]
 .Geschäftsprozess: GEP_<Bezeichnung des Geschäftsprozesses>
@@ -86,10 +86,10 @@ image::vorlage-systemspezifikation/gepmeldung.png[]
 ****
 Die am Geschäftsprozess beteiligten Organisationseinheiten zieht man als „Pools“ aus dem UML-Profil „Prozesse“.
 Die Geschäftsvorfälle, Start-, Ende- und Verzweigungselemente stammen aus demselben UML-Profil.
-Die Verbindung „Ablauf“ nutzt man zur Darstellung des Ablaufs der Geschäftsvorfälle je Organisationseinheit.
-Den Verbinder „Nachricht“ nutzt man, um zu zeigen, welche Nachrichten zwischen den Organisationseinheiten ausgetauscht werden.
-Falls ein Geschäftsvorfall nur unter bestimmten Bedingungen ausgeführt wird, zeigt man dies durch Auswahl von „Source Role > Aggregation > Shared“ und Angabe eines Namens in dessen Eigenschaften.
-Bei Bedarf kann man zusätzlich Verzweigungselemente nutzen.
+Zur Darstellung des Ablaufs der Geschäftsvorfälle je Organisationseinheit wird die Verbindung „Ablauf“ genutzt.
+Der Verbinder „Nachricht“ wird genutzt, um zu zeigen, welche Nachrichten zwischen den Organisationseinheiten ausgetauscht werden.
+Falls ein Geschäftsvorfall nur unter bestimmten Bedingungen ausgeführt wird, wird dies durch die Auswahl von „Source Role > Aggregation > Shared“ und der Angabe eines Namens in dessen Eigenschaften gezeigt.
+Bei Bedarf können zusätzlich Verzweigungselemente genutzt werden.
 ****
 
 [[geschaeftsvorfall-gvf-bezeichnung-geschaeftsvorfalls]]
@@ -119,22 +119,24 @@ Persistente Daten und Dokumente fügt man aus dem UML-Profil „Prozesse“ hinz
 [cols="2,6", options="header"]
 |===
 2+| Geschäftsvorfall
-|*Kurzbeschreibung* |_Zwei bis drei Sätze zur Beschreibung des Ziels, des Ablaufs und der beteiligten Organisationseinheiten (Rolle) des Geschäftsvorfalls._
-|*Vorbedingungen/ +
-auslösendes Ereignis* a|
-_Die Vorbedingungen beschreiben den Zustand aller relevanten und nichttrivialen Voraussetzungen, die erfüllt sein müssen, damit der Geschäftsvorfall durchgeführt werden kann.
+
+|*Kurzbeschreibung*
+|_Zwei bis drei Sätze zur Beschreibung des Ziels, des Ablaufs und der beteiligten Organisationseinheiten (Rolle) des Geschäftsvorfalls._
+
+|*Vorbedingungen/ auslösendes Ereignis*
+|_Die Vorbedingungen beschreiben den Zustand aller relevanten und nichttrivialen Voraussetzungen, die erfüllt sein müssen, damit der Geschäftsvorfall durchgeführt werden kann.
 Sie werden als Punkte-Liste beschrieben.
 Jeder Punkt beschreibt ein Set an Vorbedingungen, welche vollständig gelten müssen._
 
 _Auslöser für den Geschäftsvorfall sind Ereignisse wie auslösende Handlungen anderer Akteure oder Zeitpunkte._
 
-|*Nachbedingungen/ +
-Ergebnisse* |_Beschreibung des erwarteten Zustandes nach Ausführung des Geschäftsvorfalls.
+|*Nachbedingungen/ Ergebnisse*
+|_Beschreibung des erwarteten Zustandes nach Ausführung des Geschäftsvorfalls.
 Es kann hier auch mehrere Nachbedingungen geben, wenn es alternative Zustände nach der Ausführung gibt, z.B. Erfolg oder Fehler._
 |===
 
-[[aktivitaet-aktbezeichung-aktivitaet]]
-====== Aktivität AKT_<Bezeichung der Aktivität>
+[[aktivitaet-aktbezeichnung-aktivitaet]]
+====== Aktivität AKT_<Bezeichnung der Aktivität>
 
 _Eine Aktivität ist eine Tätigkeit, die einen elementaren, logischen Schritt innerhalb eines Geschäftsvorfalls bildet.
 Sie wird unterbrechungsfrei von einem Akteur ausgeführt.
@@ -149,28 +151,37 @@ _Es werden nur diejenigen Aktivitäten beschrieben, die vom Auftraggeber durchge
 [cols="2,6", options="header"]
 |===
 2+| Aktivität
-|*Organisationseinheit* |_Beteiligte Organisationseinheit oder Rolle._
-|*Kurzbeschreibung* |_Zwei bis drei Sätze zur Beschreibung des Ziels und des Ablaufs der Aktivität._
-|*Vorbedingungen/ +
-auslösendes Ereignis* a|
-_Die Vorbedingungen beschreiben den Zustand aller relevanten und nichttrivialen Voraussetzungen, die erfüllt sein müssen, damit die Aktivität durchgeführt werden kann.
+
+|*Organisationseinheit*
+|_Beteiligte Organisationseinheit oder Rolle._
+
+|*Kurzbeschreibung*
+|_Zwei bis drei Sätze zur Beschreibung des Ziels und des Ablaufs der Aktivität._
+
+|*Vorbedingungen/ auslösendes Ereignis*
+|_Die Vorbedingungen beschreiben den Zustand aller relevanten und nichttrivialen Voraussetzungen, die erfüllt sein müssen, damit die Aktivität durchgeführt werden kann.
 Sie werden als Punkte-Liste beschrieben.
 Jeder Punkt beschreibt einen Satz an Vorbedingungen, der vollständig gelten muss._
 
 _Auslöser für die Durchführung der Aktivität sind Ereignisse wie auslösende Handlungen anderer Akteure oder Zeitpunkte._
 
-|*Nachbedingungen/ +
-Ergebnisse* |_Beschreibung des erwarteten Zustandes nach Ausführung der Aktivität.
+|*Nachbedingungen/ Ergebnisse*
+|_Beschreibung des erwarteten Zustandes nach Ausführung der Aktivität.
 Wenn möglich Verweise auf erzeugte persistente Daten oder Dokumente.
 Es kann hier auch mehrere Nachbedingungen geben, wenn es alternative Zustände nach der Ausführung gibt, z.B. Erfolg oder Fehler._
-|*Automatisierungsgrad* |_Inwieweit wird die Aktivität durch Anwendungen unterstützt? Mögliche Ausprägungen sind „vollautomatisiert“, „teilautomatisiert“ und „manuell“._
-|*Beteiligte Systeme* |_Beteiligte Anwendungen, wenn die Aktivität nicht manuell durchgeführt wird._
-|*Verwendete +
-Anwendungsfälle* |_Hier werden alle Anwendungsfälle als Spiegelstrichaufzählung aufgelistet, die die Aktivität umsetzen.
+
+|*Automatisierungsgrad*
+|_Inwieweit wird die Aktivität durch Anwendungen unterstützt? Mögliche Ausprägungen sind „vollautomatisiert“, „teilautomatisiert“ und „manuell“._
+
+|*Beteiligte Systeme*
+|_Beteiligte Anwendungen, wenn die Aktivität nicht manuell durchgeführt wird._
+
+|*Verwendete Anwendungsfälle*
+|_Hier werden alle Anwendungsfälle als Spiegelstrichaufzählung aufgelistet, die die Aktivität umsetzen.
 Bei Beteiligung mehrerer Anwendungen werden die Anwendungsfälle den Systemen zugeordnet._
 |===
 
-[[aktivitaet-aktbezeichnung-aktivitaet]]
+[[aktivitaet-aktbezeichnung-aktivitaet-2]]
 ====== Aktivität AKT_<Bezeichnung der Aktivität>
 
 _Dieser Abschnitt ist ein Platzhalter, um zu verdeutlichen, dass ab hier weitere Aktivitäten des Geschäftsvorfalls zu beschreiben sind._
@@ -251,7 +262,8 @@ _Dieser Abschnitt ist ein Platzhalter, um zu verdeutlichen, dass ab hier weitere
 [[anwendungen]]
 === Anwendungen
 
-_Anwendungen unterstützen teilautomatisierte und automatisierte Aktivitäten. Anwendungen werden in fachliche Anwendungsdomänen unterteilt, die z.B. nach den Zuständigkeiten der Fachbereiche geordnet sein können.
+_Anwendungen unterstützen teilautomatisierte und automatisierte Aktivitäten.
+Anwendungen werden in fachliche Domänen unterteilt, die z.B. nach den Zuständigkeiten der Fachbereiche geordnet sein können.
 In diesem Abschnitt werden die Domänen textuell erklärt und grafisch die Anwendungen in die Domänen eingeordnet._
 
 [[anmeldungssysteme-domaenenzugehoerigkeit]]
@@ -260,8 +272,8 @@ image::vorlage-systemspezifikation/anwendungen-domaenenzugehoerigkeit.png[]
 
 ._Erstellung des Diagramms im Enterprise Architect_
 ****
-_Man zieht alle Anwendungen in ein Use Case Diagramm.
-Dann ordnet man sie nach Anwendungsdomänen und zeichnet jede Domäne als Boundary mit Namen ein._
+_Alle Anwendungen werden in ein Use Case Diagramm gezogen.
+Dann werden sie nach Domänen geordnet und jede Domäne wird als Boundary mit Namen eingezeichnet._
 ****
 
 [[anwendung-sysbezeichnung-anwendung-1]]
