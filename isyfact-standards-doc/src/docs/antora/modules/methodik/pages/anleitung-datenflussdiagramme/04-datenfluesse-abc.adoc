@@ -1,11 +1,11 @@
-= Datenflüsse in der Anwendungsdomäne ABC
+= Datenflüsse in der Domäne ABC
 
 // tag::inhalt[]
 
-[[datenfluesse-in-anwendungsdomaene-abc]]
-== Datenflüsse in der Anwendungsdomäne ABC
+[[datenfluesse-in-domaene-abc]]
+== Datenflüsse in der Domäne ABC
 
-_Hier werden die Datenflüsse einer weiteren Anwendungsdomäne analog zum vorherigen Kapitel dargestellt._
+_Hier werden die Datenflüsse einer weiteren Domäne analog zum vorherigen Kapitel dargestellt._
 
 // end::inhalt[]
 

@@ -90,9 +90,9 @@ Bausteine werden mit folgenden Dokumentationstypen beschrieben:
 
 |Inhalt
 a|
-* Technische Feinkonzeption
+* Technische Feinkonzeption mit Lösungsansatz
 * Anforderungen
-* Architekturvorgaben und Architekturentscheidungen
+* Architekturvorgaben, Rahmenbedingungen und Architekturentscheidungen
 
 |Zielgruppe(n)
 |Architekten, (Entwickler)
@@ -113,14 +113,14 @@ xref:isy-persistence:konzept.adoc[]
 2+|Nutzungsvorgaben
 
 |Ziel
-|Vorgaben zur Nutzung eines Bausteins in der Entwicklung. 
+|Vorgaben zur Nutzung eines Bausteins in der Entwicklung (aus technischer Sicht).
 
 |Inhalt
 a|
 * Beschreibung, wie ein konkreter Baustein (Bibliothek) für die Entwicklung einer Anwendung genutzt werden kann.
 * Hinweise zur _Verwendung_ oder _Konfiguration_ von externen Bibliotheken oder Produkten, sofern Teil des Bausteins.
 
-Nutzungsvorgaben sind keine Benutzerdokumentation.
+Nutzungsvorgaben sind keine Benutzerdokumentation und komplementieren das <<table-konzept>>.
 
 |Zielgruppe(n)
 |Entwickler

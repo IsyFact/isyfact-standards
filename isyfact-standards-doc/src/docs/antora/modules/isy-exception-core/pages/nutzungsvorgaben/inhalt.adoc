@@ -135,7 +135,7 @@ Um nun eine solche Klasse zu erstellen, muss zuvor nach obigem Schema (siehe <<i
 
 Das Beispiel enthält wiederum alle möglichen Konstruktoren.
 Dies dient jedoch auch hier nur der Veranschaulichung.
-Es ist für Exceptions im xref:glossary:glossary:master.adoc#glossar-anwendungskern[Anwendungskern] nicht notwendig, alle Konstruktoren zur Verfügung zu stellen.
+Es ist für Exceptions im xref:referenzarchitektur:software-technisch/backend/anwendungskern.adoc[Anwendungskern] nicht notwendig, alle Konstruktoren zur Verfügung zu stellen.
 
 Die unter <<image-007>> und <<image-008>> dargestellten Konstruktoren sind notwendig, um zu gewährleisten, dass alle Exceptions immer eine Ausnahme-ID besitzen, die den Fehlertext identifiziert, d.h. andere Konstruktoren sind nicht gestattet.
 

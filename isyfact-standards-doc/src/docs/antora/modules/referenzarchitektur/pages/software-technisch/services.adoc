@@ -203,7 +203,7 @@ Es kann vorkommen, dass in _einem_ Systemrelease neue Versionen von _mehreren_ S
 === Architektur
 
 Backends bieten pro Service-Version eine eigene Service-Schnittstelle an.
-Die unterschiedlichen Versionen des Services verwenden alle denselben xref:glossary::terms-definitions.adoc#glossar-anwendungskern[Anwendungskern].
+Die unterschiedlichen Versionen des Services verwenden alle denselben xref:referenzarchitektur:software-technisch/backend/anwendungskern.adoc[Anwendungskern].
 Die für die Versionierung notwendigen Transformationen sind Teil der jeweiligen Service-Schnittstelle (z.B. das Einfügen eines Standardwerts für neu hinzugefügte Attribute).
 In komplexen Fällen kann es auch notwendig sein, den Anwendungskern zu erweitern und die Versionierung dort zu behandeln.
 Die Entscheidung dafür ist im Systementwurf zu dokumentieren.

@@ -49,7 +49,7 @@ public interface CrudRepository<T,ID> {
 }
 ----
 
-Der Zugriff auf die Datenbank aus dem xref:glossary:glossary:master.adoc#glossar-anwendungskern[Anwendungskern] heraus erfolgt immer über diese Repositories.
+Der Zugriff auf die Datenbank aus dem xref:referenzarchitektur:software-technisch/backend/anwendungskern.adoc[Anwendungskern] heraus erfolgt immer über diese Repositories.
 Die Repositories werden als Spring-Beans in den Anwendungskern injiziert.
 Für jede Entität wird ein entsprechendes Repository als Interface angelegt.
 

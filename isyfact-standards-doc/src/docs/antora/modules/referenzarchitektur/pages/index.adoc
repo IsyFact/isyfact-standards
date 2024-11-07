@@ -46,7 +46,9 @@ image::referenzarchitektur:fachlich/fachliche-referenzarchitektur-anwendungsland
 Anwendungen bieten dabei eine zusammengehörige, logische Einheit aus Funktionen, Daten und Schnittstellen.
 Es werden zwei Typen unterschieden:
 
-* *Geschäftsanwendungen* implementieren Geschäftslogik, Prozesse oder speichern Daten. Sie können Präsentationslogik enthalten, oder reine Datenspeicher im Hintergrund sein, die anderen Geschäftsanwendungen ihre Daten bereitstellen. Je nach Anwendungsdomäne kann es unterschiedliche Arten von Geschäftsanwendungen geben, die spezielle Aufgaben wahrnehmen.
+* *Geschäftsanwendungen* implementieren Geschäftslogik, Prozesse oder speichern Daten.
+Sie können Präsentationslogik enthalten, oder reine Datenspeicher im Hintergrund sein, die anderen Geschäftsanwendungen ihre Daten bereitstellen.
+Je nach Domäne kann es unterschiedliche Arten von Geschäftsanwendungen geben, die spezielle Aufgaben wahrnehmen.
 * *Querschnittsanwendungen* stellen Services für mehrere Geschäftsanwendungen bereit, beispielsweise ein Suchverfahren oder die Anwenderverwaltung.
 
 Eine Anwendung besteht aus Anwendungskomponenten, die eine Menge funktional zusammenhängender Anwendungsfälle beschreiben.

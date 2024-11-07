@@ -8,7 +8,7 @@
 Eine Anwendungslandschaft besteht aus mehreren Anwendungen, die Daten untereinander und mit ihren Nutzern austauschen.
 Die Nutzer sind entweder über Schnittstellen zu diesen Anwendungen angebunden, oder benutzen die Anwendungen der Anwendungslandschaft über deren grafische Oberflächen oder Batches.
 
-Die Datenflussdiagramme werden im Dokument nach Anwendungsdomänen und darin nach den verschiedenen fachlichen Themen aufgeteilt.
+Die Datenflussdiagramme werden im Dokument nach Domänen und darin nach den verschiedenen fachlichen Themen aufgeteilt.
 Die Aufteilung muss so gewählt werden, dass jedes Diagramm nicht zu komplex wird.
 Eine feinere Aufteilung ist also eine gute Lösung, wenn ein Diagramm zu komplex ist.
 
