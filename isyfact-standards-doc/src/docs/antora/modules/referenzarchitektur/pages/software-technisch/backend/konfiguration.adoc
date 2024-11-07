@@ -41,7 +41,7 @@ Sie ist ein fachlicher Bestandteil des Backends.
 Das Backend greift lesend und schreibend auf die Benutzer-Konfiguration zu.
 
 Die Benutzer-Konfiguration liegt in der Regel in Form von Datenbank-Tabellen vor.
-Die Umsetzung geschieht analog zur xref:isy-persistence:nutzungsvorgaben/umsetzung-datenzugriff.adoc[].
+Die Umsetzung geschieht analog zur xref:isy-persistence:nutzungsvorgaben/umsetzung-persistenzschicht.adoc[].
 
 Die Benutzer-Konfiguration ist im Rahmen der xref:methodik:vorlage-systemspezifikation/master.adoc#datenmodell[Systemspezifikation] dokumentiert.
 

@@ -28,12 +28,13 @@ Die grundlegenden Prinzipien bei der technischen Abbildung sind, dass:
 * die Umsetzung in Form eines Patterns erfolgt, und dass
 * die Historisierung konsistent mit den bereits getroffenen Festlegungen zur Persistenz ist.
 
-Die Historisierung der Bearbeitung erfolgt *explizit*, d. h. die zu historisierenden Daten werden durch die Anwendungslogik gepflegt und persistiert.
+Die Historisierung der Bearbeitung erfolgt *explizit*.
+Das bedeutet, dass die zu historisierenden Daten im Anwendungskern gepflegt und durch ihn persistiert werden.
 
 ****
-Theoretisch wäre es auch möglich, die Historisierung auf der Ebene des Datenzugriffs durchzuführen.
-Dazu würde der Datenzugriff, statt Entitäten zu aktualisieren, neue Entitäten mit aktuellen Zeitstempeln anlegen.
-Beim Auslesen würde der Datenzugriff immer der aktuellste Datensatz liefern.
+Theoretisch wäre es auch möglich, die Historisierung auf der Ebene der Persistenzschicht durchzuführen.
+Dazu würde die Persistenzschicht, statt Entitäten zu aktualisieren, neue Entitäten mit aktuellen Zeitstempeln anlegen.
+Beim Auslesen würde die Persistenzschicht immer den aktuellsten Datensatz liefern.
 
 Dieses Vorgehen lohnt sich aber nicht, da in der Regel nur sehr wenige Datensätze historisiert werden.
 Ebenso widerspricht es der Anforderung, dass keine Daten gespeichert werden sollen, die nicht angezeigt werden.

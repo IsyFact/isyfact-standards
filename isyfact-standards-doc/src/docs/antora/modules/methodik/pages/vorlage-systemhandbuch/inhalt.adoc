@@ -507,7 +507,7 @@ Auch hier gibt es ein Skript für die Umgebungsvariablen (`01_environment.sql`),
 
 ====
 Ausfüllhinweise::
-_Benutzt die Anwendung die Versionierung von Datenbankschemas gemäß Detailkonzept Datenzugriff *nicht*, muss statt der Kurzzusammenfassung der genaue Ablauf zum Anlegen bzw. Aktualisieren des Datenbankschemas beschrieben werden._
+_Benutzt die Anwendung die Versionierung von Datenbankschemas *nicht*, muss statt der Kurzzusammenfassung der genaue Ablauf zum Anlegen bzw. Aktualisieren des Datenbankschemas beschrieben werden._
 ====
 
 [[konfiguration-benutzer-behoerdenverzeichnis]]

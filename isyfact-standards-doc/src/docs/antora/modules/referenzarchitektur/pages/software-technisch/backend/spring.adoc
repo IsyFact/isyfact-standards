@@ -9,7 +9,7 @@ Neben seiner Kern-Funktionalität der Verwaltung, Konfiguration und aspektorient
 Die folgenden Inhalte beschreiben die Nutzung von Spring für die allgemeine Umsetzung von Backends.
 Die Nutzung spezifischer Features von Spring sind Bestandteile der folgenden Bausteine:
 
-* Konfiguration der Persistenzschicht: beschrieben in den xref:isy-persistence:nutzungsvorgaben/umsetzung-datenzugriff.adoc[Nutzungsvorgaben JPA/Hibernate],
+* Konfiguration der Persistenzschicht: beschrieben in den xref:isy-persistence:nutzungsvorgaben/umsetzung-persistenzschicht.adoc[Nutzungsvorgaben JPA/Hibernate],
 * Konfiguration des Logging: beschrieben in den xref:isy-logging:nutzungsvorgaben/master.adoc[],
 * Bereitstellung von Metriken zur Überwachung: beschrieben im xref:isy-ueberwachung:konzept/master.adoc[].
 

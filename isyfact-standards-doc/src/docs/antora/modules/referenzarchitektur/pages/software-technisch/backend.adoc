@@ -77,14 +77,12 @@ Zur Konzeption und Umsetzung des Anwendungskerns definiert die Referenzarchitekt
 [[persistenz]]
 == Persistenz
 
-include::blaupausen:detailkonzept-komponente-datenzugriff/einordnung-ziele.adoc[tags=persistenz-definition]
+include::backend/persistenzschicht.adoc[tags=persistenzschicht-definition]
 
 [[persistenz-fachkomponenten]]
 === Fachkomponenten
 
-Die Fachkomponenten der Persistenzschicht entsprechen vom fachlichen Schnitt her denen des Anwendungskerns.
-Die Fachkomponenten des Anwendungskerns besitzen wiederum die Datenhoheit auf ihre "Entsprechungen" in der Persistenzschicht.
-Nur die Fachkomponente mit Datenhoheit darf Änderungen an den jeweiligen persistenten Entitäten vornehmen.
+include::backend/persistenzschicht.adoc[tags=fachkomponente-definition]
 
 .icon:university[title=Architekturregel] Persistente Entitäten im Anwendungskern
 ****
@@ -98,14 +96,12 @@ Für den Transfer über Komponentengrenzen hinweg - oder aus dem Anwendungskern 
 [[persistenz-framework]]
 === Persistenz-Framework
 
-Die Persistenzschicht kommuniziert in Richtung Datenbank auf Basis der Standards JDBC und SQL.
-In Richtung des Anwendungskerns stellt sie persistente Entitäten mittels Spring Data JPA bereit.
-Zur Umsetzung des objekt-relationalen Mapping verwendet die Persistenzschicht das Produkt Hibernate.
+include::backend/persistenzschicht.adoc[tags=persistenz-framework-definition]
 
 [[persistenz-umsetzung]]
 === Umsetzung
 
-Zur Konzeption der Persistenzschicht definiert die Referenzarchitektur xref:blaupausen:detailkonzept-komponente-datenzugriff/einordnung-ziele.adoc[weitere Vorgaben].
+Zur Konzeption der Persistenzschicht definiert die Referenzarchitektur xref:software-technisch/backend/persistenzschicht.adoc[weitere Vorgaben].
 Die Umsetzung geschieht mithilfe des xref:isy-persistence:konzept.adoc[Bausteins JPA/Hibernate].
 
 [[serviceschicht]]
