@@ -1,4 +1,4 @@
-name: Dependency Scan
+name: Maven Dependency Scan
 on:
   push:
     branches:
@@ -11,6 +11,7 @@ jobs:
   Dependencies:
     uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_dependency_scan_template.yml@v1.6.0
     with:
+      scan-dependency-management: false
       snyk-reference: $GITHUB_REF_NAME
       snyk-organization: ${{ vars.SNYK_ORG_ID }}
     secrets:
