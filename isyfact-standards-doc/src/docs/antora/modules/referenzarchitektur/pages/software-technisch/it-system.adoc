@@ -84,4 +84,4 @@ include::glossary::terms-definitions.adoc[tag=batch-definition]
 Batches setzen wie Backends auf den xref:einstieg:produktkatalog/technologiestackJavaSpring.adoc[].
 Sie nutzen Spring Boot als Anwendungsframework und weitere Produkte von Spring sowie JEE-Standards und xref:bausteine:bausteine.adoc[] der IsyFact zur Umsetzung der Services.
 
-Die Systemarchitektur und die Umsetzung querschnittlicher, technischer Aspekte für Batches beschreibt die xref:blaupausen:detailkonzept-komponente-batch/thisdoc.adoc[software-technische Referenzarchitektur für Batches].
+Die Systemarchitektur und die Umsetzung querschnittlicher, technischer Aspekte für Batches beschreibt die xref:software-technisch/batch.adoc[software-technische Referenzarchitektur für Batches].

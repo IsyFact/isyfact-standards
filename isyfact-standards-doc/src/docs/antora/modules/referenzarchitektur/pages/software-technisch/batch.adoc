@@ -36,10 +36,10 @@ Es gibt einen Batch-Rahmen, der dies unterstützt.
 
 Weiterführende technische Details finden sich in den folgenden Kapiteln.
 In Kapitel <<anforderungen>> werden die Anforderungen, in Kapitel <<ausgrenzungen>> die Ausgrenzungen definiert.
-Die Funktionsweise des Batchrahmens und die verschiedenen Startarten sowie die Konfiguration folgt in Kapitel xref:detailkonzept-komponente-batch/inhalt.adoc#der-batchrahmen["Der Batchrahmen"].
+Die Funktionsweise des Batchrahmens und die verschiedenen Startarten sowie die Konfiguration folgt in Kapitel xref:software-technisch/batch/batchrahmen.adoc#der-batchrahmen["Der Batchrahmen"].
 Dort werden auch die Transaktionssteuerung und die Restart-Funktionalität beschrieben, die es ermöglicht, abgebrochene Batches fortzusetzen.
 Die Überwachung mittels JMX ist ebenfalls enthalten.
-Das Kapitel xref:detailkonzept-komponente-batch/inhalt.adoc#die-ausfuehrungsbeans["Die Ausführungsbeans"] beschreibt schließlich, wie die konkrete Batchlogik über Ausführungsbeans angebunden wird.
+Das Kapitel xref:software-technisch/batch/batchrahmen.adoc#die-ausfuehrungsbeans["Die Ausführungsbeans"] beschreibt schließlich, wie die konkrete Batchlogik über Ausführungsbeans angebunden wird.
 
 [[einfuehrung]]
 == Einführung
@@ -110,7 +110,7 @@ Im Dokument wird unter Batchlogik diese Klassensammlung und keine Komponente ver
 
 .Die Anwendungslogik eines Batches (Zielarchitektur)
 [id="image-AnwLogBat",reftext="{figure-caption} {counter:figures}"]
-image::blaupausen:detailkonzept-batch/architektur-it-system-batch-parts.dn.svg[]
+image::software-technisch/batch/architektur-it-system-batch-parts.dn.svg[]
 
 [[checkpoint-restart-logik]]
 ==== Checkpoint / Restart Logik
@@ -133,9 +133,9 @@ Diese Verarbeitungsschritte (_Batch-Schritte_) eines Batches bilden ein „Batch
 
 .Ein Batch-Netz
 [id="image-BatNetz",reftext="{figure-caption} {counter:figures}"]
-image::blaupausen:detailkonzept-batch/BatNetz.png[align="center"]
+image::software-technisch/batch/BatNetz.png[]
 
-Die meisten Batch-Schritte sind keine Anwendungen: Sie werden komplett über ein Skript umgesetzt.
+Die meisten Batch-Schritte sind keine Anwendungen: Sie werdn komplett über ein Skript umgesetzt.
 Nur die Schritte, welche die Verarbeitung in der Geschäftsanwendung durchführen, sind Anwendungen und besitzen eine Java-Implementierung (die _Batchschritt-Implementierung_). In obiger Abbildung wird die Verarbeitung in der Geschäftsanwendung durch drei Batch-Schritte parallel durchgeführt.
 Alle drei verwenden dieselbe Batchschritt-Implementierung, arbeiten aber auf anderen Daten.
 
@@ -183,7 +183,7 @@ Für den Batchrahmen wurde folgende grobe Architektur gewählt:
 
 .Grobe Architektur des Batchrahmens
 [id="image-GrobArchBatCanv",reftext="{figure-caption} {counter:figures}"]
-image::blaupausen:detailkonzept-batch/GrobArchBatCanv.png[align="center",width=80%,pdfwidth=80%]
+image::software-technisch/batch/GrobArchBatCanv.png[align="center",width=80%]
 
 Der Batchrahmen besteht aus einem Startprogramm, welches notwendige Initialisierungen vornimmt, und einer Komponente Batchrahmen.
 Die Komponente Batchrahmen übernimmt die Steuerung des Batches und den Aufruf der Batchlogik.

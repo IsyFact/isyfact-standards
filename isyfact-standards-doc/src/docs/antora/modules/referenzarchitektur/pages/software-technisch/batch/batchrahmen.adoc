@@ -24,7 +24,7 @@ So müssen wenige Anpassungen vorgenommen werden, um aus der Anwendungskontext-K
 
 .Bean-Zugriffe des Batchrahmens
 [id="image-BeanGriffBat",reftext="{figure-caption} {counter:figures}"]
-image::blaupausen:detailkonzept-batch/BeanGriffBat.png[align="center"]
+image::software-technisch/batch/BeanGriffBat.png[]
 
 Für neue Batch-Implementierungen einer Geschäftsanwendung müssen ggf.
 Geschäftsanwendungs-Komponenten angepasst, Ausführungsbeans erstellt und diese im Batch-Springkontext konfiguriert werden.
@@ -297,7 +297,7 @@ Dies wird über die Tabelle `BATCH_STATUS` umgesetzt.
 
 .Tabellen-Schema für die Batchrahmen-Tabelle
 [id="image-SchemTabBatStat",reftext="{figure-caption} {counter:figures}"]
-image::blaupausen:detailkonzept-batch/SchemTabBatStat.dn.png[align="center"]
+image::software-technisch/batch/SchemTabBatStat.dn.png[align="center"]
 
 Die Tabelle `BATCH_STATUS` enthält für jeden Batch eine Zeile.
 Ein Batch ist nicht gleichzusetzen mit der Batch-Ausführungsbean.
