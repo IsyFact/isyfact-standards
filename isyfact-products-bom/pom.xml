@@ -390,6 +390,16 @@
             <!-- Testing, test framework: JUnit -->
             <!-- Testing, mocking framework: Mockito -->
             <!-- Testing, assertion API: AssertJ -->
+
+            <!-- JAX WS RI Standalone Zipped Bundle
+            This library licensed under the Eclipse Distribution License (EDL) Version 1.0
+            The full license text can be found in the LICENSES directory of this project. -->
+            <dependency>
+                <groupId>com.sun.xml.ws</groupId>
+                <artifactId>jaxws-ri</artifactId>
+                <version>2.3.7</version>
+                <type>pom</type>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -399,19 +409,6 @@
             <activation>
                 <jdk>[11,12)</jdk>
             </activation>
-            <dependencyManagement>
-                <dependencies>
-                    <!-- JAX WS RI Standalone Zipped Bundle
-                    This library licensed under the Eclipse Distribution License (EDL) Version 1.0
-                    The full license text can be found in the LICENSES directory of this project. -->
-                    <dependency>
-                        <groupId>com.sun.xml.ws</groupId>
-                        <artifactId>jaxws-ri</artifactId>
-                        <version>2.3.7</version>
-                        <type>pom</type>
-                    </dependency>
-                </dependencies>
-            </dependencyManagement>
         </profile>
     </profiles>
 </project>
