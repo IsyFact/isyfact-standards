@@ -294,7 +294,7 @@ Der Parameter `BatchErgebnisProtokoll` enthält eine Referenz auf ein Protokollo
 
 Für jeden Batch muss eine Property-Datei in `/src/main/resources/resources/batch` angelegt werden.
 In dieser statischen Konfiguration werden unter anderem die Batch-ID und die Transaktionssteuerung konfiguriert.
-Eine Beschreibung der Parameter ist in xref:blaupausen:detailkonzept-komponente-batch/master.adoc[Detailkonzept Komponente Batch] enthalten.
+Eine Beschreibung der Parameter ist im xref:blaupausen:detailkonzept-komponente-batch/inhalt.adoc#standard-konfigurationsparameter[Batchrahmen] enthalten.
 
 Die betriebliche Konfiguration des Batches ist identisch zu derjenigen der zugehörigen Anwendung.
 Auch Parameter, die nur für den Batch benötigt werden, werden in die betriebliche Konfiguration der Geschäftsanwendung aufgenommen.

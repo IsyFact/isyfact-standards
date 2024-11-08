@@ -76,7 +76,7 @@ Weitere Details zum Aufbau und zur Umsetzung von Frontends enthält die xref:ref
 
 include::glossary::terms-definitions.adoc[tags=batch-definition]
 
-Weitere Details zum Aufbau und zur Umsetzung von Batches enthält die xref:blaupausen:detailkonzept-komponente-batch/master.adoc[software-technische Referenzarchitektur für Batches].
+Weitere Details zum Aufbau und zur Umsetzung von Batches enthält die xref:blaupausen:detailkonzept-komponente-batch/thisdoc.adoc[software-technische Referenzarchitektur für Batches].
 
 
 [[vorgaben-fuer-den-systementwurf]]

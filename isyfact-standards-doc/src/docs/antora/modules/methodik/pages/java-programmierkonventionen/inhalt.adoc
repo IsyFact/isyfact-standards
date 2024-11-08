@@ -126,7 +126,7 @@ Die Implementierung der Batches geschieht in der Anwendung, welche die Batches b
 Daher enthalten Batch-Projekte weder Quellcode noch Tests.
 
 Batch-Projekte besitzen unter dem Wurzelverzeichnis (`project-root`) ein einzelnes Unterverzeichnis `src/main/resources`.
-Der Aufbau des Verzeichnisses wird im xref:blaupausen:detailkonzept-komponente-batch/master.adoc[Detailkonzept Komponente Batch] beschrieben.
+Der Aufbau des Verzeichnisses wird im xref:blaupausen:detailkonzept-komponente-batch/inhalt.adoc[] beschrieben.
 
 .Struktur eines Batch-Projekts
 [id="listing-Projektstruktur-Batch",reftext="{listing-caption} {counter:listings }"]
