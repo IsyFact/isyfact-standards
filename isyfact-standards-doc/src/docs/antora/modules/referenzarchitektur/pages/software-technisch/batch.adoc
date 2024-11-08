@@ -1,162 +1,68 @@
 = Referenzarchitektur Batch
 
-[[Einleitung]]
-== Einleitung
+include::documentation-guide::partial$licence.adoc[]
 
-Ein xref:glossary:glossary:master.adoc#glossar-batch[Batch] realisiert eine eigenständige Verarbeitung ohne direkten Benutzereingriff während des Ablaufes.
-An einen Batch werden verschiedene Anforderungen gestellt: Ausführungszeitpunkt, Abhängigkeiten, Datenvolumen, ausgeführte Funktionalität, Eingaben, Ausgaben usw.
+include::glossary::terms-definitions.adoc[tag=batch-definition]
 
-Aus Architektur-Sicht werden diese Anforderungen durch zwei Komponenten abgedeckt: den Batchrahmen und die Batchlogik.
+Batches sind technisch gleichartig aufgebaut.
+Sie setzen auf eine dem xref:software-technisch/backend.adoc[Backend] ähnliche Systemarchitektur.
 
-*Batchrahmen:* Der Batchrahmen stellt die Schnittstelle für den Aufruf der Batchfunktionalität zur Verfügung.
-Er übernimmt auch die Transaktionssteuerung und die Steuerung für einen Restart.
-
-*Batchlogik:* Die Batchlogik wird vom Batchrahmen aufgerufen, um die Funktionalität des Batchverarbeitungsprogramms zu aktivieren.
-Die Funktionalität, das heißt die Geschäftslogik und die Arbeitsschritte eines Batches, werden als Anwendungsfälle erfasst.
-Wenn diese Anwendungsfälle auch von anderen Nutzern benötigt werden, dann sind sie im Anwendungskern implementiert.
-
-[[image-TeileBat]]
+[[systemarchitektur-batch]]
 .Systemarchitektur eines Batches
-image::referenzarchitektur:software-technisch/batch/architektur-batch-system.dn.svg[]
+image::referenzarchitektur:software-technisch/batch/architektur-batch-system.dn.svg[width=80%, align=center]
 
-Batches werden als eigener Prozess auf einem eigenen Server ausgeführt, das heißt sie laufen nicht in der virtuellen Maschine des Application Servers ab.
-Batches werden somit in einer eigenen Ablaufumgebung ausgeführt und greifen direkt auf die Datenbank oder auch auf Dateien zu.
-Die benötigte Funktionalität des Anwendungskerns wird dem Batch als Bibliothek zur Verfügung gestellt und nicht über einen Service-Aufruf genutzt.
-Der Grund für diese Entscheidung liegt in den Datenmengen, die normalerweise von einem Batch verarbeitet werden: Die Übermittlung dieser Datenmengen über eine remote genutzte Schnittstelle ist ein möglicher Flaschenhals in der Anwendung.
-Dieser Flaschenhals wird durch die Nutzung der Anwendungskernfunktionalität als Bibliothek vermieden.
+Batches gehen gegenüber Backends einen speziellen Weg.
+Da Batches in der Regel einem konkreten Backend zugeordnet sind, binden sie den Anwendungskern und die Persistenzschicht des zugehörigen Backends ein und implementieren auf Basis dessen die Batchlogik.
+Die <<systemarchitektur-batch>> stellt die aus dem Backend stammenden Teile des Batches in Graustufen dar.
 
-Batch-Abläufe bestehen aus einem oder mehreren Batch-Schritten.
-Die einzelnen Batch-Schritte werden von einem Scheduler aufgerufen und zum vollständigen Batch-Ablauf verbunden.
-Ein Batch-Schritt wird von einem Programm implementiert, das mit entsprechenden Parametern vom Scheduler aufgerufen werden kann.
-Die hier beschriebenen Batches sind genau diese Batch-Schritte.
+.Sonderfall: Batch ohne Einbindung eines Backends
+****
+Es gibt auch Batches, die Daten von mehreren Backends verarbeiten.
+Dies kann beispielsweise der Fall sein, wenn ein Batch Daten mehrerer Backends miteinander abgleichen muss.
+Batches, die nicht eindeutig einem Backend zuzuordnen sind, können umgesetzt werden, ohne Quellcode aus einem Backend einzubinden.
+Stattdessen rufen sie die Service-Schnittstellen der benötigten Backends direkt auf und setzen selbst nur die Batchlogik um.
 
-Die Batch-Schritte haben eine genormte Schnittstelle für Aufruf und Rückgabewerte.
-Sie sind in der Regel restart-fähig.
-Es gibt einen Batch-Rahmen, der dies unterstützt.
+Insgesamt ist dies jedoch als Sonderfall zu betrachten, der nur unter oben genannter Bedingung zum Tragen kommt.
+****
 
-Weiterführende technische Details finden sich in den folgenden Kapiteln.
-In Kapitel <<anforderungen>> werden die Anforderungen, in Kapitel <<ausgrenzungen>> die Ausgrenzungen definiert.
-Die Funktionsweise des Batchrahmens und die verschiedenen Startarten sowie die Konfiguration folgt in Kapitel xref:software-technisch/batch/batchrahmen.adoc#der-batchrahmen["Der Batchrahmen"].
-Dort werden auch die Transaktionssteuerung und die Restart-Funktionalität beschrieben, die es ermöglicht, abgebrochene Batches fortzusetzen.
-Die Überwachung mittels JMX ist ebenfalls enthalten.
-Das Kapitel xref:software-technisch/batch/batchrahmen.adoc#die-ausfuehrungsbeans["Die Ausführungsbeans"] beschreibt schließlich, wie die konkrete Batchlogik über Ausführungsbeans angebunden wird.
+Zur reibungslosen Einbindung in eine übergreifende Batchsteuerung besitzen Batches eine Schnittstelle für Aufrufparameter und Rückgabewerte und sind in der Regel restart-fähig.
 
-[[einfuehrung]]
-== Einführung
+[[aufbau-batch]]
+== Aufbau des Batches
 
-[[vorgehen]]
-=== Vorgehen
+Im Gegensatz zu Backends besitzen Batches anstatt der Serviceschicht eine "Batch-Schicht", die aus zwei Bestandteilen besteht.
 
-Der Begriff „Batch“ bedeutet im Kern lediglich „nicht interaktive Stapelverarbeitung“. Wie ein Batch technisch umgesetzt werden soll, hängt davon ab, was konkret unter einem Batch verstanden wird.
-Im Folgenden wird deshalb zuerst beschrieben, was ein Batch im Sinne der IsyFact ist.
+=== Batchrahmen
 
-Ein Batch teilt sich auf in einen „Batchrahmen“, die Batchlogik der einzelnen Batch-Anwendungen, sowie die von ihnen aufgerufenen Komponenten des Anwendungskerns.
-Was darunter verstanden wird, wird in Kapitel <<die-aufteilung-in-batchrahmen-und-batchlogik>> beschrieben.
+Der Batchrahmen stellt die Schnittstelle für den Aufruf der Batchlogik zur Verfügung.
+Er enthält querschnittliche Logik, welche für alle Batches gleich ist.
+Das beinhaltet, nicht abschließend, die folgenden Aufgaben:
 
-[[was-ist-ein-batch]]
-=== Was ist ein Batch?
+* Verarbeitung der Aufrufparameter,
+* Verwaltung der Batchläufe,
+* Transaktionssteuerung,
+* Behandlung von Abbrüchen und Restarts,
+* Aufbereitung der Rückgabewerte.
 
-Eine Geschäftsanwendung stellt über ihre Komponenten fachliche Operationen bereit.
-Diese Operationen werden (zum Teil) als Services bereitgestellt.
-Sie werden aber auch bei der automatisierten Bearbeitung größerer Datenmengen in Batches verwendet.
-Typischerweise verarbeiten Batches dabei Dateilieferungen oder eine definierte Menge von Datensätzen aus dem Datenbestand.
-Einige der Operationen von Anwendungskomponenten werden nur für Services, einige nur für Batch-Verarbeitungen, andere für beides verwendet.
+=== Batchlogik
 
-=== Namenskonvention für eine Batchanwendung
-//tag::namenskonvention[]
-Mit vielen Systemen wird eine eigene Batch-Deploymenteinheit ausgeliefert.
-Diese wird folgendermaßen benannt.
-
-.Name einer Batchanwendung
-[id="table-nambat",reftext="{table-caption} {counter:tables}"]
-[cols="1,4",options="header"]
-|====
-2+|Name der Batchanwendung
-|*Schema* m|<anwendungsname>-batch
-|*Beispiele* m|xyz-ga-batch
-
-xyz-register-batch
-|*Variable* |*Mögliche Ausprägungen*
-m|<anwendungsname> |Der Name einer Anwendung, wie in den vorigen Abschnitten beschrieben.
-Er setzt sich meistens aus einem Systemkürzel und dem Systemtyp zusammen.
-|====
-
-//end::namenskonvention[]
-
+Die Batchlogik wird vom Batchrahmen aufgerufen.
+Sie enthält die Logik, welche spezifisch für den konkreten Batch ist.
+Die Batchlogik wird fachlich in Form von Anwendungsfällen erfasst.
+Wenn diese Anwendungsfälle nicht exklusiv durch den Batch genutzt werden, sind sie im Anwendungskern des zugehörigen Backends implementiert.
+Technisch gesehen besteht die Batchlogik aus einer Sammlung unabhängiger Klassen in der Batch-Schicht
+des Batches.
 
 [[die-bestandteile-eines-batches-und-die-zielarchitektur]]
-==== Die Bestandteile eines Batches und die Zielarchitektur
+=== Die Bestandteile eines Batches und die Zielarchitektur
 
-Ein Batch verwendet für die fachliche Verarbeitungslogik die Operationen der Komponenten der Geschäftsanwendung.
-Neben der fachlichen Verarbeitungslogik besteht die Anwendungslogik eines Batches aus folgenden Bestandteilen:
-
-* der technischen Logik, welche spezifisch für genau eine Batch-Implementierung ist: Funktionalität für das Einlesen der für die Verarbeitung benötigten Daten, das Aufrufen der Fachkomponenten etc.
-* querschnittliche Logik, welche für alle Batches gleich ist.
-Dies ist z. B. die Checkpoint-Restart Logik (siehe Kapitel <<checkpoint-restart-logik>>).
-
-In <<image-AnwLogBat>> werden diese Bestandteile in der Zielarchitektur hervorgehoben: Die spezifische technische
-Batchlogik wird in Punkt 1 dargestellt, die fachlichen Operationen der Komponenten finden sich in Punkt 2.
-Die querschnittliche Logik wird lediglich als Bibliothek eingebunden und ist in der Abbildung nicht dargestellt.
-
-Die Komponente „Batchsteuerung“ der Zielarchitektur bezieht sich auf die Steuerung eines Batch-Netzes (siehe <<image-BatNetz>>) und
-wird über eine betriebliche Batchsteuerung umgesetzt.
-Sie wird in diesem Dokument nicht betrachtet.
-
-Die Komponente „Batchlogik“ der Zielarchitektur ist eine logische Komponente, welche die technische Logik der
-Batchimplementierungen der Geschäftsanwendung beinhaltet.
-Diese Logik ist technisch gesehen keine Komponente, sondern eine Sammlung unabhängiger Klassen in der Batch-Schicht
-der Geschäftsanwendung.
-Im Dokument wird unter Batchlogik diese Klassensammlung und keine Komponente verstanden.
 
 .Die Anwendungslogik eines Batches (Zielarchitektur)
 [id="image-AnwLogBat",reftext="{figure-caption} {counter:figures}"]
-image::software-technisch/batch/architektur-it-system-batch-parts.dn.svg[]
-
-[[checkpoint-restart-logik]]
-==== Checkpoint / Restart Logik
-
-Da ein Batch in einem Lauf eine große Anzahl an Datensätzen verarbeiten muss, soll seine Verarbeitung nicht in einer Transaktion durchgeführt werden.
-Ebenso soll nicht jeder Datensatz in einer eigenen Transaktion verarbeitet werden, wie es die Transaktionssteuerung des Anwendungskerns vorsieht.
-Vielmehr wird ein Batch sein Arbeitspaket in mehreren Paketen, und damit auch Transaktionen, abarbeiten.
-Bei einem Wiederanlauf nach einem Fehler muss der Batch in der Lage sein, die bis zu seinem letzten Commit verarbeiteten Datensätze zu überlesen und nur die „neuen“ Datensätze zu verarbeiten.
-Den Commit einer Transaktion bezeichnet man in diesem Fall als Checkpoint.
-Das Überlesen bereits verarbeiteter Datensätze nennt man Checkpoint / Restart Fähigkeit.
-
-Für die Umsetzung der Checkpoint / Restart Fähigkeit muss der Batch in jeder Transaktion speichern, welche Datensätze bis zum Commit verarbeitet wurden. Üblicherweise geschieht das durch die Ablage der Anzahl verarbeiteter Datensätze bis zum Commit.
-Abgelegt werden diese Daten in einer Batch-Statustabelle, welche für jeden Batch eine Zeile enthält.
-
-[[der-unterschied-zwischen-batch-netz-batch-schritt-und-batch-implementierung]]
-==== Der Unterschied zwischen Batch-Netz, Batch-Schritt und Batch-Implementierung
-
-Die Verarbeitung von Massendaten durch einen Batch verläuft meist in mehreren Schritten: Die Verarbeitung einer Datei kann beispielsweise aus ihrer Übertragung auf einen internen Server, ihrer nachfolgenden Prüfung und der Verarbeitung ihres Inhalts bestehen.
-Diese Verarbeitungsschritte (_Batch-Schritte_) eines Batches bilden ein „Batch-Netz“. Jeder Schritt wird über den Aufruf eines Shell-Skripts gestartet.
-
-.Ein Batch-Netz
-[id="image-BatNetz",reftext="{figure-caption} {counter:figures}"]
-image::software-technisch/batch/BatNetz.png[]
-
-Die meisten Batch-Schritte sind keine Anwendungen: Sie werdn komplett über ein Skript umgesetzt.
-Nur die Schritte, welche die Verarbeitung in der Geschäftsanwendung durchführen, sind Anwendungen und besitzen eine Java-Implementierung (die _Batchschritt-Implementierung_). In obiger Abbildung wird die Verarbeitung in der Geschäftsanwendung durch drei Batch-Schritte parallel durchgeführt.
-Alle drei verwenden dieselbe Batchschritt-Implementierung, arbeiten aber auf anderen Daten.
-
-Ein Batch-Netz wird durch einen Job-Scheduler gesteuert.
-Ein Batch-Schritt ist dabei der Aufruf, welcher vom Scheduler aufgerufen wird.
-Aufgerufen wird ein Skript mit einer bestimmten Konfiguration. Über dieses Skript wird ggf.
-eine Geschäftsanwendung mit der übergebenen Konfiguration ausgeführt.
-Die Konfiguration eines Batchschrittes enthält stets eine Batchschritt-ID, welche den Batchschritt eindeutig identifiziert.
-Das bedeutet, dass jeder der drei Batchschritte in <<image-BatNetz>> eine eigene Batchschritt-ID erhält, obwohl alle drei Batchschritte die gleiche Batchschritt-Implementierung verwenden.
-Der Grund ist, dass jeder Batchschritt auf einem anderen Nummernkreis arbeitet und somit die Batchschritte unterscheidbar sein müssen.
-Diese Unterscheidung erfolgt über die Batchschritt-ID.
-
-Dieses Dokument befasst sich nicht mit Batch-Netzen oder ihrer Steuerung.
-Es behandelt die Geschäftsanwendung-Batchimplementierungen und ihre Konfigurationen.
-Der Einfachheit halber wird deshalb ein Geschäftsanwendung-Batchschritt als „Batch“ und eine Batchschritt-ID als „Batch-ID“ bezeichnet.
-
-Wichtig ist jedoch die Unterscheidung zwischen Batch und Batch-Implementierung: Der Batch ist der Aufruf aus der Produktionssteuerung heraus. Über ihn wird die aufzurufende Batch-Implementierung sowie seine Konfiguration (inklusive der Batch-ID) definiert.
-Die Implementierung ist Java-Code, der von mehreren Batches verwendet werden darf.
+image::software-technisch/batch/architektur-batch-parts.dn.svg[width=80%, align=center]
 
 [[die-aufteilung-in-batchrahmen-und-batchlogik]]
-==== Die Aufteilung in Batchrahmen und Batchlogik
+=== Die Aufteilung in Batchrahmen und Batchlogik
 
 Das Einlesen und Verarbeiten von Datensätzen durch den Aufruf fachlicher Komponenten wird in diesem Dokument _Batchlogik_ genannt.
 Diese ist spezifisch für genau eine Batch-Implementierung.
@@ -176,64 +82,10 @@ Für eine Batch-Implementierung umfasst diese Querschnittsfunktionalität folgen
 Diese Funktionalität wird in einer Batch-Implementierung durch eine querschnittliche Komponente namens _Batchrahmen_ umgesetzt.
 Diese wird über eine Bibliothek bereitgestellt, welche in jede Geschäftsanwendung eingebunden wird.
 
-[[grobe-architektur-des-batchrahmens]]
-==== Grobe Architektur des Batchrahmens
-
-Für den Batchrahmen wurde folgende grobe Architektur gewählt:
-
-.Grobe Architektur des Batchrahmens
-[id="image-GrobArchBatCanv",reftext="{figure-caption} {counter:figures}"]
-image::software-technisch/batch/GrobArchBatCanv.png[align="center",width=80%]
-
-Der Batchrahmen besteht aus einem Startprogramm, welches notwendige Initialisierungen vornimmt, und einer Komponente Batchrahmen.
-Die Komponente Batchrahmen übernimmt die Steuerung des Batches und den Aufruf der Batchlogik.
-
-Die Komponenten einer Geschäftsanwendung werden für einen Batch, genau wie in der Webanwendung, über das Spring-Framework verwaltet.
-Damit die Konfigurationen für die Webanwendung und für die Batch-Implementierungen möglichst gleich sind, werden die Komponenten für den Batchrahmen und die Batchlogik in einer separaten Konfigurationsdatei und einem separaten Spring-Kontext abgelegt.
-Dieser Kontext ist ein Kind-Kontext des eigentlichen xref:glossary:glossary:master.adoc#glossar-anwendungskontext[Anwendungskontextes] und kann alle Beans des Anwendungskontextes verwenden.
-So kann die Konfiguration der Webanwendung mit minimalen Anpassungen auch für den Batch verwendet werden.
-
-Der Batchrahmen benötigt für die Speicherung des Fortschritts und des Status der Batches eine Datenbankverbindung.
-In der Datei werden die vom Batchrahmen benötigten Informationen gespeichert, siehe <<tabellen-des-batchrahmens>>.
-
-Bei Bedarf können in einem Batch auch weitere Datenbankverbindungen genutzt werden.
-Die Einbindung weiterer Datenbanken ist in xref:isy-persistence:konzept/vorgaben-konventionen.adoc#nutzung-und-anbindung-einer-zweiten-datenbank[Konzept des Bausteins JPA/Hibernate] beschrieben.
-
-[[batches-als-eigenes-it-system]]
-=== Batches als eigenes IT-System
-
-Batches existieren meistens als weiterer Zugangsweg in der Nutzungsschicht einer bestehenden Geschäftsanwendung
-(siehe <<image-AnwLogBat>>), da sie auf den Daten der jeweiligen Anwendung operieren.
-
-Es kann allerdings auch Batches geben, die unabhängig von einer bestimmten Geschäftsanwendung sind.
-Dies kann beispielsweise der Fall sein, wenn ein Import-Batch angelieferte Dateien in verschiedene Geschäftsanwendungen importiert.
-Wenn Batches nicht eindeutig einer Anwendung zugeordnet werden können, kann man sie auch als eigenständiges IT-System implementieren.
-Dieses „Batch-System“ kann dann die Service-Schnittstellen anderer Geschäftsanwendungen aufrufen.
-Insgesamt ist dies jedoch als Sonderfall zu betrachten.
-In der Regel gehören Batches zu Geschäftsanwendungen, sie enthalten damit den fachlichen Code dieser Anwendung und
-nutzen diesen nicht über Service-Schnittstellen (siehe Kapitel <<das-deployment-eines-batches>>).
-
-In diesem Fall ist die Anwendung architektonisch ein eigenständiges IT-System nach Zielarchitektur, das in der Nutzungsschicht alleinig die Batch-Komponente enthält.
-
-Batches die zu einer Geschäftsanwendung gehören sollen jedoch nicht als eigenständiges IT-System umgesetzt werden.
-
-[[anforderungen]]
-== Anforderungen
-
-[[anforderungen-an-den-batchrahmen]]
-=== Anforderungen an den Batchrahmen
-
-Für den Batchrahmen selbst gelten folgende Anforderungen:
-
-* Er soll den vorhandenen Nutzungsvorgaben und Querschnitts­konzepten entsprechen.
-* Die Spring-Konfiguration für den Batch soll der Konfiguration der Webanwendung möglichst ähnlich sein.
-* Er soll möglichst wenige Anforderungen an (bzw.
-Annahmen in Bezug auf) die Batchlogik stellen.
-* Die Batchlogik soll möglichst einfach implementiert werden können.
-* Die Batchrahmen-Implementierung soll programmtechnisch effizient sein.
-
 [[anforderungen-an-die-batchimplementierung]]
 === Anforderungen an die Batchimplementierung
+
+// TODO Eigentlich vermischt Vorgaben für den IT-Systemtyp Batch und die Batchlogik und das Zusammenspiel aus Logik und Framework.
 
 Für die umzusetzende Batchlogik gelten folgende Anforderungen:
 
@@ -275,33 +127,51 @@ Dadurch soll eine Abschätzung geliefert werden, wie sich der Batch skalieren l�
 Analog zum zuvor genannten Punkt soll dies eine Hilfe für den Betreiber zur Kalkulation von Batchlaufzeiten sein.
 * Abhängigkeiten von Batches werden dargestellt.
 
-[[ausgrenzungen]]
-== Ausgrenzungen
+=== Namenskonvention für eine Batchanwendung
 
-Der bereitzustellende Batchrahmen soll ein unkompliziertes und einfach zu verwendendes Framework sein.
-Seine Funktionalitäten sollen lediglich die Verarbeitung, nicht andere betriebliche Aspekte abdecken.
-Explizit ausgegrenzt werden deshalb folgende Themenbereiche:
+//tag::namenskonvention[]
 
-*Ein explizites Handling von Eingabedateien:* Ein möglicherweise erforderliches Dateihandling übernimmt die spezifische Batchlogik.
-Der Batchrahmen soll kein Wissen darüber besitzen.
+Mit vielen Systemen wird eine eigene Batch-Deploymenteinheit ausgeliefert.
+Diese wird folgendermaßen benannt.
 
-*Die Terminierung der Verarbeitung:* Der Batch stellt keine direkten Schnittstellen bereit, um ihn während der Verarbeitung zu beenden.
-Allerdings muss es möglich sein, einen aktiven Lauf mit dem Signal `kill -15` definiert zu beenden.
-Wie die zugehörige Prozess-ID ermittelt wird, ist in den Betriebshandbüchern für die Prozesse zu definieren.
-Es ist auch möglich, mit dem „laufzeit“-Parameter eine maximale Laufzeit anzugeben, um den Batch nach Überschreitung der angegebenen Laufzeit sich selbst definiert beenden zu lassen.
+.Name einer Batchanwendung
+[id="table-nambat",reftext="{table-caption} {counter:tables}"]
+[cols="1s,4",options="header"]
+|====
+2+|Name eines Batches
 
-*Das Scheduling der Verarbeitung:* Das Scheduling wird nicht durch den Batchrahmen, sondern durch die betriebliche Produktionssteuerung durchgeführt.
+|Schema
+m|<anwendungsname>-gkbatch
 
-*Das Prüfen von Vorbedingungen:* Falls für die Ausführung Vorbedingungen gegeben sein müssen (etwa Dateien in Verzeichnissen vorliegen müssen), so liegt deren Prüfung in der Verantwortung des aufrufenden Skripts.
+|Beispiele
+m|isy-bsp-gkbatch
 
-*Das Warten auf Events:* Der Batchrahmen arbeitet eine Reihe von Datensätzen ab und beendet sich danach.
-Er ist kein Serverprozess, welcher auf bestimmte Events (Dateien in Verzeichnissen, Sätze in Datenbank) wartet, diese verarbeitet und daraufhin weiter wartet.
+h|Variable
+h|Mögliche Ausprägungen
 
-*Keine parallele Verarbeitung innerhalb eines Batches:* Es ist erlaubt, dass mehrere Java-Prozesse mit der gleichen Batch-Implementierung (jedoch verschiedenen BatchIDs) parallel laufen.
+m|<anwendungsname>
+|Der Name einer Anwendung, wie in den vorigen Abschnitten beschrieben.
+Er setzt sich meistens aus einem Systemkürzel und dem Systemtyp zusammen.
+|====
 
-NOTE: Siehe Unterschied zwischen _Batch-Implementierung_ und _Batch_, Kapitel <<was-ist-ein-batch>>.
-Parallel laufende Batches sind vor allem sinnvoll, wenn sie über einem aufgeteilten Datenbestand arbeiten und ein Batch pro Teil verwendet wird.
+//end::namenskonvention[]
 
-Innerhalb einer Verarbeitung wird jedoch stets mit einem Thread gearbeitet.
-Multithreading innerhalb eines Batches wird nicht unterstützt.
+
+
+// TODO Keine Ahnung: Weg damit?
+[[einfuehrung]]
+== Einführung
+
+[[checkpoint-restart-logik]]
+=== Checkpoint / Restart Logik
+
+Da ein Batch in einem Lauf eine große Anzahl an Datensätzen verarbeiten muss, soll seine Verarbeitung nicht in einer Transaktion durchgeführt werden.
+Ebenso soll nicht jeder Datensatz in einer eigenen Transaktion verarbeitet werden, wie es die Transaktionssteuerung des Anwendungskerns vorsieht.
+Vielmehr wird ein Batch sein Arbeitspaket in mehreren Paketen, und damit auch Transaktionen, abarbeiten.
+Bei einem Wiederanlauf nach einem Fehler muss der Batch in der Lage sein, die bis zu seinem letzten Commit verarbeiteten Datensätze zu überlesen und nur die „neuen“ Datensätze zu verarbeiten.
+Den Commit einer Transaktion bezeichnet man in diesem Fall als Checkpoint.
+Das Überlesen bereits verarbeiteter Datensätze nennt man Checkpoint / Restart Fähigkeit.
+
+Für die Umsetzung der Checkpoint / Restart Fähigkeit muss der Batch in jeder Transaktion speichern, welche Datensätze bis zum Commit verarbeitet wurden. Üblicherweise geschieht das durch die Ablage der Anzahl verarbeiteter Datensätze bis zum Commit.
+Abgelegt werden diese Daten in einer Batch-Statustabelle, welche für jeden Batch eine Zeile enthält.
 

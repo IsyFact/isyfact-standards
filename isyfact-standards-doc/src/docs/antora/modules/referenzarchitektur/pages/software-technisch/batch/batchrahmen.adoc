@@ -1,6 +1,76 @@
 = Batchrahmen
 
 
+[[anforderungen]]
+== Anforderungen
+
+[[anforderungen-an-den-batchrahmen]]
+=== Anforderungen an den Batchrahmen
+
+Für den Batchrahmen selbst gelten folgende Anforderungen:
+
+* Er soll den vorhandenen Nutzungsvorgaben und Querschnitts­konzepten entsprechen.
+* Die Spring-Konfiguration für den Batch soll der Konfiguration der Webanwendung möglichst ähnlich sein.
+* Er soll möglichst wenige Anforderungen an (bzw.
+Annahmen in Bezug auf) die Batchlogik stellen.
+* Die Batchlogik soll möglichst einfach implementiert werden können.
+* Die Batchrahmen-Implementierung soll programmtechnisch effizient sein.
+
+[[ausgrenzungen]]
+== Ausgrenzungen
+
+Der bereitzustellende Batchrahmen soll ein unkompliziertes und einfach zu verwendendes Framework sein.
+Seine Funktionalitäten sollen lediglich die Verarbeitung, nicht andere betriebliche Aspekte abdecken.
+Explizit ausgegrenzt werden deshalb folgende Themenbereiche:
+
+*Ein explizites Handling von Eingabedateien:* Ein möglicherweise erforderliches Dateihandling übernimmt die spezifische Batchlogik.
+Der Batchrahmen soll kein Wissen darüber besitzen.
+
+*Die Terminierung der Verarbeitung:* Der Batch stellt keine direkten Schnittstellen bereit, um ihn während der Verarbeitung zu beenden.
+Allerdings muss es möglich sein, einen aktiven Lauf mit dem Signal `kill -15` definiert zu beenden.
+Wie die zugehörige Prozess-ID ermittelt wird, ist in den Betriebshandbüchern für die Prozesse zu definieren.
+Es ist auch möglich, mit dem „laufzeit“-Parameter eine maximale Laufzeit anzugeben, um den Batch nach Überschreitung der angegebenen Laufzeit sich selbst definiert beenden zu lassen.
+
+*Das Scheduling der Verarbeitung:* Das Scheduling wird nicht durch den Batchrahmen, sondern durch die betriebliche Produktionssteuerung durchgeführt.
+
+*Das Prüfen von Vorbedingungen:* Falls für die Ausführung Vorbedingungen gegeben sein müssen (etwa Dateien in Verzeichnissen vorliegen müssen), so liegt deren Prüfung in der Verantwortung des aufrufenden Skripts.
+
+*Das Warten auf Events:* Der Batchrahmen arbeitet eine Reihe von Datensätzen ab und beendet sich danach.
+Er ist kein Serverprozess, welcher auf bestimmte Events (Dateien in Verzeichnissen, Sätze in Datenbank) wartet, diese verarbeitet und daraufhin weiter wartet.
+
+*Keine parallele Verarbeitung innerhalb eines Batches:* Es ist erlaubt, dass mehrere Java-Prozesse mit der gleichen Batch-Implementierung (jedoch verschiedenen BatchIDs) parallel laufen.
+
+NOTE: Siehe Unterschied zwischen _Batch-Implementierung_ und _Batch_, Kapitel <<der-unterschied-zwischen-batch-netz-batch-schritt-und-batch-implementierung>>.
+Parallel laufende Batches sind vor allem sinnvoll, wenn sie über einem aufgeteilten Datenbestand arbeiten und ein Batch pro Teil verwendet wird.
+
+Innerhalb einer Verarbeitung wird jedoch stets mit einem Thread gearbeitet.
+Multithreading innerhalb eines Batches wird nicht unterstützt.
+
+
+// TODO in Batchrahmen verschieben?
+[[grobe-architektur-des-batchrahmens]]
+== Grobe Architektur des Batchrahmens
+
+Für den Batchrahmen wurde folgende grobe Architektur gewählt:
+
+.Grobe Architektur des Batchrahmens
+[id="image-GrobArchBatCanv",reftext="{figure-caption} {counter:figures}"]
+image::software-technisch/batch/GrobArchBatCanv.png[align="center",width=80%]
+
+Der Batchrahmen besteht aus einem Startprogramm, welches notwendige Initialisierungen vornimmt, und einer Komponente Batchrahmen.
+Die Komponente Batchrahmen übernimmt die Steuerung des Batches und den Aufruf der Batchlogik.
+
+Die Komponenten einer Geschäftsanwendung werden für einen Batch, genau wie in der Webanwendung, über das Spring-Framework verwaltet.
+Damit die Konfigurationen für die Webanwendung und für die Batch-Implementierungen möglichst gleich sind, werden die Komponenten für den Batchrahmen und die Batchlogik in einer separaten Konfigurationsdatei und einem separaten Spring-Kontext abgelegt.
+Dieser Kontext ist ein Kind-Kontext des eigentlichen xref:glossary:glossary:master.adoc#glossar-anwendungskontext[Anwendungskontextes] und kann alle Beans des Anwendungskontextes verwenden.
+So kann die Konfiguration der Webanwendung mit minimalen Anpassungen auch für den Batch verwendet werden.
+
+Der Batchrahmen benötigt für die Speicherung des Fortschritts und des Status der Batches eine Datenbankverbindung.
+In der Datei werden die vom Batchrahmen benötigten Informationen gespeichert, siehe <<tabellen-des-batchrahmens>>.
+
+Bei Bedarf können in einem Batch auch weitere Datenbankverbindungen genutzt werden.
+Die Einbindung weiterer Datenbanken ist in xref:isy-persistence:konzept/vorgaben-konventionen.adoc#nutzung-und-anbindung-einer-zweiten-datenbank[Konzept des Bausteins JPA/Hibernate] beschrieben.
+
 [[der-batchrahmen]]
 == Der Batchrahmen
 

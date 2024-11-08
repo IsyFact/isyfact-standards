@@ -1,0 +1,65 @@
+= Abgrenzungen
+
+include::documentation-guide::partial$licence.adoc[]
+
+Batches sind ein Spezialfall unter den IT-Systemtypen.
+
+
+[[abgrenzung-batchverarbeitung]]
+== Abgrenzung zum Begriffsgefüge der Batchverarbeitung
+
+
+
+== Übergreifende Aspekte
+
+Ein Batch realisiert eine eigenständige Verarbeitung ohne direkten Benutzereingriff während des Ablaufes.
+An einen Batch werden verschiedene Anforderungen gestellt: Ausführungszeitpunkt, Abhängigkeiten, Datenvolumen, ausgeführte Funktionalität, Eingaben, Ausgaben usw.
+
+[[abgrenzung-batch-backend]]
+=== Abgrenzung zu Backends
+
+Backends setzen fachliche Operationen im Anwendungskern um und stellen diese über ihre Serviceschicht als Services bereit.
+Dieselben Operationen werden aber auch bei der automatisierten Bearbeitung größerer Datenmengen in Batches verwendet.
+Typischerweise verarbeiten Batches dabei Dateilieferungen oder eine definierte Menge von Datensätzen aus dem Datenbestand.
+
+=== Laufzeitumgebung (eigentlich xref:technisch-infrastrukturell.adoc[])
+
+Batches werden als eigener Prozess auf einem eigenen Server ausgeführt, das heißt sie laufen nicht in der virtuellen Maschine des Application Servers ab.
+Batches werden somit in einer eigenen Ablaufumgebung ausgeführt und greifen direkt auf die Datenbank oder auch auf Dateien zu.
+Die benötigte Funktionalität des Anwendungskerns wird dem Batch als Bibliothek zur Verfügung gestellt und nicht über einen Service-Aufruf genutzt.
+Der Grund für diese Entscheidung liegt in den Datenmengen, die normalerweise von einem Batch verarbeitet werden: Die Übermittlung dieser Datenmengen über eine remote genutzte Schnittstelle ist ein möglicher Flaschenhals in der Anwendung.
+Dieser Flaschenhals wird durch die Nutzung der Anwendungskernfunktionalität als Bibliothek vermieden.
+
+[[der-unterschied-zwischen-batch-netz-batch-schritt-und-batch-implementierung]]
+=== Der Unterschied zwischen Batch-Netz, Batch-Schritt und Batch-Implementierung
+
+Die Verarbeitung von Massendaten durch einen Batch verläuft meist in mehreren Schritten: Die Verarbeitung einer Datei kann beispielsweise aus ihrer Übertragung auf einen internen Server, ihrer nachfolgenden Prüfung und der Verarbeitung ihres Inhalts bestehen.
+Diese Verarbeitungsschritte (_Batch-Schritte_) eines Batches bilden ein „Batch-Netz“. Jeder Schritt wird über den Aufruf eines Shell-Skripts gestartet.
+
+.Ein Batch-Netz
+[id="image-BatNetz",reftext="{figure-caption} {counter:figures}"]
+image::software-technisch/batch/BatNetz.png[]
+
+Die meisten Batch-Schritte sind keine Anwendungen: Sie werden komplett über ein Skript umgesetzt.
+Nur die Schritte, welche die Verarbeitung in der Geschäftsanwendung durchführen, sind Anwendungen und besitzen eine Java-Implementierung (die _Batchschritt-Implementierung_). In obiger Abbildung wird die Verarbeitung in der Geschäftsanwendung durch drei Batch-Schritte parallel durchgeführt.
+Alle drei verwenden dieselbe Batchschritt-Implementierung, arbeiten aber auf anderen Daten.
+
+Ein Batch-Netz wird durch einen Job-Scheduler gesteuert.
+Ein Batch-Schritt ist dabei der Aufruf, welcher vom Scheduler aufgerufen wird.
+Aufgerufen wird ein Skript mit einer bestimmten Konfiguration. Über dieses Skript wird ggf.
+eine Geschäftsanwendung mit der übergebenen Konfiguration ausgeführt.
+Die Konfiguration eines Batchschrittes enthält stets eine Batchschritt-ID, welche den Batchschritt eindeutig identifiziert.
+Das bedeutet, dass jeder der drei Batchschritte in <<image-BatNetz>> eine eigene Batchschritt-ID erhält, obwohl alle drei Batchschritte die gleiche Batchschritt-Implementierung verwenden.
+Der Grund ist, dass jeder Batchschritt auf einem anderen Nummernkreis arbeitet und somit die Batchschritte unterscheidbar sein müssen.
+Diese Unterscheidung erfolgt über die Batchschritt-ID.
+
+Dieses Dokument befasst sich nicht mit Batch-Netzen oder ihrer Steuerung.
+Es behandelt die Geschäftsanwendung-Batchimplementierungen und ihre Konfigurationen.
+Der Einfachheit halber wird deshalb ein Geschäftsanwendung-Batchschritt als „Batch“ und eine Batchschritt-ID als „Batch-ID“ bezeichnet.
+
+Wichtig ist jedoch die Unterscheidung zwischen Batch und Batch-Implementierung: Der Batch ist der Aufruf aus der Produktionssteuerung heraus. Über ihn wird die aufzurufende Batch-Implementierung sowie seine Konfiguration (inklusive der Batch-ID) definiert.
+Die Implementierung ist Java-Code, der von mehreren Batches verwendet werden darf.
+
+
+
+
