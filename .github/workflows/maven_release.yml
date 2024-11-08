@@ -49,6 +49,7 @@ jobs:
       snyk-reference: release/3.x
       snyk-arguments: "--maven-aggregate-project"
       perform-scan: true
+      scan-dependency-management: false
     secrets:
       SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
@@ -74,5 +75,6 @@ jobs:
       snyk-organization: ${{ vars.SNYK_ORG_ID }}
       snyk-reference: ${{ github.ref_name }}
       snyk-arguments: "--maven-aggregate-project"
+      scan-dependency-management: false
     secrets:
       SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
