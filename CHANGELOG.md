@@ -1,6 +1,5 @@
 # 3.0.2
 - `IFS-4383`: Spring Security Versionsanhebung auf 5.7.13
-- `IFS-4383`: Verwendung der Workflow-Templates aus isy-github-actions-templates
 
 # 3.0.1
 - `ISY-701`: Google Guava Versionsanhebung auf 33.1.0
