@@ -32,6 +32,9 @@
     * `IsySecurityTokenUtil` und `IsyOAuth2Authentifizierungsmanager` stellen Funktionalität zur Token-Gültigkeitsüberprüfung und erneuten Authentifizierung bereit
     * Funktionalität zur erneuten Authentifizierung wird von `BatchrahmenImpl` aufgerufen
 - `IFS-3928`: [isy-bedienkonzept] Migration der neusten Bedienkonzeptversion ins Repository isy-bedienkonzept
+- `IFS-4236`: [isy-datetime], [isy-sonderzeichen] Beide Submodule wurden aus `isyfact-standards` entfernt und in eigenständige Repositories verschoben
+    * Sie werden ab sofort entkoppelt von der Isyfact versioniert und weiterentwickelt
+    * Sie werden aber weiterhin im Dependency-Management der `isyfact-standards-bom` angeboten.
 ## BUG FIXES
 - `IFS-4212`: Dokumentation von `@OnceTask` korrigiert (`@ManualTask` existiert nicht)
 ## BREAKING CHANGES
