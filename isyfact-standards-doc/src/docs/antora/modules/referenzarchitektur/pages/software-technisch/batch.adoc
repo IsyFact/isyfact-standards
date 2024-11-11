@@ -34,108 +34,56 @@ Im Gegensatz zu Backends besitzen Batches anstatt der Serviceschicht eine "Batch
 
 === Batchrahmen
 
-Der Batchrahmen stellt die Schnittstelle für den Aufruf der Batchlogik zur Verfügung.
+Der xref:software-technisch/batch/batchrahmen.adoc[] stellt die Schnittstelle für den Aufruf der Batchlogik als Bibliothek zur Verfügung.
 Er enthält querschnittliche Logik, welche für alle Batches gleich ist.
 Das beinhaltet, nicht abschließend, die folgenden Aufgaben:
 
 * Verarbeitung der Aufrufparameter,
 * Verwaltung der Batchläufe,
+* Konfiguration, Instanziierung und Aufruf der eigentlichen Batchlogik,
+* Authentifizierung und Autorisierung der Batchläufe,
 * Transaktionssteuerung,
 * Behandlung von Abbrüchen und Restarts,
+* Bereitstellung eines Monitorings,
 * Aufbereitung der Rückgabewerte.
 
 === Batchlogik
 
 Die Batchlogik wird vom Batchrahmen aufgerufen.
 Sie enthält die Logik, welche spezifisch für den konkreten Batch ist.
+Im Wesentlichen liest sie Datensätze ein und verarbeitet diese durch den Aufruf der Fachkomponenten des Anwendungskerns.
+Die Batchlogik übernimmt außerdem die folgenden, querschnittlichen Aufgaben:
+
+* Logging und Protokollierung der Batchläufe,
+* Unterstützung des Batchrahmens zur Bereitstellung der Restart-Funktionalität,
+* Umsetzung der Anweisungen des Batchrahmens (zum Beispiel im Fall eines Restarts),
+
+Die Batchlogik sollte so beschaffen sein, dass sie mit parallel laufenden Instanzen desselben Batches umgehen kann.
+
 Die Batchlogik wird fachlich in Form von Anwendungsfällen erfasst.
 Wenn diese Anwendungsfälle nicht exklusiv durch den Batch genutzt werden, sind sie im Anwendungskern des zugehörigen Backends implementiert.
 Technisch gesehen besteht die Batchlogik aus einer Sammlung unabhängiger Klassen in der Batch-Schicht
 des Batches.
 
-[[die-bestandteile-eines-batches-und-die-zielarchitektur]]
-=== Die Bestandteile eines Batches und die Zielarchitektur
-
-
-.Die Anwendungslogik eines Batches (Zielarchitektur)
-[id="image-AnwLogBat",reftext="{figure-caption} {counter:figures}"]
+[[image-AnwLogBat]]
+.Verteilung der Batchlogik im Batch
 image::software-technisch/batch/architektur-batch-parts.dn.svg[width=80%, align=center]
 
-[[die-aufteilung-in-batchrahmen-und-batchlogik]]
-=== Die Aufteilung in Batchrahmen und Batchlogik
+Die <<image-AnwLogBat>> zeigt den Standardfall, dass:
 
-Das Einlesen und Verarbeiten von Datensätzen durch den Aufruf fachlicher Komponenten wird in diesem Dokument _Batchlogik_ genannt.
-Diese ist spezifisch für genau eine Batch-Implementierung.
+* ein Batch Teile des ihm zugehörigen Backends einbindet,
+* eigene Batchlogik ① implementiert,
+* auf im Anwendungskern beheimatete Logik ② zugreift.
 
-Neben dieser Logik enthält eine Batch-Implementierung Querschnittsfunktionalität, welche stets gleich ist.
-Für eine Batch-Implementierung umfasst diese Querschnittsfunktionalität folgende Punkte:
-
-* Einlesen der Konfiguration des Batches über die Kommandozeile und Konfigurationsdateien
-* Instanziieren der Geschäftsanwendungs-Komponenten in einem Spring-Kontext
-* Initialisieren, Auslesen und Verwalten der Batch-Statustabelle
-* Aufruf des Überlesens von Datensätzen bei einem Restart
-* Steuerung der Transaktionen inklusive Speicherung des Fortschritts in einer Status-Tabelle
-* Bereitstellung von Überwachungsmöglichkeiten
-* Authentifizierung und Autorisierung eines betrieblich konfigurierten Batchbenutzers über den Baustein `isy-security`
-* Konfiguration, Instanziierung und Aufruf der eigentlichen Batchlogik
-
-Diese Funktionalität wird in einer Batch-Implementierung durch eine querschnittliche Komponente namens _Batchrahmen_ umgesetzt.
-Diese wird über eine Bibliothek bereitgestellt, welche in jede Geschäftsanwendung eingebunden wird.
-
-[[anforderungen-an-die-batchimplementierung]]
-=== Anforderungen an die Batchimplementierung
-
-// TODO Eigentlich vermischt Vorgaben für den IT-Systemtyp Batch und die Batchlogik und das Zusammenspiel aus Logik und Framework.
-
-Für die umzusetzende Batchlogik gelten folgende Anforderungen:
-
-* Sie sollen keine Geschäftslogik enthalten, sondern die Komponenten des Anwendungskerns verwenden.
-Abweichungen sind nur aus zwingenden Performance-Gründen erlaubt.
-Dies ist jeweils mit dem technischen Chefarchitekten abzustimmen und im Systementwurf zu dokumentieren.
-Falls in Ausnahmefällen direkte Datenbankzugriffe notwendig sind, sind alle weiteren Verarbeitungen an die Fach-Komponenten zu delegieren.
-* Die Batchlogik soll die Logging-, Statistik- und Protokollierungs-Aufgaben nach Anforderung des Projekts umsetzen.
-Diese wird nicht durch den Batchrahmen umgesetzt.
-Insbesondere die Statistikinformationen sind für Betrieb und Fachbereich wichtige Informationsquellen, um beispielsweise Laufzeitabschätzungen für die Produktion durchführen zu können.
-In der Statistik sollte immer enthalten sein, wie viele Sätze verarbeitet wurden (erfolgreich und mit Fehlern) und was konkret unter dem Begriff „Satz“ zu verstehen ist.
-Ist dies in der Statistik nicht vermerkt, wird davon ausgegangen, dass es sich um den Hauptsatz der Geschäftsanwendung handelt.
-Was der Hauptsatz einer Geschäftsanwendung ist, hängt von der konkreten Anwendung ab.
-* Die Batchlogik soll die Funktionalität des „Überlesens“ von Datensätzen übernehmen.
-Ob und welche Datensätze zu überlesen sind, teilt der Batchrahmen mit.
-* Die Batchlogik soll dem Batchrahmen hinreichende Informationen übergeben, um den Wiederanlaufpunkt bei einem späteren Restart zu bestimmen.
-* Der Batchrahmen führt in konfigurierbaren Intervallen Commits durch, um das Fortsetzen des Batches nach einem Abbruch zu ermöglichen.
-Die Batchlogik soll mit solchen periodischen Commits umgehen können.
-
-* Die Batchlogik sollte – sofern es keine inhaltlichen Abhängigkeiten gibt – mit parallel laufenden Batches umgehen können.
-Damit ist nicht nur gemeint, dass die gleiche Batchschritt-Implementierung parallel auf z. B. verschiedenen Nummernkreisen arbeiten kann.
-Vielmehr ist damit gemeint, dass verschiedene Batchschritt-Implementierung parallel ausgeführt werden können.
-Dazu ist sicherzustellen, dass gemeinsam genutzte Ressourcen nicht unnötig gehalten werden.
-
-* Bei der Ausgabe von vielen Dateien während eines Batchlaufs sind diese strukturiert in Unterverzeichnissen abzulegen.
-Es ist eine Datei-Namenskonvention für die Batch-Implementierung festzulegen.
-Die Unterverzeichnisstruktur und die Anzahl der darin enthaltenen Dateien sollen parametrisierbar sein.
-
-[[anforderungen-an-die-dokumentation-von-batches]]
-=== Anforderungen an die Dokumentation von Batches
-
-Für die Dokumentation von Batches gelten neben der lückenlosen und kurzen Beschreibung der durchgeführten Funktionen noch folgende Anforderungen:
-
-* Es muss auf lang laufende Batches hingewiesen werden.
-Dies ist abhängig von der umgesetzten Batchlogik und der erwarteten Anzahl an zu verarbeitenden Datensätzen.
-Der Betreiber des Batches soll damit schon im Vorfeld längere Batchlaufzeiten einkalkulieren können.
-* Das zu erwartende Laufzeitverhalten bei steigendem Mengengerüst ist anzugeben.
-Dadurch soll eine Abschätzung geliefert werden, wie sich der Batch skalieren lässt.
-Analog zum zuvor genannten Punkt soll dies eine Hilfe für den Betreiber zur Kalkulation von Batchlaufzeiten sein.
-* Abhängigkeiten von Batches werden dargestellt.
-
-=== Namenskonvention für eine Batchanwendung
+=== Namenskonvention für Batches
 
 //tag::namenskonvention[]
 
-Mit vielen Systemen wird eine eigene Batch-Deploymenteinheit ausgeliefert.
-Diese wird folgendermaßen benannt.
+Mit vielen Backends werden eigene Batches ausgeliefert.
+Diese werden folgendermaßen benannt.
 
-.Name einer Batchanwendung
-[id="table-nambat",reftext="{table-caption} {counter:tables}"]
+[[table-nambat]]
+.Name eines Batches
 [cols="1s,4",options="header"]
 |====
 2+|Name eines Batches
@@ -150,28 +98,18 @@ h|Variable
 h|Mögliche Ausprägungen
 
 m|<anwendungsname>
-|Der Name einer Anwendung, wie in den vorigen Abschnitten beschrieben.
-Er setzt sich meistens aus einem Systemkürzel und dem Systemtyp zusammen.
+|Der Name der Anwendung, zu welcher der Batch gehört.
+Er setzt sich oft aus einem Präfix für die Anwendungslandschaft (`isy`) und dem Namen oder Kürzel der Anwendung (`bsp`) zusammen.
 |====
 
 //end::namenskonvention[]
 
+[[dokumentation-von-batches]]
+== Dokumentation von Batches
 
+Für die Dokumentation von Batches gelten folgende Anforderungen:
 
-// TODO Keine Ahnung: Weg damit?
-[[einfuehrung]]
-== Einführung
-
-[[checkpoint-restart-logik]]
-=== Checkpoint / Restart Logik
-
-Da ein Batch in einem Lauf eine große Anzahl an Datensätzen verarbeiten muss, soll seine Verarbeitung nicht in einer Transaktion durchgeführt werden.
-Ebenso soll nicht jeder Datensatz in einer eigenen Transaktion verarbeitet werden, wie es die Transaktionssteuerung des Anwendungskerns vorsieht.
-Vielmehr wird ein Batch sein Arbeitspaket in mehreren Paketen, und damit auch Transaktionen, abarbeiten.
-Bei einem Wiederanlauf nach einem Fehler muss der Batch in der Lage sein, die bis zu seinem letzten Commit verarbeiteten Datensätze zu überlesen und nur die „neuen“ Datensätze zu verarbeiten.
-Den Commit einer Transaktion bezeichnet man in diesem Fall als Checkpoint.
-Das Überlesen bereits verarbeiteter Datensätze nennt man Checkpoint / Restart Fähigkeit.
-
-Für die Umsetzung der Checkpoint / Restart Fähigkeit muss der Batch in jeder Transaktion speichern, welche Datensätze bis zum Commit verarbeitet wurden. Üblicherweise geschieht das durch die Ablage der Anzahl verarbeiteter Datensätze bis zum Commit.
-Abgelegt werden diese Daten in einer Batch-Statustabelle, welche für jeden Batch eine Zeile enthält.
-
+* konsistente, vollständige Beschreibung der durchgeführten Funktionen,
+* Hinweis auf grundsätzliches Laufzeitverhaltens zur frühzeitigen Erkennung lang laufender Batches,
+* Abschätzung des zu erwartende Laufzeitverhaltens bei steigendem Mengengerüst,
+* Abhängigkeiten zu anderen Batches.

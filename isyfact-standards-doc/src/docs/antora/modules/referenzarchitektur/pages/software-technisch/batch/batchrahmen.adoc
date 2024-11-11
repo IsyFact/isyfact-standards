@@ -1,5 +1,20 @@
 = Batchrahmen
 
+include::documentation-guide::partial$licence.adoc[]
+
+*Java Bibliothek / IT-System*
+
+[cols="3,1,2",options="header"]
+|====
+|Name |Art |Version
+m|isy-batchrahmen |Bibliothek |v{page-component-version}
+|====
+
+Der Batchrahmen ist das Framework, in welches sich die Batchlogik eines konkreten Batches einfügt.
+Der Batchrahmen ruft die Batchlogik (anhand einer Konfiguration) auf.
+Da ein Batch über Spring verwaltet wird, wird die Batchlogik als Spring-Bean konfiguriert, als sogenannte _Ausführungsbean_.
+Diese Bean wiederum ruft die Fachkomponenten des Anwendungskerns auf, welche die Geschäftslogik enthalten.
+
 
 [[anforderungen]]
 == Anforderungen
@@ -40,7 +55,7 @@ Er ist kein Serverprozess, welcher auf bestimmte Events (Dateien in Verzeichniss
 
 *Keine parallele Verarbeitung innerhalb eines Batches:* Es ist erlaubt, dass mehrere Java-Prozesse mit der gleichen Batch-Implementierung (jedoch verschiedenen BatchIDs) parallel laufen.
 
-NOTE: Siehe Unterschied zwischen _Batch-Implementierung_ und _Batch_, Kapitel <<der-unterschied-zwischen-batch-netz-batch-schritt-und-batch-implementierung>>.
+NOTE: Siehe Unterschied zwischen _Batch-Implementierung_ und _Batch_, xref:software-technisch/batch/abgrenzungen.adoc#der-unterschied-zwischen-batch-netz-batch-schritt-und-batch-implementierung[Abgrenzungen].
 Parallel laufende Batches sind vor allem sinnvoll, wenn sie über einem aufgeteilten Datenbestand arbeiten und ein Batch pro Teil verwendet wird.
 
 Innerhalb einer Verarbeitung wird jedoch stets mit einem Thread gearbeitet.
@@ -71,21 +86,24 @@ In der Datei werden die vom Batchrahmen benötigten Informationen gespeichert, s
 Bei Bedarf können in einem Batch auch weitere Datenbankverbindungen genutzt werden.
 Die Einbindung weiterer Datenbanken ist in xref:isy-persistence:konzept/vorgaben-konventionen.adoc#nutzung-und-anbindung-einer-zweiten-datenbank[Konzept des Bausteins JPA/Hibernate] beschrieben.
 
+[[checkpoint-restart-logik]]
+== Checkpoint / Restart Logik
+
+Da ein Batch in einem Lauf eine große Anzahl an Datensätzen verarbeiten muss, soll seine Verarbeitung nicht in einer Transaktion durchgeführt werden.
+Ebenso soll nicht jeder Datensatz in einer eigenen Transaktion verarbeitet werden, wie es die Transaktionssteuerung des Anwendungskerns vorsieht.
+Vielmehr wird ein Batch sein Arbeitspaket in mehreren Paketen, und damit auch Transaktionen, abarbeiten.
+Bei einem Wiederanlauf nach einem Fehler muss der Batch in der Lage sein, die bis zu seinem letzten Commit verarbeiteten Datensätze zu überlesen und nur die „neuen“ Datensätze zu verarbeiten.
+Den Commit einer Transaktion bezeichnet man in diesem Fall als Checkpoint.
+Das Überlesen bereits verarbeiteter Datensätze nennt man Checkpoint / Restart Fähigkeit.
+
+Für die Umsetzung der Checkpoint / Restart Fähigkeit muss der Batch in jeder Transaktion speichern, welche Datensätze bis zum Commit verarbeitet wurden. Üblicherweise geschieht das durch die Ablage der Anzahl verarbeiteter Datensätze bis zum Commit.
+Abgelegt werden diese Daten in einer Batch-Statustabelle, welche für jeden Batch eine Zeile enthält.
+
+
+
 [[der-batchrahmen]]
 == Der Batchrahmen
 
-*Java Bibliothek / IT-System*
-
-[cols="3,1,2",options="header"]
-|====
-|Name |Art |Version
-m|isy-batchrahmen |Bibliothek |v{page-component-version}
-|====
-
-Der Batchrahmen ist das Framework, in welches sich die Logik eines konkreten Batches einfügt.
-Der Batchrahmen ruft (anhand einer Konfiguration) diese Logik auf.
-Da eine Batch-Anwendung über Spring verwaltet wird, wird die Batchlogik als Spring-Bean konfiguriert, als sogenannte _Ausführungsbean_.
-Diese Bean wiederum ruft die Geschäftsanwendungs-Komponenten auf, welche die Geschäftslogik enthalten.
 
 
 Für eine Beispielanwendung zeigt <<image-BeanGriffBat>> eine Auswahl der vorhandenen Beans.
@@ -365,8 +383,8 @@ Im Nachfolgenden wird die Tabelle `BATCH_STATUS` mit `CamelCaseToUnderscoresNami
 Der Batchrahmen benötigt für seine Checkpoint / Restart Funktionalität die Möglichkeit, bei jedem Commit den aktuellen Stand des Batches in einer Tabelle zu speichern.
 Dies wird über die Tabelle `BATCH_STATUS` umgesetzt.
 
-.Tabellen-Schema für die Batchrahmen-Tabelle
-[id="image-SchemTabBatStat",reftext="{figure-caption} {counter:figures}"]
+.Schema der Tabelle `BATCH_STATUS`
+[[image-SchemTabBatStat]]
 image::software-technisch/batch/SchemTabBatStat.dn.png[align="center"]
 
 Die Tabelle `BATCH_STATUS` enthält für jeden Batch eine Zeile.
@@ -376,30 +394,46 @@ Für einen Batch werden folgende Informationen verwendet:
 
 .Das Schema der Tabelle BATCH_STATUS
 [id="table-SchemTabBatStat2",reftext="{table-caption} {counter:tables}"]
-[cols="3,7",options="header"]
+[cols="3m,7",options="header"]
 |====
-|Spalte |Beschreibung
-|`BATCH_ID` |Der Schlüssel für den Batch.
-Die ID sollte aus einem gemeinsamen Präfix für die Geschäftsanwendung, gefolgt von einem Suffix für den konkreten Batch, bestehen.
-|`BATCH_NAME` |Ein kurzer informativer Name des Batches.
-|`BATCH_STATUS` a|
-Einer der folgenden Werte: +
-*laeuft*: Der Batch wurde gestartet und läuft aktuell. +
-*abgebrochen*: Der Batch ist abgebrochen und sollte per `RESTART` neu gestartet werden. +
-*beendet*: Der Batch ist erfolgreich beendet worden.
-|`SATZ_NUMMER_LETZTES_COMMIT` |Die Anzahl an Sätzen, welche beim letzten Commit verarbeitet worden sind.
+|Spalte
+|Beschreibung
+
+|BATCH_ID
+|Der Schlüssel für den Batch.
+Die ID sollte aus einem gemeinsamen Präfix für das Backend, gefolgt von einem Suffix für den konkreten Batch, bestehen.
+
+|BATCH_NAME
+|Ein kurzer informativer Name des Batches.
+
+|BATCH_STATUS
+a| Einer der folgenden Werte:
+
+* `laeuft`: Der Batch wurde gestartet und läuft aktuell.
+* `abgebrochen`: Der Batch ist abgebrochen und sollte per `RESTART` neu gestartet werden.
+* `beendet`: Der Batch ist erfolgreich beendet worden.
+
+|SATZ_NUMMER_LETZTES_COMMIT
+|Die Anzahl an Sätzen, welche beim letzten Commit verarbeitet worden sind.
 Dies wird für die Umsetzung der Restart-Funktionalität verwendet.
-|`SCHLUESSEL_LETZTES_COMMIT` |Der Datenbank-Schlüssel des Datensatzes, der als letztes vor dem Commit bearbeitet wurde.
+
+|SCHLUESSEL_LETZTES_COMMIT
+|Der letzte Datenbank-Schlüssel des Datensatzes, der vor dem Commit bearbeitet wurde.
 Dies wird für die Umsetzung der Restart-Funktionalität verwendet.
 Falls der Schlüssel ein zusammengesetzter Schlüssel ist, müssen sämtliche Schlüsselteile (durch Trennzeichen getrennt) in dieses Feld geschrieben werden.
-|`DATUM_LETZTER_START` |Das Datum des Starts des aktuellen Batch-Laufs (falls der Status "laeuft" ist) bzw.
-des letzten Laufes.
-|`DATUM_LETZTER_ABBRUCH` |Das Datum des letzten fehlerhaften Abbruchs des Batches.
-|`DATUM_LETZTER_ERFOLG` |Das Datum des letzten erfolgreichen Abschlusses des Batches.
+
+|DATUM_LETZTER_START
+|Das Datum des Starts des aktuellen Batchlaufs, falls der Status `laeuft` ist, bzw. des letzten Laufes.
+
+|DATUM_LETZTER_ABBRUCH
+|Das Datum des letzten fehlerhaften Abbruchs des Batches.
+
+|DATUM_LETZTER_ERFOLG
+|Das Datum des letzten erfolgreichen Abschlusses des Batches.
 |====
 
-Die Tabelle liegt im Datenbankschema der eigenen Geschäftsanwendung.
-Es darf keine übergreifenden Tabellen oder ein übergreifendes Datenbankschema für alle Batches gemäß IsyFact-Architektur geben.
+Die Tabelle liegt im Datenbankschema des zugehörigen Backends.
+Es darf keine übergreifenden Tabellen oder ein übergreifendes Datenbankschema für alle Batches geben.
 
 [[verwaltung-der-tabelle]]
 === Verwaltung der Tabelle
@@ -424,7 +458,7 @@ Dies geschieht außerhalb einer Transaktion.
 Danach gibt die Klasse die Kontrolle an die Batchrahmen-Bean weiter.
 * Die Batchrahmen-Bean startet eine erste Transaktion.
 Sie aktualisiert die Batchrahmen-Tabellen und initialisiert die Ausführungsbean in dieser Transaktion.
-Die Ausführungsbean führt im Rahmen dieser Transaktion das „Vorlesen“ bis zum letzten Checkpoint sowie ggf. nötige Initialisierungen durch.
+Die Ausführungsbean führt im Rahmen dieser Transaktion das "Vorlesen" bis zum letzten Checkpoint sowie ggf. nötige Initialisierungen durch.
 Die Transaktion wird beendet.
 Danach beginnt die Satz-Verarbeitung.
 * Für die Satz-Verarbeitung wird eine neue Transaktion gestartet.
@@ -457,30 +491,29 @@ Es muss daher bei einem Restart manuell darauf geachtet werden, dass die gleiche
 
 Durch Senden des Signals `kill -15` kann ein aktiver Batchlauf beendet werden.
 Beim Empfang des Signals wird der aktuelle Datensatz zu Ende bearbeitet und der Batch terminiert im wohldefinierten Zustand.
-In der Statustabelle ist dann der Status „abgebrochen“ vermerkt und der Batchlauf kann mit dem Parameter „-restart“ wieder aufgesetzt werden.
+In der Statustabelle ist dann der Status `abgebrochen` vermerkt und der Batchlauf kann mit dem Parameter `-restart` wieder aufgesetzt werden.
 
 [[wiederanlauf-nach-abbruch-durch-die-ueberschreitung-der-maximalen-laufzeit]]
 ==== Wiederanlauf nach Abbruch durch die Überschreitung der maximalen Laufzeit
 
-Falls der Batch mit dem „laufzeit“-Parameter gestartet wurde, wird nach Überschreitung der angegebenen maximalen Laufzeit der aktuelle Datensatz zu Ende bearbeitet und der Batch terminiert im wohldefinierten Zustand.
-In der Statustabelle ist dann der Status „abgebrochen“ vermerkt und der Batchlauf kann mit dem Parameter „-restart“ wieder aufgesetzt werden.
+Falls der Batch mit dem Parameter `laufzeit` gestartet wurde, wird nach Überschreitung der angegebenen maximalen Laufzeit der aktuelle Datensatz zu Ende bearbeitet und der Batch terminiert im wohldefinierten Zustand.
+In der Statustabelle ist dann der Status `abgebrochen`  vermerkt und der Batchlauf kann mit dem Parameter `-restart` wieder aufgesetzt werden.
 
 [[wiederanlauf-nach-abbruch-durch-kill--9]]
 ==== Wiederanlauf nach Abbruch durch `kill -9`
 
-Durch Senden des Signals `kill -9` wird der aktive Batchprozess von Betriebssystemseite beendet.
+Durch Senden des Signals `kill -9` wird der aktive Batch-Prozess von Betriebssystemseite beendet.
 Dabei wird der Java-Prozess direkt entfernt ohne die Möglichkeit, den Batchrahmen definiert zu terminieren.
 Dies ist daher nur in Ausnahmesituationen vom Betrieb durchzuführen.
-Da der Batchrahmen in dieser Situation kein Status-Update mehr schreiben kann, befindet sich der Eintrag „läuft“ in der Statustabelle.
-Ein Wiederanlauf in dieser Situation ist mit dem Parameter „-restart“ möglich.
+Da der Batchrahmen in dieser Situation kein Status-Update mehr schreiben kann, befindet sich der Eintrag `läuft` in der Statustabelle.
+Ein Wiederanlauf in dieser Situation ist mit dem Parameter `-restart` möglich.
 
 [[das-vorlesen-durch-die-ausfuehrungsbean]]
 ==== Das Vorlesen durch die Ausführungsbean
 
-Um den Batch nach einem Fehler zum nächsten zu bearbeiteten Datensatz „vorlesen“ zu lassen, muss dieser Datensatz identifiziert werden.
+Um den Batch nach einem Fehler zum nächsten zu bearbeiteten Datensatz "vorlesen" zu lassen, muss dieser Datensatz identifiziert werden.
 Dies geschieht zum einen durch den Batchrahmen selbst, welcher die Anzahl der bereits verarbeiteten Datensätze speichert.
-Bei auf Datenbank-Queries basierenden Batches kann diese Anzahl jedoch ggf.
-nicht verwendet werden, da sie sich im Laufe der Zeit ändert.
+Bei auf Datenbank-Queries basierenden Batches kann diese Anzahl jedoch ggf. nicht verwendet werden, da sie sich im Laufe der Zeit ändert.
 Hier ist es notwendig, die zu verarbeitenden Sätze nach ihrem Schlüssel zu sortieren und den als letztes bearbeiteten Schlüssel zu speichern.
 
 Die Batchrahmen Status-Tabelle enthält deshalb zwei Felder: Ein Feld für die Anzahl verarbeiteter Sätze und ein Feld für den Schlüssel des letzten verarbeiteten Datensatzes.
@@ -493,16 +526,20 @@ Der Bean ist es überlassen, das Vorlesen effizient durchzuführen (etwa durch d
 === Die Überwachungs-Funktionalität
 
 Die Verarbeitung eines Batches soll überwacht und nachverfolgt werden können.
-Für die Nachverfolgung können durch die Verarbeitungsbean zu verschiedenen Zeitpunkten Log-, Statistik- oder Protokoll-Einträge erstellt werden:
+Für die Nachverfolgung können durch die Ausführungsbean zu verschiedenen Zeitpunkten Log-, Statistik- oder Protokoll-Einträge erstellt werden:
 
-* Zu Beginn des Batches, während der Initialisierung der Ausführungsbean.
-* Nach dem Schreiben jedes Checkpoints.
-* Bei der erfolgreichen Beendigung des Batches.
+* zu Beginn des Batches, während der Initialisierung der Ausführungsbean,
+* nach dem Schreiben jedes Checkpoints,
+* bei der erfolgreichen Beendigung des Batches.
 
-Jeder Log-Eintrag eines Batches, insbesondere die Aufrufe der Fachkomponenten, enthält pro Satz eine eindeutige Korrelations-ID. Damit können Log-Einträge nicht nur einem Batchlauf, sondern den einzelnen Sätzen eindeutig zugeordnet werden.
+Jeder Log-Eintrag eines Batches, insbesondere die Aufrufe der Fachkomponenten, enthält pro Satz eine eindeutige Korrelations-ID.
+Damit können Log-Einträge nicht nur einem Batchlauf, sondern den einzelnen Sätzen eindeutig zugeordnet werden.
 
-Für die Überwachung wird durch den Batchrahmen eine JMX-Bean bereitgestellt. Über folgende Konfiguration wird ein JMX Agent erzeugt, welcher die Bean nach außen zugreifbar macht:
+Für die Überwachung wird durch den Batchrahmen eine JMX-Bean bereitgestellt.
+Über folgende Konfiguration wird ein JMX-Agent erzeugt, welcher die Bean nach außen zugreifbar macht:
 
+[[jmx-parameter]]
+.JMX-Parameter
 [source]
 ----
   -Dcom.sun.management.jmxremote
@@ -514,42 +551,41 @@ Für die Überwachung wird durch den Batchrahmen eine JMX-Bean bereitgestellt. �
 
 Bereitgestellt werden folgende Informationen:
 
+[[table-JMXAttr]]
 .JMX-Attribute
-[id="table-JMXAttr",reftext="{table-caption} {counter:tables}"]
-[cols="1,2",options="header"]
+[cols="1m,2",options="header"]
 |====
-|Property |Beschreibung
-|`SaetzeGesamt` |Die Gesamtanzahl der zu bearbeitenden Sätze. Falls diese nicht bekannt ist: -1
-|`SaetzeVerarbeitet` |Die Anzahl bereits verarbeiteter Sätze.
-|`SchluesselLetzterSatz` |Schlüssel des letzten verarbeiteten Satzes.
-|`ZeitSeitLetztemSatz` |Zeitraum in Millisekunden, der bereits für den aktuellen Satz benötigt wurde.
-|`BatchId` |Die ID des aktuellen Batches
-|`BatchName` |Name des aktuellen Batches.
+|Property
+|Beschreibung
+
+|SaetzeGesamt
+|Die Gesamtanzahl der zu bearbeitenden Sätze. Falls diese nicht bekannt ist: -1
+
+|SaetzeVerarbeitet
+|Die Anzahl bereits verarbeiteter Sätze.
+
+|SchluesselLetzterSatz
+|Schlüssel des letzten verarbeiteten Satzes.
+
+|ZeitSeitLetztemSatz
+|Zeitraum in Millisekunden, der bereits für den aktuellen Satz benötigt wurde.
+
+|BatchId
+|Die ID des aktuellen Batches
+
+|BatchName
+|Name des aktuellen Batches
 |====
 
-Zur Erhöhung der Sicherheit in der Betriebsumgebung muss eine Absicherung der RMI-Schnittstelle für JMX per Benutzername und Passwort erfolgen (siehe JVM-Parameter oben). Hierzu sind die JMX-Benutzer und Passwörter entweder direkt in der Datei
-
-[frame="none"]
-|====
-^|`JRE_HOME/lib/management/jmxremote.password`
-|====
-
-zu konfigurieren, oder der Ort dieser Datei ist über den JVM-Parameter
-
-[frame="none"]
-|====
-^|`com.sun.management.jmxremote.password.file`
-|====
-
-anzugeben.
-Die Datei benötigt einen Eintrag für die Rolle controlRole oder für eine beliebige Rolle, für welche in
-Datei `JRE_HOME/lib/management/jmxremote.access` readwrite-Zugriff erlaubt ist.
+Zur Erhöhung der Sicherheit in der Betriebsumgebung muss eine Absicherung der RMI-Schnittstelle für JMX per Benutzername und Passwort erfolgen (siehe <<jmx-parameter>>).
+Hierzu sind die JMX-Benutzer und Passwörter entweder direkt in der Datei `JRE_HOME/lib/management/jmxremote.password` zu konfigurieren, oder der Ort dieser Datei ist über den JVM-Parameter `com.sun.management.jmxremote.password.file` anzugeben.
+Die Datei benötigt einen Eintrag für die Rolle `controlRole` oder für eine beliebige Rolle, für welche in
+Datei `JRE_HOME/lib/management/jmxremote.access` der Zugriff `readwrite` erlaubt ist.
 
 [[authentifizierung-und-autorisierung]]
 === Authentifizierung und Autorisierung
 
-Ein Batch wird innerhalb der Plattform gestartet.
-Dazu verwendet der Batch die Benutzerkennung eines technischen Benutzers „internes System“, die in seiner Startkonfiguration (als Konfigurationsdatei) hinterlegt und im Benutzerverzeichnis vorhanden ist.
+Zur Authentifizierung verwendet der Batch die Benutzerkennung eines technischen Benutzers "internes System", die in seiner Startkonfiguration (als Konfigurationsdatei) hinterlegt und im Benutzerverzeichnis vorhanden ist.
 
 Der Batchrahmen verwendet den Baustein `isy-security`, um den in der Batch-Konfiguration via `oauth2ClientRegistrationId` definierten Benutzer über einen der Authentifizierungswege `Client Credential` oder `Ressource Owner Password Credential` (deprecated) zu authentifizieren.
 
@@ -561,22 +597,29 @@ Ein Token gilt als abgelaufen, wenn es weniger als die via `oauth2MinimumTokenVa
 
 Folgende Informationen zum Benutzer sind anzugeben
 
-.Die Eigenschaften des Batchbenutzers
-[id="table-CharBatUse",reftext="{table-caption} {counter:tables}"]
+.Eigenschaften des Batchbenutzers
+[[table-CharBatUse]]
 [cols="2,2,8a",options="header"]
 |====
-|Property |Default |Beschreibung
-|`oauth2ClientRegistrationId` |null |Die ID der OAuth 2.0 Client Registration aus `isy-security`, die zur Authentifizierung genutzt wird.
+|Property
+|Default
+|Beschreibung
+
+|`oauth2ClientRegistrationId`
+|null
+|Die ID der OAuth 2.0 Client Registration aus `isy-security`, die zur Authentifizierung genutzt wird.
 Die notwendigen Properties die für eine gültige `ClientRegistration` definiert werden müssen, sind in den Nutzungsvorgaben der Komponente `isy-security` beschrieben.
+
 |`oauth2MinimumTokenValidity` +
-(optional)|60 |Die Zeit in Sekunden, die ein Token mindestens weiterhin gültig sein muss, um nicht erneuert zu werden.
+(optional)
+|60
+|Die Zeit in Sekunden, die ein Token mindestens weiterhin gültig sein muss, um nicht erneuert zu werden.
 Steht ein Token weniger als die über die Property angegebenen Sekunden vor dem Ablauf, so wird eine erneute Authentifizierung vorgenommen. +
 [NOTE]
-Abhängig vom gewählten Grant-Type wird eine erneute Authentifizierung gegebenenfalls nur dann durchgeführt, wenn ein durch die Spring-Implementierung vorgegebener Zeitraum vor dem Ablauf des Tokens überschritten wird.
-Für weitere Informationen siehe xref:isy-security:nutzungsvorgaben/master.adoc#authentifizierungsmanager-authentifiziere-method-grant-type-note[Hinweis zur Methode `authentifiziere`] im Kapitel Authentifizierungsmanager der Nutzungsvorgaben Security.
+Abhängig vom gewählten Grant-Type wird eine erneute Authentifizierung gegebenenfalls nur dann durchgeführt, wenn ein durch die Spring-Implementierung vorgegebener Zeitraum vor dem Ablauf des Tokens überschritten wird (siehe xref:isy-security:nutzungsvorgaben/master.adoc#authentifizierungsmanager-authentifiziere-method-grant-type-note[Hinweis zur Methode `authentifiziere`]).
 |====
 
-In der Regel wird der Benutzer aus der betrieblichen Konfiguration der Anwendung oder alternativ aus den Aufrufparametern beim Batchstart gelesen.
+In der Regel wird der Benutzer aus der betrieblichen Konfiguration der Anwendung oder alternativ aus den Aufrufparametern beim Start des Batches gelesen.
 
 In Ausnahmefällen ist es auch möglich, einen Batch zu implementieren, der ohne Benutzer laufen soll.
 Dies ist nur möglich, wenn bei Aufrufen des Anwendungskerns keine Autorisierungsprüfungen stattfinden und auch keine Nachbarsystemschnittstellen aufgerufen werden.
@@ -587,24 +630,24 @@ Enthält eine Anwendung mehrere Batches, so enthält sie auch mehrere BatchKonfi
 === Das Deployment eines Batches
 
 Die Batches werden nicht einzeln deployt.
-Stattdessen wird ein Paket angeboten, welches sämtliche Batches der Geschäftsanwendung enthält.
+Stattdessen wird ein Paket angeboten, welches sämtliche Batches eines Backends enthält.
 
 Das erstellte Paket enthält den Code des Batchrahmens sowie den Code der eigentlichen Geschäftsanwendung inklusive der Batch-Ausführungsklassen und der benötigten nicht-betrieblichen Batch-Konfigurationsdateien.
 Für jeden Batch wird ein Shellskript zum Start bereitgestellt.
 
 Für die Shellskripte existieren keine Vorgaben.
 Falls vor der Ausführung des Batches Vorbedingungen gelten müssen (etwa Dateien in Verzeichnissen vorliegen sollen), so können sie in diesen Skripten geprüft werden.
-Beispiele für Aufruf-Skripte von Batches befinden sich in der Bibliothek `isy-batchrahmen`, im Verzeichnis `src/main/skripte/bin`
+Beispiele für Aufruf-Skripte von Batches befinden sich https://github.com/IsyFact/isyfact-standards/tree/master/isy-batchrahmen/src/main/skripte/bin[in der Bibliothek `isy-batchrahmen`].
 
 Eine sinnvolle Aufteilung bei den Shellskripten ist es, ein technisches Startskript zu erstellen, was von den eigentlichen Batch-Shellskripten zum Aufruf genutzt wird.
-Beispiel für ein solches Startskript befinden sich in der Bibliothek `isy-batchrahmen`, in der Datei `src/main/skripte/bin/batch-ausfuehren.sh`
+Beispiel für ein solches Startskript befinden sich ebenfalls https://github.com/IsyFact/isyfact-standards/blob/master/isy-batchrahmen/src/main/skripte/bin/batch-ausfuehren.sh[in der Bibliothek `isy-batchrahmen`].
 
 Dieses Startskript soll in der Batch-Anwendung unter `<batch-projekt>/src/main/resources/bin` übernommen und mit der richtigen Java-Version versehen werden.
 
 Ein beispielhaftes Shellskript zum Aufruf eines Batches kann dieses Skript dann nutzen und folgendermaßen aussehen:
 
+[[listing-BSPStartBAT]]
 .Beispielhaftes Startskript für einen Batch
-[id="listing-BSPStartBAT",reftext="{listing-caption} {counter:listings }"]
 [source,bash]
 ----
 #!/bin/bash
@@ -614,14 +657,14 @@ Ein beispielhaftes Shellskript zum Aufruf eines Batches kann dieses Skript dann 
 # -Testmodus <true|false> Flag ob nur simuliert wird oder nicht (optionaler Parameter)
 #
 
-BATCHDIR=`dirname $0`
-$BATCHDIR/batch-ausfuehren.sh -start -cfg /resources/batch/batch-erinnerung-config.properties -Batchrahmen.Ergebnisdatei /tmp/erinnerung_out.xml $1 $2
+BATCH_DIR=`dirname $0`
+$BATCH_DIR/batch-ausfuehren.sh -start -cfg /resources/batch/batch-erinnerung-config.properties -Batchrahmen.Ergebnisdatei /tmp/erinnerung_out.xml $1 $2
 ----
 
 Bei der betrieblichen Konfiguration wird nicht zwischen dem Deployment als Web-Anwendung und dem Deployment als Batch unterschieden: Es werden jeweils dieselben betrieblichen Konfigurationsdateien verwendet.
 Damit der Betrieb Anpassungen dieser Dateien nicht zweimal durchführen muss, wird die betriebliche Konfiguration mit der Web-Anwendung deployt.
-Vor dem Deployment des Batch-Pakets muss die Webanwendung deployt sein.
-Falls der Batch nicht auf dem Server der Webanwendung läuft, muss die Konfigurationsdatei der Webanwendung vor der Installation des Batches auch auf diesem Server verfügbar gemacht (z.B. gemountet oder kopiert) werden.
+Vor dem Deployment des Batch-Pakets muss die Web-Anwendung deployt sein.
+Falls der Batch nicht auf dem Server der Web-Anwendung läuft, muss die Konfigurationsdatei der Web-Anwendung vor der Installation des Batches auch auf diesem Server verfügbar gemacht (z.B. gemountet oder kopiert) werden.
 Beim Deployment des Batch-Pakets werden über symbolische Links diese betriebliche Konfigurationsdatei referenziert.
 
 [[rueckgabewerte-des-batchrahmens]]
@@ -636,54 +679,54 @@ Der Pfad der Ergebnisdatei wird über einen Konfigurationsparameter des Batches 
 Kapitel <<konfigurationsdatei-und-kommandozeilen-parameter>>). Ist dieser Parameter nicht vorhanden, so wird auch keine Ergebnisdatei geschrieben.
 Die Ergebnisdatei hat den folgenden Aufbau:
 
+[[table-FormAusDat]]
 .Format der Ergebnisdatei
-[id="table-FormAusDat",reftext="{table-caption} {counter:tables}"]
-[cols="4,2,1,6",options="header"]
+[cols="4m,2m,1,6",options="header"]
 |====
 |XML-Pfad |Attribut |Typ |Bedeutung
-|`Batch-Ergebnis` | | |Root-Tag des Batch-Ergebnisses
-|`Batch-Ergebnis / Start` |`Datum` |Text |Datum des Starts des Batchlaufs
-|`Batch-Ergebnis / Start` |`Uhrzeit` |Text |Uhrzeit des Starts des Batchlaufs
-|`Batch-Ergebnis / Start` |`BatchID` |Text |Die Batch-ID des Batchlaufs
-|`Batch-Ergebnis / Start` |`Parameter` |Text |Die Parameter des Batchlaufs
-|`Batch-Ergebnis / Meldungen` | | |Liste von Meldungen (Fehler, Warnungen oder Informationen)
-|`Batch-Ergebnis / Meldungen / Meldung` |`ID` |Text |ID des Eintrags (z.B. Fehlernummer)
-|`Batch-Ergebnis / Meldungen / Meldung` |`Typ` |Text |Typ des Eintrags: F, W, I
-|`Batch-Ergebnis / Meldungen / Meldung` |`Text` |Text |Text des Eintrags, z.B. Fehlertext
-|`Batch-Ergebnis / Meldungen / Meldung` |`Satz` |Text a|
+|Batch-Ergebnis | | |Root-Tag des Batch-Ergebnisses
+|Batch-Ergebnis / Start |Datum |Text |Datum des Starts des Batchlaufs
+|Batch-Ergebnis / Start |Uhrzeit |Text |Uhrzeit des Starts des Batchlaufs
+|Batch-Ergebnis / Start |BatchID |Text |Die Batch-ID des Batchlaufs
+|Batch-Ergebnis / Start |Parameter |Text |Die Parameter des Batchlaufs
+|Batch-Ergebnis / Meldungen | | |Liste von Meldungen (Fehler, Warnungen oder Informationen)
+|Batch-Ergebnis / Meldungen / Meldung |ID |Text |ID des Eintrags (z.B. Fehlernummer)
+|Batch-Ergebnis / Meldungen / Meldung |Typ |Text |Typ des Eintrags: F, W, I
+|Batch-Ergebnis / Meldungen / Meldung |Text |Text |Text des Eintrags, z.B. Fehlertext
+|Batch-Ergebnis / Meldungen / Meldung |Satz |Text a|
 Der fachliche Schlüssel des Hauptsatzes, dessen Verarbeitung diese Meldung verursacht hat.
 Es ist zu beachten, dass ein technischer Schlüssel an dieser Stelle nicht ausreichend ist, da der Fachbereich und der Betrieb
 mit diesem technischen Schlüssel nichts anfangen können.
 
-Falls es nicht möglich ist den fachlichen Schlüssel des Hauptsatzes an dieser Stelle zu ermitteln bzw.
+Falls es nicht möglich ist, den fachlichen Schlüssel des Hauptsatzes an dieser Stelle zu ermitteln bzw.
 wenn dies nur auf Kosten der Laufzeit möglich ist, dann ist mit dem Fachbereich und dem Betrieb frühzeitig zu klären,
 ob an dieser Stelle ein anderer Schlüssel ausgegeben werden kann.
-|`Batch-Ergebnis / Statistik` | | |Liste von statistischen Daten, die während des Batchlaufs ermittelt wurden.
-|`Batch-Ergebnis / Statistik / Statistik-Eintrag` |`ID` |Text |ID des Statistik-Eintrags
-|`Batch-Ergebnis / Statistik / Statistik-Eintrag` |`Text` |Text |Klartext des Eintrags, z. B. „Anzahl gelöschter Datensätze“
-|`Batch-Ergebnis / Statistik / Statistik-Eintrag` |`Wert` |Text |Statistischer Wert, z. B. Anzahl der gelöschten Datensätze
-|`Batch-Ergebnis / Ende` |`Datum` |Text |Datum des Endes des Batchlaufs
-|`Batch-Ergebnis / Ende` |`Uhrzeit` |Text |Uhrzeit des Endes des Batchlaufs
-|`Batch-Ergebnis / Return-Code` |`RC` |Text |Return-Code der Batch-Verarbeitung
-|`Batch-Ergebnis / Return-Code` |`Text` |Text |Den Return-Code zugeordneter Text
+|Batch-Ergebnis / Statistik | | |Liste von statistischen Daten, die während des Batchlaufs ermittelt wurden.
+|Batch-Ergebnis / Statistik / Statistik-Eintrag |ID |Text |ID des Statistik-Eintrags
+|Batch-Ergebnis / Statistik / Statistik-Eintrag |Text |Text |Klartext des Eintrags, z. B. „Anzahl gelöschter Datensätze“
+|Batch-Ergebnis / Statistik / Statistik-Eintrag |Wert |Text |Statistischer Wert, z. B. Anzahl der gelöschten Datensätze
+|Batch-Ergebnis / Ende |Datum |Text |Datum des Endes des Batchlaufs
+|Batch-Ergebnis / Ende |Uhrzeit |Text |Uhrzeit des Endes des Batchlaufs
+|Batch-Ergebnis / Return-Code |RC |Text |Return-Code der Batch-Verarbeitung
+|Batch-Ergebnis / Return-Code |Text |Text |Den Return-Code zugeordneter Text
 |====
 
-Beispiel für ein Batchprotokoll:
+Beispiel für ein Batch-Protokoll:
 
 [source,xml]
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <Batch-Ergebnis>
-<Start BatchID="GenersicheAnwendungLoeschBatch" Datum="2017-01-30" Uhrzeit="09:33:53" Parameter="-start -cfg /resources/batch/batch-loeschen-config.properties -Batchrahmen.Ergebnisdatei loeschen-batch_out.xml"/>
-<Meldungen>
-<Meldung ID="COMMIT" Typ="I" Text="Checkpunkt geschrieben."/>
-<Meldung ID="ENDE" Typ="I" Text="Batch beendet."/>
-</Meldungen>
-<Statistik>
-<Statistik-Eintrag ID="ANZAHL_GELOESCHT" Text="Anzahl gelöschter generischer Anwendungen" Wert="5"/>
-</Statistik>
-<Ende Datum="2017-01-30" Uhrzeit="09:33:58"/>
-<Return-Code RC="0" Text="Verarbeitung ohne Fehler durchgeführt."/>
+    <Start BatchID="GenerischeAnwendungLoeschBatch" Datum="2017-01-30" Uhrzeit="09:33:53" Parameter="-start -cfg /resources/batch/batch-loeschen-config.properties -Batchrahmen.Ergebnisdatei loeschen-batch_out.xml"/>
+    <Meldungen>
+        <Meldung ID="COMMIT" Typ="I" Text="Checkpoint geschrieben."/>
+        <Meldung ID="ENDE" Typ="I" Text="Batch beendet."/>
+    </Meldungen>
+    <Statistik>
+        <Statistik-Eintrag ID="ANZAHL_GELOESCHT" Text="Anzahl gelöschter generischer Anwendungen" Wert="5"/>
+    </Statistik>
+    <Ende Datum="2017-01-30" Uhrzeit="09:33:58"/>
+    <Return-Code RC="0" Text="Verarbeitung ohne Fehler durchgeführt."/>
 </Batch-Ergebnis>
 ----
 
@@ -694,15 +737,15 @@ zu aggregieren oder in einem bestimmten Format zu Weiterverarbeitung bereitzuste
 
 Wenn die Verarbeitung erfolgreich beendet wurde, endet der Batchrahmen mit dem Return-Code 0. Er endet mit einem anderen
 Return-Code, falls der Batch mit einem Fehler beendet wurde oder gar nicht gestartet werden konnte.
-Bei Fehlern in den „Ausführungsbeans“ kann der zurückzugebende Return-Code über die aufgetretenen Exceptions bestimmt
+Bei Fehlern in den "Ausführungsbeans" kann der zurückzugebende Return-Code über die aufgetretenen Exceptions bestimmt
 werden (siehe Kapitel <<informationen-zum-batch-benutzer-bereitstellen>>).
 
 Pro Batch müssen die möglichen Rückgabewerte definiert werden.
 Die folgenden Werte sind reserviert und müssen von jedem Batch zurückgegeben werden, wenn das entsprechende
 Ereignis eingetreten ist:
 
+[[table-GenRetCodeBatCanv]]
 .Allgemeine Return-Codes des Batchrahmens
-[id="table-GenRetCodeBatCanv",reftext="{table-caption} {counter:tables}"]
 [cols=">1,5",options="header"]
 |====
 |Return-Code |Bedeutung
@@ -749,22 +792,23 @@ Folgendes Code-Beispiel demonstriert dieses Muster:
 [source,java]
 ----
 public VerarbeitungsErgebnis verarbeiteSatz() throws BatchAusfuehrungsException {
-  MeinBatchTask task = meinBatchTaskDao.leseEintrag();
-  meinBatchTaskDao.loesche(task);
+    MeinBatchTask task = meinBatchTaskDao.leseEintrag();
+    meinBatchTaskDao.loesche(task);
 
-  // Wenn Testmodus, neue Transaktion starten
-  TransactionStatus txStatus = null;
-  if (testmodus) {
-      txStatus = transactionManager.getTransaction(new DefaultTransactionDefinition(TransactionDefinition.PROPAGATION_REQUIRES_NEW));
-      txStatus.setRollbackOnly();
-  }
+     // Wenn Testmodus, neue Transaktion starten
+    TransactionStatus txStatus = null;
+    if (testmodus) {
+        txStatus = transactionManager.getTransaction(
+            new DefaultTransactionDefinition(TransactionDefinition.PROPAGATION_REQUIRES_NEW));
+        txStatus.setRollbackOnly();
+    }
 
-  fristenkontrolle.pruefeFrist(task.getSatznummer());
+    fristenkontrolle.pruefeFrist(task.getSatznummer());
 
-  // Wenn Testmodus, Transaktion zurücksetzen
-  if (testmodus) {
-      transactionManager.rollback(txStatus);
-  }
+    // Wenn Testmodus, Transaktion zurücksetzen
+    if (testmodus) {
+        transactionManager.rollback(txStatus);
+    }
 }
 ----
 
@@ -784,26 +828,25 @@ Das Muster ist geeignet, um im Testmodus durch die Auswertung der Batch-Protokol
 durchgeführten Änderungen eines Batches vorab zu überprüfen.
 Es ist nicht geeignet zur Bestimmung der Laufzeit oder für die vollständige Sicherstellung der fehlerfreien Batchausführung, da Fehler bei Schreiboperationen in die Datenbank oder dem Aufruf von Nachbarsystemen nicht auftreten können.
 
-[[die-ausfuehrungsbeans]]
-== Die Ausführungsbeans
+[[ausfuehrungsbeans]]
+== Ausführungsbeans
 
-Im vorangegangenen Kapitel wurden die Eigenschaften des Batchrahmens erläutert.
-Dieser existiert bereits und muss verwendet werden, indem Ausführungsbeans dafür entwickelt werden.
 In diesem Kapitel werden Vorgaben für die Ausführungsbeans definiert.
 
-=== Namenskonvention
-
 //tag::namenskonvention[]
-Analog zu den Anwendungsfällen werden Batchklassen mit dem Präfix `Bat` gekennzeichnet.
+
+Analog zu den Anwendungsfällen werden Batch-Klassen mit dem Präfix `Bat` gekennzeichnet.
 
 .Batches: Klassen
 [id="table-batclass2",reftext="{table-caption} {counter:tables}"]
-[cols="1,4",options="header"]
+[cols="1s,4m",options="header"]
 |====
 2+|Batches: Klassen
-|*Schema* m|Bat<Batchname>
-|*Beispiele* m|BatLoeschfristPruefen
+|Schema
+|Bat<Batchname>
 
+|Beispiele
+|BatLoeschfristPruefen +
 BatSendenAllerInformationen
 |====
 
@@ -813,7 +856,7 @@ BatSendenAllerInformationen
 === Keine Transaktionssteuerung in einer Ausführungsbean
 
 Eine Ausführungsbean darf keine Transaktionen starten oder beenden.
-Sämtliche vom Batchrahmen aufgerufenen Operationen (Operationen von Interface `BatchAusfuehrungsBean`) werden innerhalb einer Transaktion aufgerufen.
+Sämtliche vom Batchrahmen aufgerufenen Operationen (des Interfaces `BatchAusfuehrungsBean`) werden innerhalb einer Transaktion aufgerufen.
 Die Ausführungsbean muss sich hiermit nicht befassen.
 
 [[logging-protokollierung-und-statistik-aufrufe-implementieren]]
@@ -824,23 +867,23 @@ Die restlichen Informationen müssen durch die Ausführungsbean geloggt, protoko
 
 Dazu wird die Ausführungsbean bei allen wichtigen Ereignissen aufgerufen:
 
-* Beim Start des Batches
-* Beim Schreiben eines Checkpoints
-* Beim Beenden des Batches
-* Bei der Verarbeitung eines Satzes
+* beim Start des Batches,
+* beim Schreiben eines Checkpoints,
+* beim Beenden des Batches,
+* bei der Verarbeitung eines Satzes.
 
 Jeder Batch erhält eine eigene Korrelations-ID.
 
 WARNING: In älteren Versionen des Batchrahmens handelte es sich bei der Korrelations-ID für Batches um die ID des Batches.
-Mittlerweile wurde dies durch eine UUID ersetzt.
+Mittlerweile wurde diese durch eine UUID ersetzt.
 
-Zusätzlich erhält jeder zu verarbeitende Satz auch eine eigene Korrelations-ID, welche an die Korrelations-ID des Batches angehängt wird. Die entstehende Korrelations-ID Kette wird dann dem Aufruf-Kontext hinzugefügt.
+Zusätzlich erhält jeder zu verarbeitende Satz auch eine eigene Korrelations-ID, welche an die Korrelations-ID des Batches angehängt wird. Die entstehende Korrelations-ID Kette wird dann dem xref:isy-logging:nutzungsvorgaben/master.adoc#mdchelper[MDC] hinzugefügt.
 
 [[fachliche-logik-in-den-komponenten-der-geschaeftsanwendung-implementieren]]
 === Geschäftslogik in den Komponenten der Geschäftsanwendung implementieren
 
-Falls für die Verarbeitung im Batch Geschäftslogik benötigt wird, welche für die Webanwendung nicht benötigt wird, ist diese trotzdem den Anwendungskomponenten hinzuzufügen.
-Die Ausführungsbean erhält die Referenzen auf die Komponenten über Dependency Injection und ruft die Geschäftslogik dort auf.
+Falls für die Verarbeitung im Batch Geschäftslogik benötigt wird, welche für die Webanwendung nicht benötigt wird, ist diese trotzdem den Fachkomponenten im Anwendungskern hinzuzufügen.
+Die Ausführungsbean ruft die Geschäftslogik dort auf.
 
 Auch wenn in Sonderfällen Datenbank-Aufrufe direkt durch die Ausführungsbean ausgeführt werden müssen, ist die sonstige Geschäftslogik an die Fachkomponenten der Geschäftsanwendung zu delegieren.
 
@@ -868,8 +911,8 @@ verbunden. +
 Hibernate liest Entitäten bereits bei der `hasNext()`-Abfrage eines Resultset-Iterators ab.
 So kommt es bei Checkpoints zwangsläufig zu toten Entitäten.
 +
-NOTE: Falls (in einem ungewöhnlichen Sonderfall) mit `ResultSet`-Iteratoren gearbeitet werden muss, so sollte mit einem Hibernate
-`ScrollableResult` gearbeitet werden. Siehe Hibernate-Referenzdokumentation.
+NOTE: Falls (in einem ungewöhnlichen Sonderfall) mit `ResultSet`-Iteratoren gearbeitet werden muss, so sollte https://docs.jboss.org/hibernate/stable/orm/userguide/html_single/Hibernate_User_Guide.html#hql-api-incremental[mit
+`ScrollableResults` gearbeitet werden].
 +
 * Durch das Ablegen der Schlüssel in einer Liste ist die Gesamtanzahl der Datensätze bekannt.
 
@@ -900,70 +943,72 @@ Dieses Vorgehen ermöglicht es dem Betrieb, die Ursache des Fehlers zu korrigier
 Abschließend ist in die beispielhafte Satzverarbeitung in einer Batch-Ausführungsbean zu sehen.
 Die gezeigte Satzverarbeitung setzt den Testmodus um, die Anwendungslogik ist weiterhin im Anwendungskern umgesetzt und sie übernimmt Logging, Protokollierung und Statistik-Zählung.
 
+.Beispiel: Satzverarbeitung
 [source,java]
 ----
 @Override
 public VerarbeitungsErgebnis verarbeiteSatz() throws BatchAusfuehrungsException {
-  // Hole nächsten Task, wenn vorhanden.
-  if (CollectionUtils._isEmpty_(vorgangsIds)) {
-  return new VerarbeitungsErgebnis(null, true);
-  }
-  int vorgangsId = vorgangsIds.remove(vorgangsIds.size() - 1);
+    // Hole nächsten Task, wenn vorhanden.
+    if (CollectionUtils._isEmpty_(vorgangsIds)) {
+        return new VerarbeitungsErgebnis(null, true);
+    }
+    int vorgangsId = vorgangsIds.remove(vorgangsIds.size() - 1);
 
-  // Wenn Testmodus, neue Transaktion starten
-  TransactionStatus txStatus = pruefeStartSimulation();
+    // Wenn Testmodus, neue Transaktion starten
+    TransactionStatus txStatus = pruefeStartSimulation();
 
-  // Laden des Vorgangs und Aufruf der AWK Komponente
-  // zum Versenden der Mitteilung
-  VorgangRo vorgang =
-  vorgangsverwaltung.leseVorgang(vorgangsId);
-  Antragsnummer antragsnummer = vorgang.getAntragsnummer();
-  log.debug("Versende Erinnerung zur Anfrage für Antragsnummer: " + antragsnummer + ".");
+    // Laden des Vorgangs und Aufruf der AWK Komponente
+    // zum Versenden der Mitteilung
+    VorgangRo vorgang = vorgangsverwaltung.leseVorgang(vorgangsId);
+    Antragsnummer antragsnummer = vorgang.getAntragsnummer();
+    log.debug("Versende Erinnerung zur Anfrage für Antragsnummer: " + antragsnummer + ".");
 
-  // Versende Erinnerung
-  try {
-    xxxBeteiligung.versendeErinnerungsnachricht(antragsnummer, vorgangsId);
-    getBatchProtokoll().ergaenzeMeldung(
-    new VerarbeitungsMeldung(String._valueOf_(vorgangsId), antragsnummer.toString(), MeldungTyp._INFO_, "Antragsnummer: " + antragsnummer));
-    statistikErinnerungVersendet.erhoeheWert();
-  } catch (AkteGesperrtException e) {
-  getBatchProtokoll().ergaenzeMeldung(
-  new VerarbeitungsMeldung(String._valueOf_(vorgangsId), antragsnummer.toString(),
-  MeldungTyp._WARNUNG_, e.getFehlertext()));
-  }
+    // Versende Erinnerung
+    try {
+        xxxBeteiligung.versendeErinnerungsnachricht(antragsnummer, vorgangsId);
+        getBatchProtokoll().ergaenzeMeldung(
+            new VerarbeitungsMeldung(String._valueOf_(vorgangsId), antragsnummer.toString(),
+                MeldungTyp._INFO_, "Antragsnummer: " + antragsnummer));
+        statistikErinnerungVersendet.erhoeheWert();
+    } catch (AkteGesperrtException e) {
+        getBatchProtokoll().ergaenzeMeldung(
+            new VerarbeitungsMeldung(String._valueOf_(vorgangsId), antragsnummer.toString(),
+                MeldungTyp._WARNUNG_, e.getFehlertext()));
+    }
 
-  // Wenn Testmodus, Transaktion zurücksetzen
-  pruefeEndeSimulation(txStatus);
-  return new VerarbeitungsErgebnis(String._valueOf_(vorgangsId), false);
+    // Wenn Testmodus, Transaktion zurücksetzen
+    pruefeEndeSimulation(txStatus);
+    return new VerarbeitungsErgebnis(String._valueOf_(vorgangsId), false);
 }
 ----
 
 [[sonderfall-blockloeschung]]
 ==== Sonderfall Blocklöschung
 
-Es ist nicht zwingend erforderlich, dass in einem Satz nur eine einzelne Aktion (bspw.
-Löschung) durchgeführt wird. Bei großen Datenmengen kann es durchaus Sinn sinnvoll sein, pro Satz eine bestimmte Anzahl Datensätze auf einmal zu verarbeiten, wie im folgenden Codebeispiel zu sehen ist.
+Es ist nicht zwingend erforderlich, dass in einem Satz nur eine einzelne Aktion (beispielsweise eine Löschung) durchgeführt wird.
+Bei großen Datenmengen kann es durchaus Sinn sinnvoll sein, pro Satz eine bestimmte Anzahl Datensätze auf einmal zu verarbeiten, wie im folgenden Codebeispiel zu sehen ist.
 Die Variable `blockgroesse` ist dabei konfigurativ zu setzen.
 
-Wichtig ist in so einem Sonderfall, dass das Commit-Intervall des Batches entsprechend niedrig eingestellt ist
-(siehe Kapitel <<konfigurationsdatei-und-kommandozeilen-parameter>>), da ansonsten
-(_Blockgröße_ * _Commit-Intervall_) viele Datensätze mit einer Transaktion verarbeitet werden.
+Wichtig ist in so einem Sonderfall, dass das <<standard-konfigurationsparameter,Commit-Intervall>> des Batches entsprechend niedrig eingestellt ist, da ansonsten (_Blockgröße_ * _Commit-Intervall_) Datensätze mit einer Transaktion verarbeitet werden.
 
+.Beispiel: Sonderfall Blocklöschung
 [source,java]
 ----
 @Override
 public VerarbeitungsErgebnis verarbeiteSatz() throws BatchAusfuehrungsException {
-  log.debug("Lösche Nachrichten älter als " + fristdatum + " (Blockgröße " + blockgroesse + ").");
+    log.debug("Lösche Nachrichten vor " + fristdatum + " (Blockgröße " + blockgroesse + ").");
 
-  // Wenn Testmodus, neue Transaktion starten
-  TransactionStatus txStatus = pruefeStartSimulation();
-  int anzahlGeloeschterEintraege = nachrichtenverwaltung.loescheNachrichtenOhneAkte(fristdatum, blockgroesse);
-  log.debug(anzahlGeloeschterEintraege + " Nachrichten gelöscht.");
-  geloeschteNachrichtenStatistik.setWert(geloeschteNachrichtenStatistik.getWert() + anzahlGeloeschterEintraege);
+    // Wenn Testmodus, neue Transaktion starten
+    TransactionStatus txStatus = pruefeStartSimulation();
+    int anzahlGeloeschterEintraege =
+        nachrichtenverwaltung.loescheNachrichtenOhneAkte(fristdatum, blockgroesse);
+    log.debug(anzahlGeloeschterEintraege + " Nachrichten gelöscht.");
+    geloeschteNachrichtenStatistik.setWert(
+        geloeschteNachrichtenStatistik.getWert() + anzahlGeloeschterEintraege);
 
-  // Wenn Testmodus, Transaktion zurücksetzen
-  pruefeEndeSimulation(txStatus);
-  return new VerarbeitungsErgebnis(null, anzahlGeloeschterEintraege < blockgroesse);
+    // Wenn Testmodus, Transaktion zurücksetzen
+    pruefeEndeSimulation(txStatus);
+    return new VerarbeitungsErgebnis(null, anzahlGeloeschterEintraege < blockgroesse);
 }
 ----
 
@@ -976,185 +1021,4 @@ Das Auftreten einer solchen Exception führt dazu, dass die Transaktion nur noch
 
 Um dieser Problematik zu begegnen, kann in der Satzverarbeitung selbst die Transaktionsklammer nur für einen Satz geöffnet und nach der Verarbeitung entweder committed oder zurückgerollt werden.
 
-In diesem Fall sollte das Commit-Intervall des Batchrahmens entsprechend hoch konfiguriert werden, um unnötige Commits zu vermeiden, auch wenn in dieser Transaktion nichts passiert.
-
-[[ausnahmeregelungen]]
-== Ausnahmeregelungen
-
-In bestimmten Situationen, z. B. bei der Verarbeitung extrem großer Datenmengen, kann der Fall auftreten, dass die Implementierung eines Batchschritts in Java nicht sinnvoll ist.
-In solchen Fällen muss dann eine Sonderlösung, wie z. B. ein SQL-Skript oder ein Shell-Skript, gefunden werden. Shell-Skripte sind in dem folgenden Kapitel <<shell-batches>> beschrieben.
-
-
-Die Entscheidung, ob in einem solchen Einzelfall eine Sonderlösung gewählt werden kann, muss zwingend in einer Architekturentscheidung erfolgen.
-Eine solche Abweichung von der Referenzarchitektur muss im Systementwurf in der Liste der Abweichungen aufgeführt und begründet werden.
-Dabei muss die Abwägung getroffen werden zwischen der Einhaltung der nicht-funktionalen Anforderungen und der Verringerung der Wartbarkeit durch mehrfach implementierte Funktionalität.
-
-Wichtig ist, dass die einheitliche Außenschnittstelle der Batchschritte erhalten bleibt, d. h. anhand der übergebenen Parameter, Rückgabewerte, geloggten Daten darf für den Nutzer des Batchschritts nicht erkennbar sein, dass dieser in einer anderen Technologie umgesetzt ist.
-
-Die Dokumentation der abweichenden Batchimplementierung erfolgt im Systementwurf und wird daraus in die Systemdokumentation übernommen.
-
-[[shell-batches]]
-== Shell-Batches
-
-[[was-ist-ein-shell-batch]]
-=== Was ist ein Shell-Batch?
-
-Als Shell-Batch wird ein Shell-Skript bezeichnet, das Stapelverarbeitungsbefehle ausführt, die direkt in diesem Skript definiert sind. 
-Damit fallen sie unter die Ausnahmeregelungen des vorherigen Kapitels <<ausnahmeregelungen>>.
-Reguläre Batches werden meist ebenfalls über ein Shell-Skript gestartet, ihre Logik ist aber in Java programmiert.
-Das Skript startet also nur das zugehörige Programm.
-
-Der Vorteil von Shell-Batches ist, dass sie etwas schlanker sind und daher auch schneller entwickelt werden können.
-Komplexe Geschäftslogik sollte aber immer als dediziertes IT-System umgesetzt werden, da diese auf lange Sicht besser wartbar sind.
-
-Ein Beispiel für Shell-Batches sind einmalige SQL-Migrationen.
-Das Shell-Skript baut dabei eine Verbindung mit dem Datenbank-Server auf und führt eine SQL-Datei aus.
-
-Es gibt aber auch Systeme die im regulären Wirkbetrieb regelmäßig Shell-Batches ausführen; bspw. um Datenbankabzüge für statistische Auswertungen zu erstellen.
-
-[[aufbau-von-shell-batches]]
-=== Aufbau von Shell-Batches
-
-
-Ein Shell-Batch besteht aus einem SH-Skript und ggf.
-weiteren Dateien:
-
-* Property-Datei für Konfigurationen, wie bspw. die zu verwendende Datenbankverbindung
-* SQL-Skripte, die vom SH-Skript ausgeführt werden
-* weitere SH-Skripte die, die vom SH-Skript ausgeführt werden
-
-==== Namenskonvention
-Ein Shell-Skript muss folgender Namenskonvention folgen:
-//tag::namenskonvention[]
-
-.Batches: Shellskript
-[id="table-shellskript",reftext="{table-caption} {counter:tables}"]
-[cols="1,4",options="header"]
-|====
-2+|Batches: Shellskript
-|*Schemata* m|<batchname-des-batches>.sh
-|*Beispiele* m|loeschfrist-pruefen.sh
-
-import-bhknz-liste.sh
-|====
-
-//end::namenskonvention[]
-
-
-
-Die Dateien sollten entweder in einen eigenen Ordner unter `/opt` abgelegt werden oder – falls der Batch Teil eines bestehenden Batch-Projekts ist – in den vorhandenen Batch-Ordner des Systems deployt werden.
-
-In letzterem Fall sollte das Deployment über das RPM des Batch-Projekts erfolgen.
-Andernfalls ist – insbesondere bei nur einmaligen Migrationsbatches – ein manuelles Deployment möglich.
-
-Die SH-Skripte müssen immer nach dem folgenden Schema aufgebaut werden:
-
-* Beschreibungskommentar mit Parametern und Rückgabewerten
-* Automatisches Ermitteln des Home-Verzeichnisses des Batches
-* Einlesen der Übergabe-Parameter
-* Einlesen notwendiger Properties aus den Konfigurationsdateien
-* Ausführen der eigentlichen Batchlogik
-
-Der Batch gibt zudem die Startzeit, Endzeit und Laufzeit aus.
-
-Es müssen dokumentierte Return-Codes für erwartete Fehlerfälle verwendet werden, um die Fehleranalyse zu vereinfachen.
-
-Folgende Rahmenbedingungen sind bei der Umsetzung einzuhalten:
-
-* Das Home-Verzeichnis, in dem das SH-Skript liegt, wird automatisiert ermittelt und wird nicht als Parameter übergeben.
-* Das Log-Verzeichnis muss ein optionaler Parameter sein (und damit als letzter Eingabeparameter definiert sein).
-Bei Nichtangabe wird der Standard-Logpfad unter `<HOMEVEREICHNIS>/log/` verwendet.
-* Datenbankverbindungsangaben müssen in einer Konfigurationsdatei (`<HOMEVERZEICHNIS>/etc/jpa.properties`) stehen und dürfen nicht als Parameter übergeben werden.
-* SQL-Skripte, die vom SH-Skript verwendet werden, müssen im Verzeichnis `<HOMEVERZEICHNIS>/sql/` abgelegt werden.
-* Weitere SH-Skripte, die vom Hauptskript aufgerufen werden, müssen unter `<HOMEVERZEICHNIS>/sh/` abgelegt werden.
-
-Im Folgenden ist ein Beispiel-Template eines Shell-Batches angegeben:
-
-[source,bash]
-----
-#!/bin/bash
-#===========================================================
-# Beispiel Shellbatch
-#
-# Vorbedingungen
-# - Leeres Datenbank Schema angelegt
-#
-# Parameter
-# - Optional: Verzeichnis, in dem die Log-Dateien abgelegt werden
-#
-# Rückgabewerte:
-# - 0 = Erfolg
-# - 10 = Keine OracleConnection angegeben (jpa.properties existiert nicht oder enthält den Schlüssel database.connection nicht)
-# - 20 = Fehler beim Ausführen von Schritt 1 (01_tabelle-erstellen.sql)
-# - 30 = Fehler beim Ausführen von Schritt 2 (02_tabelle-loeschen.sql)
-#
-# Version: $Id: shellbatch.sh <revision> <datum> <user> $
-#
-#===========================================================
-
-#Zeit zu Beginn ermitteln +
-start=`date +%s`
-
-# Home-Verzeichnis ermitteln
-HomeVerzeichnis=$(cd -P -- "$(dirname -- "$0")" && pwd -P)
-
-# Parameter prüfen
-if [ -z "$1" ] ; then
-  LogVerzeichnis=$\{HomeVerzeichnis}/log/
-else
-  LogVerzeichnis=$1
-Fi
-
-# Auslesen der Oracle-Datenbankverbindung aus einer Konfigurationsdatei (jpa.properties).
-PROPERTY_FILE="$\{HomeVerzeichnis}/etc/jpa.properties"
-PROP_KEY="database.connection"
-
-# Alles nach dem ersten "=" wird gematched (inklusive Leerzeichen)
-OracleConnection=`cat $PROPERTY_FILE | grep "$PROP_KEY" | sed 's/[^=]*=\(.*\)/\1/'`
-if [ -z "$OracleConnection" ] ; then
-  echo "+++ OracleConnection konnte nicht ermittelt werden. Existiert die jpa.properties Datei und ist der richtige Schlüssel enthalten? Abbruch!"
-  exit 10
-fi
-
-# Startmeldung
-echo "# "$(basename $0)" um "$(date +%Y-%m-%d-%T)" gestartet"
-RC=0
-
-# Batchschritte
-# 1. Ausführen eines SQL-Skripts mit SQL-Plus
-if [ $\{RC} = "0" ]; then
-  echo "# Fuehre 01_tabelle-erstellen.sql aus ..."
-  LogDatei=$\{LogVerzeichnis}/shellbatch_$(date +%Y-%m-%d_%H-%M-%S).log
-  cd $\{HomeVerzeichnis}/sql
-  sqlplus "$\{OracleConnection}" @01_tabelle-erstellen.sql | tee $\{LogDatei}
-  res=$?
-  AnzahlFehler=$(egrep -c "SP2\-[0-9]\{4}\:|ORA\-[0-9]\{5}\:" $\{LogDatei})
-  if [ $\{AnzahlFehler} -ne 0 ]; then
-    echo "+++ "$\{AnzahlFehler}" Fehler in Schritt 01, RC="$\{res}"!"
-    RC=20
-  fi
-fi
-
-# 2. Ausführen eines weiteren SQL-Skripts mit SQL-Plus
-if [ $\{RC} = "0" ]; then
-  echo "# Fuehre 02_tabelle-loeschen.sql aus ..."
-  LogDatei=$\{LogVerzeichnis}/shellbatch_$(date +%Y-%m-%d_%H-%M-%S).log
-  cd $\{HomeVerzeichnis}/sql
-  sqlplus "$\{OracleConnection}" @02_tabelle-loeschen.sql | tee $\{LogDatei}
-  res=$?
-  AnzahlFehler=$(egrep -c "SP2\-[0-9]\{4}\:|ORA\-[0-9]\{5}\:" $\{LogDatei})
-  if [ $\{AnzahlFehler} -ne 0 ]; then
-    echo "+++ "$\{AnzahlFehler}" Fehler in Schritt 02, RC="$\{res}"!"
-    RC=30
-  fi
-fi
-
-end=`date +%s`
-# Ende-Meldung
-echo "Shell-Batch wurde erfolgreich beendet. - Laufzeit" $(($end - $start)) "Sekunden"
-echo "# "$(basename $0)" um "$(date +%Y-%m-%d-%T)" mit RC="$\{RC}" beendet"
-exit $\{RC}
-----
-
-Eine funktionsfähige Version dieses Beispiels ist im `isy-batchrahmen` unter `src/main/skripte/shellbatch_template/` eingecheckt.
-Um dieses ausführen zu können, muss eine funktionierende Datenbankverbindung auf ein leeres Schema in der `jpa.properties` Datei angegeben werden.
+In diesem Fall sollte das <<standard-konfigurationsparameter,Commit-Intervall>> des Batchrahmens entsprechend hoch konfiguriert werden, um unnötige Commits zu vermeiden, auch wenn in dieser Transaktion nichts passiert.

@@ -12,6 +12,7 @@
 **** xref:software-technisch/frontend.adoc[Frontend]
 **** xref:software-technisch/batch.adoc[Batch]
 ***** xref:software-technisch/batch/batchrahmen.adoc[]
+***** xref:software-technisch/batch/ausnahmeregelungen.adoc[]
 *** xref:software-technisch/services.adoc[]
 ** xref:technisch-infrastrukturell.adoc[technisch-infrastrukturell]
 *** xref:technisch-infrastrukturell/availability.adoc[]
