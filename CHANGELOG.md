@@ -33,6 +33,7 @@
     * Funktionalität zur erneuten Authentifizierung wird von `BatchrahmenImpl` aufgerufen
 - `IFS-3928`: [isy-bedienkonzept] Migration der neusten Bedienkonzeptversion ins Repository isy-bedienkonzept
 ## BUG FIXES
+- `IFS-4203`: [isyfact-standards-doc] Korrektur fehlerhafter Links in der Dokumentation
 - `IFS-4212`: Dokumentation von `@OnceTask` korrigiert (`@ManualTask` existiert nicht)
 ## BREAKING CHANGES
 - `ISY-1122`: Bausteine `isy-sicherheit`, `isy-aufrufkontext`, `isy-serviceapi-core` und `isy-konfiguration` entfernt
