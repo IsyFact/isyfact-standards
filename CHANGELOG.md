@@ -1,3 +1,6 @@
+# 3.2.1
+- `IFS-4385`: [isyfact-products-bom] Spring Security Versionsanhebung auf 5.8.15
+
 # 3.2.0
 ### Features
 - `IFS-1629`: [isy-ueberwachung] Standardmechanismus zur Absicherung der Actuator-Endpunkte auf Basis von WebSecurityConfigurerAdapter wurde bereitgestellt. Aktivieren durch das Setzen der Konfigurationsparameter:
