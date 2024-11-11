@@ -1,3 +1,6 @@
+# 3.1.1
+- `IFS-4384`: Spring Security Versionsanhebung auf 5.8.15
+
 # 3.1.0
 - `IFS-2591`: Spring Security Versionsanhebung auf 5.8.13 
 

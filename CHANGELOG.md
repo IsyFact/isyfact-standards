@@ -1,3 +1,6 @@
+# 3.1.1
+- `IFS-4384`: [isyfact-products-bom] Spring Security Versionsanhebung auf 5.8.15
+
 # 3.1.0
 ### Features
 - `IFS-3992`: [isyfact-standards-doc] Entfernung der Vorlage "Tailoring" Dokument

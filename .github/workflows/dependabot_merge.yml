@@ -1,4 +1,4 @@
-name: Merge DependaBot PR
+name: Dependabot Auto Merge
 on:
   pull_request:
     branches:
@@ -8,23 +8,7 @@ on:
       - '**/pom.xml'
 
 jobs:
-  dependabot:
-    runs-on: ubuntu-latest
-    if: ${{ github.actor == 'dependabot[bot]' }}
-
-    env:
-      PR_URL: ${{ github.event.pull_request.html_url }}
-      GH_TOKEN: ${{ secrets.DEPENDABOT_TOKEN }}
-
-    steps:
-      - name: Dependabot metadata
-        id: metadata
-        uses: dependabot/fetch-metadata@v2
-        with:
-          github-token: ${{ secrets.DEPENDABOT_TOKEN }}
-      - name: Approve a PR
-        if: ${{ steps.metadata.outputs.update-type == 'version-update:semver-patch' }}
-        run: gh pr review --approve "$PR_URL"
-      - name: Enable auto-merge for PR
-        if: ${{ steps.metadata.outputs.update-type == 'version-update:semver-patch' }}
-        run: gh pr merge --auto --merge "$PR_URL"
+  DependabotAutoMerge:
+    uses: IsyFact/isy-github-actions-templates/.github/workflows/dependabot_auto_merge_template.yml@v1.6.0
+    secrets:
+      DEPENDABOT_TOKEN: ${{ secrets.DEPENDABOT_TOKEN }}
