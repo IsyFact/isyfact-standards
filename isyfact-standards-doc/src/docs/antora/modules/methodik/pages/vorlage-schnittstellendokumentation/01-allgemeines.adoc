@@ -21,7 +21,7 @@ Inhalte sind zum Beispiel_
 * _Aufbau der Dokumentation (Aufteilung in Dokumente, interne Struktur)_
 * _Beschreibung der verwendeten Methodik_
 * _Empfehlungen für verschiedene Lesergruppen_
-* _Leseanleitung zu verwendeten Notationen (z.B. UML 2.0)_
+* _Leseanleitung zu verwendeten Notationen (zum Beispiel UML 2.0)_
 ** _Im Folgenden sind einige Beispielkapitel vorhanden, die genutzt, erweitert oder auch gelöscht werden können._
 
 [[verwendete-notation-praefixe]]
@@ -35,7 +35,7 @@ Die in dieser Notation dargestellten Diagramme bestehen aus Elementen und ihren 
 Die Beziehungen werden je nach Art der Beziehung durch unterschiedliche Verbinder dargestellt.
 Zur Erläuterung werden in den folgenden Abschnitten die verwendeten Elemente und Verbinder genauer erklärt._
 
-_Zu jeder Schnittstelle werden die link:../vorlage-schnittstellendokumenation/03-nachbarsystemschnittstellen.adoc#eingabeparameter[Eingabeparameter] links und die link:03-nachbarsystemschnittstellen.adoc#ausgabeparameter[Ausgabeparameter] rechts neben dem Schnittstellensymbol aufgeführt._
+_Zu jeder Schnittstelle werden die xref:methodik:vorlage-schnittstellendokumentation/03-nachbarsystemschnittstellen.adoc#eingabeparameter[Eingabeparameter] links und die xref:methodik:vorlage-schnittstellendokumentation/03-nachbarsystemschnittstellen.adoc#ausgabeparameter[Ausgabeparameter] rechts neben dem Schnittstellensymbol aufgeführt._
 
 .Beispiel für die grafische Darstellung einer Nachbarsystemschnittstelle
 image::vorlage-schnittstellendokumentation/nachbarschnittstellen.png[]
@@ -88,7 +88,7 @@ _Im Folgenden wird beschrieben, wie diese Dokumentation verwendet werden kann, u
 Der Aufbau ist exemplarisch und kann bei Bedarf angepasst werden.
 Da dieses Dokument in der Regel mehrere Nachbarsystemschnittstellen dokumentiert, sollte die Beschreibung der Verwendung möglichst allgemeingültig verfasst werden, sodass sie auf alle Nachbarsystemschnittstellen zutrifft._
 
-_[.underline]#Beispiel#: Hier wird beschrieben, wie der Anwender mit Hilfe dieser Spezifikation eine Nachricht aufbauen kann._
+_[.underline]#Beispiel#: Hier wird beschrieben, wie der Anwender mithilfe dieser Spezifikation eine Nachricht aufbauen kann._
 
 [arabic]
 . _Die benötigte Schnittstelle ist +NST_<Nachbarsystemschnittstelle>+._
@@ -98,8 +98,8 @@ der Aufbau ist in Abbildung xyz dargestellt.
 Hier sieht man, welche Entitäten enthalten sein müssen und welche Entitäten enthalten sein können (Kardinalitäten an den Verbindern)._
 . _Für jede NSE sind die Attribute im Kapitel Eingabeparameter beschrieben._
 . _Für jedes Attribut ist der Datentyp im Kapitel Datentypen beschrieben._
-. _Durch die Regeln für den Aufbau der Nachricht werden die Wertebereiche der Attribute genauer bestimmt (z.B. kann auch ‚+‘ für unbekannt in Namensattributen angegeben werden, aber es muss mindestens Vorname oder Nachname bekannt sein)._
-. _Durch die Regeln werden die Attribute miteinander in Beziehung gesetzt, z.B. muss sich ein gemeldeter „Anderer Name“ von den Grundpersonalien unterscheiden, und eine Organisation darf nur bei bestimmten Sachverhalten und Sachverhaltskennungen gemeldet werden._
+. _Durch die Regeln für den Aufbau der Nachricht werden die Wertebereiche der Attribute genauer bestimmt (zum Beispiel kann auch ‚+‘ für unbekannt in Namensattributen angegeben werden, aber es muss mindestens Vorname oder Nachname bekannt sein)._
+. _Durch die Regeln werden die Attribute miteinander in Beziehung gesetzt, zum Beispiel muss sich ein gemeldeter „Anderer Name“ von den Grundpersonalien unterscheiden, und eine Organisation darf nur bei bestimmten Sachverhalten und Sachverhaltskennungen gemeldet werden._
 . _Unter Berücksichtigung dieser Informationen, kann die +NSE_<Schnittstellenentität+ der Anfrage> korrekt aufgebaut werden._
 
 // end::inhalt[]
