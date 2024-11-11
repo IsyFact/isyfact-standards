@@ -73,7 +73,8 @@ Bei der Umsetzung von Tasks ist nichts weiter zu beachten.
 Für die Erhebung detaillierter Statistiken zur Ausführungszeit eines Tasks ermöglicht der Baustein Task Scheduling die Verwendung der Annotation `@Timed` von Micrometer.
 Sie wird, wie `@Scheduled`, an der Methode des Tasks gesetzt.
 
-NOTE: Mehr zu der Annotation `@Timed` findet sich in der https://docs.micrometer.io/micrometer/reference/concepts/timers.html#_the_timed_annotation[Dokumentation von Micrometer].
+[NOTE]
+Mehr zu der Annotation `@Timed` findet sich in der https://docs.micrometer.io/micrometer/reference/concepts/timers.html#_the_timed_annotation[Dokumentation von Micrometer].
 
 [[konfiguration]]
 == Konfiguration

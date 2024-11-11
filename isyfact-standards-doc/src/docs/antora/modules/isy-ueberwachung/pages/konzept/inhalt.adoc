@@ -100,8 +100,8 @@ Die im Endpoint `metrics` bereitgestellten Metriken werden von Micrometer erfass
 Micrometer bietet eine einfache anbieterneutrale Fassade für die gängigsten Überwachungssysteme und ermöglicht es, Metriken im Anwendungscode ohne Herstellerbindung zu implementieren.
 Seit Spring Boot 2.0 ist Micrometer die Standardbibliothek zur Bereitstellung von Anwendungsmetriken von Spring.
 
-NOTE: Für eine Liste der unterstützten Monitoring-Systeme siehe https://micrometer.io/docs/concepts#_supported_monitoring_systems[unterstützte Monitoring-Systeme]
-
+[NOTE]
+Für eine Liste der unterstützten Monitoring-Systeme siehe https://docs.micrometer.io/micrometer/reference/concepts/implementations.html[unterstützte Monitoring-Systeme]
 
 [[fachliche-moeglichkeiten]]
 == Fachliche Möglichkeiten im Zusammenhang mit Health-Checks
