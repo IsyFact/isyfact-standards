@@ -4,11 +4,11 @@ include::glossary:licence:partial$licence.adoc[]
 
 // tag::architektursicht-definition[]
 
-Die software-technische Referenzarchitektur beschreibt, wie die in der fachlichen Referenzarchitektur definierten xref:glossary:glossary:master.adoc#glossar-anwendung[Anwendungen] software-technisch in Form von xref:glossary:glossary:master.adoc#glossar-it-system[IT-Systemen] umgesetzt werden.
+Die software-technische Referenzarchitektur beschreibt, wie die in der fachlichen Referenzarchitektur definierten xref:glossary::terms-definitions.adoc#glossar-anwendung[Anwendungen] software-technisch in Form von xref:glossary::terms-definitions.adoc#glossar-it-system[IT-Systemen] umgesetzt werden.
 
-Eine zentrale Eigenschaft der software-technischen Referenzarchitektur ist, dass sie nicht zwischen xref:glossary:glossary:master.adoc#glossar-anwendungstyp[Anwendungstypen] unterscheidet.
+Eine zentrale Eigenschaft der software-technischen Referenzarchitektur ist, dass sie nicht zwischen xref:glossary::terms-definitions.adoc#glossar-anwendungstyp[Anwendungstypen] unterscheidet.
 Die software-technische Umsetzung von Anwendungen ist ungeachtet ihrer Fachlichkeit gleich.
-Die software-technische Referenzarchitektur definiert hierzu das xref:glossary:glossary:master.adoc#glossar-it-system[*IT-System*] als Oberbegriff, und beschreibt die Umsetzung einer Anwendung mittels einer Menge von IT-Systemen, die jedes für sich eine bestimmte Ausprägung besitzen.
+Die software-technische Referenzarchitektur definiert hierzu das xref:glossary::terms-definitions.adoc#glossar-it-system[*IT-System*] als Oberbegriff, und beschreibt die Umsetzung einer Anwendung mittels einer Menge von IT-Systemen, die jedes für sich eine bestimmte Ausprägung besitzen.
 Diese Ausprägung ist technisch motiviert und umfasst aktuell *Backends*, *Frontends* und *Batches*.
 
 // end::architektursicht-definition[]
@@ -16,7 +16,7 @@ Diese Ausprägung ist technisch motiviert und umfasst aktuell *Backends*, *Front
 == Definition der Systemlandschaft
 
 Der Begriff der Anwendungslandschaft ist fachlich motiviert.
-Die technische Entsprechung hierfür ist der Begriff der xref:glossary:glossary:master.adoc#glossar-systemlandschaft[Systemlandschaft].
+Die technische Entsprechung hierfür ist der Begriff der xref:glossary::terms-definitions.adoc#glossar-systemlandschaft[Systemlandschaft].
 Eine Systemlandschaft, die eine Anwendungslandschaft nach den IsyFact-Standards umsetzt, wird im Folgenden als _IsyFact-Systemlandschaft_ bezeichnet.
 Eine solche IsyFact-Systemlandschaft beinhaltet alle IT-Systeme als technische Umsetzung der Anwendungen  der Anwendungslandschaft sowie technische Systeme zur Unterstützung (z.B. Datenbanken oder Web-Server).
 
@@ -29,7 +29,7 @@ Interne und externe Aufrufe unterscheiden sich sowohl in ihrer Authentifizierung
 
 Im Folgenden werden die Schnittstellen und Aufrufbeziehungen pro Anwendungstyp erläutert.
 
-*Das xref:glossary:glossary:master.adoc#glossar-service-gateway[Service-Gateway]:* Service-Gateway-Systeme haben die Aufgabe, Aufrufe von internen Anwendungen an externe Systeme und Aufrufe von externen Systemen an interne Anwendungen weiterzuleiten und dabei unterschiedliche Schnittstellentechnologien zu überbrücken.
+*Das xref:glossary::terms-definitions.adoc#glossar-service-gateway[Service-Gateway]:* Service-Gateway-Systeme haben die Aufgabe, Aufrufe von internen Anwendungen an externe Systeme und Aufrufe von externen Systemen an interne Anwendungen weiterzuleiten und dabei unterschiedliche Schnittstellentechnologien zu überbrücken.
 
 Für die Weiterleitung von Aufrufen enthält ein Service-Gateway die folgenden Funktionalitäten:
 
@@ -39,8 +39,8 @@ Es kapselt die Webservice-Technologie vor den internen Systemen.
 
 Ein Service-Gateway-System besitzt weder eine eigene Datenhaltung noch eigene Fachlichkeit.
 
-*Die xref:glossary:glossary:master.adoc#glossar-geschaeftsanwendung[Geschäftsanwendung]*: Eine Geschäftsanwendung implementiert allgemein die Geschäftsprozesse einer Domäne.
-Geschäftsanwendungen können monolithisch strukturiert sein und alle Schichten der Software-Architektur umfassen, von der Benutzeroberfläche über Prozesse und xref:glossary:glossary:master.adoc#glossar-geschaeftslogik[Geschäftslogik] bis hin zur Datenspeicherung.
+*Die xref:glossary::terms-definitions.adoc#glossar-geschaeftsanwendung[Geschäftsanwendung]*: Eine Geschäftsanwendung implementiert allgemein die Geschäftsprozesse einer Domäne.
+Geschäftsanwendungen können monolithisch strukturiert sein und alle Schichten der Software-Architektur umfassen, von der Benutzeroberfläche über Prozesse und xref:glossary::terms-definitions.adoc#glossar-geschaeftslogik[Geschäftslogik] bis hin zur Datenspeicherung.
 Sie können aber auch jeweils nur Teile davon implementieren, sodass z.B. eine Geschäftsanwendung eine GUI bereitstellt, eine weitere die Geschäftslogik implementiert und eine dritte schließlich die Persistierung der Daten realisiert.
 In diesem Fall würde die Gesamtfunktionalität durch das Zusammenwirken der drei Geschäftsanwendungen erbracht.
 
@@ -51,7 +51,7 @@ Für die Kommunikation mit externen Systemen muss eine Geschäftsanwendung ein S
 
 Geschäftsanwendungen, die eine Benutzeroberfläche bereitstellen, dürfen aus Sicherheitsgründen nicht direkt vom Benutzer aufgerufen werden, sondern werden in das _Portal_ (siehe unten) der IsyFact-Systemlandschaft eingebunden.
 
-*Das xref:glossary:glossary:master.adoc#glossar-portal[Portal]:* Die Referenzarchitektur sieht keinen Portal-Server im klassischen Sinne vor: Es gibt weder einen systemübergreifenden Rahmen noch eine systemübergreifende Navigation.
+*Das xref:glossary::terms-definitions.adoc#glossar-portal[Portal]:* Die Referenzarchitektur sieht keinen Portal-Server im klassischen Sinne vor: Es gibt weder einen systemübergreifenden Rahmen noch eine systemübergreifende Navigation.
 
 Ein Portal im Sinne der Referenzarchitektur besteht aus:
 
@@ -60,7 +60,7 @@ Ein Portal im Sinne der Referenzarchitektur besteht aus:
 
 Der Zweck eines Portals ist die gemeinsame Authentifizierung und Autorisierung für alle Geschäftsanwendungen und die Indirektion des Zugriffs von Nutzern auf die Geschäftsanwendungen.
 
-*Die xref:glossary:glossary:master.adoc#glossar-querschnittsanwendung[Querschnittsanwendung]:* Eine Querschnittsanwendung bietet Geschäftsanwendungen querschnittlich genutzte Funktionalitäten an, etwa für die Bereitstellung von Schlüsseldaten.
+*Die xref:glossary::terms-definitions.adoc#glossar-querschnittsanwendung[Querschnittsanwendung]:* Eine Querschnittsanwendung bietet Geschäftsanwendungen querschnittlich genutzte Funktionalitäten an, etwa für die Bereitstellung von Schlüsseldaten.
 Querschnittsanwendungen können eine eigene Datenhaltung besitzen.
 
 Querschnittsanwendungen werden nur von internen Benutzern oder anderen IT-Systemen derselben Systemlandschaft aufgerufen. Sie rufen selbst nur andere Querschnittsanwendungen auf.

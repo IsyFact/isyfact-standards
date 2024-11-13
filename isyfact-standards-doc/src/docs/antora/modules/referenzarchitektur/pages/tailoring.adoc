@@ -6,7 +6,7 @@ Die Referenzarchitektur hat das Ziel, eine möglichst große Bandbreite von Syst
 Daher trifft sie zunächst kaum Annahmen über die Struktur der Anwendungslandschaft oder die Art der darin enthaltenen Anwendungen.
 Sie unterscheidet einerseits zwischen Geschäftsanwendungen, welche die Geschäftsprozesse innerhalb der Anwendungslandschaft implementieren, und andererseits Querschnittsanwendungen, Service-Gateways und dem Portal, die als unterstützende Systeme wesentliche Strukturkonzepte der IsyFact umsetzen.
 
-In einem spezifischen xref:glossary:glossary:master.adoc#glossar-anwendungskontext[Anwendungskontext] wird man in der Regel jedoch viel weitergehende Festlegungen innerhalb der Referenzarchitektur treffen, um die Fachlichkeit des Kontexts abzubilden.
+In einem spezifischen xref:glossary::terms-definitions.adoc#glossar-anwendungskontext[Anwendungskontext] wird man in der Regel jedoch viel weitergehende Festlegungen innerhalb der Referenzarchitektur treffen, um die Fachlichkeit des Kontexts abzubilden.
 Diese kontextspezifischen Festlegungen können in einem eigenen Tailoring-Dokument festgehalten werden.
 Es soll beschreiben, wie die IsyFact im betreffenden Anwendungskontext eingesetzt wird.
 Insbesondere soll das Tailoring-Dokument die Arten von kontextspezifischen Anwendungen und ihre Beziehungen untereinander.
