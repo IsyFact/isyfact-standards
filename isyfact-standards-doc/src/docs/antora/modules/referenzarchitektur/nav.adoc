@@ -20,3 +20,4 @@
 ** Anpassung der Referenzarchitektur
 *** xref:tailoring.adoc[Tailoring]
 *** xref:vereinfachung.adoc[Vereinfachung]
+** Vorgaben
