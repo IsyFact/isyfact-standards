@@ -13,3 +13,4 @@
 *** xref:produktkatalog/changelog.adoc[]
 ** xref:tutorial/master.adoc[Tutorial]
 ** xref:whitepaper.adoc[Whitepaper]
+** xref:../isyfact-standards-referenzimplementierung::index.adoc[Referenzimplementierungen]
