@@ -3,6 +3,9 @@
 
 ### Bug Fixes
 
+# 3.2.1
+- `IFS-4385`: [isyfact-products-bom] Spring Security Versionsanhebung auf 5.8.15
+
 # 3.2.0
 ### Features
 - `IFS-1629`: [isy-ueberwachung] Standardmechanismus zur Absicherung der Actuator-Endpunkte auf Basis von WebSecurityConfigurerAdapter wurde bereitgestellt. Aktivieren durch das Setzen der Konfigurationsparameter:
@@ -12,7 +15,6 @@
 - `IFS-4010`: [isy-persistence] AutoConfiguration zirkuläre Referenz auflösen
 - `IFS-4212`: [isy-task] Dokumentation von `@OnceTask` korrigiert (`@ManualTask` existiert nicht)
 - `IFS-4006`: IsyFact Versionsanhebung auf 3.2.0
-
 
 ### Bug Fixes
 - `IFS-4212`: [isy-task] Dokumentation von `@OnceTask` korrigiert (`@ManualTask` existiert nicht)
