@@ -32,6 +32,8 @@
     * `IsySecurityTokenUtil` und `IsyOAuth2Authentifizierungsmanager` stellen Funktionalität zur Token-Gültigkeitsüberprüfung und erneuten Authentifizierung bereit
     * Funktionalität zur erneuten Authentifizierung wird von `BatchrahmenImpl` aufgerufen
 - `IFS-3928`: [isy-bedienkonzept] Migration der neusten Bedienkonzeptversion ins Repository isy-bedienkonzept
+- `IFS-4248`: [isy-batchrahmen] In Batches wird im Falle einer fehlgeschlagenen oder nicht vorhandenen Authentifizierung der SecurityContext mit dem Batch-Namen befüllt, damit dieser außerhalb der Batch-Klassen (über `IsySecurityTokenUtil`) verarbeitet werden kann (bspw. zum Speichern des Batch-Namens in einer Datenbank).
+  Hiermit wird ein ähnliches Verhalten zu einem unauthentifizierten AufrufKontext wiederhergestellt.
 ## BUG FIXES
 - `IFS-4203`: [isyfact-standards-doc] Korrektur fehlerhafter Links in der Dokumentation
 - `IFS-4212`: Dokumentation von `@OnceTask` korrigiert (`@ManualTask` existiert nicht)
