@@ -8,7 +8,7 @@ Die software-technische Referenzarchitektur beschreibt, wie die in der fachliche
 
 Eine zentrale Eigenschaft der software-technischen Referenzarchitektur ist, dass sie nicht zwischen xref:glossary::terms-definitions.adoc#glossar-anwendungstyp[Anwendungstypen] unterscheidet.
 Die software-technische Umsetzung von Anwendungen ist ungeachtet ihrer Fachlichkeit gleich.
-Die software-technische Referenzarchitektur definiert hierzu das xref:glossary::terms-definitions.adoc#glossar-it-system[*IT-System*] als Oberbegriff, und beschreibt die Umsetzung einer Anwendung mittels einer Menge von IT-Systemen, die jedes für sich eine bestimmte Ausprägung besitzen.
+Die software-technische Referenzarchitektur definiert hierzu das xref:glossary::terms-definitions.adoc#glossar-it-system[*IT-System*] als Oberbegriff und beschreibt die Umsetzung einer Anwendung mittels einer Menge von IT-Systemen, die jedes für sich eine bestimmte Ausprägung besitzen.
 Diese Ausprägung ist technisch motiviert und umfasst aktuell *Backends*, *Frontends* und *Batches*.
 
 // end::architektursicht-definition[]
@@ -40,7 +40,7 @@ Es kapselt die Webservice-Technologie vor den internen Systemen.
 Ein Service-Gateway-System besitzt weder eine eigene Datenhaltung noch eigene Fachlichkeit.
 
 *Die xref:glossary::terms-definitions.adoc#glossar-geschaeftsanwendung[Geschäftsanwendung]*: Eine Geschäftsanwendung implementiert allgemein die Geschäftsprozesse einer Domäne.
-Geschäftsanwendungen können monolithisch strukturiert sein und alle Schichten der Software-Architektur umfassen, von der Benutzeroberfläche über Prozesse und xref:glossary::terms-definitions.adoc#glossar-geschaeftslogik[Geschäftslogik] bis hin zur Datenspeicherung.
+Geschäftsanwendungen können monolithisch strukturiert sein und alle Schichten der Softwarearchitektur umfassen, von der Benutzeroberfläche über Prozesse und xref:glossary::terms-definitions.adoc#glossar-geschaeftslogik[Geschäftslogik] bis hin zur Datenspeicherung.
 Sie können aber auch jeweils nur Teile davon implementieren, sodass z.B. eine Geschäftsanwendung eine GUI bereitstellt, eine weitere die Geschäftslogik implementiert und eine dritte schließlich die Persistierung der Daten realisiert.
 In diesem Fall würde die Gesamtfunktionalität durch das Zusammenwirken der drei Geschäftsanwendungen erbracht.
 
@@ -51,7 +51,8 @@ Für die Kommunikation mit externen Systemen muss eine Geschäftsanwendung ein S
 
 Geschäftsanwendungen, die eine Benutzeroberfläche bereitstellen, dürfen aus Sicherheitsgründen nicht direkt vom Benutzer aufgerufen werden, sondern werden in das _Portal_ (siehe unten) der IsyFact-Systemlandschaft eingebunden.
 
-*Das xref:glossary::terms-definitions.adoc#glossar-portal[Portal]:* Die Referenzarchitektur sieht keinen Portal-Server im klassischen Sinne vor: Es gibt weder einen systemübergreifenden Rahmen noch eine systemübergreifende Navigation.
+*Das xref:glossary::terms-definitions.adoc#glossar-portal[Portal]:* Die Referenzarchitektur sieht keinen Portal-Server im klassischen Sinne vor.
+Es gibt weder einen systemübergreifenden Rahmen noch eine systemübergreifende Navigation.
 
 Ein Portal im Sinne der Referenzarchitektur besteht aus:
 

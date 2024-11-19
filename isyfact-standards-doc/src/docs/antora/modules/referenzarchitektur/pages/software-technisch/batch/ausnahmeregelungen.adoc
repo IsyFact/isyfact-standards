@@ -10,7 +10,7 @@ Eine solche Abweichung von der Referenzarchitektur muss im Systementwurf in der 
 Dabei muss die Abwägung getroffen werden zwischen der Einhaltung der nicht-funktionalen Anforderungen und der Verringerung der Wartbarkeit durch mehrfach implementierte Funktionalität.
 
 Wichtig ist, dass die einheitliche Außenschnittstelle der Batches erhalten bleibt.
-Anhand der übergebenen Parameter, Return Codes, Daten im Log darf für den Nutzer des Batches nicht erkennbar sein, dass dieser in einer anderen Technologie umgesetzt ist.
+Anhand der übergebenen Parameter, Return Codes, Daten im Log darf für Nutzende des Batches nicht erkennbar sein, dass dieser in einer anderen Technologie umgesetzt ist.
 
 Die Dokumentation der abweichenden Batch-Implementierung erfolgt im Systementwurf und wird daraus in die Systemdokumentation übernommen.
 
