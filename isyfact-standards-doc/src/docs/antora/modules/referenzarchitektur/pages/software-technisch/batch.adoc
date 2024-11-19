@@ -64,8 +64,7 @@ Der Batchrahmen kümmert sich explizit _nicht_ um die folgenden Aufgaben:
 * Handling von Eingabedateien (dies übernimmt die <<batchlogik>>),
 * Parallele Verarbeitung / Multithreading (dies wird auf Ebene einzelner Batches nicht unterstützt).
 
-Der Batchrahmen ist so konzipiert, dass er möglichst wenige Anforderungen an (bzw.
-Annahmen in Bezug auf) die Batchlogik stellt.
+Der Batchrahmen ist so konzipiert, dass er möglichst wenige Anforderungen an (beziehungsweise Annahmen in Bezug auf) die Batchlogik stellt.
 Er integriert die für ihn relevanten Bausteine der IsyFact, um seine querschnittlichen Aufgaben zu erfüllen.
 Die Batchlogik soll möglichst einfach implementiert werden können.
 
@@ -79,14 +78,13 @@ Die Batchlogik übernimmt außerdem die folgenden, querschnittlichen Aufgaben:
 
 * Logging und Protokollierung der Batchläufe,
 * Unterstützung des Batchrahmens zur Bereitstellung der Restart-Funktionalität,
-* Umsetzung der Anweisungen des Batchrahmens (zum Beispiel im Fall eines Restarts),
+* Umsetzung der Anweisungen des Batchrahmens (zum Beispiel im Fall eines Restarts).
 
 Die Batchlogik sollte so beschaffen sein, dass sie mit parallel laufenden Instanzen desselben Batches umgehen kann.
 
 Die Batchlogik wird fachlich in Form von Anwendungsfällen erfasst.
 Wenn diese Anwendungsfälle nicht exklusiv durch den Batch genutzt werden, sind sie im Anwendungskern des zugehörigen Backends implementiert.
-Technisch gesehen besteht die Batchlogik aus einer Sammlung unabhängiger Klassen in der Batch-Schicht
-des Batches.
+Technisch gesehen besteht die Batchlogik aus einer Sammlung unabhängiger Klassen in der Batch-Schicht des Batches.
 
 [[image-AnwLogBat]]
 .Verteilung der Batchlogik im Batch
@@ -105,7 +103,7 @@ Die <<image-AnwLogBat>> zeigt den Standardfall, dass:
 Mit vielen Backends werden eigene Batches ausgeliefert.
 Diese werden folgendermaßen benannt.
 
-[[table-nambat]]
+[[table-namebatch]]
 .Name eines Batches
 [cols="1s,4",options="header"]
 |====
@@ -132,7 +130,7 @@ Er setzt sich oft aus einem Präfix für die Anwendungslandschaft (`isy`) und de
 
 Für die Dokumentation von Batches gelten folgende Anforderungen:
 
-* konsistente, vollständige Beschreibung der durchgeführten Funktionen,
-* Hinweis auf grundsätzliches Laufzeitverhaltens zur frühzeitigen Erkennung lang laufender Batches,
-* Abschätzung des zu erwartende Laufzeitverhaltens bei steigendem Mengengerüst,
+* Konsistente, vollständige Beschreibung der durchgeführten Funktionen,
+* Hinweis auf grundsätzliches Laufzeitverhalten zur frühzeitigen Erkennung lang laufender Batches,
+* Abschätzung des zu erwartenden Laufzeitverhaltens bei steigendem Mengengerüst,
 * Abhängigkeiten zu anderen Batches.

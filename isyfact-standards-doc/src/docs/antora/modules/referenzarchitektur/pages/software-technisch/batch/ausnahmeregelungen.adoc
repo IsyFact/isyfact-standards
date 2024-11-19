@@ -27,9 +27,9 @@ Komplexe Geschäftslogik sollte aber immer als dediziertes IT-System umgesetzt w
 Ein Beispiel für Shell-Batches sind einmalige SQL-Migrationen.
 Das Shell-Skript baut dabei eine Verbindung mit dem Datenbank-Server auf und führt eine SQL-Datei aus.
 
-Es gibt aber auch Systeme die im regulären Wirkbetrieb regelmäßig Shell-Batches ausführen, beispielsweise um Datenbankabzüge für statistische Auswertungen zu erstellen.
+Es gibt aber auch Systeme, die im regulären Wirkbetrieb regelmäßig Shell-Batches ausführen, beispielsweise um Datenbankabzüge für statistische Auswertungen zu erstellen.
 
-Ein Shell-Batch besteht aus einem Skript und ggf. weiteren Dateien:
+Ein Shell-Batch besteht aus einem Skript und gegebenenfalls weiteren Dateien:
 
 * Property-Dateien für Konfigurationen, wie beispielsweise die zu verwendende Datenbankverbindung,
 * SQL-Skripte, die vom Shell-Batch ausgeführt werden,
@@ -44,6 +44,7 @@ Ein Shell-Batch muss folgender Namenskonvention folgen:
 [cols="1s,4m",options="header"]
 |====
 2+|Name des Skripts
+
 |Schema
 |<name-des-batches>.sh
 
