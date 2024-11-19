@@ -89,7 +89,8 @@ Die Inhalte über Verfügbarkeit wurden auf eine xref:referenzarchitektur:techni
 
 ==== Batch
 
-Die Begrifflichkeiten wurden glattgezogen und an Industriestandards angepasst. Die wesentlichen Begriffe und ihr Zusammenhang sind nun: xref:referenzarchitektur:software-technisch/batch.adoc[_Batches_] werden als _Batch-Schritte_ eines _Batch-Jobs_ von einer _Batch-Steuerung_ aufgerufen.
+Die Begrifflichkeiten wurden glattgezogen und an Industriestandards angepasst.
+Die wesentlichen Begriffe und ihr Zusammenhang sind nun: xref:referenzarchitektur:software-technisch/batch.adoc[_Batches_] werden als _Batch-Schritte_ eines _Batch-Jobs_ von einer _Batch-Steuerung_ aufgerufen.
 
 Die Dokumentation zum xref:referenzarchitektur:software-technisch/batch.adoc[IT-Systemtyp "Batch"] ist nun getrennt von der Beschreibung des xref:referenzarchitektur:software-technisch/batch/batchrahmen.adoc[Batchrahmens], um eine zukünftig geplante Ablösung des Batchrahmens einfacher zu gestalten.
 
