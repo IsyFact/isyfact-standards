@@ -57,7 +57,7 @@ Die IsyFact zielt auf eine möglichst vollständige Umsetzung der Eigenschaften 
 
 .icon:university[title=Architekturregel] Architekturregel
 ****
-Ein auf der IsyFact basierendes IT-System muss seine REST-Services mindestens anhand Stufe zwei des Richardson Maturity Models umsetzen.
+Ein auf der IsyFact basierendes Backend muss seine REST-Services mindestens anhand Stufe zwei des Richardson Maturity Models umsetzen.
 ****
 
 Konkret stellt Stufe 2 des Richardson Maturity Models folgende Anforderungen:

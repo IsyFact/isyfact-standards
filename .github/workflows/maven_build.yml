@@ -5,8 +5,6 @@ on:
     branches:
       - master
       - 'release/**'
-    paths-ignore:
-      - 'isyfact-standards-doc/**'
   push:
     branches:
       - master
