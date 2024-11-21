@@ -49,31 +49,6 @@ Beispiele:
 * xref:referenzarchitektur:software-technisch/backend.adoc[]
 |===
 
-[[table-detailkonzept]]
-.Detailkonzept
-[cols="1s,4",options="header"]
-|===
-2+|icon:ban[title=Deprecation] [.line-through]#Detailkonzept#
-
-|Ziel
-|Vorgaben zur Umsetzung bezogen auf die Referenzarchitektur, sofern sie eine technische Ausrichtung haben.
-
-|Inhalt
-a|
-* Bricht die Referenzarchitektur auf Aspekte der xref:glossary:glossary:master.adoc#glossar-t-architektur[software-technischen Architektur] wie zum Beispiel Batches, Persistenz oder Services, herunter.
-* Enthält Architekturvorgaben und Architekturentscheidungen.
-
-|Zielgruppe(n)
-|Architekten, Entwickler, (IT-Betrieb)
-
-|Scope
-|Referenzarchitektur
-
-|Vorlage / Beispiel
-a|
-xref:blaupausen:detailkonzept-komponente-batch/master.adoc[]
-|===
-
 [[saeule-bausteine]]
 == Säule Bausteine
 

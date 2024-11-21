@@ -1,0 +1,136 @@
+= Referenzarchitektur Batch
+
+include::documentation-guide::partial$licence.adoc[]
+
+include::glossary::terms-definitions.adoc[tag=batch-definition]
+
+Batches sind technisch gleichartig aufgebaut.
+Sie setzen auf eine dem xref:software-technisch/backend.adoc[Backend] ähnliche Systemarchitektur.
+
+[[systemarchitektur-batch]]
+.Systemarchitektur eines Batches
+image::referenzarchitektur:software-technisch/batch/architektur-batch-system.dn.svg[width=80%, align=center]
+
+Batches gehen gegenüber Backends einen speziellen Weg.
+Da Batches in der Regel einem konkreten Backend zugeordnet sind, binden sie den Anwendungskern und die Persistenzschicht des zugehörigen Backends ein und implementieren auf Basis dessen die Batchlogik.
+Die <<systemarchitektur-batch>> stellt die aus dem Backend stammenden Teile des Batches in Graustufen dar.
+Der Grund für diese Entscheidung liegt in den Datenmengen, die normalerweise von einem Batch verarbeitet werden.
+Die Übermittlung dieser Datenmengen über eine Schnittstelle ist ein möglicher Flaschenhals in der Anwendung.
+Dieser Flaschenhals wird durch die direkte Nutzung des Anwendungskerns vermieden.
+
+Batches sind außerdem, im Gegensatz zu Backends, keine Web-Anwendungen.
+Sie werden durch eine übergreifende Batchsteuerung gestartet und laufen als eigener Prozess, und damit nicht innerhalb eines Application Servers, ab.
+Am Ende eines Batchlaufs beendet der Batch seinen Prozess und gibt seinen Return Code an die Batchsteuerung zurück.
+Batches stellen ebenfalls keine direkten Schnittstellen bereit, um sie während der Verarbeitung von außen kontrolliert abzubrechen.
+Sie bieten dafür eine konfigurierbare Begrenzung der Laufzeit, nach deren Ablauf sie von selbst kontrolliert abbrechen und durch die Batchsteuerung wieder anlaufen können.
+
+.Sonderfall: Batch ohne Einbindung eines Backends
+****
+Es gibt auch Batches, die Daten von mehreren Backends verarbeiten.
+Dies kann beispielsweise der Fall sein, wenn ein Batch Daten mehrerer Backends miteinander abgleichen muss.
+Batches, die nicht eindeutig einem Backend zuzuordnen sind, können umgesetzt werden, ohne Quellcode aus einem Backend einzubinden.
+Stattdessen rufen sie die Service-Schnittstellen der benötigten Backends direkt auf und setzen selbst nur die Batchlogik um.
+
+Insgesamt ist dies jedoch als Sonderfall zu betrachten, der nur unter oben genannter Bedingung zum Tragen kommt.
+****
+
+Zur reibungslosen Einbindung in eine übergreifende Batchsteuerung besitzen Batches eine Schnittstelle für Aufrufparameter und Rückgabewerte und sind in der Regel restart-fähig.
+
+[[aufbau-batch]]
+== Aufbau des Batches
+
+Im Gegensatz zu Backends besitzen Batches anstatt der Serviceschicht eine "Batch-Schicht", die aus zwei Bestandteilen besteht.
+
+[[batchrahmen]]
+=== Batchrahmen
+
+Der xref:software-technisch/batch/batchrahmen.adoc[] stellt die Schnittstelle für den Aufruf der Batchlogik als Bibliothek zur Verfügung.
+Er enthält querschnittliche Logik, welche für alle Batches gleich ist.
+Das beinhaltet, nicht abschließend, die folgenden Aufgaben:
+
+* Verarbeitung der Aufrufparameter,
+* Verwaltung der Batchläufe,
+* Konfiguration, Instanziierung und Aufruf der eigentlichen Batchlogik,
+* Authentifizierung und Autorisierung der Batchläufe,
+* Transaktionssteuerung,
+* Behandlung von Abbrüchen und Restarts,
+* Bereitstellung eines Monitorings,
+* Aufbereitung der Rückgabewerte.
+
+Der Batchrahmen kümmert sich explizit _nicht_ um die folgenden Aufgaben:
+
+* Prüfung von Vorbedingungen für einen Batchlauf (zum Beispiel das Vorhandensein von Eingabedateien),
+* Scheduling von Batchläufen (dies übernimmt eine übergreifende Batchsteuerung),
+* Handling von Eingabedateien (dies übernimmt die <<batchlogik>>),
+* Parallele Verarbeitung / Multithreading (dies wird auf Ebene einzelner Batches nicht unterstützt).
+
+Der Batchrahmen ist so konzipiert, dass er möglichst wenige Anforderungen an (beziehungsweise Annahmen in Bezug auf) die Batchlogik stellt.
+Er integriert die für ihn relevanten Bausteine der IsyFact, um seine querschnittlichen Aufgaben zu erfüllen.
+Die Batchlogik soll möglichst einfach implementiert werden können.
+
+[[batchlogik]]
+=== Batchlogik
+
+Die Batchlogik wird vom Batchrahmen aufgerufen.
+Sie enthält die Logik, welche spezifisch für den konkreten Batch ist.
+Im Wesentlichen liest sie Datensätze ein und verarbeitet diese durch den Aufruf der Fachkomponenten des Anwendungskerns.
+Die Batchlogik übernimmt außerdem die folgenden, querschnittlichen Aufgaben:
+
+* Logging und Protokollierung der Batchläufe,
+* Unterstützung des Batchrahmens zur Bereitstellung der Restart-Funktionalität,
+* Umsetzung der Anweisungen des Batchrahmens (zum Beispiel im Fall eines Restarts).
+
+Die Batchlogik sollte so beschaffen sein, dass sie mit parallel laufenden Instanzen desselben Batches umgehen kann.
+
+Die Batchlogik wird fachlich in Form von Anwendungsfällen erfasst.
+Wenn diese Anwendungsfälle nicht exklusiv durch den Batch genutzt werden, sind sie im Anwendungskern des zugehörigen Backends implementiert.
+Technisch gesehen besteht die Batchlogik aus einer Sammlung unabhängiger Klassen in der Batch-Schicht des Batches.
+
+[[image-AnwLogBat]]
+.Verteilung der Batchlogik im Batch
+image::software-technisch/batch/architektur-batch-parts.dn.svg[width=80%, align=center]
+
+Die <<image-AnwLogBat>> zeigt den Standardfall, dass:
+
+* ein Batch Teile des ihm zugehörigen Backends einbindet,
+* eigene Batchlogik ① implementiert,
+* auf im Anwendungskern beheimatete Logik ② zugreift.
+
+=== Namenskonvention für Batches
+
+//tag::namenskonvention[]
+
+Mit vielen Backends werden eigene Batches ausgeliefert.
+Diese werden folgendermaßen benannt.
+
+[[table-namebatch]]
+.Name eines Batches
+[cols="1s,4",options="header"]
+|====
+2+|Name eines Batches
+
+|Schema
+m|<anwendungsname>-gkbatch
+
+|Beispiele
+m|isy-bsp-gkbatch
+
+h|Variable
+h|Mögliche Ausprägungen
+
+m|<anwendungsname>
+|Der Name der Anwendung, zu welcher der Batch gehört.
+Er setzt sich oft aus einem Präfix für die Anwendungslandschaft (`isy`) und dem Namen oder Kürzel der Anwendung (`bsp`) zusammen.
+|====
+
+//end::namenskonvention[]
+
+[[dokumentation-von-batches]]
+== Dokumentation von Batches
+
+Für die Dokumentation von Batches gelten folgende Anforderungen:
+
+* Konsistente, vollständige Beschreibung der durchgeführten Funktionen,
+* Hinweis auf grundsätzliches Laufzeitverhalten zur frühzeitigen Erkennung lang laufender Batches,
+* Abschätzung des zu erwartenden Laufzeitverhaltens bei steigendem Mengengerüst,
+* Abhängigkeiten zu anderen Batches.

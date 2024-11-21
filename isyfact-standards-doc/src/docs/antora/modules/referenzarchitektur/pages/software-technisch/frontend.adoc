@@ -1,4 +1,4 @@
-= Frontend
+= Referenzarchitektur Frontend
 
 include::glossary:licence:partial$licence.adoc[]
 

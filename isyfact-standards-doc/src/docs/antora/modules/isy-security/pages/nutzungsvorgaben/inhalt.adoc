@@ -315,7 +315,7 @@ Weitere Informationen und detaillierte Anleitungen zur Verwendung können im Abs
 
 Für detaillierte Informationen und Anleitung zur Absicherung von Batches und Tasks wird auf die Dokumentation unter
 
-* xref:blaupausen:detailkonzept-komponente-batch/inhalt.adoc#authentifizierung-und-autorisierung[Authentifizierung und Autorisierung von Batches]
+* xref:referenzarchitektur:software-technisch/batch/batchrahmen.adoc#authentifizierung-und-autorisierung[Authentifizierung und Autorisierung von Batches]
 * bzw. xref:isy-task:nutzungsvorgaben.adoc#absicherung-von-tasks[Absicherung von Tasks]
 
 verwiesen. Diese bieten praxisorientierte Richtlinien zur Gewährleistung der Sicherheit von Batches und Tasks.
