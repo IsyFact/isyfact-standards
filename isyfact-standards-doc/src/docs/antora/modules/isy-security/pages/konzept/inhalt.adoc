@@ -355,12 +355,12 @@ image::konzept/Squenzdiagramm_ServiceGateway_plus_AuthGateway.dn.svg[align="cent
 [[absicherung-batch]]
 ===== Absicherung eines Batches
 
-Gemäß der IsyFact-Systemlandschaft - siehe xref:blaupausen:detailkonzept-komponente-batch/master.adoc#grobe-architektur-des-batchrahmens[Grobe Architektur des Batchrahmens] - ist ein Batch Teil eines IT-Systems und setzt sich - siehe xref:image-awlogbat[Fachliche Architektur eines Batch in der Anwendungslandschaft] - aus den Komponenten (1) Batch-Logik und -Steuerung sowie den dabei eingesetzten (2) Fachkomponenten zusammen.
+Gemäß der IsyFact-Systemlandschaft - siehe xref:referenzarchitektur:software-technisch/batch/batchrahmen.adoc#grobe-architektur-des-batchrahmens[Grobe Architektur des Batchrahmens] - ist ein Batch Teil eines IT-Systems und setzt sich - siehe xref:image-awlogbat[Fachliche Architektur eines Batch in der Anwendungslandschaft] - aus den Komponenten (1) Batch-Logik und -Steuerung sowie den dabei eingesetzten (2) Fachkomponenten zusammen.
 Da die Absicherung zur Ausführung eines Batches immer ohne User-Interaktionen stattfindet, ist dieser als _Confidential Client_ einzustufen, weil er in der Lage sein muss, die notwendige Vertraulichkeit zur Wahrung seiner Anmeldeinformationen sicherzustellen.
 
 .Fachliche Architektur eines Batches in der Anwendungslandschaft
 [id="image-awlogbat",reftext="{figure-caption} {counter:figures}"]
-image::blaupausen:detailkonzept-batch/architektur-it-system-batch-parts.dn.svg[]
+image::referenzarchitektur:software-technisch/batch/architektur-batch-parts.dn.svg[]
 
 Ein Batch wird über einen Batch-Client oder ein Startprogramm – meist ein Shellscript, UC4, JobNetz, CronJob, oder ähnliches – initialisiert und gestartet.
 Diese Batch-Clients sind systemseitig dazu berechtigt, den dedizierten Batch auszuführen und damit zu starten.
