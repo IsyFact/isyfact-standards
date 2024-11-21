@@ -12,5 +12,5 @@
 *** xref:produktkatalog/lebenszyklus.adoc[]
 *** xref:produktkatalog/changelog.adoc[]
 ** xref:tutorial/master.adoc[Tutorial]
-** xref:isyfact-standards-referenzimplementierung::index.adoc[Referenzimplementierungen]
+** xref:isyfact-standards-referenzimplementierung::index.adoc[Referenzimplementierung]
 ** xref:whitepaper.adoc[Whitepaper]
