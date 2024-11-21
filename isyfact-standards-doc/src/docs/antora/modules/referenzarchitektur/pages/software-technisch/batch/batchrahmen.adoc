@@ -124,31 +124,99 @@ Die Ergebnisdatei hat den folgenden Aufbau:
 [cols="4m,2m,1,6",options="header"]
 |====
 |XML-Pfad |Attribut |Typ |Bedeutung
-|Batch-Ergebnis | | |Root-Tag des Batch-Ergebnisses
-|Batch-Ergebnis / Start |Datum |Text |Datum des Starts des Batchlaufs
-|Batch-Ergebnis / Start |Uhrzeit |Text |Uhrzeit des Starts des Batchlaufs
-|Batch-Ergebnis / Start |BatchID |Text |Die Batch-ID des Batchlaufs
-|Batch-Ergebnis / Start |Parameter |Text |Die Parameter des Batchlaufs
-|Batch-Ergebnis / Meldungen | | |Liste von Meldungen (Fehler, Warnungen oder Informationen)
-|Batch-Ergebnis / Meldungen / Meldung |ID |Text |ID des Eintrags (zum Beispiel Fehlernummer)
-|Batch-Ergebnis / Meldungen / Meldung |Typ |Text |Typ des Eintrags: F, W, I
-|Batch-Ergebnis / Meldungen / Meldung |Text |Text |Text des Eintrags, zum Beispiel Fehlertext
-|Batch-Ergebnis / Meldungen / Meldung |Satz |Text a|
-Der fachliche Schlüssel des Hauptsatzes, dessen Verarbeitung diese Meldung verursacht hat.
-Es ist zu beachten, dass ein technischer Schlüssel an dieser Stelle nicht ausreichend ist, da der Fachbereich und der Betrieb
-mit diesem technischen Schlüssel nichts anfangen können.
 
-Falls es nicht möglich ist, den fachlichen Schlüssel des Hauptsatzes an dieser Stelle zu ermitteln bzw.
-wenn dies nur auf Kosten der Laufzeit möglich ist, dann ist mit dem Fachbereich und dem Betrieb frühzeitig zu klären,
-ob an dieser Stelle ein anderer Schlüssel ausgegeben werden kann.
-|Batch-Ergebnis / Statistik | | |Liste von statistischen Daten, die während des Batchlaufs ermittelt wurden.
-|Batch-Ergebnis / Statistik / Statistik-Eintrag |ID |Text |ID des Statistik-Eintrags
-|Batch-Ergebnis / Statistik / Statistik-Eintrag |Text |Text |Klartext des Eintrags, zum Beispiel „Anzahl gelöschter Datensätze“
-|Batch-Ergebnis / Statistik / Statistik-Eintrag |Wert |Text |Statistischer Wert, zum Beispiel Anzahl der gelöschten Datensätze
-|Batch-Ergebnis / Ende |Datum |Text |Datum des Endes des Batchlaufs
-|Batch-Ergebnis / Ende |Uhrzeit |Text |Uhrzeit des Endes des Batchlaufs
-|Batch-Ergebnis / Return-Code |RC |Text |Return-Code der Batch-Verarbeitung
-|Batch-Ergebnis / Return-Code |Text |Text |Dem Return-Code zugeordneter Text
+|Batch-Ergebnis
+|
+|
+|Root-Tag des Batch-Ergebnisses
+
+|Batch-Ergebnis / Start
+|Datum
+|Text
+|Datum des Starts des Batchlaufs
+
+|Batch-Ergebnis / Start
+|Uhrzeit
+|Text
+|Uhrzeit des Starts des Batchlaufs
+
+|Batch-Ergebnis / Start
+|BatchID
+|Text
+|Die Batch-ID des Batchlaufs
+
+|Batch-Ergebnis / Start
+|Parameter
+|Text
+|Die Parameter des Batchlaufs
+
+|Batch-Ergebnis / Meldungen
+|
+|
+|Liste von Meldungen (Fehler, Warnungen oder Informationen)
+
+|Batch-Ergebnis / Meldungen / Meldung
+|ID
+|Text
+|ID des Eintrags (zum Beispiel Fehlernummer)
+
+|Batch-Ergebnis / Meldungen / Meldung
+|Typ
+|Text
+|Typ des Eintrags: F, W, I
+
+|Batch-Ergebnis / Meldungen / Meldung
+|Text
+|Text
+|Text des Eintrags, zum Beispiel Fehlertext
+
+|Batch-Ergebnis / Meldungen / Meldung
+|Satz
+|Text
+a|Der fachliche Schlüssel des Hauptsatzes, dessen Verarbeitung diese Meldung verursacht hat.
+Es ist zu beachten, dass ein technischer Schlüssel an dieser Stelle nicht ausreichend ist, da der Fachbereich und der Betrieb mit diesem technischen Schlüssel nichts anfangen können.
+
+Falls es nicht möglich ist, den fachlichen Schlüssel des Hauptsatzes an dieser Stelle zu ermitteln beziehungsweise, wenn dies nur auf Kosten der Laufzeit möglich ist, dann ist mit dem Fachbereich und dem Betrieb frühzeitig zu klären, ob an dieser Stelle ein anderer Schlüssel ausgegeben werden kann.
+
+|Batch-Ergebnis / Statistik
+|
+|
+|Liste von statistischen Daten, die während des Batchlaufs ermittelt wurden.
+
+|Batch-Ergebnis / Statistik / Statistik-Eintrag
+|ID
+|Text
+|ID des Statistik-Eintrags
+
+|Batch-Ergebnis / Statistik / Statistik-Eintrag
+|Text
+|Text
+|Klartext des Eintrags, zum Beispiel „Anzahl gelöschter Datensätze“
+
+|Batch-Ergebnis / Statistik / Statistik-Eintrag
+|Wert
+|Text
+|Statistischer Wert, zum Beispiel Anzahl der gelöschten Datensätze
+
+|Batch-Ergebnis / Ende
+|Datum
+|Text
+|Datum des Endes des Batchlaufs
+
+|Batch-Ergebnis / Ende
+|Uhrzeit
+|Text
+|Uhrzeit des Endes des Batchlaufs
+
+|Batch-Ergebnis / Return-Code
+|RC
+|Text
+|Return-Code der Batch-Verarbeitung
+
+|Batch-Ergebnis / Return-Code
+|Text
+|Text
+|Dem Return-Code zugeordneter Text
 |====
 
 .Beispiel: Ergebnisdatei
@@ -185,18 +253,32 @@ Bei Fehlern in den Ausführungsbeans kann der zurückzugebende Return-Code über
 Pro Batch müssen die möglichen Return Codes definiert werden.
 Die folgenden Werte sind reserviert und müssen von jedem Batch zurückgegeben werden, wenn das entsprechende Ereignis eingetreten ist:
 
-[[table-GenRetCodeBatCanv]]
+[[table-GeneralReturnCodeBatchFrame]]
 .Allgemeine Return-Codes des Batchrahmens
 [cols=">1,5",options="header"]
 |====
 |Return-Code |Bedeutung
-|0 |Verarbeitung ohne Fehler durchgeführt
-|1 |Verarbeitung mit Fehlern durchgeführt
-|2 |Verarbeitung mit Fehlern abgebrochen
-|3 |Batch konnte wegen Fehlern in den Aufrufparametern nicht gestartet werden
-|4 |Batch konnte wegen Fehlern in der Batch-Konfiguration nicht gestartet werden
-|143 |Batch wurde manuell abgebrochen.
-|144 |Batch wurde durch die Überschreitung der konfigurierten maximalen Laufzeit abgebrochen.
+
+|0
+|Verarbeitung ohne Fehler durchgeführt
+
+|1
+|Verarbeitung mit Fehlern durchgeführt
+
+|2
+|Verarbeitung mit Fehlern abgebrochen
+
+|3
+|Batch konnte wegen Fehlern in den Aufrufparametern nicht gestartet werden
+
+|4
+|Batch konnte wegen Fehlern in der Batch-Konfiguration nicht gestartet werden
+
+|143
+|Batch wurde manuell abgebrochen.
+
+|144
+|Batch wurde durch die Überschreitung der konfigurierten maximalen Laufzeit abgebrochen.
 |====
 
 [[konfiguration-des-batchrahmens]]
@@ -587,7 +669,7 @@ Ein Wiederanlauf in dieser Situation ist mit dem Parameter `-restart` möglich.
 ==== Überlesen von Datensätzen
 
 Um den Batch nach einem Fehler zum nächsten zu bearbeiteten Datensatz "überlesen" zu lassen, muss dieser Datensatz identifiziert werden.
-Dies geschieht zum Einen durch den Batchrahmen selbst, welcher die Anzahl der bereits verarbeiteten Datensätze speichert.
+Dies geschieht zum einen durch den Batchrahmen selbst, welcher die Anzahl der bereits verarbeiteten Datensätze speichert.
 Bei auf Datenbank-Queries basierenden Batches kann diese Anzahl jedoch gegebenenfalls nicht verwendet werden, da sie sich im Laufe der Zeit ändert.
 Hier ist es notwendig, die zu verarbeitenden Sätze nach ihrem Schlüssel zu sortieren und den als letztes bearbeiteten Schlüssel zu speichern.
 
@@ -852,12 +934,10 @@ Hibernate liest Entitäten bereits bei der `hasNext()`-Abfrage eines Resultset-I
 So kommt es bei Checkpoints zwangsläufig zu toten Entitäten.
 +
 [NOTE]
-Falls (in einem ungewöhnlichen Sonderfall) mit `ResultSet`-Iteratoren gearbeitet werden muss, so sollte https://docs.jboss.org/hibernate/stable/orm/userguide/html_single/Hibernate_User_Guide.html#hql-api-incremental[mit
-`ScrollableResults` gearbeitet werden].
-+
+Falls (in einem ungewöhnlichen Sonderfall) mit `ResultSet`-Iteratoren gearbeitet werden muss, so sollte https://docs.jboss.org/hibernate/stable/orm/userguide/html_single/Hibernate_User_Guide.html#hql-api-incremental[mit `ScrollableResults` gearbeitet werden].
 * Durch das Ablegen der Schlüssel in einer Liste ist die Gesamtanzahl der Datensätze bekannt.
 
-[[informationen-zum-batch-benutzer-bereitstellen]]
+[[informationen-zur-authentifizierung-bereitstellen]]
 === Informationen zur Authentifizierung bereitstellen
 
 Batches müssen beim Start authentifiziert und autorisiert werden, bevor der fachliche Teil der Batchverarbeitung starten kann.
