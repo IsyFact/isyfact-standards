@@ -2,7 +2,7 @@
 == Druckausgaben
 
 _Der Abschnitt Druckausgaben beschreibt das Layout und den Inhalt von Druckstücken.
-Hierzu gehören z.B. Drucklisten, Serienbriefe, sowie die Ein- und Ausgabeformate für Batches.
+Hierzu gehören zum Beispiel Drucklisten, Serienbriefe, sowie die Ein- und Ausgabeformate für Batches.
 Für komplexe Auswertungen werden mögliche Selektions- und Verdichtungskriterien beschrieben._
 
 _Da Druckstücke für die Beschreibung sehr unterschiedlicher Formate verwendet werden, wird die Spezifikation den Notwendigkeiten des beschriebenen Formats angepasst.
@@ -24,7 +24,7 @@ image::vorlage-systemspezifikation/uebersicht-druckausgaben.png[]
 _Das Druckstück wird tabellarisch beschrieben.
 Zusätzliche Darstellungen können direkt im Dokument unter der Tabelle eingebunden oder im Anhang als Verweis auf externe Dokumente aufgenommen werden.
 In diesen zusätzlichen Darstellungen können Textbausteine mit Präfix +„TBS_“+ und Druckvariablen mit Präfix +„DRV_“+ markiert werden, um Teilen des Druckstücks eindeutige Namen zu geben.
-Für die Markierung können z.B. Microsoft Word-Kommentare verwendet werden.
+Für die Markierung können zum Beispiel Microsoft Word-Kommentare verwendet werden.
 Textbausteine sind typischerweise feste Textteile, Druckvariablen sind typischerweise variabel belegte Textteile._
 
 [[table-druckausgabe]]

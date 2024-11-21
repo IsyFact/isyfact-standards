@@ -517,7 +517,7 @@ Andernfalls könnte es sein, dass einem Fehlschlagen eines externen Systems (Dat
 
 In vielen Fällen sind für das korrekte Abbilden der _Readiness_ einer Anwendung weitere Zustandsindikatoren notwendig.
 Die Zustandsindikatoren zeigen an, ob die Anwendung Anfragen korrekt verarbeiten kann.
-Diese Fähigkeit kann von anwendungsinternen Vorgängen abhängen, z.B. der Abschluss des vollständigen Ladens von notwendigen Daten, oder die Erreichbarkeit angebundener externer Systeme.
+Diese Fähigkeit kann von anwendungsinternen Vorgängen abhängen, zum Beispiel der Abschluss des vollständigen Ladens von notwendigen Daten, oder die Erreichbarkeit angebundener externer Systeme.
 Angebundene Systeme, die aus Sicht der Anwendung nutzbar zur Verfügung stehen müssen, sind im _Readiness_-Zustand zu berücksichtigen.
 Gemäß dem IsyFact Vorgaben zählen dazu alle als essenziell eingestuften Nachbarsysteme (Vgl. xref:konzept/inhalt.adoc#nachbarsystemcheck-liveness-Readiness[Überwachungskonzept-Essenzielle Nachbarsysteme].)
 
@@ -527,7 +527,7 @@ Gemäß dem IsyFact Vorgaben zählen dazu alle als essenziell eingestuften Nachb
 
 Grundsätzlich besteht für jede Komponente die Möglichkeit, den Zustand der Anwendung direkt über ein `AvailabilityChangeEvent` zu verändern.
 Durch die dieses Events wird die Zustandsänderung in den Gesamtstatus der Anwendung integriert.
-Damit ist eine vorhandene Implementierung um eine Veränderung des jeweils relevanten Zustands erweiterbar z.B. bei der Verarbeitung von _Exceptions_.
+Damit ist eine vorhandene Implementierung um eine Veränderung des jeweils relevanten Zustands erweiterbar zum Beispiel bei der Verarbeitung von _Exceptions_.
 
 .AvailabilityChangeEvent
 [id="listing-implementing-availability-change-events",reftext="{listing-caption} {counter:listings }"]
@@ -556,7 +556,7 @@ management.endpoint.health.group.readiness.include=readinessState, <customCheck>
 management.endpoint.health.group.liveness.include=livenessState, <customCheck>
 ----
 
-Mit dieser Konfiguration in den `application.properties` werden alle in der Gruppe aufgeführten Indikatoren über eine logische UND-Verknüfung in dem jeweiligen Status berücksichtigt.
+Mit dieser Konfiguration in den `application.properties` werden alle in der Gruppe aufgeführten Indikatoren über eine logische UND-Verknüpfung in dem jeweiligen Status berücksichtigt.
 
 
 [[logging-der-zustandsaenderung]]
@@ -596,7 +596,7 @@ Soll beispielweise _Prometheus_ angebunden werden, muss die folgende Abhängigke
 ----
 
 Häufig ist keine weitere Konfiguration notwendig, da die Anbindung durch Spring Boot automatische konfiguriert wird.
-Die Konfiguration für die unterstützten Monitoring-Systeme ist in https://micrometer.io/docs/[Monitoring-Systeme] beschrieben.
+Die Konfiguration für die unterstützten Monitoring-Systeme ist in https://docs.micrometer.io/micrometer/reference/concepts/implementations.html[Monitoring-Systeme] beschrieben.
 
 [[anwendungen-deaktivierbar-machen]]
 === Anwendungen deaktivierbar machen

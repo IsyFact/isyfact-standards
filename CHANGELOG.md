@@ -1,5 +1,6 @@
 # 4.0.0
 ## FEATURES
+- `IFS-4194`: [isyfact-standards-doc] Referenzarchitektur Batch aufgrund von IFS-3736 neu verfasst
 - `IFS-4209`: [isyfact-standards-doc] Anpassung einiger Glossar-Referenzen aufgrund der Entfernung von Glossareinträgen in [`isy-documentation`](https://github.com/IsyFact/isy-documentation)
 - `IFS-4193`: [isyfact-standards-doc] Referenzarchitektur der Persistenzschicht aufgrund von IFS-3736 neu verfasst
 - `IFS-4192`: [isyfact-standards-doc] Referenzarchitektur der Serviceschicht aufgrund von IFS-3736 neu verfasst:
@@ -35,6 +36,8 @@
 - `IFS-4248`: [isy-batchrahmen] In Batches wird im Falle einer fehlgeschlagenen oder nicht vorhandenen Authentifizierung der SecurityContext mit dem Batch-Namen befüllt, damit dieser außerhalb der Batch-Klassen (über `IsySecurityTokenUtil`) verarbeitet werden kann (bspw. zum Speichern des Batch-Namens in einer Datenbank).
   Hiermit wird ein ähnliches Verhalten zu einem unauthentifizierten AufrufKontext wiederhergestellt.
 ## BUG FIXES
+- `IFS-4194`: Umstellung aller Verweise in der Referenzarchitektur aufs Glossar auf das aktuelle Format (`xref:glossary::terms-definitions.adoc`)
+- `IFS-4203`: [isyfact-standards-doc] Korrektur fehlerhafter Links in der Dokumentation
 - `IFS-4212`: Dokumentation von `@OnceTask` korrigiert (`@ManualTask` existiert nicht)
 ## BREAKING CHANGES
 - `ISY-1122`: Bausteine `isy-sicherheit`, `isy-aufrufkontext`, `isy-serviceapi-core` und `isy-konfiguration` entfernt

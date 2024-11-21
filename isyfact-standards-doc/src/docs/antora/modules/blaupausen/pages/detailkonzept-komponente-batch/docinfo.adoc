@@ -1,7 +1,0 @@
-*Java Bibliothek / IT-System*
-
-[cols="3,1,2",options="header"]
-|====
-|Name |Art |Version
-m|isy-batchrahmen |Bibliothek |v{page-component-version}
-|====
