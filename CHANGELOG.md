@@ -34,7 +34,9 @@
     * Funktionalität zur erneuten Authentifizierung wird von `BatchrahmenImpl` aufgerufen
 - `IFS-3928`: [isy-bedienkonzept] Migration der neusten Bedienkonzeptversion ins Repository isy-bedienkonzept
 - `IFS-4248`: [isy-batchrahmen] In Batches wird im Falle einer fehlgeschlagenen oder nicht vorhandenen Authentifizierung der SecurityContext mit dem Batch-Namen befüllt, damit dieser außerhalb der Batch-Klassen (über `IsySecurityTokenUtil`) verarbeitet werden kann (bspw. zum Speichern des Batch-Namens in einer Datenbank).
-  Hiermit wird ein ähnliches Verhalten zu einem unauthentifizierten AufrufKontext wiederhergestellt.
+    Hiermit wird ein ähnliches Verhalten zu einem unauthentifizierten AufrufKontext wiederhergestellt.
+- `IFS-4316`: [isyfact-products-bom] Aktualisierung und Bereitstellung des Produktkatalogs der Isyfact.
+
 ## BUG FIXES
 - `IFS-4194`: Umstellung aller Verweise in der Referenzarchitektur aufs Glossar auf das aktuelle Format (`xref:glossary::terms-definitions.adoc`)
 - `IFS-4203`: [isyfact-standards-doc] Korrektur fehlerhafter Links in der Dokumentation
