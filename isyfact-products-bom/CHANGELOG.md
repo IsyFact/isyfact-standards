@@ -1,3 +1,6 @@
+# 3.3.0
+- `IFS-4316`: Aktualisierung und Bereitstellung des Produktkatalogs der Isyfact.
+
 # 3.2.1
 - `IFS-4385`: Spring Security Versionsanhebung auf 5.8.15
 
