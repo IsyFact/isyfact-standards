@@ -1,0 +1,7 @@
+name: OSS Review Toolkit
+on:
+  push:
+
+jobs:
+  ORT:
+    uses: IsyFact/isy-github-actions-templates/.github/workflows/oss_review_toolkit_template.yml@v1.2.0
