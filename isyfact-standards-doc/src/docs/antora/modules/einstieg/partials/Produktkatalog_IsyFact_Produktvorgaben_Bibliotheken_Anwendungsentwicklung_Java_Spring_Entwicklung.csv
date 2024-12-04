@@ -24,27 +24,35 @@ Logging;http://www.slf4j.org/[SLF4J];"<<spring-boot-dependencies,icon:leaf[]>>";
 Logging;http://logback.qos.ch/[Logback];"<<spring-boot-dependencies,icon:leaf[]>>";2.4.0;verbindlich;"EPL v1.0, LGPL 2.1";
 Bean-Mapping;https://mapstruct.org/[MapStruct];1.5.x;4.0.0;verbindlich;Apache License 2.0;MapStruct ist ein Annotation-Processor, d.h. Mappings werden zur Compilezeit erzeugt.
 Code-Generierung;https://github.com/mkarneim/pojobuilder[pojobuilder];4.x;2.4.0;empfohlen;PUBLIC DOMAIN;pojobuilder generiert Code nach dem Builder-Pattern für bestehende Klassen.
-Code-Generierung;https://projectlombok.org/[Lombok];<<spring-boot-dependencies,icon:leaf[]>>;2.4.0;empfohlen;MIT License;Lombok kann ebenfalls das Builder-Pattern umsetzen, besitzt aber darüber hinaus deutlich mehr Funktionen als pojobuilder.
+Code-Generierung;https://projectlombok.org/[Lombok];<<spring-boot-dependencies,icon:leaf[]>>;2.4.0;empfohlen;MIT License;Lombok kann ebenfalls das Builder-Pattern umsetzen, besitzt aber darüber hinaus deutlich mehr Funktionen als pojobuilder. Hinweis: Lombok kann uneingeschränkt mit der IsyFact genutzt werden. Für eine bessere Lesbarkeit wird Lombok in den IsyFact-Bibliotheken ausschließlich im Test-Scope, sowie in den IsyFact-Anwendungen verwendet.
 XML Binding;https://github.com/javaee/jaxb-v2[JAXB];<<spring-boot-dependencies,icon:leaf[]>>;2.2.0;verbindlich;CDDL + GPLv2 with classpath exception;
 XML-Verarbeitung;https://www.oracle.com/java/technologies/jaxp-introduction.html[JAXP];;1.0.0;verbindlich;GPL v2;
-XML-Serialisierung;https://x-stream.github.io/[XStream];1.4.18;2.4.0;verbindlich;BSD;Darf nicht für die (De-)Serialisierung der hauptsächlichen fachlichen Business-Objekte / XML-Nachrichten eingesetzt werden, stattdessen JAXB. Einsatzzweck ist leichtgewichtige Serialisierung Java -> XML, z.B. für die Anzeige von Objekten in einer GUI oder Erzeugung von Testdaten.
+XML-Serialisierung;https://x-stream.github.io/[XStream];1.4.x;4.0.0;verbindlich;BSD;Darf nicht für die (De-)Serialisierung der hauptsächlichen fachlichen Business-Objekte / XML-Nachrichten eingesetzt werden, stattdessen JAXB. Einsatzzweck ist leichtgewichtige Serialisierung Java -> XML, z.B. für die Anzeige von Objekten in einer GUI oder Erzeugung von Testdaten.
 Excel-Datenzugriff;http://poi.apache.org/[Apache POI];4.1.x;2.1.0;verbindlich;;
 Excel-Datenzugriff;http://poi.apache.org/[Apache POI OOXML];4.1.x;2.4.0;verbindlich;;
 CSV-Verarbeitung;http://opencsv.sourceforge.net/[OpenCSV];5.9.x;3.0.1;verbindlich;Apache Software License;
-Utility-API;https://github.com/google/guava[Guava];33.1.x;3.0.1;verbindlich;Apache Software License;"Einsatz und Umfang der genutzten Features ist jeweils abzustimmen. Generell genutzt werden darf:
+Utility-API;https://github.com/google/guava[Guava];33.3.x;4.0.0;verbindlich;Apache Software License;"Einsatz und Umfang der genutzten Features ist jeweils abzustimmen. Generell genutzt werden darf:
 
 * Collection-APIs
 * String Funktionen
 
 Bibliothek mit Utilities zur Lösung gängiger Programmierprobleme, insbesondere im Umgang mit Collections."
-Utility-API;http://commons.apache.org/[Apache Commons CLI];1.5.x;2.4.0;verbindlich;Apache Software License;Unterstützung für das Parsen von Kommandozeilenoptionen. Wird im Batchrahmen genutzt.
+Utility-API;http://commons.apache.org/[Apache Commons CLI];1.9.x;4.0.0;verbindlich;Apache Software License;Unterstützung für das Parsen von Kommandozeilenoptionen. Wird im Batchrahmen genutzt.
 Utility-API;http://commons.apache.org/[Apache Commons NET];"3.x +
 (>3.2.2)";1.0.0;verbindlich;Apache Software License;Unterstützung für den Download von Dateien von einem FTP Server.
-Utility-API;http://commons.apache.org/[Apache Commons Validator];1.7.x;2.4.0;verbindlich;Apache Software License;Validiert Dateien bei Server- und Client-seitigem Austausch und prüft diese auf Integrität.
+Utility-API;http://commons.apache.org/[Apache Commons Validator];1.7.x;4.0.0;empfohlen;Apache Software License;Diese Bibliothek soll nur verwendet werden, wenn die benötigten Validierungsfunktionen nicht im Hibernate Validator enthalten sind. Die Bibliothek validiert Dateien bei Server- und Client-seitigem Austausch und prüft diese auf Integrität.
 Utility-API;http://commons.apache.org/[Apache Commons BeanUtils];"1.9.x
 (>1.9.3)";1.8.1;verbindlich;Apache Software License;Apache Commons BeanUtils stellt einen einfach zu nutzenden Wrapper um die  Java APIs Reflection und Introspection bereit.
 Utility-API;http://commons.apache.org/[Apache Commons IO];2.x;2.4.0;verbindlich;Apache Software License;Apache Commons IO ist eine Bibliothek mit nützlichen Utilities um IO-Funktionalität zu implementieren.
 Erstellung dynamischer SQL-Queries;http://www.querydsl.com/[QueryDSL];<<spring-boot-dependencies,icon:leaf[]>>;3.0.0;verbindlich;Apache License, Version 2.0;Soll anstatt Criteria-API zur Erstellung dynamischer Queries genutzt werden. Einsatzgebiet wie Criteria-API nur dort wo notwendig.
-HTML-Sanitizer;https://jsoup.org/[jsoup];1.15.x;3.0.0;verbindlich;MIT License;
+HTML-Sanitizer;https://jsoup.org/[jsoup];1.18.x;4.0.0;verbindlich;MIT License;
 Dateityp-Ermittlung;https://tika.apache.org/[Apache Tika];"1.x
 (>1.20)";1.8.0;verbindlich;Apache License, Version 2.0;
+Logback JSON Classic/Logback Jackson;https://logback.qos.ch/manual/[Logback];0.1.5;1.6.0;empfohlen;"Eclipse Public License - v 1.0
+GNU Lesser General Public License";
+JDBC-Treiber;https://www.oracle.com/database/technologies/oracledb-and-spring-springboot.html[Oracle];19.x;3.0.0;verbindlich;Oracle Technology Network Developer License;"Die Version des JDBC-Treibers muss zur Datenbank passsen. Es muss nicht immer der neueste Treiber sein. Patches mit JDBC-Treiber sind zu prüfen.
+Es wird empfohlen die Version 8 des OJDBC Treibers einzusetzen."
+Connection Pool;https://www.oracle.com/database/technologies/oracledb-and-spring-springboot.html[Oracle Universal Connection Pool (UCP)];19.x;4.0.0;verbindlich;Oracle Technology Network License;UCP unterstützt Oracle spezifische Features wie Advanced Queuing und hat sich in Hochlast-Anwendungen bewährt. Umfangreiche Konfigurationsmöglichkeiten und gutes Stale Connection Management (Timeouts etc);
+Bean Validierung;https://docs.spring.io/spring-framework/reference/core/validation/beanvalidation.html[Java Bean Validation API];<<spring-boot-dependencies,icon:leaf[]>>;4.0.0;verbindlich;Apache Software License 2.0;Spring Boot setzt standardmäßig auf die Jakarta Bean Validation API.;
+Bean Validierung;https://hibernate.org/validator/documentation/[Hibernate Validator];<<spring-boot-dependencies,icon:leaf[]>>;4.0.0;verbindlich;Apache License 2.0;Der Hibernate Validator ist transitiv abhängig zum Jakarta Bean Validator.
+

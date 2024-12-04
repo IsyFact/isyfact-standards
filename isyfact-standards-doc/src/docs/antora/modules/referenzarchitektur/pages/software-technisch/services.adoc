@@ -178,7 +178,7 @@ Das interne IT-System ruft dann lediglich die Schnittstelle des Service-Consumer
 Für das interne IT-System ist dieser Aufruf nicht von einem Aufruf zu einem anderen internen IT-System zu unterscheiden.
 Für jeden Web-Service, der in die Systemlandschaft importiert werden soll, muss ein eigener Service-Consumer definiert werden.
 
-Die Gesamtheit aller Service-Provider und Service-Consumer wird als xref:glossary:glossary:master.adoc#glossar-service-gateway[Service-Gateway] bezeichnet.
+Die Gesamtheit aller Service-Provider und Service-Consumer wird als xref:glossary::terms-definitions.adoc#glossar-service-gateway[Service-Gateway] bezeichnet.
 Die Service-Gateways stellen somit die zentrale Schnittstelle einer IsyFact-Systemlandschaft zur Außenwelt dar.
 
 .Nutzung von Service Gateways zur Kommunikation mit externen Systemen

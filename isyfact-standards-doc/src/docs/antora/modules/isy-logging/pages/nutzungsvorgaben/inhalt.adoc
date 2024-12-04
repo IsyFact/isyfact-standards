@@ -628,10 +628,10 @@ Dies ist zu vermeiden.
 
 Beim Überschreiben der Bean müssen die URL-Patterns so angegeben werden, dass die URLs der Endpunkte nicht enthalten sind.
 Die Verwendung des Asterisk-Platzhalters `*` ist dabei am Ende des URL-Patterns möglich.
-Stellt ein IT-System beispielsweise REST-Schnittstellen unter `"/rest-endpoint1"`, `"/api/rest/example/endpoint2"` und `"/api/rest/example/endpoint3"` bereit, muss die Bean wie folgt überschrieben werden:
+Stellt ein Backend beispielsweise REST-Schnittstellen unter `"/rest-endpoint1"`, `"/api/rest/example/endpoint2"` und `"/api/rest/example/endpoint3"` bereit, muss die Bean wie folgt überschrieben werden:
 
 [[listing-filterRegistrationBean]]
-.Beispiel für Bean-Überschreibung im IT-System
+.Beispiel für Bean-Überschreibung im Backend
 [source,java]
 ----
 @Bean
@@ -1314,7 +1314,7 @@ Entsprechende Vorgaben werden in den Nutzungskonzepten der jeweiligen Bausteine 
 
 [cols="2s,5"]
 |====
-|Beschreibung |Ein IT-System oder ein Batch wird gestartet oder beendet.
+|Beschreibung |Ein Backend oder ein Batch wird gestartet oder beendet.
 |Logging |Der Vorgang wird durch den `LogApplicationListener` geloggt.
 Dieser muss gemäß <<LogApplicationListener>> konfiguriert sein.
 |Auswertungsszenario a|
