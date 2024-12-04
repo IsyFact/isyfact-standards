@@ -72,10 +72,10 @@ Aus den vom IAM-Service erhaltenen Zugangsdaten übernimmt der Baustein das Roll
 Unterstützt werden die Standards String Latin 1.1 und String Latin 1.2 („DIN SPEC 91379“) und eine generelle Kompatibilität zu UTF-8.
 
 |Task Scheduling
-|Der Baustein ermöglicht die Ausführung regelmäßiger Aufgaben innerhalb von IT-Systemen mit voller Integration anderer Bausteine wie Konfiguration, Logging, Sicherheit und Überwachung.
+|Der Baustein ermöglicht die Ausführung regelmäßiger Aufgaben innerhalb eines Backends mit voller Integration anderer Bausteine wie Konfiguration, Logging, Sicherheit und Überwachung.
 
 |Überwachung
-|Der Baustein macht Vorgaben für die Überwachung von IT-Systemen und stellt grundlegende Funktionalität bereit, so z.B. für die Überwachung von Komponentengrenzen.
+|Der Baustein macht Vorgaben für die Überwachung von Backends und stellt grundlegende Funktionalität bereit, so z.B. für die Überwachung von Komponentengrenzen.
 Die einheitliche Überwachungsschnittstelle erlaubt die frühzeitige Erkennung von Problemen im IT-Betrieb.
 
 |Util

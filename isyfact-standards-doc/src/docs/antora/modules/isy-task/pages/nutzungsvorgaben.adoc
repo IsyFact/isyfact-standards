@@ -48,6 +48,8 @@ Damit eine `@Scheduled`-Annotation von Spring registriert wird, muss die Klasse,
 
 Das Starten und Stoppen eines Tasks wird durch Einsatz der Annotationen vollständig von Spring übernommen.
 
+Tasks sind durch die Autokonfiguration von `isy-task` so konfiguriert, dass sie im Batch-Profil nicht gestartet werden.
+Für Tasks, welche nicht die `isy-task` Autokonfiguration nutzen, muss dies mit der Annotation `@Profile("!batch")` im jeweiligen Task direkt konfiguriert werden.
 
 [[manuelles-starten-stoppen]]
 === Manuelles Starten und Stoppen von Tasks

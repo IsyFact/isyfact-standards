@@ -24,7 +24,7 @@ technischen Prüfungen o.ä.
 
 |Verortung
 |Bestandteil einer Anwendungskomponente
-|Bestandteil eines IT-Systems
+|Batch ist ein IT-Systemtyp
 
 |Planung & Steuerung
 .^|Durch die Anwendung selbst

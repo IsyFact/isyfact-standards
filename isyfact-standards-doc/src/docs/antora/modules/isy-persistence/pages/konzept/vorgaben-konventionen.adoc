@@ -107,7 +107,7 @@ Hibernate bietet für das Caching von Objekten prinzipiell zwei Möglichkeiten.
 
 Cache in der Hibernate-Session:: Die Hibernate-Session ist an einen Thread gebunden.
 Die Nutzungsschicht verwendet für jede Anfrage einen neuen Thread (und damit eine frische Hibernate-Session).
-Deshalb kann dieser Cache höchstens im Rahmen einer Anfrage an das IT-System gelten.
+Deshalb kann dieser Cache höchstens im Rahmen einer Anfrage an das Backend gelten.
 Diese Nutzung eines Cache ist nicht sinnvoll.
 
 VM-weiter "2nd Level Cache":: Dieser Cache ist vor allem für unveränderliche, häufig verwendete Informationen (z.B. Schlüsseldaten) gedacht.

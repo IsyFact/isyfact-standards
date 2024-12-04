@@ -7,11 +7,11 @@ include::glossary:licence:partial$licence.adoc[]
 *Die Referenzarchitektur bildet einen Strukturierungsrahmen für Anwendungslandschaften.
 Sie betrachtet Anwendungslandschaften und Anwendungen dabei aus fachlicher Sicht, software-technischer Sicht und technisch-infrastruktureller Sicht.*
 
-*xref:referenzarchitektur:fachlich.adoc[]:* Sie umfasst eine fachliche Beschreibung der xref:glossary:glossary:master.adoc#glossar-anwendungslandschaft[Anwendungslandschaft].
+*xref:referenzarchitektur:fachlich.adoc[]:* Sie umfasst eine fachliche Beschreibung der xref:glossary::terms-definitions.adoc#glossar-anwendungslandschaft[Anwendungslandschaft].
 Diese wird in fachliche Komponenten zerlegt, die miteinander über fachliche Schnittstellen interagieren.
 Jegliche technische Aspekte sind dabei nicht von Belang.
 
-*xref:referenzarchitektur:software-technisch.adoc[]:* Sie umfasst die software-technische Beschreibung der xref:glossary:glossary:master.adoc#glossar-systemlandschaft[Systemlandschaft].
+*xref:referenzarchitektur:software-technisch.adoc[]:* Sie umfasst die software-technische Beschreibung der xref:glossary::terms-definitions.adoc#glossar-systemlandschaft[Systemlandschaft].
 Die gesamte Systemlandschaft wird in technische Komponenten zerlegt, die miteinander über technische Schnittstellen interagieren.
 Jegliche Abbildung auf physikalische Systeme und deren Infrastruktur sind dabei nicht von Belang.
 
