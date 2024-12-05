@@ -191,7 +191,7 @@ Seit Inkrafttreten der DSGVO regelt Artikel 28 der DSGVO die Verarbeitung im Auf
 Artikel 28 verweist wiederum auf Artikel 32 der DSGVO, in dem eine Pseudonymisierung und Verschlüsselung personenbezogener Daten gefordert wird.
 Für die Weitergabe von Log Dateien an Auftragsverarbeiter (Entwickler) bedeutet das konkret, dass personenbezogene Daten nur pseudonymisiert weitergegeben werden dürfen.
 
-.icon:university[title=Architekturregel] Architekturregel
+.icon:university[title=Architekturregel] Datenschutz-Verordnung beachten
 ****
 Beim Loggen der Nachrichten sind grundsätzlich die Vorgaben der Datenschutzgrundverordnung (https://eur-lex.europa.eu/legal-content/DE/TXT/PDF/?uri=CELEX:32016R0679&from=DE[DSGVO]) einzuhalten.
 Eine besondere Rolle spielen dabei personenbezogene Daten und insbesondere Daten gemäß Artikel 9 DSGVO.
@@ -264,7 +264,7 @@ Als Logging-Framework wird in der IsyFact _logback_ eingesetzt (siehe xref:einst
 
 NOTE: Für mehr Informationen zu logback siehe https://logback.qos.ch/
 
-.icon:university[title=Architekturregel] Architekturregel
+.icon:university[title=Architekturregel] Keine direkten logback-Framework Aufrufe in der Anwendung
 ****
 Logback wird durch eine Anwendung niemals direkt, sondern ausschließlich über die Bibliothek `isy-logging` aufgerufen.
 Dadurch wird die einheitliche Nutzung von _logback_ sichergestellt.

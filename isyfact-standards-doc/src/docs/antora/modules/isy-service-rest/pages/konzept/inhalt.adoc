@@ -55,7 +55,7 @@ image::isy-service-rest:konzept/richard-maturity-model.dn.svg[align = center, ti
 
 Die IsyFact zielt auf eine möglichst vollständige Umsetzung der Eigenschaften und peilt daher einen hohen Reifegrad für ihre REST-Services an.
 
-.icon:university[title=Architekturregel] Architekturregel
+.icon:university[title=Architekturregel] Maturity Level zwei Vorgabe
 ****
 Ein auf der IsyFact basierendes Backend muss seine REST-Services mindestens anhand Stufe zwei des Richardson Maturity Models umsetzen.
 ****
@@ -236,7 +236,7 @@ Query Parameter werden ausschließlich für das *Sortieren*, *Paginierung* und *
 /nachrichten?page=5&pageSize=15
 ----
 
-.icon:university[title=Architekturregel] Architekturregel
+.icon:university[title=Architekturregel] Datenschutzrichtlinien bei Query Parametern beachten
 ****
 Es dürfen nur nicht datenschutzrelevante Informationen in Query Parametern verwendet werden, um das Loggen von datenschutzrelevanten Daten zu verhindern.
 ****
@@ -314,7 +314,7 @@ Content-Type: application/json; charset=utf-8
 ----
 
 
-.icon:university[title=Architekturregel] Architekturregel
+.icon:university[title=Architekturregel] Verwendung von POST
 ****
 POST wird auch für fachliche Operationen genutzt, die keiner der anderen HTTP-Methoden zugeordnet werden können (z. B. Verifikation eines Antrags).
 ****
@@ -387,7 +387,7 @@ Content-Type: application/json; charset=utf-8
 }
 ----
 
-.icon:university[title=Architekturregel] Architekturregel
+.icon:university[title=Architekturregel] Verwendung von PATCH
 ****
 PATCH ist nur zu verwenden, wenn PUT aus triftigen Gründen nicht funktioniert.
 ****
@@ -474,7 +474,7 @@ Ist eine binäre Ressource Teil einer textbasierten Ressource, so wird eine Einb
 Stattdessen sollte der URI der binären Ressource in der textbasierten Ressource enthalten sein, um sie bei Bedarf direkt abzufragen.
 
 
-.icon:university[title=Architekturregel] Architekturregel
+.icon:university[title=Architekturregel] Repräsentationsform der kommunizierten Daten
 ****
 Alle REST-Services innerhalb einer Systemlandschaft nutzen eine einheitliche, textbasierte Repräsentationsform.
 Binäre Daten werden über direkte Anfragen binär ohne Transformation zurückgeliefert.
@@ -710,7 +710,7 @@ Gängige Clients im Kontext der IsyFact sind Java (Spring) und Javascript (Angul
 [[verwendung-transportobjekte]]
 === Verwendung von Transportobjekten
 
-.icon:university[title=Architekturregel] Architekturregel
+.icon:university[title=Architekturregel] Verwendung von Transferobjekten
 ****
 REST-Schnittstellen verwenden ausschließlich Transferobjekte (Data Transfer Objects, DTOs).
 ****
