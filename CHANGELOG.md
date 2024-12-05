@@ -1,5 +1,6 @@
 # 4.0.0
 ## FEATURES
+- `IFS-4249`: [isyfact-standards-doc] Setzen der Antora-Version für die Online-Dokumentation durch Git
 - `IFS-4194`: [isyfact-standards-doc] Referenzarchitektur Batch aufgrund von IFS-3736 neu verfasst
 - `IFS-4209`: [isyfact-standards-doc] Anpassung einiger Glossar-Referenzen aufgrund der Entfernung von Glossareinträgen in [`isy-documentation`](https://github.com/IsyFact/isy-documentation)
 - `IFS-4193`: [isyfact-standards-doc] Referenzarchitektur der Persistenzschicht aufgrund von IFS-3736 neu verfasst
