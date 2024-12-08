@@ -92,7 +92,7 @@ class HealthIntegrationTest {
      * If the property "management.endpoint.health.show-details" is set to "never" getting the health of a nested
      * component always return 404, even if the HealthContributor exists.
      *
-     *  @see HealthEndpointWebExtension#health(ApiVersion, SecurityContext, String...)
+     *  // @see HealthEndpointWebExtension#health(ApiVersion, SecurityContext, String...)
      **/
     @Test
     void test3_andereEndpointsLiefern404() {
@@ -140,7 +140,7 @@ class HealthIntegrationTest {
         public ActuatorSecurityConfigurationProperties securityProperties() {
             return new ActuatorSecurityConfigurationProperties();
         }
-        
+
         // creates a new indicator under /actuator/health/testComponent/testInstance
         @Bean(testComponentName)
         public HealthContributor testComponent() {
