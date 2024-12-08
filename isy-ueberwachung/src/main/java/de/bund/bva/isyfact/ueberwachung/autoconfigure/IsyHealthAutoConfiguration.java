@@ -15,8 +15,6 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.util.Assert;
 import org.springframework.web.client.RestTemplate;
 
-import de.bund.bva.isyfact.ueberwachung.actuate.health.IsyCachingHealthContributorRegistry;
-import de.bund.bva.isyfact.ueberwachung.actuate.health.IsyHealthTask;
 import de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.NachbarsystemCheck;
 import de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.NachbarsystemIndicator;
 import de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.impl.NachbarsystemCheckImpl;
@@ -67,37 +65,28 @@ public class IsyHealthAutoConfiguration {
     static class HealthEndpointConfiguration {
 
         /**
-         * Creates {@link BeanPostProcessor} which wraps an instance of {@link HealthContributorRegistry} into an
-         * {@link IsyCachingHealthContributorRegistry}.
+         * Configure caching for the HealthContributorRegistry using Spring Boot Actuator's caching.
+         * TTL is managed via `management.endpoint.health.cache.time-to-live` property.
          */
         @Bean
         @ConditionalOnAvailableEndpoint(endpoint = HealthEndpoint.class)
-        public BeanPostProcessor isyHealthContributorRegistryPostProcessor() {
-            return new BeanPostProcessor() {
-                @Override
-                public Object postProcessAfterInitialization(Object bean, String beanName) {
-                    if (bean instanceof HealthContributorRegistry) {
-                        return new IsyCachingHealthContributorRegistry((HealthContributorRegistry) bean);
-                    }
-                    return bean;
-                }
-            };
+        public HealthContributorRegistry healthContributorRegistry(HealthContributorRegistry registry) {
+            return registry; // Use the default Spring Boot registry with built-in caching.
         }
-
-        /**
-         * Creates a task which updates the cache in {@link IsyCachingHealthContributorRegistry} in fixed
-         * intervals.
-         *
-         * @param cachingRegistry The {@link IsyCachingHealthContributorRegistry} that is to be updated regularly.
-         * @return IsyHealthTask instance
-         */
-        @Bean
-        @ConditionalOnAvailableEndpoint(endpoint = HealthEndpoint.class)
-        public IsyHealthTask isyHealthTask(HealthContributorRegistry cachingRegistry) {
-            Assert.isInstanceOf(IsyCachingHealthContributorRegistry.class, cachingRegistry);
-            return new IsyHealthTask((IsyCachingHealthContributorRegistry) cachingRegistry);
-        }
-
     }
+
+//        /**
+//         * Creates a task which updates the cache in {@link IsyCachingHealthContributorRegistry} in fixed
+//         * intervals.
+//         *
+//         * @param cachingRegistry The {@link IsyCachingHealthContributorRegistry} that is to be updated regularly.
+//         * @return IsyHealthTask instance
+//         */
+//        @Bean
+//        @ConditionalOnAvailableEndpoint(endpoint = HealthEndpoint.class)
+//        public IsyHealthTask isyHealthTask(HealthContributorRegistry cachingRegistry) {
+//            Assert.isInstanceOf(IsyCachingHealthContributorRegistry.class, cachingRegistry);
+//            return new IsyHealthTask((IsyCachingHealthContributorRegistry) cachingRegistry);
+//        }
 
 }
