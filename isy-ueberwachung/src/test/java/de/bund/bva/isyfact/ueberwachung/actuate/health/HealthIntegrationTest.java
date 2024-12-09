@@ -10,6 +10,7 @@ import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointProperties;
 import org.springframework.boot.actuate.endpoint.ApiVersion;
 import org.springframework.boot.actuate.endpoint.SecurityContext;
@@ -25,6 +26,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
 import de.bund.bva.isyfact.ueberwachung.TestApplicationDummy;
@@ -132,11 +134,13 @@ class HealthIntegrationTest {
         }
 
         @Bean
+        @Primary
         public WebEndpointProperties webEndpointProperties() {
             return new WebEndpointProperties();
         }
 
         @Bean
+        @Primary
         public ActuatorSecurityConfigurationProperties securityProperties() {
             return new ActuatorSecurityConfigurationProperties();
         }

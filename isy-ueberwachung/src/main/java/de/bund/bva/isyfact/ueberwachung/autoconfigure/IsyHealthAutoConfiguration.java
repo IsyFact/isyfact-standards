@@ -11,6 +11,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.util.Assert;
 import org.springframework.web.client.RestTemplate;
@@ -68,12 +69,17 @@ public class IsyHealthAutoConfiguration {
          * Configure caching for the HealthContributorRegistry using Spring Boot Actuator's caching.
          * TTL is managed via `management.endpoint.health.cache.time-to-live` property.
          */
+/*
         @Bean
         @ConditionalOnAvailableEndpoint(endpoint = HealthEndpoint.class)
         public HealthContributorRegistry healthContributorRegistry(HealthContributorRegistry registry) {
             return registry; // Use the default Spring Boot registry with built-in caching.
         }
+*/
+
     }
+
+
 
 //        /**
 //         * Creates a task which updates the cache in {@link IsyCachingHealthContributorRegistry} in fixed
