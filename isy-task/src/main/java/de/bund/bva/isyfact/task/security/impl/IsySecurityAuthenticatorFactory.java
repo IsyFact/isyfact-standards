@@ -24,7 +24,9 @@ public class IsySecurityAuthenticatorFactory implements AuthenticatorFactory {
 
     private final Authentifizierungsmanager authentifizierungsmanager;
 
-    /** MessageSource to determine the messages. **/
+    /**
+     * MessageSource to determine the messages.
+     **/
     private final MessageSource messageSource;
 
     /**
@@ -32,7 +34,7 @@ public class IsySecurityAuthenticatorFactory implements AuthenticatorFactory {
      *
      * @param configurationProperties   {@link IsyTaskConfigurationProperties} provides credentials
      * @param authentifizierungsmanager {@link Authentifizierungsmanager} for authentication
-     * @param messageSource {@link MessageSource} to determine the messages
+     * @param messageSource             {@link MessageSource} to determine the messages
      */
     public IsySecurityAuthenticatorFactory(
             IsyTaskConfigurationProperties configurationProperties,
@@ -60,13 +62,13 @@ public class IsySecurityAuthenticatorFactory implements AuthenticatorFactory {
         }
         String defaultOauth2ClientRegistrationId = configurationProperties.getDefault().getOauth2ClientRegistrationId();
         if (StringUtils.hasText(defaultOauth2ClientRegistrationId)) {
-            String nachricht = messageSource.getMessage(HinweisSchluessel.VERWENDE_STANDARD_KONFIGURATION, new String[] { "oauth2ClientRegistrationId" }, Locale.GERMANY);
+            String nachricht = messageSource.getMessage(HinweisSchluessel.VERWENDE_STANDARD_KONFIGURATION, new String[] {taskId, "oauth2ClientRegistrationId"}, Locale.GERMANY);
             LOG.info(LogKategorie.SICHERHEIT, HinweisSchluessel.VERWENDE_STANDARD_KONFIGURATION, nachricht);
             return new IsySecurityAuthenticator(authentifizierungsmanager, defaultOauth2ClientRegistrationId
             );
         } else {
             LOG.info(LogKategorie.SICHERHEIT, HinweisSchluessel.VERWENDE_KEINE_AUTHENTIFIZIERUNG,
-                messageSource.getMessage(HinweisSchluessel.VERWENDE_KEINE_AUTHENTIFIZIERUNG, null, Locale.GERMANY));
+                    messageSource.getMessage(HinweisSchluessel.VERWENDE_KEINE_AUTHENTIFIZIERUNG, new String[] {taskId}, Locale.GERMANY));
             return new NoOpAuthenticator();
         }
     }
