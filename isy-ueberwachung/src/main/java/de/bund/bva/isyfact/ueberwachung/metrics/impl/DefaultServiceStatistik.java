@@ -25,8 +25,8 @@ import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.stream.Collectors;
 
 import org.aopalliance.intercept.MethodInterceptor;
@@ -72,7 +72,7 @@ public class DefaultServiceStatistik implements ServiceStatistik, MethodIntercep
     /**
      * Duration of the last search calls (in milliseconds).
      */
-    private final List<Duration> letzteSuchdauern = new LinkedList<>();
+    private final ConcurrentLinkedDeque<Duration> letzteSuchdauern = new ConcurrentLinkedDeque<>();
 
     /**
      * Flag for the minute in which values of the last minute were determined.
@@ -176,10 +176,10 @@ public class DefaultServiceStatistik implements ServiceStatistik, MethodIntercep
         }
 
         if (letzteSuchdauern.size() == ANZAHL_AUFRUFE_FUER_DURCHSCHNITT) {
-            letzteSuchdauern.remove(ANZAHL_AUFRUFE_FUER_DURCHSCHNITT - 1);
+            letzteSuchdauern.removeLast();
         }
 
-        letzteSuchdauern.add(0, dauer);
+        letzteSuchdauern.addFirst(dauer);
     }
 
     /**
