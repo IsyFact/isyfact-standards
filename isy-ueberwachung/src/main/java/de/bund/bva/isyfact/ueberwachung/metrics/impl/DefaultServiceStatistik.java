@@ -27,7 +27,8 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ConcurrentLinkedDeque;
-import java.util.stream.Collectors;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReference;
 
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
@@ -77,29 +78,29 @@ public class DefaultServiceStatistik implements ServiceStatistik, MethodIntercep
     /**
      * Flag for the minute in which values of the last minute were determined.
      */
-    private volatile LocalDateTime letzteMinute = DateTimeUtil.localDateTimeNow();
+    private final AtomicReference<LocalDateTime> letzteMinute = new AtomicReference<>(DateTimeUtil.localDateTimeNow());
 
     /**
      * Number of non-error calls made in the minute called 'last minute'.
      */
-    private volatile int anzahlAufrufeLetzteMinute;
+    private final AtomicInteger anzahlAufrufeLetzteMinute = new AtomicInteger();
 
     /**
      * Number of non-error calls made in the current minute.
      */
-    private volatile int anzahlAufrufeAktuelleMinute;
+    private final AtomicInteger anzahlAufrufeAktuelleMinute = new AtomicInteger();
 
     /**
      * Number of calls made in the minute denoted by lastMinute, during which
      * a technical error occurred.
      */
-    private volatile int anzahlFehlerLetzteMinute;
+    private final AtomicInteger anzahlFehlerLetzteMinute = new AtomicInteger();
 
     /**
      * Number of calls made in the current minute in which a techinical error
      * occurred.
      */
-    private volatile int anzahlFehlerAktuelleMinute;
+    private final AtomicInteger anzahlFehlerAktuelleMinute = new AtomicInteger();
 
     /**
      * The number of business errors in the last minute.
@@ -107,7 +108,7 @@ public class DefaultServiceStatistik implements ServiceStatistik, MethodIntercep
      * A business error occurs if either a {@link PlisBusinessToException} was thrown or the response contains an
      * entry marked with {@link FachlicherFehler}.
      */
-    private volatile int anzahlFachlicheFehlerLetzteMinute;
+    private final AtomicInteger anzahlFachlicheFehlerLetzteMinute = new AtomicInteger();
 
     /**
      * The number of business errors in the current minute.
@@ -115,7 +116,7 @@ public class DefaultServiceStatistik implements ServiceStatistik, MethodIntercep
      * A business error occurs if either a {@link PlisBusinessToException} was thrown or the response contains an
      * entry marked with {@link FachlicherFehler}.
      */
-    private volatile int anzahlFachlicheFehlerAktuelleMinute;
+    private final AtomicInteger anzahlFachlicheFehlerAktuelleMinute = new AtomicInteger();
 
     /**
      * Micrometer tags.
@@ -163,16 +164,16 @@ public class DefaultServiceStatistik implements ServiceStatistik, MethodIntercep
      * @param erfolgreich         flag, if the call was successful ({@code true}) or a technical error occurred ({@code false}).
      * @param fachlichErfolgreich Flag, if the call was successful ({@code true}) or a business error occurred ({@code false}).
      */
-    public synchronized void zaehleAufruf(Duration dauer, boolean erfolgreich, boolean fachlichErfolgreich) {
+    public void zaehleAufruf(Duration dauer, boolean erfolgreich, boolean fachlichErfolgreich) {
         aktualisiereZeitfenster();
-        anzahlAufrufeAktuelleMinute++;
+        anzahlAufrufeAktuelleMinute.incrementAndGet();
 
         if (!erfolgreich) {
-            anzahlFehlerAktuelleMinute++;
+            anzahlFehlerAktuelleMinute.incrementAndGet();
         }
 
         if (!fachlichErfolgreich) {
-            anzahlFachlicheFehlerAktuelleMinute++;
+            anzahlFachlicheFehlerAktuelleMinute.incrementAndGet();
         }
 
         if (letzteSuchdauern.size() == ANZAHL_AUFRUFE_FUER_DURCHSCHNITT) {
@@ -187,24 +188,25 @@ public class DefaultServiceStatistik implements ServiceStatistik, MethodIntercep
      * and last minute. If a minute has elapsed, the values of the current * minute are copied to those of the counters for the last minute.
      * The counters for the current minute are set to 0. The method ensures that this operation can be performed only once per minute.
      */
-    private synchronized void aktualisiereZeitfenster() {
+    private void aktualisiereZeitfenster() {
         LocalDateTime aktuelleMinute = getAktuelleMinute();
+        LocalDateTime letzteMinute = this.letzteMinute.get();
         if (!aktuelleMinute.isEqual(letzteMinute)) {
             if (ChronoUnit.MINUTES.between(letzteMinute, aktuelleMinute) > 1) {
                 // no last minute infos
-                anzahlAufrufeLetzteMinute = 0;
-                anzahlFehlerLetzteMinute = 0;
-                anzahlFachlicheFehlerLetzteMinute = 0;
+                anzahlAufrufeLetzteMinute.set(0);
+                anzahlFehlerLetzteMinute.set(0);
+                anzahlFachlicheFehlerLetzteMinute.set(0);
             } else {
-                anzahlAufrufeLetzteMinute = anzahlAufrufeAktuelleMinute;
-                anzahlFehlerLetzteMinute = anzahlFehlerAktuelleMinute;
-                anzahlFachlicheFehlerLetzteMinute = anzahlFachlicheFehlerAktuelleMinute;
+                anzahlAufrufeLetzteMinute.set(anzahlAufrufeAktuelleMinute.get());
+                anzahlFehlerLetzteMinute.set(anzahlAufrufeAktuelleMinute.get());
+                anzahlFachlicheFehlerLetzteMinute.set(anzahlFachlicheFehlerAktuelleMinute.get());
             }
 
-            anzahlAufrufeAktuelleMinute = 0;
-            anzahlFehlerAktuelleMinute = 0;
-            anzahlFachlicheFehlerAktuelleMinute = 0;
-            letzteMinute = aktuelleMinute;
+            anzahlAufrufeAktuelleMinute.set(0);
+            anzahlFehlerAktuelleMinute.set(0);
+            anzahlFachlicheFehlerAktuelleMinute.set(0);
+            this.letzteMinute.set(aktuelleMinute);
         }
     }
 
@@ -226,19 +228,19 @@ public class DefaultServiceStatistik implements ServiceStatistik, MethodIntercep
     @Override
     public int getAnzahlAufrufeLetzteMinute() {
         aktualisiereZeitfenster();
-        return anzahlAufrufeLetzteMinute;
+        return anzahlAufrufeLetzteMinute.get();
     }
 
     @Override
     public int getAnzahlFehlerLetzteMinute() {
         aktualisiereZeitfenster();
-        return anzahlFehlerLetzteMinute;
+        return anzahlFehlerLetzteMinute.get();
     }
 
     @Override
     public int getAnzahlFachlicheFehlerLetzteMinute() {
         aktualisiereZeitfenster();
-        return anzahlFachlicheFehlerLetzteMinute;
+        return anzahlFachlicheFehlerLetzteMinute.get();
     }
 
     @Override
@@ -301,7 +303,7 @@ public class DefaultServiceStatistik implements ServiceStatistik, MethodIntercep
 
         List<Field> objectFields = Arrays.stream(clazzToScan.getDeclaredFields())
                 .filter(field -> !ClassUtils.isPrimitiveOrWrapper(field.getType()) && !field.getType().isEnum())
-                .collect(Collectors.toList());
+                .toList();
 
         LOGISY.trace("{} Analysiere Objekt {} (Klasse {}) {} Felder gefunden.",
                 String.join("", Collections.nCopies(tiefe, "-")), result.toString(), clazzToScan.getSimpleName(),
