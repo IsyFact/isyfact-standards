@@ -324,7 +324,7 @@ Mit der *Single Table per Class Hierarchy* Strategie wird eine Vererbungshierarc
 Die Tabelle hat eine Diskriminatorspalte.
 Anhand des Wertes dieser Spalte wird die spezielle Subklasse bestimmt, auf die eine bestimmte Zeile der Datenbank gemappt wird.
 
-.icon:university[title=Architekturregel] Architekturregel
+.icon:university[title=Architekturregel] Verwendung der Single Table per Class Strategie
 ****
 Die *Single Table per Class Hierarchy* Strategie sollte die Default-Strategie sein, weil sie performante Abfragen erlaubt.
 ****
@@ -339,7 +339,7 @@ Jede Klasse wird auf eine eigene Tabelle abgebildet.
 
 Der Zugriff ist weniger performant als bei der Single Table per Class Hierarchy Strategie.
 
-.icon:university[title=Architekturregel] Architekturregel
+.icon:university[title=Architekturregel] Verwendung der Joined Subclass Strategie
 ****
 Wenn Not-Nullable-Constraints zwingend erforderlich sind und polymorphe Queries benötigt werden, ist die *Joined Subclass* Strategie eine gute Wahl.
 Ein weiteres Argument für diese Strategie sind Subklassen mit vielen Attributen.
@@ -353,7 +353,7 @@ Alle Attribute der Oberklasse werden als Spalten an alle Tabellen für die Subkl
 
 Das Mapping zwischen Entitäten und Datenbanktabellen ist einfach, aber die Tabellen sind nicht normalisiert und der polymorphe Zugriff auf die Oberklasse ist kaum performant.
 
-.icon:university[title=Architekturregel] Architekturregel
+.icon:university[title=Architekturregel] Verwendung der Table per Concrete Class Strategie
 ****
 Die *Table per Concrete Class* Strategie sollte, wenn überhaupt, nur gewählt werden, wenn die anderen Strategien nicht passen und auf die Oberklasse keine oder nur wenig polymorphe Zugriffe zu erwarten sind.
 ****
@@ -368,7 +368,7 @@ Ihre Attribute werden aber als Spalten an alle Tabellen der von ihr erbenden Ent
 
 Polymorphe Queries auf die Oberklasse sind nicht möglich.
 
-.icon:university[title=Architekturregel] Architekturregel
+.icon:university[title=Architekturregel] Verwendung der Mapped Superclass Strategie
 ****
 Diese Art der Vererbung von einer Java-Oberklasse auf Entitäten-Subklassen kann eingesetzt werden, wenn nur auf die Subklassen zugegriffen werden muss.
 ****
