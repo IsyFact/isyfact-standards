@@ -165,22 +165,25 @@ public class DefaultServiceStatistik implements ServiceStatistik, MethodIntercep
      * @param fachlichErfolgreich Flag, if the call was successful ({@code true}) or a business error occurred ({@code false}).
      */
     public void zaehleAufruf(Duration dauer, boolean erfolgreich, boolean fachlichErfolgreich) {
-        aktualisiereZeitfenster();
-        anzahlAufrufeAktuelleMinute.incrementAndGet();
+        synchronized (anzahlAufrufeAktuelleMinute) {
+            aktualisiereZeitfenster();
+            anzahlAufrufeAktuelleMinute.incrementAndGet();
 
-        if (!erfolgreich) {
-            anzahlFehlerAktuelleMinute.incrementAndGet();
+            if (!erfolgreich) {
+                anzahlFehlerAktuelleMinute.incrementAndGet();
+            }
+
+            if (!fachlichErfolgreich) {
+                anzahlFachlicheFehlerAktuelleMinute.incrementAndGet();
+            }
         }
+        synchronized (letzteSuchdauern) {
+            if (letzteSuchdauern.size() == ANZAHL_AUFRUFE_FUER_DURCHSCHNITT) {
+                letzteSuchdauern.removeLast();
+            }
 
-        if (!fachlichErfolgreich) {
-            anzahlFachlicheFehlerAktuelleMinute.incrementAndGet();
+            letzteSuchdauern.addFirst(dauer);
         }
-
-        if (letzteSuchdauern.size() == ANZAHL_AUFRUFE_FUER_DURCHSCHNITT) {
-            letzteSuchdauern.removeLast();
-        }
-
-        letzteSuchdauern.addFirst(dauer);
     }
 
     /**
@@ -189,24 +192,26 @@ public class DefaultServiceStatistik implements ServiceStatistik, MethodIntercep
      * The counters for the current minute are set to 0. The method ensures that this operation can be performed only once per minute.
      */
     private void aktualisiereZeitfenster() {
-        LocalDateTime aktuelleMinute = getAktuelleMinute();
-        LocalDateTime letzteMinute = this.letzteMinute.get();
-        if (!aktuelleMinute.isEqual(letzteMinute)) {
-            if (ChronoUnit.MINUTES.between(letzteMinute, aktuelleMinute) > 1) {
-                // no last minute infos
-                anzahlAufrufeLetzteMinute.set(0);
-                anzahlFehlerLetzteMinute.set(0);
-                anzahlFachlicheFehlerLetzteMinute.set(0);
-            } else {
-                anzahlAufrufeLetzteMinute.set(anzahlAufrufeAktuelleMinute.get());
-                anzahlFehlerLetzteMinute.set(anzahlAufrufeAktuelleMinute.get());
-                anzahlFachlicheFehlerLetzteMinute.set(anzahlFachlicheFehlerAktuelleMinute.get());
-            }
+        synchronized (letzteMinute) {
+            LocalDateTime aktuelleMinute = getAktuelleMinute();
+            LocalDateTime letzteMinute = this.letzteMinute.get();
+            if (!aktuelleMinute.isEqual(letzteMinute)) {
+                if (ChronoUnit.MINUTES.between(letzteMinute, aktuelleMinute) > 1) {
+                    // no last minute infos
+                    anzahlAufrufeLetzteMinute.set(0);
+                    anzahlFehlerLetzteMinute.set(0);
+                    anzahlFachlicheFehlerLetzteMinute.set(0);
+                } else {
+                    anzahlAufrufeLetzteMinute.set(anzahlAufrufeAktuelleMinute.get());
+                    anzahlFehlerLetzteMinute.set(anzahlAufrufeAktuelleMinute.get());
+                    anzahlFachlicheFehlerLetzteMinute.set(anzahlFachlicheFehlerAktuelleMinute.get());
+                }
 
-            anzahlAufrufeAktuelleMinute.set(0);
-            anzahlFehlerAktuelleMinute.set(0);
-            anzahlFachlicheFehlerAktuelleMinute.set(0);
-            this.letzteMinute.set(aktuelleMinute);
+                anzahlAufrufeAktuelleMinute.set(0);
+                anzahlFehlerAktuelleMinute.set(0);
+                anzahlFachlicheFehlerAktuelleMinute.set(0);
+                this.letzteMinute.set(aktuelleMinute);
+            }
         }
     }
 
