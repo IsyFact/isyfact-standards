@@ -41,6 +41,7 @@
 - `IFS-4236`: [isy-datetime], [isy-sonderzeichen] Beide Submodule wurden aus `isyfact-standards` entfernt und in eigenständige Repositories verschoben
     * Sie werden ab sofort entkoppelt von der Isyfact versioniert und weiterentwickelt
     * Sie werden aber weiterhin im Dependency-Management der `isyfact-standards-bom` angeboten.
+- `IFS-979`: [isy-ueberwachung] Verbesserung der Nebenläufigkeit von DefaultServiceStatistik.
 
 ## BUG FIXES
 - `IFS-4194`: Umstellung aller Verweise in der Referenzarchitektur aufs Glossar auf das aktuelle Format (`xref:glossary::terms-definitions.adoc`)

@@ -1,6 +1,7 @@
 # 4.0.0
 - `ISY-888`: Freigabe des `/Loadbalancer` Endpunkts auf `SecurityFilterChain` (`@Order(99)`) umgestellt
 - `ISY-601`: Standardabsicherung und Konfigurationsparameter werden per AutoConfiguration bereitgestellt.
+- `IFS-979`: Verbesserung der Nebenläufigkeit von DefaultServiceStatistik.
 
 # 3.0.0
 - `IFS-1702`: Refaktorierung ServiceStatistik
