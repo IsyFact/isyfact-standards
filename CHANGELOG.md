@@ -41,6 +41,7 @@
 - `IFS-4236`: [isy-datetime], [isy-sonderzeichen] Beide Submodule wurden aus `isyfact-standards` entfernt und in eigenständige Repositories verschoben
     * Sie werden ab sofort entkoppelt von der Isyfact versioniert und weiterentwickelt
     * Sie werden aber weiterhin im Dependency-Management der `isyfact-standards-bom` angeboten.
+- `IFS-979`: [isy-ueberwachung] Verbesserung der Nebenläufigkeit von DefaultServiceStatistik.
 - `IFS-3303`: [isyfact-products-bom] Anhebung der version von metro auf 4.0.3
 
 ## BUG FIXES
