@@ -1,3 +1,7 @@
+# 4.0.0
+## BREAKING CHANGES
+- `IFS-4482`: Deprecated Klassen `MessageSourceHolder` und `MessageSourceFehlertextProvider` entfernt
+
 # 2.4.0
 - `RF-1040`: Scope für Spotbugs-Annotations Abhängigkeit auf provided gesetzt
 
