@@ -6,6 +6,7 @@
 // tag::release-4.0.0[]
 * Anhebung von Versionen:
 ** dbunit auf 2.8.x
+** metro auf 4.0.3
 
 * Produkte entfernt:
 ** Entwicklungsumgebungen und alle Plugins

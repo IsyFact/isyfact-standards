@@ -42,6 +42,7 @@
     * Sie werden ab sofort entkoppelt von der Isyfact versioniert und weiterentwickelt
     * Sie werden aber weiterhin im Dependency-Management der `isyfact-standards-bom` angeboten.
 - `IFS-979`: [isy-ueberwachung] Verbesserung der Nebenläufigkeit von DefaultServiceStatistik.
+- `IFS-3303`: [isyfact-products-bom] Anhebung der version von metro auf 4.0.3
 
 ## BUG FIXES
 - `IFS-4194`: Umstellung aller Verweise in der Referenzarchitektur aufs Glossar auf das aktuelle Format (`xref:glossary::terms-definitions.adoc`)

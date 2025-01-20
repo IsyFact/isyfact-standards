@@ -1,6 +1,8 @@
 package de.bund.bva.isyfact.task.test.monitoring;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertThrows;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
@@ -100,18 +102,22 @@ public class IsyTaskAspectTest {
         verify(authenticator).logout();
     }
 
-    @Test(expected = TaskKonfigurationInvalidException.class)
+    @Test
     public void testInvokeAndMonitorTask_noTaskConfig() throws Throwable {
 
         // Prepare
         properties.getTasks().clear();
 
         // Act
-        isyTaskAspect.invokeAndMonitorTask(joinPoint);
+        TaskKonfigurationInvalidException taskKonfigurationInvalidException =
+                assertThrows(TaskKonfigurationInvalidException.class,
+                        () -> isyTaskAspect.invokeAndMonitorTask(joinPoint));
 
+        assertEquals("ISYTA00003", taskKonfigurationInvalidException.getAusnahmeId());
+        assertEquals("Task-Konfiguration für Task class-myClass ungültig: Keine Taskkonfiguration vorhanden.", taskKonfigurationInvalidException.getFehlertext());
     }
 
-    @Test(expected = TaskKonfigurationInvalidException.class)
+    @Test
     public void testInvokeAndMonitorTask_hostnameInvalidRegex() throws Throwable {
 
         // Prepare
@@ -119,7 +125,12 @@ public class IsyTaskAspectTest {
         testTaskConfig.setHost("(");
 
         // Act
-        isyTaskAspect.invokeAndMonitorTask(joinPoint);
+        TaskKonfigurationInvalidException taskKonfigurationInvalidException =
+                assertThrows(TaskKonfigurationInvalidException.class,
+                        () -> isyTaskAspect.invokeAndMonitorTask(joinPoint));
+
+        assertEquals("ISYTA00003", taskKonfigurationInvalidException.getAusnahmeId());
+        assertEquals("Task-Konfiguration für Task class-myClass ungültig: Hostname ist keine gültige Regex.", taskKonfigurationInvalidException.getFehlertext());
 
     }
 
@@ -132,10 +143,9 @@ public class IsyTaskAspectTest {
         // Act
         isyTaskAspect.invokeAndMonitorTask(joinPoint);
 
-        // Verify
+        // Verify)
         verify(hostHandler).isHostApplicable(properties.getDefault().getHost());
         verify(joinPoint).proceed();
-
     }
 
     @Test
@@ -166,14 +176,18 @@ public class IsyTaskAspectTest {
 
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void testInvokeAndMonitorTask_authenticatorNull() throws Throwable {
 
         // Prepare
         doReturn(null).when(authenticatorFactory).getAuthenticator(anyString());
 
         // Act
-        isyTaskAspect.invokeAndMonitorTask(joinPoint);
+        RuntimeException runtimeException =
+                assertThrows(RuntimeException.class,
+                        () -> isyTaskAspect.invokeAndMonitorTask(joinPoint));
+
+        assertEquals("Authenticator for task class-myClass is null", runtimeException.getMessage());
 
     }
 

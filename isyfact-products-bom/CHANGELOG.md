@@ -1,5 +1,6 @@
 # 4.0.0
 - `IFS-4316`: Aktualisierung und Bereitstellung des Produktkatalogs der Isyfact.
+- `IFS-3303`: Anhebung der version von metro auf 4.0.3
 
 # 3.0.1
 - `ISY-701`: Google Guava Versionsanhebung auf 33.1.0
