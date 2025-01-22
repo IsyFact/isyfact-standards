@@ -23,7 +23,7 @@
         <logback-json-classic.version>0.1.5</logback-json-classic.version>
         <logback-jackson.version>0.1.5</logback-jackson.version>
         <ojdbc8.version>19.23.0.0</ojdbc8.version>
-        <ucp.version>19.11.0.0</ucp.version>
+        <ucp.version>19.25.0.0</ucp.version>
         <mapstruct.version>1.5.5.Final</mapstruct.version>
         <pojobuilder.version>4.3.0</pojobuilder.version>
         <xstream.version>1.4.20</xstream.version>
