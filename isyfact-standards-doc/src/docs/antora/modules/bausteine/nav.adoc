@@ -1,7 +1,7 @@
 * xref:bausteine.adoc[]
 ** Datum & Zeit
-*** xref:isy-datetime-doc:ROOT:konzept/master.adoc[Konzept]
-*** xref:isy-datetime-doc:ROOT:nutzungsvorgaben/master.adoc[Nutzungsvorgaben]
+*** xref:isy-datetime-docs:ROOT:konzept/master.adoc[Konzept]
+*** xref:isy-datetime-docs:ROOT:nutzungsvorgaben/master.adoc[Nutzungsvorgaben]
 
 ** Fehlerbehandlung
 *** xref:isy-exception-core:konzept/master.adoc[Konzept]
@@ -36,8 +36,8 @@
 *** xref:isy-security:nutzungsvorgaben/master.adoc[Nutzungsvorgaben]
 
 ** Sonderzeichen
-*** xref:isy-sonderzeichen-doc:ROOT:konzept/master.adoc[Konzept]
-*** xref:isy-sonderzeichen-doc:ROOT:nutzungsvorgaben/master.adoc[Nutzungsvorgaben]
+*** xref:isy-sonderzeichen-docs:ROOT:konzept/master.adoc[Konzept]
+*** xref:isy-sonderzeichen-docs:ROOT:nutzungsvorgaben/master.adoc[Nutzungsvorgaben]
 
 ** Task Scheduling
 *** xref:isy-task:konzept.adoc[Konzept]
