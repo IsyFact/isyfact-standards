@@ -127,8 +127,8 @@ Im Dokument xref:isy-exception-core:konzept/master.adoc#einleitung[Konzept Fehle
 [[datum-zeit]]
 === Datum & Zeit
 Der Baustein Datum & Zeit beschreibt die Verwendung der _Java 8 Date & Time API_ (`java.time`) in der IsyFact.
-Das xref:isy-datetime-doc:ROOT:konzept/master.adoc#einleitung[Konzept Datum/Zeit] beschreibt die konzeptionellen Grundlagen der Verarbeitung von Datums- und Zeitwerten.
-Die xref:isy-datetime-doc:ROOT:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Datum/Zeit] beschreiben alle Aspekte, die bei der Entwicklung einer Anwendung zu berücksichtigen sind.
+Das xref:isy-datetime-docs:ROOT:konzept/master.adoc#einleitung[Konzept Datum/Zeit] beschreibt die konzeptionellen Grundlagen der Verarbeitung von Datums- und Zeitwerten.
+Die xref:isy-datetime-docs:ROOT:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Datum/Zeit] beschreiben alle Aspekte, die bei der Entwicklung einer Anwendung zu berücksichtigen sind.
 
 [[administrative-ueberwachung-und-konfiguration]]
 === Administrative Überwachung und Konfiguration
@@ -138,7 +138,7 @@ Weiterhin wird in diesem Dokument gezeigt, wie die Überwachung und Administrati
 [[behandlung-von-internationalen-sonderzeichen]]
 === Behandlung von internationalen Sonderzeichen
 Geschäftsanwendungen müssen zum Teil mit Einträgen umgehen, die nicht den geläufigen Zeichenstandards und Codierungen unterliegen.
-Im Dokument xref:isy-sonderzeichen-doc:ROOT:konzept/master.adoc#einleitung[Konzept Sonderzeichen] werden Festlegungen getroffen, wie mit daraus resultierenden Problemstellungen umgegangen wird.
+Im Dokument xref:isy-sonderzeichen-docs:ROOT:konzept/master.adoc#einleitung[Konzept Sonderzeichen] werden Festlegungen getroffen, wie mit daraus resultierenden Problemstellungen umgegangen wird.
 In diesem Zusammenhang müssen oft auch Namen transkribiert werden.
 Die dafür zu verwendenden Regeln sind ebenfalls im Dokument enthalten.
 
