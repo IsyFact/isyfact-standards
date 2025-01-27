@@ -52,9 +52,9 @@ jobs:
     secrets:
       SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
-  DeployMavenCentral:
+  DeployReleaseVersion:
     needs: [QualityGate, DependencyScan]
-    uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_deploy_template.yml@v1.5.0
+    uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_deploy_template.yml@v1.6.0
     with:
       version: ${{ github.ref_name }}
       jdk-version: 8
@@ -62,6 +62,7 @@ jobs:
       deploy-server-id: ossrh
       sbom: true
       sign: true
+      environment: 'Release'
     secrets:
       GPG_PRIVATE_KEY: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
       GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
