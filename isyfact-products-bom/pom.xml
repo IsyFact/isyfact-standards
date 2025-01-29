@@ -20,6 +20,7 @@
         <apache.poi.version>4.1.2</apache.poi.version>
         <greenmail.version>1.6.15</greenmail.version>
         <metro.webservices.version>4.0.3</metro.webservices.version>
+        <woodstox.stax.version>4.2.2</woodstox.stax.version>
         <logback-json-classic.version>0.1.5</logback-json-classic.version>
         <logback-jackson.version>0.1.5</logback-jackson.version>
         <ojdbc8.version>19.23.0.0</ojdbc8.version>
@@ -73,6 +74,15 @@
                 <groupId>org.glassfish.metro</groupId>
                 <artifactId>webservices-api</artifactId>
                 <version>${metro.webservices.version}</version>
+            </dependency>
+
+            <!-- org.glassfish.metro:webservices-rt:4.0.3 brings conflicting versions of org.codehaus.woodstox:stax2-api,
+                 causing the enforcer plugin (dependency convergence) to fail.
+                 This dependency definition can be removed when an improved version of webservices-rt is used. -->
+            <dependency>
+                <groupId>org.codehaus.woodstox</groupId>
+                <artifactId>stax2-api</artifactId>
+                <version>${woodstox.stax.version}</version>
             </dependency>
 
             <!-- Resilience Framework: Resilience4J -->
