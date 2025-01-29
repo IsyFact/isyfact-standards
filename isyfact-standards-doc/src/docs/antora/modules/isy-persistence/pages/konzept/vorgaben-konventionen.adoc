@@ -542,7 +542,7 @@ Zur Vertiefung bieten sich die folgenden Quellen an:
 === Behandlung von Datums- und Zeitangaben
 
 Es werden die Datums- und Zeitklassen aus der _Java 8 Date Time API_ verwendet.
-Hinweise zu deren Verwendung finden sich im xref:isy-datetime-doc:ROOT:konzept/master.adoc[Baustein Datum & Zeit].
+Hinweise zu deren Verwendung finden sich im xref:isy-datetime-docs:ROOT:konzept/master.adoc[Baustein Datum & Zeit].
 Der Baustein stellt zur Persistierung von Zeiträumen und ungewissen Datums- und Zeitangaben entsprechende Entitäten bereit.
 
 WARNING: Der folgende, hervorgehobene Absatz wird nur noch aus historischen Gründen erwähnt und ist obsolet.

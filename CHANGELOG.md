@@ -46,6 +46,7 @@
 - `IFS-3303`: [isyfact-products-bom] Anhebung der version von metro auf 4.0.3
 
 ## BUG FIXES
+- `IFS-4366`: [isyfact-standards-doc] Korrektur Build Fehler der Dokumentation.
 - `IFS-4194`: Umstellung aller Verweise in der Referenzarchitektur aufs Glossar auf das aktuelle Format (`xref:glossary::terms-definitions.adoc`)
 - `IFS-4203`: [isyfact-standards-doc] Korrektur fehlerhafter Links in der Dokumentation
 - `IFS-4212`: Dokumentation von `@OnceTask` korrigiert (`@ManualTask` existiert nicht)
