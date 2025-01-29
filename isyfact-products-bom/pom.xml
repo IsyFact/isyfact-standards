@@ -34,7 +34,7 @@
         <ucp.version>19.11.0.0</ucp.version>
         <orika-core.version>1.5.4</orika-core.version>
         <pojobuilder.version>4.3.0</pojobuilder.version>
-        <xstream.version>1.4.20</xstream.version>
+        <xstream.version>1.4.21</xstream.version>
         <opencsv.version>5.9</opencsv.version>
         <guava.version>33.1.0-jre</guava.version>
         <commons-cli.version>1.5.0</commons-cli.version>
