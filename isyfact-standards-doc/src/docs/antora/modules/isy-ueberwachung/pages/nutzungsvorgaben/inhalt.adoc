@@ -1,7 +1,7 @@
 = Nutzungsvorgaben Überwachung: Inhalt
 
 // tag::inhalt[]
-:sourcedir: ../../../../../../../../isy-ueberwachung/src/
+// :sourcedir: ../../../../../../../../isy-ueberwachung/src/
 
 [[ueberwachung-von-anwendungen]]
 == Überwachung von Anwendungen
@@ -360,7 +360,7 @@ Bei zusätzlichen Anforderungen an die Absicherung können die in <<listing-endp
 [id="listing-endpoint-security-config",reftext="{listing-caption} {counter:listings }"]
 [source,java]
 ----
-include::{sourcedir}main/java/de/bund/bva/isyfact/ueberwachung/autoconfigure/IsyActuatorSecurityAutoConfiguration.java[tag=actuatorSecurity]
+include::partial$IsyActuatorSecurityAutoConfiguration.java[tag=actuatorSecurity]
 ----
 
 [[vorgaben-fuer-die-pruefung-der-verfuegbarkeit]]
