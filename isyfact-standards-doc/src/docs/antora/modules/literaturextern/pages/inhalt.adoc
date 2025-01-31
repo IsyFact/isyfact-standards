@@ -340,7 +340,7 @@ https://marketplace.visualstudio.com/items?itemName=hediet.vscode-drawio
 
 [[litextern-enterprise-architect]]
 Enterprise Architect::
-https://sparxsystems.com/products/ea/index.html
+https://sparxsystems.com/products/ea/
 
 [[litextern-asciidoctorj-extensions]]
 AsciidoctorJ Extensions::

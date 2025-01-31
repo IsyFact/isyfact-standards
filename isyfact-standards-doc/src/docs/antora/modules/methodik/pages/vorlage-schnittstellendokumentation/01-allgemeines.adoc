@@ -35,7 +35,7 @@ Die in dieser Notation dargestellten Diagramme bestehen aus Elementen und ihren 
 Die Beziehungen werden je nach Art der Beziehung durch unterschiedliche Verbinder dargestellt.
 Zur Erläuterung werden in den folgenden Abschnitten die verwendeten Elemente und Verbinder genauer erklärt._
 
-_Zu jeder Schnittstelle werden die link:../vorlage-schnittstellendokumenation/03-nachbarsystemschnittstellen.adoc#eingabeparameter[Eingabeparameter] links und die link:03-nachbarsystemschnittstellen.adoc#ausgabeparameter[Ausgabeparameter] rechts neben dem Schnittstellensymbol aufgeführt._
+_Zu jeder Schnittstelle werden die xref:vorlage-schnittstellendokumentation/03-nachbarsystemschnittstellen.adoc#eingabeparameter[] links und die xref:vorlage-schnittstellendokumentation/03-nachbarsystemschnittstellen.adoc#ausgabeparameter[Ausgabeparameter] rechts neben dem Schnittstellensymbol aufgeführt._
 
 .Beispiel für die grafische Darstellung einer Nachbarsystemschnittstelle
 image::vorlage-schnittstellendokumentation/nachbarschnittstellen.png[]
