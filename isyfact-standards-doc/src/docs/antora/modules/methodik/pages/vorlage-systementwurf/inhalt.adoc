@@ -569,17 +569,28 @@ h| h| h| h|Zeile h|Tabelle h|
 
 Platzbedarf für Dateien
 ====
-_<erläuternder Text>_
+_Abschätzung der Ressourcen in der Produktionsumgebung:_
+
+_- Mengengerüst für die Dateien auf dem lokalen Laufwerk_
+
+_Form: Tabellarische Darstellung und erläuternder Text._
 ====
+
+In <<table-mengengeruest-dateien-auf-dem-lokalen-laufwerk>> ist eine Abschätzung für die auf dem lokalen Laufwerk gespeicherten Dateien enthalten.
 
 :desc-table-mengengeruest-dateien-auf-dem-lokalen-laufwerk: Mengengerüst für die Dateien auf dem lokalen Laufwerk
 [id="table-mengengeruest-dateien-auf-dem-lokalen-laufwerk", reftext = "{table-caption} {counter:tables}"]
 .{desc-table-mengengeruest-dateien-auf-dem-lokalen-laufwerk}
 [cols="3,2,4", options="header"]
 |===
-|Datei |Größe |Bemerkung|
-...| | |
-...| | |
+|Datei |Größe |Bemerkung
+|...
+|
+|
+
+|...
+|
+|
 |===
 
 
@@ -643,7 +654,7 @@ _Die konkrete Ausgestaltung dieser Architektur mit den konkreten Komponenten ist
 
 _Dazu wird zunächst eine Übersicht über das Teilsystem gegeben, anschließend werden bei Bedarf die einzelnen Komponenten detailliert._
 
-_Falls es sich bei dem Teilsystem z. B. um ein Sevicegateway oder einen Querschnittlichen Service handelt, muss die Gliederung im Sinne des oben gesagten. angepasst werden._
+_Falls es sich bei dem Teilsystem z. B. um ein Service-Gateway oder einen Querschnittlichen Service handelt, muss die Gliederung im Sinne des oben gesagten. angepasst werden._
 ====
 
 [[ueberblick]]
