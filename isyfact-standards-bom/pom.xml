@@ -15,8 +15,6 @@
     <description>Definiert die Versionen aller Bibliotheken der IsyFact-Standards.</description>
 
     <properties>
-        <isy-exception-sst.version>1.10.0</isy-exception-sst.version>
-        <isy-serviceapi-sst.version>1.10.0</isy-serviceapi-sst.version>
         <isy-datetime.version>4.0.0-SNAPSHOT</isy-datetime.version>
         <isy-sonderzeichen.version>4.0.0-SNAPSHOT</isy-sonderzeichen.version>
     </properties>
@@ -48,11 +46,6 @@
             </dependency>
             <dependency>
                 <groupId>de.bund.bva.isyfact</groupId>
-                <artifactId>isy-exception-sst</artifactId>
-                <version>${isy-exception-sst.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>de.bund.bva.isyfact</groupId>
                 <artifactId>isy-logging</artifactId>
                 <version>${project.parent.version}</version>
             </dependency>
@@ -65,11 +58,6 @@
                 <groupId>de.bund.bva.isyfact</groupId>
                 <artifactId>isy-polling</artifactId>
                 <version>${project.parent.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>de.bund.bva.isyfact</groupId>
-                <artifactId>isy-serviceapi-sst</artifactId>
-                <version>${isy-serviceapi-sst.version}</version>
             </dependency>
             <dependency>
                 <groupId>de.bund.bva.isyfact</groupId>
