@@ -282,7 +282,7 @@ https://en.wikipedia.org/wiki/Identity_management
 
 [[litextern-code2000]]
 Code2000::
-http://www.code2000.net
+https://www.code2001.com
 
 [[litextern-monitoring-systeme]]
 Micrometer::
@@ -290,11 +290,11 @@ https://micrometer.io/docs
 
 [[litextern-monitoring-systeme-unterstuetzt]]
 Micrometer: Unterstützte Monitoring-Systeme::
-https://micrometer.io/docs/concepts#_supported_monitoring_systems
+https://docs.micrometer.io/micrometer/reference/concepts/implementations.html
 
 [[litextern-micrometer-timed-annotation]]
 Micrometer: die `@Timed`-Annotation::
-https://micrometer.io/docs/concepts#_the_timed_annotation
+https://docs.micrometer.io/micrometer/reference/concepts/timers.html#_the_timed_annotation
 
 [[litextern-spring-boot-task-scheduling]]
 Task Scheduling von Spring Boot::
