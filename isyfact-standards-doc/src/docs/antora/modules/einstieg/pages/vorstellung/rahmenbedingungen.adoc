@@ -15,7 +15,7 @@ Die entsprechenden Bezeichner sind nicht als zwingende Vorgaben zu verstehen, so
 Unter anderem wurden bestehende Konventionen auch deshalb nicht verändert, um die Konsistenz der Dokumentation mit bestehenden IsyFact-konformen Systemlandschaften zu wahren.
 
 Eine andere, ebenfalls historisch bedingte Bezeichnung für eine IsyFact-Systemlandschaft ist „Plattform für Informationssysteme“, kurz _PLIS_.
-Diese Abkürzung findet sich noch als Präfix in den Namen mancher Java-Packages innerhalb der Bibliotheken (`de.bund.bva.pliscommon`) wieder.
+Diese Abkürzung fand sich als Präfix in den Namen mancher Java-Packages innerhalb der Bibliotheken (`de.bund.bva.pliscommon`) wieder.
 
 [[aktueller-stand-und-weiterentwicklung]]
 == Aktueller Stand und Weiterentwicklung

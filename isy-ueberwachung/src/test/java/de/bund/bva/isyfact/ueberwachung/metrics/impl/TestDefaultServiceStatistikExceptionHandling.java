@@ -19,11 +19,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 import de.bund.bva.isyfact.exception.BusinessException;
 import de.bund.bva.isyfact.exception.TechnicalException;
 import de.bund.bva.isyfact.ueberwachung.common.data.TestBusinessException;
+import de.bund.bva.isyfact.ueberwachung.common.data.TestTechnicalException;
 
 
 /**
  * Tests for recognition and handling of exceptions in {@link DefaultServiceStatistik}.
- *
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = TestConfig.class,
@@ -61,6 +61,23 @@ public class TestDefaultServiceStatistikExceptionHandling {
     }
 
     /**
+     * Tests {@link DefaultServiceStatistik#invoke}, to verify that a thrown {@link TechnicalException} is recognized
+     * as a technically unsuccessful call and increments the value of {@code anzahlTechnicalExceptionsAktuelleMinute}.
+     */
+    @Test(expected = TestTechnicalException.class)
+    public void testInvokeWithTechnicalException() throws Throwable {
+        // Given
+        MethodInvocation invocation = new MethodInvocationImpl(new TestTechnicalException("Technical error"));
+
+        // When
+        serviceStatistik.invoke(invocation);
+
+        // Then
+        assertEquals(1, getAktuelleTechnicalExceptions(serviceStatistik));
+        assertEquals(0, getAktuelleBusinessExceptions(serviceStatistik));
+    }
+
+    /**
      * Tests {@link DefaultServiceStatistik#invoke}, to verify that a thrown {@link BusinessException} is recognized
      * as a functionally unsuccessful call and increments the value of {@code anzahlBusinessExceptionsAktuelleMinute}.
      */
@@ -79,11 +96,11 @@ public class TestDefaultServiceStatistikExceptionHandling {
 
     /**
      * Tests {@link DefaultServiceStatistik#invoke} to verify that a thrown {@link RuntimeException}
-     * is recognized as a technically unsuccessful call and increments
+     * is recognized as a technically and functionally unsuccessful call and increments
      * both {@code anzahlTechnicalExceptionsAktuelleMinute} and {@code anzahlBusinessExceptionsAktuelleMinute}.
      */
     @Test(expected = RuntimeException.class)
-    public void testInvokeWithTechnicalException() throws Throwable {
+    public void testInvokeWithRuntimeException() throws Throwable {
         // Given
         MethodInvocation invocation = new MethodInvocationImpl(new RuntimeException("Technical error"));
 
@@ -96,7 +113,7 @@ public class TestDefaultServiceStatistikExceptionHandling {
     }
 
     /**
-     Helping method to retrieve current count of {@link TechnicalException} reflexively.
+     * Helping method to retrieve current count of {@link TechnicalException} reflexively.
      */
     private int getAktuelleTechnicalExceptions(DefaultServiceStatistik defaultServiceStatistik) {
         try {
@@ -110,7 +127,7 @@ public class TestDefaultServiceStatistikExceptionHandling {
     }
 
     /**
-    Helping method to retrieve current count of {@link BusinessException} reflexively.
+     * Helping method to retrieve current count of {@link BusinessException} reflexively.
      */
     private int getAktuelleBusinessExceptions(DefaultServiceStatistik defaultServiceStatistik) {
         try {

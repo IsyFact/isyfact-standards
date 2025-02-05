@@ -30,6 +30,7 @@ import org.springframework.beans.factory.InitializingBean;
 
 import de.bund.bva.isyfact.datetime.util.DateTimeUtil;
 import de.bund.bva.isyfact.exception.BusinessException;
+import de.bund.bva.isyfact.exception.TechnicalException;
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.ueberwachung.metrics.ServiceStatistik;
@@ -53,6 +54,7 @@ public class DefaultServiceStatistik implements ServiceStatistik, MethodIntercep
      * Specifies whether the return object structures should be checked for business errors. May
      * have an impact on performance.
      */
+    @Deprecated
     private boolean businessFehlerpruefung;
 
     /**
@@ -131,6 +133,7 @@ public class DefaultServiceStatistik implements ServiceStatistik, MethodIntercep
      *
      * @param businessFehlerpruefung {@code true} if the return object structure should be checked for technical errors, otherwise {@code false}.
      */
+    @Deprecated
     public void setBusinessFehlerpruefung(boolean businessFehlerpruefung) {
         this.businessFehlerpruefung = businessFehlerpruefung;
     }
@@ -143,8 +146,8 @@ public class DefaultServiceStatistik implements ServiceStatistik, MethodIntercep
     /**
      * This method counts a call to the component for statistics.
      *
-     * @param dauer               The duration of the call
-     * @param technicallySuccessful         flag, if the call was successful ({@code true}) or a technical error occurred ({@code false}).
+     * @param dauer                  The duration of the call
+     * @param technicallySuccessful  flag, if the call was successful ({@code true}) or a technical error occurred ({@code false}).
      * @param functionallySuccessful Flag, if the call was successful ({@code true}) or a business error occurred ({@code false}).
      */
     public void zaehleAufruf(Duration dauer, boolean technicallySuccessful, boolean functionallySuccessful) {
@@ -240,16 +243,21 @@ public class DefaultServiceStatistik implements ServiceStatistik, MethodIntercep
         try {
             Object result = invocation.proceed();
             technicallySuccessful = true;
-            functionallySuccessful = !businessFehlerpruefung;
+            functionallySuccessful = true;
             return result;
         } catch (BusinessException be) {
-            // BusinessExceptions are not counted as technical errors.
+            // BusinessExceptions are considered only as business errors.
+            // Redundant assignment of values to clarify exception-handling.
             technicallySuccessful = true;
             functionallySuccessful = false;
             throw be;
+        } catch (TechnicalException te) {
+            // TechnicalExceptions are considered only as technical errors.
+            technicallySuccessful = false;
+            functionallySuccessful = true;
+            throw te;
         } catch (Throwable e) {
-            // All other exceptions are considered technical errors.
-            // Redundant assignment of values to clarify exception-handling.
+            // All other exceptions are considered as technical and business errors.
             technicallySuccessful = false;
             functionallySuccessful = false;
             throw e;
