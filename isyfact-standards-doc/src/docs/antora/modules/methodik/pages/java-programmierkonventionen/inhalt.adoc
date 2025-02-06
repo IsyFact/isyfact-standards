@@ -845,22 +845,12 @@ Zum Beispiel darf eine lokale Variable nicht genauso heißen wie ein Attribut de
 [[verwendung-der-kurzschreibweisen]]
 ==== Verwendung der Kurzschreibweisen
 
-Seit Java 1.5 gibt es eine Kurzschreibweise für verschiedene Programmierkonstrukte (z. B. Bedingungen, Schleifen).
-Folgende Kurzschreibweisen sind erlaubt:
+Die Verwendung des Ternären Operators ist erlaubt, sollte jedoch vermieden werden:
 
 [source,java]
 ----
-for (TYPE item : list) {
-   ...
-}
+(VAR == null) ? "DEFAULT" : VAR
 ----
-und
-
-[source,java]
-----
-"..." + (VAR==null)?"DEFAULT":VAR
-----
-Letzteres ist erlaubt, sollte aber vermieden werden.
 
 Nicht erlaubt ist die Kurzschreibweise für Bedingungen, also das Weglassen der Klammern:
 
