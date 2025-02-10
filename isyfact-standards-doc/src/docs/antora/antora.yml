@@ -4,7 +4,7 @@ version:
   master: '4.0.x'
   release/(*): $1
   (*): $1
-prerelease: true
+prerelease: '(DEV)'
 start_page: einstieg:einstieg.adoc
 nav:
 - modules/einstieg/nav.adoc
