@@ -30,7 +30,6 @@ import javax.naming.InvalidNameException;
 import org.junit.Test;
 
 import de.bund.bva.isyfact.util.common.test.MyNode;
-import de.bund.bva.isyfact.util.exception.MessageSourceFehlertextProvider;
 
 public class TestRecursiveToStringBuilder {
 
@@ -95,10 +94,9 @@ public class TestRecursiveToStringBuilder {
 
     @Test
     public void testGenericObject() {
-        MessageSourceFehlertextProvider generic = new MessageSourceFehlertextProvider();
+        Object generic = new Object();
         String result = RecursiveToStringBuilder.recursiveToString(generic);
-        assertTrue(
-            result.startsWith("de.bund.bva.isyfact.util.exception.MessageSourceFehlertextProvider"));
+        assertTrue(result.startsWith("java.lang.Object"));
     }
 
     @Test
