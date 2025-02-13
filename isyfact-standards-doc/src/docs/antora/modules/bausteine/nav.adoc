@@ -53,10 +53,11 @@
 *** xref:isy-util:nutzungsvorgaben/master.adoc[Nutzungsvorgaben]
 
 ** Bedienkonzept
-*** xref:isy-bedienkonzept-doc:ROOT:bedienkonzept.adoc[Bedienkonzept]
+
+*** xref:isy-bedienkonzept-doc:ROOT:bedienkonzept.adoc[Konzept]
+*** xref:isy-bedienkonzept-doc:ROOT:referenzimplementierung.adoc[Referenzimplementierung]
 
 ** Angular
 *** xref:isy-angular-widgets-doc:ROOT:konzept/konzept.adoc[Konzept]
 *** https://isyfact.github.io/isy-angular-widgets/documentation/[Nutzungsvorgaben]
-
-
+*** xref:isy-angular-widgets-doc:ROOT:referenzimplementierung.adoc[Referenzimplementierung]
