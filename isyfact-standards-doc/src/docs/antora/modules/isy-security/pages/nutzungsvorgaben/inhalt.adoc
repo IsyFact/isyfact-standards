@@ -696,7 +696,7 @@ Für den Fall, dass kein Wert für den Ablaufzeitpunkt im Token gesetzt ist, wir
 
 IsySecurityTokenUtil ermöglicht es, Standard-Claims mithilfe von zusätzlichen Properties um benutzerdefinierte Claims zu erweitern. Die entsprechenden Property-Konfigurationen sind in der Datei "isy-security-token.properties" im Verzeichnis "resources/config" hinterlegt. Bei speziellen Anforderungen ist es möglich, die Datei anzupassen, um die Claims entsprechend zu modifizieren.
 
-[[table-parameter-service]]
+[[table-parameter-claims]]
 .Default Konfigurationsparameter der Claims
 [cols="3m,2m,2m",options="header"]
 |===
