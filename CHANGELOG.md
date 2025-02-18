@@ -1,5 +1,6 @@
 # 4.0.0
 ## FEATURES
+- `IFS-4509`: [isyfact-standards-doc] Build der Online-Dokumentation für PR aktiviert
 - `IFS-4508`: [isyfact-standards-doc] Verweis auf Angular-Demo (Referenzimplementierung) prominent platziert
 - `IFS-4358`: [isyfact-standards-doc] Verwendungen des Begriffs IT-System in den Bausteinen (exklusive Sicherheit) korrigiert
 - `IFS-4249`: [isyfact-standards-doc] Setzen der Antora-Version für die Online-Dokumentation durch Git
