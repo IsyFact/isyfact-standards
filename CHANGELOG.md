@@ -21,30 +21,18 @@
 - `ISY-948`: Spring Cache Abstraction als verpflichtende Bibliothek für anwendungsseitige Caches eingeführt
 - `ISY-748`: [isyfact-standards-doc] Versionsanhebung `isy-checkstyle-config` auf 0.2.0
     * Gruppierung der `jakarta.*` imports
-- `ISY-305`: [isy-security] Implementierung von IsySecurityTokenUtil zum Auslesen von Attributen aus dem Bearer Token
 - `ISY-1040`: [isyfact-standards-doc] Anpassung des logback.xml-Konfigurationspfads im IF2-Migrationsleitfaden
 - `IFS-2786`: [isyfact-standards-doc] Migrationsleitfaden IsyFact 2 entfernt
 - `IFS-2784`: [isyfact-standards-doc] Externe Verweise direkt verlinkt statt über `literaturextern` und URLs korrigiert
 - `IFS-2816`: [isyfact-standards-doc] Begriff "Blaupause" durch "Referenzarchitektur" ersetzt
 - `IFS-3665`: [isyfact-standards-doc] "Leitfaden Dokumentation" nach `isy-documentation` verschoben
 - `IFS-3692`: [isyfact-standards-doc] Seite "Referenzarchitektur" nach Architektursichten aufgeteilt
-- `ISY-909`: [isyfact-products-bom] Orika durch MapStruct ersetzt
 - `IFS-3821`: [isyfact-standards-doc] Thematik zur internen und externen URL bei der Authentifizierung beschrieben (Multiple Issuer-URIs)
-- `IFS-3833`: [isy-security] Implementierung von Multi-Tenancy-Support
 - `IFS-3834`: [isyfact-standards-doc] Kapitel Authentifizierung & Autorisierung um Multi-Tenancy erweitert.
-- `IFS-2248`: [isy-batchrahmen, isy-security] Tokenerneuerung in isy-batchrahmen:
-    * `IsySecurityTokenUtil` und `IsyOAuth2Authentifizierungsmanager` stellen Funktionalität zur Token-Gültigkeitsüberprüfung und erneuten Authentifizierung bereit
-    * Funktionalität zur erneuten Authentifizierung wird von `BatchrahmenImpl` aufgerufen
 - `IFS-3928`: [isy-bedienkonzept] Migration der neusten Bedienkonzeptversion ins Repository isy-bedienkonzept
-- `IFS-4248`: [isy-batchrahmen] In Batches wird im Falle einer fehlgeschlagenen oder nicht vorhandenen Authentifizierung der SecurityContext mit dem Batch-Namen befüllt, damit dieser außerhalb der Batch-Klassen (über `IsySecurityTokenUtil`) verarbeitet werden kann (bspw. zum Speichern des Batch-Namens in einer Datenbank).
-    Hiermit wird ein ähnliches Verhalten zu einem unauthentifizierten AufrufKontext wiederhergestellt.
-- `IFS-4316`: [isyfact-products-bom] Aktualisierung und Bereitstellung des Produktkatalogs der Isyfact.
 - `IFS-4236`: [isy-datetime], [isy-sonderzeichen] Beide Submodule wurden aus `isyfact-standards` entfernt und in eigenständige Repositories verschoben
     * Sie werden ab sofort entkoppelt von der Isyfact versioniert und weiterentwickelt
     * Sie werden aber weiterhin im Dependency-Management der `isyfact-standards-bom` angeboten.
-- `IFS-4452`: [isy-logging] AutoConfiguration der Klasse MdcFilterAutoConfiguration
-- `IFS-979`: [isy-ueberwachung] Verbesserung der Nebenläufigkeit von DefaultServiceStatistik.
-- `IFS-3303`: [isyfact-products-bom] Anhebung der version von metro auf 4.0.3
 - `IFS-1796`: [isyfact-standards-doc] Detailkonzept Datenzugriff: Vorgaben zur Kommunikation von Datenzugriff und Anwendungskern klarer fassen
 - `IFS-1797`: [isyfact-standards-doc] Nutzung von JPA: Vorgaben zu @LazyCollections / @LazyToOne prüfen
 - `IFS-1799`: [isyfact-standards-doc] Nutzung von JPA: Vorgaben zur Verwendung von Hibernate-Filtern vervollständigen
@@ -83,12 +71,10 @@
 - `IFS-3676`: [isyfact-standards-doc] IT-Systeme dürfen keine UI-Komponenten mehr enthalten.
 - `IFS-3699`: [isyfact-standards-doc] Baustein Sicherheit entfernt.
 - `IFS-3700`: [isyfact-standards-doc] Baustein Http Invoker entfernt.
-- `IFS-3697`: [isyfact-products-bom] Update JMeter Core auf 5.6.x
 - `IFS-3701`: [isyfact-standards-doc] Baustein JSF entfernt.
 - `IFS-3736`: [isyfact-standards-doc] Abbildung von Anwendungen in IT-Systeme ("technischer Schnitt") beschrieben.
 - `IFS-3763`: [isyfact-standards-doc] Dokumentation der Änderungen zu IFS-2248 (Tokenerneuerung isy-batchrahmen)
 - `IFS-3750`: [isyfact-standards-doc] Baustein Konfiguration entfernt.
-- `IFS-4482`: [isy-util] Deprecated Klassen `MessageSourceHolder` und `MessageSourceFehlertextProvider` entfernt
 
 # 3.0.1
 - `ISY-701`: Google Guava Versionsanhebung auf 33.1.0
