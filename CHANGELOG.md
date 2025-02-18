@@ -45,12 +45,29 @@
 - `IFS-4452`: [isy-logging] AutoConfiguration der Klasse MdcFilterAutoConfiguration
 - `IFS-979`: [isy-ueberwachung] Verbesserung der Nebenläufigkeit von DefaultServiceStatistik.
 - `IFS-3303`: [isyfact-products-bom] Anhebung der version von metro auf 4.0.3
+- `IFS-1796`: [isyfact-standards-doc] Detailkonzept Datenzugriff: Vorgaben zur Kommunikation von Datenzugriff und Anwendungskern klarer fassen
+- `IFS-1797`: [isyfact-standards-doc] Nutzung von JPA: Vorgaben zu @LazyCollections / @LazyToOne prüfen
+- `IFS-1799`: [isyfact-standards-doc] Nutzung von JPA: Vorgaben zur Verwendung von Hibernate-Filtern vervollständigen
+- `IFS-2771`: [isyfact-standards-doc] Korrekte Fehlermeldungen in Dokumentation
+- `IFS-2788`: [isyfact-standards-doc] Redundante Anleitung für den Enterprise Architect löschen
+- `IFS-2848`: Konfiguration von Dependabot
+- `IFS-2861`: Einbinden von Snyk in das Repository isy-sonderzeichen
+- `IFS-2911`: [isyfact-standards-doc] Antora-Modul für die Referenzarchitektur anlegen
+- `IFS-3823`: [isyfact-standards-doc] Glossar um Struktur, Begriffsänderungen erweitern und Seitentemplate anwenden
+- `IFS-3852`: [isyfact-standards-doc] Bausteindokumentation aus isyfact-standards migrieren
+- `IFS-4007`: [isyfact-standards-doc] Anpassung Konzept REST-Baustein
+- `IFS-4272`: [isyfact-standards-doc] IFS Produktkatalog: Hinweise zur Nutzung von Lombok in der IsyFact
+- `IFS-4367`: Aktualisierung der Lizenz-Files der IsyFact
+- `IFS-3096`: [isyfact-standards-doc] Überarbeitung Blaupause Service - DK Service
+- `IFS-3360`: [isyfact-standards-doc] Baustein Konfiguration nicht korrekt deprecated
+- `IFS-3363`: [isyfact-standards-doc] Entfernen von PLIS Erwähnung in Abbildung und Löschung abgelöster Abbildung
 
 ## BUG FIXES
 - `IFS-4366`: [isyfact-standards-doc] Korrektur Build Fehler der Dokumentation.
-- `IFS-4194`: Umstellung aller Verweise in der Referenzarchitektur aufs Glossar auf das aktuelle Format (`xref:glossary::terms-definitions.adoc`)
+- `IFS-4194`: [isyfact-standards-doc] Umstellung aller Verweise in der Referenzarchitektur aufs Glossar auf das aktuelle Format (`xref:glossary::terms-definitions.adoc`)
 - `IFS-4203`: [isyfact-standards-doc] Korrektur fehlerhafter Links in der Dokumentation
-- `IFS-4212`: Dokumentation von `@OnceTask` korrigiert (`@ManualTask` existiert nicht)
+- `IFS-4212`: [isyfact-standards-doc] Dokumentation von `@OnceTask` korrigiert (`@ManualTask` existiert nicht)
+- `IFS-3165`: [isyfact-standards-doc] Vorlage Systementwurf - Fehlender Hinweistext "Platzbedarf für Dateien"
 ## BREAKING CHANGES
 - `ISY-1122`: Bausteine `isy-sicherheit`, `isy-aufrufkontext`, `isy-serviceapi-core` und `isy-konfiguration` entfernt
 - `ISY-889`: Spring Boot Versionsanhebung auf 3.2.x
