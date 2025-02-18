@@ -2,8 +2,15 @@ name: Documentation Build
 
 on:
   push:
-    tags:
-      - '^\\d+\\.\\d+\\.\\d+$'
+    branches:
+      - 'feature/**'
+
+  pull_request:
+    types:
+      - opened
+    branches:
+      - master
+      - 'release/**'
 
 jobs:
   DocsBuild:
