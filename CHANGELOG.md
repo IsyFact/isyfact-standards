@@ -49,6 +49,7 @@
 - `IFS-3096`: [isyfact-standards-doc] Überarbeitung Blaupause Service - DK Service
 - `IFS-3360`: [isyfact-standards-doc] Baustein Konfiguration nicht korrekt deprecated
 - `IFS-3363`: [isyfact-standards-doc] Entfernen von PLIS Erwähnung in Abbildung und Löschung abgelöster Abbildung
+- `IFS-4388`: Einheitlichen Formatter bereitstellen
 
 ## BUG FIXES
 - `IFS-4366`: [isyfact-standards-doc] Korrektur Build Fehler der Dokumentation.
