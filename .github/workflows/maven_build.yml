@@ -38,3 +38,4 @@ jobs:
     secrets:
       DEPLOY_SERVER_USER_NAME: ${{ github.actor }}
       DEPLOY_SERVER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GH_PACKAGES_TOKEN: ${{ secrets.GH_PACKAGES_TOKEN }}
