@@ -1,2 +1,4 @@
 de.bund.bva.isyfact.logging.autoconfigure.IsyLoggingAutoConfiguration
 de.bund.bva.isyfact.logging.autoconfigure.IsyPerformanceLoggingAutoConfiguration
+de.bund.bva.isyfact.logging.autoconfigure.MdcFilterAutoConfiguration
+de.bund.bva.isyfact.logging.autoconfigure.MdcFilterAutoConfiguration

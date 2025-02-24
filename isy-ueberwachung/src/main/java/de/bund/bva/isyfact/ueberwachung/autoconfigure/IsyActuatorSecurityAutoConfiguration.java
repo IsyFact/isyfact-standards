@@ -47,9 +47,11 @@ public class IsyActuatorSecurityAutoConfiguration {
     @Order(1)
     @ConditionalOnMissingBean(name = "actuatorSecurityFilterChain")
     public SecurityFilterChain actuatorSecurityFilterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests(requests -> requests
-                .requestMatchers(EndpointRequest.toAnyEndpoint())
-                .hasRole(ENDPOINT_ROLE))
+        http
+            .authorizeHttpRequests(requests -> requests
+            .requestMatchers("/actuator/health").permitAll() // Allow public access
+            .anyRequest().authenticated()
+            )
             .httpBasic(withDefaults());
         return http.build();
     }

@@ -169,9 +169,15 @@ public class AuthentifizierungsmanagerTest extends AbstractOidcProviderTest {
         Jwt token = Mockito.mock(Jwt.class);
         when(token.getExpiresAt()).thenReturn(expiresAt);
 
+        // TODO: Problem: neues Token ist nicht das gleiche wie das Gemockte.
         SecurityContextHolder.getContext().setAuthentication(new JwtAuthenticationToken(token));
 
+        System.out.println("Before: " + SecurityContextHolder.getContext().getAuthentication());
+
+        //
         authentifizierungsmanager.authentifiziere("cc-client", Duration.ofSeconds(60));
+
+        System.out.println("After: " + SecurityContextHolder.getContext().getAuthentication());
 
         // refreshed because existing authentication got replaced with the mockJwt
         assertEquals(mockJwt, SecurityContextHolder.getContext().getAuthentication());

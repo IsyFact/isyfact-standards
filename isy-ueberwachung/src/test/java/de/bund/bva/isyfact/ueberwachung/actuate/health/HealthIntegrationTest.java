@@ -44,7 +44,7 @@ import de.bund.bva.isyfact.ueberwachung.config.ActuatorSecurityConfigurationProp
         "isy.logging.anwendung.typ=Integrationstest",
         "isy.ueberwachung.security.username=test",
         "isy.ueberwachung.security.password=test",
-        "management.endpoint.health.cache.time-to-live=5s",
+        "management.endpoint.health.cache.time-to-live=1s",
         "management.endpoints.web.exposure.include=health,info,metrics"
     }
 )
@@ -94,8 +94,8 @@ class HealthIntegrationTest {
      * If the property "management.endpoint.health.show-details" is set to "never" getting the health of a nested
      * component always return 404, even if the HealthContributor exists.
      *
-     *  // @see HealthEndpointWebExtension#health(ApiVersion, SecurityContext, String...)
-     **/
+     * @see HealthEndpointWebExtension#health(ApiVersion, SecurityContext, String...)
+     */
     @Test
     void test3_andereEndpointsLiefern404() {
         actuatorCall("/health/" + testComponentName).expectStatus().isNotFound();
