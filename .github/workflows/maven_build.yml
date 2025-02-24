@@ -28,7 +28,7 @@ jobs:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
   Snapshot:
-    if: github.event_name == 'push'
+#    if: github.event_name == 'push'
     needs: [Version, Maven]
     uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_deploy_template.yml@v1.5.0
     with:
@@ -37,5 +37,4 @@ jobs:
       deploy-server-id: github
     secrets:
       DEPLOY_SERVER_USER_NAME: ${{ github.actor }}
-      DEPLOY_SERVER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      GH_PACKAGES_TOKEN: ${{ secrets.GH_PACKAGES_TOKEN }}
+      DEPLOY_SERVER_TOKEN: ${{ secrets.GH_PACKAGES_TOKEN }}
