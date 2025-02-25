@@ -5,6 +5,7 @@
 - `IFS-4316`: [isyfact-products-bom] Aktualisierung und Bereitstellung des Produktkatalogs der Isyfact.
 
 ### Bug Fixes
+- `IFS-4514`: [isyfact-standards-doc] Build-Fehler und ungültige Verweise auf externe Websites korrigiert.
 
 # 3.2.1
 - `IFS-4385`: [isyfact-products-bom] Spring Security Versionsanhebung auf 5.8.15
