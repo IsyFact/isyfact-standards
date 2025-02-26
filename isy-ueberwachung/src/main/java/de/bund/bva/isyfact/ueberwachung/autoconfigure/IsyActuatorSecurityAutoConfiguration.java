@@ -3,7 +3,6 @@ package de.bund.bva.isyfact.ueberwachung.autoconfigure;
 import static de.bund.bva.isyfact.security.authentication.RolePrivilegeGrantedAuthoritiesConverter.AUTHORITY_PREFIX;
 import static org.springframework.security.config.Customizer.withDefaults;
 
-import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
