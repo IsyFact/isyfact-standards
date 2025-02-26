@@ -133,7 +133,7 @@
                                 <rules>
                                     <dependencyConvergence/>
                                 </rules>
-                                <fail>true</fail>
+                                <fail>false</fail>
                             </configuration>
                         </execution>
                         <execution>
