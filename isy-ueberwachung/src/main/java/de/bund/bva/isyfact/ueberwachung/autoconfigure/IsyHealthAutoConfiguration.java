@@ -69,14 +69,12 @@ public class IsyHealthAutoConfiguration {
          * Configure caching for the HealthContributorRegistry using Spring Boot Actuator's caching.
          * TTL is managed via `management.endpoint.health.cache.time-to-live` property.
          */
-/*
+
         @Bean
         @ConditionalOnAvailableEndpoint(endpoint = HealthEndpoint.class)
         public HealthContributorRegistry healthContributorRegistry(HealthContributorRegistry registry) {
             return registry; // Use the default Spring Boot registry with built-in caching.
         }
-*/
-
     }
 
 

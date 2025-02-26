@@ -9,7 +9,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, properties = {
     "management.endpoint.health.cache.time-to-live=5s",
-    "management.endpoints.web.exposure.include=health"
+    "management.endpoints.enabled-by-default=false",
+    "management.endpoint.health.show-details=never",
+    "management.endpoint.health.enabled=true",
+    "management.endpoint.metrics.enabled=true",
+    "management.endpoint.info.enabled=true",
+    "management.endpoints.jmx.exposure.exclude=*",
+    "management.endpoints.web.exposure.include=health,metrics,info"
 })
 class HealthEndpointIntegrationTest {
 
@@ -55,7 +61,8 @@ class HealthEndpointIntegrationTest {
         assertThat(firstResponse).isNotNull();
 
         // Wait for TTL to expire
-        Thread.sleep(6000);
+        Thread.sleep(2000);
+
 
         // Second call after TTL
         var refreshedResponse = webClient.get().uri("/actuator/health")
