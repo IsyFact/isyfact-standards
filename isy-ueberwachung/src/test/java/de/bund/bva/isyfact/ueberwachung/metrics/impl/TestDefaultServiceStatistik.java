@@ -77,14 +77,14 @@ public class TestDefaultServiceStatistik {
         }
 
         Gauge anzahlAufrufeLetzteMinute = meterRegistry.get("anzahlAufrufe.LetzteMinute").gauge();
-        Gauge anzahlFehlerLetzteMinute = meterRegistry.get("anzahlFehler.LetzteMinute").gauge();
+        Gauge anzahlFehlerLetzteMinute = meterRegistry.get("anzahlTechnicalExceptions.LetzteMinute").gauge();
         Gauge durchschnittsDauerLetzteZehnAufrufe =  meterRegistry.get("durchschnittsDauer.LetzteAufrufe").gauge();
 
         double durchschnittsDauerLetzteZehnAufrufeReferenz = durchschnittsDauerLetzteZehnAufrufe.value();
 
         LOG.info(LogKategorie.METRIK, EreignisSchluessel.PLUEB00001,
             "AnzahlAufrufeLetzteMinute           :{}", anzahlAufrufeLetzteMinute.value());
-        LOG.info(LogKategorie.METRIK, EreignisSchluessel.PLUEB00001, "AnzahlFehlerLetzteMinute            :{}",
+        LOG.info(LogKategorie.METRIK, EreignisSchluessel.PLUEB00001, "anzahlTechnicalExceptionsLetzteMinute            :{}",
             anzahlFehlerLetzteMinute.value());
         LOG.info(LogKategorie.METRIK, EreignisSchluessel.PLUEB00001, "DurchschnittsDauerLetzteZehnAufrufe :{}",
             durchschnittsDauerLetzteZehnAufrufeReferenz);
@@ -98,7 +98,7 @@ public class TestDefaultServiceStatistik {
 
         LOG.info(LogKategorie.METRIK, EreignisSchluessel.PLUEB00001,
             "AnzahlAufrufeLetzteMinute           :{}", anzahlAufrufeLetzteMinute.value());
-        LOG.info(LogKategorie.METRIK, EreignisSchluessel.PLUEB00001, "AnzahlFehlerLetzteMinute            :{}",
+        LOG.info(LogKategorie.METRIK, EreignisSchluessel.PLUEB00001, "anzahlTechnicalExceptionsLetzteMinute            :{}",
             anzahlFehlerLetzteMinute.value());
         LOG.info(LogKategorie.METRIK, EreignisSchluessel.PLUEB00001, "DurchschnittsDauerLetzteZehnAufrufe :{}",
             durchschnittsDauerLetzteZehnAufrufeReferenz);
@@ -126,14 +126,14 @@ public class TestDefaultServiceStatistik {
         }
 
         Gauge anzahlAufrufeLetzteMinute = meterRegistry.get("anzahlAufrufe.LetzteMinute").gauge();
-        Gauge anzahlFehlerLetzteMinute = meterRegistry.get("anzahlFehler.LetzteMinute").gauge();
+        Gauge anzahlFehlerLetzteMinute = meterRegistry.get("anzahlTechnicalExceptions.LetzteMinute").gauge();
         Gauge durchschnittsDauerLetzteZehnAufrufe =  meterRegistry.get("durchschnittsDauer.LetzteAufrufe").gauge();
 
         double durchschnittsDauerLetzteZehnAufrufeReferenz = durchschnittsDauerLetzteZehnAufrufe.value();
 
         LOG.info(LogKategorie.METRIK, EreignisSchluessel.PLUEB00001,
             "AnzahlAufrufeLetzteMinute           :{}", anzahlAufrufeLetzteMinute);
-        LOG.info(LogKategorie.METRIK, EreignisSchluessel.PLUEB00001, "AnzahlFehlerLetzteMinute            :{}",
+        LOG.info(LogKategorie.METRIK, EreignisSchluessel.PLUEB00001, "AnzahlTechnicalExceptionsLetzteMinute            :{}",
             anzahlFehlerLetzteMinute);
         LOG.info(LogKategorie.METRIK, EreignisSchluessel.PLUEB00001, "DurchschnittsDauerLetzteZehnAufrufe :{}",
             durchschnittsDauerLetzteZehnAufrufeReferenz);
@@ -149,7 +149,7 @@ public class TestDefaultServiceStatistik {
 
         LOG.info(LogKategorie.METRIK, EreignisSchluessel.PLUEB00001,
             "AnzahlAufrufeLetzteMinute           :{}", anzahlAufrufeLetzteMinute);
-        LOG.info(LogKategorie.METRIK, EreignisSchluessel.PLUEB00001, "AnzahlFehlerLetzteMinute            :",
+        LOG.info(LogKategorie.METRIK, EreignisSchluessel.PLUEB00001, "AnzahlTechnicalExceptionsLetzteMinute            :",
             anzahlFehlerLetzteMinute);
         LOG.info(LogKategorie.METRIK, EreignisSchluessel.PLUEB00001, "DurchschnittsDauerLetzteZehnAufrufe :",
             durchschnittsDauerLetzteZehnAufrufeReferenz);
