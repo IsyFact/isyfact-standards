@@ -56,9 +56,12 @@ public class MetricsTest {
                 .map(Meter::getId)
                 .map(Meter.Id::getName)
                 .contains(
+                        "anzahlAufrufe",
+                        "anzahlBusinessExceptions",
+                        "anzahlTechnicalExceptions",
                         "anzahlAufrufe.LetzteMinute",
-                        "anzahlFachlicheFehler.LetzteMinute",
-                        "anzahlFehler.LetzteMinute",
+                        "anzahlBusinessExceptions.LetzteMinute",
+                        "anzahlTechnicalExceptions.LetzteMinute",
                         "durchschnittsDauer.LetzteAufrufe",
                         "jvm.classes.loaded"
                 )
