@@ -29,17 +29,32 @@ public class IsyMetricsAutoConfiguration {
 
     /** Register a {@link ServiceStatistik} bean in the Micrometer registry. */
     public static void registerServiceStatsGauges(MeterRegistry registry, ServiceStatistik stats) {
+        Gauge.builder("anzahlAufrufe", stats, ServiceStatistik::getAnzahlAufrufe)
+            .tags(stats.getTags())
+            .description("Liefert die Anzahl der nicht fehlerhaften Aufrufe.")
+            .register(registry);
+
+        Gauge.builder("anzahlTechnicalExceptions", stats, ServiceStatistik::getAnzahlTechnicalExceptions)
+            .tags(stats.getTags())
+            .description("Liefert die Anzahl der technisch fehlerhaften Aufrufe.")
+            .register(registry);
+
+        Gauge.builder("anzahlBusinessExceptions", stats, ServiceStatistik::getAnzahlBusinessExceptions)
+            .tags(stats.getTags())
+            .description("Liefert die Anzahl der fachlich fehlerhaften Aufrufe.")
+            .register(registry);
+
         Gauge.builder("anzahlAufrufe.LetzteMinute", stats, ServiceStatistik::getAnzahlAufrufeLetzteMinute)
                 .tags(stats.getTags())
                 .description("Liefert die Anzahl der nicht fehlerhaften Aufrufe in der letzten Minute")
                 .register(registry);
 
-        Gauge.builder("anzahlFehler.LetzteMinute", stats, ServiceStatistik::getAnzahlFehlerLetzteMinute)
+        Gauge.builder("anzahlTechnicalExceptions.LetzteMinute", stats, ServiceStatistik::getAnzahlTechnicalExceptionsLetzteMinute)
                 .tags(stats.getTags())
-                .description("Liefert die Anzahl der fehlerhaften Aufrufe in der letzten Minute")
+                .description("Liefert die Anzahl der technisch fehlerhaften Aufrufe in der letzten Minute")
                 .register(registry);
 
-        Gauge.builder("anzahlFachlicheFehler.LetzteMinute", stats, ServiceStatistik::getAnzahlFachlicheFehlerLetzteMinute)
+        Gauge.builder("anzahlBusinessExceptions.LetzteMinute", stats, ServiceStatistik::getAnzahlBusinessExceptionsLetzteMinute)
                 .tags(stats.getTags())
                 .description("Liefert die Anzahl der fachlich fehlerhaften Aufrufe in der letzten Minute")
                 .register(registry);
