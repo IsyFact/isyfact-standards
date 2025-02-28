@@ -1,20 +1,35 @@
 <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+    <servers>
+        <server>
+            <id>github</id>
+            <username>${env.DEPLOY_SERVER_USER_NAME}</username>
+            <password>${env.DEPLOY_SERVER_TOKEN}</password>
+        </server>
+    </servers>
     <profiles>
         <profile>
             <id>sonatype</id>
             <repositories>
                 <repository>
                     <id>sonatype-snapshots</id>
-                    <url>https://oss.sonatype.org/content/repositories/snapshots//</url>
+                    <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+                </repository>
+            </repositories>
+        </profile>
+        <profile>
+            <id>github</id>
+            <repositories>
+                <repository>
+                    <id>github</id>
+                    <url>https://maven.pkg.github.com/IsyFact/isyfact-standards</url>
                 </repository>
             </repositories>
         </profile>
     </profiles>
     <activeProfiles>
-        <activeProfile>
-            sonatype
-        </activeProfile>
+        <activeProfile>sonatype</activeProfile>
+        <activeProfile>github</activeProfile>
     </activeProfiles>
 </settings>

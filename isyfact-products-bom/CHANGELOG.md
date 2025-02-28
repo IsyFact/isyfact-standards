@@ -1,5 +1,8 @@
 # 4.0.0
 - `IFS-4316`: Aktualisierung und Bereitstellung des Produktkatalogs der Isyfact.
+- `IFS-3303`: Anhebung der version von metro auf 4.0.3
+- `IFS-3697`: Update JMeter Core auf 5.6.x
+- `IFS-2927`: ISY-909: Orika durch MapStruct ersetzt
 
 # 3.0.1
 - `ISY-701`: Google Guava Versionsanhebung auf 33.1.0

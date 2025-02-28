@@ -1,3 +1,9 @@
+# 4.0.0
+- `IFS-4452`: Logging Autoconfiguration aus dem isy-aufrufkontext (in 4.0.0 nicht mehr vorhanden) hier eingeführt:
+    * `de.bund.bva.isyfact.logging.autoconfigure.MdcFilterAutoConfiguration` in `org.springframework.boot.autoconfigure.AutoConfiguration.imports` eingefügt
+    * In Spring Boot 3 wird META-INF/spring.factories nicht mehr verwendet und durch META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports ersetzt
+- `IFS-3740`: IsyFact-Standards IF4: Analyse: Stabilität der Tests wiederherstellen
+  
 # 3.0.0
 - `ISY-650`: Bean zum Setzen der Korrelations-ID angepasst:
     * `HttpHeaderNestedDiagnosticContextFilter` aus `isy-aufrufkontext` eingefügt

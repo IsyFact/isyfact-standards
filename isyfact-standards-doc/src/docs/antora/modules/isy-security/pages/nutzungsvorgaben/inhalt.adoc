@@ -376,6 +376,13 @@ public class OAuth2ServerSecurityConfig {
 }
 ----
 
+[INFO]
+====
+Bei der Verwendung von `isy-sicherheit` wurde der CSRF-Filter von Spring Security in vielen Fällen standarmäßig deaktiviert.
+Damit die von der Anwendung bereitgestellten Schnittstellen weiterhin ohne Probleme erreicht werden können, muss dieser mglw. durch entsprechende Konfiguration der `SecurityFilterChain` wieder deaktiviert werden: `http.csrf().disable()`.
+Dies soll nur falls absolut notwendig durchgeführt werden, um die Angriffsfläche der Anwendung nicht zu vergrößern.
+====
+
 [[konfigurationsparameterservice]]
 === Konfigurationsparameter
 

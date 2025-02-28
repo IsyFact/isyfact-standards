@@ -1,5 +1,6 @@
 # 4.0.0
 ## FEATURES
+- `IFS-4508`: [isyfact-standards-doc] Verweis auf Angular-Demo (Referenzimplementierung) prominent platziert
 - `IFS-4358`: [isyfact-standards-doc] Verwendungen des Begriffs IT-System in den Bausteinen (exklusive Sicherheit) korrigiert
 - `IFS-4249`: [isyfact-standards-doc] Setzen der Antora-Version für die Online-Dokumentation durch Git
 - `IFS-4194`: [isyfact-standards-doc] Referenzarchitektur Batch aufgrund von IFS-3736 neu verfasst
@@ -20,32 +21,42 @@
 - `ISY-948`: Spring Cache Abstraction als verpflichtende Bibliothek für anwendungsseitige Caches eingeführt
 - `ISY-748`: [isyfact-standards-doc] Versionsanhebung `isy-checkstyle-config` auf 0.2.0
     * Gruppierung der `jakarta.*` imports
-- `ISY-305`: [isy-security] Implementierung von IsySecurityTokenUtil zum Auslesen von Attributen aus dem Bearer Token
 - `ISY-1040`: [isyfact-standards-doc] Anpassung des logback.xml-Konfigurationspfads im IF2-Migrationsleitfaden
 - `IFS-2786`: [isyfact-standards-doc] Migrationsleitfaden IsyFact 2 entfernt
 - `IFS-2784`: [isyfact-standards-doc] Externe Verweise direkt verlinkt statt über `literaturextern` und URLs korrigiert
 - `IFS-2816`: [isyfact-standards-doc] Begriff "Blaupause" durch "Referenzarchitektur" ersetzt
 - `IFS-3665`: [isyfact-standards-doc] "Leitfaden Dokumentation" nach `isy-documentation` verschoben
 - `IFS-3692`: [isyfact-standards-doc] Seite "Referenzarchitektur" nach Architektursichten aufgeteilt
-- `ISY-909`: [isyfact-products-bom] Orika durch MapStruct ersetzt
 - `IFS-3821`: [isyfact-standards-doc] Thematik zur internen und externen URL bei der Authentifizierung beschrieben (Multiple Issuer-URIs)
-- `IFS-3833`: [isy-security] Implementierung von Multi-Tenancy-Support
 - `IFS-3834`: [isyfact-standards-doc] Kapitel Authentifizierung & Autorisierung um Multi-Tenancy erweitert.
-- `IFS-2248`: [isy-batchrahmen, isy-security] Tokenerneuerung in isy-batchrahmen:
-    * `IsySecurityTokenUtil` und `IsyOAuth2Authentifizierungsmanager` stellen Funktionalität zur Token-Gültigkeitsüberprüfung und erneuten Authentifizierung bereit
-    * Funktionalität zur erneuten Authentifizierung wird von `BatchrahmenImpl` aufgerufen
 - `IFS-3928`: [isy-bedienkonzept] Migration der neusten Bedienkonzeptversion ins Repository isy-bedienkonzept
-- `IFS-4248`: [isy-batchrahmen] In Batches wird im Falle einer fehlgeschlagenen oder nicht vorhandenen Authentifizierung der SecurityContext mit dem Batch-Namen befüllt, damit dieser außerhalb der Batch-Klassen (über `IsySecurityTokenUtil`) verarbeitet werden kann (bspw. zum Speichern des Batch-Namens in einer Datenbank).
-    Hiermit wird ein ähnliches Verhalten zu einem unauthentifizierten AufrufKontext wiederhergestellt.
-- `IFS-4316`: [isyfact-products-bom] Aktualisierung und Bereitstellung des Produktkatalogs der Isyfact.
 - `IFS-4236`: [isy-datetime], [isy-sonderzeichen] Beide Submodule wurden aus `isyfact-standards` entfernt und in eigenständige Repositories verschoben
     * Sie werden ab sofort entkoppelt von der Isyfact versioniert und weiterentwickelt
     * Sie werden aber weiterhin im Dependency-Management der `isyfact-standards-bom` angeboten.
+- `IFS-1796`: [isyfact-standards-doc] Detailkonzept Datenzugriff: Vorgaben zur Kommunikation von Datenzugriff und Anwendungskern klarer fassen
+- `IFS-1797`: [isyfact-standards-doc] Nutzung von JPA: Vorgaben zu @LazyCollections / @LazyToOne prüfen
+- `IFS-1799`: [isyfact-standards-doc] Nutzung von JPA: Vorgaben zur Verwendung von Hibernate-Filtern vervollständigen
+- `IFS-2771`: [isyfact-standards-doc] Korrekte Fehlermeldungen in Dokumentation
+- `IFS-2788`: [isyfact-standards-doc] Redundante Anleitung für den Enterprise Architect löschen
+- `IFS-2848`: Konfiguration von Dependabot
+- `IFS-2861`: Einbinden von Snyk in das Repository isy-sonderzeichen
+- `IFS-2911`: [isyfact-standards-doc] Antora-Modul für die Referenzarchitektur anlegen
+- `IFS-3823`: [isyfact-standards-doc] Glossar um Struktur, Begriffsänderungen erweitern und Seitentemplate anwenden
+- `IFS-3852`: [isyfact-standards-doc] Bausteindokumentation aus isyfact-standards migrieren
+- `IFS-4007`: [isyfact-standards-doc] Anpassung Konzept REST-Baustein
+- `IFS-4272`: [isyfact-standards-doc] IFS Produktkatalog: Hinweise zur Nutzung von Lombok in der IsyFact
+- `IFS-4367`: Aktualisierung der Lizenz-Files der IsyFact
+- `IFS-3096`: [isyfact-standards-doc] Überarbeitung Blaupause Service - DK Service
+- `IFS-3360`: [isyfact-standards-doc] Baustein Konfiguration nicht korrekt deprecated
+- `IFS-3363`: [isyfact-standards-doc] Entfernen von PLIS Erwähnung in Abbildung und Löschung abgelöster Abbildung
+- `IFS-4388`: Einheitlichen Formatter bereitstellen
 
 ## BUG FIXES
-- `IFS-4194`: Umstellung aller Verweise in der Referenzarchitektur aufs Glossar auf das aktuelle Format (`xref:glossary::terms-definitions.adoc`)
+- `IFS-4366`: [isyfact-standards-doc] Korrektur Build Fehler der Dokumentation.
+- `IFS-4194`: [isyfact-standards-doc] Umstellung aller Verweise in der Referenzarchitektur aufs Glossar auf das aktuelle Format (`xref:glossary::terms-definitions.adoc`)
 - `IFS-4203`: [isyfact-standards-doc] Korrektur fehlerhafter Links in der Dokumentation
-- `IFS-4212`: Dokumentation von `@OnceTask` korrigiert (`@ManualTask` existiert nicht)
+- `IFS-4212`: [isyfact-standards-doc] Dokumentation von `@OnceTask` korrigiert (`@ManualTask` existiert nicht)
+- `IFS-3165`: [isyfact-standards-doc] Vorlage Systementwurf - Fehlender Hinweistext "Platzbedarf für Dateien"
 ## BREAKING CHANGES
 - `ISY-1122`: Bausteine `isy-sicherheit`, `isy-aufrufkontext`, `isy-serviceapi-core` und `isy-konfiguration` entfernt
 - `ISY-889`: Spring Boot Versionsanhebung auf 3.2.x
@@ -61,7 +72,6 @@
 - `IFS-3676`: [isyfact-standards-doc] IT-Systeme dürfen keine UI-Komponenten mehr enthalten.
 - `IFS-3699`: [isyfact-standards-doc] Baustein Sicherheit entfernt.
 - `IFS-3700`: [isyfact-standards-doc] Baustein Http Invoker entfernt.
-- `IFS-3697`: [isyfact-products-bom] Update JMeter Core auf 5.6.x
 - `IFS-3701`: [isyfact-standards-doc] Baustein JSF entfernt.
 - `IFS-3736`: [isyfact-standards-doc] Abbildung von Anwendungen in IT-Systeme ("technischer Schnitt") beschrieben.
 - `IFS-3763`: [isyfact-standards-doc] Dokumentation der Änderungen zu IFS-2248 (Tokenerneuerung isy-batchrahmen)

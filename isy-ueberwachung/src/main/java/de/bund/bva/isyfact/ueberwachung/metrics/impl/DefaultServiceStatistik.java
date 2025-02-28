@@ -16,31 +16,24 @@
  */
 package de.bund.bva.isyfact.ueberwachung.metrics.impl;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.ParameterizedType;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.concurrent.ConcurrentLinkedDeque;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReference;
 
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.util.ClassUtils;
 
 import de.bund.bva.isyfact.datetime.util.DateTimeUtil;
+import de.bund.bva.isyfact.exception.BusinessException;
+import de.bund.bva.isyfact.exception.TechnicalException;
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.ueberwachung.metrics.ServiceStatistik;
-import de.bund.bva.pliscommon.exception.service.PlisBusinessToException;
-import de.bund.bva.pliscommon.serviceapi.annotations.FachlicherFehler;
-
 
 
 /**
@@ -55,67 +48,60 @@ public class DefaultServiceStatistik implements ServiceStatistik, MethodIntercep
     /**
      * Logger.
      */
-    private static final IsyLogger LOGISY = IsyLoggerFactory.getLogger(DefaultServiceStatistik.class);
-
-    /**
-     * The maximum depth for recursive checking for functional errors in extended functional
-     * Error checking.
-     */
-    private static final int MAXTIEFE = 10;
+    private static final IsyLogger LOG = IsyLoggerFactory.getLogger(DefaultServiceStatistik.class);
 
     /**
      * Specifies whether the return object structures should be checked for business errors. May
      * have an impact on performance.
      */
-    private boolean fachlicheFehlerpruefung;
+    @Deprecated
+    private boolean businessFehlerpruefung;
 
     /**
      * Duration of the last search calls (in milliseconds).
      */
-    private final List<Duration> letzteSuchdauern = new LinkedList<>();
+    private final ConcurrentLinkedDeque<Duration> letzteSuchdauern = new ConcurrentLinkedDeque<>();
 
     /**
      * Flag for the minute in which values of the last minute were determined.
      */
-    private volatile LocalDateTime letzteMinute = DateTimeUtil.localDateTimeNow();
+    private final AtomicReference<LocalDateTime> letzteMinute = new AtomicReference<>(DateTimeUtil.localDateTimeNow());
 
     /**
      * Number of non-error calls made in the minute called 'last minute'.
      */
-    private volatile int anzahlAufrufeLetzteMinute;
+    private final AtomicInteger anzahlAufrufeLetzteMinute = new AtomicInteger();
 
     /**
      * Number of non-error calls made in the current minute.
      */
-    private volatile int anzahlAufrufeAktuelleMinute;
+    private final AtomicInteger anzahlAufrufeAktuelleMinute = new AtomicInteger();
 
     /**
      * Number of calls made in the minute denoted by lastMinute, during which
      * a technical error occurred.
      */
-    private volatile int anzahlFehlerLetzteMinute;
+    private final AtomicInteger anzahlTechnicalExceptionsLetzteMinute = new AtomicInteger();
 
     /**
-     * Number of calls made in the current minute in which a techinical error
+     * Number of calls made in the current minute in which a technical error
      * occurred.
      */
-    private volatile int anzahlFehlerAktuelleMinute;
+    private final AtomicInteger anzahlTechnicalExceptionsAktuelleMinute = new AtomicInteger();
 
     /**
      * The number of business errors in the last minute.
      * <p>
-     * A business error occurs if either a {@link PlisBusinessToException} was thrown or the response contains an
-     * entry marked with {@link FachlicherFehler}.
+     * A business error occurs if either a {@link BusinessException} was thrown.
      */
-    private volatile int anzahlFachlicheFehlerLetzteMinute;
+    private final AtomicInteger anzahlBusinessExceptionsLetzteMinute = new AtomicInteger();
 
     /**
      * The number of business errors in the current minute.
      * <p>
-     * A business error occurs if either a {@link PlisBusinessToException} was thrown or the response contains an
-     * entry marked with {@link FachlicherFehler}.
+     * A business error occurs if either a {@link BusinessException} was thrown.
      */
-    private volatile int anzahlFachlicheFehlerAktuelleMinute;
+    private final AtomicInteger anzahlBusinessExceptionsAktuelleMinute = new AtomicInteger();
 
     /**
      * Micrometer tags.
@@ -145,10 +131,11 @@ public class DefaultServiceStatistik implements ServiceStatistik, MethodIntercep
      * Specifies whether the return object structures should be checked for technical errors. May
      * have performance implications.
      *
-     * @param fachlicheFehlerpruefung {@code true} if the return object structure should be checked for technical errors, otherwise {@code false}.
+     * @param businessFehlerpruefung {@code true} if the return object structure should be checked for technical errors, otherwise {@code false}.
      */
-    public void setFachlicheFehlerpruefung(boolean fachlicheFehlerpruefung) {
-        this.fachlicheFehlerpruefung = fachlicheFehlerpruefung;
+    @Deprecated
+    public void setBusinessFehlerpruefung(boolean businessFehlerpruefung) {
+        this.businessFehlerpruefung = businessFehlerpruefung;
     }
 
     @Override
@@ -159,27 +146,30 @@ public class DefaultServiceStatistik implements ServiceStatistik, MethodIntercep
     /**
      * This method counts a call to the component for statistics.
      *
-     * @param dauer               The duration of the call
-     * @param erfolgreich         flag, if the call was successful ({@code true}) or a technical error occurred ({@code false}).
-     * @param fachlichErfolgreich Flag, if the call was successful ({@code true}) or a business error occurred ({@code false}).
+     * @param dauer                  The duration of the call
+     * @param technicallySuccessful  flag, if the call was successful ({@code true}) or a technical error occurred ({@code false}).
+     * @param functionallySuccessful Flag, if the call was successful ({@code true}) or a business error occurred ({@code false}).
      */
-    public synchronized void zaehleAufruf(Duration dauer, boolean erfolgreich, boolean fachlichErfolgreich) {
-        aktualisiereZeitfenster();
-        anzahlAufrufeAktuelleMinute++;
+    public void zaehleAufruf(Duration dauer, boolean technicallySuccessful, boolean functionallySuccessful) {
+        synchronized (anzahlAufrufeAktuelleMinute) {
+            aktualisiereZeitfenster();
+            anzahlAufrufeAktuelleMinute.incrementAndGet();
 
-        if (!erfolgreich) {
-            anzahlFehlerAktuelleMinute++;
+            if (!technicallySuccessful) {
+                anzahlTechnicalExceptionsAktuelleMinute.incrementAndGet();
+            }
+
+            if (!functionallySuccessful) {
+                anzahlBusinessExceptionsAktuelleMinute.incrementAndGet();
+            }
         }
+        synchronized (letzteSuchdauern) {
+            if (letzteSuchdauern.size() == ANZAHL_AUFRUFE_FUER_DURCHSCHNITT) {
+                letzteSuchdauern.removeLast();
+            }
 
-        if (!fachlichErfolgreich) {
-            anzahlFachlicheFehlerAktuelleMinute++;
+            letzteSuchdauern.addFirst(dauer);
         }
-
-        if (letzteSuchdauern.size() == ANZAHL_AUFRUFE_FUER_DURCHSCHNITT) {
-            letzteSuchdauern.remove(ANZAHL_AUFRUFE_FUER_DURCHSCHNITT - 1);
-        }
-
-        letzteSuchdauern.add(0, dauer);
     }
 
     /**
@@ -187,24 +177,27 @@ public class DefaultServiceStatistik implements ServiceStatistik, MethodIntercep
      * and last minute. If a minute has elapsed, the values of the current * minute are copied to those of the counters for the last minute.
      * The counters for the current minute are set to 0. The method ensures that this operation can be performed only once per minute.
      */
-    private synchronized void aktualisiereZeitfenster() {
-        LocalDateTime aktuelleMinute = getAktuelleMinute();
-        if (!aktuelleMinute.isEqual(letzteMinute)) {
-            if (ChronoUnit.MINUTES.between(letzteMinute, aktuelleMinute) > 1) {
-                // no last minute infos
-                anzahlAufrufeLetzteMinute = 0;
-                anzahlFehlerLetzteMinute = 0;
-                anzahlFachlicheFehlerLetzteMinute = 0;
-            } else {
-                anzahlAufrufeLetzteMinute = anzahlAufrufeAktuelleMinute;
-                anzahlFehlerLetzteMinute = anzahlFehlerAktuelleMinute;
-                anzahlFachlicheFehlerLetzteMinute = anzahlFachlicheFehlerAktuelleMinute;
-            }
+    private void aktualisiereZeitfenster() {
+        synchronized (letzteMinute) {
+            LocalDateTime aktuelleMinute = getAktuelleMinute();
+            LocalDateTime letzteMinute = this.letzteMinute.get();
+            if (!aktuelleMinute.isEqual(letzteMinute)) {
+                if (ChronoUnit.MINUTES.between(letzteMinute, aktuelleMinute) > 1) {
+                    // no last minute infos
+                    anzahlAufrufeLetzteMinute.set(0);
+                    anzahlTechnicalExceptionsLetzteMinute.set(0);
+                    anzahlBusinessExceptionsLetzteMinute.set(0);
+                } else {
+                    anzahlAufrufeLetzteMinute.set(anzahlAufrufeAktuelleMinute.get());
+                    anzahlTechnicalExceptionsLetzteMinute.set(anzahlTechnicalExceptionsAktuelleMinute.get());
+                    anzahlBusinessExceptionsLetzteMinute.set(anzahlBusinessExceptionsAktuelleMinute.get());
+                }
 
-            anzahlAufrufeAktuelleMinute = 0;
-            anzahlFehlerAktuelleMinute = 0;
-            anzahlFachlicheFehlerAktuelleMinute = 0;
-            letzteMinute = aktuelleMinute;
+                anzahlAufrufeAktuelleMinute.set(0);
+                anzahlTechnicalExceptionsAktuelleMinute.set(0);
+                anzahlBusinessExceptionsAktuelleMinute.set(0);
+                this.letzteMinute.set(aktuelleMinute);
+            }
         }
     }
 
@@ -226,155 +219,60 @@ public class DefaultServiceStatistik implements ServiceStatistik, MethodIntercep
     @Override
     public int getAnzahlAufrufeLetzteMinute() {
         aktualisiereZeitfenster();
-        return anzahlAufrufeLetzteMinute;
+        return anzahlAufrufeLetzteMinute.get();
     }
 
     @Override
     public int getAnzahlFehlerLetzteMinute() {
         aktualisiereZeitfenster();
-        return anzahlFehlerLetzteMinute;
+        return anzahlTechnicalExceptionsLetzteMinute.get();
     }
 
     @Override
     public int getAnzahlFachlicheFehlerLetzteMinute() {
         aktualisiereZeitfenster();
-        return anzahlFachlicheFehlerLetzteMinute;
+        return anzahlBusinessExceptionsLetzteMinute.get();
     }
 
     @Override
     public Object invoke(MethodInvocation invocation) throws Throwable {
         Instant start = DateTimeUtil.getClock().instant();
-        boolean erfolgreich = false;
-        boolean fachlichErfolgreich = false;
+        boolean technicallySuccessful = false;
+        boolean functionallySuccessful = false;
 
         try {
             Object result = invocation.proceed();
-            erfolgreich = true;
-            fachlichErfolgreich = !fachlicheFehlerpruefung || !sindFachlicheFehlerVorhanden(result);
+            technicallySuccessful = true;
+            functionallySuccessful = true;
             return result;
-        } catch (PlisBusinessToException t) {
-            // BusinessExceptions are not counted as technical errors.
-            erfolgreich = true;
-            throw t;
+        } catch (BusinessException be) {
+            // BusinessExceptions are considered only as business errors.
+            // Redundant assignment of values to clarify exception-handling.
+            technicallySuccessful = true;
+            functionallySuccessful = false;
+            throw be;
+        } catch (TechnicalException te) {
+            // TechnicalExceptions are considered only as technical errors.
+            technicallySuccessful = false;
+            functionallySuccessful = true;
+            throw te;
+        } catch (Throwable e) {
+            // All other exceptions are considered as technical and business errors.
+            technicallySuccessful = false;
+            functionallySuccessful = false;
+            throw e;
         } finally {
             Duration aufrufDauer = Duration.between(start, DateTimeUtil.getClock().instant());
-            zaehleAufruf(aufrufDauer, erfolgreich, fachlichErfolgreich);
+            zaehleAufruf(aufrufDauer, technicallySuccessful, functionallySuccessful);
         }
-    }
-
-    /**
-     * Checks whether the return object contained business errors. The return object must contain a collection
-     * annotated with {@link FachlicherFehler}.
-     *
-     * @param result The return object of the call.
-     * @return true if errors, false otherwise.
-     */
-    private static boolean sindFachlicheFehlerVorhanden(final Object result) {
-        return pruefeObjektAufFehler(result, null, 1);
-    }
-
-    /**
-     * Searches a class for non-null error objects or non-empty error collections.
-     * Error objects are annotated with {link FachlicherFehler}.
-     * <p>
-     * Searches superclasses & child object structures recursively as well.
-     *
-     * @param result The object
-     * @param clazz  The class of the object to be searched (optional). Can be left empty at
-     *               start, but can be used to check for superclasses of an object.
-     * @param tiefe  tiefe  Specifies the current depth of the call. Must be incremented when traversing the
-     *               class structure downwards.
-     * @return {@code true} if error found, otherwise {@code false}.
-     */
-    static boolean pruefeObjektAufFehler(final Object result, Class<?> clazz, int tiefe) {
-        // If max. depth reached, do not check further
-        if (tiefe > MAXTIEFE) {
-            LOGISY.trace("Max. Tiefe erreicht, prüfe nicht weiter auf fachliche Fehler");
-            return false;
-        }
-
-        // If no class is passed, determine yourself
-        Class<?> clazzToScan = clazz;
-        if (clazzToScan == null) {
-            clazzToScan = result.getClass();
-        }
-
-        List<Field> objectFields = Arrays.stream(clazzToScan.getDeclaredFields())
-                .filter(field -> !ClassUtils.isPrimitiveOrWrapper(field.getType()) && !field.getType().isEnum())
-                .collect(Collectors.toList());
-
-        LOGISY.trace("{} Analysiere Objekt {} (Klasse {}) {} Felder gefunden.",
-                String.join("", Collections.nCopies(tiefe, "-")), result.toString(), clazzToScan.getSimpleName(),
-                objectFields.size());
-
-        boolean fehlerGefunden = false;
-
-        for (Field field : objectFields) {
-            LOGISY.trace("{} {}.{}, Type {}", String.join("", Collections.nCopies(tiefe, "-")),
-                    clazzToScan.getSimpleName(), field.getName(), field.getType().getSimpleName());
-            field.setAccessible(true);
-            try {
-                // Check individual class fields (non-collection) for annotated type and presence
-                if (fieldIsNotACollection(field)) {
-                    Object fieldObject = field.get(result);
-
-                    if (fieldObject != null) {
-                        if (fieldObject.getClass().isAnnotationPresent(FachlicherFehler.class)) {
-                            // Subject error object found
-                            return true;
-                        }
-
-                        // If no string, then recursively check object structure
-                        if (fieldObject.getClass() != String.class) {
-                            fehlerGefunden = pruefeObjektAufFehler(fieldObject, null, tiefe + 1) || fehlerGefunden;
-                        }
-                    }
-                } else {
-                    // Collection, check if professional error list
-                    ParameterizedType type = (ParameterizedType) field.getGenericType();
-                    Class<?> collectionTypeArgument = (Class<?>) type.getActualTypeArguments()[0];
-                    if (collectionTypeArgument.isAnnotationPresent(FachlicherFehler.class)) {
-                        // Is error list, check if not empty
-                        Collection<?> collection = (Collection<?>) field.get(result);
-                        if (collection != null && !collection.isEmpty()) {
-                            // Professional errors found in error list
-                            return true;
-                        }
-                    }
-                }
-            } catch (IllegalAccessException e) {
-                // Do nothing, field is ignored
-                LOGISY.debug("Feldzugriffsfehler: {}", e.getMessage());
-            }
-        }
-
-        // Check the class hierarchy recursively upwards
-        if (typeHasSuperClass(clazzToScan)) {
-            LOGISY.trace("{}> Climb up class hierarchy! Source {}, Target {}",
-                    String.join("", Collections.nCopies(tiefe, "-")), clazzToScan.getSimpleName(),
-                    clazzToScan.getSuperclass());
-            fehlerGefunden =
-                    // Call with same depth, as inheritance is passed upwards
-                    pruefeObjektAufFehler(result, clazzToScan.getSuperclass(), tiefe) || fehlerGefunden;
-        }
-
-        return fehlerGefunden;
-    }
-
-    private static boolean typeHasSuperClass(Class<?> clazz) {
-        return clazz.getSuperclass() != null && !clazz.getSuperclass().equals(Object.class);
-    }
-
-    private static boolean fieldIsNotACollection(Field field) {
-        return !Collection.class.isAssignableFrom(field.getType());
     }
 
     @Override
     public void afterPropertiesSet() {
-        if (fachlicheFehlerpruefung) {
-            LOGISY.debug("ServiceStatistik mit erweiterter fachlicher Fehlerprüfung initialisiert.");
+        if (businessFehlerpruefung) {
+            LOG.debug("ServiceStatistik mit erweiterter fachlicher Fehlerprüfung initialisiert.");
         } else {
-            LOGISY.debug("ServiceStatistik initialisiert.");
+            LOG.debug("ServiceStatistik initialisiert.");
         }
     }
 }

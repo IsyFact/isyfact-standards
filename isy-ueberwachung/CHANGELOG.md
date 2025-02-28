@@ -1,6 +1,10 @@
 # 4.0.0
 - `ISY-888`: Freigabe des `/Loadbalancer` Endpunkts auf `SecurityFilterChain` (`@Order(99)`) umgestellt
 - `ISY-601`: Standardabsicherung und Konfigurationsparameter werden per AutoConfiguration bereitgestellt.
+- `IFS-979`: Verbesserung der Nebenläufigkeit von DefaultServiceStatistik.
+- `IFS-4155`: Entfernung von obsoleten `pliscommon`-Ressourcen.
+  * Entfernung der Abhängigkeiten `de.bund.bva.isyfact.isy-exception-sst` und `de.bund.bva.isyfact.isy-serviceapi-sst`
+- `IFS-3740`: IsyFact-Standards IF4: Analyse: Stabilität der Tests wiederherstellen
 
 # 3.0.0
 - `IFS-1702`: Refaktorierung ServiceStatistik

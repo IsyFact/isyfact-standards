@@ -18,7 +18,7 @@ Persistenz;https://www.liquibase.org[Liquibase];<<spring-boot-dependencies,icon:
 JSON-Verarbeitung;https://github.com/FasterXML/jackson[Jackson];<<spring-boot-dependencies,icon:leaf[]>>;2.4.0;verbindlich;Apache Software License;
 Authentifizierung / Autorisierung;http://projects.spring.io/spring-security/[Spring Security];<<spring-boot-dependencies,icon:leaf[]>>;3.0.0;verbindlich;Apache Software License;
 Resilience-Framework;https://resilience4j.readme.io/[Resilience4J];1.x;2.2.0;verbindlich;Apache Software License;
-Web-Service Framework (SOAP);https://projects.eclipse.org/projects/ee4j.metro/[Eclipse Metro];2.4.9;3.0.0;verbindlich;Eclipse Distribution License 1.0;
+Web-Service Framework (SOAP);https://projects.eclipse.org/projects/ee4j.metro/[Eclipse Metro];4.0.3;3.0.0;verbindlich;Eclipse Distribution License 1.0;
 Logging;http://www.slf4j.org/[SLF4J];"<<spring-boot-dependencies,icon:leaf[]>>";4.0.0;verbindlich;MIT License;"* Die Verwendung anderer Logging-Backends außer Logback ist nicht erlaubt.
 * Die Verwendung der Logging Bridges ist erlaubt, sofern dies erforderlich ist."
 Logging;http://logback.qos.ch/[Logback];"<<spring-boot-dependencies,icon:leaf[]>>";2.4.0;verbindlich;"EPL v1.0, LGPL 2.1";
@@ -52,7 +52,7 @@ Logback JSON Classic/Logback Jackson;https://logback.qos.ch/manual/[Logback];0.1
 GNU Lesser General Public License";
 JDBC-Treiber;https://www.oracle.com/database/technologies/oracledb-and-spring-springboot.html[Oracle];19.x;3.0.0;verbindlich;Oracle Technology Network Developer License;"Die Version des JDBC-Treibers muss zur Datenbank passsen. Es muss nicht immer der neueste Treiber sein. Patches mit JDBC-Treiber sind zu prüfen.
 Es wird empfohlen die Version 8 des OJDBC Treibers einzusetzen."
-Connection Pool;https://www.oracle.com/database/technologies/oracledb-and-spring-springboot.html[Oracle Universal Connection Pool (UCP)];19.x;4.0.0;verbindlich;Oracle Technology Network License;UCP unterstützt Oracle spezifische Features wie Advanced Queuing und hat sich in Hochlast-Anwendungen bewährt. Umfangreiche Konfigurationsmöglichkeiten und gutes Stale Connection Management (Timeouts etc);
-Bean Validierung;https://docs.spring.io/spring-framework/reference/core/validation/beanvalidation.html[Java Bean Validation API];<<spring-boot-dependencies,icon:leaf[]>>;4.0.0;verbindlich;Apache Software License 2.0;Spring Boot setzt standardmäßig auf die Jakarta Bean Validation API.;
+Connection Pool;https://www.oracle.com/database/technologies/oracledb-and-spring-springboot.html[Oracle Universal Connection Pool (UCP)];19.x;4.0.0;verbindlich;Oracle Technology Network License;UCP unterstützt Oracle spezifische Features wie Advanced Queuing und hat sich in Hochlast-Anwendungen bewährt. Umfangreiche Konfigurationsmöglichkeiten und gutes Stale Connection Management (Timeouts etc)
+Bean Validierung;https://docs.spring.io/spring-framework/reference/core/validation/beanvalidation.html[Java Bean Validation API];<<spring-boot-dependencies,icon:leaf[]>>;4.0.0;verbindlich;Apache Software License 2.0;Spring Boot setzt standardmäßig auf die Jakarta Bean Validation API.
 Bean Validierung;https://hibernate.org/validator/documentation/[Hibernate Validator];<<spring-boot-dependencies,icon:leaf[]>>;4.0.0;verbindlich;Apache License 2.0;Der Hibernate Validator ist transitiv abhängig zum Jakarta Bean Validator.
 

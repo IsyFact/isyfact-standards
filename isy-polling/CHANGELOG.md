@@ -1,3 +1,6 @@
+# 4.0.0
+- `IFS-3740`: IsyFact-Standards IF4: Analyse: Stabilität der Tests wiederherstellen
+
 # 2.1.0
 - `IFS-303`: Surefire-Plugin bezieht Version aus Standards und argLine Anpassung JaCoCo
 
