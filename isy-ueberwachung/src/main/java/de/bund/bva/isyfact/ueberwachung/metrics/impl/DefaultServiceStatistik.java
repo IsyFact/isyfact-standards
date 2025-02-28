@@ -22,6 +22,7 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.AtomicReference;
 
 import org.aopalliance.intercept.MethodInterceptor;
@@ -63,6 +64,24 @@ public class DefaultServiceStatistik implements ServiceStatistik, MethodIntercep
     private final ConcurrentLinkedDeque<Duration> letzteSuchdauern = new ConcurrentLinkedDeque<>();
 
     /**
+     * Number of non-error calls made.
+     */
+    private final AtomicLong anzahlAufrufe = new AtomicLong();
+
+    /**
+     * Number of calls made, during which a technical error occurred.
+     */
+    private final AtomicLong anzahlTechnicalExceptions = new AtomicLong();
+
+    /**
+     * The number of business errors.
+     * <p>
+     * A business error occurs if a {@link BusinessException} was thrown.
+     */
+    private final AtomicLong anzahlBusinessExceptions = new AtomicLong();
+
+
+    /**
      * Flag for the minute in which values of the last minute were determined.
      */
     private final AtomicReference<LocalDateTime> letzteMinute = new AtomicReference<>(DateTimeUtil.localDateTimeNow());
@@ -92,14 +111,14 @@ public class DefaultServiceStatistik implements ServiceStatistik, MethodIntercep
     /**
      * The number of business errors in the last minute.
      * <p>
-     * A business error occurs if either a {@link BusinessException} was thrown.
+     * A business error occurs if a {@link BusinessException} was thrown.
      */
     private final AtomicInteger anzahlBusinessExceptionsLetzteMinute = new AtomicInteger();
 
     /**
      * The number of business errors in the current minute.
      * <p>
-     * A business error occurs if either a {@link BusinessException} was thrown.
+     * A business error occurs if a {@link BusinessException} was thrown.
      */
     private final AtomicInteger anzahlBusinessExceptionsAktuelleMinute = new AtomicInteger();
 
@@ -217,19 +236,34 @@ public class DefaultServiceStatistik implements ServiceStatistik, MethodIntercep
     }
 
     @Override
+    public long getAnzahlAufrufe() {
+        return anzahlAufrufeLetzteMinute.get();
+    }
+
+    @Override
+    public long getAnzahlTechnicalExceptions() {
+        return anzahlTechnicalExceptions.get();
+    }
+
+    @Override
+    public long getAnzahlBusinessExceptions() {
+        return anzahlBusinessExceptions.get();
+    }
+
+    @Override
     public int getAnzahlAufrufeLetzteMinute() {
         aktualisiereZeitfenster();
         return anzahlAufrufeLetzteMinute.get();
     }
 
     @Override
-    public int getAnzahlFehlerLetzteMinute() {
+    public int getAnzahlTechnicalExceptionsLetzteMinute() {
         aktualisiereZeitfenster();
         return anzahlTechnicalExceptionsLetzteMinute.get();
     }
 
     @Override
-    public int getAnzahlFachlicheFehlerLetzteMinute() {
+    public int getAnzahlBusinessExceptionsLetzteMinute() {
         aktualisiereZeitfenster();
         return anzahlBusinessExceptionsLetzteMinute.get();
     }
