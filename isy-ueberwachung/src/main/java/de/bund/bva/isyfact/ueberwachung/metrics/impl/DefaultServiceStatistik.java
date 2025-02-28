@@ -172,13 +172,16 @@ public class DefaultServiceStatistik implements ServiceStatistik, MethodIntercep
     public void zaehleAufruf(Duration dauer, boolean technicallySuccessful, boolean functionallySuccessful) {
         synchronized (anzahlAufrufeAktuelleMinute) {
             aktualisiereZeitfenster();
+            anzahlAufrufe.incrementAndGet();
             anzahlAufrufeAktuelleMinute.incrementAndGet();
 
             if (!technicallySuccessful) {
+                anzahlTechnicalExceptions.incrementAndGet();
                 anzahlTechnicalExceptionsAktuelleMinute.incrementAndGet();
             }
 
             if (!functionallySuccessful) {
+                anzahlBusinessExceptions.incrementAndGet();
                 anzahlBusinessExceptionsAktuelleMinute.incrementAndGet();
             }
         }
