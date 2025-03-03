@@ -10,10 +10,12 @@ import java.lang.reflect.Field;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import jakarta.annotation.Nonnull;
+import jakarta.annotation.PostConstruct;
 
 import org.aopalliance.intercept.MethodInvocation;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -42,8 +44,13 @@ public class TestDefaultServiceStatistikExceptionHandling {
     private MeterRegistry meterRegistry;
 
     private Gauge anzahlBusinessExceptions;
-
     private Gauge anzahlTechnicalExceptions;
+
+    @PostConstruct
+    public void postConstruct() {
+        anzahlBusinessExceptions = meterRegistry.get("anzahlBusinessExceptions").gauge();
+        anzahlTechnicalExceptions = meterRegistry.get("anzahlTechnicalExceptions").gauge();
+    }
 
     /**
      * Setup method.
@@ -51,8 +58,6 @@ public class TestDefaultServiceStatistikExceptionHandling {
     @Before
     public void setUp() {
         serviceStatistik = new DefaultServiceStatistik();
-        anzahlBusinessExceptions = meterRegistry.get("anzahlBusinessExceptions").gauge();
-        anzahlTechnicalExceptions = meterRegistry.get("anzahlTechnicalExceptions").gauge();
     }
 
     /**

@@ -91,7 +91,6 @@ public class MetricsTest {
 
     @Test
     public void serviceStats_lastMinuteAvailable() {
-
         testService.call1();
         testService.call1();
 
@@ -113,7 +112,6 @@ public class MetricsTest {
 
     @Test
     public void serviceStats_durationStats() {
-
         final Duration[] durations = { Duration.ofMillis(10), Duration.ofMillis(20), Duration.ofMillis(30) };
 
         for (Duration duration : durations) {
