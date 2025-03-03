@@ -16,8 +16,8 @@
  */
 package de.bund.bva.isyfact.ueberwachung.metrics.impl;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.*;
 
 import java.security.SecureRandom;
 import java.time.Duration;
@@ -29,6 +29,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import de.bund.bva.isyfact.datetime.test.TestClock;
@@ -47,6 +48,7 @@ import io.micrometer.core.instrument.MeterRegistry;
                 properties = {"isy.logging.anwendung.name=Test",
                               "isy.logging.anwendung.typ=Test",
                               "isy.logging.anwendung.version=0.1"})
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class TestDefaultServiceStatistik {
 
     @Autowired
@@ -59,8 +61,38 @@ public class TestDefaultServiceStatistik {
 
     private static final IsyLogger LOG = IsyLoggerFactory.getLogger(TestDefaultServiceStatistik.class);
 
+    @Test
+    public void testZaehleAufruf() {
+        final long testCallAmount = 10;
+
+        for (int count = 0; count < testCallAmount; count++) {
+            Duration dauer = Duration.ofMillis(random.nextInt(10000));
+            boolean erfolgreich = random.nextBoolean();
+            boolean fachlichErfolgreich = random.nextBoolean();
+            serviceStatistik.zaehleAufruf(dauer, erfolgreich, fachlichErfolgreich);
+        }
+
+        Gauge anzahlAufrufe = meterRegistry.get("anzahlAufrufe").gauge();
+        Gauge anzahlFehler = meterRegistry.get("anzahlTechnicalExceptions").gauge();
+        Gauge anzahlBusinessFehler = meterRegistry.get("anzahlBusinessExceptions").gauge();
+        Gauge durchschnittsDauerLetzteZehnAufrufe =  meterRegistry.get("durchschnittsDauer.LetzteAufrufe").gauge();
+
+        double durchschnittsDauerLetzteZehnAufrufeReferenz = durchschnittsDauerLetzteZehnAufrufe.value();
+
+        LOG.info(LogKategorie.METRIK, EreignisSchluessel.PLUEB00001, "AnzahlAufrufe: {}",
+                 anzahlAufrufe.value());
+        LOG.info(LogKategorie.METRIK, EreignisSchluessel.PLUEB00001, "anzahlTechnicalExceptions: {}",
+                 anzahlFehler.value());
+        LOG.info(LogKategorie.METRIK, EreignisSchluessel.PLUEB00001, "anzahlBusinessExceptions: {}",
+                 anzahlBusinessFehler.value());
+        LOG.info(LogKategorie.METRIK, EreignisSchluessel.PLUEB00001, "DurchschnittsDauerLetzteZehnAufrufe: {}",
+                 durchschnittsDauerLetzteZehnAufrufeReferenz);
+
+        assertThat(anzahlAufrufe.value()).isEqualTo(10);
+    }
+
     /**
-     * Tests ZaehleAufruf in the first minute
+     * Tests ZaehleAufruf in the first minute.
      */
     @Test
     public void testZaehleAufrufErsteMinute() {
@@ -109,7 +141,7 @@ public class TestDefaultServiceStatistik {
     }
 
     /**
-     * Tests ZaehleAufruf without MBean call in the first minute .
+     * Tests ZaehleAufruf without MBean call in the first minute.
      */
     @Test
     public void testZaehleAufrufNachAbstand() {

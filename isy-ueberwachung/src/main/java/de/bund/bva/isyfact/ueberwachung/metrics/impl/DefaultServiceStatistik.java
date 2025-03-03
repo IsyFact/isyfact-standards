@@ -189,7 +189,6 @@ public class DefaultServiceStatistik implements ServiceStatistik, MethodIntercep
             if (letzteSuchdauern.size() == ANZAHL_AUFRUFE_FUER_DURCHSCHNITT) {
                 letzteSuchdauern.removeLast();
             }
-
             letzteSuchdauern.addFirst(dauer);
         }
     }
@@ -240,7 +239,7 @@ public class DefaultServiceStatistik implements ServiceStatistik, MethodIntercep
 
     @Override
     public long getAnzahlAufrufe() {
-        return anzahlAufrufeLetzteMinute.get();
+        return anzahlAufrufe.get();
     }
 
     @Override
