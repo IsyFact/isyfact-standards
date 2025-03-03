@@ -45,23 +45,23 @@ public class IsyMetricsAutoConfiguration {
             .register(registry);
 
         Gauge.builder("anzahlAufrufe.LetzteMinute", stats, ServiceStatistik::getAnzahlAufrufeLetzteMinute)
-                .tags(stats.getTags())
-                .description("Liefert die Anzahl der nicht fehlerhaften Aufrufe in der letzten Minute")
-                .register(registry);
+            .tags(stats.getTags())
+            .description("Liefert die Anzahl der nicht fehlerhaften Aufrufe in der letzten Minute")
+            .register(registry);
 
         Gauge.builder("anzahlTechnicalExceptions.LetzteMinute", stats, ServiceStatistik::getAnzahlTechnicalExceptionsLetzteMinute)
-                .tags(stats.getTags())
-                .description("Liefert die Anzahl der technisch fehlerhaften Aufrufe in der letzten Minute")
-                .register(registry);
+            .tags(stats.getTags())
+            .description("Liefert die Anzahl der technisch fehlerhaften Aufrufe in der letzten Minute")
+            .register(registry);
 
         Gauge.builder("anzahlBusinessExceptions.LetzteMinute", stats, ServiceStatistik::getAnzahlBusinessExceptionsLetzteMinute)
-                .tags(stats.getTags())
-                .description("Liefert die Anzahl der fachlich fehlerhaften Aufrufe in der letzten Minute")
-                .register(registry);
+            .tags(stats.getTags())
+            .description("Liefert die Anzahl der fachlich fehlerhaften Aufrufe in der letzten Minute")
+            .register(registry);
 
         TimeGauge.builder("durchschnittsDauer.LetzteAufrufe", stats, TimeUnit.MILLISECONDS, s -> s.getDurchschnittsDauerLetzteAufrufe().toMillis())
-                .tags(stats.getTags())
-                .description("Liefert die durchschnittliche Dauer der letzten 10 Aufrufe in ms")
-                .register(registry);
+            .tags(stats.getTags())
+            .description("Liefert die durchschnittliche Dauer der letzten 10 Aufrufe in ms")
+            .register(registry);
     }
 }
