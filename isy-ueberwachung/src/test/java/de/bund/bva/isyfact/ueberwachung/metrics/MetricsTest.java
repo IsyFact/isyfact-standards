@@ -23,6 +23,7 @@ import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Bean;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import de.bund.bva.isyfact.datetime.util.DateTimeUtil;
@@ -35,6 +36,7 @@ import io.micrometer.core.instrument.MeterRegistry;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = RANDOM_PORT, classes = MonitorTestServiceCalls_TestConfig.class)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class MetricsTest {
 
     private static final Instant START = Instant.now();
@@ -78,6 +80,17 @@ public class MetricsTest {
 
     @Test
     public void serviceStats_available() {
+        testService.call1();
+        testService.call1();
+
+        assertThat(meterRegistry.get("anzahlAufrufe").tag("serviceMethod", "call1").gauge().value())
+            .isEqualTo(2.0);
+        assertThat(meterRegistry.get("anzahlAufrufe").tag("serviceMethod", "call2").gauge().value())
+            .isZero();
+    }
+
+    @Test
+    public void serviceStats_lastMinuteAvailable() {
 
         testService.call1();
         testService.call1();
@@ -101,7 +114,7 @@ public class MetricsTest {
     @Test
     public void serviceStats_durationStats() {
 
-        final Duration[] durations = {Duration.ofMillis(10), Duration.ofMillis(20), Duration.ofMillis(30)};
+        final Duration[] durations = { Duration.ofMillis(10), Duration.ofMillis(20), Duration.ofMillis(30) };
 
         for (Duration duration : durations) {
             resetClock();
