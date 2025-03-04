@@ -1,3 +1,6 @@
+# 4.1.0
+- `IFS-4534`: Bereitstellen von Metriken ohne Zeiteinschränkungen
+
 # 4.0.0
 - `ISY-888`: Freigabe des `/Loadbalancer` Endpunkts auf `SecurityFilterChain` (`@Order(99)`) umgestellt
 - `ISY-601`: Standardabsicherung und Konfigurationsparameter werden per AutoConfiguration bereitgestellt.
