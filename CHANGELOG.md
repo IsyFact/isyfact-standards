@@ -77,6 +77,11 @@
 - `IFS-3736`: [isyfact-standards-doc] Abbildung von Anwendungen in IT-Systeme ("technischer Schnitt") beschrieben.
 - `IFS-3763`: [isyfact-standards-doc] Dokumentation der Änderungen zu IFS-2248 (Tokenerneuerung isy-batchrahmen)
 - `IFS-3750`: [isyfact-standards-doc] Baustein Konfiguration entfernt.
+- `IFS-4529`: Spring Boot Versionsanhebung auf 3.4.x:
+    * [isy-ueberwachung]: Signaturänderung von de.bund.bva.isyfact.ueberwachung.config.NachbarsystemRestTemplateConfigurer.CustomErrorHandler.handleError
+    * [isy-ueberwachung]: Folgende Property-Keys ändern sich:
+      - management.endpoints.enabled-by-default -> management.endpoints.access.default
+      - management.endpoint.<id>.enabled -> management.endpoint.<id>.access
 
 # 3.0.1
 - `ISY-701`: Google Guava Versionsanhebung auf 33.1.0
