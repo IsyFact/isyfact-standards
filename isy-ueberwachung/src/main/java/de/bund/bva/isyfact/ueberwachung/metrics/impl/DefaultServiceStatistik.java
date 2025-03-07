@@ -64,12 +64,14 @@ public class DefaultServiceStatistik implements ServiceStatistik, MethodIntercep
     private final ConcurrentLinkedDeque<Duration> letzteSuchdauern = new ConcurrentLinkedDeque<>();
 
     /**
-     * Number of non-error calls made.
+     * Number of calls made.
      */
     private final AtomicLong anzahlAufrufe = new AtomicLong();
 
     /**
-     * Number of calls made, during which a technical error occurred.
+     * The number of technical errors.
+     * <p>
+     * A technical error occurs if a {@link TechnicalException} was thrown.
      */
     private final AtomicLong anzahlTechnicalExceptions = new AtomicLong();
 
@@ -92,19 +94,21 @@ public class DefaultServiceStatistik implements ServiceStatistik, MethodIntercep
     private final AtomicInteger anzahlAufrufeLetzteMinute = new AtomicInteger();
 
     /**
-     * Number of non-error calls made in the current minute.
+     * Number of calls made in the current minute.
      */
     private final AtomicInteger anzahlAufrufeAktuelleMinute = new AtomicInteger();
 
     /**
-     * Number of calls made in the minute denoted by lastMinute, during which
-     * a technical error occurred.
+     * The number of technical errors in the last minute.
+     * <p>
+     * A technical error occurs if a {@link TechnicalException} was thrown.
      */
     private final AtomicInteger anzahlTechnicalExceptionsLetzteMinute = new AtomicInteger();
 
     /**
-     * Number of calls made in the current minute in which a technical error
-     * occurred.
+     * The number of technical errors in the current minute.
+     * <p>
+     * A technical error occurs if a {@link TechnicalException} was thrown.
      */
     private final AtomicInteger anzahlTechnicalExceptionsAktuelleMinute = new AtomicInteger();
 
@@ -259,13 +263,13 @@ public class DefaultServiceStatistik implements ServiceStatistik, MethodIntercep
     }
 
     @Override
-    public int getAnzahlTechnicalExceptionsLetzteMinute() {
+    public int getAnzahlFehlerLetzteMinute() {
         aktualisiereZeitfenster();
         return anzahlTechnicalExceptionsLetzteMinute.get();
     }
 
     @Override
-    public int getAnzahlBusinessExceptionsLetzteMinute() {
+    public int getAnzahlFachlicheFehlerLetzteMinute() {
         aktualisiereZeitfenster();
         return anzahlBusinessExceptionsLetzteMinute.get();
     }
