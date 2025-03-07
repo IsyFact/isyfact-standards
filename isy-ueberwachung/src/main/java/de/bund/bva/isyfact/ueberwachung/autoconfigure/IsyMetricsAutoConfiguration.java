@@ -31,7 +31,7 @@ public class IsyMetricsAutoConfiguration {
     public static void registerServiceStatsGauges(MeterRegistry registry, ServiceStatistik stats) {
         Gauge.builder("anzahlAufrufe", stats, ServiceStatistik::getAnzahlAufrufe)
             .tags(stats.getTags())
-            .description("Liefert die Anzahl der nicht fehlerhaften Aufrufe.")
+            .description("Liefert die Anzahl aller Aufrufe.")
             .register(registry);
 
         Gauge.builder("anzahlTechnicalExceptions", stats, ServiceStatistik::getAnzahlTechnicalExceptions)
@@ -46,15 +46,15 @@ public class IsyMetricsAutoConfiguration {
 
         Gauge.builder("anzahlAufrufe.LetzteMinute", stats, ServiceStatistik::getAnzahlAufrufeLetzteMinute)
             .tags(stats.getTags())
-            .description("Liefert die Anzahl der nicht fehlerhaften Aufrufe in der letzten Minute")
+            .description("Liefert die Anzahl aller Aufrufe in der letzten Minute")
             .register(registry);
 
-        Gauge.builder("anzahlTechnicalExceptions.LetzteMinute", stats, ServiceStatistik::getAnzahlTechnicalExceptionsLetzteMinute)
+        Gauge.builder("anzahlFehler.LetzteMinute", stats, ServiceStatistik::getAnzahlFehlerLetzteMinute)
             .tags(stats.getTags())
             .description("Liefert die Anzahl der technisch fehlerhaften Aufrufe in der letzten Minute")
             .register(registry);
 
-        Gauge.builder("anzahlBusinessExceptions.LetzteMinute", stats, ServiceStatistik::getAnzahlBusinessExceptionsLetzteMinute)
+        Gauge.builder("anzahlFachlicheFehler.LetzteMinute", stats, ServiceStatistik::getAnzahlFachlicheFehlerLetzteMinute)
             .tags(stats.getTags())
             .description("Liefert die Anzahl der fachlich fehlerhaften Aufrufe in der letzten Minute")
             .register(registry);

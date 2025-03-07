@@ -16,17 +16,23 @@ public interface ServiceStatistik {
     /**
      * Returns the number of calls counted where no error occurred.
      */
-    long getAnzahlAufrufe();
+    default long getAnzahlAufrufe() {
+        throw new UnsupportedOperationException();
+    };
 
     /**
      * Returns the number of calls where a technical error occurred.
      */
-    long getAnzahlTechnicalExceptions();
+    default long getAnzahlTechnicalExceptions() {
+        throw new UnsupportedOperationException();
+    };
 
     /**
      * Returns the number of calls where a business error occurred.
      */
-    long getAnzahlBusinessExceptions();
+    default long getAnzahlBusinessExceptions() {
+        throw new UnsupportedOperationException();
+    };
 
     /**
      * Returns the number of calls counted in the last minute where no error occurred.
@@ -41,10 +47,10 @@ public interface ServiceStatistik {
     /**
      * Returns the number of calls in the last minute, in which an error occurred.
      */
-    int getAnzahlTechnicalExceptionsLetzteMinute();
+    int getAnzahlFehlerLetzteMinute();
 
     /**
      * Returns the number of calls in the last minute, in which a business error occurred.
      */
-    int getAnzahlBusinessExceptionsLetzteMinute();
+    int getAnzahlFachlicheFehlerLetzteMinute();
 }
