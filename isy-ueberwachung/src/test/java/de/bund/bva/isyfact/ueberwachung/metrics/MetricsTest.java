@@ -62,8 +62,8 @@ public class MetricsTest {
                         "anzahlBusinessExceptions",
                         "anzahlTechnicalExceptions",
                         "anzahlAufrufe.LetzteMinute",
-                        "anzahlBusinessExceptions.LetzteMinute",
-                        "anzahlTechnicalExceptions.LetzteMinute",
+                        "anzahlFachlicheFehler.LetzteMinute",
+                        "anzahlFehler.LetzteMinute",
                         "durchschnittsDauer.LetzteAufrufe",
                         "jvm.classes.loaded"
                 )

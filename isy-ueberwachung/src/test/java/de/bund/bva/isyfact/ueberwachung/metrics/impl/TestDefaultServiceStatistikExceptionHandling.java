@@ -1,8 +1,6 @@
 package de.bund.bva.isyfact.ueberwachung.metrics.impl;
 
-import io.micrometer.core.instrument.Gauge;
-import io.micrometer.core.instrument.MeterRegistry;
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.lang.reflect.AccessibleObject;
@@ -15,7 +13,6 @@ import jakarta.annotation.PostConstruct;
 import org.aopalliance.intercept.MethodInvocation;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -25,6 +22,9 @@ import de.bund.bva.isyfact.exception.BusinessException;
 import de.bund.bva.isyfact.exception.TechnicalException;
 import de.bund.bva.isyfact.ueberwachung.common.data.TestBusinessException;
 import de.bund.bva.isyfact.ueberwachung.common.data.TestTechnicalException;
+
+import io.micrometer.core.instrument.Gauge;
+import io.micrometer.core.instrument.MeterRegistry;
 
 
 /**

@@ -73,7 +73,7 @@ public class TestDefaultServiceStatistik {
     @PostConstruct
     private void postConstruct() {
         anzahlAufrufeLetzteMinute = meterRegistry.get("anzahlAufrufe.LetzteMinute").gauge();
-        anzahlFehlerLetzteMinute = meterRegistry.get("anzahlTechnicalExceptions.LetzteMinute").gauge();
+        anzahlFehlerLetzteMinute = meterRegistry.get("anzahlFehler.LetzteMinute").gauge();
         anzahlAufrufe = meterRegistry.get("anzahlAufrufe").gauge();
         anzahlFehler = meterRegistry.get("anzahlTechnicalExceptions").gauge();
         anzahlBusinessFehler = meterRegistry.get("anzahlBusinessExceptions").gauge();
