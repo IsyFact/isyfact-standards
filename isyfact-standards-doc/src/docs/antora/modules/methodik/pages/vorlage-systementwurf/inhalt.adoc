@@ -376,7 +376,7 @@ _Festlegungen, die bereits in den übergeordneten Dokumenten (z.B. Referenzarchi
 
 _Dieser Abschnitt beschreibt, aus welchen Teilsystemen das Gesamtsystem besteht und gibt damit einen Top-level-Überblick über das System.
 Teilsysteme sind z. B.: ein Service-Gateway oder eine Geschäftsanwendung.
-Dieses Kapitel ist die nächste Konkretisierungsstufe nach der Einordnung in die Anwendungslandschaft aus Kapitel <<einbettung-in-anwendungslandschaft, Systemüberblick/Einbettung in die Anwendungslandschaft>>_
+Dieses Kapitel ist die nächste Konkretisierungsstufe nach der Einordnung in die Anwendungslandschaft aus Kapitel <<einbettung-in-anwendungslandschaft,Systemüberblick/Einbettung in die Anwendungslandschaft>>_
 
 *_Inhalte_*
 
@@ -384,7 +384,7 @@ _An dieser Stelle befindet sich eine Übersichtsgrafik, die darstellt, aus welch
 Zur besseren Orientierung sind der Farbcode und das Layout der Referenzarchitektur zu beachten. Für die Schnittstellen und Services soll ein geeigneter Abstraktionsgrad gewählt werden.
 Zweck dieser Übersicht ist es einen prinzipiellen Überblick zu geben und nicht jedes Detail zu beschreiben._
 
-_In der Beschreibung der Grafik ist folgendes beschrieben:_
+_In der Beschreibung der Grafik ist Folgendes beschrieben:_
 
 * _Was sind die Aufgaben der einzelnen Teilsysteme, welche Funktionalität bieten sie an?_
 * _Wie ist das Zusammenspiel der Teilsysteme um die Gesamtaufgabe des Systems zu erfüllen, wie sieht die Aufgabenverteilung aus?_

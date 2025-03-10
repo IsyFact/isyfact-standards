@@ -124,7 +124,7 @@ Ein beliebiges Attribut, das im Access-Token des Security Contexts abgelegt ist,
 === Aufruf von Nachbarsystemen
 
 Ein IT-System erwartet bei einem Aufruf, dass alle notwendigen Authentifizierungs- und Autorisierungsdaten in valider und gültiger Form übergeben werden.
-Folglich muss ein IT-System, das ein Nachbarsystem aufruft, diesem Aufruf ebenfalls gültige und valide Authentifizierungs- und Autorisierungsdaten mitgeben.
+Folglich muss ein IT-System, das ein xref:glossary::terms-definitions.adoc#nachbarsystem[Nachbarsystem] aufruft, diesem Aufruf ebenfalls gültige und valide Authentifizierungs- und Autorisierungsdaten mitgeben.
 Im Regelfall werden diese Daten der originären Anfrage als `SecurityContext` übergeben, der mit den Daten aus dem Access-Token zuvor initialisiert, wurde.
 Dies geschieht durch die xref:validierung-der-token[Validierung des Access-Tokens] über den Sicherheitsbaustein `isy-security` des IT-Systems.
 Für eine fachliche und prozessbezogene Aufrufkette wird dieses `Access-Token` in allen weiteren Aufrufen wiederverwendet und unverändert weitergeleitet.
@@ -763,7 +763,7 @@ Technische Rollen können fachlichen Rollen allerdings untergeordnet werden (sie
 *Enthaltene Rechte:* Die Ausstattung einer fachlichen Rolle mit Rechten beschreibt den Funktionsumfang, den diese Rolle bei Nutzung der Geschäftsanwendung ermöglicht.
 
 *Untergeordnete Rollen:* Optional können fachliche Rollen untergeordnete technische Rollen besitzen.
-Dies ist z.B. immer dann notwendig, wenn ein Anwendungsfall die Services eines Nachbarsystems verwendet.
+Dies ist z.B. immer dann notwendig, wenn ein Anwendungsfall die Services eines xref:glossary::terms-definitions.adoc#nachbarsystem[Nachbarsystems] verwendet.
 Somit muss im Rahmen des Anwendungsfalls die Service-Schnittstelle des Nachbarsystems aufgerufen werden.
 Die dazu benötigte, technische Rolle muss der fachlichen Rolle untergeordnet werden, damit dies funktioniert.
 
