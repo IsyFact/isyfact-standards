@@ -405,7 +405,7 @@ _Die Farbgebung für ein Teilsystem-Element orientiert sich an der fachlichen Re
 * _Gelb für Querschnittsanwendungen (R/G/B: 255 / 255 / 153)_
 * _Violett für das Service-Gateway (R/G/B: 255 / 153 / 204)_
 * _Hellgrün für Portal-Systeme (R/G/B: 204 / 255 / 204)_
-* _Weiß für externe Systeme oder Produkte (Datenbank etc.) (R/G/B: 255 / 255 / 255)_
+* _Weiß für technische Systeme oder Produkte (Datenbank etc.) (R/G/B: 255 / 255 / 255)_
 ====
 
 [[anforderungen]]
@@ -670,7 +670,7 @@ _Das Diagramm soll nicht die Logik der Verarbeitung beschreiben._
 
 * _Schichten-Begrenzungen (Batch etc.) als Boundary Elemente_
 
-* _Externe Systeme und Produkte als Component-Elemente_
+* _Technische Systeme und Produkte als Component-Elemente_
 
 * _Komponenten-Schnittstellen als Interface-, Komponenten als Component-Elemente._
 
