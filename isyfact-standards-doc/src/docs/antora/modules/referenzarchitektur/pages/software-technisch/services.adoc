@@ -203,13 +203,21 @@ Es kann vorkommen, dass in _einem_ Systemrelease neue Versionen von _mehreren_ S
 === Architektur
 
 Backends bieten pro Service-Version eine eigene Service-Schnittstelle an.
-Die unterschiedlichen Versionen des Services verwenden alle denselben xref:referenzarchitektur:software-technisch/backend/anwendungskern.adoc[Anwendungskern].
+Die unterschiedlichen Versionen des Service verwenden alle denselben xref:referenzarchitektur:software-technisch/backend/anwendungskern.adoc[Anwendungskern].
 Die für die Versionierung notwendigen Transformationen sind Teil der jeweiligen Service-Schnittstelle (z.B. das Einfügen eines Standardwerts für neu hinzugefügte Attribute).
-In komplexen Fällen kann es auch notwendig sein, den Anwendungskern zu erweitern und die Versionierung dort zu behandeln.
+
+Für jede neu bereitgestellte Major- oder Major.Minor-Version einer Schnittstelle im Anwendungskern und/oder ServiceGateway muss eine neue Schnittstellen-Beschreibung erstellt werden, die dem Anwender:
+
+* im Fall kompatibler Schnittstellen-Änderungen die erweiterten Möglichkeiten, bzw. die erweiterte Nutzbarkeit bereits bestehender Möglichkeiten der Schnittstelle erklärt.
+Die Beschreibung beinhaltet eine vollständige Liste aller kompatibler Änderungen mit konkreten Details, wie zum Beispiel neue Servicemethoden, zusätzliche Attribute, geänderte Iniialisierungswert, o.ä., so dass der Leser sich ein genaues Bild der Versionsänderungen machen kann, um seine Anwendung und Implementierung zur Nutzung der verschiedenen Service-Versionen anzupassen.
+* im Fall inkompatibler Änderungen darüber hinaus erklärt, welche Services (und Daten) mit der neuen Major-Version nicht mehr zur Verfügung stehen.
+Auch hier beinhaltet die Beschreibung eine vollständige Lister aller inkompatibler Änderungen mit konkreten Details, wie zum Beispiel entfallene Servicemethoden, entfernte Attribute, geänderte Datentypen, o.ä., so dass der Leser nachvollziehen kann, welche Anpassungen in seiner Anwendung und Implementierung notwendig werden, um die verschiedenen Service-Versionen zu nutzen.
+
+In komplexen Fällen kann es auch notwendig sein, den Anwendungskern so zu erweitern, dass die Logik der komplexen Transformationen zwischen einzelnen Versionen nur dort enthalten sind.
 Die Entscheidung dafür ist im Systementwurf zu dokumentieren.
 
 Externe Services werden durch Service-Gateways bereitgestellt.
-Die Versionierung eines Services muss also auch auf Ebene des Service-Gateways durchgeführt werden.
+Die Versionierung eines Service muss also auch auf Ebene des Service-Gateways durchgeführt werden.
 Ein Service-Gateway ist ein rein technischer Protokoll-Wandler, der Web-Services in interne Schnittstellen konvertiert.
 Im Service-Gateway erfolgt daher immer nur ein einfaches Mapping auf die entsprechenden Service-Schnittstellen der angebundenen Backends.
 Der Ausgleich der Versionsunterschiede erfolgt ausschließlich im Backend und nicht im Service-Gateway.
@@ -221,6 +229,10 @@ image::referenzarchitektur:software-technisch/services/versionierung.dn.svg[]
 
 [[abwaertskompatible-erweiterung]]
 === Abwärtskompatible Erweiterung eines Services
+
+Erfährt ein Service nur abwärtskompatible Änderungen, wie neu hinzugekommene Servicemethoden, zusätzliche Attribute, o.ä., dann kann dies über eine neue Minor-Version bei gleichbleibender Major-Version des Service bewerkstelligt werden.
+Das Backend bietet dafür aber anstatt zwei Serviceversionen 1.0 und 1.1 lediglich die Version 1.1 an.
+Denn bei rein abwärtskompatiblen Änderungen einer Serviceversion muss diese neue Version sicherstellen, dass Clients, die den Backendservice auf Basis der Version 1.0 aufrufen, mit der Backendservice-Version 1.1 fehlerfrei arbeiten.
 
 Ein Backend stellt einen Service bereit, mit dem Personendaten gemeldet werden können.
 Parameter dieser Meldung sind Vor- und Nachname sowie das Geburtsdatum.
