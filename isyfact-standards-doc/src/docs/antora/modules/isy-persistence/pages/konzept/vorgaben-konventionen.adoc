@@ -308,10 +308,10 @@ Sie ermöglicht es ihnen, von einer Entität zu einer anderen Entität zu navigi
 
 Es gibt 4 verschiedene Arten der bidirektionalen Assoziation, die wie folgt aussehen:
 
-. Bidirektionale Eins-zu-Eins-Verknüpfung (One-to-One)
-. Bidirektionale Eins-zu-Viele-Verknüpfung (One-to-Many)
-. Bidirektionale Viele-zu-Eins-Verknüpfung (Many-to-One)
-. Bidirektionale Viele-zu-Viele-Verknüpfung (Many-to-Many )
+. Bidirektionale Eins-zu-Eins-Verknüpfung (one-to-one)
+. Bidirektionale Eins-zu-Viele-Verknüpfung (one-to-many)
+. Bidirektionale Viele-zu-Eins-Verknüpfung (many-to-one)
+. Bidirektionale Viele-zu-Viele-Verknüpfung (many-to-many)
 
 ===== https://docs.jboss.org/hibernate/stable/orm/userguide/html_single/Hibernate_User_Guide.html#associations-one-to-many-bidirectional[JPA bidirektionale Sync-Methoden]
 Wenn eine bidirektionale Assoziation gebildet wird, muss sichergestellt werden, dass beide Seiten zu jeder Zeit synchron sind.
