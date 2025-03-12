@@ -303,7 +303,8 @@ Wird von der Anwendung eine Sortierung benötigt und sind alle für die Sortieru
 [[bidirektionale-assoziationen]]
 ==== Bidirektionale Assoziationen
 
-Bidirektionale Assoziation beschreibt die Beziehung zwischen zwei Entitäten, wobei jede Entität einen Verweis auf die andere Entität hat. Sie ermöglicht es Ihnen, von einer Entität zu einer anderen Entität zu navigieren, die mit ihr verbunden ist, und umgekehrt.
+Bidirektionale Assoziation beschreibt die Beziehung zwischen zwei Entitäten, wobei jede Entität einen Verweis auf die andere Entität besitzt. 
+Sie ermöglicht es ihnen, von einer Entität zu einer anderen Entität zu navigieren, die mit ihr verbunden ist, und umgekehrt.
 
 Es gibt 4 verschiedene Arten der bidirektionalen Assoziation, die wie folgt aussehen:
 
