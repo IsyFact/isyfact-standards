@@ -209,11 +209,11 @@ Die für die Versionierung notwendigen Transformationen sind Teil der jeweiligen
 Für jede neu bereitgestellte Major- oder Major.Minor-Version einer Schnittstelle im Anwendungskern und/oder ServiceGateway muss eine neue Schnittstellen-Beschreibung erstellt werden, die dem Anwender:
 
 * im Fall kompatibler Schnittstellen-Änderungen die erweiterten Möglichkeiten, bzw. die erweiterte Nutzbarkeit bereits bestehender Möglichkeiten der Schnittstelle erklärt.
-Die Beschreibung beinhaltet eine vollständige Liste aller kompatibler Änderungen mit konkreten Details, wie zum Beispiel neue Servicemethoden, zusätzliche Attribute, geänderte Iniialisierungswert, o.ä., so dass der Leser sich ein genaues Bild der Versionsänderungen machen kann, um seine Anwendung und Implementierung zur Nutzung der verschiedenen Service-Versionen anzupassen.
+Die Beschreibung beinhaltet eine vollständige Liste aller kompatibler Änderungen mit konkreten Details, wie zum Beispiel neue Servicemethoden, zusätzliche Attribute, geänderte Initialisierungswerte, o.ä., so dass der Leser sich ein genaues Bild der Versionsänderungen machen kann, um seine Anwendung und Implementierung zur Nutzung der verschiedenen Service-Versionen anzupassen.
 * im Fall inkompatibler Änderungen darüber hinaus erklärt, welche Services (und Daten) mit der neuen Major-Version nicht mehr zur Verfügung stehen.
-Auch hier beinhaltet die Beschreibung eine vollständige Lister aller inkompatibler Änderungen mit konkreten Details, wie zum Beispiel entfallene Servicemethoden, entfernte Attribute, geänderte Datentypen, o.ä., so dass der Leser nachvollziehen kann, welche Anpassungen in seiner Anwendung und Implementierung notwendig werden, um die verschiedenen Service-Versionen zu nutzen.
+Auch hier beinhaltet die Beschreibung eine vollständige Liste aller inkompatibler Änderungen mit konkreten Details, wie zum Beispiel entfallene Servicemethoden, entfernte Attribute, geänderte Datentypen, o.ä., so dass der Leser nachvollziehen kann, welche Anpassungen in seiner Anwendung und Implementierung notwendig werden, um die verschiedenen Service-Versionen zu nutzen.
 
-In komplexen Fällen kann es auch notwendig sein, den Anwendungskern so zu erweitern, dass die Logik der komplexen Transformationen zwischen einzelnen Versionen nur dort enthalten sind.
+In komplexen Fällen kann es auch notwendig sein, das Backend vor dem Anwendungskern mit der Fachkomponente um zusätzliche Komponenten pro Version in der Serviceschicht so zu erweitern (siehe xref:image-archversServ[]), dass die Logik der komplexen Transformationen nur dort enthalten sind.
 Die Entscheidung dafür ist im Systementwurf zu dokumentieren.
 
 Externe Services werden durch Service-Gateways bereitgestellt.
@@ -231,8 +231,14 @@ image::referenzarchitektur:software-technisch/services/versionierung.dn.svg[]
 === Abwärtskompatible Erweiterung eines Services
 
 Erfährt ein Service nur abwärtskompatible Änderungen, wie neu hinzugekommene Servicemethoden, zusätzliche Attribute, o.ä., dann kann dies über eine neue Minor-Version bei gleichbleibender Major-Version des Service bewerkstelligt werden.
-Das Backend bietet dafür aber anstatt zwei Serviceversionen 1.0 und 1.1 lediglich die Version 1.1 an.
-Denn bei rein abwärtskompatiblen Änderungen einer Serviceversion muss diese neue Version sicherstellen, dass Clients, die den Backendservice auf Basis der Version 1.0 aufrufen, mit der Backendservice-Version 1.1 fehlerfrei arbeiten.
+Das Backend bietet im Anwendungskern als Fachkomponente dafür aber anstatt zwei Serviceversionen 1.0 und 1.1 lediglich die Version 1.1 an.
+Denn bei rein abwärtskompatiblen Änderungen einer Serviceversion muss diese neue Version sicherstellen, dass Clients, die den Backendservice auf Basis der Version 1.0 aufrufen, auch mit der Backendservice-Version 1.1 fehlerfrei arbeiten.
+
+Das bedeutet zum Beispiel in einem Service wird mit Version 1.1 ein zusätzliches Attribut für MethodeA eingeführt.
+Wenn nun ein Client die Service-MethodeA gemäß Version 1.0 aufruft und dabei auch die Servicesignatur von Version 1.0 erfüllt, dann ist das neu hinzugekommene Attribut gemäß Version 1.1 nicht in dem Aufruf des Clients enthalten.
+Die Transformation eines Aufruf der Service-MethodeA gemäß Version 1.0 muss nun das fehlende Attribut ergänzen und mit einem Default-Wert initialisieren, bevor die Verarbeitung in der Fachkomponente stattfindet oder die Fachkomponente selbst akzeptiert mit Version 1.1 dieses neue Attribut als optional.
+
+Konkretes Beispiel:
 
 Ein Backend stellt einen Service bereit, mit dem Personendaten gemeldet werden können.
 Parameter dieser Meldung sind Vor- und Nachname sowie das Geburtsdatum.
