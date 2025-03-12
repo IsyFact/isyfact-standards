@@ -303,15 +303,31 @@ Wird von der Anwendung eine Sortierung benötigt und sind alle für die Sortieru
 [[bidirektionale-assoziationen]]
 ==== Bidirektionale Assoziationen
 
-Bidirektional traversierbare Assoziationen sind zu vermeiden.
-Für die Traversierung in Gegenrichtung sollte eine Query verwendet werden.
+Bidirektionale Assoziation beschreibt die Beziehung zwischen zwei Entitäten, wobei jede Entität einen Verweis auf die andere Entität hat. Sie ermöglicht es Ihnen, von einer Entität zu einer anderen Entität zu navigieren, die mit ihr verbunden ist, und umgekehrt.
 
-Grund für die Vorgabe ist, dass Änderungen am "inversen Ende" der Assoziation nicht persistiert werden.
-Falls wirklich eine bidirektionale Assoziation benötigt wird, sind in der Entität am "inversen Ende" der Assoziation Methoden zu definieren, welche die Assoziation korrekt manipulieren.
+Es gibt 4 verschiedene Arten der bidirektionalen Assoziation, die wie folgt aussehen:
 
-Explizit verboten sind bidirektional traversierbare n-zu-m-Assoziationen.
-Hierfür sind zwei 1-zu-n- bzw. n-zu-1-Assoziationen zu definieren.
+. Bidirektionale Eins-zu-Eins-Verknüpfung (One-to-One)
+. Bidirektionale Eins-zu-Viele-Verknüpfung (One-to-Many)
+. Bidirektionale Viele-zu-Eins-Verknüpfung (Many-to-One)
+. Bidirektionale Viele-zu-Viele-Verknüpfung (Many-to-Many )
 
+===== https://docs.jboss.org/hibernate/stable/orm/userguide/html_single/Hibernate_User_Guide.html#associations-one-to-many-bidirectional[JPA bidirektionale Sync-Methoden]
+Wenn eine bidirektionale Assoziation gebildet wird, muss der Anwendungsentwickler sicherstellen, dass beide Seiten zu jeder Zeit synchron sind.
+
+===== Vermeiden von to-many-Assoziationen
+Bei einer to-many Assoziation lädt Hibernate alle zugehörigen Entitäten, wenn es die Assoziation initialisiert. Das kann mehrere Sekunden oder sogar Minuten dauern, wenn Hibernate mehrere tausend Entitäten abrufen muss.
+
+Stattdessen sollte für die Traversierung in Gegenrichtung (many-to-one) eine Query verwendet werden.
+
+===== Best Practices
+Generell sollten bei der Verwendung von Assoziationen die Best Practices beachtet werden
+
+===== Quellen
+* https://docs.jboss.org/hibernate/stable/orm/userguide/html_single/Hibernate_User_Guide.html#associations[Hibernate User Guide - Associations]
+* https://vladmihalcea.com/jpa-bidirectional-sync-methods[Vlad Mihalcea - JPA Best practices]
+* https://thorben-janssen.com/best-practices-for-many-to-many-associations-with-hibernate-and-jpa[Thorben Janssen - JPA Best practices]
+* https://thorben-janssen.com/best-practices-many-one-one-many-associations-mappings[Thorben Janssen - Best practices  many-one-one-many-associations]
 
 [[vererbungshierarchien]]
 === Vererbungshierarchien
