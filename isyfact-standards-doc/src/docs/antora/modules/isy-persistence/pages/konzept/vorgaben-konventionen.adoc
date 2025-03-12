@@ -322,14 +322,16 @@ Das kann mehrere Sekunden oder sogar Minuten dauern, wenn Hibernate mehrere taus
 
 Stattdessen sollte für die Traversierung in Gegenrichtung (many-to-one) eine Query verwendet werden.
 
-===== Best Practices
-Generell sollten bei der Verwendung von Assoziationen die Best Practices beachtet werden
+[NOTE] 
+====
+Die folgenden Best Practices helfen bei der Verwendung von Assoziationen:
 
-===== Quellen
 * https://docs.jboss.org/hibernate/stable/orm/userguide/html_single/Hibernate_User_Guide.html#associations[Hibernate User Guide - Associations]
 * https://vladmihalcea.com/jpa-bidirectional-sync-methods[Vlad Mihalcea - JPA Best practices]
 * https://thorben-janssen.com/best-practices-for-many-to-many-associations-with-hibernate-and-jpa[Thorben Janssen - JPA Best practices]
 * https://thorben-janssen.com/best-practices-many-one-one-many-associations-mappings[Thorben Janssen - Best practices  many-one-one-many-associations]
+
+====
 
 [[vererbungshierarchien]]
 === Vererbungshierarchien
