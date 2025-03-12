@@ -314,7 +314,7 @@ Es gibt 4 verschiedene Arten der bidirektionalen Assoziation, die wie folgt auss
 . Bidirektionale Viele-zu-Viele-Verknüpfung (Many-to-Many )
 
 ===== https://docs.jboss.org/hibernate/stable/orm/userguide/html_single/Hibernate_User_Guide.html#associations-one-to-many-bidirectional[JPA bidirektionale Sync-Methoden]
-Wenn eine bidirektionale Assoziation gebildet wird, muss der Anwendungsentwickler sicherstellen, dass beide Seiten zu jeder Zeit synchron sind.
+Wenn eine bidirektionale Assoziation gebildet wird, muss sichergestellt werden, dass beide Seiten zu jeder Zeit synchron sind.
 
 ===== Vermeiden von to-many-Assoziationen
 Bei einer to-many Assoziation lädt Hibernate alle zugehörigen Entitäten, wenn es die Assoziation initialisiert. Das kann mehrere Sekunden oder sogar Minuten dauern, wenn Hibernate mehrere tausend Entitäten abrufen muss.
