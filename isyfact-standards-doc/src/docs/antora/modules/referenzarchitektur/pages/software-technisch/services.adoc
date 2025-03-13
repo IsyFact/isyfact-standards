@@ -230,13 +230,13 @@ image::referenzarchitektur:software-technisch/services/versionierung.dn.svg[]
 [[abwaertskompatible-erweiterung]]
 === Abwärtskompatible Erweiterung eines Services
 
-Erfährt ein Service nur abwärtskompatible Änderungen, wie neu hinzugekommene Servicemethoden, zusätzliche Attribute, o.ä., dann kann dies über eine neue Minor-Version bei gleichbleibender Major-Version des Service bewerkstelligt werden.
-Das Backend bietet im Anwendungskern als Fachkomponente dafür aber anstatt zwei Serviceversionen 1.0 und 1.1 lediglich die Version 1.1 an.
-Denn bei rein abwärtskompatiblen Änderungen einer Serviceversion muss diese neue Version sicherstellen, dass Clients, die den Backendservice auf Basis der Version 1.0 aufrufen, auch mit der Backendservice-Version 1.1 fehlerfrei arbeiten.
+Erfährt ein Service nur abwärtskompatible Änderungen, wie neu hinzugekommene Servicemethoden, zusätzliche Attribute, o.ä., dann wird dies über eine neue Minor-Version bei gleichbleibender Major-Version des Service bewerkstelligt.
+Das Backend bietet im Anwendungskern als Fachkomponente dafür aber anstatt zwei parallel betriebene Serviceversionen 1.0 und 1.1 lediglich die eine neue Version 1.1 an.
+Denn bei rein abwärtskompatiblen Änderungen einer Serviceversion muss diese neue Version sicherstellen, dass Clients, die den Backendservice allein auf Basis der Major-Versionsangabe - hier Version 1 - auswählen und aufrufen, auch mit der Backendservice-Version 1.1 fehlerfrei arbeiten.
 
 Das bedeutet zum Beispiel in einem Service wird mit Version 1.1 ein zusätzliches Attribut für MethodeA eingeführt.
-Wenn nun ein Client die Service-MethodeA gemäß Version 1.0 aufruft und dabei auch die Servicesignatur von Version 1.0 erfüllt, dann ist das neu hinzugekommene Attribut gemäß Version 1.1 nicht in dem Aufruf des Clients enthalten.
-Die Transformation eines Aufruf der Service-MethodeA gemäß Version 1.0 muss nun das fehlende Attribut ergänzen und mit einem Default-Wert initialisieren, bevor die Verarbeitung in der Fachkomponente stattfindet oder die Fachkomponente selbst akzeptiert mit Version 1.1 dieses neue Attribut als optional.
+Wenn nun ein Client die Service-MethodeA gemäß Major-Version 1 aufruft und dabei aber die Servicesignatur von Version 1.0 erfüllt, dann ist das neu hinzugekommene Attribut gemäß Version 1.1 nicht in dem Aufruf des Clients enthalten.
+Die Transformation eines Aufrufs der Service-MethodeA gemäß Version 1.0 muss nun das fehlende Attribut ergänzen und mit einem Default-Wert initialisieren, bevor die Verarbeitung in der Fachkomponente mit Version 1.1 stattfindet oder die Fachkomponente selbst akzeptiert mit Version 1.1 dieses neue Attribut als optional.
 
 Konkretes Beispiel:
 
@@ -249,13 +249,23 @@ Im bisherigen Datenbestand wird dieses neue Attribut auf den Wert "unbekannt" ge
 Der bestehende Service wird um dieses Attribut erweitert und erhält die Versionsnummer 1.1.
 Anwendungskern und Persistenzschicht müssen ebenfalls erweitert werden.
 Aus Gründen der Rückwärtskompatibilität soll aber weiterhin die Version 1.0 des Service angeboten werden.
-Dazu wird ein neuer Service innerhalb der Serviceschicht implementiert, der die Meldung entgegennimmt, das fehlende Attribut mit dem Wert "unbekannt" ergänzt und dann den Anwendungskern aufruft.
+Dazu wird ein neuer Service gleichen Namens als Transformationskomponente innerhalb der Serviceschicht für Version 1.0 implementiert, der die Meldung gemäß Signatur der Version 1.0 entgegennimmt, das fehlende Attribut mit dem Wert "unbekannt" ergänzt und dann im Anwendungskern den eigentlichen Service mit der Signatur der Version 1.1 aufruft.
 
 Werden die beiden Services durch ein Service-Gateway nach außen verfügbar gemacht, existieren dort zwei parallele Mappings auf die jeweiligen Services des Backends.
 Innerhalb des Service-Gateways existiert keine Geschäftslogik, d.h. die Abbildung von Version 1.0 auf 1.1 findet erst im Backend statt.
 
 [[inkompatible-veraenderung]]
 === Inkompatible Veränderung eines Services
+
+Bei inkompatiblen Veränderungen eines Service, zum Beispiel durch Wegfall von Servicemethoden, Änderung von Parameterdatentypen in einer bestehenden Servicemethoden Signatur, o.ä. ist es notwendig eine neue Major-Version des Service bereit zu stellen.
+
+Da nicht alle Clients gleichzeitig ihre Anpassungen an eine neu bereitgestellte Service-Version durchführen können, bedarf es der Notwendigkeit mehrere Service-Major-Versionen parallel im Backend zu betreiben.
+
+Dadurch erwächst die Anforderung, dass ein Client die von ihm aufzurufende Service-Version auswählen können muss.
+Dies geschieht im Allgemeinen dadurch, dass im Backend die Major-Versionsangabe im Namen des Service-Moduls, in den Servicemethoden als Prefix bzw. im PFad des Service-Endpunktes enthalten ist.
+Mit Angabe der Service-Version im Client-Aufruf wird die Wahl der gewünschten Service-Version, die im Backend ausgeführt werden soll, getroffen.
+
+Ruft ein Client nun einen Service mit einer Version auf, die im Backend nicht mehr zur Verfügung steht, so bekommt der Client eine Fehlermeldung, dass dieser Service mit der gewünschten Version nicht mehr erreichbar ist.
 
 In einem komplexeren Fall kann es passieren, dass Services von Backends so umgestaltet werden, dass die Aufrufe nicht mehr aufeinander abgebildet werden können.
 Wird in so einem Fall ein neuer Service eingeführt, während der alte Service noch verfügbar bleiben muss, müssen die inkompatiblen Verarbeitungslogiken im Anwendungskern parallel unterstützt werden.
