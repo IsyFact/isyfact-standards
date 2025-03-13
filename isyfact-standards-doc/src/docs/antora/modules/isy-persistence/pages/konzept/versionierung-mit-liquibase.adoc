@@ -8,8 +8,8 @@ Die Integration von Liquibase in eine bestehende Datenbank stellt eine Herausfor
 
 Eine konkrete Umsetzung dieses Konzepts folgt in xref:nutzungsvorgaben/versionierung-mit-liquibase.adoc[Nutzungsvorgaben zur Versionierung mit Liquibase] und dient als Empfehlung.
 
-[[ziele-der-versionierung-mit-liquibase]]
-== Ziele der Versionierung mit Liquibase
+[[ziele-der-versionierung]]
+== Ziele der Versionierung
 
 Die Einführung von Liquibase in eine bestehende Datenbank verfolgt mehrere Kernziele:
 
@@ -18,8 +18,8 @@ Die Einführung von Liquibase in eine bestehende Datenbank verfolgt mehrere Kern
 . **Konsistenz über verschiedene Umgebungen** – Entwicklungs-, Test- und Produktionsumgebungen bleiben synchron.
 . **Rollback-Funktionalität** – Fehlerhafte Änderungen können gezielt zurückgesetzt werden.
 
-[[schrittweise-einfuehrung-von-liquibase]]
-== Schrittweise Einführung von Liquibase
+[[schrittweise-einfuehrung]]
+== Schrittweise Einführung
 
 [[vorbereitung-und-installation]]
 === Vorbereitung und Installation
@@ -118,8 +118,8 @@ Wichtige Prinzipien für die Verwaltung von Changesets:
 
 * **Tests vor der Anwendung** – Sicherstellen, dass Änderungen vor der Übernahme geprüft werden.
 
-[[umsetzung-von-schemaenderungen-mit-liquibase]]
-== Umsetzung von Schemaänderungen mit Liquibase
+[[umsetzung-von-schemaenderungen]]
+== Umsetzung von Schemaänderungen
 
 Die Umsetzung von Schemaänderungen erfolgt durch strukturiert definierte **Changesets**, die jeweils eine atomare Änderung repräsentieren. Dabei wird sichergestellt, dass jede Anpassung nachvollziehbar und unabhängig ist.
 
