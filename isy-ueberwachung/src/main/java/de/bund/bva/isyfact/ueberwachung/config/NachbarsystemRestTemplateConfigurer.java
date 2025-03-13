@@ -1,9 +1,11 @@
 package de.bund.bva.isyfact.ueberwachung.config;
 
 import java.io.IOException;
+import java.net.URI;
 import java.time.Duration;
 
 import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.client.ClientHttpResponse;
@@ -23,9 +25,9 @@ public final class NachbarsystemRestTemplateConfigurer {
         Duration timeout =
             properties.getNachbarsystemCheck().getTimeout();
         return builder
-            .setConnectTimeout(timeout)
-            .setReadTimeout(timeout)
-            .errorHandler(new CustomErrorHandler());
+                .connectTimeout(timeout)
+                .readTimeout(timeout)
+                .errorHandler(new CustomErrorHandler());
     }
 
     /**
@@ -36,12 +38,12 @@ public final class NachbarsystemRestTemplateConfigurer {
     public static class CustomErrorHandler extends DefaultResponseErrorHandler {
 
         @Override
-        public void handleError(@NonNull ClientHttpResponse response, @NonNull HttpStatusCode statusCode)
+        public void handleError(@NonNull ClientHttpResponse response, @NonNull HttpStatusCode statusCode, URI uri, HttpMethod method)
             throws IOException {
 
             //skip Default Error Handling for SERVICE_UNAVAILABLE
             if (statusCode.value() != HttpStatus.SERVICE_UNAVAILABLE.value()) {
-                super.handleError(response, statusCode);
+                super.handleError(response, statusCode, uri, method);
             }
         }
     }

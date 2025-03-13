@@ -71,8 +71,8 @@ class IsyPersistenceAutoConfigurationTest {
                 assertThat(context).hasFailed()
                     .getFailure()
                     .cause()
-                    .isInstanceOf(BeanCurrentlyInCreationException.class)
-                    .hasMessageContaining("Is there an unresolvable circular reference?");
+                        .hasRootCauseInstanceOf(BeanCurrentlyInCreationException.class)
+                        .hasMessageContaining("Is there an unresolvable circular reference");
             });
     }
 
