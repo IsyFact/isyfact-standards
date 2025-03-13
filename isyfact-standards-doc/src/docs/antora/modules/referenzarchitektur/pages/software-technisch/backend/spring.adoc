@@ -2,9 +2,7 @@
 
 include::documentation-guide::partial$licence.adoc[]
 
-Das Spring-Framework ist ein Java EE Framework, welches im Kern sehr verständlich und leicht zu verwenden ist.
-In ihm werden die Bestandteile eines Systems als _Spring-Beans_ definiert.
-Neben seiner Kern-Funktionalität der Verwaltung, Konfiguration und aspektorientierten Erweiterung von Beans bietet Spring viele Funktionalitäten, welche die Entwicklung einer Anwendung erleichtern.
+Das Spring-Framework ist ein Java Framework, welches auf Dependency Injection und Inversion of Control basiert. Spring ist ein leichtgewichtiges Framework, welches sehr verständlich und leicht zu verwenden ist.
 
 Die folgenden Inhalte beschreiben die Nutzung von Spring für die allgemeine Umsetzung von Backends.
 Die Nutzung spezifischer Features von Spring sind Bestandteile der folgenden Bausteine:
@@ -12,22 +10,6 @@ Die Nutzung spezifischer Features von Spring sind Bestandteile der folgenden Bau
 * Konfiguration der Persistenzschicht: beschrieben in den xref:isy-persistence:nutzungsvorgaben/umsetzung-persistenzschicht.adoc[Nutzungsvorgaben JPA/Hibernate],
 * Konfiguration des Logging: beschrieben in den xref:isy-logging:nutzungsvorgaben/master.adoc[],
 * Bereitstellung von Metriken zur Überwachung: beschrieben im xref:isy-ueberwachung:konzept/master.adoc[].
-
-Alle anderen Funktionalitäten von Spring (Validierung über Spring, Emailing, Thread Pooling, Scripting) werden nicht verwendet.
-
-Mit der Verwendung von Spring verspricht man sich eine geringere Komplexität sowie einen geringeren Entwicklungsaufwand von Backends.
-Die Verwendung unterliegt den folgenden Zielen.
-
-Einheitlichkeit der Nutzung::
-Spring soll in Backends einheitlich eingesetzt werden.
-Hierfür sind geeignete Vorgaben für die Nutzung zu etablieren.
-
-Verständlichkeit der Konfiguration::
-Die Konfiguration der Spring-Komponenten erfolgt über Annotationen an den Komponenten sowie über Konfigurationsklassen.
-
-Komponentenorientierung wahren::
-Über Spring werden Komponenten konfiguriert.
-Es soll nicht möglich sein, direkt auf Implementierungsklassen einer Komponente zuzugreifen.
 
 [[konfiguration-von-spring]]
 == Vorgaben zur Konfiguration mit Spring
