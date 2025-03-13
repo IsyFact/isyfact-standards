@@ -17,6 +17,7 @@
 **** xref:isy-persistence:nutzungsvorgaben/umsetzung-persistenzschicht.adoc[]
 **** xref:isy-persistence:nutzungsvorgaben/konfiguration.adoc[]
 **** xref:isy-persistence:nutzungsvorgaben/historisierung.adoc[]
+**** xref:isy-persistence:nutzungsvorgaben/versionierung-mit-liquibase.adoc[]
 **** xref:isy-persistence:nutzungsvorgaben/versionierung.adoc[]
 
 ** Logging
