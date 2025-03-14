@@ -2,40 +2,47 @@
 
 include::glossary:licence:partial$licence.adoc[]
 
-Liquibase ist ein leistungsfähiges Tool zur Versionierung und Verwaltung von Datenbankänderungen. Es ermöglicht eine **transparente, nachvollziehbare und automatisierte** Änderungsverfolgung, wodurch manuelle Fehler minimiert und eine konsistente Synchronisation zwischen Entwicklungs-, Test- und Produktionsumgebungen sichergestellt wird.
+Liquibase ist ein leistungsfähiges Tool zur Versionierung und Verwaltung von Datenbankänderungen.
+Es ermöglicht eine *transparente, nachvollziehbare und automatisierte* Änderungsverfolgung, wodurch manuelle Fehler minimiert und eine konsistente Synchronisation zwischen Entwicklungs-, Test- und Produktionsumgebungen sichergestellt wird.
 
-Die Integration von Liquibase in eine bestehende Datenbank stellt eine Herausforderung dar, da das aktuelle Schema bereits produktiv genutzt wird. Ziel dieses Konzepts ist es, eine strukturierte Vorgehensweise zur Einführung von Liquibase zu definieren, ohne die bestehende Datenbankstruktur zu gefährden.
+Die Integration von Liquibase in eine bestehende Datenbank stellt eine Herausforderung dar, da das aktuelle Schema bereits produktiv genutzt wird.
+Ziel dieses Konzepts ist es, eine strukturierte Vorgehensweise zur Einführung von Liquibase zu definieren, ohne die bestehende Datenbankstruktur zu gefährden.
 
 Eine konkrete Umsetzung dieses Konzepts folgt in xref:nutzungsvorgaben/versionierung-mit-liquibase.adoc[Nutzungsvorgaben zur Versionierung mit Liquibase] und dient als Empfehlung.
 
 [[ziele-der-versionierung]]
 == Ziele der Versionierung
 
-Die Einführung von Liquibase in eine bestehende Datenbank verfolgt mehrere Kernziele:
+Die Verwendung von Liquibase verfolgt mehrere Kernziele.
 
-. **Nachvollziehbarkeit** – Jede Änderung wird dokumentiert und kann jederzeit zurückverfolgt werden.
-. **Automatisierung** – Änderungen erfolgen nicht mehr manuell, sondern kontrolliert über Liquibase.
-. **Konsistenz über verschiedene Umgebungen** – Entwicklungs-, Test- und Produktionsumgebungen bleiben synchron.
-. **Rollback-Funktionalität** – Fehlerhafte Änderungen können gezielt zurückgesetzt werden.
+Nachvollziehbarkeit:: Jede Änderung wird dokumentiert und kann jederzeit zurückverfolgt werden.
 
-[[schrittweise-einfuehrung]]
-== Schrittweise Einführung
+Automatisierung:: Änderungen erfolgen nicht mehr manuell, sondern kontrolliert über Liquibase.
+
+Konsistenz über verschiedene Umgebungen:: Entwicklungs-, Test- und Produktionsumgebungen bleiben synchron.
+
+Rollback-Funktionalität:: Fehlerhafte Änderungen können gezielt zurückgesetzt werden.
+
+[[einfuehrung]]
+== Einführung von Liquibase
 
 [[vorbereitung-und-installation]]
 === Vorbereitung und Installation
 
-Liquibase wird direkt in die Anwendung integriert und kann automatisch mit dieser gestartet werden. Die wichtigsten Schritte umfassen:
+Liquibase wird direkt in die Anwendung integriert und kann automatisch mit dieser gestartet werden.
+Die wichtigsten Schritte umfassen die:
 
-* Einbindung in das Projekt über ein Abhängigkeitsmanagement.
+* Einbindung in das Projekt über ein Abhängigkeitsmanagement,
 
-* Integration in das Anwendungsframework zur automatisierten Ausführung von Migrationen.
+* Integration in das Anwendungsframework zur automatisierten Ausführung von Migrationen,
 
 * Bereitstellung von Datenbankänderungen im Rahmen von Deployment-Prozessen.
 
 [[konfiguration-der-datenbankverbindung]]
 === Konfiguration der Datenbankverbindung
 
-Liquibase nutzt **JDBC (Java Database Connectivity)** für die Datenbankkommunikation in Java-basierten Anwendungen, insbesondere in Umgebungen wie Spring Boot oder anderen Frameworks, die auf JDBC für den regulären Datenbankzugriff setzen. Dabei sind folgende Punkte zu beachten:
+Liquibase nutzt JDBC für die Datenbankkommunikation in Java- bzw. Spring-basierten Anwendungen.
+Dabei sind folgende Punkte zu beachten:
 
 * Sicherstellen, dass sowohl Liquibase als auch die Anwendung über JDBC mit der Datenbank kommunizieren können.
 
@@ -46,116 +53,102 @@ Liquibase nutzt **JDBC (Java Database Connectivity)** für die Datenbankkommunik
 [[erfassung-des-bestehenden-schemas]]
 === Erfassung des bestehenden Schemas
 
-Bevor Liquibase eingeführt wird, muss der aktuelle Zustand der Datenbank dokumentiert werden.
+Vor der Einführung von Liquibase in die IsyFact gab es eine eigens entwickelte xref:konzept/versionierung.adoc[Versionierung], die den aktuellen Zustand der Datenbank dokumentiert hat.
 
-Dazu gehören:
+Zum aktuellen Zustand gehören:
 
-* Tabellen, Spalten und Indizes
+* Tabellen, Spalten und Indizes,
+* Constraints und Relationen (Foreign Keys, Unique Constraints),
+* Views, Stored Procedures und Trigger,
+* Benutzerrechte und Berechtigungen.
 
-* Constraints und Relationen (Foreign Keys, Unique Constraints)
-
-* Views, Stored Procedures und Trigger
-
-* Benutzerrechte und Berechtigungen
-
-Diese Erfassung bildet die Grundlage für eine **Baseline**, die als Startpunkt für die zukünftige Versionierung dient.
+Die Erfassung dieses Zustands bildet die Grundlage für eine *Baseline*, die als Startpunkt für die Versionierung mit Liquibase dient.
 
 [[erstellung-der-baseline]]
 === Erstellung der Baseline
 
-Da das bestehende Schema nicht verändert, sondern lediglich in die Versionierung übernommen wird, wird eine Baseline erstellt. Diese dient als Referenzpunkt für alle zukünftigen Änderungen und sollte:
+Da das bestehende Schema nicht verändert, sondern lediglich in die Versionierung übernommen wird, wird eine Baseline erstellt.
+Diese dient als Referenzpunkt für alle zukünftigen Änderungen und sollte:
 
 * die gesamte bestehende Datenbankstruktur enthalten,
-
 * auf Redundanzen überprüft und bereinigt werden,
-
 * mit der Datenbank synchronisiert werden, sodass alle erfassten Änderungen als bereits angewendet gelten.
 
 [[integration-in-das-versionskontrollsystem]]
 === Integration in das Versionskontrollsystem
 
-Die Baseline wird in das Versionskontrollsystem aufgenommen, um eine lückenlose Dokumentation und Nachvollziehbarkeit sicherzustellen. Liquibase verwaltet zudem eine interne Historie aller Änderungen, sodass zukünftige Anpassungen in einer konsistenten Reihenfolge ausgeführt werden.
+Die Baseline wird in das Versionskontrollsystem aufgenommen, um eine lückenlose Dokumentation und Nachvollziehbarkeit sicherzustellen.
+Liquibase verwaltet zudem eine interne Historie aller Änderungen, sodass zukünftige Anpassungen in einer konsistenten Reihenfolge ausgeführt werden.
 
 [[fortlaufende-verwaltung-von-aenderungen]]
 === Fortlaufende Verwaltung von Änderungen
 
 Nach der initialen Erfassung beginnt die kontinuierliche Versionierung der Datenbank.
 
-Typischer Ablauf:
+Der Ablauf einer Änderung an der Datenbank ist typischerweise:
 
-. Erstellung eines neuen **Changelogs** mit der geplanten Änderung.
+. Erstellung eines neuen *Changelogs* mit der geplanten Änderung.
 . Aufnahme des Changelogs in das Versionskontrollsystem.
 . Anwendung der Änderung über Liquibase.
 . Tests und Freigabe der Änderung nach erfolgreicher Validierung.
 
-Für eine reibungslose Verwaltung von Datenbankänderungen wird Liquibase direkt in den Entwicklungsprozess eingebunden:
+Für eine reibungslose Verwaltung von Datenbankänderungen wird Liquibase direkt an den folgenden Stellen in den Entwicklungsprozess eingebunden:
 
 * Änderungen werden zuerst in isolierten Entwicklungsumgebungen getestet, bevor sie auf andere Umgebungen ausgerollt werden.
-
 * Die automatisierte Bereitstellung von Änderungen erfolgt über eine Integration in CI/CD-Pipelines.
-
 * Changelogs unterliegen Code-Reviews, um Konsistenz und Dokumentation sicherzustellen.
 
 Liquibase stellt sicher, dass jede Änderung nur einmal und in der richtigen Reihenfolge ausgeführt wird, wodurch manuelle Fehler vermieden und die Konsistenz über alle Umgebungen gewährleistet wird.
 
 [[changelog-als-zentrales-steuerelement]]
-== Changelog als zentrales Steuerelement
+== Changelogs als zentrales Steuerelement
 
-Das Changelog ist das zentrale Steuerelement der Liquibase-Versionierung. Es kann in verschiedenen Formaten erstellt werden, darunter XML, YML, SQL und JSON. Ein modularer Aufbau mit mehreren Dateien ist empfehlenswert, wobei das **Root Changelog** als Hauptdatei fungiert und andere Changelog-Dateien referenziert. Eine bewährte Praxis ist die **versionsbasierte und release-orientierte Organisation** (zum Beispiel changelog-1.0.xml, changelog-1.1.xml), um Änderungen pro Release zu bündeln.
+Das Changelog ist das zentrale Steuerelement der Liquibase-Versionierung.
+Es kann in verschiedenen Formaten erstellt werden, darunter XML, YML, SQL und JSON.
+Ein modularer Aufbau mit mehreren Dateien ist empfehlenswert, wobei das *Root Changelog* als Hauptdatei fungiert und andere Changelog-Dateien referenziert.
+Eine bewährte Praxis ist die *versionsbasierte und release-orientierte Organisation* (zum Beispiel `changelog-1.0.xml`, `changelog-1.1.xml`), um Änderungen pro Release zu bündeln.
 
 [[changeset-die-kleinste-einheit-einer-aenderung]]
 === Changeset: Die kleinste Einheit einer Änderung
 
-Ein Changeset beschreibt eine einzelne Datenbankänderung und wird nur einmal angewendet. 
+Ein *Changeset* beschreibt eine einzelne Datenbankänderung und wird nur einmal angewendet.
 
-Wichtige Prinzipien für die Verwaltung von Changesets:
+Wichtige Prinzipien für die Verwaltung von Changesets sind:
 
-* **Atomare Änderungen** – Jede Änderung sollte einzeln und unabhängig sein.
-
-* **Eindeutige Identifikation** – Kombination aus ID, Autor und Changelog-Datei.
-
-* **Verständliche Beschreibungen** – Klare Dokumentation der Änderung.
-
-* **Tests vor der Anwendung** – Sicherstellen, dass Änderungen vor der Übernahme geprüft werden.
+* *Atomare Änderungen:* Jede Änderung sollte einzeln und unabhängig sein.
+* *Eindeutige Identifikation:* Kombination aus ID, Autor und Changelog-Datei.
+* *Verständliche Beschreibungen:* Klare Dokumentation der Änderung.
+* *Tests vor der Anwendung:* Sicherstellen, dass Änderungen vor der Übernahme geprüft werden.
 
 [[umsetzung-von-schemaenderungen]]
 == Umsetzung von Schemaänderungen
 
-Die Umsetzung von Schemaänderungen erfolgt durch strukturiert definierte **Changesets**, die jeweils eine atomare Änderung repräsentieren. Dabei wird sichergestellt, dass jede Anpassung nachvollziehbar und unabhängig ist.
+Die Umsetzung von Schemaänderungen erfolgt durch strukturiert definierte Changesets, die jeweils eine atomare Änderung repräsentieren.
+Dabei wird sichergestellt, dass jede Anpassung nachvollziehbar und unabhängig ist.
 
 [[definiertes-changeset-fuer-atomare-aenderungen]]
 === Definiertes Changeset für atomare Änderungen
 
 Jede Änderung an der Datenbank erfolgt über ein Changeset, das in einer Changelog-Datei erfasst wird. Die Vorgehensweise umfasst:
 
-. **Planung der Änderung**
-
+. *Planung der Änderung*
 * Definition der konkreten Anpassung, wie das Hinzufügen einer Spalte oder das Erstellen einer neuen Tabelle.
-
 * Bewertung der Auswirkungen auf bestehende Daten und Abhängigkeiten.
 
-. **Erstellung eines Changesets**
-
+. *Erstellung eines Changesets*
 * Dokumentation der geplanten Änderung in einer separaten Changelog-Datei.
-
 * Sicherstellung, dass jede Änderung einzeln und unabhängig bleibt, um Konflikte zu vermeiden.
 
-. **Validierung der Änderung**
-
+. *Validierung der Änderung*
 * Prüfung auf Konsistenz und Kollisionen mit anderen Änderungen.
-
 * Tests in einer isolierten Umgebung, bevor die Änderung produktiv übernommen wird.
 
-. **Versionierung und Freigabe**
-
+. *Versionierung und Freigabe*
 * Aufnahme des Changesets in das Versionskontrollsystem.
-
 * Überprüfung durch Code-Reviews, um sicherzustellen, dass die Änderung korrekt dokumentiert ist.
 
-. **Anwendung und Überwachung**
-
+. *Anwendung und Überwachung*
 * Anwendung des Changesets auf die Datenbank über Liquibase.
-
 * Überprüfung der erfolgreichen Umsetzung durch Tests und Monitoring.
 
 Durch diese strukturierte Vorgehensweise wird gewährleistet, dass Schemaänderungen sicher, nachvollziehbar und ohne unerwartete Seiteneffekte erfolgen.
@@ -166,21 +159,21 @@ Durch diese strukturierte Vorgehensweise wird gewährleistet, dass Schemaänderu
 [[verwendung-von-tags-zur-versionierung]]
 === Verwendung von Tags zur Versionierung
 
-Liquibase ermöglicht das Setzen von **Tags**, um bestimmte Versionen oder Releases in der Datenbankhistorie zu markieren. Dies erleichtert:
+Liquibase ermöglicht das Setzen von *Tags*, um bestimmte Versionen oder Releases in der Datenbankhistorie zu markieren.
+Dies erleichtert:
 
-* Rollbacks auf eine vorherige Version
-
-* Wiederherstellung eines definierten Zustands
-
-* Verwaltung von Deployments in Stages
+* Rollbacks auf eine vorherige Version,
+* die Wiederherstellung eines definierten Zustands, und
+* die Verwaltung von Deployments in Stages.
 
 [[rollback-strategie]]
 === Rollback-Strategie
 
-Ein strukturiertes Rollback-Konzept ist entscheidend für die Fehlerkontrolle:
+Ein strukturiertes Rollback-Konzept ist entscheidend für die Fehlerkontrolle.
+Es beinhaltet die folgenden Punkte:
 
-. **Explizite Definition von Rollbacks** – Jede Änderung sollte eine definierte Rückabwicklung enthalten.
-. **Regelmäßige Tests** – Sicherstellen, dass Rollbacks in einer Entwicklungsumgebung funktionieren.
+* *Explizite Definition von Rollbacks:* Jede Änderung sollte eine definierte Rückabwicklung enthalten.
+* *Regelmäßige Tests:* Sicherstellen, dass Rollbacks in einer Entwicklungsumgebung funktionieren.
 
 [[zusammenfassung]]
 == Zusammenfassung
@@ -192,4 +185,3 @@ Die Verwaltung erfolgt über Änderungsprotokolle, die einzelne Änderungen defi
 Die Datenbankkommunikation erfolgt über JDBC, das als Schnittstelle zwischen Liquibase und der Datenbank dient. In Java-basierten Anwendungen stellt JDBC sicher, dass Datenbankmigrationen effizient und zuverlässig durchgeführt werden können. Die Kombination aus Liquibase und JDBC ermöglicht eine sichere und nachvollziehbare Verwaltung von Schemaänderungen, während gleichzeitig die Konsistenz zwischen Anwendungslogik und Datenhaltung gewahrt bleibt.
 
 Durch die schrittweise Integration in den Entwicklungsprozess, automatisierte Bereitstellung und standardisierte Prüfmechanismen wird sichergestellt, dass Datenbankänderungen effizient, kontrolliert und konsistent erfolgen.
-
