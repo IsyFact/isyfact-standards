@@ -291,24 +291,47 @@ Zusammengesetzte Schlüssel dürfen nicht verwendet werden.
 
 Das identifizierende Attribut darf beliebige Typen besitzen: Es dürfen, neben numerischen Werten, auch Zeichenketten oder Datumsangaben sein.
 
-[[definition-von-1-zu-n-assoziationen]]
-=== Definition von 1-zu-n-Assoziationen
+[[definition-von-assoziationen]]
+=== Definition von Assoziationen
 
-Eine 1-zu-n-Assoziation (siehe https://docs.jboss.org/hibernate/orm/5.6/userguide/html_single/Hibernate_User_Guide.html#collections[Collection Mapping]) ist in der Regel als unsortierte Menge (`Set`) zu definieren, da in dieser keine Reihenfolge definiert ist.
+[[eins-zu-n-assoziationen]]
+==== 1-zu-n Assoziationen
+
+Eine 1-zu-n-Assoziation (siehe https://docs.jboss.org/hibernate/orm/6.6/userguide/html_single/Hibernate_User_Guide.html#collections[Collection Mapping]) ist in der Regel als unsortierte Menge (`Set`) zu definieren, da in dieser keine Reihenfolge definiert ist.
 Wird von der Anwendung eine Sortierung benötigt und sind alle für die Sortierung benötigten Attribute in der Entität enthalten, dann kann auch eine Liste (`List`) verwendet werden, da die Datenbank effizienter sortieren kann als eine Java-Implementierung.
 
-[[bidirektionale-assoziationen-vermeiden]]
-=== Bidirektionale Assoziationen vermeiden
+[[bidirektionale-assoziationen]]
+==== Bidirektionale Assoziationen
 
-Bidirektional traversierbare Assoziationen sind zu vermeiden.
-Für die Traversierung in Gegenrichtung sollte eine Query verwendet werden.
+Bidirektionale Assoziation beschreibt die Beziehung zwischen zwei Entitäten, wobei jede Entität einen Verweis auf die andere Entität besitzt. 
+Sie ermöglicht es ihnen, von einer Entität zu einer anderen Entität zu navigieren, die mit ihr verbunden ist, und umgekehrt.
 
-Grund für die Vorgabe ist, dass Änderungen am "inversen Ende" der Assoziation nicht persistiert werden.
-Falls wirklich eine bidirektionale Assoziation benötigt wird, sind in der Entität am "inversen Ende" der Assoziation Methoden zu definieren, welche die Assoziation korrekt manipulieren.
+Es gibt 4 verschiedene Arten der bidirektionalen Assoziation, die wie folgt aussehen:
 
-Explizit verboten sind bidirektional traversierbare n-zu-m-Assoziationen.
-Hierfür sind zwei 1-zu-n- bzw. n-zu-1-Assoziationen zu definieren.
+. Bidirektionale Eins-zu-Eins-Verknüpfung (one-to-one)
+. Bidirektionale Eins-zu-Viele-Verknüpfung (one-to-many)
+. Bidirektionale Viele-zu-Eins-Verknüpfung (many-to-one)
+. Bidirektionale Viele-zu-Viele-Verknüpfung (many-to-many)
 
+===== https://docs.jboss.org/hibernate/stable/orm/userguide/html_single/Hibernate_User_Guide.html#associations-one-to-many-bidirectional[JPA bidirektionale Sync-Methoden]
+Wenn eine bidirektionale Assoziation gebildet wird, muss sichergestellt werden, dass beide Seiten zu jeder Zeit synchron sind.
+
+===== Vermeiden von to-many-Assoziationen
+Bei einer to-many-Assoziation lädt Hibernate alle zugehörigen Entitäten, wenn es die Assoziation initialisiert. 
+Das kann mehrere Sekunden oder sogar Minuten dauern, wenn Hibernate mehrere tausend Entitäten abrufen muss.
+
+Stattdessen sollte für die Traversierung in Gegenrichtung (many-to-one) eine Query verwendet werden.
+
+[NOTE] 
+====
+Die folgenden Best Practices helfen bei der Verwendung von Assoziationen:
+
+* https://docs.jboss.org/hibernate/stable/orm/userguide/html_single/Hibernate_User_Guide.html#associations[Hibernate User Guide - Associations]
+* https://vladmihalcea.com/jpa-bidirectional-sync-methods[Vlad Mihalcea - JPA Best practices]
+* https://thorben-janssen.com/best-practices-for-many-to-many-associations-with-hibernate-and-jpa[Thorben Janssen - JPA Best practices]
+* https://thorben-janssen.com/best-practices-many-one-one-many-associations-mappings[Thorben Janssen - Best practices  many-one-one-many-associations]
+
+====
 
 [[vererbungshierarchien]]
 === Vererbungshierarchien
