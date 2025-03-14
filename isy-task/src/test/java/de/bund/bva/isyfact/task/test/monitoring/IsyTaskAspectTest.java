@@ -99,17 +99,16 @@ public class IsyTaskAspectTest {
     }
 
     @Test
-    public void testInvokeAndMonitorTask_noTaskConfig() throws Throwable {
+    public void testInvokeAndMonitorTask_noTaskConfigUseDefault() throws Throwable {
         // Prepare
         properties.getTasks().clear();
 
         // Act
-        TaskKonfigurationInvalidException taskKonfigurationInvalidException =
-                assertThrows(TaskKonfigurationInvalidException.class,
-                        () -> isyTaskAspect.invokeAndMonitorTask(joinPoint));
+        isyTaskAspect.invokeAndMonitorTask(joinPoint);
 
-        assertEquals("ISYTA00003", taskKonfigurationInvalidException.getAusnahmeId());
-        assertEquals("Task-Konfiguration für Task class-myClass ungültig: Keine Taskkonfiguration vorhanden.", taskKonfigurationInvalidException.getFehlertext());
+        // Verify
+        verify(hostHandler).isHostApplicable(properties.getDefault().getHost());
+        verify(joinPoint).proceed();
     }
 
     @Test

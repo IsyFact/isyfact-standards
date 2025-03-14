@@ -98,17 +98,20 @@ public class IsyTaskAspect {
         if (authenticator == null) {
             throw new RuntimeException(String.format("Authenticator for task %s is null", taskId));
         }
-        String host;
-        boolean isDeactivated;
-        TaskConfig taskConfig;
+
+        String host = null;
+        boolean isDeactivated = false; // tasks are enabled unless configured otherwise
 
         synchronized (this) {
-            taskConfig = isyTaskConfigurationProperties.getTasks().get(taskId);
-            if (taskConfig == null) {
-                throw new TaskKonfigurationInvalidException(taskId, "Keine Taskkonfiguration vorhanden");
+            TaskConfig taskConfig = isyTaskConfigurationProperties.getTasks().get(taskId);
+            if (taskConfig != null) {
+                isDeactivated = taskConfig.isDeaktiviert();
+                host = taskConfig.getHost();
+            } else {
+                logger.debug("Keine Konfiguration für Task {} gefunden. Es wird auf die Standardwerte zurückgefallen.", taskId);
             }
-            isDeactivated = taskConfig.isDeaktiviert();
-            host = taskConfig.getHost();
+
+            // set default values if not provided by task config
             if (host == null) {
                 String nachricht = messageSource.getMessage(VERWENDE_STANDARD_KONFIGURATION, new String[] { taskId, "hostname" }, Locale.GERMANY);
                 logger.info(LogKategorie.JOURNAL, VERWENDE_STANDARD_KONFIGURATION, nachricht);
