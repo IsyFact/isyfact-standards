@@ -100,12 +100,16 @@ public class IsyTaskAspectTest {
     }
 
     @Test
-    public void testInvokeAndMonitorTask_noTaskConfig() throws Throwable {
+    public void testInvokeAndMonitorTask_noTaskConfigUseDefault() throws Throwable {
         // Prepare
         properties.getTasks().clear();
 
         // Act
-        assertThrows(TaskKonfigurationInvalidException.class, () -> isyTaskAspect.invokeAndMonitorTask(joinPoint));
+        isyTaskAspect.invokeAndMonitorTask(joinPoint);
+
+        // Verify
+        verify(hostHandler).isHostApplicable(properties.getDefault().getHost());
+        verify(joinPoint).proceed();
     }
 
     @Test
