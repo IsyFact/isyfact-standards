@@ -2,9 +2,12 @@
 
 include::documentation-guide::partial$licence.adoc[]
 
-Das Spring-Framework ist ein Java EE Framework, welches im Kern sehr verständlich und leicht zu verwenden ist.
-In ihm werden die Bestandteile eines Systems als _Spring-Beans_ definiert.
-Neben seiner Kern-Funktionalität der Verwaltung, Konfiguration und aspektorientierten Erweiterung von Beans bietet Spring viele Funktionalitäten, welche die Entwicklung einer Anwendung erleichtern.
+Das Spring-Framework ist ein leichtgewichtiges Java Framework, welches sehr verständlich und leicht zu verwenden ist.
+Zu den Kernkonzepten von Spring gehören Inversion of Control (IoC) und Dependency Injection (DI).
+
+IoC ist ein Umsetzungsparadigma und bedeutet Steuerungsumkehr. Im Kontext des Spring Frameworks versteht man darunter, dass das Framework die Erstellung des Objektnetzes (_Spring-Beans_) anstelle des Entwicklers übernimmt.
+
+_Spring-Beans_ sind Java Objekte, die durch den Spring IoC Container instanziiert und verwaltet werden. Der IoC Container erstellt _Spring-Beans_ anhand einer Bean Definition, die der Entwickler in Form von Annotationen oder xml Konfiguration bereitstellt.
 
 Die folgenden Inhalte beschreiben die Nutzung von Spring für die allgemeine Umsetzung von Backends.
 Die Nutzung spezifischer Features von Spring sind Bestandteile der folgenden Bausteine:
@@ -12,22 +15,6 @@ Die Nutzung spezifischer Features von Spring sind Bestandteile der folgenden Bau
 * Konfiguration der Persistenzschicht: beschrieben in den xref:isy-persistence:nutzungsvorgaben/umsetzung-persistenzschicht.adoc[Nutzungsvorgaben JPA/Hibernate],
 * Konfiguration des Logging: beschrieben in den xref:isy-logging:nutzungsvorgaben/master.adoc[],
 * Bereitstellung von Metriken zur Überwachung: beschrieben im xref:isy-ueberwachung:konzept/master.adoc[].
-
-Alle anderen Funktionalitäten von Spring (Validierung über Spring, Emailing, Thread Pooling, Scripting) werden nicht verwendet.
-
-Mit der Verwendung von Spring verspricht man sich eine geringere Komplexität sowie einen geringeren Entwicklungsaufwand von Backends.
-Die Verwendung unterliegt den folgenden Zielen.
-
-Einheitlichkeit der Nutzung::
-Spring soll in Backends einheitlich eingesetzt werden.
-Hierfür sind geeignete Vorgaben für die Nutzung zu etablieren.
-
-Verständlichkeit der Konfiguration::
-Die Konfiguration der Spring-Komponenten erfolgt über Annotationen an den Komponenten sowie über Konfigurationsklassen.
-
-Komponentenorientierung wahren::
-Über Spring werden Komponenten konfiguriert.
-Es soll nicht möglich sein, direkt auf Implementierungsklassen einer Komponente zuzugreifen.
 
 [[konfiguration-von-spring]]
 == Vorgaben zur Konfiguration mit Spring
@@ -153,30 +140,6 @@ So wird die Konfiguration vereinfacht und Boiler-Plate-Code minimiert.
 * Die `@Configration`-Annotation in der Anwendungsklasse soll genutzt werden, wenn die explizite Kontrolle über die Konfiguration und das _Component Scanning_ notwendig ist, zum Beispiel bei der Isolation von Modulen in einem modularen System und um sicherzustellen, dass Konfigurationen unabhängig bleiben.
 * `@SpringBootConfiguration` ist für Randfälle zu nutzen.
 Dies ist zum Beispiel der Fall für spezielle Testkonfigurationen bei denen unerwünschte Autokonfigurationen Tests verlangsamen oder verkomplizieren können.
-
-
-[[webapprootkey-konfigurieren]]
-=== webAppRootKey konfigurieren
-
-Der Kontextparameter `webAppRootKey` muss in der `web.xml` auf den eindeutigen Namen der Webanwendung gesetzt werden.
-
-[[listing-webAppRootKey]]
-.Konfiguration des webAppRootKey
-[source,xml]
-----
-<context-param>
-  <param-name>webAppRootKey</param-name>
-  <param-value>allgemeine-anwendung</param-value>
-</context-param>
-----
-
-*Hintergrund*: Spring speichert standardmäßig den Pfad zum Wurzelverzeichnis der Webanwendung im Webserver in der Kontextvariable `webapp.root`.
-Wenn mehrere Anwendungen gleichzeitig in einem Tomcat betrieben werden (bspw.
-in einer Entwicklungsumgebung), wird dieser Parameter durch die verschiedenen Anwendungen überschrieben.
-Dies kann zu ungewünschten Seiteneffekten führen.
-Ist der Kontextparameter `webAppRootKey` wie im obigen Beispiel gesetzt, wird der Pfad statt im Parameter `webapp.root`
-im Parameter `allgemeine-anwendung` abgelegt.
-Da jede Webanwendung einen eindeutigen Namen besitzt, und damit einen eigenen Kontextparameter verwendet, wird das Überschreiben vermieden.
 
 [[direkte-verwendung-des-spring-frameworks]]
 == Vorgaben zur direkten Verwendung von Spring
