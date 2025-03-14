@@ -85,6 +85,9 @@ Die Begrifflichkeiten wurden glattgezogen, sodass die Begriffe Serviceschicht un
 Die Inhalte über Services, bezogen auf die Kommunikation zwischen IT-Systemen, wurden auf eine xref:referenzarchitektur:software-technisch/services.adoc[eigene Seite] umgezogen.
 Dort finden sich nun die Grundbegriffe der Servicekommunikation (ehemals Teil der Seite xref:referenzarchitektur:software-technisch.adoc[]), die Beschreibung der Kommunikation innerhalb der Systemlandschaft sowie mit externen Systemen und abschließend die Vorgaben zur Versionierung von Services.
 
+Die Vorgaben der Versionierung wurden verfeinert und um Details zu kompatiblen und inkompatiblen Serviceänderungen ergänzt.
+Es ist dort beschrieben, in welchen Schichten und Komponenten die Transformationslogik zwischen verschiedenen Service-Versionen zu implementieren ist, nach welchen Kriterien die Major und Minor-Versionierung stattfinden soll und wie ein Client parallel betriebene Service-Versionen auswählen kann.
+
 Die Inhalte über Verfügbarkeit wurden auf eine xref:referenzarchitektur:technisch-infrastrukturell/availability.adoc[eigene Seite] in der technisch-infrastrukturellen Referenzarchitektur umgezogen und mit den dort vorhandenen Beschreibungen (ehemals Teil der Seite xref:referenzarchitektur:technisch-infrastrukturell/betriebliche-aspekte.adoc[]) zusammengeführt.
 
 ==== Batch
