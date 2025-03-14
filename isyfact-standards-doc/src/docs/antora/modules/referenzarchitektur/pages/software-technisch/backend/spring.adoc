@@ -141,30 +141,6 @@ So wird die Konfiguration vereinfacht und Boiler-Plate-Code minimiert.
 * `@SpringBootConfiguration` ist für Randfälle zu nutzen.
 Dies ist zum Beispiel der Fall für spezielle Testkonfigurationen bei denen unerwünschte Autokonfigurationen Tests verlangsamen oder verkomplizieren können.
 
-
-[[webapprootkey-konfigurieren]]
-=== webAppRootKey konfigurieren
-
-Der Kontextparameter `webAppRootKey` muss in der `web.xml` auf den eindeutigen Namen der Webanwendung gesetzt werden.
-
-[[listing-webAppRootKey]]
-.Konfiguration des webAppRootKey
-[source,xml]
-----
-<context-param>
-  <param-name>webAppRootKey</param-name>
-  <param-value>allgemeine-anwendung</param-value>
-</context-param>
-----
-
-*Hintergrund*: Spring speichert standardmäßig den Pfad zum Wurzelverzeichnis der Webanwendung im Webserver in der Kontextvariable `webapp.root`.
-Wenn mehrere Anwendungen gleichzeitig in einem Tomcat betrieben werden (bspw.
-in einer Entwicklungsumgebung), wird dieser Parameter durch die verschiedenen Anwendungen überschrieben.
-Dies kann zu ungewünschten Seiteneffekten führen.
-Ist der Kontextparameter `webAppRootKey` wie im obigen Beispiel gesetzt, wird der Pfad statt im Parameter `webapp.root`
-im Parameter `allgemeine-anwendung` abgelegt.
-Da jede Webanwendung einen eindeutigen Namen besitzt, und damit einen eigenen Kontextparameter verwendet, wird das Überschreiben vermieden.
-
 [[direkte-verwendung-des-spring-frameworks]]
 == Vorgaben zur direkten Verwendung von Spring
 
