@@ -2,7 +2,12 @@
 
 include::documentation-guide::partial$licence.adoc[]
 
-Das Spring-Framework ist ein Java Framework, welches auf Dependency Injection und Inversion of Control basiert. Spring ist ein leichtgewichtiges Framework, welches sehr verständlich und leicht zu verwenden ist.
+Das Spring-Framework ist ein leichtgewichtiges Java Framework, welches sehr verständlich und leicht zu verwenden ist.
+Zu den Kernkonzepten von Spring gehören Inversion of Control (IoC) und Dependency Injection (DI).
+
+IoC ist ein Umsetzungsparadigma und bedeutet Steuerungsumkehr. Im Kontext des Spring Frameworks versteht man darunter, dass das Framework die Erstellung des Objektnetzes (_Spring-Beans_) anstelle des Entwicklers übernimmt.
+
+_Spring-Beans_ sind Java Objekte, die durch den Spring IoC Container instanziiert und verwaltet werden. Der IoC Container erstellt _Spring-Beans_ anhand einer Bean Definition, die der Entwickler in Form von Annotationen oder xml Konfiguration bereitstellt.
 
 Die folgenden Inhalte beschreiben die Nutzung von Spring für die allgemeine Umsetzung von Backends.
 Die Nutzung spezifischer Features von Spring sind Bestandteile der folgenden Bausteine:
