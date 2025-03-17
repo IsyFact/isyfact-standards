@@ -971,7 +971,7 @@ Zusätzlich zu den Anforderungen an die Inhalte einer Log-Nachricht xref:isy-log
  bei ausgehend: Dauer vom Versand des Requests bis zum Empfang der Antwort
 
 
-| Aufgerufenes Nachbarsystem
+| Aufgerufenes xref:glossary::terms-definitions.adoc#nachbarsystem[Nachbarsystem]
 | bei ausgehendenden Requests, sonst leer
 
 |===

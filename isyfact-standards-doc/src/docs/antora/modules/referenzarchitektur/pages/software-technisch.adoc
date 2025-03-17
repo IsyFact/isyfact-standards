@@ -29,12 +29,11 @@ Interne und externe Aufrufe unterscheiden sich sowohl in ihrer Authentifizierung
 
 Im Folgenden werden die Schnittstellen und Aufrufbeziehungen pro Anwendungstyp erläutert.
 
-*Das xref:glossary::terms-definitions.adoc#glossar-service-gateway[Service-Gateway]:* Service-Gateway-Systeme haben die Aufgabe, Aufrufe von internen Anwendungen an externe Systeme und Aufrufe von externen Systemen an interne Anwendungen weiterzuleiten und dabei unterschiedliche Schnittstellentechnologien zu überbrücken.
+*Das xref:glossary::terms-definitions.adoc#glossar-service-gateway[Service-Gateway]:* Service-Gateway-Systeme haben die Aufgabe, Aufrufe aus der Systemlandschaft an xref:glossary::terms-definitions.adoc#externes-system[externe Systeme] sowie Aufrufe von externen Systemen in die Systemlandschaft weiterzuleiten und dabei unterschiedliche Schnittstellentechnologien zu überbrücken.
 
 Für die Weiterleitung von Aufrufen enthält ein Service-Gateway die folgenden Funktionalitäten:
 
-* Es bildet die Aufrufe zwischen der für externe Systeme verwendeten Webservice-Technologie und der für interne Schnittstellen verwendeten Technologie aufeinander ab.
-Es kapselt die Webservice-Technologie vor den internen Systemen.
+* Es bildet die Aufrufe zwischen der Schnittstellentechnologie der externen Systeme und der Schnittstellentechnologie der Systemlandschaft ab.
 * Bei Aufrufen durch externe Systeme führt es die Authentifizierung und eine erste Autorisierung des Aufrufs durch.
 
 Ein Service-Gateway-System besitzt weder eine eigene Datenhaltung noch eigene Fachlichkeit.
@@ -73,7 +72,7 @@ Eine Ausnahme bilden Querschnittsanwendungen, wie z.B. ein Mail-Gateway für den
 Services sind ein wesentlicher Bestandteil jeder <<strukturierung-der-systemlandschaft,Systemlandschaft>>.
 Die software-technische Referenzarchitektur definiert HTTP als grundsätzliches Übertragungsprotokoll und xref:software-technisch/services.adoc[weitere Vorgaben für Services] zu den Themen:
 
-* Kommunikation mit internen und externen Systemen,
+* Kommunikation mit Systemen innerhalb und außerhalb der Systemlandschaft,
 * Übertragung von Metadaten und Nutzdaten,
 * Versionierung von Services.
 

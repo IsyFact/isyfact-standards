@@ -1,7 +1,7 @@
 [[nachbarsystemschnittstellen]]
 == Nachbarsystemschnittstellen
 
-_Das Kapitel Nachbarsystemschnittstellen beschreibt die Verbindung zwischen der Anwendung und den externen Nachbarsystemen, mit denen die Anwendung kommunizieren soll._
+_Das Kapitel Nachbarsystemschnittstellen beschreibt die Verbindung zwischen der Anwendung und den Nachbarsystemen, mit denen die Anwendung kommunizieren soll._
 
 _Alle zu berücksichtigenden Nachbarsysteme werden im xref:vorlage-systemspezifikation/02-projektgrundlagen.adoc#fachlicher-architekturueberblick[Abschnitt "Fachlicher Architekturüberblick"] vorgestellt.
 Hier werden die einzelnen Schnittstellen beschrieben, wobei zwischen von der Anwendung benutzten und durch die Anwendung angebotenen Schnittstellen unterschieden wird._

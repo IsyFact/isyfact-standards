@@ -160,7 +160,7 @@ Besonders relevant für die Referenzarchitektur sind die Abschnitte https://jaka
 
 == Kommunikation mit externen Systemen
 
-Die Kommunikation mit externen Systemen basiert auf Web-Services.
+Die Kommunikation mit xref:glossary::terms-definitions.adoc#externes-system[externen Systemen] basiert auf Web-Services.
 Wird ein Service von einem externen System angeboten, wird er als *externer Service* bezeichnet.
 Im Folgenden werden zwei Szenarien betrachtet:
 

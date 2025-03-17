@@ -274,7 +274,7 @@ isy.security.oauth2.client.default-certificate-ou=TESTOU
 
 Mit dem `OAuth 2.0`-Grant `client_credentials` steht eine vereinfachte Zugriffskontrolle für eine Client-Anwendung im Rahmen des _Client Credentials_ Flow zur Verfügung.
 
-Spring Security bietet umfassenden Support für `OAuth 2.0` und unterstützt die Authentifizierung interner Systeme auf Basis des `Client Credentials Flow`, wobei auf Spring interne Mechanismen zugegriffen wird.
+Spring Security bietet umfassenden Support für `OAuth 2.0` und unterstützt die Authentifizierung auf Basis des `Client Credentials Flow`, wobei auf Spring interne Mechanismen zugegriffen wird.
 
 Um clientseitig die automatische Konfiguration einer Anwendung zu ermöglichen, werden zunächst die oben aufgeführten Abhängigkeiten eingebunden und eine Client-Registration für den `Client Credentials Flow` angelegt.
 Um im Rahmen des `Client Credentials Flows` HTTP-Anfragen an einen Ressourcenserver stellen zu können, ist zusätzlich die Konfiguration des reaktiven `WebClient` erforderlich.
