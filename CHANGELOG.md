@@ -1,3 +1,6 @@
+# 4.1.0
+- `IFS-4495`: [isy-task] Verwendung der Defaults falls keine Task-Config definiert ist
+
 # 4.0.0
 ## FEATURES
 - `IFS-1802`: [isyfact-standards-doc] Mapping Vorgaben zu bidirektionalen Assoziationen aktualisiert
