@@ -1,5 +1,6 @@
 # 4.0.0
 ## FEATURES
+- `IFS-4208`: [isyfact-standards-doc] Verwendungen der Begriffe "Nachbarsystem" und "Externes System" korrigiert
 - `IFS-4508`: [isyfact-standards-doc] Verweis auf Angular-Demo (Referenzimplementierung) prominent platziert
 - `IFS-4358`: [isyfact-standards-doc] Verwendungen des Begriffs IT-System in den Bausteinen (exklusive Sicherheit) korrigiert
 - `IFS-4249`: [isyfact-standards-doc] Setzen der Antora-Version für die Online-Dokumentation durch Git

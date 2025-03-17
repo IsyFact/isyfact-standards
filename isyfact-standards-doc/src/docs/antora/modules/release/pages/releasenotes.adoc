@@ -23,7 +23,7 @@ Anwendungen, die mit den vorigen Releases der IsyFact architektonisch im Einklan
 Widersprüche zur Referenzarchitektur führen in der Regel zu einem (partiellen) Redesign betroffener Anwendungen.
 ====
 
-Der Begriff xref:glossary:glossary:master.adoc#glossar-referenzarchitektur["Referenzarchitektur"] löst den bisherigen Begriff xref:glossary:glossary:master.adoc#glossar-blaupause["Blaupause"] ab.
+Der Begriff xref:glossary::terms-definitions.adoc#glossar-referenzarchitektur[Referenzarchitektur] löst den bisherigen Begriff xref:glossary::terms-definitions.adoc#glossar-blaupause[Blaupause] ab.
 
 Die Seite "Referenzarchitektur" wurde nach Architektursichten aufgeteilt:
 
@@ -36,16 +36,21 @@ Die restlichen Inhalte der Referenzarchitektur wurden thematisch gegliedert und 
 === Fachliche Referenzarchitektur
 
 Die Begrifflichkeiten rund um Anwendungen wurden z.T. angepasst und neu definiert.
-Der Begriff xref:glossary:glossary:master.adoc#glossar-anwendungssystem[Anwendungssystem] entfällt zugunsten der Begriffe xref:glossary:glossary:master.adoc#glossar-anwendung[Anwendung] und xref:glossary:glossary:master.adoc#glossar-it-system[IT-System], da mit diesem Begriff manchmal das eine und manchmal das andere gemeint war.
+Der Begriff xref:glossary::terms-definitions.adoc#glossar-anwendungssystem[Anwendungssystem] entfällt zugunsten der Begriffe xref:glossary::terms-definitions.adoc#glossar-anwendung[Anwendung] und xref:glossary::terms-definitions.adoc#glossar-it-system[IT-System], da mit diesem Begriff manchmal das eine und manchmal das andere gemeint war.
+
+Der Begriff xref:glossary::terms-definitions.adoc#nachbarsystem[Nachbarsystem] wurde definiert und seine Verwendung wurde in der gesamten IsyFact, wo nötig, korrigiert.
 
 === Software-technische Referenzarchitektur
 
-Die software-technische Referenzarchitektur sieht nun vor, eine  xref:referenzarchitektur:software-technisch/it-system-zerlegung.adoc[Anwendung in mehrere IT-Systeme zu zerlegen].
+Die software-technische Referenzarchitektur sieht nun vor, eine xref:referenzarchitektur:software-technisch/it-system-zerlegung.adoc[Anwendung in mehrere IT-Systeme zu zerlegen].
 Eine Abbildung einer Anwendung auf nur ein IT-System ist weiterhin möglich, stellt aber einen Spezialfall dar.
-Die Beschreibung dieses "technischen Schnitts" zieht auch eine neue Definition des xref:glossary:glossary:master.adoc#glossar-it-system[IT-Systems] nach sich.
-Neu eingeführt wurden die xref:glossary:glossary:master.adoc#glossar-it-systemtyp[IT-Systemtypen].
+Die Beschreibung dieses "technischen Schnitts" zieht auch eine neue Definition des xref:glossary::terms-definitions.adoc#glossar-it-system[IT-Systems] nach sich.
+Neu eingeführt wurden die xref:glossary::terms-definitions.adoc#glossar-it-systemtyp[IT-Systemtypen].
 Sie stellen konkrete Ausprägungen des IT-Systems dar, besitzen eine jeweils eigene Systemarchitektur und können auf verschiedenartige Technologie-Stacks setzen.
-Aktuell gibt es drei IT-Systemtypen: xref:glossary:glossary:master.adoc#backend[Backend], xref:glossary:glossary:master.adoc#frontend[Frontend] sowie xref:glossary:glossary:master.adoc#glossar-batch[Batch].
+Aktuell gibt es drei IT-Systemtypen: xref:glossary::terms-definitions.adoc#backend[Backend], xref:glossary::terms-definitions.adoc#frontend[Frontend] sowie xref:glossary::terms-definitions.adoc#glossar-batch[Batch].
+
+Der Begriff xref:glossary::terms-definitions.adoc#externes-system["externes System"] wurde definiert und seine Verwendung in der gesamten IsyFact, wo nötig, korrigiert.
+Die Begrifflichkeiten "internes System" bzw. "interne Anwendung" wurden aus der IsyFact entfernt.
 
 ==== Backends
 
@@ -137,7 +142,7 @@ Folgende Bausteine wurden in eigenständige Repositories umgezogen:
 === Änderungen
 
 - Die Dokumentation verwendet keine Liste für externe Links mehr, sondern das https://docs.asciidoctor.org/asciidoc/latest/macros/url-macro/[URL-Makro] von AsciiDoc.
-- Das xref:glossary:glossary:master.adoc[] und der xref:documentation-guide:ROOT:index.adoc[] werden parallel zu den Releases der IsyFact gepflegt.
+- Das xref:glossary::terms-definitions.adoc[] und der xref:documentation-guide:ROOT:index.adoc[] werden parallel zu den Releases der IsyFact gepflegt.
 Sie besitzen keine Version und sind damit über alle Releases hinweg gültig.
 Inhalte für spezifische Releases werden ausdrücklich ausgezeichnet.
 
