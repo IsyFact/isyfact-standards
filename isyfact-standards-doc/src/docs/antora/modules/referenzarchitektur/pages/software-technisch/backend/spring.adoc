@@ -18,18 +18,19 @@ Die Nutzung spezifischer Features von Spring sind Bestandteile der folgenden Bau
 
 [[konfiguration-von-spring]]
 == Vorgaben zur Konfiguration mit Spring
+Das Prinzip „Convention over Configuration“ in Spring Boot vereinfacht die Einrichtung und Entwicklung durch sinnvolle Voreinstellungen.
 
-Das grundlegende Konzept von Spring ist die _Spring-Bean_.
-Die Konfiguration von Spring teilt sich in zwei Teile: die Konfiguration der Spring-Beans sowie die Konfiguration von Spring selbst (innerhalb eines Tomcat Servers).
-Um die Konfiguration von Spring und der eingesetzten Bausteine einfach zu halten, werden die Autokonfigurationsmechanismen von Spring Boot eingesetzt.
+Spring Boot vereinfacht die Konfiguration durch:
+
+* https://docs.spring.io/spring-boot/reference/using/auto-configuration.html[*Auto-Konfiguration*]: Spring Boot konfiguriert die Anwendung automatisch auf der Grundlage der hinzugefügten Jar-Abhängigkeiten.
+* https://docs.spring.io/spring-boot/how-to/webserver.html[*Eingebetteter Server*]: Spring Boot wird mit einem eingebetteten Server (wie Tomcat) geliefert, der keine explizite Einrichtung erfordert.
+* https://docs.spring.io/spring-boot/how-to/properties-and-configuration.html[Property-Dateien]: Es verwendet application.properties oder application.yml für externalisierte Konfigurationen.
+* https://docs.spring.io/spring-boot/reference/using/build-systems.html#using.build-systems.starters[Starter POMs]: Vereinfachte Verwaltung von Abhängigkeiten.
+
 Die Spring-Konfiguration des Backends ist nach folgenden Vorgaben zu erstellen.
 
 [[konfiguration-von-spring-beans]]
 === Konfiguration von Spring-Beans
-
-Spring ist ein Applikations-Container, welcher sogenannte Spring-Beans instanziiert, per _Dependency Injection_ konfiguriert und bereitstellt.
-Spring-Beans sind beliebige Java-Klassen.
-Für diese Klassen kann man benötigte andere Spring-Beans oder Konfigurationsparameter konfigurieren, welche der Klasse daraufhin im Konstruktor oder per `set`-Methode übergeben werden.
 
 Konfiguriert werden Spring-Beans und ihre Abhängigkeiten durch die von Spring bereitgestellte Annotation `@Component` bzw. durch deren Spezialisierungen (`@Repository`, `@Service`, `@Contoller`, usw.).
 Diese werden beim Start des Applikations-Containers gescannt und ausgewertet (_Component Scanning_).
