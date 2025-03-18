@@ -117,10 +117,25 @@ Die Spring @Repository-Annotation wird verwendet, um anzuzeigen, dass die Klasse
 
 Die Komponenten der Persistenzschicht werden mit den Annotationen @Repository ausgezeichnet.
 
+[[bean-scopes]]
+=== Spring-Bean Scopes
+Der Bean-Scope definiert den Lebenszyklus und die Sichtbarkeit einer Bean innerhalb des Containers. Er teilt Spring mit, wie viele Instanzen einer bestimmten Bean erstellt werden sollen und wie lange sie verfügbar sein sollen.
+
+SpringBoot bietet mehrere Bean-Scopes, darunter:
+
+* Singleton: Eine Singleton-Bean wird nur einmal erstellt, und
+dieselbe Instanz wird für alle Anfragen freigegeben. Sie verbleibt im Kontext der Anwendung, bis die Anwendung heruntergefahren wird. Der Singleton scope ist der Default-Scope in Spring.
+* Prototyp: Eine neue Instanz der Prototyp-Bean wird jedes Mal erstellt, wenn sie angefordert wird. Sie ermöglicht die Koexistenz mehrerer Instanzen derselben Bean innerhalb der Anwendung.
+* Request: Für jede HTTP-Anfrage wird eine neue Instanz der request-scoped Bean erstellt. Sie ist nützlich, wenn Sie Daten speichern wollen, die für eine einzelne Anfrage spezifisch sind, wie z.B. Informationen zur Benutzersitzung.
+
+Session: Eine neue Instanz der Session-scoped Bean wird für jede Benutzersitzung erstellt. Sie bewahrt den für die Benutzersitzung spezifischen Zustand über mehrere Anfragen hinweg.
+
+Application : Eine neue Instanz der Application-scoped Bean wird einmal
+für die gesamte Anwendung erstellt. Sie wird für alle Anfragen und Sitzungen gemeinsam genutzt.
+
 [[beans-standardmaessig-als-singletons-definieren]]
 ==== Beans standardmäßig als Singletons definieren
 
-Spring-Beans können entweder als Singletons mit nur einer Instanz, mit einer Instanz pro Aufruf oder mit einer Instanz pro Abhängigkeit (Prototype) erzeugt werden.
 Die Spring-Beans einer Anwendung sollen zustandslos sein und werden als Singleton-Beans erzeugt.
 Wo technisch erforderlich können auch andere Scopes verwendet werden.
 
