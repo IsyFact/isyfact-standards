@@ -9,7 +9,7 @@ Sie setzen auf eine https://de.wikipedia.org/wiki/Schichtenarchitektur#Drei-Schi
 
 [[systemarchitektur-backend]]
 .Systemarchitektur eines Backends
-image:software-technisch/backend/architektur-backend.dn.svg[width=80%, align=center]
+image::software-technisch/backend/architektur-backend.dn.svg[width=80%, align=center]
 
 [[uebergreifende-technische-konzeption]]
 == Übergreifende Aspekte
