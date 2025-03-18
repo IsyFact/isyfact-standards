@@ -127,11 +127,9 @@ SpringBoot bietet mehrere Bean-Scopes, darunter:
 dieselbe Instanz wird für alle Anfragen freigegeben. Sie verbleibt im Kontext der Anwendung, bis die Anwendung heruntergefahren wird. Der Singleton scope ist der Default-Scope in Spring.
 * Prototyp: Eine neue Instanz der Prototyp-Bean wird jedes Mal erstellt, wenn sie angefordert wird. Sie ermöglicht die Koexistenz mehrerer Instanzen derselben Bean innerhalb der Anwendung.
 * Request: Für jede HTTP-Anfrage wird eine neue Instanz der request-scoped Bean erstellt. Sie ist nützlich, wenn Sie Daten speichern wollen, die für eine einzelne Anfrage spezifisch sind, wie z.B. Informationen zur Benutzersitzung.
-
-Session: Eine neue Instanz der Session-scoped Bean wird für jede Benutzersitzung erstellt. Sie bewahrt den für die Benutzersitzung spezifischen Zustand über mehrere Anfragen hinweg.
-
-Application : Eine neue Instanz der Application-scoped Bean wird einmal
-für die gesamte Anwendung erstellt. Sie wird für alle Anfragen und Sitzungen gemeinsam genutzt.
+* Session: Eine neue Instanz der Session-scoped Bean wird für jede Benutzersitzung erstellt. Sie bewahrt den für die Benutzersitzung spezifischen Zustand über mehrere Anfragen hinweg.
+* Application: Eine neue Instanz der Application-scoped Bean wird einmal für die gesamte Anwendung erstellt. Sie wird für alle Anfragen und Sitzungen gemeinsam genutzt.
+* WebSocket:  Für jede WebSocket-Sitzung wird eine neue Instanz der WebSocket-scoped Bean erstellt.
 
 [[beans-standardmaessig-als-singletons-definieren]]
 ==== Beans standardmäßig als Singletons definieren
@@ -167,6 +165,7 @@ Auszulesen ist in diesem Fall keine Komponente des Anwendungskerns, sondern eine
 
 [[aspektorientierte-programmierung-in-spring]]
 == Vorgaben zur aspektorientierte Programmierung in Spring
+https://docs.spring.io/spring-framework/reference/core/aop.html[Aspektorientierte Programmierung] (AOP) ist ein Programmieransatz, der dabei hilft, übergreifende Belange zu trennen - Funktionen, die sich über mehrere Module erstrecken, wie Protokollierung, Sicherheit, Transaktionsmanagement und Ausnahmebehandlung.
 
 Es ist möglich, für Spring-Beans Funktionalität in Form von Aspekten zu definieren.
 Ihr Einsatz kann über _Pointcuts_ konfiguriert werden.
