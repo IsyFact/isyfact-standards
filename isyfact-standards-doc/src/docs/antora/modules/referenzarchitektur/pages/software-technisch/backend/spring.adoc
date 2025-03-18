@@ -58,8 +58,14 @@ public class IsyFactApplication {
 
 Ist eine feinere Kontrolle gewünscht, so können mit `exclude`-Attributen Komponenten von der automatischen Konfiguration https://docs.spring.io/spring-boot/reference/using/auto-configuration.html#using.auto-configuration.disabling-specific[ausgeschlossen] werden.
 
+==== Spring Boot @Configuration Annotation
+Die Annotation Spring '@Configuration' zeigt an, dass die Klasse @Bean-Definitionsmethoden hat. So kann der Spring-Container die Klasse verarbeiten und Spring-Beans erzeugen, die in der Anwendung verwendet werden.
+
+==== SpringBoot Konfigurationsklasse
 Für jede Schicht wird im Package der Schicht (`<org>.<domäne>.<anwendung>.<schicht>`) parallel zu den Interfaces der Komponentenschnittstellen eine mit `@Configuration` annotierte <<listing-konfigurationsklasse,Konfigurationsklasse>> erstellt.
-Diese wird zusätzlich mit `@ComponentScan` annotiert, wenn eine <<listing-applikationsklasse>> verwendet wird.
+
+Externe Spring-Beans, die nicht annotiert werden können, werden in der Konfigurationsklasse der Schicht per `@Bean`-Methoden konfiguriert.
+
 
 [[listing-konfigurationsklasse]]
 .Konfigurationsklasse des Anwendungskerns
@@ -68,10 +74,7 @@ Diese wird zusätzlich mit `@ComponentScan` annotiert, wenn eine <<listing-appli
 package de.beispiel.if2anwendung.core;
 
 @Configuration
-@EnableTransactionManagement
-@ComponentScan
 public class CoreConfig {
-
     @Bean
     public BeispielBean beispielBean() {
         // ...
@@ -79,34 +82,40 @@ public class CoreConfig {
 }
 ----
 
-Die Spring-Beans der Komponenten werden mit der Annotation `@Component` bzw. deren Spezialisierungen (`@Repository`, `@Service`, `@Controller` etc.) versehen.
-Externe Spring-Beans, die nicht annotiert werden können, werden in der Konfigurationsklasse der Schicht per `@Bean`-Methoden konfiguriert.
-
-[[Empfehlungen-zu-Konfigurationsmoeglichkeiten-der-Applikationsklasse]]
-==== Empfehlungen zu Konfigurationsmöglichkeiten der Applikationsklasse
-
-* Grundsätzlich ist für die Applikationsklasse die `@SpringBootApplication`-Annotation zu verwenden.
-So wird die Konfiguration vereinfacht und Boiler-Plate-Code minimiert.
-* Die `@Configration`-Annotation in der Anwendungsklasse soll genutzt werden, wenn die explizite Kontrolle über die Konfiguration und das _Component Scanning_ notwendig ist, zum Beispiel bei der Isolation von Modulen in einem modularen System und um sicherzustellen, dass Konfigurationen unabhängig bleiben.
-* `@SpringBootConfiguration` ist für Randfälle zu nutzen.
-Dies ist zum Beispiel der Fall für spezielle Testkonfigurationen bei denen unerwünschte Autokonfigurationen Tests verlangsamen oder verkomplizieren können.
-
 [[konfiguration-von-spring-beans]]
-=== Konfiguration von Spring-Beans
+=== Konfiguration von Komponenten
+Die Spring-Beans der Komponenten werden mit der Annotation `@Component` bzw. deren Spezialisierungen (`@Repository`, `@Service`, `@Controller` etc.) versehen.
 
-Konfiguriert werden Spring-Beans durch die von Spring bereitgestellte Annotation `@Component` bzw. durch deren Spezialisierungen (`@Repository`, `@Service`, `@Contoller`, usw.).
-Diese werden beim Start des Applikations-Containers gescannt und ausgewertet (_Component Scanning_).
-Bei der Verwendung von `@SpringBootApplication` erfolgt das Scannen dieser Komponenten automatisch im gleichen Paket und den Unterpaketen der Applikationsklasse.
+==== Spring Boot @Component Annotation
+@Component ist die generische Annotation, die verwendet wird, um eine Klasse als Spring-Bean zu markieren.
+Sie wird für jede Klasse verwendet, die als Spring-Bean verwaltet werden soll, unabhängig von ihrer Funktion oder Verantwortung.
+Es ist eine allgemeine Annotation und vermittelt keine spezifische Bedeutung über die Rolle oder Funktion der bean.
+
+Obwohl die @Component Annotationen dazu dient, Klassen als Spring-Beans zu kennzeichnen, ist es eine gute Praxis, spezifische Ableitungen für Komponenten zu verwenden, um Ihre Absicht klarer auszudrücken und die Codebasis besser zu organisieren.
+
 Generell gilt, dass jede zentrale und wichtige Klasse als Spring-Bean konfiguriert werden sollte.
 
-Für die Modellierung und Konfiguration der Spring-Beans werden im folgenden Vorgaben aufgestellt.
+==== Spring Boot @Service Annotation
+Die Annotation @Service ist eine spezielle Form von @Component. Es ist eine semantische Annotation, die verwendet wird, um Klassen zu kennzeichne die Geschäftsfunktionen implementieren.
 
-[[querschnitt-als-beans-konfigurieren]]
-==== Querschnittliche Funktionalität als Spring-Beans konfigurieren
+Die Komponenten des Anwendungskerns werden mit der Annotation @Service ausgezeichnet.
 
-Querschnittliche Funktionalität (etwa für das Monitoring, für Fehler- und Nachrichtentexte oder für die Versendung von Mails) sind als Spring-Beans zu konfigurieren.
-Ebenfalls über Spring-Beans durchzuführen ist die Konfiguration diverser Frameworks, z.B. Hibernate.
-Die Konfiguration dieser Frameworks wird in ihren Nutzungsvorgaben beschrieben.
+==== Spring Boot @Controller und @RestController Annotation
+Die Annotation Spring Controller ist eine Spezialisierung der Annotation @Component. Die Spring Controller-Annotation wird typischerweise in Kombination mit annotierten Handler-Methoden verwendet, die auf der RequestMapping-Annotation basieren.
+
+===== Spring Controller
+Die Spring Controller-Annotation kann nur auf Klassen angewendet werden. Sie wird verwendet, um eine Klasse als Web-Request-Handler zu markieren. Sie wird meist bei Spring MVC-Anwendungen verwendet.
+
+===== Spring RestController
+Spring @RestController ist eine Komfort-Annotation, die selbst mit @Controller und @ResponseBody annotiert ist. Diese Annotation wird verwendet, um eine Klasse als Request-Handler für RESTful Web Services zu kennzeichnen.
+
+Die Komponenten der Serviceschicht werden mit den Annotationen @Controller und @RestController ausgezeichnet.
+
+==== Spring Boot @Repository Annotation
+Die Spring Repository-Annotation ist eine Spezialisierung der @Component-Annotation.
+Die Spring @Repository-Annotation wird verwendet, um anzuzeigen, dass die Klasse einen Mechanismus für Speicherung, Abruf, Suche, Aktualisierung und Löschung von Objekten bereitstellt.
+
+Die Komponenten der Persistenzschicht werden mit den Annotationen @Repository ausgezeichnet.
 
 [[beans-standardmaessig-als-singletons-definieren]]
 ==== Beans standardmäßig als Singletons definieren
