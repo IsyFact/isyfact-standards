@@ -222,7 +222,7 @@ Die <<table-vergleich-verfahren-dependency-injection,verschiedenen Verfahren der
 
 |Constructor-Injection
 |Für alle Spring-Beans, welche keine dynamische Anpassung zur Laufzeit benötigen.
-|Kann in Produktiv-Code eingesetzt werden und ist der Standard von Spring.
+|Kann in Produktiv-Code eingesetzt werden und ist die Empfehlung von Spring.
 
 |Field-Injection
 |Vermeidung von Boilerplate-Code
