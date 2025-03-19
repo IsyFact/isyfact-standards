@@ -174,14 +174,3 @@ Es beinhaltet die folgenden Punkte:
 
 * *Explizite Definition von Rollbacks:* Jede Änderung sollte eine definierte Rückabwicklung enthalten.
 * *Regelmäßige Tests:* Sicherstellen, dass Rollbacks in einer Entwicklungsumgebung funktionieren.
-
-[[zusammenfassung]]
-== Zusammenfassung
-
-Die Einführung von Liquibase in eine bestehende Datenbank ermöglicht eine nachvollziehbare, automatisierte und konsistente Versionierung von Schemaänderungen. Der Prozess beginnt mit der Erfassung des aktuellen Schemas und der Erstellung einer Baseline, die als Ausgangspunkt für zukünftige Änderungen dient. Anschließend wird Liquibase in das Versionskontrollsystem und CI/CD-Pipelines integriert, um Änderungen strukturiert zu verwalten.
-
-Die Verwaltung erfolgt über Änderungsprotokolle, die einzelne Änderungen definieren und deren kontrollierte Anwendung sicherstellen. Eine Rollback-Strategie mit klaren Rückabwicklungsmechanismen ermöglicht es, fehlerhafte Änderungen gezielt zurückzusetzen. Die Nutzung von Versions-Tags erleichtert zudem die Wiederherstellung bestimmter Zustände und sorgt für Transparenz über verschiedene Entwicklungs- und Produktivumgebungen hinweg.
-
-Die Datenbankkommunikation erfolgt über JDBC, das als Schnittstelle zwischen Liquibase und der Datenbank dient. In Java-basierten Anwendungen stellt JDBC sicher, dass Datenbankmigrationen effizient und zuverlässig durchgeführt werden können. Die Kombination aus Liquibase und JDBC ermöglicht eine sichere und nachvollziehbare Verwaltung von Schemaänderungen, während gleichzeitig die Konsistenz zwischen Anwendungslogik und Datenhaltung gewahrt bleibt.
-
-Durch die schrittweise Integration in den Entwicklungsprozess, automatisierte Bereitstellung und standardisierte Prüfmechanismen wird sichergestellt, dass Datenbankänderungen effizient, kontrolliert und konsistent erfolgen.

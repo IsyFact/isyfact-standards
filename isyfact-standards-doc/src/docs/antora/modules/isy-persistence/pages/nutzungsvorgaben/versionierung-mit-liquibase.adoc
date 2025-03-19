@@ -2,9 +2,11 @@
 
 include::glossary:licence:partial$licence.adoc[]
 
-Die Umsetzung der Schemaversionierung mit Liquibase erfolgt gemäß den Richtlinien in xref:konzept/versionierung-mit-liquibase.adoc[].
-Der Fokus liegt auf der Integration in Spring Boot und der Nutzung von Liquibase mit Maven.
-Zudem werden JDBC und die Einbindung in CI/CD-Pipelines berücksichtigt, um eine automatisierte und kontrollierte Bereitstellung von Schemaänderungen sicherzustellen.
+Die Schemaversionierung mit Liquibase erfolgt gemäß den Richtlinien in xref:konzept/versionierung-mit-liquibase.adoc[] mit Fokus auf die Integration in Spring Boot und die Nutzung mit Maven. Liquibase wird in Spring Boot über die Konfigurationsdateien eingebunden, während das zugehörige Maven-Plugin Schemaänderungen direkt in der Build-Pipeline ausführt.
+
+Durch strukturierte Änderungsprotokolle lassen sich Schemaanpassungen kontrolliert, nachvollziehbar und automatisiert verwalten. Bestehende Datenbanken bleiben unverändert und dienen als Basis für zukünftige Änderungen. Die Kombination mit JDBC erlaubt eine flexible Anbindung an verschiedene Datenbanken.
+
+Zudem lässt sich Liquibase nahtlos in CI/CD-Pipelines wie GitLab CI oder GitHub Actions integrieren, um Migrationen und Rollbacks zu automatisieren und so eine sichere Bereitstellung zu gewährleisten.
 
 [[einrichtung]]
 == Einrichtung von Liquibase
@@ -71,7 +73,7 @@ spring.liquibase.enabled=true
 ----
 
 Standardmäßig verwendet Liquibase das Root Changelog `db/changelog/db.changelog-master.xml`.
-Es dient als zentrale Steuerungsdatei, in der alle Datenbankänderungen verwaltet werden.
+Es dient als zentrale Steuerungsdatei, in der alle Schemaänderungen verwaltet werden.
 Es enthält entweder direkte Änderungen oder bindet weitere Changelog-Dateien ein, um eine strukturierte Verwaltung zu ermöglichen.
 
 Falls ein anderer Ablageort genutzt werden soll, muss dies explizit angegeben werden.
@@ -107,7 +109,12 @@ Offizielle Dokumentation von Liquibase:
 Die folgenden Schritte beschreiben die Erstellung einer Baseline zur Verwaltung eines bestehenden Schemas.
 
 +1.+ Erstellung der `db.changelog-master.xml`::
-Erstelle das Root Changelog für Liquibase. Bei Verwendung von Spring Boot sollte sich diese Datei im Ordner `src/main/resources/db/changelog` befinden:
+
+Damit eine Baseline korrekt verwaltet werden kann, muss zuerst das Root Changelog `db.changelog-master.xml` erzeugt werden. 
++
+Diese Datei dient als Einstiegspunkt für alle Schemaänderungen und stellt sicher, dass die Baseline zuerst und dann alle weiteren Release-Changelogs in der richtigen Reihenfolge angewendet werden.
++
+Bei Verwendung von Spring Boot sollte sich diese Datei im Ordner `src/main/resources/db/changelog` befinden.
 +
 .Beispiel für das Root Changelog in XML
 [source,xml]
@@ -117,7 +124,7 @@ Erstelle das Root Changelog für Liquibase. Bei Verwendung von Spring Boot sollt
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.8.xsd">
-    <include file="baseline/baseline.xml" relativeToChangelogFile="true"/>
+    <include file="baseline.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>
 ----
 +
@@ -126,7 +133,7 @@ Erstelle das Root Changelog für Liquibase. Bei Verwendung von Spring Boot sollt
 ----
 databaseChangeLog:
   - include:
-      file: baseline/baseline.yml
+      file: baseline.yml
       relativeToChangelogFile: true
 ----
 +
@@ -140,7 +147,7 @@ Offizielle Dokumentation von Liquibase: https://docs.liquibase.com/start/design-
 [source,shell]
 ----
 mvn liquibase:generateChangeLog
-    -Dliquibase.outputChangeLogFile=src/main/resources/db/changelog/baseline/baseline.xml
+    -Dliquibase.outputChangeLogFile=src/main/resources/db/changelog/baseline.xml
 ----
 +
 Nach der Generierung sollte die Datei manuell überprüft und bereinigt werden.
@@ -195,14 +202,14 @@ Offizielle Dokumentation von Liquibase: https://docs.liquibase.com/concepts/trac
 
 +5.+ Integration der Baseline in das Versionskontrollsystem::
 Nachdem die Baseline erstellt wurde, sollten sowohl diese als auch das Root Changelog `db.changelog-master.xml` in das Versionskontrollsystem aufgenommen werden.
-Dies gewährleistet eine nachvollziehbare Historie der Datenbankänderungen.
+Dies gewährleistet eine nachvollziehbare Historie der Schemaänderungen.
 
 [[release-orientierte-umsetzung-von-schemaaenderungen]]
 == Release-orientierte Umsetzung von Schemaänderungen
 
 In den folgenden Schritten werden Changelogs in *XML* als Beispiel verwendet.
 
-Es wird eine Baseline als Ausgangspunkt für die Datenbankstruktur genutzt, auf die alle nachfolgenden Release-Changelog aufbauen.
+Es wird eine Baseline als Ausgangspunkt für die Datenbankstruktur genutzt, auf die alle nachfolgenden Release-Changelogs aufbauen.
 
 Für eine genauere Steuerung, beispielsweise bei Stored Procedures, Triggern oder komplexen Optimierungen, können Changelogs auch als *SQL-Dateien* integriert werden.
 
@@ -216,38 +223,40 @@ Sie definiert die grundlegende Datenbankstruktur und bleibt nach der ersten Anwe
 ----
 /db/changelog/
 ├── db.changelog-master.xml
-├── baseline/
-│   └── baseline.xml
-├── releases/
-│   ├── changelog-1.0.xml
-│   ├── changelog-1.1.xml
-│   └── changelog-1.2.xml
-└── rollback/
-    ├── rollback-1.0.xml
-    ├── rollback-1.1.xml
-    └── rollback-1.2.xml
+├── baseline.xml
+├── changelog-1.0.xml
+├── changelog-1.1.xml
+└── changelog-1.2.xml
 ----
+
+[NOTE]
+====
+Offizielle Dokumentation von Liquibase:
+
+* https://docs.liquibase.com/concepts/bestpractices.html[Best Practices]
+* https://docs.liquibase.com/start/design-liquibase-project.html[Design Your Liquibase Project]
+====
 
 [[root-changelog]]
 === Root Changelog
 
-Das Root Changelog ist der `db.changelog-master.xml` und stellt sicher, dass die Baseline zuerst und dann alle weiteren Releases in der richtigen Reihenfolge angewendet werden.
+Das Root Changelog ist die `db.changelog-master.xml` und stellt sicher, dass die Baseline zuerst und dann alle weiteren Release-Changelogs in der richtigen Reihenfolge angewendet werden.
 
 .Struktur des Root Changelogs
 [source,xml]
 ----
 <databaseChangeLog>
-    <include file="db/changelog/baseline/baseline.xml"/>
-    <include file="db/changelog/releases/changelog-1.0.xml"/>
-    <include file="db/changelog/releases/changelog-1.1.xml"/>
-    <include file="db/changelog/releases/changelog-1.2.xml"/>
+    <include file="db/changelog/baseline.xml"/>
+    <include file="db/changelog/changelog-1.0.xml"/>
+    <include file="db/changelog/changelog-1.1.xml"/>
+    <include file="db/changelog/changelog-1.2.xml"/>
 </databaseChangeLog>
 ----
 
-[[tagging-der-baseline]]
-=== Tagging der Baseline
+[[tagging-von-baseline-und-releases]]
+=== Tagging von Baseline und Releases
 
-Falls die Datenbank bereits existiert und die Baseline nicht erneut ausgeführt werden soll, wird ein *Tag* gesetzt. Liquibase speichert die Baseline-Anwendung. Zukünftige Updates erfolgen erst danach. Rollback ist gezielt bis zur Baseline möglich.
+Vor jedem neuen Release sollte ein *Tag* gesetzt werden, um ein sauberes Rollback des gesamten Releases zu erleichtern. Der erste Tag definiert die Baseline und markiert diesen Zustand als Referenzpunkt. Dadurch kann bei Bedarf gezielt auf die Baseline zurückgerollt werden.
 
 .Setzen eines Tags
 [source,shell]
@@ -255,11 +264,22 @@ Falls die Datenbank bereits existiert und die Baseline nicht erneut ausgeführt 
 mvn liquibase:tag -Dliquibase.tag=v1.0-baseline
 ----
 
+.Befehl zum Rollback
+[source,shell]
+----
+mvn liquibase:rollback -Dliquibase.rollbackTag=v1.0-baseline
+----
+
+[NOTE]
+====
+Offizielle Dokumentation von Liquibase: https://docs.liquibase.com/tools-integrations/maven/commands/maven-tag.html[Maven tag]
+====
+
 [[erste-aenderungen-nach-der-baseline]]
 === Erste Änderungen nach der Baseline
 
-Das erste Update nach der Baseline ist Release 1.0.
-Alle nachfolgenden Releases enthalten ausschließlich inkrementelle Änderungen zur Baseline.
+Das erste Update nach der Baseline ist Release-Changelog 1.0.
+Alle nachfolgenden Release-Changelogs enthalten ausschließlich inkrementelle Änderungen zur Baseline.
 
 .Beispiel für inkrementelle Änderungen im Changelog
 [source,xml]
@@ -270,6 +290,7 @@ Alle nachfolgenden Releases enthalten ausschließlich inkrementelle Änderungen 
             <column name="email" type="varchar(255)"/>
         </addColumn>
     </changeSet>
+    
     <changeSet id="1.0-002" author="dev2">
         <createIndex indexName="idx_orders_date" tableName="orders">
             <column name="order_date"/>
@@ -278,69 +299,98 @@ Alle nachfolgenden Releases enthalten ausschließlich inkrementelle Änderungen 
 </databaseChangeLog>
 ----
 
-[[rollback-von-releases]]
-=== Rollback eines Releases
+[[manuelles-rollback-im-changelog]]
+=== Manuelles Rollback im Changelog
 
-Falls ein Release zurückgesetzt werden muss, existiert ein eigenes Rollback-Changelog dafür.
+Rollback-Anweisungen in der `changelog.xml` ermöglichen Rollbacks einzelner Changesets für mehr Kontrolle.
 
-.Beispiel für ein Rollback-Changelog
+.Beispiel für ein Rollback im Changelog
 [source,xml]
 ----
-<databaseChangeLog>
-    <changeSet id="rollback-1.0-001" author="dev1">
-        <dropColumn tableName="customers" columnName="email"/>
+<databaseChangeLog> 
+    <changeSet id="1.0-001" author="dev1"> 
+        <!-- Spalte hinzufügen -->
+        <rollback>
+            <dropColumn tableName="customers" columnName="email"/>
+        </rollback>
     </changeSet>
-    <changeSet id="rollback-1.0-002" author="dev2">
-        <dropIndex indexName="idx_orders_date" tableName="orders"/>
+
+    <changeSet id="1.0-002" author="dev2"> 
+        <!-- Index erzeugen -->
+        <rollback>
+            <dropIndex indexName="idx_orders_date" tableName="orders"/>
+        </rollback>
     </changeSet>
 </databaseChangeLog>
 ----
 
-Die Ausführung des Rollbacks ist mit folgendem Befehl möglich.
+[[befehle-zum-rollback]]
+=== Befehle zum Rollback
 
-.Befehl zum Rollback
-[source,shell]
-----
-mvn liquibase:rollback -Dliquibase.tag=v1.0-baseline
-----
+[cols="2m,3",options="header"]
+|===
+|Befehl
+|Bedeutung
+
+|mvn liquibase:rollback -Dliquibase.rollbackTag=TAG_NAME
+|Rollback auf einen zuvor gesetzten Tag (`TAG_NAME`).
+
+|mvn liquibase:rollback -Dliquibase.rollbackCount=1
+|Rollback um eine bestimmte Anzahl an Changesets (hier: 1 Changeset).
+
+|mvn liquibase:rollback -Dliquibase.rollbackDate=YYYY-MM-DDTHH:MM:SS
+|Rollback auf einen spezifischen Zeitpunkt im Format `YYYY-MM-DDTHH:MM:SS`.
+
+|mvn liquibase:rollbackToDate -Dliquibase.rollbackDate=YYYY-MM-DD
+|Rollback auf ein bestimmtes Datum (`YYYY-MM-DD`).
+|===
+
+[NOTE]
+====
+Offizielle Dokumentation von Liquibase: https://docs.liquibase.com/workflows/liquibase-community/using-rollback.html[Liquibase Rollback Workflow].
+====
 
 [[automatisierte-migrationen-in-ci-cd-pipelines]]
 == Einsatz von CI/CD-Pipelines für automatisierte Migrationen
 
-Liquibase kann nahtlos in CI/CD-Pipelines integriert werden, um Datenbankmigrationen automatisiert, sicher und kontrolliert auszuführen.
+Liquibase kann nahtlos in GitLab CI/CD-Pipelines integriert werden, um Datenbankmigrationen automatisiert, sicher und kontrolliert auszuführen. Die erforderlichen Konfigurationen werden in der Datei `.gitlab-ci.yml` definiert.
 
-+1.+ Validierung der Changelogs in der Pipeline::
++1.+ Validierung der Changelogs::
 
-Vor dem eigentlichen Deployment sollte sichergestellt werden, dass alle Changelogs fehlerfrei sind:
+Vor dem Deployment sollte sichergestellt werden, dass alle Changelogs validiert und fehlerfrei sind. Tritt ein Fehler auf, wird der Prozess abgebrochen, um fehlerhafte Migrationen zu verhindern.
 +
-[source,shell]
-----
-mvn liquibase:validate
-----
-
-+2.+ Automatische Migrationen in CI/CD (z. B. GitHub Actions, GitLab CI, Jenkins)::
-
-Hier ist ein entsprechendes Beispiel für eine GitLab CI/CD-Pipeline mit Liquibase:
-+
+.Beispiel für ein Validierungsskript
 [source,yaml]
 ----
-stages:
-  - liquibase-migration
-liquibase-migration:
-  image: maven:3.8.6-openjdk-17
-  stage: liquibase-migration
-  script:
-    - echo "Setting up Liquibase migration..."
-    - mvn liquibase:update
-  variables:
-    LIQUIBASE_URL: "jdbc:<db>:@//<host>:<port>/<name>"
-    LIQUIBASE_USERNAME: "$DB_USER" <.>
-    LIQUIBASE_PASSWORD: "$DB_PASSWORD"
-  only:
-    - main
-    - develop
+liquibase --url=$DB_URL --username=$DB_USER --password=$DB_PASSWORD validate
 ----
-<1> Gespeichert im <<spring-boot-konfiguration,Secrets Management>>
+
++2.+ Deployment auf Staging::
+
+Die Datenbankmigration wird durchgeführt und das Release mit einem Tag versehen, um Rollbacks zu ermöglichen. Mit `liquibase history` werden die durchgeführten Änderungen angezeigt. Falls alle Tests erfolgreich sind, wird das Deployment für die Produktion freigegeben.
++
+.Beispiel für ein Deployment-Skript
+[source,yaml]
+----
+liquibase --url=$DB_URL --username=$DB_USER --password=$DB_PASSWORD update
+liquibase --url=$DB_URL --username=$DB_USER --password=$DB_PASSWORD tag $RELEASE_VERSION
+liquibase --url=$DB_URL --username=$DB_USER --password=$DB_PASSWORD history
+----
+
++3.+ Deployment in Produktion::
+
+Die gleichen Deployment-Befehle wie für Staging werden auf der Produktionsdatenbank ausgeführt.
+
++4.+ Automatisches Rollback bei Fehlern::
+
+Falls die Pipeline einen Fehler erkennt, kann ein automatischer Rollback erfolgen:
++
+.Beispiel für ein Rollback-Skript
+[source,yaml]
+----
+liquibase --url=$DB_URL --username=$DB_USER --password=$DB_PASSWORD rollback --tag=$RELEASE_VERSION
+liquibase --url=$DB_URL --username=$DB_USER --password=$DB_PASSWORD history
+----
 
 +
 Ähnliche Konfigurationen können zum Beispiel für GitHub Actions erstellt werden.
@@ -349,15 +399,6 @@ liquibase-migration:
 ====
 Offizielle Dokumentation von Liquibase: https://contribute.liquibase.com/extensions-integrations/directory/integration-docs/gitlab-ci-cd/[Using Liquibase with GitLab CI/CD]
 ====
-
-+3.+ Rollbacks automatisieren::
-
-Falls ein Deployment fehlschlägt, kann ein Rollback automatisch in der Pipeline erfolgen:
-+
-[source,shell]
-----
-mvn liquibase:rollback -Dliquibase.tag=previous_release
-----
 
 [[nuetzliche-liquibase-befehle-zur-schema-verwaltung]]
 == Nützliche Liquibase-Befehle zur Schema-Verwaltung
@@ -387,10 +428,10 @@ Dies ist nützlich, um zu überprüfen, ob und wie sich die Datenbanken in versc
 
 |mvn liquibase:snapshot +
 -Dliquibase.outputFile=snapshot.json
-|Legt einen Snapshot, z.B. zur Analyse zum Vergleich mit späteren Versionen, an.
+|Erstellt eine Momentaufnahme der aktuellen Datenbankstruktur, die zum Beispiel für Analysen oder den Vergleich mit späteren Versionen verwendet werden kann.
 
 |mvn liquibase:rollback +
--Dliquibase.tag=v1.0-baseline
+-Dliquibase.rollbackTag=v1.0-baseline
 |Führt ein Rollback aus.
 Dies stellt den Zustand der Datenbank auf einen definierten Punkt zurück und entfernt alle nachfolgenden Änderungen.
 |===
@@ -399,12 +440,3 @@ Dies stellt den Zustand der Datenbank auf einen definierten Punkt zurück und en
 ====
 Offizielle Dokumentation von Liquibase: https://docs.liquibase.com/commands/home.html[Liquibase-Befehlen].
 ====
-
-[[zusammenfassung]]
-== Zusammenfassung
-
-Liquibase ermöglicht eine strukturierte Versionierung von Datenbankschemata, insbesondere in Kombination mit Spring Boot, Maven und JDBC. Durch die Nutzung von Changelog-Dateien können Änderungen kontrolliert und nachvollziehbar verwaltet werden.
-
-Die Baseline-Erstellung stellt sicher, dass bestehende Datenbanken nicht verändert, sondern als Ausgangspunkt für zukünftige Änderungen genutzt werden. Über CI/CD-Integrationen (z. B. GitHub Actions, GitLab CI) lassen sich Migrationen und Rollbacks automatisieren, um eine sichere und effiziente Bereitstellung zu gewährleisten.
-
-Zusätzlich bietet Liquibase eine Vielzahl nützlicher Befehle (update, status, rollback, validate), um Schemaänderungen zu verwalten und Datenbankdifferenzen zu analysieren. Eine sichere Verwaltung von Zugangsdaten über Secrets oder Umgebungsvariablen wird empfohlen, um sensible Informationen zu schützen.
