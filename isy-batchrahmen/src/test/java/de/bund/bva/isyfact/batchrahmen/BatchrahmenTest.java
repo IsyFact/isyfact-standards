@@ -360,6 +360,16 @@ public class BatchrahmenTest {
     }
 
     /**
+     * Tests the protection of a batch when token renewal is deactivated.
+     */
+    @Test
+    public void testGesicherterBatchNoReauth() throws Exception {
+        assertEquals(0, BatchLauncher.run(new String[] { "-start", "-cfg",
+            "/resources/batch/gesicherter-test-batch2-1-config.properties" }));
+        assertEquals("beendet", getBatchStatus("gesicherterTestBatch2-1"));
+    }
+
+    /**
      * Tests the execution of the batch frame with the TestBatchLauncher, which executes the batch in a separate VM.
      */
     @Test

@@ -16,7 +16,10 @@
  */
 package de.bund.bva.isyfact.batchrahmen.sicherheit;
 
+import org.apache.logging.log4j.util.Strings;
+
 import de.bund.bva.isyfact.aufrufkontext.AufrufKontext;
+import de.bund.bva.isyfact.aufrufkontext.AufrufKontextVerwalter;
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.logging.LogKategorie;
@@ -38,14 +41,17 @@ import de.bund.bva.isyfact.sicherheit.common.exception.AuthentifizierungTechnica
  * Only methods {@link #authentifiziere(String, String, String, String, String)},
  * {@link #authentifiziereNutzer(String, String, String, String, String)} and
  * {@link #holeSessionInhalte(String)} are supported.
- *
  */
 public class AccessManagerStub implements AccessManager<AufrufKontext, AuthentifzierungErgebnisStub> {
 
     private static final IsyLogger LOG = IsyLoggerFactory.getLogger(AccessManagerStub.class);
 
+    private final AufrufKontextVerwalter<AufrufKontext> aufrufKontextVerwalter;
+
     /** the last authorized user. */
     private String nutzer;
+
+    private int tokenCount;
 
     /**
      * {@inheritDoc}
@@ -54,19 +60,29 @@ public class AccessManagerStub implements AccessManager<AufrufKontext, Authentif
         return;
     }
 
+    public AccessManagerStub(AufrufKontextVerwalter<AufrufKontext> aufrufKontextVerwalter) {
+        this.aufrufKontextVerwalter = aufrufKontextVerwalter;
+    }
+
     /**
      * {@inheritDoc}
      */
     @Override
     public AuthentifzierungErgebnisStub authentifiziere(AufrufKontext unauthentifizierterAufrufKontext)
-        throws AuthentifizierungTechnicalException, AuthentifizierungFehlgeschlagenException {
+            throws AuthentifizierungTechnicalException, AuthentifizierungFehlgeschlagenException {
         String userName = unauthentifizierterAufrufKontext.getDurchfuehrenderBenutzerKennung();
         if ("falscher_benutzer".equals(userName)) {
             throw new AuthentifizierungFehlgeschlagenException("SIC2050");
         }
+        if (Strings.isBlank(unauthentifizierterAufrufKontext.getDurchfuehrenderBenutzerPasswort())) {
+            // only to assure that the password is always set in tests
+            throw new AuthentifizierungFehlgeschlagenException("Invalid password");
+        }
         this.nutzer = userName;
         LOG.info(LogKategorie.JOURNAL, "AnwendungKontext", "Erfolgreich authentifiziert");
-        return new AuthentifzierungErgebnisStub();
+
+        // increase token count so tests can verify if it got changed
+        return new AuthentifzierungErgebnisStub("Token " + ++tokenCount);
     }
 
     /**
@@ -98,14 +114,17 @@ public class AccessManagerStub implements AccessManager<AufrufKontext, Authentif
      */
     @Override
     public void befuelleAufrufkontext(AufrufKontext aufrufKontext,
-        AuthentifzierungErgebnisStub authentifzierungErgebnis) {
+                                      AuthentifzierungErgebnisStub authentifzierungErgebnis) {
         aufrufKontext.setDurchfuehrendeBehoerde("900600");
         aufrufKontext.setDurchfuehrenderBenutzerKennung(this.nutzer);
+        aufrufKontext.setDurchfuehrenderBenutzerPasswort("");
+        aufrufKontext.setRollenErmittelt(true);
         aufrufKontext.setRolle(new String[0]);
         if ("benutzer".equals(this.nutzer)) {
             aufrufKontext.setRolle(new String[] { "Anwender" });
         }
-        return;
+
+        aufrufKontextVerwalter.setBearerToken(authentifzierungErgebnis.getAccessToken());
     }
 
     /**
@@ -113,7 +132,9 @@ public class AccessManagerStub implements AccessManager<AufrufKontext, Authentif
      */
     @Override
     public Object erzeugeCacheSchluessel(AufrufKontext aufrufKontext) {
-        return null;
+        return aufrufKontext.getDurchfuehrenderBenutzerKennung() + "#" +
+                aufrufKontext.getDurchfuehrenderBenutzerPasswort() + "#" +
+                aufrufKontext.getDurchfuehrendeBehoerde();
 
     }
 

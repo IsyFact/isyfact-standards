@@ -26,4 +26,13 @@ public class AuthentifzierungErgebnisStub implements AuthentifzierungErgebnis {
     /** Die UID. */
     private static final long serialVersionUID = 3659559888683671655L;
 
+    private final String accessToken;
+
+    public AuthentifzierungErgebnisStub(String accessToken) {
+        this.accessToken = accessToken;
+    }
+
+    public String getAccessToken() {
+        return accessToken;
+    }
 }
