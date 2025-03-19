@@ -1,3 +1,6 @@
+# 2.5.1
+- `IFS-4606`: Automatisches Durchführen einer erneuten Authentifizierung vor Verarbeitungsschritten in BatchrahmenImpl
+
 # 2.4.3
 - `IFS-1356`: Manuelles Herunterfahren in isy-batchrahmen ausgebaut, stattdessen hochpropagieren der BatchAusfuehrungsException, wenn ClassNotFoundException abgefangen wird.
 

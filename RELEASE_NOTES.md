@@ -1,5 +1,32 @@
 # Isyfact-Standards
 
+## 2.5.1
+### Hinweise & bekannte Probleme
+
+Um die Wahrscheinlichkeit, dass das im AufrufKontextVerwalter gespeicherte Bearer-Token während der Ausführung eines Batches abläuft, zu verringern, wird vor jedem Verarbeitungsschritt und vor der Beendigung des Batches der AufrufKontext und das Bearer-Token aktualisiert.
+
+Dies kann bei Batches mit vielen Verarbeitungsschritten dazu führen, dass innerhalb kurzer Zeit sehr viele Anfragen an den Access-Manager geschickt werden.
+Deshalb ist es empfehlenswert den Cache für isy-sicherheit durch Setzen von `isy.sicherheit.cache.ttl` zu aktivieren.
+
+Falls das neue Verhalten für einen bestimmten Batch nicht wünschenswert ist, kann es durch Setzen folgender Batch-Property wieder deaktiviert werden:
+```properties
+Batchrahmen.TokenErneuerung=false
+```
+### Umgesetzte Tickets
+#### Features
+- `IFS-4606`: Automatisches Durchführen einer erneuten Authentifizierung vor Verarbeitungsschritten in BatchrahmenImpl
+
+#### Bug Fixes
+- keine
+
+#### Interne Anpassungen
+- keine
+
+### Durchzuführende Aktionen vor dem ersten Einsatz
+
+`BatchrahmenImpl` hat jetzt eine Abhängigkeit auf die Klasse `Sicherheit`.
+Die Konfiguration der Bean muss entsprechend angepasst werden.
+
 ## 2.5.0
 ### Hinweise & bekannte Probleme
 - keine

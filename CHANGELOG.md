@@ -1,3 +1,6 @@
+# 2.5.1
+- `IFS-4606`: [isy-batchrahmen] Automatisches Durchführen einer erneuten Authentifizierung vor Verarbeitungsschritten in BatchrahmenImpl
+
 # 2.5.0
 - `IFS-1583`: [isy-persistence] `IsyPersistenceOracleAutoConfiguration` verwendet relaxed-binding für ConditionalOnProperty
 - `IFS-3443`: [isy-sonderzeichen] Hinzufügen eines neuen Packages mit Transformatoren für die DIN Norm 91379
