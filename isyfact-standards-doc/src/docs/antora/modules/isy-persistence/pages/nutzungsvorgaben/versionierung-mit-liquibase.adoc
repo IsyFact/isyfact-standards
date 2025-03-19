@@ -114,7 +114,7 @@ Damit eine Baseline korrekt verwaltet werden kann, muss zuerst das Root Changelo
 +
 Diese Datei dient als Einstiegspunkt für alle Schemaänderungen und stellt sicher, dass die Baseline zuerst und dann alle weiteren Release-Changelogs in der richtigen Reihenfolge angewendet werden.
 +
-Bei Verwendung von Spring Boot sollte sich diese Datei im Ordner `src/main/resources/db/changelog` befinden.
+Bei Verwendung von Spring Boot sollte sich diese Datei im Ordner `src/main/resources/db/changelog` befinden:
 +
 .Beispiel für das Root Changelog in XML
 [source,xml]
@@ -202,7 +202,7 @@ Offizielle Dokumentation von Liquibase: https://docs.liquibase.com/concepts/trac
 
 +5.+ Integration der Baseline in das Versionskontrollsystem::
 Nachdem die Baseline erstellt wurde, sollten sowohl diese als auch das Root Changelog `db.changelog-master.xml` in das Versionskontrollsystem aufgenommen werden.
-Dies gewährleistet eine nachvollziehbare Historie der Schemaänderungen.
+Dies gewährleistet eine nachvollziehbare Historie der Datenbankänderungen.
 
 [[release-orientierte-umsetzung-von-schemaaenderungen]]
 == Release-orientierte Umsetzung von Schemaänderungen
@@ -299,6 +299,44 @@ Alle nachfolgenden Release-Changelogs enthalten ausschließlich inkrementelle Ä
 </databaseChangeLog>
 ----
 
+[[preconditions]]
+=== Preconditions
+
+Preconditions in Liquibase prüfen vor der Ausführung eines Changesets definierte Bedingungen. Bei Nichterfüllung kann die Migration abgebrochen, übersprungen oder mit Warnung fortgesetzt werden. So werden Fehler frühzeitig erkannt und nur zulässige Änderungen ausgeführt.
+
+.Beispiel für Preconditions
+[source,xml]
+----
+<databaseChangeLog>
+    <changeSet id="1.0-001" author="dev1">
+        <preConditions onFail="HALT">
+            <not>
+                <columnExists tableName="customers" columnName="email"/>
+            </not>
+        </preConditions>
+        <addColumn tableName="customers">
+            <column name="email" type="varchar(255)"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="1.0-002" author="dev2">
+        <preConditions onFail="HALT">
+            <not>
+                <indexExists tableName="orders" indexName="idx_orders_date"/>
+            </not>
+        </preConditions>
+        <createIndex indexName="idx_orders_date" tableName="orders">
+            <column name="order_date"/>
+        </createIndex>
+    </changeSet>
+</databaseChangeLog>
+----
+
+[NOTE]
+====
+Offizielle Dokumentation von Liquibase: https://docs.liquibase.com/concepts/changelogs/preconditions.html[Preconditions]
+====
+
 [[manuelles-rollback-im-changelog]]
 === Manuelles Rollback im Changelog
 
@@ -309,14 +347,18 @@ Rollback-Anweisungen in der `changelog.xml` ermöglichen Rollbacks einzelner Cha
 ----
 <databaseChangeLog> 
     <changeSet id="1.0-001" author="dev1"> 
-        <!-- Spalte hinzufügen -->
+        <addColumn tableName="customers">
+            <column name="email" type="varchar(255)"/>
+        </addColumn>
         <rollback>
             <dropColumn tableName="customers" columnName="email"/>
         </rollback>
     </changeSet>
 
     <changeSet id="1.0-002" author="dev2"> 
-        <!-- Index erzeugen -->
+        <createIndex indexName="idx_orders_date" tableName="orders">
+            <column name="order_date"/>
+        </createIndex>
         <rollback>
             <dropIndex indexName="idx_orders_date" tableName="orders"/>
         </rollback>
@@ -347,7 +389,7 @@ Rollback-Anweisungen in der `changelog.xml` ermöglichen Rollbacks einzelner Cha
 
 [NOTE]
 ====
-Offizielle Dokumentation von Liquibase: https://docs.liquibase.com/workflows/liquibase-community/using-rollback.html[Liquibase Rollback Workflow].
+Offizielle Dokumentation von Liquibase: https://docs.liquibase.com/workflows/liquibase-community/using-rollback.html[Liquibase Rollback Workflow]
 ====
 
 [[automatisierte-migrationen-in-ci-cd-pipelines]]
@@ -388,7 +430,7 @@ Falls die Pipeline einen Fehler erkennt, kann ein automatischer Rollback erfolge
 .Beispiel für ein Rollback-Skript
 [source,yaml]
 ----
-liquibase --url=$DB_URL --username=$DB_USER --password=$DB_PASSWORD rollback --tag=$RELEASE_VERSION
+liquibase --url=$DB_URL --username=$DB_USER --password=$DB_PASSWORD rollbackToTag $RELEASE_VERSION
 liquibase --url=$DB_URL --username=$DB_USER --password=$DB_PASSWORD history
 ----
 
