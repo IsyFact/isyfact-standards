@@ -69,8 +69,8 @@ public class AnwendungTestConfig {
     }
 
     @Bean
-    public AccessManagerStub accessManagerStub() {
-        return new AccessManagerStub();
+    public AccessManagerStub accessManagerStub(AufrufKontextVerwalter aufrufKontextVerwalter) {
+        return new AccessManagerStub(aufrufKontextVerwalter);
     }
 
     @Bean

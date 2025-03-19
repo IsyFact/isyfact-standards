@@ -40,6 +40,10 @@ public abstract class KonfigurationSchluessel {
     public static final String PROPERTY_BATCHRAHMEN_ZU_VERARBEITENDE_DATENSAETZE_ANZAHL =
         "Batchrahmen.AnzahlZuVerarbeitendeDatensaetze";
 
+    /** Property whether the token should be renewed on each batch step. */
+    public static final String PROPERTY_BATCHRAHMEN_TOKEN_ERNEUERUNG =
+        "Batchrahmen.TokenErneuerung";
+
     /**
      * Property-Name fuer die Ergebnisdatei.
      */

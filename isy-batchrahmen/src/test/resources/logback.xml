@@ -31,4 +31,9 @@
         <appender-ref ref="KONSOLE"/>
     </logger>
 
+    <!-- test try to reauthenticate 10000 in a row when caching isn't enabled in isy-security -->
+    <logger name="de.bund.bva.isyfact.batchrahmen.sicherheit.AccessManagerStub" level="WARN" additivity="false">
+        <appender-ref ref="KONSOLE"/>
+    </logger>
+
 </configuration>

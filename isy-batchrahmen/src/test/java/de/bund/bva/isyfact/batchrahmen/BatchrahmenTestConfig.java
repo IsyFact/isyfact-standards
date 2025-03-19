@@ -10,6 +10,7 @@ import de.bund.bva.isyfact.batchrahmen.batch.ReturnCodeTestBatch;
 import de.bund.bva.isyfact.batchrahmen.core.rahmen.Batchrahmen;
 import de.bund.bva.isyfact.batchrahmen.core.rahmen.impl.BatchrahmenImpl;
 import de.bund.bva.isyfact.batchrahmen.core.rahmen.jmx.BatchRahmenMBean;
+import de.bund.bva.isyfact.sicherheit.Sicherheit;
 import de.bund.bva.isyfact.aufrufkontext.AufrufKontextFactory;
 import de.bund.bva.isyfact.aufrufkontext.AufrufKontextVerwalter;
 import org.springframework.context.annotation.Bean;
@@ -25,8 +26,9 @@ public class BatchrahmenTestConfig {
     }
 
     @Bean
-    public Batchrahmen batchrahmen(JpaTransactionManager jpaTransactionManager, AufrufKontextVerwalter aufrufKontextVerwalter, AufrufKontextFactory aufrufKontextFactory) {
-        BatchrahmenImpl batchrahmen = new BatchrahmenImpl();
+    public Batchrahmen batchrahmen(JpaTransactionManager jpaTransactionManager, AufrufKontextVerwalter aufrufKontextVerwalter, AufrufKontextFactory aufrufKontextFactory,
+                Sicherheit sicherheit) {
+        BatchrahmenImpl batchrahmen = new BatchrahmenImpl(sicherheit);
         batchrahmen.setTransactionManager(jpaTransactionManager);
         batchrahmen.setAufrufKontextFactory(aufrufKontextFactory);
         batchrahmen.setAufrufKontextVerwalter(aufrufKontextVerwalter);

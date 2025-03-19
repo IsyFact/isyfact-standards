@@ -41,6 +41,7 @@ import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.logging.LogKategorie;
 import de.bund.bva.isyfact.logging.util.MdcHelper;
+import de.bund.bva.isyfact.sicherheit.Sicherheit;
 import de.bund.bva.isyfact.aufrufkontext.AufrufKontext;
 import de.bund.bva.isyfact.aufrufkontext.AufrufKontextFactory;
 import de.bund.bva.isyfact.aufrufkontext.AufrufKontextVerwalter;
@@ -57,10 +58,8 @@ import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 /**
  * Implementation of the 'Batchrahmen-Funktionalitaet'.
- * <p>
- * T is the type of 'AufrufKontextes' to be used.
  *
- *
+ * @param <T> the type of {@link AufrufKontext} to be used.
  */
 public class BatchrahmenImpl<T extends AufrufKontext> implements Batchrahmen, InitializingBean,
     ApplicationContextAware, DisposableBean {
@@ -92,11 +91,21 @@ public class BatchrahmenImpl<T extends AufrufKontext> implements Batchrahmen, In
     /** Saves the previous batch status. **/
     private String vorigerBatchStatus;
 
+    /** Authentication credentials from the config (may be null). */
+    private AuthenticationCredentials authentifikation;
+
     /** Reference to component 'AufrufKontextVerwalter' */
     private AufrufKontextVerwalter<T> aufrufKontextVerwalter;
 
     /** Reference to 'AufrufKontextFactory'. */
     private AufrufKontextFactory<T> aufrufKontextFactory;
+
+    /** Reference to 'Sicherheit' for reauthentication in a step. */
+    private final Sicherheit<T> sicherheit;
+
+    public BatchrahmenImpl(Sicherheit<T> sicherheit) {
+        this.sicherheit = sicherheit;
+    }
 
     /**
      * @return TransactionStatus
@@ -138,6 +147,8 @@ public class BatchrahmenImpl<T extends AufrufKontext> implements Batchrahmen, In
         }
         erfolgreich = false;
 
+        boolean tokenRenewalEnabled = konfiguration.getAsBoolean(KonfigurationSchluessel.PROPERTY_BATCHRAHMEN_TOKEN_ERNEUERUNG, true);
+
         try {
             MdcHelper.pushKorrelationsId(UUID.randomUUID().toString());
             // Initialization phase
@@ -146,13 +157,9 @@ public class BatchrahmenImpl<T extends AufrufKontext> implements Batchrahmen, In
             this.aufrufKontextVerwalter.setAufrufKontext(aufrufKontext);
             this.batchLaeuft = true;
 
-            AuthenticationCredentials authentifikation =
+            authentifikation =
                 getBatchAusfuehrer(verarbInfo.getKonfiguration()).getAuthenticationCredentials(konfiguration);
-            if (authentifikation != null) {
-                aufrufKontext.setDurchfuehrendeBehoerde(authentifikation.getBehoerdenkennzeichen());
-                aufrufKontext.setDurchfuehrenderBenutzerKennung(authentifikation.getBenutzerkennung());
-                aufrufKontext.setDurchfuehrenderBenutzerPasswort(authentifikation.getPasswort());
-            }
+            updateAufrufKontextWithCredentials(aufrufKontext, authentifikation);
             aufrufKontext.setDurchfuehrenderSachbearbeiterName(konfiguration
                 .getAsString(KonfigurationSchluessel.PROPERTY_BATCH_NAME));
             this.aufrufKontextFactory.nachAufrufKontextVerarbeitung(aufrufKontext);
@@ -176,6 +183,9 @@ public class BatchrahmenImpl<T extends AufrufKontext> implements Batchrahmen, In
 
                 aufrufKontext.setKorrelationsId(MdcHelper.liesKorrelationsId());
 
+                if (tokenRenewalEnabled) {
+                    refreshAuthentication();
+                }
                 ergebnis = verarbInfo.getBean().verarbeiteSatz();
 
                 MdcHelper.entferneKorrelationsId();
@@ -205,7 +215,12 @@ public class BatchrahmenImpl<T extends AufrufKontext> implements Batchrahmen, In
             if (ergebnis != null) {
                 dbschl = ergebnis.getDatenbankSchluessel();
             }
+
+            if (tokenRenewalEnabled) {
+                refreshAuthentication();
+            }
             beendeBatch(verarbInfo, protokoll, dbschl);
+
             erfolgreich = true;
         } finally {
             try {
@@ -453,6 +468,32 @@ public class BatchrahmenImpl<T extends AufrufKontext> implements Batchrahmen, In
             throw new BatchrahmenKonfigurationException(NachrichtenSchluessel.ERR_KONF_BEAN_PFLICHT, beanName);
         }
         return bean;
+    }
+
+    private void updateAufrufKontextWithCredentials(T aufrufKontext, AuthenticationCredentials auth) {
+        if (auth != null) {
+            aufrufKontext.setDurchfuehrendeBehoerde(auth.getBehoerdenkennzeichen());
+            aufrufKontext.setDurchfuehrenderBenutzerKennung(auth.getBenutzerkennung());
+            aufrufKontext.setDurchfuehrenderBenutzerPasswort(auth.getPasswort());
+        }
+    }
+
+    /**
+     * Refreshes the authentication if {@link AuthenticationCredentials} have been provided for the batch and
+     * the current {@link AufrufKontext} has been authenticated at least once.
+     *
+     * Ensure caching is activated in isy-sicherheit to avoid repeated reauthentication in short running batches.
+     */
+    private void refreshAuthentication() {
+        // AufrufKontext gets created at the start of the batch
+        // make sure it only refreshes if roles have been determined (it has been authenticated at least once)
+        T aufrufKontext = aufrufKontextVerwalter.getAufrufKontext();
+        if (authentifikation != null && aufrufKontext.isRollenErmittelt()) {
+            // set the credentials again because the AccessManager might unset the password
+            // if caching is enabled the credentials are also used as part of the cache key
+            updateAufrufKontextWithCredentials(aufrufKontext, authentifikation);
+            sicherheit.getBerechtigungsManagerUndAuthentifiziere(aufrufKontext);
+        }
     }
 
     /**
