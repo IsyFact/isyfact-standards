@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.security.oauth2.client.ClientsConfiguredCondition;
 import org.springframework.boot.autoconfigure.security.oauth2.client.OAuth2ClientProperties;
-import org.springframework.boot.autoconfigure.security.oauth2.client.OAuth2ClientPropertiesRegistrationAdapter;
+import org.springframework.boot.autoconfigure.security.oauth2.client.OAuth2ClientPropertiesMapper;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Conditional;
@@ -46,8 +46,8 @@ public class BatchSecurityConfiguration {
     @Bean
     @ConditionalOnMissingBean(ClientRegistrationRepository.class)
     InMemoryClientRegistrationRepository clientRegistrationRepository(OAuth2ClientProperties properties) {
-        List<ClientRegistration> registrations = new ArrayList<>(
-                OAuth2ClientPropertiesRegistrationAdapter.getClientRegistrations(properties).values());
+        var mapper = new OAuth2ClientPropertiesMapper(properties);
+        List<ClientRegistration> registrations = new ArrayList<>(mapper.asClientRegistrations().values());
         return new InMemoryClientRegistrationRepository(registrations);
     }
 
