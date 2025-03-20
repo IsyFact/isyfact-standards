@@ -453,27 +453,25 @@ Hier sind einige der wichtigsten Befehle:
 |Befehl
 |Bedeutung
 
-|mvn liquibase:validate
+|liquibase validate
 |Überprüft, ob alle Changesets korrekt formatiert und konsistent sind.
 Falls Probleme auftreten, gibt Liquibase eine Fehlermeldung aus, die auf fehlerhafte oder fehlende Changesets hinweist.
 
-|mvn liquibase:update
+|liquibase update
 |Überträgt alle noch nicht angewendeten Änderungen aus den Changelogs auf die Datenbank.
 
-|mvn liquibase:status
+|liquibase status
 |Zeigt an, welche Änderungen noch nicht auf die Datenbank angewendet wurden.
 Liquibase gibt eine Liste der ausstehenden Changesets zurück.
 
-|mvn liquibase:diff
+|liquibase diff
 |Vergleicht zwei Datenbanken und zeigt Unterschiede an.
 Dies ist nützlich, um zu überprüfen, ob und wie sich die Datenbanken in verschiedenen Umgebungen unterscheiden.
 
-|mvn liquibase:snapshot +
--Dliquibase.outputFile=snapshot.json
+|liquibase snapshot
 |Erstellt eine Momentaufnahme der aktuellen Datenbankstruktur, die zum Beispiel für Analysen oder den Vergleich mit späteren Versionen verwendet werden kann.
 
-|mvn liquibase:rollback +
--Dliquibase.rollbackTag=v1.0-baseline
+|liquibase rollback
 |Führt ein Rollback aus.
 Dies stellt den Zustand der Datenbank auf einen definierten Punkt zurück und entfernt alle nachfolgenden Änderungen.
 |===
