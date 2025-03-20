@@ -29,24 +29,39 @@ public class IsyMetricsAutoConfiguration {
 
     /** Register a {@link ServiceStatistik} bean in the Micrometer registry. */
     public static void registerServiceStatsGauges(MeterRegistry registry, ServiceStatistik stats) {
+        Gauge.builder("anzahlAufrufe", stats, ServiceStatistik::getAnzahlAufrufe)
+            .tags(stats.getTags())
+            .description("Liefert die Anzahl aller Aufrufe.")
+            .register(registry);
+
+        Gauge.builder("anzahlTechnicalExceptions", stats, ServiceStatistik::getAnzahlTechnicalExceptions)
+            .tags(stats.getTags())
+            .description("Liefert die Anzahl der technisch fehlerhaften Aufrufe.")
+            .register(registry);
+
+        Gauge.builder("anzahlBusinessExceptions", stats, ServiceStatistik::getAnzahlBusinessExceptions)
+            .tags(stats.getTags())
+            .description("Liefert die Anzahl der fachlich fehlerhaften Aufrufe.")
+            .register(registry);
+
         Gauge.builder("anzahlAufrufe.LetzteMinute", stats, ServiceStatistik::getAnzahlAufrufeLetzteMinute)
-                .tags(stats.getTags())
-                .description("Liefert die Anzahl der nicht fehlerhaften Aufrufe in der letzten Minute")
-                .register(registry);
+            .tags(stats.getTags())
+            .description("Liefert die Anzahl aller Aufrufe in der letzten Minute")
+            .register(registry);
 
         Gauge.builder("anzahlFehler.LetzteMinute", stats, ServiceStatistik::getAnzahlFehlerLetzteMinute)
-                .tags(stats.getTags())
-                .description("Liefert die Anzahl der fehlerhaften Aufrufe in der letzten Minute")
-                .register(registry);
+            .tags(stats.getTags())
+            .description("Liefert die Anzahl der technisch fehlerhaften Aufrufe in der letzten Minute")
+            .register(registry);
 
         Gauge.builder("anzahlFachlicheFehler.LetzteMinute", stats, ServiceStatistik::getAnzahlFachlicheFehlerLetzteMinute)
-                .tags(stats.getTags())
-                .description("Liefert die Anzahl der fachlich fehlerhaften Aufrufe in der letzten Minute")
-                .register(registry);
+            .tags(stats.getTags())
+            .description("Liefert die Anzahl der fachlich fehlerhaften Aufrufe in der letzten Minute")
+            .register(registry);
 
         TimeGauge.builder("durchschnittsDauer.LetzteAufrufe", stats, TimeUnit.MILLISECONDS, s -> s.getDurchschnittsDauerLetzteAufrufe().toMillis())
-                .tags(stats.getTags())
-                .description("Liefert die durchschnittliche Dauer der letzten 10 Aufrufe in ms")
-                .register(registry);
+            .tags(stats.getTags())
+            .description("Liefert die durchschnittliche Dauer der letzten 10 Aufrufe in ms")
+            .register(registry);
     }
 }
