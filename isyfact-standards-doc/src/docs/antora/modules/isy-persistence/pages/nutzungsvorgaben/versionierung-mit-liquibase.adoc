@@ -302,7 +302,7 @@ Alle nachfolgenden Release-Changelogs enthalten ausschließlich inkrementelle Ä
 [[preconditions]]
 === Preconditions
 
-Preconditions in Liquibase prüfen vor der Ausführung eines Changesets definierte Bedingungen. Bei Nichterfüllung kann die Migration abgebrochen, übersprungen oder mit Warnung fortgesetzt werden. So werden Fehler frühzeitig erkannt und nur zulässige Änderungen ausgeführt.
+Preconditions in Liquibase prüfen vor der Ausführung eines Changesets definierte Bedingungen. Wird eine Bedingung nicht erfüllt, kann die Migration abgebrochen, übersprungen oder mit einer Warnung fortgesetzt werden. Dadurch werden Fehler frühzeitig erkannt und nur zulässige Änderungen ausgeführt.
 
 .Beispiel für Preconditions
 [source,xml]
