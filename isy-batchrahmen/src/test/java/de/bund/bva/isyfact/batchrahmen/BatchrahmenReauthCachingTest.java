@@ -87,7 +87,7 @@ public class BatchrahmenReauthCachingTest {
     @Test
     public void authWithInvalidCredentials() {
         assertThrows(AuthentifizierungFehlgeschlagenException.class, () ->
-                batchrahmen.runBatch(new BatchKonfiguration(new String[] { "-start", "-cfg",
+                batchrahmen.runBatch(new BatchKonfiguration(new String[] { "-restart", "-cfg",
                         "/resources/batch/gesicherter-test-batch-2-config.properties" }), mock(BatchErgebnisProtokoll.class)));
 
         verify(sicherheit).getBerechtigungsManager();
