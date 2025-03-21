@@ -210,7 +210,7 @@ Backends bieten pro Service-Version eine eigene Service-Schnittstelle an.
 Die unterschiedlichen Versionen des Service verwenden alle denselben xref:referenzarchitektur:software-technisch/backend/anwendungskern.adoc[Anwendungskern].
 Die für die Versionierung notwendigen Transformationen sind Teil der jeweiligen Service-Schnittstelle (z.B. das Einfügen eines Standardwerts für neu hinzugefügte Attribute).
 
-Für jede neu bereitgestellte Version einer Schnittstelle im Anwendungskern und/oder ServiceGateway muss eine neue Schnittstellen-Beschreibung erstellt werden, die dem Anwender:
+Für jede neu bereitgestellte Version einer Schnittstelle im Backend und/oder ServiceGateway muss eine neue Schnittstellen-Beschreibung erstellt werden, die dem Anwender:
 
 * die neuen Möglichkeiten, bzw. die veränderte Nutzbarkeit bereits bestehender Möglichkeiten der Schnittstelle erklärt.
 Die Beschreibung beinhaltet eine vollständige Liste aller Änderungen mit konkreten Details, wie zum Beispiel welche Servicemethoden kamen neu hinzu, sind entfallen oder wurden umbenannt, welche Attribute wurden verändert in Bezug auf ihren Namen, ihren Datentyp bzw. ob optional oder mandatorisch, ihren Default-Wert, o.ä.
@@ -231,7 +231,7 @@ Die Entscheidung dafür ist im Systementwurf zu dokumentieren.
 Externe Services werden durch Service-Gateways bereitgestellt.
 Die Versionierung eines Service muss also auch auf Ebene des Service-Gateways durchgeführt werden.
 Ein Service-Gateway ist ein rein technischer Protokoll-Wandler, der Web-Services in interne Schnittstellen konvertiert.
-Im Service-Gateway erfolgt daher immer nur ein einfaches Mapping auf die entsprechenden Service-Schnittstellen-Version der angebundenen Backends.
+Im Service-Gateway erfolgt daher immer nur ein einfaches Mapping auf die entsprechenden Service-Schnittstellen-Version der angebundenen Backend-Komponenten.
 Der Ausgleich der Versionsunterschiede erfolgt ausschließlich im Backend - sprich optionaler Service-Schicht und/oder Anwendungskern - und nicht im Service-Gateway.
 Es ist möglich, pro Service-Version ein eigenes Service-Gateway zu erstellen.
 
@@ -255,7 +255,7 @@ Konkretes Beispiel:
 Ein Backend stellt einen Service bereit, mit dem Personendaten gemeldet werden können.
 Parameter dieser Meldung sind Vor- und Nachname sowie das Geburtsdatum.
 Dazu gibt es einen Meldung-Service in der Version 1.0.
-Dieser wird in der Serviceschicht des Backends implementiert.
+Dieser wird als Komponente des Backends im Anwendungskern implementiert.
 Ab einem Stichtag soll zusätzlich noch der Geburtsort gemeldet werden.
 Im bisherigen Datenbestand wird dieses neue Attribut auf den Wert "unbekannt" gesetzt.
 Der bestehende Service wird um dieses Attribut erweitert und erhält die Versionsnummer 1.1.
@@ -263,7 +263,7 @@ Anwendungskern und Persistenzschicht müssen ebenfalls erweitert werden.
 Aus Gründen der Rückwärtskompatibilität soll aber weiterhin die Version 1.0 des Service angeboten werden.
 Dazu wird ein neuer Service gleichen Namens als Transformationskomponente innerhalb der Serviceschicht für Version 1.0 implementiert, der die Meldung gemäß Signatur der Version 1.0 entgegennimmt, das fehlende Attribut mit dem Wert "unbekannt" ergänzt und dann im Anwendungskern den eigentlichen Service mit der Signatur der Version 1.1 aufruft.
 
-Werden die beiden Services durch ein Service-Gateway nach außen verfügbar gemacht, existieren dort zwei parallele Mappings auf die jeweiligen Services des Backends.
+Werden die beiden Services durch ein Service-Gateway nach außen verfügbar gemacht, existieren dort zwei parallele Mappings auf die jeweiligen Services des Backends - Mapping 1.0 auf neue Komponente der Serviceschicht und Mapping 1.1 auf bereits existierende und modifizierte Komponente 1.1 im Anwendungskern.
 Innerhalb des Service-Gateways existiert keine Geschäftslogik, d.h. die Abbildung von Version 1.0 auf 1.1 findet erst im Backend statt.
 
 [[inkompatible-veraenderung]]
