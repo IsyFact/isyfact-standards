@@ -1,3 +1,11 @@
+# 4.1.0
+## FEATURES
+
+## BUG FIXES
+- `IFS-4526`: [isy-task] Logeintrag IsyTaskAspect korrigiert
+
+## BREAKING CHANGES
+
 # 4.0.0
 ## FEATURES
 - `IFS-1802`: [isyfact-standards-doc] Mapping Vorgaben zu bidirektionalen Assoziationen aktualisiert
