@@ -192,7 +192,11 @@ Die Unterscheidung zwischen "innere" und "äußere" ist analog für die Begriffe
 [[versionierung]]
 == Versionierung
 
-Die Notwendigkeit, Services in mehreren Versionen anbieten zu können, ist bedingt durch die Vielzahl an Service-Nutzern, die bei Änderung an einem Service nicht alle zeitgleich auf die neue Version eines Service umschalten können.
+Sowie IT-Systeme im Laufe ihres Betriebes Änderungen und Anpassungen durch versionierte Releases erfahren, so unterliegen auch die Services eines IT-Systems den Änderungen und Anpassungen und werden ebenfalls dahingend pro Service versioniert.
+Eine "pro Service Versionierung" bedeutet, dass ein Service eines IT-Systems, egal wieviele Service-Methoden dieser Service hat und wieviele davon geändert wurden, jede fachliche und technische Änderung im Service-Code bedarf einer neuen Service-Version.
+Eine Service-Version wird anhand gewisser Kriterien unterteilt in Major-, Minor- und BugFix-Version, das sich auch in der Schreibweise der Service-Versionierung (z.B. 1.0.0) ausdrückt.
+
+Dann besteht die Notwendigkeit, Services auch in mehreren Versionen anzubieten, da bei einer Vielzahl an Service-Nutzern nicht alle zeitgleich auf die neue Version eines Service umschalten können.
 Daher ist es notwendig, dass in einem – möglichst klein zu haltenden – Übergangszeitraum mehrere Versionen eines Service parallel betrieben werden können.
 
 Die Versionierung wird auf der Ebene von Services, nicht Service-Operationen ausgeführt, da diese Ebene von ihrer Granularität zu den üblichen fachlichen Änderungen passt.
@@ -206,21 +210,29 @@ Backends bieten pro Service-Version eine eigene Service-Schnittstelle an.
 Die unterschiedlichen Versionen des Service verwenden alle denselben xref:referenzarchitektur:software-technisch/backend/anwendungskern.adoc[Anwendungskern].
 Die für die Versionierung notwendigen Transformationen sind Teil der jeweiligen Service-Schnittstelle (z.B. das Einfügen eines Standardwerts für neu hinzugefügte Attribute).
 
-Für jede neu bereitgestellte Major- oder Major.Minor-Version einer Schnittstelle im Anwendungskern und/oder ServiceGateway muss eine neue Schnittstellen-Beschreibung erstellt werden, die dem Anwender:
+Für jede neu bereitgestellte Version einer Schnittstelle im Anwendungskern und/oder ServiceGateway muss eine neue Schnittstellen-Beschreibung erstellt werden, die dem Anwender:
 
-* im Fall kompatibler Schnittstellen-Änderungen die erweiterten Möglichkeiten, bzw. die erweiterte Nutzbarkeit bereits bestehender Möglichkeiten der Schnittstelle erklärt.
-Die Beschreibung beinhaltet eine vollständige Liste aller kompatibler Änderungen mit konkreten Details, wie zum Beispiel neue Servicemethoden, zusätzliche Attribute, geänderte Initialisierungswerte, o.ä., so dass der Leser sich ein genaues Bild der Versionsänderungen machen kann, um seine Anwendung und Implementierung zur Nutzung der verschiedenen Service-Versionen anzupassen.
-* im Fall inkompatibler Änderungen darüber hinaus erklärt, welche Services (und Daten) mit der neuen Major-Version nicht mehr zur Verfügung stehen.
-Auch hier beinhaltet die Beschreibung eine vollständige Liste aller inkompatibler Änderungen mit konkreten Details, wie zum Beispiel entfallene Servicemethoden, entfernte Attribute, geänderte Datentypen, o.ä., so dass der Leser nachvollziehen kann, welche Anpassungen in seiner Anwendung und Implementierung notwendig werden, um die verschiedenen Service-Versionen zu nutzen.
+* die neuen Möglichkeiten, bzw. die veränderte Nutzbarkeit bereits bestehender Möglichkeiten der Schnittstelle erklärt.
+Die Beschreibung beinhaltet eine vollständige Liste aller Änderungen mit konkreten Details, wie zum Beispiel welche Servicemethoden kamen neu hinzu, sind entfallen oder wurden umbenannt, welche Attribute wurden verändert in Bezug auf ihren Namen, ihren Datentyp bzw. ob optional oder mandatorisch, ihren Default-Wert, o.ä.
+Dies muss so beschrieben sein, dass der Leser sich ein genaues Bild der Versionsänderungen machen kann, um seine Anwendung und Implementierung zur Nutzung der verschiedenen Service-Versionen anzupassen.
 
-In komplexen Fällen kann es auch notwendig sein, das Backend vor dem Anwendungskern mit der Fachkomponente um zusätzliche Komponenten pro Version in der Serviceschicht so zu erweitern (siehe xref:image-archversServ[]), dass die Logik der komplexen Transformationen nur dort enthalten sind.
+* die Unterscheidung von kompatiblen Änderungen zu inkompatiblen Änderungen zur Vorgänger-Version verdeutlicht, um eine bessere versionsbezogene Einschätzung der Service-Nutzung und die ggf. damit einhergehenden Anpassungen des Service-Consumers machen zu können.
+
+** Als kompatible Änderungen wird das Hinzufügen neuer Servicemethoden, neuer optionaler Attribute, geänderte Default-Werte, o.ä. eingestuft.
+
+** Als inkompatible Änderungen wird das Löschen und Umbennen von Servicemethoden oder Attributen, das Ändern von Attributen von optional auf mandatorisch, die Änderung von Attribut-Datentypen bzw. -Datenstrukturen, o.ä. gewertet.
+
+Diese Unterscheidung zwischen kompatibler und inkompatibler Änderungen ist notwendig, damit der Nutzer für sich entscheiden kann, ob er anhand der Versionsunterschiede ein Upgrade auf die neue Version für seine Nutzung durchführen muss oder ob er die Nutzung der alten Version bei für ihn rein kompatiblen Änderungen beibehalten kann.
+
+Führen Service-Änderungen und den damit einhergehenden Schnittstellenänderungen zu einer komplexen Transformationslogik, um zwischen alter Version und neuer Version eine Kompatibilität herzustellen, dann kann es auch notwendig sein, das Backend vor dem Anwendungskern mit der Fachkomponente um zusätzliche Komponenten pro Version in der Serviceschicht so zu erweitern (siehe xref:image-archversServ[]), dass die gesamt Logik der komplexen Transformationen nur dort enthalten sind.
+
 Die Entscheidung dafür ist im Systementwurf zu dokumentieren.
 
 Externe Services werden durch Service-Gateways bereitgestellt.
 Die Versionierung eines Service muss also auch auf Ebene des Service-Gateways durchgeführt werden.
 Ein Service-Gateway ist ein rein technischer Protokoll-Wandler, der Web-Services in interne Schnittstellen konvertiert.
-Im Service-Gateway erfolgt daher immer nur ein einfaches Mapping auf die entsprechenden Service-Schnittstellen der angebundenen Backends.
-Der Ausgleich der Versionsunterschiede erfolgt ausschließlich im Backend und nicht im Service-Gateway.
+Im Service-Gateway erfolgt daher immer nur ein einfaches Mapping auf die entsprechenden Service-Schnittstellen-Version der angebundenen Backends.
+Der Ausgleich der Versionsunterschiede erfolgt ausschließlich im Backend - sprich optionaler Service-Schicht und/oder Anwendungskern - und nicht im Service-Gateway.
 Es ist möglich, pro Service-Version ein eigenes Service-Gateway zu erstellen.
 
 [[image-archversServ]]
@@ -231,8 +243,8 @@ image::referenzarchitektur:software-technisch/services/versionierung.dn.svg[]
 === Abwärtskompatible Erweiterung eines Services
 
 Erfährt ein Service nur abwärtskompatible Änderungen, wie neu hinzugekommene Servicemethoden, zusätzliche Attribute, o.ä., dann wird dies über eine neue Minor-Version bei gleichbleibender Major-Version des Service bewerkstelligt.
-Das Backend bietet im Anwendungskern als Fachkomponente dafür aber anstatt zwei parallel betriebene Serviceversionen 1.0 und 1.1 lediglich die eine neue Version 1.1 an.
-Denn bei rein abwärtskompatiblen Änderungen einer Serviceversion muss diese neue Version sicherstellen, dass Clients, die den Backendservice allein auf Basis der Major-Versionsangabe - hier Version 1 - auswählen und aufrufen, auch mit der Backendservice-Version 1.1 fehlerfrei arbeiten.
+Das Backend bietet im Anwendungskern als Fachkomponente dafür aber anstatt zwei parallel betriebene Serviceversionen 1.0 und 1.1 lediglich die eine neue Version an, die die Logik für Version 1.0 inklusive der Änderungen für Version 1.1 beinhaltet.
+Denn bei rein abwärtskompatiblen Änderungen einer Serviceversion muss diese neue Version sicherstellen, dass Clients, die den Backendservice allein auf Basis der Major-Versionsangabe - hier Version 1 - auswählen und aufrufen, auch mit einem Aufruf Backendservice-Version 1.0 fehlerfrei arbeiten.
 
 Das bedeutet zum Beispiel in einem Service wird mit Version 1.1 ein zusätzliches Attribut für MethodeA eingeführt.
 Wenn nun ein Client die Service-MethodeA gemäß Major-Version 1 aufruft und dabei aber die Servicesignatur von Version 1.0 erfüllt, dann ist das neu hinzugekommene Attribut gemäß Version 1.1 nicht in dem Aufruf des Clients enthalten.
@@ -262,7 +274,7 @@ Bei inkompatiblen Veränderungen eines Service, zum Beispiel durch Wegfall von S
 Da nicht alle Clients gleichzeitig ihre Anpassungen an eine neu bereitgestellte Service-Version durchführen können, bedarf es der Notwendigkeit mehrere Service-Major-Versionen parallel im Backend zu betreiben.
 
 Dadurch erwächst die Anforderung, dass ein Client die von ihm aufzurufende Service-Version auswählen können muss.
-Dies geschieht im Allgemeinen dadurch, dass im Backend die Major-Versionsangabe im Namen des Service-Moduls, in den Servicemethoden als Prefix bzw. im PFad des Service-Endpunktes enthalten ist.
+Dies geschieht im Allgemeinen dadurch, dass im Backend die Major-Versionsangabe im Namen des Service-Moduls, in den Servicemethoden als Prefix bzw. im Pfad des Service-Endpunktes enthalten ist.
 Mit Angabe der Service-Version im Client-Aufruf wird die Wahl der gewünschten Service-Version, die im Backend ausgeführt werden soll, getroffen.
 
 Ruft ein Client nun einen Service mit einer Version auf, die im Backend nicht mehr zur Verfügung steht, so bekommt der Client eine Fehlermeldung, dass dieser Service mit der gewünschten Version nicht mehr erreichbar ist.
