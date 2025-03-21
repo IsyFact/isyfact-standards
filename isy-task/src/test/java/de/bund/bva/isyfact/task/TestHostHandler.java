@@ -2,12 +2,10 @@ package de.bund.bva.isyfact.task;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import de.bund.bva.isyfact.task.exception.HostNotApplicableException;
 import de.bund.bva.isyfact.task.test.TestTaskRunAssertion;
@@ -15,12 +13,11 @@ import de.bund.bva.isyfact.task.test.config.TestConfig;
 
 import io.micrometer.core.instrument.MeterRegistry;
 
-@RunWith(SpringRunner.class)
 @Import(TestHostHandlerTasks.class)
 @SpringBootTest(classes = { TestConfig.class }, webEnvironment = SpringBootTest.WebEnvironment.NONE, properties = {
-    "isy.logging.anwendung.name=test", "isy.logging.anwendung.typ=test", "isy.logging.anwendung.version=test",
-    "isy.task.tasks.testHostHandlerTasks-scheduledTaskWithCorrectHostname.host=.*",
-    "isy.task.tasks.testHostHandlerTasks-scheduledTaskWithWrongHostname.host=thisisthewronghostname"})
+        "isy.logging.anwendung.name=test", "isy.logging.anwendung.typ=test", "isy.logging.anwendung.version=test",
+        "isy.task.tasks.testHostHandlerTasks-scheduledTaskWithCorrectHostname.host=.*",
+        "isy.task.tasks.testHostHandlerTasks-scheduledTaskWithWrongHostname.host=thisisthewronghostname" })
 public class TestHostHandler {
 
     @Autowired
@@ -34,7 +31,7 @@ public class TestHostHandler {
         SECONDS.sleep(1);
 
         TestTaskRunAssertion.assertTaskSuccess(className, annotatedMethodName, registry,
-            HostNotApplicableException.class.getSimpleName());
+                HostNotApplicableException.class.getSimpleName());
     }
 
     @Test
@@ -45,6 +42,6 @@ public class TestHostHandler {
         SECONDS.sleep(1);
 
         TestTaskRunAssertion.assertTaskFailure(className, annotatedMethodName, registry,
-            HostNotApplicableException.class.getSimpleName());
+                HostNotApplicableException.class.getSimpleName());
     }
 }
