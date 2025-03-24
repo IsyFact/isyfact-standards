@@ -1,6 +1,6 @@
 # 5.0.0
 ## FEATURES
-- `IFS-4546`: [isyfact-standards-doc] Verweis auf JAXP entfernt
+- `IFS-4546`: [isyfact-standards-doc] Verweis auf JAXP entfernt, Negativliste bereinigt und links entfernt
 
 # 4.0.0
 ## FEATURES
