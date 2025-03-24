@@ -1,13 +1,10 @@
 ﻿Kategorie / Anwendungsbereich;Hersteller / Produkt;Version;Seit Release;Status;Begründung der Entscheidung
 Bildbearbeitung;JAI;1.1.3;1.0.0;verworfen;"Bei den Lasttests ist ein Speicherleck in der Konvertierungsbibliothek ""Java Advanced Imaging Image I/O"" aufgefallen. Ein Bugfix existiert bereits auf den Webseiten des JAI-Projekts, allerdings gibt es noch keine neue Stable-Version der Bibliothek. Wir haben daher einen aktuellen Daily-Build der Software verwendet (Version vom 26.08.2009). Der funktionale Test und der Lasttest haben keine Fehler bei den von uns verwendeten Konvertierungsfunktionen aufgezeigt.
 Es ist vom Einsatz des Release 1.1.3 abzusehen"
-JSF-Dialogsteuerung;Spring Webflow;< 2.0.6;1.0.0;verworfen;"* Probleme bei Last und Konkurrierenden Zugriffen (Threading-Problem).
-* Zahlreiche Versionen (mindestens 2.0.5, 2.0.6) enthalten einen Bug in Bezug auf das Post-Redirect-Get-Pattern (siehe https://jira.springsource.org/browse/SWF-1096)."
 Collection-API;Commons-Collection;;;verworfen;"* Weiterentwicklung fraglich. Es muss Guava eingesetzt werden.
 * Hinweis: Commons Collections besitzt in folgenden Versionen zudem einen sicherheitskritischen Fehler (vgl. https://issues.apache.org/jira/browse/COLLECTIONS-580):
 ** >=3.0 und <3.2.2
 ** >=4.0 und <4.1"
-JSF-Dialogsteuerung;Spring Webflow;2.4.4;1.3.6;verworfen;Enthält einen Fehler, der in Abhängigkeit zur Größe des JSF-Komponentenbaums zu stark erhöhten Laufzeiten bei POST-Requests führt.
 JSF-Dialogsteuerung;Spring Webflow;<2.4.8;1.6.0;verworfen;Enthält einen Fehler in der Session-Persistierung und verhindert den Einsatz von Partial State Saving in JSF-GUIs.
 Excel-Datenzugriff;JExcelAPI;2.6.x;1.0.0;verworfen;Wird nicht weiterentwickelt und soll nicht mehr verwendet werden. Für neue Entwicklungen sollte Apache POI verwendet werden, dass, aktiv weiterentwickelt wird und z.B. auch Office 2007-Formate unterstützt.
 Bean Mapping;Dozer;5.3.2;1.0.0;verworfen;Kritischer Fehler https://github.com/DozerMapper/dozer/issues/118 führt dazu dass Dozer komplett ausfällt.

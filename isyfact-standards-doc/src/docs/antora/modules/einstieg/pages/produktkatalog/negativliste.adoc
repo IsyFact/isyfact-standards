@@ -2,16 +2,6 @@
 
 include::glossary:licence:partial$licence.adoc[]
 
-== Standards
-
-[.table_head_sticky.unordered_list_identation]
---
-[options=header, format=csv, separator=";", cols="a,a,a,a,a,2a"]
-|===
-include::partial$/Produktkatalog_IsyFact_Negativliste_Standards.csv[]
-|===
---
-
 == Systemsoftware
 
 [.table_head_sticky.unordered_list_identation]
