@@ -26,7 +26,6 @@ Bean-Mapping;https://mapstruct.org/[MapStruct];1.5.x;4.0.0;verbindlich;Apache Li
 Code-Generierung;https://github.com/mkarneim/pojobuilder[pojobuilder];4.x;2.4.0;empfohlen;PUBLIC DOMAIN;pojobuilder generiert Code nach dem Builder-Pattern für bestehende Klassen.
 Code-Generierung;https://projectlombok.org/[Lombok];<<spring-boot-dependencies,icon:leaf[]>>;2.4.0;empfohlen;MIT License;Lombok kann ebenfalls das Builder-Pattern umsetzen, besitzt aber darüber hinaus deutlich mehr Funktionen als pojobuilder. Hinweis: Lombok kann uneingeschränkt mit der IsyFact genutzt werden. Für eine bessere Lesbarkeit wird Lombok in den IsyFact-Bibliotheken ausschließlich im Test-Scope, sowie in den IsyFact-Anwendungen verwendet.
 XML Binding;https://github.com/javaee/jaxb-v2[JAXB];<<spring-boot-dependencies,icon:leaf[]>>;2.2.0;verbindlich;CDDL + GPLv2 with classpath exception;
-XML-Verarbeitung;https://www.oracle.com/java/technologies/jaxp-introduction.html[JAXP];;1.0.0;verbindlich;GPL v2;
 XML-Serialisierung;https://x-stream.github.io/[XStream];1.4.x;4.0.0;verbindlich;BSD;Darf nicht für die (De-)Serialisierung der hauptsächlichen fachlichen Business-Objekte / XML-Nachrichten eingesetzt werden, stattdessen JAXB. Einsatzzweck ist leichtgewichtige Serialisierung Java -> XML, z.B. für die Anzeige von Objekten in einer GUI oder Erzeugung von Testdaten.
 Excel-Datenzugriff;http://poi.apache.org/[Apache POI];4.1.x;2.1.0;verbindlich;;
 Excel-Datenzugriff;http://poi.apache.org/[Apache POI OOXML];4.1.x;2.4.0;verbindlich;;
