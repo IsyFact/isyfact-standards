@@ -1,5 +1,6 @@
 # 3.3.0
 - `IFS-4329`: IsyTaskAutoConfiguration verhindert jetzt Task-Erstellung im Batch-Profil
+- `IFS-4526`: isy-task - Logeintrag IsyTaskAspect korrigiert
 
 # 3.2.0
 - `IFS-4212`: Dokumentation von `@OnceTask` korrigiert (`@ManualTask` existiert nicht)
