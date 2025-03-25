@@ -33,11 +33,11 @@ public class LoadbalancerSecurityConfiguration {
     @Order(99)
     SecurityFilterChain loadbalancerSecurityFilterChain(HttpSecurity http) throws Exception {
         http
-                .securityMatcher(new AntPathRequestMatcher("**"))
+            .securityMatcher(new AntPathRequestMatcher(LOADBALANCER_SERVLET_PATH))
                 .authorizeHttpRequests(
                         auth -> auth
-                                .requestMatchers(LOADBALANCER_SERVLET_PATH)
-                                .permitAll()
+                            .anyRequest()
+                            .permitAll()
         );
         return http.build();
     }

@@ -19,7 +19,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import de.bund.bva.isyfact.ueberwachung.config.ActuatorSecurityConfigurationProperties;
 /* tag::actuatorSecurity[] */
@@ -49,13 +48,10 @@ public class IsyActuatorSecurityAutoConfiguration {
     @ConditionalOnMissingBean(name = "actuatorSecurityFilterChain")
     public SecurityFilterChain actuatorSecurityFilterChain(HttpSecurity http) throws Exception {
         http
-                .securityMatcher(new AntPathRequestMatcher("**"))
-                .authorizeHttpRequests(
-                        requests -> requests
-                    .requestMatchers(EndpointRequest.toAnyEndpoint())
-                    .hasRole(ENDPOINT_ROLE)
-                )
-                .httpBasic(withDefaults());
+            .securityMatcher(EndpointRequest.toAnyEndpoint())
+            .authorizeHttpRequests(requests -> requests
+                .anyRequest().hasRole(ENDPOINT_ROLE))
+            .httpBasic(withDefaults());
         return http.build();
     }
 
