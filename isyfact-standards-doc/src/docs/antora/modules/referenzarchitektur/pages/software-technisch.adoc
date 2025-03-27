@@ -88,10 +88,10 @@ Folgende Prinzipien der Sicherheit liegen der Erstellung einer Systemlandschaft 
 Nur der Eigentümer der Authentifizierungsinformationen und der zentrale IAM-Service besitzen Kenntnis über diese Informationen.
 * Eine Zweifaktor-Authentifizierung ist durch das Client-Zertifikat und dem darin enthaltenen Behördenkennzeichen (BHKNZ) als zusätzliches Authentifizierungsmerkmal konzipiert, allerdings setzt dies im IAM-Service voraus, dass dieses Merkmal dort auch ausgewertet werden kann.
 * Bei Aufrufen von Außen (durch Web-Clients oder externen Anwendungen) erfolgt die Authentifizierung und grobgranulare Autorisierung an den Außengrenzen der Systemlandschaft (Portal, Service-Gateway bzw. Authentication-Gateway).
-* Kommt der Aufruf von innerhalb der Systemlandschaft (z.B. bei einem Batch- oder Task-Aufruf), benötigt der (technische) Aufrufer eigene Authentifizierungsinformationen und die Authentifizierung und grobgranulare Autorisierung geschieht aus der Nutzungsschicht (Batch / Task) des aufrufenden IT-Systems.
+* Kommt der Aufruf von innerhalb der Systemlandschaft (z.B. bei einem Batch- oder Task-Aufruf), benötigt der (technische) Aufrufer eigene Authentifizierungsinformationen und die Authentifizierung und grob granulare Autorisierung geschieht durch des aufrufenden IT-System (Batch / Task).
 * Wird zur Ausführung des Aufrufs ein Service einer anderen Geschäftsanwendung / Domäne benötigt, erfolgt dessen Aufruf im Namen und mit der Autorisierung des ursprünglichen Aufrufers.
 * Die feingranulare Autorisierung geschieht an den Systemgrenzen / externen Schnittstellen der aufgerufenen Geschäftsanwendung.
-* Existiert keine Systemlandschaft (d.h. IT-Systeme stehen für sich allein), gilt grundsätzlich, dass die Authentifizierung und grobgranulare Autorisierung in der Nutzungsschicht (Service oder Batch) des IT-Systems geschehen muss.
+* Existiert keine Systemlandschaft (d.h. IT-Systeme stehen für sich allein), gilt grundsätzlich, dass die Authentifizierung und grob granulare Autorisierung durch das aufrufende IT-System (Service oder Batch) geschehen muss.
 
 Folgende Abbildung zeigt die Umsetzung der Prinzipien in der Systemlandschaft:
 
