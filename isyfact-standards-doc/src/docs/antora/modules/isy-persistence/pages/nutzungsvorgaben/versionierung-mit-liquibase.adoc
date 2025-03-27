@@ -2,9 +2,12 @@
 
 include::glossary:licence:partial$licence.adoc[]
 
-Die Schemaversionierung mit Liquibase erfolgt gemäß den Richtlinien in xref:konzept/versionierung-mit-liquibase.adoc[] mit Fokus auf die Integration in Spring Boot und die Nutzung mit Maven. Liquibase wird in Spring Boot über die Konfigurationsdateien eingebunden, während das zugehörige Maven-Plugin Schemaänderungen direkt in der Build-Pipeline ausführt.
+Die Schemaversionierung mit Liquibase erfolgt gemäß den Richtlinien in xref:konzept/versionierung-mit-liquibase.adoc[] mit Fokus auf die Integration in Spring Boot und die Nutzung mit Maven.
+Liquibase wird in Spring Boot über die Konfigurationsdateien eingebunden, während das zugehörige Maven-Plugin Schemaänderungen direkt in der Build-Pipeline ausführt.
 
-Durch strukturierte Änderungsprotokolle lassen sich Schemaanpassungen kontrolliert, nachvollziehbar und automatisiert verwalten. Bestehende Datenbanken bleiben unverändert und dienen als Basis für zukünftige Änderungen. Die Kombination mit JDBC erlaubt eine flexible Anbindung an verschiedene Datenbanken.
+Durch strukturierte Änderungsprotokolle lassen sich Schemaanpassungen kontrolliert, nachvollziehbar und automatisiert verwalten.
+Bestehende Datenbanken bleiben unverändert und dienen als Basis für zukünftige Änderungen.
+Die Kombination mit JDBC erlaubt eine flexible Anbindung an verschiedene Datenbanken.
 
 Zudem lässt sich Liquibase nahtlos in CI/CD-Pipelines wie GitLab CI oder GitHub Actions integrieren, um Migrationen und Rollbacks zu automatisieren und so eine sichere Bereitstellung zu gewährleisten.
 
@@ -256,7 +259,10 @@ Das Root Changelog ist die `db.changelog-master.xml` und stellt sicher, dass die
 [[tagging-von-baseline-und-releases]]
 === Tagging von Baseline und Releases
 
-Vor jedem neuen Release sollte ein *Tag* gesetzt werden, um ein sauberes Rollback des gesamten Releases zu erleichtern. Der erste Tag definiert die Baseline und markiert diesen Zustand als Referenzpunkt. Dadurch kann bei Bedarf gezielt auf die Baseline zurückgerollt werden.
+Vor jedem neuen Release sollte ein *Tag* gesetzt werden, um ein sauberes Rollback des gesamten Releases zu erleichtern.
+Der erste Tag definiert die Baseline und markiert diesen Zustand als Referenzpunkt.
+Dadurch kann bei Bedarf gezielt auf die Baseline zurückgerollt werden.
+Eine einheitliche sinnvolle Namenskonvention ist empfehlenswert.
 
 .Setzen eines Tags
 [source,shell]
@@ -302,7 +308,9 @@ Alle nachfolgenden Release-Changelogs enthalten ausschließlich inkrementelle Ä
 [[preconditions]]
 === Preconditions
 
-Preconditions in Liquibase prüfen vor der Ausführung eines Changesets definierte Bedingungen. Wird eine Bedingung nicht erfüllt, kann die Migration abgebrochen, übersprungen oder mit einer Warnung fortgesetzt werden. Dadurch werden Fehler frühzeitig erkannt und nur zulässige Änderungen ausgeführt.
+Preconditions in Liquibase prüfen vor der Ausführung eines Changesets definierte Bedingungen.
+Wird eine Bedingung nicht erfüllt, kann die Migration abgebrochen, übersprungen oder mit einer Warnung fortgesetzt werden.
+Dadurch werden Fehler frühzeitig erkannt und nur zulässige Änderungen ausgeführt.
 
 .Beispiel für Preconditions
 [source,xml]
@@ -395,11 +403,13 @@ Offizielle Dokumentation von Liquibase: https://docs.liquibase.com/workflows/liq
 [[automatisierte-migrationen-in-ci-cd-pipelines]]
 == Einsatz von CI/CD-Pipelines für automatisierte Migrationen
 
-Liquibase kann nahtlos in GitLab CI/CD-Pipelines integriert werden, um Datenbankmigrationen automatisiert, sicher und kontrolliert auszuführen. Die erforderlichen Konfigurationen werden in der Datei `.gitlab-ci.yml` definiert.
+Liquibase kann nahtlos in GitLab CI/CD-Pipelines integriert werden, um Datenbankmigrationen automatisiert, sicher und kontrolliert auszuführen.
+Die erforderlichen Konfigurationen werden in der Datei `.gitlab-ci.yml` definiert.
 
 +1.+ Validierung der Changelogs::
 
-Vor dem Deployment sollte sichergestellt werden, dass alle Changelogs validiert und fehlerfrei sind. Tritt ein Fehler auf, wird der Prozess abgebrochen, um fehlerhafte Migrationen zu verhindern.
+Vor dem Deployment sollte sichergestellt werden, dass alle Changelogs validiert und fehlerfrei sind.
+Tritt ein Fehler auf, wird der Prozess abgebrochen, um fehlerhafte Migrationen zu verhindern.
 +
 .Beispiel für ein Validierungsskript
 [source,yaml]
@@ -409,7 +419,9 @@ liquibase --url=$DB_URL --username=$DB_USER --password=$DB_PASSWORD validate
 
 +2.+ Deployment auf Staging::
 
-Die Datenbankmigration wird durchgeführt und das Release mit einem Tag versehen, um Rollbacks zu ermöglichen. Mit `liquibase history` werden die durchgeführten Änderungen angezeigt. Falls alle Tests erfolgreich sind, wird das Deployment für die Produktion freigegeben.
+Die Datenbankmigration wird durchgeführt und das Release mit einem Tag versehen, um Rollbacks zu ermöglichen.
+Mit `liquibase history` werden die durchgeführten Änderungen angezeigt.
+Falls alle Tests erfolgreich sind, wird das Deployment für die Produktion freigegeben.
 +
 .Beispiel für ein Deployment-Skript
 [source,yaml]

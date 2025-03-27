@@ -41,7 +41,7 @@ Die wichtigsten Schritte umfassen die:
 [[konfiguration-der-datenbankverbindung]]
 === Konfiguration der Datenbankverbindung
 
-Liquibase nutzt JDBC für die Datenbankkommunikation in Java- bzw. Spring-basierten Anwendungen.
+Liquibase nutzt JDBC für die Datenbankkommunikation in Java- beziehungsweise Spring-basierten Anwendungen.
 Dabei sind folgende Punkte zu beachten:
 
 * Sicherstellen, dass sowohl Liquibase als auch die Anwendung über JDBC mit der Datenbank kommunizieren können.
@@ -54,6 +54,7 @@ Dabei sind folgende Punkte zu beachten:
 === Erfassung des bestehenden Schemas
 
 Vor der Einführung von Liquibase in die IsyFact gab es eine eigens entwickelte xref:konzept/versionierung.adoc[Versionierung], die den aktuellen Zustand der Datenbank dokumentiert hat.
+Mit Liquibase wird ein Industriestandard verwendet, dessen Verwendung die Zukunftsicherheit verbessert und Abhängigkeiten von Eigenentwicklungen verringert.
 
 Zum aktuellen Zustand gehören:
 
@@ -78,7 +79,7 @@ Diese dient als Referenzpunkt für alle zukünftigen Änderungen und sollte:
 === Integration in das Versionskontrollsystem
 
 Die Baseline wird in das Versionskontrollsystem aufgenommen, um eine lückenlose Dokumentation und Nachvollziehbarkeit sicherzustellen.
-Liquibase verwaltet zudem eine interne Historie aller Änderungen, sodass zukünftige Anpassungen in einer konsistenten Reihenfolge ausgeführt werden.
+Liquibase führt eine Historie aller Änderungen in der Datenbanktabelle *DATABASECHANGELOG* und schützt vor parallelen Ausführungen über die Sperrtabelle *DATABASECHANGELOGLOCK*.
 
 [[fortlaufende-verwaltung-von-aenderungen]]
 === Fortlaufende Verwaltung von Änderungen
@@ -129,7 +130,8 @@ Dabei wird sichergestellt, dass jede Anpassung nachvollziehbar und unabhängig i
 [[definiertes-changeset-fuer-atomare-aenderungen]]
 === Definiertes Changeset für atomare Änderungen
 
-Jede Änderung an der Datenbank erfolgt über ein Changeset, das in einer Changelog-Datei erfasst wird. Die Vorgehensweise umfasst:
+Jede Änderung an der Datenbank erfolgt über ein Changeset, das in einer Changelog-Datei erfasst wird.
+Die Vorgehensweise umfasst:
 
 . *Planung der Änderung*
 * Definition der konkreten Anpassung, wie das Hinzufügen einer Spalte oder das Erstellen einer neuen Tabelle.
