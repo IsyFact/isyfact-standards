@@ -1,3 +1,7 @@
+# 4.x
+## FEATURES
+- `IFS-4549`: [isyfact-standards-doc] Verwaltung von Versionen zentralisiert
+
 # 4.0.0
 ## FEATURES
 - `IFS-1825`: [isyfact-standards-doc] Versionierung mit Liquibase erweitert
