@@ -1,3 +1,8 @@
+# 4.x
+## FEATURES
+- `IFS-4543`: [isyfact-standards-doc] Begriff Nutzungsschicht entfernt
+- `IFS-4549`: [isyfact-standards-doc] Verwaltung von Versionen zentralisiert
+
 # 4.0.0
 ## FEATURES
 - `IFS-1802`: [isyfact-standards-doc] Mapping Vorgaben zu bidirektionalen Assoziationen aktualisiert
