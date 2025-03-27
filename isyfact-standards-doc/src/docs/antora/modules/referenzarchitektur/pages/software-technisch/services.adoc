@@ -233,8 +233,8 @@ Die Entscheidung dafür ist im Systementwurf zu dokumentieren.
 Externe Services werden durch Service-Gateways bereitgestellt.
 Die Versionierung eines Service muss also auch auf Ebene des Service-Gateways durchgeführt werden.
 Ein Service-Gateway ist ein rein technischer Protokoll-Wandler, der Web-Services in interne Schnittstellen konvertiert.
-Im Service-Gateway erfolgt daher immer nur ein einfaches Mapping auf die entsprechenden Service-Schnittstellen-Version der angebundenen Backend-Komponenten.
-Der Ausgleich der Versionsunterschiede erfolgt ausschließlich im Backend - sprich optionaler Service-Schicht und/oder Anwendungskern - und nicht im Service-Gateway.
+Im Service-Gateway erfolgt daher immer nur ein einfaches Mapping auf die entsprechenden Service-Schnittstellen-Version der angebundenen Backend-Komponenten in der Service-Schicht.
+Der Ausgleich der Versionsunterschiede erfolgt ausschließlich im Backend - sprich Service-Schicht und/oder Anwendungskern - und nicht im Service-Gateway.
 Es ist möglich, pro Service-Version ein eigenes Service-Gateway zu erstellen.
 
 [[image-archversServ]]
@@ -250,47 +250,41 @@ Denn bei rein abwärtskompatiblen Änderungen einer Serviceversion muss diese ne
 
 [[image-minorversServ]]
 .Beispiel minor versionierter Service
-image::referenzarchitektur:software-technisch/services/simple-minor-versionierung.dn.svg[]
+image::referenzarchitektur:software-technisch/services/minor-versionierung.dn.svg[]
 
-Das bedeutet zum Beispiel in einem Service wird mit Version 1.1 ein zusätzliches Attribut für MethodeA eingeführt.
+Das bedeutet zum Beispiel in einem Service wird mit Version 1.1 ein zusätzliches Attribut für MethodeA eingeführt gegenüber der Version 1.0.
+
 Wenn nun ein Client die Service-MethodeA gemäß Major-Version 1 aufruft und dabei aber die Servicesignatur von Version 1.0 erfüllt, dann ist das neu hinzugekommene Attribut gemäß Version 1.1 nicht in dem Aufruf des Clients enthalten.
-Die Transformation eines Aufrufs der Service-MethodeA gemäß Version 1.0 muss nun das fehlende Attribut ergänzen und mit einem Default-Wert initialisieren, bevor die Verarbeitung in der Fachkomponente mit Version 1.1 stattfindet.
-Oder die Fachkomponente selbst im Anwendungskern akzeptiert mit Version 1.1 dieses neue Attribut als optional, wodurch bei derart einfach kompatiblen Änderungen dann keine extra Transformations-Komponente in der Service-Schicht notwendig ist, wie das folgende xref:image-veryminorversServ[] zeigt.
+Die Versions-Transformation in der Serviceschicht-Komponente eines Aufrufs der Service-MethodeA gemäß Version 1.0 muss nun das fehlende Attribut ergänzen und mit einem Default-Wert initialisieren, bevor die Verarbeitung in der Fachkomponente mit Version 1.1 im Anwendungskern stattfindet.
 
-[[image-veryminorversServ]]
-.Beispiel sehr einfach minor versionierter Service
-image::referenzarchitektur:software-technisch/services/very-simple-minor-versionierung.dn.svg[]
-
-Werden die beiden Service-Versionen durch ein Service-Gateway nach außen verfügbar gemacht, existieren dort zwei parallele Mappings auf die jeweiligen Services des Backends - Mapping 1.0 auf die neue Komponente der Serviceschicht und Mapping 1.1 auf bereits existierende und modifizierte Komponente 1.1 im Anwendungskern.
-Innerhalb des Service-Gateways existiert keine Geschäftslogik, d.h. die Abbildung von Version 1.0 auf 1.1 findet erst im Backend - entweder in der Service-Schicht oder im Anwendungskern - statt.
+Werden die beiden Service-Versionen durch ein Service-Gateway nach außen verfügbar gemacht, existiert dort ein Service-Gateway zur Major-Version V1 mit einem Mapping auf die Service-Komponente V1.1 der Serviceschicht.
+Eingehende Aufrufe mit passender Signatur zur Version 1.0 und V1.1 werden vom Service-Gateway zur Komponente der Serviceschicht der Version 1.1 geroutet.
+In dieser Serviceschicht-Komponente erfolgt die Versionstransformation für einen Aufruf der Fachkomponente mit Version 1.1 im Anwendungskern.
+Innerhalb des Service-Gateways existiert keine Geschäftslogik, d.h. die Abbildung von Version 1.0 auf 1.1 findet erst im Backend in der Service-Schicht statt.
 
 [[inkompatible-veraenderung]]
 === Inkompatible Veränderung eines Services
 
-Bei inkompatiblen Veränderungen eines Service, zum Beispiel durch Wegfall von Servicemethoden, Änderung von Parameterdatentypen in einer bestehenden Servicemethoden Signatur, o.ä. ist es notwendig eine neue Major-Version des Service bereit zu stellen.
+Bei inkompatiblen Veränderungen eines Service, zum Beispiel durch Wegfall von Servicemethoden, Änderung von Parameterdatentypen in einer bestehenden Servicemethoden Signatur, o.ä. ist es notwendig eine neue Major-Version des Service bereit zu stellen - siehe xref:image-major1versServ[].
 
-[[image-majorversServ]]
+[[image-major1versServ]]
 .Beispiel major versionierter Service
 image::referenzarchitektur:software-technisch/services/major-versionierung-1.dn.svg[]
 
-Da nicht alle Clients gleichzeitig ihre Anpassungen an eine neu bereitgestellte Service-Version durchführen können, oder weil die Änderungen im Service zum Beispiel ein vollständiger Technologie-Wechsel beinhalten, bedarf es der Notwendigkeit mehrere Service-Major-Versionen parallel im Backend zu betreiben.
-
-[[image-major2versServ]]
-.Beispiel parallel major versionierter Service
-image::referenzarchitektur:software-technisch/services/major-versionierung-2.dn.svg[]
+Da nicht alle Clients gleichzeitig ihre Anpassungen an eine neu bereitgestellte Service-Version durchführen können, oder weil die Änderungen im Service zum Beispiel ein vollständiger Technologie-Wechsel beinhalten, bedarf es der Notwendigkeit mehrere Service-Major-Versionen parallel im Backend in allen drei Schichten zu betreiben.
 
 Daraus erwächst die Anforderung, dass ein Client die von ihm aufzurufende Service-Version auswählen können muss.
 Dies geschieht im Allgemeinen dadurch, dass im Backend die Major-Versionsangabe im Namen des Service-Moduls, in den Servicemethoden als Prefix bzw. im Pfad des Service-Endpunktes enthalten ist.
 Mit Angabe der Service-Version beim Aufruf im Client wird die Wahl der gewünschten Service-Version getroffen, die im Backend ausgeführt werden soll.
 
-Ruft ein Client nun einen Service mit einer Version auf, die im Backend nicht mehr zur Verfügung steht - zum Beispiel Wegfall von V1 wie in xref:image-major3versServ[] gezeigt, so bekommt der Client eine Fehlermeldung, dass dieser Service mit der gewünschten Version V1 nicht mehr erreichbar ist.
+Ruft ein Client nun einen Service mit einer Version auf, die im Backend nicht mehr zur Verfügung steht - zum Beispiel Wegfall von V1 wie in xref:image-major2versServ[] gezeigt, so bekommt der Client eine Fehlermeldung, dass dieser Service mit der gewünschten Version V1 nicht mehr erreichbar ist, da das Service-Gateway mit dem Endpunkt für V1 nicht mehr existiert.
 
-[[image-major3versServ]]
+[[image-major2versServ]]
 .Beispiel Wegfall major versionierter Service
-image::referenzarchitektur:software-technisch/services/major-versionierung-3.dn.svg[]
+image::referenzarchitektur:software-technisch/services/major-versionierung-2.dn.svg[]
 
-In einem komplexeren Fall kann es passieren, dass Services von Backends so umgestaltet werden, dass die Aufrufe nicht mehr aufeinander abgebildet werden können.
-Wird in so einem Fall ein neuer Service eingeführt, während der alte Service noch verfügbar bleiben muss, müssen die inkompatiblen Verarbeitungslogiken im Anwendungskern parallel unterstützt werden.
+Auch bei komplexeren Anforderungen kann es passieren, dass Services im Anwendungskern so umgestaltet werden müssen, dass unterschiedliche Versions-Aufrufe nicht mehr aufeinander abgebildet werden können.
+In solchen Fällen wird eine neue Service-Version eingeführt, während die alte Service-Version noch verfügbar bleiben muss, um die inkompatiblen Verarbeitungslogiken im Anwendungskern parallel zu unterstützen.
 Auch hier enthält das Service-Gateway keine Geschäftslogik.
 
 IMPORTANT: Eine Versionierung ist nur dann sinnvoll, wenn kleine Änderungen an der Schnittstelle zwischen den Versionen auftreten.
