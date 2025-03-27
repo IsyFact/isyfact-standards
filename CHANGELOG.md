@@ -1,3 +1,7 @@
+# 4.x
+## FEATURES
+- `IFS-4570`: [isyfact-standards-doc] Alte Einträge aus Negativliste entfernt
+
 # 4.0.0
 ## FEATURES
 - `IFS-1802`: [isyfact-standards-doc] Mapping Vorgaben zu bidirektionalen Assoziationen aktualisiert
