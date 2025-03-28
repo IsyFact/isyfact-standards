@@ -27,6 +27,8 @@
         <package name="com" withSubpackages="true" static="false" />
         <emptyLine />
         <package name="de" withSubpackages="true" static="false" />
+        <emptyLine />
+        <package name="" withSubpackages="true" static="false" />
       </value>
     </option>
     <option name="MULTI_CATCH_TYPES_WRAP" value="5" />

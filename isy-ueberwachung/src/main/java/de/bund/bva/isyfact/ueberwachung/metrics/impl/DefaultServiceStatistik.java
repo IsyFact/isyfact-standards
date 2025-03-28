@@ -22,6 +22,7 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.AtomicReference;
 
 import org.aopalliance.intercept.MethodInterceptor;
@@ -63,6 +64,26 @@ public class DefaultServiceStatistik implements ServiceStatistik, MethodIntercep
     private final ConcurrentLinkedDeque<Duration> letzteSuchdauern = new ConcurrentLinkedDeque<>();
 
     /**
+     * Number of calls made.
+     */
+    private final AtomicLong anzahlAufrufe = new AtomicLong();
+
+    /**
+     * The number of technical errors.
+     * <p>
+     * A technical error occurs if a {@link TechnicalException} was thrown.
+     */
+    private final AtomicLong anzahlTechnicalExceptions = new AtomicLong();
+
+    /**
+     * The number of business errors.
+     * <p>
+     * A business error occurs if a {@link BusinessException} was thrown.
+     */
+    private final AtomicLong anzahlBusinessExceptions = new AtomicLong();
+
+
+    /**
      * Flag for the minute in which values of the last minute were determined.
      */
     private final AtomicReference<LocalDateTime> letzteMinute = new AtomicReference<>(DateTimeUtil.localDateTimeNow());
@@ -73,33 +94,35 @@ public class DefaultServiceStatistik implements ServiceStatistik, MethodIntercep
     private final AtomicInteger anzahlAufrufeLetzteMinute = new AtomicInteger();
 
     /**
-     * Number of non-error calls made in the current minute.
+     * Number of calls made in the current minute.
      */
     private final AtomicInteger anzahlAufrufeAktuelleMinute = new AtomicInteger();
 
     /**
-     * Number of calls made in the minute denoted by lastMinute, during which
-     * a technical error occurred.
+     * The number of technical errors in the last minute.
+     * <p>
+     * A technical error occurs if a {@link TechnicalException} was thrown.
      */
     private final AtomicInteger anzahlTechnicalExceptionsLetzteMinute = new AtomicInteger();
 
     /**
-     * Number of calls made in the current minute in which a technical error
-     * occurred.
+     * The number of technical errors in the current minute.
+     * <p>
+     * A technical error occurs if a {@link TechnicalException} was thrown.
      */
     private final AtomicInteger anzahlTechnicalExceptionsAktuelleMinute = new AtomicInteger();
 
     /**
      * The number of business errors in the last minute.
      * <p>
-     * A business error occurs if either a {@link BusinessException} was thrown.
+     * A business error occurs if a {@link BusinessException} was thrown.
      */
     private final AtomicInteger anzahlBusinessExceptionsLetzteMinute = new AtomicInteger();
 
     /**
      * The number of business errors in the current minute.
      * <p>
-     * A business error occurs if either a {@link BusinessException} was thrown.
+     * A business error occurs if a {@link BusinessException} was thrown.
      */
     private final AtomicInteger anzahlBusinessExceptionsAktuelleMinute = new AtomicInteger();
 
@@ -153,13 +176,16 @@ public class DefaultServiceStatistik implements ServiceStatistik, MethodIntercep
     public void zaehleAufruf(Duration dauer, boolean technicallySuccessful, boolean functionallySuccessful) {
         synchronized (anzahlAufrufeAktuelleMinute) {
             aktualisiereZeitfenster();
+            anzahlAufrufe.incrementAndGet();
             anzahlAufrufeAktuelleMinute.incrementAndGet();
 
             if (!technicallySuccessful) {
+                anzahlTechnicalExceptions.incrementAndGet();
                 anzahlTechnicalExceptionsAktuelleMinute.incrementAndGet();
             }
 
             if (!functionallySuccessful) {
+                anzahlBusinessExceptions.incrementAndGet();
                 anzahlBusinessExceptionsAktuelleMinute.incrementAndGet();
             }
         }
@@ -167,7 +193,6 @@ public class DefaultServiceStatistik implements ServiceStatistik, MethodIntercep
             if (letzteSuchdauern.size() == ANZAHL_AUFRUFE_FUER_DURCHSCHNITT) {
                 letzteSuchdauern.removeLast();
             }
-
             letzteSuchdauern.addFirst(dauer);
         }
     }
@@ -214,6 +239,21 @@ public class DefaultServiceStatistik implements ServiceStatistik, MethodIntercep
             result = result.dividedBy(dauern.length);
         }
         return result;
+    }
+
+    @Override
+    public long getAnzahlAufrufe() {
+        return anzahlAufrufe.get();
+    }
+
+    @Override
+    public long getAnzahlTechnicalExceptions() {
+        return anzahlTechnicalExceptions.get();
+    }
+
+    @Override
+    public long getAnzahlBusinessExceptions() {
+        return anzahlBusinessExceptions.get();
     }
 
     @Override

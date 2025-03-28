@@ -14,6 +14,27 @@ public interface ServiceStatistik {
     String[] getTags();
 
     /**
+     * Returns the number of calls counted where no error occurred.
+     */
+    default long getAnzahlAufrufe() {
+        throw new UnsupportedOperationException();
+    };
+
+    /**
+     * Returns the number of calls where a technical error occurred.
+     */
+    default long getAnzahlTechnicalExceptions() {
+        throw new UnsupportedOperationException();
+    };
+
+    /**
+     * Returns the number of calls where a business error occurred.
+     */
+    default long getAnzahlBusinessExceptions() {
+        throw new UnsupportedOperationException();
+    };
+
+    /**
      * Returns the number of calls counted in the last minute where no error occurred.
      */
     int getAnzahlAufrufeLetzteMinute();

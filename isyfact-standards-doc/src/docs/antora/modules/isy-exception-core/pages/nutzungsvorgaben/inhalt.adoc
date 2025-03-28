@@ -341,7 +341,7 @@ try {
 }
 ----
 
-Die letzte Variante ist die endgültige Fehlerbehandlung, die meistens in einer Komponente der Nutzungsschicht geschieht: Batch oder Service.
+Die letzte Variante ist die endgültige Fehlerbehandlung, die meistens in einer Komponente des aufrufenden IT-Systems geschieht: Batch oder Service.
 Beschreibungen dazu finden sich in den jeweiligen Detailkonzepten oder den Bausteinen zur Umsetzung der Komponenten.
 
 [[fehlertexte-und-deren-einsatz]]
