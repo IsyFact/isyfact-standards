@@ -1,3 +1,2 @@
 ﻿Kategorie / Anwendungsbereich;Hersteller / Produkt;Version;Seit Release;Status;Begründung der Entscheidung
-Message Queuing;Apache Active MQ;5.1.x;1.0.0;verworfen;Aufgrund negativer Erfahrung: Fehler in RAC Anbindung (Blockierung von Nutzern, Fehlerhafte/Keine/Mehrfache Zustellung von Objekten)
 Application-Server;Apache Tomcat;<8.5.12;1.5.0;verworfen;Aufgrund eines kritischen Fehlers beim Setzen von Cookies.
