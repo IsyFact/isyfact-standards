@@ -106,7 +106,7 @@ Ist ein aufrufübergreifendes Caching dennoch notwendig, ist dies nicht in der P
 Hibernate bietet für das Caching von Objekten prinzipiell zwei Möglichkeiten.
 
 Cache in der Hibernate-Session:: Die Hibernate-Session ist an einen Thread gebunden.
-Die Nutzungsschicht verwendet für jede Anfrage einen neuen Thread (und damit eine frische Hibernate-Session).
+Das aufrufende IT-System verwendet für jede Anfrage einen neuen Thread (und damit eine frische Hibernate-Session).
 Deshalb kann dieser Cache höchstens im Rahmen einer Anfrage an das Backend gelten.
 Diese Nutzung eines Cache ist nicht sinnvoll.
 
