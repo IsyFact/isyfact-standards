@@ -91,7 +91,7 @@ Nur der Eigentümer der Authentifizierungsinformationen und der zentrale IAM-Ser
 * Kommt der Aufruf von innerhalb der Systemlandschaft (z.B. bei einem Batch- oder Task-Aufruf), benötigt der (technische) Aufrufer eigene Authentifizierungsinformationen. Die Authentifizierung und grob granulare Autorisierung erfolgen durch das aufrufende IT-System (Batch/Task).
 * Wird zur Ausführung des Aufrufs ein Service einer anderen Geschäftsanwendung / Domäne benötigt, erfolgt dessen Aufruf im Namen und mit der Autorisierung des ursprünglichen Aufrufers.
 * Die feingranulare Autorisierung geschieht an den Systemgrenzen / externen Schnittstellen der aufgerufenen Geschäftsanwendung.
-* Existiert keine Systemlandschaft (d.h. IT-Systeme stehen für sich allein), gilt grundsätzlich, dass die Authentifizierung und grob granulare Autorisierung durch das aufrufende IT-System (Service oder Batch) geschehen muss.
+* Existiert keine Systemlandschaft (d.h. IT-Systeme stehen für sich allein), gilt grundsätzlich, dass die Authentifizierung und grob granulare Autorisierung durch das aufrufende IT-System (Service oder Batch) erfolgen müssen.
 
 Folgende Abbildung zeigt die Umsetzung der Prinzipien in der Systemlandschaft:
 
