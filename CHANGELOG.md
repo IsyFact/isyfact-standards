@@ -1,6 +1,7 @@
 # 4.x
 ## FEATURES
 - `IFS-4546`: [isyfact-standards-doc] Verweis auf JAXP entfernt, Negativliste bereinigt und links entfernt
+- `IFS-4570`: [isyfact-standards-doc] Alte Einträge aus Negativliste entfernt
 
 # 4.0.0
 ## FEATURES
