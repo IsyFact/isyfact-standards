@@ -1,6 +1,6 @@
 # Isyfact-Standards
 
-## 2.5.1
+## 2.6.0
 ### Hinweise & bekannte Probleme
 
 Um die Wahrscheinlichkeit, dass das im AufrufKontextVerwalter gespeicherte Bearer-Token während der Ausführung eines Batches abläuft, zu verringern, wird vor jedem Verarbeitungsschritt und vor der Beendigung des Batches der AufrufKontext und das Bearer-Token aktualisiert.

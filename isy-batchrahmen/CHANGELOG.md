@@ -1,4 +1,4 @@
-# 2.5.1
+# 2.6.0
 - `IFS-4606`: Automatisches Durchführen einer erneuten Authentifizierung vor Verarbeitungsschritten in BatchrahmenImpl
 
 # 2.4.3
