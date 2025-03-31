@@ -2,8 +2,14 @@
 ## FEATURES
 - `IFS-4546`: [isyfact-standards-doc] Verweis auf JAXP entfernt, Negativliste bereinigt und links entfernt
 
+# 4.x
+## FEATURES
+- `IFS-4570`: [isyfact-standards-doc] Alte Einträge aus Negativliste entfernt
+- `IFS-4549`: [isyfact-standards-doc] Verwaltung von Versionen zentralisiert
+
 # 4.0.0
 ## FEATURES
+- `IFS-1825`: [isyfact-standards-doc] Versionierung mit Liquibase erweitert
 - `IFS-1802`: [isyfact-standards-doc] Mapping Vorgaben zu bidirektionalen Assoziationen aktualisiert
 - `IFS-4508`: [isyfact-standards-doc] Verweis auf Angular-Demo (Referenzimplementierung) prominent platziert
 - `IFS-4358`: [isyfact-standards-doc] Verwendungen des Begriffs IT-System in den Bausteinen (exklusive Sicherheit) korrigiert

@@ -1,9 +1,6 @@
 ﻿Kategorie / Anwendungsbereich;Hersteller / Produkt;Version;Seit Release;Status;Begründung der Entscheidung
-Bildbearbeitung;JAI;1.1.3;1.0.0;verworfen;"Bei den Lasttests ist ein Speicherleck in der Konvertierungsbibliothek ""Java Advanced Imaging Image I/O"" aufgefallen. Ein Bugfix existiert bereits auf den Webseiten des JAI-Projekts, allerdings gibt es noch keine neue Stable-Version der Bibliothek. Wir haben daher einen aktuellen Daily-Build der Software verwendet (Version vom 26.08.2009). Der funktionale Test und der Lasttest haben keine Fehler bei den von uns verwendeten Konvertierungsfunktionen aufgezeigt.
-Es ist vom Einsatz des Release 1.1.3 abzusehen"
 Collection-API;Commons-Collection;;;verworfen;"* Weiterentwicklung fraglich. Es muss Guava eingesetzt werden.
 * Hinweis: Commons Collections besitzt in folgenden Versionen zudem einen sicherheitskritischen Fehler (vgl. https://issues.apache.org/jira/browse/COLLECTIONS-580):
 ** >=3.0 und <3.2.2
 ** >=4.0 und <4.1"
-Kryptographie;BouncyCastle;<= 1.5;1.2.2;verworfen;Kritischer Fehler in Version <= 1.5 http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2015-7940 ermöglicht Man-In-The-Middle-Angriffe.
 HTTP-Client;Netty;;2.4.0;verworfen;Der Eintrag gilt ausschließlich für die Verwendung von Netty als HTTP-Client in Verbindung mit Spring WebFlux. Hier sind aufgrund früherer Architekturentscheidungen ausschließlich Produkte zu verwenden, die kompatibel zum Produkt Apache Tomcat sind und keinen zweiten Server neben dem Tomcat aufbauen.
