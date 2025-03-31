@@ -1,6 +1,18 @@
+# 5.0.0
+## FEATURES
+- `IFS-4546`: [isyfact-standards-doc] Verweis auf JAXP entfernt, Negativliste bereinigt und links entfernt
+
+# 4.x
+## FEATURES
+- `IFS-4570`: [isyfact-standards-doc] Alte Einträge aus Negativliste entfernt
+- `IFS-4543`: [isyfact-standards-doc] Begriff Nutzungsschicht entfernt
+- `IFS-4549`: [isyfact-standards-doc] Verwaltung von Versionen zentralisiert
+
 # 4.0.0
 ## FEATURES
 - `IFS-4208`: [isyfact-standards-doc] Verwendungen der Begriffe "Nachbarsystem" und "Externes System" korrigiert
+- `IFS-1825`: [isyfact-standards-doc] Versionierung mit Liquibase erweitert
+- `IFS-1802`: [isyfact-standards-doc] Mapping Vorgaben zu bidirektionalen Assoziationen aktualisiert
 - `IFS-4508`: [isyfact-standards-doc] Verweis auf Angular-Demo (Referenzimplementierung) prominent platziert
 - `IFS-4358`: [isyfact-standards-doc] Verwendungen des Begriffs IT-System in den Bausteinen (exklusive Sicherheit) korrigiert
 - `IFS-4249`: [isyfact-standards-doc] Setzen der Antora-Version für die Online-Dokumentation durch Git
@@ -77,6 +89,11 @@
 - `IFS-3736`: [isyfact-standards-doc] Abbildung von Anwendungen in IT-Systeme ("technischer Schnitt") beschrieben.
 - `IFS-3763`: [isyfact-standards-doc] Dokumentation der Änderungen zu IFS-2248 (Tokenerneuerung isy-batchrahmen)
 - `IFS-3750`: [isyfact-standards-doc] Baustein Konfiguration entfernt.
+- `IFS-4529`: Spring Boot Versionsanhebung auf 3.4.x:
+    * [isy-ueberwachung]: Signaturänderung von de.bund.bva.isyfact.ueberwachung.config.NachbarsystemRestTemplateConfigurer.CustomErrorHandler.handleError
+    * [isy-ueberwachung]: Folgende Property-Keys ändern sich:
+      - management.endpoints.enabled-by-default -> management.endpoints.access.default
+      - management.endpoint.<id>.enabled -> management.endpoint.<id>.access
 
 # 3.0.1
 - `ISY-701`: Google Guava Versionsanhebung auf 33.1.0

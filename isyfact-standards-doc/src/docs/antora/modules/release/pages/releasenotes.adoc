@@ -102,6 +102,11 @@ Die Dokumentation zum xref:referenzarchitektur:software-technisch/batch.adoc[IT-
 [[kapitel-bausteine]]
 == Bausteine
 
+=== REST
+
+Im Konzept des REST-Bausteins wurde das Kapitel xref:isyfact-standards-doku:isy-service-rest:konzept/inhalt.adoc#verwendung-http-statuscodes[Verwendung von HTTP-Statuscodes] angepasst.
+In die Tabelle wurde der HTTP-Code 202 aufgenommen und der nach der Tabelle folgende Hinweis über die Verwendung von HTTP-Statuscodes wurde in die Beschreibung vor die Tabelle verschoben.
+
 === Gelöschte Bausteine
 
 Die folgenden Bausteine wurden aus der IsyFact entfernt.

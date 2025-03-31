@@ -364,7 +364,7 @@ image::referenzarchitektur:software-technisch/batch/architektur-batch-parts.dn.s
 
 Ein Batch wird über einen Batch-Client oder ein Startprogramm – meist ein Shellscript, UC4, JobNetz, CronJob, oder ähnliches – initialisiert und gestartet.
 Diese Batch-Clients sind systemseitig dazu berechtigt, den dedizierten Batch auszuführen und damit zu starten.
-Somit ruft der Batch-Client die Komponente _Batch-Logik_ in der Nutzungsschicht der Anwendung auf, die die notwendigen Initialisierungen vornimmt.
+Somit ruft der Batch-Client die Komponente _Batch-Logik_ des Batches auf, welche die notwendigen Initialisierungen vornimmt.
 Genau hier erfolgt frühzeitig die Unterscheidung welcher _Credential_-Flow (xref:resource-owner-password-credential-flow[] oder xref:client-credential-flow[]) zur Authentifizierung und Autorisierung des Batch verwendet werden soll.
 
 Die Abbildung xref:image-sequenzdiagramm-absicherung-batch[Absicherung eines Batch] stellt den logischen Ablauf zur Absicherung eines Batches skizzenhaft dar.

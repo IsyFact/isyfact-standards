@@ -432,6 +432,8 @@ Die Filter- und Suchkriterien werden in den Body der Anfrage aufgenommen.
 === Verwendung von HTTP-Statuscodes
 
 Im Folgenden werden die HTTP-Statuscodes dargestellt, die zu verwenden sind.
+Weitere Statuscodes sind in Abhängigkeit vom Fachverfahren möglich.
+
 
 [cols="1,1,2"]
 |===
@@ -439,6 +441,7 @@ Im Folgenden werden die HTTP-Statuscodes dargestellt, die zu verwenden sind.
 
 |200 |OK |Wird als Ergebnis eines erfolgreichen HTTP-Requests zurückgeliefert.
 |201 |Created |Wird als Ergebnis eines erfolgreichen HTTP-Requests zurückgeliefert, wenn eine neue Ressource angelegt wurde.
+|202 |Accepted | Die Anfrage wurde empfangen und verstanden , aber wird noch asynchron bearbeitet. Die Anfrage ist zum Zeitpunkt der Antwort möglicherweise noch nicht abgeschlossen, aber der Server hat sie zur weiteren Bearbeitung angenommen.
 |204 |No Content |Wird als Ergebnis eines erfolgreichen HTTP-Requests zurückgeliefert, wenn der Request keinen Response-Body liefert.
 |304 |Not Modified |Wird beim Caching eingesetzt und sagt dem Client, dass seine Ressource noch aktuell ist.
 |400 |Bad Request |Der HTTP-Request enthält fehlerhafte Daten, z. B. XML nicht Schema-konform, es wurde ein Virus gefunden, die Anfrage enthält fachliche Fehler, etc.
@@ -450,8 +453,6 @@ Im Folgenden werden die HTTP-Statuscodes dargestellt, die zu verwenden sind.
 |409 |Conflict |Die Ressource wurde zwischenzeitlich geändert.
 |500 |Internal Server Error |Es ist ein interner Fehler bei der Bearbeitung der Anfrage aufgetreten.
 |===
-
-Weitere Statuscodes sind in Abhängigkeit vom Fachverfahren möglich.
 
 [NOTE]
 ====
