@@ -1,6 +1,7 @@
 # 5.0.0
 ## FEATURES
 - `IFS-4546`: [isyfact-standards-doc] Verweis auf JAXP entfernt, Negativliste bereinigt und links entfernt
+- `IFS-4208`: [isyfact-standards-doc] Verwendungen der Begriffe "Nachbarsystem" und "Externes System" korrigiert
 
 # 4.x
 ## FEATURES
