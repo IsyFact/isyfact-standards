@@ -77,11 +77,13 @@ public class IsyOAuth2Authentifizierungsmanager implements Authentifizierungsman
     }
 
     @Override
+    @Deprecated
     public void authentifiziereClient(String issuerLocation, String clientId, String clientSecret) throws AuthenticationException {
         authentifiziereClient(issuerLocation, clientId, clientSecret, null);
     }
 
     @Override
+    @Deprecated
     public void authentifiziereClient(String issuerLocation, String clientId, String clientSecret, @Nullable String bhknz) throws AuthenticationException {
         Assert.notNull(issuerLocation, "issuerLocation cannot be null");
         Assert.notNull(clientId, "clientId cannot be null");
@@ -98,11 +100,13 @@ public class IsyOAuth2Authentifizierungsmanager implements Authentifizierungsman
     }
 
     @Override
+    @Deprecated
     public void authentifiziereSystem(String issuerLocation, String clientId, String clientSecret, String username, String password) throws AuthenticationException {
         authentifiziereSystem(issuerLocation, clientId, clientSecret, username, password, null);
     }
 
     @Override
+    @Deprecated
     public void authentifiziereSystem(String issuerLocation, String clientId, String clientSecret, String username, String password, @Nullable String bhknz)
             throws AuthenticationException {
         Assert.notNull(issuerLocation, "issuerLocation cannot be null");
