@@ -378,7 +378,7 @@ Jede Anwendung stellt einen HealthEndpoint unter `/actuator/health` bereit.
 Zur Konfiguration siehe auch <<konfiguration-von-endpoints>>.
 Dieser zeigt den Status des Systems abhängig von allen vorhandenen Health-Indikatoren (`HealthIndicator`).
 
-Der Baustein liefert einen Nachbarsystem-Indikator mit, der den HealthEndpoint aller konfigurierten Nachbarsysteme abfragt.
+Der Baustein liefert einen Nachbarsystem-Indikator mit, der den HealthEndpoint aller konfigurierten xref:glossary::terms-definitions.adoc#nachbarsystem[Nachbarsysteme] abfragt.
 
 Dieser lässt sich wie folgt konfigurieren:
 
@@ -509,8 +509,8 @@ In einem solchen Fall sind die Vorgaben im Kapitel <<konkrete-implementierung-zu
 
 [NOTE]
 ====
-_Liveness_ darf nicht durch Check externer Systeme beeinflusst werden.
-Andernfalls könnte es sein, dass einem Fehlschlagen eines externen Systems (Datenbank, Web API, externer Cache, ...) ein Neustart des Systems folgt, welcher Fehlerkaskaden über die Anwendungslandschaft auslöst.
+Der _Liveness_-Zustand darf nicht durch eine Prüfung von Nachbarsystemen bzw. weiterer technischer Systeme beeinflusst werden.
+Andernfalls könnte es sein, dass einem Fehlschlagen eines solchen Systems (Datenbank, Web API, externer Cache, ...) ein Neustart des Systems folgt, welcher Fehlerkaskaden über die Systemlandschaft auslöst.
 ====
 
 [[update-des-readiness-states]]

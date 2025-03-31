@@ -75,8 +75,8 @@ Alle nichtfunktionalen Anforderungen müssen von dieser Systemumgebung vollstän
 .TI-Architektur der Produktionsumgebung (<<legende-ti-architektur-systemumgebungen,Legende>>)
 image::technisch-infrastrukturell/ti-architektur-awl-pru.dn.svg[]
 
-Der Zugriff durch die Anwender (Clients) und die über externe Systeme angeschlossener Anwender erfolgt über das WAN bzw. das interne LAN.
-Die Kommunikation erfolgt per Secure HTTP (HTTPS) mit einem Browser oder ebenfalls per HTTPS oder SMTP via XML- oder Web-Service-Schnittstelle direkt aus der externen Anwendung über ein Service-Gateway-System.
+Der Zugriff durch die internen Anwender (über Clients) bzw. externen Anwender (über Clients oder xref:glossary::terms-definitions.adoc#externes-system[externe Systeme]) erfolgt über das interne LAN bzw. das WAN.
+Die Kommunikation erfolgt per Secure HTTP (HTTPS) mit einem Browser oder ebenfalls per HTTPS oder SMTP via XML- oder Web-Service-Schnittstelle direkt aus dem externen System über ein Service-Gateway-System.
 Innerhalb der Produktionsumgebung sollten die IT-Systeme ebenfalls verschlüsselt miteinander kommunizieren.
 
 Interne Drittsysteme, die aus dem internen LAN mit der IsyFact-Systemlandschaft kommunizieren, tun dies genau wie externe Anwendungen per HTTPS oder SMTP via XML- oder Web-Service-Schnittstellen über ein Service-Gateway-System.
