@@ -1,6 +1,7 @@
 # 5.0.0
 ## FEATURES
 - `IFS-4546`: [isyfact-standards-doc] Verweis auf JAXP entfernt, Negativliste bereinigt und links entfernt
+- `IFS-4208`: [isyfact-standards-doc] Verwendungen der Begriffe "Nachbarsystem" und "Externes System" korrigiert
 
 # 4.x
 ## FEATURES
@@ -10,7 +11,6 @@
 
 # 4.0.0
 ## FEATURES
-- `IFS-4208`: [isyfact-standards-doc] Verwendungen der Begriffe "Nachbarsystem" und "Externes System" korrigiert
 - `IFS-1825`: [isyfact-standards-doc] Versionierung mit Liquibase erweitert
 - `IFS-1802`: [isyfact-standards-doc] Mapping Vorgaben zu bidirektionalen Assoziationen aktualisiert
 - `IFS-4508`: [isyfact-standards-doc] Verweis auf Angular-Demo (Referenzimplementierung) prominent platziert
