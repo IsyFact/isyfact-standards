@@ -82,6 +82,7 @@ public interface Authentifizierungsmanager {
      *         if authentication fails
      * @see #authentifiziereClient(String, String, String, String)
      */
+    @Deprecated
     void authentifiziereClient(String issuerLocation, String clientId, String clientSecret) throws AuthenticationException;
 
     /**
@@ -104,6 +105,7 @@ public interface Authentifizierungsmanager {
      *         if authentication fails
      * @see #authentifiziereClient(String, String, String)
      */
+    @Deprecated
     void authentifiziereClient(String issuerLocation, String clientId, String clientSecret, @Nullable String bhknz)
             throws AuthenticationException;
 
@@ -129,6 +131,7 @@ public interface Authentifizierungsmanager {
      *         if authentication fails
      * @see #authentifiziereSystem(String, String, String, String, String, String)
      */
+    @Deprecated
     void authentifiziereSystem(String issuerLocation, String clientId, String clientSecret, String username, String password)
             throws AuthenticationException;
 
@@ -156,6 +159,7 @@ public interface Authentifizierungsmanager {
      *         if authentication fails
      * @see #authentifiziereSystem(String, String, String, String, String)
      */
+    @Deprecated
     void authentifiziereSystem(String issuerLocation, String clientId, String clientSecret, String username, String password, @Nullable String bhknz)
             throws AuthenticationException;
 
