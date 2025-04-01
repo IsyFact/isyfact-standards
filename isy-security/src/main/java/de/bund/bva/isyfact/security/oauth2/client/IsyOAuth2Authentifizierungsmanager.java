@@ -15,6 +15,7 @@ import org.springframework.security.oauth2.client.registration.ClientRegistratio
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.util.Assert;
 
+import de.bund.bva.isyfact.security.config.AdditionalCredentials;
 import de.bund.bva.isyfact.security.config.IsyOAuth2ClientConfigurationProperties;
 import de.bund.bva.isyfact.security.config.IsyOAuth2ClientConfigurationProperties.AdditionalRegistrationProperties;
 import de.bund.bva.isyfact.security.oauth2.client.authentication.token.ClientCredentialsClientRegistrationAuthenticationToken;
@@ -30,9 +31,14 @@ import de.bund.bva.isyfact.security.oauth2.util.IsySecurityTokenUtil;
  * <p>
  * The primary way for authentication is {@link #authentifiziere(String)}, which depends on OAuth 2.0 Client Registrations
  * to be configured in the application properties.
- * The other {@code authentifiziereClient}/{@code authentifiziereSystem} methods construct the necessary
+ * The other {@link #authentifiziere(ClientRegistration) method takes a Client Registration
+ * with the provided credentials and thus do not depend on any Registration to be configured in the application properties.
+ * Both {@link #authentifiziere(String, AdditionalCredentials) and
+ * {@link #authentifiziere(ClientRegistration, AdditionalCredentials) offer the option of passing
+ * authentication credentials like username, password and bhknz.
+ * The methods {@code authentifiziereClient}/{@code authentifiziereSystem} construct the necessary
  * Client Registration with the provided credentials and issuer location and thus do not depend on any to be
- * configured in the application properties.
+ * configured in the application properties. Note that these are marked {@link Deprecated}.
  */
 public class IsyOAuth2Authentifizierungsmanager implements Authentifizierungsmanager {
 
@@ -70,10 +76,28 @@ public class IsyOAuth2Authentifizierungsmanager implements Authentifizierungsman
     }
 
     @Override
+    public void authentifiziere(String oauth2ClientRegistrationId, AdditionalCredentials credentials) throws AuthenticationException {
+        Authentication unauthenticatedToken = getAuthTokenForRegistrationIdAndAdditionalCredentials(oauth2ClientRegistrationId, credentials);
+        authenticateAndChangeAuthenticatedPrincipal(unauthenticatedToken);
+    }
+
+    @Override
     public void authentifiziere(String oauth2ClientRegistrationId, Duration expirationTimeOffset) throws AuthenticationException {
         if (!IsySecurityTokenUtil.hasOAuth2Token() || IsySecurityTokenUtil.hasTokenExpired(expirationTimeOffset)) {
             authentifiziere(oauth2ClientRegistrationId);
         }
+    }
+
+    @Override
+    public void authentifiziere(ClientRegistration clientRegistration) throws AuthenticationException {
+        Authentication unauthenticatedToken = getAuthTokenForClientRegistration(clientRegistration);
+        authenticateAndChangeAuthenticatedPrincipal(unauthenticatedToken);
+    }
+
+    @Override
+    public void authentifiziere(ClientRegistration clientRegistration, AdditionalCredentials credentials) throws AuthenticationException {
+        Authentication unauthenticatedToken = getAuthTokenForClientRegistrationAndAdditionalCredentials(clientRegistration, credentials);
+        authenticateAndChangeAuthenticatedPrincipal(unauthenticatedToken);
     }
 
     @Override
@@ -164,6 +188,98 @@ public class IsyOAuth2Authentifizierungsmanager implements Authentifizierungsman
         } else {
             throw new IllegalArgumentException("The AuthorizationGrantType '" + grantType.getValue() + "' is not supported.");
         }
+    }
+
+    /**
+     * Creates an appropriate authentication token for the authorization grant type configured for the registration ID
+     * and additional credentials.
+     *
+     * @param oauth2ClientRegistrationId registration ID to create the token for
+     * @param credentials credentials used to create the token
+     * @return an unauthenticated token that can be passed to the provider manager
+     */
+    private Authentication getAuthTokenForRegistrationIdAndAdditionalCredentials(String oauth2ClientRegistrationId, AdditionalCredentials credentials) {
+        Assert.notNull(oauth2ClientRegistrationId, "Parameter oauth2ClientRegistrationId cannot be null");
+        Assert.notNull(credentials, "Parameter credentials cannot be null");
+
+        ClientRegistration clientRegistration = null;
+        if (clientRegistrationRepository != null) {
+            clientRegistration = clientRegistrationRepository.findByRegistrationId(oauth2ClientRegistrationId);
+        }
+        Assert.notNull(clientRegistration, "Could not find ClientRegistration with id '" + oauth2ClientRegistrationId + "'");
+
+        AuthorizationGrantType grantType = clientRegistration.getAuthorizationGrantType();
+
+        if (AuthorizationGrantType.CLIENT_CREDENTIALS.equals(grantType)) {
+            if (credentials.hasUsernamePassword()) {
+                throw new IllegalArgumentException("The AuthorizationGrantType '" + grantType.getValue() + "' incorrectly contains credentials.");
+            } else {
+                return new ClientCredentialsRegistrationIdAuthenticationToken(oauth2ClientRegistrationId, credentials.getBhknz());
+            }
+        } else if (AuthorizationGrantType.PASSWORD.equals(grantType)) {
+            if (!credentials.hasUsernamePassword()) {
+                throw new BadCredentialsException(
+                        String.format("No configured credentials (username, password) found for client with registrationId: %s.",
+                                clientRegistration.getRegistrationId()));
+            } else {
+                return new PasswordClientRegistrationAuthenticationToken(clientRegistration,
+                        credentials.getUsername(), credentials.getPassword(), credentials.getBhknz());
+            }
+        } else {
+            throw new IllegalArgumentException("The AuthorizationGrantType '" + grantType.getValue() + "' is not supported.");
+        }
+    }
+
+    /**
+     * Creates an appropriate authentication token for the authorization grant type configured for the passed
+     * client registration.
+     *
+     * @param clientRegistration registration used to create the authentication object
+     * @return an unauthenticated token that can be passed to the provider manager
+     */
+    private Authentication getAuthTokenForClientRegistration(ClientRegistration clientRegistration) {
+        Assert.notNull(clientRegistration, "Parameter clientRegistration cannot be null");
+
+        AuthorizationGrantType grantType = clientRegistration.getAuthorizationGrantType();
+        if (AuthorizationGrantType.CLIENT_CREDENTIALS.equals(grantType)) {
+            return new ClientCredentialsClientRegistrationAuthenticationToken(clientRegistration, null);
+        } else {
+            throw new IllegalArgumentException("The AuthorizationGrantType '" + grantType.getValue() +
+                    "' requires additional credentials.");
+        }
+    }
+
+    /**
+     * Creates an appropriate authentication token for the authorization grant type configured for the passed
+     *  client registration and additional credentials.
+     *
+     * @param clientRegistration registration used to create the authentication object
+     * @param credentials credentials used to create the token
+     * @return an unauthenticated token that can be passed to the provider manager.
+     */
+    private Authentication getAuthTokenForClientRegistrationAndAdditionalCredentials(
+            ClientRegistration clientRegistration,
+            AdditionalCredentials credentials) {
+        Assert.notNull(clientRegistration, "Parameter clientRegistration cannot be null");
+        Assert.notNull(credentials, "Parameter credentials cannot be null");
+
+        Authentication unauthenticatedToken;
+        AuthorizationGrantType grantType = clientRegistration.getAuthorizationGrantType();
+
+        if (AuthorizationGrantType.CLIENT_CREDENTIALS.equals(grantType)) {
+            unauthenticatedToken = new ClientCredentialsClientRegistrationAuthenticationToken(clientRegistration, credentials.getBhknz());
+        } else if (AuthorizationGrantType.PASSWORD.equals(grantType)) {
+            if (credentials.hasUsernamePassword()) {
+                unauthenticatedToken = new PasswordClientRegistrationAuthenticationToken(clientRegistration,
+                        credentials.getUsername(), credentials.getPassword(), credentials.getBhknz());
+            } else {
+                throw new BadCredentialsException(
+                        "No credentials (username, password) provided for client with password grant type.");
+            }
+        } else {
+            throw new IllegalArgumentException("The AuthorizationGrantType '" + grantType.getValue() + "' is not supported.");
+        }
+        return unauthenticatedToken;
     }
 
     /**
