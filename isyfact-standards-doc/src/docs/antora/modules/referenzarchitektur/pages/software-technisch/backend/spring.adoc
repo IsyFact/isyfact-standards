@@ -57,7 +57,7 @@ public class BspBackend {
 
 Ist eine feinere Kontrolle gewünscht, so können mit `exclude`-Attributen Komponenten von der automatischen Konfiguration https://docs.spring.io/spring-boot/reference/using/auto-configuration.html#using.auto-configuration.disabling-specific[ausgeschlossen] werden.
 
-Für ein Deployment in einem Servlet-Container muss die Applikationsklasse wie im <<listing-applikationsklasse-servlet,folgenden Listing>> aussehen.
+Für ein Deployment in einem Servlet-Container muss die Applikationsklasse dem <<listing-applikationsklasse-servlet,folgenden Listing>> entsprechen.
 
 [[listing-applikationsklasse-servlet]]
 .Applikationsklasse eines Backends (Servlet-Container)
