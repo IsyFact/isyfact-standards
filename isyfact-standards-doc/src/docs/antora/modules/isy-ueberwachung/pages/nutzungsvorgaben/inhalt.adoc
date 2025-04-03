@@ -90,7 +90,7 @@ Alle `ServiceStatistik` implementierenden Beans werden automatisch der Micromete
 Da die gesammelten Informationen für alle Services identisch sind, bringt `isy-ueberwachung` eine Klasse `DefaultServiceStatistik`
 mit, die diese transparent erfasst.
 
-Um die Informationen für mehrere Services in einer Anwendung anzubieten, wird die Klasse mehrfach als Spring-Bean konfiguriert.
+Um die Informationen für mehrere Services in einer Anwendung anzubieten, wird die Klasse mehrfach als Spring Bean konfiguriert.
 Die Aktualisierung der Daten in `DefaultServiceStatistik` wird in der Service-Fassade der jeweiligen Komponente durchgeführt.
 Dazu wird per Spring ein AOP-Advice für die Service-Methoden der Komponente definiert.
 Die Konfiguration für eine `DefaultServiceStatistik`-Bean und den dazugehörigen AOP-Advice ist beispielhaft in <<listing-ServiceStatistikConfig>> dargestellt.
@@ -419,7 +419,7 @@ nur eine Default-Konfiguration für einen `HealthIndicator`.
 ==== Implementierung weiterer eigener Health-Indikatoren
 
 Es können weitere Indikatoren zur Überprüfung anderer Komponenten implementiert werden.
-Um einen eigenen `HealthIndicator` zu implementieren, wird eine Spring-Bean registriert, die das Interface `HealthIndicator` implementiert.
+Um einen eigenen `HealthIndicator` zu implementieren, wird eine Spring Bean registriert, die das Interface `HealthIndicator` implementiert.
 Dort wird die Methode `health()` implementiert, die eine Objekt vom Typ `Health` zurückgibt.
 Diese enthält den Status der überprüften Komponente und kann optional weitere Details zur Anzeige enthalten.
 `HealthIndicator` werden automatisch von Spring Boot erkannt und im `health` Endpoint bereitgestellt.

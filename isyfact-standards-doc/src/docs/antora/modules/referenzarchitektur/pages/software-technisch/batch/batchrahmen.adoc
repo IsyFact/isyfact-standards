@@ -15,7 +15,7 @@ m|isy-batchrahmen
 
 Der Batchrahmen ist das Framework, in welches sich die Batchlogik eines konkreten Batches einfügt.
 Der Batchrahmen ruft die Batchlogik (anhand einer Konfiguration) auf.
-Da ein Batch über Spring verwaltet wird, wird die Batchlogik als Spring-Bean konfiguriert, als sogenannte _Ausführungsbean_.
+Da ein Batch über Spring verwaltet wird, wird die Batchlogik als Spring Bean konfiguriert, als sogenannte _Ausführungsbean_.
 Diese Bean wiederum ruft die Fachkomponenten des Anwendungskerns auf, welche die Geschäftslogik enthalten.
 
 [[grobe-architektur-des-batchrahmens]]
