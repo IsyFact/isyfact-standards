@@ -6,6 +6,7 @@
 - `IFS-4570`: [isyfact-standards-doc] Alte Einträge aus Negativliste entfernt
 - `IFS-4549`: [isyfact-standards-doc] Verwaltung von Versionen zentralisiert
 - `IFS-1825`: [isyfact-standards-doc] Versionierung mit Liquibase erweitert
+- `IFS-4584`: [isyfact-standards-doc] Entfernung von `isy-asciidoctorj-extensions`
 
 # 4.0.0
 ## FEATURES
