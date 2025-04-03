@@ -185,11 +185,11 @@ a| Interfaces zur Definition der Schnittstelle der Komponente "Auskunft". +
 Zu beachten ist, dass über die Schnittstelle keine Entitäten der Komponente herausgegeben werden.
 Es darf immer nur eine Nur-Lese-Sicht (nicht-persistente Schnittstellen-Objekte) herausgegeben werden. +
 Die Umwandlung der internen (`RegisterEintrag`) auf die externe Sicht erfolgt per Bean-Mapper.
-|*AuskunftImpl* |Implementierung der Komponente `Auskunft`. Diese Klasse wird als Spring-Bean konfiguriert.
-Weitere benötigte Komponenten (Spring-Beans) werden dieser Komponente per Spring-Dependency-Injection bekannt gemacht.
+|*AuskunftImpl* |Implementierung der Komponente `Auskunft`. Diese Klasse wird als Spring Bean konfiguriert.
+Weitere benötigte Komponenten (Spring Beans) werden dieser Komponente per Spring-Dependency-Injection bekannt gemacht.
 Alle weiteren Klassen der Komponente, z.B. AWF-Klassen werden in der `AuskunftImpl` "normal" instanziiert, und die benötigten Referenzen übergeben.
 |*AwfLeseGesamtBestand* |Beispielklasse zur Implementierung eines Anwendungsfalls.
-Diese Klassen werden explizit instanziiert, also nicht als Spring-Bean konfiguriert.
+Diese Klassen werden explizit instanziiert, also nicht als Spring Bean konfiguriert.
 Falls ein Anwendungsfall weitere Komponenten (Konfiguration, Regelwerk) etc. benötigt, werden diese durch die instanziierende Impl-Klasse übergeben.
 |*RegisterEintrag* |Persistente Entität für Register-Einträge.
 |*RegisterEintragDaten* |Nur-Lese-Sicht auf Register-Einträge (siehe Kapitel <<implementierung-von-schnittstellen-klassen>>).
@@ -302,7 +302,7 @@ Auch Parameter, die nur für den Batch benötigt werden, werden in die betriebli
 [[spring-konfiguration-anlegen]]
 ==== Spring-Konfiguration anlegen
 
-Für den Batchrahmen werden in der Konfigurationsklasse der Batch-Schicht die Spring-Beans des Batchrahmens und für jeden existierenden Batch die Ausführungs-Bean als Spring-Bean definiert.
+Für den Batchrahmen werden in der Konfigurationsklasse der Batch-Schicht die Spring Beans des Batchrahmens und für jeden existierenden Batch die Ausführungs-Bean als Spring Bean definiert.
 
 Zusätzlich müssen folgende Beans erstellt werden:
 

@@ -567,7 +567,7 @@ Ereignisschlüssel LoggingMethodInvoker (Nachbarsystemaufruf)
 ===== LogApplicationListener
 
 Die Hilfsklasse `LogApplicationListener` dient dem Loggen von Änderungen des Systemzustands.
-Sie muss gemäß <<logapplicationlistener-1>> als Spring-Bean konfiguriert, aber danach nicht mehr explizit aufgerufen werden.
+Sie muss gemäß <<logapplicationlistener-1>> als Spring Bean konfiguriert, aber danach nicht mehr explizit aufgerufen werden.
 Die Klasse erstellt die Logeinträge mit folgenden Ereignisschlüsseln (Details zu den Inhalten der jeweiligen Logeinträge finden sich in <<ereignisschluessel-isy-logging>>):
 
 .Ereignisschlüssel LogApplicationListener

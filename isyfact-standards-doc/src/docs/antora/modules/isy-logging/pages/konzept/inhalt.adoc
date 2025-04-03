@@ -360,7 +360,7 @@ Diese sind in <<image-hilfklas>> dargestellt.
 
 Die Klasse `LogInterceptor` dient dabei als Hilfsklasse, um verschiedene Informationen zu Methodenaufrufen zu loggen und wird per Spring-AOP konfiguriert.
 
-Die Klasse `LogApplicationListener` dient dem Loggen von wichtigen Systemereignissen und wird als Spring-Bean konfiguriert.
+Die Klasse `LogApplicationListener` dient dem Loggen von wichtigen Systemereignissen und wird als Spring Bean konfiguriert.
 
 Die Informationen zur Konfiguration und Verwendung der beiden Klassen sind in dem Dokument xref:nutzungsvorgaben/master.adoc#einleitung[Logging - Nutzungsvorgaben] beschrieben und werden an dieser Stelle nicht wiederholt.
 
