@@ -57,6 +57,27 @@ public class BspBackend {
 
 Ist eine feinere Kontrolle gewünscht, so können mit `exclude`-Attributen Komponenten von der automatischen Konfiguration https://docs.spring.io/spring-boot/reference/using/auto-configuration.html#using.auto-configuration.disabling-specific[ausgeschlossen] werden.
 
+Für ein Deployment in einem Servlet-Container muss die Applikationsklasse wie im <<listing-applikationsklasse-servlet,folgenden Listing>> aussehen.
+
+[[listing-applikationsklasse-servlet]]
+.Applikationsklasse eines Backends (Servlet-Container)
+[source, java]
+----
+package de.organisation.bsp.backend;
+
+@SpringBootApplication
+public class BspBackend extends SpringBootServletInitializer {
+
+	@Override
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+		return application.sources(BspBackend.class);
+	}
+
+}
+----
+
+NOTE: Sind mehrere Optionen zum Deployment gewünscht, können die Ansätze https://docs.spring.io/spring-boot/how-to/deployment/traditional-deployment.html#howto.traditional-deployment.convert-existing-application[kombiniert] werden.
+
 === Konfiguration von Schichten
 
 Für jede xref:software-technisch/backend.adoc#systemarchitektur-backend[Schicht] wird im Package der Schicht (`<org>.<domäne>.<anwendung>.<it-system>.<schicht>`) parallel zu den Interfaces der Komponentenschnittstellen eine mit `@Configuration` annotierte <<listing-konfigurationsklasse,Konfigurationsklasse>> erstellt.
