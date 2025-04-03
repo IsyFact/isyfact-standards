@@ -20,10 +20,12 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.TestingAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.client.registration.ClientRegistration;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
@@ -32,6 +34,7 @@ import org.springframework.test.context.ActiveProfiles;
 import de.bund.bva.isyfact.security.AbstractOidcProviderTest;
 import de.bund.bva.isyfact.security.autoconfigure.IsyOAuth2ClientAutoConfiguration;
 import de.bund.bva.isyfact.security.autoconfigure.IsySecurityAutoConfigurationTest;
+import de.bund.bva.isyfact.security.config.AdditionalCredentials;
 import de.bund.bva.isyfact.security.oauth2.client.authentication.ClientCredentialsAuthorizedClientAuthenticationProvider;
 import de.bund.bva.isyfact.security.oauth2.client.authentication.ClientCredentialsClientRegistrationAuthenticationProvider;
 import de.bund.bva.isyfact.security.oauth2.client.authentication.PasswordClientRegistrationAuthenticationProvider;
@@ -101,6 +104,258 @@ public class AuthentifizierungsmanagerTest extends AbstractOidcProviderTest {
         assertEquals("cc-client", tokenCaptor.getValue().getRegistrationId());
 
         assertEquals(mockJwt, SecurityContextHolder.getContext().getAuthentication());
+    }
+
+    @Test
+    public void testAuthWithRegistrationIdAndBhknz() {
+        AdditionalCredentials credentials = AdditionalCredentials.withBhknz("900600");
+
+        authentifizierungsmanager.authentifiziere("cc-client", credentials);
+
+        ArgumentCaptor<ClientCredentialsRegistrationIdAuthenticationToken> tokenCaptor =
+                ArgumentCaptor.forClass(ClientCredentialsRegistrationIdAuthenticationToken.class);
+        verify(clientCredentialsAuthorizedClientAuthenticationProvider).authenticate(tokenCaptor.capture());
+
+        assertEquals("cc-client", tokenCaptor.getValue().getRegistrationId());
+        assertEquals("900600", tokenCaptor.getValue().getBhknz());
+        assertEquals(mockJwt, SecurityContextHolder.getContext().getAuthentication());
+    }
+
+    @Test
+    public void testAuthWithRegistrationIdAndUsernamePassword() {
+        AdditionalCredentials credentials = AdditionalCredentials.withUsernamePassword("newUser", "newPassword");
+
+        authentifizierungsmanager.authentifiziere("ropc-client", credentials);
+
+        ArgumentCaptor<PasswordClientRegistrationAuthenticationToken> tokenCaptor =
+                ArgumentCaptor.forClass(PasswordClientRegistrationAuthenticationToken.class);
+        verify(passwordClientRegistrationAuthenticationProvider).authenticate(tokenCaptor.capture());
+
+        PasswordClientRegistrationAuthenticationToken value = tokenCaptor.getValue();
+        assertEquals("ropc-client", value.getClientRegistration().getRegistrationId());
+        assertEquals(AuthorizationGrantType.PASSWORD, value.getClientRegistration().getAuthorizationGrantType());
+        assertEquals("resource-owner-password-credentials-test-client", value.getClientRegistration().getClientId());
+        assertEquals("hypersecretpassword", value.getClientRegistration().getClientSecret());
+
+        assertEquals("newUser", value.getUsername());
+        assertEquals("newPassword", value.getPassword());
+        assertNull(value.getBhknz());
+        assertEquals(mockJwt, SecurityContextHolder.getContext().getAuthentication());
+    }
+
+    @Test
+    public void testAuthWithRegistrationIdAndNullCredentials() {
+        assertThrows(IllegalArgumentException.class,
+                () -> authentifizierungsmanager.authentifiziere("cc-client", (AdditionalCredentials) null));
+    }
+
+    @Test
+    public void testAuthWithUnknownRegistrationIdAndCredentials() {
+        AdditionalCredentials credentials = AdditionalCredentials.withBhknz("900600");
+
+        assertThrows(IllegalArgumentException.class,
+                () -> authentifizierungsmanager.authentifiziere("unknown-clientId", credentials));
+    }
+
+    @Test
+    public void testAuthWithRegistrationIdAndUsernamePasswordBhknz() {
+        //override credentials
+        AdditionalCredentials credentials = AdditionalCredentials.withUsernamePasswordBhknz(
+                "newUser", "newPassword", "900600");
+
+        authentifizierungsmanager.authentifiziere("ropc-client", credentials);
+
+        ArgumentCaptor<PasswordClientRegistrationAuthenticationToken> tokenCaptor =
+                ArgumentCaptor.forClass(PasswordClientRegistrationAuthenticationToken.class);
+        verify(passwordClientRegistrationAuthenticationProvider).authenticate(tokenCaptor.capture());
+
+        PasswordClientRegistrationAuthenticationToken value = tokenCaptor.getValue();
+        assertEquals("ropc-client", value.getClientRegistration().getRegistrationId());
+        assertEquals(AuthorizationGrantType.PASSWORD, value.getClientRegistration().getAuthorizationGrantType());
+
+        assertEquals("newUser", value.getUsername());
+        assertEquals("newPassword", value.getPassword());
+        assertEquals("900600", value.getBhknz());
+        assertEquals(mockJwt, SecurityContextHolder.getContext().getAuthentication());
+    }
+
+    @Test
+    public void testAuthWithDirectClientRegistrationCC() {
+        ClientRegistration clientRegistration = ClientRegistration.withRegistrationId("dummy-unused")
+                .tokenUri("http://localhost:9095/auth/realms/testrealm")
+                .clientId("client-credentials-test-client")
+                .clientSecret("supersecretpassword")
+                .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
+                .build();
+
+        authentifizierungsmanager.authentifiziere(clientRegistration);
+
+        ArgumentCaptor<ClientCredentialsClientRegistrationAuthenticationToken> tokenCaptor =
+                ArgumentCaptor.forClass(ClientCredentialsClientRegistrationAuthenticationToken.class);
+        verify(clientCredentialsClientRegistrationAuthenticationProvider).authenticate(tokenCaptor.capture());
+        assertEquals("dummy-unused", tokenCaptor.getValue().getClientRegistration().getRegistrationId());
+
+        assertEquals(mockJwt, SecurityContextHolder.getContext().getAuthentication());
+    }
+
+    @Test
+    public void testAuthWithNullClientRegistration() {
+        assertThrows(IllegalArgumentException.class,
+                () -> authentifizierungsmanager.authentifiziere((ClientRegistration) null));
+    }
+
+    @Test
+    public void testAuthWithDirectClientRegistrationCCAndAdditionalCredentials() {
+        ClientRegistration clientRegistration = ClientRegistration.withRegistrationId("custom-cc-client")
+                .tokenUri("http://localhost:9095/auth/realms/testrealm/protocol/openid-connect/token")
+                .jwkSetUri("http://localhost:9095/auth/realms/testrealm/protocol/openid-connect/certs")
+                .clientId("client-credentials-test-client")
+                .clientSecret("supersecretpassword")
+                .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
+                .build();
+
+        AdditionalCredentials additionalCredentials = AdditionalCredentials.withBhknz("900600");
+
+        authentifizierungsmanager.authentifiziere(clientRegistration, additionalCredentials);
+
+        ArgumentCaptor<ClientCredentialsClientRegistrationAuthenticationToken> tokenCaptor =
+                ArgumentCaptor.forClass(ClientCredentialsClientRegistrationAuthenticationToken.class);
+        verify(clientCredentialsClientRegistrationAuthenticationProvider).authenticate(tokenCaptor.capture());
+
+        ClientCredentialsClientRegistrationAuthenticationToken value = tokenCaptor.getValue();
+        assertEquals("custom-cc-client", value.getClientRegistration().getRegistrationId());
+        assertEquals("client-credentials-test-client", value.getClientRegistration().getClientId());
+        assertEquals("supersecretpassword", value.getClientRegistration().getClientSecret());
+        assertEquals("900600", value.getBhknz());
+
+        assertEquals(mockJwt, SecurityContextHolder.getContext().getAuthentication());
+    }
+
+    @Test
+    public void testAuthWithDirectClientRegistrationROPCAndCredentials() {
+        ClientRegistration clientRegistration = ClientRegistration.withRegistrationId("custom-ropc-client")
+                .tokenUri("http://localhost:9095/auth/realms/testrealm/protocol/openid-connect/token")
+                .jwkSetUri("http://localhost:9095/auth/realms/testrealm/protocol/openid-connect/certs")
+                .clientId("resource-owner-password-credentials-test-client")
+                .clientSecret("hypersecretpassword")
+                .authorizationGrantType(AuthorizationGrantType.PASSWORD)
+                .build();
+
+        AdditionalCredentials additionalCredentials = AdditionalCredentials.withUsernamePassword("newUser", "newUser");
+
+        authentifizierungsmanager.authentifiziere(clientRegistration, additionalCredentials);
+
+        ArgumentCaptor<PasswordClientRegistrationAuthenticationToken> tokenCaptor =
+                ArgumentCaptor.forClass(PasswordClientRegistrationAuthenticationToken.class);
+        verify(passwordClientRegistrationAuthenticationProvider).authenticate(tokenCaptor.capture());
+
+        PasswordClientRegistrationAuthenticationToken value = tokenCaptor.getValue();
+        assertEquals("custom-ropc-client", value.getClientRegistration().getRegistrationId());
+        assertEquals("resource-owner-password-credentials-test-client", value.getClientRegistration().getClientId());
+        assertEquals("hypersecretpassword", value.getClientRegistration().getClientSecret());
+        assertEquals("newUser", value.getUsername());
+        assertEquals("newUser", value.getPassword());
+        assertNull(value.getBhknz());
+
+        assertEquals(mockJwt, SecurityContextHolder.getContext().getAuthentication());
+    }
+
+    @Test
+    public void testAuthWithDirectClientRegistrationROPCAndUsernamePasswordBhknz() {
+        ClientRegistration clientRegistration = ClientRegistration.withRegistrationId("custom-ropc-client")
+                .tokenUri("http://localhost:9095/auth/realms/testrealm/protocol/openid-connect/token")
+                .jwkSetUri("http://localhost:9095/auth/realms/testrealm/protocol/openid-connect/certs")
+                .clientId("resource-owner-password-credentials-test-client")
+                .clientSecret("hypersecretpassword")
+                .authorizationGrantType(AuthorizationGrantType.PASSWORD)
+                .build();
+
+        AdditionalCredentials additionalCredentials = AdditionalCredentials.withUsernamePasswordBhknz(
+                "newUser", "newPassword", "900600");
+
+        authentifizierungsmanager.authentifiziere(clientRegistration, additionalCredentials);
+
+        ArgumentCaptor<PasswordClientRegistrationAuthenticationToken> tokenCaptor =
+                ArgumentCaptor.forClass(PasswordClientRegistrationAuthenticationToken.class);
+        verify(passwordClientRegistrationAuthenticationProvider).authenticate(tokenCaptor.capture());
+
+        PasswordClientRegistrationAuthenticationToken value = tokenCaptor.getValue();
+        assertEquals("custom-ropc-client", value.getClientRegistration().getRegistrationId());
+        assertEquals("resource-owner-password-credentials-test-client", value.getClientRegistration().getClientId());
+        assertEquals("hypersecretpassword", value.getClientRegistration().getClientSecret());
+        assertEquals("newUser", value.getUsername());
+        assertEquals("newPassword", value.getPassword());
+        assertEquals("900600", value.getBhknz());
+
+        assertEquals(mockJwt, SecurityContextHolder.getContext().getAuthentication());
+    }
+
+    @Test
+    public void testAuthWithDirectClientRegistrationFailsForWrongGrantType() {
+        ClientRegistration clientRegistration = ClientRegistration.withRegistrationId("failing-ropc-client")
+                .tokenUri("http://localhost:9095/auth/realms/testrealm/protocol/openid-connect/token")
+                .jwkSetUri("http://localhost:9095/auth/realms/testrealm/protocol/openid-connect/certs")
+                .clientId("resource-owner-password-credentials-test-client")
+                .clientSecret("hypersecretpassword")
+                .authorizationGrantType(AuthorizationGrantType.PASSWORD)
+                .build();
+
+            assertThrows(IllegalArgumentException.class,
+                    () -> authentifizierungsmanager.authentifiziere(clientRegistration));
+    }
+
+    @Test
+    public void testAuthWithDirectClientRegistrationROPCFailsForPartlyMissingCredentials() {
+        ClientRegistration clientRegistration = ClientRegistration.withRegistrationId("failing-ropc-client")
+                .tokenUri("http://localhost:9095/auth/realms/testrealm/protocol/openid-connect/token")
+                .jwkSetUri("http://localhost:9095/auth/realms/testrealm/protocol/openid-connect/certs")
+                .clientId("resource-owner-password-credentials-test-client")
+                .clientSecret("hypersecretpassword")
+                .authorizationGrantType(AuthorizationGrantType.PASSWORD)
+                .build();
+
+        AdditionalCredentials credentials = AdditionalCredentials.withBhknz("900600");
+
+        assertThrows(BadCredentialsException.class,
+                () -> authentifizierungsmanager.authentifiziere(clientRegistration, credentials));
+    }
+
+    @Test
+    public void testAuthWithDirectClientRegistrationFailsForUnsupportedGrantType() {
+        ClientRegistration clientRegistration = ClientRegistration.withRegistrationId("failing-client")
+                .tokenUri("http://localhost:9095/auth/realms/testrealm/protocol/openid-connect/token")
+                .jwkSetUri("http://localhost:9095/auth/realms/testrealm/protocol/openid-connect/certs")
+                .clientId("test-client")
+                .clientSecret("testsecret")
+                .authorizationGrantType(AuthorizationGrantType.DEVICE_CODE)
+                .build();
+
+        AdditionalCredentials credentials = AdditionalCredentials.withUsernamePassword("username", "password");
+
+        assertThrows(IllegalArgumentException.class,
+                () -> authentifizierungsmanager.authentifiziere(clientRegistration, credentials));
+    }
+
+    @Test
+    public void testAuthWithNullClientRegistrationAndValidCredentials() {
+        AdditionalCredentials credentials = AdditionalCredentials.withBhknz("900600");
+
+        assertThrows(IllegalArgumentException.class,
+                () -> authentifizierungsmanager.authentifiziere((String) null, credentials));
+    }
+
+    @Test
+    public void testAuthWithClientRegistrationAndNullCredentials() {
+        ClientRegistration clientRegistration = ClientRegistration.withRegistrationId("custom-cc-client")
+                .tokenUri("http://localhost:9095/auth/realms/testrealm/protocol/openid-connect/token")
+                .jwkSetUri("http://localhost:9095/auth/realms/testrealm/protocol/openid-connect/certs")
+                .clientId("client-credentials-test-client")
+                .clientSecret("supersecretpassword")
+                .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
+                .build();
+
+        assertThrows(IllegalArgumentException.class,
+                () -> authentifizierungsmanager.authentifiziere(clientRegistration, null));
     }
 
     @Test
