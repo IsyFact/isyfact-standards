@@ -4,6 +4,7 @@
 - `IFS-4543`: [isyfact-standards-doc] Begriff Nutzungsschicht entfernt
 - `IFS-4570`: [isyfact-standards-doc] Alte Einträge aus Negativliste entfernt
 - `IFS-4549`: [isyfact-standards-doc] Verwaltung von Versionen zentralisiert
+- `IFS-1825`: [isyfact-standards-doc] Versionierung mit Liquibase erweitert
 
 # 4.0.0
 ## FEATURES
