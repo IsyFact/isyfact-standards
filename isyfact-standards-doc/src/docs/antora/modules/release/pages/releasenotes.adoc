@@ -6,12 +6,6 @@ include::glossary:licence:partial$licence.adoc[]
 
 Ergänzend zu den Release Notes erläutert der xref:release:migrationsleitfaden.adoc[Migrationsleitfaden] die notwendigen Schritte zur Migration älterer Anwendungen auf das aktuelle Release.
 
-
-[[kapitel-aenderungen]]
-== Allgemeine Änderungen
-
-...
-
 [[kapitel-referenzarchitektur]]
 == Referenzarchitektur
 
@@ -107,6 +101,33 @@ Die Dokumentation zum xref:referenzarchitektur:software-technisch/batch.adoc[IT-
 Im Konzept des REST-Bausteins wurde das Kapitel xref:isyfact-standards-doku:isy-service-rest:konzept/inhalt.adoc#verwendung-http-statuscodes[Verwendung von HTTP-Statuscodes] angepasst.
 In die Tabelle wurde der HTTP-Code 202 aufgenommen und der nach der Tabelle folgende Hinweis über die Verwendung von HTTP-Statuscodes wurde in die Beschreibung vor die Tabelle verschoben.
 
+=== JPA / Hibernate
+
+Der Baustein bietet ein erweitertes xref:isy-persistence:konzept/versionierung-mit-liquibase.adoc[Konzept] sowie xref:isy-persistence:nutzungsvorgaben/versionierung-mit-liquibase.adoc[Nutzungsvorgaben] zur Schema-Versionierung mit Liquibase.
+Diese soll die Eigenimplementierung der IsyFact ablösen.
+
+=== Verschobene Bausteine
+Folgende Bausteine wurden in eigenständige Repositories umgezogen:
+
+[cols="1,1",options="header"]
+|===
+|Altes Repository
+|Neues Repository
+
+|https://github.com/IsyFact/isyfact-standards/tree/release/3.x/isy-datetime[icon:github[] isyfact-standards (Modul isy-datetime)]
+|https://github.com/IsyFact/isy-datetime[icon:github[] isy-datetime]
+
+|https://github.com/IsyFact/isyfact-standards/tree/release/3.x/isy-sonderzeichen[icon:github[] isyfact-standards (Modul isy-sonderzeichen)]
+|https://github.com/IsyFact/isy-sonderzeichen/[icon:github[] isy-sonderzeichen]
+
+|===
+
+* Beide Bausteine lassen sich weiterhin über die `isyfact-standards-bom` einbinden und auch die Group- und Artifact-IDs bleiben dieselben.
+* Die Version wird allerdings in zukünftigen Releases nicht mehr mit der Version der `isyfact-standards` synchron gehalten und entwickelt sich entkoppelt davon fort.
+* Die Bausteine besitzen keinerlei Abhängigkeiten auf die restliche IsyFact mehr.
+Sie setzen allein Java 17 voraus.
+So können sie auch in Anwendungen integriert werden, die noch auf einem älteren Stand der IsyFact beruhen.
+
 === Gelöschte Bausteine
 
 Die folgenden Bausteine wurden aus der IsyFact entfernt.
@@ -122,38 +143,22 @@ Die folgende Tabelle zeigt, auf welche Bausteine bzw. Konzepte die Anwendungen m
 
 |===
 
-=== Verschobene Bausteine
-Folgende Bausteine wurden in eigenständige Repositories umgezogen:
-
-[cols="1s,2",options="header"]
-|===
-|Altes Repository|Neues Repository
-|./isyfact-standards/isy-datetime|xref:https://github.com/IsyFact/isy-datetime/[isy-datetime auf Github]
-|./isyfact-standards/isy-sonderzeichen|xref:https://github.com/IsyFact/isy-sonderzeichen/[isy-sonderzeichen auf Github]
-
-|===
-
-* Beide Bausteine lassen sich weiterhin über die isyfact-standards-bom einbinden und auch die Group- und ArtifactIDs bleiben dieselben.
-* Die Version wird allerdings in zukünftigen Releases nicht mehr mit der Version der isyfact-standards synchron gehalten und entwickelt sich entkoppelt davon fort.
-
 [[kapitel-deprecations]]
 == Deprecations
 
-...
+_keine_
 
 [[kapitel-dokumentation]]
 == Dokumentation
 
-=== Änderungen
-
-- Die Dokumentation verwendet keine Liste für externe Links mehr, sondern das https://docs.asciidoctor.org/asciidoc/latest/macros/url-macro/[URL-Makro] von AsciiDoc.
-- Das xref:glossary::terms-definitions.adoc[] und der xref:documentation-guide:ROOT:index.adoc[] werden parallel zu den Releases der IsyFact gepflegt.
+* Die Dokumentation verwendet keine Liste für externe Links mehr, sondern das https://docs.asciidoctor.org/asciidoc/latest/macros/url-macro/[URL-Makro] von AsciiDoc.
+* Das xref:glossary::terms-definitions.adoc[] und der xref:documentation-guide:ROOT:index.adoc[] werden parallel zu den Releases der IsyFact gepflegt.
 Sie besitzen keine Version und sind damit über alle Releases hinweg gültig.
 Inhalte für spezifische Releases werden ausdrücklich ausgezeichnet.
 
 === Entfernungen
 
-- Vorgaben zur Entwicklungsumgebung: Stark veraltete Inhalte und Produktvorgaben entfernt.
-- Migrationsleitfaden IsyFact 2: Große Teile werden durch das Release obsolet.
-- Redundantes Handbuch Enterprise Architect: Dopplung als Teil der Vorlage Systemspezifikation entfernt.
-- Die Vorlage zum Tailoring Dokument wurde entfernt.
+* Vorgaben zur Entwicklungsumgebung: Stark veraltete Inhalte und Produktvorgaben entfernt.
+* Migrationsleitfaden IsyFact 2: Große Teile werden durch das Release obsolet.
+* Redundantes Handbuch Enterprise Architect: Dopplung als Teil der Vorlage Systemspezifikation entfernt.
+* Die Vorlage zum Tailoring Dokument wurde entfernt.
