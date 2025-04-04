@@ -1,6 +1,7 @@
 = Formatter
 
-In der IsyFact wird ein eigener Formatter für die Entwicklung mit Java verwendet. Ebenfalls sind eigene Checkstyle-Regeln festgelegt, mit denen der Formatter konform ist.
+In der IsyFact wird ein eigener Formatter für die Entwicklung mit Java verwendet. 
+Ebenfalls sind eigene Checkstyle-Regeln festgelegt, mit denen der Formatter konform ist.
 
 Hier liegen die XML-Dateien des Formatters für IntelliJ und Eclipse:
 
