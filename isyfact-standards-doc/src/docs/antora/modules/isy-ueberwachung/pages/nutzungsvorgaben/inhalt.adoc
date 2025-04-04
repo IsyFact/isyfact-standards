@@ -75,13 +75,14 @@ Die dort aufgelisteten Informationen müssen für jeden Service einzeln angebote
 [cols=",",options="header"]
 |====
 2+m|Tags: anwendung = <Package der Anwendung>, servicestatistik = <Name des Service>
-m|AnzahlAufrufeLetzteMinute |Liefert die Anzahl der in der letzten Minute erfolgten Aufrufe des Services insgesamt.
-m|AnzahlFehlerLetzteMinute |Liefert die Anzahl der in der letzten Minute erfolgten Aufrufe des Services, bei denen ein technischer Fehler aufgetreten ist.
+m|AnzahlAufrufe |Liefert die Anzahl der erfolgten Aufrufe des Services insgesamt.
+m|AnzahlAufrufeLetzteMinute |Liefert die Anzahl der in der letzten Minute erfolgten Aufrufe des Services.
+m|AnzahlTechnicalExceptions |Liefert die gesamte Anzahl der erfolgten Aufrufe des Services, bei denen ein technischer Fehler aufgetreten ist.
+m|AnzahlTechnicalExceptionsLetzteMinute |Liefert die Anzahl der in der letzten Minute erfolgten Aufrufe des Services, bei denen ein technischer Fehler aufgetreten ist.
+m|AnzahlBusinessExceptions |Liefert die gesamte Anzahl der erfolgten Aufrufe des Services, bei denen ein fachlicher Fehler aufgetreten ist.
+m|AnzahlBusinessExceptionsLetzteMinute |Liefert die Anzahl der in der letzten Minute erfolgten Aufrufe des Services, bei denen ein fachlicher Fehler aufgetreten ist.
 m|DurchschnittsDauerLetzteAufrufe |Liefert die durchschnittliche Bearbeitungsdauer der letzten 10 Aufrufe der Services in Millisekunden (einfacher gleitender Durchschnitt).
-m|ServiceStatistic|Stellt Informationen über den Dienstnamen und die Version bereit.
 |====
-
-NOTE: Die Summe der Aufrufe wird alle 60 Sekunden aktualisiert.
 
 Das Interface `ServiceStatistik` ermöglicht es, Klassen zum Sammeln von Metriken zu erstellen.
 Alle `ServiceStatistik` implementierenden Beans werden automatisch der Micrometer-Registry hinzugefügt.
@@ -377,7 +378,7 @@ Jede Anwendung stellt einen HealthEndpoint unter `/actuator/health` bereit.
 Zur Konfiguration siehe auch <<konfiguration-von-endpoints>>.
 Dieser zeigt den Status des Systems abhängig von allen vorhandenen Health-Indikatoren (`HealthIndicator`).
 
-Der Baustein liefert einen Nachbarsystem-Indikator mit, der den HealthEndpoint aller konfigurierten Nachbarsysteme abfragt.
+Der Baustein liefert einen Nachbarsystem-Indikator mit, der den HealthEndpoint aller konfigurierten xref:glossary::terms-definitions.adoc#nachbarsystem[Nachbarsysteme] abfragt.
 
 Dieser lässt sich wie folgt konfigurieren:
 
@@ -508,8 +509,8 @@ In einem solchen Fall sind die Vorgaben im Kapitel <<konkrete-implementierung-zu
 
 [NOTE]
 ====
-_Liveness_ darf nicht durch Check externer Systeme beeinflusst werden.
-Andernfalls könnte es sein, dass einem Fehlschlagen eines externen Systems (Datenbank, Web API, externer Cache, ...) ein Neustart des Systems folgt, welcher Fehlerkaskaden über die Anwendungslandschaft auslöst.
+Der _Liveness_-Zustand darf nicht durch eine Prüfung von Nachbarsystemen bzw. weiterer technischer Systeme beeinflusst werden.
+Andernfalls könnte es sein, dass einem Fehlschlagen eines solchen Systems (Datenbank, Web API, externer Cache, ...) ein Neustart des Systems folgt, welcher Fehlerkaskaden über die Systemlandschaft auslöst.
 ====
 
 [[update-des-readiness-states]]

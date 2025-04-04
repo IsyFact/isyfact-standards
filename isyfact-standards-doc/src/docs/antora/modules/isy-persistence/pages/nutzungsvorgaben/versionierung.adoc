@@ -5,7 +5,7 @@ include::glossary:licence:partial$licence.adoc[]
 [IMPORTANT]
 ====
 Diese Seite dokumentiert die Versionierung von Datenbankschemas mittels einer Eigenentwicklung.
-Das empfohlene Vorgehen ist die xref:konzept/versionierung-mit-liquibase.adoc[].
+Das empfohlene Vorgehen ist die xref:nutzungsvorgaben/versionierung-mit-liquibase.adoc[].
 ====
 
 Die Umsetzung der Versionierung beschreibt die Struktur der Versionsmetadaten, die Ablage der Skripte in den Projekten sowie weitere Anwendungsfälle wie z.B. das Prüfen eines Schemas auf Aktualität.

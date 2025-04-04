@@ -10,7 +10,7 @@ Im Fokus steht vor allem das Performanzverhalten und mögliche Einschränkungen 
 [[performanz-antwortzeitverhalten]]
 === Performanz und Antwortzeitverhalten
 
-_Das Antwortzeitverhalten von Nachbarsystemschnittstellen ist ein wichtiger Bestandteil der Schnittstellendokumentation, da es darüber Auskunft gibt, wie lange ein externes System in der Regel auf eine Antwort wartet.
+_Das Antwortzeitverhalten von Nachbarsystemschnittstellen ist ein wichtiger Bestandteil der Schnittstellendokumentation, da es darüber Auskunft gibt, wie lange ein Nachbarsystem in der Regel auf eine Antwort wartet.
 Oft erhält man hier Angaben wie "Antwortzeit beträgt max. 10 Sekunden".
 Falls das Performanz- und Antwortverhalten je Nachbarsystemschnittstelle differenziert, sollten die Angaben je Nachbarsystemschnittstelle dokumentiert werden.
 Die Angaben können je nach Umfang in Text- oder Tabellenform erfolgen._
