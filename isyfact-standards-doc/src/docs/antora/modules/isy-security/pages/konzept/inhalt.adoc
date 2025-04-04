@@ -89,7 +89,7 @@ Im Folgenden wird die Schnittstelle des Bausteins `isy-security` beschrieben.
 
 .Schnittstelle des Bausteins Security
 [id="image-schnittstelle-security",reftext="{figure-caption} {counter:figures}"]
-image::konzept/security-schnittstellen.dn.svg[align="center"]
+image::konzept/security-schnittstellen.dn.png[align="center"]
 
 Das Interface `Security` ist der zentrale Einstiegspunkt in den Baustein `isy-security`.
 Bei seiner Instanziierung wird die anwendungsspezifische Rollen-Rechte-Datei eingelesen und damit der `Authentifizierungsmanager` sowie der `Berechtigungsmanager` erzeugt.
@@ -101,6 +101,7 @@ Der `Authentifizierungsmanager` übernimmt die programmatische Authentifizierung
 Batches und Tasks sind als Confidential Client eingestuft und verwahren ihre Authentifizierungsdaten (entweder Client-ID u. Client-Secret oder Nutzername u. Passwort) in ihrer Konfiguration (mit einer `oauth2ClientRegistrationId` als Schlüssel).
 Die Methode `authentifiziere(oauth2ClientRegistrationId)` im Authentifizierungsmanager liest diese Authentifizierungsdaten aus der betrieblichen Konfiguration und führt damit eine OAuth2.0-konforme Authentifizierung und Autorisierung der Anwendung gegenüber dem IAM-System durch.
 Dabei wird anhand des Typs der Authentifizierungsdaten der passende Authentication-Flow mit den konfigurierten Authentifizierungsdaten verwendet.
+Mit der Methode `authentifiziere(String oauth2ClientRegistrationId, AdditionalCredentials credentials)` können die zur `oauth2ClientRegistrationId` gehörenden Benutzerdaten mit den `AdditionalCredentials` überschrieben werden.
 
 xref:glossary::terms-definitions.adoc#externes-system[Externe Systeme] übermitteln ihre Authentifizierungsdaten (entweder Client-ID u. Client-Secret oder Nutzername u. Passwort) mit im Header der HTTP-Anfrage an das Service-Gateway bzw. Authentication-Gateway.
 Das Gateway führt damit eine OAuth2.0-konforme Authentifizierung und Autorisierung des Systems gegenüber dem IAM-System durch.
@@ -111,6 +112,36 @@ Hierbei ist zu beachten, dass aktuell keine Auswertung bzw. Weiterleitung des BH
 
 - Für den Credential-Typ bzw. _Credential_-Flow xref:resource-owner-password-credential-flow[] die Methode `authentifiziereSystem` mit den Parametern `issuerLocation` als URI des IAM, `clientId` und `clientSecret` des Gateways als vermittelnden _confidential client_ sowie `username`, `password` und optional das BHKNZ der externen Anwendung.
 
+- Für den Credential-Typ bzw. _Credential_-Flow xref:client-credential-flow[] sind folgende Methoden verfügbar:
+* `authentifiziere(String oauth2ClientRegistrationId)`: Nutzt die in der Anwendungskonfiguration hinterlegte Client-Registration mit der angegebenen ID. Die Client-ID und das Client-Secret werden aus der Konfiguration gelesen.
+* `authentifiziere(String oauth2ClientRegistrationId, AdditionalCredentials credentials)`: Wie oben, ermöglicht jedoch die Angabe eines BHKNZ über die AdditionalCredentials.
+* `authentifiziere(ClientRegistration clientRegistration)`: Erlaubt die direkte Verwendung eines ClientRegistration-Objekts mit Token-URI und JWKS-URI.
+* `authentifiziere(ClientRegistration clientRegistration, AdditionalCredentials credentials)`: Wie oben, ergänzt um die Möglichkeit, ein BHKNZ über die AdditionalCredentials anzugeben.
+* `authentifiziereClient-Methoden`: Sind zu verwenden mit der `issuerLocation` als URI des IAM sowie `clientId`, `clientSecret` und optional das BHKNZ des externen Systems als Parameter.
+Hierbei ist zu beachten, dass aktuell keine Auswertung bzw. Weiterleitung des BHKNZ an das IAM stattfindet.
+
+- Für den Credential-Typ bzw. _Credential_-Flow xref:resource-owner-password-credential-flow[] sind folgende Methoden verfügbar:
+* `authentifiziere(String oauth2ClientRegistrationId)`: Nutzt die in der Anwendungskonfiguration hinterlegte Client-Registration mit der angegebenen ID. Benutzername und Passwort müssen in der Konfiguration konfiguriert sein.
+* `authentifiziere(String oauth2ClientRegistrationId, AdditionalCredentials credentials)`: Ermöglicht die Verwendung dynamischer Benutzeranmeldedaten zur Laufzeit. Die AdditionalCredentials müssen Benutzername und Passwort enthalten und überschreiben ggf. in der Konfiguration hinterlegte Werte.
+* `authentifiziere(ClientRegistration clientRegistration, AdditionalCredentials credentials)`: Erlaubt die vollständig dynamische Authentifizierung mit einem selbst erstellten ClientRegistration-Objekt und Benutzerdaten. Die AdditionalCredentials müssen Benutzername und Passwort enthalten.
+* `authentifiziereSystem-Methoden`: Sind zu verwenden mit den Parametern `issuerLocation` als URI des IAM, `clientId` und `clientSecret` des Gateways als vermittelnden _confidential client_ sowie `username`, `password` und optional das BHKNZ der externen Anwendung.
+
+****
+*Anmerkung zur Deprecation*
+
+Die Methoden `authentifiziereClient` und `authentifiziereSystem` und ihre überladenen Varianten sind als deprecated markiert und sollten nicht mehr verwendet werden. In künftigen Versionen werden diese Methoden nicht mehr vorhanden sein.
+****
+
+Die Klasse `AdditionalCredentials` dient zur Kapselung zusätzlicher Authentifizierungsdaten bei der Authentifizierung mit ClientRegistration-Objekten.
+Sie ermöglicht die flexible Kombination verschiedener Credentials wie Benutzername, Passwort und BHKNZ.
+Über statische Builder-Methoden können Instanzen mit den gewünschten Kombinationen erstellt werden:
+
+- `withUsernamePassword` für Benutzername und Passwort,
+- `withUsernamePasswordBhknz` für Benutzername, Passwort und BHKNZ, sowie
+- `withBhknz` nur für das BHKNZ.
+
+Die Klasse bietet zudem Prüfmethoden wie `hasUsernamePassword` und `hasBhknz`, um die Verfügbarkeit bestimmter Credentials zu ermitteln.
+
 Der `Berechtigungsmanager` gibt Auskunft über die Rollen und Rechte des Anwenders.
 Die in der Benutzeradministration dem Anwender zugewiesenen Rollen werden mithilfe einer anwendungsspezifischen Rollen-Rechte-Datei in konkrete Rechte des Anwenders für diese Anwendung umgewandelt.
 Die aktuellen Rollen und Rechte des Anwenders können mit den Methoden des `Berechtigungsmanager` erfragt werden und es kann geprüft werden, ob der Anwender ein bestimmtes Recht hat.
@@ -119,6 +150,32 @@ Mit der Methode `hatRecht` kann die Anwendung feststellen, ob der Anwender aktue
 Mit diesen Berechtigungsabfragen kann die Geschäftsanwendung z.B. feingranular bestimmen, ob und wie der Anwender bestimmte Daten sehen oder bearbeiten kann bzw. ob und wie er bestimmte Funktionen der Anwendung benutzen kann. +
 Ein beliebiges Attribut, das im Access-Token des Security Contexts abgelegt ist, kann mit der Methode `getTokenAttribute` gelesen werden. Mit dem Namen (String) des Attributes als Parameter liefert es den Wert des Attributes (Object).
 
+.Verwendung der Authentifizierungsverfahren
+====
+*Client Credentials Flow Beispiel*
+
+- Manuelle Konfiguration der tokenUri und jwkSetUri.
+[source,java]
+----
+
+ClientRegistration clientCredentialsRegistration = ClientRegistration.withRegistrationId("client-service")
+    .tokenUri("http://iam-provider/auth/realms/testrealm/protocol/openid-connect/token")
+    .jwkSetUri("http://iam-provider/auth/realms/testrealm/protocol/openid-connect/certs")
+    .clientId("client-id")
+    .clientSecret("client-secret")
+    .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
+    .build();
+
+----
+
+*Einfache Authentifizierung mit ClientRegistration*
+[source,java]
+----
+
+authentifizierungsmanager.authentifiziere(clientCredentialsRegistration);
+
+----
+====
 
 [[aufruf-von-nachbarsystemen]]
 === Aufruf von Nachbarsystemen
@@ -301,11 +358,11 @@ aber ohne _Authentication-Gateway_ noch einmal verdeutlicht:
 image::konzept/Squenzdiagramm_ServiceGateway_ohne_AuthGateway.dn.svg[align="center"]
 
 Die Authentifizierung über das SGW (Service Gateway) stellt einen wichtigen Schritt in der Sicherung von Anwendungen dar.
-Um diesen Prozess effektiv umzusetzen, empfiehlt sich die Verwendung der Methode `authentifiziereClient` des neu entwickelten Authentifizierungsmanagers.
+Um diesen Prozess effektiv umzusetzen, empfiehlt sich die Verwendung der Methode `authentifiziere` des Authentifizierungsmanagers.
 Mit dessen Hilfe ist es möglich, den Client zu authentifizieren und sicherzustellen, dass nur autorisierte Clients Zugriff auf die Ressourcen erhalten.
 Durch die Nutzung dieses speziellen Authentifizierungsmechanismus wird eine robuste und zuverlässige Sicherheitsschicht implementiert, um unautorisierten Zugriff und potenzielle Sicherheitslücken zu verhindern.
 
-Weitere Informationen und detaillierte Anleitungen zur Verwendung der `authentifiziereClient`-Methode können in der entsprechenden Dokumentation des Authentifizierungsmanagers 
+Weitere Informationen und detaillierte Anleitungen zur Verwendung der `authentifiziere`-Methode können in der entsprechenden Dokumentation des Authentifizierungsmanagers
 oder in den xref:nutzungsvorgaben/inhalt.adoc#authentifizierungsmanager-interface[Nutzungsvorgaben] gefunden werden.
 
 
