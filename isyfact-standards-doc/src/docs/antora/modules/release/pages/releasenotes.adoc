@@ -10,102 +10,47 @@ Ergänzend zu den Release Notes erläutert der xref:release:migrationsleitfaden.
 [[kapitel-aenderungen]]
 == Allgemeine Änderungen
 
-...
+_keine_
 
 [[kapitel-referenzarchitektur]]
 == Referenzarchitektur
 
-[CAUTION]
-====
-Dieses Release enthält architektonische "Breaking Changes".
-Anwendungen, die mit den vorigen Releases der IsyFact architektonisch im Einklang sind, sind es mit IsyFact {page-component-version} nicht mehr unbedingt.
-
-Widersprüche zur Referenzarchitektur führen in der Regel zu einem (partiellen) Redesign betroffener Anwendungen.
-====
-
-Der Begriff xref:glossary::terms-definitions.adoc#glossar-referenzarchitektur[Referenzarchitektur] löst den bisherigen Begriff xref:glossary::terms-definitions.adoc#glossar-blaupause[Blaupause] ab.
-
-Die Seite "Referenzarchitektur" wurde nach Architektursichten aufgeteilt:
-
-* xref:referenzarchitektur:fachlich.adoc[],
-* xref:referenzarchitektur:software-technisch.adoc[],
-* xref:referenzarchitektur:technisch-infrastrukturell.adoc[].
-
-Die restlichen Inhalte der Referenzarchitektur wurden thematisch gegliedert und in der xref:referenzarchitektur:index.adoc[Navigation] z.T. neu angeordnet.
-
 === Fachliche Referenzarchitektur
-
-Die Begrifflichkeiten rund um Anwendungen wurden z.T. angepasst und neu definiert.
-Der Begriff xref:glossary::terms-definitions.adoc#glossar-anwendungssystem[Anwendungssystem] entfällt zugunsten der Begriffe xref:glossary::terms-definitions.adoc#glossar-anwendung[Anwendung] und xref:glossary::terms-definitions.adoc#glossar-it-system[IT-System], da mit diesem Begriff manchmal das eine und manchmal das andere gemeint war.
 
 Der Begriff xref:glossary::terms-definitions.adoc#nachbarsystem[Nachbarsystem] wurde definiert und seine Verwendung wurde in der gesamten IsyFact, wo nötig, korrigiert.
 
 === Software-technische Referenzarchitektur
 
-Die software-technische Referenzarchitektur sieht nun vor, eine xref:referenzarchitektur:software-technisch/it-system-zerlegung.adoc[Anwendung in mehrere IT-Systeme zu zerlegen].
-Eine Abbildung einer Anwendung auf nur ein IT-System ist weiterhin möglich, stellt aber einen Spezialfall dar.
-Die Beschreibung dieses "technischen Schnitts" zieht auch eine neue Definition des xref:glossary::terms-definitions.adoc#glossar-it-system[IT-Systems] nach sich.
-Neu eingeführt wurden die xref:glossary::terms-definitions.adoc#glossar-it-systemtyp[IT-Systemtypen].
-Sie stellen konkrete Ausprägungen des IT-Systems dar, besitzen eine jeweils eigene Systemarchitektur und können auf verschiedenartige Technologie-Stacks setzen.
-Aktuell gibt es drei IT-Systemtypen: xref:glossary::terms-definitions.adoc#backend[Backend], xref:glossary::terms-definitions.adoc#frontend[Frontend] sowie xref:glossary::terms-definitions.adoc#glossar-batch[Batch].
-
 Der Begriff xref:glossary::terms-definitions.adoc#externes-system["externes System"] wurde definiert und seine Verwendung in der gesamten IsyFact, wo nötig, korrigiert.
 Die Begrifflichkeiten "internes System" bzw. "interne Anwendung" wurden aus der IsyFact entfernt.
 
-==== Backends
-
-Die xref:referenzarchitektur:software-technisch/backend.adoc[] beschreibt nun Backends als primäre Anbieter von fachlichen Services.
-Zur Umsetzung von UIs sieht die Referenzarchitektur nur noch eigenständige Frontends vor.
-Ergänzend hierzu beinhaltet die IsyFact einen Baustein zur Umsetzung von Frontends mit xref:isy-angular-widgets-doc::konzept/konzept.adoc[Angular].
-
-===== Persistenzschicht
-
-Der Begriff "Datenzugriff" wurde an relevanten Stellen durch die Begriffe "Persistenz" bzw. "Persistenzschicht" ersetzt, um die Bedeutung zu schärfen.
-Der Begriff "Datenhaltung" wurde ebenfalls an relevanten Stellen durch die Begriffe "Persistenz" bzw. "Persistenzschicht" ersetzt.
-Er spielt allerdings in der xref:referenzarchitektur:technisch-infrastrukturell.adoc[technisch-infrastrukturellen Referenzarchitektur] noch eine Rolle, wenn es um die Datenhaltung im Sinne der Nutzung von Datenbanken geht.
-
-Die Inhalte zu den Themen xref:referenzarchitektur:software-technisch/backend/persistenzschicht.adoc#versionierung[Versionierung von Datenbankschemas] sowie xref:referenzarchitektur:software-technisch/backend/persistenzschicht.adoc#historisierung[Historisierung] wurden in die neue Beschreibung der xref:referenzarchitektur:software-technisch/backend/persistenzschicht.adoc[] integriert.
-
-Für die Überführung von persistenten Entitäten in Geschäftsobjekte werden keine gesonderten Schnittstellenobjekte mehr genutzt.
-Die Persistenzschicht übergibt persistente Entitäten an den Anwendungskern.
-Der Anwendungskern darf keine persistenten Entitäten mehr herausgeben, auch nicht zwischen seinen Fachkomponenten.
-Entsprechende Ausnahmen wurden gestrichen.
-
-===== Anwendungskern
-
-Das Konzept der "Basisdaten" wurde gestrichen, in dem die Referenzarchitektur erlaubt hat, von Fachkomponenten gemeinsam benutzte Geschäftsobjekte zu definieren.
-Für diese Geschäftsobjekte gab es keine Komponente im Anwendungskern, sondern nur einen direkten Zugriff auf die dazugehörigen Entitäten.
-Die Referenzarchitektur sieht nun vor, dass Fachkomponenten ohne Ausnahme die vollständige Datenhoheit über ihre eigenen Geschäftsobjekte besitzen.
-
-"Externe Services" im Anwendungskern heißen nun xref:referenzarchitektur:software-technisch/backend/anwendungskern.adoc#service-consumer["Service Consumer"], da der alte Begriff Verwechslungsgefahr mit Services, die außerhalb der Anwendungslandschaft beheimatet sind, aufwies.
-
-Das Konzept von Teilanwendungen als fachliche Schnitte durch das Backend wurde gestrichen, da Backends eng gekoppelte Anwendungskomponenten (ANK) aus der fachlichen Architektur umsetzen und ein vertikaler Schnitt durch ein Backend somit kaum Sinn ergibt.
-
-Die Vorgaben zur Verwendung von Spring wurden ausgelagert und sind nun als xref:referenzarchitektur:software-technisch/backend/spring.adoc[Unterseite zu Backends] zu finden.
-
-===== Serviceschicht
-
-Die Begrifflichkeiten wurden glattgezogen, sodass die Begriffe Serviceschicht und Fachkomponente nun mehr Bedeutung erfahren und die Erläuterungen insgesamt eindeutiger werden.
-
-Die Inhalte über Services, bezogen auf die Kommunikation zwischen IT-Systemen, wurden auf eine xref:referenzarchitektur:software-technisch/services.adoc[eigene Seite] umgezogen.
-Dort finden sich nun die Grundbegriffe der Servicekommunikation (ehemals Teil der Seite xref:referenzarchitektur:software-technisch.adoc[]), die Beschreibung der Kommunikation innerhalb der Systemlandschaft sowie mit xref:glossary::terms-definitions.adoc#externes-system[externen Systemen] und abschließend die Vorgaben zur Versionierung von Services.
-
-Die Inhalte über Verfügbarkeit wurden auf eine xref:referenzarchitektur:technisch-infrastrukturell/availability.adoc[eigene Seite] in der technisch-infrastrukturellen Referenzarchitektur umgezogen und mit den dort vorhandenen Beschreibungen (ehemals Teil der Seite xref:referenzarchitektur:technisch-infrastrukturell/betriebliche-aspekte.adoc[]) zusammengeführt.
-
-==== Batch
-
-Die Begrifflichkeiten wurden glattgezogen und an Industriestandards angepasst.
-Die wesentlichen Begriffe und ihr Zusammenhang sind nun: xref:referenzarchitektur:software-technisch/batch.adoc[_Batches_] werden als _Batch-Schritte_ eines _Batch-Jobs_ von einer _Batch-Steuerung_ aufgerufen.
-
-Die Dokumentation zum xref:referenzarchitektur:software-technisch/batch.adoc[IT-Systemtyp "Batch"] ist nun getrennt von der Beschreibung des xref:referenzarchitektur:software-technisch/batch/batchrahmen.adoc[Batchrahmens], um eine zukünftig geplante Ablösung des Batchrahmens einfacher zu gestalten.
 
 [[kapitel-bausteine]]
 == Bausteine
 
-=== REST
+=== JPA / Hibernate
 
-Im Konzept des REST-Bausteins wurde das Kapitel xref:isyfact-standards-doku:isy-service-rest:konzept/inhalt.adoc#verwendung-http-statuscodes[Verwendung von HTTP-Statuscodes] angepasst.
-In die Tabelle wurde der HTTP-Code 202 aufgenommen und der nach der Tabelle folgende Hinweis über die Verwendung von HTTP-Statuscodes wurde in die Beschreibung vor die Tabelle verschoben.
+Der Baustein bietet ein erweitertes xref:isy-persistence:konzept/versionierung-mit-liquibase.adoc[Konzept] sowie xref:isy-persistence:nutzungsvorgaben/versionierung-mit-liquibase.adoc[Nutzungsvorgaben] zur Schema-Versionierung mit Liquibase.
+Diese soll die Eigenimplementierung der IsyFact ablösen.
+
+=== Verschobene Bausteine
+Folgende Bausteine wurden in eigenständige Repositories umgezogen:
+
+[cols="1,1",options="header"]
+|===
+|Altes Repository
+|Neues Repository
+
+//|https://github.com/IsyFact/isyfact-standards/tree/release/4.x/...[icon:github[] isyfact-standards (Modul ...)]
+//|https://github.com/IsyFact/...[icon:github[] ...]
+
+|===
+
+* Beide Bausteine lassen sich weiterhin über die `isyfact-standards-bom` einbinden und auch die Group- und Artifact-IDs bleiben dieselben.
+* Die Version wird allerdings in zukünftigen Releases nicht mehr mit der Version der `isyfact-standards` synchron gehalten und entwickelt sich entkoppelt davon fort.
+* Die Bausteine besitzen keinerlei Abhängigkeiten auf die restliche IsyFact mehr.
+Sie setzen allein Java 17 voraus.
+So können sie auch in Anwendungen integriert werden, die noch auf einem älteren Stand der IsyFact beruhen.
 
 === Gelöschte Bausteine
 
@@ -115,45 +60,17 @@ Die folgende Tabelle zeigt, auf welche Bausteine bzw. Konzepte die Anwendungen m
 [cols="1s,2",options="header"]
 |===
 |Entfernter Baustein|Migrieren auf
-|Http Invoker|xref:isy-service-rest:konzept/master.adoc[Baustein REST]
-|JSF|xref:isy-angular-widgets-doc::konzept/konzept.adoc[Baustein Angular]
-|Sicherheit|xref:isy-security:konzept/master.adoc[Baustein Security]
-|Konfiguration|xref:referenzarchitektur:software-technisch/backend/konfiguration.adoc[Referenzarchitektur: Konfiguration von Backends]
+//|...|xref:...:konzept/master.adoc[...]
 
 |===
 
-=== Verschobene Bausteine
-Folgende Bausteine wurden in eigenständige Repositories umgezogen:
-
-[cols="1s,2",options="header"]
-|===
-|Altes Repository|Neues Repository
-|./isyfact-standards/isy-datetime|xref:https://github.com/IsyFact/isy-datetime/[isy-datetime auf Github]
-|./isyfact-standards/isy-sonderzeichen|xref:https://github.com/IsyFact/isy-sonderzeichen/[isy-sonderzeichen auf Github]
-
-|===
-
-* Beide Bausteine lassen sich weiterhin über die isyfact-standards-bom einbinden und auch die Group- und ArtifactIDs bleiben dieselben.
-* Die Version wird allerdings in zukünftigen Releases nicht mehr mit der Version der isyfact-standards synchron gehalten und entwickelt sich entkoppelt davon fort.
 
 [[kapitel-deprecations]]
 == Deprecations
 
-...
+_keine_
 
 [[kapitel-dokumentation]]
 == Dokumentation
 
-=== Änderungen
-
-- Die Dokumentation verwendet keine Liste für externe Links mehr, sondern das https://docs.asciidoctor.org/asciidoc/latest/macros/url-macro/[URL-Makro] von AsciiDoc.
-- Das xref:glossary::terms-definitions.adoc[] und der xref:documentation-guide:ROOT:index.adoc[] werden parallel zu den Releases der IsyFact gepflegt.
-Sie besitzen keine Version und sind damit über alle Releases hinweg gültig.
-Inhalte für spezifische Releases werden ausdrücklich ausgezeichnet.
-
-=== Entfernungen
-
-- Vorgaben zur Entwicklungsumgebung: Stark veraltete Inhalte und Produktvorgaben entfernt.
-- Migrationsleitfaden IsyFact 2: Große Teile werden durch das Release obsolet.
-- Redundantes Handbuch Enterprise Architect: Dopplung als Teil der Vorlage Systemspezifikation entfernt.
-- Die Vorlage zum Tailoring Dokument wurde entfernt.
+_keine_

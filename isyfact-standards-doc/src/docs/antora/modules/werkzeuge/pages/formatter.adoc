@@ -1,0 +1,19 @@
+= Formatter
+
+In der IsyFact wird ein eigener Formatter für die Entwicklung mit Java verwendet. 
+Ebenfalls sind eigene Checkstyle-Regeln festgelegt, mit denen der Formatter konform ist.
+
+Hier liegen die XML-Dateien des Formatters für IntelliJ und Eclipse:
+
+[[download-bibliothek]]
+.Download-Links zum Java-Formatter
+[cols="^1s,^2"]
+|====
+|IntelliJ
+|xref:attachment$IsyFact_Formatter.xml[Download icon:file-code-o[]]
+|Eclipse
+|xref:attachment$IsyFact_Formatter_Eclipse.xml[Download icon:file-code-o[]]
+|====
+
+Entwickler können ihren bevorzugten Formatierungsstil verwenden.
+Der Formatter vereinheitlicht lediglich den Code im Projekt.
