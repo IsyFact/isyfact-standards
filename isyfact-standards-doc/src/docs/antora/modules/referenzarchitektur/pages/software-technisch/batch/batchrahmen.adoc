@@ -742,7 +742,7 @@ Die Datei benötigt einen Eintrag für die Rolle `controlRole` oder für eine be
 [[authentifizierung-und-autorisierung]]
 === Authentifizierung und Autorisierung
 
-Zur Authentifizierung verwendet der Batch die Benutzerkennung eines technischen Benutzers "internes System", die in seiner Startkonfiguration (als Konfigurationsdatei) hinterlegt und im Benutzerverzeichnis vorhanden ist.
+Zur Authentifizierung verwendet der Batch die Benutzerkennung eines technischen Benutzers, die in seiner Startkonfiguration (als Konfigurationsdatei) hinterlegt und im Benutzerverzeichnis vorhanden ist.
 
 Der Batchrahmen verwendet den Baustein `isy-security`, um den in der Batch-Konfiguration via `oauth2ClientRegistrationId` definierten Benutzer über einen der Authentifizierungswege `Client Credential` oder `Ressource Owner Password Credential` (deprecated) zu authentifizieren.
 
