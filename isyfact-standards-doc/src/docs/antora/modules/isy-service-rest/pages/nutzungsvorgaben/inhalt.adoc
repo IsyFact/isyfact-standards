@@ -520,8 +520,12 @@ public WebClient webClient() {
 }
 ----
 
-Nachdem eine Anfrage bearbeitet wurde, sorgt der `HttpHeaderNestedDiagnosticContextFilter` im Rahmen seiner
-`afterRequest()`-Methode dafür, dass die Korrelations-ID aus dem MdcHelper entfernt wird. Dies erfolgt durch den Aufruf
-von `MdcHelper.entferneKorrelationsIds()`, der alle zuvor gesetzten Korrelations-IDs zurücksetzt.
+[NOTE]
+====
+Die `ExchangeFilterFunction` fügt Korrelations-IDs zu ausgehenden REST-Anfragen hinzu, die durch eingehende Requests, Tasks oder Batches ausgelöst werden.
+Nach abgeschlossener Bearbeitung werden die Korrelations-IDs durch https://isyfact.github.io/isyfact-standards-doku/current/isy-logging/nutzungsvorgaben/master.html#mcdfilter[MDC-Filter] und https://github.com/IsyFact/isyfact-standards/blob/release/3.x/isy-logging/src/main/java/de/bund/bva/isyfact/logging/http/HttpHeaderNestedDiagnosticContextFilter.java#L113[HttpHeaderNestedDiagnosticContextFilter] oder https://github.com/IsyFact/isyfact-standards/blob/release/3.x/isy-task/src/main/java/de/bund/bva/isyfact/task/monitoring/IsyTaskAspect.java#L163[IsyTaskAspect] / https://github.com/IsyFact/isyfact-standards/blob/release/3.x/isy-batchrahmen/src/main/java/de/bund/bva/isyfact/batchrahmen/core/rahmen/impl/BatchrahmenImpl.java#L269[BatchrahmenImpl] entfernt.
+
+Für weitere Details zu Korrelations-IDs siehe auch https://isyfact.github.io/isyfact-standards-doku/current/isy-logging/konzept/master.html#korrelations-id[Konzept] / https://isyfact.github.io/isyfact-standards-doku/current/isy-logging/nutzungsvorgaben/master.html#diagnosekontext-korrelations-id[Nutzungsvorgaben] isy-logging.
+====
 
 // end::inhalt[]
