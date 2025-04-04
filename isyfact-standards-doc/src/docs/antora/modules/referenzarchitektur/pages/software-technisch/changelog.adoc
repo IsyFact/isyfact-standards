@@ -1,0 +1,10 @@
+[[changelog]]
+= Changelog
+
+*Änderungen IsyFact 4.0.0*
+
+// tag::release-4.0.0[]
+
+- `IFS-2828`: Anpassungen des Versionierungskonzepts in der Seite zu Services
+
+// end::release-4.0.0[]
