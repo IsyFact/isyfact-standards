@@ -9,8 +9,10 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.build.timestamp.format>dd.MM.yyyy</maven.build.timestamp.format>
-        <asciidoctorj-extensions.version>2.4.0</asciidoctorj-extensions.version>
         <pfad.methodik>src/docs/antora/modules/methodik</pfad.methodik>
+
+        <asciidoctor.maven.plugin.version>2.2.6</asciidoctor.maven.plugin.version>
+        <asciidoctorj.pdf.version>2.3.10</asciidoctorj.pdf.version>
     </properties>
 
     <profiles>
@@ -34,12 +36,12 @@
                     <plugin>
                         <groupId>org.asciidoctor</groupId>
                         <artifactId>asciidoctor-maven-plugin</artifactId>
-                        <version>2.2.4</version>
+                        <version>${asciidoctor.maven.plugin.version}</version>
                         <dependencies>
                             <dependency>
                                 <groupId>org.asciidoctor</groupId>
                                 <artifactId>asciidoctorj-pdf</artifactId>
-                                <version>2.3.10</version>
+                                <version>${asciidoctorj.pdf.version}</version>
                             </dependency>
                         </dependencies>
 
