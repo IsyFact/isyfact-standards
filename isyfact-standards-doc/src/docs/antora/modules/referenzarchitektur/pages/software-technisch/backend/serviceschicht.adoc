@@ -79,7 +79,7 @@ Dabei ist sicherzustellen, dass zum Zeitpunkt der Erstellung der Log-Einträge e
 Das Service-Framework definiert die Service-Endpunkte des Backends und stellt diese zur Verfügung.
 Es wandelt die in der HTTP-Anfrage übertragenen Daten in Transportobjekte um und ruft die entsprechende Fachkomponente auf.
 Ebenso erledigt es die Umwandlung des Ergebnisses in eine HTTP-Antwort.
-Zur Definition der Service-Endpunkte wird Spring Web MVC verwendet.
+Zur Definition der Service-Endpunkte wird Spring Web verwendet.
 Zur Konfiguration der Serviceschicht wird das Spring-Framework genutzt.
 
 // end::service-framework-definition[]
