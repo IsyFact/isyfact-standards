@@ -108,7 +108,7 @@ public class AuthentifizierungsmanagerTest extends AbstractOidcProviderTest {
 
     @Test
     public void testAuthWithRegistrationIdAndBhknz() {
-        AdditionalCredentials credentials = AdditionalCredentials.withBhknz("900600");
+        AdditionalCredentials credentials = AdditionalCredentials.createWithBhknz("900600");
 
         authentifizierungsmanager.authentifiziere("cc-client", credentials);
 
@@ -123,7 +123,7 @@ public class AuthentifizierungsmanagerTest extends AbstractOidcProviderTest {
 
     @Test
     public void testAuthWithRegistrationIdAndUsernamePassword() {
-        AdditionalCredentials credentials = AdditionalCredentials.withUsernamePassword("newUser", "newPassword");
+        AdditionalCredentials credentials = AdditionalCredentials.createWithUsernamePassword("newUser", "newPassword");
 
         authentifizierungsmanager.authentifiziere("ropc-client", credentials);
 
@@ -151,7 +151,7 @@ public class AuthentifizierungsmanagerTest extends AbstractOidcProviderTest {
 
     @Test
     public void testAuthWithUnknownRegistrationIdAndCredentials() {
-        AdditionalCredentials credentials = AdditionalCredentials.withBhknz("900600");
+        AdditionalCredentials credentials = AdditionalCredentials.createWithBhknz("900600");
 
         assertThrows(IllegalArgumentException.class,
                 () -> authentifizierungsmanager.authentifiziere("unknown-clientId", credentials));
@@ -160,7 +160,7 @@ public class AuthentifizierungsmanagerTest extends AbstractOidcProviderTest {
     @Test
     public void testAuthWithRegistrationIdAndUsernamePasswordBhknz() {
         //override credentials
-        AdditionalCredentials credentials = AdditionalCredentials.withUsernamePasswordBhknz(
+        AdditionalCredentials credentials = AdditionalCredentials.createWithUsernamePasswordBhknz(
                 "newUser", "newPassword", "900600");
 
         authentifizierungsmanager.authentifiziere("ropc-client", credentials);
@@ -214,7 +214,7 @@ public class AuthentifizierungsmanagerTest extends AbstractOidcProviderTest {
                 .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
                 .build();
 
-        AdditionalCredentials additionalCredentials = AdditionalCredentials.withBhknz("900600");
+        AdditionalCredentials additionalCredentials = AdditionalCredentials.createWithBhknz("900600");
 
         authentifizierungsmanager.authentifiziere(clientRegistration, additionalCredentials);
 
@@ -241,7 +241,7 @@ public class AuthentifizierungsmanagerTest extends AbstractOidcProviderTest {
                 .authorizationGrantType(AuthorizationGrantType.PASSWORD)
                 .build();
 
-        AdditionalCredentials additionalCredentials = AdditionalCredentials.withUsernamePassword("newUser", "newUser");
+        AdditionalCredentials additionalCredentials = AdditionalCredentials.createWithUsernamePassword("newUser", "newUser");
 
         authentifizierungsmanager.authentifiziere(clientRegistration, additionalCredentials);
 
@@ -270,7 +270,7 @@ public class AuthentifizierungsmanagerTest extends AbstractOidcProviderTest {
                 .authorizationGrantType(AuthorizationGrantType.PASSWORD)
                 .build();
 
-        AdditionalCredentials additionalCredentials = AdditionalCredentials.withUsernamePasswordBhknz(
+        AdditionalCredentials additionalCredentials = AdditionalCredentials.createWithUsernamePasswordBhknz(
                 "newUser", "newPassword", "900600");
 
         authentifizierungsmanager.authentifiziere(clientRegistration, additionalCredentials);
@@ -314,7 +314,7 @@ public class AuthentifizierungsmanagerTest extends AbstractOidcProviderTest {
                 .authorizationGrantType(AuthorizationGrantType.PASSWORD)
                 .build();
 
-        AdditionalCredentials credentials = AdditionalCredentials.withBhknz("900600");
+        AdditionalCredentials credentials = AdditionalCredentials.createWithBhknz("900600");
 
         assertThrows(BadCredentialsException.class,
                 () -> authentifizierungsmanager.authentifiziere(clientRegistration, credentials));
@@ -330,7 +330,7 @@ public class AuthentifizierungsmanagerTest extends AbstractOidcProviderTest {
                 .authorizationGrantType(AuthorizationGrantType.DEVICE_CODE)
                 .build();
 
-        AdditionalCredentials credentials = AdditionalCredentials.withUsernamePassword("username", "password");
+        AdditionalCredentials credentials = AdditionalCredentials.createWithUsernamePassword("username", "password");
 
         assertThrows(IllegalArgumentException.class,
                 () -> authentifizierungsmanager.authentifiziere(clientRegistration, credentials));
@@ -338,7 +338,7 @@ public class AuthentifizierungsmanagerTest extends AbstractOidcProviderTest {
 
     @Test
     public void testAuthWithNullClientRegistrationAndValidCredentials() {
-        AdditionalCredentials credentials = AdditionalCredentials.withBhknz("900600");
+        AdditionalCredentials credentials = AdditionalCredentials.createWithBhknz("900600");
 
         assertThrows(IllegalArgumentException.class,
                 () -> authentifizierungsmanager.authentifiziere((String) null, credentials));
