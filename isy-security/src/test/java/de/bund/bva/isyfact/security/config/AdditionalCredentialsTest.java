@@ -16,7 +16,7 @@ public class AdditionalCredentialsTest {
 
     @Test
     public void testWithUsernamePassword() {
-        AdditionalCredentials credentials = AdditionalCredentials.withUsernamePassword(TEST_USERNAME, TEST_PASSWORD);
+        AdditionalCredentials credentials = AdditionalCredentials.createWithUsernamePassword(TEST_USERNAME, TEST_PASSWORD);
 
         assertEquals(TEST_USERNAME, credentials.getUsername());
         assertEquals(TEST_PASSWORD, credentials.getPassword());
@@ -29,7 +29,7 @@ public class AdditionalCredentialsTest {
 
     @Test
     public void testWithUsernamePasswordBhknz() {
-        AdditionalCredentials credentials = AdditionalCredentials.withUsernamePasswordBhknz(
+        AdditionalCredentials credentials = AdditionalCredentials.createWithUsernamePasswordBhknz(
                 TEST_USERNAME, TEST_PASSWORD, TEST_BHKNZ);
 
         assertEquals(TEST_USERNAME, credentials.getUsername());
@@ -42,7 +42,7 @@ public class AdditionalCredentialsTest {
 
     @Test
     public void testWithBhknz() {
-        AdditionalCredentials credentials = AdditionalCredentials.withBhknz(TEST_BHKNZ);
+        AdditionalCredentials credentials = AdditionalCredentials.createWithBhknz(TEST_BHKNZ);
 
         assertEquals(TEST_BHKNZ, credentials.getBhknz());
 
@@ -56,49 +56,49 @@ public class AdditionalCredentialsTest {
     @Test
     public void testWithUsernamePasswordNullUsername() {
         assertThrows(IllegalArgumentException.class,
-                () -> AdditionalCredentials.withUsernamePassword(null, TEST_PASSWORD));
+                () -> AdditionalCredentials.createWithUsernamePassword(null, TEST_PASSWORD));
     }
 
     @Test
     public void testWithUsernamePasswordNullPassword() {
         assertThrows(IllegalArgumentException.class,
-                () -> AdditionalCredentials.withUsernamePassword(TEST_USERNAME, null));
+                () -> AdditionalCredentials.createWithUsernamePassword(TEST_USERNAME, null));
     }
 
     @Test
     public void testWithUsernamePasswordBhknzNullUsername() {
         assertThrows(IllegalArgumentException.class,
-                () -> AdditionalCredentials.withUsernamePasswordBhknz(null, TEST_PASSWORD, TEST_BHKNZ));
+                () -> AdditionalCredentials.createWithUsernamePasswordBhknz(null, TEST_PASSWORD, TEST_BHKNZ));
     }
 
     @Test
     public void testWithUsernamePasswordBhknzNullPassword() {
         assertThrows(IllegalArgumentException.class,
-                () -> AdditionalCredentials.withUsernamePasswordBhknz(TEST_USERNAME, null, TEST_BHKNZ));
+                () -> AdditionalCredentials.createWithUsernamePasswordBhknz(TEST_USERNAME, null, TEST_BHKNZ));
     }
 
     @Test
     public void testWithUsernamePasswordBhknzNullBhknz() {
         assertThrows(IllegalArgumentException.class,
-                () -> AdditionalCredentials.withUsernamePasswordBhknz(TEST_USERNAME, TEST_PASSWORD, null));
+                () -> AdditionalCredentials.createWithUsernamePasswordBhknz(TEST_USERNAME, TEST_PASSWORD, null));
     }
 
     @Test
     public void testWithBhknzNullBhknz() {
         assertThrows(IllegalArgumentException.class,
-                () -> AdditionalCredentials.withBhknz(null));
+                () -> AdditionalCredentials.createWithBhknz(null));
     }
 
     @Test
     public void testHasUsernamePasswordBothNull() {
-        AdditionalCredentials credentials = AdditionalCredentials.withBhknz(TEST_BHKNZ);
+        AdditionalCredentials credentials = AdditionalCredentials.createWithBhknz(TEST_BHKNZ);
 
         assertFalse(credentials.hasUsernamePassword());
     }
 
     @Test
     public void testHasBhknzNullBhknz() {
-        AdditionalCredentials credentials = AdditionalCredentials.withUsernamePassword(TEST_USERNAME, TEST_PASSWORD);
+        AdditionalCredentials credentials = AdditionalCredentials.createWithUsernamePassword(TEST_USERNAME, TEST_PASSWORD);
 
         assertFalse(credentials.hasBhknz());
     }

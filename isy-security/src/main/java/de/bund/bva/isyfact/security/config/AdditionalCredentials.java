@@ -34,7 +34,7 @@ public final class AdditionalCredentials {
      * @param password the password of the resource owner
      * @return a new AdditionalCredentials instance
      */
-    public static AdditionalCredentials withUsernamePassword(String username, String password) {
+    public static AdditionalCredentials createWithUsernamePassword(String username, String password) {
         Assert.notNull(username, "username cannot be null");
         Assert.notNull(password, "password cannot be null");
         return new AdditionalCredentials(username, password, null);
@@ -48,7 +48,7 @@ public final class AdditionalCredentials {
      * @param bhknz the BHKNZ to be sent as part of the authentication request
      * @return a new AdditionalCredentials instance
      */
-    public static AdditionalCredentials withUsernamePasswordBhknz(String username, String password, String bhknz) {
+    public static AdditionalCredentials createWithUsernamePasswordBhknz(String username, String password, String bhknz) {
         Assert.notNull(username, "username cannot be null");
         Assert.notNull(password, "password cannot be null");
         Assert.notNull(bhknz, "bhknz cannot be null");
@@ -61,7 +61,7 @@ public final class AdditionalCredentials {
      * @param bhknz the BHKNZ to be sent as part of the authentication request
      * @return a new AdditionalCredentials instance
      */
-    public static AdditionalCredentials withBhknz(String bhknz) {
+    public static AdditionalCredentials createWithBhknz(String bhknz) {
         Assert.notNull(bhknz, "bhknz cannot be null");
         return new AdditionalCredentials(null, null, bhknz);
     }
