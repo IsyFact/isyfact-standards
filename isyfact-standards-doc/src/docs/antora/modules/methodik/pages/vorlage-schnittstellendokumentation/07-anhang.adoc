@@ -36,7 +36,9 @@ Datentypen, die eine Liste von Schlüsselwertpaaren repräsentieren, heißen Auf
 Namen von Aufzählungstypen beginnen mit dem Präfix +„DTY_“+ und enden mit dem Suffix „Code“.
 
 |_Datentyp_
-|_Nachbarsystem_ |_Architektur_ |Ein externes System, mit dem über eine Schnittstelle kommuniziert wird. |
+|_Nachbarsystem_ |_Architektur_ |
+include::glossary::terms-definitions.adoc[tag="nachbarsystem-definition"]
+|
 |_Nachbarsystemschnittstelle_ |_Architektur_ |Die Nachbarsystemschnittstelle eines Systems ermöglicht es anderen Systemen, Daten mit diesem zu einem bestimmten fachlichen Zweck auszutauschen.
 Die Namen von Nachbarsystemschnittstellen sind in der fachlichen Schnittstellenbeschreibung durch den Präfix +"NST_"+ gekennzeichnet. |_Schnittstellen_
 |_Nachbarsystemschnittstellen-Attribut_ |_Daten_ |Ein Nachbarsystemschnittstellen-Attribut entspricht einer einzelnen fachlichen Information, die über die Nachbar­systemschnittstelle ausgetauscht wird.

@@ -538,7 +538,7 @@ Darüber hinaus werden folgende Debug-Logeinträge erstellt:
              in den oben genannten Logeinträgen durch „<Maximale Größe überschritten>“ ersetzt.
 |====
 
-Den Aufrufen von Nachbarsystemen kommt eine besondere Wichtigkeit bei der Analyse des Laufzeitverhaltens von Systemen zu.
+Den Aufrufen von xref:glossary::terms-definitions.adoc#nachbarsystem[Nachbarsystemen] kommt eine besondere Wichtigkeit bei der Analyse des Laufzeitverhaltens von Systemen zu.
 Daher stellt der Invoker für Methodenaufrufe von Nachbarsystemen einen eigenen Konstruktor bereit:
 
 * `LoggingMethodInvoker(Method methode, IsyLogger logger, boolean loggeAufruf, boolean loggeErgebnis, boolean loggeDauer, boolean loggeDaten, boolean loggeDatenBeiException , long loggeMaximaleParameterGroesse, String nachbarsystemName, String nachbarsystemUrl)`: Analog zu oben, nur das der Name und die URL des aufgerufenen Nachbarsystems übergeben wird.

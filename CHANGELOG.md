@@ -1,6 +1,8 @@
 # 4.x
 ## FEATURES
 - `IFS-3028`: [isyfact-standards-doc] Vorgaben für Spring & Spring Boot aktualisiert
+- `IFS-4208`: [isyfact-standards-doc] Verwendungen der Begriffe "Nachbarsystem" und "Externes System" korrigiert
+- `IFS-1825`: [isyfact-standards-doc] Versionierung mit Liquibase erweitert
 - `IFS-4546`: [isyfact-standards-doc] Verweis auf JAXP entfernt, Negativliste bereinigt und links entfernt
 - `IFS-4543`: [isyfact-standards-doc] Begriff Nutzungsschicht entfernt
 - `IFS-4570`: [isyfact-standards-doc] Alte Einträge aus Negativliste entfernt
