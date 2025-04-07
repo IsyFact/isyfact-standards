@@ -186,7 +186,7 @@ Zu beachten ist, dass über die Schnittstelle keine Entitäten der Komponente he
 Es darf immer nur eine Nur-Lese-Sicht (nicht-persistente Schnittstellen-Objekte) herausgegeben werden. +
 Die Umwandlung der internen (`RegisterEintrag`) auf die externe Sicht erfolgt per Bean-Mapper.
 |*AuskunftImpl* |Implementierung der Komponente `Auskunft`. Diese Klasse wird als Spring Bean konfiguriert.
-Weitere benötigte Komponenten (Spring Beans) werden dieser Komponente per Spring-Dependency-Injection bekannt gemacht.
+Weitere benötigte Komponenten (Spring Beans) werden dieser Komponente per Spring Dependency Injection bekannt gemacht.
 Alle weiteren Klassen der Komponente, z.B. AWF-Klassen werden in der `AuskunftImpl` "normal" instanziiert, und die benötigten Referenzen übergeben.
 |*AwfLeseGesamtBestand* |Beispielklasse zur Implementierung eines Anwendungsfalls.
 Diese Klassen werden explizit instanziiert, also nicht als Spring Bean konfiguriert.

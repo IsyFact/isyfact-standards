@@ -2,10 +2,10 @@
 
 include::documentation-guide::partial$licence.adoc[]
 
-Spring und das auf ihm basierende Spring Boot sind leichtgewichtige, Java-basierte Anwendungsframeworks.
+Spring und das darauf basierende Spring Boot sind leichtgewichtige, Java-basierte Anwendungsframeworks.
 Sie implementieren Konzepte wie https://en.wikipedia.org/wiki/Inversion_of_control[Inversion of Control (IoC)], https://en.wikipedia.org/wiki/Dependency_injection[Dependency Injection (DI)] und zahlreiche, häufig benötigte Funktionen, um die Entwicklung von Anwendungen zu beschleunigen.
 
-_Spring Beans_ sind Java-Objekte (POJOs), die durch den https://docs.spring.io/spring-framework/reference/core/beans.html[IoC Container] von Spring instanziiert und verwaltet werden.
+_Spring Beans_ sind Java-Objekte (POJOs), die durch den https://docs.spring.io/spring-framework/reference/core/beans.html[IoC Container] von Spring instanziiert, konfiguriert und verwaltet werden.
 Der IoC Container erstellt Spring Beans anhand einer Bean-Definition in Form von Annotationen.
 
 Die folgenden Inhalte beschreiben die allgemeine Nutzung von Spring und Spring Boot für die Umsetzung von Backends und Batches.
@@ -34,7 +34,8 @@ Der zentrale Ausgangspunkt für die Spring-Konfiguration ist die Applikationskla
 
 Diese wird im Package des Backends oder Batches (`<org>.<domäne>.<anwendung>.<it-system>`) erstellt.
 
-Die Annotation `@SpringBootApplication` markiert eine Konfigurationsklasse, die eine oder mehrere `@Bean`-Methoden deklariert und außerdem die automatische Konfiguration und das Scannen von Komponenten auslöst.
+Die Annotation `@SpringBootApplication` markiert eine Konfigurationsklasse, die eine oder mehrere `@Bean`-Methoden deklariert.
+Darüber hinaus löst sie die automatische Konfiguration sowie das Scannen von Komponenten aus.
 Die Klasse `SpringApplication` startet eine Spring-Anwendung aus einer Java-Hauptmethode heraus.
 Sie erstellt automatisch den https://docs.spring.io/spring-framework/reference/core/beans/context-introduction.html[Application Context] aus dem Klassenpfad, scannt die Konfigurationsklassen und startet schließlich die Anwendung.
 
@@ -80,7 +81,7 @@ NOTE: Sind mehrere Optionen zum Deployment gewünscht, können die Ansätze http
 
 === Konfiguration von Schichten
 
-Für jede xref:software-technisch/backend.adoc#systemarchitektur-backend[Schicht] wird im Package der Schicht (`<org>.<domäne>.<anwendung>.<it-system>.<schicht>`) parallel zu den Interfaces der Komponentenschnittstellen eine mit `@Configuration` annotierte <<listing-konfigurationsklasse,Konfigurationsklasse>> erstellt.
+Für jede xref:software-technisch/backend.adoc#systemarchitektur-backend[Schicht] wird im entsprechenden Package (`<org>.<domäne>.<anwendung>.<it-system>.<schicht>`) parallel zu den Interfaces der Komponentenschnittstellen eine mit `@Configuration` annotierte <<listing-konfigurationsklasse,Konfigurationsklasse>> erstellt.
 Externe Klassen, die keine Spring-Annotationen besitzen, werden in der Konfigurationsklasse der Schicht per `@Bean`-Methoden konfiguriert.
 
 
@@ -103,7 +104,7 @@ public class CoreConfig {
 
 [[konfiguration-von-spring-beans]]
 === Konfiguration von Komponenten
-Die Spring Beans der Komponenten werden mit der Annotation `@Component` bzw. deren Spezialisierungen (`@Repository`, `@Service`, `@Controller` etc.) versehen.
+Die Spring Beans der Komponenten werden mit der Annotation `@Component` oder deren Spezialisierungen wie `@Repository`, `@Service`, `@Controller` und weiteren, je nach Einsatzzweck, versehen.
 Die Annotation `@Component` markiert eine Klasse als Spring Bean.
 Sie wird für jede Klasse verwendet, die als Spring Bean verwaltet werden soll, unabhängig von ihrer Funktion oder Verantwortung.
 
