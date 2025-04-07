@@ -1,310 +1,189 @@
-= Verwendung von Spring
+= Verwendung von Spring Boot
 
 include::documentation-guide::partial$licence.adoc[]
 
-Das Spring-Framework ist ein Java EE Framework, welches im Kern sehr verständlich und leicht zu verwenden ist.
-In ihm werden die Bestandteile eines Systems als _Spring-Beans_ definiert.
-Neben seiner Kern-Funktionalität der Verwaltung, Konfiguration und aspektorientierten Erweiterung von Beans bietet Spring viele Funktionalitäten, welche die Entwicklung einer Anwendung erleichtern.
+Spring und das darauf basierende Spring Boot sind leichtgewichtige, Java-basierte Anwendungsframeworks.
+Sie implementieren Konzepte wie https://en.wikipedia.org/wiki/Inversion_of_control[Inversion of Control (IoC)], https://en.wikipedia.org/wiki/Dependency_injection[Dependency Injection (DI)] und zahlreiche, häufig benötigte Funktionen, um die Entwicklung von Anwendungen zu beschleunigen.
 
-Die folgenden Inhalte beschreiben die Nutzung von Spring für die allgemeine Umsetzung von Backends.
-Die Nutzung spezifischer Features von Spring sind Bestandteile der folgenden Bausteine:
+_Spring Beans_ sind Java-Objekte (POJOs), die durch den https://docs.spring.io/spring-framework/reference/core/beans.html[IoC Container] von Spring instanziiert, konfiguriert und verwaltet werden.
+Der IoC Container erstellt Spring Beans anhand einer Bean-Definition in Form von Annotationen.
+
+Die folgenden Inhalte beschreiben die allgemeine Nutzung von Spring und Spring Boot für die Umsetzung von Backends und Batches.
+Die Nutzung spezifischer Features sind Bestandteile der folgenden Bausteine:
 
 * Konfiguration der Persistenzschicht: beschrieben in den xref:isy-persistence:nutzungsvorgaben/umsetzung-persistenzschicht.adoc[Nutzungsvorgaben JPA/Hibernate],
 * Konfiguration des Logging: beschrieben in den xref:isy-logging:nutzungsvorgaben/master.adoc[],
 * Bereitstellung von Metriken zur Überwachung: beschrieben im xref:isy-ueberwachung:konzept/master.adoc[].
 
-Alle anderen Funktionalitäten von Spring (Validierung über Spring, Emailing, Thread Pooling, Scripting) werden nicht verwendet.
+[[konfiguration]]
+== Vorgaben zur Konfiguration
+Das Prinzip _Convention over Configuration_ in Spring Boot vereinfacht die Einrichtung und Entwicklung durch sinnvolle Voreinstellungen.
 
-Mit der Verwendung von Spring verspricht man sich eine geringere Komplexität sowie einen geringeren Entwicklungsaufwand von Backends.
-Die Verwendung unterliegt den folgenden Zielen.
+https://docs.spring.io/spring-boot/reference/using/build-systems.html#using.build-systems.starters[Starter POMs]:: Vereinfachte Verwaltung von Abhängigkeiten.
 
-Einheitlichkeit der Nutzung::
-Spring soll in Backends einheitlich eingesetzt werden.
-Hierfür sind geeignete Vorgaben für die Nutzung zu etablieren.
+https://docs.spring.io/spring-boot/reference/using/auto-configuration.html[Auto-Konfiguration]:: Automatische Konfiguration auf der Grundlage der hinzugefügten Abhängigkeiten.
 
-Verständlichkeit der Konfiguration::
-Die Konfiguration der Spring-Komponenten erfolgt über Annotationen an den Komponenten sowie über Konfigurationsklassen.
+https://docs.spring.io/spring-boot/how-to/properties-and-configuration.html[Konfiguration]:: Externalisierte Konfigurationsdateien in Form von Properties oder YAML.
 
-Komponentenorientierung wahren::
-Über Spring werden Komponenten konfiguriert.
-Es soll nicht möglich sein, direkt auf Implementierungsklassen einer Komponente zuzugreifen.
+https://docs.spring.io/spring-boot/how-to/webserver.html[Eingebetteter Server]:: Eingebetteter Server (u.a. Tomcat) ohne explizite Einrichtung für die Entwicklung.
 
-[[konfiguration-von-spring]]
-== Vorgaben zur Konfiguration mit Spring
-
-Das grundlegende Konzept von Spring ist die _Spring-Bean_.
-Die Konfiguration von Spring teilt sich in zwei Teile: die Konfiguration der Spring-Beans sowie die Konfiguration von Spring selbst (innerhalb eines Tomcat Servers).
-Um die Konfiguration von Spring und der eingesetzten Bausteine einfach zu halten, werden die Autokonfigurationsmechanismen von Spring Boot eingesetzt.
-Die Spring-Konfiguration des Backends ist nach folgenden Vorgaben zu erstellen.
-
-[[konfiguration-von-spring-beans]]
-=== Konfiguration von Spring-Beans
-
-Spring ist ein Applikations-Container, welcher sogenannte Spring-Beans instanziiert, per _Dependency Injection_ konfiguriert und bereitstellt.
-Spring-Beans sind beliebige Java-Klassen.
-Für diese Klassen kann man benötigte andere Spring-Beans oder Konfigurationsparameter konfigurieren, welche der Klasse daraufhin im Konstruktor oder per `set`-Methode übergeben werden.
-
-Konfiguriert werden Spring-Beans und ihre Abhängigkeiten durch die von Spring bereitgestellte Annotation `@Component` bzw. durch deren Spezialisierungen (`@Repository`, `@Service`, `@Contoller`, usw.).
-Diese werden beim Start des Applikations-Containers gescannt und ausgewertet (_Component Scanning_).
-Bei der Verwendung von `@SpringBootApplication` erfolgt das Scannen dieser Komponenten automatisch im gleichen Paket und den Unterpaketen der Applikationsklasse.
-Generell gilt, dass jede zentrale und wichtige Klasse als Spring-Bean konfiguriert werden sollte.
-
-Für die Modellierung und Konfiguration der Spring-Beans werden im folgenden Vorgaben aufgestellt.
-
-[[querschnitt-als-beans-konfigurieren]]
-==== Querschnittliche Funktionalität als Spring-Beans konfigurieren
-
-Querschnittliche Funktionalität (etwa für das Monitoring, für Fehler- und Nachrichtentexte oder für die Versendung von Mails) sind als Spring-Beans zu konfigurieren.
-Ebenfalls über Spring-Beans durchzuführen ist die Konfiguration diverser Frameworks, z.B. Hibernate.
-Die Konfiguration dieser Frameworks wird in ihren Nutzungsvorgaben beschrieben.
-
-[[beans-standardmaessig-als-singletons-definieren]]
-==== Beans standardmäßig als Singletons definieren
-
-Spring-Beans können entweder als Singletons mit nur einer Instanz, mit einer Instanz pro Aufruf oder mit einer Instanz pro Abhängigkeit (Prototype) erzeugt werden.
-Die Spring-Beans einer Anwendung sollen zustandslos sein und werden als Singleton-Beans erzeugt.
-Wo technisch erforderlich können auch andere Scopes verwendet werden.
-
-NOTE: Eine genaue Beschreibung der Scopes bietet die https://docs.spring.io/spring-framework/reference/core/beans/factory-scopes.html[offizielle Spring-Dokumentation].
-
-[[Konfigurationsmoeglichkeiten-der-Applikationsklasse]]
-=== Konfigurationsmöglichkeiten der Applikationsklasse
+[[Konfiguration-der-Applikationsklasse]]
+=== Konfiguration der Applikationsklasse
 
 Der zentrale Ausgangspunkt für die Spring-Konfiguration ist die Applikationsklasse.
-Diese wird im Package des Backends (`<org>.<domäne>.<anwendung>.<backend>`) erstellt.
-Sie kann auf unterschiedliche Weise konfiguriert werden:
 
-Konfiguration mit `@SpringBootApplication`:
+Diese wird im Package des Backends oder Batches (`<org>.<domäne>.<anwendung>.<it-system>`) erstellt.
 
-[[listing-applikationsklasse-mit-springbootapplication-annotation]]
-.Applikationsklasse mit `@SpringBootApplication`
-[source, java]
-----
-package de.beispiel.ifanwendung;
-
-@SpringBootApplication // same as @SpringBootConfiguration @EnableAutoConfiguration @ComponentScan
-public class IsyFactApplication extends SpringBootServletInitializer {
-
-    @Override
-    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-        return application.sources(IsyFactApplication.class);
-    }
-}
-----
-Diese Annotation ist äquivalent zur gleichzeitigen Nutzung der Annotationen `@EnableAutoConfiguration`, `@ComponentScan` und `@SpringBootConfiguration`.
-Die automatische Konfiguration, optionale zusätzliche Konfigurationslogik in der Applikationsklasse und das _Component Scanning_ werden aktiviert.
-Ist eine feinere Kontrolle bei Anwendungen, welche die `@SpringBootApplication`-Annotation nutzen, gewünscht, können mit `exclude`-Attributen Komponenten von der automatischen Konfiguration https://docs.spring.io/spring-boot/reference/using/auto-configuration.html#using.auto-configuration.disabling-specific[ausgeschlossen] werden.
-
-
-Konfiguration mit `@Configuration` und `@EnableAutoConfiguration`:
+Die Annotation `@SpringBootApplication` markiert eine Konfigurationsklasse, die eine oder mehrere `@Bean`-Methoden deklariert.
+Darüber hinaus löst sie die automatische Konfiguration sowie das Scannen von Komponenten aus.
+Die Klasse `SpringApplication` startet eine Spring-Anwendung aus einer Java-Hauptmethode heraus.
+Sie erstellt automatisch den https://docs.spring.io/spring-framework/reference/core/beans/context-introduction.html[Application Context] aus dem Klassenpfad, scannt die Konfigurationsklassen und startet schließlich die Anwendung.
 
 [[listing-applikationsklasse]]
-.Applikationsklasse mit expliziter Konfiguration
-[source,java]
+.Applikationsklasse eines Backends
+[source, java]
 ----
-package de.beispiel.ifanwendung;
+package de.organisation.bsp.backend;
 
-@Configuration
-@EnableAutoConfiguration
-@Import({ CoreConfig.class, PersistenceConfig.class, ServiceConfig.class })
-public class IsyFactApplication extends SpringBootServletInitializer {
+@SpringBootApplication //<.>
+public class BspBackend {
 
-    @Override
-    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-        return application.sources(IsyFactApplication.class);
-    }
+    public static void main(String[] args) {
+		SpringApplication.run(BspBackend.class, args);
+	}
+
+}
+----
+<1> Äquivalent zur gleichzeitigen Nutzung von `@SpringBootConfiguration`, `@EnableAutoConfiguration` und `@ComponentScan`.
+
+Ist eine feinere Kontrolle gewünscht, so können mit `exclude`-Attributen Komponenten von der automatischen Konfiguration https://docs.spring.io/spring-boot/reference/using/auto-configuration.html#using.auto-configuration.disabling-specific[ausgeschlossen] werden.
+
+Für ein Deployment in einem Servlet-Container muss die Applikationsklasse dem <<listing-applikationsklasse-servlet,folgenden Listing>> entsprechen.
+
+[[listing-applikationsklasse-servlet]]
+.Applikationsklasse eines Backends (Servlet-Container)
+[source, java]
+----
+package de.organisation.bsp.backend;
+
+@SpringBootApplication
+public class BspBackend extends SpringBootServletInitializer {
+
+	@Override
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+		return application.sources(BspBackend.class);
+	}
+
 }
 ----
 
-Mit diesem Vorgehen wird explizite Kontrolle über die Konfiguration und das _Component Scanning_ geboten.
-Dieses Vorgehen hat Vorteile bei der Isolation von Modulen in einem modularen System und um sicherzustellen, dass die Konfigurationen unabhängig bleiben.
-Alternativ kann zu diesem Zweck auch `@SpringBootConfiguration` genutzt werden.
+NOTE: Sind mehrere Optionen zum Deployment gewünscht, können die Ansätze https://docs.spring.io/spring-boot/how-to/deployment/traditional-deployment.html#howto.traditional-deployment.convert-existing-application[kombiniert] werden.
 
-Für jede Schicht wird im Package der Schicht (`<org>.<domäne>.<anwendung>.<schicht>`) parallel zu den Interfaces der Komponentenschnittstellen eine mit `@Configuration` annotierte <<listing-konfigurationsklasse,Konfigurationsklasse>> erstellt.
-Diese wird zusätzlich mit `@ComponentScan` annotiert, wenn eine <<listing-applikationsklasse>> verwendet wird.
-Annotationen, die querschnittliche Aspekte konfigurieren (z.B. `@EnableTransactionManagement`), werden an die Konfigurationsklasse der inhaltlich passenden Schicht geschrieben.
+=== Konfiguration von Schichten
+
+Für jede xref:software-technisch/backend.adoc#systemarchitektur-backend[Schicht] wird im entsprechenden Package (`<org>.<domäne>.<anwendung>.<it-system>.<schicht>`) parallel zu den Interfaces der Komponentenschnittstellen eine mit `@Configuration` annotierte <<listing-konfigurationsklasse,Konfigurationsklasse>> erstellt.
+Externe Klassen, die keine Spring-Annotationen besitzen, werden in der Konfigurationsklasse der Schicht per `@Bean`-Methoden konfiguriert.
+
 
 [[listing-konfigurationsklasse]]
 .Konfigurationsklasse des Anwendungskerns
 [source,java]
 ----
-package de.beispiel.if2anwendung.core;
+package de.organisation.bsp.backend.core;
 
 @Configuration
-@EnableTransactionManagement
-@ComponentScan
 public class CoreConfig {
 
     @Bean
     public BeispielBean beispielBean() {
         // ...
     }
+
 }
 ----
 
-Die Spring-Beans der Komponenten werden mit der Annotation `@Component` bzw. deren Spezialisierungen (`@Repository`, `@Service`, `@Controller` etc.) versehen.
-Externe Spring-Beans, die nicht annotiert werden können, werden in der Konfigurationsklasse der Schicht per `@Bean`-Methoden konfiguriert.
+[[konfiguration-von-spring-beans]]
+=== Konfiguration von Komponenten
+Die Spring Beans der Komponenten werden mit der Annotation `@Component` oder deren Spezialisierungen wie `@Repository`, `@Service`, `@Controller` und weiteren, je nach Einsatzzweck, versehen.
+Die Annotation `@Component` markiert eine Klasse als Spring Bean.
+Sie wird für jede Klasse verwendet, die als Spring Bean verwaltet werden soll, unabhängig von ihrer Funktion oder Verantwortung.
 
-[[Empfehlungen-zu-Konfigurationsmoeglichkeiten-der-Applikationsklasse]]
-==== Empfehlungen zu Konfigurationsmöglichkeiten der Applikationsklasse
-
-* Grundsätzlich ist für die Applikationsklasse die `@SpringBootApplication`-Annotation zu verwenden.
-So wird die Konfiguration vereinfacht und Boiler-Plate-Code minimiert.
-* Die `@Configration`-Annotation in der Anwendungsklasse soll genutzt werden, wenn die explizite Kontrolle über die Konfiguration und das _Component Scanning_ notwendig ist, zum Beispiel bei der Isolation von Modulen in einem modularen System und um sicherzustellen, dass Konfigurationen unabhängig bleiben.
-* `@SpringBootConfiguration` ist für Randfälle zu nutzen.
-Dies ist zum Beispiel der Fall für spezielle Testkonfigurationen bei denen unerwünschte Autokonfigurationen Tests verlangsamen oder verkomplizieren können.
+TIP: Es ist gute Praxis, spezifische Ableitungen für Komponenten zu verwenden, um Ihre Absicht klarer auszudrücken und die Codebasis besser zu organisieren.
 
 
-[[webapprootkey-konfigurieren]]
-=== webAppRootKey konfigurieren
+==== Annotation `@Service`
+Die Annotation `@Service` ist eine spezielle Form von `@Component`.
+Es ist eine semantische Annotation, die verwendet wird, um Klassen zu kennzeichnen, die Geschäftsfunktionen implementieren.
 
-Der Kontextparameter `webAppRootKey` muss in der `web.xml` auf den eindeutigen Namen der Webanwendung gesetzt werden.
+Die xref:software-technisch/backend/anwendungskern.adoc#fachkomponenten[Fachkomponenten des Anwendungskerns] werden mit der Annotation @Service ausgezeichnet.
 
-[[listing-webAppRootKey]]
-.Konfiguration des webAppRootKey
-[source,xml]
-----
-<context-param>
-  <param-name>webAppRootKey</param-name>
-  <param-value>allgemeine-anwendung</param-value>
-</context-param>
-----
+==== Annotationen `@Controller` und `@RestController`
+Die Annotation `@Controller` ist eine Spezialisierung der Annotation `@Component`.
+Sie wird typischerweise in Kombination mit annotierten Handler-Methoden verwendet, die auf der Annotation `@RequestMapping` basieren.
+Die Annotation `@Controller` kann nur auf Klassen angewendet werden.
+Sie wird verwendet, um eine Klasse als Web-Request-Handler zu markieren.
+Sie wird meist im Kontext von Spring MVC verwendet.
 
-*Hintergrund*: Spring speichert standardmäßig den Pfad zum Wurzelverzeichnis der Webanwendung im Webserver in der Kontextvariable `webapp.root`.
-Wenn mehrere Anwendungen gleichzeitig in einem Tomcat betrieben werden (bspw.
-in einer Entwicklungsumgebung), wird dieser Parameter durch die verschiedenen Anwendungen überschrieben.
-Dies kann zu ungewünschten Seiteneffekten führen.
-Ist der Kontextparameter `webAppRootKey` wie im obigen Beispiel gesetzt, wird der Pfad statt im Parameter `webapp.root`
-im Parameter `allgemeine-anwendung` abgelegt.
-Da jede Webanwendung einen eindeutigen Namen besitzt, und damit einen eigenen Kontextparameter verwendet, wird das Überschreiben vermieden.
+Die Annotation `@RestController` ist eine "Komfort-Annotation", die selbst mit `@Controller` und `@ResponseBody` annotiert ist.
+Diese Annotation wird verwendet, um eine Klasse als Request-Handler für REST-Endpunkte zu kennzeichnen.
 
-[[direkte-verwendung-des-spring-frameworks]]
-== Vorgaben zur direkten Verwendung von Spring
+Die xref:software-technisch/backend/serviceschicht.adoc#fachkomponenten[Fachkomponenten der Serviceschicht] werden mit den Annotationen `@Controller` und `@RestController` ausgezeichnet.
 
-Neben der Konfiguration der Spring-Beans enthält eine Anwendung in der Regel kaum Abhängigkeiten zu Spring.
-Da die benötigten Objekte per Dependency Injection konfiguriert werden, müssen diese nach ihrer Konfiguration lediglich verwendet werden.
+==== Annotation `@Repository`
+Die Annotation `Repository` ist eine Spezialisierung der Annotation `@Component`.
+Sie wird verwendet, um anzuzeigen, dass die Klasse einen Mechanismus für Speicherung, Abruf, Suche, Aktualisierung und Löschung von persistenten Objekten bereitstellt.
 
-In einigen Fällen existieren jedoch weitere Abhängigkeiten:
+Die xref:software-technisch/backend/persistenzschicht.adoc#fachkomponenten[Fachkomponenten der Persistenzschicht] werden dieser Annotation ausgezeichnet.
 
-* Spring-Beans werden per Namen aus dem Anwendungskontext ausgelesen.
-* Spring-Beans werden nicht per Dependency Injection, sondern über statische Methoden bereitgestellt.
-Hierüber entstehen Abhängigkeiten zur Instanziierungsreihenfolge der Spring-Beans durch Spring.
+[[bean-scopes]]
+=== Spring Bean Scopes
 
-Für diese Aspekte werden im folgenden Vorgaben aufgestellt.
+Der Bean Scope definiert den Lebenszyklus und die Sichtbarkeit einer Bean innerhalb eines Backends oder Batches.
+Er teilt Spring mit, wie viele Instanzen einer bestimmten Bean erstellt werden sollen und wie lange sie verfügbar sein sollen.
 
-[[keine-beans-per-namen-auslesen]]
-=== Keine Spring-Beans per Namen auslesen
+NOTE: Eine genaue Beschreibung der Scopes bietet die https://docs.spring.io/spring-framework/reference/core/beans/factory-scopes.html[offizielle Spring-Dokumentation].
 
-Über den Anwendungskontext könnten Spring-Beans explizit per Namen ausgelesen werden.
-Dies ist mit einer Ausnahme verboten: Die Namen von Spring-Beans sollen nicht im Anwendungscode verwendet werden.
-Die Ausnahme gilt für den Zugriff von einem Anwendungskontext auf einen anderen (in Zusammenhang mit dem DispatcherServlet).
-In diesem Fall ist ein explizites Auslesen nicht zu vermeiden.
-Auszulesen ist in diesem Fall keine Komponente des Anwendungskerns, sondern eine weitere Schnittstellen-Bean, welche nur für diesen Zweck verwendet wird.
+[[instanziierung-spring-beans-minimieren]]
+==== Instanziierung von Spring Beans minimieren
 
-[[aspektorientierte-programmierung-in-spring]]
-== Vorgaben zur aspektorientierte Programmierung in Spring
+Der Bean Scope ist so zu wählen, dass eine Spring Bean nicht unnötig oft instanziiert wird.
+Insbesondere in den Fachkomponenten der xref:software-technisch/backend/persistenzschicht.adoc#fachkomponenten[Persistenzschicht] und des xref:software-technisch/backend/anwendungskern.adoc#fachkomponenten[Anwendungskerns] sind die meisten Spring Beans deswegen https://docs.spring.io/spring-framework/reference/core/beans/factory-scopes.html#beans-factory-scopes-singleton[_Singletons_].
+In den Fachkomponenten der xref:software-technisch/backend/serviceschicht.adoc#fachkomponenten[Serviceschicht] gibt es hingegen auch Spring Beans, die im Kontext einzelner HTTP-Anfragen existieren.
+Sie nutzen den https://docs.spring.io/spring-framework/reference/core/beans/factory-scopes.html#beans-factory-scopes-request[_request scope_].
 
-Es ist möglich, für Spring-Beans Funktionalität in Form von Aspekten zu definieren.
-Ihr Einsatz kann über _Pointcuts_ konfiguriert werden.
-Pointcuts definieren (etwa über reguläre Ausdrücke) Klassen und Methoden, welche um den Aspekt erweitert werden.
-
-Zu intensive Nutzung kann leicht zu einem schwer durchschaubaren Programmfluss führen.
-Deshalb soll AOP nur für folgende Bereichen genutzt werden: die Steuerung von Transaktionen, die Überwachung und die Berechtigungsprüfung.
-
-Explizit nicht benutzt werden soll AOP für die Fehlerbehandlung.
-
-Die Verwendung von AOP für andere Zwecke ist nur in begründeten Ausnahmefällen erlaubt.
-
-[[aop-fuer-transaktionssteuerung-verwenden]]
-=== AOP für Transaktionssteuerung verwenden
-
-Für die Transaktionssteuerung ist Spring-AOP mit den dafür vorgesehenen Klassen von Spring einzusetzen.
-Die Umsetzung geschieht im xref:software-technisch/backend/anwendungskern.adoc#transaktionssteuerung[Anwendungskern] oder in der xref:software-technisch/backend/serviceschicht.adoc#transaktionssteuerung[Serviceschicht].
-Zusammengefasst gilt:
-
-* Instrumentiert werden alle Schnittstellenmethoden des Anwendungskerns.
-* Für jeden Aufruf des Anwendungskerns wird eine Transaktion gestartet.
-* Falls kein Fehler auftritt, wird die Transaktion abgeschlossen (Commit), sonst zurückgerollt (Rollback).
-
-[[aop-fuer-berechtigungspruefungen-verwenden]]
-=== AOP für Berechtigungsprüfungen verwenden
-
-Die Berechtigungsprüfung wird über Spring-AOP mit den vom xref:isy-security:nutzungsvorgaben/master.adoc[Baustein Security] angebotenen Annotationen umgesetzt.
-
-[[aop-nicht-fuer-das-logging-von-exceptions-verwenden]]
-=== AOP nicht für das Logging von Exceptions verwenden
-
-Sämtliche in einem Backend geworfenen und nicht behandelten Ausnahmen müssen inklusive ihrer Stack-Traces geloggt werden.
-Geloggt wird dies in den Methoden der Schnittstellen-Beans der Serviceschicht.
-Hierfür soll Spring-AOP nicht verwendet werden.
-
-Schnittstellen-Beans transformieren die Geschäftsobjekte des Anwendungskerns in Transportobjekte der Schnittstelle.
-Die Stack-Traces der Exceptions werden dabei nicht übertragen, da diese internen Informationen dem Aufrufer keinen Mehrwert bieten.
-Für das Logging des Backends selbst sind sie jedoch wertvoll.
-Statt AOP ist das in der Serviceschicht beheimatete Konstrukt der xref:software-technisch/backend/serviceschicht.adoc#exception-fassade[Exception-Fassade] zu verwenden.
 
 [[dependency-injection]]
 == Vorgaben zur Dependency Injection
 
-Um im Anwendungskern das Single-Responsibility-Prinzip umzusetzen, wird auf das Entwurfsmuster _Dependency Injection_ zurückgegriffen.
-Dabei werden die Verantwortlichkeiten für den Aufbau des Abhängigkeitsnetzes zwischen den Objekten aus den einzelnen Klassen in eine zentrale Komponente überführt.
-Anders als bei der herkömmlichen Vorgehensweise in der objektorientierten Programmierung ist bei der _Dependency Injection_ nicht jedes Objekt selbst dafür zuständig, seine Abhängigkeiten (benötigte Objekte und Ressourcen) zu verwalten.
+Dependency Injection ist in Spring so umgesetzt, dass Spring Beans ihre Abhängigkeiten über Konstruktoren oder Setter-Methoden definieren.
+Der IoC Container injiziert die passenden Abhängigkeiten während der Erstellung der Spring Beans.
 
-Die <<table-vergleich-verfahren-dependency-injection,verschiedenen Verfahren der _Dependency Injection_>> sowie ihre Einsatzszenarien verdeutlicht folgende Übersicht:
+NOTE: Eine genaue Beschreibung der Dependency Injection bietet die https://docs.spring.io/spring-framework/reference/core/beans/dependencies/factory-collaborators.html[offizielle Spring-Dokumentation].
 
-[[table-vergleich-verfahren-dependency-injection]]
-.Vergleich der Verfahren zur Dependency Injection
-|===
-|DI-Methode |Einsatzszenario |Bemerkung
+.icon:university[title=Architekturregel] Verwendung von Dependency Injection
+****
+Spring Beans nutzen Konstruktor-basierte Dependency Injection für zwingende Abhängigkeiten und Setter-basierte Dependency Injection für optionale Abhängigkeiten.
+****
 
-|Constructor-Injection
-|Für alle Spring-Beans, welche keine dynamische Anpassung zur Laufzeit benötigen.
-|Kann in Produktiv-Code eingesetzt werden und ist der Standard von Spring.
+Die Auflösung von Spring Beans geschieht im Normalfall im Zuge der Dependency Injection.
+Dabei sind die folgenden Best Practices zu beachten:
 
-|Field-Injection
-|Vermeidung von Boilerplate-Code
-|Darf nicht in Produktiv-Code verwendet werden.
+* Spring Beans werden bevorzugt anhand ihres Typs anstatt ihres Namens aufgelöst.
+Insbesondere gilt dies für das manuelle Auflösen von Spring Beans über den Application Context.
+* Spring Beans des gleichen Typs können anhand der https://docs.spring.io/spring-framework/reference/core/beans/annotation-config/autowired-qualifiers.html[Annotation `@Qualifier`] oder von https://docs.spring.io/spring-framework/reference/core/beans/annotation-config/generics-as-qualifiers.html[Generics] voneinander unterschieden werden.
 
-|Method-Injection (Setter-Injection)
-|Flexibles Austauschen von Spring-Beans zur Laufzeit
-|Nicht immutable. Sollte nur eingesetzt werden, wenn diese Eigenschaft benötigt wird.
-|===
 
-[TIP]
-====
-Da die _Constructor Injection_ diverse Vorteile gegenüber den beiden anderen Techniken liefert, empfiehlt die IsyFact die Verwendung von  <<constructor-injection,_Constructor Injection_>>.
-====
+[[spring-aop]]
+== Vorgaben zu Spring AOP
 
-[[constructor-injection]]
-=== Verwendung von Constructor Injection
+https://docs.spring.io/spring-framework/reference/core/aop.html[Spring AOP] ist ein Ansatz, der dabei hilft, übergreifende Belange von fachlichem Code zu trennen.
+Beispiele hierfür sind Funktionen, die sich über mehrere Module erstrecken, wie Logging, Sicherheit, Transaktionsmanagement und Ausnahmebehandlung.
+Spring und die IsyFact selbst verwenden Spring AOP genau zu diesem Zweck und bieten den auf ihnen basierenden Anwendungen entsprechenden Mehrwert.
 
-Bei der _Constructor Injection_ werden alle Abhängigkeiten einer Klasse über die Konstruktoren von außen injiziert.
-Dadurch werden automatisch auch die benötigten Abhängigkeiten definiert, welche der Erzeuger des Objektes zur Verfügung stellen muss.
-Dieses Vorgehen hat den Vorteil, dass alle benötigten Abhängigkeiten in der Initialisierungsphase des Objektes zur Verfügung stehen.
-Zusätzlich werden durch dieses Verfahren Überprüfungen auf `null` und die Behandlung von nicht aufgelösten Abhängigkeiten unnötig, da die Abhängigkeiten vorhanden sein müssen.
+.icon:university[title=Architekturregel] Verwendung von Spring AOP
+****
+IT-Systeme verwenden kein Spring AOP zur Implementierung von Fachkomponenten.
+****
 
-_Constructor Injector_ hilft ebenfalls bei dem Identifizieren von zu vielen Abhängigkeiten zu einem Objekt.
-Wenn ein Konstruktor zu viele Argumente aufweist, kann dies ein Zeichen für eine zu große Verantwortlichkeit des Objektes sein.
-Ist dies der Fall, sollte an dieser Stelle über ein Refactoring nachgedacht werden.
-
-Ein weiterer Vorteil von _Constructor Injection_ ist, dass die injizierten Abhängigkeiten während der Laufzeit nicht veränderbar sind und so Nebenläufigkeiten und Seiteneffekte vermieden werden.
-
-[[listing-constructor-injection]]
-.Verwendung von Constructor Injection
-[source,java]
-----
-@Component
-public class SomeBean {
-
-  private final AnotherBean anotherBean;
-
-  public SomeBean(AnotherBean anotherBean) {
-    this.anotherBean = anotherBean;
-  }
-
-  AnotherBean getAnotherBean() {
-    return anotherBean;
-  }
-
-}
-----
+Die Nutzung von Funktionen von Spring, Spring Boot und der IsyFact, die auf Spring AOP oder AOP generell beruhen, bleibt davon unberührt.
+Ebenso können technische Komponenten Spring AOP nutzen.
