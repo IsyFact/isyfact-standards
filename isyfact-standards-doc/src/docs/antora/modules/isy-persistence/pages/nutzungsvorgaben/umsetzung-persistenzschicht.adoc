@@ -50,7 +50,7 @@ public interface CrudRepository<T,ID> {
 ----
 
 Der Zugriff auf die Datenbank aus dem xref:referenzarchitektur:software-technisch/backend/anwendungskern.adoc[Anwendungskern] heraus erfolgt immer über diese Repositories.
-Die Repositories werden als Spring-Beans in den Anwendungskern injiziert.
+Die Repositories werden als Spring Beans in den Anwendungskern injiziert.
 Für jede Entität wird ein entsprechendes Repository als Interface angelegt.
 
 Die Repositories werden im Package der Fachkomponente abgelegt, welche die Datenhoheit über die Tabelle(n) des Repositories besitzt (zum Thema Datenhoheit siehe xref:referenzarchitektur:software-technisch/backend.adoc#persistenz[Referenzarchitektur Backend]).
