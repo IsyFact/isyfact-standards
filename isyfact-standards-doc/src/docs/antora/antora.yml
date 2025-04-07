@@ -1,10 +1,6 @@
 name: isyfact-standards-doku
 title: IsyFact Standards
-version:
-  master: '4.0.x'
-  release/(*): $1
-  (*): $1
-prerelease: '(DEV)'
+prerelease: false
 start_page: einstieg:einstieg.adoc
 nav:
 - modules/einstieg/nav.adoc
