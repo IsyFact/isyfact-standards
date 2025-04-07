@@ -16,7 +16,7 @@ jobs:
   Version:
     uses: IsyFact/isy-github-actions-templates/.github/workflows/next_version.yml@v1.4.0
     with:
-      next-version: 4.0.0
+      next-version: 4.1.0
 
   Maven:
     needs: [Version]
