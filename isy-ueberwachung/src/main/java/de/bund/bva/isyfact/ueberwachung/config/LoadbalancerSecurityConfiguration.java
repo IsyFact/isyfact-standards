@@ -7,8 +7,9 @@ import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @EnableWebSecurity
 @ConditionalOnClass({SecurityFilterChain.class, HttpSecurity.class})
 public class LoadbalancerSecurityConfiguration {
@@ -31,10 +32,12 @@ public class LoadbalancerSecurityConfiguration {
     @Bean
     @Order(99)
     SecurityFilterChain loadbalancerSecurityFilterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests(
-            auth -> auth
-                .requestMatchers(LOADBALANCER_SERVLET_PATH)
-                .permitAll()
+        http
+            .securityMatcher(new AntPathRequestMatcher(LOADBALANCER_SERVLET_PATH))
+                .authorizeHttpRequests(
+                        auth -> auth
+                            .anyRequest()
+                            .permitAll()
         );
         return http.build();
     }

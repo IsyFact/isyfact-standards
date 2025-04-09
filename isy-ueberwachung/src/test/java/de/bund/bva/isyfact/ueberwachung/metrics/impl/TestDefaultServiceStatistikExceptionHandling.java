@@ -1,6 +1,6 @@
 package de.bund.bva.isyfact.ueberwachung.metrics.impl;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.lang.reflect.AccessibleObject;
@@ -8,11 +8,13 @@ import java.lang.reflect.Field;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import jakarta.annotation.Nonnull;
+import jakarta.annotation.PostConstruct;
 
 import org.aopalliance.intercept.MethodInvocation;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -20,6 +22,9 @@ import de.bund.bva.isyfact.exception.BusinessException;
 import de.bund.bva.isyfact.exception.TechnicalException;
 import de.bund.bva.isyfact.ueberwachung.common.data.TestBusinessException;
 import de.bund.bva.isyfact.ueberwachung.common.data.TestTechnicalException;
+
+import io.micrometer.core.instrument.Gauge;
+import io.micrometer.core.instrument.MeterRegistry;
 
 
 /**
@@ -34,6 +39,18 @@ import de.bund.bva.isyfact.ueberwachung.common.data.TestTechnicalException;
 public class TestDefaultServiceStatistikExceptionHandling {
 
     private DefaultServiceStatistik serviceStatistik;
+
+    @Autowired
+    private MeterRegistry meterRegistry;
+
+    private Gauge anzahlBusinessExceptions;
+    private Gauge anzahlTechnicalExceptions;
+
+    @PostConstruct
+    public void postConstruct() {
+        anzahlBusinessExceptions = meterRegistry.get("anzahlBusinessExceptions").gauge();
+        anzahlTechnicalExceptions = meterRegistry.get("anzahlTechnicalExceptions").gauge();
+    }
 
     /**
      * Setup method.
@@ -58,6 +75,8 @@ public class TestDefaultServiceStatistikExceptionHandling {
         assertNotNull(result);
         assertEquals(0, getAktuelleBusinessExceptions(serviceStatistik));
         assertEquals(0, getAktuelleTechnicalExceptions(serviceStatistik));
+        assertEquals(0, anzahlBusinessExceptions.value(), 0.01);
+        assertEquals(0, anzahlTechnicalExceptions.value(), 0.01);
     }
 
     /**
@@ -75,6 +94,8 @@ public class TestDefaultServiceStatistikExceptionHandling {
         // Then
         assertEquals(1, getAktuelleTechnicalExceptions(serviceStatistik));
         assertEquals(0, getAktuelleBusinessExceptions(serviceStatistik));
+        assertEquals(1, anzahlTechnicalExceptions.value(), 0.01);
+        assertEquals(0, anzahlBusinessExceptions.value(), 0.01);
     }
 
     /**
@@ -92,6 +113,8 @@ public class TestDefaultServiceStatistikExceptionHandling {
         // Then
         assertEquals(0, getAktuelleTechnicalExceptions(serviceStatistik));
         assertEquals(1, getAktuelleBusinessExceptions(serviceStatistik));
+        assertEquals(0, anzahlTechnicalExceptions.value(), 0.01);
+        assertEquals(1, anzahlBusinessExceptions.value(), 0.01);
     }
 
     /**
@@ -110,6 +133,8 @@ public class TestDefaultServiceStatistikExceptionHandling {
         // Then
         assertEquals(1, getAktuelleTechnicalExceptions(serviceStatistik));
         assertEquals(1, getAktuelleBusinessExceptions(serviceStatistik));
+        assertEquals(1, anzahlTechnicalExceptions.value(), 0.01);
+        assertEquals(1, anzahlBusinessExceptions.value(), 0.01);
     }
 
     /**

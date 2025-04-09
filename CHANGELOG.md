@@ -1,5 +1,15 @@
 # 4.1.0
-- `IFS-4495`: [isy-task] Verwendung der Defaults falls keine Task-Config definiert ist
+## FEATURES
+- `IFS-3028`: [isyfact-standards-doc] Vorgaben für Spring & Spring Boot aktualisiert
+- `IFS-4208`: [isyfact-standards-doc] Verwendungen der Begriffe "Nachbarsystem" und "Externes System" korrigiert
+- `IFS-1825`: [isyfact-standards-doc] Versionierung mit Liquibase erweitert
+- `IFS-4546`: [isyfact-standards-doc] Verweis auf JAXP entfernt, Negativliste bereinigt und links entfernt
+- `IFS-4543`: [isyfact-standards-doc] Begriff Nutzungsschicht entfernt
+- `IFS-4570`: [isyfact-standards-doc] Alte Einträge aus Negativliste entfernt
+- `IFS-4549`: [isyfact-standards-doc] Verwaltung von Versionen zentralisiert
+
+## BUG FIXES
+- `IFS-4495`: [isy-task] Verwendung der Defaults, falls keine Task-Config definiert ist
 
 # 4.0.0
 ## FEATURES
@@ -80,6 +90,11 @@
 - `IFS-3736`: [isyfact-standards-doc] Abbildung von Anwendungen in IT-Systeme ("technischer Schnitt") beschrieben.
 - `IFS-3763`: [isyfact-standards-doc] Dokumentation der Änderungen zu IFS-2248 (Tokenerneuerung isy-batchrahmen)
 - `IFS-3750`: [isyfact-standards-doc] Baustein Konfiguration entfernt.
+- `IFS-4529`: Spring Boot Versionsanhebung auf 3.4.x:
+    * [isy-ueberwachung]: Signaturänderung von de.bund.bva.isyfact.ueberwachung.config.NachbarsystemRestTemplateConfigurer.CustomErrorHandler.handleError
+    * [isy-ueberwachung]: Folgende Property-Keys ändern sich:
+      - management.endpoints.enabled-by-default -> management.endpoints.access.default
+      - management.endpoint.<id>.enabled -> management.endpoint.<id>.access
 
 # 3.0.1
 - `ISY-701`: Google Guava Versionsanhebung auf 33.1.0

@@ -98,18 +98,18 @@ Außerdem kann die Geschäftsanwendung über die Methode `getAlleRollen` eine Li
 
 Der `Authentifizierungsmanager` übernimmt die programmatische Authentifizierung und Autorisierung interner und externer Anwendungen durch das IAM für den Zugang zu IsyFact-Nachbaranwendungen:
 
-Interne Anwendungen sind als Confidential Client eingestuft und verwahren ihre Authentifizierungsdaten (entweder Client-ID u. Client-Secret oder Nutzername u. Passwort) in ihrer Konfiguration (mit einer oauth2ClientRegistrationId als Schlüssel).
+Batches und Tasks sind als Confidential Client eingestuft und verwahren ihre Authentifizierungsdaten (entweder Client-ID u. Client-Secret oder Nutzername u. Passwort) in ihrer Konfiguration (mit einer `oauth2ClientRegistrationId` als Schlüssel).
 Die Methode `authentifiziere(oauth2ClientRegistrationId)` im Authentifizierungsmanager liest diese Authentifizierungsdaten aus der betrieblichen Konfiguration und führt damit eine OAuth2.0-konforme Authentifizierung und Autorisierung der Anwendung gegenüber dem IAM-System durch.
 Dabei wird anhand des Typs der Authentifizierungsdaten der passende Authentication-Flow mit den konfigurierten Authentifizierungsdaten verwendet.
 
-Externe Anwendungen übermitteln ihre Authentifizierungsdaten (entweder Client-ID u. Client-Secret oder Nutzername u. Passwort) mit im Header der HTTP-Anfrage an das Service-Gateway bzw. Authentication-Gateway.
-Das Gateway führt damit eine OAuth2.0-konforme Authentifizierung und Autorisierung der Anwendung gegenüber dem IAM-System durch.
+xref:glossary::terms-definitions.adoc#externes-system[Externe Systeme] übermitteln ihre Authentifizierungsdaten (entweder Client-ID u. Client-Secret oder Nutzername u. Passwort) mit im Header der HTTP-Anfrage an das Service-Gateway bzw. Authentication-Gateway.
+Das Gateway führt damit eine OAuth2.0-konforme Authentifizierung und Autorisierung des Systems gegenüber dem IAM-System durch.
 Dabei wird anhand des Typs der Authentifizierungsdaten der passende Authentication-Flow verwendet:
 
-- Für den Credential-Typ bzw. _Credential_-Flow xref:client-credential-flow[] ist die Methode `authentifiziereClient` zu verwenden mit der issuerLocation als URI des IAM sowie clientId, clientSecret und optional das BHKNZ der externen Anwendung als Parameter.
+- Für den Credential-Typ bzw. _Credential_-Flow xref:client-credential-flow[] ist die Methode `authentifiziereClient` zu verwenden mit der `issuerLocation` als URI des IAM sowie `clientId`, `clientSecret` und optional das BHKNZ des externen Systems als Parameter.
 Hierbei ist zu beachten, dass aktuell keine Auswertung bzw. Weiterleitung des BHKNZ an das IAM stattfindet.
 
-- Für den Credential-Typ bzw. _Credential_-Flow xref:resource-owner-password-credential-flow[] die Methode `authentifiziereSystem` mit den Parametern issuerLocation als URI des IAM, clientId und clientSecret des Gateways als vermittelnden confidential client sowie username, password und optional das BHKNZ der externen Anwendung.
+- Für den Credential-Typ bzw. _Credential_-Flow xref:resource-owner-password-credential-flow[] die Methode `authentifiziereSystem` mit den Parametern `issuerLocation` als URI des IAM, `clientId` und `clientSecret` des Gateways als vermittelnden _confidential client_ sowie `username`, `password` und optional das BHKNZ der externen Anwendung.
 
 Der `Berechtigungsmanager` gibt Auskunft über die Rollen und Rechte des Anwenders.
 Die in der Benutzeradministration dem Anwender zugewiesenen Rollen werden mithilfe einer anwendungsspezifischen Rollen-Rechte-Datei in konkrete Rechte des Anwenders für diese Anwendung umgewandelt.
@@ -124,7 +124,7 @@ Ein beliebiges Attribut, das im Access-Token des Security Contexts abgelegt ist,
 === Aufruf von Nachbarsystemen
 
 Ein IT-System erwartet bei einem Aufruf, dass alle notwendigen Authentifizierungs- und Autorisierungsdaten in valider und gültiger Form übergeben werden.
-Folglich muss ein IT-System, das ein Nachbarsystem aufruft, diesem Aufruf ebenfalls gültige und valide Authentifizierungs- und Autorisierungsdaten mitgeben.
+Folglich muss ein IT-System, das ein xref:glossary::terms-definitions.adoc#nachbarsystem[Nachbarsystem] aufruft, diesem Aufruf ebenfalls gültige und valide Authentifizierungs- und Autorisierungsdaten mitgeben.
 Im Regelfall werden diese Daten der originären Anfrage als `SecurityContext` übergeben, der mit den Daten aus dem Access-Token zuvor initialisiert, wurde.
 Dies geschieht durch die xref:validierung-der-token[Validierung des Access-Tokens] über den Sicherheitsbaustein `isy-security` des IT-Systems.
 Für eine fachliche und prozessbezogene Aufrufkette wird dieses `Access-Token` in allen weiteren Aufrufen wiederverwendet und unverändert weitergeleitet.
@@ -364,7 +364,7 @@ image::referenzarchitektur:software-technisch/batch/architektur-batch-parts.dn.s
 
 Ein Batch wird über einen Batch-Client oder ein Startprogramm – meist ein Shellscript, UC4, JobNetz, CronJob, oder ähnliches – initialisiert und gestartet.
 Diese Batch-Clients sind systemseitig dazu berechtigt, den dedizierten Batch auszuführen und damit zu starten.
-Somit ruft der Batch-Client die Komponente _Batch-Logik_ in der Nutzungsschicht der Anwendung auf, die die notwendigen Initialisierungen vornimmt.
+Somit ruft der Batch-Client die Komponente _Batch-Logik_ des Batches auf, welche die notwendigen Initialisierungen vornimmt.
 Genau hier erfolgt frühzeitig die Unterscheidung welcher _Credential_-Flow (xref:resource-owner-password-credential-flow[] oder xref:client-credential-flow[]) zur Authentifizierung und Autorisierung des Batch verwendet werden soll.
 
 Die Abbildung xref:image-sequenzdiagramm-absicherung-batch[Absicherung eines Batch] stellt den logischen Ablauf zur Absicherung eines Batches skizzenhaft dar.
@@ -662,7 +662,7 @@ Bei technischen Nutzern (Systemen) ist dies genau umgekehrt.
 [id="image-multi-tenancy-multi-iam",reftext="{figure-caption} {counter:figures}"]
 image::konzept/security_multi-tenancy_with_multi_iams.dn.svg[align="center"]
 
-Die verschiedenen dargestellten Zugriffswege _Portal_, _Service-Gateway_, _Authentication-Gateway_ oder _interne Anwendungs-Authentifizierung_ (Batch/Task/Kontextwechsel) bis hin zu mehrfachen IAM-Instanzen können daher als einzelne Tenants nicht nur unterschieden, sondern auch als Multi-Instanzen des gleichen Typs identifiziert werden.
+Die verschiedenen dargestellten Zugriffswege _Portal_, _Service-Gateway_, _Authentication-Gateway_ oder _Batch/Task_ bis hin zu mehrfachen IAM-Instanzen können daher als einzelne Tenants nicht nur unterschieden, sondern auch als Multi-Instanzen des gleichen Typs identifiziert werden.
 
 Die an den Zugriffswegen beteiligten Komponenten unterscheiden sich in ihrem Aufbau, ihrer Konfiguration und ihrer Funktionalität, sodass jede genau die speziellen Eigenheiten - siehe dazu Kapitel <<aufruf-weboberflaeche-portal>>, <<aufruf-service-gateway-ohne-authentication-gateway>>, <<aufruf-service-gateway-mit-authentication-gateway>> und <<ausfuehrung-batch-u-task>> bzw. <<aufruf-von-nachbarsystemen>> - am besten bedienen oder erfüllen kann.
 Die Umsetzung und sicherheitsrelevante Trennung dieser Zugriffswege werden als eigenständige Tenants betrachtet und können somit auch als mehrere Instanzen pro Zugriffsweg eingerichtet werden.
@@ -671,11 +671,11 @@ Dadurch ist es möglich fachliche Unterschiede über den gleichen technischen Zu
 Die bisher aufgezeigten Authentifizierungswege werden in Bezug auf `isy-security` als jeweils unterschiedliche Tenants behandelt beziehungsweise konfiguriert.
 Aber auch pro Authentifizierungsweg ist es möglich unterschiedliche Tenants sprich mehrere Instanzen des gleichen Typs einzurichten.
 
-Folgendes Beispiel zeigt die Trennung nach Zugriffswegen (<<image-multi-tenancy-isyfact>>):
-
-_In diesem Beispiel wurde ein weiterer IAM-Service aufgenommen, um die Möglichkeiten zur Nutzung mehrere IAM-Services zu verdeutlichen.
+.Trennung nach Authentifizierungswegen
+====
+In diesem Beispiel wurde ein weiterer IAM-Service aufgenommen, um die Möglichkeiten zur Nutzung mehrerer IAM-Services zu verdeutlichen.
 Dieser kann auch außerhalb der Anwendungslandschaft betrieben werden.
-Die IsyFact sieht weiterhin die Nutzung eines einzelnen IAM-Service je Anwendungslandschaft vor._
+Die IsyFact sieht weiterhin die Nutzung eines einzelnen IAM-Services je Anwendungslandschaft vor.
 
 *Ausgangssituation*
 
@@ -685,7 +685,7 @@ Ihnen steht der Zugang über das Portal zur Verfügung.
 * Externen Anwendungen wird der Tenant 2 (T 2) zugewiesen.
 Der Zugriff auf die Anwendungslandschaft erfolgt über das SGW.
 
-* Internen Anwendungen wird der Tenant 3 (T 3) zugewiesen.
+* Batch-Anwendungen und Tasks wird der Tenant 3 (T 3) zugewiesen.
 
 * Tenants 1 und 3 werden in IAM 1 verwaltet.
 
@@ -699,7 +699,7 @@ Daher muss in der GA der Tenant 1 (T 1) konfiguriert sein.
 * Die externen Anwendungen greifen über das SGW auf die GA zu.
 Daher muss in der GA auch der Tenant 2 (T 2) konfiguriert sein.
 
-* Die interne Batch-Anwendung greift auf die GA zu.
+* Die Batch-Anwendung greift auf die GA zu.
 Daher muss in der GA auch der Tenant 3 (T 3) konfiguriert sein.
 
 * Fehlt eine der drei Tenant-Konfigurationen in der GA, so erhält der betroffene Tenant bzw. der dem Tenant zugewiesene Anwender/Anwendung keinen Zugriff auf die GA.
@@ -707,7 +707,7 @@ Daher muss in der GA auch der Tenant 3 (T 3) konfiguriert sein.
 .Beispiel: Trennung nach Authentifizierungswegen
 [id="image-multi-tenancy-isyfact",reftext="{figure-caption} {counter:figures}"]
 image::konzept/multi_tenancy_isyfact.dn.svg[align="center"]
-
+====
 
 [[rollen-und-rechte]]
 == Rollen & Rechte
@@ -763,20 +763,16 @@ Technische Rollen können fachlichen Rollen allerdings untergeordnet werden (sie
 *Enthaltene Rechte:* Die Ausstattung einer fachlichen Rolle mit Rechten beschreibt den Funktionsumfang, den diese Rolle bei Nutzung der Geschäftsanwendung ermöglicht.
 
 *Untergeordnete Rollen:* Optional können fachliche Rollen untergeordnete technische Rollen besitzen.
-Dies ist z.B. immer dann notwendig, wenn ein Anwendungsfall die Services eines Nachbarsystems verwendet.
+Dies ist z.B. immer dann notwendig, wenn ein Anwendungsfall die Services eines xref:glossary::terms-definitions.adoc#nachbarsystem[Nachbarsystems] verwendet.
 Somit muss im Rahmen des Anwendungsfalls die Service-Schnittstelle des Nachbarsystems aufgerufen werden.
 Die dazu benötigte, technische Rolle muss der fachlichen Rolle untergeordnet werden, damit dies funktioniert.
 
-*Sichtbarkeit der Rolle:* Die Sichtbarkeit der Rollen bei der Zuordnung an Anwender, externe Systeme und interne Systeme kann eingeschränkt werden, um die Administration zu vereinfachen.
+*Sichtbarkeit der Rolle:* Die Sichtbarkeit der Rollen bei der Zuordnung an Anwender und Systeme kann eingeschränkt werden, um die Administration zu vereinfachen.
 
 Die meisten Rollen sind fachlicher Natur.
 Technische Rollen treten oft im Rahmen von Service-Schnittstellen auf.
 Bietet eine Geschäftsanwendung Funktionalität über Service-Schnittstellen an, so ist die Nutzung jeder Service-Schnittstelle zumindest durch eine technische Rolle abzusichern.
 Diese Rollen werden nicht direkt an Anwender vergeben, sondern fachlichen Rollen anderer Geschäftsanwendungen untergeordnet.
-
-Wenn die Anwendung fachliche oder technische Batches enthält, dann müssen für diese Batches in der Spezifikation entsprechende „interne Systeme“ definiert werden.
-Die Systemnamen sollten dem folgenden Schema entsprechen: `<Anwendungskürzel>_BAT_<Batchname>`.
-Für jedes dieser internen Systeme müssen eigene fachliche Rollen definiert werden.
 
 [[richtlinien-zum-schnitt-der-rollen]]
 === Richtlinien zum Schnitt der Rollen
@@ -820,9 +816,7 @@ Dies reduziert die Anzahl der Rollen, die einem Nutzer zugewiesen sind, in der R
 [[fachliche-rollen]]
 ==== Fachliche Rollen
 
-Fachliche Rollen werden für Schnittstellen von Geschäftsanwendungen vergeben, welche Zugänge zur Anwendungslandschaft geben.
-Dies beinhaltet neben den Dialogen (der grafischen Oberfläche) und Zugängen über das Service-Gateway auch interne Systeme wie beispielsweise Systemtasks oder Batches.
-
+Fachliche Rollen werden für Anwendungen oder deren Bestandteile vergeben, sofern sie eine Autorisierung der Anfrage vornehmen (grafische Oberflächen und Service-Gateways) bzw. sich selbst autorisieren müssen (Batches und Systemtasks).
 
 Fachliche Rollen berechtigen zur Ausführung der entsprechenden Aktion über den entsprechenden Zugangsweg, sowie aller dadurch mittelbar ausgelösten Aktionen in nachgelagerten Anwendungen.
 Daher werden diesen fachlichen Rollen im Regelfall weitere technische Rollen untergeordnet sein, welche die nachgelagerten Anwendungen absichern.
