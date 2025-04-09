@@ -1,5 +1,6 @@
 # 4.1.0
 - `IFS-4526`: isy-task - Logeintrag IsyTaskAspect korrigiert
+- `IFS-4495`: Verwendung der Defaults falls keine Task-Config definiert ist
 
 # 4.0.0
 - `IFS-2395`: Umstellung von IsyFact `MessageSourceHolder` auf Spring `MessageSource`

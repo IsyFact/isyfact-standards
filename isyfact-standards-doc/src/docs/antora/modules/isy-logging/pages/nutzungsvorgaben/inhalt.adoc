@@ -538,7 +538,7 @@ Darüber hinaus werden folgende Debug-Logeinträge erstellt:
              in den oben genannten Logeinträgen durch „<Maximale Größe überschritten>“ ersetzt.
 |====
 
-Den Aufrufen von Nachbarsystemen kommt eine besondere Wichtigkeit bei der Analyse des Laufzeitverhaltens von Systemen zu.
+Den Aufrufen von xref:glossary::terms-definitions.adoc#nachbarsystem[Nachbarsystemen] kommt eine besondere Wichtigkeit bei der Analyse des Laufzeitverhaltens von Systemen zu.
 Daher stellt der Invoker für Methodenaufrufe von Nachbarsystemen einen eigenen Konstruktor bereit:
 
 * `LoggingMethodInvoker(Method methode, IsyLogger logger, boolean loggeAufruf, boolean loggeErgebnis, boolean loggeDauer, boolean loggeDaten, boolean loggeDatenBeiException , long loggeMaximaleParameterGroesse, String nachbarsystemName, String nachbarsystemUrl)`: Analog zu oben, nur das der Name und die URL des aufgerufenen Nachbarsystems übergeben wird.
@@ -567,7 +567,7 @@ Ereignisschlüssel LoggingMethodInvoker (Nachbarsystemaufruf)
 ===== LogApplicationListener
 
 Die Hilfsklasse `LogApplicationListener` dient dem Loggen von Änderungen des Systemzustands.
-Sie muss gemäß <<logapplicationlistener-1>> als Spring-Bean konfiguriert, aber danach nicht mehr explizit aufgerufen werden.
+Sie muss gemäß <<logapplicationlistener-1>> als Spring Bean konfiguriert, aber danach nicht mehr explizit aufgerufen werden.
 Die Klasse erstellt die Logeinträge mit folgenden Ereignisschlüsseln (Details zu den Inhalten der jeweiligen Logeinträge finden sich in <<ereignisschluessel-isy-logging>>):
 
 .Ereignisschlüssel LogApplicationListener
