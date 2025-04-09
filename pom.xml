@@ -75,9 +75,6 @@
         <!-- Plugin versions used in several places -->
         <maven.enforcer.plugin.version>3.5.0</maven.enforcer.plugin.version>
         <maven.javadoc.plugin.version>3.3.2</maven.javadoc.plugin.version>
-        <asciidoctor.maven.plugin.version>2.2.6</asciidoctor.maven.plugin.version>
-        <asciidoctorj.pdf.version>1.5.4</asciidoctorj.pdf.version>
-        <isy.asciidoctor.extensions.version>2.4.0</isy.asciidoctor.extensions.version>
 
         <!-- Pfade für Dokumentation -->
         <isy.doku.standards.bausteine>10_IsyFact-Standards/20_Bausteine</isy.doku.standards.bausteine>
@@ -268,30 +265,6 @@
                             <version>${commons-text.version}</version>
                         </dependency>
                     </dependencies>
-                </plugin>
-                <plugin>
-                    <groupId>org.asciidoctor</groupId>
-                    <artifactId>asciidoctor-maven-plugin</artifactId>
-                    <version>${asciidoctor.maven.plugin.version}</version>
-                    <dependencies>
-                        <dependency>
-                            <groupId>org.asciidoctor</groupId>
-                            <artifactId>asciidoctorj-pdf</artifactId>
-                            <version>${asciidoctorj.pdf.version}</version>
-                        </dependency>
-                        <dependency>
-                            <groupId>de.bund.bva.isyfact</groupId>
-                            <artifactId>isy-asciidoctorj-extensions</artifactId>
-                            <version>${isy.asciidoctor.extensions.version}</version>
-                        </dependency>
-                    </dependencies>
-                    <configuration>
-                        <outputDirectory>${project.build.directory}</outputDirectory>
-                        <attributes>
-                            <revnumber>IF-${project.version}</revnumber>
-                            <revdate>${maven.build.timestamp}</revdate>
-                        </attributes>
-                    </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
