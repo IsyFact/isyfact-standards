@@ -1,5 +1,6 @@
 # 3.3.0
 - `IFS-4329`: IsyTaskAutoConfiguration verhindert jetzt Task-Erstellung im Batch-Profil
+- `IFS-4526`: isy-task - Logeintrag IsyTaskAspect korrigiert
 - `IFS-4495`: Verwendung der Defaults falls keine Task-Config definiert ist
 
 # 3.2.0
