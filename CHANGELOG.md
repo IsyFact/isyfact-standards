@@ -7,6 +7,7 @@
 - `IFS-4543`: [isyfact-standards-doc] Begriff Nutzungsschicht entfernt
 - `IFS-4570`: [isyfact-standards-doc] Alte Einträge aus Negativliste entfernt
 - `IFS-4549`: [isyfact-standards-doc] Verwaltung von Versionen zentralisiert
+- `IFS-4584`: [isyfact-standards-doc] Entfernung von `isy-asciidoctorj-extensions`
 
 ## BUG FIXES
 - `IFS-4495`: [isy-task] Verwendung der Defaults, falls keine Task-Config definiert ist
