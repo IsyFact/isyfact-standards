@@ -1,4 +1,4 @@
-# 4.1.0
+# 4.x
 ## FEATURES
 - `IFS-3028`: [isyfact-standards-doc] Vorgaben für Spring & Spring Boot aktualisiert
 - `IFS-4208`: [isyfact-standards-doc] Verwendungen der Begriffe "Nachbarsystem" und "Externes System" korrigiert
@@ -7,7 +7,6 @@
 - `IFS-4543`: [isyfact-standards-doc] Begriff Nutzungsschicht entfernt
 - `IFS-4570`: [isyfact-standards-doc] Alte Einträge aus Negativliste entfernt
 - `IFS-4549`: [isyfact-standards-doc] Verwaltung von Versionen zentralisiert
-- `IFS-1825`: [isyfact-standards-doc] Versionierung mit Liquibase erweitert
 - `IFS-4584`: [isyfact-standards-doc] Entfernung von `isy-asciidoctorj-extensions`
 
 # 4.0.0
