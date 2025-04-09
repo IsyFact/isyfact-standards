@@ -10,7 +10,10 @@
 - `IFS-4584`: [isyfact-standards-doc] Entfernung von `isy-asciidoctorj-extensions`
 
 ## BUG FIXES
+- `IFS-4526`: [isy-task] Logeintrag IsyTaskAspect korrigiert
 - `IFS-4495`: [isy-task] Verwendung der Defaults, falls keine Task-Config definiert ist
+
+## BREAKING CHANGES
 
 # 4.0.0
 ## FEATURES

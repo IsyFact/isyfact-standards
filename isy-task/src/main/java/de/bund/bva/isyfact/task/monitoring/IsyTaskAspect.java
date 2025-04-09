@@ -139,7 +139,7 @@ public class IsyTaskAspect {
             try {
                 if (!hostHandler.isHostApplicable(host)) {
                     // Simply return and do not execute the task.
-                    logger.info(LogKategorie.JOURNAL, "ISYTA14101", "Task {0} wird nicht ausgeführt: Hostname muss \"{1}\" entsprechen.", taskId, host);
+                    logger.info(LogKategorie.JOURNAL, "ISYTA14101", "Task {} wird nicht ausgeführt: Hostname muss \"{}\" entsprechen.", taskId, host);
                     recordFailure(pjp, HostNotApplicableException.class.getSimpleName());
                     return null;
                 }
@@ -153,7 +153,7 @@ public class IsyTaskAspect {
             try {
                 authenticator.login();
             } catch (Exception e) {
-                logger.error("ISYTA14100", "Authentifizierung des Tasks {0} fehlgeschlagen. Task wird nicht ausgeführt.", e, taskId);
+                logger.error("ISYTA14100", "Authentifizierung des Tasks {} fehlgeschlagen. Task wird nicht ausgeführt.", e, taskId);
                 return null;
             }
 
