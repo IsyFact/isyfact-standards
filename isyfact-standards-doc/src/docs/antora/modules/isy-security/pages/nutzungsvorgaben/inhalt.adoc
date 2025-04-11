@@ -45,6 +45,19 @@ Für den `client_credentials` (_Client Credentials_ Flow) GrantType erfolgt unab
 eine erneute Authentifizierung nur dann, wenn das Token weniger als 60 Sekunden vor Ablauf steht.
 Dieser Wert ist als Standardwert durch eine Implementierung in Spring Security vorgegeben.
 
+`void authentifiziere(String oauth2ClientRegistrationId, AdditionalCredentials credentials)`::
+Authentifiziert einen OAuth 2.0 Client anhand seiner Client-Registration-ID mit zusätzlichen dynamischen Authentifizierungsdaten. Unterstützt:
+* `client_credentials`-GrantType: Hier kann ein BHKNZ über die AdditionalCredentials übergeben werden.
+* `password`-GrantType: Hier können Benutzername und Passwort, sowie optional das BHKNZ übergeben werden. Diese Authentifizierungsdaten werden anstelle der eventuell in der Konfiguration hinterlegten Werte verwendet.
+
+`void authentifiziere(ClientRegistration clientRegistration)`::
+Authentifiziert einen OAuth 2.0 Client anhand des übergebenen ClientRegistration-Objektes. Diese Methode unterstützt ausschließlich den `client_credentials`-GrantType (_Client Credentials_ Flow).
+
+`void authentifiziere(ClientRegistration clientRegistration, AdditionalCredentials credentials)`::
+Authentifiziert einen OAuth 2.0 Client anhand des übergebenen ClientRegistration-Objektes mit zusätzlichen dynamischen Authentifizierungsdaten. Unterstützt beide Grant-Types:
+* `client_credentials`-GrantType: Hier kann ein BHKNZ über die AdditionalCredentials übergeben werden.
+* `password`-GrantType: Hier *müssen* Benutzername und Passwort in den AdditionalCredentials enthalten sein, da sie nicht aus der Konfiguration geladen werden können.
+
 `void authentifiziereClient(String issuerLocation, String clientId, String clientSecret)`::
 `void authentifiziereClient(String issuerLocation, String clientId, String clientSecret, String bhknz)`::
 Authentifiziert einen OAuth 2.0 Client gegen die angegebene `issuerLocation` anhand seiner `clientId` und `clientSecret`.
@@ -54,6 +67,49 @@ Das `bhknz` kann als optionaler Parameter übergeben werden, wird aber für die 
 `void authentifiziereSystem(String issuerLocation, String clientId, String clientSecret, String username, String password, String bhknz)`::
 Authentifiziert einen technischen Nutzer (Resource Owner) gegen die angegebene `issuerLocation` anhand der `clientId` und `clientSecret` des zu verwendenden OAuth 2.0 Clients und dem `username` und `password` des Resource Owners.
 Das `bhknz` kann als optionaler Parameter übergeben werden und wird in den <<isyfact-specific-client-registration,konfigurierten Header>> zur Zwei-Faktor-Authentifizierung gesetzt.
+
+[NOTE]
+Die Methoden authentifiziereClient und authentifiziereSystem und ihre überladenen Varianten sind als deprecated markiert und sollten nicht mehr erwendet werden. In künftigen Versionen werden diese Methoden nicht mehr vorhanden sein.
+
+.Verwendung der Authentifizierungsverfahren
+[source,java]
+----
+//Client Credentials Flow Beispiel*
+ClientRegistration clientCredentialsRegistration = ClientRegistration.withRegistrationId("client-service")
+.tokenUri("http://iam-provider/auth/realms/testrealm/protocol/openid-connect/token")
+.jwkSetUri("http://iam-provider/auth/realms/testrealm/protocol/openid-connect/certs")
+.clientId("client-id")
+.clientSecret("client-secret")
+.authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
+.build();
+
+//Einfache Authentifizierung mit ClientRegistration
+authentifizierungsmanager.authentifiziere(clientCredentialsRegistration);
+
+//Einfache Authentifizierung mit ClientRegistration inkl. BHKNZ
+AdditionalCredentials credentialsWithBhknz = AdditionalCredentials.withBhknz("123456");
+authentifizierungsmanager.authentifiziere(clientCredentialsRegistration, credentialsWithBhknz);
+
+//Resource Owner Password Credentials Flow Beispiel
+ClientRegistration passwordFlowRegistration = ClientRegistration.withRegistrationId("sgw-service")
+.tokenUri("http://iam-provider/auth/realms/testrealm/protocol/openid-connect/token")
+.jwkSetUri("http://iam-provider/auth/realms/testrealm/protocol/openid-connect/certs")
+.clientId("sgw-client")
+.clientSecret("sgw-secret")
+.authorizationGrantType(AuthorizationGrantType.PASSWORD)
+.build();
+
+//Authentifizierung mit AdditionalCredentials: username und password*
+AdditionalCredentials credentialsWithUsernamePassword = AdditionalCredentials.withUsernamePassword("user", "passwort");
+authentifizierungsmanager.authentifiziere(passwordFlowRegistration, credentialsWithUsernamePassword);
+
+//Authentifizierung mit AdditionalCredentials: username, password und BHKNZ*
+AdditionalCredentials credentialsWithUsernamePasswordBhknz = AdditionalCredentials.withUsernamePasswordBhknz(
+"user", "passwort", "123456");
+authentifizierungsmanager.authentifiziere(passwordFlowRegistration, credentialsWithUsernamePasswordBhknz);
+
+----
+
 
 [[berechtigungsmanager]]
 === Berechtigungsmanager

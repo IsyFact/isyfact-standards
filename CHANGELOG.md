@@ -8,6 +8,7 @@
 - `IFS-4570`: [isyfact-standards-doc] Alte Einträge aus Negativliste entfernt
 - `IFS-4549`: [isyfact-standards-doc] Verwaltung von Versionen zentralisiert
 - `IFS-4584`: [isyfact-standards-doc] Entfernung von `isy-asciidoctorj-extensions`
+- `IFS-4591`: [isy-security] Hinzufügen von Authentifizierungsmethoden zur Authentifizierung von Clients und Systemen ohne Issuer-URI.
 
 ## BUG FIXES
 - `IFS-4526`: [isy-task] Logeintrag IsyTaskAspect korrigiert
