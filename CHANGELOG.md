@@ -5,6 +5,7 @@
   Hiermit wird ein ähnliches Verhalten zu einem unauthentifizierten AufrufKontext wiederhergestellt.
 - `IFS-4316`: [isyfact-products-bom] Aktualisierung und Bereitstellung des Produktkatalogs der Isyfact.
 - `IFS-4495`: [isy-task] Verwendung der Defaults falls keine Task-Config definiert ist
+- `IFS-4464`: [isy-aufrufkontext, isy-logging] AutoConfiguration der Klasse MdcFilterAutoConfiguration ist in isy-logging definiert
 
 ### Bug Fixes
 - `IFS-4514`: [isyfact-standards-doc] Build-Fehler und ungültige Verweise auf externe Websites korrigiert.
