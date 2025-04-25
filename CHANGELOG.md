@@ -5,6 +5,8 @@
   Hiermit wird ein ähnliches Verhalten zu einem unauthentifizierten AufrufKontext wiederhergestellt.
 - `IFS-4316`: [isyfact-products-bom] Aktualisierung und Bereitstellung des Produktkatalogs der Isyfact.
 - `IFS-4495`: [isy-task] Verwendung der Defaults falls keine Task-Config definiert ist
+- `IFS-4676`: [isy-task], [isy-logging] Scope der Abhängigkeit zu AspectJ-Weaver auf Runtime gesetzt.
+    * Definitionen der Aspekte zum kompilieren werden von org.aspectj:aspectjrt bereitgestellt.
 
 ### Bug Fixes
 - `IFS-4514`: [isyfact-standards-doc] Build-Fehler und ungültige Verweise auf externe Websites korrigiert.
