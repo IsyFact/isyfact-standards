@@ -80,7 +80,7 @@
             <artifactId>logback-core</artifactId>
         </dependency>
         <dependency>
-            <groupId> org.slf4j</groupId>
+            <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
         </dependency>
         <dependency>
@@ -89,7 +89,13 @@
         </dependency>
         <dependency>
             <groupId>org.aspectj</groupId>
+            <artifactId>aspectjrt</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.aspectj</groupId>
             <artifactId>aspectjweaver</artifactId>
+            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>jakarta.validation</groupId>
