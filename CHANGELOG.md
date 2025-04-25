@@ -9,6 +9,8 @@
 - `IFS-4549`: [isyfact-standards-doc] Verwaltung von Versionen zentralisiert
 - `IFS-4584`: [isyfact-standards-doc] Entfernung von `isy-asciidoctorj-extensions`
 - `IFS-4591`: [isy-security] Hinzufügen von Authentifizierungsmethoden zur Authentifizierung von Clients und Systemen ohne Issuer-URI.
+- `IFS-4676`: [isy-task], [isy-logging] Scope der Abhängigkeit zu AspectJ-Weaver auf Runtime gesetzt.
+    * Definitionen der Aspekte zum kompilieren werden von org.aspectj:aspectjrt bereitgestellt.
 
 ## BUG FIXES
 - `IFS-4526`: [isy-task] Logeintrag IsyTaskAspect korrigiert
