@@ -7,51 +7,21 @@
 *** xref:isy-exception-core:konzept/master.adoc[Konzept]
 *** xref:isy-exception-core:nutzungsvorgaben/master.adoc[Nutzungsvorgaben]
 
-** JPA/Hibernate
-*** xref:isy-persistence:konzept.adoc[Konzept]
-**** xref:isy-persistence:konzept/vorgaben-konventionen.adoc[]
-**** xref:isy-persistence:konzept/historisierung.adoc[]
-**** xref:isy-persistence:konzept/versionierung-mit-liquibase.adoc[Versionierung (Liquibase)]
-**** xref:isy-persistence:konzept/versionierung.adoc[]
-*** Nutzungsvorgaben
-**** xref:isy-persistence:nutzungsvorgaben/umsetzung-persistenzschicht.adoc[]
-**** xref:isy-persistence:nutzungsvorgaben/konfiguration.adoc[]
-**** xref:isy-persistence:nutzungsvorgaben/historisierung.adoc[]
-**** xref:isy-persistence:nutzungsvorgaben/versionierung-mit-liquibase.adoc[Versionierung (Liquibase)]
-**** xref:isy-persistence:nutzungsvorgaben/versionierung.adoc[]
-
 ** Logging
 *** xref:isy-logging:konzept/master.adoc[Konzept]
 *** xref:isy-logging:nutzungsvorgaben/master.adoc[Nutzungsvorgaben]
-
-** Polling
-*** xref:isy-polling:konzept/master.adoc[Konzept]
-*** xref:isy-polling:nutzungsvorgaben/master.adoc[Nutzungsvorgaben]
 
 ** REST
 *** xref:isy-service-rest:konzept/master.adoc[Konzept]
 *** xref:isy-service-rest:nutzungsvorgaben/master.adoc[Nutzungsvorgaben]
 
-** Security
-*** xref:isy-security:konzept/master.adoc[Konzept]
-*** xref:isy-security:nutzungsvorgaben/master.adoc[Nutzungsvorgaben]
-
 ** Sonderzeichen
 *** xref:isy-sonderzeichen-docs:ROOT:konzept/master.adoc[Konzept]
 *** xref:isy-sonderzeichen-docs:ROOT:nutzungsvorgaben/master.adoc[Nutzungsvorgaben]
 
-** Task Scheduling
-*** xref:isy-task:konzept.adoc[Konzept]
-**** xref:isy-task:konzept/erweiterung-spring.adoc[]
-**** xref:isy-task:konzept/integration-isyfact.adoc[]
-*** xref:isy-task:nutzungsvorgaben.adoc[Nutzungsvorgaben]
-
 ** Überwachung
 *** xref:isy-ueberwachung:konzept/master.adoc[Konzept]
 *** xref:isy-ueberwachung:nutzungsvorgaben/master.adoc[Nutzungsvorgaben]
-
-** Util
-*** xref:isy-util:nutzungsvorgaben/master.adoc[Nutzungsvorgaben]
 
 ** Bedienkonzept
 

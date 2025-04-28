@@ -1,6 +1,0 @@
-isy:
-  logging:
-    anwendung:
-      name: Test
-      typ: Test
-      version: 0.0.0

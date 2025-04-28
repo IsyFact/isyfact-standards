@@ -17,6 +17,12 @@
     <properties>
         <isy-datetime.version>4.0.0</isy-datetime.version>
         <isy-sonderzeichen.version>4.0.0</isy-sonderzeichen.version>
+        <isy-persistence.version>${project.parent.version}</isy-persistence.version>
+        <isy-polling.version>${project.parent.version}</isy-polling.version>
+        <isy-security.version>${project.parent.version}</isy-security.version>
+        <isy-security-test.version>${project.parent.version}</isy-security-test.version>
+        <isy-task.version>${project.parent.version}</isy-task.version>
+        <isy-util.version>${project.parent.version}</isy-util.version>
     </properties>
 
     <!-- Dependency-Management für die Komponenten der IsyFact-Standards. -->
@@ -52,22 +58,22 @@
             <dependency>
                 <groupId>de.bund.bva.isyfact</groupId>
                 <artifactId>isy-persistence</artifactId>
-                <version>${project.parent.version}</version>
+                <version>${isy-persistence.version}</version>
             </dependency>
             <dependency>
                 <groupId>de.bund.bva.isyfact</groupId>
                 <artifactId>isy-polling</artifactId>
-                <version>${project.parent.version}</version>
+                <version>${isy-polling.version}</version>
             </dependency>
             <dependency>
                 <groupId>de.bund.bva.isyfact</groupId>
                 <artifactId>isy-security</artifactId>
-                <version>${project.parent.version}</version>
+                <version>${isy-security.version}</version>
             </dependency>
             <dependency>
                 <groupId>de.bund.bva.isyfact</groupId>
                 <artifactId>isy-security-test</artifactId>
-                <version>${project.parent.version}</version>
+                <version>${isy-security-test.version}</version>
             </dependency>
             <dependency>
                 <groupId>de.bund.bva.isyfact</groupId>
@@ -77,7 +83,7 @@
             <dependency>
                 <groupId>de.bund.bva.isyfact</groupId>
                 <artifactId>isy-task</artifactId>
-                <version>${project.parent.version}</version>
+                <version>${isy-task.version}</version>
             </dependency>
             <dependency>
                 <groupId>de.bund.bva.isyfact</groupId>
@@ -87,7 +93,7 @@
             <dependency>
                 <groupId>de.bund.bva.isyfact</groupId>
                 <artifactId>isy-util</artifactId>
-                <version>${project.parent.version}</version>
+                <version>${isy-util.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
