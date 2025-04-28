@@ -36,13 +36,7 @@
         <module>isy-batchrahmen</module>
         <module>isy-exception-core</module>
         <module>isy-logging</module>
-        <module>isy-persistence</module>
-        <module>isy-polling</module>
-        <module>isy-task</module>
         <module>isy-ueberwachung</module>
-        <module>isy-util</module>
-        <module>isy-security</module>
-        <module>isy-security-test</module>
     </modules>
 
     <scm>

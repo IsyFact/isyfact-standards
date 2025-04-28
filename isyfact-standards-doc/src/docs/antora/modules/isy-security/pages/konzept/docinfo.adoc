@@ -1,7 +1,0 @@
-*Java Bibliothek / IT-System*
-
-[cols="5,2,3",options="header"]
-|====
-|Name |Art |Version
-m|isy-security |Bibliothek |v{page-component-version}
-|====
