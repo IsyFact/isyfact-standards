@@ -17,12 +17,12 @@
     <properties>
         <isy-datetime.version>4.0.0</isy-datetime.version>
         <isy-sonderzeichen.version>4.0.0</isy-sonderzeichen.version>
-        <isy-persistence.version>${project.parent.version}</isy-persistence.version>
-        <isy-polling.version>${project.parent.version}</isy-polling.version>
-        <isy-security.version>${project.parent.version}</isy-security.version>
-        <isy-security-test.version>${project.parent.version}</isy-security-test.version>
-        <isy-task.version>${project.parent.version}</isy-task.version>
-        <isy-util.version>${project.parent.version}</isy-util.version>
+        <isy-persistence.version>4.0.0</isy-persistence.version>
+        <isy-polling.version>4.0.0</isy-polling.version>
+        <isy-security.version>4.0.0</isy-security.version>
+        <isy-security-test.version>4.0.0</isy-security-test.version>
+        <isy-task.version>4.0.0</isy-task.version>
+        <isy-util.version>4.0.0</isy-util.version>
     </properties>
 
     <!-- Dependency-Management für die Komponenten der IsyFact-Standards. -->
