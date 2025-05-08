@@ -1,3 +1,7 @@
+# 3.3.0
+### Features
+- `IFS-4464`: AutoConfiguration der Klasse MdcFilterAutoConfiguration nach isy-logging verschoben
+
 # 3.1.0
 - `IFS-3612`: Bibliothek als `@Deprecated` markiert
   - Nach Umstellung auf `isy-security` und REST Schnittstellen wird die Bibliothek nicht länger benötigt.
