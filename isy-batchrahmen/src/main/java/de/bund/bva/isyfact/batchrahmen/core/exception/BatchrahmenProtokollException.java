@@ -1,7 +1,5 @@
 
-/**
- * 
- */
+
 package de.bund.bva.isyfact.batchrahmen.core.exception;
 
 import de.bund.bva.isyfact.batchrahmen.batch.rahmen.BatchReturnCode;
