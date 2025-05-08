@@ -1,4 +1,7 @@
 # 3.3.0
+- `IFS-4676`: Scope der Abhängigkeit zu AspectJ-Weaver auf Runtime gesetzt.
+    * Definitionen der Aspekte zum kompilieren werden von org.aspectj:aspectjrt bereitgestellt.
+
 ### Features
 - `IFS-4464`: AutoConfiguration der Klasse MdcFilterAutoConfiguration nach isy-logging verschoben
 

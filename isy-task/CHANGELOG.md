@@ -2,6 +2,8 @@
 - `IFS-4329`: IsyTaskAutoConfiguration verhindert jetzt Task-Erstellung im Batch-Profil
 - `IFS-4526`: isy-task - Logeintrag IsyTaskAspect korrigiert
 - `IFS-4495`: Verwendung der Defaults falls keine Task-Config definiert ist
+- `IFS-4676`: Scope der Abhängigkeit zu AspectJ-Weaver auf Runtime gesetzt.
+    * Definitionen der Aspekte zum kompilieren werden von org.aspectj:aspectjrt bereitgestellt.
 
 # 3.2.0
 - `IFS-4212`: Dokumentation von `@OnceTask` korrigiert (`@ManualTask` existiert nicht)
