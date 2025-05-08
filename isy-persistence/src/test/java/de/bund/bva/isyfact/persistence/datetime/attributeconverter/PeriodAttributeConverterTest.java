@@ -34,9 +34,7 @@ import org.springframework.transaction.annotation.Transactional;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
-/**
 
- */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = PeriodAttributeConverterTest.TestConfig.class)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
