@@ -38,9 +38,7 @@ import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
 
 import de.bund.bva.isyfact.persistence.datetime.attributeconverter.test.TestPeriodEntity;
 
-/**
 
- */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = PeriodAttributeConverterTest.TestConfig.class)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
