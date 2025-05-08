@@ -33,7 +33,7 @@ public class AufrufKontextImpl implements AufrufKontext {
      */
     private String durchfuehrenderSachbearbeiterName;
 
-    /** */
+    
     private boolean rollenErmittelt;
 
     /**
