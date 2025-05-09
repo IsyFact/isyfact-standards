@@ -89,7 +89,7 @@ Die geworfene Ausnahme ist, geschachtelt in eine Ausnahme der Anwendung, an den 
 Um zu erkennen, ob sich das Objekt in der Datenbank verändert hat, empfiehlt Hibernate die Verwendung eines numerischen Versions-Felds in jeder Datenbank-Tabelle.
 
 [[explizites-locking]]
-=== Explizites Locking bei Bedarf verwenden
+==== Explizites Locking bei Bedarf verwenden
 
 Falls für einen Teil der Entitäten konkurrierende Zugriffe möglich sind, ist für genau diese Entitäten ein explizites (pessimistisches) Locking zu verwenden.
 
@@ -446,24 +446,35 @@ public class Lehrer extends Person {
 .Polymorpher Zugriff
 [source,java]
 ----
-List<Person> personen = entityManager
-    .createQuery("select p from Person p")
-    .getResultList();
+public class PolymorphicAccessExample {
 
-//oder per Spring Data Repository:
-@Autowired
-private PersonRepository personRepository;
-List<Person> personen = personRepository.findAll();
+    @Autowired
+    private PersonRepository personRepository;
 
-//Zugriff auf Attribute Subklassen
-personen.forEach(person -> {
-    if (person instanceof Schueler) {
-        ((Schueler) person).getKlassenstufe();
-    } else if (person instanceof Lehrer) {
-        ((Lehrer) person).getGehalt());
+    public List<Person> accessByQuery() { // <.>
+        return entityManager
+            .createQuery("select p from Person p")
+            .getResultList();
     }
-});
+
+    public List<Person> accessByRepository() { // <.>
+        List<Person> personen = personRepository.findAll();
+
+        // Zugriff auf Subklassen
+        personen.forEach(person -> {
+            if (person instanceof Schueler) {
+                ((Schueler) person).getKlassenstufe();
+            } else if (person instanceof Lehrer) {
+                ((Lehrer) person).getGehalt();
+            }
+        });
+
+        return personen;
+    }
+}
 ----
+<.> Zugriff über Query
+<.> Zugriff über Spring Data Repository
 
 *Vorteile*
 
@@ -503,7 +514,7 @@ public class Oberklasse { }
 
 *Nachteile*
 
-* Je nach Vererbungshierarchie sind performanzkritische Joins erforderlich beim Zugriff sowohl polymorph auf Ober- als auch auf Subklassen.
+* Je nach Vererbungshierarchie sind für die Performanz kritische Joins erforderlich, sowohl beim polymorphen Zugriff auf Ober- als auch auf Subklassen.
 
 [[table-per-concrete-class-details]]
 ===== Table per Concrete Class
