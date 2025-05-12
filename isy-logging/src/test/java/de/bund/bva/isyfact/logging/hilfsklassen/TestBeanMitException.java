@@ -1,7 +1,5 @@
 package de.bund.bva.isyfact.logging.hilfsklassen;
 
-
-
 /**
  * Test-Bean, dass innerhalb eines Getters einen Fehler wirft.
  */

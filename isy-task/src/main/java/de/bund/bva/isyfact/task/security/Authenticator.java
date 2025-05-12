@@ -1,4 +1,3 @@
-
 package de.bund.bva.isyfact.task.security;
 
 /**

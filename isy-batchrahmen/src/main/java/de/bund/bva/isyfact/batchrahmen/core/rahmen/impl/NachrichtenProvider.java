@@ -1,6 +1,5 @@
 package de.bund.bva.isyfact.batchrahmen.core.rahmen.impl;
 
-
 import java.text.MessageFormat;
 import java.util.Locale;
 import java.util.ResourceBundle;

@@ -1,7 +1,5 @@
 package de.bund.bva.isyfact.logging.util;
 
-
-
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import org.aopalliance.intercept.MethodInterceptor;

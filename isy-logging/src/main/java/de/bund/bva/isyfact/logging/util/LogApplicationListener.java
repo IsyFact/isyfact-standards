@@ -1,7 +1,5 @@
 package de.bund.bva.isyfact.logging.util;
 
-
-
 import java.util.Objects;
 
 import org.springframework.context.ApplicationContext;

@@ -1,7 +1,5 @@
 package de.bund.bva.isyfact.logging;
 
-
-
 import de.bund.bva.isyfact.logging.hilfsklassen.TestBeanEinfach;
 import de.bund.bva.isyfact.logging.hilfsklassen.TestSignaturKlasse;
 import de.bund.bva.isyfact.logging.util.LogHelper;

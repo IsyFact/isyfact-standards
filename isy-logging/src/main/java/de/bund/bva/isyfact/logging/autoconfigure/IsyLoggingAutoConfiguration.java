@@ -1,6 +1,5 @@
 package de.bund.bva.isyfact.logging.autoconfigure;
 
-
 import de.bund.bva.isyfact.logging.config.AbstractBoundaryLoggerProperties;
 import de.bund.bva.isyfact.logging.config.IsyLoggingApplicationLoggerProperties;
 import de.bund.bva.isyfact.logging.config.IsyLoggingBoundaryLoggerProperties;

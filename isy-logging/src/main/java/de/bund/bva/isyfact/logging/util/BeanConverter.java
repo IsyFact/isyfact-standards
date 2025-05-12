@@ -1,7 +1,5 @@
 package de.bund.bva.isyfact.logging.util;
 
-
-
 /**
  * Interface für BeanConverter zur Serialisierung von Beans bei der Logausgabe.
  *

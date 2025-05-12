@@ -1,6 +1,5 @@
 package de.bund.bva.isyfact.polling.common.exception;
 
-
 import java.text.MessageFormat;
 import java.util.Locale;
 import java.util.ResourceBundle;

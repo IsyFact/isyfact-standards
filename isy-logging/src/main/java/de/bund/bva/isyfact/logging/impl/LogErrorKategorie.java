@@ -1,7 +1,5 @@
 package de.bund.bva.isyfact.logging.impl;
 
-
-
 /**
  * Internes Enum für Log-Kategorien des Log-Level 'Error'. Diese werden nur intern verwendet und können über
  * die Schnittstelle nicht angegeben werden.

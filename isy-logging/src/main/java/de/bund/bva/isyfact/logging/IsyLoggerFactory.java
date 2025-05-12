@@ -1,7 +1,5 @@
 package de.bund.bva.isyfact.logging;
 
-
-
 import java.util.HashMap;
 import java.util.Map;
 
