@@ -1,7 +1,5 @@
 package de.bund.bva.isyfact.logging.util;
 
-
-
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.exceptions.InterceptionFehler;
 import de.bund.bva.isyfact.logging.impl.FehlerSchluessel;

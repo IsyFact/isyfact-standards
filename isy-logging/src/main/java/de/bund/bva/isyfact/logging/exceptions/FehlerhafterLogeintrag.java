@@ -1,7 +1,5 @@
 package de.bund.bva.isyfact.logging.exceptions;
 
-
-
 import de.bund.bva.isyfact.exception.TechnicalRuntimeException;
 
 /**

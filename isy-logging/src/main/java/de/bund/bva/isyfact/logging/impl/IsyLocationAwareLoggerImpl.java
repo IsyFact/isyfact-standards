@@ -1,7 +1,5 @@
 package de.bund.bva.isyfact.logging.impl;
 
-
-
 import de.bund.bva.isyfact.exception.BaseException;
 import de.bund.bva.isyfact.exception.TechnicalRuntimeException;
 import de.bund.bva.isyfact.logging.IsyDatentypMarker;

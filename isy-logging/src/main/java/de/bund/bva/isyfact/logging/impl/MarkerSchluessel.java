@@ -1,7 +1,5 @@
 package de.bund.bva.isyfact.logging.impl;
 
-
-
 /**
  * Auflistung aller Schlüssel (Namen) für Marker.
  * 

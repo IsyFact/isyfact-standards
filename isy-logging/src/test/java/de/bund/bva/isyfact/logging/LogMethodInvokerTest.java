@@ -1,7 +1,5 @@
 package de.bund.bva.isyfact.logging;
 
-
-
 import de.bund.bva.isyfact.logging.hilfsklassen.TestZielKlasse;
 import de.bund.bva.isyfact.logging.hilfsklassen.TestZielParameterPerson;
 import de.bund.bva.isyfact.logging.util.LoggingMethodInvoker;

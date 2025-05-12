@@ -1,7 +1,5 @@
 package de.bund.bva.isyfact.logging.hilfsklassen;
 
-
-
 /**
  * Bean-Interface zum Testen der Serialisierung.
  */

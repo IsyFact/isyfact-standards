@@ -1,4 +1,3 @@
-
 CREATE TABLE BATCH_STATUS
 (
     BATCH_ID                   VARCHAR2(255) NOT NULL,

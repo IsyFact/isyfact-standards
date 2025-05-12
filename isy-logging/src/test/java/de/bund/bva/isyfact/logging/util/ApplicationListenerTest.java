@@ -1,7 +1,5 @@
 package de.bund.bva.isyfact.logging.util;
 
-
-
 import de.bund.bva.isyfact.logging.AbstractLogTest;
 
 import org.junit.Test;

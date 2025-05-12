@@ -1,7 +1,5 @@
 package de.bund.bva.isyfact.logging.exceptions;
 
-
-
 import java.text.MessageFormat;
 import java.util.Locale;
 import java.util.ResourceBundle;

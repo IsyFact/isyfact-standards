@@ -1,7 +1,5 @@
 package de.bund.bva.isyfact.logging.hilfsklassen;
 
-
-
 /**
  * Hilfsklasse als Testparameter einer Methodinvocation.
  * 

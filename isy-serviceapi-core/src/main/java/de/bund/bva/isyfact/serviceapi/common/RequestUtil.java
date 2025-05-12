@@ -1,6 +1,5 @@
 package de.bund.bva.isyfact.serviceapi.common;
 
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.http.HttpHeaders;

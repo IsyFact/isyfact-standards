@@ -1,7 +1,5 @@
 package de.bund.bva.isyfact.logging.impl;
 
-
-
 import de.bund.bva.isyfact.logging.IsyMarker;
 import org.slf4j.Marker;
 

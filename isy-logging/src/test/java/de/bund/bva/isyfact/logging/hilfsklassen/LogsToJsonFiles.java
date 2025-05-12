@@ -1,7 +1,5 @@
 package de.bund.bva.isyfact.logging.hilfsklassen;
 
-
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
