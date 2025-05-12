@@ -1,7 +1,5 @@
 package de.bund.bva.isyfact.logging.impl;
 
-
-
 /**
  * Auflistung aller Standard-Logeinträge und deren Nachrichten, die in IsyFact-Logging genutzt werden.
  * 

@@ -1,7 +1,5 @@
 package de.bund.bva.isyfact.logging.impl;
 
-
-
 import org.slf4j.spi.LocationAwareLogger;
 
 import de.bund.bva.isyfact.exception.BaseException;

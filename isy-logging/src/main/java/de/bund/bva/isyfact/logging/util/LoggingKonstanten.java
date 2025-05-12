@@ -1,7 +1,5 @@
 package de.bund.bva.isyfact.logging.util;
 
-
-
 /**
  * Konstantenklasse zur Verwaltung gemeinsam genutzer Konstanten von isy-logging.
  */

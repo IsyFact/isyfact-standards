@@ -1,7 +1,5 @@
 package de.bund.bva.isyfact.logging.layout;
 
-
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 

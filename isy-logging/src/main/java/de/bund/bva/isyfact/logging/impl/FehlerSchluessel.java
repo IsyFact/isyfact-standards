@@ -1,6 +1,5 @@
 package de.bund.bva.isyfact.logging.impl;
 
-
 /**
  * Fehlerschlüssel von Isy-Logging.
  * 

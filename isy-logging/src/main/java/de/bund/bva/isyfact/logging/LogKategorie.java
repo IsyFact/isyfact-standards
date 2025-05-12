@@ -1,7 +1,5 @@
 package de.bund.bva.isyfact.logging;
 
-
-
 /**
  * Kategorie des Logeintrags. Kategorien werden beim Aufruf des Logging-Frameworks nur im Level INFO
  * verwendet.
