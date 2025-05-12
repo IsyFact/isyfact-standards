@@ -1,7 +1,5 @@
 package de.bund.bva.isyfact.logging.util;
 
-
-
 import org.slf4j.MDC;
 
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;

@@ -1,7 +1,5 @@
 package de.bund.bva.isyfact.logging.hilfsklassen;
 
-
-
 import de.bund.bva.isyfact.logging.annotation.Systemgrenze;
 
 /**

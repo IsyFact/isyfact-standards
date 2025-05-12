@@ -1,7 +1,5 @@
 package de.bund.bva.isyfact.logging.layout;
 
-
-
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Iterator;

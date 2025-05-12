@@ -1,7 +1,5 @@
 package de.bund.bva.isyfact.logging;
 
-
-
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 

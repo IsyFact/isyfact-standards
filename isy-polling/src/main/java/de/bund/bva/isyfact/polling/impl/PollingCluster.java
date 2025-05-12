@@ -1,6 +1,5 @@
 package de.bund.bva.isyfact.polling.impl;
 
-
 import java.util.ArrayList;
 import java.util.List;
 

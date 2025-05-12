@@ -1,7 +1,5 @@
 package de.bund.bva.isyfact.logging.hilfsklassen;
 
-
-
 import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Method;
 
