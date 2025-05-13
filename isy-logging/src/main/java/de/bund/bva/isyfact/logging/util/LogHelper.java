@@ -1,7 +1,5 @@
 package de.bund.bva.isyfact.logging.util;
 
-
-
 import java.lang.reflect.Method;
 import java.time.Instant;
 import java.util.ArrayList;
