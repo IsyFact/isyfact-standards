@@ -2,9 +2,6 @@ package de.bund.bva.isyfact.batchrahmen.batch;
 
 import java.util.Date;
 
-import de.bund.bva.isyfact.logging.IsyLogger;
-import de.bund.bva.isyfact.logging.IsyLoggerFactory;
-import de.bund.bva.isyfact.logging.LogKategorie;
 import de.bund.bva.isyfact.batchrahmen.batch.exception.BatchAusfuehrungsException;
 import de.bund.bva.isyfact.batchrahmen.batch.konfiguration.BatchKonfiguration;
 import de.bund.bva.isyfact.batchrahmen.batch.konstanten.BatchRahmenEreignisSchluessel;
@@ -16,6 +13,9 @@ import de.bund.bva.isyfact.batchrahmen.batch.rahmen.BatchAusfuehrungsBean;
 import de.bund.bva.isyfact.batchrahmen.batch.rahmen.BatchReturnCode;
 import de.bund.bva.isyfact.batchrahmen.batch.rahmen.BatchStartTyp;
 import de.bund.bva.isyfact.batchrahmen.batch.rahmen.VerarbeitungsErgebnis;
+import de.bund.bva.isyfact.logging.IsyLogger;
+import de.bund.bva.isyfact.logging.IsyLoggerFactory;
+import de.bund.bva.isyfact.logging.LogKategorie;
 
 /**
  * Unlike the Basic Test Batch, this batch converts the return code in the batch protocol to a value other than 0.
