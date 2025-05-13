@@ -1,8 +1,8 @@
 package de.bund.bva.isyfact.batchrahmen.persistence.rahmen;
 
-import org.junit.Test;
-
 import static org.junit.Assert.*;
+
+import org.junit.Test;
 
 public class BatchKonfigurationsParameterTest {
 

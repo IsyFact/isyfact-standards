@@ -1,7 +1,6 @@
 package de.bund.bva.isyfact.batchrahmen.batch;
 
 import java.util.Date;
-import java.util.Optional;
 
 import org.springframework.security.access.annotation.Secured;
 
