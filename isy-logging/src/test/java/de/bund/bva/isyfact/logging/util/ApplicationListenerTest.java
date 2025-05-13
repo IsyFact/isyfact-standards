@@ -1,7 +1,5 @@
 package de.bund.bva.isyfact.logging.util;
 
-
-
 import org.junit.Test;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;

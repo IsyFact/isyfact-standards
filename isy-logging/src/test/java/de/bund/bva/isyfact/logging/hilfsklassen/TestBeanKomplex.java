@@ -1,7 +1,5 @@
 package de.bund.bva.isyfact.logging.hilfsklassen;
 
-
-
 import java.util.Arrays;
 import java.util.Formatter;
 import java.util.List;
