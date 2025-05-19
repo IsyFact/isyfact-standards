@@ -122,12 +122,11 @@ Der Einsatz eines Second-Level-Caches kann die Erfüllung der folgenden Qualitä
 |Vorteile
 
 |Leistungsfähigkeit (Performance Efficiency)
-|Schnellere Antwortzeiten durch die Einsparung von Datenbankzugriffen. +
-Ressourcen werden geschont, da weniger Datenbankzugriffe notwendig sind. +
-IT-Systeme können besser horizontal skalieren, da der Cache Lastspitzen abfedert.
+|IT-Systeme können schneller antworten und dabei Ressourcen schonen, da der Cache Datenbankzugriffe einsparen hilft. +
+IT-Systeme können einer höheren Last standhalten, da der Cache Lastspitzen abfedern kann.
 
 |Zuverlässigkeit (Reliability)
-|Höhere Verfügbarkeit von Daten, auch bei temporären Ausfällen der Datenbank.
+|IT-Systeme können Daten auch bei temporären Ausfällen der Datenbank, und damit zuverlässiger, liefern.
 |===
 
 Dem gegenüber kann der Einsatz eines Second-Level-Caches zu Herausforderungen und Risiken bei folgenden Qualitätskriterien führen.
@@ -139,10 +138,10 @@ Dem gegenüber kann der Einsatz eines Second-Level-Caches zu Herausforderungen u
 |Herausforderungen / Risiken
 
 |Leistungsfähigkeit (Performance Efficiency)
-|Höherer Speicherverbrauch durch die im Cache gehaltenen Daten.
+|Die im Cache gehaltenen Daten führen zu einem höheren Speicherverbrauch.
 
 |Funktionale Eignung (Functional Suitability)
-|Veraltete oder inkonsistente Daten können aus dem Cache geliefert werden.
+|Der Cache kann veraltete, und damit potenziell inkonsistente, Daten liefern.
 
 |Wartbarkeit (Maintainability)
 |Komplexe Cache-Konfigurationen können schwer zu debuggen und zu testen sein.
@@ -167,7 +166,7 @@ Gezielt Cache-Regionen und passende Cache-Strategien nutzen.
 |Cache Eviction (z.B. bei Änderungen an den Daten) sorgfältig planen.
 
 |Wartbarkeit (Maintainability)
-|Cache-Strategien und -Regionen klar im xref:methodik:vorlage-systementwurf/antora-master.adoc[Systementwurf] dokumentieren.
+|Cache-Konfiguration im xref:methodik:vorlage-systementwurf/antora-master.adoc[Systementwurf] dokumentieren.
 
 |===
 
