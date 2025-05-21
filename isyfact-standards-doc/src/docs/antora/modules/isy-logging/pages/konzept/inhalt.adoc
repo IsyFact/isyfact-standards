@@ -422,7 +422,7 @@ Die folgenden Attribute werden automatisch durch logstash gesetzt und sind in je
 [[zusaetzliche-marker-von-isy-logging]]
 === Zusätzliche Inhalte mit isy-logging
 
-Durch die Anwendungen geloggte Attribute werden durch die Entität `ETY_Logeintrag` beschrieben. Die zusätzliche Attribute werden durch `ETY_Marker` beschrieben (Siehe <<entitaeten>>).
+Durch die Anwendungen geloggte Attribute werden durch die Entität `ETY_Logeintrag` beschrieben. Die zusätzlichen Attribute werden durch `ETY_Marker` beschrieben (Siehe <<entitaeten>>).
 
 Zusätzlich erhält man die Attribute: `parameter` und `gekuerzt`.
 Darüber hinaus werden beim Einsatz von `LoggingMethodInvoker` und `LoggingMethodInterceptor` die Attribute `methode` und `dauer` gesetzt.
@@ -520,8 +520,8 @@ Da der Apache HTTP-Server ein anderes Format für Zeitstempel verwendet, werden 
 |zeitstempel |Datum und Uhrzeit im ISO-8601 Format |2012-02-02T00:02:50.000Z
 |====
 
-**Wichtig**: In den Apache-Logs werden die aufgerufenen URLs inkl. Requestparameter gelogged.
-Sollten die Requestparameter fachliche Daten enthalten (bspw. weil Suchanfragen über einen REST-Webservice realisiert wurden), so sind alle Apache-Logs des jeweiligen Webservers als „Fachdaten“ zu kennzeichnen (siehe xref:nutzungsvorgaben/master.adoc#einleitung[Logging - Nutzungsvorgaben]).
+**Wichtig**: In den Apache-Logs werden die aufgerufenen URLs inklusive Request-Parameter geloggt.
+Sollten die Request-Parameter fachliche Daten enthalten (bspw. weil Suchanfragen über einen REST-Service realisiert wurden), so sind alle Apache-Logs des jeweiligen Webservers als „Fachdaten“ zu kennzeichnen (siehe xref:nutzungsvorgaben/master.adoc#einleitung[Logging - Nutzungsvorgaben]).
 
 [[mailserver-log]]
 === Mailserver-log
