@@ -80,6 +80,7 @@ Die Vorgaben zur Verwendung von Spring wurden ausgelagert und sind nun als xref:
 ===== Serviceschicht
 
 Die Begrifflichkeiten wurden glattgezogen, sodass die Begriffe Serviceschicht und Fachkomponente nun mehr Bedeutung erfahren und die Erläuterungen insgesamt eindeutiger werden.
+Auch die Nutzung des Begriffs "Webservice" wurde vereinheitlicht und entspricht jetzt der https://www.w3.org/TR/ws-arch/#whatis[Definition des W3C].
 
 Die Inhalte über Services, bezogen auf die Kommunikation zwischen IT-Systemen, wurden auf eine xref:referenzarchitektur:software-technisch/services.adoc[eigene Seite] umgezogen.
 Dort finden sich nun die Grundbegriffe der Servicekommunikation (ehemals Teil der Seite xref:referenzarchitektur:software-technisch.adoc[]), die Beschreibung der Kommunikation innerhalb der Systemlandschaft sowie mit xref:glossary::terms-definitions.adoc#externes-system[externen Systemen] und abschließend die Vorgaben zur Versionierung von Services.
