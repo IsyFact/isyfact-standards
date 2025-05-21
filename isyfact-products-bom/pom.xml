@@ -26,7 +26,7 @@
         <ojdbc8.version>19.23.0.0</ojdbc8.version>
         <ucp.version>19.11.0.0</ucp.version>
         <mapstruct.version>1.5.5.Final</mapstruct.version>
-        <pojobuilder.version>4.3.0</pojobuilder.version>
+        <pojobuilder.version>4.3.1</pojobuilder.version>
         <xstream.version>1.4.21</xstream.version>
         <opencsv.version>5.9</opencsv.version>
         <guava.version>33.3.0-jre</guava.version>
