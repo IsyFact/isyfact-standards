@@ -1,7 +1,5 @@
 = IsyFact-Standards
 
-include::glossary:licence:partial$licence.adoc[]
-
 Im Folgenden sind die unterschiedlichen Vorgaben und Komponenten der IsyFact-Standards beschrieben.
 Der Aufbau der Seite orientiert sich am Entwicklungsprozess einer Geschäftsanwendung und macht Vorgaben zu den folgenden Phasen des V-Modells XT: Spezifikation, Systementwurf und Realisierung.
 Darüber hinaus werden die Bausteine der IsyFact-Standards kurz beschrieben.
@@ -168,7 +166,7 @@ Die xref:isy-task:nutzungsvorgaben.adoc[] beschreiben alle Aspekte, die bei der 
 
 In Geschäftsanwendungen müssen manchmal Polling-basierte Schnittstellen angesprochen werden.
 Polling bedeutet, dass in regelmäßigen Intervallen neue Daten zur Verarbeitung abgeholt werden sollen.
-Die Schnittstellen nutzen unterschiedliche technische Verfahren wie IMAP, Web-Services oder proprietäre Datenbank-basierte Schnittstellen; weitere sind denkbar.
+Die Schnittstellen nutzen unterschiedliche technische Verfahren wie IMAP, Webservices oder proprietäre Datenbank-basierte Schnittstellen; weitere sind denkbar.
 Das Konzept findet sich in xref:isy-polling:konzept/master.adoc#einleitung[Konzept Polling].
 
 Aus Gründen der Ausfallsicherheit soll die Abholung der Daten von mehreren Instanzen einer Anwendung durchgeführt werden.
