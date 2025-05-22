@@ -29,7 +29,7 @@
         <pojobuilder.version>4.3.1</pojobuilder.version>
         <xstream.version>1.4.21</xstream.version>
         <opencsv.version>5.9</opencsv.version>
-        <guava.version>33.3.0-jre</guava.version>
+        <guava.version>33.3.1-jre</guava.version>
         <commons-cli.version>1.9.0</commons-cli.version>
         <commons-net.version>3.11.1</commons-net.version>
         <commons-validator.version>1.7</commons-validator.version>
