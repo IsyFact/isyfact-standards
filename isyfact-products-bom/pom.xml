@@ -19,7 +19,7 @@
         <resilience4j.version>1.7.1</resilience4j.version>
         <apache.poi.version>4.1.2</apache.poi.version>
         <greenmail.version>1.6.15</greenmail.version>
-        <metro.webservices.version>4.0.3</metro.webservices.version>
+        <metro.webservices.version>4.0.4</metro.webservices.version>
         <woodstox.stax.version>4.2.2</woodstox.stax.version>
         <logback-json-classic.version>0.1.5</logback-json-classic.version>
         <logback-jackson.version>0.1.5</logback-jackson.version>
