@@ -40,31 +40,50 @@ Diese soll die Eigenimplementierung der IsyFact ablösen.
 === Verschobene Bausteine
 Folgende Bausteine wurden in eigenständige Repositories umgezogen:
 
-[cols="1,1",options="header"]
+[cols="2,1",options="header"]
 |===
 |Altes Repository
 |Neues Repository
 
-//|https://github.com/IsyFact/isyfact-standards/tree/release/4.x/...[icon:github[] isyfact-standards (Modul ...)]
-//|https://github.com/IsyFact/...[icon:github[] ...]
+|https://github.com/IsyFact/isyfact-standards/tree/release/4.x/isy-persistence/src/main/java/de/bund/bva/isyfact/persistence/datetime[icon:github[] isyfact-standards (Package `de.bund.bva.isyfact.persistence.datetime`)]
+|https://github.com/IsyFact/isy-datetime-persistence[icon:github[] isy-datetime-persistence]
+
+|https://github.com/IsyFact/isyfact-standards/tree/release/4.x/isy-polling[icon:github[] isyfact-standards (Modul isy-polling)]
+|https://github.com/IsyFact/isy-polling[icon:github[] isy-polling]
+
+|https://github.com/IsyFact/isyfact-standards/tree/release/4.x/isy-security[icon:github[] isyfact-standards (Modul isy-security)]
+|https://github.com/IsyFact/isy-security[icon:github[] isy-security]
+
+|https://github.com/IsyFact/isyfact-standards/tree/release/4.x/isy-task[icon:github[] isyfact-standards (Modul isy-task)]
+|https://github.com/IsyFact/isy-task[icon:github[] isy-task]
+
+|https://github.com/IsyFact/isyfact-standards/tree/release/4.x/isy-util[icon:github[] isyfact-standards (Modul isy-util)]
+|https://github.com/IsyFact/isy-util[icon:github[] isy-util]
 
 |===
 
-* Beide Bausteine lassen sich weiterhin über die `isyfact-standards-bom` einbinden und auch die Group- und Artifact-IDs bleiben dieselben.
+* Alle Bausteine lassen sich weiterhin über die `isyfact-standards-bom` einbinden und auch die Group- und Artifact-IDs bleiben dieselben.
 * Die Version wird allerdings in zukünftigen Releases nicht mehr mit der Version der `isyfact-standards` synchron gehalten und entwickelt sich entkoppelt davon fort.
-* Die Bausteine besitzen keinerlei Abhängigkeiten auf die restliche IsyFact mehr.
-Sie setzen allein Java 17 voraus.
-So können sie auch in Anwendungen integriert werden, die noch auf einem älteren Stand der IsyFact beruhen.
+//* Die Bausteine besitzen keinerlei Abhängigkeiten auf die restliche IsyFact mehr.
+//Sie setzen allein Java 17 voraus.
+//So können sie auch in Anwendungen integriert werden, die noch auf einem älteren Stand der IsyFact beruhen.
 
 === Gelöschte Bausteine
 
 Die folgenden Bausteine wurden aus der IsyFact entfernt.
-Die folgende Tabelle zeigt, auf welche Bausteine bzw. Konzepte die Anwendungen migrieren müssen
+Die folgende Tabelle zeigt, auf welche Bausteine bzw. Konzepte die Anwendungen migrieren müssen.
 
 [cols="1s,2",options="header"]
 |===
 |Entfernter Baustein|Migrieren auf
-//|...|xref:...:konzept/master.adoc[...]
+|JPA/Hibernate
+a|konzeptionell: tbd
+// TODO Zielort der Dokumentation ergänzen.
+
+technisch:
+
+* Standardfunktionen von Spring Data, Spring Boot und Spring
+* Hilfsfunktionen im xref:util::konzept.adoc#persistence[Baustein Util]
 
 |===
 
