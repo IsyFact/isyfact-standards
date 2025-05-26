@@ -149,10 +149,10 @@ Die xref:isy-logging:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Lo
 [[berechtigungen]]
 === Berechtigungen
 Zum Zugriff auf Informationen zu Berechtigungen eines Nutzers ist der Baustein Security zu nutzen.
-Das xref:isy-security:konzept/master.adoc#einleitung[Konzept Security] beschreibt die konzeptionellen Festlegungen hinsichtlich der Authentifizierung und Autorisierung.
-Die xref:isy-security:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Security] beschreiben den Einsatz des Bausteins bei der Anwendungsentwicklung.
+Das xref:security::konzept.adoc[] beschreibt die konzeptionellen Festlegungen hinsichtlich der Authentifizierung und Autorisierung.
+Die xref:security::nutzungsvorgaben.adoc[] beschreiben den Einsatz des Bausteins bei der Anwendungsentwicklung.
 Zur Nutzung dieser Komponente ist es erforderlich, dass die Rollen und Rechte einer Anwendung in einem speziellen Format abgelegt werden.
-Ein XML-Schema dazu findet sich im Anhang von xref:isy-security:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Security].
+Ein XML-Schema dazu findet sich im xref:security::nutzungsvorgaben/anhang.adoc[] der Nutzungsvorgaben.
 
 [[task-scheduling]]
 === Task Scheduling
