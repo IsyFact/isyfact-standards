@@ -609,7 +609,7 @@ Das IT-System [yellow]#<SYSTEM># benötigt gemäß Produktkatalog der Referenzar
 |===
 |Kategorie |Name |Version |Bemerkung
 |Programmiersprache | | |
-|Web-Service-Framework | | |
+|Webservice-Framework | | |
 |Komponenten-Framework | | |
 |Persistenz-Framework | | |
 |Logging-Framework | | |

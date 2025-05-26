@@ -24,6 +24,10 @@ Der Begriff xref:glossary::terms-definitions.adoc#nachbarsystem[Nachbarsystem] w
 Der Begriff xref:glossary::terms-definitions.adoc#externes-system["externes System"] wurde definiert und seine Verwendung in der gesamten IsyFact, wo nötig, korrigiert.
 Die Begrifflichkeiten "internes System" bzw. "interne Anwendung" wurden aus der IsyFact entfernt.
 
+==== Services
+
+Die Nutzung des Begriffs "Webservice" wurde vereinheitlicht und entspricht jetzt der https://www.w3.org/TR/ws-arch/#whatis[Definition des W3C].
+
 
 [[kapitel-bausteine]]
 == Bausteine
