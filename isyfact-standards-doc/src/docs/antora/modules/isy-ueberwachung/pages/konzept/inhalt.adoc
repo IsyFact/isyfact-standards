@@ -46,7 +46,7 @@ Durch diese Entkopplung wird die Systemstabilität durch häufige Aufrufe des En
 
 Der Status der `health`-Endpoints wird maßgeblich von Nachbarsystemchecks bestimmt. Einzelheiten finden sich dazu in Kapitel <<nachbarsystemcheck-health-endpoint>>.
 
-Implementiert und konfiguriert wurde bzw. wird der Health-Check als xref:isy-task:nutzungsvorgaben.adoc#erstellung-eines-tasks[Task].
+Implementiert und konfiguriert wurde bzw. wird der Health-Check als xref:task::nutzungsvorgaben.adoc#erstellung-eines-tasks[Task].
 
 [[Liveness-und-Readiness]]
 === Liveness und Readiness
