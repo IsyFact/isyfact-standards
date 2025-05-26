@@ -187,4 +187,4 @@ Zur Standardisierung der REST-Schnittstellen gibt es den xref:isy-service-rest:k
 
 Die Bibliothek `isy-util` bietet nützliche Hilfsmittel, die von den Anwendungen der IsyFact genutzt werden können.
 Es handelt sich dabei um kleinere Utility-Klassen, welche die Implementierung vereinfachen.
-Diese werden in den xref:isy-util:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben] überblicksartig beschrieben.
+Diese werden in den xref:util::nutzungsvorgaben.adoc[] überblicksartig beschrieben.
