@@ -167,13 +167,13 @@ Die xref:isy-task:nutzungsvorgaben.adoc[] beschreiben alle Aspekte, die bei der 
 In Geschäftsanwendungen müssen manchmal Polling-basierte Schnittstellen angesprochen werden.
 Polling bedeutet, dass in regelmäßigen Intervallen neue Daten zur Verarbeitung abgeholt werden sollen.
 Die Schnittstellen nutzen unterschiedliche technische Verfahren wie IMAP, Webservices oder proprietäre Datenbank-basierte Schnittstellen; weitere sind denkbar.
-Das Konzept findet sich in xref:isy-polling:konzept/master.adoc#einleitung[Konzept Polling].
+Das Konzept findet sich in xref:polling::konzept.adoc[].
 
 Aus Gründen der Ausfallsicherheit soll die Abholung der Daten von mehreren Instanzen einer Anwendung durchgeführt werden.
 Diese Instanzen müssen synchronisiert werden, sodass Nachrichten nicht mehrfach verarbeitet werden.
 Die zugrunde liegenden Schnittstellen-Technologien bieten dafür kein Standardverfahren an.
 Der Baustein Polling definiert ein solches Verfahren.
-Die Nutzerdokumentation befindet sich unter xref:isy-polling:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Polling].
+Die Nutzerdokumentation befindet sich unter xref:polling::nutzungsvorgaben.adoc[].
 
 [[rest]]
 === REST
