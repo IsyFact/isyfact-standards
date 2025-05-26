@@ -168,7 +168,7 @@ updates:
     target-branch: "release/4.x"
     directory: "/"
     schedule:
-      interval: "daily"
+      interval: "weekly"
     commit-message:
       prefix: "ci"
 
