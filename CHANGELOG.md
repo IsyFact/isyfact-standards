@@ -1,5 +1,6 @@
 # 5.0.0
 ## FEATURES
+- `IFS-4713`: [isyfact-standards-doc] Entkopplung der Bausteine (s. `IFS-4582`) in Dokumentation nachvollzogen
 - `IFS-4554`: [isyfact-standards-doc] Nutzung des Begriffs "Webservice" im Sinne des W3C vereinheitlicht
 - `IFS-3028`: [isyfact-standards-doc] Vorgaben für Spring & Spring Boot aktualisiert
 - `IFS-4546`: [isyfact-standards-doc] Verweis auf JAXP entfernt, Negativliste bereinigt und links entfernt

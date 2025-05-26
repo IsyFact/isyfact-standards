@@ -752,7 +752,7 @@ Nach der initialen Authentifizierung eines Benutzers führt der Batch vor jedem 
 Eine erneute Authentifizierung wird dann vorgenommen, wenn das Token als abgelaufen gilt.
 Ein Token gilt als abgelaufen, wenn es weniger als die via `oauth2MinimumTokenValidity` angegebenen Sekunden vor dem Ablauf steht oder im Token kein Wert für den Ablaufzeitpunkt angegeben ist.
 
-Folgende Informationen zum Benutzer sind anzugeben
+Folgende Informationen zum Benutzer sind anzugeben:
 
 .Eigenschaften des Batchbenutzers
 [[table-CharBatUse]]
@@ -771,7 +771,7 @@ Die notwendigen Properties, die für eine gültige `ClientRegistration` definier
 |Die Zeit in Sekunden, die ein Token mindestens weiterhin gültig sein muss, um nicht erneuert zu werden.
 Steht ein Token weniger als die über die Property angegebenen Sekunden vor dem Ablauf, so wird eine erneute Authentifizierung vorgenommen. +
 [NOTE]
-Abhängig vom gewählten Grant-Type wird eine erneute Authentifizierung gegebenenfalls nur dann durchgeführt, wenn ein durch die Spring-Implementierung vorgegebener Zeitraum vor dem Ablauf des Tokens überschritten wird (siehe xref:isy-security:nutzungsvorgaben/master.adoc#authentifizierungsmanager-authentifiziere-method-grant-type-note[Hinweis zur Methode `authentifiziere`]).
+Abhängig vom gewählten Grant-Type wird eine erneute Authentifizierung gegebenenfalls nur dann durchgeführt, wenn ein durch die Spring-Implementierung vorgegebener Zeitraum vor dem Ablauf des Tokens überschritten wird (siehe xref:security::nutzungsvorgaben.adoc#authentifizierungsmanager-authentifiziere-method-grant-type-note[Hinweis zur Methode `authentifiziere`]).
 |====
 
 In der Regel wird der Benutzer aus der betrieblichen Konfiguration der Anwendung oder alternativ aus den Aufrufparametern beim Start des Batches gelesen.

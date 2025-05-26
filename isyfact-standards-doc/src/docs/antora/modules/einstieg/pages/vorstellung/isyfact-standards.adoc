@@ -149,17 +149,17 @@ Die xref:isy-logging:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Lo
 [[berechtigungen]]
 === Berechtigungen
 Zum Zugriff auf Informationen zu Berechtigungen eines Nutzers ist der Baustein Security zu nutzen.
-Das xref:isy-security:konzept/master.adoc#einleitung[Konzept Security] beschreibt die konzeptionellen Festlegungen hinsichtlich der Authentifizierung und Autorisierung.
-Die xref:isy-security:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Security] beschreiben den Einsatz des Bausteins bei der Anwendungsentwicklung.
+Das xref:security::konzept.adoc[] beschreibt die konzeptionellen Festlegungen hinsichtlich der Authentifizierung und Autorisierung.
+Die xref:security::nutzungsvorgaben.adoc[] beschreiben den Einsatz des Bausteins bei der Anwendungsentwicklung.
 Zur Nutzung dieser Komponente ist es erforderlich, dass die Rollen und Rechte einer Anwendung in einem speziellen Format abgelegt werden.
-Ein XML-Schema dazu findet sich im Anhang von xref:isy-security:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Security].
+Ein XML-Schema dazu findet sich im xref:security::nutzungsvorgaben/anhang.adoc[] der Nutzungsvorgaben.
 
 [[task-scheduling]]
 === Task Scheduling
 Der Baustein verwendet als Grundlage das Spring Task Scheduling für die Steuerung (d.h. Planung und Ausführung) periodisch wiederkehrender Aufgaben.
 Aufgaben sind (in Abgrenzung zu Batches) innerhalb einer Anwendungskomponente angesiedelt und werden von der Anwendung selbstständig ausgeführt.
-Das xref:isy-task:konzept.adoc[] beschreibt die konzeptionellen Grundlagen der Steuerung von Aufgaben.
-Die xref:isy-task:nutzungsvorgaben.adoc[] beschreiben alle Aspekte, die bei der Entwicklung einer Anwendung zu berücksichtigen sind, und alle bereits in der IsyFact definierten Aufgaben (wie z.B. das periodische Neuladen der Anwendungskonfiguration).
+Das xref:task::konzept.adoc[] beschreibt die konzeptionellen Grundlagen der Steuerung von Aufgaben.
+Die xref:task::nutzungsvorgaben.adoc[] beschreiben alle Aspekte, die bei der Entwicklung einer Anwendung zu berücksichtigen sind, und alle bereits in der IsyFact definierten Aufgaben (wie z.B. das periodische Neuladen der Anwendungskonfiguration).
 
 [[polling]]
 === Polling
@@ -167,13 +167,13 @@ Die xref:isy-task:nutzungsvorgaben.adoc[] beschreiben alle Aspekte, die bei der 
 In Geschäftsanwendungen müssen manchmal Polling-basierte Schnittstellen angesprochen werden.
 Polling bedeutet, dass in regelmäßigen Intervallen neue Daten zur Verarbeitung abgeholt werden sollen.
 Die Schnittstellen nutzen unterschiedliche technische Verfahren wie IMAP, Webservices oder proprietäre Datenbank-basierte Schnittstellen; weitere sind denkbar.
-Das Konzept findet sich in xref:isy-polling:konzept/master.adoc#einleitung[Konzept Polling].
+Das Konzept findet sich in xref:polling::konzept.adoc[].
 
 Aus Gründen der Ausfallsicherheit soll die Abholung der Daten von mehreren Instanzen einer Anwendung durchgeführt werden.
 Diese Instanzen müssen synchronisiert werden, sodass Nachrichten nicht mehrfach verarbeitet werden.
 Die zugrunde liegenden Schnittstellen-Technologien bieten dafür kein Standardverfahren an.
 Der Baustein Polling definiert ein solches Verfahren.
-Die Nutzerdokumentation befindet sich unter xref:isy-polling:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Polling].
+Die Nutzerdokumentation befindet sich unter xref:polling::nutzungsvorgaben.adoc[].
 
 [[rest]]
 === REST
@@ -187,4 +187,4 @@ Zur Standardisierung der REST-Schnittstellen gibt es den xref:isy-service-rest:k
 
 Die Bibliothek `isy-util` bietet nützliche Hilfsmittel, die von den Anwendungen der IsyFact genutzt werden können.
 Es handelt sich dabei um kleinere Utility-Klassen, welche die Implementierung vereinfachen.
-Diese werden in den xref:isy-util:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben] überblicksartig beschrieben.
+Diese werden in den xref:util::nutzungsvorgaben.adoc[] überblicksartig beschrieben.
