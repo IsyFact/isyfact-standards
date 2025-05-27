@@ -16,6 +16,7 @@
 - `IFS-4676`: [isy-task], [isy-logging] Scope der Abhängigkeit zu AspectJ-Weaver auf Runtime gesetzt.
     * Definitionen der Aspekte zum kompilieren werden von org.aspectj:aspectjrt bereitgestellt.
 - `IFS-4731`: Korrektes Auflösen der URL in SBOMs
+- `IFS-4655`: Update von Maven Checkstyle Plugin auf Version 3.6.0
 
 ## BUG FIXES
 - `IFS-4526`: [isy-task] Logeintrag IsyTaskAspect korrigiert
