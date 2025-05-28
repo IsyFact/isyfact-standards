@@ -8,6 +8,7 @@
 ***** xref:software-technisch/backend/serviceschicht.adoc[]
 ***** xref:software-technisch/backend/anwendungskern.adoc[]
 ***** xref:software-technisch/backend/persistenzschicht.adoc[]
+****** xref:software-technisch/backend/persistenz/liquibase.adoc[]
 ***** xref:software-technisch/backend/konfiguration.adoc[]
 **** xref:software-technisch/frontend.adoc[Frontend]
 **** xref:software-technisch/batch.adoc[Batch]
