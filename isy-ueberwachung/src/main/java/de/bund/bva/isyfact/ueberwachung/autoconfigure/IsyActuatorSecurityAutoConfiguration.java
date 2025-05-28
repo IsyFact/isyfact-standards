@@ -32,7 +32,7 @@ import de.bund.bva.isyfact.ueberwachung.config.ActuatorSecurityConfigurationProp
 @ConditionalOnClass({SecurityFilterChain.class, HttpSecurity.class})
 public class IsyActuatorSecurityAutoConfiguration {
 
-    /** Enpoint role to identify the actuator Enpoint Admin. */
+    /** Endpoint role to identify the actuator Endpoint Admin. */
     public static final String ENDPOINT_ROLE = "ENDPOINT_ADMIN";
 
     @Bean
