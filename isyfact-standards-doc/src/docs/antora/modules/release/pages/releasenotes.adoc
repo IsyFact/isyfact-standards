@@ -34,7 +34,7 @@ Die Nutzung des Begriffs "Webservice" wurde vereinheitlicht und entspricht jetzt
 
 === JPA / Hibernate
 
-Der Baustein bietet ein erweitertes xref:referenzarchitektur:software-technisch/backend/persistenz/liquibase.adoc[Konzept] sowie xref:isy-persistence:nutzungsvorgaben/versionierung-mit-liquibase.adoc[Nutzungsvorgaben] zur Schema-Versionierung mit Liquibase.
+Der Baustein bietet ein erweitertes xref:referenzarchitektur:software-technisch/backend/persistenz/liquibase.adoc[Konzept] sowie xref:referenzarchitektur:software-technisch/backend/persistenz/liquibase-umsetzung.adoc[Nutzungsvorgaben] zur Schema-Versionierung mit Liquibase.
 Diese soll die Eigenimplementierung der IsyFact ablösen.
 
 === Verschobene Bausteine

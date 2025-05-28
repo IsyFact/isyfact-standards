@@ -1,5 +1,6 @@
 = Umsetzung der Historisierung
 :navtitle: Historisierung
+:reftext: Historisierung
 
 Backends setzen die Historisierung mithilfe von JPA und Hibernate in ihrer Persistenzschicht um.
 

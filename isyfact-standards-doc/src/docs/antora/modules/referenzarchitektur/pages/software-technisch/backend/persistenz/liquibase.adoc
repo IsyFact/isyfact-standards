@@ -1,5 +1,6 @@
 = Versionierung mit Liquibase
 :navtitle: Liquibase
+:reftext: Liquibase
 
 Liquibase ist ein leistungsfähiges Tool zur Versionierung und Verwaltung von Datenbankänderungen.
 Es ermöglicht eine *transparente, nachvollziehbare und automatisierte* Änderungsverfolgung, wodurch manuelle Fehler minimiert und eine konsistente Synchronisation zwischen Entwicklungs-, Test- und Produktionsumgebungen sichergestellt wird.
@@ -7,7 +8,7 @@ Es ermöglicht eine *transparente, nachvollziehbare und automatisierte* Änderun
 Die Integration von Liquibase in eine bestehende Datenbank stellt eine Herausforderung dar, da das aktuelle Schema bereits produktiv genutzt wird.
 Ziel dieses Konzepts ist es, eine strukturierte Vorgehensweise zur Einführung von Liquibase zu definieren, ohne die bestehende Datenbankstruktur zu gefährden.
 
-Eine konkrete Umsetzung dieses Konzepts folgt in xref:isy-persistence:nutzungsvorgaben/versionierung-mit-liquibase.adoc[Nutzungsvorgaben zur Versionierung mit Liquibase] und dient als Empfehlung.
+Eine konkrete Umsetzung dieses Konzepts folgt in xref:software-technisch/backend/persistenz/liquibase-umsetzung.adoc[Nutzungsvorgaben zur Versionierung mit Liquibase] und dient als Empfehlung.
 
 [[ziele-der-versionierung]]
 == Ziele der Versionierung
