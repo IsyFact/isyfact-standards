@@ -42,6 +42,7 @@ public class IsyActuatorSecurityAutoConfiguration {
         http
             .securityMatcher(EndpointRequest.toAnyEndpoint())
             .authorizeHttpRequests(requests -> requests
+                .requestMatchers("actuator/health").permitAll()
                 .anyRequest().hasRole(ENDPOINT_ROLE))
             .httpBasic(withDefaults());
         return http.build();
