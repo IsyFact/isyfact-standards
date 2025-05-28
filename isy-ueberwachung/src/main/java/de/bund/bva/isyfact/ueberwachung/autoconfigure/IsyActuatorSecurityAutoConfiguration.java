@@ -80,7 +80,9 @@ public class IsyActuatorSecurityAutoConfiguration {
         @Override
         protected void configure(HttpSecurity http) throws Exception {
             http.requestMatcher(EndpointRequest.toAnyEndpoint())
-                .authorizeHttpRequests(requests -> requests.anyRequest().hasRole(ENDPOINT_ROLE))
+                .authorizeHttpRequests(requests -> requests
+                    .antMatchers("/actuator/health").permitAll()
+                    .anyRequest().hasRole(ENDPOINT_ROLE))
                 .httpBasic();
         }
     }
