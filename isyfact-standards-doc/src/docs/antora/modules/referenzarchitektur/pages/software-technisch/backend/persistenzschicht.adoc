@@ -167,48 +167,41 @@ Unabhängig von der Lösung erschweren Datenbank-übergreifende Operationen die 
 [[historisierung]]
 == Historisierung
 
-*Historisierung* (auch https://de.wikipedia.org/wiki/Temporale_Datenhaltung[temporale Datenhaltung] genannt) bezeichnet das Festhalten der zeitlichen Entwicklung von Daten durch das Speichern in einer Datenbank.
-Bei den Datensätzen gibt es zwei relevante Aspekte: den Gültigkeitszeitraum eines Datensatzes und den Bearbeitungszeitpunkt eines Datensatzes.
+*Historisierung* (auch https://de.wikipedia.org/wiki/Temporale_Datenhaltung[temporale Datenhaltung] genannt) bezeichnet das Festhalten der zeitlichen Entwicklung von Daten beim Speichern in einer Datenbank.
+Für Datensätze sind zwei Arten der zeitlichen Betrachtung relevant:
 
-Der *Gültigkeitszeitraum* gibt an, wie lange ein Datensatz gültig ist.
-Während der Beginn des Gültigkeitszeitraumes meistens genau bekannt ist, so kann das Ende der Gültigkeit so lange unbekannt sein, bis der Datensatz ungültig wird.
+* *Gültigkeitszeit:* Der Zeitraum, wie lange ein Datensatz gültig ist.
+Während der Beginn der Gültigkeit meistens genau bekannt ist, so kann das Ende der Gültigkeit so lange unbekannt sein, bis der Datensatz ungültig wird.
+* *Bearbeitungszeit:* Der Zeitpunkt, zu der ein geänderter Datensatz in der Datenbank gespeichert wurde.
 
-.Gültigkeitszeitraum
+Das folgende Beispiel verdeutlicht beide Begriffe.
+
+.Gültigkeitszeit & Bearbeitungszeit
 ====
-Der Preis einer Ware oder Dienstleistung ist so lange gültig, bis er neu festgelegt wird.
+Eine Bescheinigung wird für einen festgelegten Zeitraum (_Gültigkeitszeit_) ausgestellt.
+Die Entscheidung darüber, die Bescheinigung auszustellen, wird vor Beginn ihrer Gültigkeit gefällt und in der Datenbank gespeichert (_Bearbeitungszeit_).
 ====
 
-Der *Bearbeitungszeitpunkt* definiert den Zeitpunkt, wann eine Entscheidung getroffen wurde und ist in vielen Fällen identisch mit dem Beginn des Gültigkeitszeitraumes.
-Er kann jedoch auch davon abweichen, wenn zum Beispiel für eine Ware eine Preisänderung zu einem bestimmten Datum im Voraus festgelegt wird.
-
-Eine Historisierung von Datensätzen wird durchgeführt, wenn Fragen über den Wert eines Datensatzes zu einem vergangenen Zeitpunkt beantwortet werden müssen (zum Beispiel was eine Ware zu einem bestimmten Zeitpunkt in der Vergangenheit kostete), oder wenn der Verlauf eines Wertes über die Zeit beobachtet werden muss (zum Beispiel wann und warum eine Änderung durchgeführt wurde).
+Eine Historisierung von Datensätzen wird durchgeführt, wenn Fragen über den Wert eines Datensatzes zu einem vergangenen Zeitpunkt beantwortet werden müssen (Beispiel: ob zu einem bestimmten Zeitpunkt eine Bescheinigung vorlag), oder wenn der Verlauf eines Wertes über die Zeit beobachtet werden muss (Beispiel: wann und warum die Bescheinigung ausgestellt bzw. nicht ausgestellt wurde).
 
 === Abgrenzungen
 
 Die Historisierung grenzt sich wie folgt von den Themen Archivierung, Datensicherung, Protokollierung und Logging ab.
 
-[[abgrenzung-archivierung]]
-==== Abgrenzung zur Archivierung
-
+Archivierung::
 Bei der Archivierung handelt es sich um die Aufbewahrung eines Datensatzes über eine längere Zeit hinweg.
 Dies ist meist aus rechtlichen Gründen notwendig zum Beispiel wegen gesetzlicher Aufbewahrungsfristen.
 Bei der Archivierung sind dementsprechend Randbedingungen wie Integrität, Unveränderlichkeit und Vertraulichkeit einzuhalten (siehe https://www.bsi.bund.de/DE/Themen/Unternehmen-und-Organisationen/Standards-und-Zertifizierung/IT-Grundschutz/it-grundschutz_node.html[IT-Grundschutz BSI]).
 
-[[abgrenzung-datensicherung-backup]]
-==== Abgrenzung zur Datensicherung (Backup)
-
+Datensicherung (Backup)::
 Bei der Datensicherung handelt es sich um das redundante Aufbewahren von Datensätzen.
 Das Ziel ist es, bei Verlust oder ungewünschter Manipulation von Datensätzen diese Datensätze auf den gespeicherten Stand zurücksetzen zu können.
 
-[[abgrenzung-protokollierung]]
-==== Abgrenzung zur Protokollierung
-
+Protokollierung::
 Ziel der Protokollierung ist das Nachvollziehen von Änderungen und Auskünften.
 Dazu werden je nach Bedarf die Suchschlüssel und Nettodaten von Aufrufen gespeichert.
 
-[[abgrenzung-logging]]
-==== Abgrenzung zum Logging
-
+Logging::
 Beim Logging werden Notizen zu technischen Aufrufen innerhalb eines Systems oder zwischen Anwendungen in Dateien abgelegt.
 Das Logging hat einen technischen Fokus und dient in der Regel als Hilfsinstrument zur Fehlerbehebung.
 
@@ -225,7 +218,12 @@ Für die Historisierung von Datensätzen in einer Anwendung gelten folgende Anfo
 * Für die meisten Daten ist eine Historisierung weder notwendig noch erlaubt.
 Dies ist durch Vorgaben des Datenschutzes und der Geheimhaltung begründet.
 
-Diese Anforderungen führen zu folgenden Festlegungen:
+Diese Anforderungen führen zu folgender Architekturregel:
 
-* Eine automatische Historisierung von Daten, bei der jeder Datensatz in mehreren Versionen vorgehalten ist, wird nicht realisiert.
-* Eine Historisierung wird, fachlich begründet, für die betroffenen Datensätze explizit realisiert.
+.icon:university[title=Architekturregel] Historisierung von Datensätzen
+****
+Datensätze werden nicht automatisch historisiert.
+Eine Historisierung wird, fachlich begründet, für betroffene Datensätze explizit realisiert.
+****
+
+Die Umsetzung der Historisierung in der Persistenzschicht beschreibt die Seite xref:

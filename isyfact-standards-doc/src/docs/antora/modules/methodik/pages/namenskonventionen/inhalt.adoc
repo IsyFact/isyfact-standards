@@ -435,7 +435,7 @@ include::isy-persistence:page$nutzungsvorgaben/umsetzung-persistenzschicht.adoc[
 
 ===== Historisierung
 
-include::isy-persistence:page$nutzungsvorgaben/historisierung.adoc[tag=namenskonvention]
+include::referenzarchitektur:software-technisch/backend/persistenz/historisierung.adoc[tag=namenskonvention]
 
 ===  Anwendungskern
 include::referenzarchitektur:software-technisch/backend/anwendungskern.adoc[tag=namenskonvention]
