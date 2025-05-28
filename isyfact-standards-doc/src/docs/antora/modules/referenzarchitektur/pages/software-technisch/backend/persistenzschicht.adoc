@@ -47,14 +47,30 @@ Nur die Fachkomponente mit Datenhoheit darf Änderungen an den jeweiligen persis
 
 // end::fachkomponente-definition[]
 
-Die Fachkomponenten bestehen aus einer Schnittstelle (Data Access Object) und den persistenten Entitäten.
+Die Fachkomponenten bestehen aus einer Schnittstelle und den persistenten Entitäten.
 Sie kümmern sich ausschließlich um die Verwaltung persistenter Entitäten und beinhalten selbst keinerlei Geschäftslogik.
 
 [[aufbau-fachkomponente-persistenz]]
 .Aufbau einer Fachkomponente der Persistenzschicht
 image::software-technisch/backend/aufbau_fachkomponente_persistenz.dn.svg[]
 
-Ein *Data Access Object (DAO)* beschreibt die Schnittstelle der Fachkomponente, das heißt die Operationen, die zum Speichern und Lesen der Entitäten aus der Datenbank nötig sind.
+Die *Schnittstelle* der Fachkomponente beschreibt die Operationen, die zum Speichern und Lesen der Entitäten aus der Datenbank nötig sind.
+Sie besteht aus einer Menge von https://docs.spring.io/spring-data/commons/reference/repositories/core-concepts.html[Spring Data Repositories].
+Der Name eines Repositories leitet sich von derjenigen Entität ab, die über das Repository verwaltet wird.
+
+//tag::namenskonvention[]
+
+[[namenskonvention-spring-data-repository]]
+.Namenskonvention Spring Data Repository
+[id="table-repossimpl",reftext="{table-caption} {counter:tables}"]
+[cols="1s,4m",options="header"]
+|====
+2+|Spring Data Repository
+|Schema |<Entität>Repository
+|Beispiel |MyEntityRepository
+|====
+
+//end::namenskonvention[]
 
 *Persistente Entitäten* bilden Geschäftsobjekte ab und werden in der Regel nach ihnen benannt.
 
@@ -226,4 +242,4 @@ Datensätze werden nicht automatisch historisiert.
 Eine Historisierung wird, fachlich begründet, für betroffene Datensätze explizit realisiert.
 ****
 
-Die Umsetzung der Historisierung in der Persistenzschicht beschreibt die Seite xref:
+Mehr zur Konzeption und Umsetzung der Historisierung in der Persistenzschicht beschreibt die Unterseite xref:software-technisch/backend/persistenz/historisierung.adoc[].
