@@ -5,7 +5,6 @@ import java.time.Duration;
 import org.springframework.lang.Nullable;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.server.resource.authentication.AbstractOAuth2TokenAuthenticationToken;
 
 import de.bund.bva.isyfact.security.config.IsyOAuth2ClientConfigurationProperties;
@@ -159,4 +158,8 @@ public interface Authentifizierungsmanager {
     void authentifiziereSystem(String issuerLocation, String clientId, String clientSecret, String username, String password, @Nullable String bhknz)
             throws AuthenticationException;
 
+    /**
+     * Clears the cache from isy-security. Authentication data is deleted after the method is called.
+     */
+    void clearCache();
 }
