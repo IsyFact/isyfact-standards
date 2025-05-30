@@ -355,6 +355,33 @@ public class OAuth2WebClientConfiguration {
 }
 ----
 
+[[authentication-caching]]
+=== Caching von Authentifizierungen
+
+Der Authentifizierungsmanager bietet eine integrierte Caching-Funktionalität zur Performance-Optimierung bei wiederholten Authentifizierungsanfragen.
+
+[[funktionweise]]
+==== Funktionsweise
+
+Erfolgreiche Authentifizierungsergebnisse werden zwischengespeichert, um identische Anfragen innerhalb eines konfigurierbaren Zeitfensters ohne erneuten IAM-Service-Aufruf zu bedienen.
+
+NOTE: `ClientCredentialsRegistrationIdAuthenticationToken` wird nicht gecacht, da Spring Security bereits eigenes Caching über den `OAuth2AuthorizedClientManager` bereitstellt.
+
+[[table-cache-configuration]]
+.Konfigurationsparameter für Authentifizierungscache
+[cols="3m,1m,5",options="header"]
+|===
+|Parameter |Default |Beschreibung
+|isy.security.cache.ttl |0 |Time-to-Live in Sekunden. `0` = Cache ist deaktiviert.
+|isy.security.cache.maxelements |10000 |Maximale Anzahl von gecachten Einträgen.
+|===
+
+WARNING: Die Cache-TTL muss kürzer als die Token-Gültigkeitsdauer konfiguriert werden, um die Verwendung abgelaufener Authentifizierungen zu verhindern.
+
+Zum Löschen des Cache steht die folgende Methode zur Verfügung:
+
+`void clearCache()`:: Leert den gesamten Authentifizierungscache.
+
 [[auth_sgw]]
 == Authentifizierung über das SGW am IAM-Service
 Die Authentifizierung über das Service Gateway (SGW) stellt einen wichtigen Schritt in der Sicherung von Anwendungen dar.
