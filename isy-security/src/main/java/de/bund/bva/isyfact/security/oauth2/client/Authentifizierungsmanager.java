@@ -229,4 +229,8 @@ public interface Authentifizierungsmanager {
     void authentifiziereSystem(String issuerLocation, String clientId, String clientSecret, String username, String password, @Nullable String bhknz)
             throws AuthenticationException;
 
+    /**
+     * Clears the cache from isy-security. Authentication data is deleted after the method is called.
+     */
+    void clearCache();
 }
