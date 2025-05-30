@@ -9,6 +9,7 @@ import org.ehcache.config.builders.CacheConfigurationBuilder;
 import org.ehcache.config.builders.CacheManagerBuilder;
 import org.ehcache.config.builders.ExpiryPolicyBuilder;
 import org.ehcache.config.builders.ResourcePoolsBuilder;
+import org.springframework.beans.factory.DisposableBean;
 import org.springframework.lang.Nullable;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -42,7 +43,7 @@ import de.bund.bva.isyfact.security.oauth2.util.IsySecurityTokenUtil;
  * Client Registration with the provided credentials and issuer location and thus do not depend on any to be
  * configured in the application properties.
  */
-public class IsyOAuth2Authentifizierungsmanager implements Authentifizierungsmanager {
+public class IsyOAuth2Authentifizierungsmanager implements Authentifizierungsmanager, DisposableBean {
 
     /**
      * ProviderManager configured with supported {@link AuthenticationProvider}s.
@@ -52,6 +53,11 @@ public class IsyOAuth2Authentifizierungsmanager implements Authentifizierungsman
      * @see IsyOAuth2Authentifizierungsmanager more details in the class doc
      */
     private final ProviderManager providerManager;
+
+    /**
+     * Used to build a cache.
+     */
+    private final CacheManager cacheManager;
 
     /**
      * Cache used to provide authentication data for repeated requests.
@@ -84,7 +90,9 @@ public class IsyOAuth2Authentifizierungsmanager implements Authentifizierungsman
         this.isyOAuth2ClientProps = isyOAuth2ClientProps;
         this.clientRegistrationRepository = clientRegistrationRepository;
 
-        this.authenticationCache = setupCache(isySecurityConfigurationProps);
+        CacheSetupResult cacheSetupResult = setupCache(isySecurityConfigurationProps);
+        this.cacheManager = cacheSetupResult.cacheManager;
+        this.authenticationCache = cacheSetupResult.cache;
         this.cacheEnabled = isySecurityConfigurationProps.getCache().getTtl() > 0;
     }
 
@@ -147,6 +155,26 @@ public class IsyOAuth2Authentifizierungsmanager implements Authentifizierungsman
     }
 
     /**
+     * Clears the cache when cache is enabled and not null.
+     */
+    public void clearCache() {
+        if (cacheEnabled && authenticationCache != null) {
+            authenticationCache.clear();
+        }
+    }
+
+    /**
+     * Closes the cache manager when the bean is destroyed.
+     * Called by Spring when application context is being shut down.
+     */
+    @Override
+    public void destroy() throws Exception {
+        if (cacheManager != null) {
+            cacheManager.close();
+        }
+    }
+
+    /**
      * Creates an appropriate authentication token for the authorization grant type configured for the registration ID.
      *
      * @param oauth2ClientRegistrationId
@@ -189,15 +217,14 @@ public class IsyOAuth2Authentifizierungsmanager implements Authentifizierungsman
 
     /**
      * Initializes the authentication cache based on configured properties.
-     * If time to live (TTL) equals 0, caching is disabled and null is returned.
+     * If time to live (TTL) equals 0, caching is disabled and null values is returned.
      *
      * @param properties security configuration properties containing cache settings
-     * @return the configured cache or null if caching is disabled
+     * @return CacheSetupResult containing both cacheManager and cache (both can be null if caching disabled)
      */
-    private Cache<Integer, Authentication> setupCache(IsySecurityConfigurationProperties properties) {
+    private CacheSetupResult setupCache(IsySecurityConfigurationProperties properties) {
         if (properties.getCache().getTtl() == 0) {
-            cacheEnabled = false;
-            return null;
+            return new CacheSetupResult(null, null);
         }
 
         CacheConfiguration<Integer, Authentication> cacheConfiguration =
@@ -216,7 +243,9 @@ public class IsyOAuth2Authentifizierungsmanager implements Authentifizierungsman
                         .withCache(CACHE_ALIAS, cacheConfiguration)
                         .build(true);
 
-        return cacheManager.getCache(CACHE_ALIAS, Integer.class, Authentication.class);
+        Cache<Integer, Authentication> cache = cacheManager.getCache(CACHE_ALIAS, Integer.class, Authentication.class);
+
+        return new CacheSetupResult(cacheManager, cache);
     }
 
     /**
@@ -290,11 +319,15 @@ public class IsyOAuth2Authentifizierungsmanager implements Authentifizierungsman
     }
 
     /**
-     * Clears the cache when cache is enabled and not null.
+     * Helper class to return both cache and cacheManager from setupCache method
      */
-    public void clearCache() {
-        if (cacheEnabled && authenticationCache != null) {
-            authenticationCache.clear();
+    private static class CacheSetupResult {
+        final CacheManager cacheManager;
+        final Cache<Integer, Authentication> cache;
+
+        CacheSetupResult(CacheManager cacheManager, Cache<Integer, Authentication> cache) {
+            this.cacheManager = cacheManager;
+            this.cache = cache;
         }
     }
 }
