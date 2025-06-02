@@ -77,7 +77,7 @@ a|
 
 |Vorlage / Beispiel
 a|
-xref:isy-persistence:konzept.adoc[]
+xref:isy-logging:konzept/master.adoc[]
 |===
 
 

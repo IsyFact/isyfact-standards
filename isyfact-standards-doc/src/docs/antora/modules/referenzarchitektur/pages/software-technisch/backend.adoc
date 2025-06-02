@@ -101,8 +101,7 @@ include::backend/persistenzschicht.adoc[tags=persistenz-framework-definition]
 [[persistenz-umsetzung]]
 === Umsetzung
 
-Zur Konzeption der Persistenzschicht definiert die Referenzarchitektur xref:software-technisch/backend/persistenzschicht.adoc[weitere Vorgaben].
-Die Umsetzung geschieht mithilfe des xref:isy-persistence:konzept.adoc[Bausteins JPA/Hibernate].
+Zur Konzeption der Persistenzschicht sowie zur Umsetzung mit JPA und Hibernate definiert die Referenzarchitektur xref:software-technisch/backend/persistenzschicht.adoc[weitere Vorgaben].
 
 [[serviceschicht]]
 == Serviceschicht

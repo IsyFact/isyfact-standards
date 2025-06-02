@@ -155,7 +155,6 @@ Dies verschlimmert die Antwortzeiten der Service-Aufrufe und führt eventuell zu
 Eine weitere bekannte Ursache für Nichtverfügbarkeit ist die Umgebungskonfiguration, Firewall-Verbindungen nach einer definierten Zeit automatisch zu schließen.
 Zustandsbehaftete Verbindungen wie sie bei Datenbank-Clients eingesetzt werden, sind von dieser Restriktion betroffen.
 Diese Clients müssen vorsehen, dass Sie eine von der Firewall geschlossene Verbindung erkennen und wieder neu aufbauen.
-Dieses Thema wird im xref:isy-persistence:konzept.adoc[] behandelt.
 
 Die IsyFact setzt als Transportprotokoll für Service-Kommunikation durchgängig HTTP ein.
 HTTP ist ein zustandsloses Protokoll und baut bei jeder Anfrage eine neue Verbindung zwischen Client und Server auf.
