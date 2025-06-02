@@ -55,4 +55,4 @@ Die Umsetzung der statischen Konfiguration geschieht vollständig mit Bordmittel
 Zur Umsetzung der betrieblichen Konfiguration nutzen Backends maßgeblich https://docs.spring.io/spring-boot/reference/features/external-config.html#features.external-config.files[externe Konfigurationsdateien].
 Im Quellcode werden die betrieblichen Konfigurationsvariablen in der Regel https://docs.spring.io/spring-boot/reference/features/external-config.html#features.external-config.typesafe-configuration-properties[typsicher] in Klassen abgebildet und mittels Bean Validation geprüft.
 
-Die Umsetzung der Benutzer-Konfiguration geschieht analog zur xref:isy-persistence:konzept/vorgaben-konventionen.adoc[Umsetzung fachlicher Datenmodelle in persistente Entitäten].
+Die Umsetzung der Benutzer-Konfiguration geschieht analog zur xref:software-technisch/backend/persistenz/vorgaben-konventionen.adoc[Umsetzung fachlicher Datenmodelle in persistente Entitäten].
