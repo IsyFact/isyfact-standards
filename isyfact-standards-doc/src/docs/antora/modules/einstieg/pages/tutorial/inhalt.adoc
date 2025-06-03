@@ -71,7 +71,7 @@ Als Implementierung für die JPA wird Hibernate verwendet.
 * Der Datenzugriff erfolgt über die Komponenten-Schnittstelle.
 * Für persistente Entitäten, die über eine Komponentenschnittstelle angeboten werden, werden eigene Schnittstellenobjekte definiert, die per Deep-Copy gefüllt werden. Hierfür wird ein Bean-Mapper verwendet.
 Innerhalb einer Teilanwendung dürfen persistente Entitäten allerdings über Komponentengrenzen hinweg genutzt werden.
-* DAOs und Entitäten werden in einer xref:isy-persistence:nutzungsvorgaben/umsetzung-persistenzschicht.adoc[festgelegten Paketstruktur] abgelegt.
+* DAOs und Entitäten werden in einer xref:referenzarchitektur:software-technisch/backend/persistenzschicht.adoc#fachkomponenten[festgelegten Paketstruktur] abgelegt.
 +
 [NOTE]
 ====

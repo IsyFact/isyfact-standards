@@ -11,7 +11,6 @@ Der IoC Container erstellt Spring Beans anhand einer Bean-Definition in Form von
 Die folgenden Inhalte beschreiben die allgemeine Nutzung von Spring und Spring Boot für die Umsetzung von Backends und Batches.
 Die Nutzung spezifischer Features sind Bestandteile der folgenden Bausteine:
 
-* Konfiguration der Persistenzschicht: beschrieben in den xref:isy-persistence:nutzungsvorgaben/umsetzung-persistenzschicht.adoc[Nutzungsvorgaben JPA/Hibernate],
 * Konfiguration des Logging: beschrieben in den xref:isy-logging:nutzungsvorgaben/master.adoc[],
 * Bereitstellung von Metriken zur Überwachung: beschrieben im xref:isy-ueberwachung:konzept/master.adoc[].
 

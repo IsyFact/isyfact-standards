@@ -10,7 +10,7 @@ Der Aufbau der Serviceschicht sowie ihre Kommunikation mit anderen Schichten ist
 
 [[systemarchitektur-serviceschicht]]
 .Einbettung der Serviceschicht in die Systemarchitektur
-image::software-technisch/backend/service.dn.svg[width=80%,align=center]
+image::software-technisch/backend/service.dn.svg[width=50%,align=center]
 
 // end::serviceschicht-definition[]
 

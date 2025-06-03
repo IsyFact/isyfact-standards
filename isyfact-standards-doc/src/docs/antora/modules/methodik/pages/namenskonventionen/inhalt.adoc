@@ -432,8 +432,6 @@ Der Name einer Web-Applikation (Webapp-Root) ist immer gleich dem <<technische-s
 
 include::referenzarchitektur:software-technisch/backend/persistenzschicht.adoc[tag=namenskonvention]
 
-include::isy-persistence:page$nutzungsvorgaben/umsetzung-persistenzschicht.adoc[tag=namenskonvention]
-
 ===== Historisierung
 
 include::referenzarchitektur:software-technisch/backend/persistenz/historisierung.adoc[tag=namenskonvention]

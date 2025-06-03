@@ -45,16 +45,6 @@ Falls für einen Teil der Entitäten konkurrierende schreibende Zugriffe wahrsch
 
 NOTE: Hibernate User Guide: https://docs.jboss.org/hibernate/orm/current/userguide/html_single/Hibernate_User_Guide.html#locking-pessimistic[Pessimistic Locking].
 
-[[lazy-loading]]
-=== Lazy Loading standardmäßig verwenden
-
-Standardmäßig verwendet Hibernate:
-
-* Lazy Loading (über dynamische Proxies) für alle 1-zu-n- und n-zu-m-Assoziationen und
-* Eager Loading für n-zu-1- oder 1-zu-1-Assoziationen.
-
-Standardmäßig soll für alle Assoziationen Lazy Loading verwendet werden.
-Bytecode-Manipulationen für Lazy Loading sollen nicht verwendet werden.
 
 [[aufrufuebergreifendes-caching-vermeiden]]
 === Aufrufübergreifendes Caching vermeiden
@@ -216,64 +206,74 @@ Um die Einhaltung dieser Anforderung sicherzustellen, sollten auch in der Entwic
 [[nutzung-von-annotationen]]
 === Nutzung von Annotationen
 
-Die Definition des Mappings wird über Annotationen in den Entitäten durchgeführt.
-Pro Klasse wird über die Annotationen definiert, auf welche Tabelle sie abgebildet werden und wie ihre Variablen auf Datenbank-Felder abgebildet werden.
-Beispiele für Annotationen finden sich in den Beispielen auf dieser Seite.
-
-Über Annotationen können einige wenige Mappings nicht definiert werden, welche über eine XML-Konfigurationsdatei definierbar sind.
-Ein Beispiel dafür ist das Mapping einer Klasse auf zwei verschiedene Tabellen.
-
-Falls eine XML-Mapping-Konfiguration für eine Klasse notwendig ist, ist die Konfiguration für diese Klasse in einer XML-Konfigurationsdatei abzulegen.
-Diese wird automatisch von JPA verwendet.
-
-[[konfiguration-der-id-und-sequenz]]
-=== Konfiguration der ID und Sequenz
-
-Primärschlüssel werden in JPA mit den Annotationen `@Id` und `@GeneratedValue` markiert.
-Der `GenerationType` der `@GeneratedValue` Annotation muss in jedem Fall `AUTO` sein.
-Es muss unbedingt darauf geachtet werden, das Inkrement (`INCREMENT BY`) der zur ID-Generierung genutzt Datenbanksequenz auf denselben Wert einzustellen, der auch beim `SequenceGenerator` im Parameter `allocationSize` angegeben ist.
+Die Definition des Mappings wird über JPA-Annotationen in den Entitäten durchgeführt.
+Darüber hinaus bietet Hibernate eigene Annotationen für Features an, die Hibernate über JPA hinaus bereitstellt.
+XML-Konfiguration sollte nur in Ausnahmefällen noch nötig sein.
 
 [[identifizierende-attribute-verwenden]]
 === Identifizierende Attribute verwenden
 
 Falls für eine Entität genau ein identifizierendes Attribut existiert, ist dieses sowohl in der Datenbank als auch im Hibernate Mapping als Primärschlüssel zu verwenden.
-Künstliche ID-Spalten sind nur dann als Schlüssel zu verwenden, wenn kein identifizierendes Attribut für die Entität vorliegt oder nur mehrere Attribute zusammen die Entität eindeutig identifizieren.
+Künstliche IDs sind nur dann als Schlüssel zu verwenden, wenn kein identifizierendes Attribut für die Entität vorliegt oder nur mehrere Attribute zusammen die Entität eindeutig identifizieren.
 Zusammengesetzte Schlüssel dürfen nicht verwendet werden.
 
-Das identifizierende Attribut darf beliebige Typen besitzen: Es dürfen, neben numerischen Werten, auch Zeichenketten oder Datumsangaben sein.
+Das identifizierende Attribut darf beliebige Typen besitzen.
+Es dürfen, neben numerischen Werten, auch Zeichenketten oder Datumsangaben sein.
+
+[[konfiguration-der-id-und-sequenz]]
+==== Konfiguration künstlicher IDs
+
+Künstliche IDs werden in JPA mit den Annotationen `@Id` und `@GeneratedValue` markiert.
+Der Parameter `strategy` der Annotation `@GeneratedValue` muss in jedem Fall `AUTO` sein.
+
+CAUTION: Es muss unbedingt darauf geachtet werden, das Inkrement (`INCREMENT BY`) der entsprechenden Datenbanksequenz auf denselben Wert einzustellen, der auch im Parameter `allocationSize` der Annotation `@SequenceGenerator` angegeben ist.
+
+.Konfiguration der ID und Sequenz
+[source,java]
+----
+@Entity
+public class MyEntity {
+
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO, generator="my_seq")
+    @SequenceGenerator(name="my_seq",sequenceName="MY_SEQ", allocationSize=50)
+    private int id;
+
+}
+----
 
 [[definition-von-assoziationen]]
 === Definition von Assoziationen
 
-[[eins-zu-n-assoziationen]]
-==== 1-zu-n Assoziationen
+[[eins-n-zu-n-assoziationen]]
+==== 1-zu-n und n-zu-n Assoziationen
 
 Eine 1-zu-n-Assoziation (siehe https://docs.jboss.org/hibernate/orm/6.6/userguide/html_single/Hibernate_User_Guide.html#collections[Collection Mapping]) ist in der Regel als unsortierte Menge (`Set`) zu definieren, da in dieser keine Reihenfolge definiert ist.
 Wird von der Anwendung eine Sortierung benötigt und sind alle für die Sortierung benötigten Attribute in der Entität enthalten, dann kann auch eine Liste (`List`) verwendet werden, da die Datenbank effizienter sortieren kann als eine Java-Implementierung.
 
-[[bidirektionale-assoziationen]]
-==== Bidirektionale Assoziationen
+.Definition von 1-zu-n-Assoziationen
+[[definition-1-zu-n-assoziation]]
+[source,java]
+----
+@Entity
+public class MyEntity {
 
-Bidirektionale Assoziation beschreibt die Beziehung zwischen zwei Entitäten, wobei jede Entität einen Verweis auf die andere Entität besitzt. 
-Sie ermöglicht es ihnen, von einer Entität zu einer anderen Entität zu navigieren, die mit ihr verbunden ist, und umgekehrt.
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "unsorted_id")
+    private Set<UnsortedEntity> unsortedEntities = new HashSet<>();
 
-Es gibt 4 verschiedene Arten der bidirektionalen Assoziation, die wie folgt aussehen:
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "sorted_id")
+    @OrderBy("field ASC")
+    private List<SortedEntity> sortedEntities = new ArrayList<>();
 
-. Bidirektionale Eins-zu-Eins-Verknüpfung (one-to-one)
-. Bidirektionale Eins-zu-Viele-Verknüpfung (one-to-many)
-. Bidirektionale Viele-zu-Eins-Verknüpfung (many-to-one)
-. Bidirektionale Viele-zu-Viele-Verknüpfung (many-to-many)
+}
+----
 
-===== https://docs.jboss.org/hibernate/stable/orm/userguide/html_single/Hibernate_User_Guide.html#associations-one-to-many-bidirectional[JPA bidirektionale Sync-Methoden]
-Wenn eine bidirektionale Assoziation gebildet wird, muss sichergestellt werden, dass beide Seiten zu jeder Zeit synchron sind.
+Bei einer 1-zu-n oder n-zu-n-Assoziation lädt Hibernate alle zugehörigen Entitäten, wenn es die Assoziation initialisiert.
+Das kann je nach Menge und Größe der assoziierten Entitäten eine gewisse Zeit dauern und die Antwortzeit von Anfragen an das Backend deutlich beeinflussen.
 
-===== Vermeiden von to-many-Assoziationen
-Bei einer to-many-Assoziation lädt Hibernate alle zugehörigen Entitäten, wenn es die Assoziation initialisiert. 
-Das kann mehrere Sekunden oder sogar Minuten dauern, wenn Hibernate mehrere tausend Entitäten abrufen muss.
-
-Stattdessen sollte für die Traversierung in Gegenrichtung (many-to-one) eine Query verwendet werden.
-
-[NOTE] 
+[NOTE]
 ====
 Die folgenden Best Practices helfen bei der Verwendung von Assoziationen:
 
@@ -281,8 +281,66 @@ Die folgenden Best Practices helfen bei der Verwendung von Assoziationen:
 * https://vladmihalcea.com/jpa-bidirectional-sync-methods[Vlad Mihalcea - JPA Best practices]
 * https://thorben-janssen.com/best-practices-for-many-to-many-associations-with-hibernate-and-jpa[Thorben Janssen - JPA Best practices]
 * https://thorben-janssen.com/best-practices-many-one-one-many-associations-mappings[Thorben Janssen - Best practices  many-one-one-many-associations]
-
 ====
+
+[[bidirektionale-assoziationen]]
+==== Bidirektionale Assoziationen
+
+Bidirektionale Assoziation beschreibt die Beziehung zwischen zwei Entitäten, wobei jede Entität einen Verweis auf die andere Entität besitzt. 
+Sie ermöglicht es ihnen, von einer Entität zu einer anderen Entität zu navigieren, die mit ihr verbunden ist, und umgekehrt.
+
+Es gibt vier verschiedene Arten der bidirektionalen Assoziation, die wie folgt aussehen:
+
+* Bidirektionale 1-zu-1-Verknüpfung (one-to-one),
+* Bidirektionale 1-zu-n-Verknüpfung (one-to-many),
+* Bidirektionale n-zu-1-Verknüpfung (many-to-one),
+* Bidirektionale n-zu-n-Verknüpfung (many-to-many).
+
+Wenn eine bidirektionale Assoziation gebildet wird, muss sichergestellt werden, dass beide Seiten zu jeder Zeit synchron sind.
+
+NOTE: Hibernate User Guide: https://docs.jboss.org/hibernate/stable/orm/userguide/html_single/Hibernate_User_Guide.html#associations-one-to-many-bidirectional[Bidirectional `@OneToMany`]
+
+[[lazy-loading]]
+==== Lazy Loading standardmäßig verwenden
+
+Standardmäßig soll für alle Assoziationen Lazy Loading verwendet werden.
+Bytecode-Manipulationen für Lazy Loading sollen nicht verwendet werden.
+
+NOTE: JPA empfiehlt Lazy Loading für alle 1-zu-n- und n-zu-m-Assoziationen und Eager Loading für n-zu-1- oder 1-zu-1-Assoziationen.
+Hibernate, im Gegensatz, empfiehlt Lazy Loading für alle Assoziationen.
+
+
+Um Lazy Loading auch für 1-zu-1-Assoziationen einzuschalten, wird das Attribut `fetch` der Annotation `@OneToOne` auf `FetchType.LAZY` gesetzt.
+Damit das Lazy Loading über Proxies funktioniert, darf die Assoziation nicht optional sein.
+
+.Lazy Loading bei 1-zu-1-Assoziationen
+[source,java]
+----
+@Entity
+public class MyEntity {
+
+    @OneToOne(optional = false, fetch = FetchType.LAZY)
+    private OtherEntity otherEntity;
+
+}
+----
+
+Für n-zu-1-Assoziationen wird genauso verfahren und das Attribut `fetch` auf `FetchType.LAZY` gesetzt.
+
+.Lazy Loading bei n-zu-1-Assoziationen
+[source,java]
+----
+@Entity
+public class MyEntity {
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private OtherEntity otherEntity;
+
+}
+----
+
+Anders als bei 1-zu-1-Assoziationen ist hier erlaubt, Eager Loading zu verwenden, wenn dieses Verhalten Sinn ergibt und keine negativen Auswirkungen zu erwarten sind.
+Typische negative Auswirkungen sind N+1-Queries (die umgekehrte Assoziation von `OtherEntity` zu `MyEntity` benutzt Eager Loading) oder das Auslesen zu vieler Daten (`OtherEntity` besitzt viele Assoziationen mit Eager Loading).
 
 [[vererbungshierarchien]]
 === Vererbungshierarchien
@@ -407,23 +465,25 @@ public class Lehrer extends Person {
 .Polymorpher Zugriff
 [source,java]
 ----
-List<Person> personen = entityManager
-    .createQuery("select p from Person p")
-    .getResultList();
+class PolymorphicAccessExample {
 
-//oder per Spring Data Repository:
-@Autowired
-private PersonRepository personRepository;
-List<Person> personen = personRepository.findAll();
+    @Autowired
+    private PersonRepository personRepository;
 
-//Zugriff auf Attribute Subklassen
-personen.forEach(person -> {
-    if (person instanceof Schueler) {
-        ((Schueler) person).getKlassenstufe();
-    } else if (person instanceof Lehrer) {
-        ((Lehrer) person).getGehalt());
+    public void access() {
+        List<Person> personen = personRepository.findAll();
+
+        // Zugriff auf Attribute der Subklassen
+        personen.forEach(person -> {
+            if (person instanceof Schueler) {
+                ((Schueler) person).getKlassenstufe();
+            } else if (person instanceof Lehrer) {
+                ((Lehrer) person).getGehalt();
+            }
+        });
     }
-});
+
+}
 ----
 
 *Vorteile*
@@ -560,14 +620,85 @@ Der Wert wird von Hibernate standardmäßig auf `1` für wahr und `0` für falsc
 
 Für die Ablage von Enum-Feldern persistenter Entitäten in der Datenbank sind in JPA zwei Modi vorgesehen, die jedoch beide mit Nachteilen verbunden sind:
 
-`ORDINAL`:: Die Enum-Ausprägungen werden durchnummeriert und als Integer abgelegt.
-Diese Ablage ist sehr ungünstig, weil sich beim Hinzufügen oder Entfernen einer Enum-Ausprägung, die nicht die letzte ist, die Nummern verschieben und dadurch eine Datenmigration erforderlich wird.
+`ORDINAL`:: Die Enum-Ausprägungen werden durchnummeriert.
+Beim Hinzufügen oder Entfernen einer Enum-Ausprägung, die nicht die letzte ist, verschiebt sich die Bedeutung der Nummern und macht dadurch eine Datenmigration erforderlich.
 `STRING`:: Es wird der Java-Name der Enum-Ausprägung in der Datenbank abgelegt.
-Diese Ablage ist problematisch, weil sie eine enge Kopplung des Java-Quellcodes an die Datenbankinhalte erzeugt.
+Dies erzeugt eine enge Kopplung des Java-Quellcodes an die Datenbankinhalte.
 Während im Java-Quellcode lange, sprechende Namen bevorzugt werden, werden für die Ablage in der Datenbank kurze, Speicherplatz sparende Darstellungen präferiert.
 
-Aufgrund der genannten Schwächen stellt die Bibliothek `isy-persistence` zwei Hibernate User-Types zur Verfügung, um Enum-Werte auf eine Zeichenkette in der Datenbank abzubilden.
-Die Verwendung dieser User-Types beschreibt das xref:isy-persistence:nutzungsvorgaben/umsetzung-persistenzschicht.adocc#enum-variablen[Nutzungskonzept].
+Aufgrund der genannten Schwächen stellt der xref:util::konzept.adoc[Baustein Util] zwei Hibernate UserTypes zur Verfügung, um Enum-Werte auf eine Zeichenkette in der Datenbank abzubilden.
+
+//Die Verwendung dieser UserTypes beschreibt das xref:util::nutzungsvorgaben.adoc#...[Nutzungskonzept des Baustein Util].
+// TODO Inhalte ab hier in BS Util verschieben und Verweis korrigieren..
+
+Enums werden über zwei spezielle Hibernate UserTypes definiert.
+Diese ermöglichen es, Enum-Werte auf fest definierte Zeichenketten abzubilden.
+
+Die Klasse `EnumUserType` erlaubt es, in einem Enum per Annotation die gewünschte Datenbankdarstellung zu jeder Ausprägung anzugeben.
+
+.Definition eines Enums zur Verwendung mit `EnumUserType`
+[[definition-enumusertype]]
+[source,java]
+----
+public enum Richtung {
+
+    @PersistentValue("L")
+    LINKS,
+    @PersistentValue("R")
+    RECHTS,
+    @PersistentValue("G")
+    GERADEAUS
+
+}
+----
+
+Die Klasse `EnumWithIdUserType` erlaubt die Persistierung von Enums, die einen fachlichen Schlüssel besitzen.
+
+.Definition eines Enums zur Verwendung mit `EnumWithIdUserType`
+[[definition-enumwithidusertype]]
+[source,java]
+----
+public enum RichtungMitId {
+
+    LINKS("L"),
+    RECHTS("R"),
+    GERADEAUS("G");
+
+    private final String id;
+
+    RichtungMitId(String id) {
+        this.id = id;
+    }
+
+    @EnumId
+    public String getId() {
+        return id;
+    }
+
+}
+----
+
+Das folgende Beispiel zeigt die Verwendung dieser Enums in einer Entität.
+
+.Verwendung von Enums in Entitäten
+[[verwendung-enum-in-entitaeten]]
+[source,java]
+----
+@Entity
+public class MyEntity {
+
+  @Column(nullable = false, length = 1)
+  @Type(type = "de.bund.bva.isyfact.persistence.usertype.EnumUserType",
+    parameters = { @Parameter(name = "enumClass",value = "<package>.Richtung") })
+  private Richtung richtung;
+
+  @Column(nullable = false, length = 1)
+  @Type(type = "de.bund.bva.isyfact.persistence.usertype.EnumWithIdUserType",
+    parameters = { @Parameter(name = "enumClass",value = "<package>.RichtungMitId") })
+  private RichtungMitId richtungMitId;
+
+}
+----
 
 [[datenbankschema-anfangs-ueber-hbm2ddl-erzeugen]]
 === Datenbankschema anfangs über `hbm2ddl` erzeugen

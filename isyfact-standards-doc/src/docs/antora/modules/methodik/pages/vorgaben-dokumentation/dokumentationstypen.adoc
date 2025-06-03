@@ -105,7 +105,7 @@ Nutzungsvorgaben sind keine Benutzerdokumentation und komplementieren das <<tabl
 
 |Vorlage / Beispiel
 a|
-xref:isy-persistence:nutzungsvorgaben/umsetzung-persistenzschicht.adoc[Nutzungsvorgaben JPA/Hibernate]
+xref:isy-logging:nutzungsvorgaben/master.adoc[Nutzungsvorgaben Logging]
 |===
 
 

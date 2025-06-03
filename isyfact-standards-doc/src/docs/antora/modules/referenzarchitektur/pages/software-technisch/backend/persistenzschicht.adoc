@@ -72,6 +72,9 @@ Der Name eines Repositories leitet sich von derjenigen Entität ab, die über da
 
 //end::namenskonvention[]
 
+Der Zugriff auf die Datenbank aus dem xref:referenzarchitektur:software-technisch/backend/anwendungskern.adoc[Anwendungskern] heraus erfolgt immer über diese Repositories.
+Die Repositories werden als Spring Beans in den Anwendungskern injiziert.
+
 *Persistente Entitäten* bilden Geschäftsobjekte ab und werden in der Regel nach ihnen benannt.
 
 //tag::namenskonvention[]

@@ -37,11 +37,7 @@ Die betriebliche Konfiguration ist im Rahmen des xref:methodik:vorlage-systemhan
 === Benutzer-Konfiguration
 
 Die Benutzer-Konfiguration umfasst alle Einstellungen, die von Anwendern des Backends gepflegt werden.
-Sie ist ein fachlicher Bestandteil des Backends.
-Das Backend greift lesend und schreibend auf die Benutzer-Konfiguration zu.
-
-Die Benutzer-Konfiguration liegt in der Regel in Form von Datenbank-Tabellen vor.
-Die Umsetzung geschieht analog zur xref:isy-persistence:nutzungsvorgaben/umsetzung-persistenzschicht.adoc[].
+Sie ist ein fachlicher Bestandteil des Backends und somit Teil einer Fachkomponente in allen Schichten des Backends.
 
 Die Benutzer-Konfiguration ist im Rahmen der xref:methodik:vorlage-systemspezifikation/master.adoc#datenmodell[Systemspezifikation] dokumentiert.
 

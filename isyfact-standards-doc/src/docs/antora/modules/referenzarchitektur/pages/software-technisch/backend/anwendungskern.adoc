@@ -10,7 +10,7 @@ Der Aufbau des Anwendungskerns sowie seine Kommunikation mit anderen Schichten i
 
 [[systemarchitektur-anwendungskern]]
 .Einbettung des Anwendungskerns in die Systemarchitektur
-image::referenzarchitektur:software-technisch/backend/anwendungskern.dn.svg[width=80%,align=center]
+image::referenzarchitektur:software-technisch/backend/anwendungskern.dn.svg[width=50%,align=center]
 
 // end::anwendungskern-definition[]
 
