@@ -75,12 +75,13 @@ public class AuthentifizierungsmanagerTest extends AbstractOidcProviderTest {
         SecurityContextHolder.getContext().setAuthentication(null);
 
         mockJwt = mock(JwtAuthenticationToken.class);
+        JwtAuthenticationToken secondMockJwt = mock(JwtAuthenticationToken.class);;
 
         when(clientCredentialsAuthorizedClientAuthenticationProvider.supports(any())).thenCallRealMethod();
         when(clientCredentialsAuthorizedClientAuthenticationProvider.authenticate(any(Authentication.class))).thenReturn(mockJwt);
 
         when(passwordClientRegistrationAuthenticationProvider.supports(any())).thenCallRealMethod();
-        when(passwordClientRegistrationAuthenticationProvider.authenticate(any(Authentication.class))).thenReturn(mockJwt);
+        when(passwordClientRegistrationAuthenticationProvider.authenticate(any(Authentication.class))).thenReturn(mockJwt, secondMockJwt);
 
         when(clientCredentialsClientRegistrationAuthenticationProvider.supports(any())).thenCallRealMethod();
         when(clientCredentialsClientRegistrationAuthenticationProvider.authenticate(any(Authentication.class))).thenReturn(mockJwt);
@@ -567,6 +568,28 @@ public class AuthentifizierungsmanagerTest extends AbstractOidcProviderTest {
         authentifizierungsmanager.authentifiziereSystem(getIssuer(), "testid", "testsecret", "testuser", "testpw");
         verify(passwordClientRegistrationAuthenticationProvider, times(1)).authenticate(any());
         assertNotNull(SecurityContextHolder.getContext().getAuthentication());
+
+        // clear context and cache so no other tests are affected
+        authentifizierungsmanager.clearCache();
+        SecurityContextHolder.clearContext();
+    }
+
+    @Test
+    public void testCacheWithSameUsernameButDifferentPassword() {
+        // First authentication attempt with credentials from testid1
+        // Provider is called
+        authentifizierungsmanager.authentifiziereSystem(getIssuer(), "testid", "testsecret", "testuser", "testpw");
+        verify(passwordClientRegistrationAuthenticationProvider, times(1)).authenticate(any());
+        Authentication firstAuthentication = SecurityContextHolder.getContext().getAuthentication();
+        SecurityContextHolder.clearContext();
+
+        // Second authentication attempt with credentials from testid1, but with different user password
+        // provider is called once again because the first stored cashedKey is different
+        authentifizierungsmanager.authentifiziereSystem(getIssuer(), "testid", "otherpw", "testuser", "otherpw");
+        verify(passwordClientRegistrationAuthenticationProvider, times(2)).authenticate(any());
+        Authentication secondAuthentication = SecurityContextHolder.getContext().getAuthentication();
+        assertNotNull(secondAuthentication);
+        assertNotEquals(firstAuthentication, secondAuthentication);
 
         // clear context and cache so no other tests are affected
         authentifizierungsmanager.clearCache();
