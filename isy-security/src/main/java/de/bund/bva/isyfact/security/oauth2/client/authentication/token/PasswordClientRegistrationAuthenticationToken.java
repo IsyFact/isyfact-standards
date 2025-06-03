@@ -1,5 +1,7 @@
 package de.bund.bva.isyfact.security.oauth2.client.authentication.token;
 
+import java.util.Objects;
+
 import org.springframework.lang.Nullable;
 import org.springframework.security.oauth2.client.registration.ClientRegistration;
 
@@ -27,5 +29,25 @@ public class PasswordClientRegistrationAuthenticationToken extends AbstractClien
 
     public String getPassword() {
         return password;
+    }
+
+    /**
+     * Generates a cache key that includes the following fields.
+     * <ul>
+     *     <li>principal</li>
+     *     <li>bhknz</li>
+     *     <li>issuerLocation</li>
+     *     <li>clientId</li>
+     *     <li>clientSecret</li>
+     *     <li>authorizationGrantType</li>
+     *     <li>username</li>
+     *     <li>password</li>
+     * </ul>
+     *
+     * @return the generated cache key as hash code or null
+     */
+    @Override
+    public Integer generateCacheKey() {
+        return Objects.hash(super.generateCacheKey(), getUsername(), getPassword());
     }
 }
