@@ -49,4 +49,7 @@ public abstract class AbstractIsyAuthenticationToken extends AbstractAuthenticat
     public String getBhknz() {
         return bhknz;
     }
+
+    @Nullable
+    public abstract Integer generateCacheKey();
 }
