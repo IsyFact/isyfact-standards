@@ -19,4 +19,14 @@ public class ClientCredentialsRegistrationIdAuthenticationToken extends Abstract
     public String getRegistrationId() {
         return registrationId;
     }
+
+    /**
+     * Generates a null value for the cache key.
+     *
+     * @return null
+     */
+    @Override
+    public Integer generateCacheKey() {
+        return null;
+    }
 }
