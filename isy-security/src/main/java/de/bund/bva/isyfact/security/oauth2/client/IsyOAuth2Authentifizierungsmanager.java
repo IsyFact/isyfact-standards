@@ -26,6 +26,7 @@ import org.springframework.util.Assert;
 import de.bund.bva.isyfact.security.config.IsyOAuth2ClientConfigurationProperties;
 import de.bund.bva.isyfact.security.config.IsyOAuth2ClientConfigurationProperties.AdditionalRegistrationProperties;
 import de.bund.bva.isyfact.security.config.IsySecurityConfigurationProperties;
+import de.bund.bva.isyfact.security.oauth2.client.authentication.token.AbstractIsyAuthenticationToken;
 import de.bund.bva.isyfact.security.oauth2.client.authentication.token.ClientCredentialsClientRegistrationAuthenticationToken;
 import de.bund.bva.isyfact.security.oauth2.client.authentication.token.ClientCredentialsRegistrationIdAuthenticationToken;
 import de.bund.bva.isyfact.security.oauth2.client.authentication.token.PasswordClientRegistrationAuthenticationToken;
@@ -66,7 +67,7 @@ public class IsyOAuth2Authentifizierungsmanager implements Authentifizierungsman
     private final Cache<Integer, Authentication> authenticationCache;
 
     /** Returns whether the cache is enabled or not. */
-    private boolean cacheEnabled;
+    private final boolean cacheEnabled;
 
     /** The alias for the cache. */
     private static final String CACHE_ALIAS = "de.bund.bva.isyfact.security.oauth2.authentifizierung";
@@ -168,7 +169,7 @@ public class IsyOAuth2Authentifizierungsmanager implements Authentifizierungsman
      * Called by Spring when application context is being shut down.
      */
     @Override
-    public void destroy() throws Exception {
+    public void destroy() {
         if (cacheManager != null) {
             cacheManager.close();
         }
@@ -217,10 +218,10 @@ public class IsyOAuth2Authentifizierungsmanager implements Authentifizierungsman
 
     /**
      * Initializes the authentication cache based on configured properties.
-     * If time to live (TTL) equals 0, caching is disabled and null values is returned.
+     * If time to live (TTL) equals 0, caching is disabled and null-values are returned.
      *
      * @param properties security configuration properties containing cache settings
-     * @return CacheSetupResult containing both cacheManager and cache (both can be null if caching disabled)
+     * @return CacheSetupResult containing both cacheManager and cache or null if caching is disabled
      */
     private CacheSetupResult setupCache(IsySecurityConfigurationProperties properties) {
         if (properties.getCache().getTtl() == 0) {
@@ -260,30 +261,33 @@ public class IsyOAuth2Authentifizierungsmanager implements Authentifizierungsman
     private void authenticateAndChangeAuthenticatedPrincipal(Authentication unauthenticatedToken) throws AuthenticationException {
         Authentication authentication;
 
-        // No caching of ClientCredentialsRegistrationIdAuthenticationToken
-        // because it is cached by Spring's OAuth2AuthorizedClientManager
-        if (unauthenticatedToken instanceof ClientCredentialsRegistrationIdAuthenticationToken) {
-            authentication = performAuthentication(unauthenticatedToken);
-        } else if (cacheEnabled) {
+        if (cacheEnabled) {
             authentication = authenticateWithCache(unauthenticatedToken);
         } else {
             authentication = performAuthentication(unauthenticatedToken);
         }
-
         SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 
     /**
      * Performs authentication with prior check of the cache for existing successful authentication data.
-     * If cached authentication exists, it returns the cached value.
-     * Otherwise, it performs authentication and caches the result if successful.
+     * If cached authentication exists and matches the incoming authentication, it returns the cached value.
+     * Otherwise, it performs a new authentication and caches the result if successful.
      *
      * @param unauthenticatedToken the authentication token to process
      */
     private Authentication authenticateWithCache(Authentication unauthenticatedToken) throws AuthenticationException {
-        Integer cacheKey = generateCacheKey(unauthenticatedToken);
-        Authentication cachedAuthentication = authenticationCache.get(cacheKey);
+        AbstractIsyAuthenticationToken isyAuthenticationToken = (AbstractIsyAuthenticationToken) unauthenticatedToken;
+        // ClientCredentialsRegistrationIdAuthenticationToken will return null-value for cacheKey
+        // and so it will not be cached by the logic of Isy-Security
+        // because it is cached by Spring's OAuth2AuthorizedClientManager
+        Integer cacheKey = isyAuthenticationToken.generateCacheKey();
 
+        if (cacheKey == null) {
+            return performAuthentication(unauthenticatedToken);
+        }
+
+        Authentication cachedAuthentication = authenticationCache.get(cacheKey);
         if (cachedAuthentication != null) {
             return cachedAuthentication;
         }
@@ -306,28 +310,30 @@ public class IsyOAuth2Authentifizierungsmanager implements Authentifizierungsman
     }
 
     /**
-     * Generates a cache key from the authentication token.
-     * The key is used to check whether authentication has already been performed.
-     * If so, the cached {@link Authentication} result is used and the authentication
-     * providers are not called again.
-     *
-     * @param token the authentication token to generate a key for
-     * @return the generated cache key as hash code
-     */
-    private Integer generateCacheKey(Authentication token) {
-        return token.toString().hashCode();
-    }
-
-    /**
-     * Helper class to return both cache and cacheManager from setupCache method
+     * Helper class to return both cache and cacheManager from setupCache method.
      */
     private static class CacheSetupResult {
-        final CacheManager cacheManager;
-        final Cache<Integer, Authentication> cache;
+        /**
+         * The Cache Manager.
+         */
+        private final CacheManager cacheManager;
+
+        /**
+         * The Cache.
+         */
+        private final Cache<Integer, Authentication> cache;
 
         CacheSetupResult(CacheManager cacheManager, Cache<Integer, Authentication> cache) {
             this.cacheManager = cacheManager;
             this.cache = cache;
+        }
+
+        public CacheManager getCacheManager() {
+            return cacheManager;
+        }
+
+        public Cache<Integer, Authentication> getCache() {
+            return cache;
         }
     }
 }
