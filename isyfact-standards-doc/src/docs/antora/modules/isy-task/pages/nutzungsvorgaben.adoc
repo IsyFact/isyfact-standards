@@ -252,8 +252,11 @@ Monitoring mit Actuator ermöglichen
 
 [source,properties]
 ----
-management.endpoint.metrics.enabled=true
+management.endpoint.metrics.access=unrestricted
 ----
+
+Hier sind sowohl die Werte read-only für einen reinen lesenden Zugriff, als auch unrestricted für einen zusätzlichen
+schreibenden Zugriff.
 
 [[monitoring]]
 == Monitoring
