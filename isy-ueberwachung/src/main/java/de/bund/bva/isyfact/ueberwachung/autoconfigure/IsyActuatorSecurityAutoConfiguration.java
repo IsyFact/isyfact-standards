@@ -4,6 +4,7 @@ import static de.bund.bva.isyfact.security.authentication.RolePrivilegeGrantedAu
 import static org.springframework.security.config.Customizer.withDefaults;
 
 import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
+import org.springframework.boot.actuate.health.HealthEndpoint;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -50,7 +51,7 @@ public class IsyActuatorSecurityAutoConfiguration {
         http
             .securityMatcher(EndpointRequest.toAnyEndpoint())
             .authorizeHttpRequests(requests -> requests
-                .requestMatchers("actuator/health").permitAll()
+                .requestMatchers(EndpointRequest.to(HealthEndpoint.class)).permitAll()
                 .anyRequest().hasRole(ENDPOINT_ROLE))
             .httpBasic(withDefaults());
         return http.build();
