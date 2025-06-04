@@ -47,6 +47,10 @@ Ziel des Bedienkonzepts ist es, dass sich Sachbearbeiter möglichst schnell zwis
 |Datum & Zeit
 |Der Baustein stellt Vorgaben für die Anzeige, Eingabe und persistenter Speicherung von Datums- und Zeitwerten bereit.
 
+|Datum & Zeit (Persistenz)
+|Der Baustein Datum & Zeit stellt die Logik zu Verarbeitung unvollständiger Datumsangaben zur Verfügung.
+Dieser Baustein dient zur Persistierung dieser Datums- und Zeitangaben.
+
 |Fehlerbehandlung
 |Der Baustein _Fehlerbehandlung_ enthält das technische Konzept und eine Bibliothek zur einheitlichen Implementierung der Fehlerbehandlung.
 

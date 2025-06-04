@@ -883,7 +883,7 @@ Informationen zur Bearer Propagation gibt es in der https://docs.spring.io/sprin
 Um eine Klasse oder einzelne Methoden zu sichern, wird empfohlen, die `@Secured` Annotation von Spring Security in der Service-Schicht zu verwenden.
 Die Verwendung auf einzelnen Webcontroller Klassen/Methoden wird nicht empfohlen. Für Webcontroller ohne Service Schicht kann https://docs.spring.io/spring-security/reference/servlet/authorization/authorize-http-requests.html[Request Level Autorisierung] genutzt werden.
 
-Generell ist das xref:isy-security:konzept/master.adoc[Konzept der Sicherheitsarchitektur] zu beachten.
+Generell ist das xref:security::konzept.adoc[Konzept der Sicherheitsarchitektur] zu beachten.
 
 [[logging]]
 === Logging
