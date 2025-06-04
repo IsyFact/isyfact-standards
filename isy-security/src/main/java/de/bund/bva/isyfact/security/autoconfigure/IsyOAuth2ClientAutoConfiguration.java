@@ -29,6 +29,7 @@ import org.springframework.security.oauth2.client.registration.ClientRegistratio
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 
 import de.bund.bva.isyfact.security.config.IsyOAuth2ClientConfigurationProperties;
+import de.bund.bva.isyfact.security.config.IsySecurityConfigurationProperties;
 import de.bund.bva.isyfact.security.oauth2.client.Authentifizierungsmanager;
 import de.bund.bva.isyfact.security.oauth2.client.IsyOAuth2Authentifizierungsmanager;
 import de.bund.bva.isyfact.security.oauth2.client.annotation.AuthenticateInterceptor;
@@ -91,8 +92,13 @@ public class IsyOAuth2ClientAutoConfiguration {
     public Authentifizierungsmanager authentifizierungsmanager(
             ProviderManager providerManager,
             IsyOAuth2ClientConfigurationProperties isyOAuth2ClientConfigurationProperties,
+            IsySecurityConfigurationProperties isySecurityConfigurationProperties,
             @Nullable ClientRegistrationRepository clientRegistrationRepository) {
-        return new IsyOAuth2Authentifizierungsmanager(providerManager, isyOAuth2ClientConfigurationProperties, clientRegistrationRepository);
+        return new IsyOAuth2Authentifizierungsmanager(
+                providerManager,
+                isyOAuth2ClientConfigurationProperties,
+                clientRegistrationRepository,
+                isySecurityConfigurationProperties);
     }
 
     /**
