@@ -1,5 +1,6 @@
 # 4.1.0
 - `IFS-4534`: Bereitstellen von Metriken ohne Zeiteinschränkungen
+- `IFS-4715`: Öffnung des Health-Endpunkts ohne Autorisierung
 
 # 4.0.0
 - `ISY-888`: Freigabe des `/Loadbalancer` Endpunkts auf `SecurityFilterChain` (`@Order(99)`) umgestellt
