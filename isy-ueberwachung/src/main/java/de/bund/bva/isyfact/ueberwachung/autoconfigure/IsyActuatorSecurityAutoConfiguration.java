@@ -1,6 +1,7 @@
 package de.bund.bva.isyfact.ueberwachung.autoconfigure;
 
 import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
+import org.springframework.boot.actuate.health.HealthEndpoint;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -79,9 +80,9 @@ public class IsyActuatorSecurityAutoConfiguration {
 
         @Override
         protected void configure(HttpSecurity http) throws Exception {
-            http.requestMatcher(EndpointRequest.toAnyEndpoint())
+            http.securityMatcher(EndpointRequest.toAnyEndpoint())
                 .authorizeHttpRequests(requests -> requests
-                    .antMatchers("/actuator/health").permitAll()
+                    .requestMatchers(EndpointRequest.to(HealthEndpoint.class)).permitAll()
                     .anyRequest().hasRole(ENDPOINT_ROLE))
                 .httpBasic();
         }
