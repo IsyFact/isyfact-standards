@@ -123,8 +123,9 @@ Die Anwendung und das Datenbankschema müssen zueinander passen.
 Die Verwaltung von Versionsinformationen für ein Datenbankschema soll sicherstellen, dass die Anwendung und Skripte (zum Beispiel zur Datenmigration) erkennen können, ob ein Datenbankschema die erwartete Version hat.
 Zusätzlich sollen die Datenbankadministratoren nachvollziehen können, welche Änderungen am Datenbankschema bereits erfolgt sind.
 
-Neben dem bisherigen Verfahren zur Versionierung von Datenbankschemas, das auf einer Eigenentwicklung beruht, gibt es auch die Möglichkeit zur Nutzung von Liquibase.
-Beide Verfahren werden im xref:isy-persistence:konzept/versionierung.adoc[Baustein JPA/Hibernate] im Detail beschrieben.
+Backends benutzen hierzu xref:software-technisch/backend/persistenz/liquibase.adoc[].
+
+NOTE: Vom bisherigen Verfahren (Eigenentwicklung) ist nur noch die xref:util::nutzungsvorgaben.adoc#datasource-check[manuelle Prüfung der Schema-Version im Baustein Util] aus Gründen der Abwärtskompatibilität vorhanden.
 
 Falls es die Anforderungen erfordern, können mehrere Datenbankschemas zusammen versioniert werden.
 Dabei gibt es zwei mögliche Konstellationen:

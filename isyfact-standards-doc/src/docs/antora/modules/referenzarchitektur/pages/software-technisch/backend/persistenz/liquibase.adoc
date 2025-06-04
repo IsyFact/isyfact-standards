@@ -53,9 +53,6 @@ Dabei sind folgende Punkte zu beachten:
 [[erfassung-des-bestehenden-schemas]]
 === Erfassung des bestehenden Schemas
 
-Vor der Einführung von Liquibase in die IsyFact gab es eine eigens entwickelte xref:isy-persistence:konzept/versionierung.adoc[Versionierung], die den aktuellen Zustand der Datenbank dokumentiert hat.
-Mit Liquibase wird ein Industriestandard verwendet, dessen Verwendung die Zukunftssicherheit verbessert und Abhängigkeiten von Eigenentwicklungen verringert.
-
 Zum aktuellen Zustand gehören:
 
 * Tabellen, Spalten und Indizes,

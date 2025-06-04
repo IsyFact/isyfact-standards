@@ -725,8 +725,8 @@ Befindet sich die Anwendung in Produktion, dann muss die automatische Erzeugung 
 spring.jpa.hibernate.ddl-auto=none
 ----
 
-Auch eine Validierung des Datenbankschemas durch Setzen des Parameters auf `validate` findet nicht statt.
-Stattdessen wird eine explizite xref:isy-persistence:konzept/versionierung.adoc[Versionierung des Schemas] verwendet.
+Eine Validierung des Datenbankschemas durch Setzen des Parameters auf `validate` findet nicht statt.
+Stattdessen wird xref:software-technisch/backend/persistenz/liquibase.adoc[] verwendet.
 
 [[vergabe-von-indizes]]
 === Vergabe von Indizes
