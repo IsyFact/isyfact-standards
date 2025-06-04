@@ -10,10 +10,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.authorization.AuthorizationDeniedException;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.test.context.ActiveProfiles;
 
 import de.bund.bva.isyfact.task.test.TestTaskRunAssertion;
