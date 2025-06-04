@@ -1,3 +1,7 @@
+# 3.2.2
+
+- `ISY-4754`: Einführung von Caching im Authentifizierungsprozess
+
 # 3.1.0
 
 - `ISY-305`: Implementierung von IsySecurityTokenUtil zum Auslesen von Attributen aus dem Bearer Token

@@ -1,3 +1,6 @@
+# 3.2.2
+- `IFS-4754`: [isy-security] Einführung von Caching im Authentifizierungsprozess
+
 # 3.2.1
 - `IFS-4385`: [isyfact-products-bom] Spring Security Versionsanhebung auf 5.8.15
 
