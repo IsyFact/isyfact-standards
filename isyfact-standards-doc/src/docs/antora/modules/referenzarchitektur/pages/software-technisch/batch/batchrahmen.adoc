@@ -1,7 +1,5 @@
 = Batchrahmen
 
-include::documentation-guide::partial$licence.adoc[]
-
 *Java Bibliothek / IT-System*
 
 [cols="3,1,2",options="header"]

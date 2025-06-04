@@ -1,7 +1,5 @@
 = Referenzarchitektur Backend
 
-include::documentation-guide::partial$licence.adoc[]
-
 include::glossary::terms-definitions.adoc[tag=backend-definition]
 
 Backends sind technisch gleichartig aufgebaut.

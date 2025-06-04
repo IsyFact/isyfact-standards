@@ -1,7 +1,5 @@
 = Verwendung von Spring Boot
 
-include::documentation-guide::partial$licence.adoc[]
-
 Spring und das darauf basierende Spring Boot sind leichtgewichtige, Java-basierte Anwendungsframeworks.
 Sie implementieren Konzepte wie https://en.wikipedia.org/wiki/Inversion_of_control[Inversion of Control (IoC)], https://en.wikipedia.org/wiki/Dependency_injection[Dependency Injection (DI)] und zahlreiche, häufig benötigte Funktionen, um die Entwicklung von Anwendungen zu beschleunigen.
 

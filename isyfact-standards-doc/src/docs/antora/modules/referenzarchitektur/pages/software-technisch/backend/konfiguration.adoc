@@ -1,7 +1,5 @@
 = Konfiguration
 
-include::documentation-guide::partial$licence.adoc[]
-
 [[konfiguration-arten]]
 == Arten von Konfiguration
 

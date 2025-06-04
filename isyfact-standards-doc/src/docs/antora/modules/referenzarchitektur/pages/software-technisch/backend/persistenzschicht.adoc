@@ -1,7 +1,5 @@
 = Persistenzschicht
 
-include::glossary:licence:partial$licence.adoc[]
-
 // tag::persistenzschicht-definition[]
 
 Die Persistenzschicht umfasst den Teil eines Backends, der den Datenbestand verwaltet.
@@ -60,7 +58,6 @@ Der Name eines Repositories leitet sich von derjenigen Entität ab, die über da
 
 //tag::namenskonvention[]
 
-[[namenskonvention-spring-data-repository]]
 .Namenskonvention Spring Data Repository
 [id="table-repossimpl",reftext="{table-caption} {counter:tables}"]
 [cols="1s,4m",options="header"]

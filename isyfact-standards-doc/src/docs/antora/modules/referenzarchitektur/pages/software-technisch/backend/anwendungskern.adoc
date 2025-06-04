@@ -1,7 +1,5 @@
 = Anwendungskern
 
-include::documentation-guide::partial$licence.adoc[]
-
 // tag::anwendungskern-definition[]
 
 Der Anwendungskern ist der zentrale Bestandteil eines Backends.

@@ -1,7 +1,5 @@
 = Serviceschicht
 
-include::documentation-guide::partial$licence.adoc[]
-
 // tag::serviceschicht-definition[]
 
 Die Serviceschicht stellt Services von Backends innerhalb einer Systemlandschaft zur Verfügung.

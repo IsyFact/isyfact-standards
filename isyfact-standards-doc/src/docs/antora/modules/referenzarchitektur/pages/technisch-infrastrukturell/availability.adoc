@@ -1,7 +1,5 @@
 = Verfügbarkeit
 
-include::documentation-guide::partial$licence.adoc[]
-
 Die IsyFact berücksichtigt die folgenden Anforderungen an die Verfügbarkeit von Services in Systemlandschaften.
 
 *Hohe Verfügbarkeit:* Die IT-Systeme der Systemlandschaft müssen eine hohe Verfügbarkeit aufweisen.
