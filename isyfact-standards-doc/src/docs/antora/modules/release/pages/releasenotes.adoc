@@ -22,6 +22,22 @@ Der Begriff xref:glossary::terms-definitions.adoc#nachbarsystem[Nachbarsystem] w
 Der Begriff xref:glossary::terms-definitions.adoc#externes-system["externes System"] wurde definiert und seine Verwendung in der gesamten IsyFact, wo nötig, korrigiert.
 Die Begrifflichkeiten "internes System" bzw. "interne Anwendung" wurden aus der IsyFact entfernt.
 
+==== Backend
+
+Die Seiten zur Persistenzschicht enthalten nun die Inhalte des aufgelösten Bausteins JPA/Hibernate:
+
+* xref:referenzarchitektur:software-technisch/backend/persistenz/vorgaben-konventionen.adoc[Vorgaben und Konventionen] zur Nutzung von JPA und Hibernate,
+* xref:referenzarchitektur:software-technisch/backend/persistenz/liquibase.adoc[Schema-Versionierung mit Liquibase],
+* xref:referenzarchitektur:software-technisch/backend/persistenz/historisierung.adoc[Historisierung].
+
+Die Inhalte wurden gestrafft und Abschnitte, die Dokumentation der verwendeten Produkte wiedergaben, wurden durch Verweise auf die entsprechenden Dokumentationen ersetzt.
+Grundlegende Erklärungen zu den verwendeten Produkten wurden gänzlich entfernt.
+
+===== Schema-Versionierung
+
+Die bisher angebotene Schema-Versionierung in Form einer Eigenentwicklung wird nicht mehr durch die IsyFact bereitgestellt.
+Die Schema-Versionierung mit Liquibase wurde xref:referenzarchitektur:software-technisch/backend/persistenz/liquibase.adoc[konzeptionell] erweitert und um xref:referenzarchitektur:software-technisch/backend/persistenz/liquibase-umsetzung.adoc[Nutzungsvorgaben] ergänzt.
+
 ==== Services
 
 Die Nutzung des Begriffs "Webservice" wurde vereinheitlicht und entspricht jetzt der https://www.w3.org/TR/ws-arch/#whatis[Definition des W3C].
@@ -30,10 +46,11 @@ Die Nutzung des Begriffs "Webservice" wurde vereinheitlicht und entspricht jetzt
 [[kapitel-bausteine]]
 == Bausteine
 
-=== JPA / Hibernate
+=== Aufgelöste Bausteine
 
-Der Baustein bietet ein erweitertes xref:referenzarchitektur:software-technisch/backend/persistenz/liquibase.adoc[Konzept] sowie xref:referenzarchitektur:software-technisch/backend/persistenz/liquibase-umsetzung.adoc[Nutzungsvorgaben] zur Schema-Versionierung mit Liquibase.
-Diese soll die Eigenimplementierung der IsyFact ablösen.
+==== JPA/Hibernate
+
+Die konzeptionellen Inhalte des Bausteins JPA/Hibernate wurden in die Referenzarchitektur überführt, da die zugehörige Bibliothek `isy-persistence` zugunsten der direkten Nutzung von Spring Data und Liquibase aufgelöst wurde.
 
 === Verschobene Bausteine
 Folgende Bausteine wurden in eigenständige Repositories umgezogen:

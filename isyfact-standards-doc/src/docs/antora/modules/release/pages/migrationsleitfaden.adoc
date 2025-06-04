@@ -2,8 +2,6 @@
 :icons: font
 :sectnums:
 
-include::glossary:licence:partial$licence.adoc[]
-
 Die auf dieser Seite aufgeführten Hinweise sollen der Entwicklung bei der Umstellung einer auf IsyFact 4.x basierenden Anwendung auf IsyFact {page-component-version} helfen.
 
 [[kapitel-geschaeftsanwendung]]
@@ -14,7 +12,10 @@ Die auf dieser Seite aufgeführten Hinweise sollen der Entwicklung bei der Umste
 [[kapitel-bausteine]]
 == Bausteine
 
-...
+Der Baustein JPA/Hibernate wurde aufgelöst.
+Damit entfällt die Bibliothek `isy-persistence`.
+Hilfsfunktionen zur Definition von Enums und zur Prüfung der Schema-Version wurden in den xref:util::nutzungsvorgaben.adoc[Baustein Util] in die Bibliothek `isy-util` verschoben.
+Alle weitere Funktionalität entfällt und wird durch die direkte Verwendung des Produkts Spring Data ersetzt.
 
 [[kapitel-dokumentation]]
 == Dokumentation
