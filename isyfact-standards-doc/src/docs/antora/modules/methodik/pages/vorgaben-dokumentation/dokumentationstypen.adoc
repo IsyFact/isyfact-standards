@@ -278,7 +278,7 @@ Abgrenzung zur <<table-fachliche-schnittstellenspezifikation,fachlichen Schnitts
 |Inhalt
 a|
 * Technische und fachliche Verfahrensbeschreibung
-* Beschreibung der xref:glossary:glossary:master.adoc#glossar-ti-architektur[TI-Architektur] (allgemein)
+* Beschreibung der xref:glossary::terms-definitions.adoc#glossar-ti-architektur[TI-Architektur] (allgemein)
 * Beschreibung des regulären Wirkbetriebs
 * Installation & Konfiguration (ohne konkrete Parameter von Umgebungen)
 * Verwendung der Batches 

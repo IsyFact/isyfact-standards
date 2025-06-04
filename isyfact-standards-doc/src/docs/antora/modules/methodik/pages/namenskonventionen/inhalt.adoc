@@ -5,7 +5,7 @@
 == Namenskonventionen
 
 Dieser Abschnitt beschreibt die Namenskonventionen der IsyFact.
-In komplexen Anwendungslandschaften werden xref:glossary:glossary:master.adoc#glossar-anwendung[Anwendungen] in der Regel in funktionale Kategorien eingeordnet und typisiert (z.B. Register und Geschäftsanwendungen).
+In komplexen Anwendungslandschaften werden xref:glossary::terms-definitions.adoc#glossar-anwendung[Anwendungen] in der Regel in funktionale Kategorien eingeordnet und typisiert (z.B. Register und Geschäftsanwendungen).
 Bei weniger komplexen Kontexten, in denen nur eine einzige oder wenige Geschäftsanwendungen existieren, wird meist allgemein von „Geschäftsanwendungen“ gesprochen.
 
 In folgenden Vorgaben wird daher zwischen Geschäftsanwendungen und Registern unterschieden.
