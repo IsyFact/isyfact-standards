@@ -328,7 +328,8 @@ isy.task.tasks.isyHealthTask.fixed-delay=30s
 ===== Absicherung von Endpoints
 
 Der Zugriff auf Endpoints muss mit einer Authentifizierung abgesichert werden.
-Eine Standardkonfiguration für Spring Security, die alle Endpunkte mit HTTP Basic Authentication absichert, wird durch die Klasse `IsyActuatorSecurityAutoConfiguration` bereitgestellt.
+Hierbei ist die einzige Ausnahme der Health-Endpunkt, welcher keine Authentifizierung benötigt.
+Eine Standardkonfiguration für Spring Security, die alle anderen Endpunkte mit HTTP Basic Authentication absichert, wird durch die Klasse `IsyActuatorSecurityAutoConfiguration` bereitgestellt.
 
 Standardmäßig wird der Zugriff auf Endpunkte durch eine HTTP Basic Authentifizierung aktiviert, wenn die *Dependencies*:
 
