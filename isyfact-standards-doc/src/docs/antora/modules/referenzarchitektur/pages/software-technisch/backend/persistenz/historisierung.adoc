@@ -7,7 +7,7 @@ Backends setzen die Historisierung mithilfe von JPA und Hibernate in ihrer Persi
 [[umsetzung-gueltigkeitszeit]]
 == Umsetzung der Gültigkeitszeit
 
-Jeder Datensatz mit einer Gültigkeitszeit definiert zwei neue Datumsattribute für den Anfang und das Ende der Gültigkeitszeit.
+Jeder Datensatz mit einer Gültigkeitszeit definiert zwei neue Datumsattribute für den Anfang und das Ende der Gültigkeit.
 Die Datumsattribute werden vollständig durch die fachlichen Anforderungen der Anwendung bestimmt und fachlich gepflegt.
 
 [[konzeption-bearbeitungshistorie]]
@@ -17,7 +17,7 @@ CAUTION: Dieser Teil der Dokumentation ist veraltet.
 Die Inhalte sollten zur Entwicklung neuer Anwendungen nicht mehr berücksichtigt werden.
 
 In diesem Abschnitt wird beschrieben, wie die Bearbeitungshistorie von Datensätzen umgesetzt wird.
-Eine übliche Anforderung ist z. B. die Speicherung letzten X Änderungen zu einem Datensatz.
+Eine übliche Anforderung ist zum Beispiel die Speicherung letzten X Änderungen zu einem Datensatz.
 
 Hierzu wird zunächst beschrieben, wie die prinzipielle Herangehensweise dazu ist.
 Anschließend wird dies durch Angabe eines Entwurfsmusters präzisiert.
@@ -61,10 +61,10 @@ Anwendungen können festlegen, dass dieses Attribut Teil des fachlichen Schlüss
 Dadurch ist es möglich, die Tabelle der Datenbank zu partitionieren, um die Verarbeitungsgeschwindigkeit zu erhöhen.
 
 In Ausnahmefällen darf auch eine eigene Tabelle zur Speicherung der Historie angelegt werden.
-Dadurch werden Schreiboperationen verlangsamt, da immer in zwei Tabellen statt in eine geschrieben wird.
+Dadurch werden Schreiboperationen verlangsamt, da immer in zwei statt in einer Tabelle geschrieben wird.
 
 Durch das Einführen der Datumsattribute erweitert sich der fachliche Schlüssel des Datensatzes.
-Der somit aus mehreren Attributen zusammengesetzte fachliche Schlüssel wird genauso behandelt, wie jeder andere zusammengesetzte fachliche Schlüssel auch.
+Der somit aus mehreren Attributen zusammengesetzte fachliche Schlüssel wird genauso behandelt wie jeder andere zusammengesetzte fachliche Schlüssel auch.
 
 [[schritt-2-erweiterung-des-daos]]
 === Schritt 2: Erweiterung des Data Access Objects
@@ -125,7 +125,7 @@ Diese Methode liefert die gesamte Historie eines Datensatzes.
 Bei einer Umsetzung ohne Historisierung konnten Objekte direkt über ihren Konstruktor erzeugt und mithilfe der Methode zum Speichern persistiert werden.
 Dies ist jetzt nicht mehr möglich, da in diesem Fall die Attribute `aktuellVon` und `aktuellBis` nicht korrekt belegt
 werden würden.
-Daher bietet das DAO eine Methode an, um auf Basis eines bestehenden Objekts eine neue Version dieses Objekts zu erstellen.
+Daher bietet das DAO eine Methode an, um auf Basis eines bestehenden Objekts eine neue Version davon zu erstellen.
 
 Die Idee dabei ist, dass das bisher aktuelle Objekt einen Nachfolger erhält.
 
@@ -146,7 +146,7 @@ Im Detail werden dabei die folgenden Schritte durchgeführt:
 
 Ausgangslage:: Die bisher aktuelle Entität wird als Parameter übergeben.
 
-Schritt 1:: Der Zeitstempel der übergebenen Entität wird verändert und damit diese Entität als nicht mehr aktuell markiert.
+Schritt 1:: Der Zeitstempel der übergebenen Entität wird verändert, um sie als nicht mehr aktuell zu markieren.
 Die übergebene Entität ist die bisher aktuelle Entität, dessen Zeitstempel `aktuellBis`  bisher auf den 31.12.9999 gesetzt war.
 Dieser Zeitstempel wird auf den aktuellen Zeitpunkt gesetzt.
 
@@ -154,7 +154,7 @@ Schritt 2:: Es wird eine neue Entität erzeugt.
 
 Schritt 3:: Der Zeitstempel `aktuellVon` der neuen Entität wird auf den aktuellen Zeitstempel gesetzt.
 
-Schritt 4:: Die Daten der übergebenen Entität werden in die neue Entität kopiert.
+Schritt 4:: Die Daten der übergebenen Entität werden in die neue kopiert.
 
 Schritt 5:: Der Zeitstempel `aktuellBis` der neuen Entität wird auf den 31.12.9999 gesetzt.
 Damit ist sie als die aktuelle Entität gekennzeichnet.
@@ -166,10 +166,10 @@ In diesem Fall wird ein neuer, leerer Datensatz angelegt, dessen Zeitstempel abe
 Dies ist nötig, um das erste Objekt einer Historie erzeugen zu können.
 
 Nach konkretem Bedarf kann die Methode zur Erzeugung einer neuen Version durch zusätzliche "Convenience"-Methoden ergänzt werden, die andere Parameter erwarten.
-Beispiele dafür sind eine Methode, die als Parameter nur die Schlüsselwerte der Entität und nicht die Entität selbst erwartet oder eine Methode, welche die aktuellste Version einer Entität selbst ermittelt.
+Beispiele hierfür sind Methoden, die entweder nur die Schlüsselwerte der Entität als Parameter erwarten und nicht die Entität selbst, oder solche, die die jeweils aktuellste Version selbst ermitteln.
 
-*Optionale Erweiterung:* Falls eine Obergrenze für die Anzahl der zu historisierenden Datensätze vorgegeben ist, wird die Einhaltung dieser Obergrenze ebenfalls durch das DAO sichergestellt.
-In diesem Fall wird bei der Erzeugung einer neuen Version geprüft, ob dadurch die Obergrenze überschritten wird und ggf. die älteste Version gelöscht.
+*Optionale Erweiterung:* Falls eine Obergrenze für die Anzahl der zu historisierenden Datensätze vorgegeben ist, stellt das DAO ebenfalls deren Einhaltung sicher.
+In diesem Fall wird bei der Erzeugung einer neuen Version geprüft, ob dadurch die Obergrenze überschritten wird und gegebenenfalls die älteste Version gelöscht.
 Der Wert dieser Obergrenze wird in einer Klassenkonstante des DAOs gehalten.
 Diese Klassenkonstante ist öffentlich, damit deren Wert bei einer Veränderung der Historie außerhalb des DAOs berücksichtigt werden kann.
 Sie trägt den Namen `MAX_EINTRAEGE_HISTORIE`.
@@ -200,7 +200,7 @@ Im Regelfall darf die Historie nicht verändert werden.
 [[beispiel]]
 .Umsetzung zeitlich begrenzter Rabatte für Waren
 ====
-Das fachliche Szenario für dieses Beispiel ist: Für eine Ware sollen, je nach Datum, ein Rabatt gelten.
+Das fachliche Szenario für dieses Beispiel ist: Für eine Ware soll je nach Datum ein Rabatt gelten.
 
 *Schritt 1: Ergänzen von Datumsattributen*
 
