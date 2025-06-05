@@ -337,7 +337,8 @@ Standardmäßig wird der Zugriff auf Endpoints durch eine HTTP Basic Authentifiz
 im Klassenpfad verfügbar sind.
 
 Die Konfiguration von Benutzername und Passwort zum Zugriff auf die Endpoints ist optional und wird in der `application.properties` gepflegt (siehe <<listing-endpoint-security-properties>>).
-Ohne Konfiguration von Benutzername und Passwort bleibt die Absicherung aktiv und es kann nicht auf die Endpoints zugegriffen werden.
+Ohne Konfiguration von Benutzername und Passwort bleibt die Absicherung aktiv und es kann auf keine Endpoints zugegriffen werden,
+außer dem Health-Endpoint, welcher nicht abgesichert ist.
 
 .Konfiguration der Absicherung in `application.properties`
 [id="listing-endpoint-security-properties",reftext="{listing-caption} {counter:listings }"]
