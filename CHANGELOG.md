@@ -1,5 +1,6 @@
 # 5.0.0
 ## FEATURES
+- `IFS-4736`: [isyfact-standards-doc] Umzug der Dokumentation des Bausteins JPA/Hibernate in die Referenzarchitektur
 - `IFS-4713`: [isyfact-standards-doc] Entkopplung der Bausteine (s. `IFS-4582`) in Dokumentation nachvollzogen
 - `IFS-4554`: [isyfact-standards-doc] Nutzung des Begriffs "Webservice" im Sinne des W3C vereinheitlicht
 - `IFS-3028`: [isyfact-standards-doc] Vorgaben für Spring & Spring Boot aktualisiert
@@ -7,6 +8,7 @@
 - `IFS-4208`: [isyfact-standards-doc] Verwendungen der Begriffe "Nachbarsystem" und "Externes System" korrigiert
 - `IFS-4731`: Korrektes Auflösen der URL in SBOMs
 ## BREAKING CHANGES
+- `IFS-4736`: [isy-persistence] Entfernung der Bibliothek aus den IsyFact-Standards
 - `IFS-4582`: [isy-persistence], [isy-polling], [isy-security], [isy-security-test], [isy-task], [isy-util] Entfernen der entkoppelten Bausteine aus dem Standards-Repository
 
 # 4.1.0
@@ -20,6 +22,7 @@
 # 4.0.0
 ## FEATURES
 - `IFS-1802`: [isyfact-standards-doc] Mapping Vorgaben zu bidirektionalen Assoziationen aktualisiert
+- `IFS-1797`: [isyfact-standards-doc] Vorgaben zu Hibernate Annotationen LazyToOne und LazyCollections entfernt
 - `IFS-4508`: [isyfact-standards-doc] Verweis auf Angular-Demo (Referenzimplementierung) prominent platziert
 - `IFS-4358`: [isyfact-standards-doc] Verwendungen des Begriffs IT-System in den Bausteinen (exklusive Sicherheit) korrigiert
 - `IFS-4249`: [isyfact-standards-doc] Setzen der Antora-Version für die Online-Dokumentation durch Git

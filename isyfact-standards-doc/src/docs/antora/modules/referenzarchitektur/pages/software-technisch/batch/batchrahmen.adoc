@@ -1,7 +1,5 @@
 = Batchrahmen
 
-include::documentation-guide::partial$licence.adoc[]
-
 *Java Bibliothek / IT-System*
 
 [cols="3,1,2",options="header"]
@@ -41,7 +39,7 @@ image::software-technisch/batch/BeanGriffBat.png[align=center,width=80%]
 
 Der Batchrahmen benötigt für die Speicherung des Fortschritts und des Status der Batches eine eigene <<tabellen-des-batchrahmens>>.
 Durch sie werden die vom Batchrahmen benötigten Informationen gespeichert.
-Bei Bedarf können in einem Batch auch xref:isy-persistence:konzept/vorgaben-konventionen.adoc#nutzung-und-anbindung-einer-zweiten-datenbank[weitere Datenbankverbindungen] genutzt werden.
+Bei Bedarf können in einem Batch auch weitere Datenbankverbindungen genutzt werden.
 
 [[checkpoint-restart-logik]]
 === Checkpoint / Restart Logik

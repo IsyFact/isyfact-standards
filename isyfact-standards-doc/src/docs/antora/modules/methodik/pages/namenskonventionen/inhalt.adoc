@@ -5,7 +5,7 @@
 == Namenskonventionen
 
 Dieser Abschnitt beschreibt die Namenskonventionen der IsyFact.
-In komplexen Anwendungslandschaften werden xref:glossary:glossary:master.adoc#glossar-anwendung[Anwendungen] in der Regel in funktionale Kategorien eingeordnet und typisiert (z.B. Register und Geschäftsanwendungen).
+In komplexen Anwendungslandschaften werden xref:glossary::terms-definitions.adoc#glossar-anwendung[Anwendungen] in der Regel in funktionale Kategorien eingeordnet und typisiert (z.B. Register und Geschäftsanwendungen).
 Bei weniger komplexen Kontexten, in denen nur eine einzige oder wenige Geschäftsanwendungen existieren, wird meist allgemein von „Geschäftsanwendungen“ gesprochen.
 
 In folgenden Vorgaben wird daher zwischen Geschäftsanwendungen und Registern unterschieden.
@@ -429,13 +429,12 @@ Der Name einer Web-Applikation (Webapp-Root) ist immer gleich dem <<technische-s
 
 [[persistenz]]
 ==== Persistenzschicht
-include::isy-persistence:page$konzept/vorgaben-konventionen.adoc[tag=namenskonvention]
 
-include::isy-persistence:page$nutzungsvorgaben/umsetzung-persistenzschicht.adoc[tag=namenskonvention]
+include::referenzarchitektur:software-technisch/backend/persistenzschicht.adoc[tag=namenskonvention]
 
 ===== Historisierung
 
-include::isy-persistence:page$nutzungsvorgaben/historisierung.adoc[tag=namenskonvention]
+include::referenzarchitektur:software-technisch/backend/persistenz/historisierung.adoc[tag=namenskonvention]
 
 ===  Anwendungskern
 include::referenzarchitektur:software-technisch/backend/anwendungskern.adoc[tag=namenskonvention]

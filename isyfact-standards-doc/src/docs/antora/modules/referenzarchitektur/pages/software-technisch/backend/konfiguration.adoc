@@ -1,7 +1,5 @@
 = Konfiguration
 
-include::documentation-guide::partial$licence.adoc[]
-
 [[konfiguration-arten]]
 == Arten von Konfiguration
 
@@ -37,11 +35,7 @@ Die betriebliche Konfiguration ist im Rahmen des xref:methodik:vorlage-systemhan
 === Benutzer-Konfiguration
 
 Die Benutzer-Konfiguration umfasst alle Einstellungen, die von Anwendern des Backends gepflegt werden.
-Sie ist ein fachlicher Bestandteil des Backends.
-Das Backend greift lesend und schreibend auf die Benutzer-Konfiguration zu.
-
-Die Benutzer-Konfiguration liegt in der Regel in Form von Datenbank-Tabellen vor.
-Die Umsetzung geschieht analog zur xref:isy-persistence:nutzungsvorgaben/umsetzung-persistenzschicht.adoc[].
+Sie ist ein fachlicher Bestandteil des Backends und somit Teil einer Fachkomponente in allen Schichten des Backends.
 
 Die Benutzer-Konfiguration ist im Rahmen der xref:methodik:vorlage-systemspezifikation/master.adoc#datenmodell[Systemspezifikation] dokumentiert.
 
@@ -55,4 +49,4 @@ Die Umsetzung der statischen Konfiguration geschieht vollständig mit Bordmittel
 Zur Umsetzung der betrieblichen Konfiguration nutzen Backends maßgeblich https://docs.spring.io/spring-boot/reference/features/external-config.html#features.external-config.files[externe Konfigurationsdateien].
 Im Quellcode werden die betrieblichen Konfigurationsvariablen in der Regel https://docs.spring.io/spring-boot/reference/features/external-config.html#features.external-config.typesafe-configuration-properties[typsicher] in Klassen abgebildet und mittels Bean Validation geprüft.
 
-Die Umsetzung der Benutzer-Konfiguration geschieht analog zur xref:isy-persistence:konzept/vorgaben-konventionen.adoc[Umsetzung fachlicher Datenmodelle in persistente Entitäten].
+Die Umsetzung der Benutzer-Konfiguration geschieht analog zur xref:software-technisch/backend/persistenz/vorgaben-konventionen.adoc[Umsetzung fachlicher Datenmodelle in persistente Entitäten].
