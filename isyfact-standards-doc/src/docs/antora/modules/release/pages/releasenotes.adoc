@@ -2,8 +2,6 @@
 :icons: font
 :sectnums:
 
-include::glossary:licence:partial$licence.adoc[]
-
 Ergänzend zu den Release Notes erläutert der xref:release:migrationsleitfaden.adoc[Migrationsleitfaden] die notwendigen Schritte zur Migration älterer Anwendungen auf das aktuelle Release.
 
 [[kapitel-referenzarchitektur]]
@@ -45,7 +43,7 @@ Aktuell gibt es drei IT-Systemtypen: xref:glossary:glossary:master.adoc#backend[
 
 Die xref:referenzarchitektur:software-technisch/backend.adoc[] beschreibt nun Backends als primäre Anbieter von fachlichen Services.
 Zur Umsetzung von UIs sieht die Referenzarchitektur nur noch eigenständige Frontends vor.
-Ergänzend hierzu beinhaltet die IsyFact einen Baustein zur Umsetzung von Frontends mit xref:isy-angular-widgets-doc::konzept/konzept.adoc[Angular].
+Ergänzend hierzu beinhaltet die IsyFact einen Baustein zur Umsetzung von Frontends mit xref:angular::konzept.adoc[Angular].
 
 ===== Persistenzschicht
 
@@ -127,7 +125,7 @@ Die folgende Tabelle zeigt, auf welche Bausteine bzw. Konzepte die Anwendungen m
 |===
 |Entfernter Baustein|Migrieren auf
 |Http Invoker|xref:isy-service-rest:konzept/master.adoc[Baustein REST]
-|JSF|xref:isy-angular-widgets-doc::konzept/konzept.adoc[Baustein Angular]
+|JSF|xref:angular::konzept.adoc[Baustein Angular]
 |Sicherheit|xref:isy-security:konzept/master.adoc[Baustein Security]
 |Konfiguration|xref:referenzarchitektur:software-technisch/backend/konfiguration.adoc[Referenzarchitektur: Konfiguration von Backends]
 

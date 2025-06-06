@@ -58,6 +58,6 @@
 *** xref:isy-bedienkonzept-doc:ROOT:referenzimplementierung.adoc[Referenzimplementierung]
 
 ** Angular
-*** xref:isy-angular-widgets-doc:ROOT:konzept/konzept.adoc[Konzept]
-*** https://isyfact.github.io/isy-angular-widgets/documentation/[Nutzungsvorgaben]
-*** xref:isy-angular-widgets-doc:ROOT:referenzimplementierung.adoc[Referenzimplementierung]
+*** xref:angular::konzept.adoc[Konzept]
+*** https://isyfact.github.io/isy-angular-widgets/documentation/[Nutzungsvorgaben icon:external-link[]^]
+*** https://isyfact.github.io/isy-angular-widgets/[Referenzimplementierung icon:external-link[]^]
