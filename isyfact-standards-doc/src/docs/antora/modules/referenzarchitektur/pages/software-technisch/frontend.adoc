@@ -1,9 +1,7 @@
 = Referenzarchitektur Frontend
 
-include::glossary:licence:partial$licence.adoc[]
-
 include::documentation-guide::partial$content-new.adoc[]
 
 Hier wird in naher Zukunft die Systemarchitektur und die Umsetzung querschnittlicher, technischer Aspekte für den IT-Systemtyp Frontend beschrieben.
 
-Bis dahin geben das xref:isy-angular-widgets-doc::konzept/konzept.adoc[] sowie die https://isyfact.github.io/isy-angular-widgets/documentation/[Nutzungsvorgaben Angular] Hinweise auf die Umsetzung von Frontends.
+Bis dahin geben das xref:angular::konzept.adoc[] sowie die https://isyfact.github.io/isy-angular-widgets/documentation/[Dokumentation der Komponenten-Bibliothek icon:external-link[]^] Hinweise auf die Umsetzung von Frontends.
