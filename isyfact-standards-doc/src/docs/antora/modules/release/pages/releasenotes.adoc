@@ -46,6 +46,12 @@ Die Nutzung des Begriffs "Webservice" wurde vereinheitlicht und entspricht jetzt
 [[kapitel-bausteine]]
 == Bausteine
 
+=== Erweiterte Bausteine
+
+==== Rest
+Die Konzeption wurde um die strukturierten Verwendung von HTTP-Statuscodes (inkl. `Retry-After`, Status-URLs, Fehlermeldungen) im Kapitel "Verwendung von HTTP-Statuscodes" ergänzt.
+Architekten können ihre Anwendungen auf eine ergänzende Nutzung dieser prüfen.
+
 === Aufgelöste Bausteine
 
 ==== JPA/Hibernate
