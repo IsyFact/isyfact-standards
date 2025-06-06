@@ -314,10 +314,10 @@ Diese können bei Bedarf in `application.properties` überschrieben werden.
 .Properties zur Konfiguration der Endpoints
 [id="listing-endpointconfig-defaults",reftext="{listing-caption} {counter:listings }"]
 ----
-management.endpoints.enabled-by-default=false
-management.endpoint.health.enabled=true
-management.endpoint.metrics.enabled=true
-management.endpoint.info.enabled=true
+management.endpoints.access.default=none
+management.endpoint.health.access=unrestricted
+management.endpoint.metrics.access=unrestricted
+management.endpoint.info.access=unrestricted
 management.endpoints.web.exposure.include=health, metrics, info
 management.endpoints.jmx.exposure.exclude=*
 
