@@ -1,7 +1,5 @@
 = Bausteine
 
-include::glossary:licence:partial$licence.adoc[]
-
 // tag::whitepaper[]
 
 *Wiederverwendbare Softwarelösungen, querschnittliche Anwendungen sowie Programmierbibliotheken und -vorlagen zur Erstellung von Geschäftsanwendungen.*
@@ -28,30 +26,22 @@ Hellblau umrandete Waben bedeuten, dass der Baustein als Software-Bibliothek ver
 ****
 ====
 
-Die nachfolgende Tabelle beschreibt die Bausteine. Sie stellen in der Regel ein Dokument aus architektonischer Sicht – das Konzept – und ein Dokument aus technischer Sicht – die Nutzungsvorgaben – sowie eine Software-Bibliothek zur Integration in eigene Anwendungen bereit.
+Bausteine stellen in der Regel ein Dokument aus architektonischer Sicht – das Konzept – und ein Dokument aus technischer Sicht – die Nutzungsvorgaben – sowie eine Software-Bibliothek zur Integration in eigene Anwendungen bereit.
+
+== IsyFact-Standards
+
+include::einstieg:vorstellung.adoc[tags=isyfact-standards-definition]
 
 [cols="1s,3a",options="header"]
 |===
 |Baustein
 |Funktion
 
-|Angular
-|Der Baustein _Angular_ bietet eine Frontend-Bibliothek, deren Komponenten anhand der Vorgaben im Bedienkonzept entwickelt und exemplarisch in der Demo-Anwendung des Bausteins gezeigt werden.
-Dadurch werden wiederverwendbare Widgets bereitgestellt, um User Interfaces zu vereinheitlichen.
-Der Baustein basiert auf Angular, PrimeNG und PrimeFlex.
-
-|Bedienkonzept
-|Das _Bedienkonzept_ beschreibt die Gestaltungsregeln, Lösungsmuster und Workflows für fachliche Abläufe in Benutzeroberflächen.
-Ziel des Bedienkonzepts ist es, dass sich Sachbearbeiter möglichst schnell zwischen unterschiedlichen Anwendungen orientieren können.
-
 |Datum & Zeit
 |Der Baustein stellt Vorgaben für die Anzeige, Eingabe und persistenter Speicherung von Datums- und Zeitwerten bereit.
 
 |Fehlerbehandlung
 |Der Baustein _Fehlerbehandlung_ enthält das technische Konzept und eine Bibliothek zur einheitlichen Implementierung der Fehlerbehandlung.
-
-|JPA/Hibernate
-|Der Baustein beschreibt die Umsetzung der Persistenzschicht von Backends auf Basis von JPA und dem O/R-Mapper Hibernate.
 
 |Logging
 |Der Baustein ermöglicht die einheitliche Erstellung und vereinfachte Auswertung von Log-Dateien, Fehlern und Systemzuständen über Komponentengrenzen hinweg.
@@ -81,6 +71,26 @@ Die einheitliche Überwachungsschnittstelle erlaubt die frühzeitige Erkennung v
 |Util
 |Der Baustein _Util_ bietet nützliche Hilfsmittel, die von den Anwendungen der IsyFact genutzt werden können.
 Es handelt sich dabei um kleinere Utility-Klassen, wie z.B. Interzeptoren, mit denen sich das Laufzeitverhalten von Anwendungen nachvollziehen lässt.
+|===
+
+== IsyFact-Erweiterungen
+
+include::einstieg:vorstellung.adoc[tags=isyfact-erweiterungen-definition]
+
+[cols="1s,3a",options="header"]
+|===
+|Baustein
+|Funktion
+
+|Angular
+|Der Baustein _Angular_ bietet eine Frontend-Bibliothek, deren Komponenten anhand der Vorgaben im Bedienkonzept entwickelt und exemplarisch in der Demo-Anwendung des Bausteins gezeigt werden.
+Dadurch werden wiederverwendbare Widgets bereitgestellt, um User Interfaces zu vereinheitlichen.
+Der Baustein basiert auf Angular, PrimeNG und PrimeFlex.
+
+|Bedienkonzept
+|Das _Bedienkonzept_ beschreibt die Gestaltungsregeln, Lösungsmuster und Workflows für fachliche Abläufe in Benutzeroberflächen.
+Ziel des Bedienkonzepts ist es, dass sich Sachbearbeiter möglichst schnell zwischen unterschiedlichen Anwendungen orientieren können.
+
 |===
 
 // end::whitepaper[]
