@@ -80,7 +80,7 @@ public class AuthentifizierungsmanagerTest extends AbstractOidcProviderTest {
         SecurityContextHolder.getContext().setAuthentication(null);
 
         mockJwt = mock(JwtAuthenticationToken.class);
-        JwtAuthenticationToken secondMockJwt = mock(JwtAuthenticationToken.class);;
+        JwtAuthenticationToken secondMockJwt = mock(JwtAuthenticationToken.class);
 
         when(clientCredentialsAuthorizedClientAuthenticationProvider.supports(any())).thenCallRealMethod();
         when(clientCredentialsAuthorizedClientAuthenticationProvider.authenticate(any(Authentication.class))).thenReturn(mockJwt);
