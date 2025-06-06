@@ -27,5 +27,5 @@
 ** xref:util::konzept.adoc[Util]
 
 ** [.separator]#IsyFact-Erweiterungen#
-** xref:isy-angular-widgets-doc::konzept/konzept.adoc[Angular]
-** xref:isy-bedienkonzept-doc:ROOT:bedienkonzept.adoc[Bedienkonzept]
+** xref:angular::konzept.adoc[Angular]
+** xref:isy-bedienkonzept-doc::bedienkonzept.adoc[Bedienkonzept]
