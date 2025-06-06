@@ -1,32 +1,4 @@
 # 3.3.0
 
+### Features
 - `IFS-4248`: Hinzufügen einer Klasse `ClaimsOnlyOAuth2AuthenticationToken`, welche innerhalb einer Anwendung verwendet werden kann, um Metadaten (bspw. der Name eines laufenden Batches) über den SecurityContext auszutauschen
-
-# 3.1.0
-
-- `ISY-305`: Implementierung von IsySecurityTokenUtil zum Auslesen von Attributen aus dem Bearer Token
-- `ISY-980`: Anpassung der Dokumentation aufgrund von Security-Umstellungen
-- `IFS-2804`: `@EnableGlobalMethodSecurity` durch die modernere `@EnableMethodSecurity` Annotation ersetzt
-  - Aktiviert standardmäßig @PreAuthorize, @PostAuthorize, @PreFilter und @PostFilter (`prePostEnabled = true`)
-- `IFS-3833`: Implementierung von Multi-Tenancy-Support
-- `IFS-2248`: Bereitstellen von Funktionalität zur Token-Gültigkeitsüberprüfung und erneuten Authentifizierung
-
-# 3.0.0
-
-- `IFS-2561`: Die Konfiguration via `rollenrechte.xml` erfolgt optional. 
-    - Initialisierung mit Standardwerten
-- `IFS-1852`: Bereitstellung einer Implementierung zur Authentifizierung eines Clients mit Client Credentials
-    - Property `isy.security.rolesClaimName` eingeführt
-- `IFS-2302`: Umsetzung des Mappings von Rollen auf Rechte
-- `IFS-2403`: Umstellung vorhandener Tests auf `isy-security-test`
-- `IFS-1960`: Bereitstellung einer Implementierung zur Authentifizierung mit Resource Owner Password Credentials
-- `IFS-1854`: Umsetzung des Berechtigungsmanagers
-- `IFS-2400`: Schnittstellen des Bausteins `isy-security`
-    - `Security` und `Authentifizierungsmanager` Interface
-    - Standard Implementierungen als Beans per Autokonfiguration bereitgestellt
-- `IFS-1855`: Umsetzung der Tokenweitergabe an Nachbarsysteme
-- `ISY-147`: Überarbeitung der Methoden des Authentifizierungsmanagers
-    - Vereinheitlichung der Methodensignaturen
-    - Ergänzung des BHKNZ als optionalen Parameter in allen Methoden (wird aktuell nur für den Resource Owner Password Credentials Flow ausgewertet)
-    - Überarbeitung der Dokumentation und Parameterbenennung um Unklarheiten zu beseitigen
-- `ISY-83`: Annotation zur Authentifizierung innerhalb von Methoden hinzugefügt
