@@ -1,5 +1,6 @@
 # 5.0.0
 ## FEATURES
+- `IFS-4737`: [isyfact-standards-doc] Auszeichnung der Bausteine in Bezug auf IsyFact-Standards und IsyFact-Erweiterungen
 - `IFS-4736`: [isyfact-standards-doc] Umzug der Dokumentation des Bausteins JPA/Hibernate in die Referenzarchitektur
 - `IFS-4713`: [isyfact-standards-doc] Entkopplung der Bausteine (s. `IFS-4582`) in Dokumentation nachvollzogen
 - `IFS-4554`: [isyfact-standards-doc] Nutzung des Begriffs "Webservice" im Sinne des W3C vereinheitlicht
