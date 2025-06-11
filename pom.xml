@@ -585,37 +585,6 @@
                 </plugins>
             </build>
         </profile>
-        <!-- Profile to avoid SNAPSHOT-versions in releases. -->
-        <profile>
-            <id>release</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-enforcer-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>enforce-no-snapshots</id>
-                                <goals>
-                                    <goal>enforce</goal>
-                                </goals>
-                                <configuration>
-                                    <rules>
-                                        <requireReleaseDeps>
-                                            <message>Keine SNAPSHOT-Abhängigkeiten erlaubt!</message>
-                                        </requireReleaseDeps>
-                                        <requireReleaseVersion>
-                                            <message>Keine SNAPSHOT-Versionen erlaubt!</message>
-                                        </requireReleaseVersion>
-                                    </rules>
-                                    <fail>true</fail>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
         <profile>
             <!-- Moves the license files in APIDocs, if present. -->
             <id>copyLicenseFiles</id>
@@ -654,6 +623,30 @@
             <id>centralRelease</id>
             <build>
                 <plugins>
+                    <!-- Avoid SNAPSHOT-versions in releases. -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-enforcer-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>enforce-no-snapshots</id>
+                                <goals>
+                                    <goal>enforce</goal>
+                                </goals>
+                                <configuration>
+                                    <rules>
+                                        <requireReleaseDeps>
+                                            <message>Keine SNAPSHOT-Abhängigkeiten erlaubt!</message>
+                                        </requireReleaseDeps>
+                                        <requireReleaseVersion>
+                                            <message>Keine SNAPSHOT-Versionen erlaubt!</message>
+                                        </requireReleaseVersion>
+                                    </rules>
+                                    <fail>true</fail>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
                     <plugin>
                         <groupId>org.sonatype.central</groupId>
                         <artifactId>central-publishing-maven-plugin</artifactId>
