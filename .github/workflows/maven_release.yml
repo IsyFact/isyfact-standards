@@ -59,7 +59,6 @@ jobs:
     with:
       version: ${{ github.ref_name }}
       maven-opts: '-P centralRelease'
-      deploy-server-id: ossrh
       sbom: true
       sign: true
       environment: 'Release'
