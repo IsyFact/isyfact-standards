@@ -737,49 +737,6 @@
                 </plugins>
             </build>
         </profile>
-        <profile>
-            <id>centralmavenrepo</id>
-            <activation>
-                <property>
-                    <name>centraldeploy</name>
-                    <value>true</value>
-                </property>
-            </activation>
-            <properties>
-            </properties>
-            <distributionManagement>
-                <snapshotRepository>
-                    <id>ossrh</id>
-                    <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-                </snapshotRepository>
-                <repository>
-                    <id>ossrh</id>
-                    <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-                </repository>
-            </distributionManagement>
-        </profile>
-        <profile>
-            <id>internalmavenrepo</id>
-            <activation>
-                <property>
-                    <name>!centraldeploy</name>
-                </property>
-            </activation>
-            <properties>
-            </properties>
-            <distributionManagement>
-                <repository>
-                    <id>repository</id>
-                    <name>Repository</name>
-                    <url>${deploy-url-release}</url>
-                </repository>
-                <snapshotRepository>
-                    <id>repository</id>
-                    <name>Repository</name>
-                    <url>${deploy-url-snapshot}</url>
-                </snapshotRepository>
-            </distributionManagement>
-        </profile>
 
         <!-- remove if source code is adjusted to JDK 17 -->
         <profile>
