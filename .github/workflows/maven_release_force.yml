@@ -16,7 +16,7 @@ jobs:
       sonar-skip: true
 
   DeployMavenCentral:
-    if: ${{ inputs.confirm_deployment }}
+    if: ${{ inputs.confirm_deployment_without_checks }}
     uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_deploy_template.yml@v1.6.0
     with:
       version: ${{ github.ref_name }}
