@@ -94,8 +94,10 @@ Die folgende Tabelle zeigt, auf welche Bausteine bzw. Konzepte die Anwendungen m
 |===
 |Entfernter Baustein|Migrieren auf
 |JPA/Hibernate
-a|konzeptionell: tbd
-// TODO Zielort der Dokumentation ergänzen.
+a|konzeptionell:
+
+* xref:referenzarchitektur:software-technisch/backend/persistenzschicht.adoc[]
+* xref:referenzarchitektur:software-technisch/backend/persistenz/vorgaben-konventionen.adoc[]
 
 technisch:
 
