@@ -45,34 +45,82 @@ Falls für einen Teil der Entitäten konkurrierende schreibende Zugriffe wahrsch
 
 NOTE: Hibernate User Guide: https://docs.jboss.org/hibernate/orm/current/userguide/html_single/Hibernate_User_Guide.html#locking-pessimistic[Pessimistic Locking].
 
+[[second-level-cache]]
+=== Einsatz eines Second-Level-Caches
 
-[[aufrufuebergreifendes-caching-vermeiden]]
-=== Aufrufübergreifendes Caching vermeiden
+Ein Second-Level-Cache speichert Daten zwischen Transaktionen oder Sitzungen und ermöglicht es, sie anstatt eines Datenbankzugriffs wiederzuverwenden.
+Dies kann die Leistung eines IT-Systems erheblich verbessern, indem es die Anzahl der Datenbankzugriffe reduziert.
+Hibernate bietet einen Second-Level-Cache auf Ebene der Session Factory an.
 
-Caching-Strategien sind kein Teil der JPA-Spezifikation.
-Für das Definieren eines Cache muss deswegen auf Hibernate-spezifische Mechanismen zugegriffen werden.
+.icon:university[title=Architekturregel] Einsatz eines Second-Level-Cache
+****
+Sinnvoll ist der Einsatz eines Second-Level-Caches nur, wenn die darin enthaltenen Daten sehr häufig gelesen, aber nur selten geändert werden.
+****
 
-Jeder Aufruf der Persistenzschicht geschieht innerhalb einer Transaktion.
-In der Regel läuft jeder Aufruf in einer eigenen Transaktion ab, weswegen kein Zustand und keine Daten zwischen zwei Aufrufen gehalten oder geteilt werden können.
+NOTE: Weitere Details zum Einsatz von Caches bietet die https://docs.jboss.org/hibernate/orm/current/userguide/html_single/Hibernate_User_Guide.html#caching[offizielle Hibernate-Dokumentation zu Caching].
 
-Ist ein aufrufübergreifendes Caching dennoch notwendig, ist dies nicht in der Persistenzschicht und nicht mittels Hibernate durchzuführen.
-Hibernate bietet für das Caching von Objekten prinzipiell zwei Möglichkeiten.
+[[second-level-cache-betrachtung]]
+==== Betrachtung der Vorteile, Herausforderungen und Risiken
 
-Cache in der Hibernate-Session:: Die Hibernate-Session ist an einen Thread gebunden.
-Das aufrufende IT-System verwendet für jede Anfrage einen neuen Thread (und damit eine frische Hibernate-Session).
-Deshalb kann dieser Cache höchstens im Rahmen einer Anfrage an das Backend gelten.
-Diese Nutzung eines Cache ist nicht sinnvoll.
+IMPORTANT: Die folgende Betrachtung geht von einer Caching-Lösung _als Bestandteil eines IT-Systems_ aus.
+Sie betrachtet keine verteilten Caches.
 
-VM-weiter "2nd Level Cache":: Dieser Cache ist vor allem für unveränderliche, häufig verwendete Informationen (z.B. Schlüsseldaten) gedacht.
-In der IsyFact werden solche Daten jedoch bereits durch andere Mechanismen vorgehalten.
-Deshalb ist eine Verwendung dieses Cache ebenfalls unnötig.
+Der Einsatz eines Second-Level-Caches kann die Erfüllung der folgenden Qualitätskriterien fördern.
 
-Die Verwendung von über einen Aufruf hinausgehenden Cache ist deshalb zu vermeiden.
-Falls aufgrund spezieller Anforderungen trotzdem ein 2nd Level Cache benötigt wird, ist auf folgende Punkte zu achten:
+.Second-Level-Cache: Vorteile nach Qualitätskriterien (ISO 25010)
+[cols="1,2", options="header"]
+|===
+|Qualitätskriterium
+|Vorteile
 
-* Für den Cache ist eine gesonderte Cache-Region zu verwenden.
-* Nur unveränderliche Daten dürfen in den Cache.
-* Man kann nicht davon ausgehen, dass der Cache bei Änderungen der Objekte aktualisiert wird.
+|Leistungsfähigkeit (Performance Efficiency)
+|IT-Systeme können schneller antworten und dabei Ressourcen schonen, da der Cache Datenbankzugriffe einsparen hilft. +
+IT-Systeme können einer höheren Last standhalten, da der Cache Lastspitzen abfedern kann.
+
+|Zuverlässigkeit (Reliability)
+|IT-Systeme können Daten auch bei temporären Ausfällen der Datenbank, und damit zuverlässiger, liefern.
+|===
+
+Dem gegenüber kann der Einsatz eines Second-Level-Caches zu Herausforderungen und Risiken bei folgenden Qualitätskriterien führen.
+
+.Second-Level-Cache: Herausforderungen und Risiken nach Qualitätskriterien (ISO 25010)
+[cols="1,2", options="header"]
+|===
+|Qualitätskriterium
+|Herausforderungen / Risiken
+
+|Leistungsfähigkeit (Performance Efficiency)
+|Die im Cache gehaltenen Daten führen zu einem höheren Speicherverbrauch.
+
+|Funktionale Eignung (Functional Suitability)
+|Der Cache kann veraltete, und damit potenziell inkonsistente, Daten liefern.
+
+|Wartbarkeit (Maintainability)
+|Komplexe Cache-Konfigurationen können schwer zu debuggen und zu testen sein.
+|===
+
+[[second-level-cache-empfehlungen]]
+==== Empfehlungen zum Einsatz
+
+Die IsyFact gibt die folgenden, generellen Empfehlungen beim Einsatz von Second-Level-Caches, aufgeschlüsselt nach Qualitätskriterien.
+
+.Second-Level-Cache: Empfehlungen nach Qualitätskriterien (ISO 25010)
+[cols="1,2", options="header"]
+|===
+|Qualitätskriterium
+|Empfehlungen
+
+|Leistungsfähigkeit (Performance Efficiency)
+|Nur so viel wie nötig an Daten im Cache halten. +
+Gezielt Cache-Regionen und passende Cache-Strategien nutzen.
+
+|Funktionale Eignung (Functional Suitability)
+|Cache Eviction (z.B. bei Änderungen an den Daten) sorgfältig planen.
+
+|Wartbarkeit (Maintainability)
+|Cache-Konfiguration im xref:methodik:vorlage-systementwurf/antora-master.adoc[Systementwurf] dokumentieren.
+
+|===
 
 [[verwendung-von-hibernate-filtern]]
 === Verwendung von Hibernate Filtern
