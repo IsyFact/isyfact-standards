@@ -63,6 +63,8 @@ Die Persistenzschicht übergibt persistente Entitäten an den Anwendungskern.
 Der Anwendungskern darf keine persistenten Entitäten mehr herausgeben, auch nicht zwischen seinen Fachkomponenten.
 Entsprechende Ausnahmen wurden gestrichen.
 
+Das bisherige Verbot von "aufrufübergreifendem Caching" wurde durch xref:isy-persistence:konzept/vorgaben-konventionen.adoc#second-level-cache[Empfehlungen für den Einsatz eines Second-Level-Caches] ersetzt.
+
 ===== Anwendungskern
 
 Das Konzept der "Basisdaten" wurde gestrichen, in dem die Referenzarchitektur erlaubt hat, von Fachkomponenten gemeinsam benutzte Geschäftsobjekte zu definieren.
