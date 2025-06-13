@@ -33,6 +33,8 @@ Die Seiten zur Persistenzschicht enthalten nun die Inhalte des aufgelösten Baus
 Die Inhalte wurden gestrafft und Abschnitte, die Dokumentation der verwendeten Produkte wiedergaben, wurden durch Verweise auf die entsprechenden Dokumentationen ersetzt.
 Grundlegende Erklärungen zu den verwendeten Produkten wurden gänzlich entfernt.
 
+Das bisherige Verbot von "aufrufübergreifendem Caching" wurde durch xref:referenzarchitektur:software-technisch/backend/persistenz/vorgaben-konventionen.adoc#second-level-cache[Empfehlungen für den Einsatz eines Second-Level-Caches] ersetzt.
+
 ===== Schema-Versionierung
 
 Die bisher angebotene Schema-Versionierung in Form einer Eigenentwicklung wird nicht mehr durch die IsyFact bereitgestellt.
@@ -92,8 +94,10 @@ Die folgende Tabelle zeigt, auf welche Bausteine bzw. Konzepte die Anwendungen m
 |===
 |Entfernter Baustein|Migrieren auf
 |JPA/Hibernate
-a|konzeptionell: tbd
-// TODO Zielort der Dokumentation ergänzen.
+a|konzeptionell:
+
+* xref:referenzarchitektur:software-technisch/backend/persistenzschicht.adoc[]
+* xref:referenzarchitektur:software-technisch/backend/persistenz/vorgaben-konventionen.adoc[]
 
 technisch:
 
