@@ -1,3 +1,6 @@
+# 4.1.0
+- `IFS-4729`: Anhebung der Version von SpringBoot auf 3.5.0
+
 # 4.0.0
 - `IFS-4316`: Aktualisierung und Bereitstellung des Produktkatalogs der Isyfact.
 - `IFS-3303`: Anhebung der version von metro auf 4.0.3

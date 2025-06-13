@@ -17,6 +17,7 @@
 **** xref:isy-persistence:nutzungsvorgaben/umsetzung-persistenzschicht.adoc[]
 **** xref:isy-persistence:nutzungsvorgaben/konfiguration.adoc[]
 **** xref:isy-persistence:nutzungsvorgaben/historisierung.adoc[]
+**** xref:isy-persistence:nutzungsvorgaben/versionierung-mit-liquibase.adoc[Versionierung (Liquibase)]
 **** xref:isy-persistence:nutzungsvorgaben/versionierung.adoc[]
 
 ** Logging
@@ -58,6 +59,6 @@
 *** xref:isy-bedienkonzept-doc:ROOT:referenzimplementierung.adoc[Referenzimplementierung]
 
 ** Angular
-*** xref:isy-angular-widgets-doc:ROOT:konzept/konzept.adoc[Konzept]
-*** https://isyfact.github.io/isy-angular-widgets/documentation/[Nutzungsvorgaben]
-*** xref:isy-angular-widgets-doc:ROOT:referenzimplementierung.adoc[Referenzimplementierung]
+*** xref:angular::konzept.adoc[Konzept]
+*** https://isyfact.github.io/isy-angular-widgets/documentation/[Nutzungsvorgaben icon:external-link[]^]
+*** https://isyfact.github.io/isy-angular-widgets/[Referenzimplementierung icon:external-link[]^]

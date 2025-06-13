@@ -1,9 +1,25 @@
-# 4.x
+# 4.1.0
 ## FEATURES
+- `IFS-4743`: [isyfact-standards-doc] Auszeichnung der Bausteine in Bezug auf IsyFact-Standards und IsyFact-Erweiterungen
+- `IFS-4554`: [isyfact-standards-doc] Nutzung des Begriffs "Webservice" im Sinne des W3C vereinheitlicht
+- `IFS-3028`: [isyfact-standards-doc] Vorgaben für Spring & Spring Boot aktualisiert
+- `IFS-4208`: [isyfact-standards-doc] Verwendungen der Begriffe "Nachbarsystem" und "Externes System" korrigiert
+- `IFS-1825`: [isyfact-standards-doc] Versionierung mit Liquibase erweitert
 - `IFS-4546`: [isyfact-standards-doc] Verweis auf JAXP entfernt, Negativliste bereinigt und links entfernt
 - `IFS-4543`: [isyfact-standards-doc] Begriff Nutzungsschicht entfernt
 - `IFS-4570`: [isyfact-standards-doc] Alte Einträge aus Negativliste entfernt
 - `IFS-4549`: [isyfact-standards-doc] Verwaltung von Versionen zentralisiert
+- `IFS-4584`: [isyfact-standards-doc] Entfernung von `isy-asciidoctorj-extensions`
+- `IFS-4591`: [isy-security] Hinzufügen von Authentifizierungsmethoden zur Authentifizierung von Clients und Systemen ohne Issuer-URI.
+- `IFS-4676`: [isy-task], [isy-logging] Scope der Abhängigkeit zu AspectJ-Weaver auf Runtime gesetzt.
+    * Definitionen der Aspekte zum kompilieren werden von org.aspectj:aspectjrt bereitgestellt.
+- `IFS-4731`: Korrektes Auflösen der URL in SBOMs
+
+## BUG FIXES
+- `IFS-4526`: [isy-task] Logeintrag IsyTaskAspect korrigiert
+- `IFS-4495`: [isy-task] Verwendung der Defaults, falls keine Task-Config definiert ist
+
+## BREAKING CHANGES
 
 # 4.0.0
 ## FEATURES

@@ -19,10 +19,10 @@ import de.bund.bva.isyfact.task.test.config.TestConfig;
 class IsySecurityAuthenticatorFactoryTest {
 
     @Autowired
-    AuthenticatorFactory authFactory;
+    private AuthenticatorFactory authFactory;
 
     @Autowired
-    IsyTaskConfigurationProperties isyTaskConfigurationProperties;
+    private IsyTaskConfigurationProperties isyTaskConfigurationProperties;
 
     @Test
     void getAuthenticator_doesNotThrowWithUnknownTaskId() {

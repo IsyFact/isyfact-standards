@@ -70,7 +70,9 @@ Eine Maske entspricht bei einer GUI meist genau einem Fenster. |_Screen_
 |_Modellkomponente_ |_Daten_ |Eine Modellkomponente ist eine Gruppierung, die fachlich zusammengehörige Entitätstypen inklusive ihrer Assoziationen zusammenfasst.
 Sie ist überschneidungsfrei, d.h. ein Entitätstyp gehört zu genau einer Modellkomponente.
 In einer Modellkomponente kann allerdings ein Entitätstyp einer anderen Modellkomponente referenziert werden. |
-|_Nachbarsystem_ |_Architektur_ |Ein externes System, mit dem über eine Schnittstelle kommuniziert wird. |
+|_Nachbarsystem_ |_Architektur_ |
+include::glossary::terms-definitions.adoc[tag="nachbarsystem-definition"]
+|
 |_Nachbarsystemschnittstelle_ |_Architektur_ |Über eine Nachbarsystemschnittstelle werden zwischen zwei Anwendungen Daten ausgetauscht oder externe Dienste benutzt. |_Schnittstellen_
 |_Nichtfunktionale Anforderung_ |_Architektur_ |Während die funktionalen Anforderungen die geforderten Fähigkeiten der Anwendung beschreiben, stellen die nichtfunktionalen Anforderungen die zu erfüllenden Rahmenbedingungen für die Anwendung dar (z.B. Performanz, Verfügbarkeit). |_Non-functional requirement_
 |_Organisationseinheit_ |_Abläufe_ |Einheiten des Unternehmens, die eine Aktivität ausführen bzw. Personen, die in einer bestimmten Rolle am Prozess beteiligt sind. |
@@ -82,7 +84,7 @@ Es handelt sich nicht um Logging!
 
 |
 |_Stützprozess_ |_Abläufe_ |Stützprozesse sind die unterstützenden Prozesse, die notwendig sind, um die Kernprozesse am Laufen zu halten. Externe Nutzer nehmen sie nicht wahr. |
-|_UML-Aktivitätendiagramm_ |_Methodik_ |Das Aktivitätsdiagramm ist ein Verhaltensdiagramm. Es zeigt eine bestimmte Sicht auf die dynamischen Aspekte der modellierten Anwendung. |
+|_UML-Aktivitätsdiagramm_ |_Methodik_ |Das Aktivitätsdiagramm ist ein Verhaltensdiagramm. Es zeigt eine bestimmte Sicht auf die dynamischen Aspekte der modellierten Anwendung. |
 |_UML-Klassendiagramm_ |_Methodik_ |Ein Klassendiagramm ist in der Informatik eine grafische Darstellung von Entitätstypen sowie der Assoziationen zwischen diesen Entitätstypen. |
 |_UML-Komponentendiagramm_ |_Methodik_ |Das Komponentendiagramm ist ein Strukturdiagramm.
 Es zeigt eine bestimmte Sicht auf die Struktur der modellierten Anwendung. |
@@ -117,7 +119,7 @@ Technische Rollen können dafür als Unterrollen von anderen technischen oder fa
 image::vorlage-systemspezifikation/rollenschnitt-am-beispielr-cd-verwaltung.png[]
 
 
-* _Fachliche Rollen werden für Schnittstellen von Anwendungen vergeben, welche Zugänge zur Anwendungslandschaft geben (GUI-Oberflächen, Service-Gateway Zugänge, interne Systeme wie Systemtasks oder Batches).
+* _Fachliche Rollen werden für Anwendungen oder deren Bestandteile vergeben, sofern sie eine Autorisierung der Anfrage vornehmen (grafische Oberflächen und Service-Gateways) bzw. sich selbst autorisieren müssen (Batches und Systemtasks).
 Die einzelnen angebotenen Services werden über Rechte abgesichert._
 * _Technische Rollen sichern die Kommunikationswege innerhalb der Anwendungslandschaft ab. Sie werden für die Schnittstellen von Anwendungen verwendet, welche nur von anderen Anwendungen aufgerufen werden.
 Die einzelnen Schnittstellen werden durch Rechte abgesichert._
@@ -131,24 +133,23 @@ Grundsätzlich werden die Rollen in CamelCase-Schreibweise geschrieben, sofern d
 
 _Das Schema zur Benennung einer fachlichen Rolle für GUI oder Service-Gateway ist:_
 
-* *_<Fachlicher Systemname>_<Funktion>_*
+*_<Fachlicher Systemname>+_+<Funktion>_*
 
 _Für <Fachlicher Systemname> wird der abgekürzte Name des Systems bzw. der Domäne aus der Spezifikation ohne Zusätze wie GA, Register eingesetzt, z. B. „CD_Auskunft“._
 
-_Das Schema zur Benennung einer fachlichen Rolle für ein internes System (Batch/Task) ist:_
+_Das Schema zur Benennung einer fachlichen Rolle für einen Batch oder Task ist:_
 
-*_<Fachlicher Systemname>_SYSTEM_<Suffix>_*
+*_<Fachlicher Systemname>+_SYSTEM_+<Suffix>_*
 
 _Auch hier wird <Fachlicher Systemname> mit dem abgekürzten Namen des Systems aus der Spezifikation ohne Zusätze ersetzt, z. B. „CD_SYSTEM“ oder komplexer „CD_SYSTEM_ABLAGE“._
 
 _Das Schema zur Benennung einer technischen Rolle für interne Services ist:_
 
-*_<Technischer Systemname>_<Servicename>_*
+*_<Technischer Systemname>+_+<Servicename>_*
 
 _<Technischer Systemname> wird mit dem abgekürzten Namen des Systems aus der Spezifikation ersetzt, inklusive der Bezeichnung um welche Art von System es sich handelt (Register, GA, usw.), z. B. „CD-GA_AntragEmpfangen“ oder „CD-REG_Nutzung“._
 
-_*Prinzipiell sollten so wenig Rollen wie möglich und so viele wie nötig vergeben werden*.
-Die Liste der zugeordneten Rechte je Rolle kann je nach Umfang auch als externes Dokument verknüpft werden, z. B.: [Externe_Dokumente]/Querschnitt/Berechtigungen.xls._
+IMPORTANT: Prinzipiell sollten so wenig Rollen wie möglich und so viele wie nötig vergeben werden.
 
 _Eine beispielhafte Liste mit Rollen, deren Beschreibung und zugeordneten Rechten sieht wie folgt aus:_
 

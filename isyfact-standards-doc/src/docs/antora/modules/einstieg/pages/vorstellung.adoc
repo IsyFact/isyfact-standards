@@ -1,7 +1,5 @@
 = Vorstellung der IsyFact
 
-include::glossary:licence:partial$licence.adoc[]
-
 [[einfuehrung-in-software-factories]]
 == Einführung in Software Factories
 
@@ -21,11 +19,15 @@ Sie umfasst Standards und Erweiterungen.
 .Aufbau der IsyFact
 image::einstieg:einstieg/isyfact-aufbau.dn.svg[]
 
-Die *xref:vorstellung/isyfact-standards.adoc[]* bilden das architektonische, technologische und methodische Fundament der IsyFact.
+// tag::isyfact-standards-definition[]
+Die *xref:einstieg:vorstellung/isyfact-standards.adoc[]* bilden das architektonische, technologische und methodische Fundament der IsyFact.
 Sie umfassen allgemeingültige und wiederverwendbare Konzepte und Komponenten, die für die Entwicklung beliebiger Geschäftsanwendungen relevant sind. +
+// end::isyfact-standards-definition[]
 *Beispiele:* Allgemeine Softwarereferenzarchitektur, Vorgaben zur Fehlerbehandlung, Logging etc.
 
-Die *xref:vorstellung/isyfact-erweiterungen.adoc[]* sind optionale wiederverwendbare Lösungen für verschiedene Problemstellungen, die aufgrund spezifischer Anforderungen des BVA oder seiner Kunden entwickelt wurden und _auf den IsyFact-Standards aufbauen_. +
+// tag::isyfact-erweiterungen-definition[]
+Die *xref:einstieg:vorstellung/isyfact-erweiterungen.adoc[]* sind optionale wiederverwendbare Lösungen für verschiedene Problemstellungen, die aufgrund spezifischer Anforderungen des BVA oder seiner Kunden entwickelt wurden und _auf den IsyFact-Standards aufbauen_. +
+// end::isyfact-erweiterungen-definition[]
 *Beispiele:* Protokollierung, Regelwerk etc.
 
 Die Inhalte der IsyFact-Standards und IsyFact-Erweiterungen werden in gleicher Weise in fünf Säulen strukturiert.

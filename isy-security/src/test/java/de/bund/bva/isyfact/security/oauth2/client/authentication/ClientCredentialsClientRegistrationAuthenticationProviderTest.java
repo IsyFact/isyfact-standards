@@ -69,6 +69,32 @@ public class ClientCredentialsClientRegistrationAuthenticationProviderTest exten
     }
 
     @Test
+    public void shouldGetAuthTokenTokenUri() {
+        ClientRegistration clientRegistration = ClientRegistration.withRegistrationId("dummy-unused")
+                .tokenUri("http://localhost:9095/auth/realms/testrealm/protocol/openid-connect/token")
+                .jwkSetUri("http://localhost:9095/auth/realms/testrealm/protocol/openid-connect/certs")
+                .clientId("client-credentials-test-client")
+                .clientSecret("supersecretpassword")
+                .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
+                .build();
+        Authentication authentication = authenticationProvider.authenticate(new ClientCredentialsClientRegistrationAuthenticationToken(
+                clientRegistration, null));
+
+        // security context is still empty
+        assertNull(SecurityContextHolder.getContext().getAuthentication());
+
+        assertInstanceOf(JwtAuthenticationToken.class, authentication);
+        JwtAuthenticationToken jwtAuth = (JwtAuthenticationToken) authentication;
+        assertEquals("service-account-client-credentials-test-client",
+                jwtAuth.getTokenAttributes().get(StandardClaimNames.PREFERRED_USERNAME));
+        List<String> grantedAuthorityNames = jwtAuth.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.toList());
+        assertThat(grantedAuthorityNames).containsOnly("PRIV_Recht_A");
+        assertThat((List<String>) jwtAuth.getTokenAttributes().get(DEFAULT_ROLES_CLAIM_NAME)).containsOnly("Rolle_A");
+    }
+
+    @Test
     public void shouldThrowAuthExceptionWithInvalidCredentials() {
         ClientRegistration clientRegistration = ClientRegistrations.fromIssuerLocation("http://localhost:9095/auth/realms/testrealm")
                 .clientId("client-credentials-test-client")

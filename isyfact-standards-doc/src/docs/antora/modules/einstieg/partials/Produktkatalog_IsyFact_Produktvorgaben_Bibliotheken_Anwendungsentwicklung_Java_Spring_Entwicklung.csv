@@ -5,7 +5,7 @@ JEE API;https://github.com/javaee/jta-spec[JTA];<<spring-boot-dependencies,icon:
 JEE API;https://projects.eclipse.org/projects/ee4j.ca[Jakarta Annotations];1.3.5;3.0.0;verbindlich;Eclipse Public License v2.0;Nur einzusetzen, falls das JDK die Annotationen nicht mehr bereitstellt.
 Caching;https://docs.spring.io/spring-framework/docs/4.3.x/spring-framework-reference/html/cache.html[Spring Cache Abstraction];<<spring-boot-dependencies,icon:leaf[]>>;4.0.0;verbindlich;Apache 2.0 Software License;
 Caching;http://www.ehcache.org/[EHCache];<<spring-boot-dependencies,icon:leaf[]>>;1.3.2;empfohlen;Apache 2.0 Software License;
-Anwendungs-framework;https://spring.io/projects/spring-boot[Spring Boot];3.2.x;4.0.0;verbindlich;Apache Software License;
+Anwendungs-framework;https://spring.io/projects/spring-boot[Spring Boot];3.5.x;4.0.0;verbindlich;Apache Software License;
 "Anwendungs-framework +
 Test-Framework";https://spring.io/projects/spring-framework[Spring];<<spring-boot-dependencies,icon:leaf[]>>;2.4.0;verbindlich;Apache Software License;"* Die Kategorie Test-Framework bezieht sich auf die Features von Spring zur Testunterstützung.
 * Die folgenden Bestandteile des Spring Frameworks sind durch Architektur-entscheidungen explizit zur Nutzung freigegeben."
@@ -18,7 +18,7 @@ Persistenz;https://www.liquibase.org[Liquibase];<<spring-boot-dependencies,icon:
 JSON-Verarbeitung;https://github.com/FasterXML/jackson[Jackson];<<spring-boot-dependencies,icon:leaf[]>>;2.4.0;verbindlich;Apache Software License;
 Authentifizierung / Autorisierung;http://projects.spring.io/spring-security/[Spring Security];<<spring-boot-dependencies,icon:leaf[]>>;3.0.0;verbindlich;Apache Software License;
 Resilience-Framework;https://resilience4j.readme.io/[Resilience4J];1.x;2.2.0;verbindlich;Apache Software License;
-Web-Service Framework (SOAP);https://projects.eclipse.org/projects/ee4j.metro/[Eclipse Metro];4.0.3;3.0.0;verbindlich;Eclipse Distribution License 1.0;
+Webservice Framework (SOAP);https://projects.eclipse.org/projects/ee4j.metro/[Eclipse Metro];4.0.3;3.0.0;verbindlich;Eclipse Distribution License 1.0;
 Logging;http://www.slf4j.org/[SLF4J];"<<spring-boot-dependencies,icon:leaf[]>>";4.0.0;verbindlich;MIT License;"* Die Verwendung anderer Logging-Backends außer Logback ist nicht erlaubt.
 * Die Verwendung der Logging Bridges ist erlaubt, sofern dies erforderlich ist."
 Logging;http://logback.qos.ch/[Logback];"<<spring-boot-dependencies,icon:leaf[]>>";2.4.0;verbindlich;"EPL v1.0, LGPL 2.1";

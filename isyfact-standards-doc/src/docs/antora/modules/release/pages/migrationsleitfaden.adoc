@@ -6,27 +6,16 @@ include::glossary:licence:partial$licence.adoc[]
 
 Die auf dieser Seite aufgeführten Hinweise sollen der Entwicklung bei der Umstellung einer auf IsyFact 3.x basierenden Anwendung auf IsyFact {page-component-version} helfen.
 
-[[kapitel-geschaeftsanwendung]]
-== Geschäftsanwendung
-
-...
-
 [[kapitel-bausteine]]
 == Bausteine
 
-Folgende Bausteine entfallen in IsyFact 4:
+Folgende Bibliotheken entfallen ab IsyFact 4.0:
 
 * `isy-aufrufkontext`: wird mit dem Wegfall der HttpInvoker nicht länger benötigt
 * `isy-konfiguration`: ersetzt durch Bordmittel von Spring, beschrieben in der xref:referenzarchitektur:software-technisch/backend/konfiguration.adoc[Referenzarchitektur von Backends]
 * `isy-sicherheit`: ersetzt durch Spring Security OAuth2 und  `isy-security`
 * `isy-serviceapi-core`: HttpInvoker-Schnittstellen müssen durch entsprechende REST-Schnittstellen ersetzt werden (siehe auch xref:isy-service-rest:konzept/master.adoc[]/xref:isy-service-rest:nutzungsvorgaben/master.adoc[]).
 
-Folgende Bausteine wurden in eigenständige Repositories umgezogen:
-
-* `isy-datetime` von ./isyfact-standards/isy-datetime nach https://github.com/IsyFact/isy-datetime/
-* `isy-sonderzeichen` ./isyfact-standards/isy-sonderzeichen nach https://github.com/IsyFact/isy-sonderzeichen/
-* Beide Bausteine lassen sich weiterhin über die isyfact-standards-bom einbinden und auch die Group- und ArtifactIDs bleiben dieselben.
-* Die Version wird allerdings in zukünftigen Releases nicht mehr mit der Version der isyfact-standards synchron gehalten und entwickelt sich entkoppelt davon fort.
 
 [[isy-security]]
 === Security
@@ -49,7 +38,7 @@ Eine detaillierte Beschreibung zur Konfiguration und Anpassungsmöglichkeiten si
 
 In IsyFact 3 wurden die Klassen `MessageSourceHolder` sowie `MessageSourceFehlertextProvider` auf `deprecated` gesetzt.
 
-In der IsyFact 4 muss jede Bibliothek/Anwendung eine eigene https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/context/MessageSource.html[org.springframework.context.MessageSource]-Bean für die Verwaltung von Nachrichten implementieren.
+In der IsyFact 4 muss jede Bibliothek/Anwendung eine eigene https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/context/MessageSource.html[`MessageSource`]-Bean für die Verwaltung von Nachrichten implementieren.
 Wenn Bedarf zur Anpassung der Nachrichten besteht, muss die jeweilige `MessageSource`-Bean mittels Spring-Bordmitteln überschrieben werden.
 
 Für Fehlermeldungen wird empfohlen, das Interface `de.bund.bva.isyfact.exception.FehlertextProvider` aus `isy-exception-core` zu implementieren.
@@ -58,7 +47,7 @@ Weiterführende Informationen unter:
 
 - xref:isy-exception-core:nutzungsvorgaben/inhalt.adoc#fehlertextprovider[Nutzungsvorgaben Fehlerbehandlung - FehlertextProvider]
 
-[[kapitel-dokumentation]]
-== Dokumentation
+[[spring-boot]]
+=== Spring Boot
 
-...
+Spring Boot muss in der Isyfact 4 auf die Version 3.5.0 angehoben werden.

@@ -89,7 +89,7 @@ Im Folgenden wird die Schnittstelle des Bausteins `isy-security` beschrieben.
 
 .Schnittstelle des Bausteins Security
 [id="image-schnittstelle-security",reftext="{figure-caption} {counter:figures}"]
-image::konzept/security-schnittstellen.dn.svg[align="center"]
+image::konzept/security-schnittstellen.dn.png[align="center"]
 
 Das Interface `Security` ist der zentrale Einstiegspunkt in den Baustein `isy-security`.
 Bei seiner Instanziierung wird die anwendungsspezifische Rollen-Rechte-Datei eingelesen und damit der `Authentifizierungsmanager` sowie der `Berechtigungsmanager` erzeugt.
@@ -98,18 +98,49 @@ Außerdem kann die Geschäftsanwendung über die Methode `getAlleRollen` eine Li
 
 Der `Authentifizierungsmanager` übernimmt die programmatische Authentifizierung und Autorisierung interner und externer Anwendungen durch das IAM für den Zugang zu IsyFact-Nachbaranwendungen:
 
-Interne Anwendungen sind als Confidential Client eingestuft und verwahren ihre Authentifizierungsdaten (entweder Client-ID u. Client-Secret oder Nutzername u. Passwort) in ihrer Konfiguration (mit einer oauth2ClientRegistrationId als Schlüssel).
+Batches und Tasks sind als Confidential Client eingestuft und verwahren ihre Authentifizierungsdaten (entweder Client-ID u. Client-Secret oder Nutzername u. Passwort) in ihrer Konfiguration (mit einer `oauth2ClientRegistrationId` als Schlüssel).
 Die Methode `authentifiziere(oauth2ClientRegistrationId)` im Authentifizierungsmanager liest diese Authentifizierungsdaten aus der betrieblichen Konfiguration und führt damit eine OAuth2.0-konforme Authentifizierung und Autorisierung der Anwendung gegenüber dem IAM-System durch.
 Dabei wird anhand des Typs der Authentifizierungsdaten der passende Authentication-Flow mit den konfigurierten Authentifizierungsdaten verwendet.
+Mit der Methode `authentifiziere(String oauth2ClientRegistrationId, AdditionalCredentials credentials)` können die zur `oauth2ClientRegistrationId` gehörenden Benutzerdaten mit den `AdditionalCredentials` überschrieben werden.
 
-Externe Anwendungen übermitteln ihre Authentifizierungsdaten (entweder Client-ID u. Client-Secret oder Nutzername u. Passwort) mit im Header der HTTP-Anfrage an das Service-Gateway bzw. Authentication-Gateway.
-Das Gateway führt damit eine OAuth2.0-konforme Authentifizierung und Autorisierung der Anwendung gegenüber dem IAM-System durch.
+xref:glossary::terms-definitions.adoc#externes-system[Externe Systeme] übermitteln ihre Authentifizierungsdaten (entweder Client-ID u. Client-Secret oder Nutzername u. Passwort) mit im Header der HTTP-Anfrage an das Service-Gateway bzw. Authentication-Gateway.
+Das Gateway führt damit eine OAuth2.0-konforme Authentifizierung und Autorisierung des Systems gegenüber dem IAM-System durch.
 Dabei wird anhand des Typs der Authentifizierungsdaten der passende Authentication-Flow verwendet:
 
-- Für den Credential-Typ bzw. _Credential_-Flow xref:client-credential-flow[] ist die Methode `authentifiziereClient` zu verwenden mit der issuerLocation als URI des IAM sowie clientId, clientSecret und optional das BHKNZ der externen Anwendung als Parameter.
+- Für den Credential-Typ bzw. _Credential_-Flow xref:client-credential-flow[] ist die Methode `authentifiziereClient` zu verwenden mit der `issuerLocation` als URI des IAM sowie `clientId`, `clientSecret` und optional das BHKNZ des externen Systems als Parameter.
 Hierbei ist zu beachten, dass aktuell keine Auswertung bzw. Weiterleitung des BHKNZ an das IAM stattfindet.
 
-- Für den Credential-Typ bzw. _Credential_-Flow xref:resource-owner-password-credential-flow[] die Methode `authentifiziereSystem` mit den Parametern issuerLocation als URI des IAM, clientId und clientSecret des Gateways als vermittelnden confidential client sowie username, password und optional das BHKNZ der externen Anwendung.
+- Für den Credential-Typ bzw. _Credential_-Flow xref:resource-owner-password-credential-flow[] die Methode `authentifiziereSystem` mit den Parametern `issuerLocation` als URI des IAM, `clientId` und `clientSecret` des Gateways als vermittelnden _confidential client_ sowie `username`, `password` und optional das BHKNZ der externen Anwendung.
+
+- Für den Credential-Typ bzw. _Credential_-Flow xref:client-credential-flow[] sind folgende Methoden verfügbar:
+* `authentifiziere(String oauth2ClientRegistrationId)`: Nutzt die in der Anwendungskonfiguration hinterlegte Client-Registration mit der angegebenen ID. Die Client-ID und das Client-Secret werden aus der Konfiguration gelesen.
+* `authentifiziere(String oauth2ClientRegistrationId, AdditionalCredentials credentials)`: Wie oben, ermöglicht jedoch die Angabe eines BHKNZ über die AdditionalCredentials.
+* `authentifiziere(ClientRegistration clientRegistration)`: Erlaubt die direkte Verwendung eines ClientRegistration-Objekts mit Token-URI und JWKS-URI.
+* `authentifiziere(ClientRegistration clientRegistration, AdditionalCredentials credentials)`: Wie oben, ergänzt um die Möglichkeit, ein BHKNZ über die AdditionalCredentials anzugeben.
+* `authentifiziereClient-Methoden`: Sind zu verwenden mit der `issuerLocation` als URI des IAM sowie `clientId`, `clientSecret` und optional das BHKNZ des externen Systems als Parameter.
+Hierbei ist zu beachten, dass aktuell keine Auswertung bzw. Weiterleitung des BHKNZ an das IAM stattfindet.
+
+- Für den Credential-Typ bzw. _Credential_-Flow xref:resource-owner-password-credential-flow[] sind folgende Methoden verfügbar:
+* `authentifiziere(String oauth2ClientRegistrationId)`: Nutzt die in der Anwendungskonfiguration hinterlegte Client-Registration mit der angegebenen ID. Benutzername und Passwort müssen in der Konfiguration konfiguriert sein.
+* `authentifiziere(String oauth2ClientRegistrationId, AdditionalCredentials credentials)`: Ermöglicht die Verwendung dynamischer Benutzeranmeldedaten zur Laufzeit. Die AdditionalCredentials müssen Benutzername und Passwort enthalten und überschreiben ggf. in der Konfiguration hinterlegte Werte.
+* `authentifiziere(ClientRegistration clientRegistration, AdditionalCredentials credentials)`: Erlaubt die vollständig dynamische Authentifizierung mit einem selbst erstellten ClientRegistration-Objekt und Benutzerdaten. Die AdditionalCredentials müssen Benutzername und Passwort enthalten.
+* `authentifiziereSystem-Methoden`: Sind zu verwenden mit den Parametern `issuerLocation` als URI des IAM, `clientId` und `clientSecret` des Gateways als vermittelnden _confidential client_ sowie `username`, `password` und optional das BHKNZ der externen Anwendung.
+
+****
+*Anmerkung zur Deprecation*
+
+Die Methoden `authentifiziereClient` und `authentifiziereSystem` und ihre überladenen Varianten sind als deprecated markiert und sollten nicht mehr verwendet werden. In künftigen Versionen werden diese Methoden nicht mehr vorhanden sein.
+****
+
+Die Klasse `AdditionalCredentials` dient zur Kapselung zusätzlicher Authentifizierungsdaten bei der Authentifizierung mit ClientRegistration-Objekten.
+Sie ermöglicht die flexible Kombination verschiedener Credentials wie Benutzername, Passwort und BHKNZ.
+Über statische Builder-Methoden können Instanzen mit den gewünschten Kombinationen erstellt werden:
+
+- `withUsernamePassword` für Benutzername und Passwort,
+- `withUsernamePasswordBhknz` für Benutzername, Passwort und BHKNZ, sowie
+- `withBhknz` nur für das BHKNZ.
+
+Die Klasse bietet zudem Prüfmethoden wie `hasUsernamePassword` und `hasBhknz`, um die Verfügbarkeit bestimmter Credentials zu ermitteln.
 
 Der `Berechtigungsmanager` gibt Auskunft über die Rollen und Rechte des Anwenders.
 Die in der Benutzeradministration dem Anwender zugewiesenen Rollen werden mithilfe einer anwendungsspezifischen Rollen-Rechte-Datei in konkrete Rechte des Anwenders für diese Anwendung umgewandelt.
@@ -119,12 +150,38 @@ Mit der Methode `hatRecht` kann die Anwendung feststellen, ob der Anwender aktue
 Mit diesen Berechtigungsabfragen kann die Geschäftsanwendung z.B. feingranular bestimmen, ob und wie der Anwender bestimmte Daten sehen oder bearbeiten kann bzw. ob und wie er bestimmte Funktionen der Anwendung benutzen kann. +
 Ein beliebiges Attribut, das im Access-Token des Security Contexts abgelegt ist, kann mit der Methode `getTokenAttribute` gelesen werden. Mit dem Namen (String) des Attributes als Parameter liefert es den Wert des Attributes (Object).
 
+.Verwendung der Authentifizierungsverfahren
+====
+*Client Credentials Flow Beispiel*
+
+- Manuelle Konfiguration der tokenUri und jwkSetUri.
+[source,java]
+----
+
+ClientRegistration clientCredentialsRegistration = ClientRegistration.withRegistrationId("client-service")
+    .tokenUri("http://iam-provider/auth/realms/testrealm/protocol/openid-connect/token")
+    .jwkSetUri("http://iam-provider/auth/realms/testrealm/protocol/openid-connect/certs")
+    .clientId("client-id")
+    .clientSecret("client-secret")
+    .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
+    .build();
+
+----
+
+*Einfache Authentifizierung mit ClientRegistration*
+[source,java]
+----
+
+authentifizierungsmanager.authentifiziere(clientCredentialsRegistration);
+
+----
+====
 
 [[aufruf-von-nachbarsystemen]]
 === Aufruf von Nachbarsystemen
 
 Ein IT-System erwartet bei einem Aufruf, dass alle notwendigen Authentifizierungs- und Autorisierungsdaten in valider und gültiger Form übergeben werden.
-Folglich muss ein IT-System, das ein Nachbarsystem aufruft, diesem Aufruf ebenfalls gültige und valide Authentifizierungs- und Autorisierungsdaten mitgeben.
+Folglich muss ein IT-System, das ein xref:glossary::terms-definitions.adoc#nachbarsystem[Nachbarsystem] aufruft, diesem Aufruf ebenfalls gültige und valide Authentifizierungs- und Autorisierungsdaten mitgeben.
 Im Regelfall werden diese Daten der originären Anfrage als `SecurityContext` übergeben, der mit den Daten aus dem Access-Token zuvor initialisiert, wurde.
 Dies geschieht durch die xref:validierung-der-token[Validierung des Access-Tokens] über den Sicherheitsbaustein `isy-security` des IT-Systems.
 Für eine fachliche und prozessbezogene Aufrufkette wird dieses `Access-Token` in allen weiteren Aufrufen wiederverwendet und unverändert weitergeleitet.
@@ -301,11 +358,11 @@ aber ohne _Authentication-Gateway_ noch einmal verdeutlicht:
 image::konzept/Squenzdiagramm_ServiceGateway_ohne_AuthGateway.dn.svg[align="center"]
 
 Die Authentifizierung über das SGW (Service Gateway) stellt einen wichtigen Schritt in der Sicherung von Anwendungen dar.
-Um diesen Prozess effektiv umzusetzen, empfiehlt sich die Verwendung der Methode `authentifiziereClient` des neu entwickelten Authentifizierungsmanagers.
+Um diesen Prozess effektiv umzusetzen, empfiehlt sich die Verwendung der Methode `authentifiziere` des Authentifizierungsmanagers.
 Mit dessen Hilfe ist es möglich, den Client zu authentifizieren und sicherzustellen, dass nur autorisierte Clients Zugriff auf die Ressourcen erhalten.
 Durch die Nutzung dieses speziellen Authentifizierungsmechanismus wird eine robuste und zuverlässige Sicherheitsschicht implementiert, um unautorisierten Zugriff und potenzielle Sicherheitslücken zu verhindern.
 
-Weitere Informationen und detaillierte Anleitungen zur Verwendung der `authentifiziereClient`-Methode können in der entsprechenden Dokumentation des Authentifizierungsmanagers 
+Weitere Informationen und detaillierte Anleitungen zur Verwendung der `authentifiziere`-Methode können in der entsprechenden Dokumentation des Authentifizierungsmanagers
 oder in den xref:nutzungsvorgaben/inhalt.adoc#authentifizierungsmanager-interface[Nutzungsvorgaben] gefunden werden.
 
 
@@ -662,7 +719,7 @@ Bei technischen Nutzern (Systemen) ist dies genau umgekehrt.
 [id="image-multi-tenancy-multi-iam",reftext="{figure-caption} {counter:figures}"]
 image::konzept/security_multi-tenancy_with_multi_iams.dn.svg[align="center"]
 
-Die verschiedenen dargestellten Zugriffswege _Portal_, _Service-Gateway_, _Authentication-Gateway_ oder _interne Anwendungs-Authentifizierung_ (Batch/Task/Kontextwechsel) bis hin zu mehrfachen IAM-Instanzen können daher als einzelne Tenants nicht nur unterschieden, sondern auch als Multi-Instanzen des gleichen Typs identifiziert werden.
+Die verschiedenen dargestellten Zugriffswege _Portal_, _Service-Gateway_, _Authentication-Gateway_ oder _Batch/Task_ bis hin zu mehrfachen IAM-Instanzen können daher als einzelne Tenants nicht nur unterschieden, sondern auch als Multi-Instanzen des gleichen Typs identifiziert werden.
 
 Die an den Zugriffswegen beteiligten Komponenten unterscheiden sich in ihrem Aufbau, ihrer Konfiguration und ihrer Funktionalität, sodass jede genau die speziellen Eigenheiten - siehe dazu Kapitel <<aufruf-weboberflaeche-portal>>, <<aufruf-service-gateway-ohne-authentication-gateway>>, <<aufruf-service-gateway-mit-authentication-gateway>> und <<ausfuehrung-batch-u-task>> bzw. <<aufruf-von-nachbarsystemen>> - am besten bedienen oder erfüllen kann.
 Die Umsetzung und sicherheitsrelevante Trennung dieser Zugriffswege werden als eigenständige Tenants betrachtet und können somit auch als mehrere Instanzen pro Zugriffsweg eingerichtet werden.
@@ -671,11 +728,11 @@ Dadurch ist es möglich fachliche Unterschiede über den gleichen technischen Zu
 Die bisher aufgezeigten Authentifizierungswege werden in Bezug auf `isy-security` als jeweils unterschiedliche Tenants behandelt beziehungsweise konfiguriert.
 Aber auch pro Authentifizierungsweg ist es möglich unterschiedliche Tenants sprich mehrere Instanzen des gleichen Typs einzurichten.
 
-Folgendes Beispiel zeigt die Trennung nach Zugriffswegen (<<image-multi-tenancy-isyfact>>):
-
-_In diesem Beispiel wurde ein weiterer IAM-Service aufgenommen, um die Möglichkeiten zur Nutzung mehrere IAM-Services zu verdeutlichen.
+.Trennung nach Authentifizierungswegen
+====
+In diesem Beispiel wurde ein weiterer IAM-Service aufgenommen, um die Möglichkeiten zur Nutzung mehrerer IAM-Services zu verdeutlichen.
 Dieser kann auch außerhalb der Anwendungslandschaft betrieben werden.
-Die IsyFact sieht weiterhin die Nutzung eines einzelnen IAM-Service je Anwendungslandschaft vor._
+Die IsyFact sieht weiterhin die Nutzung eines einzelnen IAM-Services je Anwendungslandschaft vor.
 
 *Ausgangssituation*
 
@@ -685,7 +742,7 @@ Ihnen steht der Zugang über das Portal zur Verfügung.
 * Externen Anwendungen wird der Tenant 2 (T 2) zugewiesen.
 Der Zugriff auf die Anwendungslandschaft erfolgt über das SGW.
 
-* Internen Anwendungen wird der Tenant 3 (T 3) zugewiesen.
+* Batch-Anwendungen und Tasks wird der Tenant 3 (T 3) zugewiesen.
 
 * Tenants 1 und 3 werden in IAM 1 verwaltet.
 
@@ -699,7 +756,7 @@ Daher muss in der GA der Tenant 1 (T 1) konfiguriert sein.
 * Die externen Anwendungen greifen über das SGW auf die GA zu.
 Daher muss in der GA auch der Tenant 2 (T 2) konfiguriert sein.
 
-* Die interne Batch-Anwendung greift auf die GA zu.
+* Die Batch-Anwendung greift auf die GA zu.
 Daher muss in der GA auch der Tenant 3 (T 3) konfiguriert sein.
 
 * Fehlt eine der drei Tenant-Konfigurationen in der GA, so erhält der betroffene Tenant bzw. der dem Tenant zugewiesene Anwender/Anwendung keinen Zugriff auf die GA.
@@ -707,7 +764,7 @@ Daher muss in der GA auch der Tenant 3 (T 3) konfiguriert sein.
 .Beispiel: Trennung nach Authentifizierungswegen
 [id="image-multi-tenancy-isyfact",reftext="{figure-caption} {counter:figures}"]
 image::konzept/multi_tenancy_isyfact.dn.svg[align="center"]
-
+====
 
 [[rollen-und-rechte]]
 == Rollen & Rechte
@@ -763,20 +820,16 @@ Technische Rollen können fachlichen Rollen allerdings untergeordnet werden (sie
 *Enthaltene Rechte:* Die Ausstattung einer fachlichen Rolle mit Rechten beschreibt den Funktionsumfang, den diese Rolle bei Nutzung der Geschäftsanwendung ermöglicht.
 
 *Untergeordnete Rollen:* Optional können fachliche Rollen untergeordnete technische Rollen besitzen.
-Dies ist z.B. immer dann notwendig, wenn ein Anwendungsfall die Services eines Nachbarsystems verwendet.
+Dies ist z.B. immer dann notwendig, wenn ein Anwendungsfall die Services eines xref:glossary::terms-definitions.adoc#nachbarsystem[Nachbarsystems] verwendet.
 Somit muss im Rahmen des Anwendungsfalls die Service-Schnittstelle des Nachbarsystems aufgerufen werden.
 Die dazu benötigte, technische Rolle muss der fachlichen Rolle untergeordnet werden, damit dies funktioniert.
 
-*Sichtbarkeit der Rolle:* Die Sichtbarkeit der Rollen bei der Zuordnung an Anwender, externe Systeme und interne Systeme kann eingeschränkt werden, um die Administration zu vereinfachen.
+*Sichtbarkeit der Rolle:* Die Sichtbarkeit der Rollen bei der Zuordnung an Anwender und Systeme kann eingeschränkt werden, um die Administration zu vereinfachen.
 
 Die meisten Rollen sind fachlicher Natur.
 Technische Rollen treten oft im Rahmen von Service-Schnittstellen auf.
 Bietet eine Geschäftsanwendung Funktionalität über Service-Schnittstellen an, so ist die Nutzung jeder Service-Schnittstelle zumindest durch eine technische Rolle abzusichern.
 Diese Rollen werden nicht direkt an Anwender vergeben, sondern fachlichen Rollen anderer Geschäftsanwendungen untergeordnet.
-
-Wenn die Anwendung fachliche oder technische Batches enthält, dann müssen für diese Batches in der Spezifikation entsprechende „interne Systeme“ definiert werden.
-Die Systemnamen sollten dem folgenden Schema entsprechen: `<Anwendungskürzel>_BAT_<Batchname>`.
-Für jedes dieser internen Systeme müssen eigene fachliche Rollen definiert werden.
 
 [[richtlinien-zum-schnitt-der-rollen]]
 === Richtlinien zum Schnitt der Rollen
@@ -820,9 +873,7 @@ Dies reduziert die Anzahl der Rollen, die einem Nutzer zugewiesen sind, in der R
 [[fachliche-rollen]]
 ==== Fachliche Rollen
 
-Fachliche Rollen werden für Schnittstellen von Geschäftsanwendungen vergeben, welche Zugänge zur Anwendungslandschaft geben.
-Dies beinhaltet neben den Dialogen (der grafischen Oberfläche) und Zugängen über das Service-Gateway auch interne Systeme wie beispielsweise Systemtasks oder Batches.
-
+Fachliche Rollen werden für Anwendungen oder deren Bestandteile vergeben, sofern sie eine Autorisierung der Anfrage vornehmen (grafische Oberflächen und Service-Gateways) bzw. sich selbst autorisieren müssen (Batches und Systemtasks).
 
 Fachliche Rollen berechtigen zur Ausführung der entsprechenden Aktion über den entsprechenden Zugangsweg, sowie aller dadurch mittelbar ausgelösten Aktionen in nachgelagerten Anwendungen.
 Daher werden diesen fachlichen Rollen im Regelfall weitere technische Rollen untergeordnet sein, welche die nachgelagerten Anwendungen absichern.

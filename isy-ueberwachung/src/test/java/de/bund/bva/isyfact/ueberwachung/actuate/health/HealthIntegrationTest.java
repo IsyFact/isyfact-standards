@@ -102,6 +102,21 @@ class HealthIntegrationTest {
         actuatorCall("/info").expectStatus().isOk();
     }
 
+    @Test
+    void test6_healthDoesNotRequireAuthorization() {
+        actuatorCallWithoutAuth("/health").expectStatus().isOk();
+    }
+
+    @Test
+    void test7_metricsRequiresAuthorization() {
+        actuatorCallWithoutAuth("/metrics").expectStatus().isUnauthorized();
+    }
+
+    @Test
+    void test8_infoRequiresAuthorization() {
+        actuatorCallWithoutAuth("/metrics").expectStatus().isUnauthorized();
+    }
+
     private WebTestClient.ResponseSpec actuatorCall(String endpoint) {
         return webClient
             .get().uri(webEndpointProperties.getBasePath() + endpoint)
@@ -109,6 +124,12 @@ class HealthIntegrationTest {
                 securityProperties.getUsername(),
                 securityProperties.getPassword())
             )
+            .exchange();
+    }
+
+    private WebTestClient.ResponseSpec actuatorCallWithoutAuth(String endpoint) {
+        return webClient.get()
+            .uri(webEndpointProperties.getBasePath() + endpoint)
             .exchange();
     }
 
