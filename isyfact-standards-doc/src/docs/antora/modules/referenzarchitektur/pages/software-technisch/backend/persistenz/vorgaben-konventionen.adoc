@@ -74,14 +74,14 @@ Der Einsatz eines Second-Level-Caches kann die Erfüllung der folgenden Qualitä
 |Vorteile
 
 |Leistungsfähigkeit (Performance Efficiency)
-|IT-Systeme können schneller antworten und dabei Ressourcen schonen, da der Cache Datenbankzugriffe einsparen hilft. +
+|IT-Systeme können schneller antworten und dabei Ressourcen schonen, da der Cache Datenbankzugriffe einspart. +
 IT-Systeme können einer höheren Last standhalten, da der Cache Lastspitzen abfedern kann.
 
 |Zuverlässigkeit (Reliability)
-|IT-Systeme können Daten auch bei temporären Ausfällen der Datenbank, und damit zuverlässiger, liefern.
+|IT-Systeme können Daten auch bei temporären Ausfällen der Datenbank zuverlässiger liefern.
 |===
 
-Dem gegenüber kann der Einsatz eines Second-Level-Caches zu Herausforderungen und Risiken bei folgenden Qualitätskriterien führen.
+Demgegenüber kann der Einsatz eines Second-Level-Caches zu Herausforderungen und Risiken bei folgenden Qualitätskriterien führen.
 
 .Second-Level-Cache: Herausforderungen und Risiken nach Qualitätskriterien (ISO 25010)
 [cols="1,2", options="header"]
@@ -93,7 +93,7 @@ Dem gegenüber kann der Einsatz eines Second-Level-Caches zu Herausforderungen u
 |Die im Cache gehaltenen Daten führen zu einem höheren Speicherverbrauch.
 
 |Funktionale Eignung (Functional Suitability)
-|Der Cache kann veraltete, und damit potenziell inkonsistente, Daten liefern.
+|Der Cache kann veraltete und damit potenziell inkonsistente Daten liefern.
 
 |Wartbarkeit (Maintainability)
 |Komplexe Cache-Konfigurationen können schwer zu debuggen und zu testen sein.
