@@ -1,7 +1,5 @@
 = Vorgaben und Konventionen
 
-include::glossary:licence:partial$licence.adoc[]
-
 Eines der Ziele des Bausteins JPA/Hibernate ist die einfach und einheitliche Verwendung von JPA und Hibernate.
 Dazu stellt der Baustein eine Menge an Vorgaben und Konventionen bereit, auf denen die Umsetzungen beruhen.
 Die Vorgaben und Konventionen ergänzen die allgemeinen Vorgaben zur xref:referenzarchitektur:software-technisch/backend/persistenzschicht.adoc[].
@@ -89,37 +87,86 @@ Die geworfene Ausnahme ist, geschachtelt in eine Ausnahme der Anwendung, an den 
 Um zu erkennen, ob sich das Objekt in der Datenbank verändert hat, empfiehlt Hibernate die Verwendung eines numerischen Versions-Felds in jeder Datenbank-Tabelle.
 
 [[explizites-locking]]
-=== Explizites Locking bei Bedarf verwenden
+==== Explizites Locking bei Bedarf verwenden
 
 Falls für einen Teil der Entitäten konkurrierende Zugriffe möglich sind, ist für genau diese Entitäten ein explizites (pessimistisches) Locking zu verwenden.
 
-[[aufrufuebergreifendes-caching-vermeiden]]
-=== Aufrufübergreifendes Caching vermeiden
+[[second-level-cache]]
+=== Einsatz eines Second-Level-Caches
 
-Caching-Strategien sind kein Teil der JPA-Spezifikation.
-Für das Definieren eines Cache muss deswegen auf Hibernate-spezifische Mechanismen zugegriffen werden.
+Ein Second-Level-Cache speichert Daten zwischen Transaktionen oder Sitzungen und ermöglicht es, sie anstatt eines Datenbankzugriffs wiederzuverwenden.
+Dies kann die Leistung eines IT-Systems erheblich verbessern, indem es die Anzahl der Datenbankzugriffe reduziert.
+Hibernate bietet einen Second-Level-Cache auf Ebene der Session Factory an.
 
-Jeder Aufruf der Persistenzschicht geschieht innerhalb einer Transaktion.
-In der Regel läuft jeder Aufruf in einer eigenen Transaktion ab, weswegen kein Zustand und keine Daten zwischen zwei Aufrufen gehalten oder geteilt werden können.
+.icon:university[title=Architekturregel] Einsatz eines Second-Level-Cache
+****
+Sinnvoll ist der Einsatz eines Second-Level-Caches nur, wenn die darin enthaltenen Daten sehr häufig gelesen, aber nur selten geändert werden.
+****
 
-Ist ein aufrufübergreifendes Caching dennoch notwendig, ist dies nicht in der Persistenzschicht und nicht mittels Hibernate durchzuführen.
-Hibernate bietet für das Caching von Objekten prinzipiell zwei Möglichkeiten.
+NOTE: Weitere Details zum Einsatz von Caches bietet die https://docs.jboss.org/hibernate/orm/current/userguide/html_single/Hibernate_User_Guide.html#caching[offizielle Hibernate-Dokumentation zu Caching].
 
-Cache in der Hibernate-Session:: Die Hibernate-Session ist an einen Thread gebunden.
-Das aufrufende IT-System verwendet für jede Anfrage einen neuen Thread (und damit eine frische Hibernate-Session).
-Deshalb kann dieser Cache höchstens im Rahmen einer Anfrage an das Backend gelten.
-Diese Nutzung eines Cache ist nicht sinnvoll.
+[[second-level-cache-betrachtung]]
+==== Betrachtung der Vorteile, Herausforderungen und Risiken
 
-VM-weiter "2nd Level Cache":: Dieser Cache ist vor allem für unveränderliche, häufig verwendete Informationen (z.B. Schlüsseldaten) gedacht.
-In der IsyFact werden solche Daten jedoch bereits durch andere Mechanismen vorgehalten.
-Deshalb ist eine Verwendung dieses Cache ebenfalls unnötig.
+IMPORTANT: Die folgende Betrachtung geht von einer Caching-Lösung _als Bestandteil eines IT-Systems_ aus.
+Sie betrachtet keine verteilten Caches.
 
-Die Verwendung von über einen Aufruf hinausgehenden Cache ist deshalb zu vermeiden.
-Falls aufgrund spezieller Anforderungen trotzdem ein 2nd Level Cache benötigt wird, ist auf folgende Punkte zu achten:
+Der Einsatz eines Second-Level-Caches kann die Erfüllung der folgenden Qualitätskriterien fördern.
 
-* Für den Cache ist eine gesonderte Cache-Region zu verwenden.
-* Nur unveränderliche Daten dürfen in den Cache.
-* Man kann nicht davon ausgehen, dass der Cache bei Änderungen der Objekte aktualisiert wird.
+.Second-Level-Cache: Vorteile nach Qualitätskriterien (ISO 25010)
+[cols="1,2", options="header"]
+|===
+|Qualitätskriterium
+|Vorteile
+
+|Leistungsfähigkeit (Performance Efficiency)
+|IT-Systeme können schneller antworten und dabei Ressourcen schonen, da der Cache Datenbankzugriffe einspart. +
+IT-Systeme können einer höheren Last standhalten, da der Cache Lastspitzen abfedern kann.
+
+|Zuverlässigkeit (Reliability)
+|IT-Systeme können Daten auch bei temporären Ausfällen der Datenbank zuverlässiger liefern.
+|===
+
+Demgegenüber kann der Einsatz eines Second-Level-Caches zu Herausforderungen und Risiken bei folgenden Qualitätskriterien führen.
+
+.Second-Level-Cache: Herausforderungen und Risiken nach Qualitätskriterien (ISO 25010)
+[cols="1,2", options="header"]
+|===
+|Qualitätskriterium
+|Herausforderungen / Risiken
+
+|Leistungsfähigkeit (Performance Efficiency)
+|Die im Cache gehaltenen Daten führen zu einem höheren Speicherverbrauch.
+
+|Funktionale Eignung (Functional Suitability)
+|Der Cache kann veraltete und damit potenziell inkonsistente Daten liefern.
+
+|Wartbarkeit (Maintainability)
+|Komplexe Cache-Konfigurationen können schwer zu debuggen und zu testen sein.
+|===
+
+[[second-level-cache-empfehlungen]]
+==== Empfehlungen zum Einsatz
+
+Die IsyFact gibt die folgenden, generellen Empfehlungen beim Einsatz von Second-Level-Caches, aufgeschlüsselt nach Qualitätskriterien.
+
+.Second-Level-Cache: Empfehlungen nach Qualitätskriterien (ISO 25010)
+[cols="1,2", options="header"]
+|===
+|Qualitätskriterium
+|Empfehlungen
+
+|Leistungsfähigkeit (Performance Efficiency)
+|Nur so viel wie nötig an Daten im Cache halten. +
+Gezielt Cache-Regionen und passende Cache-Strategien nutzen.
+
+|Funktionale Eignung (Functional Suitability)
+|Cache Eviction (z.B. bei Änderungen an den Daten) sorgfältig planen.
+
+|Wartbarkeit (Maintainability)
+|Cache-Konfiguration im xref:methodik:vorlage-systementwurf/antora-master.adoc[Systementwurf] dokumentieren.
+
+|===
 
 [[nutzung-und-anbindung-einer-zweiten-datenbank]]
 === Nutzung und Anbindung einer zweiten Datenbank
@@ -446,24 +493,35 @@ public class Lehrer extends Person {
 .Polymorpher Zugriff
 [source,java]
 ----
-List<Person> personen = entityManager
-    .createQuery("select p from Person p")
-    .getResultList();
+public class PolymorphicAccessExample {
 
-//oder per Spring Data Repository:
-@Autowired
-private PersonRepository personRepository;
-List<Person> personen = personRepository.findAll();
+    @Autowired
+    private PersonRepository personRepository;
 
-//Zugriff auf Attribute Subklassen
-personen.forEach(person -> {
-    if (person instanceof Schueler) {
-        ((Schueler) person).getKlassenstufe();
-    } else if (person instanceof Lehrer) {
-        ((Lehrer) person).getGehalt());
+    public List<Person> accessByQuery() { // <.>
+        return entityManager
+            .createQuery("select p from Person p")
+            .getResultList();
     }
-});
+
+    public List<Person> accessByRepository() { // <.>
+        List<Person> personen = personRepository.findAll();
+
+        // Zugriff auf Subklassen
+        personen.forEach(person -> {
+            if (person instanceof Schueler) {
+                ((Schueler) person).getKlassenstufe();
+            } else if (person instanceof Lehrer) {
+                ((Lehrer) person).getGehalt();
+            }
+        });
+
+        return personen;
+    }
+}
 ----
+<.> Zugriff über Query
+<.> Zugriff über Spring Data Repository
 
 *Vorteile*
 
@@ -503,7 +561,7 @@ public class Oberklasse { }
 
 *Nachteile*
 
-* Je nach Vererbungshierarchie sind performanzkritische Joins erforderlich beim Zugriff sowohl polymorph auf Ober- als auch auf Subklassen.
+* Je nach Vererbungshierarchie sind für die Performanz kritische Joins erforderlich, sowohl beim polymorphen Zugriff auf Oberklassen als auch auf Subklassen.
 
 [[table-per-concrete-class-details]]
 ===== Table per Concrete Class
