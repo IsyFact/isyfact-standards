@@ -1,6 +1,14 @@
 [[changelog]]
 = Changelog
 
+*Änderungen IsyFact 3.2.2*
+
+// tag::release-3.2.2[]
+
+- `IFS-4754`: Einführung von Caching im Authentifizierungsprozess
+
+// end::release-3.2.2[]
+
 *Änderungen IsyFact 3.1.0*
 
 // tag::release-3.1.0[]

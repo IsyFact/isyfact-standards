@@ -1,5 +1,11 @@
 = Changelog IsyFact Dokumentation
 
+== Änderungen IsyFact 3.2.2
+
+=== Änderungen Bausteine
+
+include::isy-security:page$nutzungsvorgaben/changelog.adoc[tag=release-3.2.2]
+
 == Änderungen IsyFact 3.2.1
 
 === Änderungen im Produktkatalog
