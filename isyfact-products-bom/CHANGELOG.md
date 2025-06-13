@@ -1,3 +1,6 @@
+# 3.1.2
+- `ISY-4754`: Spring Security Versionsanhebung auf 5.8.16
+
 # 3.1.1
 - `IFS-4384`: Spring Security Versionsanhebung auf 5.8.15
 

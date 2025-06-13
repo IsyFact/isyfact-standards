@@ -15,7 +15,7 @@ jobs:
     needs: [Build]
     env:
       COMMIT_SHA: ${{ github.sha }}
-      BRANCH_REF: release/3.1.1
+      BRANCH_REF: release/3.1.2
       SONAR_HOST_URL: ${{ vars.SONAR_HOST_URL }}
       SONAR_PROJECT_KEY: ${{ vars.SONAR_PROJECT_KEY }}
     steps:
