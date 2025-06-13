@@ -1,7 +1,5 @@
 = Vorgaben und Konventionen
 
-include::glossary:licence:partial$licence.adoc[]
-
 Eines der Ziele des Bausteins JPA/Hibernate ist die einfach und einheitliche Verwendung von JPA und Hibernate.
 Dazu stellt der Baustein eine Menge an Vorgaben und Konventionen bereit, auf denen die Umsetzungen beruhen.
 Die Vorgaben und Konventionen ergänzen die allgemeinen Vorgaben zur xref:referenzarchitektur:software-technisch/backend/persistenzschicht.adoc[].
@@ -563,7 +561,7 @@ public class Oberklasse { }
 
 *Nachteile*
 
-* Je nach Vererbungshierarchie sind für die Performanz kritische Joins erforderlich, sowohl beim polymorphen Zugriff auf Ober- als auch auf Subklassen.
+* Je nach Vererbungshierarchie sind für die Performanz kritische Joins erforderlich, sowohl beim polymorphen Zugriff auf Oberklassen als auch auf Subklassen.
 
 [[table-per-concrete-class-details]]
 ===== Table per Concrete Class
