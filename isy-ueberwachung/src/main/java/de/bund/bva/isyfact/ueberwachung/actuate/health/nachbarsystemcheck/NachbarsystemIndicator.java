@@ -1,6 +1,5 @@
 package de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck;
 
-
 import java.util.ArrayList;
 import java.util.List;
 

@@ -1,9 +1,7 @@
 package de.bund.bva.isyfact.logging.http;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.mockito.Mockito.when;
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 import jakarta.servlet.http.HttpServletRequest;
 

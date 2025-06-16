@@ -1,7 +1,9 @@
 package de.bund.bva.isyfact.security.authentication;
 
-import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.entry;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.springframework.security.oauth2.core.oidc.StandardClaimNames.SUB;
 
 import java.util.HashMap;

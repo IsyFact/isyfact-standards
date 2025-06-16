@@ -1,15 +1,14 @@
 package de.bund.bva.isyfact.batchrahmen.config;
 
-import de.bund.bva.isyfact.batchrahmen.batch.annotation.ExcludeFromBatchContext;
-import de.bund.bva.isyfact.batchrahmen.core.launcher.BatchLauncher;
+import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
+
 import org.junit.Test;
 import org.springframework.boot.context.annotation.UserConfigurations;
-import org.springframework.boot.test.context.FilteredClassLoader;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
+import de.bund.bva.isyfact.batchrahmen.batch.annotation.ExcludeFromBatchContext;
 
 /**
  * Test class for the ExcludeFromBatchContext annotation.

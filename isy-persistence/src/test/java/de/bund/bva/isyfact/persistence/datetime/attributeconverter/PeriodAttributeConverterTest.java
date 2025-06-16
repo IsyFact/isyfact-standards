@@ -1,7 +1,6 @@
 package de.bund.bva.isyfact.persistence.datetime.attributeconverter;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 
 import java.time.Period;
 
@@ -38,9 +37,7 @@ import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
 
 import de.bund.bva.isyfact.persistence.datetime.attributeconverter.test.TestPeriodEntity;
 
-/**
 
- */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = PeriodAttributeConverterTest.TestConfig.class)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
