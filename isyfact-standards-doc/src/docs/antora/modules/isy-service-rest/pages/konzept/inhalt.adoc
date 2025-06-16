@@ -80,7 +80,7 @@ In Ausnahmefällen kann auf die Einhaltung der Vorgabe zum Reifegrad (mindestens
 [[prozessorientierte-aufrufe]]
 *Prozessorientierte Aufrufe - Geschäftsvorfälle*
 
-Ein Ausnahmefall stellt die Abbildung von prozessorientierten Aufrufen dar, die häufig durch die Migration von bestehenden prozessorientierten Schnittstellen (z.B. RPC) entstanden sind.
+Ein Ausnahmefall stellt die Abbildung von prozessorientierten Aufrufen dar, die häufig durch die Migration von bestehenden prozessorientierten Schnittstellen (z. B. RPC) entstanden sind.
 Die Abbildung auf eine ressourcenorientierte REST-Schnittstelle ist i.d.R. mit einer Neukonzeption der Anwendung unter einer ressourcenorientierten Denkweise verbunden.
 Der Aufwand für die Neukonzeption steht oft nicht im Verhältnis zum tatsächlichen (fachlichen) Nutzen.
 Aus diesem Grund dürfen prozessorientierte Aufrufe über einfache http-Aufrufe realisiert werden, die bis auf die Ressourcenorientierung und Verwendung der http-Verben, den übrigen Vorgaben des REST-Konzepts folgen.
@@ -430,9 +430,8 @@ Die Filter- und Suchkriterien werden in den Body der Anfrage aufgenommen.
 [[verwendung-http-statuscodes]]
 === Verwendung von HTTP-Statuscodes
 
-Im Folgenden werden die HTTP-Statuscodes dargestellt, die zu verwenden sind.
-Weitere Statuscodes sind in Abhängigkeit vom Fachverfahren möglich.
-
+Statuscodes bieten eine effektive Möglichkeit zur gezielten Steuerung des Client-Verhaltens.
+Die konkrete Nutzung der beschriebenen und weiterer Statuscodes sind in Abhängigkeit von den Anforderungen anwendungsspezifisch festzulegen.
 
 [cols="1,1,2"]
 |===
@@ -443,8 +442,8 @@ Weitere Statuscodes sind in Abhängigkeit vom Fachverfahren möglich.
 |202 |Accepted | Die Anfrage wurde empfangen und verstanden, aber wird noch asynchron bearbeitet. Die Anfrage ist zum Zeitpunkt der Antwort möglicherweise noch nicht abgeschlossen, aber der Server hat sie zur weiteren Bearbeitung angenommen.
 |204 |No Content |Wird als Ergebnis eines erfolgreichen HTTP-Requests zurückgeliefert, wenn der Request keinen Response-Body liefert.
 |304 |Not Modified |Wird beim Caching eingesetzt und sagt dem Client, dass seine Ressource noch aktuell ist.
-|400 |Bad Request |Der HTTP-Request enthält fehlerhafte Daten, z. B. XML nicht Schema-konform, es wurde ein Virus gefunden, die Anfrage enthält fachliche Fehler, etc.
-|401 |Unauthorized |Es ist ein Fehler bei der Authentifizierung aufgetreten, z. B. falscher Benutzername/Passwort.
+|400 |Bad Request |Der HTTP-Request enthält fehlerhafte Daten, z. B. XML nicht Schema-konform, es wurde ein Virus gefunden, die Anfrage enthält fachliche Fehler, etc.
+|401 |Unauthorized |Es ist ein Fehler bei der Authentifizierung aufgetreten, z. B. falscher Benutzername/Passwort.
 |403 |Forbidden |Der Benutzer hat nicht die erforderlichen Rechte.
 |404 |Not found |Die angeforderte Ressource existiert nicht.
 |405 |Method not allowed |Die aktuelle Operation ist auf der Ressource nicht erlaubt (beispielsweise PUT auf einer read-only Ressource).
@@ -458,6 +457,28 @@ Weitere Statuscodes sind in Abhängigkeit vom Fachverfahren möglich.
 Für die Auswahl weiterer Statuscodes bietet die entsprechende https://de.wikipedia.org/wiki/HTTP-Statuscode[Wikipedia-Seite zu HTTP-Statuscodes] einen guten Startpunkt.
 Empfehlenswert ist außerdem diese gut strukturierte Übersicht von https://www.restapitutorial.com/httpstatuscodes.html[openapi-generator.tech], die Informationen von Wikipedia und des IETF übersichtlich aufbereitet.
 ====
+
+Ziele der Nutzung von Statuscodes in Verbindung mit einem Response-Mechanismus sind eine effiziente Gestaltung von API-Interaktionen, das Sicherstellen einer reibungslosen Nutzererfahrung und das Vermeiden von unnötiger Netzwerklast.
+Durch den gezielten Einsatz passender Statuscodes in Verbindung mit `Response-Headern` können Clients beispielsweise erkennen, ob ein erneuter Request sinnvoll ist, sie warten sollten oder ein Fehler in der Anfrage vorliegt.
+Damit Clients automatisiert und sinnvoll auf API-Antworten reagieren können, muss die Implementierung der Statuscodes  dem tatsächlichen Verarbeitungszustand entsprechen.
+
+[cols="1,1,2"]
+|===
+|Response-Mechanismus |Sinnvolle Statuscodes |Anmerkung
+
+|`Retry-After`
+|`202 Accepted`, `429 Too Many Request`, `503 Service Unavailable`
+|Einzusetzen, wenn eine spätere Wiederholung der Anfrage sinnvoll ist.
+
+|Status-URLs
+|`202 Accepted`
+|Zur initialen Bereitstellung von Informationen, wo der Status einer Anfrage bei asynchroner Verarbeitung abgefragt werden kann.
+
+|Detaillierte Fehlermeldungen
+|`400 Bad Request`, `406 Not Acceptable`, `409 Conflict`
+|Ermöglicht es dem Client, Fehlerursachen gezielt zu erkennen und zu beheben.
+|===
+
 
 [[repraesentationen]]
 === Repräsentationen
