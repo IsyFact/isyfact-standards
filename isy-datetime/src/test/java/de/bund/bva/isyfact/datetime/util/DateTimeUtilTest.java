@@ -15,9 +15,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-/**
 
- */
 public class DateTimeUtilTest {
 
     private static final LocalDate DATE_2017_7_1 = LocalDate.of(2017, 7, 1);
