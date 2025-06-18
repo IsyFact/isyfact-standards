@@ -1,6 +1,14 @@
 [[changelog]]
 = Changelog
 
+*Änderungen IsyFact 3.3.0*
+
+// tag::release-3.3.0[]
+
+- `IFS-4715`: Öffnung des Health-Endpunkts ohne Autorisierung
+
+// end::release-3.3.0[]
+
 *Änderungen IsyFact 3.2.0*
 
 // tag::release-3.2.0[]
@@ -11,11 +19,11 @@
 
 // end::release-3.2.0[]
 
-// *Änderungen IsyFact 3.0.0*
+*Änderungen IsyFact 3.0.0*
 
 // tag::release-3.0.0[]
 
-// - IFS-2410: Umzug des Kapitels _Loadbalancer-Servlets_ von den Nutzungsvorgaben in das Konzept
+- IFS-2410: Umzug des Kapitels _Loadbalancer-Servlets_ von den Nutzungsvorgaben in das Konzept
 
 // end::release-3.0.0[]
 

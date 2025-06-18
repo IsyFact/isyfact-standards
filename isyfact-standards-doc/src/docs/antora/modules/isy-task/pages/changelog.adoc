@@ -1,6 +1,16 @@
 = Changelog Baustein Task Scheduling
 
-include::glossary:licence:partial$licence.adoc[]
+*Änderungen IsyFact 3.3.0*
+
+// tag::release-3.3.0[]
+
+- `IFS-4329`: IsyTaskAutoConfiguration verhindert jetzt Task-Erstellung im Batch-Profil
+- `IFS-4676`: Scope der Abhängigkeit zu AspectJ-Weaver auf Runtime gesetzt
+* Definitionen der Aspekte zum Kompilieren werden von org.aspectj:aspectjrt bereitgestellt
+- `IFS-4526`: Logeintrag IsyTaskAspect korrigiert
+- `IFS-4495`: Verwendung der Defaults, falls keine Task-Config definiert ist
+
+// end::release-3.3.0[]
 
 *Änderungen IsyFact 3.2.0*
 
@@ -10,11 +20,11 @@ include::glossary:licence:partial$licence.adoc[]
 
 // end::release-3.2.0[]
 
-// *Änderungen IsyFact 3.0.0*
+*Änderungen IsyFact 3.0.0*
 
 // tag::release-3.0.0[]
 
-// * Task Scheduling auf Basis von Spring Boot
-// ** Konzept neu geschrieben
+* Task Scheduling auf Basis von Spring Boot
+** Konzept neu geschrieben
 
 // end::release-3.0.0[]
