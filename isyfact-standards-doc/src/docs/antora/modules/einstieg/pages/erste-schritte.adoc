@@ -1,7 +1,5 @@
 = Erste Schritte
 
-include::glossary:licence:partial$licence.adoc[]
-
 IsyFact ist modular aufgebaut und gibt keine strikte Lese-Reihenfolge vor.
 Um die IsyFact als Ganzes kennenzulernen, zu verstehen und einzusetzen, empfehlen wir das Folgende an den 5 Säulen orientierte Vorgehen:
 

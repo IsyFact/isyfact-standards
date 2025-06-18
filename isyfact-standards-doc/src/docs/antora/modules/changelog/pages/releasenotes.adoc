@@ -2,9 +2,6 @@
 :icons: font
 :sectnums:
 
-include::glossary:licence:partial$licence.adoc[]
-
-
 *Übersicht über die Änderungen*
 
 [[kapitel-aenderungen]]

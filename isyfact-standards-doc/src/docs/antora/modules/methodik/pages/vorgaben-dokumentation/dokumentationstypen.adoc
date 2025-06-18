@@ -1,8 +1,5 @@
 = Dokumentationstypen der IsyFact
 
-include::glossary:licence:partial$licence.adoc[]
-
-
 *Übersicht über die Typen der Dokumentation*
 
 Im Folgenden werden die Dokumentationstypen der IsyFact erläutert.

@@ -1,7 +1,5 @@
 = Rahmenbedingungen
 
-include::glossary:licence:partial$licence.adoc[]
-
 [[auswirkung-der-historie-der-isyfact]]
 == Auswirkung der Historie der IsyFact
 

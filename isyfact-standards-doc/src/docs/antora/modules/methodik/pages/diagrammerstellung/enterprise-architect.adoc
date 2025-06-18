@@ -2,8 +2,6 @@
 
 :experimental:
 
-include::glossary:licence:partial$licence.adoc[]
-
 [[enterprise-architect-fuer-die-modellierung]]
 == Enterprise Architect für die Modellierung
 Das Werkzeug „Enterprise Architect“ (nachfolgend kurz „EA“) der Firma SparxSystems unterstützt im Kontext der IsyFact in erster Linie die Modellierung und Diagrammerstellung im Zuge der Systemspezifikation und Geschäftsprozessdokumentation. 

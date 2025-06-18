@@ -1,7 +1,5 @@
 = Integration der IsyFact in das Task Scheduling
 
-include::glossary:licence:partial$licence.adoc[]
-
 Die IsyFact stellt einige Anforderungen an die Ausführung fachlicher und technischer Operationen.
 Diese gelten auch für Tasks, die nicht direkt durch Anwender, sondern durch die Anwendung selbst eingeplant und ausgeführt werden.
 

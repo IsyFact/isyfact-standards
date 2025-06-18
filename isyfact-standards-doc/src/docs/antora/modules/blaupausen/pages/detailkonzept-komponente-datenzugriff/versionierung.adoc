@@ -1,7 +1,5 @@
 = Versionierung von Datenbankschemas
 
-include::glossary:licence:partial$licence.adoc[]
-
 Die Struktur der Daten, die von einer Anwendung dauerhaft gespeichert werden, kann sich im Laufe des Lebenszyklus der Anwendung ändern.
 Das bedeutet, dass sich neben der Anwendung auch das Datenbankschema ändert.
 Die Anwendung und das Datenbankschema müssen zueinander passen.

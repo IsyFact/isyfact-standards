@@ -1,7 +1,5 @@
 = Konzeption der Persistenzlogik
 
-include::glossary:licence:partial$licence.adoc[]
-
 Die Persistenzlogik beinhaltet das Datenmodell (d.h. Modellkomponenten, Entitäten und Attribute) der fachlichen Architektur und bildet dieses auf die technische Ebene ab.
 Sie gliedert sich, wie der Anwendungskern, in Fachkomponenten.
 Im Normalfall ist der Funktionsumfang dieser Fachkomponenten viel geringer als der Funktionsumfang der Entsprechungen im Anwendungskern.

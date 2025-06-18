@@ -1,7 +1,5 @@
 = Blaupausen
 
-include::glossary:licence:partial$licence.adoc[]
-
 // tag::whitepaper[]
 
 *Blaupausen beschreiben die Konzepte, Architektur sowie Erstellung von Anwendungslandschaften und Geschäftsanwendungen auf fachlicher, software-technischer und technisch-infrastruktureller Ebene.*

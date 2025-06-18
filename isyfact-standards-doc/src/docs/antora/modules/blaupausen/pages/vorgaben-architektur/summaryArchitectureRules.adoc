@@ -1,7 +1,5 @@
 = IsyFact Architekturregeln
 
-include::glossary:licence:partial$licence.adoc[]
-
 [[einleitung]]
 == Einleitung
 

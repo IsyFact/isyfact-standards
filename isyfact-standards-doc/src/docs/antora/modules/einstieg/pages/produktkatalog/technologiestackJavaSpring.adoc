@@ -1,7 +1,5 @@
 = Technologiestack: Java/Spring
 
-include::glossary:licence:partial$licence.adoc[]
-
 Die hier aufgeführten Produkte dienen der Entwicklung und dem Test von Anwendungen mit dem Technologiestack Java und Spring (Boot).
 
 // tag::spring-boot-managed-dependencies[]

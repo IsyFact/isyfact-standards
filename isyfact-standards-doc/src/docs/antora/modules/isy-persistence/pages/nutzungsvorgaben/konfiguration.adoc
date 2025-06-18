@@ -1,7 +1,5 @@
 = Konfiguration des O/R-Mappings
 
-include::glossary:licence:partial$licence.adoc[]
-
 In den folgenden Abschnitten werden konkrete Vorgaben gemacht, welche Konfigurationen für die Umsetzung des Datenzugriffs verwendet werden sollen.
 
 [[konfiguration-von-jpa-ueber-spring-beans-durchfuehren]]

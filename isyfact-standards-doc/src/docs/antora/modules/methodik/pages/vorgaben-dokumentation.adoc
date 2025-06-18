@@ -1,8 +1,5 @@
 = Konventionen und Vorgaben Dokumentation
 
-include::glossary:licence:partial$licence.adoc[]
-
-
 [[konventionen-vorgaben-zur-dokumentation]]
 == Konventionen und Vorgaben zur Dokumentation der IsyFact
 

@@ -4,8 +4,6 @@
 
 include::glossary:miscellaneous:partial$deprecated-baustein.adoc[]
 
-include::glossary:licence:partial$licence.adoc[]
-
 include::thisdoc.adoc[tags=inhalt]
 
 include::inhalt.adoc[tags=inhalt]

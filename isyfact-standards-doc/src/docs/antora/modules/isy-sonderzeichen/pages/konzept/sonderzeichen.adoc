@@ -1,7 +1,5 @@
 = Konzept Sonderzeichen
 
-include::glossary:licence:partial$licence.adoc[]
-
 [[einleitung]]
 == Einleitung
 

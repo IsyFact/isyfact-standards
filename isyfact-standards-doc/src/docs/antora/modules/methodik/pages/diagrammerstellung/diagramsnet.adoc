@@ -2,8 +2,6 @@
 
 :experimental:
 
-include::glossary:licence:partial$licence.adoc[]
-
 _diagrams.net_ ist ein Werkzeug zur flexiblen und leichtgewichtigen Erzeugung von Diagrammen.
 Dabei kann auf bestehende Grafik-Objekte (_Shapes_ genannt) unterschiedlicher Notationen (z.B. UML oder BPMN) zurückgegriffen werden.
 Grafik-Objekte sind in Bibliotheken zusammengefasst.

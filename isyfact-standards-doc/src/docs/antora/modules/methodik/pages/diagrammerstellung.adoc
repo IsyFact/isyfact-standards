@@ -2,8 +2,6 @@
 
 :experimental:
 
-include::glossary:licence:partial$licence.adoc[]
-
 [[modellierung-und-diagrammerstellung]]
 == Modellierung und Diagrammerstellung
 Schaubilder, Diagramme und grafische Modelle unterstützen das Verständnis von Inhalten.

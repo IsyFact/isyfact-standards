@@ -1,7 +1,5 @@
 = IsyFact IT-Sicherheitsregeln
 
-include::glossary:licence:partial$licence.adoc[]
-
 [[einleitung]]
 == Einleitung
 

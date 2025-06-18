@@ -1,7 +1,5 @@
 = Historisierung
 
-include::glossary:licence:partial$licence.adoc[]
-
 Die technische Konzeption der Historisierung mit JPA gliedert sich in zwei Aspekte: die Konzeption des Gültigkeitszeitraums und der Bearbeitungshistorie.
 
 [[konzeption-gueltigkeitszeitraum]]
