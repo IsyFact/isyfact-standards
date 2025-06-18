@@ -105,7 +105,8 @@ In die Tabelle wurde der HTTP-Code 202 aufgenommen und der nach der Tabelle folg
 Der Baustein bietet ein erweitertes xref:isy-persistence:konzept/versionierung-mit-liquibase.adoc[Konzept] sowie xref:isy-persistence:nutzungsvorgaben/versionierung-mit-liquibase.adoc[Nutzungsvorgaben] zur Schema-Versionierung mit Liquibase.
 Diese soll die Eigenimplementierung der IsyFact ablösen.
 
-Das bisherige Verbot von "aufrufübergreifendem Caching" wurde durch xref:isy-persistence:konzept/vorgaben-konventionen.adoc#second-level-cache[Empfehlungen für den Einsatz eines Second-Level-Caches] ersetzt.
+Bisherige Verbote wurden durch eine Empfehlung, basierend auf den Qualitätskriterien der ISO 25010, ersetzt.
+Dies gilt für den Einsaz eines xref:isy-persistence:konzept/vorgaben-konventionen.adoc#second-level-cache[Second-Level-Caches] sowie von xref:isy-persistence:konzept/vorgaben-konventionen.adoc#bulk-queries[Bulk Queries].
 
 === Verschobene Bausteine
 Folgende Bausteine wurden in eigenständige Repositories umgezogen:
