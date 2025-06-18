@@ -106,7 +106,7 @@ Der Baustein bietet ein erweitertes xref:isy-persistence:konzept/versionierung-m
 Diese soll die Eigenimplementierung der IsyFact ablösen.
 
 Bisherige Verbote wurden durch eine Empfehlung, basierend auf den Qualitätskriterien der ISO 25010, ersetzt.
-Dies gilt für den Einsaz eines xref:isy-persistence:konzept/vorgaben-konventionen.adoc#second-level-cache[Second-Level-Caches] sowie von xref:isy-persistence:konzept/vorgaben-konventionen.adoc#bulk-queries[Bulk Queries].
+Dies gilt für den Einsatz eines xref:isy-persistence:konzept/vorgaben-konventionen.adoc#second-level-cache[Second-Level-Caches] sowie von xref:isy-persistence:konzept/vorgaben-konventionen.adoc#bulk-queries[Bulk Queries].
 
 === Verschobene Bausteine
 Folgende Bausteine wurden in eigenständige Repositories umgezogen:
