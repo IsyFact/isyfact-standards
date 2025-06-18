@@ -21,7 +21,7 @@ jobs:
     with:
       version: ${{ github.ref_name }}
       maven-opts: '-P centralRelease'
-      deploy-server-id: ossrh
+      deploy-server-id: central
       sbom: true
       sign: true
     secrets:
