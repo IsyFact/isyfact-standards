@@ -353,13 +353,6 @@ Die Standardabsicherung der Endpunkte kann per Konfiguration von der Spring Auto
 
 `spring.autoconfigure.exclude=de.bund.bva.isyfact.ueberwachung.autoconfigure.IsyActuatorSecurityAutoConfiguration`
 
-[[abschalten-der-absicherung-fuer-die-entwicklung]]
-====== Abschalten der Absicherung für die Entwicklung
-
-Um die Authentifizierung für die Endpoints bei der Entwicklung abzuschalten, kann in <<listing-endpointsecurityconfig>>
-gezeigte Konfiguration über ein Spring-Profil (im Beispiel `produktion`) aktiviert bzw. deaktiviert werden.
-
-
 [[vorgaben-fuer-die-pruefung-der-verfuegbarkeit]]
 ==== Prüfung der Verfügbarkeit
 
