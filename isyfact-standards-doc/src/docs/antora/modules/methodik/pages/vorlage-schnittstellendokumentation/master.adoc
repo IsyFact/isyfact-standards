@@ -1,7 +1,5 @@
 = Vorlage Schnittstellendokumenation
 
-include::glossary:licence:partial$licence.adoc[]
-
 include::00-copyright-allgem-hinweise.adoc[tags=inhalt]
 include::01-allgemeines.adoc[tags=inhalt]
 include::02-fachlicher-ueberblick.adoc[tags=inhalt]

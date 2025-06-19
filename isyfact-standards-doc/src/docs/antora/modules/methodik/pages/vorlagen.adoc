@@ -1,7 +1,5 @@
 = Vorlagen
 
-include::glossary:licence:partial$licence.adoc[]
-
 [[bearbeitung-vorlagen-projektspezifisch]]
 == Allgemeines
 

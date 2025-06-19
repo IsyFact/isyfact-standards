@@ -1,7 +1,5 @@
 = Versionierung mit Liquibase
 
-include::glossary:licence:partial$licence.adoc[]
-
 Liquibase ist eine Bibliothek zum Management von Änderungen an Datenbankschemas.
 Hierfür werden die Datenbankänderungen in sequenzieller Ordnung in *Change Logs* aufgelistet.
 Diese können in SQL, XML, JSON oder YAML geschrieben sein.

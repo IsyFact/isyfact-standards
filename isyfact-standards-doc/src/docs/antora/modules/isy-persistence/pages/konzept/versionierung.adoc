@@ -1,7 +1,5 @@
 = Versionierung (Eigenentwicklung)
 
-include::glossary:licence:partial$licence.adoc[]
-
 [IMPORTANT]
 ====
 Diese Seite dokumentiert die Versionierung von Datenbankschemas mittels einer Eigenentwicklung.

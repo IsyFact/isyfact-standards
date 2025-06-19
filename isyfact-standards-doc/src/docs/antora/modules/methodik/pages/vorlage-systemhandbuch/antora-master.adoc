@@ -2,8 +2,6 @@
 [discrete]
 === Vorlage
 
-include::glossary:licence:partial$licence.adoc[]
-
 // Inhalt
 include::inhalt.adoc[tags=inhalt]
 

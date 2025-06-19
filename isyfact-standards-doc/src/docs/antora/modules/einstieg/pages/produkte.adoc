@@ -1,7 +1,5 @@
 = Eingesetzte Produkte
 
-include::glossary:licence:partial$licence.adoc[]
-
 // tag::whitepaper[]
 
 *Basistechnologie der IsyFact sind die Programmiersprache Java und das Anwendungsframework Spring Boot.

@@ -1,7 +1,5 @@
 = Werkzeuge
 
-include::glossary:licence:partial$licence.adoc[]
-
 // tag::whitepaper[]
 
 *Vorkonfigurierte Werkzeuge und Handbücher zu Werkzeugen zur Modellierung, Programmierung, Installation, Tests und Fehlerverfolgung.*

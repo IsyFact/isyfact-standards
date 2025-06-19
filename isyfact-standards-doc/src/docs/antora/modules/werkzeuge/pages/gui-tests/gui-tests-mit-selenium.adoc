@@ -1,7 +1,5 @@
 = GUI-Tests mit Selenium
 
-include::glossary:licence:partial$licence.adoc[]
-
 // tag::inhalt[]
 `Selenium` ist ein Open Source Werkzeug zur Automatisierung von Browser-Applikationen.
 Es zählt seit vielen Jahren zu den bekanntesten und beliebtesten UI Testautomatisierungslösungen für Webanwendungen.

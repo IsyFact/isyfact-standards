@@ -1,7 +1,5 @@
 = Bausteine
 
-include::glossary:licence:partial$licence.adoc[]
-
 // tag::whitepaper[]
 
 *Wiederverwendbare Softwarelösungen, querschnittliche Anwendungen sowie Programmierbibliotheken und -vorlagen zur Erstellung von Geschäftsanwendungen.*

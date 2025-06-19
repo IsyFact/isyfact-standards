@@ -1,7 +1,5 @@
 = Lebenszyklus
 
-include::glossary:licence:partial$licence.adoc[]
-
 Der Lebenszyklus der Produkte ist jeweils in der Spalte *Status* gesetzt. Der Status bildet ab, ob und in welchem Umfang ein Produkt verwendet werden darf, ein Produkt geprüft wird, oder dessen Verwendung untersagt ist.
 
 [.table_head_sticky]

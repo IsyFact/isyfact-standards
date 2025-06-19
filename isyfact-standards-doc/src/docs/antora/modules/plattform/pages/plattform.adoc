@@ -1,7 +1,5 @@
 = Plattform
 
-include::glossary:licence:partial$licence.adoc[]
-
 // tag::whitepaper[]
 
 *Eine einheitliche Plattform, die einen standardisierten und effizienten Betrieb von Geschäftsanwendungen ermöglicht.*

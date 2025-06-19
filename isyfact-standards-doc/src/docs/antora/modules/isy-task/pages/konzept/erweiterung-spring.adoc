@@ -1,7 +1,5 @@
 = Task Scheduling mit Spring
 
-include::glossary:licence:partial$licence.adoc[]
-
 Das Task Scheduling mit Spring muss einmalig mit der Annotation `@EnableScheduling` aktiviert werden,
 das ist bereits durchgeführt in einer Konfigurationsklasse des Bausteins `isy-task`.
 Dadurch wird implizit einer der Spring Scheduler genutzt.

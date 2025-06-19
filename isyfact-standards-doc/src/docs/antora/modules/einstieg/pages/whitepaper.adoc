@@ -2,8 +2,6 @@
 :icons: font
 :sectnums:
 
-include::glossary:licence:partial$licence.adoc[]
-
 == IsyFact: eine Software Factory zur effizienten Entwicklung von Anwendungen
 
 include::einstieg:page$einstieg.adoc[tags=whitepaper,leveloffset=1]

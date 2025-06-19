@@ -1,7 +1,5 @@
 = Allgemeine Produktvorgaben
 
-include::glossary:licence:partial$licence.adoc[]
-
 == Basistechnologie
 
 [.table_head_sticky.unordered_list_identation]

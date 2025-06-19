@@ -8,3 +8,9 @@
 - `ISY-1061`: `isy-service-rest` Ergänzung der Dokumentation zum Zurücksetzen der Korrelations-ID aus dem MdcHelper
 
 // end::release-3.1.0[]
+
+// *Änderungen IsyFact 3.0.0*
+
+// tag::release-3.0.0[]
+
+// end::release-3.0.0[]

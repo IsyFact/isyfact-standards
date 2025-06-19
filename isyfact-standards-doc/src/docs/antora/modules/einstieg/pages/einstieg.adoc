@@ -2,8 +2,6 @@
 :icons: font
 :sectnums:
 
-include::glossary:licence:partial$licence.adoc[]
-
 // tag::whitepaper[]
 
 *Das Bundesverwaltungsamt stellt seinen in einer Vielzahl von Projekten eingesetzten und etablierten Standard für die Erstellung von betrieblichen Informationssystemen als Open Source zur Verfügung.*

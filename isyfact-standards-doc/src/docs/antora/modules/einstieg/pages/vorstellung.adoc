@@ -1,7 +1,5 @@
 = Vorstellung der IsyFact
 
-include::glossary:licence:partial$licence.adoc[]
-
 [[einfuehrung-in-software-factories]]
 == Einführung in Software Factories
 

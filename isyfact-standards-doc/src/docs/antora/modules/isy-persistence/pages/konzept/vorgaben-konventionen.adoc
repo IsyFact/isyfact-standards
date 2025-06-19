@@ -1,7 +1,5 @@
 = Vorgaben und Konventionen
 
-include::glossary:licence:partial$licence.adoc[]
-
 Eines der Ziele des Bausteins JPA/Hibernate ist die einfach und einheitliche Verwendung von JPA und Hibernate.
 Dazu stellt der Baustein eine Menge an Vorgaben und Konventionen bereit, auf denen die Umsetzungen beruhen.
 Die Vorgaben und Konventionen ergänzen die allgemeinen Vorgaben zur Erstellung eines Persistenz-Klassenmodells in der xref:blaupausen:detailkonzept-komponente-datenzugriff/persistenzlogik.adoc[Referenzarchitektur].

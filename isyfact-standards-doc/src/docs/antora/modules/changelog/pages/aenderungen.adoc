@@ -2,9 +2,6 @@
 :icons: font
 :sectnums:
 
-include::glossary:licence:partial$licence.adoc[]
-
-
 *Beschreibungen zu den Änderungen und Anpassungsbedarfen*
 
 Release Notes:: Die xref:changelog:releasenotes.adoc[Release Notes] beschreiben übersichtlich die - auf das Release bezogen - Änderungen.

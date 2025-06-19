@@ -1,7 +1,5 @@
 = IsyFact-Standards
 
-include::glossary:licence:partial$licence.adoc[]
-
 Im Folgenden sind die unterschiedlichen Vorgaben und Komponenten der IsyFact-Standards beschrieben.
 Der Aufbau der Seite orientiert sich am Entwicklungsprozess einer Geschäftsanwendung und macht Vorgaben zu den folgenden Phasen des V-Modells XT: Spezifikation, Systementwurf und Realisierung.
 Darüber hinaus werden die Bausteine der IsyFact-Standards kurz beschrieben.

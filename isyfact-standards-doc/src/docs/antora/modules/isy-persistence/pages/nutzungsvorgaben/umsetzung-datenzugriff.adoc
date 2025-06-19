@@ -1,7 +1,5 @@
 = Umsetzung des Datenzugriffs
 
-include::glossary:licence:partial$licence.adoc[]
-
 Die Umsetzung des Datenzugriffs mit JPA und Hibernate beachtet die xref:konzept/vorgaben-konventionen.adoc[] zu diesem Thema.
 Das Produkt Spring Data JPA vereinfacht die Umsetzung weiter.
 

@@ -1,5 +1,19 @@
 = Changelog IsyFact Dokumentation
 
+== Änderungen IsyFact 3.3.0
+
+=== Änderungen im Produktkatalog
+
+include::einstieg:page$produktkatalog/changelog.adoc[tag=release-3.3.0]
+
+=== Änderungen Bausteine
+
+include::isy-security:page$nutzungsvorgaben/changelog.adoc[tag=release-3.3.0]
+include::isy-ueberwachung:page$nutzungsvorgaben/changelog.adoc[tag=release-3.3.0]
+include::isy-task:page$changelog.adoc[tag=release-3.3.0]
+include::isy-logging:page$nutzungsvorgaben/changelog.adoc[tag=release-3.3.0]
+include::blaupausen:page$detailkonzept-komponente-batch/changelog.adoc[tag=release-3.3.0]
+
 == Änderungen IsyFact 3.2.1
 
 === Änderungen im Produktkatalog

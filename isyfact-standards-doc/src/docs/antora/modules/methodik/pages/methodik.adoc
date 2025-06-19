@@ -1,7 +1,5 @@
 = Methodik
 
-include::glossary:licence:partial$licence.adoc[]
-
 // tag::whitepaper[]
 
 *Konventionen und Vorgaben für die Spezifikation und Programmierung sowie das Projektvorgehen nach V-Modell XT.*

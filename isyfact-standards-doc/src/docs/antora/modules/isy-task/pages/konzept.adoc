@@ -1,7 +1,5 @@
 = Konzept Task Scheduling
 
-include::glossary:licence:partial$licence.adoc[]
-
 == Einführung und Ziele
 
 Das Konzept Task Scheduling beschreibt die konzeptionellen Grundlagen der Steuerung, d.h. Planung und Ausführung, von Tasks in der IsyFact.
