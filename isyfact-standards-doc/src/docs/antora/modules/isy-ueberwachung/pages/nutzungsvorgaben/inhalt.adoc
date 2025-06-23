@@ -76,7 +76,6 @@ Die dort aufgelisteten Informationen müssen für jeden Service einzeln angebote
 m|AnzahlAufrufeLetzteMinute |Liefert die Anzahl der in der letzten Minute erfolgten Aufrufe des Services insgesamt.
 m|AnzahlFehlerLetzteMinute |Liefert die Anzahl der in der letzten Minute erfolgten Aufrufe des Services, bei denen ein technischer Fehler aufgetreten ist.
 m|DurchschnittsDauerLetzteAufrufe |Liefert die durchschnittliche Bearbeitungsdauer der letzten 10 Aufrufe der Services in Millisekunden (einfacher gleitender Durchschnitt).
-m|ServiceStatistic|Stellt Informationen über den Dienstnamen und die Version bereit.
 |====
 
 NOTE: Die Summe der Aufrufe wird alle 60 Sekunden aktualisiert.
