@@ -66,12 +66,11 @@
         </maven.surefire.argline>
         <maven-surefire.version>3.2.5</maven-surefire.version>
 
-        <!-- maven-checkstyle-plugin property -->
-        <maven.checkstyle.version>3.6.0</maven.checkstyle.version>
-
         <!-- Plugin versions used in several places -->
         <maven.enforcer.plugin.version>3.5.0</maven.enforcer.plugin.version>
         <maven.javadoc.plugin.version>3.3.2</maven.javadoc.plugin.version>
+        <flatten-maven-plugin.version>1.7.0</flatten-maven-plugin.version>
+        <maven.checkstyle.version>3.6.0</maven.checkstyle.version>
 
         <!-- Pfade für Dokumentation -->
         <isy.doku.standards.bausteine>10_IsyFact-Standards/20_Bausteine</isy.doku.standards.bausteine>
