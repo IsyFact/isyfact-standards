@@ -267,7 +267,7 @@ Demgegenüber kann der Einsatz von Bulk Queries zu Herausforderungen und Risiken
 |Herausforderungen / Risiken
 
 |Funktionale Eignung (Functional Suitability)
-|Bulk Queries können zu Inkonsistenten mit Caches und verwalteten Entitäten führen, da sie direkt auf der Datenbank ausgeführt werden. +
+|Bulk Queries können zu Inkonsistenzen mit Caches und verwalteten Entitäten führen, da sie direkt auf der Datenbank ausgeführt werden. +
 Bulk Queries lösen keine JPA-Mechanismen wie Validierungen oder Callbacks (insbesondere `@PreUpdate` und `@PostUpdate`) aus.
 
 |Sicherheit (Security)
