@@ -17,6 +17,8 @@
     * Definitionen der Aspekte zum kompilieren werden von org.aspectj:aspectjrt bereitgestellt.
 - `IFS-4731`: Korrektes Auflösen der URL in SBOMs
 - `IFS-4655`: Update von Maven Checkstyle Plugin auf Version 3.6.0
+- `IFS-4531`: Update von Flatten Maven Plugin auf Version 1.7.0
+    - Update von Maven Version auf 3.6.3
 
 ## BUG FIXES
 - `IFS-4526`: [isy-task] Logeintrag IsyTaskAspect korrigiert
