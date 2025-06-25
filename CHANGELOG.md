@@ -12,6 +12,8 @@
 - `IFS-4731`: Korrektes Auflösen der URL in SBOMs
 - `IFS-4530`: Update von UCP auf Version 19.27.0.0
 - `IFS-4655`: Update von Maven Checkstyle Plugin auf Version 3.6.0
+- `IFS-4531`: Update von Flatten Maven Plugin auf Version 1.7.1
+  * Update von Maven Version auf 3.6.3
 
 ## BREAKING CHANGES
 - `IFS-4736`: [isy-persistence] Entfernung der Bibliothek aus den IsyFact-Standards
