@@ -17,7 +17,6 @@
     <properties>
         <isy-datetime.version>4.1.0-SNAPSHOT</isy-datetime.version>
         <isy-sonderzeichen.version>4.1.0-SNAPSHOT</isy-sonderzeichen.version>
-        <isy-persistence.version>4.0.0</isy-persistence.version>
         <isy-polling.version>5.0.0-SNAPSHOT</isy-polling.version>
         <isy-security.version>5.0.0-SNAPSHOT</isy-security.version>
         <!-- Update after IFS-4579 -->
@@ -55,11 +54,6 @@
                 <groupId>de.bund.bva.isyfact</groupId>
                 <artifactId>isy-logging</artifactId>
                 <version>${project.parent.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>de.bund.bva.isyfact</groupId>
-                <artifactId>isy-persistence</artifactId>
-                <version>${isy-persistence.version}</version>
             </dependency>
             <dependency>
                 <groupId>de.bund.bva.isyfact</groupId>
