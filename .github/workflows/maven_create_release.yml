@@ -1,0 +1,15 @@
+name: Publishes the release after setting a tag
+
+# Triggers the workflow on version tags like 1.0.0
+on:
+  push:
+    tags:
+      - '*.*.*'
+
+# Write permission required to publish release
+permissions:
+  contents: write
+
+jobs:
+  CreateRelease:
+    uses:  IsyFact/isy-github-actions-templates/.github/workflows/maven_create_release_template.yml@v1.7.0
