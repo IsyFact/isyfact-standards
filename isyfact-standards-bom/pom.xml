@@ -15,14 +15,14 @@
     <description>Definiert die Versionen aller Bibliotheken der IsyFact-Standards.</description>
 
     <properties>
-        <isy-datetime.version>4.0.0</isy-datetime.version>
-        <isy-sonderzeichen.version>4.0.0</isy-sonderzeichen.version>
-        <isy-persistence.version>4.0.0</isy-persistence.version>
-        <isy-polling.version>4.0.0</isy-polling.version>
-        <isy-security.version>4.0.0</isy-security.version>
+        <isy-datetime.version>4.1.0-SNAPSHOT</isy-datetime.version>
+        <isy-sonderzeichen.version>4.1.0-SNAPSHOT</isy-sonderzeichen.version>
+        <isy-polling.version>5.0.0-SNAPSHOT</isy-polling.version>
+        <isy-security.version>5.0.0-SNAPSHOT</isy-security.version>
+        <!-- Update after IFS-4579 -->
         <isy-security-test.version>4.0.0</isy-security-test.version>
-        <isy-task.version>4.0.0</isy-task.version>
-        <isy-util.version>4.0.0</isy-util.version>
+        <isy-task.version>5.0.0-SNAPSHOT</isy-task.version>
+        <isy-util.version>5.0.0-SNAPSHOT</isy-util.version>
     </properties>
 
     <!-- Dependency-Management für die Komponenten der IsyFact-Standards. -->
@@ -54,11 +54,6 @@
                 <groupId>de.bund.bva.isyfact</groupId>
                 <artifactId>isy-logging</artifactId>
                 <version>${project.parent.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>de.bund.bva.isyfact</groupId>
-                <artifactId>isy-persistence</artifactId>
-                <version>${isy-persistence.version}</version>
             </dependency>
             <dependency>
                 <groupId>de.bund.bva.isyfact</groupId>
