@@ -9,7 +9,7 @@
     * Definitionen der Aspekte zum kompilieren werden von org.aspectj:aspectjrt bereitgestellt.
 - `IFS-4464`: [isy-aufrufkontext, isy-logging] AutoConfiguration der Klasse MdcFilterAutoConfiguration ist in isy-logging definiert
 - `IFS-4731`: Korrektes Auflösen der URL in SBOMs
-- `IFS-4750` [isyfact-standards-doc] Entfernen von Endpunkt ServiceStatistic aus 3.x Doku
+- `IFS-4750` [isyfact-standards-doc] Entfernen von Endpunkt ServiceStatistic
 
 ### Bug Fixes
 - `IFS-4514`: [isyfact-standards-doc] Build-Fehler und ungültige Verweise auf externe Websites korrigiert.
