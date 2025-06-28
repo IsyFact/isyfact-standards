@@ -66,6 +66,9 @@
         </maven.surefire.argline>
         <maven-surefire.version>3.2.5</maven-surefire.version>
 
+        <!-- maven-checkstyle-plugin property -->
+        <maven.checkstyle.version>3.6.0</maven.checkstyle.version>
+
         <!-- Plugin versions used in several places -->
         <maven.enforcer.plugin.version>3.5.0</maven.enforcer.plugin.version>
         <maven.javadoc.plugin.version>3.3.2</maven.javadoc.plugin.version>
@@ -153,10 +156,9 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-checkstyle-plugin</artifactId>
-                    <version>3.1.2</version>
+                    <version>${maven.checkstyle.version}</version>
                     <configuration>
                         <configLocation>checkstyle.config.xml</configLocation>
-                        <encoding>UTF-8</encoding>
                         <consoleOutput>true</consoleOutput>
                         <failsOnError>true</failsOnError>
                         <linkXRef>false</linkXRef>
