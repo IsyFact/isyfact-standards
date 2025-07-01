@@ -72,8 +72,7 @@
         </maven.surefire.argline>
         <maven-surefire.version>3.2.5</maven-surefire.version>
 
-        <!-- maven-flatten-plugin version -->
-        <flatten-maven-plugin.version>1.7.0</flatten-maven-plugin.version>
+        <flatten-maven-plugin.version>1.7.1</flatten-maven-plugin.version>
 
         <!-- Plugin versions used in several places -->
         <maven.enforcer.plugin.version>3.5.0</maven.enforcer.plugin.version>
