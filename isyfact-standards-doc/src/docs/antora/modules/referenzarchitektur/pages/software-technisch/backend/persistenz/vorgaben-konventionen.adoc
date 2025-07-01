@@ -45,34 +45,82 @@ Falls für einen Teil der Entitäten konkurrierende schreibende Zugriffe wahrsch
 
 NOTE: Hibernate User Guide: https://docs.jboss.org/hibernate/orm/current/userguide/html_single/Hibernate_User_Guide.html#locking-pessimistic[Pessimistic Locking].
 
+[[second-level-cache]]
+=== Einsatz eines Second-Level-Caches
 
-[[aufrufuebergreifendes-caching-vermeiden]]
-=== Aufrufübergreifendes Caching vermeiden
+Ein Second-Level-Cache speichert Daten zwischen Transaktionen oder Sitzungen und ermöglicht es, sie anstatt eines Datenbankzugriffs wiederzuverwenden.
+Dies kann die Leistung eines IT-Systems erheblich verbessern, indem es die Anzahl der Datenbankzugriffe reduziert.
+Hibernate bietet einen Second-Level-Cache auf Ebene der Session Factory an.
 
-Caching-Strategien sind kein Teil der JPA-Spezifikation.
-Für das Definieren eines Cache muss deswegen auf Hibernate-spezifische Mechanismen zugegriffen werden.
+.icon:university[title=Architekturregel] Einsatz eines Second-Level-Cache
+****
+Sinnvoll ist der Einsatz eines Second-Level-Caches nur, wenn die darin enthaltenen Daten sehr häufig gelesen, aber nur selten geändert werden.
+****
 
-Jeder Aufruf der Persistenzschicht geschieht innerhalb einer Transaktion.
-In der Regel läuft jeder Aufruf in einer eigenen Transaktion ab, weswegen kein Zustand und keine Daten zwischen zwei Aufrufen gehalten oder geteilt werden können.
+NOTE: Weitere Details zum Einsatz von Caches bietet die https://docs.jboss.org/hibernate/orm/current/userguide/html_single/Hibernate_User_Guide.html#caching[offizielle Hibernate-Dokumentation zu Caching].
 
-Ist ein aufrufübergreifendes Caching dennoch notwendig, ist dies nicht in der Persistenzschicht und nicht mittels Hibernate durchzuführen.
-Hibernate bietet für das Caching von Objekten prinzipiell zwei Möglichkeiten.
+[[second-level-cache-betrachtung]]
+==== Betrachtung der Vorteile, Herausforderungen und Risiken
 
-Cache in der Hibernate-Session:: Die Hibernate-Session ist an einen Thread gebunden.
-Das aufrufende IT-System verwendet für jede Anfrage einen neuen Thread (und damit eine frische Hibernate-Session).
-Deshalb kann dieser Cache höchstens im Rahmen einer Anfrage an das Backend gelten.
-Diese Nutzung eines Cache ist nicht sinnvoll.
+IMPORTANT: Die folgende Betrachtung geht von einer Caching-Lösung _als Bestandteil eines IT-Systems_ aus.
+Sie betrachtet keine verteilten Caches.
 
-VM-weiter "2nd Level Cache":: Dieser Cache ist vor allem für unveränderliche, häufig verwendete Informationen (z.B. Schlüsseldaten) gedacht.
-In der IsyFact werden solche Daten jedoch bereits durch andere Mechanismen vorgehalten.
-Deshalb ist eine Verwendung dieses Cache ebenfalls unnötig.
+Der Einsatz eines Second-Level-Caches kann die Erfüllung der folgenden Qualitätskriterien fördern.
 
-Die Verwendung von über einen Aufruf hinausgehenden Cache ist deshalb zu vermeiden.
-Falls aufgrund spezieller Anforderungen trotzdem ein 2nd Level Cache benötigt wird, ist auf folgende Punkte zu achten:
+.Second-Level-Cache: Vorteile nach Qualitätskriterien (ISO 25010)
+[cols="1,2", options="header"]
+|===
+|Qualitätskriterium
+|Vorteile
 
-* Für den Cache ist eine gesonderte Cache-Region zu verwenden.
-* Nur unveränderliche Daten dürfen in den Cache.
-* Man kann nicht davon ausgehen, dass der Cache bei Änderungen der Objekte aktualisiert wird.
+|Leistungsfähigkeit (Performance Efficiency)
+|IT-Systeme können schneller antworten und dabei Ressourcen schonen, da der Cache Datenbankzugriffe einspart. +
+IT-Systeme können einer höheren Last standhalten, da der Cache Lastspitzen abfedern kann.
+
+|Zuverlässigkeit (Reliability)
+|IT-Systeme können Daten auch bei temporären Ausfällen der Datenbank zuverlässiger liefern.
+|===
+
+Demgegenüber kann der Einsatz eines Second-Level-Caches zu Herausforderungen und Risiken bei folgenden Qualitätskriterien führen.
+
+.Second-Level-Cache: Herausforderungen und Risiken nach Qualitätskriterien (ISO 25010)
+[cols="1,2", options="header"]
+|===
+|Qualitätskriterium
+|Herausforderungen / Risiken
+
+|Leistungsfähigkeit (Performance Efficiency)
+|Die im Cache gehaltenen Daten führen zu einem höheren Speicherverbrauch.
+
+|Funktionale Eignung (Functional Suitability)
+|Der Cache kann veraltete und damit potenziell inkonsistente Daten liefern.
+
+|Wartbarkeit (Maintainability)
+|Komplexe Cache-Konfigurationen können schwer zu debuggen und zu testen sein.
+|===
+
+[[second-level-cache-empfehlungen]]
+==== Empfehlungen zum Einsatz
+
+Die IsyFact gibt die folgenden, generellen Empfehlungen beim Einsatz von Second-Level-Caches, aufgeschlüsselt nach Qualitätskriterien.
+
+.Second-Level-Cache: Empfehlungen nach Qualitätskriterien (ISO 25010)
+[cols="1,2", options="header"]
+|===
+|Qualitätskriterium
+|Empfehlungen
+
+|Leistungsfähigkeit (Performance Efficiency)
+|Nur so viel wie nötig an Daten im Cache halten. +
+Gezielt Cache-Regionen und passende Cache-Strategien nutzen.
+
+|Funktionale Eignung (Functional Suitability)
+|Cache Eviction (z.B. bei Änderungen an den Daten) sorgfältig planen.
+
+|Wartbarkeit (Maintainability)
+|Cache-Konfiguration im xref:methodik:vorlage-systementwurf/antora-master.adoc[Systementwurf] dokumentieren.
+
+|===
 
 [[verwendung-von-hibernate-filtern]]
 === Verwendung von Hibernate Filtern
@@ -182,22 +230,60 @@ public class FilterExample {
 CAUTION: Das Suchen per Identifier (z.B. mittels `itemRepository.findById(1)`) wendet keine Filter an, siehe https://docs.jboss.org/hibernate/orm/5.6/userguide/html_single/Hibernate_User_Guide.html#pc-filtering[filtering entities and associations].
 
 
-[[verbot-von-bulk-queries]]
-=== Verbot von Bulk-Queries
+[[bulk-queries]]
+=== Einsatz von Bulk Queries
 
-JPA bietet über die Methode `query.executeUpdate()` die Möglichkeit in JPQL formulierte `DELETE`- und `UPDATE`-Statements, sog. Bulk-Queries, auszuführen.
-Die Nutzung solcher Bulk-Queries ist verboten.
-Wo aus Performancegründen massenhafte `DELETE`- oder `UPDATE`-Statements direkt in der Datenbank benötigt werden, können native SQL-Anweisungen verwendet werden.
-Sofern bei solchen Bulk-Operationen kaskadierende Änderungen benötigt werden (z.B. weil Kind-Tabellen mitgelöscht werden sollen), müssen entsprechende Constraints in der Datenbank angelegt werden.
+Bulk Queries (auch "Bulk Operations" genannt) sind Datenbankoperationen, bei denen mehrere Datensätze gleichzeitig geändert oder gelöscht werden, ohne dass sie vorher von Hibernate geladen werden.
+Bulk Queries sind typischerweise `UPDATE`- oder `DELETE`-Statements, die mehrere Zeilen einer Tabelle oder mehrere Tabellen gleichzeitig betreffen.
 
-Begründung: Hibernate erzeugt bei der Ausführung von `BULK`-Queries unter bestimmten Umständen zur Laufzeit implizit Hilfstabellen (temporäre Tabellen mit dem Präfix `HT_`).
+NOTE: Weitere Details zum Einsatz von Bulk Queries bietet die https://docs.jboss.org/hibernate/orm/current/userguide/html_single/Hibernate_User_Guide.html#batch-bulk-hql[offizielle Hibernate-Dokumentation].
 
-NOTE: siehe https://in.relation.to/2005/07/20/multitable-bulk-operations/[Multi-table Bulk Operations]
+[[bulk-queries-betrachtung]]
+==== Betrachtung der Vorteile, Herausforderungen und Risiken
 
-Dies führt dazu, dass der Datenbank-User der Anwendung entsprechende `CREATE TABLE`-Rechte benötigt, was i.d.R. nicht zugelassen ist.
-Weiterhin führt die Nutzung der temporären Tabellen in vielen Fällen zu Performance-Problemen.
+Der Einsatz von Bulk Queries kann die Erfüllung der folgenden Qualitätskriterien fördern.
 
-Um die Einhaltung dieser Anforderung sicherzustellen, sollten auch in der Entwicklung bzw. bei frühen Tests die Rechte auf die Testdatenbanken entsprechend beschränkt werden.
+.Bulk Queries: Vorteile nach Qualitätskriterien (ISO 25010)
+[cols="1,2", options="header"]
+|===
+|Qualitätskriterium
+|Vorteile
+
+|Leistungsfähigkeit (Performance Efficiency)
+|Bulk Queries besitzen eine sehr hohe Ausführungsgeschwindigkeit bei großen Datenmengen. +
+Bulk Queries sparen Speicher, da keine Entitäten geladen werden.
+
+|Funktionale Eignung (Functional Suitability)
+|Bulk Queries erfüllen funktionale Anforderungen zu Massenänderungen effizient.
+
+|===
+
+Demgegenüber kann der Einsatz von Bulk Queries zu Herausforderungen und Risiken bei folgenden Qualitätskriterien führen.
+
+.Bulk Queries: Herausforderungen und Risiken nach Qualitätskriterien (ISO 25010)
+[cols="1,2", options="header"]
+|===
+|Qualitätskriterium
+|Herausforderungen / Risiken
+
+|Funktionale Eignung (Functional Suitability)
+|Bulk Queries können zu Inkonsistenzen mit Caches und verwalteten Entitäten führen, da sie direkt auf der Datenbank ausgeführt werden. +
+Bulk Queries lösen keine JPA-Mechanismen wie Validierungen oder Callbacks (insbesondere `@PreUpdate` und `@PostUpdate`) aus.
+
+|Sicherheit (Security)
+|Bulk Queries benötigen in manchen Fällen das Recht, (temporäre) Tabellen anlegen zu dürfen.
+Dieses Recht besitzen IT-Systeme nicht.
+
+|Leistungsfähigkeit (Performance Efficiency)
+|Häufiges Invalidieren von Caches durch Bulk Queries schmälert den Leistungsgewinn durch Caches. +
+Das Verwenden von Bulk Queries ohne temporäre Tabellen kann zu hohem Speicherverbrauch und einer langsamen Ausführungsgeschwindigkeit führen.
+|===
+
+[[bulk-queries-empfehlungen]]
+==== Empfehlungen zum Einsatz
+
+Die IsyFact empfiehlt, wegen der Vielzahl der Herausforderungen Bulk Queries nur in begründeten Ausnahmefällen zu nutzen und ihren Einsatz im xref:methodik:vorlage-systementwurf/antora-master.adoc[Systementwurf] zu dokumentieren.
+Viele Anforderungen an Massenänderungen lassen sich durch die Verwendung von xref:referenzarchitektur:software-technisch/batch.adoc[Batches] erfüllen.
 
 
 [[vorgaben-or-mapping]]

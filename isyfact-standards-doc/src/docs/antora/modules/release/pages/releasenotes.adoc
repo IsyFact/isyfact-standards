@@ -33,6 +33,9 @@ Die Seiten zur Persistenzschicht enthalten nun die Inhalte des aufgelösten Baus
 Die Inhalte wurden gestrafft und Abschnitte, die Dokumentation der verwendeten Produkte wiedergaben, wurden durch Verweise auf die entsprechenden Dokumentationen ersetzt.
 Grundlegende Erklärungen zu den verwendeten Produkten wurden gänzlich entfernt.
 
+Bisherige Verbote im Rahmen der Persistenz wurden durch eine Empfehlung, basierend auf den Qualitätskriterien der ISO 25010, ersetzt.
+Dies gilt für den Einsatz eines xref:referenzarchitektur:software-technisch/backend/persistenz/vorgaben-konventionen.adoc#second-level-cache[Second-Level-Caches] sowie von xref:referenzarchitektur:software-technisch/backend/persistenz/vorgaben-konventionen.adoc#bulk-queries[Bulk Queries].
+
 ===== Schema-Versionierung
 
 Die bisher angebotene Schema-Versionierung in Form einer Eigenentwicklung wird nicht mehr durch die IsyFact bereitgestellt.
@@ -98,8 +101,10 @@ Die folgende Tabelle zeigt, auf welche Bausteine bzw. Konzepte die Anwendungen m
 |===
 |Entfernter Baustein|Migrieren auf
 |JPA/Hibernate
-a|konzeptionell: tbd
-// TODO Zielort der Dokumentation ergänzen.
+a|konzeptionell:
+
+* xref:referenzarchitektur:software-technisch/backend/persistenzschicht.adoc[]
+* xref:referenzarchitektur:software-technisch/backend/persistenz/vorgaben-konventionen.adoc[]
 
 technisch:
 
