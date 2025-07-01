@@ -10,7 +10,7 @@
 - `IFS-4546`: [isyfact-standards-doc] Verweis auf JAXP entfernt, Negativliste bereinigt und links entfernt
 - `IFS-4208`: [isyfact-standards-doc] Verwendungen der Begriffe "Nachbarsystem" und "Externes System" korrigiert
 - `IFS-4731`: Korrektes Auflösen der URL in SBOMs
-- `IFS-4531`: Update von Flatten Maven Plugin auf Version 1.7.0
+- `IFS-4531`: Update von Flatten Maven Plugin auf Version 1.7.1
   - Update von Maven Version auf 3.6.3
 ## BREAKING CHANGES
 - `IFS-4736`: [isy-persistence] Entfernung der Bibliothek aus den IsyFact-Standards
