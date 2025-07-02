@@ -12,7 +12,6 @@
         <pfad.methodik>src/docs/antora/modules/methodik</pfad.methodik>
 
         <asciidoctor.maven.plugin.version>2.2.6</asciidoctor.maven.plugin.version>
-        <asciidoctorj.pdf.version>2.3.10</asciidoctorj.pdf.version>
     </properties>
 
     <profiles>
@@ -37,13 +36,6 @@
                         <groupId>org.asciidoctor</groupId>
                         <artifactId>asciidoctor-maven-plugin</artifactId>
                         <version>${asciidoctor.maven.plugin.version}</version>
-                        <dependencies>
-                            <dependency>
-                                <groupId>org.asciidoctor</groupId>
-                                <artifactId>asciidoctorj-pdf</artifactId>
-                                <version>${asciidoctorj.pdf.version}</version>
-                            </dependency>
-                        </dependencies>
 
                         <configuration>
                             <outputDirectory>${project.build.directory}</outputDirectory>
