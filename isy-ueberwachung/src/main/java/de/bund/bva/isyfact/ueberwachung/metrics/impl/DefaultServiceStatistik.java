@@ -73,21 +73,9 @@ public class DefaultServiceStatistik implements ServiceStatistik, MethodIntercep
     private final AtomicReference<LocalDateTime> letzteMinute = new AtomicReference<>(DateTimeUtil.localDateTimeNow());
 
     /**
-     * Number of non-error calls made in the minute called 'last minute'.
-     */
-    private final AtomicInteger anzahlAufrufeLetzteMinute = new AtomicInteger();
-
-    /**
      * Number of calls made in the current minute.
      */
     private final AtomicInteger anzahlAufrufeAktuelleMinute = new AtomicInteger();
-
-    /**
-     * The number of technical errors in the last minute.
-     * <p>
-     * A technical error occurs if a {@link TechnicalException} was thrown.
-     */
-    private final AtomicInteger anzahlTechnicalExceptionsLetzteMinute = new AtomicInteger();
 
     /**
      * The number of technical errors in the current minute.
@@ -95,13 +83,6 @@ public class DefaultServiceStatistik implements ServiceStatistik, MethodIntercep
      * A technical error occurs if a {@link TechnicalException} was thrown.
      */
     private final AtomicInteger anzahlTechnicalExceptionsAktuelleMinute = new AtomicInteger();
-
-    /**
-     * The number of business errors in the last minute.
-     * <p>
-     * A business error occurs if a {@link BusinessException} was thrown.
-     */
-    private final AtomicInteger anzahlBusinessExceptionsLetzteMinute = new AtomicInteger();
 
     /**
      * The number of business errors in the current minute.
@@ -191,17 +172,6 @@ public class DefaultServiceStatistik implements ServiceStatistik, MethodIntercep
             LocalDateTime aktuelleMinute = getAktuelleMinute();
             LocalDateTime letzteMinute = this.letzteMinute.get();
             if (!aktuelleMinute.isEqual(letzteMinute)) {
-                if (ChronoUnit.MINUTES.between(letzteMinute, aktuelleMinute) > 1) {
-                    // no last minute infos
-                    anzahlAufrufeLetzteMinute.set(0);
-                    anzahlTechnicalExceptionsLetzteMinute.set(0);
-                    anzahlBusinessExceptionsLetzteMinute.set(0);
-                } else {
-                    anzahlAufrufeLetzteMinute.set(anzahlAufrufeAktuelleMinute.get());
-                    anzahlTechnicalExceptionsLetzteMinute.set(anzahlTechnicalExceptionsAktuelleMinute.get());
-                    anzahlBusinessExceptionsLetzteMinute.set(anzahlBusinessExceptionsAktuelleMinute.get());
-                }
-
                 anzahlAufrufeAktuelleMinute.set(0);
                 anzahlTechnicalExceptionsAktuelleMinute.set(0);
                 anzahlBusinessExceptionsAktuelleMinute.set(0);
@@ -238,24 +208,6 @@ public class DefaultServiceStatistik implements ServiceStatistik, MethodIntercep
     @Override
     public long getAnzahlBusinessExceptions() {
         return anzahlBusinessExceptions.get();
-    }
-
-    @Override
-    public int getAnzahlAufrufeLetzteMinute() {
-        aktualisiereZeitfenster();
-        return anzahlAufrufeLetzteMinute.get();
-    }
-
-    @Override
-    public int getAnzahlFehlerLetzteMinute() {
-        aktualisiereZeitfenster();
-        return anzahlTechnicalExceptionsLetzteMinute.get();
-    }
-
-    @Override
-    public int getAnzahlFachlicheFehlerLetzteMinute() {
-        aktualisiereZeitfenster();
-        return anzahlBusinessExceptionsLetzteMinute.get();
     }
 
     @Override
