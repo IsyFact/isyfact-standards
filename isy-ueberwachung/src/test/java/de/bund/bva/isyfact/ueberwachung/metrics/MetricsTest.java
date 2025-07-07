@@ -7,8 +7,6 @@ import java.time.Clock;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.ZoneId;
-import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalUnit;
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
@@ -30,7 +28,6 @@ import de.bund.bva.isyfact.datetime.util.DateTimeUtil;
 import de.bund.bva.isyfact.logging.autoconfigure.IsyLoggingAutoConfiguration;
 import de.bund.bva.isyfact.ueberwachung.metrics.impl.DefaultServiceStatistik;
 
-import io.micrometer.core.instrument.Gauge;
 import io.micrometer.core.instrument.Meter;
 import io.micrometer.core.instrument.MeterRegistry;
 
@@ -61,9 +58,6 @@ public class MetricsTest {
                         "anzahlAufrufe",
                         "anzahlBusinessExceptions",
                         "anzahlTechnicalExceptions",
-                        "anzahlAufrufe.LetzteMinute",
-                        "anzahlFachlicheFehler.LetzteMinute",
-                        "anzahlFehler.LetzteMinute",
                         "durchschnittsDauer.LetzteAufrufe",
                         "jvm.classes.loaded"
                 )
@@ -90,27 +84,6 @@ public class MetricsTest {
     }
 
     @Test
-    public void serviceStats_lastMinuteAvailable() {
-        testService.call1();
-        testService.call1();
-
-        assertThat(meterRegistry.get("anzahlAufrufe.LetzteMinute").gauges())
-                .extracting(Gauge::value)
-                .containsOnly(0.0);
-
-        moveClockBy(1, ChronoUnit.MINUTES);
-        assertThat(meterRegistry.get("anzahlAufrufe.LetzteMinute").tag("serviceMethod", "call1").gauge().value())
-                .isEqualTo(2.0);
-        assertThat(meterRegistry.get("anzahlAufrufe.LetzteMinute").tag("serviceMethod", "call2").gauge().value())
-                .isZero();
-
-        moveClockBy(2, ChronoUnit.MINUTES);
-        assertThat(meterRegistry.get("anzahlAufrufe.LetzteMinute").gauges())
-                .extracting(Gauge::value)
-                .containsOnly(0.0);
-    }
-
-    @Test
     public void serviceStats_durationStats() {
         final Duration[] durations = { Duration.ofMillis(10), Duration.ofMillis(20), Duration.ofMillis(30) };
 
@@ -128,10 +101,6 @@ public class MetricsTest {
                 .timeGauge()
                 .value(TimeUnit.MILLISECONDS)
         ).isEqualTo(meanDuration.toMillis());
-    }
-
-    private static void moveClockBy(long amountToAdd, TemporalUnit unit) {
-        moveClockBy(Duration.of(amountToAdd, unit));
     }
 
     private static void moveClockBy(Duration amountToAdd) {
