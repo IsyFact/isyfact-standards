@@ -2,12 +2,8 @@ package de.bund.bva.isyfact.ueberwachung.metrics.impl;
 
 import java.time.Duration;
 import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.concurrent.ConcurrentLinkedDeque;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
-import java.util.concurrent.atomic.AtomicReference;
 
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
@@ -66,31 +62,6 @@ public class DefaultServiceStatistik implements ServiceStatistik, MethodIntercep
      */
     private final AtomicLong anzahlBusinessExceptions = new AtomicLong();
 
-
-    /**
-     * Flag for the minute in which values of the last minute were determined.
-     */
-    private final AtomicReference<LocalDateTime> letzteMinute = new AtomicReference<>(DateTimeUtil.localDateTimeNow());
-
-    /**
-     * Number of calls made in the current minute.
-     */
-    private final AtomicInteger anzahlAufrufeAktuelleMinute = new AtomicInteger();
-
-    /**
-     * The number of technical errors in the current minute.
-     * <p>
-     * A technical error occurs if a {@link TechnicalException} was thrown.
-     */
-    private final AtomicInteger anzahlTechnicalExceptionsAktuelleMinute = new AtomicInteger();
-
-    /**
-     * The number of business errors in the current minute.
-     * <p>
-     * A business error occurs if a {@link BusinessException} was thrown.
-     */
-    private final AtomicInteger anzahlBusinessExceptionsAktuelleMinute = new AtomicInteger();
-
     /**
      * Micrometer tags.
      */
@@ -104,15 +75,6 @@ public class DefaultServiceStatistik implements ServiceStatistik, MethodIntercep
      */
     public DefaultServiceStatistik(String... tags) {
         this.tags = tags.clone();
-    }
-
-    /**
-     * Calculates the current minute of the system time.
-     *
-     * @return The minute part of the current system time.
-     */
-    private static LocalDateTime getAktuelleMinute() {
-        return DateTimeUtil.localDateTimeNow().truncatedTo(ChronoUnit.MINUTES);
     }
 
     /**
@@ -139,19 +101,15 @@ public class DefaultServiceStatistik implements ServiceStatistik, MethodIntercep
      * @param functionallySuccessful Flag, if the call was successful ({@code true}) or a business error occurred ({@code false}).
      */
     public void zaehleAufruf(Duration dauer, boolean technicallySuccessful, boolean functionallySuccessful) {
-        synchronized (anzahlAufrufeAktuelleMinute) {
-            aktualisiereZeitfenster();
+        synchronized (anzahlAufrufe) {
             anzahlAufrufe.incrementAndGet();
-            anzahlAufrufeAktuelleMinute.incrementAndGet();
 
             if (!technicallySuccessful) {
                 anzahlTechnicalExceptions.incrementAndGet();
-                anzahlTechnicalExceptionsAktuelleMinute.incrementAndGet();
             }
 
             if (!functionallySuccessful) {
                 anzahlBusinessExceptions.incrementAndGet();
-                anzahlBusinessExceptionsAktuelleMinute.incrementAndGet();
             }
         }
         synchronized (letzteSuchdauern) {
@@ -159,24 +117,6 @@ public class DefaultServiceStatistik implements ServiceStatistik, MethodIntercep
                 letzteSuchdauern.removeLast();
             }
             letzteSuchdauern.addFirst(dauer);
-        }
-    }
-
-    /**
-     * This method causes the time window for the counters of errors and calls to be updated in the current
-     * and last minute. If a minute has elapsed, the values of the current * minute are copied to those of the counters for the last minute.
-     * The counters for the current minute are set to 0. The method ensures that this operation can be performed only once per minute.
-     */
-    private void aktualisiereZeitfenster() {
-        synchronized (letzteMinute) {
-            LocalDateTime aktuelleMinute = getAktuelleMinute();
-            LocalDateTime letzteMinute = this.letzteMinute.get();
-            if (!aktuelleMinute.isEqual(letzteMinute)) {
-                anzahlAufrufeAktuelleMinute.set(0);
-                anzahlTechnicalExceptionsAktuelleMinute.set(0);
-                anzahlBusinessExceptionsAktuelleMinute.set(0);
-                this.letzteMinute.set(aktuelleMinute);
-            }
         }
     }
 
