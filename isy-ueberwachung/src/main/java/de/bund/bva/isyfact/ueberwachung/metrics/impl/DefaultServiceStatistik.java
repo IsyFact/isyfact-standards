@@ -32,13 +32,6 @@ public class DefaultServiceStatistik implements ServiceStatistik, MethodIntercep
     private static final IsyLogger LOG = IsyLoggerFactory.getLogger(DefaultServiceStatistik.class);
 
     /**
-     * Specifies whether the return object structures should be checked for business errors. May
-     * have an impact on performance.
-     */
-    @Deprecated
-    private boolean businessFehlerpruefung;
-
-    /**
      * Duration of the last search calls (in milliseconds).
      */
     private final ConcurrentLinkedDeque<Duration> letzteSuchdauern = new ConcurrentLinkedDeque<>();
@@ -75,17 +68,6 @@ public class DefaultServiceStatistik implements ServiceStatistik, MethodIntercep
      */
     public DefaultServiceStatistik(String... tags) {
         this.tags = tags.clone();
-    }
-
-    /**
-     * Specifies whether the return object structures should be checked for technical errors. May
-     * have performance implications.
-     *
-     * @param businessFehlerpruefung {@code true} if the return object structure should be checked for technical errors, otherwise {@code false}.
-     */
-    @Deprecated
-    public void setBusinessFehlerpruefung(boolean businessFehlerpruefung) {
-        this.businessFehlerpruefung = businessFehlerpruefung;
     }
 
     @Override
@@ -185,10 +167,6 @@ public class DefaultServiceStatistik implements ServiceStatistik, MethodIntercep
 
     @Override
     public void afterPropertiesSet() {
-        if (businessFehlerpruefung) {
-            LOG.debug("ServiceStatistik mit erweiterter fachlicher Fehlerprüfung initialisiert.");
-        } else {
-            LOG.debug("ServiceStatistik initialisiert.");
-        }
+        LOG.debug("ServiceStatistik initialisiert.");
     }
 }
