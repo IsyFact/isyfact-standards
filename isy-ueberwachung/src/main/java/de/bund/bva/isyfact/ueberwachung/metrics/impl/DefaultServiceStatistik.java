@@ -36,10 +36,12 @@ public class DefaultServiceStatistik implements ServiceStatistik, MethodIntercep
     private static final IsyLogger LOG = IsyLoggerFactory.getLogger(DefaultServiceStatistik.class);
 
     /**
-     * Specifies whether the return object structures should be checked for business errors. May
-     * have an impact on performance.
+     * Specifies whether the return object structures should be checked for business errors.
+     * May have an impact on performance.
+     *
+     * @deprecated Will be removed in version 5.0.0.
      */
-    @Deprecated
+    @Deprecated(forRemoval = true)
     private boolean businessFehlerpruefung;
 
     /**
@@ -138,9 +140,11 @@ public class DefaultServiceStatistik implements ServiceStatistik, MethodIntercep
      * Specifies whether the return object structures should be checked for technical errors. May
      * have performance implications.
      *
+     * @deprecated Will be removed in version 5.0.0.
+     *
      * @param businessFehlerpruefung {@code true} if the return object structure should be checked for technical errors, otherwise {@code false}.
      */
-    @Deprecated
+    @Deprecated(forRemoval = true)
     public void setBusinessFehlerpruefung(boolean businessFehlerpruefung) {
         this.businessFehlerpruefung = businessFehlerpruefung;
     }
