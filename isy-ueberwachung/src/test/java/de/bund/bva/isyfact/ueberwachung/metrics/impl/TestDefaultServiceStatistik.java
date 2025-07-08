@@ -47,8 +47,6 @@ public class TestDefaultServiceStatistik {
 
     private static final IsyLogger LOG = IsyLoggerFactory.getLogger(TestDefaultServiceStatistik.class);
 
-    private Gauge anzahlAufrufeLetzteMinute;
-    private Gauge anzahlFehlerLetzteMinute;
     private Gauge anzahlAufrufe;
     private Gauge anzahlFehler;
     private Gauge anzahlBusinessFehler;
@@ -56,8 +54,6 @@ public class TestDefaultServiceStatistik {
 
     @PostConstruct
     private void postConstruct() {
-        anzahlAufrufeLetzteMinute = meterRegistry.get("anzahlAufrufe.LetzteMinute").gauge();
-        anzahlFehlerLetzteMinute = meterRegistry.get("anzahlFehler.LetzteMinute").gauge();
         anzahlAufrufe = meterRegistry.get("anzahlAufrufe").gauge();
         anzahlFehler = meterRegistry.get("anzahlTechnicalExceptions").gauge();
         anzahlBusinessFehler = meterRegistry.get("anzahlBusinessExceptions").gauge();
@@ -106,34 +102,21 @@ public class TestDefaultServiceStatistik {
 
         double durchschnittsDauerRef = durchschnittsDauer.value();
 
-        LOG.info(LogKategorie.METRIK, EreignisSchluessel.PLUEB00001,
-            "AnzahlAufrufeLetzteMinute: {}", anzahlAufrufeLetzteMinute.value());
-        LOG.info(LogKategorie.METRIK, EreignisSchluessel.PLUEB00001, "anzahlTechnicalExceptionsLetzteMinute: {}",
-            anzahlFehlerLetzteMinute.value());
         LOG.info(LogKategorie.METRIK, EreignisSchluessel.PLUEB00001, "DurchschnittsDauerLetzteZehnAufrufe: {}",
             durchschnittsDauerRef);
-        // the statistics from the current minute are not yet populated
-        assertEquals(0, anzahlAufrufeLetzteMinute.value(), 0.0);
-        assertEquals(0, anzahlFehlerLetzteMinute.value(), 0.0);
         assertTrue(durchschnittsDauerRef > 0.0);
 
         LOG.debug("Stelle Uhr um 1 Minute nach vorn");
         ((TestClock)DateTimeUtil.getClock()).advanceBy(Duration.ofMinutes(1));
 
-        LOG.info(LogKategorie.METRIK, EreignisSchluessel.PLUEB00001,
-            "AnzahlAufrufeLetzteMinute: {}", anzahlAufrufeLetzteMinute.value());
-        LOG.info(LogKategorie.METRIK, EreignisSchluessel.PLUEB00001, "anzahlTechnicalExceptionsLetzteMinute: {}",
-            anzahlFehlerLetzteMinute.value());
         LOG.info(LogKategorie.METRIK, EreignisSchluessel.PLUEB00001, "DurchschnittsDauerLetzteZehnAufrufe: {}",
             durchschnittsDauerRef);
-        assertEquals(anzahlAufrufe, anzahlAufrufeLetzteMinute.value(), 0.0);
-        assertTrue(anzahlFehlerLetzteMinute.value() > 0.0);
         assertEquals(durchschnittsDauerRef, durchschnittsDauer.value(), 0.0);
         LOG.info(LogKategorie.JOURNAL, EreignisSchluessel.PLUEB00001, "Prüfungen für 1. Minute erfolgreich");
     }
 
     /**
-     * Tests ZaehleAufruf without MBean call in the first minute.
+     * Tests ZaehleAufruf without MBean.
      */
     @Test
     public void testZaehleAufrufNachAbstand() {
@@ -151,30 +134,16 @@ public class TestDefaultServiceStatistik {
 
         double durchschnittsDauerRef = durchschnittsDauer.value();
 
-        LOG.info(LogKategorie.METRIK, EreignisSchluessel.PLUEB00001,
-            "AnzahlAufrufeLetzteMinute: {}", anzahlAufrufeLetzteMinute);
-        LOG.info(LogKategorie.METRIK, EreignisSchluessel.PLUEB00001, "AnzahlTechnicalExceptionsLetzteMinute: {}",
-            anzahlFehlerLetzteMinute);
         LOG.info(LogKategorie.METRIK, EreignisSchluessel.PLUEB00001, "DurchschnittsDauerLetzteZehnAufrufe: {}",
             durchschnittsDauerRef);
-        // the statistics from the current minute are not yet populated
-        assertEquals(0, anzahlAufrufeLetzteMinute.value(), 0.0);
-        assertEquals(0, anzahlFehlerLetzteMinute.value(), 0.0);
         assertTrue(durchschnittsDauerRef > 0.0);
 
-        // wait 120 seconds and check the values. Since there were no calls in the last minute
-        // number of calls and number of erroneous calls should be zero.
+        // wait 120 seconds and check the values
         LOG.debug("Stelle Uhr um 2 Minuten nach vorn");
         ((TestClock)DateTimeUtil.getClock()).advanceBy(Duration.ofMinutes(2));
 
-        LOG.info(LogKategorie.METRIK, EreignisSchluessel.PLUEB00001,
-            "AnzahlAufrufeLetzteMinute: {}", anzahlAufrufeLetzteMinute);
-        LOG.info(LogKategorie.METRIK, EreignisSchluessel.PLUEB00001, "AnzahlTechnicalExceptionsLetzteMinute: {}",
-            anzahlFehlerLetzteMinute);
         LOG.info(LogKategorie.METRIK, EreignisSchluessel.PLUEB00001, "DurchschnittsDauerLetzteZehnAufrufe: {}",
             durchschnittsDauerRef);
-        assertEquals(0, anzahlAufrufeLetzteMinute.value(), 0.0);
-        assertEquals(0, anzahlFehlerLetzteMinute.value(), 0.0);
         assertEquals(durchschnittsDauerRef, durchschnittsDauer.value(), 0.0);
         LOG.info(LogKategorie.JOURNAL, EreignisSchluessel.PLUEB00001, "Prüfungen für 2. Minute erfolgreich");
     }
