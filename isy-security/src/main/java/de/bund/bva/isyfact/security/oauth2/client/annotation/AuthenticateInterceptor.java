@@ -14,6 +14,7 @@ import org.springframework.context.support.EmbeddedValueResolutionSupport;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.security.authorization.method.AuthorizationInterceptorsOrder;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.Assert;
 
@@ -46,6 +47,7 @@ public class AuthenticateInterceptor extends EmbeddedValueResolutionSupport impl
     @Override
     public Object invoke(MethodInvocation invocation) throws Throwable {
         boolean correlationIdCreated = false;
+        Authentication initialAuthentication = SecurityContextHolder.getContext().getAuthentication();
         try {
             String correlationId = MdcHelper.liesKorrelationsId();
             if (correlationId == null || correlationId.isEmpty()) {
@@ -56,8 +58,8 @@ public class AuthenticateInterceptor extends EmbeddedValueResolutionSupport impl
             authenticateOAuth2Client(invocation);
             return invocation.proceed();
         } finally {
-            // clear the authenticated principal after method
-            SecurityContextHolder.getContext().setAuthentication(null);
+            // reset the authenticated principal after method
+            SecurityContextHolder.getContext().setAuthentication(initialAuthentication);
             if (correlationIdCreated) {
                 MdcHelper.entferneKorrelationsId();
             }
