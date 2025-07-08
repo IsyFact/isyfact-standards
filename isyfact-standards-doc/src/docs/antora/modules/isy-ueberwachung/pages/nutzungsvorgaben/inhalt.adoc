@@ -84,6 +84,9 @@ m|AnzahlFachlicheFehlerLetzteMinute |Liefert die Anzahl der in der letzten Minut
 m|DurchschnittsDauerLetzteAufrufe |Liefert die durchschnittliche Bearbeitungsdauer der letzten 10 Aufrufe der Services in Millisekunden (einfacher gleitender Durchschnitt).
 |====
 
+WARNING: Folgende Metriken werden in Version 5.0.0 entfernt: `AnzahlAufrufeLetzteMinute`, `AnzahlFehlerLetzteMinute`, `AnzahlFachlicheFehlerLetzteMinute`.
+Bei Bedarf können diese mit Prometheus-Queries nachgebildet werden.
+
 Das Interface `ServiceStatistik` ermöglicht es, Klassen zum Sammeln von Metriken zu erstellen.
 Alle `ServiceStatistik` implementierenden Beans werden automatisch der Micrometer-Registry hinzugefügt.
 
