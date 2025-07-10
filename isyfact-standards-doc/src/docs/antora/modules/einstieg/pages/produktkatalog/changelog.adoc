@@ -1,6 +1,15 @@
 [[changelog]]
 = Changelog
 
+*Änderungen IsyFact 3.3.0*
+
+// tag::release-3.3.0[]
+* Anhebung von Versionen:
+
+** Spring Security auf 5.8.16
+
+// end::release-3.3.0[]
+
 *Änderungen IsyFact 3.2.1*
 
 // tag::release-3.2.1[]

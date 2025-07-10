@@ -1,6 +1,15 @@
 [[changelog]]
 = Changelog
 
+*Änderungen IsyFact 3.3.0*
+
+// tag::release-3.3.0[]
+
+- `IFS-4754`: Einführung von Caching im Authentifizierungsprozess
+- `IFS-4248`: Hinzufügen einer Klasse `ClaimsOnlyOAuth2AuthenticationToken`, welche innerhalb einer Anwendung verwendet werden kann, um Metadaten (bspw. der Name eines laufenden Batches) über den SecurityContext auszutauschen
+
+// end::release-3.3.0[]
+
 *Änderungen IsyFact 3.1.0*
 
 // tag::release-3.1.0[]

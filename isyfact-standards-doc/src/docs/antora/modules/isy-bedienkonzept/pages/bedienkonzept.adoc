@@ -1091,10 +1091,7 @@ In diesem Kapitel werden Bedienelemente besprochen und allgemeine Eigenschaften 
 [[testbarkeit-bedienelemente]]
 *Testbarkeit der Bedienelemente*
 
-Um die Grundlage für automatische Tests (Einsatz von Testframeworks) von Bedienelementen einer Web-basierenden Anwendung zu schaffen, sollten allen Maskenobjekten im HTML-Sourcecode eindeutige IDs zugeordnet sein (s.a. Abschnitt: xref:Testbarkeit-von-Anwendungen[Testbarkeit von Web-basierenden Anwendungen]).
-
-
-
+Um die Grundlage für automatische Tests (Einsatz von Testframeworks) von Bedienelementen einer Web-basierenden Anwendung zu schaffen, sollten allen Maskenobjekten im HTML-Sourcecode eindeutige IDs zugeordnet sein.
 
 *Kontextabhängige Darstellung*
 

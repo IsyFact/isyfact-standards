@@ -1,9 +1,23 @@
 [[changelog]]
 = Changelog
 
-// *Änderungen IsyFact 3.0.0*
+*Änderungen IsyFact 3.3.0*
+
+// tag::release-3.3.0[]
+
+- `IFS-4464`: AutoConfiguration der Klasse MdcFilterAutoConfiguration nach isy-logging verschoben
+- `IFS-4676`: Scope der Abhängigkeit zu AspectJ-Weaver auf Runtime gesetzt
+* Definitionen der Aspekte zum Kompilieren werden von org.aspectj:aspectjrt bereitgestellt
+
+// end::release-3.3.0[]
+
+*Änderungen IsyFact 3.0.0*
 
 // tag::release-3.0.0[]
+
+- `ISY-650`: Bean zum Setzen der Korrelations-ID angepasst:
+* `HttpHeaderNestedDiagnosticContextFilter` aus `isy-aufrufkontext` eingefügt
+* `FilterRegistrationBean<HttpHeaderNestedDiagnosticContextFilter>` überschreibbar
 
 // end::release-3.0.0[]
 
