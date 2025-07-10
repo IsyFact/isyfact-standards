@@ -58,6 +58,11 @@ public class IsySecurityConfigurationProperties {
          */
         private int maxelements = 10000;
 
+        /**
+         * Minimal remaining token validity in seconds of a cached token.
+         */
+        private int tokenExpirationTimeOffset = 60;
+
         public int getTtl() {
             return ttl;
         }
@@ -72,6 +77,14 @@ public class IsySecurityConfigurationProperties {
 
         public void setMaxelements(int maxelements) {
             this.maxelements = maxelements;
+        }
+
+        public int getTokenExpirationTimeOffset() {
+            return tokenExpirationTimeOffset;
+        }
+
+        public void setTokenExpirationTimeOffset(int tokenExpirationTimeOffset) {
+            this.tokenExpirationTimeOffset = tokenExpirationTimeOffset;
         }
     }
 }
