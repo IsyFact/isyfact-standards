@@ -76,6 +76,11 @@
             <artifactId>spring-boot-autoconfigure-processor</artifactId>
             <optional>true</optional>
         </dependency>
+        <!-- for caching logic in isy-security -->
+        <dependency>
+            <groupId>org.ehcache</groupId>
+            <artifactId>ehcache</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>de.bund.bva.isyfact</groupId>
