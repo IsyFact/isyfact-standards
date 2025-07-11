@@ -64,7 +64,7 @@
         <maven.surefire.argline>
             -Xmx1g -Dfile.encoding=${project.build.sourceEncoding} @{maven.jacoco.argLine}
         </maven.surefire.argline>
-        <maven-surefire.version>3.2.5</maven-surefire.version>
+        <maven-surefire.version>3.5.2</maven-surefire.version>
 
         <!-- maven-checkstyle-plugin property -->
         <maven.checkstyle.version>3.6.0</maven.checkstyle.version>
