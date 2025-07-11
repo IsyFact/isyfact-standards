@@ -3,58 +3,28 @@
 
 *Änderungen IsyFact 4.0.0*
 
-// tag::release-4.0.0[]
+
 - `IFS-1796`: Änderung der Architekturregel zur Weitergabe von Entitäten
 - `IFS-1796`: Entfernung der Vorgabe zur Implementierung der Embeddable Annotation
-// end::release-4.0.0[]
+
 
 *Änderungen IsyFact 3.0.0*
 
-// tag::release-3.0.0[]
+
 - `IFS-821`: Detailkonzept Datenzugriff aufgeteilt. Hibernate-spezifische Teile sind in einen eigenen Baustein "JPA/Hibernate" ausgelagert worden.
 - `IFS-1609`: Standardisierte Übertragung von Metadaten dokumentiert.
 
-// end::release-3.0.0[]
+
 
 *Änderungen IsyFact 2.4.0*
 
-// tag::release-2.4.0[]
+
 - `IFS-938`: Neue Architekturregel zur GUI-Validierung wurde hinzugefügt.
-// end::release-2.4.0[]
 
-// *Änderungen IsyFact 2.3.0*
-
-// tag::release-2.3.0[]
-
-// end::release-2.3.0[]
 
 *Änderungen IsyFact 2.2.0*
 
-// tag::release-2.2.0[]
+
 - `IFS-962`: Alte Tickets zur Anpassung der Dokumentation auf Aktualität geprüft und Dokumentation entsprechend angepasst.
 - `IFS-543`: Vorgabe für die Verwendung von Dependency-Injection eingefügt
-// end::release-2.2.0[]
 
-// *Änderungen IsyFact 2.1.0*
-
-// tag::release-2.1.0[]
-
-// end::release-2.1.0[]
-
-// *Änderungen IsyFact 2.0.0*
-
-// tag::release-2.0.0[]
-
-// end::release-2.0.0[]
-
-// *Änderungen IsyFact 1.7.0*
-
-// tag::release-1.7.0[]
-
-// end::release-1.7.0[]
-
-*Änderungen IsyFact 1.6.0*
-
-// tag::release-1.6.0[]
-- `IFS-159`: Vorhalten von Skripten zum Aktualisieren von DB-Schemas konkretisiert
-// end::release-1.6.0[]

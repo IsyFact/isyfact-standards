@@ -11,6 +11,8 @@
 - `IFS-4208`: [isyfact-standards-doc] Verwendungen der Begriffe "Nachbarsystem" und "Externes System" korrigiert
 - `IFS-4731`: Korrektes Auflösen der URL in SBOMs
 - `IFS-4532`: [isyfact-standards-doc] Entfernt die Maven Property org.asciidoctorj.pdf aus Dokumentationsbuild
+- `IFS-4655`: Update von Maven Checkstyle Plugin auf Version 3.6.0
+
 ## BREAKING CHANGES
 - `IFS-4736`: [isy-persistence] Entfernung der Bibliothek aus den IsyFact-Standards
 - `IFS-4582`: [isy-persistence], [isy-polling], [isy-security], [isy-security-test], [isy-task], [isy-util] Entfernen der entkoppelten Bausteine aus dem Standards-Repository

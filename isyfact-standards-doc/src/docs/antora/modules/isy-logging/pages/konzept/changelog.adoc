@@ -3,58 +3,25 @@
 
 *Änderungen IsyFact 4.0.0*
 
-tag::release-4.0.0[]
 - `IFS-3663` Erwähnung PLIS aus Diagramm entfernt
-end::release-4.0.0[]
-
-// *Änderungen IsyFact 3.0.0*
-
-// tag::release-3.0.0[]
-
-// end::release-3.0.0[]
 
 *Änderungen IsyFact 2.4.0*
 
-// tag::release-2.4.0[]
+
 - `IFS-992`: Der Abschnitt "IsyFact-konforme Anwendungen" wurde bearbeitet
 - `IFS-995`: Das Attribut "gekuerzt" wurde in einen anderen Abschnitt verschoben
-// end::release-2.4.0[]
+
 
 *Änderungen IsyFact 2.3.0*
 
-// tag::release-2.3.0[]
+
 - `IFS-993`: Passagen zum Thema vor Logging-Konzept Version 3.0 wurde entfernt
 - `IFS-994`: Passagen zum Thema ASV wurden entfernt
-// end::release-2.3.0[]
+
 
 *Änderungen IsyFact 2.2.0*
 
-// tag::release-2.2.0[]
+
 - `IFS-962`: Alte Tickets zur Anpassung der Dokumentation auf Aktualität geprüft und Dokumentation entsprechend angepasst
 - `IFS-993`: Passagen zum Thema vor Logging-Konzept Version 3.0 wurde entfernt
-// end::release-2.2.0[]
 
-// *Änderungen IsyFact 2.1.0*
-
-// tag::release-2.1.0[]
-
-// end::release-2.1.0[]
-
-// *Änderungen IsyFact 2.0.0*
-
-// tag::release-2.0.0[]
-
-// end::release-2.0.0[]
-
-*Änderungen IsyFact 1.7.0*
-
-// tag::release-1.7.0[]
-- `IFS-225`: Anpassung der Logging-Nutzungsvorgaben aufgrund Änderungen im Logging-Framework (Begrenzung Log-Länge)
-// end::release-1.7.0[]
-
-*Änderungen IsyFact 1.6.0*
-
-// tag::release-1.6.0[]
-- `IFS-218`: Hinweise zu DSGVO-Markern für das Logging hinzugefügt
-- `IFS-177`: Betriebliche Behandlung von Batch-Logs
-// end::release-1.6.0[]
