@@ -10,6 +10,7 @@
 - `IFS-4546`: [isyfact-standards-doc] Verweis auf JAXP entfernt, Negativliste bereinigt und links entfernt
 - `IFS-4208`: [isyfact-standards-doc] Verwendungen der Begriffe "Nachbarsystem" und "Externes System" korrigiert
 - `IFS-4731`: Korrektes Auflösen der URL in SBOMs
+- `IFS-4530`: Update von UCP auf Version 19.27.0.0
 - `IFS-4532`: [isyfact-standards-doc] Entfernt die Maven Property org.asciidoctorj.pdf aus Dokumentationsbuild
 - `IFS-4655`: Update von Maven Checkstyle Plugin auf Version 3.6.0
 
