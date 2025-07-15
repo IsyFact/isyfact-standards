@@ -36,7 +36,6 @@
                         <groupId>org.asciidoctor</groupId>
                         <artifactId>asciidoctor-maven-plugin</artifactId>
                         <version>${asciidoctor.maven.plugin.version}</version>
-
                         <configuration>
                             <outputDirectory>${project.build.directory}</outputDirectory>
                             <attributes>
