@@ -359,14 +359,14 @@ public class IsyOAuth2Authentifizierungsmanager implements Authentifizierungsman
                                         Duration.ofSeconds(properties.getCache().getTtl())))
                         .build();
 
-        CacheManager cacheManager =
+        CacheManager configuredCacheManager =
                 CacheManagerBuilder.newCacheManagerBuilder()
                         .withCache(CACHE_ALIAS, cacheConfiguration)
                         .build(true);
 
-        Cache<Integer, Authentication> cache = cacheManager.getCache(CACHE_ALIAS, Integer.class, Authentication.class);
+        Cache<Integer, Authentication> cache = configuredCacheManager.getCache(CACHE_ALIAS, Integer.class, Authentication.class);
 
-        return new CacheSetupResult(cacheManager, cache);
+        return new CacheSetupResult(configuredCacheManager, cache);
     }
 
     /**
