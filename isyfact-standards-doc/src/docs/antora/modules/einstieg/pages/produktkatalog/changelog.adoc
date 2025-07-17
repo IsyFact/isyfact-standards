@@ -1,6 +1,13 @@
 [[changelog]]
 = Changelog
 
+*Änderungen IsyFact 5.0.0*
+
+// tag::release-5.0.0[]
+* Anhebung von Versionen:
+** Maven auf 3.6.3
+// end::release-5.0.0[]
+
 *Änderungen IsyFact 4.0.0*
 
 
