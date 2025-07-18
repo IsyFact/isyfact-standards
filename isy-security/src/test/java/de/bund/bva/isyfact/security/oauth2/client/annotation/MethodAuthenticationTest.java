@@ -60,6 +60,21 @@ public class MethodAuthenticationTest {
     }
 
     @Test
+    public void resetAuthenticationToInitialValue() {
+        SecurityContextHolder.getContext().setAuthentication(TEST_AUTH_TOKEN);
+
+        // initial principal is set before method call
+        assertNotNull(SecurityContextHolder.getContext().getAuthentication());
+
+        Authentication methodAuthentication = service.authenticateWithValue();
+        assertEquals(TEST_AUTH_TOKEN, methodAuthentication);
+
+        // initial principal is set after method call
+        assertNotNull(SecurityContextHolder.getContext().getAuthentication());
+        assertEquals(TEST_AUTH_TOKEN, SecurityContextHolder.getContext().getAuthentication());
+    }
+
+    @Test
     public void authenticatedPrincipalSetByValueInAnnotation() {
         // no principal before method call
         assertNull(SecurityContextHolder.getContext().getAuthentication());
