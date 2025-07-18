@@ -1,13 +1,11 @@
 package de.bund.bva.isyfact.security.oauth2.client;
 
-import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
-
+import java.lang.reflect.Field;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -23,6 +21,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.client.registration.ClientRegistration;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.jwt.Jwt;
+import org.springframework.security.oauth2.server.resource.authentication.AbstractOAuth2TokenAuthenticationToken;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
@@ -38,6 +37,18 @@ import de.bund.bva.isyfact.security.oauth2.client.authentication.token.ClientCre
 import de.bund.bva.isyfact.security.oauth2.client.authentication.token.ClientCredentialsRegistrationIdAuthenticationToken;
 import de.bund.bva.isyfact.security.oauth2.client.authentication.token.PasswordClientRegistrationAuthenticationToken;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 /**
  * Tests the Authentifizierungsmanager with all available authentication providers.
  * Because this test defines mock beans it skips the actual bean creation in {@link IsyOAuth2ClientAutoConfiguration} which would
@@ -48,7 +59,8 @@ import de.bund.bva.isyfact.security.oauth2.client.authentication.token.PasswordC
 @SpringBootTest
 @TestPropertySource(properties = {
         "isy.security.cache.ttl=300",
-        "isy.security.cache.maxelements=100"
+        "isy.security.cache.maxelements=100",
+        "isy.security.cache.token-expiration-time-offset=10"
 })
 public class AuthentifizierungsmanagerTest extends AbstractOidcProviderTest {
 
@@ -69,13 +81,23 @@ public class AuthentifizierungsmanagerTest extends AbstractOidcProviderTest {
 
     private JwtAuthenticationToken mockJwt;
 
+    private Jwt mockToken;
+
     @BeforeEach
-    public void configureMocks() {
+    public void configureMocks() throws NoSuchFieldException, IllegalAccessException {
         // clear authenticated principal
         SecurityContextHolder.getContext().setAuthentication(null);
 
         mockJwt = mock(JwtAuthenticationToken.class);
         JwtAuthenticationToken secondMockJwt = mock(JwtAuthenticationToken.class);
+        mockToken = mock(Jwt.class);
+        Field field = AbstractOAuth2TokenAuthenticationToken.class.getDeclaredField("token");
+        field.setAccessible(true);
+        field.set(mockJwt, mockToken);
+        field.set(secondMockJwt, mockToken);
+        when(mockJwt.getToken()).thenCallRealMethod();
+        when(secondMockJwt.getToken()).thenCallRealMethod();
+        when(mockToken.getExpiresAt()).thenReturn(Instant.now().plusSeconds(300));
 
         when(clientCredentialsAuthorizedClientAuthenticationProvider.supports(any())).thenCallRealMethod();
         when(clientCredentialsAuthorizedClientAuthenticationProvider.authenticate(any(Authentication.class))).thenReturn(mockJwt);
@@ -568,10 +590,6 @@ public class AuthentifizierungsmanagerTest extends AbstractOidcProviderTest {
         authentifizierungsmanager.authentifiziereSystem(getIssuer(), "testid", "testsecret", "testuser", "testpw");
         verify(passwordClientRegistrationAuthenticationProvider, times(1)).authenticate(any());
         assertNotNull(SecurityContextHolder.getContext().getAuthentication());
-
-        // clear context and cache so no other tests are affected
-        authentifizierungsmanager.clearCache();
-        SecurityContextHolder.clearContext();
     }
 
     @Test
@@ -590,10 +608,6 @@ public class AuthentifizierungsmanagerTest extends AbstractOidcProviderTest {
         Authentication secondAuthentication = SecurityContextHolder.getContext().getAuthentication();
         assertNotNull(secondAuthentication);
         assertNotEquals(firstAuthentication, secondAuthentication);
-
-        // clear context and cache so no other tests are affected
-        authentifizierungsmanager.clearCache();
-        SecurityContextHolder.clearContext();
     }
 
     @Test
@@ -605,10 +619,6 @@ public class AuthentifizierungsmanagerTest extends AbstractOidcProviderTest {
         authentifizierungsmanager.authentifiziere("cc-client");
 
         verify(clientCredentialsAuthorizedClientAuthenticationProvider, times(2)).authenticate(any());
-
-        // clear context and cache so no other tests are affected
-        authentifizierungsmanager.clearCache();
-        SecurityContextHolder.clearContext();
     }
 
     @Test
@@ -621,7 +631,10 @@ public class AuthentifizierungsmanagerTest extends AbstractOidcProviderTest {
         authentifizierungsmanager.authentifiziereClient(getIssuer(), "testid", "testsecret");
 
         verify(clientCredentialsClientRegistrationAuthenticationProvider, times(2)).authenticate(any());
+    }
 
+    @AfterEach
+    public void tearDown() {
         // clear context and cache so no other tests are affected
         authentifizierungsmanager.clearCache();
         SecurityContextHolder.clearContext();

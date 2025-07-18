@@ -72,14 +72,20 @@ public class IsyOAuth2Authentifizierungsmanager implements Authentifizierungsman
      */
     private final Cache<Integer, Authentication> authenticationCache;
 
-    /** Returns whether the cache is enabled or not. */
+    /**
+     * Returns whether the cache is enabled or not.
+     */
     private final boolean cacheEnabled;
 
-    /** The alias for the cache. */
+    /**
+     * The alias for the cache.
+     */
     private static final String CACHE_ALIAS = "de.bund.bva.isyfact.security.oauth2.authentifizierung";
 
 
-    /** Global isy-security Configuration properties. */
+    /**
+     * Global isy-security Configuration properties.
+     */
     private final IsyOAuth2ClientConfigurationProperties isyOAuth2ClientProps;
 
     /**
@@ -88,6 +94,11 @@ public class IsyOAuth2Authentifizierungsmanager implements Authentifizierungsman
      * Might be {@code null} if there are no configured client registrations in the application.
      */
     private final ClientRegistrationRepository clientRegistrationRepository;
+
+    /**
+     * Minimal remaining token validity in seconds of a cached token.
+     */
+    private final int tokenExpirationTimeOffset;
 
     public IsyOAuth2Authentifizierungsmanager(ProviderManager providerManager,
                                               IsyOAuth2ClientConfigurationProperties isyOAuth2ClientProps,
@@ -101,6 +112,7 @@ public class IsyOAuth2Authentifizierungsmanager implements Authentifizierungsman
         this.cacheManager = cacheSetupResult.cacheManager;
         this.authenticationCache = cacheSetupResult.cache;
         this.cacheEnabled = isySecurityConfigurationProps.getCache().getTtl() > 0;
+        this.tokenExpirationTimeOffset = isySecurityConfigurationProps.getCache().getTokenExpirationTimeOffset();
     }
 
     @Override
@@ -206,8 +218,7 @@ public class IsyOAuth2Authentifizierungsmanager implements Authentifizierungsman
     /**
      * Creates an appropriate authentication token for the authorization grant type configured for the registration ID.
      *
-     * @param oauth2ClientRegistrationId
-     *         registration ID to create the token for
+     * @param oauth2ClientRegistrationId registration ID to create the token for
      * @return an unauthenticated token that can be passed to the provider manager
      */
     private Authentication getAuthenticationTokenForRegistrationId(String oauth2ClientRegistrationId) {
@@ -249,7 +260,7 @@ public class IsyOAuth2Authentifizierungsmanager implements Authentifizierungsman
      * and additional credentials.
      *
      * @param oauth2ClientRegistrationId registration ID to create the token for
-     * @param credentials credentials used to create the token
+     * @param credentials                credentials used to create the token
      * @return an unauthenticated token that can be passed to the provider manager
      */
     private Authentication getAuthTokenForRegistrationIdAndAdditionalCredentials(String oauth2ClientRegistrationId, AdditionalCredentials credentials) {
@@ -305,10 +316,10 @@ public class IsyOAuth2Authentifizierungsmanager implements Authentifizierungsman
 
     /**
      * Creates an appropriate authentication token for the authorization grant type configured for the passed
-     *  client registration and additional credentials.
+     * client registration and additional credentials.
      *
      * @param clientRegistration registration used to create the authentication object
-     * @param credentials credentials used to create the token
+     * @param credentials        credentials used to create the token
      * @return an unauthenticated token that can be passed to the provider manager.
      */
     private Authentication getAuthTokenForClientRegistrationAndAdditionalCredentials(
@@ -373,10 +384,8 @@ public class IsyOAuth2Authentifizierungsmanager implements Authentifizierungsman
      * Tries to authorize the given request with one of the providers configured in the {@link #providerManager} and update
      * the authenticated principal.
      *
-     * @param unauthenticatedToken
-     *         the authentication request object
-     * @throws AuthenticationException
-     *         if no provider supports the authentication request or the authentication failed
+     * @param unauthenticatedToken the authentication request object
+     * @throws AuthenticationException if no provider supports the authentication request or the authentication failed
      */
     private void authenticateAndChangeAuthenticatedPrincipal(Authentication unauthenticatedToken) throws AuthenticationException {
         Authentication authentication;
@@ -409,7 +418,12 @@ public class IsyOAuth2Authentifizierungsmanager implements Authentifizierungsman
 
         Authentication cachedAuthentication = authenticationCache.get(cacheKey);
         if (cachedAuthentication != null) {
-            return cachedAuthentication;
+            SecurityContextHolder.getContext().setAuthentication(cachedAuthentication);
+            if (IsySecurityTokenUtil.hasTokenExpired(Duration.ofSeconds(tokenExpirationTimeOffset))) {
+                authenticationCache.remove(cacheKey);
+            } else {
+                return cachedAuthentication;
+            }
         }
 
         Authentication authentication = performAuthentication(unauthenticatedToken);
