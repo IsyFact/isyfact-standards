@@ -44,21 +44,6 @@ public class IsyMetricsAutoConfiguration {
             .description("Liefert die Anzahl der fachlich fehlerhaften Aufrufe.")
             .register(registry);
 
-        Gauge.builder("anzahlAufrufe.LetzteMinute", stats, ServiceStatistik::getAnzahlAufrufeLetzteMinute)
-            .tags(stats.getTags())
-            .description("Liefert die Anzahl aller Aufrufe in der letzten Minute")
-            .register(registry);
-
-        Gauge.builder("anzahlFehler.LetzteMinute", stats, ServiceStatistik::getAnzahlFehlerLetzteMinute)
-            .tags(stats.getTags())
-            .description("Liefert die Anzahl der technisch fehlerhaften Aufrufe in der letzten Minute")
-            .register(registry);
-
-        Gauge.builder("anzahlFachlicheFehler.LetzteMinute", stats, ServiceStatistik::getAnzahlFachlicheFehlerLetzteMinute)
-            .tags(stats.getTags())
-            .description("Liefert die Anzahl der fachlich fehlerhaften Aufrufe in der letzten Minute")
-            .register(registry);
-
         TimeGauge.builder("durchschnittsDauer.LetzteAufrufe", stats, TimeUnit.MILLISECONDS, s -> s.getDurchschnittsDauerLetzteAufrufe().toMillis())
             .tags(stats.getTags())
             .description("Liefert die durchschnittliche Dauer der letzten 10 Aufrufe in ms")

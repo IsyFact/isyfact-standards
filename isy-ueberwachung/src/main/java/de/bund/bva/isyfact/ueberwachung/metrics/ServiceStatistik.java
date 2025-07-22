@@ -35,22 +35,7 @@ public interface ServiceStatistik {
     };
 
     /**
-     * Returns the number of calls counted in the last minute where no error occurred.
-     */
-    int getAnzahlAufrufeLetzteMinute();
-
-    /**
      * Returns the average duration of the last N calls.
      */
     Duration getDurchschnittsDauerLetzteAufrufe();
-
-    /**
-     * Returns the number of calls in the last minute, in which an error occurred.
-     */
-    int getAnzahlFehlerLetzteMinute();
-
-    /**
-     * Returns the number of calls in the last minute, in which a business error occurred.
-     */
-    int getAnzahlFachlicheFehlerLetzteMinute();
 }

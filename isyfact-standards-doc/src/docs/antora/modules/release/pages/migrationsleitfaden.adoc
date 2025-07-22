@@ -12,10 +12,37 @@ Die auf dieser Seite aufgeführten Hinweise sollen der Entwicklung bei der Umste
 [[kapitel-bausteine]]
 == Bausteine
 
+=== isy-persistence
+
+==== Änderungen
 Der Baustein JPA/Hibernate wurde aufgelöst.
+
+==== Auswirkung
 Damit entfällt die Bibliothek `isy-persistence`.
 Hilfsfunktionen zur Definition von Enums und zur Prüfung der Schema-Version wurden in den xref:util::nutzungsvorgaben.adoc[Baustein Util] in die Bibliothek `isy-util` verschoben.
 Alle weitere Funktionalität entfällt und wird durch die direkte Verwendung des Produkts Spring Data ersetzt.
+
+=== isy-ueberwachung
+
+==== Änderungen
+Mit der Version 5.0.0 von `isy-ueberwachung` wurden die folgenden zeitbeschränkten Metriken entfernt:
+
+* `AnzahlAufrufeLetzteMinute`: Anzahl der Anrufe in der letzten Minute
+* `AnzahlTechnicalExceptionsLetzteMinute`: Anzahl der technischen Fehler in der letzten Minute
+* `AnzahlBusinessExceptionsLetzteMinute`: Anzahl der geschäftlichen Fehler in der letzten Minute
+
+Diese Metriken waren zuvor über die `ServiceStatistik`-Schnittstelle verfügbar und wurden automatisch bei Micrometer in der `IsyMetricsAutoConfiguration` registriert.
+
+==== Auswirkung
+Anwendungen, die auf diese Metriken zur Überwachung oder Alarmierung angewiesen sind, müssen ihre Überwachungskonfigurationen anpassen. Die übrigen Metriken ohne Zeitbeschränkung funktionieren weiterhin normal:
+
+* `AnzahlAufrufe`: Gesamtzahl der Anrufe
+* `AnzahlTechnicalExceptions`: Gesamtzahl der technischen Fehler
+* `AnzahlBusinessExceptions`: Gesamtzahl der fachlichen Fehler
+* `DurchschnittsDauerLetzteAufrufe`: Durchschnittsdauer der letzten Anrufe (Defaultwert: 10)
+
+==== Hinweis
+Mithilfe der in Prometheus verfügbaren Funktionen lässt sich die gewohnte Funktionalität nahezu vollständig nachbilden.
 
 [[kapitel-dokumentation]]
 == Dokumentation
