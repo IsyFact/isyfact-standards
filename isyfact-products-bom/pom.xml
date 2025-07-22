@@ -26,8 +26,8 @@
         <tomahawk20.version>1.1.14</tomahawk20.version>
         <javax.el-api.version>3.0.0</javax.el-api.version>
         <metro.webservices.version>2.4.10</metro.webservices.version>
-        <logback-classic.version>1.2.13</logback-classic.version>
-        <logback-core.version>1.2.13</logback-core.version>
+        <logback-classic.version>1.5.18</logback-classic.version>
+        <logback-core.version>1.5.18</logback-core.version>
         <logback-json-classic.version>0.1.5</logback-json-classic.version>
         <logback-jackson.version>0.1.5</logback-jackson.version>
         <ojdbc8.version>19.11.0.0</ojdbc8.version>
