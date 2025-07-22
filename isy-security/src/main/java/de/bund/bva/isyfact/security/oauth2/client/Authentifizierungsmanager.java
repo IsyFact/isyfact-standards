@@ -97,6 +97,7 @@ public interface Authentifizierungsmanager {
      * This method only supports the Client Credentials flow (grant type: client_credentials). For authentication using
      * the Resource Owner Password Credentials flow, use
      * {@link #authentifiziere(ClientRegistration, AdditionalCredentials) authentifiziere with AdditionalCredentials} instead.
+     * The registration ID from {@link ClientRegistration} must be unique.
      *
      * @param clientRegistration
      *         the client registration containing all necessary information for authentication
@@ -119,6 +120,7 @@ public interface Authentifizierungsmanager {
      *     <li>Client Credentials (grant type: client_credentials)</li>
      *     <li>Resource Owner Password Credentials (grant type: password)</li>
      * </ul>
+     * The registration ID from {@link ClientRegistration} must be unique.
      *
      * @param clientRegistration
      *         the client registration containing all necessary information for authentication
