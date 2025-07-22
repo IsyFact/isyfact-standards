@@ -20,6 +20,7 @@
 - `IFS-4531`: Update von Flatten Maven Plugin auf Version 1.7.1
   * Update von Maven Version auf 3.6.3
 - `IFS-4771`: [isyfact-standards-doc] Ergänzung der Dokumentation durch Punkt: Migration auf Spring Boot 3.5
+- `IFS-4810`: [isy-security] Ausbau der Validierung des "aud"-Claims erstellter Tokens
 
 ## BUG FIXES
 - `IFS-4526`: [isy-task] Logeintrag IsyTaskAspect korrigiert
