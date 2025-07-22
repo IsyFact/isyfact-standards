@@ -1,9 +1,9 @@
 package de.bund.bva.isyfact.security.oauth2.client.authentication;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
-import org.springframework.security.oauth2.client.oidc.authentication.OidcIdTokenDecoderFactory;
 import org.springframework.security.oauth2.client.registration.ClientRegistration;
 import org.springframework.security.oauth2.core.OAuth2AccessToken;
 import org.springframework.security.oauth2.jwt.Jwt;
@@ -20,7 +20,8 @@ public abstract class IsyOAuth2AuthenticationProvider implements AuthenticationP
     protected final JwtAuthenticationConverter jwtAuthenticationConverter;
 
     /** Factory for decoding and validating the returned JWT. */
-    private final JwtDecoderFactory<ClientRegistration> jwtDecoderFactory = new OidcIdTokenDecoderFactory();
+    @Autowired
+    private JwtDecoderFactory<ClientRegistration> jwtDecoderFactory;
 
     public IsyOAuth2AuthenticationProvider(JwtAuthenticationConverter jwtAuthenticationConverter) {
         this.jwtAuthenticationConverter = jwtAuthenticationConverter;
