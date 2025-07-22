@@ -13,9 +13,6 @@ updates:
       spring-boot:
         patterns:
           - "org.springframework.boot:spring-boot-*"
-      jsf:
-        patterns:
-          - "com.sun.faces:jsf-*"
       resilience4j:
         patterns:
           - "io.github.resilience4j:resilience4j-*"
@@ -52,9 +49,6 @@ updates:
       spring-boot:
         patterns:
           - "org.springframework.boot:spring-boot-*"
-      jsf:
-        patterns:
-          - "com.sun.faces:jsf-*"
       resilience4j:
         patterns:
           - "io.github.resilience4j:resilience4j-*"
@@ -91,9 +85,6 @@ updates:
       spring-boot:
         patterns:
           - "org.springframework.boot:spring-boot-*"
-      jsf:
-        patterns:
-          - "com.sun.faces:jsf-*"
       resilience4j:
         patterns:
           - "io.github.resilience4j:resilience4j-*"
