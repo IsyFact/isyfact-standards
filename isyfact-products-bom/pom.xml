@@ -39,7 +39,7 @@
         <dbunit.version>2.8.0</dbunit.version>
         <commons-beanutils.version>1.9.4</commons-beanutils.version>
         <tika-core.version>1.28.5</tika-core.version>
-        <commons-io.version>2.18.0</commons-io.version>
+        <commons-io.version>2.20.0</commons-io.version>
     </properties>
 
     <!-- Dependency management for IsyFact core technology stack. -->
