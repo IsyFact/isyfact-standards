@@ -203,7 +203,7 @@ public class EmbeddedOidcProviderStub {
                 // required OIDC token claims
                 .issuer(issuer.toString())
                 .subject(userId.toString())
-                .audience(Collections.singletonList(clientId)) // MUST contain the client_id, may contain other audiences
+                .audience(Collections.singletonList("account")) // MUST contain audience "account"
                 .expiresAt(Instant.now().plusSeconds(newTokenLifespan))
                 .issuedAt(Instant.now())
                 // optional claims
