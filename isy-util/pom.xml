@@ -15,7 +15,7 @@
     <description>Stellt Hilfsfunktionen für IsyFact-Anwendungen bereit.</description>
 
     <properties>
-        <spotbugs-annotations.version>4.2.3</spotbugs-annotations.version>
+        <spotbugs-annotations.version>4.9.3</spotbugs-annotations.version>
     </properties>
 
     <dependencyManagement>
