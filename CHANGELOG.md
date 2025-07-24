@@ -19,6 +19,7 @@
 - `IFS-4655`: Update von Maven Checkstyle Plugin auf Version 3.6.0
 - `IFS-4531`: Update von Flatten Maven Plugin auf Version 1.7.1
   * Update von Maven Version auf 3.6.3
+- `IFS-4771`: [isyfact-standards-doc] Ergänzung der Dokumentation durch Punkt: Migration auf Spring Boot 3.5
 
 ## BUG FIXES
 - `IFS-4526`: [isy-task] Logeintrag IsyTaskAspect korrigiert
