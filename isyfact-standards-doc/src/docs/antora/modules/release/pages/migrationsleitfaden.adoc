@@ -50,4 +50,132 @@ Weiterführende Informationen unter:
 [[spring-boot]]
 === Spring Boot
 
-Spring Boot muss in der Isyfact 4 auf die Version 3.5.0 angehoben werden.
+IsyFact 4 erfordert eine Migration von Spring Boot 2.x auf Spring Boot 3.5.0.
+Dieser Abschnitt beschreibt die wichtigsten Änderungen und Migrationsschritte.
+
+==== Voraussetzungen
+
+* Java 17 oder höher wird benötigt (Spring Boot 3.x erfordert mindestens Java 17)
+* Maven Version 3.6.3 oder höher wird benötigt.
+
+==== Jakarta EE statt Java EE
+
+Einer der größten Änderungen ist die Migration von `javax.*` zu `jakarta.*` Packages:
+
+[source,diff]
+----
+- import javax.persistence.Entity;
++ import jakarta.persistence.Entity;
+
+- import javax.validation.constraints.NotNull;
++ import jakarta.validation.constraints.NotNull;
+
+- import javax.servlet.http.HttpServletRequest;
++ import jakarta.servlet.http.HttpServletRequest;
+----
+
+Diese Änderung betrifft unter anderem:
+
+* JPA (javax.persistence → jakarta.persistence)
+* Bean Validation (javax.validation → jakarta.validation)
+* Servlet API (javax.servlet → jakarta.servlet)
+* JAX-RS (javax.ws.rs → jakarta.ws.rs)
+* JAXB (javax.xml.bind → jakarta.xml.bind)
+
+TIP: Nutzen Sie IDE-Tools oder Maven-Plugins zur Unterstützung der Migration, wie z.B. das https://github.com/eclipse/transformer[Eclipse Transformer Maven Plugin] das auch z.B. unter IntelliJ verwendet werden kann.
+
+==== Dependency Management
+
+* Stellen Sie sicher, dass alle Abhängigkeiten mit Jakarta EE kompatibel sind
+
+==== Security-Konfiguration
+
+Spring Security hat erhebliche Änderungen in Spring Boot 3.x erfahren:
+
+* Die WebSecurityConfigurerAdapter-Klasse wurde entfernt
+* Method Security ist standardmäßig deaktiviert
+
+Aktivieren Sie Method Security explizit:
+
+[source,java]
+----
+@Configuration
+@EnableMethodSecurity // Ersetzt @EnableGlobalMethodSecurity
+public class SecurityConfig {
+    // Konfiguration
+}
+----
+
+Anstatt WebSecurityConfigurerAdapter zu erweitern, definieren Sie nun SecurityFilterChain-Beans:
+
+[source,java]
+----
+@Bean
+public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    http
+        .authorizeHttpRequests(authorize -> authorize
+            .requestMatchers("/public/**").permitAll()
+            .anyRequest().authenticated()
+        )
+        .formLogin(withDefaults());
+    return http.build();
+}
+----
+
+==== Datenbankzugriff und JPA
+
+* Spring Data und Hibernate wurden aktualisiert und verwenden nun Jakarta Persistence
+* Überprüfen Sie Ihre Entity-Klassen, Repositories und JPA-Konfigurationen
+* Beachten Sie Änderungen bei den Namingstrategien in Hibernate 6
+
+==== Konfiguration
+
+* Viele Konfigurationseigenschaften wurden umbenannt oder entfernt
+* Neue Konfigurationsoptionen sind verfügbar
+
+Beispiele für geänderte Properties:
+
+[source,properties]
+----
+# Alt
+spring.datasource.initialization-mode=always
+# Neu
+spring.sql.init.mode=always
+
+# Alt
+server.tomcat.min-spare-threads=10
+# Neu
+server.tomcat.threads.min-spare=10
+----
+
+==== Actuator und Überwachung
+
+* Die Endpoints und ihre Konfiguration wurden überarbeitet
+* Neue Metriken und Observability-Features sind verfügbar
+* Die Standard-Pfade für Actuator-Endpoints haben sich teilweise geändert
+
+==== Testing
+
+Spring Boot 3.x enthält aktualisierte Test-Frameworks:
+
+* JUnit 5 wird standardmäßig verwendet
+* Die Test-Slices wurden überarbeitet
+* MockMvc hat ein aktualisiertes API
+
+==== Weitere wichtige Änderungen
+
+* Das Auto-Configuration-System wurde überarbeitet
+* Die Unterstützung für GraalVM Native Image wurde verbessert
+* Reactive Programming hat erweiterte Unterstützung erhalten
+* Die Dokumentation von REST-APIs verwendet nun standardmäßig OpenAPI 3
+
+==== Schrittweise Migrationsempfehlung
+
+1. Aktualisieren Sie zuerst auf die letzte Spring Boot 2.7.x-Version
+2. Lösen Sie alle Deprecation-Warnungen und nutzen Sie die neuen APIs
+3. Aktualisieren Sie auf Java 17
+4. Migrieren Sie zu Jakarta EE (javax zu jakarta Packages)
+5. Aktualisieren Sie auf Spring Boot 3.5.0
+6. Beheben Sie alle auftretenden Fehler und Inkompatibilitäten
+
+Die offizielle Spring Boot Migrationsdokumentation enthält weitere Details und spezifische Anweisungen: https://docs.spring.io/spring-boot/upgrading.html.
