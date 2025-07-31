@@ -1,0 +1,759 @@
+= Vorgaben und Konventionen
+
+Die folgenden Vorgaben und Konventionen sorgen für eine einfache und einheitliche Verwendung von JPA und Hibernate.
+
+[[verwendung-von-jpa-hibernate]]
+== Verwendung von JPA und Hibernate
+
+[[jpql-fuer-datenbank-abfragen-nutzen]]
+=== JPQL für Datenbank-Queries nutzen
+
+Für Datenbank-Queries stellt JPA die Java Persistence Query Language (JPQL) bereit.
+In JPQL werden Queries über Objekte und Variablen, nicht über Tabellen und Felder, definiert.
+Wann immer möglich sollten JPQL-Queries statt SQL-Queries verwendet werden.
+Der einzige Grund für die Verwendung von SQL ist die Verwendung von datenbankspezifischen SQL-Features, welche durch JPQL nicht angeboten werden.
+
+[[nichtfunktionale-aspekte-von-anfragen]]
+==== Nichtfunktionale Aspekte von Queries
+
+Die folgenden Vorgaben für Queries verhindern negative Auswirkungen auf die Stabilität, Verfügbarkeit oder Sicherheit von Anwendungen:
+
+* Der `%`-Operator ist nach Möglichkeit zu vermeiden.
+Es können leicht lang laufende Queries entstehen, welche die Anwendung blockieren und die Datenbank unnötig belasten.
+* Für rein lesende Zugriffe und feste Auswertungen sind nach Möglichkeit Views zu verwenden und die Berechtigungen entsprechend zu setzen.
+Dadurch kann der Zugriff auf die tatsächlich benötigten Daten gesteuert und eingeschränkt werden.
+* Bei der Formulierung von Queries sind die Eigenheiten des Optimizers der eingesetzten Datenbank zu beachten.
+* Es ist darauf zu achten, dass Queries durch Indizes in der Datenbank unterstützt werden.
+* Bei der Definition von Queries ist darauf zu achten, dass nicht zu viele Daten selektiert werden.
+Im Zweifel, insbesondere bei Queries, die aus Benutzereingaben erzeugt werden, sollte die Anzahl der selektierten Datensätze beschränkt werden.
+* Um SQL-Injection Attacken zu verhindern, sollen Named-Queries oder Criteria-Queries verwendeten werden, bei denen Hibernate für ein Escaping der Query-Parameter sorgt.
+
+[[optimistic-locking]]
+=== Optimistisches Locking standardmäßig verwenden
+
+Standardmäßig ist https://de.wikipedia.org/wiki/Optimistic_Concurrency[optimistisches Locking] zu verwenden.
+Dieser Vorgehensweise liegt die Annahme zugrunde, dass konkurrierende schreibende Zugriffe in einem Backend nicht oder höchstens in Ausnahmefällen vorkommen.
+Im Backend ist keine explizite Fehlerbehandlung (etwa durch das Zusammenführen der Daten) zu implementieren.
+Die geworfene Ausnahme ist, geschachtelt in eine Ausnahme des Backends, an den Aufrufer weiterzugeben.
+
+NOTE: Hibernate User Guide: https://docs.jboss.org/hibernate/orm/current/userguide/html_single/Hibernate_User_Guide.html#locking-optimistic[Optimistic Locking].
+
+[[pessimistisches-locking,Pessimistisches Locking]]
+==== Pessimistisches Locking bei Bedarf verwenden
+
+Falls für einen Teil der Entitäten konkurrierende schreibende Zugriffe wahrscheinlich sind, ist für genau diese Entitäten https://de.wikipedia.org/wiki/Sperrverfahren[pessimistisches Locking] zu verwenden.
+
+NOTE: Hibernate User Guide: https://docs.jboss.org/hibernate/orm/current/userguide/html_single/Hibernate_User_Guide.html#locking-pessimistic[Pessimistic Locking].
+
+[[second-level-cache]]
+=== Einsatz eines Second-Level-Caches
+
+Ein Second-Level-Cache speichert Daten zwischen Transaktionen oder Sitzungen und ermöglicht es, sie anstatt eines Datenbankzugriffs wiederzuverwenden.
+Dies kann die Leistung eines IT-Systems erheblich verbessern, indem es die Anzahl der Datenbankzugriffe reduziert.
+Hibernate bietet einen Second-Level-Cache auf Ebene der Session Factory an.
+
+.icon:university[title=Architekturregel] Einsatz eines Second-Level-Cache
+****
+Sinnvoll ist der Einsatz eines Second-Level-Caches nur, wenn die darin enthaltenen Daten sehr häufig gelesen, aber nur selten geändert werden.
+****
+
+NOTE: Weitere Details zum Einsatz von Caches bietet die https://docs.jboss.org/hibernate/orm/current/userguide/html_single/Hibernate_User_Guide.html#caching[offizielle Hibernate-Dokumentation zu Caching].
+
+[[second-level-cache-betrachtung]]
+==== Betrachtung der Vorteile, Herausforderungen und Risiken
+
+IMPORTANT: Die folgende Betrachtung geht von einer Caching-Lösung _als Bestandteil eines IT-Systems_ aus.
+Sie betrachtet keine verteilten Caches.
+
+Der Einsatz eines Second-Level-Caches kann die Erfüllung der folgenden Qualitätskriterien fördern.
+
+.Second-Level-Cache: Vorteile nach Qualitätskriterien (ISO 25010)
+[cols="1,2", options="header"]
+|===
+|Qualitätskriterium
+|Vorteile
+
+|Leistungsfähigkeit (Performance Efficiency)
+|IT-Systeme können schneller antworten und dabei Ressourcen schonen, da der Cache Datenbankzugriffe einspart. +
+IT-Systeme können einer höheren Last standhalten, da der Cache Lastspitzen abfedern kann.
+
+|Zuverlässigkeit (Reliability)
+|IT-Systeme können Daten auch bei temporären Ausfällen der Datenbank zuverlässiger liefern.
+|===
+
+Demgegenüber kann der Einsatz eines Second-Level-Caches zu Herausforderungen und Risiken bei folgenden Qualitätskriterien führen.
+
+.Second-Level-Cache: Herausforderungen und Risiken nach Qualitätskriterien (ISO 25010)
+[cols="1,2", options="header"]
+|===
+|Qualitätskriterium
+|Herausforderungen / Risiken
+
+|Leistungsfähigkeit (Performance Efficiency)
+|Die im Cache gehaltenen Daten führen zu einem höheren Speicherverbrauch.
+
+|Funktionale Eignung (Functional Suitability)
+|Der Cache kann veraltete und damit potenziell inkonsistente Daten liefern.
+
+|Wartbarkeit (Maintainability)
+|Komplexe Cache-Konfigurationen können schwer zu debuggen und zu testen sein.
+|===
+
+[[second-level-cache-empfehlungen]]
+==== Empfehlungen zum Einsatz
+
+Die IsyFact gibt die folgenden, generellen Empfehlungen beim Einsatz von Second-Level-Caches, aufgeschlüsselt nach Qualitätskriterien.
+
+.Second-Level-Cache: Empfehlungen nach Qualitätskriterien (ISO 25010)
+[cols="1,2", options="header"]
+|===
+|Qualitätskriterium
+|Empfehlungen
+
+|Leistungsfähigkeit (Performance Efficiency)
+|Nur so viel wie nötig an Daten im Cache halten. +
+Gezielt Cache-Regionen und passende Cache-Strategien nutzen.
+
+|Funktionale Eignung (Functional Suitability)
+|Cache Eviction (z.B. bei Änderungen an den Daten) sorgfältig planen.
+
+|Wartbarkeit (Maintainability)
+|Cache-Konfiguration im xref:methodik:vorlage-systementwurf/antora-master.adoc[Systementwurf] dokumentieren.
+
+|===
+
+[[verwendung-von-hibernate-filtern]]
+=== Verwendung von Hibernate Filtern
+
+Wenn in einer Anwendung viele wiederkehrende Abfragen auf Entitäten erfolgen, können Hibernate Filter eingesetzt werden, um die "WHERE-Klauseln" der Abfragen zu vereinfachen oder zu ersetzen.
+
+Hibernate Filter vereinfachen wiederkehrende Abfragen.
+Sie können dynamisch gesetzt sowie pro Hibernate Session aktiviert und deaktiviert werden.
+Sie können an Entitäten und durch Collections realisierten Assoziationen definiert werden.
+
+.icon:university[title=Architekturregel] Verwendung von Hibernate Filtern
+****
+Wenn das fachliche Datenmodell variable Sichtbarkeitsregeln in größerem Umfang benötigt, sollten diese mit Hibernate Filtern umgesetzt werden.
+****
+
+Außer der Annotation `@Filter` gibt es auch die Annotation `@Where`, die jedoch immer aktiv ist und eine statische Filterung durchführt.
+Im folgenden Beispiel würde ihr Einsatz dazu führen, dass die Anwendung generell keine gelöschten Items abfragen könnte.
+Deshalb wird Annotation `@Where` nur im Ausnahmefall empfohlen und hier nicht näher betrachtet.
+
+==== Beispiel für die Verwendung von Hibernate Filtern
+
+Zur Veranschaulichung wird ein Beispiel für die Verwendung von Hibernate Filtern aufgeführt.
+Es gibt eine Entität `User` und eine Entität `Item` sowie eine 1-zu-n-Assoziation zwischen `User` und `Item`.
+Die Entität Item hat ein Attribut `deleted`, das als Soft Delete verwendet wird.
+(Dies ist keine Empfehlung, Soft Deletes zu verwenden.)
+
+[[listing-beispiel-hibernate-filter]]
+.Hibernate Filter auf Ebene von Klassen und Collections
+[source,java]
+----
+@Entity
+//Definition Hibernate Filter
+@FilterDef(
+     name="aktuellesItem",
+     parameters = @ParamDef(
+         name="geloescht",
+         type="boolean"
+    )
+)
+//Beispiel für Hibernate Filter auf Klassen-Ebene
+@Filter(
+     name="aktuellesItem",
+     condition="item_geloescht = :geloescht"
+)
+public class Item {
+     @Id
+     private Long id;
+
+     @Column(name = "item_geloescht")
+     private boolean deleted;
+}
+
+@Entity
+public class User {
+    @Id
+    private Long id;
+
+    @OneToMany
+    @JoinColumn(name = "user_id")
+    //Beispiel für Hibernate Filter auf Collection-Ebene
+    @Filter(
+        name="aktuellesItem",
+        condition="item_geloescht = :geloescht"
+    )
+    private Set<Item> items;
+    public Set<Item> getItems(){
+	    return items;
+    }
+}
+----
+
+[[listing-zugriff-hibernate-filter]]
+.Zugriff auf Klasse und Collection mit Hibernate Filter
+[source,java]
+----
+//Zugriff per Spring Data Repository
+public class FilterExample {
+
+    @Autowired
+    private ItemRepository itemRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    public void howToUseFilters() {
+
+        // Hibernate Filter sind standardmäßig deaktiviert.
+        List<Item> alleItems = itemRepository.findAll();
+        // alleItems.size() == 3
+        User user = userRepository.findById(1).orElse(null);
+        // user.getItems().size() == 3
+
+        // Hibernate Filter aktivieren
+        entityManager
+            .unwrap(Session.class)
+            .enableFilter("aktuellesItem")
+            .setParameter("geloescht", false);
+
+        // Mit aktiviertem Filter wird eine Entität gefiltert.
+        List<Item> aktuelleItems = itemRepository.findAll();
+        // aktuelleItems.size() == 2
+        // user.getItems().size() == 2
+    }
+}
+----
+
+CAUTION: Das Suchen per Identifier (z.B. mittels `itemRepository.findById(1)`) wendet keine Filter an, siehe https://docs.jboss.org/hibernate/orm/5.6/userguide/html_single/Hibernate_User_Guide.html#pc-filtering[filtering entities and associations].
+
+
+[[bulk-queries]]
+=== Einsatz von Bulk Queries
+
+Bulk Queries (auch "Bulk Operations" genannt) sind Datenbankoperationen, bei denen mehrere Datensätze gleichzeitig geändert oder gelöscht werden, ohne dass sie vorher von Hibernate geladen werden.
+Bulk Queries sind typischerweise `UPDATE`- oder `DELETE`-Statements, die mehrere Zeilen einer Tabelle oder mehrere Tabellen gleichzeitig betreffen.
+
+NOTE: Weitere Details zum Einsatz von Bulk Queries bietet die https://docs.jboss.org/hibernate/orm/current/userguide/html_single/Hibernate_User_Guide.html#batch-bulk-hql[offizielle Hibernate-Dokumentation].
+
+[[bulk-queries-betrachtung]]
+==== Betrachtung der Vorteile, Herausforderungen und Risiken
+
+Der Einsatz von Bulk Queries kann die Erfüllung der folgenden Qualitätskriterien fördern.
+
+.Bulk Queries: Vorteile nach Qualitätskriterien (ISO 25010)
+[cols="1,2", options="header"]
+|===
+|Qualitätskriterium
+|Vorteile
+
+|Leistungsfähigkeit (Performance Efficiency)
+|Bulk Queries besitzen eine sehr hohe Ausführungsgeschwindigkeit bei großen Datenmengen. +
+Bulk Queries sparen Speicher, da keine Entitäten geladen werden.
+
+|Funktionale Eignung (Functional Suitability)
+|Bulk Queries erfüllen funktionale Anforderungen zu Massenänderungen effizient.
+
+|===
+
+Demgegenüber kann der Einsatz von Bulk Queries zu Herausforderungen und Risiken bei folgenden Qualitätskriterien führen.
+
+.Bulk Queries: Herausforderungen und Risiken nach Qualitätskriterien (ISO 25010)
+[cols="1,2", options="header"]
+|===
+|Qualitätskriterium
+|Herausforderungen / Risiken
+
+|Funktionale Eignung (Functional Suitability)
+|Bulk Queries können zu Inkonsistenzen mit Caches und verwalteten Entitäten führen, da sie direkt auf der Datenbank ausgeführt werden. +
+Bulk Queries lösen keine JPA-Mechanismen wie Validierungen oder Callbacks (insbesondere `@PreUpdate` und `@PostUpdate`) aus.
+
+|Sicherheit (Security)
+|Bulk Queries benötigen in manchen Fällen das Recht, (temporäre) Tabellen anlegen zu dürfen.
+Dieses Recht besitzen IT-Systeme nicht.
+
+|Leistungsfähigkeit (Performance Efficiency)
+|Häufiges Invalidieren von Caches durch Bulk Queries schmälert den Leistungsgewinn durch Caches. +
+Das Verwenden von Bulk Queries ohne temporäre Tabellen kann zu hohem Speicherverbrauch und einer langsamen Ausführungsgeschwindigkeit führen.
+|===
+
+[[bulk-queries-empfehlungen]]
+==== Empfehlungen zum Einsatz
+
+Die IsyFact empfiehlt, wegen der Vielzahl der Herausforderungen Bulk Queries nur in begründeten Ausnahmefällen zu nutzen und ihren Einsatz im xref:methodik:vorlage-systementwurf/antora-master.adoc[Systementwurf] zu dokumentieren.
+Viele Anforderungen an Massenänderungen lassen sich durch die Verwendung von xref:referenzarchitektur:software-technisch/batch.adoc[Batches] erfüllen.
+
+
+[[vorgaben-or-mapping]]
+== Definition des O/R-Mappings
+
+[[nutzung-von-annotationen]]
+=== Nutzung von Annotationen
+
+Die Definition des Mappings wird über JPA-Annotationen in den Entitäten durchgeführt.
+Darüber hinaus bietet Hibernate eigene Annotationen für Features an, die Hibernate über JPA hinaus bereitstellt.
+XML-Konfiguration sollte nur in Ausnahmefällen noch nötig sein.
+
+[[identifizierende-attribute-verwenden]]
+=== Identifizierende Attribute verwenden
+
+Falls für eine Entität genau ein identifizierendes Attribut existiert, ist dieses sowohl in der Datenbank als auch im Hibernate Mapping als Primärschlüssel zu verwenden.
+Künstliche IDs sind nur dann als Schlüssel zu verwenden, wenn kein identifizierendes Attribut für die Entität vorliegt oder nur mehrere Attribute zusammen die Entität eindeutig identifizieren.
+Zusammengesetzte Schlüssel dürfen nicht verwendet werden.
+
+Das identifizierende Attribut darf beliebige Typen besitzen.
+Es dürfen, neben numerischen Werten, auch Zeichenketten oder Datumsangaben sein.
+
+[[konfiguration-der-id-und-sequenz]]
+==== Konfiguration künstlicher IDs
+
+Künstliche IDs werden in JPA mit den Annotationen `@Id` und `@GeneratedValue` markiert.
+Der Parameter `strategy` der Annotation `@GeneratedValue` muss in jedem Fall `AUTO` sein.
+
+CAUTION: Es muss unbedingt darauf geachtet werden, das Inkrement (`INCREMENT BY`) der entsprechenden Datenbanksequenz auf denselben Wert einzustellen, der auch im Parameter `allocationSize` der Annotation `@SequenceGenerator` angegeben ist.
+
+.Konfiguration der ID und Sequenz
+[source,java]
+----
+@Entity
+public class MyEntity {
+
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO, generator="my_seq")
+    @SequenceGenerator(name="my_seq",sequenceName="MY_SEQ", allocationSize=50)
+    private int id;
+
+}
+----
+
+[[definition-von-assoziationen]]
+=== Definition von Assoziationen
+
+[[eins-n-zu-n-assoziationen]]
+==== 1-zu-n und n-zu-n Assoziationen
+
+Eine 1-zu-n-Assoziation (siehe https://docs.jboss.org/hibernate/orm/6.6/userguide/html_single/Hibernate_User_Guide.html#collections[Collection Mapping]) ist in der Regel als unsortierte Menge (`Set`) zu definieren, da in dieser keine Reihenfolge definiert ist.
+Wird von der Anwendung eine Sortierung benötigt und sind alle für die Sortierung benötigten Attribute in der Entität enthalten, dann kann auch eine Liste (`List`) verwendet werden, da die Datenbank effizienter sortieren kann als eine Java-Implementierung.
+
+.Definition von 1-zu-n-Assoziationen
+[[definition-1-zu-n-assoziation]]
+[source,java]
+----
+@Entity
+public class MyEntity {
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "unsorted_id")
+    private Set<UnsortedEntity> unsortedEntities = new HashSet<>();
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "sorted_id")
+    @OrderBy("field ASC")
+    private List<SortedEntity> sortedEntities = new ArrayList<>();
+
+}
+----
+
+Bei einer 1-zu-n oder n-zu-n-Assoziation lädt Hibernate alle zugehörigen Entitäten, wenn es die Assoziation initialisiert.
+Das kann je nach Menge und Größe der assoziierten Entitäten eine gewisse Zeit dauern und die Antwortzeit von Anfragen an das Backend deutlich beeinflussen.
+
+[NOTE]
+====
+Die folgenden Best Practices helfen bei der Verwendung von Assoziationen:
+
+* https://docs.jboss.org/hibernate/stable/orm/userguide/html_single/Hibernate_User_Guide.html#associations[Hibernate User Guide - Associations]
+* https://vladmihalcea.com/jpa-bidirectional-sync-methods[Vlad Mihalcea - JPA Best practices]
+* https://thorben-janssen.com/best-practices-for-many-to-many-associations-with-hibernate-and-jpa[Thorben Janssen - JPA Best practices]
+* https://thorben-janssen.com/best-practices-many-one-one-many-associations-mappings[Thorben Janssen - Best practices  many-one-one-many-associations]
+====
+
+[[bidirektionale-assoziationen]]
+==== Bidirektionale Assoziationen
+
+Bidirektionale Assoziation beschreibt die Beziehung zwischen zwei Entitäten, wobei jede Entität einen Verweis auf die andere Entität besitzt. 
+Sie ermöglicht es ihnen, von einer Entität zu einer anderen Entität zu navigieren, die mit ihr verbunden ist, und umgekehrt.
+
+Es gibt vier verschiedene Arten der bidirektionalen Assoziation, die wie folgt aussehen:
+
+* Bidirektionale 1-zu-1-Verknüpfung (one-to-one),
+* Bidirektionale 1-zu-n-Verknüpfung (one-to-many),
+* Bidirektionale n-zu-1-Verknüpfung (many-to-one),
+* Bidirektionale n-zu-n-Verknüpfung (many-to-many).
+
+Wenn eine bidirektionale Assoziation gebildet wird, muss sichergestellt werden, dass beide Seiten zu jeder Zeit synchron sind.
+
+NOTE: Hibernate User Guide: https://docs.jboss.org/hibernate/stable/orm/userguide/html_single/Hibernate_User_Guide.html#associations-one-to-many-bidirectional[Bidirectional `@OneToMany`]
+
+[[lazy-loading]]
+==== Lazy Loading standardmäßig verwenden
+
+Standardmäßig soll für alle Assoziationen Lazy Loading verwendet werden.
+Bytecode-Manipulationen für Lazy Loading sollen nicht verwendet werden.
+
+NOTE: JPA empfiehlt Lazy Loading für alle 1-zu-n- und n-zu-m-Assoziationen und Eager Loading für n-zu-1- oder 1-zu-1-Assoziationen.
+Hibernate, im Gegensatz, empfiehlt Lazy Loading für alle Assoziationen.
+
+
+Um Lazy Loading auch für 1-zu-1-Assoziationen einzuschalten, wird das Attribut `fetch` der Annotation `@OneToOne` auf `FetchType.LAZY` gesetzt.
+Damit das Lazy Loading über Proxies funktioniert, darf die Assoziation nicht optional sein.
+
+.Lazy Loading bei 1-zu-1-Assoziationen
+[source,java]
+----
+@Entity
+public class MyEntity {
+
+    @OneToOne(optional = false, fetch = FetchType.LAZY)
+    private OtherEntity otherEntity;
+
+}
+----
+
+Für n-zu-1-Assoziationen wird genauso verfahren und das Attribut `fetch` auf `FetchType.LAZY` gesetzt.
+
+.Lazy Loading bei n-zu-1-Assoziationen
+[source,java]
+----
+@Entity
+public class MyEntity {
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private OtherEntity otherEntity;
+
+}
+----
+
+Anders als bei 1-zu-1-Assoziationen ist hier erlaubt, Eager Loading zu verwenden, wenn dieses Verhalten Sinn ergibt und keine negativen Auswirkungen zu erwarten sind.
+Typische negative Auswirkungen sind N+1-Queries (die umgekehrte Assoziation von `OtherEntity` zu `MyEntity` benutzt Eager Loading) oder das Auslesen zu vieler Daten (`OtherEntity` besitzt viele Assoziationen mit Eager Loading).
+
+[[vererbungshierarchien]]
+=== Vererbungshierarchien
+
+Vererbungshierarchien können in relationalen Datenbanken nicht direkt umgesetzt werden.
+
+Für alle Strategien zur Abbildung gilt, dass die abzubildende Vererbungshierarchie nicht zu umfangreich sein sollte.
+Datenbankzugriffe auf Tabellen mit großen Hierarchien sind meistens wenig performant.
+Außerdem lässt sich die Vererbungshierarchie anhand der Datenbanktabellen entweder nicht oder nur schwer erkennen und die Tabellen können unübersichtlich werden.
+
+.icon:university[title=Architekturregel] Vererbungshierarchien im O/R-Mapping
+****
+Vererbungshierarchien zur Abbildung in relationalen Datenbanken sollten nur verwendet werden, wenn das fachliche Datenmodell dadurch optimal wiedergegeben wird.
+Sie sollten nur eine Oberklasse mit einigen Subklassen und höchstens zwei Vererbungsebenen umfassen.
+****
+
+Es werden zunächst die vier Strategien zur Abbildung von Vererbungshierarchien vorgestellt und Architekturregeln festgelegt.
+
+[[single-table-per-class-hierarchy-rules]]
+==== Single Table per Class Hierarchy
+
+Mit der *Single Table per Class Hierarchy* Strategie wird eine Vererbungshierarchie auf eine einzelne Datenbanktabelle gemappt.
+Die Tabelle hat eine Diskriminatorspalte.
+Anhand des Wertes dieser Spalte wird die spezielle Subklasse bestimmt, auf die eine bestimmte Zeile der Datenbank gemappt wird.
+
+.icon:university[title=Architekturregel] Verwendung der Single Table per Class Strategie
+****
+Die *Single Table per Class Hierarchy* Strategie sollte die Default-Strategie sein, weil sie performante Abfragen erlaubt.
+****
+
+Die Single Table per Class Hierarchy Strategie kann nicht angewandt werden, wenn für Spalten, die von Attributen der Subklassen gemappt wurden, Not-Nullable-Constraints zwingend erforderlich sind, s.a. <<joined-subclass-rules>>.
+
+[[joined-subclass-rules]]
+==== Joined Subclass
+
+Eine weitere Strategie des O/R-Mappings von Vererbungshierarchien ist die *Joined Subclass* Strategie.
+Jede Klasse wird auf eine eigene Tabelle abgebildet.
+
+Der Zugriff ist weniger performant als bei der Single Table per Class Hierarchy Strategie.
+
+.icon:university[title=Architekturregel] Verwendung der Joined Subclass Strategie
+****
+Wenn Not-Nullable-Constraints zwingend erforderlich sind und polymorphe Queries benötigt werden, ist die *Joined Subclass* Strategie eine gute Wahl.
+Ein weiteres Argument für diese Strategie sind Subklassen mit vielen Attributen.
+****
+
+[[table-per-concrete-class-rules]]
+==== Table per Concrete Class
+
+Bei der O/R-Mappingstrategie *Table per Concrete Class* wird jede nicht abstrakte Klasse auf eine Datenbanktabelle abgebildet.
+Alle Attribute der Oberklasse werden als Spalten an alle Tabellen für die Subklassen angefügt.
+
+Das Mapping zwischen Entitäten und Datenbanktabellen ist einfach, aber die Tabellen sind nicht normalisiert und der polymorphe Zugriff auf die Oberklasse ist kaum performant.
+
+.icon:university[title=Architekturregel] Verwendung der Table per Concrete Class Strategie
+****
+Die *Table per Concrete Class* Strategie sollte, wenn überhaupt, nur gewählt werden, wenn die anderen Strategien nicht passen und auf die Oberklasse keine oder nur wenig polymorphe Zugriffe zu erwarten sind.
+****
+
+[[mapped-superclass-rules]]
+==== Mapped Superclass
+
+Es liegt bei der *Mapped Superclass* Strategie keine Vererbungshierarchie unter Entitäten vor, die Oberklasse ist keine Entität.
+Die Oberklasse dient nur der Strukturierung und Zusammenfassung von gemeinsamen Eigenschaften.
+Sie wird deshalb auch nicht auf eine Datenbanktabelle abgebildet.
+Ihre Attribute werden aber als Spalten an alle Tabellen der von ihr erbenden Entitäten angefügt.
+
+Polymorphe Queries auf die Oberklasse sind nicht möglich.
+
+.icon:university[title=Architekturregel] Verwendung der Mapped Superclass Strategie
+****
+Diese Art der Vererbung von einer Java-Oberklasse auf Entitäten-Subklassen kann eingesetzt werden, wenn nur auf die Subklassen zugegriffen werden muss.
+****
+
+Es erspart die Wiederholung von Attributen in den Entitäten, aber nicht in den Datenbanktabellen.
+
+[[vererbungshierarchien-details]]
+==== Beispiele, Vor- und Nachteile
+
+Die vier O/R-Mapping-Strategien werden in den folgenden Abschnitten genauer betrachtet mit ihren Vor- und Nachteilen.
+
+[[single-table-per-class-hierarchy-details]]
+===== Single Table per Class Hierarchy
+
+Für die Single Table per Class Hierarchy Strategie wird ein Beispiel gezeigt.
+Bei den anderen Strategien wird auf Teile davon verwiesen.
+
+[[listing-single-table-hierarchy-mapping]]
+.Single Table per Class Hierarchy
+[source,java]
+----
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name="personengruppe",
+  discriminatorType = DiscriminatorType.INTEGER)
+public class Person {
+	//…
+}
+
+@Entity
+@DiscriminatorValue("1")
+public class Schueler extends Person {
+    private Integer klassenstufe;
+    public Integer getKlassenstufe() {
+        return klassenstufe;
+    }
+	//…
+}
+
+@Entity
+@DiscriminatorValue("2")
+public class Lehrer extends Person {
+    private BigDecimal gehalt;
+    public BigDecimal getGehalt() {
+        return gehalt;
+    }
+	//…
+}
+----
+
+[[listing-polymorphic-access-hierarchy-mapping]]
+.Polymorpher Zugriff
+[source,java]
+----
+class PolymorphicAccessExample {
+
+    @Autowired
+    private PersonRepository personRepository;
+
+    public void access() {
+        List<Person> personen = personRepository.findAll();
+
+        // Zugriff auf Attribute der Subklassen
+        personen.forEach(person -> {
+            if (person instanceof Schueler) {
+                ((Schueler) person).getKlassenstufe();
+            } else if (person instanceof Lehrer) {
+                ((Lehrer) person).getGehalt();
+            }
+        });
+    }
+
+}
+----
+
+*Vorteile*
+
+* Auf die Datenbanktabelle kann polymorph zugegriffen werden.
+* Die Queries auf Ober- und Subklassen sind performant, da keine Joins erforderlich sind.
+
+*Nachteile*
+
+* Auf Attribute von Subklassen kann kein Not-Nullable-Constraint gesetzt werden.
+Im Beispiel kann `klassenstufe` nicht auf not nullable gesetzt werden, denn wenn die gespeicherte Person ein Lehrer ist, ist `klassenstufe` null.
+* Falls Datenbankadministratoren z.B. bei Fehlern den Inhalt der Tabelle analysieren müssen, ist die Zugehörigkeit einzelner Spalten zu bestimmten Subklassen nicht allein aus der Datenbanktabelle ersichtlich.
+In diesem Fall ist es hilfreich, wenn für jede Klasse der Vererbungshierarchie ein View definiert wurde.
+Diese Views beeinflussen das O/R-Mapping nicht, denn sie werden dafür nicht verwendet.
+
+[[joined-subclass-details]]
+===== Joined Subclass
+
+Jede Klasse wird auf eine eigene Tabelle abgebildet, auch eine abstrakte Oberklasse, und enthält nur ihre eigenen Attribute als Spalten.
+Die Primärschlüssel-Ids  der Subklassen sind gleichzeitig Fremdschlüssel für die entsprechenden Primärschlüssel-Ids der Oberklasse.
+Dadurch werden beim <<listing-polymorphic-access-hierarchy-mapping,polymorphen Zugriff>> auf die Oberklasse die Sub-Entitäten per Join mit der Tabelle der Oberklasse gelesen (implizit per O/R-Mapper).
+
+Die Oberklasse wird folgendermaßen annotiert:
+
+[[listing-joined-subclass-mapping]]
+.Joined Subclass
+[source,java]
+----
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
+public class Oberklasse { }
+----
+
+*Vorteile*
+
+* Die Datenbanktabellen sind normalisiert.
+* Die Vererbungshierarchie ist ansatzweise erkennbar in den Datenbanktabellen.
+
+*Nachteile*
+
+* Je nach Vererbungshierarchie sind performanzkritische Joins erforderlich beim Zugriff sowohl polymorph auf Ober- als auch auf Subklassen.
+
+[[table-per-concrete-class-details]]
+===== Table per Concrete Class
+
+Die Oberklasse wird folgendermaßen annotiert:
+
+[[listing-table-per-concrete-class]]
+.Table per Concrete Class
+[source,java]
+----
+@Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+public class Oberklasse { }
+----
+
+*Vorteile*
+
+* Die Vererbungshierarchie ist an der Datenbank ansatzweise nachvollziehbar, zumindest dann, wenn die Oberklasse nicht abstrakt ist und auch gemappt wird.
+* Einfaches Mapping zwischen Entitäten und Datenbanktabellen.
+
+*Nachteile*
+
+* Die Datenbanktabellen sind nicht normalisiert.
+* Beim <<listing-polymorphic-access-hierarchy-mapping,polymorphen Zugriff>> auf die Oberklasse muss dies (implizit per O/R-Mapper) über eine UNION-Query geschehen oder eine eigene Query für jede Subklasse.
+
+[[mapped-superclass-details]]
+===== Mapped Superclass
+
+Die Oberklasse wird folgendermaßen annotiert:
+
+[[listing-mapped-superclass]]
+.Mapped Superclass
+[source,java]
+----
+@MappedSuperclass
+public class Oberklasse { }
+----
+
+*Vorteile*
+
+* Einfaches Mapping zwischen Entitäten und Datenbanktabellen.
+
+*Nachteile*
+
+* Ein polymorpher Zugriff ist nicht möglich.
+* Die Datenbanktabellen sind nicht normalisiert.
+* Die Vererbungshierarchie ist in der Datenbank nicht nachvollziehbar.
+
+[NOTE]
+====
+Zur Vertiefung bieten sich die folgenden Quellen an:
+
+* https://jakarta.ee/specifications/persistence/3.0/jakarta-persistence-spec-3.0.html[Jakarta Persistence],
+* https://docs.jboss.org/hibernate/orm/5.6/userguide/html_single/Hibernate_User_Guide.html#entity-inheritance[Hibernate User Guide - Inheritance],
+* https://www.manning.com/books/java-persistence-with-hibernate[Java Persistence with Hibernate (Bauer, King, Second Edition, 2015, Manning Publications)] icon:book[].
+====
+
+[[behandlung-von-zeitangaben]]
+=== Behandlung von Datums- und Zeitangaben
+
+Es werden die Datums- und Zeitklassen aus der _Java 8 Date Time API_ verwendet.
+Hinweise zu deren Verwendung finden sich im xref:isy-datetime-docs:ROOT:konzept/master.adoc[Baustein Datum & Zeit].
+Der Baustein stellt zur Persistierung von Zeiträumen und ungewissen Datums- und Zeitangaben entsprechende Entitäten bereit.
+
+WARNING: Der folgende, hervorgehobene Absatz wird nur noch aus historischen Gründen erwähnt und ist obsolet.
+
+====
+Für alte Anwendungen, die nicht die _Java 8 Date Time API_, sondern noch `java.util.Date` verwenden, gelten die folgenden Vorgaben.
+
+In der Datenbank erfolgt die Speicherung in einem Attribut vom Typ `TemporalType.TIMESTAMP`.
+Falls die Genauigkeit des Timestamp-Datentyps fachlich nicht gewünscht ist, kann der Typ `TemporalType.DATE` verwendet wird.
+
+Hibernate erzeugt beim Laden der Daten aus der Datenbank implizit Objekte der Typen `java.sql.Timestamp` bzw. `java.sql.Date` für diese Attribute.
+Beide Typen sind von `java.util.Date` abgeleitet.
+
+Vergleiche von Zeitangaben unterschiedlicher Genauigkeit sind jedoch problematisch:
+
+* Grundsätzlich darf der Vergleich nicht mittels `equals` durchgeführt werden, sondern immer mittels `compareTo`.
+* Ein Vergleich mit `compareTo` muss immer auf dem *Attribut mit höherer Genauigkeit* (also auf dem `java.sql.Timestamp`) aufgerufen werden.
+
+Für Berechnungen, z.B. das Hinzuaddieren von Tagen, oder das Setzen von Feldern, ist der Daten-Typ `java.util.Calendar` zu verwenden.
+In diesem Fall wird im Anwendungskern temporär ein Objekt dieses Typs für das entsprechende Datum erzeugt.
+====
+
+[[boolesche-variablen]]
+=== Boolesche Variablen
+
+Für die Ablage von booleschen Werten in der Datenbank ist stets ein numerisches Feld zu verwenden, kein Textfeld.
+Der Wert wird von Hibernate standardmäßig auf `1` für wahr und `0` für falsch abgebildet.
+
+[[enum-variablen]]
+=== Enum-Variablen
+
+Für die Ablage von Enum-Feldern persistenter Entitäten in der Datenbank sind in JPA zwei Modi vorgesehen, die jedoch beide mit Nachteilen verbunden sind:
+
+`ORDINAL`:: Die Enum-Ausprägungen werden durchnummeriert.
+Beim Hinzufügen oder Entfernen einer Enum-Ausprägung, die nicht die letzte ist, verschiebt sich die Bedeutung der Nummern und macht dadurch eine Datenmigration erforderlich.
+`STRING`:: Es wird der Java-Name der Enum-Ausprägung in der Datenbank abgelegt.
+Dies erzeugt eine enge Kopplung des Java-Quellcodes an die Datenbankinhalte.
+Während im Java-Quellcode lange, sprechende Namen bevorzugt werden, werden für die Ablage in der Datenbank kurze, Speicherplatz sparende Darstellungen präferiert.
+
+Aufgrund der genannten Schwächen stellt der Baustein Util xref:util::nutzungsvorgaben.adoc#enum-variablen[Annotationen und Hibernate UserTypes] zur Verfügung, um Enum-Werte auf eine Zeichenkette in der Datenbank abzubilden.
+
+[[datenbankschema-anfangs-ueber-hbm2ddl-erzeugen]]
+=== Datenbankschema anfangs über `hbm2ddl` erzeugen
+
+Für die Erstellung des Datenbankschemas wird empfohlen, es initial über Hibernate zu erzeugen.
+Die <<konfiguration-automatische-erzeugung-schema,Konfiguration>> hierzu geschieht in der Datei `application.properties` der Anwendung.
+
+.Konfiguration zur automatischen Erzeugung von Datenbankschemas
+[[konfiguration-automatische-erzeugung-schema]]
+[source,properties]
+----
+spring.jpa.hibernate.ddl-auto=create
+----
+
+Grundsätzlich ist es möglich, sämtliche Tabellen-Eigenschaften (etwa auch die Feldlängen und Indizes) über Annotationen zu definieren und das Datenbankschema komplett durch `hbm2ddl` zu erzeugen.
+Ob das Datenbankschema während der Entwicklung stets generiert wird oder es nach einer initialen Generierung verändert und parallel gepflegt wird, ist je nach Komplexität des Schemas zu entscheiden.
+
+Befindet sich die Anwendung in Produktion, dann muss die automatische Erzeugung von Datenbankschemas abgeschaltet sein.
+
+.Konfiguration zur Abschaltung der automatischen Erzeugung
+[[konfiguration-abschaltung-automatische-erzeugung-schema]]
+[source,properties]
+----
+spring.jpa.hibernate.ddl-auto=none
+----
+
+Eine Validierung des Datenbankschemas durch Setzen des Parameters auf `validate` findet nicht statt.
+Stattdessen wird xref:software-technisch/backend/persistenz/liquibase.adoc[] verwendet.
+
+[[vergabe-von-indizes]]
+=== Vergabe von Indizes
+
+Indizes sind ein wichtiges Element, um eine gute Performance des Datenbankzugriffs sicherzustellen.
+Indizes müssen dabei gezielt vergeben werden.
+Fehlende Indizes führen häufig zu einer schlechten Performance der Anwendung und belasten die Datenbank durch das vermehrte Auftreten von Full-Table-Scans sehr stark.
+Zu viele Indizes verschlechtern die Performance beim Schreiben von Datensätzen und verbrauchen unnötigen Speicherplatz.
+
+Die tatsächlich notwendigen Indizes können letztendlich häufig nur in Produktion festgestellt werden.
+In dem Sinne ist es sinnvoll während der Entwicklung zunächst nur die sicher notwendigen Indizes anzulegen und diese später durch Erkenntnisse aus Lasttests und Produktion zu ergänzen.
+
+Initial sind folgende Indizes vorzusehen:
+
+* ein Index auf jeder Spalte, die als Fremdschlüssel verwendet wird,
+* ein Index auf (fachliche) Schlüsselattribute, die sehr häufig im Rahmen der Verarbeitung genutzt werden (Beispiele: Nummer eines Registereintrags, Kennung einer Nachricht).

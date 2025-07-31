@@ -1,12 +1,11 @@
 = Konzept REST-Services: Inhalt
 
-
 // tag::inhalt[]
 
 [[grundlagen]]
 == Grundlagen
 
-REST steht für Representational State Transfer und ist ein Paradigma für die Softwarearchitektur von verteilten Systemen, insbesondere für Webservices (Wikipedia).
+REST steht für Representational State Transfer und ist ein Paradigma für die Softwarearchitektur von verteilten Systemen, insbesondere für web-basierte Services.
 Roy Fielding hat in seiner Dissertation die Grundlagen von REST-Services definiert.
 Diese lauten wie folgt:
 
@@ -70,7 +69,7 @@ Stufe 3 des Richardson Maturity Models stellt darüber hinaus weitere Anforderun
 
 * Ressourcen enthalten Verweise auf URIs, mit denen weitere Anfragen im Kontext der Ressource möglich sind.
 
-Diese grundlegende Festlegung hat große Auswirkungen auf die einzelnen Aspekte der Ausgestaltung der REST-Webservices.
+Diese grundlegende Festlegung hat große Auswirkungen auf die einzelnen Aspekte der Ausgestaltung der REST-Services.
 Diese werden in den folgenden Kapiteln beschrieben und konkretisiert.
 
 [[ausnahmen]]
@@ -81,7 +80,7 @@ In Ausnahmefällen kann auf die Einhaltung der Vorgabe zum Reifegrad (mindestens
 [[prozessorientierte-aufrufe]]
 *Prozessorientierte Aufrufe - Geschäftsvorfälle*
 
-Ein Ausnahmefall stellt die Abbildung von prozessorientierten Aufrufen dar, die häufig durch die Migration von bestehenden prozessorientierten Schnittstellen (z.B. RPC) entstanden sind.
+Ein Ausnahmefall stellt die Abbildung von prozessorientierten Aufrufen dar, die häufig durch die Migration von bestehenden prozessorientierten Schnittstellen (z. B. RPC) entstanden sind.
 Die Abbildung auf eine ressourcenorientierte REST-Schnittstelle ist i.d.R. mit einer Neukonzeption der Anwendung unter einer ressourcenorientierten Denkweise verbunden.
 Der Aufwand für die Neukonzeption steht oft nicht im Verhältnis zum tatsächlichen (fachlichen) Nutzen.
 Aus diesem Grund dürfen prozessorientierte Aufrufe über einfache http-Aufrufe realisiert werden, die bis auf die Ressourcenorientierung und Verwendung der http-Verben, den übrigen Vorgaben des REST-Konzepts folgen.
@@ -325,7 +324,7 @@ Ist die Ressource mit der gesendeten ID noch nicht vorhanden, wird diese durch P
 Dies ist aber zu vermeiden, da der Client keine IDs vergeben soll.
 PUT ist, da immer die gesamte Ressource geändert wird, bzw. die ID beim Erstellen schon vorgegeben ist, idempotent.
 Deshalb ist PUT PATCH beim Aktualisieren vorzuziehen.
-In Abhängigkeit davon, ob eine Ressource geändert oder neu erstellt wurde, wird der entsprechende Response Code (200 OK bzw. 201 Created) zurückgegeben.
+In Abhängigkeit davon, ob eine Ressource geändert oder neu erstellt wurde, wird der entsprechende Response-Code (200 OK bzw. 201 Created) zurückgegeben.
 
 .Beispiele für PUT-Anfrage
 [id="listing-put-anfrage-beispiele",reftext = "{listing-caption} {counter:listings}"]
@@ -431,9 +430,8 @@ Die Filter- und Suchkriterien werden in den Body der Anfrage aufgenommen.
 [[verwendung-http-statuscodes]]
 === Verwendung von HTTP-Statuscodes
 
-Im Folgenden werden die HTTP-Statuscodes dargestellt, die zu verwenden sind.
-Weitere Statuscodes sind in Abhängigkeit vom Fachverfahren möglich.
-
+Statuscodes bieten eine effektive Möglichkeit zur gezielten Steuerung des Client-Verhaltens.
+Die konkrete Nutzung der beschriebenen und weiterer Statuscodes sind in Abhängigkeit von den Anforderungen anwendungsspezifisch festzulegen.
 
 [cols="1,1,2"]
 |===
@@ -441,11 +439,11 @@ Weitere Statuscodes sind in Abhängigkeit vom Fachverfahren möglich.
 
 |200 |OK |Wird als Ergebnis eines erfolgreichen HTTP-Requests zurückgeliefert.
 |201 |Created |Wird als Ergebnis eines erfolgreichen HTTP-Requests zurückgeliefert, wenn eine neue Ressource angelegt wurde.
-|202 |Accepted | Die Anfrage wurde empfangen und verstanden , aber wird noch asynchron bearbeitet. Die Anfrage ist zum Zeitpunkt der Antwort möglicherweise noch nicht abgeschlossen, aber der Server hat sie zur weiteren Bearbeitung angenommen.
+|202 |Accepted | Die Anfrage wurde empfangen und verstanden, aber wird noch asynchron bearbeitet. Die Anfrage ist zum Zeitpunkt der Antwort möglicherweise noch nicht abgeschlossen, aber der Server hat sie zur weiteren Bearbeitung angenommen.
 |204 |No Content |Wird als Ergebnis eines erfolgreichen HTTP-Requests zurückgeliefert, wenn der Request keinen Response-Body liefert.
 |304 |Not Modified |Wird beim Caching eingesetzt und sagt dem Client, dass seine Ressource noch aktuell ist.
-|400 |Bad Request |Der HTTP-Request enthält fehlerhafte Daten, z. B. XML nicht Schema-konform, es wurde ein Virus gefunden, die Anfrage enthält fachliche Fehler, etc.
-|401 |Unauthorized |Es ist ein Fehler bei der Authentifizierung aufgetreten, z. B. falscher Benutzername/Passwort.
+|400 |Bad Request |Der HTTP-Request enthält fehlerhafte Daten, z. B. XML nicht Schema-konform, es wurde ein Virus gefunden, die Anfrage enthält fachliche Fehler, etc.
+|401 |Unauthorized |Es ist ein Fehler bei der Authentifizierung aufgetreten, z. B. falscher Benutzername/Passwort.
 |403 |Forbidden |Der Benutzer hat nicht die erforderlichen Rechte.
 |404 |Not found |Die angeforderte Ressource existiert nicht.
 |405 |Method not allowed |Die aktuelle Operation ist auf der Ressource nicht erlaubt (beispielsweise PUT auf einer read-only Ressource).
@@ -459,6 +457,28 @@ Weitere Statuscodes sind in Abhängigkeit vom Fachverfahren möglich.
 Für die Auswahl weiterer Statuscodes bietet die entsprechende https://de.wikipedia.org/wiki/HTTP-Statuscode[Wikipedia-Seite zu HTTP-Statuscodes] einen guten Startpunkt.
 Empfehlenswert ist außerdem diese gut strukturierte Übersicht von https://www.restapitutorial.com/httpstatuscodes.html[openapi-generator.tech], die Informationen von Wikipedia und des IETF übersichtlich aufbereitet.
 ====
+
+Ziele der Nutzung von Statuscodes in Verbindung mit einem Response-Mechanismus sind eine effiziente Gestaltung von API-Interaktionen, das Sicherstellen einer reibungslosen Nutzererfahrung und das Vermeiden von unnötiger Netzwerklast.
+Durch den gezielten Einsatz passender Statuscodes in Verbindung mit `Response-Headern` können Clients beispielsweise erkennen, ob ein erneuter Request sinnvoll ist, sie warten sollten oder ein Fehler in der Anfrage vorliegt.
+Damit Clients automatisiert und sinnvoll auf API-Antworten reagieren können, muss die Implementierung der Statuscodes  dem tatsächlichen Verarbeitungszustand entsprechen.
+
+[cols="1,1,2"]
+|===
+|Response-Mechanismus |Sinnvolle Statuscodes |Anmerkung
+
+|`Retry-After`
+|`202 Accepted`, `429 Too Many Request`, `503 Service Unavailable`
+|Einzusetzen, wenn eine spätere Wiederholung der Anfrage sinnvoll ist.
+
+|Status-URLs
+|`202 Accepted`
+|Zur initialen Bereitstellung von Informationen, wo der Status einer Anfrage bei asynchroner Verarbeitung abgefragt werden kann.
+
+|Detaillierte Fehlermeldungen
+|`400 Bad Request`, `406 Not Acceptable`, `409 Conflict`
+|Ermöglicht es dem Client, Fehlerursachen gezielt zu erkennen und zu beheben.
+|===
+
 
 [[repraesentationen]]
 === Repräsentationen
@@ -539,7 +559,7 @@ NOTE: Eine Übersicht, welche HTTP-Methoden Caching-Fähig sind, findet sich unt
 [[hateoas]]
 === HATEOAS
 
-Nach dem HATEOAS-Paradigma soll eine zurückgelieferte Ressourcen weiterführende URLs (vergleichbar mit HTML-Links) zu verwandten Ressourcen enthalten, anstelle die verwandten Ressourcen mit der angefragten Ressource zusammengeführt zu übermitteln.
+Nach dem HATEOAS-Paradigma soll eine zurückgelieferte Ressource weiterführende URLs (vergleichbar mit HTML-Links) zu verwandten Ressourcen enthalten, anstelle die verwandten Ressourcen mit der angefragten Ressource zusammengeführt zu übermitteln.
 
 .Beispiel für eine HATEOAS-konforme Resource mit URIs zu weiterer Resource
 [id="listing-hateoas-beispiel",reftext = "{listing-caption} {counter:listings}"]
@@ -561,7 +581,7 @@ Folgende Vorteile ergeben sich daraus:
 Die letzten beiden Punkte führen direkt zu Fragestellungen des Schnittstellen- bzw. API-Designs:
 
 Die letzten zwei Vorteile ergeben sich vor allem aus der Voraussetzung, dass der Client in der Regel die "zusätzlichen Daten" nicht benötigt, die nur über die URI als Referenz übermittelt werden.
-Werden diese zusätzlichen Daten nach jedem Aufruf der übergeordneten Ressource angefordert, werden zusätzliche technische Verarbeitungsschritte nötig (Client: Request für die neuen Daten aufbauen, versenden. Server: Anfrage & Berechtigung prüfen, Daten suchen, ggf. konvertieren, versenden,…).
+Werden diese zusätzlichen Daten nach jedem Aufruf der übergeordneten Ressource angefordert, werden zusätzliche technische Verarbeitungsschritte nötig (Client: Request für die neuen Daten aufbauen, versenden. Server: Anfrage & Berechtigung prüfen, Daten suchen, ggf. konvertieren, versenden, …).
 
 Bei häufigen, parallelen Anfragen würde dieses Szenario dann einen hohen Overhead generieren. Hier ist im Einzelfall die Schnittstelle entsprechend dem gewünschten Trade-Off zu modellieren.
 
@@ -790,8 +810,7 @@ Fachlichen Fehlern muss ein entsprechend passender Fehlercode im Bereich 4xx zug
 
 Die Fehlerbehandlung erfolgt wie im Detailkonzept Service beschrieben, außerhalb der Service-Fassade, an zentraler Stelle, in einer Exception-Fassade.
 Die Exception-Fassade wird durch `RestExceptionHandler` Klassen implementiert, (vgl. <<image-fehlerbehandlung>>). 
-In der Exception-Fassade werden alle Exceptions aus Methoden des Anwendungskerns oder Methoden der Service-Endpoints gefangen, gelogged, 
-in Exception-Transport-Objekte umgewandelt und als Response zurückgegeben.
+In der Exception-Fassade werden alle Exceptions aus Methoden des Anwendungskerns oder Methoden der Service-Endpoints gefangen, geloggt, in Exception-Transport-Objekte umgewandelt und als Response zurückgegeben.
 
 .Entkopplung Fehlerbehandlung und Service-Logik
 [id="image-fehlerbehandlung",reftext = "{figure-caption} {counter:figures}"]
@@ -862,7 +881,7 @@ Fehler werden in einem Array zurückgegeben um auch das Senden mehrerer Fehler, 
 
 Sollten bei der Verarbeitung mehrere Fehler auftreten, sind alle Fehler zurückzugeben.
 
-Exceptions werden im `RestExceptionHandler` auf den jeweiligen HTTP-Statuscode und die entsprechende Nachricht gemapped.
+Exceptions werden im `RestExceptionHandler` auf den jeweiligen HTTP-Statuscode und die entsprechende Nachricht gemappt.
 Welche Informationen enthalten sein dürfen wird im xref:isy-exception-core:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Fehlerbehandlung] genauer beschrieben.
 
 [[sicherheit]]
@@ -885,7 +904,7 @@ Informationen zur Bearer Propagation gibt es in der https://docs.spring.io/sprin
 Um eine Klasse oder einzelne Methoden zu sichern, wird empfohlen, die `@Secured` Annotation von Spring Security in der Service-Schicht zu verwenden.
 Die Verwendung auf einzelnen Webcontroller Klassen/Methoden wird nicht empfohlen. Für Webcontroller ohne Service Schicht kann https://docs.spring.io/spring-security/reference/servlet/authorization/authorize-http-requests.html[Request Level Autorisierung] genutzt werden.
 
-Generell ist das xref:isy-security:konzept/master.adoc[Konzept der Sicherheitsarchitektur] zu beachten.
+Generell ist das xref:security::konzept.adoc[Konzept der Sicherheitsarchitektur] zu beachten.
 
 [[logging]]
 === Logging
@@ -914,7 +933,7 @@ In der Klasse, welche die Aufrufe an den Service-Provider stellt, sollen
 
 geloggt werden.
 
-Wie auch serverseitig, sollen diese Log-Nachrichten möglichst automatisiert via AOP erstellt werden.
+Wie auch serverseitig sollen diese Log-Nachrichten möglichst automatisiert via AOP erstellt werden.
 
 [[inhalt-log-eintrag-nachricht]]
 ==== Inhalt des Log-Eintrags für eine Nachricht
@@ -981,15 +1000,15 @@ Zusätzlich zu den Anforderungen an die Inhalte einer Log-Nachricht xref:isy-log
 
 Diese Konfigurationsparameter aus Kapitel 4.2.2.1 xref:isy-logging:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Logging] sollen für den neuen Interceptor ebenfalls existieren:
 
-* loggeDauer
-* loggeDaten
-* loggeDatenBeiException
-* loggeMaximaleParameterGroesse
+* `loggeDauer`,
+* `loggeDaten`,
+* `loggeDatenBeiException`,
+* `loggeMaximaleParameterGroesse`.
 
 
 *Nachrichten Logging*
 
-Zum Test und Debuggen einer Anwendung soll es möglich sein, dass komplette Nachrichten in ihrem Rohformat inkl. dem kompletten Header geloggt werden.
+Zum Test und Debuggen einer Anwendung soll es möglich sein, dass komplette Nachrichten in ihrem Rohformat inklusive dem kompletten Header geloggt werden.
 Das Aktivieren dieses Loggings ist über einen Konfigurationsparameter steuerbar.
 
 [[ueberwachung]]

@@ -1,3 +1,7 @@
+# 5.0.0
+- `IFS-4676`: Scope der Abhängigkeit zu AspectJ-Weaver auf Runtime gesetzt.
+  * Definitionen der Aspekte zum kompilieren werden von org.aspectj:aspectjrt bereitgestellt.
+
 # 4.0.0
 - `IFS-4452`: Logging Autoconfiguration aus dem isy-aufrufkontext (in 4.0.0 nicht mehr vorhanden) hier eingeführt:
     * `de.bund.bva.isyfact.logging.autoconfigure.MdcFilterAutoConfiguration` in `org.springframework.boot.autoconfigure.AutoConfiguration.imports` eingefügt

@@ -1,66 +1,22 @@
 = Java-Programmierkonventionen: Changelog
 
-// tag::inhalt[]
 [[changelog]]
 == Changelog
 
 *Änderungen IsyFact 3.0.0*
 
-// tag::release-3.0.0[]
+
 - `IFS-1119`: Regel zur Erzeugung von Zufallszahlen hinzugefügt.
 
-// end::release-3.0.0[]
 
-// *Änderungen IsyFact 2.4.0*
-
-// tag::release-2.4.0[]
-
-// end::release-2.4.0[]
-
-// *Änderungen IsyFact 2.3.0*
-
-// tag::release-2.3.0[]
-
-// end::release-2.3.0[]
 
 *Änderungen IsyFact 2.2.0*
 
-// tag::release-2.2.0[]
+
 Die bereits etablierten Vorgaben zur Quellcodeablage wurden dem Dokument hinzugefügt und Neuerungen wie die Ablage von Dokumenten im AsciiDoc-Format ergänzt.
 
 [IMPORTANT]
 ====
 Durch die Erweiterung des Dokuments wurde eine Restrukturierung der Kapitel notwendig. Alte Verweise auf Kapitelnummern sind daher i.d.R. nicht mehr korrekt!
 ====
-// end::release-2.2.0[]
 
-// *Änderungen IsyFact 2.2.0*
-
-// tag::release-2.2.0[]
-
-// end::release-2.2.0[]
-
-// *Änderungen IsyFact 2.1.0*
-
-// tag::release-2.1.0[]
-
-// end::release-2.1.0[]
-
-// *Änderungen IsyFact 2.0.0*
-
-// tag::release-2.0.0[]
-
-// end::release-2.0.0[]
-
-// *Änderungen IsyFact 1.7.0*
-
-// tag::release-1.7.0[]
-
-// end::release-1.7.0[]
-
-// *Änderungen IsyFact 1.6.0*
-
-// tag::release-1.6.0[]
-
-// end::release-1.6.0[]
-// end::inhalt[]

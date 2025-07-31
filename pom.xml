@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" child.project.url.inherit.append.path="false">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>de.bund.bva.isyfact</groupId>
@@ -69,6 +69,8 @@
         <!-- Plugin versions used in several places -->
         <maven.enforcer.plugin.version>3.5.0</maven.enforcer.plugin.version>
         <maven.javadoc.plugin.version>3.3.2</maven.javadoc.plugin.version>
+        <flatten-maven-plugin.version>1.7.1</flatten-maven-plugin.version>
+        <maven.checkstyle.version>3.6.0</maven.checkstyle.version>
 
         <!-- Pfade für Dokumentation -->
         <isy.doku.standards.bausteine>10_IsyFact-Standards/20_Bausteine</isy.doku.standards.bausteine>
@@ -153,10 +155,9 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-checkstyle-plugin</artifactId>
-                    <version>3.1.2</version>
+                    <version>${maven.checkstyle.version}</version>
                     <configuration>
                         <configLocation>checkstyle.config.xml</configLocation>
-                        <encoding>UTF-8</encoding>
                         <consoleOutput>true</consoleOutput>
                         <failsOnError>true</failsOnError>
                         <linkXRef>false</linkXRef>
@@ -181,7 +182,7 @@
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>tidy-maven-plugin</artifactId>
-                    <version>1.3.0</version>
+                    <version>1.4.0</version>
                     <executions>
                         <execution>
                             <id>tidy-before-check</id>
@@ -282,7 +283,7 @@
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>flatten-maven-plugin</artifactId>
-                    <version>1.2.7</version>
+                    <version>${flatten-maven-plugin.version}</version>
                     <configuration>
                         <updatePomFile>true</updatePomFile>
                         <flattenMode>resolveCiFriendliesOnly</flattenMode>
@@ -579,37 +580,6 @@
                 </plugins>
             </build>
         </profile>
-        <!-- Profile to avoid SNAPSHOT-versions in releases. -->
-        <profile>
-            <id>release</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-enforcer-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>enforce-no-snapshots</id>
-                                <goals>
-                                    <goal>enforce</goal>
-                                </goals>
-                                <configuration>
-                                    <rules>
-                                        <requireReleaseDeps>
-                                            <message>Keine SNAPSHOT-Abhängigkeiten erlaubt!</message>
-                                        </requireReleaseDeps>
-                                        <requireReleaseVersion>
-                                            <message>Keine SNAPSHOT-Versionen erlaubt!</message>
-                                        </requireReleaseVersion>
-                                    </rules>
-                                    <fail>true</fail>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
         <profile>
             <!-- Moves the license files in APIDocs, if present. -->
             <id>copyLicenseFiles</id>
@@ -648,15 +618,38 @@
             <id>centralRelease</id>
             <build>
                 <plugins>
+                    <!-- Avoid SNAPSHOT-versions in releases. -->
                     <plugin>
-                        <groupId>org.sonatype.plugins</groupId>
-                        <artifactId>nexus-staging-maven-plugin</artifactId>
-                        <version>1.6.13</version>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-enforcer-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>enforce-no-snapshots</id>
+                                <goals>
+                                    <goal>enforce</goal>
+                                </goals>
+                                <configuration>
+                                    <rules>
+                                        <requireReleaseDeps>
+                                            <message>Keine SNAPSHOT-Abhängigkeiten erlaubt!</message>
+                                        </requireReleaseDeps>
+                                        <requireReleaseVersion>
+                                            <message>Keine SNAPSHOT-Versionen erlaubt!</message>
+                                        </requireReleaseVersion>
+                                    </rules>
+                                    <fail>true</fail>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.sonatype.central</groupId>
+                        <artifactId>central-publishing-maven-plugin</artifactId>
+                        <version>0.7.0</version>
                         <extensions>true</extensions>
                         <configuration>
-                            <serverId>ossrh</serverId>
-                            <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-                            <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                            <publishingServerId>central</publishingServerId>
+                            <autoPublish>true</autoPublish>
                         </configuration>
                     </plugin>
                 </plugins>
@@ -731,49 +724,6 @@
                     </plugin>
                 </plugins>
             </build>
-        </profile>
-        <profile>
-            <id>centralmavenrepo</id>
-            <activation>
-                <property>
-                    <name>centraldeploy</name>
-                    <value>true</value>
-                </property>
-            </activation>
-            <properties>
-            </properties>
-            <distributionManagement>
-                <snapshotRepository>
-                    <id>ossrh</id>
-                    <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-                </snapshotRepository>
-                <repository>
-                    <id>ossrh</id>
-                    <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-                </repository>
-            </distributionManagement>
-        </profile>
-        <profile>
-            <id>internalmavenrepo</id>
-            <activation>
-                <property>
-                    <name>!centraldeploy</name>
-                </property>
-            </activation>
-            <properties>
-            </properties>
-            <distributionManagement>
-                <repository>
-                    <id>repository</id>
-                    <name>Repository</name>
-                    <url>${deploy-url-release}</url>
-                </repository>
-                <snapshotRepository>
-                    <id>repository</id>
-                    <name>Repository</name>
-                    <url>${deploy-url-snapshot}</url>
-                </snapshotRepository>
-            </distributionManagement>
         </profile>
 
         <!-- remove if source code is adjusted to JDK 17 -->

@@ -1,7 +1,5 @@
 = Referenzarchitektur Backend
 
-include::documentation-guide::partial$licence.adoc[]
-
 include::glossary::terms-definitions.adoc[tag=backend-definition]
 
 Backends sind technisch gleichartig aufgebaut.
@@ -101,8 +99,7 @@ include::backend/persistenzschicht.adoc[tags=persistenz-framework-definition]
 [[persistenz-umsetzung]]
 === Umsetzung
 
-Zur Konzeption der Persistenzschicht definiert die Referenzarchitektur xref:software-technisch/backend/persistenzschicht.adoc[weitere Vorgaben].
-Die Umsetzung geschieht mithilfe des xref:isy-persistence:konzept.adoc[Bausteins JPA/Hibernate].
+Zur Konzeption der Persistenzschicht sowie zur Umsetzung mit JPA und Hibernate definiert die Referenzarchitektur xref:software-technisch/backend/persistenzschicht.adoc[weitere Vorgaben].
 
 [[serviceschicht]]
 == Serviceschicht
@@ -146,7 +143,7 @@ Logging & Tracing::
 Vorgaben und Umsetzung mithilfe des xref:isy-logging:konzept/master.adoc[Bausteins Logging]
 
 Autorisierung::
-Vorgaben und Umsetzung mithilfe des xref:isy-security:konzept/master.adoc[Bausteins Security]
+Vorgaben und Umsetzung mithilfe des xref:security::konzept.adoc[Bausteins Security]
 
 Monitoring::
 Vorgaben und Umsetzung mithilfe des xref:isy-ueberwachung:konzept/master.adoc[Bausteins Überwachung]

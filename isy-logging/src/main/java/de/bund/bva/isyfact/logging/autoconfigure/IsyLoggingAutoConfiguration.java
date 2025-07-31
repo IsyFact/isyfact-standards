@@ -1,6 +1,5 @@
 package de.bund.bva.isyfact.logging.autoconfigure;
 
-
 import org.aopalliance.intercept.MethodInterceptor;
 import org.springframework.aop.Advisor;
 import org.springframework.aop.aspectj.AspectJExpressionPointcut;

@@ -1,7 +1,5 @@
 = Referenzarchitektur
 
-include::glossary:licence:partial$licence.adoc[]
-
 // tag::whitepaper[]
 
 *Die Referenzarchitektur bildet einen Strukturierungsrahmen für Anwendungslandschaften.
@@ -54,7 +52,7 @@ Je nach Domäne kann es unterschiedliche Arten von Geschäftsanwendungen geben, 
 Eine Anwendung besteht aus Anwendungskomponenten, die eine Menge funktional zusammenhängender Anwendungsfälle beschreiben.
 
 Für den Zugriff der Anwender auf die Anwendungen dient eine Benutzeroberfläche im Portal.
-Externen Anwendungen stellen Service-Gateways die entsprechenden Schnittstellen über Web-Services zur Verfügung.
+Externen Anwendungen stellen Service-Gateways die entsprechenden Schnittstellen über Webservices zur Verfügung.
 
 == Software-technische Referenzarchitektur
 

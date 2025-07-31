@@ -13,9 +13,42 @@ updates:
       spring-boot:
         patterns:
           - "org.springframework.boot:spring-boot-*"
-      jsf:
+      resilience4j:
         patterns:
-          - "com.sun.faces:jsf-*"
+          - "io.github.resilience4j:resilience4j-*"
+      logback:
+        patterns:
+          - "ch.qos.logback:logback-*"
+      logback-contrib:
+        patterns:
+          - "ch.qos.logback.contrib.logback-*"
+      oracle-jdbc:
+        patterns:
+          - "com.oracle.database.jdbc.*"
+      apache-poi:
+        patterns:
+          - "org.apache.poi.poi*"
+      greenmail:
+        patterns:
+          - "com.icegreen.greenmail*"
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "de.bund.bva.isyfact:*"
+
+  - package-ecosystem: "maven"
+    target-branch: "release/4.x"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    open-pull-requests-limit: 5
+    groups:
+      spring-webflow:
+        patterns:
+          - "org.springframework.webflow:spring-*"
+      spring-boot:
+        patterns:
+          - "org.springframework.boot:spring-boot-*"
       resilience4j:
         patterns:
           - "io.github.resilience4j:resilience4j-*"
@@ -52,9 +85,6 @@ updates:
       spring-boot:
         patterns:
           - "org.springframework.boot:spring-boot-*"
-      jsf:
-        patterns:
-          - "com.sun.faces:jsf-*"
       resilience4j:
         patterns:
           - "io.github.resilience4j:resilience4j-*"
@@ -75,46 +105,7 @@ updates:
           - "com.icegreen.greenmail*"
     ignore:
       - dependency-name: "*"
-        update-types: ["version-update:semver-major", "version-update:semver-minor"]
-      - dependency-name: "de.bund.bva.isyfact:*"
-
-  - package-ecosystem: "maven"
-    target-branch: "release/2.x"
-    directory: "/"
-    schedule:
-      interval: "daily"
-    open-pull-requests-limit: 5
-    groups:
-      spring-webflow:
-        patterns:
-          - "org.springframework.webflow:spring-*"
-      spring-boot:
-        patterns:
-          - "org.springframework.boot:spring-boot-*"
-      jsf:
-        patterns:
-          - "com.sun.faces:jsf-*"
-      resilience4j:
-        patterns:
-          - "io.github.resilience4j:resilience4j-*"
-      logback:
-        patterns:
-          - "ch.qos.logback:logback-*"
-      logback-contrib:
-        patterns:
-          - "ch.qos.logback.contrib.logback-*"
-      oracle-jdbc:
-        patterns:
-          - "com.oracle.database.jdbc.*"
-      apache-poi:
-        patterns:
-          - "org.apache.poi.poi*"
-      greenmail:
-        patterns:
-          - "com.icegreen.greenmail*"
-    ignore:
-      - dependency-name: "*"
-        update-types: ["version-update:semver-major", "version-update:semver-minor"]
+        update-types: ["version-update:semver-major"]
       - dependency-name: "de.bund.bva.isyfact:*"
 
   - package-ecosystem: "github-actions"
@@ -126,7 +117,7 @@ updates:
       prefix: "ci"
 
   - package-ecosystem: "github-actions"
-    target-branch: "release/3.x"
+    target-branch: "release/4.x"
     directory: "/"
     schedule:
       interval: "weekly"
@@ -134,7 +125,7 @@ updates:
       prefix: "ci"
 
   - package-ecosystem: "github-actions"
-    target-branch: "release/2.x"
+    target-branch: "release/3.x"
     directory: "/"
     schedule:
       interval: "weekly"

@@ -1,8 +1,7 @@
 * xref:bausteine.adoc[]
-** Datum & Zeit
-*** xref:isy-datetime-docs:ROOT:konzept/master.adoc[Konzept]
-*** xref:isy-datetime-docs:ROOT:nutzungsvorgaben/master.adoc[Nutzungsvorgaben]
-
+** [.separator]#IsyFact-Standards#
+** xref:isy-datetime-docs::konzept/master.adoc[Datum & Zeit]
+** xref:datetime-persistence::konzept.adoc[Datum & Zeit (Persistenz)]
 ** Fehlerbehandlung
 *** xref:isy-exception-core:konzept/master.adoc[Konzept]
 *** xref:isy-exception-core:nutzungsvorgaben/master.adoc[Nutzungsvorgaben]
@@ -11,24 +10,22 @@
 *** xref:isy-logging:konzept/master.adoc[Konzept]
 *** xref:isy-logging:nutzungsvorgaben/master.adoc[Nutzungsvorgaben]
 
+** xref:polling::konzept.adoc[Polling]
+
 ** REST
 *** xref:isy-service-rest:konzept/master.adoc[Konzept]
 *** xref:isy-service-rest:nutzungsvorgaben/master.adoc[Nutzungsvorgaben]
 
-** Sonderzeichen
-*** xref:isy-sonderzeichen-docs:ROOT:konzept/master.adoc[Konzept]
-*** xref:isy-sonderzeichen-docs:ROOT:nutzungsvorgaben/master.adoc[Nutzungsvorgaben]
+** xref:security::konzept.adoc[Security]
+** xref:isy-sonderzeichen-docs::konzept/master.adoc[Sonderzeichen]
+** xref:task::konzept.adoc[Task Scheduling]
 
 ** Überwachung
 *** xref:isy-ueberwachung:konzept/master.adoc[Konzept]
 *** xref:isy-ueberwachung:nutzungsvorgaben/master.adoc[Nutzungsvorgaben]
 
-** Bedienkonzept
+** xref:util::konzept.adoc[Util]
 
-*** xref:isy-bedienkonzept-doc:ROOT:bedienkonzept.adoc[Konzept]
-*** xref:isy-bedienkonzept-doc:ROOT:referenzimplementierung.adoc[Referenzimplementierung]
-
-** Angular
-*** xref:isy-angular-widgets-doc:ROOT:konzept/konzept.adoc[Konzept]
-*** https://isyfact.github.io/isy-angular-widgets/documentation/[Nutzungsvorgaben]
-*** xref:isy-angular-widgets-doc:ROOT:referenzimplementierung.adoc[Referenzimplementierung]
+** [.separator]#IsyFact-Erweiterungen#
+** xref:angular::konzept.adoc[Angular]
+** xref:isy-bedienkonzept-doc::bedienkonzept.adoc[Bedienkonzept]

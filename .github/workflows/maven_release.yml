@@ -5,7 +5,7 @@ on:
 
 jobs:
   Build:
-    uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_build_template.yml@v1.4.0
+    uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_build_template.yml@v1.6.0
     with:
       version: ${{ github.ref_name }}
       sonar-skip: true
@@ -42,7 +42,7 @@ jobs:
           fi
 
   DependencyScan:
-    uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_dependency_scan_template.yml@v1.4.0
+    uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_dependency_scan_template.yml@v1.6.0
     with:
       jdk-version: 17
       snyk-organization: ${{ vars.SNYK_ORG_ID }}
@@ -57,7 +57,7 @@ jobs:
     with:
       version: ${{ github.ref_name }}
       maven-opts: '-P centralRelease'
-      deploy-server-id: ossrh
+      deploy-server-id: central
       sbom: true
       sign: true
       environment: 'Release'
@@ -68,7 +68,7 @@ jobs:
       DEPLOY_SERVER_TOKEN: ${{ secrets.MAVEN_CENTRAL_TOKEN }}
 
   DependencyMonitor:
-    uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_dependency_scan_template.yml@v1.4.0
+    uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_dependency_scan_template.yml@v1.6.0
     with:
       jdk-version: 17
       snyk-organization: ${{ vars.SNYK_ORG_ID }}

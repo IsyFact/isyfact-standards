@@ -1,7 +1,5 @@
 = Serviceschicht
 
-include::documentation-guide::partial$licence.adoc[]
-
 // tag::serviceschicht-definition[]
 
 Die Serviceschicht stellt Services von Backends innerhalb einer Systemlandschaft zur Verfügung.
@@ -10,7 +8,7 @@ Der Aufbau der Serviceschicht sowie ihre Kommunikation mit anderen Schichten ist
 
 [[systemarchitektur-serviceschicht]]
 .Einbettung der Serviceschicht in die Systemarchitektur
-image::software-technisch/backend/service.dn.svg[width=80%,align=center]
+image::software-technisch/backend/service.dn.svg[width=50%,align=center]
 
 // end::serviceschicht-definition[]
 
@@ -30,7 +28,7 @@ Sie nehmen die Daten der Anfragen von außen entgegen und stellen die Funktional
 Zu den Aufgaben der Fachkomponenten gehören maßgeblich:
 
 Autorisierung:: Bei jeder Anfrage muss die Fachkomponente überprüfen, ob der Aufrufer autorisiert ist, die Service-Operation auszuführen.
-Hierzu verwenden Backends den xref:isy-security:konzept/master.adoc[Baustein Security].
+Hierzu verwenden Backends den xref:security::konzept.adoc[Baustein Security].
 
 Tracing:: Bei jeder Anfrage muss die Fachkomponente die Korrelations-ID in den Logging-Kontext einfügen.
 Hierzu verwenden Backends den xref:isyfact-standards-doku:isy-logging:konzept/master.adoc[Baustein Logging].
@@ -62,7 +60,7 @@ Für die vom Anwendungskern gelieferten Ergebnisse ist eine Transformation in um
 Dabei führt die Service-Fassade eine Validierung der Aufrufparameter durch.
 
 Die Service-Fassade übernimmt darüber hinaus auch die Autorisierung des Aufrufs.
-Dazu nutzt sie den xref:isy-security:nutzungsvorgaben/master.adoc#autorisierung_service_schnittstelle[Baustein Security].
+Dazu nutzt sie den xref:security::nutzungsvorgaben.adoc#autorisierung_service_schnittstelle[Baustein Security].
 
 [[exception-fassade]]
 ==== Exception-Fassade
