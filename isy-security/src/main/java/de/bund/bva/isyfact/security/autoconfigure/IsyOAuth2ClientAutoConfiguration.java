@@ -26,6 +26,7 @@ import org.springframework.security.oauth2.client.OAuth2AuthorizedClientProvider
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
 import org.springframework.security.oauth2.client.registration.ClientRegistration;
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
+import org.springframework.security.oauth2.jwt.JwtDecoderFactory;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 
 import de.bund.bva.isyfact.security.config.IsyOAuth2ClientConfigurationProperties;
@@ -35,6 +36,7 @@ import de.bund.bva.isyfact.security.oauth2.client.IsyOAuth2Authentifizierungsman
 import de.bund.bva.isyfact.security.oauth2.client.annotation.AuthenticateInterceptor;
 import de.bund.bva.isyfact.security.oauth2.client.authentication.ClientCredentialsAuthorizedClientAuthenticationProvider;
 import de.bund.bva.isyfact.security.oauth2.client.authentication.ClientCredentialsClientRegistrationAuthenticationProvider;
+import de.bund.bva.isyfact.security.oauth2.client.authentication.IsyAccessTokenDecoderFactory;
 import de.bund.bva.isyfact.security.oauth2.client.authentication.PasswordClientRegistrationAuthenticationProvider;
 import de.bund.bva.isyfact.security.oauth2.client.authentication.util.BhknzHeaderConverterBuilder;
 
@@ -55,6 +57,12 @@ public class IsyOAuth2ClientAutoConfiguration {
     @ConfigurationProperties(prefix = "isy.security.oauth2.client")
     public IsyOAuth2ClientConfigurationProperties isyOAuth2ClientProperties(@Nullable OAuth2ClientProperties oAuth2ClientProperties) {
         return new IsyOAuth2ClientConfigurationProperties(oAuth2ClientProperties);
+    }
+
+    // configures the IsyAccessTokenDecoderFactory
+    @Bean
+    public JwtDecoderFactory<ClientRegistration> isyJwtDecoderFactory() {
+        return new IsyAccessTokenDecoderFactory();
     }
 
     // lazy converter because we only need it when an optional BHKNZ is passed during authentication
