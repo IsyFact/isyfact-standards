@@ -27,6 +27,24 @@ jobs:
     secrets:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
+  DeploySnapshotToCentral:
+    if: (github.event_name == 'push' || github.event_name == 'workflow_dispatch') &&
+      (github.ref == 'refs/heads/develop' || startsWith(github.ref, 'refs/heads/release/'))
+    needs: [ Version, Maven ]
+    uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_deploy_template.yml@v1.6.0
+    with:
+      version: ${{ needs.Version.outputs.next-version }}
+      maven-opts: '-PcentralSnapshot'
+      deploy-server-id: central
+      sbom: ${{ startsWith(github.ref, 'refs/heads/release/') }}
+      sign: true
+      environment: 'Release'
+    secrets:
+      GPG_PRIVATE_KEY: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
+      GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
+      DEPLOY_SERVER_USER_NAME: ${{ secrets.MAVEN_CENTRAL_USER_NAME }}
+      DEPLOY_SERVER_TOKEN: ${{ secrets.MAVEN_CENTRAL_TOKEN }}
+
   DeployGithubPackages:
     if: github.event_name == 'push'
     needs: [Version, Maven]
