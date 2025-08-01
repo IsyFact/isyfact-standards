@@ -3,14 +3,14 @@
 
 *Änderungen IsyFact 4.0.0*
 
-// tag::release-4.0.0[]
+
 - 'IFS-4518': Aufnahme des Status-Codes 202 in das REST Konzept
 
-// end::release-4.0.0[]
+
 
 *Änderungen IsyFact 3.0.0*
 
-// tag::release-3.0.0[]
+
 - `ISY-1061`: Ergänzung der Dokumentation zum Zurücksetzen der Korrelations-ID aus dem MdcHelper
 
-// end::release-3.0.0[]
+

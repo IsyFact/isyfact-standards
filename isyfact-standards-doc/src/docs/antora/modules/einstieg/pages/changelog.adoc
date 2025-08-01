@@ -1,60 +1,16 @@
 [[changelog]]
 = Changelog
+
 *Änderungen IsyFact 4.0.0*
 
-// tag::release-4.0.0[]
 - `IFS-3701`: Baustein JSF aus der IsyFact-Standards Dokumentation entfernt.
-
-// end::release-4.0.0[]
 
 *Änderungen IsyFact 3.0.0*
 
-// tag::release-3.0.0[]
 - `IFS-1278`: Dokument IsyFact-Einstieg aufgetrennt und an neue Seitenvorlage angepasst.
 - `IFS-1468`: Neustrukturierung des Whitepapers anhand aktueller Inhalte von der offiziellen Webseite zur IsyFact.
 - `IFS-1547`: Migration und Download des Produktkatalogs.
 
-// end::release-3.0.0[]
-
-// *Änderungen IsyFact 2.4.0*
-
-// tag::release-2.4.0[]
-
-// end::release-2.4.0[]
-
-// *Änderungen IsyFact 2.3.0*
-
-// tag::release-2.3.0[]
-
-// end::release-2.3.0[]
-
 *Änderungen IsyFact 2.2.0*
 
-// tag::release-2.2.0[]
 - `IFS-472`: Dokument IsyFact-Einstieg überarbeitet.
-// end::release-2.2.0[]
-
-// *Änderungen IsyFact 2.1.0*
-
-// tag::release-2.1.0[]
-
-// end::release-2.1.0[]
-
-// *Änderungen IsyFact 2.0.0*
-
-// tag::release-2.0.0[]
-
-// end::release-2.0.0[]
-
-*Änderungen IsyFact 1.7.0*
-
-// tag::release-1.7.0[]
-- `IFS-295`: Abschnitt "Erste Schritte" überarbeitet.
-// end::release-1.7.0[]
-
-// *Änderungen IsyFact 1.6.0*
-
-// tag::release-1.6.0[]
-
-// end::release-1.6.0[]
-

@@ -4,8 +4,6 @@ import static org.junit.Assert.*;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.lang.reflect.AccessibleObject;
-import java.lang.reflect.Field;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.PostConstruct;
@@ -73,15 +71,13 @@ public class TestDefaultServiceStatistikExceptionHandling {
 
         // Then
         assertNotNull(result);
-        assertEquals(0, getAktuelleBusinessExceptions(serviceStatistik));
-        assertEquals(0, getAktuelleTechnicalExceptions(serviceStatistik));
         assertEquals(0, anzahlBusinessExceptions.value(), 0.01);
         assertEquals(0, anzahlTechnicalExceptions.value(), 0.01);
     }
 
     /**
      * Tests {@link DefaultServiceStatistik#invoke}, to verify that a thrown {@link TechnicalException} is recognized
-     * as a technically unsuccessful call and increments the value of {@code anzahlTechnicalExceptionsAktuelleMinute}.
+     * as a technically unsuccessful call and increments the value of {@code anzahlTechnicalExceptions}.
      */
     @Test(expected = TestTechnicalException.class)
     public void testInvokeWithTechnicalException() throws Throwable {
@@ -92,15 +88,13 @@ public class TestDefaultServiceStatistikExceptionHandling {
         serviceStatistik.invoke(invocation);
 
         // Then
-        assertEquals(1, getAktuelleTechnicalExceptions(serviceStatistik));
-        assertEquals(0, getAktuelleBusinessExceptions(serviceStatistik));
         assertEquals(1, anzahlTechnicalExceptions.value(), 0.01);
         assertEquals(0, anzahlBusinessExceptions.value(), 0.01);
     }
 
     /**
      * Tests {@link DefaultServiceStatistik#invoke}, to verify that a thrown {@link BusinessException} is recognized
-     * as a functionally unsuccessful call and increments the value of {@code anzahlBusinessExceptionsAktuelleMinute}.
+     * as a functionally unsuccessful call and increments the value of {@code anzahlBusinessExceptions}.
      */
     @Test(expected = TestBusinessException.class)
     public void testInvokeWithBusinessException() throws Throwable {
@@ -111,8 +105,6 @@ public class TestDefaultServiceStatistikExceptionHandling {
         serviceStatistik.invoke(invocation);
 
         // Then
-        assertEquals(0, getAktuelleTechnicalExceptions(serviceStatistik));
-        assertEquals(1, getAktuelleBusinessExceptions(serviceStatistik));
         assertEquals(0, anzahlTechnicalExceptions.value(), 0.01);
         assertEquals(1, anzahlBusinessExceptions.value(), 0.01);
     }
@@ -120,7 +112,7 @@ public class TestDefaultServiceStatistikExceptionHandling {
     /**
      * Tests {@link DefaultServiceStatistik#invoke} to verify that a thrown {@link RuntimeException}
      * is recognized as a technically and functionally unsuccessful call and increments
-     * both {@code anzahlTechnicalExceptionsAktuelleMinute} and {@code anzahlBusinessExceptionsAktuelleMinute}.
+     * both {@code anzahlTechnicalExceptions} and {@code anzahlBusinessExceptions}.
      */
     @Test(expected = RuntimeException.class)
     public void testInvokeWithRuntimeException() throws Throwable {
@@ -131,38 +123,8 @@ public class TestDefaultServiceStatistikExceptionHandling {
         serviceStatistik.invoke(invocation);
 
         // Then
-        assertEquals(1, getAktuelleTechnicalExceptions(serviceStatistik));
-        assertEquals(1, getAktuelleBusinessExceptions(serviceStatistik));
         assertEquals(1, anzahlTechnicalExceptions.value(), 0.01);
         assertEquals(1, anzahlBusinessExceptions.value(), 0.01);
-    }
-
-    /**
-     * Helping method to retrieve current count of {@link TechnicalException} reflexively.
-     */
-    private int getAktuelleTechnicalExceptions(DefaultServiceStatistik defaultServiceStatistik) {
-        try {
-            Field field = DefaultServiceStatistik.class.getDeclaredField("anzahlTechnicalExceptionsAktuelleMinute");
-            field.setAccessible(true);
-            AtomicInteger counter = (AtomicInteger) field.get(defaultServiceStatistik);
-            return counter.get();
-        } catch (NoSuchFieldException | IllegalAccessException e) {
-            throw new RuntimeException("Error while reflexively reading anzahlTechnicalExceptionsAktuelleMinute", e);
-        }
-    }
-
-    /**
-     * Helping method to retrieve current count of {@link BusinessException} reflexively.
-     */
-    private int getAktuelleBusinessExceptions(DefaultServiceStatistik defaultServiceStatistik) {
-        try {
-            Field field = DefaultServiceStatistik.class.getDeclaredField("anzahlBusinessExceptionsAktuelleMinute");
-            field.setAccessible(true);
-            AtomicInteger counter = (AtomicInteger) field.get(defaultServiceStatistik);
-            return counter.get();
-        } catch (NoSuchFieldException | IllegalAccessException e) {
-            throw new RuntimeException("Error while reflexively reading anzahlBusinessExceptionsAktuelleMinute", e);
-        }
     }
 
     /**
