@@ -592,7 +592,7 @@
             <id>copyLicenseFiles</id>
             <activation>
                 <file>
-                    <exists>license</exists>
+                    <exists>LICENSE</exists>
                 </file>
             </activation>
             <build>
@@ -607,7 +607,7 @@
                                 <configuration>
                                     <target>
                                         <copy todir="${project.build.directory}/apidocs">
-                                            <fileset dir="${basedir}/license" includes="*"/>
+                                            <fileset file="${basedir}/LICENSE"/>
                                         </copy>
                                     </target>
                                 </configuration>
