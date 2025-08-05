@@ -15,6 +15,9 @@
 - `IFS-4531`: Update von Flatten Maven Plugin auf Version 1.7.1
   * Update von Maven Version auf 3.6.3
 
+## BUG FIXES
+- `IFS-4817`: [isy-ueberwachung] Verwendung von `securityMatcher` in actuatorSecurityFilterChain und loadbalancerSecurityFilterChain für korrektes Filtern von Anfragen.
+
 ## BREAKING CHANGES
 - `IFS-4736`: [isy-persistence] Entfernung der Bibliothek aus den IsyFact-Standards
 - `IFS-4582`: [isy-persistence], [isy-polling], [isy-security], [isy-security-test], [isy-task], [isy-util] Entfernen der entkoppelten Bausteine aus dem Standards-Repository
