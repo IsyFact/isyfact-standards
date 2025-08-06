@@ -51,5 +51,5 @@ public abstract class AbstractIsyAuthenticationToken extends AbstractAuthenticat
     }
 
     @Nullable
-    public abstract Integer generateCacheKey();
+    public abstract byte[] generateCacheKey();
 }
