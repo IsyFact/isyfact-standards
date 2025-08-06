@@ -10,11 +10,17 @@
     </servers>
     <profiles>
         <profile>
-            <id>sonatype</id>
+            <id>maven-central</id>
             <repositories>
                 <repository>
-                    <id>sonatype-snapshots</id>
-                    <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+                    <id>central-snapshots</id>
+                    <url>https://central.sonatype.com/repository/maven-snapshots/</url>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                    <releases>
+                        <enabled>false</enabled>
+                    </releases>
                 </repository>
             </repositories>
         </profile>
@@ -29,7 +35,7 @@
         </profile>
     </profiles>
     <activeProfiles>
-        <activeProfile>sonatype</activeProfile>
+        <activeProfile>maven-central</activeProfile>
         <activeProfile>github</activeProfile>
     </activeProfiles>
 </settings>
