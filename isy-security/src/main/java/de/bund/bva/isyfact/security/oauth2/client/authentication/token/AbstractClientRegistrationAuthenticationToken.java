@@ -44,9 +44,10 @@ public abstract class AbstractClientRegistrationAuthenticationToken extends Abst
      * @return the generated cache key as hash code or null
      */
     @Override
-    public byte[] generateCacheKey() {
+    public byte[] generateCacheKey(byte[] salt) {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-512");
+            digest.update(salt);
 
             List<String> values = Arrays.asList(
                     String.valueOf(getPrincipal()),

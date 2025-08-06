@@ -26,7 +26,7 @@ public class ClientCredentialsRegistrationIdAuthenticationToken extends Abstract
      * @return null
      */
     @Override
-    public byte[] generateCacheKey() {
+    public byte[] generateCacheKey(byte[] salt) {
         return null;
     }
 }

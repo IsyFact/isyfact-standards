@@ -1,5 +1,6 @@
 package de.bund.bva.isyfact.security.oauth2.client;
 
+import java.security.SecureRandom;
 import java.time.Duration;
 import java.util.Base64;
 
@@ -63,6 +64,11 @@ public class IsyOAuth2Authentifizierungsmanager implements Authentifizierungsman
     private final ProviderManager providerManager;
 
     /**
+     * Salt value to increase security of token hash.
+     */
+    private final byte[] salt;
+
+    /**
      * Used to build a cache.
      */
     private final CacheManager cacheManager;
@@ -108,6 +114,7 @@ public class IsyOAuth2Authentifizierungsmanager implements Authentifizierungsman
         this.providerManager = providerManager;
         this.isyOAuth2ClientProps = isyOAuth2ClientProps;
         this.clientRegistrationRepository = clientRegistrationRepository;
+        this.salt = generateSalt();
 
         CacheSetupResult cacheSetupResult = setupCache(isySecurityConfigurationProps);
         this.cacheManager = cacheSetupResult.cacheManager;
@@ -348,6 +355,13 @@ public class IsyOAuth2Authentifizierungsmanager implements Authentifizierungsman
         return unauthenticatedToken;
     }
 
+    private byte[] generateSalt() {
+        SecureRandom secureRandom = new SecureRandom();
+        byte[] salt = new byte[64];
+        secureRandom.nextBytes(salt);
+        return salt;
+    }
+
     /**
      * Initializes the authentication cache based on configured properties.
      * If time to live (TTL) equals 0, caching is disabled and null-values are returned.
@@ -411,7 +425,7 @@ public class IsyOAuth2Authentifizierungsmanager implements Authentifizierungsman
         // ClientCredentialsRegistrationIdAuthenticationToken will return null-value for cacheKey
         // and so it will not be cached by the logic of Isy-Security
         // because it is cached by Spring's OAuth2AuthorizedClientManager
-        byte[] cacheKeyBytes = isyAuthenticationToken.generateCacheKey();
+        byte[] cacheKeyBytes = isyAuthenticationToken.generateCacheKey(this.salt);
 
         if (cacheKeyBytes == null) {
             return performAuthentication(unauthenticatedToken);

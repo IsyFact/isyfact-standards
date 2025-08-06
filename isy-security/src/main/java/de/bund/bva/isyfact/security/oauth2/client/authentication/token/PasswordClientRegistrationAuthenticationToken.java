@@ -57,12 +57,12 @@ public class PasswordClientRegistrationAuthenticationToken extends AbstractClien
      * @return the generated cache key as hash code or null
      */
     @Override
-    public byte[] generateCacheKey() {
+    public byte[] generateCacheKey(byte[] salt) {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-512");
 
             // use hash from super as base
-            byte[] parentHash = super.generateCacheKey();
+            byte[] parentHash = super.generateCacheKey(salt);
             digest.update(parentHash);
 
             List<String> additionalValues = Arrays.asList(
