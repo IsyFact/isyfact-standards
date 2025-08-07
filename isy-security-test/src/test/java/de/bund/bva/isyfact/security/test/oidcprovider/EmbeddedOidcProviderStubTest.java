@@ -45,6 +45,7 @@ public class EmbeddedOidcProviderStubTest {
     void testAccessTokenWithBhknz() throws ParseException {
         UUID userId = UUID.randomUUID();
         String clientId = "testclient";
+        String audience = "account";
         String userName = "testuser";
         String bhknz = "123456";
         List<String> roles = Arrays.asList("testrole1", "testrole2");
@@ -57,7 +58,7 @@ public class EmbeddedOidcProviderStubTest {
 
         assertEquals("http://oidc-provider:9096/auth/realms/testrealm", claims.getIssuer());
         assertEquals(userId.toString(), claims.getSubject());
-        assertThat(claims.getAudience()).containsOnly(clientId);
+        assertThat(claims.getAudience()).containsOnly(audience);
         assertEquals(userName, claims.getStringClaim(StandardClaimNames.PREFERRED_USERNAME));
         assertThat(claims.getStringArrayClaim(DEFAULT_ROLES_CLAIM_NAME)).containsOnly("testrole1", "testrole2");
         assertEquals(bhknz, claims.getStringClaim(BHKNZ_CLAIM_NAME));
@@ -73,6 +74,7 @@ public class EmbeddedOidcProviderStubTest {
     void testAccessTokenWithoutBhknz() throws ParseException {
         UUID userId = UUID.randomUUID();
         String clientId = "testclient";
+        String audience = "account";
         String userName = "testuser";
         List<String> roles = Arrays.asList("testrole1", "testrole2");
 
@@ -83,7 +85,7 @@ public class EmbeddedOidcProviderStubTest {
 
         assertEquals("http://oidc-provider:9096/auth/realms/testrealm", claims.getIssuer());
         assertEquals(userId.toString(), claims.getSubject());
-        assertThat(claims.getAudience()).containsOnly(clientId);
+        assertThat(claims.getAudience()).containsOnly(audience);
         assertEquals(userName, claims.getStringClaim(StandardClaimNames.PREFERRED_USERNAME));
         assertThat(claims.getStringArrayClaim(DEFAULT_ROLES_CLAIM_NAME)).containsOnly("testrole1", "testrole2");
         assertFalse(claims.getClaims().containsKey(BHKNZ_CLAIM_NAME));
