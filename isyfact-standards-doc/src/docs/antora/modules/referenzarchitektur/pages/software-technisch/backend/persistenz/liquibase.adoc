@@ -2,7 +2,7 @@
 :navtitle: Liquibase
 :reftext: Liquibase
 
-Liquibase ist ein leistungsfähiges Tool zur Versionierung und Verwaltung von Datenbankänderungen.
+Liquibase ist ein leistungsfähiges Tool zur Versionierung und Verwaltung von Datenbankänderungen in SQL Datenbanken.
 Es ermöglicht eine *transparente, nachvollziehbare und automatisierte* Änderungsverfolgung, wodurch manuelle Fehler minimiert und eine konsistente Synchronisation zwischen Entwicklungs-, Test- und Produktionsumgebungen sichergestellt wird.
 
 Die Integration von Liquibase in eine bestehende Datenbank stellt eine Herausforderung dar, da das aktuelle Schema bereits produktiv genutzt wird.
@@ -114,8 +114,10 @@ Ein *Changeset* beschreibt eine einzelne Datenbankänderung und wird nur einmal 
 Wichtige Prinzipien für die Verwaltung von Changesets sind:
 
 * *Atomare Änderungen:* Jede Änderung sollte einzeln und unabhängig sein.
+* *Je Änderungen ein Changeset:* Wenn möglich, sollten Changesets nicht mehr verändert werden, sondern über ein neues Changeset realisiert werden.
 * *Eindeutige Identifikation:* Kombination aus ID, Autor und Changelog-Datei.
 * *Verständliche Beschreibungen:* Klare Dokumentation der Änderung.
+* *Chronologische Ergänzung:* Neuen Changesets sind hinter bestehenden Changesets zu ergänzen.
 * *Tests vor der Anwendung:* Sicherstellen, dass Änderungen vor der Übernahme geprüft werden.
 
 [[umsetzung-von-schemaenderungen]]
