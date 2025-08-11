@@ -93,6 +93,7 @@
 
         <!-- Fixed patch for commons-text CVE-2022-42889 -->
         <commons-text.version>1.10.0</commons-text.version>
+        <central-publishing-maven-plugin.version>0.8.0</central-publishing-maven-plugin.version>
     </properties>
 
     <build>
@@ -371,7 +372,7 @@
                 </plugin>
                 <plugin>
                     <groupId>org.cyclonedx</groupId>
-                    <artifactId> cyclonedx-maven-plugin</artifactId>
+                    <artifactId>cyclonedx-maven-plugin</artifactId>
                     <version>2.7.11</version>
                     <configuration>
                         <outputFormat>json</outputFormat>
@@ -644,6 +645,23 @@
         </profile>
 
         <profile>
+            <id>centralSnapshot</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.sonatype.central</groupId>
+                        <artifactId>central-publishing-maven-plugin</artifactId>
+                        <version>${central-publishing-maven-plugin.version}</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <publishingServerId>central</publishingServerId>
+                            <autoPublish>true</autoPublish>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
             <id>centralRelease</id>
             <build>
                 <plugins>
@@ -674,7 +692,7 @@
                     <plugin>
                         <groupId>org.sonatype.central</groupId>
                         <artifactId>central-publishing-maven-plugin</artifactId>
-                        <version>0.7.0</version>
+                        <version>${central-publishing-maven-plugin.version}</version>
                         <extensions>true</extensions>
                         <configuration>
                             <publishingServerId>central</publishingServerId>
