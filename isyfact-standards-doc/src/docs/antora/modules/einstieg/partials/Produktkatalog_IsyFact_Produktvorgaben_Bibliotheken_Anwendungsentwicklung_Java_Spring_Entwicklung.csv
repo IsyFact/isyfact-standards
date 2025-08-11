@@ -18,11 +18,11 @@ Persistenz;https://www.liquibase.org[Liquibase];<<spring-boot-dependencies,icon:
 JSON-Verarbeitung;https://github.com/FasterXML/jackson[Jackson];<<spring-boot-dependencies,icon:leaf[]>>;2.4.0;verbindlich;Apache Software License;
 Authentifizierung / Autorisierung;http://projects.spring.io/spring-security/[Spring Security];<<spring-boot-dependencies,icon:leaf[]>>;3.0.0;verbindlich;Apache Software License;
 Resilience-Framework;https://resilience4j.readme.io/[Resilience4J];1.x;2.2.0;verbindlich;Apache Software License;
-Webservice Framework (SOAP);https://projects.eclipse.org/projects/ee4j.metro/[Eclipse Metro];4.0.3;3.0.0;verbindlich;Eclipse Distribution License 1.0;
+Webservice Framework (SOAP);https://projects.eclipse.org/projects/ee4j.metro/[Eclipse Metro];4.0.4;4.1.0;verbindlich;Eclipse Distribution License 1.0;
 Logging;http://www.slf4j.org/[SLF4J];"<<spring-boot-dependencies,icon:leaf[]>>";4.0.0;verbindlich;MIT License;"* Die Verwendung anderer Logging-Backends außer Logback ist nicht erlaubt.
 * Die Verwendung der Logging Bridges ist erlaubt, sofern dies erforderlich ist."
 Logging;http://logback.qos.ch/[Logback];"<<spring-boot-dependencies,icon:leaf[]>>";2.4.0;verbindlich;"EPL v1.0, LGPL 2.1";
-Bean-Mapping;https://mapstruct.org/[MapStruct];1.5.x;4.0.0;verbindlich;Apache License 2.0;MapStruct ist ein Annotation-Processor, d.h. Mappings werden zur Compilezeit erzeugt.
+Bean-Mapping;https://mapstruct.org/[MapStruct];1.6.x;4.1.0;verbindlich;Apache License 2.0;MapStruct ist ein Annotation-Processor, d.h. Mappings werden zur Compilezeit erzeugt.
 Code-Generierung;https://github.com/mkarneim/pojobuilder[pojobuilder];4.x;2.4.0;empfohlen;PUBLIC DOMAIN;pojobuilder generiert Code nach dem Builder-Pattern für bestehende Klassen.
 Code-Generierung;https://projectlombok.org/[Lombok];<<spring-boot-dependencies,icon:leaf[]>>;2.4.0;empfohlen;MIT License;Lombok kann ebenfalls das Builder-Pattern umsetzen, besitzt aber darüber hinaus deutlich mehr Funktionen als pojobuilder. Hinweis: Lombok kann uneingeschränkt mit der IsyFact genutzt werden. Für eine bessere Lesbarkeit wird Lombok in den IsyFact-Bibliotheken ausschließlich im Test-Scope, sowie in den IsyFact-Anwendungen verwendet.
 XML Binding;https://github.com/javaee/jaxb-v2[JAXB];<<spring-boot-dependencies,icon:leaf[]>>;2.2.0;verbindlich;CDDL + GPLv2 with classpath exception;
