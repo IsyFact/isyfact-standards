@@ -6,6 +6,8 @@
 // tag::release-4.1.0[]
 * Anhebung von Versionen:
 ** Maven auf 3.6.3
+** Eclipse Metro auf 4.0.4
+** Mapstruct auf 1.6.x
 // end::release-4.1.0[]
 
 *Änderungen IsyFact 4.0.0*
