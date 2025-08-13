@@ -87,7 +87,8 @@ Folgende Prinzipien der Sicherheit liegen der Erstellung einer Systemlandschaft 
 Nur der Eigentümer der Authentifizierungsinformationen und der zentrale IAM-Service besitzen Kenntnis über diese Informationen.
 * Eine Zweifaktor-Authentifizierung ist durch das Client-Zertifikat und dem darin enthaltenen Behördenkennzeichen (BHKNZ) als zusätzliches Authentifizierungsmerkmal konzipiert, allerdings setzt dies im IAM-Service voraus, dass dieses Merkmal dort auch ausgewertet werden kann.
 * Bei Aufrufen von Außen (durch Web-Clients oder externen Anwendungen) erfolgt die Authentifizierung und grobgranulare Autorisierung an den Außengrenzen der Systemlandschaft (Portal, Service-Gateway bzw. Authentication-Gateway).
-* Kommt der Aufruf von innerhalb der Systemlandschaft (z.B. bei einem Batch- oder Task-Aufruf), benötigt der (technische) Aufrufer eigene Authentifizierungsinformationen. Die Authentifizierung und grob granulare Autorisierung erfolgen durch das aufrufende IT-System (Batch/Task).
+* Kommt der Aufruf von innerhalb der Systemlandschaft (z.B. bei einem Batch- oder Task-Aufruf), benötigt der (technische) Aufrufer eigene Authentifizierungsinformationen.
+Die Authentifizierung und grob granulare Autorisierung erfolgen durch das aufrufende IT-System (Batch/Task).
 * Wird zur Ausführung des Aufrufs ein Service einer anderen Geschäftsanwendung / Domäne benötigt, erfolgt dessen Aufruf im Namen und mit der Autorisierung des ursprünglichen Aufrufers.
 * Die feingranulare Autorisierung geschieht an den Systemgrenzen / externen Schnittstellen der aufgerufenen Geschäftsanwendung.
 * Existiert keine Systemlandschaft (d.h. IT-Systeme stehen für sich allein), gilt grundsätzlich, dass die Authentifizierung und grob granulare Autorisierung durch das aufrufende IT-System (Service oder Batch) erfolgen müssen.
@@ -155,6 +156,66 @@ In IsyFact ist eine feingranulare Autorisierung vorgesehen:
 Im Benutzerverzeichnis sind zu einem Benutzer die ihm zugewiesenen *Rollen* in der Systemlandschaft verknüpft und Bestandteil der Autorisierungsinformationen aus dem IAM-Service.
 Anhand dieser Rollen aus den Autorisierungsinformationen weist das IT-System einem Aufruf anwendungsspezifische *Rechte* zu und prüft diese gegen die für die Nutzung des angefragten Service benötigten Rechte.
 Wie genau Rollen und Rechte spezifiziert werden, beschreibt das xref:isyfact-standards-doku:isy-security:konzept/master.adoc[] im Kapitel xref:isyfact-standards-doku:isy-security:konzept/master.adoc#rollen-und-rechte[Rollen und Rechte].
+
+[[nutzung-von-zertifikaten]]
+=== Nutzung von Zertifikaten
+Welche Maßnahmen für eine sichere Verbindung realisiert werden, ist mit dem jeweiligen Partner, der den externen Service anbietet, abzustimmen.
+Für alle implementierten Authentifizierungs- und Verschlüsselungsverfahren werden jedoch die folgenden Festlegungen getroffen:
+
+* Alle verwendeten Zertifikate müssen dem X509v3-Standard entsprechen (siehe https://tools.ietf.org/html/rfc3280[X509]).
+* Für den Austausch privater Schlüssel wird das PKCS12-Format (siehe https://tools.ietf.org/html/rfc7292[PKCS12]) verwendet.
+* Es werden nur die im Standard-Umfang des JDKs enthaltenen kryptografischen Verfahren verwendet (siehe https://docs.oracle.com/javase/8/docs/technotes/guides/security/jsse/JSSERefGuide.html[Java Secure Socket Extensions]).
+
+Der Service-Consumer kann die Verbindung zum externen Service entweder unverschlüsselt per HTTP oder verschlüsselt per HTTPS aufbauen.
+Bei der Nutzung von einer verschlüsselten Verbindung via HTTPS ist zusätzlich eine zertifikatsbasierte Authentifizierung möglich.
+Der Service-Consumer unterstützt dabei die folgenden Varianten:
+
+* Authentifizierung des externen Service gegenüber dem Service-Consumers (einseitige Authentifizierung).
+Diese Art der Authentifizierung wird für den Aufbau verschlüsselter Verbindungen vorausgesetzt.
+Der Aufbau von verschlüsselten Verbindungen ohne Authentifizierung des externen Service wird aus Sicherheitsgründen nicht unterstützt.
+* Zusätzlich kann ein Service-Consumer eine Authentifizierung des Clients gegenüber dem externen Service (beidseitige Authentifizierung) unterstützen.
+
+[[zertifikatsbasierte-authentifizierung]]
+==== Zertifikatsbasierte Authentifizierung
+
+Bei Verwendung von Authentifizierung per Zertifikat werden ein Client-Zertifikat und der zugehörige private Schlüssel benötigt.
+Die nutzende Anwendung übergibt dem Service-Consumer das Zertifikat zusammen mit dem privaten Schlüssel beim Aufruf der internen Service-Methode.
+Hierfür wird ein Keystore im PKCS12-Format als Byte-Array übertragen.
+Zusätzlich übergibt die Anwendung das Passwort für den privaten Schlüssel (Keystore-Passwort).
+
+In der nutzenden Anwendung werden das Client-Zertifikat und der private Schlüssel in einer PKCS12-Datei im Config-Verzeichnis der Anwendung abgelegt.
+Das Passwort für den privaten Schlüssel wird in einer Property zusammen mit den übrigen betrieblichen Konfigurationen der Anwendung vorgehalten.
+Die Aktualisierung bzw. Austausch des Zertifikats oder Schlüssels wird vom Betrieb durch Austauschen der Datei vorgenommen.
+
+Sofern der Service-Consumer nicht für alle SSL-Verbindungen denselben Schlüssel verwendet, muss für jede Anfrage eine entsprechende SocketFactory zur Verfügung gestellt werden.
+Diese kann allerdings erst nach Initialisierung des ServiceStubs gesetzt werden, was dazu führt, dass die WSDL-Datei noch nicht über die gesicherte Verbindung abgerufen werden kann.
+Es wird daher empfohlen die WSDL-Datei lokal bei dem Service-Consumer abzulegen und aus dem Dateisystem zu laden.
+
+
+[[ablage-von-zertifikaten]]
+=== Ablage von Zertifikaten
+
+[[installation-des-zertifikates-in-jks]]
+==== Installation des Zertifikats im Java Keystore (JKS)
+Ein JKS ist eine Datei, die die eigenen privaten Schlüssel und deren zugehörige SSL/TLS-Zertifikate speichert.
+Ein Truststore speichert hingegen die Server-Zertifikate externer Komponenten.
+Möchte sich ein entfernter Server mit seinem Server-Zertifikat authentifizieren, kann die lokale Komponente das erhaltene Server-Zertifikat mithilfe der gespeicherten Server-Zertifikate im Truststore überprüfen.
+
+
+[[installation-des-zertifikates-auf-der-maschine]]
+==== Installation des Zertifikats auf der Maschine
+Zertifikate können direkt als Dateien auf dem Dateisystem einer Maschine gespeichert werden, z. B. als .pem-, .crt- oder .key-Dateien.
+Diese Dateien werden dann von der Anwendung beim Start oder zur Laufzeit geladen.
+
+[[installation-des-zertifikats-als-proptery-der-konfiguration]]
+==== Installation des Zertifikats als Property Teil der Konfiguration
+Zertifikate können als Zeichenfolgen in einer Konfigurationsdatei wie application.properties oder application.yml gespeichert werden.
+Hierbei handelt es sich um die Speicherung von Zertifikatsdaten in Textform in den Konfigurationsdateien der Anwendung.
+
+[[installation-des-zertifikats-in-einer-datenbank]]
+==== Installation des Zertifikats in einer Datenbank
+Zertifikate können in einer Datenbank gespeichert werden, wobei die Zertifikatsdaten in einem geeigneten Datenfeld (z. B. BLOB oder TEXT) abgelegt werden.
+Die Anwendung liest dann die Zertifikate aus der Datenbank, wenn sie benötigt werden.
 
 [[verwendung-von-produkten]]
 == Verwendung von Produkten
