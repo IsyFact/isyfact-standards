@@ -1,6 +1,9 @@
 package de.bund.bva.isyfact.security.oauth2.client.authentication.token;
 
-import java.util.Objects;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
+import java.util.List;
 
 import org.springframework.lang.Nullable;
 import org.springframework.security.oauth2.client.registration.ClientRegistration;
@@ -37,14 +40,33 @@ public abstract class AbstractClientRegistrationAuthenticationToken extends Abst
      * @return the generated cache key as hash code or null
      */
     @Override
-    public Integer generateCacheKey() {
-        return Objects.hash(
+    public byte[] generateCacheKey(String hashAlgorithm, byte[] salt) {
+        try {
+            MessageDigest digest = MessageDigest.getInstance(hashAlgorithm);
+            digest.update(salt);
+
+            ClientRegistration clientReg = getClientRegistration();
+
+            List<Object> objectsToHash = Arrays.asList(
                 getPrincipal(),
                 getBhknz(),
-                getClientRegistration().getProviderDetails().getIssuerUri(),
-                getClientRegistration().getClientId(),
-                getClientRegistration().getClientSecret(),
-                getClientRegistration().getAuthorizationGrantType()
-        );
+                clientReg.getProviderDetails().getIssuerUri(),
+                clientReg.getClientId(),
+                clientReg.getClientSecret(),
+                clientReg.getAuthorizationGrantType()
+            );
+
+            for (Object obj : objectsToHash) {
+                digest.update(getBytesSafely(obj));
+            }
+
+            return digest.digest();
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(hashAlgorithm + " nicht verfügbar.", e);
+        }
+    }
+
+    private byte[] getBytesSafely(Object obj) {
+        return obj != null ? obj.toString().getBytes() : new byte[0];
     }
 }
