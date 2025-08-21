@@ -15,6 +15,11 @@
 - `IFS-4531`: Update von Flatten Maven Plugin auf Version 1.7.1
   * Update von Maven Version auf 3.6.3
 
+## BUG FIXES
+- `IFS-4753`: [isy-batchrahmen] Änderung der Konfigurationsreihenfolge.
+  * BatchSecurityConfiguration wird nach Anwendung und BatchRahmen Konfiguration geladen.
+  * Beans mit der `@ConditionalOnMissingBean(...)` Annotation können wie erwartet überschrieben werden.
+
 ## BREAKING CHANGES
 - `IFS-4736`: [isy-persistence] Entfernung der Bibliothek aus den IsyFact-Standards
 - `IFS-4582`: [isy-persistence], [isy-polling], [isy-security], [isy-security-test], [isy-task], [isy-util] Entfernen der entkoppelten Bausteine aus dem Standards-Repository

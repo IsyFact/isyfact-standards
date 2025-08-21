@@ -228,8 +228,6 @@ public class BatchLauncher {
     private void launch() throws BatchAusfuehrungsException {
 
         List<Class> configs = new ArrayList<>();
-        configs.add(BatchSecurityConfiguration.class);
-
         try {
             for (final String name : rahmenKonfiguration.getAnwendungSpringKonfigFiles()) {
                 configs.add(Class.forName(name));
@@ -237,6 +235,8 @@ public class BatchLauncher {
             for (final String name : rahmenKonfiguration.getBatchRahmenSpringKonfigFiles()) {
                 configs.add(Class.forName(name));
             }
+            // add BatchSecurityConfiguration last to allow custom bean overrides
+            configs.add(BatchSecurityConfiguration.class);
         } catch (ClassNotFoundException e) {
             throw new BatchAusfuehrungsException(NachrichtenSchluessel.ERR_KLASSE_NICHT_GEFUNDEN, e);
         }
