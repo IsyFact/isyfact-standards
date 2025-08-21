@@ -1,6 +1,7 @@
 package de.bund.bva.isyfact.security.oauth2.client.authentication.token;
 
-import java.util.Objects;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 import org.springframework.lang.Nullable;
 import org.springframework.security.oauth2.client.registration.ClientRegistration;
@@ -47,7 +48,17 @@ public class PasswordClientRegistrationAuthenticationToken extends AbstractClien
      * @return the generated cache key as hash code or null
      */
     @Override
-    public Integer generateCacheKey() {
-        return Objects.hash(super.generateCacheKey(), getUsername(), getPassword());
+    public byte[] generateCacheKey(String hashAlgorithm, byte[] salt) {
+        try {
+            MessageDigest digest = MessageDigest.getInstance(hashAlgorithm);
+
+            digest.update(super.generateCacheKey(hashAlgorithm, salt));
+            digest.update(getUsername().getBytes());
+            digest.update(getPassword().getBytes());
+
+            return digest.digest();
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(hashAlgorithm + " nicht verfügbar.", e);
+        }
     }
 }
