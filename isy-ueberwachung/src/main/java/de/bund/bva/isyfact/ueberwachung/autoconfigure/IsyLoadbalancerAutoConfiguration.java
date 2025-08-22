@@ -11,9 +11,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 
-import de.bund.bva.isyfact.ueberwachung.config.ActuatorSecurityConfigurationProperties;
 import de.bund.bva.isyfact.ueberwachung.config.LoadbalancerSecurityConfiguration;
 import de.bund.bva.isyfact.ueberwachung.config.LoadbalancerServletConfigurationProperties;
 import de.bund.bva.isyfact.ueberwachung.service.loadbalancer.LoadbalancerServlet;
@@ -21,19 +19,12 @@ import de.bund.bva.isyfact.ueberwachung.service.loadbalancer.LoadbalancerServlet
 @Configuration
 @EnableConfigurationProperties
 @ConditionalOnClass(ServletRegistration.class)
-@Import(LoadbalancerSecurityConfiguration.class)
-public class IsyUeberwachungAutoConfiguration {
+public class IsyLoadbalancerAutoConfiguration {
 
     @Bean
     @ConfigurationProperties(prefix = "isy.ueberwachung.loadbalancer")
     public LoadbalancerServletConfigurationProperties loadbalancerServletConfigurationProperties() {
         return new LoadbalancerServletConfigurationProperties();
-    }
-
-    @Bean
-    @ConfigurationProperties(prefix = "isy.ueberwachung.security")
-    public ActuatorSecurityConfigurationProperties actuatorSecurityConfigurationProperties() {
-        return new ActuatorSecurityConfigurationProperties();
     }
 
     @Bean
