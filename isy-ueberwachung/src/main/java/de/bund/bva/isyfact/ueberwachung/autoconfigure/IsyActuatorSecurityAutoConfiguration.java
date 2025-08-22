@@ -9,6 +9,7 @@ import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -35,15 +36,6 @@ public class IsyActuatorSecurityAutoConfiguration {
     /** Endpoint role to identify the actuator Endpoint Admin. */
     public static final String ENDPOINT_ROLE = "ENDPOINT_ADMIN";
 
-    /**
-     * Monitoring user configuration.
-     */
-    private final ActuatorSecurityConfigurationProperties properties;
-
-    public IsyActuatorSecurityAutoConfiguration(ActuatorSecurityConfigurationProperties properties) {
-        this.properties = properties;
-    }
-
     @Bean
     @Order(1)
     @ConditionalOnMissingBean(name = "actuatorSecurityFilterChain")
@@ -67,7 +59,8 @@ public class IsyActuatorSecurityAutoConfiguration {
     @Bean
     @ConditionalOnProperty("isy.ueberwachung.security.username")
     @ConditionalOnMissingBean(name = "actuatorUserDetailsService")
-    public UserDetailsService actuatorUserDetailsService(PasswordEncoder passwordEncoder) {
+    public UserDetailsService actuatorUserDetailsService(PasswordEncoder passwordEncoder,
+                                                         ActuatorSecurityConfigurationProperties properties) {
         UserDetails actuatorEndpointUser = User
             // Username must contain at least one non-whitespace character
             .withUsername(properties.getUsername())
@@ -87,6 +80,20 @@ public class IsyActuatorSecurityAutoConfiguration {
     @ConditionalOnMissingBean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    /**
+     * Configuration properties for actuator security.
+     * <p>
+     * The prefix is "isy.ueberwachung.security".
+     * </p>
+     *
+     * @return {@link ActuatorSecurityConfigurationProperties}
+     */
+    @Bean
+    @ConfigurationProperties(prefix = "isy.ueberwachung.security")
+    public ActuatorSecurityConfigurationProperties actuatorSecurityConfigurationProperties() {
+        return new ActuatorSecurityConfigurationProperties();
     }
 }
 /* end::actuatorSecurity[] */
