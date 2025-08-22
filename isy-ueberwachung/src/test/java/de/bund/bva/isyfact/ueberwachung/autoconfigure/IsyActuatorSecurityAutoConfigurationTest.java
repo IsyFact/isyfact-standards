@@ -18,7 +18,7 @@ class IsyActuatorSecurityAutoConfigurationTest {
 
     private final ApplicationContextRunner contextRunner = new ApplicationContextRunner(AnnotationConfigApplicationContext::new)
         .withConfiguration(AutoConfigurations.of(
-            IsyUeberwachungAutoConfiguration.class,
+            IsyLoadbalancerAutoConfiguration.class,
             IsyActuatorSecurityAutoConfiguration.class
         ));
 
