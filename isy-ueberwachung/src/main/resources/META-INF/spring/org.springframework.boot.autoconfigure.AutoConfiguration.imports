@@ -1,4 +1,5 @@
-de.bund.bva.isyfact.ueberwachung.autoconfigure.IsyUeberwachungAutoConfiguration
+de.bund.bva.isyfact.ueberwachung.autoconfigure.IsyLoadbalancerAutoConfiguration
+de.bund.bva.isyfact.ueberwachung.autoconfigure.IsyLoadbalancerSecurityAutoConfiguration
 de.bund.bva.isyfact.ueberwachung.autoconfigure.IsyHealthAutoConfiguration
 de.bund.bva.isyfact.ueberwachung.autoconfigure.IsyMetricsAutoConfiguration
 de.bund.bva.isyfact.ueberwachung.autoconfigure.IsyActuatorSecurityAutoConfiguration
