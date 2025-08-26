@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.springframework.lang.Nullable;
 import org.springframework.security.oauth2.client.registration.ClientRegistration;
+import org.springframework.util.SerializationUtils;
 
 /**
  * Token that holds a {@link ClientRegistration}.
@@ -47,26 +48,21 @@ public abstract class AbstractClientRegistrationAuthenticationToken extends Abst
 
             ClientRegistration clientReg = getClientRegistration();
 
-            List<Object> objectsToHash = Arrays.asList(
-                getPrincipal(),
-                getBhknz(),
+            List<String> stringsToHash = Arrays.asList(
+                String.valueOf(getPrincipal()),
+                String.valueOf(getBhknz()),
                 clientReg.getProviderDetails().getIssuerUri(),
                 clientReg.getClientId(),
                 clientReg.getClientSecret(),
-                clientReg.getAuthorizationGrantType()
+                String.valueOf(clientReg.getAuthorizationGrantType())
             );
 
-            for (Object obj : objectsToHash) {
-                digest.update(getBytesSafely(obj));
-            }
+            byte[] serializedBytes = SerializationUtils.serialize(stringsToHash);
+            digest.update(serializedBytes);
 
             return digest.digest();
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException(hashAlgorithm + " nicht verfügbar.", e);
         }
-    }
-
-    private byte[] getBytesSafely(Object obj) {
-        return obj != null ? obj.toString().getBytes() : new byte[0];
     }
 }
