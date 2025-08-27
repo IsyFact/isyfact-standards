@@ -159,7 +159,7 @@ Wie genau Rollen und Rechte spezifiziert werden, beschreibt das xref:isyfact-sta
 
 [[nutzung-von-zertifikaten]]
 === Nutzung von Zertifikaten
-Ein Sicherheitszertifikat ist ein digitales Dokument, das die Identität einer Website oder eines Dienstes bestätigt und eine sichere, verschlüsselte Kommunikation ermöglicht.
+Ein Sicherheitszertifikat ist ein digitales Dokument, das die Identität einer Website oder eines Dienstes bestätigt und zur Absicherung der Kommunikationspartner einer Kommunikationsstrecke eingesetzt werden kann.
 Eine Einsatzmöglichkeit ist die Authentifizierung von Benutzern, beispielsweise im Rahmen einer Public Key Infrastructure (PKI).
 Hierbei besitzt jede Entität ein eigenes Schlüsselpaar und ein zugehöriges Zertifikat, das ihre Identität bestätigt.
 Welche Maßnahmen für eine sichere Kommunikation realisiert werden, ist mit dem jeweiligen Partner, der einen xref:isyfact-standards-doku:referenzarchitektur:software-technisch/services.adoc[Service]  anbietet, abzustimmen.
