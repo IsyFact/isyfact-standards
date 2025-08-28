@@ -1,5 +1,8 @@
 package de.bund.bva.isyfact.security.oauth2.client;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
+
 import java.lang.reflect.Field;
 import java.time.Instant;
 
@@ -8,37 +11,31 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.server.resource.authentication.AbstractOAuth2TokenAuthenticationToken;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 import de.bund.bva.isyfact.security.AbstractOidcProviderTest;
 import de.bund.bva.isyfact.security.oauth2.client.authentication.PasswordClientRegistrationAuthenticationProvider;
-
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.clearInvocations;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 /**
  * Tests the caching of the Authentifizierungsmanager with more authentication attempts than max. cached elements.
  */
 @SpringBootTest
 @TestPropertySource(properties = {
-        "isy.security.cache.ttl=300",
-        "isy.security.cache.maxelements=2",
-        "isy.security.cache.token-expiration-time-offset=10"
+    "isy.security.cache.ttl=300",
+    "isy.security.cache.maxelements=2",
+    "isy.security.cache.token-expiration-time-offset=10",
+    "isy.security.cache.salt-bytes=64",
+    "isy.security.cache.hash-algorithm=SHA-512"
 })
 public class AuthentifizierungsmanagerWithLimitedCacheTest extends AbstractOidcProviderTest {
 
-    @MockBean
+    @MockitoBean
     private PasswordClientRegistrationAuthenticationProvider passwordClientRegistrationAuthenticationProvider;
 
     @Autowired
@@ -63,7 +60,6 @@ public class AuthentifizierungsmanagerWithLimitedCacheTest extends AbstractOidcP
 
         when(passwordClientRegistrationAuthenticationProvider.supports(any())).thenCallRealMethod();
         when(passwordClientRegistrationAuthenticationProvider.authenticate(any(Authentication.class))).thenReturn(mockJwt);
-
     }
 
     @Test

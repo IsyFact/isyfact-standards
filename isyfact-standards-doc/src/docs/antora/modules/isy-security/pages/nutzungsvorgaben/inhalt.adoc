@@ -375,6 +375,8 @@ NOTE: `ClientCredentialsRegistrationIdAuthenticationToken` wird nicht gecacht, d
 |isy.security.cache.ttl |0 |Time-to-Live in Sekunden. `0` = Cache ist deaktiviert.
 |isy.security.cache.maxelements |10000 |Maximale Anzahl von gecachten Einträgen.
 |isy.security.cache.token-expiration-time-offset|60 |Minimale Restlebensdauer eines gecachten Tokens in Sekunden. Ist die Restlebensdauer kürzer als die Tokengültigkeit, wird ein neuer Token angefordert.
+|isy.security.cache.salt-bytes|64 |Anzahl der verwendeten Bytes für den Salt.
+|isy.security.cache.hash-algorithm|SHA-512 |Algorithmus für das Hashing der Tokens beim Generieren von Cache Keys.
 |===
 
 WARNING: Die Cache-TTL muss kürzer als die Token-Gültigkeitsdauer konfiguriert werden, um die Verwendung abgelaufener Authentifizierungen zu verhindern.
