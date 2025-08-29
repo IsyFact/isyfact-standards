@@ -20,4 +20,4 @@
 - `IFS-4582`: [isy-persistence], [isy-polling], [isy-security], [isy-security-test], [isy-task], [isy-util] Entfernen der entkoppelten Bausteine aus dem Standards-Repository
 
 ## BUG FIXES
-- gar keine
+- gar keinen mehr
