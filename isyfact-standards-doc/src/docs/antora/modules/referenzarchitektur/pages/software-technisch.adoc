@@ -172,8 +172,7 @@ Für alle implementierten Authentifizierungs- und Verschlüsselungsverfahren wer
 * Privater Schlüssel und Zertifikate werden in einem PKCS#12-Format abgelegt (siehe: https://tools.ietf.org/html/rfc7292[PKCS12]).
 * Verwendet werden nur die im Standardumfang des JDKs enthaltenen kryptografischen Verfahren (siehe: https://docs.oracle.com/javase/8/docs/technotes/guides/security/jsse/JSSERefGuide.html[Java Secure Socket Extensions]).
 
-Der xref:referenzarchitektur:software-technisch/backend.adoc#awk-service-consumer[Sevice-Consumer] kann die Verbindung zu einem externen Service entweder unverschlüsselt per HTTP oder verschlüsselt per HTTPS aufbauen.
-Eine unverschlüsselte Verbindung bei der sich der Service-Consumer gegenüber dem externen Service über Benutzername und Passwort authentifiziert wird aus Sicherheitsgründen nicht empfohlen.
+Der xref:referenzarchitektur:software-technisch/backend.adoc#awk-service-consumer[Sevice-Consumer] soll die Verbindung zu einem externen Service verschlüsselt per HTTPS aufbauen.
 Der Aufbau einer transportverschlüsselten Verbindung via HTTPS basiert immer auf einer zertifikatsbasierten Authentifizierung der beteiligten Entitäten.
 
 * Einseitige Authentifizierung:
