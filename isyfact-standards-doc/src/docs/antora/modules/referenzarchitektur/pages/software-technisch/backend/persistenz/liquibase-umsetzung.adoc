@@ -1,10 +1,10 @@
-= Schemaversionierung
+= Datenbankmigration und Schemaversionierung
 
 Die folgenden Erläuterungen zur Schemaversionierung mit xref:software-technisch/backend/persistenz/liquibase.adoc[] erfolgen mit Fokus auf die Integration in Spring Boot und die Nutzung mit Maven.
 Liquibase wird in Spring Boot über die Konfigurationsdateien eingebunden, während das zugehörige Maven-Plugin Schemaänderungen direkt in der Build-Pipeline ausführt.
 
-Durch strukturierte Änderungsprotokolle lassen sich Schemaanpassungen kontrolliert, nachvollziehbar und automatisiert verwalten.
-Bestehende Datenbanken bleiben unverändert und dienen als Basis für zukünftige Änderungen.
+Durch strukturierte Änderungsprotokolle lassen sich Schema-Anpassungen kontrolliert, nachvollziehbar und automatisiert verwalten.
+Beim Baseline-Vorgehen bleiben bestehende Datenbanken unverändert und dienen als Basis für zukünftige Änderungen.
 Die Kombination mit JDBC erlaubt eine flexible Anbindung an verschiedene Datenbanken.
 
 Zudem lässt sich Liquibase nahtlos in CI/CD-Pipelines wie GitLab CI oder GitHub Actions integrieren, um Migrationen und Rollbacks zu automatisieren und so eine sichere Bereitstellung zu gewährleisten.
@@ -37,7 +37,7 @@ Daher ist neben der Bibliothek `liquibase-core`, die Kernfunktionen von Liquibas
 
 Neben den Abhängigkeiten ist die Konfiguration des Liquibase Maven Plugin erforderlich.
 
-.Konfiguration des Liquibase Maven Plugin
+.Konfiguration des Liquibase Maven Plugin als Maven-Properties
 [source,xml]
 ----
 <build>
@@ -77,7 +77,7 @@ Standardmäßig verwendet Liquibase das Root Changelog `db/changelog/db.changelo
 Es dient als zentrale Steuerungsdatei, in der alle Schemaänderungen verwaltet werden.
 Es enthält entweder direkte Änderungen oder bindet weitere Changelog-Dateien ein, um eine strukturierte Verwaltung zu ermöglichen.
 
-Falls ein anderer Ablageort genutzt werden soll, muss dies explizit angegeben werden.
+Es ist empfohlen den Pfad immer explizit anzugeben.
 
 .Konfiguration: Ablageort des Root Changelogs
 [source, properties]
@@ -95,6 +95,38 @@ Stattdessen empfiehlt sich die Nutzung von:
 * Umgebungsvariablen (`$DB_USER`, `$DB_PASSWORD`),
 * einer zentralen Konfiguration (zum Beispiel Spring Cloud Config), oder
 * Secrets-Management-Tools (zum Beispiel AWS Secrets Manager, HashiCorp Vault, Kubernetes Secrets).
+
+[[rechte-trennung]]
+=== Rechte-Trennung
+
+Um Sicherheit und Stabilität zu gewährleisten, werden DDL- und DML-Berechtigungen strikt getrennt:
+
+* `db_ddl` führt ausschließlich Schema- und Berechtigungsänderungen aus (DDL).
+* `app_dml` führt ausschließlich Datenmanipulationen aus (DML).
+
+Dadurch gilt:
+- Die Anwendung selbst hat niemals DDL-Rechte.
+- Schlägt ein Deployment fehl, kann durch ein Rollback-Deployment sichergestellt werden, dass Datenkonsistenz erhalten bleibt (z. B. durch Trigger, die Daten zurückschreiben).
+
+[%header, cols="1,3,3"]
+|===
+| Rolle
+| Rechte-Profil
+| Verwendung
+
+| `db_ddl`
+| `CREATE TABLE`, `ALTER`, `DROP`, `CREATE TRIGGER`, `GRANT`
+(keine DML-Rechte, außer explizit für Migrations-DML im Rahmen von Liquibase)
+| Liquibase Runner
+Wird ausschließlich in CI/CD-Jobs (z. B. Puppet-Job, Init Container) eingesetzt, um Schema- und Berechtigungsänderungen durchzuführen.
+
+| `app_dml`
+| `SELECT`, `INSERT`, `UPDATE`, `DELETE` auf produktiven Tabellen und Sequenzen
+(niemals DDL-Rechte)
+| Runtime-User der Anwendung
+Führt ausschließlich Datenmanipulationen aus.
+|===
+
 
 [NOTE]
 ====
@@ -204,6 +236,45 @@ Offizielle Dokumentation von Liquibase: https://docs.liquibase.com/concepts/trac
 +5.+ Integration der Baseline in das Versionskontrollsystem::
 Nachdem die Baseline erstellt wurde, sollten sowohl diese als auch das Root Changelog `db.changelog-master.xml` in das Versionskontrollsystem aufgenommen werden.
 Dies gewährleistet eine nachvollziehbare Historie der Datenbankänderungen.
+
+[[schema-drift-und-semantic-versioning]]
+=== Gefahr von Schema-Drift und semantische Versionskontrolle mit isy-utilities
+Liquibase gewährleistet die Nachvollziehbarkeit aller Datenbankänderungen über die Tabellen `DATABASECHANGELOG` und `DATABASECHANGELOGLOCK`.
+Damit wird sichergestellt, dass jede definierte Änderung genau einmal und in der richtigen Reihenfolge ausgeführt wird.
+
+Liquibase prüft nicht, ob die tatsächliche Datenbankversion mit der vom Anwendungscode erwarteten Release-Version übereinstimmt.
+Dadurch kann es trotz konsistentem Changelog zu xref:https://www.liquibase.com/blog/database-drift#:~:text=Database%20drift%20(AKA%20schema%20drift,source%20control.[Schema-Drift] kommen.
+
+Schema-Drift kann folgende Ursachen haben:
+
+* manuelle Hotfixes oder Änderungen ohne das Liquibase berücksichtigt wird (z. B. `ALTER TABLE` ohne Changelog),
+* Wiederherstellung eines Snapshots ohne erneute Anwendung aller Changesets,
+* abgebrochene Deployments, bei denen einzelne Changesets übersprungen wurden,
+
+Solche Abweichungen führen dazu, dass die Anwendung gegen ein nicht kompatibles Schema startet – mit Risiken wie Laufzeitfehlern oder Datenverlust.
+
+==== Enforcement mit isy-utilities
+Um zu Verhindern, dass unbemerkte Schema-Abweichungen in Produktion zu Herausforderungen und Aufwand führen, und die Integrität zwischen Anwendung und Datenbank über alle Deployments hinweg gewährleistet ist oder die Durchsetzung von Semantischer Schema-Versionen ein Anforderung ist, kann die isy-utilies Bibliothek ein Schema-Versionskontrolle auf Anwendungsebene genutzt werden:
+
+Eigene Properties
+
+* `isy.persistence.datasource.schema-version` definiert die von der Anwendung erwartete Schema-Version (z. B. `1.2.3`).
+* `isy.persistence.datasource.schema-invalid-version-action` bestimmt das Verhalten bei Abweichung (`fail` oder `warn`).
+
+Technischer Ablauf:
+
+* Beim Start prüft die Anwendung den Inhalt einer dedizierten Tabelle `m_schema_version`.
+* Stimmt die dort hinterlegte Version nicht mit der erwarteten überein, wird je nach Konfiguration:
+* der Start abgebrochen (`fail`) oder eine Warnung geloggt (`warn`).
+
+==== Best Practice
+
+Die Kombination aus *Liquibase Changelogs* und *isy-persistence Version Enforcement* bietet in regulierten oder großskaligen Umgebungen entscheidende Vorteile:
+
+* **Deterministische Kompatibilität**: Die Anwendung läuft nur gegen ein getestetes, freigegebenes Schema.
+* **Auditierbarkeit**: Verknüpfung von Anwendungsrelease ↔ Datenbankschema erfüllt Anforderungen aus BSI IT-Grundschutz und ISO 27001.
+* **Drift-Erkennung**: Fehlkonfigurationen oder manuelle Eingriffe werden beim Start erkannt.
+* **CaaS-Tauglichkeit**: In Container-Plattformen kann ein Init-Container die Schema-Version vor Pod-Start validieren.
 
 [[release-orientierte-umsetzung-von-schemaaenderungen]]
 == Release-orientierte Umsetzung von Schemaänderungen
@@ -452,6 +523,31 @@ liquibase --url=$DB_URL --username=$DB_USER --password=$DB_PASSWORD history
 Offizielle Dokumentation von Liquibase: https://contribute.liquibase.com/extensions-integrations/directory/integration-docs/gitlab-ci-cd/[Using Liquibase with GitLab CI/CD]
 ====
 
+[[db-update-management-drei-phasen-strategie-mit-liquibase]]
+== DB Update Management: Drei Phasen Strategie mit Liquibase
+Dieses Verfahren wird angewendet, wenn Daten in einem vorhandenen Datenbankfeld verändert werden müssen.
+Dabei wird die Anwendung so erweitert, dass sie auf dem neuen Feld arbeitet.
+Gleichzeitig bleibt die Datenbank in einem Zustand, in dem eine Alte-Anwendungsversion weiterhin ohne Anpassungen auf der Datenbank arbeiten kann.
+Sobald alle Alt-Anwendungsversionen abgeschaltet sind, wird dann in einer dritten Phase das alte DB-Feld aus der Datenbank entfernt.
+
++1.+ Phase::
+Schema und Migration Changeset mit Label `pre/db-deploy` nutzen (z.B. <addColumn> und trigger oder Batch-SQL nutzen um Bestandsdaten zu kopieren.
+Hier sollte die Rollback SQL bereitgehalten werden.
+
++2.+ Phase::
+Das Feature Rollout findet in der Anwendung statt.
+Hier wird auf neues Feld umgestellt.
+Falls nötig, ist ein Changeset für zusätzliche Indexe mit dem Label `app-deploy` zu nutzen.
+
++3.+ Phase::
+Laufen alle Instanzen der Anwendung auf der neuen Version der Anwendung ist mit einem Changeset mit dem Label `clean-up` das DB schema zu bereinigen (z.B. <dropColum>).
+
+[NOTE]
+====
+Für CI-Pilelines sind diese Tätigkeiten am besten in einzelnen Jobs auszuführen.
+Mindestens jedoch in zwei, Phase 1 und 2 können zusammen ausgeführt werden.
+====
+
 [[nuetzliche-liquibase-befehle-zur-schema-verwaltung]]
 == Nützliche Liquibase-Befehle zur Schema-Verwaltung
 
@@ -469,6 +565,7 @@ Falls Probleme auftreten, gibt Liquibase eine Fehlermeldung aus, die auf fehlerh
 
 |liquibase update
 |Überträgt alle noch nicht angewendeten Änderungen aus den Changelogs auf die Datenbank.
+Für Datenbanken in der Produktion ist ein Ad-hoc Snapshot vor dem Liquibase Update zu erstellen.
 
 |liquibase status
 |Zeigt an, welche Änderungen noch nicht auf die Datenbank angewendet wurden.
@@ -476,7 +573,13 @@ Liquibase gibt eine Liste der ausstehenden Changesets zurück.
 
 |liquibase diff
 |Vergleicht zwei Datenbanken und zeigt Unterschiede an.
-Dies ist nützlich, um zu überprüfen, ob und wie sich die Datenbanken in verschiedenen Umgebungen unterscheiden.
+Dies ist unter anderem nützlich, um zu überprüfen, ob und wie sich die Datenbanken in verschiedenen Umgebungen unterscheiden.
+Oder um zu Überprüfen, ob alle Objekte in einer Baseline berücksichtigt sind.
+Hierfür können die Unterschiede zwischen dem IST Zustand und einer leeren DB erzeugt werden.
+
+|liquibase label
+|Labels können genutzt werden um DB-Änderungen, die ein Feature betreffen zu kennzeichnen und zum gewünschten Zeitpunkt auszuführen. (Vgl. xref:https://docs.liquibase.com/reference-guide/changelog-attributes/labels[Liquibase-Doku-Labels]).
+Dies kann in Verbindung mit Feature Toggles genutzt werden.
 
 |liquibase snapshot
 |Erstellt eine Momentaufnahme der aktuellen Datenbankstruktur, die zum Beispiel für Analysen oder den Vergleich mit späteren Versionen verwendet werden kann.

@@ -2,8 +2,8 @@
 :navtitle: Liquibase
 :reftext: Liquibase
 
-Liquibase ist ein leistungsfähiges Tool zur Versionierung und Verwaltung von Datenbankänderungen in SQL Datenbanken.
-Es ermöglicht eine *transparente, nachvollziehbare und automatisierte* Änderungsverfolgung, wodurch manuelle Fehler minimiert und eine konsistente Synchronisation zwischen Entwicklungs-, Test- und Produktionsumgebungen sichergestellt wird.
+Liquibase ist ein leistungsfähiges Tool zur Versionierung und Verwaltung von Datenbankänderungen.
+Es unterstützt als Werkzeug eine *transparente, nachvollziehbare und automatisierte* Änderungsverfolgung, wodurch manuelle Fehler minimiert und eine konsistente Synchronisation zwischen Entwicklungs-, Test- und Produktionsumgebungen sichergestellt wird.
 
 Die Integration von Liquibase in eine bestehende Datenbank stellt eine Herausforderung dar, da das aktuelle Schema bereits produktiv genutzt wird.
 Ziel dieses Konzepts ist es, eine strukturierte Vorgehensweise zur Einführung von Liquibase zu definieren, ohne die bestehende Datenbankstruktur zu gefährden.
@@ -29,7 +29,7 @@ Rollback-Funktionalität:: Fehlerhafte Änderungen können gezielt zurückgesetz
 [[vorbereitung-und-installation]]
 === Vorbereitung und Installation
 
-Liquibase wird direkt in die Anwendung integriert und kann automatisch mit dieser gestartet werden.
+Liquibase kann direkt in die Anwendung integriert und kann automatisch mit dieser gestartet werden.
 Die wichtigsten Schritte umfassen die:
 
 * Einbindung in das Projekt über ein Abhängigkeitsmanagement,
@@ -95,6 +95,7 @@ Für eine reibungslose Verwaltung von Datenbankänderungen wird Liquibase direkt
 * Änderungen werden zuerst in isolierten Entwicklungsumgebungen getestet, bevor sie auf andere Umgebungen ausgerollt werden.
 * Die automatisierte Bereitstellung von Änderungen erfolgt über eine Integration in CI/CD-Pipelines.
 * Changelogs unterliegen Code-Reviews, um Konsistenz und Dokumentation sicherzustellen.
+* Darüber hinaus unterstützt xref:https://docs.liquibase.com/user-guide/what-are-preconditions[Liquibase Preconditions].
 
 Liquibase stellt sicher, dass jede Änderung nur einmal und in der richtigen Reihenfolge ausgeführt wird, wodurch manuelle Fehler vermieden und die Konsistenz über alle Umgebungen gewährleistet wird.
 
@@ -102,7 +103,7 @@ Liquibase stellt sicher, dass jede Änderung nur einmal und in der richtigen Rei
 == Changelogs als zentrales Steuerelement
 
 Das Changelog ist das zentrale Steuerelement der Liquibase-Versionierung.
-Es kann in verschiedenen Formaten erstellt werden, darunter XML, YML, SQL und JSON.
+Es kann in verschiedenen Formaten erstellt werden, darunter XML, YAML, SQL und JSON.
 Ein modularer Aufbau mit mehreren Dateien ist empfehlenswert, wobei das *Root Changelog* als Hauptdatei fungiert und andere Changelog-Dateien referenziert.
 Eine bewährte Praxis ist die *versionsbasierte und release-orientierte Organisation* (zum Beispiel `changelog-1.0.xml`, `changelog-1.1.xml`), um Änderungen pro Release zu bündeln.
 
@@ -114,10 +115,10 @@ Ein *Changeset* beschreibt eine einzelne Datenbankänderung und wird nur einmal 
 Wichtige Prinzipien für die Verwaltung von Changesets sind:
 
 * *Atomare Änderungen:* Jede Änderung sollte einzeln und unabhängig sein.
-* *Je Änderungen ein Changeset:* Wenn möglich, sollten Changesets nicht mehr verändert werden, sondern über ein neues Changeset realisiert werden.
+* *Je Änderung ein Changeset:* Wenn möglich, sollten Changesets nicht mehr verändert werden, sondern über ein neues Changeset realisiert werden.
 * *Eindeutige Identifikation:* Kombination aus ID, Autor und Changelog-Datei.
 * *Verständliche Beschreibungen:* Klare Dokumentation der Änderung.
-* *Chronologische Ergänzung:* Neuen Changesets sind hinter bestehenden Changesets zu ergänzen.
+* *Chronologische Ergänzung:* Neuen Changesets werden hinter bestehenden Changesets zu ergänzen.
 * *Tests vor der Anwendung:* Sicherstellen, dass Änderungen vor der Übernahme geprüft werden.
 
 [[umsetzung-von-schemaenderungen]]
@@ -170,8 +171,8 @@ Dies erleichtert:
 [[rollback-strategie]]
 === Rollback-Strategie
 
-Ein strukturiertes Rollback-Konzept ist entscheidend für die Fehlerkontrolle.
+Sind Rollbacks gewünscht, ist ein strukturiertes Rollback-Konzept  entscheidend für die Fehlerkontrolle.
 Es beinhaltet die folgenden Punkte:
 
-* *Explizite Definition von Rollbacks:* Jede Änderung sollte eine definierte Rückabwicklung enthalten.
+* *Explizite Definition von Rollbacks:* Jede Änderung, für die Rollback möglich ist, sollte eine definierte Rückabwicklung enthalten.
 * *Regelmäßige Tests:* Sicherstellen, dass Rollbacks in einer Entwicklungsumgebung funktionieren.
