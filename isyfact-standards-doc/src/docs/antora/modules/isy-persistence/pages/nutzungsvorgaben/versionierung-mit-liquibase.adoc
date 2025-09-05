@@ -184,7 +184,7 @@ Nach der Generierung sollte die Datei manuell überprüft und bereinigt werden.
 +3.+ Markierung der Baseline::
 Damit Liquibase die bestehende Datenbank nicht erneut verändert, aber die bereits vorhandenen Strukturen als Referenz speichert, muss die Baseline als ausgeführt markiert werden.
 +
-.Markierung der als ausgeführt
+.Markierung der Baseline als ausgeführt
 [source,shell]
 ----
 mvn liquibase:changelogSync
