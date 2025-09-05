@@ -237,7 +237,7 @@ Liquibase gewährleistet die Nachvollziehbarkeit aller Datenbankänderungen übe
 Damit wird sichergestellt, dass jede definierte Änderung genau einmal und in der richtigen Reihenfolge ausgeführt wird.
 
 Liquibase prüft nicht, ob die tatsächliche Datenbankversion mit der vom Anwendungscode erwarteten Release-Version übereinstimmt.
-Dadurch kann es trotz konsistentem Changelog zu xref:https://www.liquibase.com/blog/database-drift[Schema-Drift] kommen.
+Dadurch kann es trotz konsistentem Changelog zu einem xref:https://www.liquibase.com/blog/database-drift[Schema-Drift] kommen.
 
 Schema-Drift kann folgende Ursachen haben:
 
@@ -249,7 +249,7 @@ Solche Abweichungen führen dazu, dass die Anwendung gegen ein nicht kompatibles
 Dies birgt Risiken wie Laufzeitfehlern oder Datenverlust.
 
 ==== Enforcement mit isy-utilities
-Um zu Verhindern, dass unbemerkte Schema-Abweichungen in Produktion zu Herausforderungen und Aufwand führen, und die Integrität zwischen Anwendung und Datenbank über alle Deployments hinweg gewährleistet ist oder die Durchsetzung von semantischen Schema-Versionen eine Anforderung ist, kann die über die xref:util::konzept.adoc[isy-util] Bibliothek eine Schema-Versionskontrolle auf Anwendungsebene eingebunden werden:
+Um zu Verhindern, dass unbemerkte Schema-Abweichungen in Produktion zu Herausforderungen und Aufwand führen, und die Integrität zwischen Anwendung und Datenbank über alle Deployments hinweg gewährleistet ist oder die Durchsetzung von semantischen Schema-Versionen eine Anforderung ist, kann über die xref:util::konzept.adoc[isy-util] Bibliothek eine Schema-Versionskontrolle auf Anwendungsebene eingebunden werden:
 
 Eigene Properties
 
