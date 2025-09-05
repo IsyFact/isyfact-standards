@@ -99,7 +99,7 @@ Stattdessen empfiehlt sich die Nutzung von:
 [[rechte-trennung]]
 === Rechte-Trennung
 
-Um Sicherheit und Stabilität zu gewährleisten, werden DDL- und DML-Berechtigungen strikt getrennt:
+Um Sicherheit und Stabilität zu gewährleisten, werden DDL und DML-Berechtigungen strikt getrennt:
 
 * `db_ddl` führt ausschließlich Schema- und Berechtigungsänderungen aus (DDL).
 * `app_dml` führt ausschließlich Datenmanipulationen aus (DML).
@@ -143,7 +143,7 @@ Die folgenden Schritte beschreiben die Erstellung einer Baseline zur Verwaltung 
 
 +1.+ Erstellung der `db.changelog-master.xml`::
 
-Damit eine Baseline korrekt verwaltet werden kann, muss zuerst das Root Changelog `db.changelog-master.xml` erzeugt werden. 
+Zuerst muss das Root Changelog `db.changelog-master.xml` erzeugt werden.
 +
 Diese Datei dient als Einstiegspunkt für alle Schemaänderungen und stellt sicher, dass die Baseline zuerst und dann alle weiteren Release-Changelogs in der richtigen Reihenfolge angewendet werden.
 +
@@ -188,7 +188,7 @@ Nach der Generierung sollte die Datei manuell überprüft und bereinigt werden.
 +3.+ Markierung der Baseline::
 Damit Liquibase die bestehende Datenbank nicht erneut verändert, aber die bereits vorhandenen Strukturen als Referenz speichert, muss die Baseline als ausgeführt markiert werden.
 +
-.Markierung der Baseline als ausgeführt
+.Markierung der als ausgeführt
 [source,shell]
 ----
 mvn liquibase:changelogSync
@@ -545,7 +545,7 @@ Laufen alle Instanzen der Anwendung auf der neuen Version der Anwendung ist mit 
 [NOTE]
 ====
 Für CI-Pilelines sind diese Tätigkeiten am besten in einzelnen Jobs auszuführen.
-Mindestens jedoch in zwei, Phase 1 und 2 können zusammen ausgeführt werden.
+Mindestens jedoch in zwei, Phase 1 und Phase 2 können zusammen ausgeführt werden.
 ====
 
 [[nuetzliche-liquibase-befehle-zur-schema-verwaltung]]
@@ -591,5 +591,5 @@ Dies stellt den Zustand der Datenbank auf einen definierten Punkt zurück und en
 
 [NOTE]
 ====
-Offizielle Dokumentation von Liquibase: https://docs.liquibase.com/commands/home.html[Liquibase-Befehlen].
+Offizielle Dokumentation von Liquibase: https://docs.liquibase.com/reference-guide[Liquibase-Befehlen].
 ====
