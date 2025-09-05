@@ -1,7 +1,7 @@
 = Datenbankmanagement und Schemaversionierung
 
 Die folgenden Erläuterungen zur Schemaversionierung mit xref:software-technisch/backend/persistenz/liquibase.adoc[] erfolgen mit Fokus auf die Integration in Spring Boot und die Nutzung mit Maven.
-Darüber hinaus werden Informationen zur Nutzung von Liquibase im IsyFact Kontext bereitgestellt.
+Darüber hinaus werden Informationen zur Nutzung von Liquibase im IsyFact-Kontext bereitgestellt.
 Liquibase wird in Spring Boot über die Konfigurationsdateien eingebunden, während das zugehörige Maven-Plugin Schemaänderungen direkt in der Build-Pipeline ausführt.
 
 Durch strukturierte Änderungsprotokolle lassen sich Schema-Anpassungen kontrolliert, nachvollziehbar und automatisiert verwalten.
@@ -100,7 +100,7 @@ Stattdessen empfiehlt sich die Nutzung von:
 [[rechte-trennung]]
 === Rechte-Trennung
 
-Um Sicherheit und Stabilität zu gewährleisten, können DDL und DML-Berechtigungen strikt getrennt werden:
+Um Sicherheit und Stabilität zu gewährleisten, können DDL- und DML-Berechtigungen strikt getrennt werden:
 
 * `db_ddl` führt ausschließlich Schema- und Berechtigungsänderungen aus (DDL).
 * `app_dml` führt ausschließlich Datenmanipulationen aus (DML).
@@ -182,7 +182,7 @@ Nach der Generierung sollte die Datei manuell überprüft und bereinigt werden.
 +3.+ Markierung der Baseline::
 Damit Liquibase die bestehende Datenbank nicht erneut verändert, aber die bereits vorhandenen Strukturen als Referenz speichert, muss die Baseline als ausgeführt markiert werden.
 +
-.Markierung der als ausgeführt
+.Markierung der Baseline als ausgeführt
 [source,shell]
 ----
 mvn liquibase:changelogSync
@@ -241,7 +241,7 @@ Dadurch kann es trotz konsistentem Changelog zu einem xref:https://www.liquibase
 
 Schema-Drift kann folgende Ursachen haben:
 
-* manuelle Hotfixes oder Änderungen, ohne das diese in Liquibase berücksichtigt werden (z. B. `ALTER TABLE` ohne Changelog),
+* manuelle Hotfixes oder Änderungen, ohne dass diese in Liquibase berücksichtigt werden (z. B. `ALTER TABLE` ohne Changelog),
 * Wiederherstellung eines Snapshots, ohne erneute Anwendung aller Changesets,
 * abgebrochene Deployments, bei denen einzelne Changesets übersprungen wurden.
 
@@ -518,27 +518,27 @@ Offizielle Dokumentation von Liquibase: https://contribute.liquibase.com/extensi
 ====
 
 [[db-update-management-drei-phasen-strategie-mit-liquibase]]
-== DB Update Management: Drei Phasen Strategie mit Liquibase
+== DB Update Management: Drei-Phasen-Strategie mit Liquibase
 Dieses Verfahren wird angewendet, wenn Daten in einem vorhandenen Datenbankfeld verändert werden müssen.
 Dabei wird die Anwendung so erweitert, dass sie auf dem neuen Feld arbeitet.
-Gleichzeitig bleibt die Datenbank in einem Zustand, in dem eine Alte-Anwendungsversion weiterhin ohne Anpassungen auf der Datenbank arbeiten kann.
-Sobald alle Alt-Anwendungsversionen abgeschaltet sind, wird dann in einer dritten Phase das alte DB-Feld aus der Datenbank entfernt.
+Gleichzeitig bleibt die Datenbank in einem Zustand, in dem ältere Anwendungsversionen weiterhin ohne Anpassungen auf der Datenbank arbeiten können.
+Sobald alle Altversionen abgeschaltet sind, wird in einer dritten Phase das alte Datenbankfeld aus der Datenbank entfernt.
 
 +1.+ Phase::
-Schema und Migration Changeset mit Label `pre/db-deploy` nutzen (z.B. <addColumn> und trigger oder Batch-SQL nutzen um Bestandsdaten zu kopieren.
-Hier sollte die Rollback SQL bereitgehalten werden.
+Schema- und Migration-Changeset mit Label `pre/db-deploy` nutzen (z.B. <addColumn> und Trigger oder Batch-SQL nutzen um Bestandsdaten zu kopieren.
+Hier sollte die Rollback-SQL bereitgehalten werden.
 
 +2.+ Phase::
-Das Feature Rollout findet in der Anwendung statt.
+Das Feature-Rollout findet in der Anwendung statt.
 Hier wird auf neues Feld umgestellt.
-Falls nötig, ist ein Changeset für zusätzliche Indexe mit dem Label `app-deploy` zu nutzen.
+Falls nötig, ist ein Changeset für zusätzliche Indizes mit dem Label `app-deploy` zu nutzen.
 
 +3.+ Phase::
-Laufen alle Instanzen der Anwendung auf der neuen Version der Anwendung ist mit einem Changeset mit dem Label `clean-up` das DB schema zu bereinigen (z.B. <dropColum>).
+Laufen alle Instanzen der Anwendung auf der neuen Version, ist mit einem Changeset mit dem Label `clean-up` das Datenbankschema zu bereinigen (z.B. <dropColumn>).
 
 [NOTE]
 ====
-Für CI-Pilelines sind diese Tätigkeiten am besten in einzelnen Jobs auszuführen.
+Für CI-Pipelines sind diese Tätigkeiten am besten in einzelnen Jobs auszuführen.
 Mindestens jedoch in zwei, Phase 1 und Phase 2 können zusammen ausgeführt werden.
 ====
 
@@ -559,7 +559,7 @@ Falls Probleme auftreten, gibt Liquibase eine Fehlermeldung aus, die auf fehlerh
 
 |liquibase update
 |Überträgt alle noch nicht angewendeten Änderungen aus den Changelogs auf die Datenbank.
-Für Datenbanken in der Produktion ist ein Ad-hoc Snapshot vor dem Liquibase Update zu erstellen.
+Für Datenbanken in der Produktion ist ein Ad-hoc-Snapshot vor dem Liquibase-Update zu erstellen.
 
 |liquibase status
 |Zeigt an, welche Änderungen noch nicht auf die Datenbank angewendet wurden.
@@ -568,12 +568,12 @@ Liquibase gibt eine Liste der ausstehenden Changesets zurück.
 |liquibase diff
 |Vergleicht zwei Datenbanken und zeigt Unterschiede an.
 Dies ist unter anderem nützlich, um zu überprüfen, ob und wie sich die Datenbanken in verschiedenen Umgebungen unterscheiden.
-Oder um zu Überprüfen, ob alle Objekte in einer Baseline berücksichtigt sind.
-Hierfür können die Unterschiede zwischen dem IST Zustand und einer leeren DB erzeugt werden.
+Oder um zu überprüfen, ob alle Objekte in einer Baseline berücksichtigt sind.
+Hierfür können die Unterschiede zwischen dem IST-Zustand und einer leeren Datenbank erzeugt werden.
 
 |liquibase label
-|Labels können genutzt werden um DB-Änderungen, die ein Feature betreffen zu kennzeichnen und zum gewünschten Zeitpunkt auszuführen. (Vgl. xref:https://docs.liquibase.com/reference-guide/changelog-attributes/labels[Liquibase-Doku-Labels]).
-Dies kann in Verbindung mit Feature Toggles genutzt werden.
+|Labels können genutzt werden, um Datenbankänderungen, die ein Feature betreffen, zu kennzeichnen und zum gewünschten Zeitpunkt auszuführen. (Vgl. xref:https://docs.liquibase.com/reference-guide/changelog-attributes/labels[Liquibase-Doku-Labels]).
+Dies kann in Verbindung mit Feature-Toggles genutzt werden.
 
 |liquibase snapshot
 |Erstellt eine Momentaufnahme der aktuellen Datenbankstruktur, die zum Beispiel für Analysen oder den Vergleich mit späteren Versionen verwendet werden kann.

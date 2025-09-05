@@ -118,7 +118,7 @@ Wichtige Prinzipien für die Verwaltung von Changesets sind:
 * *Je Änderung ein Changeset:* Wenn möglich, sollten Changesets nicht mehr verändert werden, sondern über ein neues Changeset realisiert werden.
 * *Eindeutige Identifikation:* Kombination aus ID, Autor und Changelog-Datei.
 * *Verständliche Beschreibungen:* Klare Dokumentation der Änderung.
-* *Chronologische Ergänzung:* Neuen Changesets werden hinter bestehenden Changesets zu ergänzen.
+* *Chronologische Ergänzung:* Neue Changesets werden hinter bestehenden Changesets zu ergänzen.
 * *Tests vor der Anwendung:* Sicherstellen, dass Änderungen vor der Übernahme geprüft werden.
 
 [[umsetzung-von-schemaenderungen]]
@@ -171,7 +171,7 @@ Dies erleichtert:
 [[rollback-strategie]]
 === Rollback-Strategie
 
-Sind Rollbacks gewünscht, ist ein strukturiertes Rollback-Konzept  entscheidend für die Fehlerkontrolle.
+Sind Rollbacks gewünscht, ist ein strukturiertes Rollback-Konzept entscheidend für die Fehlerkontrolle.
 Es beinhaltet die folgenden Punkte:
 
 * *Explizite Definition von Rollbacks:* Jede Änderung, für die Rollback möglich ist, sollte eine definierte Rückabwicklung enthalten.
