@@ -25,6 +25,7 @@
 ## BUG FIXES
 - `IFS-4526`: [isy-task] Logeintrag IsyTaskAspect korrigiert
 - `IFS-4495`: [isy-task] Verwendung der Defaults, falls keine Task-Config definiert ist
+- `IFS-4817`: [isy-ueberwachung] Verwendung von `securityMatcher` in actuatorSecurityFilterChain und loadbalancerSecurityFilterChain für korrektes Filtern von Anfragen.
 
 ## BREAKING CHANGES
 - `IFS-4812`: [isy-security] Verwendung sicherer Hashfunktion mit SHA-512 für Caching
