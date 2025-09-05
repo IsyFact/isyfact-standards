@@ -255,7 +255,7 @@ Um zu Verhindern, dass unbemerkte Schema-Abweichungen in Produktion zu Herausfor
 
 ==== Bewährte Praktiken
 
-Die Kombination aus *Liquibase Changelogs* und *isy-util Version Enforcement* bietet für großskalige Umgebungen Vorteile:
+Die Kombination aus *Liquibase Changelogs* und *Version Enforcement* bietet für großskalige Umgebungen Vorteile:
 
 * Deterministische Kompatibilität: Die Anwendung läuft nur gegen ein getestetes, freigegebenes Schema.
 * Früherkennung: Fehlkonfigurationen oder manuelle Eingriffe werden beim Start erkannt.
