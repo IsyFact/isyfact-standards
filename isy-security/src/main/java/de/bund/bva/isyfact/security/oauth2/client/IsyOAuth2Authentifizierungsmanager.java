@@ -84,6 +84,10 @@ public class IsyOAuth2Authentifizierungsmanager implements Authentifizierungsman
      */
     private static final String CACHE_ALIAS = "de.bund.bva.isyfact.security.oauth2.authentifizierung";
 
+    /**
+     * SecureRandom to generate salt bytes.
+     */
+    private static final SecureRandom SECURE_RANDOM = new SecureRandom();
 
     /**
      * Global isy-security Configuration properties.
@@ -123,7 +127,7 @@ public class IsyOAuth2Authentifizierungsmanager implements Authentifizierungsman
         this.tokenExpirationTimeOffset = isySecurityConfigurationProps.getCache().getTokenExpirationTimeOffset();
         this.hashAlgorithm = isySecurityConfigurationProps.getCache().getHashAlgorithm();
         this.salt = new byte[isySecurityConfigurationProps.getCache().getSaltBytes()];
-        new SecureRandom().nextBytes(salt);
+        SECURE_RANDOM.nextBytes(salt);
     }
 
     @Override
