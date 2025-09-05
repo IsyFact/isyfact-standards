@@ -1,9 +1,13 @@
 package de.bund.bva.isyfact.security.oauth2.client.authentication.token;
 
-import java.util.Objects;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
+import java.util.List;
 
 import org.springframework.lang.Nullable;
 import org.springframework.security.oauth2.client.registration.ClientRegistration;
+import org.springframework.util.SerializationUtils;
 
 /**
  * AuthenticationToken holding parameters required for creating a Client to use with Resource Owner Password Credentials Flow authentication.
@@ -47,7 +51,22 @@ public class PasswordClientRegistrationAuthenticationToken extends AbstractClien
      * @return the generated cache key as hash code or null
      */
     @Override
-    public Integer generateCacheKey() {
-        return Objects.hash(super.generateCacheKey(), getUsername(), getPassword());
+    public byte[] generateCacheKey(String hashAlgorithm, byte[] salt) {
+        try {
+            MessageDigest digest = MessageDigest.getInstance(hashAlgorithm);
+
+            digest.update(super.generateCacheKey(hashAlgorithm, salt));
+
+            List<String> additionalValues = Arrays.asList(
+                String.valueOf(getUsername()),
+                String.valueOf(getPassword())
+            );
+            byte[] additionalBytes = SerializationUtils.serialize(additionalValues);
+            digest.update(additionalBytes);
+
+            return digest.digest();
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(hashAlgorithm + " nicht verfügbar.", e);
+        }
     }
 }
