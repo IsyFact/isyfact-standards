@@ -155,7 +155,7 @@ In IsyFact ist eine feingranulare Autorisierung vorgesehen:
 Im Benutzerverzeichnis sind zu einem Benutzer die ihm zugewiesenen *Rollen* in der Systemlandschaft verknüpft und Bestandteil der Autorisierungsinformationen aus dem IAM-Service.
 Anhand dieser Rollen aus den Autorisierungsinformationen weist das IT-System einem Aufruf anwendungsspezifische *Rechte* zu und prüft diese gegen die für die Nutzung des angefragten Service benötigten Rechte.
 xref:
-Wie genau Rollen und Rechte spezifiziert werden, beschreibt das xref:security::konzept.adoc[] im Kapitel xref:security::konzept.adoc#rollen-und-rechte[Rollen und Rechte]
+Wie genau Rollen und Rechte spezifiziert werden, beschreibt das xref:security::konzept.adoc[] im Kapitel xref:security::konzept.adoc#rollen-und-rechte[Rollen und Rechte].
 
 [[nutzung-von-zertifikaten]]
 === Nutzung von Zertifikaten
