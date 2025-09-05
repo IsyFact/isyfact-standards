@@ -262,14 +262,13 @@ Technischer Ablauf:
 * Stimmt die dort hinterlegte Version nicht mit der erwarteten überein, wird je nach Konfiguration:
 * der Start abgebrochen (`fail`) oder eine Warnung geloggt (`warn`).
 
-==== Best Practice
+==== Bewährte Praktiken
 
-Die Kombination aus *Liquibase Changelogs* und *isy-persistence Version Enforcement* bietet in regulierten oder großskaligen Umgebungen entscheidende Vorteile:
+Die Kombination aus *Liquibase Changelogs* und *isy-util Version Enforcement* bietet für großskalige Umgebungen Vorteile:
 
-* **Deterministische Kompatibilität**: Die Anwendung läuft nur gegen ein getestetes, freigegebenes Schema.
-* **Auditierbarkeit**: Verknüpfung von Anwendungsrelease ↔ Datenbankschema erfüllt Anforderungen aus BSI IT-Grundschutz und ISO 27001.
-* **Drift-Erkennung**: Fehlkonfigurationen oder manuelle Eingriffe werden beim Start erkannt.
-* **CaaS-Tauglichkeit**: In Container-Plattformen kann ein Init-Container die Schema-Version vor Pod-Start validieren.
+* Deterministische Kompatibilität: Die Anwendung läuft nur gegen ein getestetes, freigegebenes Schema.
+* Früherkennung: Fehlkonfigurationen oder manuelle Eingriffe werden beim Start erkannt.
+* CaaS-Tauglichkeit: Auf einer Container-Plattform kann ein Init-Container die Schema-Version vor Pod-Start validieren.
 
 [[release-orientierte-umsetzung-von-schemaaenderungen]]
 == Release-orientierte Umsetzung von Schemaänderungen
