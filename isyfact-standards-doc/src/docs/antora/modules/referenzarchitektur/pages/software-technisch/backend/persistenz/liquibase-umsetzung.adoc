@@ -1,6 +1,7 @@
-= Datenbankmigration und Schemaversionierung
+= Datenbankmanagement und Schemaversionierung
 
 Die folgenden Erläuterungen zur Schemaversionierung mit xref:software-technisch/backend/persistenz/liquibase.adoc[] erfolgen mit Fokus auf die Integration in Spring Boot und die Nutzung mit Maven.
+Darüber hinaus werden Informationen zur Nutzung von Liquibase im IsyFact Kontext bereitgestellt.
 Liquibase wird in Spring Boot über die Konfigurationsdateien eingebunden, während das zugehörige Maven-Plugin Schemaänderungen direkt in der Build-Pipeline ausführt.
 
 Durch strukturierte Änderungsprotokolle lassen sich Schema-Anpassungen kontrolliert, nachvollziehbar und automatisiert verwalten.
@@ -99,7 +100,7 @@ Stattdessen empfiehlt sich die Nutzung von:
 [[rechte-trennung]]
 === Rechte-Trennung
 
-Um Sicherheit und Stabilität zu gewährleisten, werden DDL und DML-Berechtigungen strikt getrennt:
+Um Sicherheit und Stabilität zu gewährleisten, können DDL und DML-Berechtigungen strikt getrennt werden:
 
 * `db_ddl` führt ausschließlich Schema- und Berechtigungsänderungen aus (DDL).
 * `app_dml` führt ausschließlich Datenmanipulationen aus (DML).
@@ -117,14 +118,12 @@ Dadurch gilt:
 | `db_ddl`
 | `CREATE TABLE`, `ALTER`, `DROP`, `CREATE TRIGGER`, `GRANT`
 (keine DML-Rechte, außer explizit für Migrations-DML im Rahmen von Liquibase)
-| Liquibase Runner
-Wird ausschließlich in CI/CD-Jobs (z. B. Puppet-Job, Init Container) eingesetzt, um Schema- und Berechtigungsänderungen durchzuführen.
+| Liquibase Runner wird ausschließlich in CI/CD-Jobs (z. B. Puppet-Job, Init Container) eingesetzt, um Schema- und Berechtigungsänderungen durchzuführen.
 
 | `app_dml`
 | `SELECT`, `INSERT`, `UPDATE`, `DELETE` auf produktiven Tabellen und Sequenzen
 (niemals DDL-Rechte)
-| Runtime-User der Anwendung
-Führt ausschließlich Datenmanipulationen aus.
+| Runtime-User der Anwendung führt ausschließlich Datenmanipulationen aus.
 |===
 
 
@@ -133,7 +132,6 @@ Führt ausschließlich Datenmanipulationen aus.
 Offizielle Dokumentation von Liquibase:
 
 * https://contribute.liquibase.com/extensions-integrations/directory/integration-docs/springboot/[Using Liquibase with Spring Boot]
-* https://docs.liquibase.com/liquibase-pro/secrets-management/home.html[Secrets Management]
 ====
 
 [[erstellung-einer-baseline]]
@@ -170,10 +168,6 @@ databaseChangeLog:
       relativeToChangelogFile: true
 ----
 +
-[NOTE]
-====
-Offizielle Dokumentation von Liquibase: https://docs.liquibase.com/start/design-liquibase-project.html[Design Your Liquibase Project]
-====
 
 +2.+ Generierung der `baseline.xml`::
 +
@@ -243,18 +237,19 @@ Liquibase gewährleistet die Nachvollziehbarkeit aller Datenbankänderungen übe
 Damit wird sichergestellt, dass jede definierte Änderung genau einmal und in der richtigen Reihenfolge ausgeführt wird.
 
 Liquibase prüft nicht, ob die tatsächliche Datenbankversion mit der vom Anwendungscode erwarteten Release-Version übereinstimmt.
-Dadurch kann es trotz konsistentem Changelog zu xref:https://www.liquibase.com/blog/database-drift#:~:text=Database%20drift%20(AKA%20schema%20drift,source%20control.[Schema-Drift] kommen.
+Dadurch kann es trotz konsistentem Changelog zu xref:https://www.liquibase.com/blog/database-drift[Schema-Drift] kommen.
 
 Schema-Drift kann folgende Ursachen haben:
 
-* manuelle Hotfixes oder Änderungen ohne das Liquibase berücksichtigt wird (z. B. `ALTER TABLE` ohne Changelog),
-* Wiederherstellung eines Snapshots ohne erneute Anwendung aller Changesets,
-* abgebrochene Deployments, bei denen einzelne Changesets übersprungen wurden,
+* manuelle Hotfixes oder Änderungen, ohne das diese in Liquibase berücksichtigt werden (z. B. `ALTER TABLE` ohne Changelog),
+* Wiederherstellung eines Snapshots, ohne erneute Anwendung aller Changesets,
+* abgebrochene Deployments, bei denen einzelne Changesets übersprungen wurden.
 
-Solche Abweichungen führen dazu, dass die Anwendung gegen ein nicht kompatibles Schema startet – mit Risiken wie Laufzeitfehlern oder Datenverlust.
+Solche Abweichungen führen dazu, dass die Anwendung gegen ein nicht kompatibles Schema startet.
+Dies birgt Risiken wie Laufzeitfehlern oder Datenverlust.
 
 ==== Enforcement mit isy-utilities
-Um zu Verhindern, dass unbemerkte Schema-Abweichungen in Produktion zu Herausforderungen und Aufwand führen, und die Integrität zwischen Anwendung und Datenbank über alle Deployments hinweg gewährleistet ist oder die Durchsetzung von Semantischer Schema-Versionen ein Anforderung ist, kann die isy-utilies Bibliothek ein Schema-Versionskontrolle auf Anwendungsebene genutzt werden:
+Um zu Verhindern, dass unbemerkte Schema-Abweichungen in Produktion zu Herausforderungen und Aufwand führen, und die Integrität zwischen Anwendung und Datenbank über alle Deployments hinweg gewährleistet ist oder die Durchsetzung von semantischen Schema-Versionen eine Anforderung ist, kann die über die xref:util::konzept.adoc[isy-util] Bibliothek eine Schema-Versionskontrolle auf Anwendungsebene eingebunden werden:
 
 Eigene Properties
 
