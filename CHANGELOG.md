@@ -19,6 +19,7 @@
 - `IFS-4753`: [isy-batchrahmen] Änderung der Konfigurationsreihenfolge.
   * BatchSecurityConfiguration wird nach Anwendung und BatchRahmen Konfiguration geladen.
   * Beans mit der `@ConditionalOnMissingBean(...)` Annotation können wie erwartet überschrieben werden.
+- `IFS-4817`: [isy-ueberwachung] Verwendung von `securityMatcher` in actuatorSecurityFilterChain und loadbalancerSecurityFilterChain für korrektes Filtern von Anfragen.
 
 ## BREAKING CHANGES
 - `IFS-4736`: [isy-persistence] Entfernung der Bibliothek aus den IsyFact-Standards

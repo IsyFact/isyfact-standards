@@ -154,7 +154,78 @@ Zwingend wird das Vorhandensein sowie die Authentizität und Gültigkeit der mit
 In IsyFact ist eine feingranulare Autorisierung vorgesehen:
 Im Benutzerverzeichnis sind zu einem Benutzer die ihm zugewiesenen *Rollen* in der Systemlandschaft verknüpft und Bestandteil der Autorisierungsinformationen aus dem IAM-Service.
 Anhand dieser Rollen aus den Autorisierungsinformationen weist das IT-System einem Aufruf anwendungsspezifische *Rechte* zu und prüft diese gegen die für die Nutzung des angefragten Service benötigten Rechte.
+xref:
 Wie genau Rollen und Rechte spezifiziert werden, beschreibt das xref:security::konzept.adoc[] im Kapitel xref:security::konzept.adoc#rollen-und-rechte[Rollen und Rechte].
+
+[[nutzung-von-zertifikaten]]
+=== Nutzung von Zertifikaten
+Ein Sicherheitszertifikat ist ein digitales Dokument, das die Identität einer Entität (Service oder Website) bestätigt und zur Absicherung der Kommunikationspartner auf der Transportschicht eingesetzt werden kann.
+Für den Einsatz eines Sicherheitszertifikates wird eine Public Key Infrastructure (PKI) benötigt.
+Hierbei besitzt jede Entität ein Schlüsselpaar mit einem öffentlichen und privaten Schlüssel, um ein Entitätsbezogenes Zertifikat zu erstellen, das mittels des privaten Schlüssels signiert wird.
+Der Identitätsbeweis einer Entität erfolgt dann durch die Signatur-Validierung mit dem öffentlichen Schlüssel, der entweder zuvor schon zwischen den beteiligten Kommunikationspartner ausgetauscht wurde oder erst direkt vor der Validierung beim Besitzer des Zertifikats abgeholt wird.
+Für die konkrete Umsetzung der Absicherung der Kommunikationsstrecke sind die Vorgaben der jeweiligen Security, die gegebene Infrastruktur und die Tatsache, dass sich diese verändern, zu beachten (Vgl. xref:methodik:versionierung/master.adoc[Versionierung]).
+Welche Maßnahmen für eine sichere Kommunikation realisiert werden, ist mit dem jeweiligen Partner, der einen xref:isyfact-standards-doku:referenzarchitektur:software-technisch/services.adoc[Service]  anbietet, abzustimmen.
+
+Für alle implementierten Authentifizierungs- und Verschlüsselungsverfahren werden jedoch die folgenden Festlegungen getroffen:
+
+* Alle verwendeten Zertifikate müssen dem X509v3-Standard entsprechen (siehe: https://tools.ietf.org/html/rfc3280[X509]).
+* Privater Schlüssel und Zertifikate werden in einem PKCS#12-Format abgelegt (siehe: https://tools.ietf.org/html/rfc7292[PKCS12]).
+* Verwendet werden nur die im Standardumfang des JDKs enthaltenen kryptografischen Verfahren (siehe: https://docs.oracle.com/javase/8/docs/technotes/guides/security/jsse/JSSERefGuide.html[Java Secure Socket Extensions]).
+
+Der xref:referenzarchitektur:software-technisch/backend.adoc#awk-service-consumer[Sevice-Consumer] soll die Verbindung zu einem externen Service verschlüsselt per HTTPS aufbauen.
+Der Aufbau einer transportverschlüsselten Verbindung via HTTPS basiert immer auf einer zertifikatsbasierten Authentifizierung der beteiligten Entitäten.
+
+* Einseitige Authentifizierung:
+Der externe Service weist sich mit seinem Server-Zertifikat gegenüber dem Service-Consumer aus.
+Dies ist für verschlüsselte Verbindungen obligatorisch.
+* Beidseitige Authentifizierung (mTLS):
+Zusätzlich weist sich auch der Service-Consumer gegenüber dem externen Service mit einem Client-Zertifikat aus.
+Dies sollte immer dann eingesetzt werden, wenn besonders schützenswerte Daten verarbeitet oder sicherheitskritische Domänen berührt werden.
+
+[[zertifikatsbasierte-authentifizierung]]
+==== Zertifikatsbasierte Client-Authentifizierung
+Bei Verwendung der Client-Authentifizierung per Zertifikat benötigt der Service-Consumer:
+
+* ein Zertifikat, das von einer vertrauenswürdigen CA signiert ist,
+* den zugehörigen privaten Schlüssel, welcher lokal im Keystore bleibt.
+Die nutzende Anwendung übergibt dem Service-Provider das Zertifikat beim Aufruf der externen Serviceprovider-Methode, der die Signatur des Zertifikats mittels des öffentlichen Schlüssels des Service-Consumer validiert.
+Der private Schlüssel wird ausschließlich zur kryptografischen Signatur des TSL-Handshakes genutzt.
+
+NOTE: Alle notwendigen Informationen zur Erstellung von Zertifikaten -ausgehend von einem Sicherheitsschlüsselpaar- können z.B. https://de.wikipedia.org/wiki/Certificate_Signing_Request[hier] eingesehen werden.
+
+In der nutzenden Anwendung werden das Zertifikat und der private Schlüssel in einer PKCS#12-Datei im Config-Verzeichnis der Anwendung abgelegt.
+Die Erstellung bzw. Aktualisierung des Zertifikats wird vom Betrieb durch Bearbeitung der Datei vorgenommen.
+Wird das Passwort für den privaten Schlüssel in einer Property, zusammen mit den übrigen betrieblichen Konfigurationen der Anwendung, vorgehalten, ist zu beachten:
+Die Gefahr besteht, dass der private Schlüssel über Logs, Artefakte, Konfigurations-Viewer oder Versions-Verwaltungslösungen zugänglich wird.
+Aus diesem Grund sollte das Passwort für den privaten Schlüssel über einen Secret-Mechanismus (Secret-Datei, Secret-Manager, ...) verfügbar gemacht werden.
+Die Bereitstellung des privaten Schlüssels ist vom Betrieb im Rahmen des betrieblichen Konfigurationsprozesses festzulegen.
+
+[[ablage-von-zertifikaten]]
+=== Ablage von Zertifikaten
+Bei einer verschlüsselten Verbindung weist sich der externe Service mit einem Server-Zertifikat aus.
+Zur Überprüfung ist ein TrustStore erforderlich, der vertrauenswürdige Zertifikate enthält.
+Diese dienen der Validierung eingehender Zertifikate und stellen die Integrität der Gegenstelle sicher.
+
+Für höhere Sicherheit wird mTLS empfohlen.
+Dabei authentifiziert sich zusätzlich der Service-Consumer mit seinem Client-Zertifikat, das in einem KeyStore samt privatem Schlüssel (und ggf. Zertifikatskette) abgelegt ist (siehe <<zertifikatsbasierte-authentifizierung>>).
+Damit wird die eigene Identität nachgewiesen.
+
+Ein PKCS#12-Keystore speichert die privaten Schlüssel und die zugehörigen Zertifikate der eigenen Komponente.
+Der TrustStore dagegen enthält ausschließlich die Zertifikate, die für die Authentifizierung der Kommunikationspartner dienen.
+
+[[installation-des-zertifikates-auf-der-maschine]]
+==== Installation des Zertifikats auf der Maschine
+Zertifikate können direkt als Dateien auf dem Dateisystem einer Maschine gespeichert werden, z. B. als .pem-, .crt- oder .key-Dateien.
+Für den produktiven Einsatz wird jedoch die Ablage in Keystores/TrustStores empfohlen, die von der Anwendung beim Start oder zur Laufzeit geladen werden.
+
+[[besonderheiten-bei-der-kommunikation-ueber-soap]]
+==== Besonderheiten bei der Kommunikation über SOAP
+Für Kommunikation mit externen Services auf Basis von SOAP im Zusammenspiel mit Client-Zertifikaten ist zu beachten:
+Sofern nicht für alle Verbindungen derselbe Schlüssel verwendet wird, muss eine SocketFactory-Instanz pro Verbindung zur Verfügung gestellt werden.
+Damit ist ein globales Setzen von Key- und Truststores in der JVM nicht mehr ausreichend.
+Die SocketFactory-Instanzen können erst nach Initialisierung des ServiceStubs gesetzt werden, so kann die WSDL-Datei nicht über die gesicherte Verbindung abgerufen werden.
+Empfohlen wird die WSDL-Datei lokal vorzuhalten und aus dem Dateisystem zu laden, sodass sie nicht zur Laufzeit über das Netz geladen werden muss.
+Dies birgt allerdings die Möglichkeit einer Versions-Diskrepanz zwischen lokal vorgehaltener WSDL und aktueller Service-Provider WSDL.
 
 [[verwendung-von-produkten]]
 == Verwendung von Produkten

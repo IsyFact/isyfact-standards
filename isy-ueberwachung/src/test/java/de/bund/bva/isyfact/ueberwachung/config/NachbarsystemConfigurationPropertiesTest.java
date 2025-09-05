@@ -15,13 +15,13 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.model.Nachbarsystem;
 import de.bund.bva.isyfact.ueberwachung.autoconfigure.IsyHealthAutoConfiguration;
-import de.bund.bva.isyfact.ueberwachung.autoconfigure.IsyUeberwachungAutoConfiguration;
+import de.bund.bva.isyfact.ueberwachung.autoconfigure.IsyLoadbalancerAutoConfiguration;
 
 /**
  * Test zum überprüfen, ob die gesetzten properties korrekt geladen werden.
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = { IsyUeberwachungAutoConfiguration.class, IsyHealthAutoConfiguration.class },
+@SpringBootTest(classes = { IsyLoadbalancerAutoConfiguration.class, IsyHealthAutoConfiguration.class },
     properties = {
         "isy.ueberwachung.nachbarsysteme.nachbar1.systemname=Nachbar",
         "isy.ueberwachung.nachbarsysteme.nachbar1.essentiell=true",
