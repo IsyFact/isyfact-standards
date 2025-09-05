@@ -63,6 +63,16 @@ public class IsySecurityConfigurationProperties {
          */
         private int tokenExpirationTimeOffset = 60;
 
+        /**
+         * Amount of bytes used for salt.
+         */
+        private int saltBytes = 64;
+
+        /**
+         * Algorithm used for hashing tokens.
+         */
+        private String hashAlgorithm = "SHA-512";
+
         public int getTtl() {
             return ttl;
         }
@@ -85,6 +95,22 @@ public class IsySecurityConfigurationProperties {
 
         public void setTokenExpirationTimeOffset(int tokenExpirationTimeOffset) {
             this.tokenExpirationTimeOffset = tokenExpirationTimeOffset;
+        }
+
+        public int getSaltBytes() {
+            return saltBytes;
+        }
+
+        public void setSaltBytes(int saltBytes) {
+            this.saltBytes = saltBytes;
+        }
+
+        public String getHashAlgorithm() {
+            return hashAlgorithm;
+        }
+
+        public void setHashAlgorithm(String hashAlgorithm) {
+            this.hashAlgorithm = hashAlgorithm;
         }
     }
 }

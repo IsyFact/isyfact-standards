@@ -28,4 +28,6 @@
 - `IFS-4817`: [isy-ueberwachung] Verwendung von `securityMatcher` in actuatorSecurityFilterChain und loadbalancerSecurityFilterChain für korrektes Filtern von Anfragen.
 
 ## BREAKING CHANGES
-- keine
+- `IFS-4812`: [isy-security] Verwendung sicherer Hashfunktion mit SHA-512 für Caching
+  * Rückgabe eines Byte-Arrays statt eines Integers in der Methode `generateCacheKey` der Klasse `AbstractClientRegistrationAuthenticationToken`
+  * Konfigurierbare Properties für Hashfunktion und Bytegröße des Salts
