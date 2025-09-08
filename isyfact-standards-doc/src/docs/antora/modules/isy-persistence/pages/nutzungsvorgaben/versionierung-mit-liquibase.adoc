@@ -568,7 +568,7 @@ Oder um zu überprüfen, ob alle Objekte in einer Baseline berücksichtigt sind.
 Hierfür können die Unterschiede zwischen dem IST-Zustand und einer leeren Datenbank erzeugt werden.
 
 |liquibase label
-|Labels können genutzt werden, um DB-Änderungen, die ein Feature betreffen, zu kennzeichnen und zum gewünschten Zeitpunkt auszuführen. (Vgl. xref:https://docs.liquibase.com/reference-guide/changelog-attributes/labels[Liquibase-Doku-Labels]).
+|Labels können genutzt werden, um Datenbankänderungen, die ein Feature betreffen, zu kennzeichnen und zum gewünschten Zeitpunkt auszuführen. (Vgl. xref:https://docs.liquibase.com/reference-guide/changelog-attributes/labels[Liquibase-Doku-Labels]).
 Dies kann in Verbindung mit Feature-Toggles genutzt werden.
 
 
@@ -584,3 +584,4 @@ Dies stellt den Zustand der Datenbank auf einen definierten Punkt zurück und en
 ====
 Offizielle Dokumentation von Liquibase: https://docs.liquibase.com/reference-guide[Liquibase-Befehlen].
 ====
+
