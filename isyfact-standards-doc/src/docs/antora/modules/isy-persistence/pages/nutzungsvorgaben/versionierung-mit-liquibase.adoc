@@ -254,7 +254,8 @@ Solche Abweichungen führen dazu, dass die Anwendung gegen ein nicht kompatibles
 Dies birgt Risiken wie Laufzeitfehler oder Datenverlust.
 
 ==== Enforcement mit isy-persistence
-Um zu Verhindern, dass unbemerkte Schema-Abweichungen in Produktion zu Herausforderungen und Aufwand führen, und die Integrität zwischen Anwendung und Datenbank über alle Deployments hinweg gewährleistet ist oder die Durchsetzung von semantischen Schema-Versionen eine Anforderung ist, kann über die Funktionalität der  xref:isy-persistence:nutzungsvorgaben/versionierung.adoc#pruefen-der-schemaversion[Eigenentwicklung zur Versionierung] eine Schema-Versionskontrolle auf Anwendungsebene eingebunden werden.
+Um zu verhindern, dass unbemerkte Schema-Abweichungen in Produktion zu Herausforderungen und Aufwand führen, und die Integrität zwischen Anwendung und Datenbank über alle Deployments hinweg gewährleistet ist oder die Durchsetzung von semantischen Schema-Versionen eine Anforderung ist, kann über die Funktionalität der  xref:isy-persistence:nutzungsvorgaben/versionierung.adoc#pruefen-der-schemaversion[Eigenentwicklung zur Versionierung] eine Schema-Versionskontrolle auf Anwendungsebene eingebunden werden.
+
 
 ==== Bewährte Praktiken
 
