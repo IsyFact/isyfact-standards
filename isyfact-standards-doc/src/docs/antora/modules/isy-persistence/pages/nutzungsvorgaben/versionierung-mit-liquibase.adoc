@@ -3,7 +3,8 @@
 include::glossary:licence:partial$licence.adoc[]
 
 Die Schemaversionierung mit Liquibase erfolgt gemäß den Richtlinien in xref:konzept/versionierung-mit-liquibase.adoc[] mit Fokus auf die Integration in Spring Boot und die Nutzung mit Maven.
-Darüber hinaus werden Informationen zur Nutzung von Liquibase im IsyFact Kontext bereitgestellt.
+Darüber hinaus werden Informationen zur Nutzung von Liquibase im IsyFact-Kontext bereitgestellt.
+
 Liquibase wird in Spring Boot über die Konfigurationsdateien eingebunden, während das zugehörige Maven-Plugin Schemaänderungen direkt in der Build-Pipeline ausführt.
 
 Durch strukturierte Änderungsprotokolle lassen sich Schema-Anpassungen kontrolliert, nachvollziehbar und automatisiert verwalten.
