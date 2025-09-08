@@ -554,7 +554,8 @@ Falls Probleme auftreten, gibt Liquibase eine Fehlermeldung aus, die auf fehlerh
 
 |liquibase update
 |Überträgt alle noch nicht angewendeten Änderungen aus den Changelogs auf die Datenbank.
-Für Datenbanken in der Produktion ist ein Ad-hoc Snapshot vor dem Liquibase Update zu erstellen.
+Für Datenbanken in der Produktion ist ein Ad-hoc-Snapshot vor dem Liquibase-Update zu erstellen.
+
 
 |liquibase status
 |Zeigt an, welche Änderungen noch nicht auf die Datenbank angewendet wurden.
