@@ -245,7 +245,8 @@ Dadurch kann es trotz konsistentem Changelog zum xref:https://www.liquibase.com/
 
 Schema-Drift kann folgende Ursachen haben:
 
-* manuelle Hotfixes oder Änderungen, ohne das diese in Liquibase berücksichtigt werden (z. B. `ALTER TABLE` ohne Changelog),
+* manuelle Hotfixes oder Änderungen, ohne dass diese in Liquibase berücksichtigt werden (z. B. `ALTER TABLE` ohne Changelog),
+
 * Wiederherstellung eines Snapshots, ohne erneute Anwendung aller Changesets,
 * abgebrochene Deployments, bei denen einzelne Changesets übersprungen wurden.
 
