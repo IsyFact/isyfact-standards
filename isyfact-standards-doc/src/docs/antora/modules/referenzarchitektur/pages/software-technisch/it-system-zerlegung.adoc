@@ -1,9 +1,5 @@
 = Zerlegung einer Anwendung in IT-Systeme
 
-include::glossary:licence:partial$licence.adoc[]
-
-include::documentation-guide::partial$content-new-page.adoc[]
-
 Eine der ersten und wichtigsten Entwurfsentscheidungen ist, wie eine Anwendung technisch in IT-Systeme zerlegt wird.
 Die Zerlegung einer Anwendung in kleine Einheiten, die auf eine Aufgabe fokussiert und untereinander lose gekoppelt sind, verspricht einige Vorteile:
 
