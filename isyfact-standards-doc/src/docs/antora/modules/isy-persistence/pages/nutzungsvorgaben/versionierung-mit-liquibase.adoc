@@ -512,27 +512,28 @@ Offizielle Dokumentation von Liquibase: https://contribute.liquibase.com/extensi
 ====
 
 [[db-update-management-drei-phasen-strategie-mit-liquibase]]
-== DB Update Management: Drei Phasen Strategie mit Liquibase
+== DB Update Management: Drei-Phasen-Strategie mit Liquibase
 Dieses Verfahren wird angewendet, wenn Daten in einem vorhandenen Datenbankfeld verändert werden müssen.
 Dabei wird die Anwendung so erweitert, dass sie auf dem neuen Feld arbeitet.
-Gleichzeitig bleibt die Datenbank in einem Zustand, in dem eine Alte-Anwendungsversion weiterhin ohne Anpassungen auf der Datenbank arbeiten kann.
-Sobald alle Alt-Anwendungsversionen abgeschaltet sind, wird dann in einer dritten Phase das alte DB-Feld aus der Datenbank entfernt.
+Gleichzeitig bleibt die Datenbank in einem Zustand, in dem ältere Anwendungsversionen weiterhin ohne Anpassungen auf der Datenbank arbeiten können.
+Sobald alle Altversionen abgeschaltet sind, wird dann in einer dritten Phase das alte Datenbankfeld aus der Datenbank entfernt.
 
 +1.+ Phase::
-Schema und Migration Changeset mit Label `pre/db-deploy` nutzen (z.B. <addColumn> und trigger oder Batch-SQL nutzen um Bestandsdaten zu kopieren.
-Hier sollte die Rollback SQL bereitgehalten werden.
+Schema- und Migration-Changeset mit Label `pre/db-deploy` nutzen (z.B. <addColumn> und Trigger oder Batch-SQL nutzen um Bestandsdaten zu kopieren.
+Hier sollte die Rollback-SQL bereitgehalten werden.
 
 +2.+ Phase::
-Das Feature Rollout findet in der Anwendung statt.
+Das Feature-Rollout findet in der Anwendung statt.
 Hier wird auf neues Feld umgestellt.
-Falls nötig, ist ein Changeset für zusätzliche Indexe mit dem Label `app-deploy` zu nutzen.
+Falls nötig, ist ein Changeset für zusätzliche Indizes mit dem Label `app-deploy` zu nutzen.
 
 +3.+ Phase::
-Laufen alle Instanzen der Anwendung auf der neuen Version der Anwendung ist mit einem Changeset mit dem Label `clean-up` das DB schema zu bereinigen (z.B. <dropColum>).
+Laufen alle Instanzen der Anwendung auf der neuen Version der Anwendung ist mit einem Changeset mit dem Label `clean-up` das Datenbankschema zu bereinigen (z.B. <dropColumn>).
 
 [NOTE]
 ====
-Für CI-Pilelines sind diese Tätigkeiten am besten in einzelnen Jobs auszuführen.
+Für CI-Pipelines sind diese Tätigkeiten am besten in einzelnen Jobs auszuführen.
+
 Mindestens jedoch in zwei, Phase 1 und Phase 2 können zusammen ausgeführt werden.
 ====
 
