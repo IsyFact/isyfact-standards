@@ -103,7 +103,7 @@ Stattdessen empfiehlt sich die Nutzung von:
 [[rechte-trennung]]
 === Rechte-Trennung
 
-Um Sicherheit und Stabilität zu gewährleisten, können DDL und DML-Berechtigungen strikt getrennt werden:
+Um Sicherheit und Stabilität zu gewährleisten, können DDL- und DML-Berechtigungen strikt getrennt werden:
 
 * `db_ddl` führt ausschließlich Schema- und Berechtigungsänderungen aus (DDL).
 * `app_dml` führt ausschließlich Datenmanipulationen aus (DML).
@@ -121,13 +121,14 @@ Dadurch gilt:
 | `db_ddl`
 | `CREATE TABLE`, `ALTER`, `DROP`, `CREATE TRIGGER`, `GRANT`
 (keine DML-Rechte, außer explizit für Migrations-DML im Rahmen von Liquibase)
-| Liquibase Runner wird ausschließlich in CI/CD-Jobs (z. B. Puppet-Job, Init Container) eingesetzt, um Schema- und Berechtigungsänderungen durchzuführen.
+| Liquibase Runner wird ausschließlich in CI/CD-Jobs (z. B. Puppet-Job, Init-Container) eingesetzt, um Schema- und Berechtigungsänderungen durchzuführen.
 
 | `app_dml`
 | `SELECT`, `INSERT`, `UPDATE`, `DELETE` auf produktiven Tabellen und Sequenzen
 (niemals DDL-Rechte)
 | Runtime-User der Anwendung führt ausschließlich Datenmanipulationen aus.
 |===
+
 
 
 [NOTE]
