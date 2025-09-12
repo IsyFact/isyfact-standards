@@ -1,4 +1,5 @@
 # 4.1.0
+## Features
 - `IFS-4729`: Anhebung der Version von SpringBoot auf 3.5.0
 - `IFS-4804`: Anhebung der Third Party Versionen:
     * Update von com.github.spotbugs:spotbugs-annotations von 4.2.3 auf 4.9.3
