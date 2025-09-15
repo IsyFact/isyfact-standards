@@ -1,0 +1,102 @@
+= REST
+
+REST (Representational State Transfer) ist ein Paradigma für die Softwarearchitektur von verteilten Systemen, insbesondere für web-basierte Services.
+Die Grundlagen von REST-Services lauten wie folgt:
+
+Client-Server::
+REST-Services besitzen die Eigenschaften einer Client-Server-Architektur und folgen diesem Architekturstil.
+
+Zustandslosigkeit::
+Ein REST-Service speichert zwischen zwei Anfragen keinerlei Zustandsinformationen.
+Jede Ressource muss alle Informationen enthalten, die für den Server bzw. Client notwendig sind, um sie verarbeiten zu können.
+
+Caching::
+REST-Nachrichten sollen, entweder explizit oder implizit, angeben, ob sie sich für einen Cache eignen oder nicht.
+
+Einheitliche Schnittstelle::
+REST-Schnittstellen besitzen vier Eigenschaften, um einheitlich beschaffen und leicht nutzbar zu sein.
++
+Jede Ressource ist über einen URI *eindeutig adressierbar*.
+Damit geschieht der Zugriff für jeden Client eindeutig und für alle nachvollziehbar.
++
+REST-Services können an ihre Clients unterschiedliche *Repräsentationen der Ressourcen* ausliefern, z. B. in verschiedenen Sprachen oder Formaten.
+Die Veränderung einer Ressource erfolgt nur über eine dieser Repräsentationen.
++
+Jede Anfrage muss alle Informationen zu ihrer Verarbeitung mitliefern, also *selbstbeschreibend* sein.
+Beispiele dazu sind das explizite Kennzeichnen des übertragenen Formats oder die Verwendung von HTTP-Methoden.
++
+*Hypermedia as the Engine of Application State (HATEOAS)*:
+REST-Services dürfen bei ihren Clients nur minimale Kenntnisse der Schnittstelle voraussetzen.
+Insbesondere das Navigieren zwischen Ressourcen sollte über Links geschehen, die Teil vorausgehender Ressourcen sind.
+Die Umsetzung von HATEOAS erzeugt so eine Navigation zwischen Ressourcen ähnlich zur Navigation zwischen Webseiten über Hyperlinks.
+
+Mehrschichtige Systeme::
+Für Aufrufer von REST-Services muss es transparent sein, welche Systeme zwischen dem Client und dem Server oder hinter der Schnittstelle liegen.
+Aufrufe ändern sich nicht durch Änderungen an der Infrastruktur (z. B. durch Maßnahmen zur Skalierung) oder durch technische Änderungen, welche nicht den REST-Service selbst betreffen.
+
+[NOTE]
+====
+Einen guten Überblick und Verweise auf detailliertere Beschreibungen bietet die https://de.wikipedia.org/wiki/Representational_State_Transfer[Wikipedia-Seite zu REST].
+Für einen tiefen Einstieg in die Grundlagen bietet sich die https://www.ics.uci.edu/~fielding/pubs/dissertation/fielding_dissertation_2up.pdf[Dissertation von Roy Fielding icon:file-pdf-o[]] an.
+====
+
+Das <<image-richard-maturity-model>> ordnet diese Eigenschaften vier Reifegraden zu.
+
+[[image-richard-maturity-model]]
+.Richardson Maturity Model
+image::isy-service-rest:konzept/richard-maturity-model.dn.svg[]
+
+Die IsyFact zielt auf eine möglichst vollständige Umsetzung der Eigenschaften und peilt daher einen hohen Reifegrad für REST-Services an.
+
+.icon:university[title=Architekturregel] Reifegrad für REST-Services
+****
+IT-Systeme müssen ihre REST-Services mindestens anhand Stufe 2 des <<image-richard-maturity-model>> umsetzen.
+****
+
+Diese Architekturregel hat große Auswirkungen auf die einzelnen Aspekte der Ausgestaltung der REST-Services.
+Konkret stellt Stufe 2 des Richardson Maturity Models folgende Anforderungen:
+
+* Ressourcen werden über einen eindeutigen URI angesprochen.
+* Ressourcen werden über HTTP-Methoden angesprochen und je nach HTTP-Methode abgefragt oder verändert.
+* Ressourcen melden ihren Status durch eine Abfrage oder Veränderung über HTTP-Statuscodes zurück.
+
+Stufe 3 des Richardson Maturity Models stellt darüber hinaus weitere Anforderungen:
+
+* Ressourcen enthalten Verweise auf URIs, mit denen weitere Anfragen im Kontext der Ressource möglich sind.
+
+[[ausnahmen]]
+== Ausnahmen (Erlaubte Abweichungen zum Reifegradmodell)
+
+In Ausnahmefällen kann auf die Einhaltung der Vorgabe zum Reifegrad (mindestens Level 2) verzichtet werden.
+
+[[prozessorientierte-aufrufe]]
+*Prozessorientierte Aufrufe - Geschäftsvorfälle*
+
+Ein Ausnahmefall stellt die Abbildung von prozessorientierten Aufrufen dar, die häufig durch die Migration von bestehenden prozessorientierten Schnittstellen (z. B. RPC) entstanden sind.
+Die Abbildung auf eine ressourcenorientierte REST-Schnittstelle ist i.d.R. mit einer Neukonzeption der Anwendung unter einer ressourcenorientierten Denkweise verbunden.
+Der Aufwand für die Neukonzeption steht oft nicht im Verhältnis zum tatsächlichen (fachlichen) Nutzen.
+Aus diesem Grund dürfen prozessorientierte Aufrufe über einfache http-Aufrufe realisiert werden, die bis auf die Ressourcenorientierung und Verwendung der http-Verben, den übrigen Vorgaben des REST-Konzepts folgen.
+Diese http-Aufrufe entsprechen zwar nicht dem Reifegradmodell (Level 2), sind aber in diesem Ausnahmefall IsyFact-konform.
+
+Wird über die Schnittstelle ein Geschäftsvorfall angestoßen, ist der Geschäftsvorfall in der URI zu adressieren:
+
+// tag::namenskonvention[]
+
+[[namenskonvention-prozessorientierte-uris]]
+.Namenskonvention prozessorientierter URIs
+[cols="1s,4",options="header"]
+|====
+2+|Prozessorientierte URIs
+|Schema |`+/{geschaeftsvorfall}/{geschaeftsprozess}+`
+|Beispiele |`/auskunft/personaliensuche`
+
+`/auskunft/dokumentensuche`
+
+`/auskunft/schluesselsuche`
+
+`/meldung/erstmeldung`
+
+`/meldung/aenderung`
+|====
+
+// end::namenskonvention[]
