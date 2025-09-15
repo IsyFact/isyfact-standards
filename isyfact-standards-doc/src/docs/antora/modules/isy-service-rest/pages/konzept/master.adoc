@@ -1,5 +1,0 @@
-=  Konzept REST
-:sectnums:
-
-include::inhalt.adoc[tags=inhalt]
-

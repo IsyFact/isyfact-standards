@@ -1,5 +1,6 @@
 = Eigenschaften von REST-Schnittstellen
 :navtitle: REST-Schnittstellen
+:reftext: REST-Schnittstellen
 
 [[aufbau-ressourcen-uris]]
 == Aufbau der Ressourcen-URIs

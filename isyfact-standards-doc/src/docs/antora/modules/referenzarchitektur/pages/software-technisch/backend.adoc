@@ -120,7 +120,7 @@ include::backend/serviceschicht.adoc[tags=service-framework-definition]
 === Umsetzung
 
 Zur Konzeption von Services definiert die Referenzarchitektur xref:software-technisch/services.adoc[weitere Vorgaben].
-Die Umsetzung der xref:software-technisch/backend/serviceschicht.adoc[] geschieht mithilfe des xref:isy-service-rest:konzept/master.adoc[Bausteins REST].
+Zur Umsetzung von REST-Services mit Spring Web definiert die Referenzarchitektur xref:software-technisch/backend/serviceschicht.adoc[weitere Vorgaben].
 
 [[querschnitt]]
 == Querschnitt

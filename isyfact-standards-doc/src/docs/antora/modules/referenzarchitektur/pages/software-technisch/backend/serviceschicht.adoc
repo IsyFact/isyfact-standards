@@ -82,7 +82,7 @@ Zur Konfiguration der Serviceschicht wird das Spring-Framework genutzt.
 
 // end::service-framework-definition[]
 
-Die weiteren Inhalte zum Aufbau, zur Realisierung und zur Nutzung der Serviceschicht befinden sich im xref:isy-service-rest:konzept/master.adoc[] sowie den xref:isy-service-rest:nutzungsvorgaben/master.adoc[].
+Unterhalb dieser Seite befinden sich weitere Inhalte zu xref:software-technisch/backend/service/rest.adoc[], Vorgaben zu xref:software-technisch/backend/service/rest-eigenschaften.adoc[], Hinweisen zur xref:software-technisch/backend/service/rest-umsetzung.adoc[] sowie xref:software-technisch/backend/service/rest-querschnitt.adoc[].
 
 [[transaktionssteuerung]]
 == Transaktionssteuerung
