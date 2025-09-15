@@ -1,0 +1,175 @@
+= Umsetzung von REST-Services
+:navtitle: Umsetzung
+
+[[technologieauswahl]]
+== Technologieauswahl
+
+Die IsyFact legt folgende <<table-frameworks>> von REST-Schnittstellen fest.
+
+[[table-frameworks]]
+.Frameworks für die Umsetzung
+[cols="2,2,3",options="header"]
+|===
+|Framework |Technologie-Stack |Beschreibung
+
+|Spring Webflux
+|Java/Spring
+|Umsetzung von REST-Clients
+
+(unter Nutzung von Apache HTTPComponents)
+
+|Spring MVC
+|Java/Spring
+|Umsetzung von REST-Services
+
+(zur Nutzung mit Tomcat)
+
+// TODO Umziehen zur Frontend-Architektur
+|Angular Framework Modul: @angular/common/http
+|TypeScript/Angular
+|Umsetzung von REST-Clients
+
+|OpenAPI
+|technologie-unabhängig
+|Dokumentation der Service Schnittstelle und Erzeugung von Service und Client
+
+|===
+////
+|OpenAPI Generator
+|diverse Technologien werden unterstützt, darunter Java/Spring und Angular. Eine vollständige Liste ist unter https://openapi-generator.tech/docs/generators/[openapi-generator.tech] verfügbar.
+|Code Generator (Client/Server)
+////
+
+[[spring-mvc-vergleich-webflux]]
+== Spring MVC im Vergleich zu Spring Webflux
+
+Das Spring Framework stellt seit Version 5 Spring Webflux als reaktive Alternative zu Spring MVC bereit.
+
+Mit Webflux ist es möglich, reaktive REST APIs zu implementieren.
+Beim reaktiven Programmierparadigma geht es um die Reaktion auf Veränderungen (Observer Pattern), im Fall von REST APIs um die Reaktion auf gesendete Daten.
+Das ist hilfreich, wenn man große Datenmengen (z. B. Mediendateien oder größere Ergebnismengen aus einer Datenbankabfrage) über das REST API übertragen möchte.
+Die Daten werden dann in mehreren Paketen gesendet, der Empfänger reagiert jeweils auf den Erhalt eines Pakets.
+
+Der Hauptvorteil von Webflux liegt aber im geringeren Ressourcenverbrauch auf der Server Seite.
+Webflux basiert auf einem Event-Loop Mechanismus, während Spring MVC auf Thread Pools basiert.
+Der Performance Vorteil von Webflux macht sich insbesondere bei vielen gleichzeiten Service-Aufrufen und/oder der Übertragung größerer Datenmengen bei einem Service-Aufruf bemerkbar.
+
+Trotzdem empfiehlt die IsyFact grundsätzlich, Spring MVC für die Umsetzung von REST-Services einzusetzen.
+Die Vorteile des reaktiven Programmierparadigmas erfüllen sich nur, wenn alle Teile der Umsetzung entsprechend gestaltet sind.
+Dies ist aktuell nicht der Fall.
+
+Für REST-Clients wiederum empfiehlt die IsyFact die Verwendung des `WebClient` anstatt des `RestTemplate`, da letzteres nicht mehr aktiv weiterentwickelt wird.
+
+Für die Anbindung von Angular-Clients enthält der Baustein Angular eine entsprechende Komponente.
+
+[[schnittstellendokumentation]]
+== Schnittstellendokumentation
+
+Alle auf IsyFact basierten Anwendungen müssen ihre REST-Schnittstellen mit der _OpenAPI 3.0_ Spezifikation beschreiben.
+Sowohl YAML als auch JSON sind als Format der Schnittstellendokumentation zulässig.
+Für die Erstellung der Schnittstellendokumentation ist grundsätzlich kein besonderes Tool erforderlich, ein Texteditor ist ausreichend.
+Das OpenAPI Format wird jedoch von diversen Entwicklungsumgebungen (z. B. IntelliJ) unterstützt, was die Bearbeitung erleichtert.
+//Alternativ kann auch der Editor unter https://openapi-generator.tech/docs/generators/[openapi-generator.tech] verwendet werden, _OpenAPI 3.x_ wird hier ebenfalls unterstützt.
+//Die Schnittstellendokumentation wird im zugehörigen Projekt im Ressources-Verzeichnis abgelegt.
+
+[[code-generierung]]
+=== Code-Generierung
+
+Bei der Erstellung von REST-APIs gibt es grundsätzlich 2 Ansätze: _Contract/API First_ oder _Code First_.
+Bei _Contract/API First_ wird zunächst die Schnittstellenbeschreibung erstellt und daraus der Code (Server und Client) generiert.
+Bei _Code First_ wird zuerst die API implementiert und mit Annotationen für die Schnittstellenbeschreibung versehen.
+Aus den Annotationen wird dann die Schnittstellenbeschreibung generiert.
+
+Die IsyFact empfiehlt den _Contract/API First_ Ansatz.
+
+Für die Generierung des Codes von Server und Client sind die Standards von OpenApi 3.x zu beachten.
+//Für die Generierung des Codes wird das Tool _OpenAPI Generator_ verwendet.
+//Es kann sowohl server- als auch client-seitiger Code generiert werden.
+//Dabei werden diverse Plattformen und Programmiersprachen unterstützt, darunter Java/Spring und Angular.
+//Eine vollständige Liste ist unter https://openapi-generator.tech/docs/generators verfügbar.
+//
+//Da der _OpenAPI Generator_ auf Maven basiert, erfolgt die Generierung eines neuen APIs/Clients über das Erstellen eines neuen Maven-Projektverzeichnisses, das ausschließlich die Maven-POM und die Schnittstellenbeschreibung enthält.
+//Die Generierung wird dann über `mvn clean package` gestartet, der generierte Code liegt anschließend im target-Verzeichnis des Projekts.
+//Detaillierte Informationen zur Verwendung des Generators sind unter https://github.com/OpenAPITools/openapi-generator zu finden.
+//
+//
+//====
+//Bei der Generierung von server-seitigem Java/Spring-Code wird standardmäßig Spring MVC als Basis des generierten Codes verwendet.
+//Da in der IsyFact aber Webflux als Framework vorgesehen ist, muss für die Generierung der Parameter _reactive_ auf true gesetzt werden innerhalb der configOptions des Generator PlugIns.
+//Beispiel:
+//
+//[source, xml]
+//....
+//<build>
+//   <plugins>
+//      <plugin>
+//         <groupId>org.openapitools</groupId>
+//         <artifactId>openapi-generator-maven-plugin</artifactId>
+//         <version>4.3.1</version>
+//         <executions>
+//            <execution>
+//               <goals>
+//                  <goal>generate</goal>
+//               </goals>
+//               <configuration>
+//                  <inputSpec>
+//                     ${project.basedir}/src/main/resources/api.yaml
+//                  </inputSpec>
+//                  <language>spring</language>
+//                  <configOptions>
+//                     <sourceFolder>src/main/java</sourceFolder>
+//                     <library>spring-boot</library>
+//                     <reactive>true</reactive>
+//                      ...
+//                  </configOptions>
+//               </configuration>
+//            </execution>
+//         </executions>
+//      </plugin>
+//       ...
+//   </plugins>
+//</build>
+//....
+//====
+
+[[bereitstellen-generierte-clients]]
+=== Bereitstellen von generierten Clients
+
+Wie beschrieben können aus der OpenAPI Schnittstellenbeschreibung Services und Clients für diverse Plattformen generiert werden.
+Aus Convenience-Gründen wird empfohlen, dass Anbieter von Schnittstellen fertig generierte Clients für die gängigen Plattformen zur Verfügung stellen.
+Gängige Clients im Kontext der IsyFact sind Java (Spring) und Javascript (Angular).
+
+[[verwendung-transportobjekte]]
+== Verwendung von Transportobjekten
+
+.icon:university[title=Architekturregel] Verwendung von Transferobjekten
+****
+REST-Schnittstellen verwenden ausschließlich Transferobjekte (Data Transfer Objects, DTOs).
+****
+
+Die DTOs werden ebenfalls innerhalb der Schnittstellenbeschreibung schematisch beschrieben.
+
+Der Code für die DTOs wird daraus generiert.
+
+Innerhalb der Schnittstellenbeschreibung des Service werden die Schemata der DTOs üblicherweise als Referenz mittels `#ref` eingebunden.
+Die Referenz kann sich dabei auf eine Beschreibung innerhalb derselben Datei beziehen oder auch auf eine externe Datei.
+Die Datei kann dabei sowohl über einen Dateipfad als auch über eine URL adressiert werden.
+
+.Beispiel aus Swagger Petstore
+[source,yaml]
+----
+requestBody:
+   content:
+      application/json:
+         schema:
+            $ref: '#/components/schemas/Pet'
+
+# [...]
+
+components:
+   schemas:
+      Pet:
+         name:
+            type: string
+            example: doggie
+----
