@@ -16,7 +16,7 @@ Wir empfehlen das entsprechende IntelliJ und Eclipse Plugins dieses Editors (sie
 Die Verwendung dieser Plugins ist besonders sinnvoll, da sie die Integration der Spezifikation in das Projekt ermöglicht und die Verwaltung mit Version Control erleichtert.
 
 Weitere Informationen zu OpenAPI 3.0 (Beschreibung und Vorgaben) finden Sie unter https://swagger.io/specification/[Swagger Spezifikation]).
-Bei der Erstellung der Spezifikation sind die Vorgaben der IsyFact (siehe xref:isy-service-rest:konzept/master.adoc#einleitung[Konzept REST]) zu beachten.
+Bei der Erstellung der Spezifikation sind die Vorgaben für xref:referenzarchitektur:software-technisch/backend/service/rest-eigenschaften.adoc[] zu beachten.
 Relevante Vorgaben beziehen sich u.a. auf den Aufbau der URls und der Anfrage, die Verwendung der http-Verben und Statuscodes.
 
 [[mapping-fachlichen-schnittstellen]]
@@ -56,7 +56,7 @@ paths:
   /mitarbeiter/sucheNachSuchkriterien:
 ----
 
-Der Pfadname muss den Vorgaben zur Ressourcenorientierung im xref:isy-service-rest:konzept/master.adoc#einleitung[REST Konzept] entsprechen.
+Der Pfadname muss den Vorgaben zur Ressourcenorientierung von xref:referenzarchitektur:software-technisch/backend/service/rest-eigenschaften.adoc[] entsprechen.
 
 
 |NSE_Entität (Input)
@@ -201,10 +201,11 @@ Asynchron
 |Schnittstellen-
 typ
 |verb
-|get, post, put, delete
+|`get`, `post`, `put`, `delete`
 
 Das passende Verb, um die Art der Transaktion zu beschreiben (Lese-, Schreib- oder Löschvorgang).
-Vorgaben zur Wahl des Verbs finden sich im xref:isy-service-rest:konzept/master.adoc#einleitung[Konzept REST].
+Vorgaben zur Wahl des Verbs finden sich in den Vorgaben zur xref:referenzarchitektur:software-technisch/backend/service/rest-eigenschaften.adoc#http-methoden[Verwendung von HTTP-Methoden].
+
 |===
 
 Die für die Mapping-Tabelle genutzte Beispiel-Schnittstellenbeschreibung und das Ergebnis als OpenAPI-Spezifikation ist als im xref:isy-service-rest:nutzungsvorgaben/master.adoc#zusammenfassung-beispiel-mitarbeiter[Beispiel im Anhang] zusammenfassend dargestellt.
@@ -242,7 +243,7 @@ paths:
 [[fachliche_info_get_delete]]
 === Übertragung fachlicher Informationen bei GET- und DELETE-Anfragen
 
-Bei Anfragen zum Lesen (GET) oder Löschen (DELETE) werden gemäß REST-Konzept (siehe xref:isy-service-rest:konzept/master.adoc#einleitung[Konzept REST]) keine Informationen im Body übertragen.
+Bei Anfragen zum Lesen (GET) oder Löschen (DELETE) werden gemäß den Vorgaben zu xref:referenzarchitektur:software-technisch/backend/service/rest-eigenschaften.adoc[] keine Informationen im Body übertragen.
 In einigen Fällen kann es jedoch vorkommen, dass der Server weitere Informationen benötigt, um die Anfrage erfolgreich bearbeiten zu können.
 Ein mögliches Szenario ist die Protokollierung der Zugriffshistorie inkl. Zugriffsgrund.
 Daher sollen in diesem Szenario die erforderlichen Informationen als URL-Parameter gesendet werden.

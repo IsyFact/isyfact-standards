@@ -436,16 +436,18 @@ include::referenzarchitektur:software-technisch/backend/persistenzschicht.adoc[t
 
 include::referenzarchitektur:software-technisch/backend/persistenz/historisierung.adoc[tag=namenskonvention]
 
-===  Anwendungskern
+====  Anwendungskern
 include::referenzarchitektur:software-technisch/backend/anwendungskern.adoc[tag=namenskonvention]
 
+[[rest-schnittstellen]]
+==== REST-Schnittstellen
+include::referenzarchitektur:software-technisch/backend/service/rest.adoc[tag=namenskonvention]
+include::referenzarchitektur:software-technisch/backend/service/rest-eigenschaften.adoc[tag=namenskonvention]
+
 [[batches]]
-=== Batchrahmen
+==== Batchrahmen
 include::referenzarchitektur:software-technisch/batch/batchrahmen.adoc[tag=namenskonvention]
 
-[[rest-schnittstellen]]
-=== REST-Schnittstellen
-include::isy-service-rest:page$konzept/inhalt.adoc[tag=namenskonvention]
 
 [[deploymentbetrieb-von-anwendungen]]
 === Deployment/Betrieb von Anwendungen

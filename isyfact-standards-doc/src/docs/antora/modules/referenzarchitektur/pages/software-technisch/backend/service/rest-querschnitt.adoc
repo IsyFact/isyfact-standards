@@ -1,15 +1,10 @@
-= Konzept REST-Services: Inhalt
-
-// tag::inhalt[]
-
-[[querschnittliche-konzepte]]
-== Querschnittliche Konzepte
-
+= Querschnittliche Konzepte
+:navtitle: Querschnittliches
 
 [[validierung-von-anfragen]]
-=== Validierung von Anfragen
+== Validierung von Anfragen
 
-Wie bereits gesagt muss die formale Validierung der Daten vor der inhaltlichen Validierung im Anwendungskern stattfinden.
+Die formale Validierung der Daten muss vor der inhaltlichen Validierung im Anwendungskern stattfinden.
 Genau genommen müssen die Daten formal korrekt sein, bevor sie überhaupt in irgendeiner Weise weiter verarbeitet werden können.
 Daher ist die formale Prüfung der erste Schritt in der Verarbeitung von Daten und komplett unabhängig von der weiteren Verarbeitung.
 
@@ -19,7 +14,7 @@ Damit lassen sich HTTP Requests und Responses gegen eine OpenAPI bzw. Swagger Sp
 Der https://bitbucket.org/atlassian/swagger-request-validator[Swagger Request Validator] hat keine weiteren Abhängigkeiten und kann somit unabhängig von HTTP APIs oder Frameworks verwendet werden.
 
 [[fehlerbehandlung]]
-=== Fehlerbehandlung
+== Fehlerbehandlung
 
 In diesem Abschnitt werden alle Aspekte zur Fehlerbehandlung in REST-Services beschrieben.
 
@@ -31,10 +26,10 @@ Die technische Exception muss für alle Service-Methoden einer Service-Schnittst
 *Definition von fachlichen Exceptions*: Service-Methoden können beliebig viele fachliche Exceptions deklarieren.
 Diese können spezifisch für jede Service-Methode sein.
 
-*Übermittlung von Daten*: Die Felder Ausnahme-ID, UUID und Fehlernachricht, wie in den xref:isy-exception-core:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Fehlerbehandlung] beschrieben, müssen stets übertragen werden.
+*Übermittlung von Daten*: Die Felder Ausnahme-ID, UUID und Fehlernachricht, wie in den xref:isy-exception-core:nutzungsvorgaben/master.adoc[] beschrieben, müssen stets übertragen werden.
 Weiterhin darf kein Stack-Trace übertragen werden.
 
-Grundsätzlich sind die Vorgaben aus den xref:isy-exception-core:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Fehlerbehandlung] zu beachten.
+Grundsätzlich sind die Vorgaben aus den xref:isy-exception-core:nutzungsvorgaben/master.adoc[] zu beachten.
 Im Anschluss folgen REST-Spezifische Regeln.
 
 Technische Fehler werden in der HTTP-Response immer mit dem HTTP-Code 500 gesendet.
@@ -45,65 +40,64 @@ Fachlichen Fehlern muss ein entsprechend passender Fehlercode im Bereich 4xx zug
 
 
 [[entkopplung-von-fehlerbehandlung-und-service-logik]]
-==== Entkopplung von Fehlerbehandlung und Service-Logik
+=== Entkopplung von Fehlerbehandlung und Service-Logik
 
 Die Fehlerbehandlung erfolgt wie im Detailkonzept Service beschrieben, außerhalb der Service-Fassade, an zentraler Stelle, in einer Exception-Fassade.
 Die Exception-Fassade wird durch `RestExceptionHandler` Klassen implementiert, (vgl. <<image-fehlerbehandlung>>). 
 In der Exception-Fassade werden alle Exceptions aus Methoden des Anwendungskerns oder Methoden der Service-Endpoints gefangen, geloggt, in Exception-Transport-Objekte umgewandelt und als Response zurückgegeben.
 
+[[image-fehlerbehandlung]]
 .Entkopplung Fehlerbehandlung und Service-Logik
-[id="image-fehlerbehandlung",reftext = "{figure-caption} {counter:figures}"]
-image::isy-service-rest:konzept/fehlerbehandlung.dn.svg[align = center,title-align=center]
+image::software-technisch/backend/service/fehlerbehandlung.dn.svg[]
 
 Spring Webflux unterstützt dazu ebenso wie Spring MVC die Annotation `@RestControllerAdvice`.
 Die Implementierung der `RestExceptionHandler`-Funktionalität kann daher über die Annotation einer Klasse mit `@RestControllerAdvice` erfolgen.
 
 [NOTE]
 ====
-Details zur Implementierung können der https://docs.spring.io/spring-framework/docs/5.3.x/reference/html/web-reactive.html#webflux[offiziellen Spring Dokumentation] entnommen werden.
+Details zur Implementierung können der https://docs.spring.io/spring-framework/reference/web/webflux.html[Dokumentation zu Spring WebFlux] entnommen werden.
 ====
 
 [[einheitliche-fehlermeldungen]]
-==== Einheitliche Fehlermeldungen
+=== Einheitliche Fehlermeldungen
 
 Eine Fehlernachricht aus einer REST-Schnittstelle (egal, ob Client oder Server Error) muss mindestens folgende Informationen beinhalten.
 
+[[table-error-fields]]
 .Standardfelder für Fehlernachrichten
-[id="table-error-fields",reftext = "{table-caption} {counter:tables}"]
-[cols="2,2,4",options="header"]
+[cols="2m,2,4",options="header"]
 |===
 |Feld |Datentyp |Beschreibung
 
-|`timestamp`
+|timestamp
 |String
 |Exakter Zeitpunkt an dem der Fehler aufgetreten ist.
 
-|`status`
+|status
 |Integer
 |HTTP-Fehlercode
 
-|`error`
+|error
 |String
 |Kurzbeschreibung des Fehlers, z. B. _Entity not found_.
 
-|`message`
+|message
 |String
 |Detailbeschreibung des Fehlers.
 Bei Client Errors sollte beschrieben werden wie der Client den Fehler beheben kann.
 Es sollen keine technischen/internen Details (z. B. Stacktrace) in der Beschreibung enthalten sein.
-Die message setzt sich, wie in den xref:isy-exception-core:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Fehlerbehandlung] beschrieben, folgendermaßen zusammen:
+Die message setzt sich, wie in den xref:isy-exception-core:nutzungsvorgaben/master.adoc[] beschrieben, folgendermaßen zusammen:
 
 `#AusnahmeId Fehlertext #UUID`
 
 
-|`path`
+|path
 |String
 |Pfad der Ressource, die in der Anfrage adressiert wurde.
 
 |===
 
-
-Fehler werden in einem Array zurückgegeben um auch das Senden mehrerer Fehler, beispielsweise bei der Validierung von Eingaben, zu ermöglichen.
+Fehler werden in einem Array zurückgegeben, um auch das Senden mehrerer Fehler, beispielsweise bei der Validierung von Eingaben, zu ermöglichen.
 
 [source,json]
 ----
@@ -121,10 +115,10 @@ Fehler werden in einem Array zurückgegeben um auch das Senden mehrerer Fehler, 
 Sollten bei der Verarbeitung mehrere Fehler auftreten, sind alle Fehler zurückzugeben.
 
 Exceptions werden im `RestExceptionHandler` auf den jeweiligen HTTP-Statuscode und die entsprechende Nachricht gemappt.
-Welche Informationen enthalten sein dürfen wird im xref:isy-exception-core:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Fehlerbehandlung] genauer beschrieben.
+Welche Informationen enthalten sein dürfen, wird in den xref:isy-exception-core:nutzungsvorgaben/master.adoc[] genauer beschrieben.
 
 [[sicherheit]]
-=== Sicherheit
+== Sicherheit
 
 Die Authentifizierung wird nach OAuth2 sichergestellt.
 Hierfür muss der Client mit jeder Nachricht einen Bearer Token mitsenden.
@@ -143,18 +137,19 @@ Informationen zur Bearer Propagation gibt es in der https://docs.spring.io/sprin
 Um eine Klasse oder einzelne Methoden zu sichern, wird empfohlen, die `@Secured` Annotation von Spring Security in der Service-Schicht zu verwenden.
 Die Verwendung auf einzelnen Webcontroller Klassen/Methoden wird nicht empfohlen. Für Webcontroller ohne Service Schicht kann https://docs.spring.io/spring-security/reference/servlet/authorization/authorize-http-requests.html[Request Level Autorisierung] genutzt werden.
 
-Generell ist das xref:security::konzept.adoc[Konzept der Sicherheitsarchitektur] zu beachten.
+Generell ist das xref:security:ROOT:konzept.adoc[] zu beachten.
 
 [[logging]]
-=== Logging
+== Logging
 
 Eingehende und ausgehende Nachrichten sind an der Systemgrenze zu loggen.
-Für die Erstellung der Log-Einträge ist der Baustein Isy-Logging zu verwenden. Abweichungen zum Konzept von Isy-Logging sind im Folgenden aufgeführt.
+Für die Erstellung der Log-Einträge ist der Baustein Isy-Logging zu verwenden.
+Abweichungen zum Konzept des Bausteins Logging sind im Folgenden aufgeführt.
 
 [[server-service-provider]]
-==== Server / Service-Provider
+=== Server / Service-Provider
 Der Baustein bietet mit `@Systemgrenze` eine Annotation, die einen Interceptor aufruft, der automatisch Aufrufe aller Methoden in der annotierten Klasse (z. B. Controller) fachlich loggt.
-(vgl. xref:isy-logging:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Logging] Kapitel 4.2.2.1)
+(vgl. xref:isy-logging:nutzungsvorgaben/master.adoc[] Kapitel 4.2.2.1)
 Für ein technisches Logging soll zusätzlich ein weiterer Interceptor verwendet werden.
 
 Dieser Interceptor soll folgende Nachrichten am Controller loggen:
@@ -163,7 +158,7 @@ Dieser Interceptor soll folgende Nachrichten am Controller loggen:
 * ausgehende Antworten (ausgehende Nachrichten).
 
 [[client-service-provider]]
-==== Client / Service-Consumer
+=== Client / Service-Consumer
 
 In der Klasse, welche die Aufrufe an den Service-Provider stellt, sollen
 
@@ -175,14 +170,14 @@ geloggt werden.
 Wie auch serverseitig sollen diese Log-Nachrichten möglichst automatisiert via AOP erstellt werden.
 
 [[inhalt-log-eintrag-nachricht]]
-==== Inhalt des Log-Eintrags für eine Nachricht
+=== Inhalt des Log-Eintrags für eine Nachricht
 
 Um die Nachrichten im Zuge der Log-Auswertung zu filtern, sind nachrichtenspezifische Ereignisschlüssel zu verwenden.
 
-Zusätzlich zu den Anforderungen an die Inhalte einer Log-Nachricht xref:isy-logging:konzept/master.adoc#einleitung[Konzept Logging] Kapitel 4.1.1), sollen folgende Informationen als Marker in der Log-Nachricht enthalten sein:
+Zusätzlich zu den Anforderungen an die Inhalte einer Log-Nachricht (xref:isy-logging:konzept/master.adoc[] Kapitel 4.1.1) sollen folgende Informationen als Marker in der Log-Nachricht enthalten sein:
 
 .Standard für zu erfassende Logging-Informationen
-[id="table-logging-data",reftext = "{table-caption} {counter:tables}"]
+[[table-logging-data]]
 [cols="2,3",options="header"]
 |===
 2+|Die zu protokollierende Information ist abhängig, ob es ein Request oder Response ist
@@ -228,7 +223,6 @@ Zusätzlich zu den Anforderungen an die Inhalte einer Log-Nachricht xref:isy-log
 |bei eingehend: Dauer vom Empfang des Requests bis zum Versand der Antwort +
  bei ausgehend: Dauer vom Versand des Requests bis zum Empfang der Antwort
 
-
 | Aufgerufenes xref:glossary::terms-definitions.adoc#nachbarsystem[Nachbarsystem]
 | bei ausgehendenden Requests, sonst leer
 
@@ -237,7 +231,7 @@ Zusätzlich zu den Anforderungen an die Inhalte einer Log-Nachricht xref:isy-log
 
 *Konfigurationsparameter*
 
-Diese Konfigurationsparameter aus Kapitel 4.2.2.1 xref:isy-logging:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Logging] sollen für den neuen Interceptor ebenfalls existieren:
+Diese Konfigurationsparameter aus Kapitel 4.2.2.1 xref:isy-logging:nutzungsvorgaben/master.adoc[] sollen für den neuen Interceptor ebenfalls existieren:
 
 * `loggeDauer`,
 * `loggeDaten`,
@@ -245,20 +239,20 @@ Diese Konfigurationsparameter aus Kapitel 4.2.2.1 xref:isy-logging:nutzungsvorga
 * `loggeMaximaleParameterGroesse`.
 
 
-*Nachrichten Logging*
+*Nachrichten-Logging*
 
 Zum Test und Debuggen einer Anwendung soll es möglich sein, dass komplette Nachrichten in ihrem Rohformat inklusive dem kompletten Header geloggt werden.
-Das Aktivieren dieses Loggings ist über einen Konfigurationsparameter steuerbar.
+Das Aktivieren des Nachrichten-Logging ist über einen Konfigurationsparameter steuerbar.
 
 [[ueberwachung]]
-=== Überwachung
+== Überwachung
 
 Die IsyFact stellt zur Überwachung von Anwendungen den Baustein Überwachung bereit.
 
-Die Grundlagen der Überwachung von IsyFact basierten Anwendungen werden im xref:isy-ueberwachung:konzept/master.adoc#einleitung[Konzept Überwachung] beschrieben.
+Die Grundlagen der Überwachung von IsyFact basierten Anwendungen werden im xref:isy-ueberwachung:konzept/master.adoc[] beschrieben.
 
 
-Detailliertere Informationen zur Konfiguration und zur Verwendung des Bausteins Überwachung findet man in den xref:isy-ueberwachung:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Überwachung].
+Detailliertere Informationen zur Konfiguration und zur Verwendung des Bausteins Überwachung findet man in den xref:isy-ueberwachung:nutzungsvorgaben/master.adoc[].
 Dieses Dokument beinhaltet auch das Kapitel "Informationen von Services".
 Dieses Kapitel beinhaltet eine Liste der zu überwachenden bzw. anzubietenden Informationen für die Services von Anwendungen.
 Die dort aufgelisteten Informationen müssen für jeden Service einzeln angeboten werden.
@@ -266,7 +260,7 @@ Die dort beschriebenen Informationen zur Überwachung gelten in gleichem Maße a
 
 
 [[versionierung]]
-=== Versionierung
+== Versionierung
 
 Versionierung kann auf verschiedene Weisen stattfinden.
 
@@ -279,5 +273,3 @@ Die Version steht immer vor dem Pfad der Ressource und beinhaltet ausschließlic
 https://service.de/api/v1/messages/{id}
 https://service.de/api/v2/messages/{id}
 ----
-
-// end::inhalt[]

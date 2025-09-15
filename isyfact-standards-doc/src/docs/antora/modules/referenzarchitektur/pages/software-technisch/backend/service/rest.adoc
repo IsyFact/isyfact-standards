@@ -44,7 +44,7 @@ Das <<image-richard-maturity-model>> ordnet diese Eigenschaften vier Reifegraden
 
 [[image-richard-maturity-model]]
 .Richardson Maturity Model
-image::isy-service-rest:konzept/richard-maturity-model.dn.svg[]
+image::software-technisch/backend/service/richard-maturity-model.dn.svg[]
 
 Die IsyFact zielt auf eine möglichst vollständige Umsetzung der Eigenschaften und peilt daher einen hohen Reifegrad für REST-Services an.
 
