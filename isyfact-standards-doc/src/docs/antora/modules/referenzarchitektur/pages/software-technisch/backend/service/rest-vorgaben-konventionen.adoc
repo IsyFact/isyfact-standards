@@ -1,6 +1,5 @@
-= Eigenschaften von REST-Schnittstellen
-:navtitle: REST-Schnittstellen
-:reftext: REST-Schnittstellen
+= Vorgaben und Konventionen für REST-Schnittstellen
+:navtitle: Vorgaben und Konventionen
 
 [[aufbau-ressourcen-uris]]
 == Aufbau der Ressourcen-URIs

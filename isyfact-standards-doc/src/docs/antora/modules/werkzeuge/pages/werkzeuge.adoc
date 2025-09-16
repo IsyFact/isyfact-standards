@@ -16,3 +16,9 @@ Für Softwaretests werden, neben JUnit und Frameworks zum Mocking, in Teilen Eig
 Das Fehler- und Änderungsmanagement wird unterstützt durch das Tool Jira.
 
 // end::whitepaper[]
+
+Die IsyFact beschreibt aktuell die folgenden Werkzeuge:
+
+* xref:openapi.adoc[],
+* xref:formatter.adoc[] für die IDEs Eclipse und IntelliJ,
+* ein Konzept für xref:gui-tests/gui-tests-mit-selenium.adoc[].
