@@ -1,31 +1,30 @@
-// tag::inhalt[]
+= Beispiel `NST_Mitarbeiter_suchen`
 
-:sectnums!:
+:!sectnums:
 
-[[anhang]]
-== Anhang
+NOTE: Das Beispiel basiert auf der xref:methodik:vorlage-systemspezifikation/08-nachbarsystemschnittstellen.adoc[Spezifikationsmethodik für Nachbarsystemschnittstellen] und wendet diese in einer vereinfachten Form an.
 
-[[zusammenfassung-beispiel-mitarbeiter]]
-=== Anhang A: Zusammenfassung des Beispiels (NST_Mitarbeiter_suchen):
+== `NST_Mitarbeiter_suchen`
 
-[cols="h,1"]
+[cols="1h,2"]
 |===
 |Kurzbeschreibung
-|Diese Schnittstelle bietet Nachbarsystemen die Möglichkeit, Mitarbeiter zu suchen und deren Daten abzufragen. Die Auswahl der Mitarbeiter erfolgt anhand einer Reihe von optionalen Suchkriterien.
+|Diese Schnittstelle bietet Nachbarsystemen die Möglichkeit, Mitarbeiter zu suchen und deren Daten abzufragen.
+Die Auswahl der Mitarbeiter erfolgt anhand einer Reihe von optionalen Suchkriterien.
 
 |Verwendete Entitätstypen (Input)
-|NSE_Mitarbeiter_Suchkriterien
+|`NSE_Mitarbeiter_Suchkriterien`
 
 |Verwendete Entitätstypen (Output)
-|NSE_Mitarbeiterdaten
+|`NSE_Mitarbeiterdaten`
 
 |Aufgerufene Anwendungsfälle
-|AWF_Mitarbeiter_suchen
+|`AWF_Mitarbeiter_suchen`
 |===
 
-*Eingabeparameter*
+=== Eingabeparameter
 
-[cols="h,1"]
+[cols="1h,2"]
 |===
 |Name
 |NSE_Mitarbeiter_Suchkriterien
@@ -34,6 +33,7 @@
 |Die Kriterien zur Selektion von Mitarbeiter. Alle Attribute dieses Typs sind optional. Nicht befüllte Attribute werden daher nicht in die Suche einbezogen. Es dürfen beliebige Kombinationen von Attributen angegeben werden.
 |===
 
+[cols="1m,2m"]
 |===
 |Name|Datentyp
 
@@ -47,10 +47,9 @@
 |DTY_Ganzzahl
 |===
 
+=== Ausgabeparameter
 
-*Ausgabeparameter*
-
-[cols="h,1"]
+[cols="1h,2"]
 |===
 |Name
 |NSE_Mitarbeiterdaten
@@ -60,6 +59,7 @@
 
 |===
 
+[cols="1m,2m"]
 |===
 |Name|Datentyp
 
@@ -76,7 +76,7 @@
 |DTY_Zeichenkette
 |===
 
-*Das Ergebnis vom Mapping zur OpenAPI 3.0 Spezifikation:*
+== Ergebnis (OpenAPI 3.0 Spezifikation)
 
 [source,yaml]
 ----
@@ -151,14 +151,3 @@ components:
         - SH
         - TH
 ----
-
-[[anhang-externe-literaturverweise]]
-== Externe Literaturverweise
-
-https://plugins.jetbrains.com/plugin/14837-openapi-swagger-editor[Swagger Editor für IntelliJ]
-
-https://marketplace.eclipse.org/content/openapi-swagger-editor[Swagger Editor für Eclipse]
-
-https://swagger.io/specification/[Swagger Spezifikation]
-
-// end::inhalt[]

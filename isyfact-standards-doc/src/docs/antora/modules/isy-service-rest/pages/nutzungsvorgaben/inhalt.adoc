@@ -208,7 +208,7 @@ Vorgaben zur Wahl des Verbs finden sich in den Vorgaben zur xref:referenzarchite
 
 |===
 
-Die für die Mapping-Tabelle genutzte Beispiel-Schnittstellenbeschreibung und das Ergebnis als OpenAPI-Spezifikation ist als im xref:isy-service-rest:nutzungsvorgaben/master.adoc#zusammenfassung-beispiel-mitarbeiter[Beispiel im Anhang] zusammenfassend dargestellt.
+Die für die Mapping-Tabelle genutzte Beispiel-Schnittstellenbeschreibung und das Ergebnis als OpenAPI-Spezifikation ist im xref:werkzeuge:openapi/beispiel.adoc[] zusammenfassend dargestellt.
 
 [[metadaten]]
 === Übertragung von Metadaten
