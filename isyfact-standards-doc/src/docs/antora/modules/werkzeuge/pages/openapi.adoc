@@ -1,7 +1,521 @@
 = OpenAPI-Spezifikation
+:navtitle: OpenAPI
 
 Die OpenAPI-Spezifikation (OAS) definiert eine standardmäßige, sprachunabhängige Schnittstelle zu RESTful-APIs, die es sowohl Menschen als auch Computern ermöglicht, die Schnittstellen ohne Zugriff auf Quellcode, Dokumentation oder durch Überprüfung des Netzwerkverkehrs zu erkennen und zu verstehen.
 Die verwendete Version der OpenAPI-Spezifikation ist OpenAPI 3.0.
 
+NOTE: Weitere Informationen zu OpenAPI 3.0 (Beschreibung und Vorgaben) sind in der https://swagger.io/resources/open-api/[offiziellen Dokumentation] zu finden.
+
 Anhand einer OpenAPI-Definition können Server und Clients in verschiedenen Programmiersprachen generiert und eine verständliche (fachliche) Schnittstellenbeschreibung erzeugt werden.
 Die folgenden Abschnitte beschreiben die Best Practices dafür, wie xref:methodik:vorlage-systemspezifikation/08-nachbarsystemschnittstellen.adoc[Nachbarsystemschnittstellen] in eine OpenAPI-Spezifikation überführt werden und welche Werkzeuge dabei verwendet werden sollten.
+
+[[erstellung-openapi-spezifikation]]
+== Erstellung von OpenAPI-Spezifikationen
+
+[[mapping-fachlichen-schnittstellen]]
+=== Mapping von fachlicher Schnittstellenbeschreibung auf OpenAPI-Spezifikation
+
+Die Schnittstellenbeschreibung, die im Rahmen der Systemspezifikation erstellt wird, spezifiziert die angebotene(n) Nachbarsystemschnittstelle(n) (NST) aus fachlicher Sicht und gibt keine Auskunft über technische Details.
+Für das Erstellen dieser fachlichen Schnittstellenbeschreibung wird die  xref:methodik:vorlage-schnittstellendokumentation/master.adoc[] verwendet.
+Die fachlichen Schnittstellenbeschreibungen nach den Vorgaben der IsyFact enthalten in erster Linie die verwendeten Entitäten sowie Eingabe und Ausgabe Parameter.
+Ergänzt werden diese durch weitere Spezifika (z.B. Kurzbeschreibung, Synchron/Asynchron, Online/Offline …).
+Diese Schnittstellenbeschreibung soll im Rahmen des Systementwurfs technisch als eine OpenAPI-Spezifikation konzipiert und bereitgestellt werden.
+
+Bei der Erstellung der Spezifikation sind die Vorgaben für xref:referenzarchitektur:software-technisch/backend/service/rest-eigenschaften.adoc[] zu beachten.
+Relevante Vorgaben beziehen sich u.a. auf den Aufbau der URls und der Anfrage, die Verwendung der HTTP-Verben und Statuscodes.
+
+Die folgenden Abschnitte stellen ein Vorgehen zum Mappen der fachlichen Schnittstellenbeschreibung auf eine OpenAPI-Spezifikation vor.
+Alle Schnittstellen einer Anwendung sollen in einer einzigen OpenAPI-Spezifikation beschrieben werden.
+
+Die **Entitäten und die Datentypen** in den fachlichen Schnittstellenbeschreibungen werden mithilfe der OpenAPI Schemaobjekte definiert.
+Schemaobjekte können Objekte, aber auch primitive Datentypen und Listen (Arrays) sein.
+Schemaobjekte unterstützen auch Polymorphismus.
+Dies ermöglicht auch Vererbung- und Kompositionsrelationen zwischen den Objekten.
+Diese Entitäten können so an beliebiger Stelle in der Spezifikation als Referenzobjekte genutzt werden.
+
+Die **Eingabe/Ausgabe Parameter** in den fachlichen Schnittstellenbeschreibungen sind Entitäten oder Datentypen.
+Diese Parameter werden zuerst als Schemaobjekte definiert.
+Anschließend werden sie als Parameterobjekte oder als Request-Body-Objekte den Schnittstellen zugewiesen, je nachdem wie sie bei der Eingabe/Ausgabe benötigt werden.
+
+[cols="3,2,6a"]
+|===
+|IsyFact Schnittstellenbeschreibung|OpenAPI 3 Spezifikation|Beispiel und Bemerkungen
+
+|`NST_Schnittstelle`
+|`path`
+|NST_Mitarbeiter_suchen
+[source,yaml]
+----
+paths:
+  /mitarbeiter/sucheNachSuchkriterien:
+----
+
+Der Pfadname muss den Vorgaben zur Ressourcenorientierung von xref:referenzarchitektur:software-technisch/backend/service/rest-eigenschaften.adoc[] entsprechen.
+
+
+|`NSE_Entität` (Input)
+|`schema` oder `type`
+|NSE_Mitarbeiter_Suchkriterien:
+[source,yaml]
+----
+NSE_Mitarbeiter_Suchkriterien:
+  type: "object"
+  properties:
+   bundeslandSchluessel:
+     $ref: '#/components/schemas/Bundesland'
+   ort:
+     type: "string"
+   trefferanzahl:
+     type: "integer"
+     format: "int64"
+----
+
+oder
+[source,yaml]
+----
+parameters:
+  - in: "query"
+    name: "bundeslandSchluessel"
+    schema:
+      $ref: '#/components/schemas/Bundesland'
+  - name: "ort"
+    in: "query"
+    schema:
+      type: "string"
+  - name: "trefferAnzahl"
+    in: "query"
+    schema:
+      type: "integer"
+----
+
+Es wird empfohlen, die Attribute der Eingabe-Entitäten, die als Abfrageparameter (z.B. Suchkriterien) verwendet werden, als Query Parameters zu definieren.
+Es wird empfohlen, Entitäten mit komplexen oder vertraulichen Suchkriterien als Schemaobjekt zu spezifizieren, um das Erfassen dieser Informationen, z.B. durch Logger, zu vermeiden.
+
+Die Eingabe-Entitäten, die im Body verarbeitet werden (z.B. Hinzufügen einer neuen Entität oder Bearbeiten einer vorhandenen Entität), werden als Schemaobjekt definiert.
+
+|`NSE_Entität` (Output)
+|`responses` mit `schema`
+|[source,yaml]
+----
+responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Mitarbeiter'
+        '405':
+          description: "Ungültige Suchkriterien"
+----
+Mit Schemaobjekt für NSE_Mitarbeiter:
+[source,yaml]
+----
+Mitarbeiter:
+  type: "object"
+  properties:
+    id:
+      type: "integer"
+      format: "int64"
+    name:
+      type: "string"
+    vorname:
+      type: "string"
+    bundeslandSchluessel:
+      $ref: '#/components/schemas/Bundesland'
+    telefonnummer:
+      type: "string"
+----
+
+|`NSA_Attribut`
+|`property`
+|
+[source,yaml]
+----
+id:
+  type: "integer"
+  format: "int64"
+----
+
+|`DTY_Datentyp` (einfach)
+|`type`
+|DTY_Ganzzahl:
+[source,yaml]
+----
+type: "integer"
+----
+
+|`DTY_Datentyp` (komplex)
+|`schema`
+|DTY_Bundesland
+[source,yaml]
+----
+    Bundesland:
+      type: string
+      enum:
+        - BW
+        - BY
+        - BE
+        - BB
+        - HB
+        - HH
+        - HE
+        - MV
+        - NI
+        - NW
+        - RP
+        - SL
+        - SN
+        - ST
+        - SH
+        - TH
+----
+
+|Kurzbeschreibung
+|`description`
+|
+[source,yaml]
+----
+info:
+  description: "Ein Beispiel für das Mapping einer fachlichen Schnittstelle"
+----
+
+
+|Offline/Online
+2+|keine Entsprechung
+
+|Synchron/
+Asynchron
+2+|keine Entsprechung
+
+|Schnittstellentyp
+|`verb`
+|`get`, `post`, `put`, `delete`
+
+Das passende Verb, um die Art der Transaktion zu beschreiben (Lese-, Schreib- oder Löschvorgang).
+Vorgaben zur Wahl des Verbs finden sich in den Vorgaben zur xref:referenzarchitektur:software-technisch/backend/service/rest-eigenschaften.adoc#http-methoden[Verwendung von HTTP-Methoden].
+|===
+
+Die für die Mapping-Tabelle genutzte Beispiel-Schnittstellenbeschreibung und das Ergebnis als OpenAPI-Spezifikation ist im xref:openapi/beispiel.adoc[] zusammenfassend dargestellt.
+
+[[metadaten]]
+=== Übertragung von Metadaten
+Metadaten werden als Header-Parameter übertragen.
+Zu Metadaten gehören u.a. Daten wie Benutzerkennung, Rolle, Tags, externe IDs.
+Nur die Metadaten, die nicht durch die IsyFact standardisiert werden, sind Teil der OpenAPI-Spezifikation.
+
+Zur Spezifizierung von Header-Parametern wird der Eintrag `in: header` genutzt, wie das unten stehenden Beispiel zeigt.
+
+.Externe ID in `NST_Mitarbeiter_suchen`
+====
+*Anforderung:* Die Anwendung erwartet bei jedem Aufruf einer Schnittstelle eine Externe ID.
+
+[source,yaml]
+----
+# …
+paths:
+  /mitarbeiter/sucheNachSuchkriterien:
+    get:
+      summary: "Suche Mitarbeiter nach Suchkriterien"
+      description: "[...]"
+      operationId: "sucheMitarbeiterNachSuchkriterien"
+      parameters:
+        - name: "externeId" <.>
+          in: "header"
+          schema:
+            type: "integer"
+            format: "int64"
+ # …
+----
+<.> Spezifikation des Header-Parameters
+====
+
+[[fachliche_info_get_delete]]
+=== Übertragung fachlicher Informationen bei GET- und DELETE-Anfragen
+
+Bei Anfragen zum Lesen (GET) oder Löschen (DELETE) werden gemäß den Vorgaben zu xref:referenzarchitektur:software-technisch/backend/service/rest-eigenschaften.adoc[] keine Informationen im Body übertragen.
+In einigen Fällen kann es jedoch vorkommen, dass der Server weitere Informationen benötigt, um die Anfrage erfolgreich bearbeiten zu können.
+Ein mögliches Szenario ist die Protokollierung der Zugriffshistorie inklusive Zugriffsgrund.
+Daher sollen in diesem Szenario die erforderlichen Informationen als URL-Parameter gesendet werden.
+
+Zur Spezifizierung von URL-Parametern wird der Eintrag `in: path` genutzt, wie das unten stehenden Beispiel zeigt.
+
+.Protokollierung in `NST_Mitarbeiter_suchen`
+====
+*Anforderung:* Die Anwendung protokolliert bei jedem Aufruf einer Schnittstelle den Zugriffsgrund.
+
+[source,yaml]
+----
+# …
+paths:
+  /mitarbeiter/sucheNachSuchkriterien:
+    get:
+      summary: "Suche Mitarbeiter nach Suchkriterien"
+      description: "[...]"
+      operationId: "sucheMitarbeiterNachSuchkriterien"
+      parameters:
+        - name: "zugriffsgrund" <.>
+          in: "path"
+          schema:
+            type: "string"
+ # …
+----
+<.> Spezifikation des URL-Parameters
+====
+
+Falls die zu übermittelnden Informationen vertraulich sind, sollte ein Wechsel des HTTP-Verbs zu POST und die Übermittlung der Informationen im Body statt in der URL eruiert werden.
+
+[[Verwendung_von_OpenAPI_Generator]]
+== Verwendung von OpenAPI Generator
+
+Es ist möglich, automatisch Code aus einer OpenAPI 3.0-Spezifikation zu generieren.
+Die IsyFact sieht den Einsatz des OpenAPI-Generators vor.
+Für die automatische Generierung muss eine gültige OpenAPI 3.0-Spezifikation als Eingabe bereitgestellt werden.
+Der Generator liest diese Spezifikation ein und generiert daraus automatisch eine entsprechende Client- oder Server-Implementierung.
+Der Generator unterstützt alle verwendeten REST-Frameworks der IsyFact: Angular (Client), Spring Web Webflux (Client) und Spring MVC (Server).
+
+Der präferierte Weg ist, den Generator über Maven oder direkt über die Konsole zu verwenden.
+Die Verwendung von Maven ist sinnvoll, wenn eine neue Anwendung von Grund auf neu entwickelt wird oder die Generierung in einen bestehenden Prozess integriert werden soll, z.B. in einen automatischen Prozess zur Generierung von fachlicher Dokumentation.
+Sollen neue Schnittstellen zu einer bereits bestehenden Anwendung hinzufügt werden, wird empfohlen, den Generator von der Konsole aus auszuführen und die benötigten Teile aus dem Ergebnis in die Anwendung zu kopieren.
+
+[[konsole]]
+=== Verwendung der Konsole
+
+IMPORTANT: Für die Nutzung über die Konsole ist es erforderlich, vorher das https://github.com/swagger-api/swagger-codegen[GitHub-Repository] zu klonen und das Generator-JAR selbst zu erzeugen.
+
+Der Befehl besteht aus folgenden Teilen:
+
+[source,shell]
+----
+java -jar <path>/swagger-codegen-cli.jar generate
+-i <Pfad der Input-Datei (OpenAPI 3.0 Spezifikation)>
+-g <der Name des Generators>
+-o <Pfad für den zu erstellenden Code>
+----
+
+Beispiele für die verwendeten Frameworks:
+
+Angular:
+
+[source,shell]
+----
+java -jar <path>/swagger-codegen-cli.jar generate
+-i mitarbeiter_suche.yaml
+-g typescript-angular
+-o mitarbeiter_suche/angular
+----
+
+Spring MVC:
+
+[source,shell]
+----
+java -jar <path>/swagger-codegen-cli.jar generate
+-i mitarbeiter_suche.yaml
+-g spring --library spring-mvc
+-o mitarbeiter_suche/mvc
+----
+
+Spring Webflux:
+
+[source,shell]
+----
+java -jar <path>/swagger-codegen-cli.jar generate
+-i mitarbeiter_suche.yaml
+-g java --library webclient
+-o mitarbeiter_suche/webclient
+----
+
+Anschließend kann der generierte Code in das Projekt manuell übernommen werden.
+
+[[maven]]
+=== Verwendung von Maven
+Auch in bereits existierenden Maven-Projekt kann der OpenAPI-Generator aufgerufen werden.
+Es ist jedoch wichtig zu beachten, dass der generierte Code ein eigenes Projekt darstellt.
+Daher sollte die Integration des neuen Codes in das bereits bestehende Projekt noch manuell erfolgen.
+
+.Beispielhafte Maven-Konfiguration
+[source,xml]
+----
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.openapitools</groupId>
+            <artifactId>openapi-generator-maven-plugin</artifactId>
+            <version>${version}</version>
+            <executions>
+                <execution>
+                    <goals>
+                        <goal>generate</goal>
+                    </goals>
+                    <configuration>
+                        <inputSpec>mitarbeiter_suche.yaml</inputSpec>
+                        <generatorName>spring</generatorName>
+                        <library>spring-mvc</library>
+                        <generateModelTests>true</generateModelTests>
+                        <generateApiTests>true</generateApiTests>
+                        <configOptions>
+                            <sourceFolder>src/gen/java/main</sourceFolder>
+                        </configOptions>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
+    </plugins>
+</build>
+----
+
+Die Konfigurationsparameter für den Generator sind die Tags `generatorName` und `library`.
+
+.Parameter für die vorgesehenen Frameworks
+[cols=",m,m",options="header"]
+|===
+|Framework|`generatorName`|`library`
+
+|Spring MVC
+|spring
+|spring-mvc
+
+|Spring Web Webflux
+|java
+|webclient
+
+|Angular
+|typescript-angular
+| -
+|===
+
+Die anderen Parameter für die Basis-Nutzung sind:
+
+`inputSpec`::
+Der Pfad von der eingegebenen OpenAPI 3.0 Spezifikation.
+
+`generateModelTests`::
+Gibt an, ob Tests für das Model generiert werden sollen.
+Es ist möglich, dass keine Tests generiert werden.
+Die Ergebnisse hängen davon ab, ob das verwendete Template diese Funktionalität unterstützt oder nicht.
+
+`generateApiTests`::
+Gibt an, ob Tests für die Api generiert werden sollen.
+Es ist möglich, dass keine Tests generiert werden.
+Die Ergebnisse hängen davon ab, ob das verwendete Template diese Funktionalität unterstützt oder nicht.
+
+`configOptions/sourceFolder`::
+Der Pfad für den zu generierenden Code.
+
+[[openapi-schnittstellenspezifikation]]
+== Verwaltung und Veröffentlichung der Spezifikation
+
+[[openapi-schnittstellenspezifikation-vorteile]]
+=== Verwaltung
+Die OpenAPI Schnittstellenspezifikation ist jeweils Bestandteil der spezifischen Projektdokumentation.
+
+Damit die OpenAPI Schnittstellenspezifikation verfügbar sein kann, muss diese auch verwaltet werden.
+In den jeweiligen Spring Projekten wird die OpenAPI Schnittstellenspezifikation unter folgendem Pfad gespeichert: `/src/main/resources/openapi.yml`.
+
+Falls es Änderungen innerhalb der OpenAPI Schnittstellenspezifikation geben sollte, werden diese automatisch vom Versionskontrollsystem verwaltet.
+
+[[openapi-schnittstellenspezifikation-veroeffentlichung]]
+=== Veröffentlichung
+Die OpenAPI Spezifikationen werden mit jeder Veröffentlichung (Release) der Anwendung ausgeliefert.
+Für die Auslieferung und Veröffentlichung der OpenAPI Spezifikation ergeben sich unterschiedliche Möglichkeiten, die in den folgenden Kapiteln beschrieben werden.
+
+[[openapi-schnittstellenspezifikation-artifactory]]
+==== Artifactory
+Die Auslieferung erfolgt als ein Teil vom zentral generierten Artefakt.
+Der Zugriff auf das Artefakt ist über das entsprechende Artifactory und/oder GitHub (für Open-Source gestellte Bausteine) möglich.
+
+[[openapi-schnittstellenspezifikation-antora]]
+==== Antora
+Antora ist eine Dokumentationspipeline, die es Dokumentations-, Produkt- und Entwicklungsteams ermöglicht, Dokumentationsseiten zu erstellen, zu verwalten und zu veröffentlichen, die in AsciiDoc erstellt und aus mehreren versionierten Repositories bezogen wurden.
+
+Mithilfe des OpenAPI Generators kann aus der https://swagger.io/specification/[OpenAPI Spezifikation] (YAML Datei) AsciiDoc generiert/erstellt werden.
+Allgemeine Informationen zum OpenAPI Generator finden sich im Kapitel <<Verwendung_von_OpenAPI_Generator>>.
+Die generierten AsciiDoc-Dateien können dann in den Antora-Dokumentenbuild aufgenommen und gemeinsam mit der übrigen Dokumentation des Bausteins oder der Anwendung generiert und veröffentlicht werden.
+
+Für die Generierung der Schnittstellenbeschreibung im AsciiDoc-Format ist der Generator `asciidoc` zu wählen.
+
+Neben der generierten OpenAPI Spezifikation als AsciiDoc-Datei, empfehlt es sich auch die OpenAPI Spezifikation im YAML-Format im Dokumentenbuild zu verlinken.
+
+Die Integration in den Antora-Dokumentenbuild ermöglicht somit:
+
+* einen einfachen Zugriff auf verschiedene Versionen der OpenAPI Spezifikationen,
+* das Herunterladen der OpenAPI Spezifikationen für technische Benutzer (YAML-Format),
+* den Zugang zu einer verständlichen Schnittstellen-Spezifikation für nicht technisch versierte Benutzer (AsciiDoc-Format).
+
+Die generierte Dokumentation (HTML) kann auf einem Webserver oder auf GitHub/GitLab-Pages veröffentlicht werden und ist dann mit einem Webbrowser erreichbar.
+Hierzu müssen entsprechende Jobs in der Build-Pipeline angelegt werden.
+
+[[openapi-schnittstellenspezifikation-eigener-endpunkt]]
+==== Definition eines Endpunktes
+
+Für den Betrieb in Testumgebungen ist es empfehlenswert, die OpenAPI Spezifikation im YAML-Format über eine Schnittstelle bereitzustellen.
+Dazu wird ein eigener Endpunkt implementiert, der die im Ressourcen-Verzeichnis liegende OpenAPI Spezifikation bereitstellt.
+Über einen Webbrowser kann so auf die aktuelle OpenAPI Spezifikation der Anwendung im Betrieb zugegriffen werden, um z.B. Testwerkzeuge zu konfigurieren.
+
+Es wird empfohlen, für die URL des Endpunktes einen klar verständlichen Begriff wie z.B. `/openapi-spezifikation-download` zu verwenden.
+
+[[rest-setzen-von-korrelations-id-in-header]]
+== Setzen der Korrelations-ID in den HTTP-Header
+
+Beim Versenden einer REST-Anfrage ist der Schlüssel "X-Correlation-Id" mit dem Wert der Korrelations-ID in den Header zu setzen.
+Die Anwendung, welche die REST-Anfragen stellt, muss dieses Verhalten implementieren.
+In diesem Abschnitt wird ein Beispiel für die Implementierung gegeben.
+
+Für das Setzen des korrekten Werts in den HTTP-Header sind folgende Schritte auszuführen:
+
+* Die bestehende Korrelations-ID wird aus dem MdcHelper ausgelesen.
+* Eine neue UUID wird erzeugt und
+    ** an die bestehende Korrelations-ID angehängt
+    ** dem MdcHelper übergeben.
+* Die aktualisierte Korrelations-ID wird als Wert für den Schlüssel "X-Correlation-Id" im Header der REST-Anfrage gesetzt.
+
+Für REST-Anfragen sieht die IsyFact Spring WebClient vor.
+Für die folgende Beispielimplementierung wird daher angenommen, dass eine Bean vom Typ `org.springframework.web.reactive.function.client.WebClient` existiert.
+
+Zunächst wird das Interface `ExchangeFilterFunction` implementiert:
+
+[source,java]
+----
+ExchangeFilterFunction correlationIdAddingFilter =
+        (clientRequest, nextFilter) -> {
+
+    StringBuilder correlationIdBuilder = new StringBuilder();
+
+    String existingCorrelationId = MdcHelper.liesKorrelationsId();
+    if (existingCorrelationId != null && !existingCorrelationId.isEmpty()) {
+        correlationIdBuilder.append(existingCorrelationId).append(";");
+    }
+
+    String newCorrelationId = UUID.randomUUID().toString();
+    correlationIdBuilder.append(newCorrelationId);
+
+    MdcHelper.pushKorrelationsId(newCorrelationId);
+
+    ClientRequest filteredRequest = ClientRequest.from(clientRequest)
+        .header("X-Correlation-Id", correlationIdBuilder.toString())
+        .build();
+    return nextFilter.exchange(filteredRequest);
+};
+----
+
+Anschließend wird die zuvor definierte `ExchangeFilterFunction` zur `WebClient`-Bean hinzugefügt:
+
+[source,java]
+----
+@Bean
+public WebClient webClient() {
+    return WebClient.builder()
+        .filter(correlationIdAddingFilter)
+        .build();
+}
+----
+
+[NOTE]
+====
+Die `ExchangeFilterFunction` fügt Korrelations-IDs zu ausgehenden REST-Anfragen hinzu, die durch eingehende Requests, Tasks oder Batches ausgelöst werden.
+Nach abgeschlossener Bearbeitung werden die Korrelations-IDs durch https://isyfact.github.io/isyfact-standards-doku/current/isy-logging/nutzungsvorgaben/master.html#mcdfilter[MDC-Filter] und https://github.com/IsyFact/isyfact-standards/blob/master/isy-logging/src/main/java/de/bund/bva/isyfact/logging/http/HttpHeaderNestedDiagnosticContextFilter.java#L97[HttpHeaderNestedDiagnosticContextFilter] oder https://github.com/IsyFact/isy-task/blob/develop/src/main/java/de/bund/bva/isyfact/task/monitoring/IsyTaskAspect.java#L168[IsyTaskAspect] / https://github.com/IsyFact/isyfact-standards/blob/master/isy-batchrahmen/src/main/java/de/bund/bva/isyfact/batchrahmen/core/rahmen/impl/BatchrahmenImpl.java#L253[BatchrahmenImpl] entfernt.
+
+Für weitere Details zu Korrelations-IDs siehe auch die entsprechenden Abschnitte im
+xref:isy-logging:konzept/master.adoc#korrelations-id[Konzept] und den xref:isy-logging:nutzungsvorgaben/master.adoc#diagnosekontext-korrelations-id[Nutzungsvorgaben] des Bausteins Logging.
+====
