@@ -1,4 +1,5 @@
 = Beispiel `NST_Mitarbeiter_suchen`
+:navtitle: Beispiel
 
 :!sectnums:
 
