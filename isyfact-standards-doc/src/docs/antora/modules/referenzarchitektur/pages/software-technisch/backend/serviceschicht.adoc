@@ -82,25 +82,4 @@ Zur Konfiguration der Serviceschicht wird das Spring-Framework genutzt.
 
 // end::service-framework-definition[]
 
-Unterhalb dieser Seite befinden sich weitere Inhalte zu xref:software-technisch/backend/service/rest.adoc[], Vorgaben zu xref:software-technisch/backend/service/rest-eigenschaften.adoc[], Hinweisen zur xref:software-technisch/backend/service/rest-umsetzung.adoc[] sowie xref:software-technisch/backend/service/rest-querschnitt.adoc[].
-
-[[transaktionssteuerung]]
-== Transaktionssteuerung
-
-In der Regel geschieht die Transaktionssteuerung im Anwendungskern.
-Die Ausnahme bilden Anforderungen, aus denen heraus die Service-Fassade einer Fachkomponente der Serviceschicht eine Transaktion über mehrere Aufrufe des Anwendungskerns hinweg bilden muss.
-In diesem Fall fällt die Steuerung der Transaktion der Service-Fassade zu, weil es wichtig ist, dass die Fehlerbehandlung in jedem Fall die Transaktion umschließt.
-Nur so ist gewährleistet, dass auch Fehler, die beim Commit bzw. Rollback entstehen, von der Fehlerbehandlung erfasst werden.
-
-Die Transaktionalität einzelner Service-Operationen wird über Annotationen (`@Transactional`) an den Methoden der Service-Fassade konfiguriert.
-
-Eine Sonderstellung nehmen Services ein, die im Fehlerfall keinen Fehler zurückgeben, sondern die Fehler in der Antwortnachricht übermitteln.
-Der AOP-Transaktionsmanager würde kein Rollback durchführen, da alle Exceptions abgefangen werden, auf die er reagieren könnte.
-Um auch in diesem Fall ein Rollback der Transaktion zu erzwingen, ist folgender Aufruf durchzuführen:
-
-[[listing-service-fassade-tx-rollback-only]]
-.Rollback von Transaktionen im Fehlerfall ohne Exceptions
-[source,java]
-----
-TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-----
+Die Umsetzung der Service-Endpunkte geschieht auf Basis von REST. Hierzu finden sich in der Referenzarchitektur weitere Inhalte: zu xref:software-technisch/backend/service/rest.adoc[], Vorgaben zu xref:software-technisch/backend/service/rest-eigenschaften.adoc[], Hinweisen zur xref:software-technisch/backend/service/rest-umsetzung.adoc[] sowie zu xref:software-technisch/backend/service/rest-querschnitt.adoc[querschnittlichen Aspekten].
