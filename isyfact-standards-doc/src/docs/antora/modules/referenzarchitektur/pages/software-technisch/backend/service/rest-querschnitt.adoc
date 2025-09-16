@@ -244,6 +244,64 @@ Diese Konfigurationsparameter aus Kapitel 4.2.2.1 xref:isy-logging:nutzungsvorga
 Zum Test und Debuggen einer Anwendung soll es möglich sein, dass komplette Nachrichten in ihrem Rohformat inklusive dem kompletten Header geloggt werden.
 Das Aktivieren des Nachrichten-Logging ist über einen Konfigurationsparameter steuerbar.
 
+[[rest-setzen-von-korrelations-id-in-header]]
+=== Setzen der Korrelations-ID in den HTTP-Header
+
+Beim Versenden einer REST-Anfrage ist der Header `X-Correlation-Id` mit dem Wert der Korrelations-ID zu setzen.
+Die Anwendung, welche die REST-Anfragen stellt, muss dieses Verhalten implementieren.
+In diesem Abschnitt wird ein Beispiel für die Implementierung gegeben.
+
+Für das Setzen des korrekten Werts in den HTTP-Header sind folgende Schritte auszuführen.
+
+.Beispielimplementierung des Interfaces `ExchangeFilterFunction`
+[source,java]
+----
+ExchangeFilterFunction addCorrelationId =
+        (clientRequest, nextFilter) -> {
+
+    StringBuilder correlationIdBuilder = new StringBuilder();
+
+    String existingCorrelationId = MdcHelper.liesKorrelationsId(); //<.>
+    if (existingCorrelationId != null && !existingCorrelationId.isEmpty()) {
+        correlationIdBuilder.append(existingCorrelationId).append(";");
+    }
+
+    String newCorrelationId = UUID.randomUUID().toString(); //<.>
+    correlationIdBuilder.append(newCorrelationId);
+    MdcHelper.pushKorrelationsId(newCorrelationId);
+
+    ClientRequest filteredRequest = ClientRequest.from(clientRequest)
+        .header("X-Correlation-Id", correlationIdBuilder.toString()) //<.>
+        .build();
+    return nextFilter.exchange(filteredRequest);
+};
+----
+<.> Auslesen der bestehenden Korrelations-ID aus dem `MdcHelper`.
+<.> Erzeugen einer neuen UUID, Anhängen an die bestehende Korrelations-ID und Setzen im `MdcHelper`.
+<.> Setzen der aktualisierten Korrelations-ID im Header `X-Correlation-Id` der REST-Anfrage.
+
+.Beispielkonfiguration des `WebClient`-Beans
+[source,java]
+----
+@Bean
+public WebClient webClient() {
+    return WebClient.builder()
+        .filter(addCorrelationId)
+        .build();
+}
+----
+
+[NOTE]
+====
+Die `ExchangeFilterFunction` fügt Korrelations-IDs zu ausgehenden REST-Anfragen hinzu, die durch eingehende Requests, Tasks oder Batches ausgelöst werden.
+Nach abgeschlossener Bearbeitung werden die Korrelations-IDs durch den xref:isy-logging:nutzungsvorgaben/master.adoc#mdchelper[`MdcHelper`] und in den Klassen https://github.com/IsyFact/isyfact-standards/blob/master/isy-logging/src/main/java/de/bund/bva/isyfact/logging/http/HttpHeaderNestedDiagnosticContextFilter.java#L97[`HttpHeaderNestedDiagnosticContextFilter`], https://github.com/IsyFact/isy-task/blob/develop/src/main/java/de/bund/bva/isyfact/task/monitoring/IsyTaskAspect.java#L201[`IsyTaskAspect`] und https://github.com/IsyFact/isyfact-standards/blob/master/isy-batchrahmen/src/main/java/de/bund/bva/isyfact/batchrahmen/core/rahmen/impl/BatchrahmenImpl.java#L253[`BatchrahmenImpl`] entfernt.
+
+Für weitere Details zu Korrelations-IDs siehe auch die entsprechenden Abschnitte im
+xref:isy-logging:konzept/master.adoc#korrelations-id[Konzept] und den xref:isy-logging:nutzungsvorgaben/master.adoc#diagnosekontext-korrelations-id[Nutzungsvorgaben] des Bausteins Logging.
+====
+
+
+
 [[ueberwachung]]
 == Überwachung
 
