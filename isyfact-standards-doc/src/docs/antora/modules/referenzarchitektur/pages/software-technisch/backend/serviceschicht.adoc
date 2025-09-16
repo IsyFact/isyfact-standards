@@ -82,4 +82,4 @@ Zur Konfiguration der Serviceschicht wird das Spring-Framework genutzt.
 
 // end::service-framework-definition[]
 
-Die Umsetzung der Service-Endpunkte geschieht auf Basis von REST. Hierzu finden sich in der Referenzarchitektur weitere Inhalte: zu xref:software-technisch/backend/service/rest.adoc[], Vorgaben zu xref:software-technisch/backend/service/rest-eigenschaften.adoc[], Hinweisen zur xref:software-technisch/backend/service/rest-umsetzung.adoc[] sowie zu xref:software-technisch/backend/service/rest-querschnitt.adoc[querschnittlichen Aspekten].
+Die Umsetzung der Service-Endpunkte geschieht auf Basis von REST. Hierzu finden sich in der Referenzarchitektur weitere Inhalte: zu xref:software-technisch/backend/service/rest.adoc[], xref:software-technisch/backend/service/rest-vorgaben-konventionen.adoc[], Hinweisen zur xref:software-technisch/backend/service/rest-umsetzung.adoc[] sowie zu xref:software-technisch/backend/service/rest-querschnitt.adoc[querschnittlichen Aspekten].

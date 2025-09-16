@@ -1,7 +1,5 @@
 * xref:werkzeuge.adoc[]
 ** xref:openapi.adoc[]
-*** xref:openapi/werkzeuge.adoc[]
-*** xref:openapi/beispiel.adoc[]
 ** xref:documentation-guide:ROOT:index.adoc[]
 ** xref:dokumentation/changelog-doku.adoc[Changelogs]
 ** xref:formatter.adoc[]
