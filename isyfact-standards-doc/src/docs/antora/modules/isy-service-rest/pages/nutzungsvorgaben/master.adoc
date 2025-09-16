@@ -1,3 +1,0 @@
-= Nutzungsvorgaben REST
-
-include::inhalt.adoc[tags=inhalt]

@@ -261,7 +261,7 @@ Abgrenzung zur <<table-fachliche-schnittstellenspezifikation,fachlichen Schnitts
 |Baustein (QA)
 
 |Vorlage / Beispiel
-|REST / OpenAPI: Für REST-Schnittstellen erfolgt die Erstellung gemäß der xref:isy-service-rest:nutzungsvorgaben/inhalt.adoc#mapping-fachlichen-schnittstellen[Nutzungsvorgaben des REST-Bausteins].
+|Für REST-Schnittstellen erfolgt die Erstellung anhand einer xref:werkzeuge:openapi.adoc#mapping-fachlichen-schnittstellen[OpenAPI-Spezifikation].
 |===
 
 
