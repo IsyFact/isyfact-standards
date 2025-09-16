@@ -1,10 +1,7 @@
-// tag::inhalt[]
-[[einleitung]]
-== Einleitung
+= OpenAPI-Spezifikation
+
 Die OpenAPI-Spezifikation (OAS) definiert eine standardmäßige, sprachunabhängige Schnittstelle zu RESTful-APIs, die es sowohl Menschen als auch Computern ermöglicht, die Schnittstellen ohne Zugriff auf Quellcode, Dokumentation oder durch Überprüfung des Netzwerkverkehrs zu erkennen und zu verstehen.
 Die verwendete Version der OpenAPI-Spezifikation ist OpenAPI 3.0.
 
 Anhand einer OpenAPI-Definition können Server und Clients in verschiedenen Programmiersprachen generiert und eine verständliche (fachliche) Schnittstellenbeschreibung erzeugt werden.
-Dieses Dokument beschreibt die Best Practices dafür, wie Schnittstellen als OpenAPI-Spezifikation definiert werden und welche Tools dabei verwendet werden sollten.
-
-// end::inhalt[]
+Die folgenden Abschnitte beschreiben die Best Practices dafür, wie xref:methodik:vorlage-systemspezifikation/08-nachbarsystemschnittstellen.adoc[Nachbarsystemschnittstellen] in eine OpenAPI-Spezifikation überführt werden und welche Werkzeuge dabei verwendet werden sollten.
