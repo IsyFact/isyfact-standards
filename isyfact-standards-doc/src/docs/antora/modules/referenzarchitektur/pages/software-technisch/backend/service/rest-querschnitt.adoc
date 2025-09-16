@@ -1,5 +1,4 @@
-= Querschnittliche Konzepte
-:navtitle: Querschnittliches
+= Querschnittliche Aspekte
 
 [[validierung-von-anfragen]]
 == Validierung von Anfragen
@@ -117,6 +116,27 @@ Sollten bei der Verarbeitung mehrere Fehler auftreten, sind alle Fehler zurückz
 Exceptions werden im `RestExceptionHandler` auf den jeweiligen HTTP-Statuscode und die entsprechende Nachricht gemappt.
 Welche Informationen enthalten sein dürfen, wird in den xref:isy-exception-core:nutzungsvorgaben/master.adoc[] genauer beschrieben.
 
+[[transaktionssteuerung]]
+== Transaktionssteuerung
+
+In der Regel geschieht die Transaktionssteuerung im Anwendungskern.
+Die Ausnahme bilden Anforderungen, aus denen heraus die Service-Fassade einer Fachkomponente der Serviceschicht eine Transaktion über mehrere Aufrufe des Anwendungskerns hinweg bilden muss.
+In diesem Fall fällt die Steuerung der Transaktion der Service-Fassade zu, weil es wichtig ist, dass die Fehlerbehandlung in jedem Fall die Transaktion umschließt.
+Nur so ist gewährleistet, dass auch Fehler, die beim Commit bzw. Rollback entstehen, von der Fehlerbehandlung erfasst werden.
+
+Die entsprechenden Service-Operationen werden über die Annotation `@Transactional` an den Methoden der Service-Fassade konfiguriert.
+
+Eine Sonderstellung nehmen Services ein, die im Fehlerfall keinen Fehler zurückgeben, sondern die Fehler in der Antwortnachricht übermitteln.
+Der AOP-Transaktionsmanager würde kein Rollback durchführen, da alle Exceptions abgefangen werden, auf die er reagieren könnte.
+Um auch in diesem Fall ein Rollback der Transaktion zu erzwingen, ist folgender Aufruf durchzuführen:
+
+[[listing-service-fassade-tx-rollback-only]]
+.Rollback von Transaktionen im Fehlerfall ohne Exceptions
+[source,java]
+----
+TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+----
+
 [[sicherheit]]
 == Sicherheit
 
@@ -143,7 +163,7 @@ Generell ist das xref:security:ROOT:konzept.adoc[] zu beachten.
 == Logging
 
 Eingehende und ausgehende Nachrichten sind an der Systemgrenze zu loggen.
-Für die Erstellung der Log-Einträge ist der Baustein Isy-Logging zu verwenden.
+Für die Erstellung der Log-Einträge ist der Baustein Logging zu verwenden.
 Abweichungen zum Konzept des Bausteins Logging sind im Folgenden aufgeführt.
 
 [[server-service-provider]]

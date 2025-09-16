@@ -3,7 +3,7 @@
 
 :!sectnums:
 
-NOTE: Das Beispiel basiert auf der xref:methodik:vorlage-systemspezifikation/08-nachbarsystemschnittstellen.adoc[Spezifikationsmethodik für Nachbarsystemschnittstellen] und wendet diese in einer vereinfachten Form an.
+NOTE: Das Beispiel basiert auf der xref:methodik:vorlage-systemspezifikation/master.adoc#nachbarsystemschnittstellen[Spezifikationsmethodik für Nachbarsystemschnittstellen] und wendet diese in einer vereinfachten Form an.
 
 == `NST_Mitarbeiter_suchen`
 

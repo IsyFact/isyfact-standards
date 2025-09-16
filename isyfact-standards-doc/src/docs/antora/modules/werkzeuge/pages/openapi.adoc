@@ -7,7 +7,7 @@ Die verwendete Version der OpenAPI-Spezifikation ist OpenAPI 3.0.
 NOTE: Weitere Informationen zu OpenAPI 3.0 (Beschreibung und Vorgaben) sind in der https://swagger.io/resources/open-api/[offiziellen Dokumentation] zu finden.
 
 Anhand einer OpenAPI-Definition können Server und Clients in verschiedenen Programmiersprachen generiert und eine verständliche (fachliche) Schnittstellenbeschreibung erzeugt werden.
-Die folgenden Abschnitte beschreiben die Best Practices dafür, wie xref:methodik:vorlage-systemspezifikation/08-nachbarsystemschnittstellen.adoc[Nachbarsystemschnittstellen] in eine OpenAPI-Spezifikation überführt werden und welche Werkzeuge dabei verwendet werden sollten.
+Die folgenden Abschnitte beschreiben die Best Practices dafür, wie xref:methodik:vorlage-systemspezifikation/master.adoc#nachbarsystemschnittstellen[Nachbarsystemschnittstellen] in eine OpenAPI-Spezifikation überführt werden und welche Werkzeuge dabei verwendet werden sollten.
 
 [[erstellung-openapi-spezifikation]]
 == Erstellung von OpenAPI-Spezifikationen
@@ -98,16 +98,16 @@ Die Eingabe-Entitäten, die im Body verarbeitet werden (z.B. Hinzufügen einer n
 |[source,yaml]
 ----
 responses:
-        '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Mitarbeiter'
-        '405':
-          description: "Ungültige Suchkriterien"
+  '200':
+    description: successful operation
+    content:
+      application/json:
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/Mitarbeiter'
+  '405':
+    description: "Ungültige Suchkriterien"
 ----
 Mit Schemaobjekt für NSE_Mitarbeiter:
 [source,yaml]
@@ -151,25 +151,25 @@ type: "integer"
 |DTY_Bundesland
 [source,yaml]
 ----
-    Bundesland:
-      type: string
-      enum:
-        - BW
-        - BY
-        - BE
-        - BB
-        - HB
-        - HH
-        - HE
-        - MV
-        - NI
-        - NW
-        - RP
-        - SL
-        - SN
-        - ST
-        - SH
-        - TH
+Bundesland:
+  type: string
+  enum:
+    - BW
+    - BY
+    - BE
+    - BB
+    - HB
+    - HH
+    - HE
+    - MV
+    - NI
+    - NW
+    - RP
+    - SL
+    - SN
+    - ST
+    - SH
+    - TH
 ----
 
 |Kurzbeschreibung
@@ -266,8 +266,8 @@ paths:
 
 Falls die zu übermittelnden Informationen vertraulich sind, sollte ein Wechsel des HTTP-Verbs zu POST und die Übermittlung der Informationen im Body statt in der URL eruiert werden.
 
-[[Verwendung_von_OpenAPI_Generator]]
-== Verwendung von OpenAPI Generator
+[[verwendung-openapi-generator]]
+== Verwendung des OpenAPI Generators
 
 Es ist möglich, automatisch Code aus einer OpenAPI 3.0-Spezifikation zu generieren.
 Die IsyFact sieht den Einsatz des OpenAPI-Generators vor.
@@ -427,23 +427,17 @@ Der Zugriff auf das Artefakt ist über das entsprechende Artifactory und/oder Gi
 
 [[openapi-schnittstellenspezifikation-antora]]
 ==== Antora
-Antora ist eine Dokumentationspipeline, die es Dokumentations-, Produkt- und Entwicklungsteams ermöglicht, Dokumentationsseiten zu erstellen, zu verwalten und zu veröffentlichen, die in AsciiDoc erstellt und aus mehreren versionierten Repositories bezogen wurden.
+Antora erzeugt aus AsciiDoc-Quellen, die über mehrere Git-Repositories verteilt liegen können, eine gemeinsame, statische HTML-Seite.
 
-Mithilfe des OpenAPI Generators kann aus der https://swagger.io/specification/[OpenAPI Spezifikation] (YAML Datei) AsciiDoc generiert/erstellt werden.
-Allgemeine Informationen zum OpenAPI Generator finden sich im Kapitel <<Verwendung_von_OpenAPI_Generator>>.
-Die generierten AsciiDoc-Dateien können dann in den Antora-Dokumentenbuild aufgenommen und gemeinsam mit der übrigen Dokumentation des Bausteins oder der Anwendung generiert und veröffentlicht werden.
+Mithilfe des OpenAPI Generators kann aus der https://swagger.io/specification/[OpenAPI Spezifikation] AsciiDoc generiert werden.
+Die generierten AsciiDoc-Dateien können dann in Antora aufgenommen und gemeinsam mit der übrigen Dokumentation des Bausteins oder der Anwendung generiert und veröffentlicht werden.
+
+Es empfehlt es sich auch, die OpenAPI Spezifikation im YAML-Format in Antora zu verlinken.
+
+Die Integration in Antora ermöglicht somit einen einfachen Zugriff auf verschiedene Versionen der OpenAPI Spezifikation: einerseits das Herunterladen der OpenAPI Spezifikationen für technische Nutzer (YAML-Format), andererseits den Zugang zu einer verständlichen Schnittstellen-Spezifikation für nicht technisch versierte Benutzer (AsciiDoc-Format).
 
 Für die Generierung der Schnittstellenbeschreibung im AsciiDoc-Format ist der Generator `asciidoc` zu wählen.
-
-Neben der generierten OpenAPI Spezifikation als AsciiDoc-Datei, empfehlt es sich auch die OpenAPI Spezifikation im YAML-Format im Dokumentenbuild zu verlinken.
-
-Die Integration in den Antora-Dokumentenbuild ermöglicht somit:
-
-* einen einfachen Zugriff auf verschiedene Versionen der OpenAPI Spezifikationen,
-* das Herunterladen der OpenAPI Spezifikationen für technische Benutzer (YAML-Format),
-* den Zugang zu einer verständlichen Schnittstellen-Spezifikation für nicht technisch versierte Benutzer (AsciiDoc-Format).
-
-Die generierte Dokumentation (HTML) kann auf einem Webserver oder auf GitHub/GitLab-Pages veröffentlicht werden und ist dann mit einem Webbrowser erreichbar.
+Die generierte HTML-Dokumentation kann auf einem Webserver oder auf GitHub/GitLab-Pages veröffentlicht werden und ist dann mit einem Webbrowser erreichbar.
 Hierzu müssen entsprechende Jobs in der Build-Pipeline angelegt werden.
 
 [[openapi-schnittstellenspezifikation-eigener-endpunkt]]
