@@ -440,9 +440,9 @@ include::referenzarchitektur:software-technisch/backend/persistenz/historisierun
 include::referenzarchitektur:software-technisch/backend/anwendungskern.adoc[tag=namenskonvention]
 
 [[rest-schnittstellen]]
-==== REST-Schnittstellen
-include::referenzarchitektur:software-technisch/backend/service/rest.adoc[tag=namenskonvention]
-include::referenzarchitektur:software-technisch/backend/service/rest-vorgaben-konventionen.adoc[tag=namenskonvention]
+==== REST-Services
+include::referenzarchitektur:software-technisch/services/rest.adoc[tag=namenskonvention]
+include::referenzarchitektur:software-technisch/services/rest-vorgaben-konventionen.adoc[tag=namenskonvention]
 
 [[batches]]
 ==== Batchrahmen

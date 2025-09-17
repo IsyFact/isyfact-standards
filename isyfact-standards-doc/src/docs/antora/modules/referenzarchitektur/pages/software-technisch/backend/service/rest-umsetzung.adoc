@@ -1,10 +1,9 @@
 = Umsetzung von REST-Services
-:navtitle: Umsetzung
 
 [[technologieauswahl]]
 == Technologieauswahl
 
-Die IsyFact legt folgende <<table-frameworks>> von REST-Schnittstellen fest.
+Die IsyFact legt folgende <<table-frameworks>> von REST-Services fest.
 
 [[table-frameworks]]
 .Frameworks für die Umsetzung
@@ -60,7 +59,7 @@ Für die Anbindung von Angular-Clients enthält der Baustein Angular eine entspr
 [[schnittstellendokumentation]]
 == Schnittstellendokumentation
 
-Alle auf IsyFact basierten Anwendungen müssen ihre REST-Schnittstellen mit der _OpenAPI 3.0_ Spezifikation beschreiben.
+Alle auf IsyFact basierten Anwendungen müssen ihre REST-Services mit der _OpenAPI 3.0_ Spezifikation beschreiben.
 Sowohl YAML als auch JSON sind als Format der Schnittstellendokumentation zulässig.
 Die IsyFact empfiehlt zur Erstellung der Schnittstellendokumentation den xref:werkzeuge:openapi.adoc#openapi-editor[OpenAPI (Swagger) Editor].
 
@@ -72,24 +71,22 @@ Bei _Contract/API First_ wird zunächst die Schnittstellenbeschreibung erstellt 
 Bei _Code First_ wird zuerst die API implementiert und mit Annotationen für die Schnittstellenbeschreibung versehen.
 Aus den Annotationen wird dann die Schnittstellenbeschreibung generiert.
 
-Die IsyFact empfiehlt den _Contract/API First_ Ansatz.
+Die IsyFact empfiehlt den _Contract/API First_ Ansatz und sieht hierzu die Erstellung einer xref:software-technisch/backend/service/openapi.adoc[] vor.
 
-Für die Generierung des Codes von Server und Client sind die Standards von OpenApi 3.x zu beachten.
-Die IsyFact empfiehlt hierzu den xref:werkzeuge:openapi.adoc#openapi-generator[OpenAPI Generator].
+Für die Generierung von Code empfiehlt die IsyFact den xref:werkzeuge:openapi.adoc#openapi-generator[OpenAPI Generator].
 
 [[bereitstellen-generierte-clients]]
 === Bereitstellen von generierten Clients
 
-Wie beschrieben können aus der OpenAPI Schnittstellenbeschreibung Services und Clients für diverse Plattformen generiert werden.
-Aus Convenience-Gründen wird empfohlen, dass Anbieter von Schnittstellen fertig generierte Clients für die gängigen Plattformen zur Verfügung stellen.
-Gängige Clients im Kontext der IsyFact sind Java (Spring) und Javascript (Angular).
+Neben dem Server können aus einer xref:software-technisch/backend/service/openapi.adoc[] auch Clients für diverse Technologie-Stacks generiert werden.
+Aus Convenience-Gründen wird empfohlen, dass Anbieter von Services fertig generierte Clients für die gängigen Technologie-Stacks zur Verfügung stellen: Java (Spring) und Typescript (Angular).
 
 [[verwendung-transportobjekte]]
 == Verwendung von Transportobjekten
 
 .icon:university[title=Architekturregel] Verwendung von Transferobjekten
 ****
-REST-Schnittstellen verwenden ausschließlich Transferobjekte (Data Transfer Objects, DTOs).
+REST-Services verwenden ausschließlich Transferobjekte (Data Transfer Objects, DTOs).
 ****
 
 Die DTOs werden ebenfalls innerhalb der Schnittstellenbeschreibung schematisch beschrieben.

@@ -261,7 +261,7 @@ Abgrenzung zur <<table-fachliche-schnittstellenspezifikation,fachlichen Schnitts
 |Baustein (QA)
 
 |Vorlage / Beispiel
-|Für REST-Schnittstellen erfolgt die Erstellung anhand einer xref:werkzeuge:openapi.adoc#mapping-fachlichen-schnittstellen[OpenAPI-Spezifikation].
+|Für REST-Services erfolgt die Erstellung anhand einer xref:referenzarchitektur:software-technisch/backend/service/openapi.adoc[].
 |===
 
 

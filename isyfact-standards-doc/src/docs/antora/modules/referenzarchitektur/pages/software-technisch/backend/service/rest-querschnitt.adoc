@@ -60,7 +60,7 @@ Details zur Implementierung können der https://docs.spring.io/spring-framework/
 [[einheitliche-fehlermeldungen]]
 === Einheitliche Fehlermeldungen
 
-Eine Fehlernachricht aus einer REST-Schnittstelle (egal, ob Client oder Server Error) muss mindestens folgende Informationen beinhalten.
+Eine Fehlernachricht aus einem REST-Service (egal, ob Client oder Server Error) muss mindestens folgende Informationen beinhalten.
 
 [[table-error-fields]]
 .Standardfelder für Fehlernachrichten
@@ -342,7 +342,7 @@ Die dort beschriebenen Informationen zur Überwachung gelten in gleichem Maße a
 
 Versionierung kann auf verschiedene Weisen stattfinden.
 
-Prinzipiell gilt es inkompatible API-Änderungen in einer REST-Schnittstelle zu vermeiden.
+Prinzipiell gilt es inkompatible API-Änderungen in einem REST-Service zu vermeiden.
 Falls irgendwann eine inkompatible Änderung notwendig sein sollte, ist eine Versionierung in der URL zu verwenden.
 
 Die Version steht immer vor dem Pfad der Ressource und beinhaltet ausschließlich die Major Version.

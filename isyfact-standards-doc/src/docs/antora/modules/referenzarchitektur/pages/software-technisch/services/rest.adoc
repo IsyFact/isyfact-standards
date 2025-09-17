@@ -14,7 +14,7 @@ Caching::
 REST-Nachrichten sollen, entweder explizit oder implizit, angeben, ob sie sich für einen Cache eignen oder nicht.
 
 Einheitliche Schnittstelle::
-REST-Schnittstellen besitzen vier Eigenschaften, um einheitlich beschaffen und leicht nutzbar zu sein.
+REST-Services besitzen vier Eigenschaften, um einheitlich beschaffen und leicht nutzbar zu sein.
 +
 Jede Ressource ist über einen URI *eindeutig adressierbar*.
 Damit geschieht der Zugriff für jeden Client eindeutig und für alle nachvollziehbar.
@@ -73,7 +73,7 @@ In Ausnahmefällen kann auf die Einhaltung der Vorgabe zum Reifegrad verzichtet 
 === Prozessorientierte Aufrufe - Geschäftsvorfälle
 
 Ein Ausnahmefall stellt die Abbildung von prozessorientierten Aufrufen dar, die häufig durch die Migration von bestehenden prozessorientierten Schnittstellen (z. B. RPC) entstanden sind.
-Die Abbildung auf eine ressourcenorientierte REST-Schnittstelle ist i.d.R. mit einer Neukonzeption der Anwendung unter einer ressourcenorientierten Denkweise verbunden.
+Die Abbildung auf einen ressourcenorientierten REST-Service ist i.d.R. mit einer Neukonzeption der Anwendung unter einer ressourcenorientierten Denkweise verbunden.
 Der Aufwand für die Neukonzeption steht oft nicht im Verhältnis zum tatsächlichen (fachlichen) Nutzen.
 Aus diesem Grund dürfen prozessorientierte Aufrufe über einfache HTTP-Aufrufe realisiert werden, die bis auf die Ressourcenorientierung und Verwendung der HTTP-Verben, den übrigen Vorgaben des REST-Konzepts folgen.
 Diese HTTP-Aufrufe entsprechen zwar nicht dem Reifegradmodell (Level 2), sind aber in diesem Ausnahmefall IsyFact-konform.
