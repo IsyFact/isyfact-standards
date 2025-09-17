@@ -1,0 +1,353 @@
+= Querschnittliche Aspekte
+
+[[validierung-von-anfragen]]
+== Validierung von Anfragen
+
+Die formale Validierung der Daten muss vor der inhaltlichen Validierung im Anwendungskern stattfinden.
+Genau genommen müssen die Daten formal korrekt sein, bevor sie überhaupt in irgendeiner Weise weiter verarbeitet werden können.
+Daher ist die formale Prüfung der erste Schritt in der Verarbeitung von Daten und komplett unabhängig von der weiteren Verarbeitung.
+
+Eine geeignete Methode zur Prüfung der Daten auf formale Korrektheit ist die Validierung gegen das vorhandene Schema der Schnittstellenbeschreibung.
+Atlassian bietet den Swagger Request Validator als freie Software an (Apache 2.0 Lizenz).
+Damit lassen sich HTTP Requests und Responses gegen eine OpenAPI bzw. Swagger Spezifikation prüfen, OpenAPI v3 wird dabei bereits unterstützt.
+Der https://bitbucket.org/atlassian/swagger-request-validator[Swagger Request Validator] hat keine weiteren Abhängigkeiten und kann somit unabhängig von HTTP APIs oder Frameworks verwendet werden.
+
+[[fehlerbehandlung]]
+== Fehlerbehandlung
+
+In diesem Abschnitt werden alle Aspekte zur Fehlerbehandlung in REST-Services beschrieben.
+
+Bei der Fehlerbehandlung müssen zwei Varianten unterschieden werden: technische Fehler und fachliche Fehler.
+
+*Definition von technischen Exceptions*: Service-Methoden deklarieren keine oder eine technische Exception.
+Die technische Exception muss für alle Service-Methoden einer Service-Schnittstelle gleich sein.
+
+*Definition von fachlichen Exceptions*: Service-Methoden können beliebig viele fachliche Exceptions deklarieren.
+Diese können spezifisch für jede Service-Methode sein.
+
+*Übermittlung von Daten*: Die Felder Ausnahme-ID, UUID und Fehlernachricht, wie in den xref:isy-exception-core:nutzungsvorgaben/master.adoc[] beschrieben, müssen stets übertragen werden.
+Weiterhin darf kein Stack-Trace übertragen werden.
+
+Grundsätzlich sind die Vorgaben aus den xref:isy-exception-core:nutzungsvorgaben/master.adoc[] zu beachten.
+Im Anschluss folgen REST-Spezifische Regeln.
+
+Technische Fehler werden in der HTTP-Response immer mit dem HTTP-Code 500 gesendet.
+
+Fachlichen Fehlern muss ein entsprechend passender Fehlercode im Bereich 4xx zugeordnet werden.
+
+<<einheitliche-fehlermeldungen>> beschreibt den Inhalt einer Fehlermeldung.
+
+
+[[entkopplung-von-fehlerbehandlung-und-service-logik]]
+=== Entkopplung von Fehlerbehandlung und Service-Logik
+
+Die Fehlerbehandlung erfolgt wie im Detailkonzept Service beschrieben, außerhalb der Service-Fassade, an zentraler Stelle, in einer Exception-Fassade.
+Die Exception-Fassade wird durch `RestExceptionHandler` Klassen implementiert, (vgl. <<image-fehlerbehandlung>>). 
+In der Exception-Fassade werden alle Exceptions aus Methoden des Anwendungskerns oder Methoden der Service-Endpoints gefangen, geloggt, in Exception-Transport-Objekte umgewandelt und als Response zurückgegeben.
+
+[[image-fehlerbehandlung]]
+.Entkopplung Fehlerbehandlung und Service-Logik
+image::software-technisch/backend/service/fehlerbehandlung.dn.svg[]
+
+Spring Webflux unterstützt dazu ebenso wie Spring MVC die Annotation `@RestControllerAdvice`.
+Die Implementierung der `RestExceptionHandler`-Funktionalität kann daher über die Annotation einer Klasse mit `@RestControllerAdvice` erfolgen.
+
+[NOTE]
+====
+Details zur Implementierung können der https://docs.spring.io/spring-framework/reference/web/webflux.html[Dokumentation zu Spring WebFlux] entnommen werden.
+====
+
+[[einheitliche-fehlermeldungen]]
+=== Einheitliche Fehlermeldungen
+
+Eine Fehlernachricht aus einem REST-Service (egal, ob Client oder Server Error) muss mindestens folgende Informationen beinhalten.
+
+[[table-error-fields]]
+.Standardfelder für Fehlernachrichten
+[cols="2m,2,4",options="header"]
+|===
+|Feld |Datentyp |Beschreibung
+
+|timestamp
+|String
+|Exakter Zeitpunkt an dem der Fehler aufgetreten ist.
+
+|status
+|Integer
+|HTTP-Fehlercode
+
+|error
+|String
+|Kurzbeschreibung des Fehlers, z. B. _Entity not found_.
+
+|message
+|String
+|Detailbeschreibung des Fehlers.
+Bei Client Errors sollte beschrieben werden wie der Client den Fehler beheben kann.
+Es sollen keine technischen/internen Details (z. B. Stacktrace) in der Beschreibung enthalten sein.
+Die message setzt sich, wie in den xref:isy-exception-core:nutzungsvorgaben/master.adoc[] beschrieben, folgendermaßen zusammen:
+
+`#AusnahmeId Fehlertext #UUID`
+
+
+|path
+|String
+|Pfad der Ressource, die in der Anfrage adressiert wurde.
+
+|===
+
+Fehler werden in einem Array zurückgegeben, um auch das Senden mehrerer Fehler, beispielsweise bei der Validierung von Eingaben, zu ermöglichen.
+
+[source,json]
+----
+[
+    {
+     "timestamp": "2020-08-23T14:53:33.452+02:00",
+     "status": 404,
+     "error": "Not Found",
+     "message": "#0001 Die Nachricht mit der ID=1 konnte nicht gefunden werden. #4321",
+     "path": "/ressource/1234"
+    }
+]
+----
+
+Sollten bei der Verarbeitung mehrere Fehler auftreten, sind alle Fehler zurückzugeben.
+
+Exceptions werden im `RestExceptionHandler` auf den jeweiligen HTTP-Statuscode und die entsprechende Nachricht gemappt.
+Welche Informationen enthalten sein dürfen, wird in den xref:isy-exception-core:nutzungsvorgaben/master.adoc[] genauer beschrieben.
+
+[[transaktionssteuerung]]
+== Transaktionssteuerung
+
+In der Regel geschieht die Transaktionssteuerung im Anwendungskern.
+Die Ausnahme bilden Anforderungen, aus denen heraus die Service-Fassade einer Fachkomponente der Serviceschicht eine Transaktion über mehrere Aufrufe des Anwendungskerns hinweg bilden muss.
+In diesem Fall fällt die Steuerung der Transaktion der Service-Fassade zu, weil es wichtig ist, dass die Fehlerbehandlung in jedem Fall die Transaktion umschließt.
+Nur so ist gewährleistet, dass auch Fehler, die beim Commit bzw. Rollback entstehen, von der Fehlerbehandlung erfasst werden.
+
+Die entsprechenden Service-Operationen werden über die Annotation `@Transactional` an den Methoden der Service-Fassade konfiguriert.
+
+Eine Sonderstellung nehmen Services ein, die im Fehlerfall keinen Fehler zurückgeben, sondern die Fehler in der Antwortnachricht übermitteln.
+Der AOP-Transaktionsmanager würde kein Rollback durchführen, da alle Exceptions abgefangen werden, auf die er reagieren könnte.
+Um auch in diesem Fall ein Rollback der Transaktion zu erzwingen, ist folgender Aufruf durchzuführen:
+
+[[listing-service-fassade-tx-rollback-only]]
+.Rollback von Transaktionen im Fehlerfall ohne Exceptions
+[source,java]
+----
+TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+----
+
+[[sicherheit]]
+== Sicherheit
+
+Die Authentifizierung wird nach OAuth2 sichergestellt.
+Hierfür muss der Client mit jeder Nachricht einen Bearer Token mitsenden.
+Dieser wird im Request-Header mit dem Tag "Authorization" versehen.
+Im Sicherheitsbaustein wird das Token an den `SecurityContextHolder` weitergegeben.
+Dort werden die Daten ausgelesen und der Token wird auf Echtheit überprüft.
+Bei einer reinen Weitergabe greift die Bearer Propagation.
+
+[NOTE]
+====
+Nähere Informationen zu OAuth2 gibt es auf der https://oauth.net/2/[OAuth2 Homepage].
+
+Informationen zur Bearer Propagation gibt es in der https://docs.spring.io/spring-security/site/docs/5.2.x/reference/html/oauth2.html#oauth2resourceserver-bearertoken-resolver[offiziellen Spring Dokumentation].
+====
+
+Um eine Klasse oder einzelne Methoden zu sichern, wird empfohlen, die `@Secured` Annotation von Spring Security in der Service-Schicht zu verwenden.
+Die Verwendung auf einzelnen Webcontroller Klassen/Methoden wird nicht empfohlen. Für Webcontroller ohne Service Schicht kann https://docs.spring.io/spring-security/reference/servlet/authorization/authorize-http-requests.html[Request Level Autorisierung] genutzt werden.
+
+Generell ist das xref:security:ROOT:konzept.adoc[] zu beachten.
+
+[[logging]]
+== Logging
+
+Eingehende und ausgehende Nachrichten sind an der Systemgrenze zu loggen.
+Für die Erstellung der Log-Einträge ist der Baustein Logging zu verwenden.
+Abweichungen zum Konzept des Bausteins Logging sind im Folgenden aufgeführt.
+
+[[server-service-provider]]
+=== Server / Service-Provider
+Der Baustein bietet mit `@Systemgrenze` eine Annotation, die einen Interceptor aufruft, der automatisch Aufrufe aller Methoden in der annotierten Klasse (z. B. Controller) fachlich loggt.
+(vgl. xref:isy-logging:nutzungsvorgaben/master.adoc[] Kapitel 4.2.2.1)
+Für ein technisches Logging soll zusätzlich ein weiterer Interceptor verwendet werden.
+
+Dieser Interceptor soll folgende Nachrichten am Controller loggen:
+
+* eingehende Anfragen (eingehende Nachrichten),
+* ausgehende Antworten (ausgehende Nachrichten).
+
+[[client-service-provider]]
+=== Client / Service-Consumer
+
+In der Klasse, welche die Aufrufe an den Service-Provider stellt, sollen
+
+*  ausgehende Anfragen (ausgehende Nachrichten),
+*  eingehende Antworten (eingehende Nachrichten),
+
+geloggt werden.
+
+Wie auch serverseitig sollen diese Log-Nachrichten möglichst automatisiert via AOP erstellt werden.
+
+[[inhalt-log-eintrag-nachricht]]
+=== Inhalt des Log-Eintrags für eine Nachricht
+
+Um die Nachrichten im Zuge der Log-Auswertung zu filtern, sind nachrichtenspezifische Ereignisschlüssel zu verwenden.
+
+Zusätzlich zu den Anforderungen an die Inhalte einer Log-Nachricht (xref:isy-logging:konzept/master.adoc[] Kapitel 4.1.1) sollen folgende Informationen als Marker in der Log-Nachricht enthalten sein:
+
+.Standard für zu erfassende Logging-Informationen
+[[table-logging-data]]
+[cols="2,3",options="header"]
+|===
+2+|Die zu protokollierende Information ist abhängig, ob es ein Request oder Response ist
+
+|Ein-/Ausgehende Nachricht
+|immer protokollieren
+
+|Request-URL (Address + URI)
+|immer protokollieren
+
+|Query String
+|immer protokollieren
+
+|HTTP-Methode
+|immer protokollieren
+
+|Protocol
+|immer protokollieren
+
+|Connection- z. B. keep-alive, Transfer-Encoding
+|immer protokollieren
+
+|Encoding
+|immer protokollieren
+
+|Accept
+|immer protokollieren
+
+|Content-Type
+|immer protokollieren
+
+|Content-Length
+|immer protokollieren
+
+|Aufgerufene Methode der Klasse
+|immer protokollieren (REST-Controller-Methode)
+
+|Zeitpunkt
+|bei ausgehend: Sende-Zeitpunkt +
+ bei eingehend: Empfangszeitpunkt-Zeitpunkt +
+
+|Dauer der Verarbeitung
+|bei eingehend: Dauer vom Empfang des Requests bis zum Versand der Antwort +
+ bei ausgehend: Dauer vom Versand des Requests bis zum Empfang der Antwort
+
+| Aufgerufenes xref:glossary::terms-definitions.adoc#nachbarsystem[Nachbarsystem]
+| bei ausgehendenden Requests, sonst leer
+
+|===
+
+
+*Konfigurationsparameter*
+
+Diese Konfigurationsparameter aus Kapitel 4.2.2.1 xref:isy-logging:nutzungsvorgaben/master.adoc[] sollen für den neuen Interceptor ebenfalls existieren:
+
+* `loggeDauer`,
+* `loggeDaten`,
+* `loggeDatenBeiException`,
+* `loggeMaximaleParameterGroesse`.
+
+
+*Nachrichten-Logging*
+
+Zum Test und Debuggen einer Anwendung soll es möglich sein, dass komplette Nachrichten in ihrem Rohformat inklusive dem kompletten Header geloggt werden.
+Das Aktivieren des Nachrichten-Logging ist über einen Konfigurationsparameter steuerbar.
+
+[[rest-setzen-von-korrelations-id-in-header]]
+=== Setzen der Korrelations-ID in den HTTP-Header
+
+Beim Versenden einer REST-Anfrage ist der Header `X-Correlation-Id` mit dem Wert der Korrelations-ID zu setzen.
+Die Anwendung, welche die REST-Anfragen stellt, muss dieses Verhalten implementieren.
+In diesem Abschnitt wird ein Beispiel für die Implementierung gegeben.
+
+Für das Setzen des korrekten Werts in den HTTP-Header sind folgende Schritte auszuführen.
+
+.Beispielimplementierung des Interfaces `ExchangeFilterFunction`
+[source,java]
+----
+ExchangeFilterFunction addCorrelationId =
+        (clientRequest, nextFilter) -> {
+
+    StringBuilder correlationIdBuilder = new StringBuilder();
+
+    String existingCorrelationId = MdcHelper.liesKorrelationsId(); //<.>
+    if (existingCorrelationId != null && !existingCorrelationId.isEmpty()) {
+        correlationIdBuilder.append(existingCorrelationId).append(";");
+    }
+
+    String newCorrelationId = UUID.randomUUID().toString(); //<.>
+    correlationIdBuilder.append(newCorrelationId);
+    MdcHelper.pushKorrelationsId(newCorrelationId);
+
+    ClientRequest filteredRequest = ClientRequest.from(clientRequest)
+        .header("X-Correlation-Id", correlationIdBuilder.toString()) //<.>
+        .build();
+    return nextFilter.exchange(filteredRequest);
+};
+----
+<.> Auslesen der bestehenden Korrelations-ID aus dem `MdcHelper`.
+<.> Erzeugen einer neuen UUID, Anhängen an die bestehende Korrelations-ID und Setzen im `MdcHelper`.
+<.> Setzen der aktualisierten Korrelations-ID im Header `X-Correlation-Id` der REST-Anfrage.
+
+.Beispielkonfiguration des `WebClient`-Beans
+[source,java]
+----
+@Bean
+public WebClient webClient() {
+    return WebClient.builder()
+        .filter(addCorrelationId)
+        .build();
+}
+----
+
+[NOTE]
+====
+Die `ExchangeFilterFunction` fügt Korrelations-IDs zu ausgehenden REST-Anfragen hinzu, die durch eingehende Requests, Tasks oder Batches ausgelöst werden.
+Nach abgeschlossener Bearbeitung werden die Korrelations-IDs durch den xref:isy-logging:nutzungsvorgaben/master.adoc#mdchelper[`MdcHelper`] und in den Klassen https://github.com/IsyFact/isyfact-standards/blob/master/isy-logging/src/main/java/de/bund/bva/isyfact/logging/http/HttpHeaderNestedDiagnosticContextFilter.java#L97[`HttpHeaderNestedDiagnosticContextFilter`], https://github.com/IsyFact/isy-task/blob/develop/src/main/java/de/bund/bva/isyfact/task/monitoring/IsyTaskAspect.java#L201[`IsyTaskAspect`] und https://github.com/IsyFact/isyfact-standards/blob/master/isy-batchrahmen/src/main/java/de/bund/bva/isyfact/batchrahmen/core/rahmen/impl/BatchrahmenImpl.java#L253[`BatchrahmenImpl`] entfernt.
+
+Für weitere Details zu Korrelations-IDs siehe auch die entsprechenden Abschnitte im
+xref:isy-logging:konzept/master.adoc#korrelations-id[Konzept] und den xref:isy-logging:nutzungsvorgaben/master.adoc#diagnosekontext-korrelations-id[Nutzungsvorgaben] des Bausteins Logging.
+====
+
+
+
+[[ueberwachung]]
+== Überwachung
+
+Die IsyFact stellt zur Überwachung von Anwendungen den Baustein Überwachung bereit.
+
+Die Grundlagen der Überwachung von IsyFact basierten Anwendungen werden im xref:isy-ueberwachung:konzept/master.adoc[] beschrieben.
+
+
+Detailliertere Informationen zur Konfiguration und zur Verwendung des Bausteins Überwachung findet man in den xref:isy-ueberwachung:nutzungsvorgaben/master.adoc[].
+Dieses Dokument beinhaltet auch das Kapitel "Informationen von Services".
+Dieses Kapitel beinhaltet eine Liste der zu überwachenden bzw. anzubietenden Informationen für die Services von Anwendungen.
+Die dort aufgelisteten Informationen müssen für jeden Service einzeln angeboten werden.
+Die dort beschriebenen Informationen zur Überwachung gelten in gleichem Maße auch für REST Services.
+
+
+[[versionierung]]
+== Versionierung
+
+Versionierung kann auf verschiedene Weisen stattfinden.
+
+Prinzipiell gilt es inkompatible API-Änderungen in einem REST-Service zu vermeiden.
+Falls irgendwann eine inkompatible Änderung notwendig sein sollte, ist eine Versionierung in der URL zu verwenden.
+
+Die Version steht immer vor dem Pfad der Ressource und beinhaltet ausschließlich die Major Version.
+
+----
+https://service.de/api/v1/messages/{id}
+https://service.de/api/v2/messages/{id}
+----
