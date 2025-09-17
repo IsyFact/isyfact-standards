@@ -1,5 +1,5 @@
-= Vorgaben und Konventionen für REST-Schnittstellen
-:navtitle: Vorgaben und Konventionen
+= Vorgaben und Konventionen für REST-Services
+:navtitle: REST-Services
 
 [[aufbau-ressourcen-uris]]
 == Aufbau der Ressourcen-URIs
@@ -59,7 +59,7 @@ Beispiel für die Ersetzung von Sonderzeichen.
 === Beziehungen zwischen Ressourcen
 
 Beziehungen zwischen Ressourcen können entweder über <<hateoas,HATEOAS>> (vgl.
-Stufe 3 im xref:referenzarchitektur:software-technisch/backend/service/rest.adoc#image-richard-maturity-model[Richardson Maturity Model]) oder über die URI selber abgebildet werden.
+Stufe 3 im xref:software-technisch/services/rest.adoc#image-richard-maturity-model[Richardson Maturity Model]) oder über die URI selber abgebildet werden.
 
 // tag::namenskonvention[]
 
