@@ -15,8 +15,6 @@ on:
 jobs:
   Version:
     uses: IsyFact/isy-github-actions-templates/.github/workflows/next_version.yml@v1.6.0
-    with:
-      next-version: 4.1.0
 
   Maven:
     needs: [Version]
@@ -38,7 +36,6 @@ jobs:
       deploy-server-id: central
       sbom: ${{ startsWith(github.ref, 'refs/heads/release/') }}
       sign: true
-      environment: 'Release'
     secrets:
       GPG_PRIVATE_KEY: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
       GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
