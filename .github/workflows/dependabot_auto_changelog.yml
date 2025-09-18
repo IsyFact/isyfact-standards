@@ -1,0 +1,12 @@
+name: Auto-Changelog for Dependabot Pull Requests
+
+on:
+  pull_request_target:
+    branches:
+      - master
+      - 'release/**'
+    types: [opened, synchronize]
+
+jobs:
+  generate-changelog-entry:
+    uses: IsyFact/isy-github-actions-templates/.github/workflows/dependabot_auto_changelog_template.yml@v1.8.0
