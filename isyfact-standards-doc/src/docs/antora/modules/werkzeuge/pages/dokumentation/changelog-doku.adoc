@@ -76,14 +76,14 @@ Dazu wird für jedes Release ein eigener Release-Tag definiert:
 ----
 // tag::release-2.1.0[]
 
-// --> Hier werden die Changelogeinträge für Release 2.1.0 verfasst
+// → Hier werden die Changelogeinträge für Release 2.1.0 verfasst
 
 // end::release-2.1.0[]
 
 
 // tag::release-2.0.0[]
 
-// --> Hier werden die Changelogeinträge für Release 2.0.0 verfasst
+// → Hier werden die Changelogeinträge für Release 2.0.0 verfasst
 
 // end::release-2.0.0[]
 ----
@@ -103,7 +103,7 @@ Somit ergibt sich folgender Gesamtaufbau des Komponentenchangelogs:
 
 // tag::release-2.1.0[]
 
-// --> Hier werden die Changelogeinträge für Release 2.1.0 verfasst
+// → Hier werden die Changelogeinträge für Release 2.1.0 verfasst
 
 // end::release-2.1.0[]
 
@@ -111,7 +111,7 @@ Somit ergibt sich folgender Gesamtaufbau des Komponentenchangelogs:
 
 // tag::release-2.0.0[]
 
-// --> Hier werden die Changelogeinträge für Release 2.0.0 verfasst
+// → Hier werden die Changelogeinträge für Release 2.0.0 verfasst
 
 // end::release-2.0.0[]
 ----
@@ -199,7 +199,7 @@ In diesen Fällen sollte *immer ein* Changelogeintrag erstellt werden:
 
 * Sicherheitspatches
 * Datenbankänderungen
-* Jede Änderung, die der Entwickler und/oder Endanwender von IsyFact-Anwendungen wahrnimmt (Schnittstellenänderungen, neue Funktionen...)
+* Jede Änderung, die der Entwickler und/oder Endanwender von IsyFact-Anwendungen wahrnimmt (Schnittstellenänderungen, neue Funktionen ...)
 * Performanceverbesserungen
 
 In diesen Fällen sollte *kein* Changelogeintrag erstellt werden:
@@ -210,12 +210,9 @@ In diesen Fällen sollte *kein* Changelogeintrag erstellt werden:
 
 [IMPORTANT]
 ====
-Eine knappe Zusammenfassung einer auf ein Release bezogen Änderung ist in den xref:release:releasenotes.adoc[Release Notes] zu dokumentieren.
-====
+Eine knappe Zusammenfassung einer auf ein Release bezogen Änderung ist in den *Release Notes* im Changelog zu dokumentieren.
 
-[IMPORTANT]
-====
-Eine Migrationsanleitung bei Breaking Changes eines Major Releases ist im xref:release:migrationsleitfaden.adoc[Migrationsleitfaden] zu dokumentieren.
+Eine Migrationsanleitung bei Breaking Changes eines Major Releases ist im *Migrationsleitfaden* im Changelog zu dokumentieren.
 ====
 
 Folgende Anforderungen gelten für den Inhalt eines Changelogeintrags:
