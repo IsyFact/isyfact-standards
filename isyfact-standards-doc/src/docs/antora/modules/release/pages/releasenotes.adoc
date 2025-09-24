@@ -22,7 +22,11 @@ Der Begriff xref:glossary::terms-definitions.adoc#nachbarsystem[Nachbarsystem] w
 Der Begriff xref:glossary::terms-definitions.adoc#externes-system["externes System"] wurde definiert und seine Verwendung in der gesamten IsyFact, wo nötig, korrigiert.
 Die Begrifflichkeiten "internes System" bzw. "interne Anwendung" wurden aus der IsyFact entfernt.
 
+Der Bereich xref:referenzarchitektur:software-technisch/services.adoc[] enthält eine Beschreibung von xref:referenzarchitektur:software-technisch/services/rest.adoc[] sowie allgemeine xref:referenzarchitektur:software-technisch/services/rest-vorgaben-konventionen.adoc[] aus dem aufgelösten Baustein REST.
+
 ==== Backend
+
+===== Persistenzschicht
 
 Die Seiten zur Persistenzschicht enthalten nun die Inhalte des aufgelösten Bausteins JPA/Hibernate:
 
@@ -36,10 +40,14 @@ Grundlegende Erklärungen zu den verwendeten Produkten wurden gänzlich entfernt
 Bisherige Verbote im Rahmen der Persistenz wurden durch eine Empfehlung, basierend auf den Qualitätskriterien der ISO 25010, ersetzt.
 Dies gilt für den Einsatz eines xref:referenzarchitektur:software-technisch/backend/persistenz/vorgaben-konventionen.adoc#second-level-cache[Second-Level-Caches] sowie von xref:referenzarchitektur:software-technisch/backend/persistenz/vorgaben-konventionen.adoc#bulk-queries[Bulk Queries].
 
-===== Schema-Versionierung
+====== Schema-Versionierung
 
 Die bisher angebotene Schema-Versionierung in Form einer Eigenentwicklung wird nicht mehr durch die IsyFact bereitgestellt.
 Die Schema-Versionierung mit Liquibase wurde xref:referenzarchitektur:software-technisch/backend/persistenz/liquibase.adoc[konzeptionell] erweitert und um xref:referenzarchitektur:software-technisch/backend/persistenz/liquibase-umsetzung.adoc[Nutzungsvorgaben] ergänzt.
+
+===== Serviceschicht
+
+Die Seiten zur Serviceschicht enthalten nun Inhalte zur xref:referenzarchitektur:software-technisch/backend/service/rest-umsetzung.adoc[] sowie zu  xref:referenzarchitektur:software-technisch/backend/service/rest-querschnitt.adoc[querschnittlichen Aspekten] aus dem aufgelösten Baustein REST.
 
 ==== Services
 
@@ -60,6 +68,12 @@ Architekten können ihre Anwendungen auf eine ergänzende Nutzung dieser prüfen
 ==== JPA/Hibernate
 
 Die konzeptionellen Inhalte des Bausteins JPA/Hibernate wurden in die Referenzarchitektur überführt, da die zugehörige Bibliothek `isy-persistence` zugunsten der direkten Nutzung von Spring Data und Liquibase aufgelöst wurde.
+
+==== REST
+
+Der Baustein wurde aufgelöst, da er keine Software beinhaltet.
+Die konzeptionellen Inhalte des Bausteins REST wurden in die Referenzarchitektur überführt.
+Die Beschreibung der Werkzeuge (OpenAPI-Editor und -Generator) wurden in die Werkzeuge überführt.
 
 === Verschobene Bausteine
 Folgende Bausteine wurden in eigenständige Repositories umgezogen:

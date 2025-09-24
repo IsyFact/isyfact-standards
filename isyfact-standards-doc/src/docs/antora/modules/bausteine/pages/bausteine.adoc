@@ -54,9 +54,6 @@ Dieser Baustein dient zur Persistierung dieser Datums- und Zeitangaben.
 |Der Baustein _Polling_ implementiert Verfahren zum koordinierten, regelmäßigen Abholen von Daten (Polling) durch mehrere redundant ausgelegte Instanzen einer Anwendung.
 Der Baustein unterstützt unterschiedliche Arten von Schnittstellen und sorgt dafür, dass Daten jeweils nur von einer Instanz der Anwendung verarbeitet werden.
 
-|REST
-|Der Baustein _REST_ bietet die Möglichkeit, interne Services der Anwendungslandschaft als REST-Services zu realisieren.
-
 |Security
 |Der Baustein _Security_ übernimmt die Authentifizierungsanfragen von natürlichen Anwendern als auch von technischen Systemen und leitet diese in die entsprechenden Credential-Flows des IAM-Service.
 Aus den vom IAM-Service erhaltenen Zugangsdaten übernimmt der Baustein das Rollen- und Rechte-Handling zur Autorisierung der Anwendungsaufrufe innerhalb der Aufrufkette der Fachanwendungen.

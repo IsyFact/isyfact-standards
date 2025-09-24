@@ -175,13 +175,6 @@ Die zugrunde liegenden Schnittstellen-Technologien bieten dafür kein Standardve
 Der Baustein Polling definiert ein solches Verfahren.
 Die Nutzerdokumentation befindet sich unter xref:polling::nutzungsvorgaben.adoc[].
 
-[[rest]]
-=== REST
-
-Für den externen Zugriff auf Anwendungskomponenten werden deren Schnittstellen über REST-Endpunkte exponiert.
-Dies ermöglicht eine standardisierte Kommunikation der Anwendungen untereinander und eine lose Kopplung der Anwendungen voneinander.
-Zur Standardisierung der REST-Schnittstellen gibt es den xref:isy-service-rest:konzept/master.adoc[Baustein REST].
-
 [[util]]
 === Util
 

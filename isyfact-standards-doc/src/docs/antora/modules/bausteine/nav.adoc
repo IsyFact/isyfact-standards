@@ -12,10 +12,6 @@
 
 ** xref:polling::konzept.adoc[Polling]
 
-** REST
-*** xref:isy-service-rest:konzept/master.adoc[Konzept]
-*** xref:isy-service-rest:nutzungsvorgaben/master.adoc[Nutzungsvorgaben]
-
 ** xref:security::konzept.adoc[Security]
 ** xref:isy-sonderzeichen-docs::konzept/master.adoc[Sonderzeichen]
 ** xref:task::konzept.adoc[Task Scheduling]
