@@ -19,6 +19,6 @@ Das Fehler- und Änderungsmanagement wird unterstützt durch das Tool Jira.
 
 Die IsyFact beschreibt aktuell die folgenden Werkzeuge:
 
-* xref:openapi.adoc[],
+* xref:openapi-tooling.adoc[],
 * xref:formatter.adoc[] für die IDEs Eclipse und IntelliJ,
 * ein Konzept für xref:gui-tests/gui-tests-mit-selenium.adoc[].

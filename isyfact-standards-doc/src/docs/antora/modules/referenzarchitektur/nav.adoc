@@ -6,7 +6,7 @@
 **** xref:software-technisch/backend/spring.adoc[]
 **** xref:software-technisch/backend.adoc[Backend]
 ***** xref:software-technisch/backend/serviceschicht.adoc[]
-****** xref:software-technisch/backend/service/openapi.adoc[]
+****** xref:software-technisch/backend/service/openapi-spezifikation.adoc[]
 ****** xref:software-technisch/backend/service/rest-umsetzung.adoc[]
 ****** xref:software-technisch/backend/service/rest-querschnitt.adoc[]
 ***** xref:software-technisch/backend/anwendungskern.adoc[]

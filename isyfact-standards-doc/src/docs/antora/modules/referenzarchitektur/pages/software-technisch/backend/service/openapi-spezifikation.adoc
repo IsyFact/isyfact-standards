@@ -423,7 +423,7 @@ components:
 == Generierung von Code durch OpenAPI-Spezifikationen
 
 Es ist möglich, automatisch Code aus einer OpenAPI 3.0-Spezifikation zu generieren.
-Die IsyFact sieht hierzu den Einsatz des xref:werkzeuge:openapi.adoc#openapi-generator[OpenAPI Generators] vor.
+Die IsyFact sieht hierzu den Einsatz des xref:werkzeuge:openapi-tooling.adoc#openapi-generator[OpenAPI Generators] vor.
 
 [[verwaltung]]
 == Verwaltung von OpenAPI-Spezifikationen
@@ -448,7 +448,7 @@ Der Zugriff auf das Artefakt ist über das entsprechende Artifactory und/oder Gi
 === Antora
 Antora erzeugt aus AsciiDoc-Quellen, die über mehrere Git-Repositories verteilt liegen können, eine gemeinsame, statische HTML-Seite.
 
-Mithilfe des xref:werkzeuge:openapi.adoc#openapi-generator[OpenAPI Generators] kann aus der https://swagger.io/specification/[OpenAPI-Spezifikation] AsciiDoc generiert werden.
+Mithilfe des xref:werkzeuge:openapi-tooling.adoc#openapi-generator[OpenAPI Generators] kann aus der https://swagger.io/specification/[OpenAPI-Spezifikation] AsciiDoc generiert werden.
 Die generierten AsciiDoc-Dateien können dann in Antora aufgenommen und gemeinsam mit der übrigen Dokumentation des Bausteins oder der Anwendung generiert und veröffentlicht werden.
 
 Es empfehlt es sich auch, die OpenAPI-Spezifikation im YAML-Format in Antora zu verlinken.

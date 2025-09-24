@@ -84,4 +84,4 @@ Zur Konfiguration der Serviceschicht wird das Spring-Framework genutzt.
 
 Die Umsetzung der Service-Endpunkte geschieht auf Basis von xref:software-technisch/services/rest.adoc[].
 Die Referenzarchitektur definiert hierzu allgemeine xref:software-technisch/services/rest-vorgaben-konventionen.adoc[].
-Im Kontext von Backends geschieht die Umsetzung auf Basis einer xref:software-technisch/backend/service/openapi.adoc[]. Dazu gelten die Vorgaben zur xref:software-technisch/backend/service/rest-umsetzung.adoc[] sowie zu  xref:software-technisch/backend/service/rest-querschnitt.adoc[querschnittlichen Aspekten].
+Im Kontext von Backends geschieht die Umsetzung auf Basis einer xref:software-technisch/backend/service/openapi-spezifikation.adoc[]. Dazu gelten die Vorgaben zur xref:software-technisch/backend/service/rest-umsetzung.adoc[] sowie zu  xref:software-technisch/backend/service/rest-querschnitt.adoc[querschnittlichen Aspekten].

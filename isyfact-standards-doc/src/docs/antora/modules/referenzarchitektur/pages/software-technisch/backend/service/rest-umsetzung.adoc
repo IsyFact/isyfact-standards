@@ -61,7 +61,7 @@ Für die Anbindung von Angular-Clients enthält der Baustein Angular eine entspr
 
 Alle auf IsyFact basierten Anwendungen müssen ihre REST-Services mit der _OpenAPI 3.0_ Spezifikation beschreiben.
 Sowohl YAML als auch JSON sind als Format der Schnittstellendokumentation zulässig.
-Die IsyFact empfiehlt zur Erstellung der Schnittstellendokumentation den xref:werkzeuge:openapi.adoc#openapi-editor[OpenAPI (Swagger) Editor].
+Die IsyFact empfiehlt zur Erstellung der Schnittstellendokumentation den xref:werkzeuge:openapi-tooling.adoc#openapi-editor[OpenAPI (Swagger) Editor].
 
 [[code-generierung]]
 === Code-Generierung
@@ -71,14 +71,14 @@ Bei _Contract/API First_ wird zunächst die Schnittstellenbeschreibung erstellt 
 Bei _Code First_ wird zuerst die API implementiert und mit Annotationen für die Schnittstellenbeschreibung versehen.
 Aus den Annotationen wird dann die Schnittstellenbeschreibung generiert.
 
-Die IsyFact empfiehlt den _Contract/API First_ Ansatz und sieht hierzu die Erstellung einer xref:software-technisch/backend/service/openapi.adoc[] vor.
+Die IsyFact empfiehlt den _Contract/API First_ Ansatz und sieht hierzu die Erstellung einer xref:software-technisch/backend/service/openapi-spezifikation.adoc[] vor.
 
-Für die Generierung von Code empfiehlt die IsyFact den xref:werkzeuge:openapi.adoc#openapi-generator[OpenAPI Generator].
+Für die Generierung von Code empfiehlt die IsyFact den xref:werkzeuge:openapi-tooling.adoc#openapi-generator[OpenAPI Generator].
 
 [[bereitstellen-generierte-clients]]
 === Bereitstellen von generierten Clients
 
-Neben dem Server können aus einer xref:software-technisch/backend/service/openapi.adoc[] auch Clients für diverse Technologie-Stacks generiert werden.
+Neben dem Server können aus einer xref:software-technisch/backend/service/openapi-spezifikation.adoc[] auch Clients für diverse Technologie-Stacks generiert werden.
 Aus Convenience-Gründen wird empfohlen, dass Anbieter von Services fertig generierte Clients für die gängigen Technologie-Stacks zur Verfügung stellen: Java (Spring) und Typescript (Angular).
 
 [[verwendung-transportobjekte]]
