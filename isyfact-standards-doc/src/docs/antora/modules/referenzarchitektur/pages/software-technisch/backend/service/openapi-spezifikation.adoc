@@ -1,0 +1,467 @@
+= OpenAPI-Spezifikation
+
+Die OpenAPI-Spezifikation (OAS) definiert eine standardmäßige, sprachunabhängige Schnittstelle zu RESTful-APIs, die es sowohl Menschen als auch Computern ermöglicht, die Schnittstellen ohne Zugriff auf Quellcode, Dokumentation oder durch Überprüfung des Netzwerkverkehrs zu erkennen und zu verstehen.
+Die verwendete Version der OpenAPI-Spezifikation ist OpenAPI 3.0.
+
+NOTE: Weitere Informationen zu OpenAPI 3.0 (Beschreibung und Vorgaben) sind in der https://swagger.io/resources/open-api/[offiziellen Dokumentation] zu finden.
+
+Anhand einer OpenAPI-Definition können Server und Clients in verschiedenen Programmiersprachen generiert und eine verständliche (fachliche) Schnittstellenbeschreibung erzeugt werden.
+Die folgenden Abschnitte beschreiben die Best Practices dafür, wie xref:methodik:vorlage-systemspezifikation/master.adoc#nachbarsystemschnittstellen[Nachbarsystemschnittstellen] in eine OpenAPI-Spezifikation überführt werden und welche Werkzeuge dabei verwendet werden sollten.
+
+[[erstellung-openapi-spezifikation]]
+== Erstellung von OpenAPI-Spezifikationen
+
+[[mapping-fachlichen-schnittstellen]]
+=== Mapping von fachlicher Schnittstellenbeschreibung auf OpenAPI-Spezifikation
+
+Die Schnittstellenbeschreibung, die im Rahmen der Systemspezifikation erstellt wird, spezifiziert die angebotene(n) Nachbarsystemschnittstelle(n) (NST) aus fachlicher Sicht und gibt keine Auskunft über technische Details.
+Für das Erstellen dieser fachlichen Schnittstellenbeschreibung wird die  xref:methodik:vorlage-schnittstellendokumentation/master.adoc[] verwendet.
+Die fachlichen Schnittstellenbeschreibungen nach den Vorgaben der IsyFact enthalten in erster Linie die verwendeten Entitäten sowie Eingabe und Ausgabe Parameter.
+Ergänzt werden diese durch weitere Spezifika (z.B. Kurzbeschreibung, Synchron/Asynchron, Online/Offline …).
+Diese Schnittstellenbeschreibung soll im Rahmen des Systementwurfs technisch als eine OpenAPI-Spezifikation konzipiert und bereitgestellt werden.
+
+Bei der Erstellung der Spezifikation sind die xref:software-technisch/services/rest-vorgaben-konventionen.adoc[] zu beachten.
+Relevante Vorgaben beziehen sich u.a. auf den Aufbau der URls und der Anfrage, die Verwendung der HTTP-Verben und Statuscodes.
+
+Die folgenden Abschnitte stellen ein Vorgehen zum Mappen der fachlichen Schnittstellenbeschreibung auf eine OpenAPI-Spezifikation vor.
+Alle Schnittstellen einer Anwendung sollen in einer einzigen OpenAPI-Spezifikation beschrieben werden.
+
+Die **Entitäten und die Datentypen** in den fachlichen Schnittstellenbeschreibungen werden mithilfe der OpenAPI Schemaobjekte definiert.
+Schemaobjekte können Objekte, aber auch primitive Datentypen und Listen (Arrays) sein.
+Schemaobjekte unterstützen auch Polymorphismus.
+Dies ermöglicht auch Vererbung- und Kompositionsrelationen zwischen den Objekten.
+Diese Entitäten können so an beliebiger Stelle in der Spezifikation als Referenzobjekte genutzt werden.
+
+Die **Eingabe/Ausgabe Parameter** in den fachlichen Schnittstellenbeschreibungen sind Entitäten oder Datentypen.
+Diese Parameter werden zuerst als Schemaobjekte definiert.
+Anschließend werden sie als Parameterobjekte oder als Request-Body-Objekte den Schnittstellen zugewiesen, je nachdem wie sie bei der Eingabe/Ausgabe benötigt werden.
+
+[cols="3,2,6a"]
+|===
+|IsyFact Schnittstellenbeschreibung|OpenAPI 3 Spezifikation|Beispiel und Bemerkungen
+
+|`NST_Schnittstelle`
+|`path`
+|NST_Mitarbeiter_suchen
+[source,yaml]
+----
+paths:
+  /mitarbeiter/sucheNachSuchkriterien:
+----
+
+Der Pfadname muss den xref:software-technisch/services/rest-vorgaben-konventionen.adoc[] entsprechen.
+
+
+|`NSE_Entität` (Input)
+|`schema` oder `type`
+|NSE_Mitarbeiter_Suchkriterien:
+[source,yaml]
+----
+NSE_Mitarbeiter_Suchkriterien:
+  type: "object"
+  properties:
+   bundeslandSchluessel:
+     $ref: '#/components/schemas/Bundesland'
+   ort:
+     type: "string"
+   trefferanzahl:
+     type: "integer"
+     format: "int64"
+----
+
+oder
+[source,yaml]
+----
+parameters:
+  - in: "query"
+    name: "bundeslandSchluessel"
+    schema:
+      $ref: '#/components/schemas/Bundesland'
+  - name: "ort"
+    in: "query"
+    schema:
+      type: "string"
+  - name: "trefferAnzahl"
+    in: "query"
+    schema:
+      type: "integer"
+----
+
+Es wird empfohlen, die Attribute der Eingabe-Entitäten, die als Abfrageparameter (z.B. Suchkriterien) verwendet werden, als Query Parameters zu definieren.
+Es wird empfohlen, Entitäten mit komplexen oder vertraulichen Suchkriterien als Schemaobjekt zu spezifizieren, um das Erfassen dieser Informationen, z.B. durch Logger, zu vermeiden.
+
+Die Eingabe-Entitäten, die im Body verarbeitet werden (z.B. Hinzufügen einer neuen Entität oder Bearbeiten einer vorhandenen Entität), werden als Schemaobjekt definiert.
+
+|`NSE_Entität` (Output)
+|`responses` mit `schema`
+|[source,yaml]
+----
+responses:
+  '200':
+    description: successful operation
+    content:
+      application/json:
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/Mitarbeiter'
+  '405':
+    description: "Ungültige Suchkriterien"
+----
+Mit Schemaobjekt für NSE_Mitarbeiter:
+[source,yaml]
+----
+Mitarbeiter:
+  type: "object"
+  properties:
+    id:
+      type: "integer"
+      format: "int64"
+    name:
+      type: "string"
+    vorname:
+      type: "string"
+    bundeslandSchluessel:
+      $ref: '#/components/schemas/Bundesland'
+    telefonnummer:
+      type: "string"
+----
+
+|`NSA_Attribut`
+|`property`
+|
+[source,yaml]
+----
+id:
+  type: "integer"
+  format: "int64"
+----
+
+|`DTY_Datentyp` (einfach)
+|`type`
+|DTY_Ganzzahl:
+[source,yaml]
+----
+type: "integer"
+----
+
+|`DTY_Datentyp` (komplex)
+|`schema`
+|DTY_Bundesland
+[source,yaml]
+----
+Bundesland:
+  type: string
+  enum:
+    - BW
+    - BY
+    - BE
+    - BB
+    - HB
+    - HH
+    - HE
+    - MV
+    - NI
+    - NW
+    - RP
+    - SL
+    - SN
+    - ST
+    - SH
+    - TH
+----
+
+|Kurzbeschreibung
+|`description`
+|
+[source,yaml]
+----
+info:
+  description: "Ein Beispiel für das Mapping einer fachlichen Schnittstelle"
+----
+
+
+|Offline/Online
+2+|keine Entsprechung
+
+|Synchron/
+Asynchron
+2+|keine Entsprechung
+
+|Schnittstellentyp
+|`verb`
+|`get`, `post`, `put`, `delete`
+
+Das passende Verb, um die Art der Transaktion zu beschreiben (Lese-, Schreib- oder Löschvorgang).
+Vorgaben zur Wahl des Verbs finden sich in den Vorgaben zur xref:software-technisch/services/rest-vorgaben-konventionen.adoc#http-methoden[Verwendung von HTTP-Methoden].
+|===
+
+Die für die Mapping-Tabelle genutzte Beispiel-Schnittstellenbeschreibung und das Ergebnis als OpenAPI-Spezifikation ist im <<openapi-spezifikation-beispiel>> zusammenfassend dargestellt.
+
+[[metadaten]]
+=== Übertragung von Metadaten
+Metadaten werden als Header-Parameter übertragen.
+Zu Metadaten gehören u.a. Daten wie Benutzerkennung, Rolle, Tags, externe IDs.
+Nur die Metadaten, die nicht durch die IsyFact standardisiert werden, sind Teil der OpenAPI-Spezifikation.
+
+Zur Spezifizierung von Header-Parametern wird der Eintrag `in: header` genutzt, wie das unten stehenden Beispiel zeigt.
+
+.Externe ID in `NST_Mitarbeiter_suchen`
+====
+*Anforderung:* Die Anwendung erwartet bei jedem Aufruf einer Schnittstelle eine Externe ID.
+
+[source,yaml]
+----
+# …
+paths:
+  /mitarbeiter/sucheNachSuchkriterien:
+    get:
+      summary: "Suche Mitarbeiter nach Suchkriterien"
+      description: "[...]"
+      operationId: "sucheMitarbeiterNachSuchkriterien"
+      parameters:
+        - name: "externeId" <.>
+          in: "header"
+          schema:
+            type: "integer"
+            format: "int64"
+ # …
+----
+<.> Spezifikation des Header-Parameters
+====
+
+[[fachliche_info_get_delete]]
+=== Übertragung fachlicher Informationen bei GET- und DELETE-Anfragen
+
+Bei Anfragen zum Lesen (GET) oder Löschen (DELETE) werden gemäß den xref:software-technisch/services/rest-vorgaben-konventionen.adoc[] keine Informationen im Body übertragen.
+In einigen Fällen kann es jedoch vorkommen, dass der Server weitere Informationen benötigt, um die Anfrage erfolgreich bearbeiten zu können.
+Ein mögliches Szenario ist die Protokollierung der Zugriffshistorie inklusive Zugriffsgrund.
+Daher sollen in diesem Szenario die erforderlichen Informationen als URL-Parameter gesendet werden.
+
+Zur Spezifizierung von URL-Parametern wird der Eintrag `in: path` genutzt, wie das unten stehenden Beispiel zeigt.
+
+.Protokollierung in `NST_Mitarbeiter_suchen`
+====
+*Anforderung:* Die Anwendung protokolliert bei jedem Aufruf einer Schnittstelle den Zugriffsgrund.
+
+[source,yaml]
+----
+# …
+paths:
+  /mitarbeiter/sucheNachSuchkriterien:
+    get:
+      summary: "Suche Mitarbeiter nach Suchkriterien"
+      description: "[...]"
+      operationId: "sucheMitarbeiterNachSuchkriterien"
+      parameters:
+        - name: "zugriffsgrund" <.>
+          in: "path"
+          schema:
+            type: "string"
+ # …
+----
+<.> Spezifikation des URL-Parameters
+====
+
+Falls die zu übermittelnden Informationen vertraulich sind, sollte ein Wechsel des HTTP-Verbs zu POST und die Übermittlung der Informationen im Body statt in der URL eruiert werden.
+
+
+[[openapi-spezifikation-beispiel]]
+== Beispiel `NST_Mitarbeiter_suchen`
+
+NOTE: Das Beispiel basiert auf der xref:methodik:vorlage-systemspezifikation/master.adoc#nachbarsystemschnittstellen[Spezifikationsmethodik für Nachbarsystemschnittstellen] und wendet diese in einer vereinfachten Form an.
+
+=== `NST_Mitarbeiter_suchen`
+
+[cols="1h,2"]
+|===
+|Kurzbeschreibung
+|Diese Schnittstelle bietet Nachbarsystemen die Möglichkeit, Mitarbeiter zu suchen und deren Daten abzufragen.
+Die Auswahl der Mitarbeiter erfolgt anhand einer Reihe von optionalen Suchkriterien.
+
+|Verwendete Entitätstypen (Input)
+|`NSE_Mitarbeiter_Suchkriterien`
+
+|Verwendete Entitätstypen (Output)
+|`NSE_Mitarbeiterdaten`
+
+|Aufgerufene Anwendungsfälle
+|`AWF_Mitarbeiter_suchen`
+|===
+
+==== Eingabeparameter
+
+[cols="1h,2"]
+|===
+|Name
+|NSE_Mitarbeiter_Suchkriterien
+
+|Kurzbeschreibung
+|Die Kriterien zur Selektion von Mitarbeiter. Alle Attribute dieses Typs sind optional. Nicht befüllte Attribute werden daher nicht in die Suche einbezogen. Es dürfen beliebige Kombinationen von Attributen angegeben werden.
+|===
+
+[cols="1m,2m"]
+|===
+|Name|Datentyp
+
+|NSA_Bundesland_Schlüssel
+|DTY_Bundesland
+
+|NSA_Ort
+|DTY_Zeichenkette
+
+|NSA_Treffer_Anzahl
+|DTY_Ganzzahl
+|===
+
+==== Ausgabeparameter
+
+[cols="1h,2"]
+|===
+|Name
+|NSE_Mitarbeiterdaten
+
+|Kurzbeschreibung
+|Dies ist die Rückgabeentität mit den Daten eines Mitarbeiters.
+
+|===
+
+[cols="1m,2m"]
+|===
+|Name|Datentyp
+
+|NSA_Name
+|DTY_Zeichenkette
+
+|NSA_Vorname
+|DTY_Zeichenkette
+
+|NSA_Bundesland_Schlüssel
+|DTY_Bundesland
+
+|NSA_Telefonnummer
+|DTY_Zeichenkette
+|===
+
+=== Ergebnis (OpenAPI 3.0 Spezifikation)
+
+[source,yaml]
+----
+OpenAPI: 3.0.0
+info:
+  description: "Ein Beispiel für das Mapping einer fachlichen Schnittstelle"
+  version: "1.0.0"
+  title: "Beispiel Anwendung"
+paths:
+  /mitarbeiter/sucheNachSuchkriterien:
+    get:
+      summary: "Suche Mitarbeiter nach Suchkriterien"
+      description: "Diese Schnittstelle bietet Nachbarsystemen die Möglichkeit, Mitarbeiter zu suchen und deren Daten abzufragen. Die Auswahl der Mitarbeiter erfolgt anhand einer Reihe von optionalen Suchkriterien."
+      operationId: "sucheMitarbeiterNachSuchkriterien"
+      parameters:
+        - in: "query"
+          name: "bundeslandSchluessel"
+          schema:
+            $ref: '#/components/schemas/Bundesland'
+        - name: "ort"
+          in: "query"
+          schema:
+            type: "string"
+        - name: "trefferAnzahl"
+          in: "query"
+          schema:
+            type: "integer"
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Mitarbeiter'
+        '405':
+          description: "Ungültige Suchkriterien"
+components:
+  schemas:
+    Mitarbeiter:
+      type: "object"
+      properties:
+        id:
+          type: "integer"
+          format: "int64"
+        name:
+          type: "string"
+        vorname:
+          type: "string"
+        bundeslandSchluessel:
+          $ref: '#/components/schemas/Bundesland'
+        telefonnummer:
+          type: "string"
+    Bundesland:
+      type: string
+      enum:
+        - BW
+        - BY
+        - BE
+        - BB
+        - HB
+        - HH
+        - HE
+        - MV
+        - NI
+        - NW
+        - RP
+        - SL
+        - SN
+        - ST
+        - SH
+        - TH
+----
+
+[[openapi-generator]]
+== Generierung von Code durch OpenAPI-Spezifikationen
+
+Es ist möglich, automatisch Code aus einer OpenAPI 3.0-Spezifikation zu generieren.
+Die IsyFact sieht hierzu den Einsatz des xref:werkzeuge:openapi-tooling.adoc#openapi-generator[OpenAPI Generators] vor.
+
+[[verwaltung]]
+== Verwaltung von OpenAPI-Spezifikationen
+Die OpenAPI-Spezifikation ist jeweils Bestandteil der spezifischen Projektdokumentation.
+
+Damit die OpenAPI-Spezifikation verfügbar sein kann, muss diese auch verwaltet werden.
+In den jeweiligen Spring Projekten wird die OpenAPI-Spezifikation unter folgendem Pfad gespeichert: `/src/main/resources/openapi.yml`.
+
+Falls es Änderungen innerhalb der OpenAPI-Spezifikation geben sollte, werden diese automatisch vom Versionskontrollsystem verwaltet.
+
+[[veroeffentlichung]]
+== Veröffentlichung von OpenAPI-Spezifikationen
+Die OpenAPI-Spezifikationen werden mit jeder Veröffentlichung (Release) der Anwendung ausgeliefert.
+Für die Auslieferung und Veröffentlichung der OpenAPI-Spezifikation ergeben sich unterschiedliche Möglichkeiten, die in den folgenden Kapiteln beschrieben werden.
+
+[[veroeffentlichung-artifactory]]
+=== Artifactory
+Die Auslieferung erfolgt als ein Teil vom zentral generierten Artefakt.
+Der Zugriff auf das Artefakt ist über das entsprechende Artifactory und/oder GitHub (für Open-Source gestellte Bausteine) möglich.
+
+[[veroeffentlichung-antora]]
+=== Antora
+Antora erzeugt aus AsciiDoc-Quellen, die über mehrere Git-Repositories verteilt liegen können, eine gemeinsame, statische HTML-Seite.
+
+Mithilfe des xref:werkzeuge:openapi-tooling.adoc#openapi-generator[OpenAPI Generators] kann aus der https://swagger.io/specification/[OpenAPI-Spezifikation] AsciiDoc generiert werden.
+Die generierten AsciiDoc-Dateien können dann in Antora aufgenommen und gemeinsam mit der übrigen Dokumentation des Bausteins oder der Anwendung generiert und veröffentlicht werden.
+
+Es empfehlt es sich auch, die OpenAPI-Spezifikation im YAML-Format in Antora zu verlinken.
+
+Die Integration in Antora ermöglicht somit einen einfachen Zugriff auf verschiedene Versionen der OpenAPI-Spezifikation: einerseits das Herunterladen der OpenAPI-Spezifikationen für technische Nutzer (YAML-Format), andererseits den Zugang zu einer verständlichen Schnittstellen-Spezifikation für nicht technisch versierte Benutzer (AsciiDoc-Format).
+
+Für die Generierung der Schnittstellenbeschreibung im AsciiDoc-Format ist der Generator `asciidoc` zu wählen.
+Die generierte HTML-Dokumentation kann auf einem Webserver oder auf GitHub/GitLab-Pages veröffentlicht werden und ist dann mit einem Webbrowser erreichbar.
+Hierzu müssen entsprechende Jobs in der Build-Pipeline angelegt werden.
+
+[[veroeffentlichung-testumgebungen]]
+=== Testumgebungen
+
+Für den Betrieb in Testumgebungen ist es empfehlenswert, die OpenAPI-Spezifikation im YAML-Format über eine Schnittstelle bereitzustellen.
+Dazu wird ein eigener Endpunkt implementiert, der die im Ressourcen-Verzeichnis liegende OpenAPI-Spezifikation bereitstellt.
+Über einen Webbrowser kann so auf die aktuelle OpenAPI-Spezifikation der Anwendung im Betrieb zugegriffen werden, um z.B. Testwerkzeuge zu konfigurieren.
