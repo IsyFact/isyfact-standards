@@ -68,6 +68,16 @@ Die IsyFact standardisiert die Art und Weise, wie Nutzdaten spezifiziert, dokume
 [[kommunikationsarten]]
 == Kommunikationsarten
 
+Ein zentrales Element der technischen Architektur ist die Wahl geeigneter Kommunikationsmodelle zwischen IT-Systemen.
+Dabei wird zwischen *synchroner Kommunikation* (meist direkte Anfrage-Antwort-Interaktionen) und *asynchroner Kommunikation* (meist zeitversetzte Verarbeitung ohne unmittelbare Antwort) unterschieden.
+Die Wahl des Kommunikationsmodells beeinflusst direkt die technische Architektur und Umsetzung der IT-Systeme.
+Das gewählte Kommunikationsmodell trägt maßgeblich dazu bei, die Qualitätskriterien der Architektur und der IT-Systeme zu erfüllen.
+
+Die Referenzarchitektur der IsyFact empfiehlt grundsätzlich den Einsatz asynchroner Kommunikation, insbesondere bei der Umsetzung verteilter Systeme, der Verarbeitung großer Datenmengen und der Realisierung skalierbarer Architekturen.
+Die Entscheidung für ein Kommunikationsmodell muss jedoch kontextabhängig und anhand der geforderten Qualitätskriterien der Architektur und der IT-Systeme erfolgen.
+
+---
+
 IT-Systemen stehen mit der IsyFact drei Kommunikationsarten zur Verfügung: synchrone Service-Aufrufe, asynchrone Service-Aufrufe und Service-Aufrufe über Queues.
 
 
@@ -117,6 +127,11 @@ Stattdessen wird die Verarbeitung erst durch die Antwort des Empfängers wieder 
 image::software-technisch/asynchroner-service-aufruf.dn.svg[]
 
 Asynchrone Service-Aufrufe können z.B. dann eingesetzt werden, wenn eine länger dauernde Verarbeitung durch den Empfänger eine direkte Rückmeldung unmöglich macht.
+
+[[kommunikationsmuster]]
+== Kommunikationsmuster
+
+include::documentation-guide::partial$content-revised.adoc[]
 
 [[queueing]]
 === Queueing
