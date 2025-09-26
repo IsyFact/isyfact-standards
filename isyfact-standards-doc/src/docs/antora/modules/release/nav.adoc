@@ -1,2 +1,0 @@
-* xref:releasenotes.adoc[]
-** xref:migrationsleitfaden.adoc[]
