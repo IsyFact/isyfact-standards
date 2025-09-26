@@ -45,7 +45,7 @@ Der Begriff "Nachbarsystem" wurde definiert und seine Verwendung, wo nötig, kor
 Der Begriff "externes System" wurde definiert und seine Verwendung, wo nötig, korrigiert.
 Die Begrifflichkeiten "internes System" bzw. "interne Anwendung" wurden entfernt.
 
-Der Bereich [Services](https://isyfact.github.io/isyfact-standards-doku/dev/referenzarchitektur/software-technisch/services.html) enthält eine Beschreibung von [REST](https://isyfact.github.io/isyfact-standards-doku/dev/referenzarchitektur/software-technisch/services/rest.html) sowie allgemeine [Vorgaben und Konventionen](https://isyfact.github.io/isyfact-standards-doku/dev/referenzarchitektur/software-technisch/services/rest-vorgaben-konventionen.html) aus dem abgelösten Baustein REST. 
+Der Bereich Services der Referenzarchitektur enthält eine Beschreibung von REST sowie allgemeine Seite zu Vorgaben und Konventionen aus dem abgelösten Baustein REST. 
 
 #### Backend
 
@@ -62,15 +62,12 @@ Die bisher angebotene Schema-Versionierung in Form einer Eigenentwicklung wird n
 Die Schema-Versionierung mit Liquibase wurde konzeptionell erweitert und um Nutzungsvorgaben ergänzt.
 
 ##### Serviceschicht
-Die Seiten zur Serviceschicht enthalten nun Inhalte zur [REST-Umsetzung](https://isyfact.github.io/isyfact-standards-doku/dev/referenzarchitektur/software-technisch/backend/service/rest-umsetzung.html) sowie zu [querschnittlichen Aspekten](https://isyfact.github.io/isyfact-standards-doku/dev/referenzarchitektur/software-technisch/backend/service/rest-querschnitt.html) aus dem abgelösten Baustein REST.
+Die Seiten zur Serviceschicht enthalten nun Inhalte zur REST-Umsetzung sowie zu querschnittlichen Aspekten aus dem abgelösten Baustein REST.
 
 #### Services
 Die Nutzung des Begriffs "Webservice" wurde vereinheitlicht und entspricht jetzt der Definition des W3C.
 
 ### Bausteine
-
-#### REST
-Die Konzeption wurde um die strukturierten Verwendung von HTTP-Statuscodes (inkl. `Retry-After`, Status-URLs, Fehlermeldungen) im Kapitel "Verwendung von HTTP-Statuscodes" ergänzt.
 
 #### Überwachung
 Die folgenden zeitbeschränkten Metriken wurden entfernt:
@@ -107,6 +104,7 @@ Für diese Bausteine gilt:
 **REST**: Der Baustein wurde aufgelöst, da er keine Software beinhaltet.
 Die konzeptionellen Inhalte des Bausteins REST wurden in die Referenzarchitektur überführt.
 Die Beschreibung der Werkzeuge (OpenAPI-Editor und -Generator) wurden in die Werkzeuge überführt.
+Die Konzeption wurde um die strukturierten Verwendung von HTTP-Statuscodes (inkl. `Retry-After`, Status-URLs, Fehlermeldungen) im Kapitel "Verwendung von HTTP-Statuscodes" ergänzt.
 
 [//]: # (### Deprecations)
 [//]: # (_keine_)
