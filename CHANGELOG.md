@@ -45,7 +45,11 @@ Der Begriff "Nachbarsystem" wurde definiert und seine Verwendung, wo nötig, kor
 Der Begriff "externes System" wurde definiert und seine Verwendung, wo nötig, korrigiert.
 Die Begrifflichkeiten "internes System" bzw. "interne Anwendung" wurden entfernt.
 
+Der Bereich [Services](https://isyfact.github.io/isyfact-standards-doku/dev/referenzarchitektur/software-technisch/services.html) enthält eine Beschreibung von [REST](https://isyfact.github.io/isyfact-standards-doku/dev/referenzarchitektur/software-technisch/services/rest.html) sowie allgemeine [Vorgaben und Konventionen](https://isyfact.github.io/isyfact-standards-doku/dev/referenzarchitektur/software-technisch/services/rest-vorgaben-konventionen.html) aus dem abgelösten Baustein REST. 
+
 #### Backend
+
+##### Persistenzschicht
 Die Seiten zur Persistenzschicht enthalten nun die Inhalte des aufgelösten Bausteins JPA/Hibernate.
 Die Inhalte wurden gestrafft und Abschnitte, die Dokumentation der verwendeten Produkte wiedergaben, wurden durch Verweise auf die entsprechenden Dokumentationen ersetzt.
 Grundlegende Erklärungen zu den verwendeten Produkten wurden gänzlich entfernt.
@@ -56,6 +60,9 @@ Dies gilt für den Einsatz von **Second-Level-Caches** sowie von **Bulk Queries*
 #### Schema-Versionierung
 Die bisher angebotene Schema-Versionierung in Form einer Eigenentwicklung wird nicht mehr unterstützt.
 Die Schema-Versionierung mit Liquibase wurde konzeptionell erweitert und um Nutzungsvorgaben ergänzt.
+
+##### Serviceschicht
+Die Seiten zur Serviceschicht enthalten nun Inhalte zur [REST-Umsetzung](https://isyfact.github.io/isyfact-standards-doku/dev/referenzarchitektur/software-technisch/backend/service/rest-umsetzung.html) sowie zu [querschnittlichen Aspekten](https://isyfact.github.io/isyfact-standards-doku/dev/referenzarchitektur/software-technisch/backend/service/rest-querschnitt.html) aus dem abgelösten Baustein REST.
 
 #### Services
 Die Nutzung des Begriffs "Webservice" wurde vereinheitlicht und entspricht jetzt der Definition des W3C.
@@ -96,6 +103,10 @@ Für diese Bausteine gilt:
 #### Aufgelöste Bausteine
 
 **JPA/Hibernate**: Die konzeptionellen Inhalte des Bausteins JPA/Hibernate wurden in die Referenzarchitektur überführt, da die zugehörige Bibliothek `isy-persistence` zugunsten der direkten Nutzung von Spring Data und Liquibase aufgelöst wurde.
+
+**REST**: Der Baustein wurde aufgelöst, da er keine Software beinhaltet.
+Die konzeptionellen Inhalte des Bausteins REST wurden in die Referenzarchitektur überführt.
+Die Beschreibung der Werkzeuge (OpenAPI-Editor und -Generator) wurden in die Werkzeuge überführt.
 
 [//]: # (### Deprecations)
 [//]: # (_keine_)
