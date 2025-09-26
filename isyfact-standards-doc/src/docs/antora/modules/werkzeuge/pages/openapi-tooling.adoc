@@ -1,0 +1,151 @@
+= Werkzeuge für OpenAPI-Spezifikationen
+
+[[openapi-editor]]
+== OpenAPI (Swagger) Editor
+
+Die OpenAPI-Spezifikation wird im YAML-Format erstellt, da YAML aufgrund der übersichtlichen Syntax leichter und schneller zu erfassen ist.
+Für die Bearbeitung ist eine IDE nicht zwingend erforderlich, ein einfacher Texteditor (z.B. Notepad++) reicht aus.
+Wir empfehlen jedoch den Einsatz des Swagger-Editors, der sowohl die syntaktische Korrektheit der YAML-Vorgaben, als der OpenAPI-Vorgaben prüft und mögliche Fehler in der Spezifikation in Echtzeit aufdeckt.
+
+Swagger Editor ist ein Tool zum Bearbeiten von OpenAPI-Spezifikationen und unterstützt OpenAPI 3.0.
+Swagger Editor validiert die eingegebene Spezifikation und bietet darüber hinaus weitere Funktionalität, wie z.B. Auto-Completion.
+Wir empfehlen das entsprechende IntelliJ und Eclipse Plugins dieses Editors (siehe https://plugins.jetbrains.com/plugin/14837-openapi-swagger-editor[OpenAPI (Swagger) Editor für IntelliJ] und https://marketplace.eclipse.org/content/openapi-swagger-editor[OpenAPI (Swagger) Editor für Eclipse]).
+Die Verwendung dieser Plugins ist besonders sinnvoll, da sie die Integration der Spezifikation in das Projekt ermöglicht und die Verwaltung mit Version Control erleichtert.
+
+[[openapi-generator]]
+== OpenAPI Generator
+
+Es ist möglich, automatisch Code aus einer OpenAPI 3.0-Spezifikation zu generieren.
+Die IsyFact sieht hierzu den Einsatz des https://openapi-generator.tech/[OpenAPI Generators] vor.
+Für die automatische Generierung muss eine gültige OpenAPI 3.0-Spezifikation als Eingabe bereitgestellt werden.
+Der Generator liest diese Spezifikation ein und generiert daraus automatisch eine entsprechende Client- oder Server-Implementierung.
+Der Generator unterstützt alle verwendeten REST-Frameworks der IsyFact: Angular (Client), Spring Web Webflux (Client) und Spring MVC (Server).
+
+Der präferierte Weg ist, den Generator über Maven oder direkt über die Konsole zu verwenden.
+Die Verwendung von Maven ist sinnvoll, wenn eine neue Anwendung von Grund auf neu entwickelt wird oder die Generierung in einen bestehenden Prozess integriert werden soll, z.B. in einen automatischen Prozess zur Generierung von fachlicher Dokumentation.
+Sollen neue Schnittstellen zu einer bereits bestehenden Anwendung hinzufügt werden, wird empfohlen, den Generator von der Konsole aus auszuführen und die benötigten Teile aus dem Ergebnis in die Anwendung zu kopieren.
+
+[[konsole]]
+=== Verwendung der Konsole
+
+IMPORTANT: Für die Nutzung über die Konsole ist es erforderlich, den OpenAPI Generator zu https://openapi-generator.tech/docs/installation[installieren].
+
+Der Befehl besteht aus folgenden Teilen:
+
+[source,shell]
+----
+openapi-generator-cli generate
+-i <Pfad der Input-Datei (OpenAPI 3.0 Spezifikation)>
+-g <der Name des Generators>
+-o <Pfad für den zu erstellenden Code>
+----
+
+Beispiele für die verwendeten Frameworks:
+
+Angular:
+
+[source,shell]
+----
+openapi-generator-cli generate
+-i mitarbeiter_suche.yaml
+-g typescript-angular
+-o mitarbeiter_suche/angular
+----
+
+Spring MVC:
+
+[source,shell]
+----
+openapi-generator-cli generate
+-i mitarbeiter_suche.yaml
+-g spring --library spring-mvc
+-o mitarbeiter_suche/mvc
+----
+
+Spring Webflux:
+
+[source,shell]
+----
+openapi-generator-cli generate
+-i mitarbeiter_suche.yaml
+-g java --library webclient
+-o mitarbeiter_suche/webclient
+----
+
+Anschließend kann der generierte Code in das Projekt manuell übernommen werden.
+
+[[maven]]
+=== Verwendung von Maven
+Auch in bereits existierenden Maven-Projekt kann der OpenAPI Generator über das https://github.com/OpenAPITools/openapi-generator/tree/master/modules/openapi-generator-maven-plugin[offizielle Maven-Plugin] aufgerufen werden.
+Es ist jedoch wichtig zu beachten, dass der generierte Code ein eigenes Projekt darstellt.
+Daher sollte die Integration des neuen Codes in das bereits bestehende Projekt noch manuell erfolgen.
+
+.Beispielhafte Maven-Konfiguration
+[source,xml]
+----
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.openapitools</groupId>
+            <artifactId>openapi-generator-maven-plugin</artifactId>
+            <version>${version}</version>
+            <executions>
+                <execution>
+                    <goals>
+                        <goal>generate</goal>
+                    </goals>
+                    <configuration>
+                        <inputSpec>mitarbeiter_suche.yaml</inputSpec>
+                        <generatorName>spring</generatorName>
+                        <library>spring-mvc</library>
+                        <generateModelTests>true</generateModelTests>
+                        <generateApiTests>true</generateApiTests>
+                        <configOptions>
+                            <sourceFolder>src/gen/java/main</sourceFolder>
+                        </configOptions>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
+    </plugins>
+</build>
+----
+
+Die Konfigurationsparameter für den Generator sind die Tags `generatorName` und `library`.
+
+.Parameter für die vorgesehenen Frameworks
+[cols=",m,m",options="header"]
+|===
+|Framework|`generatorName`|`library`
+
+|Spring MVC
+|spring
+|spring-mvc
+
+|Spring Web Webflux
+|java
+|webclient
+
+|Angular
+|typescript-angular
+| -
+|===
+
+Die anderen Parameter für die Basis-Nutzung sind:
+
+`inputSpec`::
+Der Pfad von der eingegebenen OpenAPI 3.0 Spezifikation.
+
+`generateModelTests`::
+Gibt an, ob Tests für das Model generiert werden sollen.
+Es ist möglich, dass keine Tests generiert werden.
+Die Ergebnisse hängen davon ab, ob das verwendete Template diese Funktionalität unterstützt oder nicht.
+
+`generateApiTests`::
+Gibt an, ob Tests für die Api generiert werden sollen.
+Es ist möglich, dass keine Tests generiert werden.
+Die Ergebnisse hängen davon ab, ob das verwendete Template diese Funktionalität unterstützt oder nicht.
+
+`configOptions/sourceFolder`::
+Der Pfad für den zu generierenden Code.
+

@@ -1,31 +1,21 @@
 * xref:bausteine.adoc[]
-** [.separator]#IsyFact-Standards#
-** xref:isy-datetime-docs::konzept/master.adoc[Datum & Zeit]
-** xref:datetime-persistence::konzept.adoc[Datum & Zeit (Persistenz)]
 ** Fehlerbehandlung
 *** xref:isy-exception-core:konzept/master.adoc[Konzept]
 *** xref:isy-exception-core:nutzungsvorgaben/master.adoc[Nutzungsvorgaben]
-
 ** Logging
 *** xref:isy-logging:konzept/master.adoc[Konzept]
 *** xref:isy-logging:nutzungsvorgaben/master.adoc[Nutzungsvorgaben]
-
-** xref:polling::konzept.adoc[Polling]
-
-** REST
-*** xref:isy-service-rest:konzept/master.adoc[Konzept]
-*** xref:isy-service-rest:nutzungsvorgaben/master.adoc[Nutzungsvorgaben]
-
-** xref:security::konzept.adoc[Security]
-** xref:isy-sonderzeichen-docs::konzept/master.adoc[Sonderzeichen]
-** xref:task::konzept.adoc[Task Scheduling]
-
 ** Überwachung
 *** xref:isy-ueberwachung:konzept/master.adoc[Konzept]
 *** xref:isy-ueberwachung:nutzungsvorgaben/master.adoc[Nutzungsvorgaben]
+** Entkoppelte Bausteine icon:external-link-square[]
+*** xref:angular::konzept.adoc[Angular]
+*** xref:isy-bedienkonzept-doc::bedienkonzept.adoc[Bedienkonzept]
+*** xref:isy-datetime-docs::konzept/master.adoc[Datum & Zeit]
+*** xref:datetime-persistence::konzept.adoc[Datum & Zeit (Persistenz)]
+*** xref:polling::konzept.adoc[Polling]
+*** xref:security::konzept.adoc[Security]
+*** xref:isy-sonderzeichen-docs::konzept/master.adoc[Sonderzeichen]
+*** xref:task::konzept.adoc[Task Scheduling]
+*** xref:util::konzept.adoc[Util]
 
-** xref:util::konzept.adoc[Util]
-
-** [.separator]#IsyFact-Erweiterungen#
-** xref:angular::konzept.adoc[Angular]
-** xref:isy-bedienkonzept-doc::bedienkonzept.adoc[Bedienkonzept]
