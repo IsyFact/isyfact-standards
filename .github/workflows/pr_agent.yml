@@ -7,6 +7,6 @@ on:
 
 jobs:
   pr_agent_job:
-    uses: IsyFact/isy-github-actions-templates/.github/workflows/pr_agent_template.yml@v1.7.0
+    uses: IsyFact/isy-github-actions-templates/.github/workflows/pr_agent_template.yml@v1.8.0
     secrets:
       OPENAI_KEY: ${{ secrets.OPENAI_KEY }}
