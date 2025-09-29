@@ -1,5 +1,19 @@
 = Services
 
+In einer Systemlandschaft ist Kommunikation ein Element, das die technische Architektur prägt.
+Die Art und Weise, wie IT-Systeme miteinander kommunizieren, bestimmt maßgeblich ihre _Effizienz_, _Wartbarkeit_ und _Zuverlässigkeit_.
+Ein technischer Blick auf die Kommunikation schafft Klarheit über:
+
+* die Kopplungsgrade zwischen Systemen, und damit über die Flexibilität bei sich ändernden Anforderungen,
+* die Fehlertoleranz und Resilienz, etwa durch die Wahl zwischen synchronen und asynchronen Kommunikationsmustern, und
+* das Lastverhalten und Antwortzeiten, entscheidend für die Nutzererfahrung und Stabilität.
+
+Die Festlegungen hinsichtlich der Kommunikation sind strategische Architekturentscheidungen für die Umsetzung einer Systemlandschaft.
+Werden die Entscheidungen nicht oder implizit getroffen, erhöht sich das Risiko schwer wartbarer Abhängigkeiten, ineffizienter Schnittstellen und insgesamt einer Architektur, die den Anforderungen an moderne, behördliche Informationssysteme nicht gerecht wird.
+
+[[grundlagen]]
+== Grundlagen
+
 IT-Systeme kommunizieren auf Basis von Services.
 Wenn ausschließlich IT-Systeme innerhalb der Systemlandschaft miteinander kommunizieren, spricht die Referenzarchitektur von *interner Servicekommunikation*.
 Wenn die Kommunikation auch Systeme einschließt, die außerhalb liegen, verwendet die Referenzarchitektur den Begriff *externe Servicekommunikation*.
@@ -7,6 +21,9 @@ Wenn die Kommunikation auch Systeme einschließt, die außerhalb liegen, verwend
 [[servicekommunikation-intern-extern]]
 .Interne und externe Servicekommunikation
 image::software-technisch/servicekommunikation.dn.svg[]
+
+[[metadaten-nutzdaten]]
+=== Metadaten und Nutzdaten
 
 IT-Systeme tauschen in der Kommunikation untereinander Daten aus.
 Diese lassen sich in Metadaten und Nutzdaten unterteilen.
@@ -66,41 +83,87 @@ Sie bilden die eigentliche, fachliche Schnittstelle und beschreiben sowohl die D
 Die IsyFact standardisiert die Art und Weise, wie Nutzdaten spezifiziert, dokumentiert und technisch verarbeitet werden.
 
 [[kommunikationsarten]]
-== Kommunikationsarten
+=== Kommunikationsarten
 
-Ein zentrales Element der technischen Architektur ist die Wahl geeigneter Kommunikationsmodelle zwischen IT-Systemen.
-Dabei wird zwischen *synchroner Kommunikation* (meist direkte Anfrage-Antwort-Interaktionen) und *asynchroner Kommunikation* (meist zeitversetzte Verarbeitung ohne unmittelbare Antwort) unterschieden.
-Die Wahl des Kommunikationsmodells beeinflusst direkt die technische Architektur und Umsetzung der IT-Systeme.
-Das gewählte Kommunikationsmodell trägt maßgeblich dazu bei, die Qualitätskriterien der Architektur und der IT-Systeme zu erfüllen.
+Ein zentrales Element der technischen Architektur ist die Wahl geeigneter Kommunikationsmuster zwischen IT-Systemen.
+Kommunikationsmuster ordnen sich *synchroner Kommunikation* und *asynchroner Kommunikation* zu.
+Die Wahl der Kommunikationsmuster beeinflusst direkt die technische Architektur und Umsetzung der IT-Systeme.
+Die gewählten Kommunikationsmuster tragen ebenso maßgeblich dazu bei, die Qualitätskriterien der Architektur und der IT-Systeme zu erfüllen.
 
-Die Referenzarchitektur der IsyFact empfiehlt grundsätzlich den Einsatz asynchroner Kommunikation, insbesondere bei der Umsetzung verteilter Systeme, der Verarbeitung großer Datenmengen und der Realisierung skalierbarer Architekturen.
-Die Entscheidung für ein Kommunikationsmodell muss jedoch kontextabhängig und anhand der geforderten Qualitätskriterien der Architektur und der IT-Systeme erfolgen.
+Die IsyFact empfiehlt grundsätzlich den Einsatz asynchroner Kommunikation, insbesondere bei der Umsetzung verteilter Systeme, zeitkritischer Prozesse, der Verarbeitung großer Datenmengen und der Realisierung skalierbarer Architekturen.
+Die Entscheidung für ein Kommunikationsmuster muss jedoch kontextabhängig und anhand der geforderten Qualitätskriterien der Architektur und der IT-Systeme erfolgen.
 
----
+[[synchrone-kommunikation]]
+==== Synchrone Kommunikation
 
-IT-Systemen stehen mit der IsyFact drei Kommunikationsarten zur Verfügung: synchrone Service-Aufrufe, asynchrone Service-Aufrufe und Service-Aufrufe über Queues.
+Synchrone Kommunikation eignet sich besonders gut zur Umsetzung von vergleichsweise einfachen, gut überblickbaren Abläufen.
+Aufgrund der Tatsache, dass der Sender auf die Antwort des Empfängers wartet, sind Transaktionen, die mehrere IT-Systeme umfassen, bis zu einem gewissen Grad beherrschbar.
 
+Synchrone Kommunikation ist häufig in Form des <<request-reponse>>-Musters umgesetzt.
+Dies befähigt Sender und Empfänger, querschnittliche Aspekte wie Sicherheit, Logging oder Fehlerbehandlung direkt und vollumfänglich umzusetzen.
+Dies wiederum wirkt sich positiv auf die _Sicherheit_, _Zuverlässigkeit_ und _Wartbarkeit_ der IT-Systeme aus.
 
-[[synchrone-service-aufrufe]]
-=== Synchrone Service-Aufrufe
+Synchron kommunizierende IT-Systeme sind ebenso einfacher in eine Systemlandschaft zu integrieren, da sie in der Regel keine zusätzlichen Infrastrukturkomponenten benötigen.
+Sie sind, geeignete Kommunikationsstandards vorausgesetzt, _interoperabel_ und besitzen eine hohe _Kompatibilität_.
 
-Synchrone Service-Aufrufe bieten die Möglichkeit der direkten Kommunikation zwischen zwei IT-Systemen.
+[[synchron-herausforderungen]]
+===== Herausforderungen
+
+Die Tatsache, dass der Sender auf die Antwort des Empfängers wartet, kann zu Wartezeiten und, letztendlich, zu Skalierungsproblemen führen.
+Dieser Effekt verstärkt sich durch verschachtelte Aufrufe oder Kaskaden.
+Er steht hohen Anforderungen an die _Effizienz_ von IT-Systemen entgegen.
+
+Ebenso wirken sich Fehler oder Ausfälle des Empfängers direkt auf den Sender aus.
+Geschehen Fehler oder Ausfälle an viel genutzten Stellen, oder innerhalb einer Verkettung von Aufrufen, kann sich dies auf weite Teile der Systemlandschaft auswirken und erhebliche Auswirkungen auf deren _Zuverlässigkeit_ besitzen.
+
+[[asynchrone-kommunikation]]
+==== Asynchrone Kommunikation
+
+Asynchrone Kommunikation ermöglicht die Umsetzung komplexer und voneinander entkoppelter Abläufe.
+Die Wahl des Kommunikationsmusters entscheidet darüber, ob die Verantwortung der Verwaltung von Nachrichten bei dafür spezialisierten Infrastrukturkomponenten liegt, und ob sich Sender und Empfänger gegenseitig kennen.
+
+Die Entkopplung von Sender und Empfänger ermöglicht eine bessere Lastverteilung und Skalierbarkeit.
+Dies wirkt sich positiv auf die _Effizienz_ der IT-Systeme aus.
+
+Asynchrone Kommunikationsflüsse sind robuster gegenüber temporären Ausfällen einzelner IT-Systeme, da Nachrichten zwischengespeichert und später verarbeitet werden können.
+Dies erhöht die _Zuverlässigkeit_ der gesamten Systemlandschaft.
+
+[[asynchron-herausforderungen]]
+===== Herausforderungen
+
+Aufgrund des hohen Grades an Entkopplung herrscht in einer asynchron kommunizierenden Systemlandschaft _eventual consistency_ als eine Form schwacher Konsistenz vor.
+Dies müssen alle asynchron kommunizierenden IT-Systeme berücksichtigen.
+
+Asynchron kommunizierende IT-Systeme benötigen in der Regel zusätzliche Infrastrukturkomponenten und integrieren sich daher nicht so leicht in eine bestehende Systemlandschaft.
+Zur Nachrichtenübermittlung ist meist eine Infrastrukturkomponente für Messaging oder Event Streaming vorhanden.
+Die Nachvollziehbarkeit von Abläufen ist komplexer, da Kommunikationsflüsse nicht linear verlaufen und Zustände verteilt sein können, und erfordert ein geeignetes Tracing und Monitoring.
+Die zusätzlichen Infrastrukturkomponenten müssen in die Umsetzung querschnittlicher Aspekte wie _Sicherheit_, _Zuverlässigkeit_ und _Wartbarkeit_ einbezogen werden.
+
+[[kommunikationsmuster]]
+== Kommunikationsmuster
+
+include::documentation-guide::partial$content-revised.adoc[]
+
+[[request-reponse]]
+=== Request-Response
+
+Das Request-Response-Muster bietet die Möglichkeit der direkten Kommunikation zwischen zwei IT-Systemen.
 Hierbei schickt der Sender eine Anfrage (englisch: _request_) an den Empfänger.
 Der Empfänger bearbeitet die Anfrage und schickt eine Antwort (englisch: _response_) an den Sender zurück.
-Der Sender wartet auf die Antwort, bevor er seine Verarbeitung fortsetzt.
+Je nachdem, ob Sender oder Empfänger synchron oder asynchron miteinander kommunizieren, wartet der Sender auf die Antwort, bevor er seine Verarbeitung fortsetzt, oder nimmt die Verarbeitung erst durch die Antwort des Empfängers wieder auf, z.B. in Form eines Callbacks.
 
 [[service-aufruf-synchron]]
-.Ablauf eines synchronen Service-Aufrufs
-image::software-technisch/synchroner-service-aufruf.dn.svg[]
+.Ablauf des Request-Response-Musters (links: synchron, rechts: asynchron)
+image::software-technisch/request-response.dn.svg[]
 
-Deswegen sind synchrone Service-Aufrufe in der Regel eine vergleichsweise zeitintensive Operation.
-Häufig ist es sinnvoll, Service-Aufrufe nach Möglichkeit einzusparen.
-Das Sparen von Aufrufen kann jedoch auch Nachteile in Bezug auf Wartbarkeit bedeuten, wenn beispielsweise Redundanzen oder komplexe Caches implementiert werden müssen.
-Die Abwägung darüber muss während der Erstellung des Systementwurfs geschehen.
+Ob zwei IT-Systeme synchron oder asynchron über Request-Response miteinander kommunizieren, muss anhand der zu erfüllenden Qualitätskriterien abgewogen werden.
+Die Abwägung muss während der Erstellung des Systementwurfs geschehen.
 
-.icon:university[title=Architekturregel] Verwendung von HTTP für Service-Aufrufe
+==== Protokoll für Request-Response
+
+.icon:university[title=Architekturregel] Verwendung von HTTP für Request-Response
 ****
-Synchrone Service-Aufrufe finden über das Protokoll *HTTP* statt und werden sowohl zur internen als auch externen Servicekommunikation genutzt.
+Aufrufe nach dem Request-Response-Muster finden über das Protokoll *HTTP* statt und werden sowohl zur internen als auch externen Servicekommunikation genutzt.
 HTTP-Anfragen bzw. HTTP-Antworten erlauben es an drei Stellen, anwendungsspezifische Daten zu übertragen: in der URL, in den Headern sowie im Body.
 
 [[http-message-aufbau]]
@@ -114,24 +177,6 @@ Bei Anfragen mittels `GET` und `DELETE`, die keinen Body erwarten, enthalten URL
 Allerdings gilt zu beachten, dass URLs (und damit auch die URL-Parameter) an vielen Stellen aufgezeichnet und in Logs geschrieben oder in Caches gehalten werden.
 Hierbei sind z.B. datenschutzrechtliche Aspekte zu prüfen, wenn URL-Parameter personenbezogene Daten enthalten.
 Im Zweifelsfall ist die Methode `POST` die empfohlene Alternative, um solche Nutzdaten im Body zu übertragen.
-
-[[asynchrone-service-aufrufe]]
-=== Asynchrone Service-Aufrufe
-
-Für asynchrone Service-Aufrufe gelten dieselben Vorgaben wie für <<synchrone-service-aufrufe,synchrone Service-Aufrufe>>.
-Sie unterscheiden sich im Ablauf dahingehend, dass der Sender nicht aktiv auf die Antwort des Empfängers wartet.
-Stattdessen wird die Verarbeitung erst durch die Antwort des Empfängers wieder aufgenommen, z.B. in Form eines Callbacks.
-
-[[service-aufruf-asynchron]]
-.Ablauf eines asynchronen Service-Aufrufs
-image::software-technisch/asynchroner-service-aufruf.dn.svg[]
-
-Asynchrone Service-Aufrufe können z.B. dann eingesetzt werden, wenn eine länger dauernde Verarbeitung durch den Empfänger eine direkte Rückmeldung unmöglich macht.
-
-[[kommunikationsmuster]]
-== Kommunikationsmuster
-
-include::documentation-guide::partial$content-revised.adoc[]
 
 [[queueing]]
 === Queueing
