@@ -1,5 +1,6 @@
 # 5.0.0
 ### FEATURES
+- `IFS-4867`: [isyfact-standards-doc] Beschreibung zu synchroner und asynchroner Kommunikation überarbeiten
 - `IFS-4737`: [isyfact-standards-doc] Umzug der Dokumentation des Bausteins REST in die Referenzarchitektur und in die Werkzeuge
 - `IFS-1800`: [isyfact-standards-doc] Formulierung von Empfehlungen für den Einsatz von Bulk Queries in der Persistenz von Backends
 - `IFS-1798`: [isyfact-standards-doc] Formulierung von Empfehlungen für den Einsatz von Second-Level-Caches in der Persistenz von Backends
@@ -42,6 +43,9 @@
 Der Begriff "Nachbarsystem" wurde definiert und seine Verwendung, wo nötig, korrigiert.
 
 ### Software-technische Referenzarchitektur
+Die IsyFact empfiehlt ab diesem Release grundsätzlich asynchrone Kommunikationsmuster.
+Die Entscheidung für konkrete Kommunikationsmuster muss anhand der Rahmenbedingungen des Projekts und der Qualitätsanforderungen an die IT-Systeme getroffen werden.
+
 Der Begriff "externes System" wurde definiert und seine Verwendung, wo nötig, korrigiert.
 Die Begrifflichkeiten "internes System" bzw. "interne Anwendung" wurden entfernt.
 
