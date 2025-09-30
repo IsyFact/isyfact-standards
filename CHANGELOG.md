@@ -16,6 +16,7 @@
 - `IFS-4531`: Update von Flatten Maven Plugin auf Version 1.7.1
   * Update von Maven Version auf 3.6.3
 - `IFS-4763`: [isyfact-standards-doc] Erweiterung und Konkretisierung der Liquibase-Dokumentation
+- `IFS-4748`: [isy-ueberwachung] Dokumentation von aktualisierten Properties
 
 ### BUG FIXES
 - `IFS-4753`: [isy-batchrahmen] Änderung der Konfigurationsreihenfolge.
