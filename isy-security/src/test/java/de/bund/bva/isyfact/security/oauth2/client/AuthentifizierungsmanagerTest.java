@@ -12,7 +12,6 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.TestingAuthenticationToken;
@@ -25,6 +24,7 @@ import org.springframework.security.oauth2.server.resource.authentication.Abstra
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 import de.bund.bva.isyfact.security.AbstractOidcProviderTest;
 import de.bund.bva.isyfact.security.autoconfigure.IsyOAuth2ClientAutoConfiguration;
@@ -36,6 +36,7 @@ import de.bund.bva.isyfact.security.oauth2.client.authentication.PasswordClientR
 import de.bund.bva.isyfact.security.oauth2.client.authentication.token.ClientCredentialsClientRegistrationAuthenticationToken;
 import de.bund.bva.isyfact.security.oauth2.client.authentication.token.ClientCredentialsRegistrationIdAuthenticationToken;
 import de.bund.bva.isyfact.security.oauth2.client.authentication.token.PasswordClientRegistrationAuthenticationToken;
+
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -64,13 +65,13 @@ import static org.mockito.Mockito.when;
 })
 public class AuthentifizierungsmanagerTest extends AbstractOidcProviderTest {
 
-    @MockBean
+    @MockitoBean
     private ClientCredentialsAuthorizedClientAuthenticationProvider clientCredentialsAuthorizedClientAuthenticationProvider;
 
-    @MockBean
+    @MockitoBean
     private PasswordClientRegistrationAuthenticationProvider passwordClientRegistrationAuthenticationProvider;
 
-    @MockBean
+    @MockitoBean
     private ClientCredentialsClientRegistrationAuthenticationProvider clientCredentialsClientRegistrationAuthenticationProvider;
 
     @Autowired

@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -29,10 +29,10 @@ import de.bund.bva.isyfact.security.oauth2.client.authentication.token.PasswordC
 @SpringBootTest
 public class AuthentifizierungsmanagerWithoutClientsConfiguredTest extends AbstractOidcProviderTest {
 
-    @MockBean
+    @MockitoBean
     private ClientCredentialsClientRegistrationAuthenticationProvider clientCredentialsClientRegistrationAuthenticationProvider;
 
-    @MockBean
+    @MockitoBean
     private PasswordClientRegistrationAuthenticationProvider passwordClientRegistrationAuthenticationProvider;
 
     @Autowired
