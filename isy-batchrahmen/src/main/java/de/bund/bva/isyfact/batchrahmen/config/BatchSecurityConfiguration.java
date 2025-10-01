@@ -5,12 +5,11 @@ import java.util.List;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.boot.autoconfigure.security.oauth2.client.ClientsConfiguredCondition;
+import org.springframework.boot.autoconfigure.security.oauth2.client.ConditionalOnOAuth2ClientRegistrationProperties;
 import org.springframework.boot.autoconfigure.security.oauth2.client.OAuth2ClientProperties;
 import org.springframework.boot.autoconfigure.security.oauth2.client.OAuth2ClientPropertiesMapper;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.oauth2.client.InMemoryOAuth2AuthorizedClientService;
@@ -40,7 +39,7 @@ import org.springframework.security.oauth2.client.web.OAuth2AuthorizedClientRepo
 @Configuration
 @EnableConfigurationProperties(OAuth2ClientProperties.class)
 @ConditionalOnClass({ClientRegistration.class, EnableWebSecurity.class})
-@Conditional(ClientsConfiguredCondition.class)
+@ConditionalOnOAuth2ClientRegistrationProperties
 public class BatchSecurityConfiguration {
 
     @Bean
