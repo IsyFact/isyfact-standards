@@ -15,7 +15,7 @@
     <description>Definiert die Versionen aller 3rd-Party Abhängigkeiten des Core Technology Stack der IsyFact.</description>
 
     <properties>
-        <spring.boot.version>3.5.0</spring.boot.version>
+        <spring.boot.version>3.5.6</spring.boot.version>
         <resilience4j.version>1.7.1</resilience4j.version>
         <apache.poi.version>5.4.0</apache.poi.version>
         <greenmail.version>1.6.15</greenmail.version>
