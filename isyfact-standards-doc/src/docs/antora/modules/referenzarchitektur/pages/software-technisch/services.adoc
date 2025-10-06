@@ -157,6 +157,7 @@ Je nachdem, ob Sender oder Empfänger synchron oder asynchron miteinander kommun
 image::software-technisch/request-response.dn.svg[]
 
 Ob zwei IT-Systeme synchron oder asynchron über Request-Response miteinander kommunizieren, muss anhand der zu erfüllenden Qualitätskriterien abgewogen werden.
+Das Request-Response-Muster ermöglicht so asynchrone Kommunikation, wo trotzdem direkte Antworten benötigt werden.
 Die Abwägung muss während der Erstellung des Systementwurfs geschehen.
 
 ==== Protokoll für Request-Response
