@@ -90,13 +90,13 @@ Kommunikationsmuster ordnen sich *synchroner Kommunikation* und *asynchroner Kom
 Die Wahl der Kommunikationsmuster beeinflusst direkt die technische Architektur und Umsetzung der IT-Systeme.
 Die gewählten Kommunikationsmuster tragen ebenso maßgeblich dazu bei, die Qualitätskriterien der Architektur und der IT-Systeme zu erfüllen.
 
-Die IsyFact empfiehlt grundsätzlich den Einsatz asynchroner Kommunikation, insbesondere bei der Umsetzung verteilter Systeme, zeitkritischer Prozesse, der Verarbeitung großer Datenmengen und der Realisierung skalierbarer Architekturen.
+Die IsyFact empfiehlt grundsätzlich den Einsatz asynchroner Kommunikation, insbesondere bei der Umsetzung verteilter Systeme, zeitkritischer Prozesse, der Verarbeitung großer Datenmengen und der Realisierung skalierbarer und resilienter Architekturen.
 Die Entscheidung für ein Kommunikationsmuster muss jedoch kontextabhängig und anhand der geforderten Qualitätskriterien der Architektur und der IT-Systeme erfolgen.
 
 [[synchrone-kommunikation]]
 ==== Synchrone Kommunikation
 
-Synchrone Kommunikation eignet sich besonders gut zur Umsetzung von vergleichsweise einfachen, gut überblickbaren Abläufen.
+Synchrone Kommunikation eignet sich besonders gut zur Umsetzung von vergleichsweise einfachen, gut überblickbaren und stark gekoppelten Abläufen oder Anwendungen bei denen eine einfache Implementierung das zentrale Kriterium ist.
 Aufgrund der Tatsache, dass der Sender auf die Antwort des Empfängers wartet, sind Transaktionen, die mehrere IT-Systeme umfassen, bis zu einem gewissen Grad beherrschbar.
 
 Synchrone Kommunikation ist häufig in Form des <<request-reponse>>-Musters umgesetzt.
