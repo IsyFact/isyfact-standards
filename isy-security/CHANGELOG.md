@@ -5,6 +5,7 @@
 - `IFS-4785`: Hinzufügen einer Property für die Restlebensdauer gecachter OAuth2-Token
 - `IFS-4752`: Wiederherstellen der initialen Authentication nach Authentifizierung mit @Authenticate-Annotation
 - `IFS-4810`: Ausbau der Validierung des "aud"-Claims erstellter Tokens
+- `IFS-4748`: Alle deprecated Spring-Boot-Funktionen auf aktuelle Alternativen umgestellt
 
 ## Breaking Changes
 - `IFS-4812`: Verwendung sicherer Hashfunktion mit SHA-512 für Caching
