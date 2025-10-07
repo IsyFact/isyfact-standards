@@ -1,5 +1,6 @@
 # 5.0.0
 ### FEATURES
+- `IFS-4746`: [isyfact-standards-doc] Verbesserung der Beschreibung entkoppelter Bausteine und der Bausteinnavigation
 - `IFS-4737`: [isyfact-standards-doc] Umzug der Dokumentation des Bausteins REST in die Referenzarchitektur und in die Werkzeuge
 - `IFS-1800`: [isyfact-standards-doc] Formulierung von Empfehlungen für den Einsatz von Bulk Queries in der Persistenz von Backends
 - `IFS-1798`: [isyfact-standards-doc] Formulierung von Empfehlungen für den Einsatz von Second-Level-Caches in der Persistenz von Backends
