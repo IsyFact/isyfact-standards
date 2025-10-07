@@ -1,20 +1,23 @@
 package de.bund.bva.isyfact.batchrahmen.persistence.rahmen;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.LockModeType;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import de.bund.bva.isyfact.batchrahmen.core.exception.BatchrahmenInitialisierungException;
 
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 public class BatchStatusDaoTest {
     private static String BATCH_ID = "test_id";
     @Mock
@@ -27,7 +30,7 @@ public class BatchStatusDaoTest {
     private BatchStatusDao batchRahmenDao;
 
     private BatchStatus batchStatus;
-    @Before
+    @BeforeEach
     public void setup() {
         batchStatus = new BatchStatus();
         batchStatus.setBatchId(BATCH_ID);
@@ -37,13 +40,15 @@ public class BatchStatusDaoTest {
         batchRahmenDao = new BatchStatusDao(entityManagerFactory);
     }
 
-    @Test(expected = BatchrahmenInitialisierungException.class)
+    @Test
     public void CreateBatchStatusErrorState() {
-        batchRahmenDaoMock.createBatchStatus(batchStatus);
+        assertThrows(BatchrahmenInitialisierungException.class, () ->
+            batchRahmenDaoMock.createBatchStatus(batchStatus));
     }
 
-    @Test(expected = BatchrahmenInitialisierungException.class)
+    @Test
     public void GetEntityManagerErrorState() {
-        batchRahmenDao.getEntityManager();
+        assertThrows(BatchrahmenInitialisierungException.class, () ->
+            batchRahmenDao.getEntityManager());
     }
 }

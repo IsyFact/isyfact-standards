@@ -1,6 +1,6 @@
 package de.bund.bva.isyfact.ueberwachung.service.loadbalancer;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
@@ -16,8 +16,8 @@ import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletResponse;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.slf4j.LoggerFactory;
 
 import ch.qos.logback.classic.Logger;
@@ -30,7 +30,7 @@ public class TestLoadbalancerServlet {
 	private Appender mockAppender;
 	private ServletContext mockContext;
 	
-	@Before
+	@BeforeEach
 	public void setUp(){
 		loadBalancer = new LoadbalancerServlet();
 

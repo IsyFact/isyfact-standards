@@ -2,7 +2,7 @@ package de.bund.bva.isyfact.logging;
 
 import java.net.URL;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.slf4j.LoggerFactory;
 
 import de.bund.bva.isyfact.logging.util.MdcHelper;
@@ -12,47 +12,46 @@ import ch.qos.logback.classic.joran.JoranConfigurator;
 import ch.qos.logback.core.joran.spi.JoranException;
 
 
-
 /**
- * Testfälle zum Testen der verschiedenen Konfigurationsvorlagen.
+ * test cases to test different configuration settings
  */
 public class LogbackConfigTest extends AbstractLogTest {
 
     /**
-     * Testet die Konfiguration des Parameters INCLUDE_MDC, der zu einer Aufnahme des vollständigen MDC in den
-     * Kontext führt.
-     * 
+     * testing configuration of parameter INCLUDE_MDC, which leads to the intake of
+     * the complete MDC in the context
+     *
      * @throws Exception
-     *             falls eine Exception bei der Testausführung auftritt.
+     *             if an exception is thrown during the test.
      */
     @Test
     public void testMdcConfig() throws Exception {
         
         IsyLoggerStandard logger = IsyLoggerFactory.getLogger(this.getClass());
 
-        // Laden und Test der MDC-Log-Konfiguration
+        // load and test the MDC-Log-configuration
         konfiguriereLogback("logback-MDC-test.xml");
         MdcHelper.setzeMarkerFachdaten(true);
         logger.debug("Eine Testnachricht mit vollständigen MDC.");
         
-        // Laden Test der Batch-MDC-Log-Konfiguration
+        // test for loading the Batch-MDC-Log-configuration
         konfiguriereLogback("logback-batch-MDC-test.xml");
         MdcHelper.setzeMarkerFachdaten(true);
         logger.debug("Eine Testnachricht mit vollständigen MDC.");
         
-        // Zurücksetzen auf die Standardkonfiguration.
+        // rollback to standard configuration.
         konfiguriereLogback("logback-test.xml");
         
         pruefeLogdatei("testMdcConfig");
     }
 
     /**
-     * Hilfsmethode zum Konfigurieren alternativer Log-Konfigurationsdateien.
+     * helper method to configure alternativ logging configurations
      * 
      * @param konfigDatei
-     *            die Name der zu verwendenden Datei.
+     *            name of the configuration file to be used.
      * @throws JoranException
-     *             falls ein Fehler beim Einlesen der Datei auftritt.
+     *             if an exceptions occurs reading the file.
      */
     public void konfiguriereLogback(String konfigDatei) throws JoranException {
         URL url = this.getClass().getClassLoader().getResource(konfigDatei);

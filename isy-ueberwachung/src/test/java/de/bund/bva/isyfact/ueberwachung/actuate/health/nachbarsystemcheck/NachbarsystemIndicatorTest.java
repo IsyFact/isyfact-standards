@@ -1,6 +1,6 @@
 package de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -9,8 +9,8 @@ import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.Status;
 
@@ -26,31 +26,30 @@ public class NachbarsystemIndicatorTest {
 
     private NachbarsystemIndicator nachbarsystemIndicator;
 
-    @Before
+    @BeforeEach
     public void setup() {
-        //Mocks der Nachbarkomponenten
+        //Mocks of neighbor systems
         nachbarsystemCheck = mock(NachbarsystemCheck.class);
         nachbarsystemConfigurationProperties = mock(NachbarsystemConfigurationProperties.class);
-        //Zu testende Klasse
+        //class to be tested
         nachbarsystemIndicator =
                 new NachbarsystemIndicator(nachbarsystemCheck, nachbarsystemConfigurationProperties);
     }
 
-    // wenn keine Nachbarsysteme konfiguriert sind, gibt der Check immer "UP" zurück
+    // if no neighbor systems are configured, the check always return 'UP'
     @Test
     public void keineNachbarsystemeKonfiguriert() {
         when(nachbarsystemConfigurationProperties.getNachbarsysteme()).thenReturn(new HashMap<>());
-        //Führe Check durch
+        //perform Check
         Health health = nachbarsystemIndicator.health();
-        //Erwartetes ergebnis: UP
+        //Expected result: UP
         assertEquals(Status.UP, health.getStatus());
     }
 
-    // Wenn ein System "nicht essentiell" ist und der Check nicht erfolgreich ist,
-    // liefert der Indikator trotzdem "UP" zurück
+    // if a system is not essential and the check is not successfully, the indicator returns 'UP' nevertheless
     @Test
     public void nichtEssentiellesSystemDown() {
-        //Mock: Nachbar ist nicht essentiell
+        //Mock: neighbor is not essentiell
         Map<String, Nachbarsystem> nachbarn = new HashMap<>();
         Nachbarsystem nachbar = new Nachbarsystem();
         nachbar.setSystemname("system");
@@ -63,21 +62,20 @@ public class NachbarsystemIndicatorTest {
         NachbarsystemHealth mockHealth = new NachbarsystemHealth();
         mockHealth.setNachbarsystem(nachbar);
         mockHealth.setStatus(Status.DOWN);
-        //Mock: Check liefert Down zurück
+        //Mock: Check responds Down
         when(nachbarsystemCheck.checkNachbarsystem(any()))
                 .thenReturn(mockHealth);
 
-        //Führe Check durch
+        //perform Check
         Health health = nachbarsystemIndicator.health();
-        //Erwartetes ergebnis: UP
+        //Expected result: UP
         assertEquals(Status.UP, health.getStatus());
     }
 
-    // Wenn ein System "essentiell" ist und der Check nicht erfolgreich ist,
-    // liefert der Indikator "DOWN" zurück
+    // if a system is essential and the check is not successfully, the indicator returns 'DOWN'
     @Test
     public void essentiellesSystemDown() {
-        //Mock: Nachbar ist essentiell
+        //Mock: neighbor is essentiell
         Map<String, Nachbarsystem> nachbarn = new HashMap<>();
         Nachbarsystem nachbar = new Nachbarsystem();
         nachbar.setSystemname("system");
@@ -90,21 +88,20 @@ public class NachbarsystemIndicatorTest {
         NachbarsystemHealth mockHealth = new NachbarsystemHealth();
         mockHealth.setNachbarsystem(nachbar);
         mockHealth.setStatus(Status.DOWN);
-        //Mock: Check liefert Down zurück
+        //Mock: Check responds Down
         when(nachbarsystemCheck.checkNachbarsystem(any()))
                 .thenReturn(mockHealth);
 
-        //Führe Check durch
+        //perform Check
         Health health = nachbarsystemIndicator.health();
-        //Erwartetes ergebnis: OUT OF SERVICE
+        //Expected result: OUT OF SERVICE
         assertEquals(Status.DOWN, health.getStatus());
     }
 
-    // Wenn alle Systeme erfolgreich überprüft werden (Health ist "UP"),
-    // liefert der Indicator "UP" zurück
+    // if all system are checked successfully (Health is 'UP'), the indicator returns 'UP'
     @Test
     public void alleSystemeUp() {
-        //Mock: Mehrere Nachbarn essentiell+nicht essentiell
+        //Mock: multiple neighbors, essentially +not essentially
         Map<String, Nachbarsystem> nachbarn = new HashMap<>();
         Nachbarsystem nachbar = new Nachbarsystem();
         nachbar.setSystemname("system");
@@ -122,13 +119,13 @@ public class NachbarsystemIndicatorTest {
         NachbarsystemHealth mockHealth = new NachbarsystemHealth();
         mockHealth.setNachbarsystem(nachbar);
         mockHealth.setStatus(Status.UP);
-        //Mock: Check liefert UP zurück
+        //Mock: Check responds UP
         when(nachbarsystemCheck.checkNachbarsystem(any()))
                 .thenReturn(mockHealth);
 
-        //Führe Check durch
+        //perform Check
         Health health = nachbarsystemIndicator.health();
-        //Erwartetes ergebnis: UP
+        //Expected resul: UP
         assertEquals(Status.UP, health.getStatus());
     }
 

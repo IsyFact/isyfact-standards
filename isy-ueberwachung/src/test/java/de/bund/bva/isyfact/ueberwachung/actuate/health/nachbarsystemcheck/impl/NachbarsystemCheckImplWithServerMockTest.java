@@ -5,8 +5,8 @@ import static com.github.tomakehurst.wiremock.client.WireMock.get;
 import static com.github.tomakehurst.wiremock.client.WireMock.ok;
 import static com.github.tomakehurst.wiremock.client.WireMock.serviceUnavailable;
 import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.net.URI;
 
@@ -49,7 +49,7 @@ class NachbarsystemCheckImplWithServerMockTest {
     }
 
 
-    //korrekter Durchlauf
+    //correct run through
     @Test
     void checkNachbarUp() {
 
@@ -63,7 +63,7 @@ class NachbarsystemCheckImplWithServerMockTest {
         assertEquals(Status.UP, health.getStatus());
     }
 
-    //korrekter Durchlauf
+    //correct run through
     @Test
     void checkNachbarOutOfService() {
         stubFor(get(ACTUATOR_PATH).willReturn(serviceUnavailable().withBody("{\"status\":\"" + Status.OUT_OF_SERVICE + "\"}").withHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)));
@@ -76,10 +76,8 @@ class NachbarsystemCheckImplWithServerMockTest {
         assertEquals(Status.OUT_OF_SERVICE, health.getStatus());
     }
 
-    //Wenn bei der Anfrage eine Exception auftritt
-    // z.B. weil der Server "BAD REQUEST" zurückgibt (400)
-    // gilt der Nachbar als nicht erreichbar
-    // und es wird als Status für den Nachbarn "DOWN" zurückgegeben
+    // if an exception is thrown from the request, i.e. the server responds "BAD REQUEST" (400)
+    // neighbor is treated as not reachable and state 'DOWN' is responded
     @Test
     void responsecode400EmptyBody() {
         stubFor(get(ACTUATOR_PATH).willReturn(badRequest()));
@@ -121,12 +119,12 @@ class NachbarsystemCheckImplWithServerMockTest {
 
     @Test
     void timeoutWirdGetriggert() {
-        //Server gibt keine Response
+        //Server is not responding
 
         Nachbarsystem nachbarsystem = createNachbarsystemDummy();
 
-        LOGGER.debug("Warn-Log erwartet: "); //da nicht essentielles System down
-        //Logs werden nicht über Mocks überprüft, da dies allgemein als eher instabil angesehen wird
+        LOGGER.debug("Warn-Log erwartet: "); //not essential system is down
+        // logs will not be checked from mocks as this is viewed unstable
         NachbarsystemHealth health = nachbarsystemCheck.checkNachbarsystem(nachbarsystem);
 
         assertNotNull(health);

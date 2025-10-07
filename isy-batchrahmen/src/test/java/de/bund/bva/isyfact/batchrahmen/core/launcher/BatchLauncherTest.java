@@ -1,14 +1,14 @@
 package de.bund.bva.isyfact.batchrahmen.core.launcher;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.File;
 import java.net.URISyntaxException;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import de.bund.bva.isyfact.batchrahmen.test.BatchProtokollTester;
 
@@ -18,7 +18,7 @@ public class BatchLauncherTest {
     /** File for Batch protocol. Is set in {@link #init()}. */
     private static String ERGEBNIS_DATEI;
 
-    @Before
+    @BeforeEach
     public void init() {
         try {
             ERGEBNIS_DATEI = new File(
