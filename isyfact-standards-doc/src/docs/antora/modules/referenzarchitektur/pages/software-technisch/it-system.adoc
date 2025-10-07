@@ -11,7 +11,7 @@ Sie ist für alle Anwendungstypen gleich.
 Das *IT-System* bildet einen Oberbegriff für die technische Umsetzung eines Teils der Anwendung.
 Seine wichtigste Eigenschaft ist, dass es eine in sich abgeschlossene, ausführbare Einheit (vgl. _deployment unit_) darstellt.
 Spezialisierungen des IT-Systems, auch *IT-Systemtypen* genannt, besitzen eine jeweils eigene Systemarchitektur und einen eigenen Technologie-Stack, um die jeweiligen Teile der Anwendung möglichst effektiv umsetzen zu können.
-Die software-technische Referenzarchitektur kennt drei IT-Systemtypen: das *Backend*, das *Frontend* und den *Batch*.
+Die software-technische Referenzarchitektur kennt vier IT-Systemtypen: das *Backend*, das *Frontend*, den *Batch* und das *Gateway*.
 
 Die nachfolgende Abbildung verdeutlicht den Zusammenhang zwischen den Begrifflichkeiten Anwendung und IT-System.
 Sie geht auch auf die jeweiligen Spezialisierungen (d. h. Anwendungstypen und IT-Systemtypen) ein und benennt den Teil der Referenzarchitektur, in dem die Begriffe definiert und beschrieben sind.
@@ -41,13 +41,16 @@ Das bedeutet: Anhand der spezifizierten Fachlichkeit einer Anwendung kann direkt
 |Maßgeblich umgesetzte Fachlichkeit
 
 |Backend
-|Anwendungskomponenten (ANK), Nachbarsystemschnittstellen (NST)
+|Anwendungskomponenten (ANK), Interne Nachbarsystemschnittstellen (NST)
 
 |Frontend
 |Dialoge (DIA), Masken (MAS)
 
 |Batch
 |Batch (BAT)
+
+|Gateway
+|Externe Nachbarsystemschnittstellen (NST), Anbindung externer Services
 |===
 
 Weitere Fachlichkeit wie z. B. Datenmodelle oder Akteure stehen mit der Fachlichkeit aus <<abbildung-it-systemtypen-fachlichkeit,obiger Tabelle>> in Zusammenhang und werden durch die jeweiligen IT-Systemtypen mit umgesetzt.
@@ -81,3 +84,14 @@ Batches setzen wie Backends auf den xref:einstieg:produktkatalog/technologiestac
 Sie nutzen Spring Boot als Anwendungsframework und weitere Produkte von Spring sowie JEE-Standards und xref:bausteine:bausteine.adoc[] der IsyFact zur Umsetzung der Services.
 
 Die Systemarchitektur und die Umsetzung querschnittlicher, technischer Aspekte für Batches beschreibt die xref:software-technisch/batch.adoc[software-technische Referenzarchitektur für Batches].
+
+[[gateway]]
+=== Gateway
+
+include::glossary::terms-definitions.adoc[tag=gateway-definition]
+
+Gateways können auf unterschiedliche Weise umgesetzt werden.
+Eigenentwicklungen müssen die von der IsyFact angebotenen Technologie-Stacks (xref:einstieg:produktkatalog/technologiestackJavaSpring.adoc[Java/Spring] oder xref:einstieg:produktkatalog/technologiestackTypescriptAngular.adoc[Typescript/Angular]) nutzen.
+Standardlösungen setzen in der Regel auf entsprechend spezialisierte Produkte.
+
+Die Systemarchitektur beschreibt die xref:software-technisch/gateway.adoc[software-technische Referenzarchitektur für Gateways].

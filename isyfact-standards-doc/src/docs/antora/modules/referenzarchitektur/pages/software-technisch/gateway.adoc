@@ -1,0 +1,98 @@
+= Referenzarchitektur Gateway
+:navtitle: Gateway
+
+include::glossary::terms-definitions.adoc[tag=gateway-definition]
+
+[[technischer-kontext]]
+== Rolle & Aufgaben
+
+Gateways nehmen eine von zwei Rollen ein.
+Als *Provider* stellen sie einen Service eines Backends außerhalb der Systemlandschaft bereit.
+Als *Consumer* stellen sie einen externen Service in der Systemlandschaft so bereit, als wäre er ein Service eines Backends.
+Die folgende Abbildung zeigt dies.
+
+[[technischer-kontext-gateways]]
+.Technischer Kontext von Gateways
+image::software-technisch/gateway/technical-context-gateway.dn.svg[]
+
+Der von einem Gateway zur Verfügung gestellte Service wird als *Gateway-Service* bezeichnet.
+Der im Rahmen eines Gateways angebundene Service aus der Systemlandschaft wird als *Backend-Service* bezeichnet.
+
+Die folgenden Abschnitte beschreiben die Aufgaben, die Provider und Consumer übernehmen können.
+Welche Aufgaben ein konkretes Gateway übernimmt, muss im Rahmen dessen fachlicher und technischer Dokumentation konkretisiert werden.
+
+[[provider]]
+=== Provider
+
+Provider können die folgenden Aufgaben übernehmen.
+
+Routing::
+Provider leiten die Anfragen externer Systeme weiter an die zuständigen Backend-Services und geben deren Antworten an den jeweiligen Aufrufer zurück.
+
+Authentifizierung & Autorisierung::
+Provider nehmen Credentials entgegen und prüfen die Berechtigung des externen Systems, auf den Backend-Service zuzugreifen.
+
+Validierung::
+Provider validieren die Anfragen externer Systeme und fangen häufige, fachliche Fehler vor der Weiterleitung an die zuständigen Backend-Services ab.
+
+Transformation::
+Provider übersetzen Schnittstellenformate und -technologien, damit Backends Anfragen von externen Systemen gleichartig zu Anfragen aus der Systemlandschaft beantworten können.
+
+Protokollierung & Monitoring::
+Provider statten die Anfrage externer Systeme mit Tracing-Informationen (Korrelations-ID) aus und protokollieren den externen Zugriff.
+
+Sicherheit::
+Provider schützen die Systemlandschaft vor Angriffen von außen.
+
+[[consumer]]
+=== Consumer
+
+Consumer können die folgenden Aufgaben übernehmen.
+
+Routing::
+Consumer leiten die Anfragen aus der Systemlandschaft weiter an die externen Systeme und geben deren Antworten an den jeweiligen Aufrufer zurück.
+
+Authentifizierung & Autorisierung::
+Consumer statten die Anfragen aus der Systemlandschaft mit den geforderten Credentials (zum Beispiel Client-ID und Secret, API-Key, Access Token) aus und, falls nötig, fragen sie beim IAM-Service des externen Systems an.
+
+Validierung::
+Consumer validieren die Anfrage aus der Systemlandschaft und fangen häufige, fachliche Fehler vor der Weiterleitung an die externen Systeme ab.
+
+Transformation::
+Consumer übersetzen Schnittstellenformate und -technologien, damit Backends Anfragen an externe Systeme gleichartig zu Anfragen innerhalb der Systemlandschaft stellen können.
+
+Protokollierung & Monitoring::
+Consumer statten die Antworten externer Systeme mit Tracing-Informationen (Korrelations-ID) aus und protokollieren den Zugriff auf das externe System.
+
+Caching::
+Consumer cachen, falls sinnvoll, häufig angeforderte Antworten externer Systeme.
+
+[[aufbau]]
+== Aufbau
+
+Gateways, sowohl Provider als auch Consumer, sind architektonisch gleichartig aufgebaut.
+Sie bestehen aus zwei Komponenten, die den Großteil ihrer Funktionalität umsetzen: dem `ServiceProvider` und dem `ServiceAdapter`.
+Querschnittliche Aufgaben setzen Gateways mit xref:bausteine:bausteine.adoc[Bausteinen] um: durch direkte Nutzung in Eigenentwicklungen oder durch eine zu den Bausteinen konforme Umsetzung bei der Nutzung von Produkten.
+
+[[systemarchitektur-gateway]]
+.Systemarchitektur Gateway
+image::software-technisch/gateway/architektur-gateway.dn.svg[]
+
+Der `ServiceProvider` stellt den Service des Gateways bereit und nimmt die Anfragen entgegen.
+Die Komponente kümmert sich um die Authentifizierung & Autorisierung der Anfragen und validiert sie anschließend.
+Außerdem protokolliert sie die Anfragen und erhebt Metriken gemäß der konkreten Anforderungen an das Gateway.
+Berechtigte und valide Anfragen gibt sie an die Komponente `ServiceAdapter` weiter.
+
+Der `ServiceAdapter` nimmt die Anfragen entgegen und transformiert sie so, dass sie der hinter dem Gateway liegende Service versteht.
+Er leitet die transformierte Anfrage anschließend weiter.
+
+Bei Eigenentwicklungen müssen beide Komponenten im xref:methodik:vorlage-systementwurf/antora-master.adoc[Systementwurf] der Gateways enthalten sein.
+Bei der Nutzung von Produkten müssen im xref:methodik:vorgaben-dokumentation/dokumentationstypen.adoc#table-nutzungskonzept[Nutzungskonzept] die Aufgaben der Komponenten auf die Funktionalität des Produkts übertragen werden.
+
+=== Provider
+
+In Gateways mit der Rolle Provider kann der `ServiceProvider` zusätzlich den Schutz vor gängigen Attacken von außen übernehmen, damit diese nicht die Backends der Systemlandschaft erreichen.
+
+=== Consumer
+
+In Gateways mit der Rolle Consumer kann der `ServiceProvider` zusätzlich das Caching von häufigen Anfragen und deren Antworten gegenüber dem externen System übernehmen.
