@@ -13,9 +13,8 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-import org.junit.Assert;
-import org.junit.Before;
-
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -103,7 +102,7 @@ public abstract class AbstractLogTest {
     /**
      * Test setup.
      */
-    @Before
+    @BeforeEach
     public void setUp() {
 
         // A start log entry will be created before each test to mark the beginning of the log entries for this test.
@@ -147,10 +146,10 @@ public abstract class AbstractLogTest {
             File ergebnisDatei = new File(LOG_VERZEICHNIS + LOG_DATEI);
 
             if (!vorlageDatei.exists()) {
-                Assert.fail("Vorlagedatei existiert nicht: " + vorlageDatei.getAbsolutePath());
+                Assertions.fail("Vorlagedatei existiert nicht: " + vorlageDatei.getAbsolutePath());
             }
             if (!ergebnisDatei.exists()) {
-                Assert.fail("Ergebnisdatei existiert nicht: " + ergebnisDatei.getAbsolutePath());
+                Assertions.fail("Ergebnisdatei existiert nicht: " + ergebnisDatei.getAbsolutePath());
             }
 
             // Collect log entries, which belong the current log record (lines after the last delimiter to the
@@ -195,13 +194,13 @@ public abstract class AbstractLogTest {
                 }
                 if (ergebnis.size() > i) {
                     // Too many log entries were created.
-                    Assert.fail("Die erstellte Logdatei enthält zuviele Zeilen: " + zeileErgebnis);
+                    Assertions.fail("Die erstellte Logdatei enthält zuviele Zeilen: " + zeileErgebnis);
                 }
                 vorlageReader.close();
             }
 
         } catch (IOException e) {
-            Assert.fail("Fehler beim Zugriff auf die Vorlage-Logdatei:" + testfallName + e.getMessage());
+            Assertions.fail("Fehler beim Zugriff auf die Vorlage-Logdatei:" + testfallName + e.getMessage());
         }
 
     }
@@ -244,8 +243,8 @@ public abstract class AbstractLogTest {
         while (feldnamenErgebnisIter.hasNext()) {
             feldnamenErgebnisZuViel.add(feldnamenErgebnisIter.next());
         }
-        Assert.assertTrue("Zuviele Felder im Ergebnis: " + feldnamenErgebnisZuViel,
-                feldnamenErgebnisZuViel.isEmpty());
+        Assertions.assertTrue(feldnamenErgebnisZuViel.isEmpty(),
+                "Zuviele Felder im Ergebnis: " + feldnamenErgebnisZuViel);
 
         // Compare result to the expected output
         for (int i = 0; i < feldnamenVorlage.size(); i++) {
@@ -253,13 +252,13 @@ public abstract class AbstractLogTest {
             String feldnameVorlage = feldnamenVorlage.get(i);
             String feldnameErgebnis = feldnamenErgebnis.get(i);
 
-            Assert.assertEquals("Feldnamen stimmen nicht überein.", feldnameVorlage, feldnameErgebnis);
+            Assertions.assertEquals(feldnameVorlage, feldnameErgebnis, "Feldnamen stimmen nicht überein.");
 
             JsonNode jsonNodeVorlage = nodeVorlage.get(feldnameVorlage);
             JsonNode jsonNodeErgebnis = nodeErgebnis.get(feldnameVorlage);
 
-            Assert.assertEquals("Node-Typen nicht identisch. ValueNode:", jsonNodeVorlage.isValueNode(),
-                    jsonNodeErgebnis.isValueNode());
+            Assertions.assertEquals(jsonNodeVorlage.isValueNode(), jsonNodeErgebnis.isValueNode(),
+                    "Node-Typen nicht identisch. ValueNode:");
 
             if (jsonNodeVorlage.isValueNode()) {
                 String textVorlage = jsonNodeVorlage.asText();
@@ -275,12 +274,12 @@ public abstract class AbstractLogTest {
                     try {
                         Integer.parseInt(textVorlage);
                     } catch (Exception e) {
-                        Assert.fail("Dauer in Vorlage ist keine Zahl: " + textVorlage);
+                        Assertions.fail("Dauer in Vorlage ist keine Zahl: " + textVorlage);
                     }
                     try {
                         Integer.parseInt(textErgebnis);
                     } catch (Exception e) {
-                        Assert.fail("Dauer in Ergebnis ist keine Zahl: " + textVorlage);
+                        Assertions.fail("Dauer in Ergebnis ist keine Zahl: " + textVorlage);
                     }
 
                     // Difference is allowed
@@ -304,8 +303,8 @@ public abstract class AbstractLogTest {
                     textErgebnis = ersetzeString(textErgebnis, "hashCode=", ",");
                 }
 
-                Assert.assertEquals("Textinhalte unterscheiden sich in Knoten '" + feldnameVorlage + "'",
-                        textVorlage, textErgebnis);
+                Assertions.assertEquals(textVorlage,
+                        textErgebnis, "Textinhalte unterscheiden sich in Knoten '" + feldnameVorlage + "'");
 
             } else {
                 vergleicheJsonNodes(jsonNodeVorlage, jsonNodeErgebnis, ereignisschluessel);
@@ -421,7 +420,7 @@ public abstract class AbstractLogTest {
             zeileErgebnis = ersetzeString(zeileErgebnis, "EnhancerByCGLIB$$", "\"");
         }
 
-        Assert.assertEquals("Fehler in Zeile " + zeilennummer, zeileVorlage, zeileErgebnis);
+        Assertions.assertEquals(zeileVorlage, zeileErgebnis, "Fehler in Zeile " + zeilennummer);
     }
 
     /**
@@ -445,18 +444,18 @@ public abstract class AbstractLogTest {
         String dauer = leseSubString(zeileErgebnis, JSON_DAUER_PRAEFIX, JSON_ATTRIBUT_SUFFIX, 0);
         if (dauer != null) {
             int dauerInt = Integer.parseInt(dauer);
-            Assert.assertTrue("Es wurde eine ungültige Dauer gelogged: " + dauerInt, dauerInt > 0
-                    && dauerInt < 1000);
+            Assertions.assertTrue(dauerInt > 0
+                    && dauerInt < 1000, "Es wurde eine ungültige Dauer gelogged: " + dauerInt);
         }
 
         if (zeileErgebnis.contains(JSON_DAUERTE_PRAEFIX)) {
-            Assert.assertNotNull("Text 'dauerte' in Nachricht gefunden, aber kein Marker 'dauer' vorhanden",
-                    dauer);
+            Assertions.assertNotNull(dauer,
+                    "Text 'dauerte' in Nachricht gefunden, aber kein Marker 'dauer' vorhanden");
         }
 
         if (dauer != null) {
-            Assert.assertTrue("Marker 'dauer' vorhanden, aber Text 'dauerte' in Nachricht nicht gefunden",
-                    zeileErgebnis.contains(JSON_DAUERTE_PRAEFIX));
+            Assertions.assertTrue(zeileErgebnis.contains(JSON_DAUERTE_PRAEFIX),
+                    "Marker 'dauer' vorhanden, aber Text 'dauerte' in Nachricht nicht gefunden");
         }
 
         String level = leseSubString(zeileErgebnis, JSON_LEVEL_PRAEFIX, JSON_ATTRIBUT_SUFFIX, 0);
@@ -464,7 +463,7 @@ public abstract class AbstractLogTest {
         // "ALL" is used as default value, if the log level cannot be parsed. This value is return only
         // if a wrong log level is set.
         if ("ALL".equalsIgnoreCase(level)) {
-            Assert.fail("Ungültiges Loglevel " + level);
+            Assertions.fail("Ungültiges Loglevel " + level);
         }
 
         // No keys must be provided only in tests, which use logback directly.
@@ -474,22 +473,22 @@ public abstract class AbstractLogTest {
             // Check the key in the relevant log levels.
             if (!"DEBUG".equalsIgnoreCase(level) && !"TRACE".equalsIgnoreCase(level)) {
                 schluessel = leseSubString(zeileErgebnis, JSON_SCHLUESSEL_PRAEFIX, JSON_ATTRIBUT_SUFFIX, 0);
-                Assert.assertNotNull("Logeintrag besitzt keinen Schluessel.", schluessel);
+                Assertions.assertNotNull(schluessel, "Logeintrag besitzt keinen Schluessel.");
                 int schluesselLaenge = schluessel.length();
                 // The length of the key must be 10 (error key) or 11 (event key).
-                Assert.assertTrue("Schluessel hat falsche Länge: " + schluesselLaenge,
-                        (schluesselLaenge == 10 || schluesselLaenge == 11));
+                Assertions.assertTrue((schluesselLaenge == 10 || schluesselLaenge == 11),
+                        "Schluessel hat falsche Länge: " + schluesselLaenge);
             }
         }
 
         String nachricht = leseSubString(zeileErgebnis, JSON_NACHRICHT_PRAEFIX, JSON_ATTRIBUT_SUFFIX, 0);
         if (!EREIGNISSCHLUESSEL_OHNE_NACHRICHT.equals(schluessel)) {
-            Assert.assertNotNull("Logeintrag besitzt keine Nachricht.", nachricht);
+            Assertions.assertNotNull(nachricht, "Logeintrag besitzt keine Nachricht.");
             // Some placeholders are not replaced in negative tests.
             boolean platzhalterErsetzen = !zeileErgebnis.contains(KENNZEICHNUNG_FEHLERTEST);
             if (platzhalterErsetzen) {
-                Assert.assertFalse("Nachricht enthält nicht ersetzte Platzhalter: " + nachricht,
-                        nachricht.contains("{}"));
+                Assertions.assertFalse(nachricht.contains("{}"),
+                        "Nachricht enthält nicht ersetzte Platzhalter: " + nachricht);
             }
         }
     }
@@ -534,7 +533,7 @@ public abstract class AbstractLogTest {
         int ersetzenEnde = logzeile.indexOf(suffix, ersetzenStart);
 
         if (ersetzenEnde < 0) {
-            Assert.fail(suffix + " in Zeile nicht nach " + praefix + " gefunden in Zeile " + logzeile);
+            Assertions.fail(suffix + " in Zeile nicht nach " + praefix + " gefunden in Zeile " + logzeile);
         }
 
         String logZeileVorher = logzeile;
@@ -545,9 +544,9 @@ public abstract class AbstractLogTest {
         // Stack traces are longer and will not be checked.
         if (!praefix.equals(JSON_EXCEPTION_PRAEFIX)) {
             int anzahlErsetzterZeichen = ersetzenEnde - ersetzenStart;
-            Assert.assertTrue("Fehler in den Tests - es wurden zu viele Zeichen ersetzt ("
+            Assertions.assertTrue(anzahlErsetzterZeichen < 40, "Fehler in den Tests - es wurden zu viele Zeichen ersetzt ("
                     + anzahlErsetzterZeichen + ") Vorher: [" + logZeileVorher + "] Nachher: [" + logzeile
-                    + "]", anzahlErsetzterZeichen < 40);
+                    + "]");
         }
 
         return ersetzeString(logzeile, praefix, suffix, ersetzenEnde);
@@ -578,7 +577,7 @@ public abstract class AbstractLogTest {
         int lesenEnde = logzeile.indexOf(suffix, lesenStart);
 
         if (lesenEnde < 0) {
-            Assert.fail(suffix + " in Zeile nicht nach " + praefix + " gefunden in Zeile " + logzeile);
+            Assertions.fail(suffix + " in Zeile nicht nach " + praefix + " gefunden in Zeile " + logzeile);
         }
 
         return logzeile.substring(lesenStart, lesenEnde);

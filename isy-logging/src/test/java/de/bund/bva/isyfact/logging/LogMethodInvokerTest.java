@@ -3,24 +3,24 @@ package de.bund.bva.isyfact.logging;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import de.bund.bva.isyfact.logging.hilfsklassen.TestZielKlasse;
 import de.bund.bva.isyfact.logging.hilfsklassen.TestZielParameterPerson;
 import de.bund.bva.isyfact.logging.util.LoggingMethodInvoker;
 
 /**
- * Testfälle zur Klasse LogMethodInvoker.
+ * Test cases for the LogMethodInvoker.
  * 
  */
 public class LogMethodInvokerTest extends AbstractLogTest {
 
     /**
-     * Testet die Erstellung von Logeinträgen bei erfolgreichen Methodenaufrufen.
+     * Testing the creation of log entries for successful method calls.
      * 
      * @throws Throwable
-     *             wenn bei der Testausführung ein Fehler aufgetreten ist.
+     *             if an error occurs in the test.
      */
     @Test
     public void testAufrufErfolgreich() throws Throwable {
@@ -47,10 +47,10 @@ public class LogMethodInvokerTest extends AbstractLogTest {
     }
 
     /**
-     * Testet die Erstellung von Logeinträgen bei nicht erfolgreichen Methodenaufrufen (Exception).
+     * Testing the creation of log entries for not successful method calls (Exception).
      * 
      * @throws Exception
-     *             wenn bei der Testausführung ein Fehler aufgetreten ist.
+     *             if an error occurs in the test.
      */
     @Test
     public void testAufrufMitException() throws Exception {
@@ -72,7 +72,7 @@ public class LogMethodInvokerTest extends AbstractLogTest {
         try {
             methodInvoker.fuehreMethodeAus(new TestZielKlasse(), new TestZielParameterPerson("Mustermann",
                     "Max", "Peter", "Hans"), "TestParameter 2");
-            Assert.fail("Es wurde eine Exception erwartet - der Aufruf war aber erfolgreich.");
+            Assertions.fail("Es wurde eine Exception erwartet - der Aufruf war aber erfolgreich.");
         } catch (InvocationTargetException e) {
             pruefeLogdatei("testAufrufMitException", true);
         }
@@ -80,10 +80,10 @@ public class LogMethodInvokerTest extends AbstractLogTest {
     }
 
     /**
-     * Testet die Erstellung von Logeinträgen bei erfolgreichen Methodenaufrufen eines Nachbarsystems.
+     * Testing the creation of log entries for successful method calls in a neighbor system.
      * 
      * @throws Throwable
-     *             wenn bei der Testausführung ein Fehler aufgetreten ist.
+     *             if an error occurs in the test.
      */
     @Test
     public void testAufrufErfolgreichNachbarsystem() throws Throwable {
@@ -111,11 +111,10 @@ public class LogMethodInvokerTest extends AbstractLogTest {
     }
 
     /**
-     * Testet die Erstellung von Logeinträgen bei nicht erfolgreichen Methodenaufrufen eines Nachbarsystems
-     * (Exception).
+     * Testing the creation of log entries for not successful method calls in a neighbor system (Exception).
      * 
      * @throws Exception
-     *             wenn bei der Testausführung ein Fehler aufgetreten ist.
+     *             if an error occurs in the test.
      */
     @Test
     public void testAufrufMitExceptionNachbarsystem() throws Exception {
@@ -138,9 +137,9 @@ public class LogMethodInvokerTest extends AbstractLogTest {
         try {
             methodInvoker.fuehreMethodeAus(new TestZielKlasse(), new TestZielParameterPerson("Mustermann",
                     "Max", "Peter", "Hans"), "TestParameter 2");
-            Assert.fail("Es wurde eine Exception erwartet - der Aufruf war aber erfolgreich.");
+            Assertions.fail("Es wurde eine Exception erwartet - der Aufruf war aber erfolgreich.");
         } catch (InvocationTargetException e) {
-            // Diese Exception wird erwartet.
+            // expecting this exception.
             pruefeLogdatei("testAufrufMitExceptionNachbarsystem");
         }
 

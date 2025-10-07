@@ -1,12 +1,14 @@
 package de.bund.bva.isyfact.batchrahmen.batch.konfiguration;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import java.io.File;
 import java.net.URISyntaxException;
 import java.util.Properties;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import de.bund.bva.isyfact.batchrahmen.core.exception.BatchrahmenKonfigurationException;
@@ -17,159 +19,173 @@ public class BatchKonfigurationTest {
     private BatchKonfiguration batchKonfiguration;
     private Properties properties;
     private static String ERGEBNIS_DATEI;
-    @Before
+    @BeforeEach
     public void setUp() {
         try {
             ERGEBNIS_DATEI = new File(
                     BatchLauncherTest.class.getResource("/resources/batch/ausgabe/ergebnisdatei.xml").toURI())
                     .getAbsolutePath();
         } catch (URISyntaxException e) {
-            Assert.fail(e.getMessage());
+            Assertions.fail(e.getMessage());
         }
         properties = Mockito.mock(Properties.class);
     }
 
-    @Test(expected = BatchrahmenParameterException.class)
+    @Test
     public void BatchKonfigurationCfgEmpty() {
-        batchKonfiguration = new BatchKonfiguration(new String[] {"-start", "-cfg", "", "-Batchrahmen.Ergebnisdatei", ERGEBNIS_DATEI});
+        assertThrows(BatchrahmenParameterException.class, () -> {
+            batchKonfiguration = new BatchKonfiguration(new String[]{"-start", "-cfg", "", "-Batchrahmen.Ergebnisdatei", ERGEBNIS_DATEI});
+        });
     }
 
-    @Test()
+    @Test
     public void BatchKonfiguration() {
         batchKonfiguration = new BatchKonfiguration(new String[] {
                 "-start", "-cfg", "/resources/batch/test-batch-launcher.properties", "-Batchrahmen.Ergebnisdatei", ERGEBNIS_DATEI,
                 "-PROPERTY_SPRINGPROFILES_PROPERTIES"
         });
-        Assert.assertEquals(1, batchKonfiguration.getBatchRahmenSpringKonfigFiles().size());
-        Assert.assertEquals("de.bund.bva.isyfact.batchrahmen.BatchrahmenTestConfig123", batchKonfiguration.getBatchRahmenSpringKonfigFiles().get(0));
-        Assert.assertEquals(1, batchKonfiguration.getAnwendungSpringKonfigFiles().size());
-        Assert.assertEquals("de.bund.bva.isyfact.batchrahmen.AnwendungTestConfig123", batchKonfiguration.getAnwendungSpringKonfigFiles().get(0));
+        Assertions.assertEquals(1, batchKonfiguration.getBatchRahmenSpringKonfigFiles().size());
+        Assertions.assertEquals("de.bund.bva.isyfact.batchrahmen.BatchrahmenTestConfig123", batchKonfiguration.getBatchRahmenSpringKonfigFiles().get(0));
+        Assertions.assertEquals(1, batchKonfiguration.getAnwendungSpringKonfigFiles().size());
+        Assertions.assertEquals("de.bund.bva.isyfact.batchrahmen.AnwendungTestConfig123", batchKonfiguration.getAnwendungSpringKonfigFiles().get(0));
     }
 
-    @Test()
+    @Test
     public  void BatchKonfigurationGetSpringProfiles()
     {
         batchKonfiguration = new BatchKonfiguration(new String[] {
                 "-start", "-cfg", "/resources/batch/test-batch-launcher-spring-profile.properties", "-Batchrahmen.Ergebnisdatei", ERGEBNIS_DATEI,
                 "-PROPERTY_SPRINGPROFILES_PROPERTIES"
         });
-        Assert.assertEquals(1, batchKonfiguration.getSpringProfiles().length);
+        Assertions.assertEquals(1, batchKonfiguration.getSpringProfiles().length);
     }
 
-    @Test()
+    @Test
     public  void BatchKonfigurationGetSpringProfilesNull()
     {
         batchKonfiguration = new BatchKonfiguration(new String[] {
                 "-start", "-cfg", "/resources/batch/test-batch-launcher.properties", "-Batchrahmen.Ergebnisdatei", ERGEBNIS_DATEI,
                 "-PROPERTY_SPRINGPROFILES_PROPERTIES"
         });
-        Assert.assertEquals(0, batchKonfiguration.getSpringProfiles().length);
+        Assertions.assertEquals(0, batchKonfiguration.getSpringProfiles().length);
     }
 
-    @Test()
+    @Test
     public void BatchKonfigurationgGetAsLong()
     {
         batchKonfiguration = new BatchKonfiguration(new String[] {
                 "-start", "-cfg", "/resources/batch/test-batch-launcher.properties", "-Batchrahmen.Ergebnisdatei", ERGEBNIS_DATEI,
                 "-PROPERTY_SPRINGPROFILES_PROPERTIES"
         });
-        Assert.assertEquals(1000, batchKonfiguration.getAsLong("LongProperty"));
+        Assertions.assertEquals(1000, batchKonfiguration.getAsLong("LongProperty"));
     }
 
-    @Test(expected = BatchrahmenKonfigurationException.class)
+    @Test
     public void BatchKonfigurationgGetAsLongKeyNotAvailable()
     {
-        batchKonfiguration = new BatchKonfiguration(new String[] {
-                "-start", "-cfg", "/resources/batch/test-batch-launcher-spring-profile.properties", "-Batchrahmen.Ergebnisdatei", ERGEBNIS_DATEI,
-                "-PROPERTY_SPRINGPROFILES_PROPERTIES"
+        assertThrows(BatchrahmenKonfigurationException.class, () -> {
+            batchKonfiguration = new BatchKonfiguration(new String[]{
+                    "-start", "-cfg", "/resources/batch/test-batch-launcher-spring-profile.properties", "-Batchrahmen.Ergebnisdatei", ERGEBNIS_DATEI,
+                    "-PROPERTY_SPRINGPROFILES_PROPERTIES"
+            });
+            batchKonfiguration.getAsLong("LongProperty");
+            batchKonfiguration.getAsLong("BatchName");
         });
-        batchKonfiguration.getAsLong("LongProperty");
-        batchKonfiguration.getAsLong("BatchName");
     }
 
-    @Test()
+    @Test
     public void BatchKonfigurationgGetAsString()
     {
         batchKonfiguration = new BatchKonfiguration(new String[] {
                 "-start", "-cfg", "/resources/batch/test-batch-launcher.properties", "-Batchrahmen.Ergebnisdatei", ERGEBNIS_DATEI,
                 "-PROPERTY_SPRINGPROFILES_PROPERTIES"
         });
-        Assert.assertEquals("testBatchLauncher", batchKonfiguration.getAsString("BatchName"));
+        Assertions.assertEquals("testBatchLauncher", batchKonfiguration.getAsString("BatchName"));
     }
 
-    @Test(expected = BatchrahmenKonfigurationException.class)
+    @Test
     public void BatchKonfigurationgGetAsStringException()
     {
-        batchKonfiguration = new BatchKonfiguration(new String[] {
-                "-start", "-cfg", "/resources/batch/test-batch-launcher.properties", "-Batchrahmen.Ergebnisdatei", ERGEBNIS_DATEI,
-                "-PROPERTY_SPRINGPROFILES_PROPERTIES"
+        assertThrows(BatchrahmenKonfigurationException.class, () -> {
+            batchKonfiguration = new BatchKonfiguration(new String[]{
+                    "-start", "-cfg", "/resources/batch/test-batch-launcher.properties", "-Batchrahmen.Ergebnisdatei", ERGEBNIS_DATEI,
+                    "-PROPERTY_SPRINGPROFILES_PROPERTIES"
+            });
+            batchKonfiguration.getAsString("NotSet");
         });
-        batchKonfiguration.getAsString("NotSet");
     }
 
-    @Test(expected = BatchrahmenKonfigurationException.class)
+    @Test
     public void BatchKonfigurationgGetAsBooleanException()
     {
-        batchKonfiguration = new BatchKonfiguration(new String[] {
-                "-start", "-cfg", "/resources/batch/test-batch-launcher.properties", "-Batchrahmen.Ergebnisdatei", ERGEBNIS_DATEI,
-                "-PROPERTY_SPRINGPROFILES_PROPERTIES"
+        assertThrows(BatchrahmenKonfigurationException.class, () -> {
+            batchKonfiguration = new BatchKonfiguration(new String[]{
+                    "-start", "-cfg", "/resources/batch/test-batch-launcher.properties", "-Batchrahmen.Ergebnisdatei", ERGEBNIS_DATEI,
+                    "-PROPERTY_SPRINGPROFILES_PROPERTIES"
+            });
+            batchKonfiguration.getAsBoolean("NotSet");
         });
-        batchKonfiguration.getAsBoolean("NotSet");
     }
 
-    @Test()
+    @Test
     public void BatchKonfigurationgGetAsStringStandard()
     {
         batchKonfiguration = new BatchKonfiguration(new String[] {
                 "-start", "-cfg", "/resources/batch/test-batch-launcher.properties", "-Batchrahmen.Ergebnisdatei", ERGEBNIS_DATEI,
                 "-PROPERTY_SPRINGPROFILES_PROPERTIES"
         });
-        Assert.assertEquals("testBatchLauncher", batchKonfiguration.getAsString("BatchName", "Standard"));
+        Assertions.assertEquals("testBatchLauncher", batchKonfiguration.getAsString("BatchName", "Standard"));
     }
 
-    @Test()
+    @Test
     public void BatchKonfigurationgGetAsStringStandardKeyNotAvailable()
     {
         batchKonfiguration = new BatchKonfiguration(new String[] {
                 "-start", "-cfg", "/resources/batch/test-batch-launcher.properties", "-Batchrahmen.Ergebnisdatei", ERGEBNIS_DATEI,
                 "-PROPERTY_SPRINGPROFILES_PROPERTIES"
         });
-        Assert.assertEquals("Standard", batchKonfiguration.getAsString("NotSet", "Standard"));
+        Assertions.assertEquals("Standard", batchKonfiguration.getAsString("NotSet", "Standard"));
     }
 
-    @Test()
+    @Test
     public void BatchKonfigurationgGetAsLongStandardValueNotSet()
     {
         batchKonfiguration = new BatchKonfiguration(new String[] {
                 "-start", "-cfg", "/resources/batch/test-batch-launcher-spring-profile.properties", "-Batchrahmen.Ergebnisdatei", ERGEBNIS_DATEI,
                 "-PROPERTY_SPRINGPROFILES_PROPERTIES"
         });
-        Assert.assertEquals(1000, batchKonfiguration.getAsLong("LongProperty", 1000));
+        Assertions.assertEquals(1000, batchKonfiguration.getAsLong("LongProperty", 1000));
     }
 
-    @Test(expected = BatchrahmenKonfigurationException.class)
+    @Test
     public void BatchKonfigurationgGtAsLongKeyNotLong()
     {
-        batchKonfiguration = new BatchKonfiguration(new String[] {
-                "-start", "-cfg", "/resources/batch/test-batch-launcher-spring-profile.properties", "-Batchrahmen.Ergebnisdatei", ERGEBNIS_DATEI,
-                "-PROPERTY_SPRINGPROFILES_PROPERTIES"
+        assertThrows(BatchrahmenKonfigurationException.class, () -> {
+            batchKonfiguration = new BatchKonfiguration(new String[]{
+                    "-start", "-cfg", "/resources/batch/test-batch-launcher-spring-profile.properties", "-Batchrahmen.Ergebnisdatei", ERGEBNIS_DATEI,
+                    "-PROPERTY_SPRINGPROFILES_PROPERTIES"
+            });
+            batchKonfiguration.getAsLong("BatchName");
         });
-        batchKonfiguration.getAsLong("BatchName");
     }
 
-    @Test(expected = BatchrahmenKonfigurationException.class)
+    @Test
     public void ladePropertyDateiInvalidFile() {
-        batchKonfiguration = new BatchKonfiguration(new String[] {
-                "-start", "-cfg", "resourceNotAvailable", "-Batchrahmen.Ergebnisdatei", ERGEBNIS_DATEI,
-                "-PROPERTY_SPRINGPROFILES_PROPERTIES"
+        assertThrows(BatchrahmenKonfigurationException.class, () -> {
+            batchKonfiguration = new BatchKonfiguration(new String[]{
+                    "-start", "-cfg", "resourceNotAvailable", "-Batchrahmen.Ergebnisdatei", ERGEBNIS_DATEI,
+                    "-PROPERTY_SPRINGPROFILES_PROPERTIES"
+            });
         });
     }
 
-    @Test(expected = BatchrahmenParameterException.class)
+    @Test
     public void getStartTypStart() {
-        batchKonfiguration = new BatchKonfiguration(new String[] {
-                "-start", "-cfg", "/resources/batch/test-batch-launcher-start-stop.properties", "-Batchrahmen.Ergebnisdatei", ERGEBNIS_DATEI,
-                "-PROPERTY_SPRINGPROFILES_PROPERTIES"
+        assertThrows(BatchrahmenParameterException.class, () -> {
+            batchKonfiguration = new BatchKonfiguration(new String[]{
+                    "-start", "-cfg", "/resources/batch/test-batch-launcher-start-stop.properties", "-Batchrahmen.Ergebnisdatei", ERGEBNIS_DATEI,
+                    "-PROPERTY_SPRINGPROFILES_PROPERTIES"
+            });
         });
     }
 }

@@ -1,11 +1,12 @@
 package de.bund.bva.isyfact.batchrahmen.batch.exception;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
-
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import de.bund.bva.isyfact.batchrahmen.batch.rahmen.BatchReturnCode;
+
+import org.junit.jupiter.api.Test;
 import de.bund.bva.isyfact.exception.BaseException;
 import de.bund.bva.isyfact.exception.FehlertextProvider;
 import de.bund.bva.isyfact.exception.TechnicalRuntimeException;

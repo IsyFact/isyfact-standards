@@ -1,7 +1,7 @@
 package de.bund.bva.isyfact.logging;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.slf4j.LoggerFactory;
 
 import de.bund.bva.isyfact.logging.impl.IsyLocationAwareLoggerImpl;
@@ -10,12 +10,12 @@ import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
 
 /**
- * Testfälle zum Testen der 'enabled' Methoden. 
+ * Test cases for the 'enabled' methods.
  */
 public class EnabledTest extends AbstractLogTest {
     
     /**
-     * Testet die 'enabled' Methoden, in dem sie nacheinander in allen Konstellationen aufgerufen werden.
+     * Testing the 'enabled' methods, by calling them one by one in all constellations
      */
     @Test
     public void testEnabledErfolgreich() {
@@ -24,44 +24,44 @@ public class EnabledTest extends AbstractLogTest {
         IsyLogger isyLogger = new IsyLocationAwareLoggerImpl(logger);
         
         logger.setLevel(Level.TRACE);
-        Assert.assertTrue(isyLogger.isTraceEnabled());
-        Assert.assertTrue(isyLogger.isDebugEnabled());
-        Assert.assertTrue(isyLogger.isInfoEnabled());
-        Assert.assertTrue(isyLogger.isWarnEnabled());
-        Assert.assertTrue(isyLogger.isErrorEnabled());
-        Assert.assertTrue(isyLogger.isFatalEnabled());
+        Assertions.assertTrue(isyLogger.isTraceEnabled());
+        Assertions.assertTrue(isyLogger.isDebugEnabled());
+        Assertions.assertTrue(isyLogger.isInfoEnabled());
+        Assertions.assertTrue(isyLogger.isWarnEnabled());
+        Assertions.assertTrue(isyLogger.isErrorEnabled());
+        Assertions.assertTrue(isyLogger.isFatalEnabled());
         
         logger.setLevel(Level.DEBUG);
-        Assert.assertFalse(isyLogger.isTraceEnabled());
-        Assert.assertTrue(isyLogger.isDebugEnabled());
-        Assert.assertTrue(isyLogger.isInfoEnabled());
-        Assert.assertTrue(isyLogger.isWarnEnabled());
-        Assert.assertTrue(isyLogger.isErrorEnabled());
-        Assert.assertTrue(isyLogger.isFatalEnabled());
+        Assertions.assertFalse(isyLogger.isTraceEnabled());
+        Assertions.assertTrue(isyLogger.isDebugEnabled());
+        Assertions.assertTrue(isyLogger.isInfoEnabled());
+        Assertions.assertTrue(isyLogger.isWarnEnabled());
+        Assertions.assertTrue(isyLogger.isErrorEnabled());
+        Assertions.assertTrue(isyLogger.isFatalEnabled());
         
         logger.setLevel(Level.INFO);
-        Assert.assertFalse(isyLogger.isTraceEnabled());
-        Assert.assertFalse(isyLogger.isDebugEnabled());
-        Assert.assertTrue(isyLogger.isInfoEnabled());
-        Assert.assertTrue(isyLogger.isWarnEnabled());
-        Assert.assertTrue(isyLogger.isErrorEnabled());
-        Assert.assertTrue(isyLogger.isFatalEnabled());
+        Assertions.assertFalse(isyLogger.isTraceEnabled());
+        Assertions.assertFalse(isyLogger.isDebugEnabled());
+        Assertions.assertTrue(isyLogger.isInfoEnabled());
+        Assertions.assertTrue(isyLogger.isWarnEnabled());
+        Assertions.assertTrue(isyLogger.isErrorEnabled());
+        Assertions.assertTrue(isyLogger.isFatalEnabled());
         
         logger.setLevel(Level.WARN);
-        Assert.assertFalse(isyLogger.isTraceEnabled());
-        Assert.assertFalse(isyLogger.isDebugEnabled());
-        Assert.assertFalse(isyLogger.isInfoEnabled());
-        Assert.assertTrue(isyLogger.isWarnEnabled());
-        Assert.assertTrue(isyLogger.isErrorEnabled());
-        Assert.assertTrue(isyLogger.isFatalEnabled());
+        Assertions.assertFalse(isyLogger.isTraceEnabled());
+        Assertions.assertFalse(isyLogger.isDebugEnabled());
+        Assertions.assertFalse(isyLogger.isInfoEnabled());
+        Assertions.assertTrue(isyLogger.isWarnEnabled());
+        Assertions.assertTrue(isyLogger.isErrorEnabled());
+        Assertions.assertTrue(isyLogger.isFatalEnabled());
         
         logger.setLevel(Level.ERROR);
-        Assert.assertFalse(isyLogger.isTraceEnabled());
-        Assert.assertFalse(isyLogger.isDebugEnabled());
-        Assert.assertFalse(isyLogger.isInfoEnabled());
-        Assert.assertFalse(isyLogger.isWarnEnabled());
-        Assert.assertTrue(isyLogger.isErrorEnabled());
-        Assert.assertTrue(isyLogger.isFatalEnabled());
+        Assertions.assertFalse(isyLogger.isTraceEnabled());
+        Assertions.assertFalse(isyLogger.isDebugEnabled());
+        Assertions.assertFalse(isyLogger.isInfoEnabled());
+        Assertions.assertFalse(isyLogger.isWarnEnabled());
+        Assertions.assertTrue(isyLogger.isErrorEnabled());
+        Assertions.assertTrue(isyLogger.isFatalEnabled());
         
     }
 

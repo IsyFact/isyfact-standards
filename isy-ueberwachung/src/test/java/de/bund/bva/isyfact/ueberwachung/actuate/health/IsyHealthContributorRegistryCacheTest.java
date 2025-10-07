@@ -7,9 +7,9 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.function.Consumer;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.actuate.health.CompositeHealthContributor;
 import org.springframework.boot.actuate.health.DefaultHealthContributorRegistry;
 import org.springframework.boot.actuate.health.Health;
@@ -32,7 +32,7 @@ public class IsyHealthContributorRegistryCacheTest {
 
     private IsyCachingHealthContributorRegistry cachingRegistry;
 
-    @Before
+    @BeforeEach
     public void setup() {
         liveRegistry = new DefaultHealthContributorRegistry();
         liveRegistry.registerContributor("A1", ContributorBuilder.indicator());
@@ -122,7 +122,7 @@ public class IsyHealthContributorRegistryCacheTest {
     public void testInitialHealth() {
         // Assert that Health is initially UNKNOWN for the cachingRegistry
         consumeIndicators(cachingRegistry, healthIndicator -> {
-            Assert.assertEquals(Status.UNKNOWN, healthIndicator.health().getStatus());
+            Assertions.assertEquals(Status.UNKNOWN, healthIndicator.health().getStatus());
         });
 
         // Assert that the mocked Indicators of the original Registry have not been called
@@ -148,7 +148,7 @@ public class IsyHealthContributorRegistryCacheTest {
 
         // Assert that the Health of all Indicators is now UP
         consumeIndicators(cachingRegistry, healthIndicator -> {
-            Assert.assertEquals(Status.UP, healthIndicator.health().getStatus());
+            Assertions.assertEquals(Status.UP, healthIndicator.health().getStatus());
         });
     }
 
@@ -179,7 +179,7 @@ public class IsyHealthContributorRegistryCacheTest {
         if (contA instanceof NamedContributors && contB instanceof NamedContributors) {
             assertSubsetOf((NamedContributors<HealthContributor>) contA, (NamedContributors<HealthContributor>) contB);
         } else if (!(contA instanceof HealthIndicator && contB instanceof HealthIndicator)) {
-            Assert.fail("Die Strukturen ist nicht gleich");
+            Assertions.fail("Die Strukturen ist nicht gleich");
         }
     }
 
@@ -189,11 +189,11 @@ public class IsyHealthContributorRegistryCacheTest {
         while (iterA.hasNext() && iterB.hasNext()) {
             NamedContributor<HealthContributor> nextA = iterA.next();
             NamedContributor<HealthContributor> nextB = iterB.next();
-            Assert.assertEquals(nextA.getName(), nextB.getName());
+            Assertions.assertEquals(nextA.getName(), nextB.getName());
             assertSubsetOf(nextA.getContributor(), nextB.getContributor());
         }
         if (iterA.hasNext() || iterB.hasNext()) {
-            Assert.fail("Die Strukturen ist nicht gleich");
+            Assertions.fail("Die Strukturen ist nicht gleich");
         }
     }
 

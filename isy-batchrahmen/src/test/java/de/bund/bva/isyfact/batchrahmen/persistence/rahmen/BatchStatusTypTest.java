@@ -1,13 +1,13 @@
 package de.bund.bva.isyfact.batchrahmen.persistence.rahmen;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class BatchStatusTypTest {
 
