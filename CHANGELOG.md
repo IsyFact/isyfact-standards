@@ -29,6 +29,7 @@
     * Update von com.github.spotbugs:spotbugs-maven-plugin von 4.8.6.6 auf 4.9.3.2
     * Update von commons-beanutils:commons-beanutils von 1.9.4 auf 1.11.0
     * Update von org.springframework.boot:spring-boot-dependencies von 3.5.3 auf 3.5.4
+- `IFS-4748`: [isy-batchrahmen], [isy-security] Alle deprecated Spring-Boot-Funktionen auf aktuelle Alternativen umgestellt
 
 ## BUG FIXES
 - `IFS-4526`: [isy-task] Logeintrag IsyTaskAspect korrigiert
