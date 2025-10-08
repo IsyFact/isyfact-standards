@@ -24,7 +24,7 @@ import org.springframework.security.oauth2.client.web.OAuth2AuthorizedClientRepo
  * !!! Workaround !!!
  * <p>
  * Since {@code WebApplicationType.NONE} is set in the BatchLauncher, the
- * {@link org.springframework.boot.autoconfigure.security.oauth2.client.servlet.OAuth2ClientAutoConfiguration}
+ * {@link org.springframework.boot.autoconfigure.security.oauth2.client.OAuth2ClientAutoConfiguration}
  * is not loaded due to the annotation
  * {@code @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)}.
  * <p>
