@@ -25,7 +25,7 @@ import ch.qos.logback.core.rolling.TimeBasedRollingPolicy;
 public class RolloverTest extends AbstractLogTest {
 
     /**
-     * testing that in the log rotation timestamp not the time zone of the system but UTC is used
+     * Testing that in the log rotation timestamp not the time zone of the system but UTC is used
      * 
      * @throws Exception
      *             if an exception during the test occurs.
@@ -46,15 +46,16 @@ public class RolloverTest extends AbstractLogTest {
         TimeZone zeitzoneSystem = jetzt.getTimeZone();
         TimeZone zeitzoneUTC = TimeZone.getTimeZone("UTC");
 
-        // Validation that this test is not performed in a system with UTC.
-        // Overall using UTC is good, but for this test it would make it obsolete.
-        // This test validates that UTC is used, when the syxtem uses something else.
-        // if applicable the test must be skipped or the system time changed.=
+        // Verify that the test is being run on a system that does not use UTC. Generally, it is
+        // good if a system runs under UTC, but then the test is not
+        // meaningful, since the goal is to verify that Logback always uses UTC,
+        // even if the system time zone is different. If necessary, the test must be skipped or the
+        // system time must be adjusted.
         Assertions.assertNotSame(zeitzoneUTC.getID(), zeitzoneSystem.getID(),
                 "Die Zeitzone des Systems ist UTC. Dies ist kein Fehler, "
                 + "führt jedoch dazu, dass der Test nicht aussagekräftig ist. ");
 
-        // deleting next file of the log rotations
+        // Determine and delete the rotation target file
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd_HH");
         dateFormat.setTimeZone(zeitzoneUTC);
         String rolloverString = dateFormat.format(jetzt.getTime());
@@ -67,8 +68,8 @@ public class RolloverTest extends AbstractLogTest {
 
         logger.debug("TEST");
 
-        // Roll: as logback cannot be forced to rotate the logfile,
-        // we manipulate by reflection the next log time of the next logfile
+        // Rolling: This is a bit cumbersome, since you can't force logback to roll. Therefore,
+        // the next time to be rolled is manipulated in logback using reflection.
         TimeBasedRollingPolicy<?> triggeringPolicy = (TimeBasedRollingPolicy<?>) appender
                 .getTriggeringPolicy();
         TimeBasedFileNamingAndTriggeringPolicyBase<?> timeBasedFileNamingAndTriggeringPolicy = (TimeBasedFileNamingAndTriggeringPolicyBase<?>) triggeringPolicy
@@ -79,7 +80,7 @@ public class RolloverTest extends AbstractLogTest {
         triggeringPolicy.isTriggeringEvent(null, null);
         appender.rollover();
 
-        // rollated log file with correct timestamp must exist
+        // rolled log file with correct timestamp must exist
         Assertions.assertTrue(
                 logdateiRolliert.exists(),
                 "Die erwartete rotierte Logdatei existiert nicht: " + logdateiRolliert.getAbsolutePath());

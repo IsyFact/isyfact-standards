@@ -9,13 +9,13 @@ import org.springframework.context.annotation.Configuration;
 import de.bund.bva.isyfact.logging.AbstractLogTest;
 
 /**
- * Testfälle des LogApplicationListeners.
+ * LogApplicationListener test cases.
  */
 public class ApplicationListenerTest extends AbstractLogTest {
 
     /**
-     * Testet die Erstellung von Logeinträgen beim Hoch- und Herunterfahren des Application-Context mit Hilfe
-     * des LogApplicationContextListener.
+     * Tests the creation of log entries when the application context is started and shut down using
+     * the LogApplicationContextListener.
      */
     @Test
     public void testApplicationContextLogs() {

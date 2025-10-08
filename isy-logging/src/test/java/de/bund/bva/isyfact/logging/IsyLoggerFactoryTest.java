@@ -14,7 +14,7 @@ import de.bund.bva.isyfact.logging.exceptions.LogKonfigurationFehler;
 public class IsyLoggerFactoryTest {
 
     /**
-     * testing the correct error message if a wrong logging framework is used
+     * Testing the correct error message if a wrong logging framework is used
      * 
      * @throws Exception
      *             if an error occurs in the test.

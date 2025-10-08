@@ -3,7 +3,7 @@ package de.bund.bva.isyfact.logging.hilfsklassen;
 
 
 /**
- * Test-Bean throwing an errer in a getter, dass innerhalb eines Getters einen Fehler wirft.
+ * Test-Bean throwing an error in a getter.
  */
 public class TestBeanMitException {
     
@@ -11,7 +11,7 @@ public class TestBeanMitException {
     private String a;
 
     /**
-     * gets value of attribut 'a'.
+     * Gets value of attribut 'a'.
      * 
      * @return value of attribut.
      */
@@ -21,7 +21,7 @@ public class TestBeanMitException {
     }
 
     /**
-     * set value of attribut 'a'.
+     * Sets value of attribut 'a'.
      *
      * @param a new value for attribut.
      */

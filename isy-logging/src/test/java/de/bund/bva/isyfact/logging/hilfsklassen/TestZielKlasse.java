@@ -11,7 +11,7 @@ public class TestZielKlasse {
 
     /**
      * Test method (success).
-     * the method sets the name for a given person and pauses the thread for 10 ms.
+     * The method sets the name for a given person and pauses the thread for 10 ms.
      * 
      * @param person
      *            the person whose name to be changed.
@@ -19,7 +19,7 @@ public class TestZielKlasse {
      *            name of a person.
      * @return the changed person
      * @throws Throwable
-     *             if an error happends during pausing a threads.
+     *             if an error occurs during pausing a threads.
      */
     public TestZielParameterPerson setzeName(TestZielParameterPerson person, String name) throws Throwable {
         person.setName(name);
@@ -28,7 +28,7 @@ public class TestZielKlasse {
     }
 
     /**
-     * test method for logging an exception. A java.lang.ArithmeticException will be thrown.
+     * Test method for logging an exception. A java.lang.ArithmeticException will be thrown.
      * 
      * @param person
      *            the person whose name to be changed.

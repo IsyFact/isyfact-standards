@@ -16,12 +16,12 @@ import de.bund.bva.isyfact.logging.util.BeanGroessePruefer;
 import org.junit.jupiter.api.Test;
 
 /**
- * Test for the log parameter size checkert.
+ * Test for the log parameter size checker.
  */
 public class BeanGroessePrueferTest extends AbstractLogTest {
 
     /**
-     * positive testing a primitive type.
+     * Positive testing a primitive type.
      */
     @Test
     public void testePrimitivenTyp() {
@@ -33,7 +33,7 @@ public class BeanGroessePrueferTest extends AbstractLogTest {
     }
 
     /**
-     * positive testing for a class as attribute.
+     * Positive testing for a class as attribute.
      */
     @Test
     public void testeKlasse() {
@@ -46,7 +46,7 @@ public class BeanGroessePrueferTest extends AbstractLogTest {
     }
 
     /**
-     * positive testing for arrays.
+     * Positive testing for arrays.
      */
     @Test
     public void testeArrays() {
@@ -59,7 +59,7 @@ public class BeanGroessePrueferTest extends AbstractLogTest {
     }
 
     /**
-     * positive testing for collections.
+     * Positive testing for collections.
      */
     @Test
     public void testeCollections() {
@@ -82,7 +82,7 @@ public class BeanGroessePrueferTest extends AbstractLogTest {
     }
 
     /**
-     * positive testing for attributes in objects.
+     * Positive testing for attributes in objects.
      */
     @Test
     public void testeAttributeInObjekten() {

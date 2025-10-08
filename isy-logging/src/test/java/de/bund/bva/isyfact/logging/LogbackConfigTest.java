@@ -13,12 +13,12 @@ import ch.qos.logback.core.joran.spi.JoranException;
 
 
 /**
- * test cases to test different configuration settings
+ * Test cases to test different configuration settings
  */
 public class LogbackConfigTest extends AbstractLogTest {
 
     /**
-     * testing configuration of parameter INCLUDE_MDC, which leads to the intake of
+     * Testing configuration of parameter INCLUDE_MDC, which leads to the intake of
      * the complete MDC in the context
      *
      * @throws Exception
@@ -46,12 +46,12 @@ public class LogbackConfigTest extends AbstractLogTest {
     }
 
     /**
-     * helper method to configure alternativ logging configurations
+     * Helper method to configure alternativ logging configurations
      * 
      * @param konfigDatei
      *            name of the configuration file to be used.
      * @throws JoranException
-     *             if an exceptions occurs reading the file.
+     *             if an exception occurs reading the file.
      */
     public void konfiguriereLogback(String konfigDatei) throws JoranException {
         URL url = this.getClass().getClassLoader().getResource(konfigDatei);

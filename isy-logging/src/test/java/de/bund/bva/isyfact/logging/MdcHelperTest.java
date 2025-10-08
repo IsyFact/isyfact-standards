@@ -21,7 +21,7 @@ public class MdcHelperTest extends AbstractLogTest {
         // remove correlation-ID
         MDC.remove(MdcHelper.MDC_KORRELATIONS_ID);
         
-        // correlation-ID has not been set und therefore must
+        // correlation-ID has not been set and therefore must
         // be null when removing and reading.
         String korrelationsid = MdcHelper.entferneKorrelationsId();
         Assertions.assertNull(korrelationsid);

@@ -37,52 +37,54 @@ import de.bund.bva.isyfact.logging.util.LoggingMethodInterceptor;
 public class LogInterceptorTest extends AbstractLogTest {
 
     /**
-     * method intercepter with all flags "true" (maximum output)
+     * Method interceptor with all flags "true" (maximum output)
      */
     @Autowired
     @Qualifier("alleFlagsTrueInterceptor")
     private LoggingMethodInterceptor alleFlagsTrueInterceptor;
 
     /**
-     * method intercepter with all flags "true". flag 'loggeDaten' is false and not set
+     * Method interceptor with all flags "true". flag 'loggeDaten' is false and not set
      */
     @Autowired
     @Qualifier("alleFlagsTrueOhneLoggeDatenInterceptor")
     private LoggingMethodInterceptor alleFlagsTrueOhneLoggeDatenInterceptor;
 
     /**
-     * method intercepter with all flags "false" (minimum output)
+     * Method interceptor with all flags "false" (minimum output)
      */
     @Autowired
     @Qualifier("alleFlagsFalseInterceptor")
     private LoggingMethodInterceptor alleFlagsFalseInterceptor;
 
     /**
-     * method intercepter with all flags "true" (maximum output), but converter is configured,
-     * so that package 'de.bund.bva' is exclueded
+     * Method interceptor with all flags "true", but converter is configured,
+     * so that package 'de.bund.bva' is excluded
      */
     @Autowired
     @Qualifier("individuellerInterceptor")
     private LoggingMethodInterceptor individuellerInterceptor;
 
     /**
-     * target class for which the log intercepter should create log entries for system boundary
+     * Target class in which a log interceptor is configured per aspect to generate log entries for
+     * system boundaries.
      */
     @Autowired
     private TestZielKlasse boundaryZielKlasse;
 
     /**
-     * target class for which the log intercepter should create log entries for component boundary
+     * Target class in which a log interceptor is configured per aspect to generate log entries for
+     * component boundaries.
      */
     @Autowired
     private TestZielKlasse2 componentZielKlasse;
 
     /**
-     * Test logging with a successful method call on maximal log output. The intercepter is called direct
+     * Test logging with a successful method call on maximal log output. The interceptor is called direct
      * and not with Spring.
      *
      * @throws Throwable
-     *             if an expception is thrown during the test.
+     *             if an exception is thrown during the test.
      */
     @Test
     public void testAufrufErfolgreichDirekt() throws Throwable {
@@ -101,10 +103,10 @@ public class LogInterceptorTest extends AbstractLogTest {
 
     /**
      * Test logging with a not successful method call (exception) on maximal log output.
-     * The intercepter is called direct and not with Spring.
+     * The interceptor is called direct and not with Spring.
      *
      * @throws Throwable
-     *             if an expception is thrown during the test.
+     *             if an exception is thrown during the test.
      */
     @Test
     public void testAufrufMitExceptionDirekt() throws Throwable {
@@ -128,11 +130,11 @@ public class LogInterceptorTest extends AbstractLogTest {
     }
 
     /**
-     * Test logging with a successful method call on minimal log output. The intercepter is called direct
+     * Test logging with a successful method call on minimal log output. The interceptor is called direct
      * and not with Spring.
      *
      * @throws Throwable
-     *             if an expception is thrown during the test.
+     *             if an exception is thrown during the test.
      */
     @Test
     public void testAufrufErfolgreichParameterFalseDirekt() throws Throwable {
@@ -151,10 +153,10 @@ public class LogInterceptorTest extends AbstractLogTest {
 
     /**
      * Test logging with a not successful method call (exception) on minimal log output.
-     * The intercepter is called direct and not with Spring.
+     * The interceptor is called direct and not with Spring.
      *
      * @throws Throwable
-     *             if an expception is thrown during the test.
+     *             if an exception is thrown during the test.
      */
     @Test
     public void testAufrufMitExceptionParameterFalseDirekt() throws Throwable {
@@ -176,10 +178,10 @@ public class LogInterceptorTest extends AbstractLogTest {
     }
 
     /**
-     * Test logging with a successful system interface call. The intercepter is configured by Spring and tested.
+     * Test logging with a successful system interface call. The interceptor is configured by Spring and tested.
      *
      * @throws Throwable
-     *             if an expception is thrown during the test.
+     *             if an exception is thrown during the test.
      */
     @Test
     public void testBoundaryAufrufErfolgreich() throws Throwable {
@@ -193,10 +195,10 @@ public class LogInterceptorTest extends AbstractLogTest {
 
     /**
      * Test logging with a not successful system interface call (exception).
-     * The intercepter is configured by Spring and tested.
+     * The interceptor is configured by Spring and tested.
      *
      * @throws Throwable
-     *             if an expception is thrown during the test.
+     *             if an exception is thrown during the test.
      */
     @Test
     public void testBoundaryAufrufMitException() throws Throwable {
@@ -213,10 +215,10 @@ public class LogInterceptorTest extends AbstractLogTest {
     }
 
     /**
-     * Test logging with a successful component interface call. The intercepter is configured by Spring and tested.
+     * Test logging with a successful component interface call. The interceptor is configured by Spring and tested.
      *
      * @throws Throwable
-     *             if an expception is thrown during the test.
+     *             if an exception is thrown during the test.
      */
     @Test
     public void testComponentAufrufErfolgreich() throws Throwable {
@@ -229,10 +231,10 @@ public class LogInterceptorTest extends AbstractLogTest {
 
     /**
      * Test logging with a not successful component interface call (exception).
-     * The intercepter is configured by Spring and tested.
+     * The interceptor is configured by Spring and tested.
      *
      * @throws Throwable
-     *             if an expception is thrown during the test.
+     *             if an exception is thrown during the test.
      */
     @Test
     public void testComponentAufrufMitException() throws Throwable {
@@ -251,7 +253,7 @@ public class LogInterceptorTest extends AbstractLogTest {
      * Testing initializing of includes and excludes of the BeanMapper, if not a standard mapper should be used.
      *
      * @throws Exception
-     *             if an expception is thrown during the test.
+     *             if an exception is thrown during the test.
      */
     @Test
     public void testInitialisierungIncludesExcludes() throws Exception {
@@ -267,11 +269,11 @@ public class LogInterceptorTest extends AbstractLogTest {
 
     /**
      * Test logging with a not successful method (exception) call on maximal log output.
-     * The intercepter is called direct and not with Spring. The interceptor is configured,
-     * so that the beanconverter ignores all beans in package 'de.bund.bva' for serialization
+     * The interceptor is called direct and not with Spring. The interceptor is configured,
+     * so that the bean converter ignores all beans in package 'de.bund.bva' for serialization
      *
      * @throws Throwable
-     *             if an expception is thrown during the test.
+     *             if an exception is thrown during the test.
      */
     @Test
     public void testAufrufMitExceptionDirektIndividuell() throws Throwable {
@@ -295,11 +297,11 @@ public class LogInterceptorTest extends AbstractLogTest {
     }
 
     /**
-     * Test logging with a successful method call on maximal log output. The intercepter is called direct
+     * Test logging with a successful method call on maximal log output. The interceptor is called direct
      * and not with Spring.
      *
      * @throws Throwable
-     *             if an expception is thrown during the test.
+     *             if an exception is thrown during the test.
      */
     @Test
     public void testAufrufErfolgreichLoggeDatenDirekt() throws Throwable {
