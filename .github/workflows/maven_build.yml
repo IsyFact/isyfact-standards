@@ -42,16 +42,3 @@ jobs:
       GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
       DEPLOY_SERVER_USER_NAME: ${{ secrets.MAVEN_CENTRAL_USER_NAME }}
       DEPLOY_SERVER_TOKEN: ${{ secrets.MAVEN_CENTRAL_TOKEN }}
-
-  DeployGithubPackages:
-    if: github.event_name == 'push'
-    needs: [Version, Maven]
-    uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_deploy_template.yml@v1.7.0
-    with:
-      version: ${{ needs.Version.outputs.next-version }}
-      maven-opts: '--settings ./.github/settings.xml -DaltDeploymentRepository=github::default::https://maven.pkg.github.com/IsyFact/isyfact-standards'
-      deploy-server-id: github
-    secrets:
-      DEPLOY_SERVER_USER_NAME: ${{ github.actor }}
-      DEPLOY_SERVER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      
