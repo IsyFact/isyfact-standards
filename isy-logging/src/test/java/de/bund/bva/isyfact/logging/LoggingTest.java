@@ -23,8 +23,7 @@ import de.bund.bva.isyfact.logging.impl.FehlerSchluessel;
 import de.bund.bva.isyfact.logging.impl.IsyLocationAwareLoggerImpl;
 
 /**
- * test case to create log entries.
- * Testfall zur Erstellung von Logeinträgen.
+ * Test case to create log entries.
  */
 public class LoggingTest extends AbstractLogTest {
 
@@ -32,7 +31,7 @@ public class LoggingTest extends AbstractLogTest {
     private static final String EREIGNISSCHLUESSEL = "EISYLO12345";
 
     /**
-     * test case to create correct log entries for all log levels.
+     * Test case to create correct log entries for all log levels.
      */
     @Test
     public void testLoggingErfolgreich() {
@@ -101,7 +100,7 @@ public class LoggingTest extends AbstractLogTest {
     }
 
     /**
-     * test case to create correct log entries for all log levels.
+     * Test case to create correct log entries for all log levels.
      */
     @Test
     public void testLoggingFachdatenErfolgreich() {
@@ -179,7 +178,7 @@ public class LoggingTest extends AbstractLogTest {
     }
 
     /**
-     * test case to create correct log entries with business data for all log levels.
+     * Test case to create correct log entries with business data for all log levels.
      */
     @Test
     public void testLoggingTypisiertErfolgreich() {
@@ -260,7 +259,7 @@ public class LoggingTest extends AbstractLogTest {
     }
 
     /**
-     * test case to create correct log entries for all log levels in case of wrong calls.
+     * Test case to create correct log entries for all log levels in case of wrong calls.
      *
      * @throws Exception if an exception is thrown during the test.
      */
@@ -288,7 +287,7 @@ public class LoggingTest extends AbstractLogTest {
 
         try {
             // info log entry without category causes an exception. The inferface prohibts this until now.
-            // so we are calling the internal log method without reflection.
+            // Therefore, the internal log method is called directly via reflection.
             // Test for INFO
             Method interneLogmethode = IsyLocationAwareLoggerImpl.class
                 .getDeclaredMethod("log", int.class, String.class, IsyMarker[].class, String.class,
@@ -307,7 +306,7 @@ public class LoggingTest extends AbstractLogTest {
 
         try {
             // info log entry without category causes an exception. The inferface prohibts this until now.
-            // so we are calling the internal log method without reflection.
+            // Therefore, the internal log method is called directly via reflection.
             // Test for ERROR
             Method interneLogmethode = IsyLocationAwareLoggerImpl.class
                 .getDeclaredMethod("log", int.class, String.class, IsyMarker[].class, String.class,
@@ -326,7 +325,7 @@ public class LoggingTest extends AbstractLogTest {
     }
 
     /**
-     * test of the internal method 'ermittleLevelString' which is used only for processing messages of
+     * Test of the internal method 'ermittleLevelString' which is used only for processing messages of
      * own exceptions.
      *
      * @throws Exception if an exception is thrown during the test.
@@ -351,7 +350,7 @@ public class LoggingTest extends AbstractLogTest {
     }
 
     /**
-     * test case to create log entries which exceed the maximum size limits.
+     * Test case to create log entries which exceed the maximum size limits.
      */
     @Test
     public void testLogeintragZuGross() throws Exception {

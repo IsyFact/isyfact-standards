@@ -63,7 +63,7 @@ public class IsyMarkerTest {
         markers.add(childMarker1);
         markers.add(childMarker2);
 
-        // add two Marker
+        // add two Markers
         marker.addAll(markers);
         assertTrue(marker.contains(childMarker1), "Children unerwartet nicht vorhanden.");
         assertTrue(marker.contains(childMarker2), "Children unerwartet nicht vorhanden.");
@@ -74,7 +74,7 @@ public class IsyMarkerTest {
      * Tests for standard methods like 'equals'.
      * 
      * @throws Exception
-     *             if an error happens during the test.
+     *             if an error occurs during the test.
      */
     @Test
     public void isyMarkerStandardmethodenTest() throws Exception {

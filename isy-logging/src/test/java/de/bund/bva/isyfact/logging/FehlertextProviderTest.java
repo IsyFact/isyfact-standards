@@ -12,7 +12,7 @@ import de.bund.bva.isyfact.logging.exceptions.IsyLoggingFehlertextProvider;
 public class FehlertextProviderTest {
 
     /**
-     * testing reading of a message without parameter.
+     * Testing reading of a message without parameter.
      */
     @Test
     public void testGetMessageOhneParameter() {

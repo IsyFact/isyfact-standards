@@ -80,7 +80,7 @@ public class LogMethodInvokerTest extends AbstractLogTest {
     }
 
     /**
-     * Testing the creation of log entries for successful method calls in a neighbor system.
+     * Testing the creation of log entries for successful method calls of a neighbor system.
      * 
      * @throws Throwable
      *             if an error occurs in the test.
@@ -111,7 +111,7 @@ public class LogMethodInvokerTest extends AbstractLogTest {
     }
 
     /**
-     * Testing the creation of log entries for not successful method calls in a neighbor system (Exception).
+     * Testing the creation of log entries for not successful method calls of a neighbor system.
      * 
      * @throws Exception
      *             if an error occurs in the test.

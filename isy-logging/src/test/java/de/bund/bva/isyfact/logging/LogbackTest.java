@@ -11,12 +11,12 @@ import de.bund.bva.isyfact.logging.exceptions.LogKonfigurationFehler;
 import de.bund.bva.isyfact.logging.impl.FehlerSchluessel;
 
 /**
- * test cases for direct logging with logback
+ * Test cases for direct logging with logback.
  */
 public class LogbackTest extends AbstractLogTest {
 
     /**
-     * test method for simple creation of log entries with logback
+     * Test method for simple creation of log entries with logback.
      */
     @Test
     public void testLogback() {
@@ -43,12 +43,12 @@ public class LogbackTest extends AbstractLogTest {
     }
 
     /**
-     * This method tests logging of objects which are for JacksonJSON not sericlizable and are
-     * used as values of placeholder in log messages. 'Non-sericlizable' means that this object
+     * This method tests logging of objects which are for JacksonJSON not serializable and are
+     * used as values of placeholder in log messages. 'Non-serializable' means that this object
      * has no getter and setter and no special annotations. The object mapper would normally throw
      * an exception for the mapping of the object to the error text.
      * This is not the wanted result and therefore is changed by configuration of the
-     * IsyJacksonJsonFormatter
+     * IsyJacksonJsonFormatter.
      */
     @Test
     public void testLogbackNichtSerialisierbar() {
@@ -57,7 +57,7 @@ public class LogbackTest extends AbstractLogTest {
 
         Logger logbackLogger = LoggerFactory.getLogger(LogbackTest.class);
 
-        // test with a not serializable object
+        // test with a not serializable object (no getter and setter)
         logbackLogger.info("Type registration [{}] overrides previous : {}", "A", new LogbackTest());
 
         pruefeLogdatei("testLogbackNichtSerialisierbar");

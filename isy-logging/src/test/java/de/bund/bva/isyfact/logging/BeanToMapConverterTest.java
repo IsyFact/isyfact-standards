@@ -25,7 +25,7 @@ import de.bund.bva.isyfact.logging.util.LogHelper;
 public class BeanToMapConverterTest {
 
     /**
-     * tests the conversion of a simple data type.
+     * Tests the conversion of a simple data type.
      */
     @Test
     public void testPrimitives() {
@@ -45,7 +45,7 @@ public class BeanToMapConverterTest {
     }
 
     /**
-     * tests the error handling, that happens in a conversion.
+     * Tests the error handling, that occurs in a conversion.
      */
     @Test
     public void testException() {
@@ -60,8 +60,7 @@ public class BeanToMapConverterTest {
     }
 
     /**
-     * tests the conversion of a simple bean, where includes and excludes have been defined.
-     * wurden.
+     * Tests the conversion of a simple bean, where includes and excludes have been defined.
      */
     @Test
     public void testIncludeExcludeEinfach() {
@@ -79,7 +78,7 @@ public class BeanToMapConverterTest {
         List<Object> valueList = new ArrayList<>(konvertiert.values());
 
         // test bean has 3 properties + a hashcode + 'Class' which will be serialized always.
-        // one of them is tpye TestBeanKomplex, which should be excluded
+        // One of them is of type TestBeanComplex, which should not be considered due to the exclude.
         assertEquals(5, konvertiert.size());
 
         // counter of the current attribute
@@ -139,7 +138,7 @@ public class BeanToMapConverterTest {
     }
 
     /**
-     * test the conversion of an object that is excluded.
+     * Test the conversion of an object that is excluded.
      */
     @Test
     public void testExcludeEinfach() {
@@ -153,7 +152,7 @@ public class BeanToMapConverterTest {
     }
 
     /**
-     * test the conversion of an object that is excluded - here 'de/bund' is excluded completely.
+     * Test the conversion of an object that is excluded - here 'de/bund' is excluded completely.
      */
     @Test
     public void testExcludeEinfachKomplett() {
@@ -166,7 +165,7 @@ public class BeanToMapConverterTest {
     }
 
     /**
-     * complex test of the standard converter. see details in the test steps.
+     * Tomplex test of the standard converter. See details in the test steps.
      */
     @Test
     public void testStandardKonverter() {
@@ -189,12 +188,12 @@ public class BeanToMapConverterTest {
     }
 
     /**
-     * helper method to check the correct conversion of a "Komplex-Beans".
+     * Helper method to check the correct conversion of a "Komplex-Beans".
      * 
      * @param bean
      *            the bean to convert.
      * @param konvertiert
-     *            das converted bean.
+     *            the converted bean.
      * @param rekursiv
      *            shows if 'KomplexeBean' has been created with flag "rekursiv" or not.
      */
@@ -216,7 +215,7 @@ public class BeanToMapConverterTest {
         assertEquals(TestBeanKomplex.class.toString(), valueList.get(currentPos));
         currentPos++;
 
-        // Enum converted by "toString
+        // Enum converted by "toString"
         assertEquals("einEnum", keyList.get(currentPos));
         assertEquals(bean.getEinEnum().toString(), valueList.get(currentPos));
         currentPos++;
@@ -288,7 +287,7 @@ public class BeanToMapConverterTest {
         assertEquals(eineEnumListe.get(2), LogErrorKategorie.ERROR.toString());
         currentPos++;
 
-        // Object-List analogou to Onject-Array (see above)
+        // Object-List analogous to Object-Array (see above)
         assertEquals("eineObjectListe", keyList.get(currentPos));
         @SuppressWarnings("unchecked")
         ArrayList<Object> eineObjectListe = (ArrayList<Object>) valueList.get(currentPos);
@@ -316,7 +315,7 @@ public class BeanToMapConverterTest {
         assertEquals("C", einStringListe.get(3));
         currentPos++;
 
-        // Not included and not excluded objecte will be taken over as toString
+        // Not included and not excluded objects will be taken over as toString
         assertEquals("extern", keyList.get(currentPos));
         assertEquals(bean.getExtern().toString(), valueList.get(currentPos));
         currentPos++;
@@ -368,7 +367,7 @@ public class BeanToMapConverterTest {
     }
 
     /**
-     * for a map entries will not be taken over if their key is excluded.
+     * For a map entries will not be taken over if their key is excluded.
      */
     @Test
     public void testMapExcludedKey() {
@@ -388,7 +387,7 @@ public class BeanToMapConverterTest {
     }
 
     /**
-     * converting a map with 'null' as key. This value will be taken over, but 'null' will be converted
+     * Converting a map with 'null' as key. This value will be taken over, but 'null' will be converted
      * to a null string.
      */
     @Test

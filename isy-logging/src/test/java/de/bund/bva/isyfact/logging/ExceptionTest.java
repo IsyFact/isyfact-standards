@@ -13,7 +13,7 @@ import de.bund.bva.isyfact.logging.impl.FehlerSchluessel;
 public class ExceptionTest {
 
     /**
-     * test cast for the creation of error messages. No spring configuration is used but the "Init-Method" of the LoggerFactory.
+     * Test cast for the creation of error messages. No spring configuration is used but the "Init-Method" of the LoggerFactory.
      */
     @Test
     public void testFehlertextAufloesung() {

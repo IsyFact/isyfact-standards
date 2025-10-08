@@ -13,7 +13,7 @@ import ch.qos.logback.classic.joran.JoranConfigurator;
 import ch.qos.logback.core.joran.spi.JoranException;
 
 /**
- * class to test the proper Mdc formating when an object with recursive reference is used as parameter
+ * Class to test the proper Mdc formating when an object with recursive reference is used as parameter
  */
 public class MdcFallbackConversionTest extends AbstractLogTest {
 
