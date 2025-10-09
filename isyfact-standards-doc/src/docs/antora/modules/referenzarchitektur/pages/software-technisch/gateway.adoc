@@ -6,20 +6,20 @@ include::glossary::terms-definitions.adoc[tag=gateway-definition]
 [[technischer-kontext]]
 == Rolle & Aufgaben
 
-Gateways nehmen eine von zwei Rollen ein.
+Gateways nehmen zwei Rollen wahr.
 Als *Provider* stellen sie einen Service eines Backends außerhalb der Systemlandschaft bereit.
 Als *Consumer* stellen sie einen externen Service in der Systemlandschaft so bereit, als wäre er ein Service eines Backends.
 Die folgende Abbildung zeigt dies.
 
 [[technischer-kontext-gateways]]
-.Technischer Kontext von Gateways
+.Technischer Kontext des Gateways
 image::software-technisch/gateway/technical-context-gateway.dn.svg[]
 
-Der von einem Gateway zur Verfügung gestellte Service wird als *Gateway-Service* bezeichnet.
-Der im Rahmen eines Gateways angebundene Service aus der Systemlandschaft wird als *Backend-Service* bezeichnet.
+Architektonisch bilden sich die Rollen als Komponenten des Gateways aus.
+Für jede Schnittstelle, die ein Gateway bereitstellt, enthält es eine Komponente der Ausprägung Provider oder Consumer.
 
 Die folgenden Abschnitte beschreiben die Aufgaben, die Provider und Consumer übernehmen können.
-Welche Aufgaben ein konkretes Gateway übernimmt, muss im Rahmen dessen fachlicher und technischer Dokumentation konkretisiert werden.
+Welche Aufgaben ein konkretes Gateway übernimmt, muss im Rahmen dessen fachlicher und technischer Dokumentation spezifiziert werden.
 
 [[provider]]
 === Provider
@@ -67,32 +67,33 @@ Consumer statten die Antworten externer Systeme mit Tracing-Informationen (Korre
 Caching::
 Consumer cachen, falls sinnvoll, häufig angeforderte Antworten externer Systeme.
 
-[[aufbau]]
-== Aufbau
+[[systemarchitektur]]
+== Systemarchitektur
 
-Gateways, sowohl Provider als auch Consumer, sind architektonisch gleichartig aufgebaut.
-Sie bestehen aus zwei Komponenten, die den Großteil ihrer Funktionalität umsetzen: dem `ServiceProvider` und dem `ServiceAdapter`.
+Gateways können mehrere Provider und Consumer enthalten.
+Provider als auch Consumer sind architektonisch gleichartig aufgebaut.
+Sie bestehen aus zwei Komponenten, die den Großteil ihrer Funktionalität umsetzen: dem `Service` und dem `Adapter`.
 Querschnittliche Aufgaben setzen Gateways mit xref:bausteine:bausteine.adoc[Bausteinen] um: durch direkte Nutzung in Eigenentwicklungen oder durch eine zu den Bausteinen konforme Umsetzung bei der Nutzung von Produkten.
 
 [[systemarchitektur-gateway]]
 .Systemarchitektur Gateway
 image::software-technisch/gateway/architektur-gateway.dn.svg[]
 
-Der `ServiceProvider` stellt den Service des Gateways bereit und nimmt die Anfragen entgegen.
+Die Komponente `Service` stellt den Service des Gateways bereit und nimmt die Anfragen entgegen.
 Die Komponente kümmert sich um die Authentifizierung & Autorisierung der Anfragen und validiert sie anschließend.
 Außerdem protokolliert sie die Anfragen und erhebt Metriken gemäß der konkreten Anforderungen an das Gateway.
-Berechtigte und valide Anfragen gibt sie an die Komponente `ServiceAdapter` weiter.
+Berechtigte und valide Anfragen gibt sie an die Komponente `Adapter` weiter.
 
-Der `ServiceAdapter` nimmt die Anfragen entgegen und transformiert sie so, dass sie der hinter dem Gateway liegende Service versteht.
-Er leitet die transformierte Anfrage anschließend weiter.
+Die Komponente `Adapter` nimmt die Anfragen entgegen und transformiert sie so, dass sie der hinter dem Gateway liegende Service versteht.
+Sie leitet die transformierte Anfrage anschließend an den hinter dem Gateway liegenden Service weiter.
 
-Bei Eigenentwicklungen müssen beide Komponenten im xref:methodik:vorlage-systementwurf/antora-master.adoc[Systementwurf] der Gateways enthalten sein.
-Bei der Nutzung von Produkten müssen im xref:methodik:vorgaben-dokumentation/dokumentationstypen.adoc#table-nutzungskonzept[Nutzungskonzept] die Aufgaben der Komponenten auf die Funktionalität des Produkts übertragen werden.
+IMPORTANT: Bei der Umsetzung von Gateways mit Produkten ist die <<systemarchitektur-gateway,Systemarchitektur>> in der Regel nicht anwendbar.
+Anstatt dessen müssen im xref:methodik:vorgaben-dokumentation/dokumentationstypen.adoc#table-nutzungskonzept[Nutzungskonzept] des Produkts die Aufgaben der Komponenten `Service` und `Adapter` auf die Funktionalität des Produkts übertragen werden.
 
 === Provider
 
-In Gateways mit der Rolle Provider kann der `ServiceProvider` zusätzlich den Schutz vor gängigen Attacken von außen übernehmen, damit diese nicht die Backends der Systemlandschaft erreichen.
+In einem Provider kann die Komponente `Service` zusätzlich den Schutz vor gängigen Attacken von außen übernehmen, damit diese nicht die Backends der Systemlandschaft erreichen.
 
 === Consumer
 
-In Gateways mit der Rolle Consumer kann der `ServiceProvider` zusätzlich das Caching von häufigen Anfragen und deren Antworten gegenüber dem externen System übernehmen.
+In einem Consumer kann die Komponente `Service` zusätzlich das Caching von häufigen Anfragen und deren Antworten gegenüber dem externen System übernehmen.

@@ -9,7 +9,7 @@ Die software-technische Referenzarchitektur beschreibt, wie die in der fachliche
 Eine zentrale Eigenschaft der software-technischen Referenzarchitektur ist, dass sie nicht zwischen xref:glossary::terms-definitions.adoc#glossar-anwendungstyp[Anwendungstypen] unterscheidet.
 Die software-technische Umsetzung von Anwendungen ist ungeachtet ihrer Fachlichkeit gleich.
 Die software-technische Referenzarchitektur definiert hierzu das xref:glossary::terms-definitions.adoc#glossar-it-system[*IT-System*] als Oberbegriff und beschreibt die Umsetzung einer Anwendung mittels einer Menge von IT-Systemen, die jedes für sich eine bestimmte Ausprägung besitzen.
-Diese Ausprägung ist technisch motiviert und umfasst aktuell *Backends*, *Frontends* und *Batches*.
+Diese Ausprägung ist technisch motiviert und umfasst aktuell *Backends*, *Frontends*, *Batches* und *Gateways*.
 
 // end::architektursicht-definition[]
 
