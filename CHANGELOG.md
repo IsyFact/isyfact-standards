@@ -1,5 +1,6 @@
 # 5.0.0
 ### FEATURES
+- `IFS-4792`: [isyfact-standards-doc] Definition des IT-Systemtyps "Gateway"
 - `IFS-4737`: [isyfact-standards-doc] Umzug der Dokumentation des Bausteins REST in die Referenzarchitektur und in die Werkzeuge
 - `IFS-1800`: [isyfact-standards-doc] Formulierung von Empfehlungen für den Einsatz von Bulk Queries in der Persistenz von Backends
 - `IFS-1798`: [isyfact-standards-doc] Formulierung von Empfehlungen für den Einsatz von Second-Level-Caches in der Persistenz von Backends
@@ -45,6 +46,8 @@ Der Begriff "Nachbarsystem" wurde definiert und seine Verwendung, wo nötig, kor
 Der Begriff "externes System" wurde definiert und seine Verwendung, wo nötig, korrigiert.
 Die Begrifflichkeiten "internes System" bzw. "interne Anwendung" wurden entfernt.
 
+Der IT-Systemtyp "Gateway" wurde eingeführt. Er bildet die architektonische Grundlage für Service-Gateways und weitere Systeme, die eine Systemlandschaft mit der Außenwelt verbinden. 
+
 Der Bereich Services der Referenzarchitektur enthält eine Beschreibung von REST sowie allgemeine Seite zu Vorgaben und Konventionen aus dem abgelösten Baustein REST. 
 
 #### Backend
@@ -57,7 +60,7 @@ Grundlegende Erklärungen zu den verwendeten Produkten wurden gänzlich entfernt
 Bisherige Verbote im Rahmen der Persistenz wurden durch eine Empfehlung, basierend auf den Qualitätskriterien der ISO 25010, ersetzt.
 Dies gilt für den Einsatz von **Second-Level-Caches** sowie von **Bulk Queries**.
 
-#### Schema-Versionierung
+##### Schema-Versionierung
 Die bisher angebotene Schema-Versionierung in Form einer Eigenentwicklung wird nicht mehr unterstützt.
 Die Schema-Versionierung mit Liquibase wurde konzeptionell erweitert und um Nutzungsvorgaben ergänzt.
 
