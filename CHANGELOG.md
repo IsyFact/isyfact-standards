@@ -1,5 +1,6 @@
 # 5.0.0
 ### FEATURES
+- `IFS-4880`: [isyfact-standards-doc] Entfernung der AsciiDoc-Changelogs und Dokumentation zu Changelogs
 - `IFS-4867`: [isyfact-standards-doc] Beschreibung zu synchroner und asynchroner Kommunikation überarbeiten
 - `IFS-4737`: [isyfact-standards-doc] Umzug der Dokumentation des Bausteins REST in die Referenzarchitektur und in die Werkzeuge
 - `IFS-1800`: [isyfact-standards-doc] Formulierung von Empfehlungen für den Einsatz von Bulk Queries in der Persistenz von Backends
@@ -113,8 +114,10 @@ Die Konzeption wurde um die strukturierten Verwendung von HTTP-Statuscodes (inkl
 [//]: # (### Deprecations)
 [//]: # (_keine_)
 
-[//]: # (### Dokumentation)
-[//]: # (_keine_)
+### Dokumentation
+
+Dieses Changelog wird die zentrale Anlaufstelle für die Dokumentation von Änderungen.
+Die bisherigen Changelogs sowie die Release Notes und der Migrationsleitfaden in AsciiDoc werden hierdurch abgelöst.
 
 ## MIGRATION GUIDE
 
