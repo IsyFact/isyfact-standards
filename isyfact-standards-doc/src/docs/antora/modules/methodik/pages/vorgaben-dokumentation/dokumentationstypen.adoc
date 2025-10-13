@@ -106,30 +106,6 @@ xref:isy-logging:nutzungsvorgaben/master.adoc[Nutzungsvorgaben Logging]
 |===
 
 
-[[table-changelog]]
-.Changelog
-[cols="1s,4",options="header"]
-|===
-2+|Changelog
-
-|Ziel
-|Änderungsdokumentation eines Bausteins. 
-
-|Inhalt
-a|
-* Textuelle Beschreibung der Änderungen, nach Releases geordnet.
-
-|Zielgruppe(n)
-|Architekten, Entwickler
-
-|Scope
-|Baustein (allgemein)
-
-|Vorlage / Beispiel
-a|xref:werkzeuge:dokumentation/changelog-doku.adoc[Vorgaben zu Changelogs] +
-|===
-
-
 [[table-systemspezifikation]]
 .Systemspezifikation
 [cols="1s,4",options="header"]
