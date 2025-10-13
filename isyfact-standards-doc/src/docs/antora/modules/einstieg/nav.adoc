@@ -10,7 +10,6 @@
 *** xref:produktkatalog/technologiestackTypescriptAngular.adoc[Typescript/Angular]
 *** xref:produktkatalog/negativliste.adoc[]
 *** xref:produktkatalog/lebenszyklus.adoc[]
-*** xref:produktkatalog/changelog.adoc[]
 ** xref:tutorial/master.adoc[Tutorial]
 ** xref:isyfact-standards-referenzimplementierung::index.adoc[Referenzimplementierung]
 ** xref:whitepaper.adoc[Whitepaper]
