@@ -1,4 +1,4 @@
-= Services
+= Kommunikation
 
 In einer Systemlandschaft ist Kommunikation ein Element, das die technische Architektur prägt.
 Die Art und Weise, wie IT-Systeme miteinander kommunizieren, bestimmt maßgeblich ihre _Effizienz_, _Wartbarkeit_ und _Zuverlässigkeit_.
@@ -13,6 +13,8 @@ Werden die Entscheidungen nicht oder implizit getroffen, erhöht sich das Risiko
 
 [[grundlagen]]
 == Grundlagen
+
+// TODO IFS-4874 Servicekommunikation abschaffen!
 
 IT-Systeme kommunizieren auf Basis von Services.
 Wenn ausschließlich IT-Systeme innerhalb der Systemlandschaft miteinander kommunizieren, spricht die Referenzarchitektur von *interner Servicekommunikation*.

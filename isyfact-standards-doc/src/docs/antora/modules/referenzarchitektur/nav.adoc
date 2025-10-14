@@ -22,7 +22,7 @@
 ***** xref:software-technisch/batch/batchsteuerung.adoc[]
 ***** xref:software-technisch/batch/ausnahmeregelungen.adoc[]
 **** xref:software-technisch/gateway.adoc[]
-*** xref:software-technisch/services.adoc[]
+*** xref:software-technisch/kommunikation.adoc[]
 **** xref:software-technisch/services/rest.adoc[]
 **** xref:software-technisch/services/rest-vorgaben-konventionen.adoc[]
 **** xref:software-technisch/services/versionierung.adoc[]

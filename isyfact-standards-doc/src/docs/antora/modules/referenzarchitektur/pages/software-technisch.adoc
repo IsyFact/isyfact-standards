@@ -79,8 +79,10 @@ Eine Ausnahme bilden Querschnittsanwendungen in Form eines xref:glossary::terms-
 [[servicekommunikation]]
 == Servicekommunikation
 
+// TODO IFS-4874 überarbeiten!
+
 Services sind ein wesentlicher Bestandteil jeder <<strukturierung-der-systemlandschaft,Systemlandschaft>>.
-Die software-technische Referenzarchitektur definiert HTTP als grundsätzliches Übertragungsprotokoll und xref:software-technisch/services.adoc[weitere Vorgaben für Services] zu den Themen:
+Die software-technische Referenzarchitektur definiert HTTP als grundsätzliches Übertragungsprotokoll und xref:software-technisch/kommunikation.adoc[weitere Vorgaben für Services] zu den Themen:
 
 * Kommunikation mit Systemen innerhalb und außerhalb der Systemlandschaft,
 * Übertragung von Metadaten und Nutzdaten,
@@ -174,7 +176,7 @@ Für den Einsatz eines Sicherheitszertifikates wird eine Public Key Infrastructu
 Hierbei besitzt jede Entität ein Schlüsselpaar mit einem öffentlichen und privaten Schlüssel, um ein Entitätsbezogenes Zertifikat zu erstellen, das mittels des privaten Schlüssels signiert wird.
 Der Identitätsbeweis einer Entität erfolgt dann durch die Signatur-Validierung mit dem öffentlichen Schlüssel, der entweder zuvor schon zwischen den beteiligten Kommunikationspartner ausgetauscht wurde oder erst direkt vor der Validierung beim Besitzer des Zertifikats abgeholt wird.
 Für die konkrete Umsetzung der Absicherung der Kommunikationsstrecke sind die Vorgaben der jeweiligen Security, die gegebene Infrastruktur und die Tatsache, dass sich diese verändern, zu beachten (Vgl. xref:methodik:versionierung/master.adoc[Versionierung]).
-Welche Maßnahmen für eine sichere Kommunikation realisiert werden, ist mit dem jeweiligen Partner, der einen xref:isyfact-standards-doku:referenzarchitektur:software-technisch/services.adoc[Service]  anbietet, abzustimmen.
+Welche Maßnahmen für eine sichere Kommunikation realisiert werden, ist mit dem jeweiligen Partner, der einen xref:isyfact-standards-doku:referenzarchitektur:software-technisch/kommunikation.adoc[Service]  anbietet, abzustimmen.
 
 Für alle implementierten Authentifizierungs- und Verschlüsselungsverfahren werden jedoch die folgenden Festlegungen getroffen:
 
