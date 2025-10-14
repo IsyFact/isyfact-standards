@@ -1,8 +1,0 @@
-[[changelog]]
-= Changelog
-
-*Änderungen IsyFact 3.0.0*
-
-
-- `IFS-1983`: Komponenten können bei Bedarf mehrere Nummernkreise für Fehlerschlüssel verwenden.
-
