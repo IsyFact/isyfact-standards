@@ -1,5 +1,6 @@
 # 5.0.0
 ### FEATURES
+- `IFS-4746`: [isyfact-standards-doc] Verbesserung der Beschreibung entkoppelter Bausteine und der Bausteinnavigation
 - `IFS-4880`: [isyfact-standards-doc] Entfernung der AsciiDoc-Changelogs und Dokumentation zu Changelogs
 - `IFS-4867`: [isyfact-standards-doc] Beschreibung zu synchroner und asynchroner Kommunikation überarbeiten
 - `IFS-4737`: [isyfact-standards-doc] Umzug der Dokumentation des Bausteins REST in die Referenzarchitektur und in die Werkzeuge
