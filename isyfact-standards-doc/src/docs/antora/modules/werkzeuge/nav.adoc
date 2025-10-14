@@ -1,7 +1,6 @@
 * xref:werkzeuge.adoc[]
 ** xref:openapi-tooling.adoc[]
-** xref:documentation-guide:ROOT:index.adoc[]
-** xref:dokumentation/changelog-doku.adoc[Changelogs]
+** xref:documentation-guide::index.adoc[]
 ** xref:formatter.adoc[]
 ** xref:versionierungskontrolle/master.adoc[]
 ** xref:gui-tests/gui-tests-mit-selenium.adoc[]
