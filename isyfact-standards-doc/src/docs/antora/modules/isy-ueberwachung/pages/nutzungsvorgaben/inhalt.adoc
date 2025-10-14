@@ -315,8 +315,8 @@ management.endpoints.access.default=none
 management.endpoint.health.access=unrestricted
 management.endpoint.metrics.access=unrestricted
 management.endpoint.info.access=unrestricted
-management.endpoints.web.exposure.include=health, metrics, info
 management.endpoints.jmx.exposure.exclude=*
+management.endpoints.web.exposure.include=health,metrics,info
 
 isy.task.tasks.isyHealthTask.ausfuehrung=FIXED_DELAY
 isy.task.tasks.isyHealthTask.initial-delay=5s
