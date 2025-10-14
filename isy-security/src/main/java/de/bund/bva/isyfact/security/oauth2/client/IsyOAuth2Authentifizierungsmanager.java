@@ -241,7 +241,10 @@ public class IsyOAuth2Authentifizierungsmanager implements Authentifizierungsman
         if (clientRegistrationRepository != null) {
             clientRegistration = clientRegistrationRepository.findByRegistrationId(oauth2ClientRegistrationId);
         }
-        Assert.notNull(clientRegistration, "Could not find ClientRegistration with id '" + oauth2ClientRegistrationId + "'");
+
+        if (clientRegistration == null) {
+            throw new IllegalArgumentException("Could not find ClientRegistration with id '%s'".formatted(oauth2ClientRegistrationId));
+        }
 
         // load additional props for this registration ID, can be null
         AdditionalRegistrationProperties props = isyOAuth2ClientProps.getRegistration().get(clientRegistration.getRegistrationId());
@@ -286,7 +289,10 @@ public class IsyOAuth2Authentifizierungsmanager implements Authentifizierungsman
         if (clientRegistrationRepository != null) {
             clientRegistration = clientRegistrationRepository.findByRegistrationId(oauth2ClientRegistrationId);
         }
-        Assert.notNull(clientRegistration, "Could not find ClientRegistration with id '" + oauth2ClientRegistrationId + "'");
+
+        if (clientRegistration == null) {
+            throw new IllegalArgumentException("Could not find ClientRegistration with id '%s'".formatted(oauth2ClientRegistrationId));
+        }
 
         AuthorizationGrantType grantType = clientRegistration.getAuthorizationGrantType();
 
