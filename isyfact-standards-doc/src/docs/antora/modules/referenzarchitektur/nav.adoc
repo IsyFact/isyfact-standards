@@ -25,6 +25,7 @@
 *** xref:software-technisch/services.adoc[]
 **** xref:software-technisch/services/rest.adoc[]
 **** xref:software-technisch/services/rest-vorgaben-konventionen.adoc[]
+**** xref:software-technisch/services/versionierung.adoc[]
 ** xref:technisch-infrastrukturell.adoc[technisch-infrastrukturell]
 *** xref:technisch-infrastrukturell/availability.adoc[]
 *** xref:technisch-infrastrukturell/betriebliche-aspekte.adoc[]
