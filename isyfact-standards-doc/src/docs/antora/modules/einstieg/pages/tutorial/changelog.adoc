@@ -1,8 +1,0 @@
-[[changelog]]
-= Changelog
-
-*Änderungen IsyFact 2.1.0*
-
-//  tag::release-2.1.0[]
-- `IFS-363`: Maven Central in Tutorial integrieren
-
