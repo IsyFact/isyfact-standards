@@ -152,17 +152,63 @@ include::documentation-guide::partial$content-revised.adoc[]
 Das Request-Response-Muster bietet die Möglichkeit der direkten Kommunikation zwischen zwei IT-Systemen.
 Hierbei schickt der Sender eine Anfrage (englisch: _request_) an den Empfänger.
 Der Empfänger bearbeitet die Anfrage und schickt eine Antwort (englisch: _response_) an den Sender zurück.
-Je nachdem, ob Sender oder Empfänger synchron oder asynchron miteinander kommunizieren, wartet der Sender auf die Antwort, bevor er seine Verarbeitung fortsetzt, oder nimmt die Verarbeitung erst durch die Antwort des Empfängers wieder auf, z.B. in Form eines Callbacks.
 
 [[service-aufruf-synchron]]
-.Ablauf des Request-Response-Musters (links: synchron, rechts: asynchron)
+.Request-Response-Muster (links: synchron, rechts: asynchron)
 image::software-technisch/request-response.dn.svg[]
 
+Je nachdem, ob Sender oder Empfänger synchron oder asynchron miteinander kommunizieren, wartet der Sender auf die Antwort, bevor er seine Verarbeitung fortsetzt, oder nimmt die Verarbeitung frühestens durch die Antwort des Empfängers wieder auf.
 Ob zwei IT-Systeme synchron oder asynchron über Request-Response miteinander kommunizieren, muss anhand der zu erfüllenden Qualitätskriterien abgewogen werden.
-Das Request-Response-Muster ermöglicht so asynchrone Kommunikation, wo trotzdem direkte Antworten benötigt werden.
 Die Abwägung muss während der Erstellung des Systementwurfs geschehen.
 
-==== Protokoll für Request-Response
+==== Stärken
+
+Das Request-Response-Muster ist gut verstanden und wird von einer Vielzahl an Technologien, Frameworks und Werkzeugen unterstützt.
+Es ist aufgrund seiner einfachen Struktur verständlich und vergleichsweise leicht umsetzbar.
+Seine Stärken liegen u.a. in Interaktionen zwischen Backends und Frontends, bei denen eine direkte Antwort mit klar definiertem Zeitverhalten erwartet wird, oder es in kurzer Zeit eine Vielzahl von kleineren, klar definierten Interaktionen gibt.
+
+Das Request-Response-Muster erfüllt bei sinngemäßem Einsatz auch hohe Anforderungen in den Bereichen _Zuverlässigkeit_ und _Wartbarkeit_.
+Fehler lassen sich direkt anhand der Antwort erkennen und behandeln.
+Die Kommunikation zwischen zwei IT-Systemen ist klar definiert und leicht nachvollziehbar.
+Anforderungen an die _Sicherheit_ lassen sich leicht und gezielt durch Mechanismen wie Authentifizierung und Autorisierung erfüllen.
+
+==== Herausforderungen
+
+Da im synchronen Fall der Sender blockiert, bis die Antwort vom Empfänger kommt, kann dies zu Skalierungsproblemen führen.
+Die Latenz und der Durchsatz sind in diesem Fall begrenzt, oder der Sender läuft in einen Timeout.
+Diese Effekte verstärken sich, wenn der Empfänger viel Zeit für die Verarbeitung der Anfrage benötigt, oder dazu weitere, kaskadierende Aufrufe benötigt.
+Empfänger wiederum skalieren auch nur begrenzt, insbesondere bei vielen gleichzeitigen Anfragen.
+Sie müssen jede Anfrage sofort bearbeiten, was Ressourcen bindet.
+Hohe Qualitätsanforderungen im Bereich der _Effizienz_ können unter diesen Umständen schwer zu erfüllen sind.
+
+Im synchronen Fall berücksichtigt die Fehlerbehandlung fachliche und technische Fehler beim Empfänger, aber in der Regel keine Ausfälle der Netzwerke oder Infrastruktur.
+Solche Fehler, besonders im Fall von kaskadierenden Aufrufen, benötigen eine robuste Fehlerbehandlung und Strategien zur Einhaltung transaktionaler Integrität.
+Hohe Qualitätsanforderungen im Bereich der _Zuverlässigkeit_ können unter diesen Umständen schwer zu erfüllen sind.
+
+==== Asynchrones Request-Response
+
+Den Herausforderungen im synchronen Fall können IT-Systeme dadurch begegnen, indem sie das Request-Response-Muster asynchron anwenden.
+Hierbei ergeben sich, im Wesentlichen aus der Entkopplung von Anfrage und Antwort, andere Herausforderungen.
+Während bei den anderen Kommunikationsmustern Infrastrukturkomponenten diese Herausforderungen auffangen, fallen sie beim Request-Response-Muster Sender und Empfänger zu.
+
+Durch die Asynchronität erfolgen die Antworten nicht direkt, sondern zeitverzögert, und nicht in der Reihenfolge der Anfragen.
+Der Sender muss die Antworten aktiv beziehen (oder einen Callback anbieten), richtig zuordnen und Nebenläufigkeiten sowie Antworten in beliebiger Reihenfolge verarbeiten können.
+Dies kann Auswirkungen auf die _funktionelle Eignung_ haben.
+
+Für eine hohe Erfüllung von Qualitätsanforderungen im Bereich der _Zuverlässigkeit_ sollte die asynchrone Verarbeitung durch eine robuste Fehlerbehandlung unterstützt werden.
+Hier stehen eine Vielzahl von Resilienz-Mustern zur Verfügung.
+
+[NOTE]
+====
+Gute Einführungen zu Resilienz finden sich hier:
+
+* https://medium.com/@deepak.gupta79/top-15-proven-patterns-for-resilient-software-architecture-design-5849b5053b1f[15 Proven Patterns for Resilient Software Architecture Design]
+* https://jugsaxony.org/downloads/day/slides/JSD2022_Muster-fuer-resilientere-Anwendungen_Uwe-Friedrichsen.pdf[10 patterns for more resilient applications: a gentle start into resilient software design icon:file-pdf-o[]]
+====
+
+==== Vorgaben
+
+Das Request-Response-Muster wird in der IsyFact auf Basis von xref:software-technisch/services/rest.adoc[REST] umgesetzt.
 
 .icon:university[title=Architekturregel] Verwendung von HTTP für Request-Response
 ****
