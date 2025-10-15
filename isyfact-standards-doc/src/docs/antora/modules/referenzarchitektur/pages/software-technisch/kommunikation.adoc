@@ -47,7 +47,7 @@ Die Verwendung von externen Standards bleibt davon unberührt.
 So überträgt der Standard OAuth 2 beispielsweise Informationen zur Autorisierung einer Anfrage BASE64-kodiert.
 ====
 
-Die Übertragung von Metadaten geschieht in der Regel über Schlüssel-Wert-Paare (_key-value pairs_), z.B. in HTTP-Headern oder JMS-Properties.
+Die Übertragung von Metadaten geschieht in der Regel über Schlüssel-Wert-Paare (englisch: _key-value pairs_), z.B. in HTTP-Headern oder JMS-Properties.
 
 .icon:university[title=Architekturregel] Benennung von Metadaten
 ****
@@ -153,8 +153,8 @@ Das Request-Response-Muster bietet die Möglichkeit der direkten Kommunikation z
 Hierbei schickt der Sender eine Anfrage (englisch: _request_) an den Empfänger.
 Der Empfänger bearbeitet die Anfrage und schickt eine Antwort (englisch: _response_) an den Sender zurück.
 
-[[service-aufruf-synchron]]
-.Request-Response-Muster (links: synchron, rechts: asynchron)
+[[request-response-sequence]]
+.Ablauf der Kommunikation bei Request-Response
 image::software-technisch/request-response.dn.svg[]
 
 Je nachdem, ob Sender oder Empfänger synchron oder asynchron miteinander kommunizieren, wartet der Sender auf die Antwort, bevor er seine Verarbeitung fortsetzt, oder nimmt die Verarbeitung frühestens durch die Antwort des Empfängers wieder auf.
@@ -227,22 +227,86 @@ Allerdings gilt zu beachten, dass URLs (und damit auch die URL-Parameter) an vie
 Hierbei sind z.B. datenschutzrechtliche Aspekte zu prüfen, wenn URL-Parameter personenbezogene Daten enthalten.
 Im Zweifelsfall ist die Methode `POST` die empfohlene Alternative, um solche Nutzdaten im Body zu übertragen.
 
-[[queueing]]
-=== Queueing
+[[message-queue]]
+=== Message-Queue
 
-Beim Queueing baut ein Message-Broker eine Punkt-zu-Punkt-Verbindung zwischen zwei IT-Systemen auf.
-Dies geschieht in Form einer Queue.
-Ein IT-System tritt fest als Sender auf, eines als Empfänger.
-Der Sender ist nun in der Lage, dem Empfänger über die Queue Nachrichten zu schicken.
-Die Nachrichten sind anhand eines zentral definierten Formats strukturiert.
-Der Sender enthält keine direkte Antwort vom Empfänger.
+Das Kommunikationsmuster Message-Queue ist ein asynchrones, entkoppeltes Kommunikationsmodell.
+Es basiert auf dem Prinzip, dass ein Sender eine Nachricht in eine Warteschlange (englisch: _queue_) stellt, die vom Empfänger zu einem späteren Zeitpunkt verarbeitet wird.
+Dies entkoppelt Sender und Empfänger voneinander und verhindert, dass Sender bis zum Erhalt einer Antwort blockieren.
+Da der Sender keine direkte Antwort vom Empfänger erhält, muss er sich das Ergebnis seiner Nachricht über eine weitere Queue schicken oder mittels eines der anderen Kommunikationsmuster übermitteln lassen.
 
-[[service-aufruf-queueing]]
-.Ablauf der Kommunikation beim Queueing
+[[message-queue-sequence]]
+.Ablauf der Kommunikation bei Message-Queue
 image::software-technisch/queueing.dn.svg[]
 
-Für das Queueing infrage kommende Message-Broker müssen *JMS* (Jakarta Messaging, ehemals _Java Message Service_) unterstützen.
-Queueing wird ausschließlich in der internen Servicekommunikation eingesetzt.
+[[message-queue-betrachtung]]
+==== Betrachtung der Vorteile, Herausforderungen und Risiken
+
+Der Einsatz von Message Queues kann die Erfüllung der folgenden Qualitätskriterien fördern.
+
+.Message Queue: Vorteile nach Qualitätskriterien (ISO 25010)
+[cols="1,2", options="header"]
+|===
+|Qualitätskriterium
+|Vorteile
+
+|Zuverlässigkeit (Reliability)
+|Message-Broker speichern Nachrichten persistent und überbrücken so Ausfälle der Empfänger. +
+Message-Broker übernehmen Wiederholungsversuche, kümmern sich um unzustellbare Nachrichten und garantieren die Zustellung der Nachricht.
+
+|Leistungseffizienz (Performance Efficiency)
+|Sender und Empfänger können durch die lose Kopplung unabhängig voneinander skalieren. +
+Message-Broker ermöglichen Lastverteilung und parallele Verarbeitung durch die Empfänger.
+
+|Wartbarkeit (Maintainability)
+|Sender und Empfänger sind lose miteinander gekoppelt.
+Änderungen an Sender oder Empfänger sind isoliert möglich, solange das Nachrichtenformat stabil bleibt.
+
+|===
+
+Demgegenüber kann der Einsatz von Message Queues zu Herausforderungen und Risiken bei folgenden Qualitätskriterien führen.
+
+.Message Queue: Herausforderungen und Risiken nach Qualitätskriterien (ISO 25010)
+[cols="1,2", options="header"]
+|===
+|Qualitätskriterium
+|Herausforderungen / Risiken
+
+|Funktionale Eignung (Functional Suitability)
+a|Message Queues sind nicht für Interaktionen geeignet, die:
+
+* eine direkte Antwort erwarten,
+* hohe Anforderung an das Zeitverhalten haben,
+* von einer festgelegten Reihenfolge der Verarbeitung abhängig sind.
+
+Solche Interaktionen können umgesetzt werden, erfordern aber zusätzliche Mechanismen zur Korrelation und Rückmeldung.
+
+|Sicherheit (Security)
+|Neben Sender und Empfänger muss auch der Message-Broker abgesichert werden, da er Nachrichten von vielen Systemen verarbeitet und speichert. +
+Nachrichten können potenziell im Message-Broker abgefangen oder manipuliert werden.
+Zur Minderung dieser Risiken sind zusätzliche Maßnahmen wie Signierung, Verschlüsselung oder Zugriffskontrollen nötig.
+
+|Zuverlässigkeit (Reliability)
+|Message-Broker sind zentrale Infrastrukturkomponenten.
+Ein Ausfall des Brokers kann zu einem vollständigen Kommunikationsstillstand führen.
+Auch temporäre Störungen wirken sich direkt auf die Verarbeitung aus.
+Zur Minderung dieser Risiken sollte der Message-Broker als Cluster betrieben werden.
+Außerdem sollten Maßnahmen gegen eine Überlastung des Brokers getroffen werden.
+|===
+
+
+[[message-queue-empfehlungen]]
+==== Empfehlungen zum Einsatz
+
+Das Kommunikationsmuster Message-Queue eignet sich für Interaktionen, die keine direkte Antwort benötigen und keine hohen Anforderungen an das Zeitverhalten stellen.
+
+Weiterhin sollten Message-Broker nach dem Prinzip _at-leat-once_ funktionieren: Die Zustellung der Nachrichten wird garantiert, aber Duplikate sind möglich.
+Schreibende Operationen, die durch Nachrichten ausgelöst werden, sind dementsprechend _idempotent_ zu spezifizieren und umzusetzen.
+
+==== Vorgaben
+
+Message-Broker müssen *JMS* (Jakarta Messaging, ehemals _Java Message Service_) unterstützen.
+Das Muster Message Queue wird ausschließlich in der Kommunikation innerhalb der Systemlandschaft eingesetzt.
 
 JMS-Nachrichten bestehen aus Header, Properties und einem Body.
 Die Properties unterteilen sich noch einmal in applikationsspezifische Properties, die nur für Publisher und Subscriber Bedeutung haben, sowie provider-spezifische und Standard-Properties, die zur Verarbeitung der JMS-Nachrichten durch den Message-Broker gedacht sind.
