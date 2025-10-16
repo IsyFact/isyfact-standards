@@ -227,14 +227,12 @@ Im Folgenden werden zwei Szenarien betrachtet:
 Hierbei definiert das Backend selbst keinen Webservice.
 Vielmehr definiert das Backend, wie bei der internen Kommunikation auch, eine Schnittstelle.
 Diese Schnittstelle wird dann durch ein eigenständiges IT-System als Webservice exportiert.
-Dies geschieht mittels eines xref:glossary::terms-definitions.adoc#glossar-service-gateway[Service-Gateways].
-Das Service-Gateway enthält zu diesem Zweck *Service-Provider*.
+Dies geschieht mittels eines xref:glossary::terms-definitions.adoc#glossar-service-gateway[Service-Gateways], das als *Service-Provider* bezeichnet wird.
 Für jede Schnittstelle, die als Webservices exportiert werden soll, muss ein eigener Service-Provider definiert werden.
 
 *Nutzung von externen Services*: Ähnlich wie im vorigen Fall ruft das interne IT-System den externen Service nicht direkt auf.
 Es ruft ein eigenständiges IT-System auf, welches den externen Service als Schnittstelle in die Systemlandschaft importiert.
-Dies geschieht ebenfalls mittels eines xref:glossary::terms-definitions.adoc#glossar-service-gateway[Service-Gateways].
-Das Service-Gateway enthält zu diesem Zweck *Service-Consumer*.
+Dies geschieht ebenfalls mittels eines xref:glossary::terms-definitions.adoc#glossar-service-gateway[Service-Gateways], das als *Service-Consumer* bezeichnet wird.
 Das interne IT-System ruft dann lediglich die Schnittstelle des Service-Consumers auf.
 Für das interne IT-System ist dieser Aufruf nicht von einem Aufruf zu einem anderen internen IT-System zu unterscheiden.
 Für jeden Webservice, der in die Systemlandschaft importiert werden soll, muss ein eigener Service-Consumer definiert werden.
