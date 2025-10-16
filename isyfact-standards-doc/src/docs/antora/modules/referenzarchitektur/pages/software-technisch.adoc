@@ -182,7 +182,7 @@ Für alle implementierten Authentifizierungs- und Verschlüsselungsverfahren wer
 * Privater Schlüssel und Zertifikate werden in einem PKCS#12-Format abgelegt (siehe: https://tools.ietf.org/html/rfc7292[PKCS12]).
 * Verwendet werden nur die im Standardumfang des JDKs enthaltenen kryptografischen Verfahren (siehe: https://docs.oracle.com/javase/8/docs/technotes/guides/security/jsse/JSSERefGuide.html[Java Secure Socket Extensions]).
 
-Der xref:referenzarchitektur:software-technisch/backend.adoc#awk-service-consumer[Sevice-Consumer] soll die Verbindung zu einem externen Service verschlüsselt per HTTPS aufbauen.
+Der xref:referenzarchitektur:software-technisch/backend.adoc#awk-service-consumer[Service-Consumer] soll die Verbindung zu einem externen Service verschlüsselt per HTTPS aufbauen.
 Der Aufbau einer transportverschlüsselten Verbindung via HTTPS basiert immer auf einer zertifikatsbasierten Authentifizierung der beteiligten Entitäten.
 
 * Einseitige Authentifizierung:
@@ -198,7 +198,7 @@ Bei Verwendung der Client-Authentifizierung per Zertifikat benötigt der Service
 
 * ein Zertifikat, das von einer vertrauenswürdigen CA signiert ist,
 * den zugehörigen privaten Schlüssel, welcher lokal im Keystore bleibt.
-Die nutzende Anwendung übergibt dem Service-Provider das Zertifikat beim Aufruf der externen Serviceprovider-Methode, der die Signatur des Zertifikats mittels des öffentlichen Schlüssels des Service-Consumer validiert.
+Die nutzende Anwendung übergibt dem Service-Provider das Zertifikat beim Aufruf der externen Serviceprovider-Methode, der die Signatur des Zertifikats mittels des öffentlichen Schlüssels des Service-Consumers validiert.
 Der private Schlüssel wird ausschließlich zur kryptografischen Signatur des TSL-Handshakes genutzt.
 
 NOTE: Alle notwendigen Informationen zur Erstellung von Zertifikaten -ausgehend von einem Sicherheitsschlüsselpaar- können z.B. https://de.wikipedia.org/wiki/Certificate_Signing_Request[hier] eingesehen werden.
@@ -225,7 +225,7 @@ Der TrustStore dagegen enthält ausschließlich die Zertifikate, die für die Au
 
 [[installation-des-zertifikates-auf-der-maschine]]
 ==== Installation des Zertifikats auf der Maschine
-Zertifikate können direkt als Dateien auf dem Dateisystem einer Maschine gespeichert werden, z. B. als .pem-, .crt- oder .key-Dateien.
+Zertifikate können direkt als Dateien auf dem Dateisystem einer Maschine gespeichert werden, z. B. im Format `.pem`, `.crt` oder `.key`.
 Für den produktiven Einsatz wird jedoch die Ablage in Keystores/TrustStores empfohlen, die von der Anwendung beim Start oder zur Laufzeit geladen werden.
 
 [[besonderheiten-bei-der-kommunikation-ueber-soap]]
