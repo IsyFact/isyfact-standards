@@ -1,6 +1,8 @@
 # 5.0.0
 ### FEATURES
 - `IFS-4792`: [isyfact-standards-doc] Definition des IT-Systemtyps "Gateway"
+- `IFS-4746`: [isyfact-standards-doc] Verbesserung der Beschreibung entkoppelter Bausteine und der Bausteinnavigation
+- `IFS-4880`: [isyfact-standards-doc] Entfernung der AsciiDoc-Changelogs und Dokumentation zu Changelogs
 - `IFS-4867`: [isyfact-standards-doc] Beschreibung zu synchroner und asynchroner Kommunikation überarbeiten
 - `IFS-4737`: [isyfact-standards-doc] Umzug der Dokumentation des Bausteins REST in die Referenzarchitektur und in die Werkzeuge
 - `IFS-1800`: [isyfact-standards-doc] Formulierung von Empfehlungen für den Einsatz von Bulk Queries in der Persistenz von Backends
@@ -18,6 +20,7 @@
 - `IFS-4531`: Update von Flatten Maven Plugin auf Version 1.7.1
   * Update von Maven Version auf 3.6.3
 - `IFS-4763`: [isyfact-standards-doc] Erweiterung und Konkretisierung der Liquibase-Dokumentation
+- `IFS-4748`: [isy-ueberwachung] Dokumentation von aktualisierten Properties
 
 ### BUG FIXES
 - `IFS-4753`: [isy-batchrahmen] Änderung der Konfigurationsreihenfolge.
@@ -34,6 +37,7 @@
 - `IFS-4655`: Update von Maven Checkstyle Plugin auf Version 3.6.0
 - `IFS-4531`: Update von Flatten Maven Plugin auf Version 1.7.1
     * Update von Maven Version auf 3.6.3
+- `IFS-4864`: Update von Spring Boot auf Version 3.5.6
 
 ## RELEASE NOTES
 
@@ -116,8 +120,10 @@ Die Konzeption wurde um die strukturierten Verwendung von HTTP-Statuscodes (inkl
 [//]: # (### Deprecations)
 [//]: # (_keine_)
 
-[//]: # (### Dokumentation)
-[//]: # (_keine_)
+### Dokumentation
+
+Dieses Changelog wird die zentrale Anlaufstelle für die Dokumentation von Änderungen.
+Die bisherigen Changelogs sowie die Release Notes und der Migrationsleitfaden in AsciiDoc werden hierdurch abgelöst.
 
 ## MIGRATION GUIDE
 

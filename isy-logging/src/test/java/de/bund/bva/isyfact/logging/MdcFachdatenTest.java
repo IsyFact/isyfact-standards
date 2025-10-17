@@ -1,18 +1,17 @@
 package de.bund.bva.isyfact.logging;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import de.bund.bva.isyfact.logging.util.MdcHelper;
 
 
-
 /**
- * Testfälle zum Kennzeichnen des MDCs mit Fachdaten.
+ * Test cases to mark a MDCs with business data.
  */
 public class MdcFachdatenTest extends AbstractLogTest {
     
     /**
-     * Tests der Logausgabe des MDC-Fachdaten flags.
+     * Testing the log entries with 'MDC-Fachdaten' flags.
      */
     @Test
     public void testMdcFachdaten() {

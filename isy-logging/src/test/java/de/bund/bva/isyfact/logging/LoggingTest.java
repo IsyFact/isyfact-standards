@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.slf4j.spi.LocationAwareLogger;
 
 import de.bund.bva.isyfact.exception.BaseException;
@@ -23,15 +23,15 @@ import de.bund.bva.isyfact.logging.impl.FehlerSchluessel;
 import de.bund.bva.isyfact.logging.impl.IsyLocationAwareLoggerImpl;
 
 /**
- * Testfall zur Erstellung von Logeinträgen.
+ * Test case to create log entries.
  */
 public class LoggingTest extends AbstractLogTest {
 
-    /** Ereignisschlüssel, der standardmäßig für die Tests verwendet wird. */
+    /** 'Ereignisschlüssel', which will used as default in the tests. */
     private static final String EREIGNISSCHLUESSEL = "EISYLO12345";
 
     /**
-     * Testfall zum Erstellen korrekter Standard-Logeinträge in allen Log-Leveln.
+     * Test case to create correct log entries for all log levels.
      */
     @Test
     public void testLoggingErfolgreich() {
@@ -81,7 +81,7 @@ public class LoggingTest extends AbstractLogTest {
         logger
             .fatal(EREIGNISSCHLUESSEL, "Dies ist ein {} {} Test. {}, oder?", te, "super", "fatal", "Klasse");
 
-        // Tests für Throwable
+        // Tests for Throwable
         String nachricht = "Dies ist ein {} {} Test. {}, oder?";
 
         logger.error(EREIGNISSCHLUESSEL, nachricht, t, "super", "error", "Klasse");
@@ -100,7 +100,7 @@ public class LoggingTest extends AbstractLogTest {
     }
 
     /**
-     * Testfall zum Erstellen korrekter Logeinträge mit Fachdaten in allen Log-Leveln.
+     * Test case to create correct log entries for all log levels.
      */
     @Test
     public void testLoggingFachdatenErfolgreich() {
@@ -165,7 +165,7 @@ public class LoggingTest extends AbstractLogTest {
         logger.fatalFachdaten(EREIGNISSCHLUESSEL, "Dies ist ein {} {} Test. {}, oder?", te, "super", "fatal",
             "Fachdaten");
 
-        // Tests für Throwable
+        // Tests for Throwable
         String nachricht = "Dies ist ein {} {} Test. {}, oder?";
 
         logger.errorFachdaten(EREIGNISSCHLUESSEL, nachricht, t, "super", "error", "Fachdaten");
@@ -178,7 +178,7 @@ public class LoggingTest extends AbstractLogTest {
     }
 
     /**
-     * Testfall zum Erstellen korrekter Logeinträge mit Fachdaten in allen Log-Leveln.
+     * Test case to create correct log entries with business data for all log levels.
      */
     @Test
     public void testLoggingTypisiertErfolgreich() {
@@ -246,7 +246,7 @@ public class LoggingTest extends AbstractLogTest {
         logger.fatal(marker, EREIGNISSCHLUESSEL, "Dies ist ein {} {} Test. {}, oder?", te, "super", "fatal",
             "Fachdaten");
 
-        // Tests für Throwable
+        // Tests for Throwable
         String nachricht = "Dies ist ein {} {} Test. {}, oder?";
 
         logger.error(marker, EREIGNISSCHLUESSEL, nachricht, t, "super", "error", "Fachdaten");
@@ -259,36 +259,36 @@ public class LoggingTest extends AbstractLogTest {
     }
 
     /**
-     * Testfall zum Erstellen korrekter Logeinträge in allen Log-Leveln, bei fehlerhaften Aufrufen.
+     * Test case to create correct log entries for all log levels in case of wrong calls.
      *
-     * @throws Exception Wenn bei der Testausführung eine Exception auftritt.
+     * @throws Exception if an exception is thrown during the test.
      */
     @Test
     public void testLoggingFehlerhaft() throws Exception {
         IsyLoggerStandard logger = IsyLoggerFactory.getLogger(LoggingTest.class);
 
-        // Zu viele Parameter
+        // too much parameters
         logger.debug(KENNZEICHNUNG_FEHLERTEST + " - Dies ist ein {} {} Test. {}, oder?", "super", "debug",
             "Klasse", "noch einer", "noch einer", "noch einer");
 
-        // Zu wenige Parameter
+        // not enough parameters
         logger.debug(KENNZEICHNUNG_FEHLERTEST + " - Dies ist ein {} {} Test. {}");
 
         pruefeLogdatei("testLoggingFehlerhaft");
 
         try {
-            // Logeintrag in Info ohne Schlüssel führt zu Exception.
+            // info log entry without key causes an exception.
             logger.info(LogKategorie.JOURNAL, null, "Eine Nachricht.");
-            Assert.fail(
+            Assertions.fail(
                 "Erstellen eines Logeintrags in Level INFO ohne Schlüssel führte nicht zu einem Fehler.");
         } catch (FehlerhafterLogeintrag fle) {
-            Assert.assertEquals("ISYLO00001", fle.getAusnahmeId());
+            Assertions.assertEquals("ISYLO00001", fle.getAusnahmeId());
         }
 
         try {
-            // Logeintrag in Info ohne Kategorie führt zu Exception. Dies ist wird durch das Interface bisher
-            // verhindert. Daher wird die interne Log-Methode direkt per Reflection aufgerufen.
-            // Test für INFO
+            // info log entry without category causes an exception. The inferface prohibts this until now.
+            // Therefore, the internal log method is called directly via reflection.
+            // Test for INFO
             Method interneLogmethode = IsyLocationAwareLoggerImpl.class
                 .getDeclaredMethod("log", int.class, String.class, IsyMarker[].class, String.class,
                     String.class, Object[].class, Throwable.class);
@@ -297,17 +297,17 @@ public class LoggingTest extends AbstractLogTest {
             interneLogmethode
                 .invoke(logger, LocationAwareLogger.INFO_INT, null, new IsyMarker[0], EREIGNISSCHLUESSEL,
                     "Eine Nachricht.", null, null);
-            Assert.fail(
+            Assertions.fail(
                 "Erstellen eines Logeintrags in Level INFO ohne Kategorie führte nicht zu einem Fehler.");
         } catch (InvocationTargetException ite) {
             FehlerhafterLogeintrag fle = (FehlerhafterLogeintrag) ite.getCause();
-            Assert.assertEquals("ISYLO00002", fle.getAusnahmeId());
+            Assertions.assertEquals("ISYLO00002", fle.getAusnahmeId());
         }
 
         try {
-            // Logeintrag in Info ohne Kategorie führt zu Exception. Dies ist wird durch das Interface bisher
-            // verhindert. Daher wird die interne Log-Methode direkt per Reflection aufgerufen.
-            // Test für ERROR
+            // info log entry without category causes an exception. The inferface prohibts this until now.
+            // Therefore, the internal log method is called directly via reflection.
+            // Test for ERROR
             Method interneLogmethode = IsyLocationAwareLoggerImpl.class
                 .getDeclaredMethod("log", int.class, String.class, IsyMarker[].class, String.class,
                     String.class, Object[].class, Throwable.class);
@@ -316,19 +316,19 @@ public class LoggingTest extends AbstractLogTest {
             interneLogmethode
                 .invoke(logger, LocationAwareLogger.ERROR_INT, null, new IsyMarker[0], EREIGNISSCHLUESSEL,
                     "Eine Nachricht.", null, null);
-            Assert.fail(
+            Assertions.fail(
                 "Erstellen eines Logeintrags in Level INFO ohne Kategorie führte nicht zu einem Fehler.");
         } catch (InvocationTargetException ite) {
             FehlerhafterLogeintrag fle = (FehlerhafterLogeintrag) ite.getCause();
-            Assert.assertEquals("ISYLO00002", fle.getAusnahmeId());
+            Assertions.assertEquals("ISYLO00002", fle.getAusnahmeId());
         }
     }
 
     /**
-     * Testet die interne Methode "ermittleLevelString" die nur für die Aufbereitung von Meldungen eigener
-     * Exceptions verwendet wird.
+     * Test of the internal method 'ermittleLevelString' which is used only for processing messages of
+     * own exceptions.
      *
-     * @throws Exception Wenn bei der Testausführung eine Exception auftritt.
+     * @throws Exception if an exception is thrown during the test.
      */
     @Test
     public void testErmittleLevelString() throws Exception {
@@ -338,38 +338,38 @@ public class LoggingTest extends AbstractLogTest {
 
         IsyLogger logger = IsyLoggerFactory.getLogger(LoggingTest.class);
 
-        Assert
+        Assertions
             .assertEquals("DEBUG", interneErmittleLevelMethode.invoke(logger, LocationAwareLogger.DEBUG_INT));
-        Assert
+        Assertions
             .assertEquals("ERROR", interneErmittleLevelMethode.invoke(logger, LocationAwareLogger.ERROR_INT));
-        Assert.assertEquals("INFO", interneErmittleLevelMethode.invoke(logger, LocationAwareLogger.INFO_INT));
-        Assert
+        Assertions.assertEquals("INFO", interneErmittleLevelMethode.invoke(logger, LocationAwareLogger.INFO_INT));
+        Assertions
             .assertEquals("TRACE", interneErmittleLevelMethode.invoke(logger, LocationAwareLogger.TRACE_INT));
-        Assert.assertEquals("WARN", interneErmittleLevelMethode.invoke(logger, LocationAwareLogger.WARN_INT));
-        Assert.assertNull(interneErmittleLevelMethode.invoke(logger, -5));
+        Assertions.assertEquals("WARN", interneErmittleLevelMethode.invoke(logger, LocationAwareLogger.WARN_INT));
+        Assertions.assertNull(interneErmittleLevelMethode.invoke(logger, -5));
     }
 
     /**
-     * Testfall zum Erstellen verschiedener Loeinträge, die die Größe eines maximalen Logeintrags übertreffen
+     * Test case to create log entries which exceed the maximum size limits.
      */
     @Test
     public void testLogeintragZuGross() throws Exception {
         IsyLoggerStandard logger = IsyLoggerFactory.getLogger(this.getClass());
 
-        // String aus Sonderzeichen (2 Byte) für die Exception
+        // String of special characters (2 Byte) for the exception
         String exceptionText = String.join("", Collections.nCopies(2000, "ä"));
 
         FehlerhafterLogeintrag fl =
             new FehlerhafterLogeintrag(FehlerSchluessel.FEHLERHAFTER_EINTRAG_KEINE_KATEGORIE, exceptionText);
 
-        // Strings für Testfälle erzeugen
+        // creating strings for test cases
         String nachrichtTestfall3 = String.join("", Collections.nCopies(8000, "a"));
 
         FehlerhafterLogeintrag flB =
             new FehlerhafterLogeintrag(FehlerSchluessel.FEHLERHAFTER_EINTRAG_KEINE_KATEGORIE,
                 nachrichtTestfall3);
 
-        // Strings für Testfälle erzeugen
+        // creating strings for test cases
         String nachrichtA = String.join("", Collections.nCopies(3000, "ab123üö%7/"));
 
         String nachrichtB = String.join("", Collections.nCopies(3000, "aaaaaaaaaa"));
@@ -378,54 +378,52 @@ public class LoggingTest extends AbstractLogTest {
         List<String> arrayListA = IntStream
             .range(0, 2000).mapToObj(i -> "" + nachrichtA.charAt(i) + nachrichtB.charAt(i)).collect(Collectors.toList());
 
-        // Testfall 1: Test der Level-Bedignung - Testnachricht besitzt Level Debug
+        // test case 1: test the level requirement - test message is level debug
         logger.debug("Diese Nachricht ist zu lang: {}", nachrichtA);
 
-        // Testfall 2: Test der maximalen Länge Bedingung: Testnachricht ist zu klein
+        // test case 2: test of the maximum length: test message is too small
         logger.info(LogKategorie.JOURNAL, EREIGNISSCHLUESSEL, "Diese Nachricht ist zu gross.");
 
-        // Testfall 3: Test der maximalen Größe, Testnachricht ist zu klein aber größer als 16.000 Zeichen
+        // test case 3: test of the maximum length, test message ist too small but bigger than 16.000 chars
         logger.
             info(LogKategorie.JOURNAL, EREIGNISSCHLUESSEL, "Diese Nachricht ist zu gross. {}",
                 nachrichtTestfall3);
 
-        // Testfall 4: Test der Parameterentfernung, Testnachricht ist zu groß und enthält Parameter
-        // Nach Entfernung der Parameter ist die Testnachricht nicht mehr zu lang
+        // test case 4: test parameter removement, test message is too big and contains parameter
+        // after parameter removal the test message is no longer too big
         logger.
             info(LogKategorie.JOURNAL, EREIGNISSCHLUESSEL, "Diese Nachricht ist zu gross. {} und {} ",
                 nachrichtTestfall3, nachrichtTestfall3, nachrichtTestfall3);
 
-        // Testfall 5: Zu großer Logeintrag mit Exception,
-        // Anzahl Zeichen der Exception ist kleiner als der Überhang, Länge in Bytes aber größer
-        // Exception wird gekuerzt und anschließend wird festgestellt, dass die Kürzung ausreichend war
+        // test case 5: too large log entry with exceptions
+        // number of characters in the exception is smaller than overhang, but length of bytes is bigger
+        // exception is shortened and than noted that the shortening was sufficient
         logger.info(LogKategorie.JOURNAL, nachrichtB, fl);
 
-        // Testfall 6: Zu großer Logeintrag mit Exception und zu langer Nachricht,
-        // Anzahl Zeichen der Exception ist kleiner als der Überhang, Länge in Bytes aber größer
-        // Exception wird gekuerzt und anschließend wird festgestellt, dass die Kürzung nicht ausreichend war
-        // Das Feld Nachricht wird anschließend gekürzt
+        // test case 6: too large log entry with exception and too long message.
+        // number of characters in the exception is smaller than overhang, but length of bytes is bigger
+        // exception is shortened and than noted that the shortening was not sufficient
+        // the message is then shortened.
         logger.info(LogKategorie.JOURNAL, "Zu langer Logeintrag: {}", fl, nachrichtA);
 
-        // Testfall 7: Zu großer Logeintrag aufgrund zu großer Paramter und zu großer Lognachricht
+        // test case 7: too large log entry because of too large parameter and to large log message
         logger.info(LogKategorie.JOURNAL, EREIGNISSCHLUESSEL, "Zu langer Logeintrag: {} {}", nachrichtA,
             arrayListA);
 
-        // Testfall 8: Zu großer Logeintrag mit Exception
-        // Anzahl Zeichen der Exception ist kleiner als der Überhang
+        // test case 8: too large log entry with exception
+        // number of characters of the exception is smaller than overhang
         logger.info(LogKategorie.JOURNAL, nachrichtB, flB);
 
-        // Testfall 9: Zu großer Logeintrag ohne Exception
-        // Anzahl Zeichen der Nachricht ist größer als der Überhang
+        // test case 9: too large log entry without exception
+        // number of characters of the exception is bigger than overhang
         logger.info(LogKategorie.JOURNAL, EREIGNISSCHLUESSEL, nachrichtB + nachrichtB);
 
-        // Testfall 10: Zu großer Logeintrag mit Exception
-        // Die Exception ist kleiner als der Überhang
-        // Die Lognachricht ist größer als der Überhang
+        // test case 10: too large log entry with exception
+        // the exception is smaller than overhang, log message is bigger than overhang
         logger.info(LogKategorie.JOURNAL, nachrichtB + nachrichtA + nachrichtB + nachrichtB, flB);
 
-        // Testfall 11: Zu großer Logeintrag, der nicht ausreichend gekürzt werden kann
-        // Um einen Überhang zu erzeugen, der nicht weiter gekürzt werden kann,
-        // wird der Parameter maxLength auf 50 Bytes gesetzt.
+        // test case 11: too big log entry, which can not be shortened
+        // parameter maxLength is set to 50 Bytes to create an overhang which can not be shortened.
 
         LogbackConfigTest logbackConfig = new LogbackConfigTest();
 
@@ -434,11 +432,11 @@ public class LoggingTest extends AbstractLogTest {
         logger.info(LogKategorie.JOURNAL, EREIGNISSCHLUESSEL, nachrichtB, nachrichtA, nachrichtB);
 
         logbackConfig.konfiguriereLogback("logback-test.xml");
-        // Testfall 12: Test eines zu großen Logeintrags mit dem Level ERROR
+        // test case 12: test of too big log entry on level ERROR
         logger.error(FehlerSchluessel.FEHLERHAFTER_EINTRAG_KEINE_KATEGORIE, "Zu große Error Nachricht {}",
             nachrichtA);
 
-        // Testfall 13: Test eines zu großen Logeintrags mit dem Level WARN
+        // test case 13: test of too big log entry on level WARN
         logger.warn(FehlerSchluessel.FEHLERHAFTER_EINTRAG_KEINE_KATEGORIE, "Zu große WARN Nachricht {}",
             nachrichtA);
 

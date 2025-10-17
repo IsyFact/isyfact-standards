@@ -1,17 +1,17 @@
 package de.bund.bva.isyfact.batchrahmen.test;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Collection;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class BatchProtokollTesterTest {
 
     private BatchProtokollTester batchProtokollTester;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         String testProtokoll = getClass().getResource("/resources/batch/test_protokoll.xml").toURI().toString();
         batchProtokollTester = new BatchProtokollTester(testProtokoll);

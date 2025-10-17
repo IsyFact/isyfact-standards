@@ -1,7 +1,7 @@
 package de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.impl;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
@@ -9,8 +9,8 @@ import static org.mockito.Mockito.when;
 
 import java.net.URI;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.actuate.health.Status;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,18 +26,18 @@ public class NachbarsystemCheckImplTest {
 
     private final IsyLogger LOGGER = IsyLoggerFactory.getLogger(NachbarsystemCheckImplTest.class);
 
-    //Mocken der Anfrage nach außen
+    //Mocking the request
     private final RestTemplate restTemplate = mock(RestTemplate.class);
 
     private NachbarsystemCheck nachbarsystemCheck;
 
 
-    @Before
+    @BeforeEach
     public void setup() {
         nachbarsystemCheck = new NachbarsystemCheckImpl(restTemplate);
     }
 
-    //korrekter Durchlauf mit Antwort "UP".
+    //correct run through with response "UP".
     @Test
     public void checkNachbarUp() {
         Nachbarsystem nachbarsystem = createNachbarsystemDummy();
@@ -52,7 +52,7 @@ public class NachbarsystemCheckImplTest {
         assertEquals(Status.UP, health.getStatus());
     }
 
-    // korrekter Durchlauf mit Antwort "OUT_OF_SERVICE", ungleich "UP".
+    // correct run through with response "OUT_OF_SERVICE", not "UP".
     @Test
     public void checkNachbarDown() {
         Nachbarsystem nachbarsystem = createNachbarsystemDummy();
@@ -67,8 +67,7 @@ public class NachbarsystemCheckImplTest {
         assertEquals(Status.OUT_OF_SERVICE, health.getStatus());
     }
 
-    //Wenn bei der Anfrage eine Exception auftritt, gilt der Nachbar als nicht erreichbar
-    //und es wird als Status für den Nachbarn "DOWN" zurückgegeben
+    // if an exception is thrown when requesting the neighbor, the state 'DOWN' is returned
     @Test
     public void exceptionBeiAnfrage() {
         Nachbarsystem nachbarsystem = createNachbarsystemDummy();

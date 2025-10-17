@@ -2,7 +2,7 @@ package de.bund.bva.isyfact.batchrahmen.config;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.context.annotation.UserConfigurations;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 import org.springframework.context.annotation.Bean;

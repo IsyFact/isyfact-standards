@@ -10,9 +10,8 @@ import java.time.ZoneId;
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.springframework.aop.Advisor;
 import org.springframework.aop.aspectj.AspectJExpressionPointcut;
 import org.springframework.aop.support.DefaultPointcutAdvisor;
@@ -22,7 +21,6 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import de.bund.bva.isyfact.datetime.util.DateTimeUtil;
 import de.bund.bva.isyfact.logging.autoconfigure.IsyLoggingAutoConfiguration;
@@ -31,14 +29,13 @@ import de.bund.bva.isyfact.ueberwachung.metrics.impl.DefaultServiceStatistik;
 import io.micrometer.core.instrument.Meter;
 import io.micrometer.core.instrument.MeterRegistry;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = RANDOM_PORT, classes = MonitorTestServiceCalls_TestConfig.class)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class MetricsTest {
 
     private static final Instant START = Instant.now();
 
-    @BeforeClass
+    @BeforeAll
     public static void setupClock() {
         DateTimeUtil.setClock(Clock.fixed(START, ZoneId.systemDefault()));
     }

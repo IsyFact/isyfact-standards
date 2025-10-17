@@ -1,6 +1,6 @@
 package de.bund.bva.isyfact.logging;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
@@ -11,12 +11,12 @@ import de.bund.bva.isyfact.logging.exceptions.LogKonfigurationFehler;
 import de.bund.bva.isyfact.logging.impl.FehlerSchluessel;
 
 /**
- * Testfälle zum Testen des direkten Loggens mit Logback.
+ * Test cases for direct logging with logback.
  */
 public class LogbackTest extends AbstractLogTest {
 
     /**
-     * Methode zum Testen des einfachen Erstellens von Logeinträgen direkt mit Logback.
+     * Test method for simple creation of log entries with logback.
      */
     @Test
     public void testLogback() {
@@ -43,11 +43,12 @@ public class LogbackTest extends AbstractLogTest {
     }
 
     /**
-     * Diese Methode testet das loggen von für JacksonJSON nicht-serialisierbaren Objekten als Werte für
-     * Platzhalter in Lognachrichten. "Nicht-serialisierbar" bedeutet in diesem fall, dass das Objekt keine
-     * getter und setter und auch keine speziellen Annotationen besitzt. Normalerweise wirft der ObjectMapper
-     * beim Abbilden des Objects auf den Text einen Fehler. Dies ist jedoch nicht das gewünschte Verhalten und
-     * wird durch IsyJacksonJsonFormatter konfigurativ geändert.
+     * This method tests logging of objects which are for JacksonJSON not serializable and are
+     * used as values of placeholder in log messages. 'Non-serializable' means that this object
+     * has no getter and setter and no special annotations. The object mapper would normally throw
+     * an exception for the mapping of the object to the error text.
+     * This is not the wanted result and therefore is changed by configuration of the
+     * IsyJacksonJsonFormatter.
      */
     @Test
     public void testLogbackNichtSerialisierbar() {
@@ -56,7 +57,7 @@ public class LogbackTest extends AbstractLogTest {
 
         Logger logbackLogger = LoggerFactory.getLogger(LogbackTest.class);
 
-        // Test, bei dem ein nicht-serialisierbares Objekt (ohne getter und
+        // test with a not serializable object (no getter and setter)
         logbackLogger.info("Type registration [{}] overrides previous : {}", "A", new LogbackTest());
 
         pruefeLogdatei("testLogbackNichtSerialisierbar");

@@ -2,7 +2,7 @@ package de.bund.bva.isyfact.ueberwachung.metrics;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.test.context.TestConfiguration;
@@ -29,21 +29,19 @@ public class TestIsyMetricsAutoConfiguration {
 
     @Test
     public void context_hasServiceStatistikImpl(){
-        contextRunner.run(context ->{
+        contextRunner.run(context ->
             assertThat(context)
                     .hasSingleBean(ServiceStatistik.class)
-                    .hasSingleBean(DefaultServiceStatistik.class);
-        });
+                    .hasSingleBean(DefaultServiceStatistik.class));
     }
 
     @Test
     public void context_hasBothCustomAnBasicServiceStatistikImpl(){
-        contextRunner_withCustomServiceStatistik.run(context ->{
+        contextRunner_withCustomServiceStatistik.run(context ->
             assertThat(context)
                     .hasSingleBean(DefaultServiceStatistik.class)
                     .hasBean("customServiceStatistik")
-                    .getBeans(ServiceStatistik.class).hasSize(2);
-        });
+                    .getBeans(ServiceStatistik.class).hasSize(2));
     }
 
     @TestConfiguration

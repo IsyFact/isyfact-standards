@@ -1,26 +1,26 @@
 package de.bund.bva.isyfact.logging;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import de.bund.bva.isyfact.exception.FehlertextProvider;
 import de.bund.bva.isyfact.logging.exceptions.IsyLoggingFehlertextProvider;
 
 /**
- * Die Tests des Fehlertextproviders.
+ * Tests for the Fehlertextprovider.
  */
 public class FehlertextProviderTest {
 
     /**
-     * Testet das Lesen einer Nachricht ohne Parameter.
+     * Testing reading of a message without parameter.
      */
     @Test
     public void testGetMessageOhneParameter() {
 
         FehlertextProvider provider = new IsyLoggingFehlertextProvider();
-        Assert.assertEquals("Fehler bei der Serialisierung der Aufrufparameter.",
+        Assertions.assertEquals("Fehler bei der Serialisierung der Aufrufparameter.",
                 provider.getMessage("ISYLO01001"));
-        Assert.assertEquals("Fehler bei der Serialisierung der Aufrufparameter.",
+        Assertions.assertEquals("Fehler bei der Serialisierung der Aufrufparameter.",
                 provider.getMessage("ISYLO01001", new String[0]));
 
     }

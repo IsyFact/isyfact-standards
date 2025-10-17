@@ -1,9 +1,0 @@
-[[changelog]]
-= Changelog
-
-*Änderungen IsyFact 3.0.0*
-
-
-- IFS-2410: Umzug des Kapitels _Loadbalancer-Servlets_ von den Nutzungsvorgaben in das Konzept
-
-

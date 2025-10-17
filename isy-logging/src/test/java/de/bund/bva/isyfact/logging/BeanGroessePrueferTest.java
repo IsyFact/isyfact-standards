@@ -1,7 +1,7 @@
 package de.bund.bva.isyfact.logging;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,17 +11,17 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
-import org.junit.Test;
-
 import de.bund.bva.isyfact.logging.util.BeanGroessePruefer;
 
+import org.junit.jupiter.api.Test;
+
 /**
- * Test des Prüfers für die Größe von Log-Parametern.
+ * Test for the log parameter size checker.
  */
 public class BeanGroessePrueferTest extends AbstractLogTest {
 
     /**
-     * Testet die erfolgreiche Erkennung eines primitiven Typs.
+     * Positive testing a primitive type.
      */
     @Test
     public void testePrimitivenTyp() {
@@ -33,7 +33,7 @@ public class BeanGroessePrueferTest extends AbstractLogTest {
     }
 
     /**
-     * Testet die erfolgreiche Erkennung einer Klasse als Attribut.
+     * Positive testing for a class as attribute.
      */
     @Test
     public void testeKlasse() {
@@ -46,7 +46,7 @@ public class BeanGroessePrueferTest extends AbstractLogTest {
     }
 
     /**
-     * Testet die erfolgreiche Erkennung von Arrays.
+     * Positive testing for arrays.
      */
     @Test
     public void testeArrays() {
@@ -59,7 +59,7 @@ public class BeanGroessePrueferTest extends AbstractLogTest {
     }
 
     /**
-     * Testet die erfolgreiche Erkennung von Collections.
+     * Positive testing for collections.
      */
     @Test
     public void testeCollections() {
@@ -82,7 +82,7 @@ public class BeanGroessePrueferTest extends AbstractLogTest {
     }
 
     /**
-     * Testet die erfolgreiche Erkennung von Attributen in Objekten.
+     * Positive testing for attributes in objects.
      */
     @Test
     public void testeAttributeInObjekten() {

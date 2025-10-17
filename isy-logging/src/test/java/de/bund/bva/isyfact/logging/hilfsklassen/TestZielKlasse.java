@@ -3,23 +3,23 @@ package de.bund.bva.isyfact.logging.hilfsklassen;
 import de.bund.bva.isyfact.logging.annotation.Systemgrenze;
 
 /**
- * Testklasse, als Ziel eines zu loggenden Aufrufs.
+ * Test class as target for a method call to be logged.
  * 
  */
 @Systemgrenze
 public class TestZielKlasse {
 
     /**
-     * Testmethode (erfolg). Die Methode setzt den Namen der übergenen Person und pausiert den Thread für 10
-     * ms.
+     * Test method (success).
+     * The method sets the name for a given person and pauses the thread for 10 ms.
      * 
      * @param person
-     *            die Person deren Namen angepasst werden soll.
+     *            the person whose name to be changed.
      * @param name
-     *            der Name der Person.
-     * @return die geänderte Person
+     *            name of a person.
+     * @return the changed person
      * @throws Throwable
-     *             wenn ein Fehler beim Pausierend es Threads auftreten sollte.
+     *             if an error occurs during pausing a threads.
      */
     public TestZielParameterPerson setzeName(TestZielParameterPerson person, String name) throws Throwable {
         person.setName(name);
@@ -28,15 +28,15 @@ public class TestZielKlasse {
     }
 
     /**
-     * Testmethode zum Test des Loggings einer Exception. Es wird eine java.lang.ArithmeticException geworfen.
+     * Test method for logging an exception. A java.lang.ArithmeticException will be thrown.
      * 
      * @param person
-     *            die Person deren Namen angepasst werden soll.
+     *            the person whose name to be changed.
      * @param str
-     *            der Name der Person.
-     * @return die geänderte Person
+     *            name of a person.
+     * @return the changed person
      * @throws Throwable
-     *             java.lang.ArithmeticException: wird immer geworfen.
+     *             java.lang.ArithmeticException: always thrown.
      */
     public TestZielParameterPerson setzeNameException(TestZielParameterPerson person, String str)
             throws Throwable {
@@ -45,7 +45,7 @@ public class TestZielKlasse {
 
         Thread.sleep(125);
         
-        // Exception provozieren
+        // provoke exception
         int i = 1 / 0;
         person.setName("Name " + i);
 
