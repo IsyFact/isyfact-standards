@@ -232,12 +232,11 @@ Im Zweifelsfall ist die Methode `POST` die empfohlene Alternative, um solche Nut
 
 Das Kommunikationsmuster Message-Queue ist ein asynchrones, entkoppeltes Kommunikationsmodell.
 Es basiert auf dem Prinzip, dass ein Sender eine Nachricht in eine Warteschlange (englisch: _queue_) stellt, die vom Empfänger zu einem späteren Zeitpunkt verarbeitet wird.
-Dies entkoppelt Sender und Empfänger voneinander und verhindert, dass Sender bis zum Erhalt einer Antwort blockieren.
-Da der Sender keine direkte Antwort vom Empfänger erhält, muss er sich das Ergebnis seiner Nachricht über eine weitere Queue schicken oder mittels eines der anderen Kommunikationsmuster übermitteln lassen.
+Dies entkoppelt Sender und Empfänger voneinander.
 
 [[message-queue-sequence]]
 .Ablauf der Kommunikation bei Message-Queue
-image::software-technisch/queueing.dn.svg[]
+image::software-technisch/message-queue.dn.svg[]
 
 [[message-queue-betrachtung]]
 ==== Betrachtung der Vorteile, Herausforderungen und Risiken
@@ -272,33 +271,23 @@ Demgegenüber kann der Einsatz von Message Queues zu Herausforderungen und Risik
 |Qualitätskriterium
 |Herausforderungen / Risiken
 
-|Funktionale Eignung (Functional Suitability)
-a|Message Queues sind nicht für Interaktionen geeignet, die:
-
-* eine direkte Antwort erwarten,
-* hohe Anforderung an das Zeitverhalten haben,
-* von einer festgelegten Reihenfolge der Verarbeitung abhängig sind.
-
-Solche Interaktionen können umgesetzt werden, erfordern aber zusätzliche Mechanismen zur Korrelation und Rückmeldung.
+|Zuverlässigkeit (Reliability)
+|Message-Broker sind zentrale Infrastrukturkomponenten.
+Ein Ausfall oder temporäre Störungen des Brokers wirken sich direkt auf die Kommunikation von weiten Teilen der Systemlandschaft aus.
+Zur Minderung dieser Risiken sollte der Message-Broker redundant betrieben werden.
+Außerdem sollten Maßnahmen gegen eine Überlastung des Brokers getroffen werden.
 
 |Sicherheit (Security)
 |Neben Sender und Empfänger muss auch der Message-Broker abgesichert werden, da er Nachrichten von vielen Systemen verarbeitet und speichert. +
 Nachrichten können potenziell im Message-Broker abgefangen oder manipuliert werden.
 Zur Minderung dieser Risiken sind zusätzliche Maßnahmen wie Signierung, Verschlüsselung oder Zugriffskontrollen nötig.
 
-|Zuverlässigkeit (Reliability)
-|Message-Broker sind zentrale Infrastrukturkomponenten.
-Ein Ausfall des Brokers kann zu einem vollständigen Kommunikationsstillstand führen.
-Auch temporäre Störungen wirken sich direkt auf die Verarbeitung aus.
-Zur Minderung dieser Risiken sollte der Message-Broker als Cluster betrieben werden.
-Außerdem sollten Maßnahmen gegen eine Überlastung des Brokers getroffen werden.
 |===
-
 
 [[message-queue-empfehlungen]]
 ==== Empfehlungen zum Einsatz
 
-Das Kommunikationsmuster Message-Queue eignet sich für Interaktionen, die keine direkte Antwort benötigen und keine hohen Anforderungen an das Zeitverhalten stellen.
+Das Kommunikationsmuster Message-Queue eignet sich für Interaktionen, die keine direkte Antwort benötigen, keine hohen Anforderungen an das Zeitverhalten stellen und nicht von einer festgelegten Reihenfolge der Verarbeitung abhängig sind.
 
 Weiterhin sollten Message-Broker nach dem Prinzip _at-leat-once_ funktionieren: Die Zustellung der Nachrichten wird garantiert, aber Duplikate sind möglich.
 Schreibende Operationen, die durch Nachrichten ausgelöst werden, sind dementsprechend _idempotent_ zu spezifizieren und umzusetzen.
@@ -328,6 +317,70 @@ Die Architekturvorgabe sieht die alleinige Nutzung der Ausprägung `TextMessage`
 Weitere Details zu JMS-Nachrichten finden sich in der JMS-Spezifikation im Kapitel https://jakarta.ee/specifications/messaging/3.0/jakarta-messaging-spec-3.0.html#jakarta-messaging-message-model[3. Jakarta Messaging message model].
 Besonders relevant für die Referenzarchitektur sind die Abschnitte https://jakarta.ee/specifications/messaging/3.0/jakarta-messaging-spec-3.0.html#jakarta-messaging-messages[3.3. Jakarta Messaging messages] sowie https://jakarta.ee/specifications/messaging/3.0/jakarta-messaging-spec-3.0.html#jakarta-messaging-message-body[3.11. Jakarta Messaging message body].
 ====
+
+[[publish-subscribe]]
+=== Publish/Subscribe
+
+Das Kommunikationsmuster Publish/Subscribe (Pub/Sub) ist ein asynchrones, ereignisgesteuertes Modell.
+Es ermöglicht die Entkopplung von Sendern (Publishern) und Empfängern (Subscriber), indem Nachrichten durch Publisher an ein zentrales Thema (Topic) veröffentlicht und von mehreren Subscribern abonniert werden.
+Sender und Empfänger kennen sich nicht.
+
+[[publish-subscribe-sequence]]
+.Ablauf der Kommunikation bei Publish/Subscribe
+image::software-technisch/publish-subscribe.dn.svg[]
+
+[[publish-subscribe-betrachtung]]
+==== Betrachtung der Vorteile, Herausforderungen und Risiken
+
+Der Einsatz von Publish/Subscribe kann die Erfüllung der folgenden Qualitätskriterien fördern.
+
+.Publish/Subscribe: Vorteile nach Qualitätskriterien (ISO 25010)
+[cols="1,2", options="header"]
+|===
+|Qualitätskriterium
+|Vorteile
+
+|Leistungseffizienz (Performance Efficiency)
+|Publisher blockieren nicht und Subscriber können die Nachrichten parallel zueinander verarbeiten.
+
+|Wartbarkeit (Maintainability)
+|Publisher und Subscriber sind lose miteinander gekoppelt.
+Änderungen an Publisher und Subscriber sind isoliert möglich, solange das Format der Nachrichten stabil bleibt.
+
+|===
+
+Demgegenüber kann der Einsatz von Publish/Subscribe zu Herausforderungen und Risiken bei folgenden Qualitätskriterien führen.
+
+.Publish/Subscribe: Herausforderungen und Risiken nach Qualitätskriterien (ISO 25010)
+[cols="1,2", options="header"]
+|===
+|Qualitätskriterium
+|Herausforderungen / Risiken
+
+|Zuverlässigkeit (Reliability)
+|Es ist in der Regel nicht garantiert, dass alle Subscriber eine Nachricht erhalten.
+Bei temporärer Nichtverfügbarkeit eines Subscribers können Nachricht verloren gehen, sofern keine Persistenz oder Replay-Mechanismen vorhanden sind. +
+Message-Broker sind zentrale Infrastrukturkomponenten.
+Ein Ausfall oder temporäre Störungen des Brokers wirken sich direkt auf die Kommunikation von weiten Teilen der Systemlandschaft aus.
+Zur Minderung dieser Risiken sollte der Message-Broker redundant betrieben werden.
+Außerdem sollten Maßnahmen gegen eine Überlastung des Brokers getroffen werden.
+
+|Sicherheit (Security)
+|Neben Sender und Empfänger muss auch der Message-Broker abgesichert werden, da er Nachrichten von vielen Systemen verarbeitet und speichert. +
+Nachrichten können potenziell im Message-Broker abgefangen oder manipuliert werden.
+Zur Minderung dieser Risiken sind zusätzliche Maßnahmen wie Signierung, Verschlüsselung oder Zugriffskontrollen nötig. +
+Die Nachrichten eines Topics werden an alle Subscriber verteilt.
+Nachrichten dürfen nur Information beinhalten, die alle Subscriber erhalten dürfen.
+
+|===
+
+[[publish-subscribe-empfehlungen]]
+==== Empfehlungen zum Einsatz
+
+Publish/Subscribe eignet sich gut, wenn es um die Verteilung von Ereignissen (englisch: _events_) an mehrere Empfänger geht.
+Ereignisse übermitteln zum Beispiel Benachrichtigungen oder ZustandsänderungenFakten und benötigen keine Antwort des Subscribers.
+Effiziente Umsetzungen unterstützen Multicast-Kommunikation ohne Kenntnis der Empfänger.
+
 
 == Kommunikation mit externen Systemen
 
