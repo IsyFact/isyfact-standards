@@ -9,7 +9,7 @@ Die software-technische Referenzarchitektur beschreibt, wie die in der fachliche
 Eine zentrale Eigenschaft der software-technischen Referenzarchitektur ist, dass sie nicht zwischen xref:glossary::terms-definitions.adoc#glossar-anwendungstyp[Anwendungstypen] unterscheidet.
 Die software-technische Umsetzung von Anwendungen ist ungeachtet ihrer Fachlichkeit gleich.
 Die software-technische Referenzarchitektur definiert hierzu das xref:glossary::terms-definitions.adoc#glossar-it-system[*IT-System*] als Oberbegriff und beschreibt die Umsetzung einer Anwendung mittels einer Menge von IT-Systemen, die jedes für sich eine bestimmte Ausprägung besitzen.
-Diese Ausprägung ist technisch motiviert und umfasst aktuell *Backends*, *Frontends* und *Batches*.
+Diese Ausprägung ist technisch motiviert und umfasst aktuell *Backends*, *Frontends*, *Batches* und *Gateways*.
 
 // end::architektursicht-definition[]
 
@@ -23,48 +23,58 @@ Eine solche IsyFact-Systemlandschaft beinhaltet alle IT-Systeme als technische U
 [[strukturierung-der-systemlandschaft]]
 == Strukturierung der Systemlandschaft
 
-Wichtige Grundlagen für die Software-Referenzarchitektur sind die Schnittstellen und Aufruf-Beziehungen der IT-Systeme vom Typ _Geschäftsanwendung_, _Querschnittsanwendung_ sowie _Portal_ und _Service-Gateway_.
-Aufruf-Beziehungen werden stets unterschieden in _interne Aufrufe_, in welchen ein IT-System einer IsyFact-Systemlandschaft mit einem anderen IT-System derselben IsyFact-Systemlandschaft kommuniziert, und _externe Aufrufe_, in welchen ein IT-System der IsyFact-Systemlandschaft mit einem Anwender oder einem IT-System außerhalb dieser IsyFact-Systemlandschaft kommuniziert.
+Wichtige Grundlagen für die Software-Referenzarchitektur sind die Schnittstellen und Aufruf-Beziehungen der IT-Systeme untereinander.
+Aufruf-Beziehungen werden stets unterschieden in _interne Aufrufe_, in welchen ein IT-System einer Systemlandschaft mit einem anderen IT-System derselben Systemlandschaft kommuniziert, und _externe Aufrufe_, in welchen ein IT-System der Systemlandschaft mit einem Anwender oder einem IT-System außerhalb dieser Systemlandschaft kommuniziert.
 Interne und externe Aufrufe unterscheiden sich sowohl in ihrer Authentifizierung und Autorisierung als auch (bei automatisierten Schnittstellen) in der verwendeten Technologie.
 
-Im Folgenden werden die Schnittstellen und Aufrufbeziehungen pro Anwendungstyp erläutert.
+[[service-gateways]]
+=== Service Gateways
 
-*Das xref:glossary::terms-definitions.adoc#glossar-service-gateway[Service-Gateway]:* Service-Gateway-Systeme haben die Aufgabe, Aufrufe aus der Systemlandschaft an xref:glossary::terms-definitions.adoc#externes-system[externe Systeme] sowie Aufrufe von externen Systemen in die Systemlandschaft weiterzuleiten und dabei unterschiedliche Schnittstellentechnologien zu überbrücken.
+xref:glossary::terms-definitions.adoc#glossar-service-gateway[Service-Gateways] haben die Aufgabe, Aufrufe aus der Systemlandschaft an xref:glossary::terms-definitions.adoc#externes-system[externe Systeme] sowie Aufrufe von externen Systemen in die Systemlandschaft weiterzuleiten und dabei unterschiedliche Schnittstellentechnologien zu überbrücken.
 
 Für die Weiterleitung von Aufrufen enthält ein Service-Gateway die folgenden Funktionalitäten:
 
 * Es bildet die Aufrufe zwischen der Schnittstellentechnologie der externen Systeme und der Schnittstellentechnologie der Systemlandschaft ab.
 * Bei Aufrufen durch externe Systeme führt es die Authentifizierung und eine erste Autorisierung des Aufrufs durch.
 
-Ein Service-Gateway-System besitzt weder eine eigene Datenhaltung noch eigene Fachlichkeit.
+Service-Gateways besitzen weder eine eigene Datenhaltung noch eigene Fachlichkeit.
 
-*Die xref:glossary::terms-definitions.adoc#glossar-geschaeftsanwendung[Geschäftsanwendung]*: Eine Geschäftsanwendung implementiert allgemein die Geschäftsprozesse einer Domäne.
+[[geschaeftsanwendungen]]
+=== Geschäftsanwendungen
+
+xref:glossary::terms-definitions.adoc#glossar-geschaeftsanwendung[Geschäftsanwendungen] implementieren allgemein die Geschäftsprozesse einer Domäne.
 Geschäftsanwendungen können monolithisch strukturiert sein und alle Schichten der Softwarearchitektur umfassen, von der Benutzeroberfläche über Prozesse und xref:glossary::terms-definitions.adoc#glossar-geschaeftslogik[Geschäftslogik] bis hin zur Datenspeicherung.
 Sie können aber auch jeweils nur Teile davon implementieren, sodass z.B. eine Geschäftsanwendung eine GUI bereitstellt, eine weitere die Geschäftslogik implementiert und eine dritte schließlich die Persistierung der Daten realisiert.
 In diesem Fall würde die Gesamtfunktionalität durch das Zusammenwirken der drei Geschäftsanwendungen erbracht.
 
-Die Geschäftsanwendungen einer IsyFact-Systemlandschaft können sich intern gegenseitig über ihre Service-Schnittstellen aufrufen.
-In einem konkreten Anwendungskontext einer IsyFact-Systemlandschaft wird man in der Regel die Arten von Geschäftsanwendungen noch genauer definieren und dabei auch die möglichen Aufrufbeziehungen zwischen ihnen geeignet einschränken.
+Die Geschäftsanwendungen einer Systemlandschaft können sich intern gegenseitig über ihre Service-Schnittstellen aufrufen.
+In einem konkreten Anwendungskontext einer Systemlandschaft wird man in der Regel die Arten von Geschäftsanwendungen noch genauer definieren und dabei auch die möglichen Aufrufbeziehungen zwischen ihnen geeignet einschränken.
 
-Für die Kommunikation mit externen Systemen muss eine Geschäftsanwendung ein Service-Gateway-System verwenden, egal in welche Richtung die Kommunikation verläuft.
+Für die Kommunikation mit externen Systemen muss eine Geschäftsanwendung ein Service-Gateway verwenden, egal in welche Richtung die Kommunikation verläuft.
 
-Geschäftsanwendungen, die eine Benutzeroberfläche bereitstellen, dürfen aus Sicherheitsgründen nicht direkt vom Benutzer aufgerufen werden, sondern werden in das _Portal_ (siehe unten) der IsyFact-Systemlandschaft eingebunden.
+Geschäftsanwendungen, die eine Benutzeroberfläche bereitstellen, dürfen aus Sicherheitsgründen nicht direkt vom Benutzer aufgerufen werden, sondern werden in das <<portal>> der Systemlandschaft eingebunden.
 
-*Das xref:glossary::terms-definitions.adoc#glossar-portal[Portal]:* Die Referenzarchitektur sieht keinen Portal-Server im klassischen Sinne vor.
+[[portal]]
+=== Portal
+
+Die Referenzarchitektur sieht keinen Portal-Server im klassischen Sinne vor.
 Es gibt weder einen systemübergreifenden Rahmen noch eine systemübergreifende Navigation.
 
-Ein Portal im Sinne der Referenzarchitektur besteht aus:
+Das xref:glossary::terms-definitions.adoc#glossar-portal[Portal] im Sinne der Referenzarchitektur besteht aus:
 
 * Einem Web-Server-Cluster, der Aufrufe entgegennimmt und an die Application-Server der Geschäftsanwendungen weiterleitet.
 * Einer zentralen Startseite, welche den eingeloggten Benutzern die Geschäftsanwendungen der Anwendungslandschaft, für welche sie berechtigt sind, präsentiert.
 
 Der Zweck eines Portals ist die gemeinsame Authentifizierung und Autorisierung für alle Geschäftsanwendungen und die Indirektion des Zugriffs von Nutzern auf die Geschäftsanwendungen.
 
-*Die xref:glossary::terms-definitions.adoc#glossar-querschnittsanwendung[Querschnittsanwendung]:* Eine Querschnittsanwendung bietet Geschäftsanwendungen querschnittlich genutzte Funktionalitäten an, etwa für die Bereitstellung von Schlüsseldaten.
+[[querschnittsanwendungen]]
+=== Querschnittsanwendungen
+
+xref:glossary::terms-definitions.adoc#glossar-querschnittsanwendung[Querschnittsanwendungen] bieten Geschäftsanwendungen querschnittlich genutzte Funktionalitäten an, etwa für die Bereitstellung von Schlüsseldaten.
 Querschnittsanwendungen können eine eigene Datenhaltung besitzen.
 
 Querschnittsanwendungen werden nur von internen Benutzern oder anderen IT-Systemen derselben Systemlandschaft aufgerufen. Sie rufen selbst nur andere Querschnittsanwendungen auf.
-Eine Ausnahme bilden Querschnittsanwendungen, wie z.B. ein Mail-Gateway für den Versand von E-Mails an externe Empfänger.
+Eine Ausnahme bilden Querschnittsanwendungen in Form eines xref:glossary::terms-definitions.adoc#gateway[Gateways], wie z.B. ein zentrales Mail-Gateway für den Versand von E-Mails an externe Empfänger.
 
 [[servicekommunikation]]
 == Servicekommunikation
@@ -97,11 +107,11 @@ Folgende Abbildung zeigt die Umsetzung der Prinzipien in der Systemlandschaft:
 .Integration des IAM-Service in eine Systemlandschaft
 image::software-technisch/sicherheit_iam_integration_awl.dn.svg[]
 
-* *Portal:* +
+Portal::
 Interne und externe Anwender rufen über das Portal die Geschäftsanwendung auf und werden dabei durch das Portal an den IAM-Service weitergeleitet, um die Authentifizierung durchzuführen.
 Erst nach erfolgreicher Authentifizierung leitet das Portal den Anwender zusammen mit den Autorisierungsinformationen an die Geschäftsanwendung weiter.
 
-* *Service-Gateway:* +
+Service-Gateway::
 Das Service-Gateway hat die Aufgabe, Anfragen von _externen Anwendungen_ entgegenzunehmen und zusammen mit den Autorisierungsinformationen an den passenden Service der Geschäftsanwendung weiterzuleiten.
 Aktuell übernimmt das Service-Gateway auch die Authentifizierung von externen Anwendungen.
 Dazu leitet es die von der externen Anwendung erhaltenen Authentifizierungsdaten an den IAM-Service weiter.
@@ -109,23 +119,23 @@ Nach erfolgreicher Authentifizierung leitet das Service-Gateway die Anfrage zusa
 Zukünftig soll das Service-Gateway keine Authentifizierungsanfragen mehr verarbeiten.
 Stattdessen soll das Authentication-Gateway verwendet werden.
 
-* *Authentication-Gateway:* +
+Authentication-Gateway::
 Das Authentication-Gateway übernimmt die Authentifizierung von externen Anwendungen.
 Dazu leitet es die von der externen Anwendung erhaltene Authentifizierungsanfrage an den IAM-Service weiter.
 Nach erfolgreicher Authentifizierung gibt das Authentication-Gateway die Autorisierungsinformationen an die externe Anwendung zurück.
 Die externe Anwendung sendet die erhaltenen Autorisierungsinformationen gemeinsam mit der fachlichen Anfrage über das Service-Gateway an die Geschäftsanwendung.
 
-* *Anwendungen innerhalb der Anwendungslandschaft:* +
+Anwendungen innerhalb der Anwendungslandschaft::
 Wenn Anwendungen andere Geschäfts- und Querschnittsanwendungen innerhalb der Systemlandschaft aufrufen, verwenden sie die Autorisierungsinformationen des ursprünglichen Aufrufers oder authentifizieren sich mit ihren eigenen Zugangsdaten direkt am IAM-Service und nutzen die erhaltenen Autorisierungsinformationen zum Aufruf.
 
-* *IAM-Service:* +
+IAM-Service::
 Der IAM-Service verarbeitet die Authentifizierungsanfragen und beantwortet sie mit zeitlich begrenzten Autorisierungsinformationen.
-Dazu greift er im Regelfall auf das Benutzerverzeichnis zu.
-
+Dazu greift er im Regelfall auf das Benutzerverzeichnis zu. +
++
 NOTE: IAM steht für https://en.wikipedia.org/wiki/Identity_management[Identity and Access Management].
 
 Darüber hinaus finden Authentifizierung und Autorisierung nach den Vorgaben des Berechtigungskonzepts statt.
-Da das Berechtigungskonzept individuell für jede Systemlandschaft erstellt wird und sich im Einzelnen stark von Inhalt und Umfang her unterscheidet, ist es kein Bestandteil  der IsyFact.
+Da das Berechtigungskonzept individuell für jede Systemlandschaft erstellt wird und sich im Einzelnen stark von Inhalt und Umfang her unterscheidet, ist es kein Bestandteil der IsyFact.
 
 Eine detaillierte Beschreibung der erwähnten Zugriffskomponenten (Portal, Service-Gateway, Authentication-Gateway), des IAM-Service, der implementierten Authentifizierungsverfahren und der Autorisierungsinformationen (Access-Token) findet sich im xref:security::konzept.adoc[].
 
@@ -172,7 +182,7 @@ Für alle implementierten Authentifizierungs- und Verschlüsselungsverfahren wer
 * Privater Schlüssel und Zertifikate werden in einem PKCS#12-Format abgelegt (siehe: https://tools.ietf.org/html/rfc7292[PKCS12]).
 * Verwendet werden nur die im Standardumfang des JDKs enthaltenen kryptografischen Verfahren (siehe: https://docs.oracle.com/javase/8/docs/technotes/guides/security/jsse/JSSERefGuide.html[Java Secure Socket Extensions]).
 
-Der xref:referenzarchitektur:software-technisch/backend.adoc#awk-service-consumer[Sevice-Consumer] soll die Verbindung zu einem externen Service verschlüsselt per HTTPS aufbauen.
+Der xref:referenzarchitektur:software-technisch/backend.adoc#awk-service-consumer[Service-Consumer] soll die Verbindung zu einem externen Service verschlüsselt per HTTPS aufbauen.
 Der Aufbau einer transportverschlüsselten Verbindung via HTTPS basiert immer auf einer zertifikatsbasierten Authentifizierung der beteiligten Entitäten.
 
 * Einseitige Authentifizierung:
@@ -188,7 +198,7 @@ Bei Verwendung der Client-Authentifizierung per Zertifikat benötigt der Service
 
 * ein Zertifikat, das von einer vertrauenswürdigen CA signiert ist,
 * den zugehörigen privaten Schlüssel, welcher lokal im Keystore bleibt.
-Die nutzende Anwendung übergibt dem Service-Provider das Zertifikat beim Aufruf der externen Serviceprovider-Methode, der die Signatur des Zertifikats mittels des öffentlichen Schlüssels des Service-Consumer validiert.
+Die nutzende Anwendung übergibt dem Service-Provider das Zertifikat beim Aufruf der externen Serviceprovider-Methode, der die Signatur des Zertifikats mittels des öffentlichen Schlüssels des Service-Consumers validiert.
 Der private Schlüssel wird ausschließlich zur kryptografischen Signatur des TSL-Handshakes genutzt.
 
 NOTE: Alle notwendigen Informationen zur Erstellung von Zertifikaten -ausgehend von einem Sicherheitsschlüsselpaar- können z.B. https://de.wikipedia.org/wiki/Certificate_Signing_Request[hier] eingesehen werden.
@@ -215,7 +225,7 @@ Der TrustStore dagegen enthält ausschließlich die Zertifikate, die für die Au
 
 [[installation-des-zertifikates-auf-der-maschine]]
 ==== Installation des Zertifikats auf der Maschine
-Zertifikate können direkt als Dateien auf dem Dateisystem einer Maschine gespeichert werden, z. B. als .pem-, .crt- oder .key-Dateien.
+Zertifikate können direkt als Dateien auf dem Dateisystem einer Maschine gespeichert werden, z. B. im Format `.pem`, `.crt` oder `.key`.
 Für den produktiven Einsatz wird jedoch die Ablage in Keystores/TrustStores empfohlen, die von der Anwendung beim Start oder zur Laufzeit geladen werden.
 
 [[besonderheiten-bei-der-kommunikation-ueber-soap]]

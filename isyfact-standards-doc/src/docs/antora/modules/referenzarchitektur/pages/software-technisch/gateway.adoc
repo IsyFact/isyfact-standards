@@ -1,0 +1,93 @@
+= Referenzarchitektur Gateway
+:navtitle: Gateway
+
+include::glossary::terms-definitions.adoc[tag=gateway-definition]
+
+[[technischer-kontext]]
+== Rolle & Aufgaben
+
+Gateways nehmen eine von zwei Rollen wahr.
+Als *Ingress-Gateway* leiten sie Anfragen von außerhalb der Systemlandschaft an einen Service eines Backends weiter.
+Als *Egress-Gateway* leiten sie Anfragen von innerhalb der Systemlandschaft an einen externen Service weiter.
+Die folgende Abbildung zeigt dies.
+
+[[technischer-kontext-gateways]]
+.Technischer Kontext der Gateways
+image::software-technisch/gateway/technical-context-gateway.dn.svg[]
+
+Architektonisch bilden sich die Rollen primär darin aus, welche Aufgaben die Gateways übernehmen und ob sie Anfragen von externen Systemen entgegennehmen oder an sie weiterleiten.
+
+Die folgenden Abschnitte beschreiben die Aufgaben, die Ingress- und Egress-Gateways übernehmen können.
+Welche Aufgaben ein konkretes Gateway übernimmt, muss im Rahmen des Systementwurfs festgelegt werden.
+
+.Ingress/Egress vs. Provider/Consumer
+****
+Frühere Versionen der IsyFact sprechen von Provider und Consumer.
+Ab der Version 5 hält sich die IsyFact stärker an den allgemeinen Sprachgebrauch, der in Container-Plattformen üblich ist.
+Inhalte zu konkreten Gateways werden in naher Zukunft ebenfalls auf diese Begriffe umgestellt.
+****
+
+[[ingress-gateway]]
+=== Ingress-Gateway
+
+Ingress-Gateways können die folgenden Aufgaben übernehmen.
+
+Routing::
+Ingress-Gateways leiten die Anfragen externer Systeme weiter an die zuständigen Backend-Services und geben deren Antworten an den jeweiligen Aufrufer zurück.
+
+Authentifizierung & Autorisierung::
+Ingress-Gateways nehmen Credentials entgegen und prüfen die Berechtigung des externen Systems, auf den Backend-Service zuzugreifen.
+
+Transformation::
+Ingress-Gateways nehmen eine technische Übersetzung von Schnittstellenformaten und -technologien vor, damit Backends Anfragen von externen Systemen gleichartig zu Anfragen aus der Systemlandschaft beantworten können.
+
+Protokollierung & Monitoring::
+Ingress-Gateways statten die Anfrage externer Systeme mit Tracing-Informationen (Korrelations-ID) aus und protokollieren den externen Zugriff.
+
+Sicherheit::
+Ingress-Gateways sind ein wichtiger Bestandteil der xref:software-technisch.adoc#prinzipien-der-sicherheitsarchitektur[Sicherheitsarchitektur].
+
+[[egress-gateway]]
+=== Egress-Gateway
+
+Egress-Gateways können die folgenden Aufgaben übernehmen.
+
+Routing::
+Egress-Gateways leiten die Anfragen aus der Systemlandschaft weiter an die externen Systeme und geben deren Antworten an den jeweiligen Aufrufer zurück.
+
+Authentifizierung & Autorisierung::
+Egress-Gateways statten die Anfragen aus der Systemlandschaft mit den geforderten Credentials (zum Beispiel Client-ID und -Secret, API-Key, Access Token) aus und, falls nötig, fragen sie beim IAM-Service des externen Systems an.
+
+Transformation::
+Egress-Gateways nehmen eine technische Übersetzung von Schnittstellenformaten und -technologien vor, damit Backends Anfragen an externe Systeme gleichartig zu Anfragen innerhalb der Systemlandschaft stellen können.
+
+Protokollierung & Monitoring::
+Egress-Gateways statten die Antworten externer Systeme mit Tracing-Informationen (Korrelations-ID) aus und protokollieren den Zugriff auf das externe System.
+
+[[systemarchitektur]]
+== Systemarchitektur
+
+Ingress- und Egress-Gateways sind architektonisch gleichartig aufgebaut.
+Sie bestehen aus zwei Komponenten, die den Großteil ihrer Funktionalität umsetzen: dem `Provider` und dem `Adapter`.
+Querschnittliche Aufgaben setzen Gateways mit xref:bausteine:bausteine.adoc[Bausteinen] um: durch direkte Nutzung in Eigenentwicklungen oder durch eine zu den Bausteinen konforme Umsetzung bei der Nutzung von Produkten.
+
+Ingress- und Egress-Gateways können ihre Aufgaben für mehrere Services bereitstellen.
+In dem Fall enthalten sie die Komponenten `Provider` und `Adapter` jeweils einmal pro Service.
+Die Komponenten verschiedener Services dürfen nicht miteinander kommunizieren.
+Die Rollen (Ingress und Egress) dürfen nicht in einem Gateway vermischt werden, da sie grundlegend unterschiedliche Aufgaben wahrnehmen und unterschiedlich skalieren.
+
+[[systemarchitektur-gateway]]
+.Systemarchitektur Gateways
+image::software-technisch/gateway/architektur-gateway.dn.svg[]
+
+Die Komponente `Provider` stellt den Service des Gateways bereit und nimmt die Anfragen entgegen.
+Die Komponente kümmert sich um die Authentifizierung & Autorisierung der Anfragen, protokolliert sie und erhebt Metriken gemäß der konkreten Anforderungen an das Gateway.
+In einem Ingress-Gateway führt die Komponente `Provider` zusätzlich die Sicherheitsmaßnahmen aus, für die es von der Sicherheitsarchitektur der Systemlandschaft aus verantwortlich ist.
+Berechtigte Anfragen gibt sie an die Komponente `Adapter` weiter.
+
+Die Komponente `Adapter` nimmt die Anfragen entgegen und transformiert sie technisch so, dass sie der hinter dem Gateway liegende Service versteht.
+Die Komponente nimmt keine fachliche Transformation der Nutzdaten vor.
+Sie leitet die transformierte Anfrage anschließend an den hinter dem Gateway liegenden Service weiter.
+
+IMPORTANT: Bei der Umsetzung von Gateways mit Produkten ist die <<systemarchitektur-gateway,Systemarchitektur>> in der Regel nicht anwendbar.
+Anstatt dessen müssen im xref:methodik:vorgaben-dokumentation/dokumentationstypen.adoc#table-nutzungskonzept[Nutzungskonzept] des Produkts die Aufgaben der Komponenten `Provider` und `Adapter` auf die Funktionalität des Produkts übertragen werden.
