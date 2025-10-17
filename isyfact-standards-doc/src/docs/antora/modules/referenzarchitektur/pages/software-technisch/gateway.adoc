@@ -18,7 +18,7 @@ image::software-technisch/gateway/technical-context-gateway.dn.svg[]
 Architektonisch bilden sich die Rollen primär darin aus, welche Aufgaben die Gateways übernehmen und ob sie Anfragen von externen Systemen entgegennehmen oder an sie weiterleiten.
 
 Die folgenden Abschnitte beschreiben die Aufgaben, die Ingress- und Egress-Gateways übernehmen können.
-Welche Aufgaben ein konkretes Gateway übernimmt, muss im Rahmen dessen fachlicher und technischer Dokumentation spezifiziert werden.
+Welche Aufgaben ein konkretes Gateway übernimmt, muss im Rahmen des Systementwurfs festgelegt werden.
 
 .Ingress/Egress vs. Provider/Consumer
 ****
