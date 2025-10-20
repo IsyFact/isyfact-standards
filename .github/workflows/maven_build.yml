@@ -34,7 +34,7 @@ jobs:
       version: ${{ needs.Version.outputs.next-version }}
       maven-opts: '-PcentralSnapshot --settings ./.github/settings.xml'
       deploy-server-id: central
-      sbom: ${{ startsWith(github.ref, 'refs/heads/release/') }}
+      sbom: true
       sign: true
     secrets:
       GPG_PRIVATE_KEY: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
