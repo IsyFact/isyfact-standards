@@ -36,6 +36,7 @@ jobs:
       deploy-server-id: central
       sbom: true
       sign: true
+      environment: 'Release'
     secrets:
       GPG_PRIVATE_KEY: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
       GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
