@@ -50,11 +50,11 @@
         <revision>0.0.0-SNAPSHOT</revision>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.build.propertiesEncoding>ISO-8859-1</project.build.propertiesEncoding>
-        <maven.compiler.release>17</maven.compiler.release>
+        <maven.compiler.release>25</maven.compiler.release>
         <maven.build.timestamp.format>dd.MM.yyyy</maven.build.timestamp.format>
 
         <!-- maven-enforcer-plugin configuration -->
-        <enforced.jdk.version>[17,18)</enforced.jdk.version>
+        <enforced.jdk.version>[25,26)</enforced.jdk.version>
         <enforced.maven.version>[3.6.3,4)</enforced.maven.version>
 
         <!-- Property is set by jacoco and user by surefire -->
