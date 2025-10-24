@@ -18,21 +18,21 @@ public interface ServiceStatistik {
      */
     default long getAnzahlAufrufe() {
         throw new UnsupportedOperationException();
-    };
+    }
 
     /**
      * Returns the number of calls where a technical error occurred.
      */
     default long getAnzahlTechnicalExceptions() {
         throw new UnsupportedOperationException();
-    };
+    }
 
     /**
      * Returns the number of calls where a business error occurred.
      */
     default long getAnzahlBusinessExceptions() {
         throw new UnsupportedOperationException();
-    };
+    }
 
     /**
      * Returns the average duration of the last N calls.

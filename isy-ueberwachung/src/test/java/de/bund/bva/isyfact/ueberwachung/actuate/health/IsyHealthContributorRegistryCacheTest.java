@@ -159,8 +159,7 @@ public class IsyHealthContributorRegistryCacheTest {
     }
 
     private void consumeIndicators(HealthContributor contributor, Consumer<HealthIndicator> consumer) {
-        if (contributor instanceof CompositeHealthContributor) {
-            CompositeHealthContributor composite = (CompositeHealthContributor) contributor;
+        if (contributor instanceof CompositeHealthContributor composite) {
             for (NamedContributor<HealthContributor> namedContributor : composite) {
                 consumeIndicators(namedContributor.getContributor(), consumer);
             }

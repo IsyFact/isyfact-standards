@@ -1,5 +1,6 @@
 package de.bund.bva.isyfact.logging.impl;
 
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -18,6 +19,7 @@ import de.bund.bva.isyfact.logging.IsyMarker;
 public class IsyMarkerImpl implements IsyMarker {
 
     /** Eindeutige UID. */
+    @Serial
     private static final long serialVersionUID = 1L;
 
     /** Name des Markers. */
@@ -173,8 +175,7 @@ public class IsyMarkerImpl implements IsyMarker {
             return false;
         }
         
-        if (obj instanceof IsyMarker) {
-            IsyMarker comp = (IsyMarker) obj;
+        if (obj instanceof IsyMarker comp) {
             return compare(this.name, comp.getName()) && compare(this.value, comp.getValue());
         } else {
             return super.equals(obj);

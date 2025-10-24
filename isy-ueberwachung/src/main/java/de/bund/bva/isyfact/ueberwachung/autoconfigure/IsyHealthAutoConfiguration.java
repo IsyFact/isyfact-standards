@@ -76,8 +76,8 @@ public class IsyHealthAutoConfiguration {
             return new BeanPostProcessor() {
                 @Override
                 public Object postProcessAfterInitialization(Object bean, String beanName) {
-                    if (bean instanceof HealthContributorRegistry) {
-                        return new IsyCachingHealthContributorRegistry((HealthContributorRegistry) bean);
+                    if (bean instanceof HealthContributorRegistry registry) {
+                        return new IsyCachingHealthContributorRegistry(registry);
                     }
                     return bean;
                 }

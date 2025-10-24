@@ -285,8 +285,7 @@ public class IsyLocationAwareLoggerImpl implements IsyLogger {
         // Lognachricht übergeben werden. Wird ein IsyMarker übergeben, übernehmen wir diesen Marker als
         // "richtigen" Marker des Events und setzen nur den Wert des Markers in die Nachricht.
         for (int i = 0; i < werte.length; i++) {
-            if (werte[i] instanceof IsyMarker) {
-                IsyMarker marker = (IsyMarker) werte[i];
+            if (werte[i] instanceof IsyMarker marker) {
                 rootMarker.add(marker);
                 werte[i] = marker.getValue();
             }
@@ -304,20 +303,14 @@ public class IsyLocationAwareLoggerImpl implements IsyLogger {
      * @return den ermittelten LevelString.
      */
     private String ermittleLevelString(int level) {
-        switch (level) {
-        case LocationAwareLogger.DEBUG_INT:
-            return "DEBUG";
-        case LocationAwareLogger.ERROR_INT:
-            return "ERROR";
-        case LocationAwareLogger.INFO_INT:
-            return "INFO";
-        case LocationAwareLogger.TRACE_INT:
-            return "TRACE";
-        case LocationAwareLogger.WARN_INT:
-            return "WARN";
-        default:
-            return null;
-        }
+        return switch (level) {
+        case LocationAwareLogger.DEBUG_INT -> "DEBUG";
+        case LocationAwareLogger.ERROR_INT -> "ERROR";
+        case LocationAwareLogger.INFO_INT -> "INFO";
+        case LocationAwareLogger.TRACE_INT -> "TRACE";
+        case LocationAwareLogger.WARN_INT -> "WARN";
+        default -> null;
+        };
     }
 
     /**

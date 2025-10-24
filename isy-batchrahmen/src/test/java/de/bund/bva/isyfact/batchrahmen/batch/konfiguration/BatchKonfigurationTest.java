@@ -45,9 +45,9 @@ public class BatchKonfigurationTest {
                 "-PROPERTY_SPRINGPROFILES_PROPERTIES"
         });
         Assertions.assertEquals(1, batchKonfiguration.getBatchRahmenSpringKonfigFiles().size());
-        Assertions.assertEquals("de.bund.bva.isyfact.batchrahmen.BatchrahmenTestConfig123", batchKonfiguration.getBatchRahmenSpringKonfigFiles().get(0));
+        Assertions.assertEquals("de.bund.bva.isyfact.batchrahmen.BatchrahmenTestConfig123", batchKonfiguration.getBatchRahmenSpringKonfigFiles().getFirst());
         Assertions.assertEquals(1, batchKonfiguration.getAnwendungSpringKonfigFiles().size());
-        Assertions.assertEquals("de.bund.bva.isyfact.batchrahmen.AnwendungTestConfig123", batchKonfiguration.getAnwendungSpringKonfigFiles().get(0));
+        Assertions.assertEquals("de.bund.bva.isyfact.batchrahmen.AnwendungTestConfig123", batchKonfiguration.getAnwendungSpringKonfigFiles().getFirst());
     }
 
     @Test

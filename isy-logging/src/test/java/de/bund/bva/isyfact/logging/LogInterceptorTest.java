@@ -170,7 +170,7 @@ public class LogInterceptorTest extends AbstractLogTest {
         try {
             alleFlagsFalseInterceptor.invoke(invocation);
             Assertions.fail("Es wurde eine Exception erwartet - der Aufruf war aber erfolgreich.");
-        } catch (InvocationTargetException e) {
+        } catch (InvocationTargetException _) {
             // exception is expected.
             pruefeLogdatei("testAufrufMitExceptionParameterFalse");
         }
@@ -206,7 +206,7 @@ public class LogInterceptorTest extends AbstractLogTest {
         try {
             boundaryZielKlasse.setzeNameException(new TestZielParameterPerson("Mustermann", "Max", "Peter",
                     "Hans"), "TestParameter 2");
-        } catch (Exception e) {
+        } catch (Exception _) {
             // exception is expected.
             // analogue to direct call (all parameter are "true")
             pruefeLogdatei("testAufrufMitExceptionInterceptor", true);
@@ -242,7 +242,7 @@ public class LogInterceptorTest extends AbstractLogTest {
         try {
             componentZielKlasse.setzeNameException(new TestZielParameterPerson("Mustermann", "Max", "Peter",
                     "Hans"), "TestParameter 2");
-        } catch (Exception e) {
+        } catch (Exception _) {
             // exception is expected.
             pruefeLogdatei("testAufrufMitExceptionComponentInterceptor");
         }

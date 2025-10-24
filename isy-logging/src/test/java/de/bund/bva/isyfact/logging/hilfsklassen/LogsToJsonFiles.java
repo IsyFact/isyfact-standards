@@ -26,7 +26,7 @@ public class LogsToJsonFiles extends AbstractLogTest {
      *            Wird nicht verwendet.
      * @throws IOException 
      */
-    public static void main(String[] args) throws IOException {
+    void main() throws IOException {
 
         File jsonVerzeichnis = new File(JSON_VERZEICHNIS);
         jsonVerzeichnis.mkdirs();

@@ -24,6 +24,6 @@ public abstract class AbstractOidcProviderTest {
 
 
     public String getIssuerLocation() {
-        return String.format("http://%s:%d%s", HOST, PORT, ISSUER_PATH);
+        return "http://%s:%d%s".formatted(HOST, PORT, ISSUER_PATH);
     }
 }

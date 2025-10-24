@@ -15,6 +15,6 @@ public enum LogErrorKategorie {
      * Fehler, die zum Abbruch einer Operation geführt haben und behandelt (gefangen und nicht weitergereicht)
      * wurden.
      */
-    ERROR;
+    ERROR
 
 }
