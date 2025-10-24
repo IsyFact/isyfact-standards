@@ -128,7 +128,7 @@ public class BatchLauncher {
                 protokoll.batchEnde();
             }
         }
-        System.out.print(returnCode.getWert() + ": " + returnCode.getText());
+        IO.print(returnCode.getWert() + ": " + returnCode.getText());
         return returnCode.getWert();
     }
 
@@ -149,10 +149,10 @@ public class BatchLauncher {
             ex.printStackTrace();
         }
         String ausnahmeId = "ERROR";
-        if (ex instanceof BatchAusfuehrungsException) {
-            ausnahmeId = ((BatchAusfuehrungsException) ex).getAusnahmeId();
-        } else if (ex instanceof BatchrahmenException) {
-            ausnahmeId = ((BatchrahmenException) ex).getAusnahmeId();
+        if (ex instanceof BatchAusfuehrungsException exception1) {
+            ausnahmeId = exception1.getAusnahmeId();
+        } else if (ex instanceof BatchrahmenException exception) {
+            ausnahmeId = exception.getAusnahmeId();
         }
         if (protokoll != null) {
             try {
@@ -248,7 +248,7 @@ public class BatchLauncher {
                 .web(WebApplicationType.NONE)
                 .registerShutdownHook(true)
                 .profiles(rahmenKonfiguration.getSpringProfiles())
-                .initializers(applicationContext -> {
+                .initializers(_ -> {
                     try {
                         initialisiereLogback(rahmenKonfiguration);
                     } catch (JoranException e) {

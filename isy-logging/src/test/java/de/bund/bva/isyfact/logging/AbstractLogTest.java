@@ -7,7 +7,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -31,7 +30,7 @@ public abstract class AbstractLogTest {
     protected static final String VORLAGE_PREFIX = "VORLAGE_";
 
     /** Path to expected logs. */
-    private static final Path EXPECTED_LOGS_PATH = Paths.get("src", "test", "resources", "logausgaben");
+    private static final Path EXPECTED_LOGS_PATH = Path.of("src", "test", "resources", "logausgaben");
 
     /** Path where the tests write the log files. */
     protected static final String LOG_VERZEICHNIS = "target/var/log/isy-logging/";
@@ -273,12 +272,12 @@ public abstract class AbstractLogTest {
                     // Duration must be a number
                     try {
                         Integer.parseInt(textVorlage);
-                    } catch (Exception e) {
+                    } catch (Exception _) {
                         Assertions.fail("Dauer in Vorlage ist keine Zahl: " + textVorlage);
                     }
                     try {
                         Integer.parseInt(textErgebnis);
-                    } catch (Exception e) {
+                    } catch (Exception _) {
                         Assertions.fail("Dauer in Ergebnis ist keine Zahl: " + textVorlage);
                     }
 

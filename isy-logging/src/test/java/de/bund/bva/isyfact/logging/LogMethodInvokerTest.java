@@ -73,7 +73,7 @@ public class LogMethodInvokerTest extends AbstractLogTest {
             methodInvoker.fuehreMethodeAus(new TestZielKlasse(), new TestZielParameterPerson("Mustermann",
                     "Max", "Peter", "Hans"), "TestParameter 2");
             Assertions.fail("Es wurde eine Exception erwartet - der Aufruf war aber erfolgreich.");
-        } catch (InvocationTargetException e) {
+        } catch (InvocationTargetException _) {
             pruefeLogdatei("testAufrufMitException", true);
         }
 
@@ -138,7 +138,7 @@ public class LogMethodInvokerTest extends AbstractLogTest {
             methodInvoker.fuehreMethodeAus(new TestZielKlasse(), new TestZielParameterPerson("Mustermann",
                     "Max", "Peter", "Hans"), "TestParameter 2");
             Assertions.fail("Es wurde eine Exception erwartet - der Aufruf war aber erfolgreich.");
-        } catch (InvocationTargetException e) {
+        } catch (InvocationTargetException _) {
             // expecting this exception.
             pruefeLogdatei("testAufrufMitExceptionNachbarsystem");
         }

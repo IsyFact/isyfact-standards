@@ -29,7 +29,7 @@ public class IsyLoggerFactoryTest {
         pruefeLoggerImplementierungMethod.setAccessible(true);
         try {
             // using Integer as "Logframework"
-            pruefeLoggerImplementierungMethod.invoke(null, new Integer(5));
+            pruefeLoggerImplementierungMethod.invoke(null, Integer.valueOf(5));
             Assertions.fail("Erzeugung des Loggers erfolgreich, obwohl nicht "
                     + "unterstütztes Logframework verwendet wird.");
         } catch (InvocationTargetException ite) {

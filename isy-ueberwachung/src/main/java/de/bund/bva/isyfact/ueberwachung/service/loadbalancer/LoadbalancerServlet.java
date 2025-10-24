@@ -2,6 +2,7 @@ package de.bund.bva.isyfact.ueberwachung.service.loadbalancer;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.Serial;
 
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -23,6 +24,7 @@ import de.bund.bva.isyfact.ueberwachung.common.konstanten.EreignisSchluessel;
  */
 public class LoadbalancerServlet extends HttpServlet {
     /** UID der Klasse. */
+    @Serial
     private static final long serialVersionUID = 7248576003928677600L;
 
     /** Logger der Klasse. */
@@ -78,7 +80,7 @@ public class LoadbalancerServlet extends HttpServlet {
             resp.setStatus(HttpServletResponse.SC_OK);
             try {
                 resp.getWriter().write("<html><body><center>IS ALIVE!</center></body></html>");
-            } catch (IOException e) {
+            } catch (IOException _) {
                 LOG.error(
                         EreignisSchluessel.IS_ALIVE_EXISTIERT_IO_EXCEPTION,
                         "IsyAlive-Datei {} existiert, fehler bei schreiben der Antwort in output-stream", isAliveFile.getAbsolutePath());

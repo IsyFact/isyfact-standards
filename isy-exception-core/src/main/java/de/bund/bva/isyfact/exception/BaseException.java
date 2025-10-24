@@ -80,10 +80,10 @@ public abstract class BaseException extends Exception {
      *            Die übergebene Exception.
      */
     private void setUniqueId(Throwable throwable) {
-        if (throwable instanceof BaseException) {
-            this.uniqueId = ((BaseException) throwable).getUniqueId();
-        } else if (throwable instanceof TechnicalRuntimeException) {
-            this.uniqueId = ((TechnicalRuntimeException) throwable).getUniqueId();
+        if (throwable instanceof BaseException exception1) {
+            this.uniqueId = exception1.getUniqueId();
+        } else if (throwable instanceof TechnicalRuntimeException exception) {
+            this.uniqueId = exception.getUniqueId();
         } else {
             this.uniqueId = UUID.randomUUID().toString();
         }

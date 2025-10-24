@@ -16,6 +16,6 @@ public enum LogKategorie {
     /** Informationen zum Laufzeitverhalten des Systems. */
     PROFILING,
     /** (Potentieller) Angriffsversuch. */
-    SICHERHEIT;
+    SICHERHEIT
 
 }
