@@ -151,9 +151,9 @@ Das Request-Response-Muster bietet die Möglichkeit der direkten Kommunikation z
 Hierbei schickt der Sender eine Anfrage (englisch: _request_) an den Empfänger.
 Der Empfänger bearbeitet die Anfrage und schickt eine Antwort (englisch: _response_) an den Sender zurück.
 
-[[request-response-sequence]]
-.Ablauf der Kommunikation bei Request-Response
-image::software-technisch/request-response.dn.svg[]
+[[request-response-pattern]]
+.Kommunikationsmuster Request-Response
+image::software-technisch/kommunikation/request-response.dn.svg[]
 
 Je nachdem, ob Sender oder Empfänger synchron oder asynchron miteinander kommunizieren, wartet der Sender auf die Antwort, bevor er seine Verarbeitung fortsetzt, oder nimmt die Verarbeitung frühestens durch die Antwort des Empfängers wieder auf.
 Ob zwei IT-Systeme synchron oder asynchron über Request-Response miteinander kommunizieren, muss anhand der zu erfüllenden Qualitätskriterien abgewogen werden.
@@ -236,9 +236,9 @@ Das Kommunikationsmuster Message-Queue ist ein asynchrones, entkoppeltes Kommuni
 Es basiert auf dem Prinzip, dass ein Sender eine Nachricht in eine Warteschlange (englisch: _queue_) stellt, die vom Empfänger zu einem späteren Zeitpunkt verarbeitet wird.
 Dies entkoppelt Sender und Empfänger voneinander.
 
-[[message-queue-sequence]]
-.Ablauf der Kommunikation bei Message-Queue
-image::software-technisch/message-queue.dn.svg[]
+[[message-queue-pattern]]
+.Kommunikationsmuster Message-Queue
+image::software-technisch/kommunikation/message-queue.dn.svg[]
 
 Das Kommunikationsmuster Message-Queue eignet sich für Interaktionen, die keine direkte Antwort benötigen, keine hohen Anforderungen an das Zeitverhalten stellen und nicht von einer festgelegten Reihenfolge der Verarbeitung abhängig sind.
 Das Message-Queue-Muster benötigt eine Infrastrukturkomponente, den Message-Broker, welche die Kommunikation zwischen Sender und Empfänger ermöglicht.
@@ -253,11 +253,11 @@ Außerdem übernehmen sie Wiederholungsversuche, kümmern sich um unzustellbare 
 Message-Broker können so die _Zuverlässigkeit_ der Kommunikation der IT-Systeme untereinander maßgeblich positiv beeinflussen.
 
 Sender und Empfänger können durch die lose Kopplung unabhängig voneinander skalieren.
-Message-Broker ermöglichen eine Lastverteilung sowie die parallele Verarbeitung von Nachrichten auf Empfängerseite.
-Sie haben so eine positive Auswirkung auf die _Leistungseffizienz_ der Sender und Empfänger.
+Sender werden nicht durch langsame Empfänger blockiert, was Engpässe reduziert und den Gesamtdurchsatz des Systems verbessert.
+Message-Broker ermöglichen zudem eine Lastverteilung, sodass Instanzen des Empfängers dynamisch hinzugefügt oder entfernt werden können, um der aktuellen Last gerecht zu werden.
+Dies hat eine positive Auswirkung auf die _Leistungseffizienz_ der Sender und Empfänger.
 Durch die lose Kopplung sind außerdem Änderungen an Sender oder Empfänger isoliert möglich, solange das Nachrichtenformat stabil bleibt.
 Dies wirkt sich positiv auf die _Wartbarkeit_ der Sender und Empfänger aus.
-
 
 [[message-queue-herausforderungen]]
 ==== Herausforderungen
@@ -272,8 +272,11 @@ Sie müssen entsprechend abgesichert werden, da sie Nachrichten von vielen Syste
 Nachrichten können potenziell im Message-Broker abgefangen oder manipuliert werden.
 Zur Minderung dieser Risiken sind zusätzliche Sicherheitsmaßnahmen wie Signierung, Verschlüsselung oder Zugriffskontrollen nötig.
 
-Um positiv auf die _Zuverlässigkeit_ der Kommunikation zu wirken, sollten Message-Broker nach dem Prinzip _at-least-once_ funktionieren: Die Zustellung der Nachrichten wird garantiert, aber Duplikate sind möglich.
+Message-Broker sollten nach dem Prinzip _at-least-once_ funktionieren: Die Zustellung der Nachrichten wird garantiert, aber Duplikate sind möglich.
 Schreibende Operationen, die durch Nachrichten ausgelöst werden, sind dementsprechend _idempotent_ zu spezifizieren und umzusetzen.
+
+Die unter <<message-queue-staerken>> beschriebene Lastverteilung benötigt ein entsprechendes Monitoring sowie eine Möglichkeit zur dynamischen Skalierung des Empfängers.
+Sind diese nicht vorhanden, und der Empfänger kann die Nachrichten nicht schnell genug verarbeiten, führt dies zu potenziell unbegrenzt anwachsenden Queues, die in Folge wiederum Speicher- oder Stabilitätsprobleme für den Message-Broker bedeuten.
 
 [[message-queue-vorgaben]]
 ==== Vorgaben
@@ -307,24 +310,26 @@ Besonders relevant für die Referenzarchitektur sind die Abschnitte https://jaka
 
 Das Kommunikationsmuster Publish/Subscribe (Pub/Sub) ist ein asynchrones, ereignisgesteuertes Modell.
 Es ermöglicht die Entkopplung von Sendern (Publishern) und Empfängern (Subscriber), indem Nachrichten durch Publisher an ein zentrales Thema (Topic) veröffentlicht und von mehreren Subscribern abonniert werden.
-Sender und Empfänger kennen sich nicht.
+Publisher und Subscriber kennen sich nicht.
 
-[[publish-subscribe-sequence]]
-.Ablauf der Kommunikation bei Publish/Subscribe
-image::software-technisch/publish-subscribe.dn.svg[]
+[[publish-subscribe-pattern]]
+.Kommunikationsmuster Publish/Subscribe
+image::software-technisch/kommunikation/publish-subscribe.dn.svg[]
 
-Publish/Subscribe eignet sich gut, wenn es um die Verteilung von Ereignissen (englisch: _events_) an mehrere Empfänger geht.
+Publish/Subscribe eignet sich gut, wenn es um die Verteilung von Ereignissen (englisch: _events_) an mehrere Subscriber geht.
 Ereignisse übermitteln zum Beispiel Benachrichtigungen oder Zustandsänderungen und benötigen keine Antwort des Subscribers.
 
 [[publish-subscribe-staerken]]
 ==== Stärken
 
-Publisher blockieren nicht und Subscriber können die Nachrichten parallel zueinander verarbeiten.
+Publish/Subscribe unterstützt die gleichzeitige Zustellung von Nachrichten an mehrere Subscriber und ermöglicht dadurch effiziente parallele Arbeitsabläufe.
 Dies wirkt sich positiv auf die _Leistungseffizienz_ beider Kommunikationsteilnehmer aus.
 
-Publisher und Subscriber sind lose miteinander gekoppelt.
+Publisher und Subscriber sind voneinander entkoppelt.
+Publisher arbeiten unabhängig von den Subscribern, was eine einfache Erweiterung oder Entfernung von Subscribern erlaubt.
 Änderungen an Publisher und Subscriber sind isoliert möglich, solange das Format der Nachrichten stabil bleibt.
 Dies wirkt sich positiv auf die _Wartbarkeit_ der Publisher und Subscriber aus.
+
 
 [[publish-subscribe-herausforderungen]]
 ==== Herausforderungen
@@ -334,17 +339,24 @@ Demnach bestehen Ähnlichkeiten zu den <<message-queue-herausforderungen,Herausf
 
 Darüber hinaus ist in der Regel nicht garantiert, dass alle Subscriber eine Nachricht erhalten.
 Bei temporärer Nichtverfügbarkeit eines Subscribers können Nachricht verloren gehen, sofern keine Persistenz oder Replay-Mechanismen vorhanden sind.
-Dies wirkt sich nachteilig auf die _Zuverlässigkeit_ der Kommunikation aus.
+Die Einhaltung von Konsistenzkriterien über mehrere Subscriber hinweg erfordert robuste Mechanismen für den Umgang mit Teilfehlern und erneuter Zustellung.
 
-Die Nachrichten eines Topics werden an alle Subscriber verteilt.
-Nachrichten dürfen demnach nur Information beinhalten, die alle Subscriber erhalten dürfen.
+Ebenso gibt es in der Regel keine Garantie für eine (globale) Reihenfolge der Nachrichten.
+Wenn diese wichtig ist, lohnt sich ein Blick auf <<event-streaming>>.
 
+Schließlich darf der Inhalt von Nachrichten nur Informationen beinhalten, die alle Subscriber erhalten dürfen.
+
+[[event-streaming]]
 ==== Event Streaming
 
 Event Streaming ist eine Form des Publish/Subscribe-Musters, bei der Events kontinuierlich von Produzenten (Producer) erzeugt, veröffentlicht und von einem oder mehreren Konsumenten (Consumer) verarbeitet werden.
 Bei Event Streaming steht die dauerhafte, sequenzielle Verarbeitung von Ereignisströmen im Vordergrund.
 Entsprechende Produkte stellen hierzu ein geordnetes, wiederholbares Event-Log bereit.
 Das bedeutet, dass Konsumenten vergangene Events wiederholt verarbeiten können, um zum Beispiel ihren Zustand wiederherzustellen.
+
+[[event-streaming-pattern]]
+.Kommunikationsmuster Event Streaming
+image::software-technisch/kommunikation/event-streaming.dn.svg[]
 
 Die Stärken von Event Streaming decken sich im Wesentlichen mit denen des Musters <<publish-subscribe>>.
 Das geordnete, wiederholbare Event-Log adressiert die Herausforderung, dass Subscriber bei Ausfällen nicht alle an sie gerichteten Nachrichten erhalten.
