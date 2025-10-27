@@ -144,8 +144,6 @@ Die zusätzlichen Infrastrukturkomponenten müssen in die Umsetzung querschnittl
 [[kommunikationsmuster]]
 == Kommunikationsmuster
 
-include::documentation-guide::partial$content-revised.adoc[]
-
 [[request-reponse]]
 === Request-Response
 
@@ -161,18 +159,20 @@ Je nachdem, ob Sender oder Empfänger synchron oder asynchron miteinander kommun
 Ob zwei IT-Systeme synchron oder asynchron über Request-Response miteinander kommunizieren, muss anhand der zu erfüllenden Qualitätskriterien abgewogen werden.
 Die Abwägung muss während der Erstellung des Systementwurfs geschehen.
 
-==== Stärken
-
 Das Request-Response-Muster ist gut verstanden und wird von einer Vielzahl an Technologien, Frameworks und Werkzeugen unterstützt.
 Es ist aufgrund seiner einfachen Struktur verständlich und vergleichsweise leicht umsetzbar.
 Seine Stärken liegen u.a. in Interaktionen zwischen Backends und Frontends, bei denen eine direkte Antwort mit klar definiertem Zeitverhalten erwartet wird, oder es in kurzer Zeit eine Vielzahl von kleineren, klar definierten Interaktionen gibt.
+
+[[request-response-staerken]]
+==== Stärken
 
 Das Request-Response-Muster erfüllt bei sinngemäßem Einsatz auch hohe Anforderungen in den Bereichen _Zuverlässigkeit_ und _Wartbarkeit_.
 Fehler lassen sich direkt anhand der Antwort erkennen und behandeln.
 Die Kommunikation zwischen zwei IT-Systemen ist klar definiert und leicht nachvollziehbar.
 Anforderungen an die _Sicherheit_ lassen sich leicht und gezielt durch Mechanismen wie Authentifizierung und Autorisierung erfüllen.
 
-==== Herausforderungen
+[[request-response-herausforderungen-synchron]]
+==== Herausforderungen (synchron)
 
 Da im synchronen Fall der Sender blockiert, bis die Antwort vom Empfänger kommt, kann dies zu Skalierungsproblemen führen.
 Die Latenz und der Durchsatz sind in diesem Fall begrenzt, oder der Sender läuft in einen Timeout.
@@ -185,7 +185,8 @@ Im synchronen Fall berücksichtigt die Fehlerbehandlung fachliche und technische
 Solche Fehler, besonders im Fall von kaskadierenden Aufrufen, benötigen eine robuste Fehlerbehandlung und Strategien zur Einhaltung transaktionaler Integrität.
 Hohe Qualitätsanforderungen im Bereich der _Zuverlässigkeit_ können unter diesen Umständen schwer zu erfüllen sind.
 
-==== Asynchrones Request-Response
+[[request-response-herausforderungen-asynchron]]
+==== Herausforderungen (asynchron)
 
 Den Herausforderungen im synchronen Fall können IT-Systeme dadurch begegnen, indem sie das Request-Response-Muster asynchron anwenden.
 Hierbei ergeben sich, im Wesentlichen aus der Entkopplung von Anfrage und Antwort, andere Herausforderungen.
@@ -206,6 +207,7 @@ Gute Einführungen zu Resilienz finden sich hier:
 * https://jugsaxony.org/downloads/day/slides/JSD2022_Muster-fuer-resilientere-Anwendungen_Uwe-Friedrichsen.pdf[10 patterns for more resilient applications: a gentle start into resilient software design icon:file-pdf-o[]]
 ====
 
+[[request-response-vorgaben]]
 ==== Vorgaben
 
 Das Request-Response-Muster wird in der IsyFact auf Basis von xref:software-technisch/services/rest.adoc[REST] umgesetzt.
@@ -238,60 +240,42 @@ Dies entkoppelt Sender und Empfänger voneinander.
 .Ablauf der Kommunikation bei Message-Queue
 image::software-technisch/message-queue.dn.svg[]
 
-[[message-queue-betrachtung]]
-==== Betrachtung der Vorteile, Herausforderungen und Risiken
+Das Kommunikationsmuster Message-Queue eignet sich für Interaktionen, die keine direkte Antwort benötigen, keine hohen Anforderungen an das Zeitverhalten stellen und nicht von einer festgelegten Reihenfolge der Verarbeitung abhängig sind.
+Das Message-Queue-Muster benötigt eine Infrastrukturkomponente, den Message-Broker, welche die Kommunikation zwischen Sender und Empfänger ermöglicht.
+Zur Umsetzung der Infrastrukturkomponente gibt viele bewährte Produkte, die auch hohe Anforderungen an die Kommunikation über Message-Queues erfüllen.
 
-Der Einsatz von Message Queues kann die Erfüllung der folgenden Qualitätskriterien fördern.
+[[message-queue-staerken]]
+==== Stärken
 
-.Message Queue: Vorteile nach Qualitätskriterien (ISO 25010)
-[cols="1,2", options="header"]
-|===
-|Qualitätskriterium
-|Vorteile
+Message-Broker nehmen Sender und Empfänger viele Aufgaben ab und erledigen sie zuverlässig an zentraler Stelle.
+Sie speichern Nachrichten persistent und überbrücken so Ausfälle der Empfänger.
+Außerdem übernehmen sie Wiederholungsversuche, kümmern sich um unzustellbare Nachrichten und garantieren die Zustellung der Nachrichten.
+Message-Broker können so die _Zuverlässigkeit_ der Kommunikation der IT-Systeme untereinander maßgeblich positiv beeinflussen.
 
-|Zuverlässigkeit (Reliability)
-|Message-Broker speichern Nachrichten persistent und überbrücken so Ausfälle der Empfänger. +
-Message-Broker übernehmen Wiederholungsversuche, kümmern sich um unzustellbare Nachrichten und garantieren die Zustellung der Nachricht.
+Sender und Empfänger können durch die lose Kopplung unabhängig voneinander skalieren.
+Message-Broker ermöglichen eine Lastverteilung sowie die parallele Verarbeitung von Nachrichten auf Empfängerseite.
+Sie haben so eine positive Auswirkung auf die _Leistungseffizienz_ der Sender und Empfänger.
+Durch die lose Kopplung sind außerdem Änderungen an Sender oder Empfänger isoliert möglich, solange das Nachrichtenformat stabil bleibt.
+Dies wirkt sich positiv auf die _Wartbarkeit_ der Sender und Empfänger aus.
 
-|Leistungseffizienz (Performance Efficiency)
-|Sender und Empfänger können durch die lose Kopplung unabhängig voneinander skalieren. +
-Message-Broker ermöglichen Lastverteilung und parallele Verarbeitung durch die Empfänger.
 
-|Wartbarkeit (Maintainability)
-|Sender und Empfänger sind lose miteinander gekoppelt.
-Änderungen an Sender oder Empfänger sind isoliert möglich, solange das Nachrichtenformat stabil bleibt.
+[[message-queue-herausforderungen]]
+==== Herausforderungen
 
-|===
-
-Demgegenüber kann der Einsatz von Message Queues zu Herausforderungen und Risiken bei folgenden Qualitätskriterien führen.
-
-.Message Queue: Herausforderungen und Risiken nach Qualitätskriterien (ISO 25010)
-[cols="1,2", options="header"]
-|===
-|Qualitätskriterium
-|Herausforderungen / Risiken
-
-|Zuverlässigkeit (Reliability)
-|Message-Broker sind zentrale Infrastrukturkomponenten.
-Ein Ausfall oder temporäre Störungen des Brokers wirken sich direkt auf die Kommunikation von weiten Teilen der Systemlandschaft aus.
+Message-Broker sind zentrale Infrastrukturkomponenten.
+Ein Ausfall oder temporäre Störungen des Message-Brokers wirken sich direkt nachteilig auf die _Zuverlässigkeit_ der Kommunikation von weiten Teilen der Systemlandschaft aus.
 Zur Minderung dieser Risiken sollte der Message-Broker redundant betrieben werden.
 Außerdem sollten Maßnahmen gegen eine Überlastung des Brokers getroffen werden.
 
-|Sicherheit (Security)
-|Neben Sender und Empfänger muss auch der Message-Broker abgesichert werden, da er Nachrichten von vielen Systemen verarbeitet und speichert. +
+Message-Broker sind _sicherheitskritische_ Infrastrukturkomponenten.
+Sie müssen entsprechend abgesichert werden, da sie Nachrichten von vielen Systemen verarbeiten und speichern.
 Nachrichten können potenziell im Message-Broker abgefangen oder manipuliert werden.
-Zur Minderung dieser Risiken sind zusätzliche Maßnahmen wie Signierung, Verschlüsselung oder Zugriffskontrollen nötig.
+Zur Minderung dieser Risiken sind zusätzliche Sicherheitsmaßnahmen wie Signierung, Verschlüsselung oder Zugriffskontrollen nötig.
 
-|===
-
-[[message-queue-empfehlungen]]
-==== Empfehlungen zum Einsatz
-
-Das Kommunikationsmuster Message-Queue eignet sich für Interaktionen, die keine direkte Antwort benötigen, keine hohen Anforderungen an das Zeitverhalten stellen und nicht von einer festgelegten Reihenfolge der Verarbeitung abhängig sind.
-
-Weiterhin sollten Message-Broker nach dem Prinzip _at-leat-once_ funktionieren: Die Zustellung der Nachrichten wird garantiert, aber Duplikate sind möglich.
+Um positiv auf die _Zuverlässigkeit_ der Kommunikation zu wirken, sollten Message-Broker nach dem Prinzip _at-least-once_ funktionieren: Die Zustellung der Nachrichten wird garantiert, aber Duplikate sind möglich.
 Schreibende Operationen, die durch Nachrichten ausgelöst werden, sind dementsprechend _idempotent_ zu spezifizieren und umzusetzen.
 
+[[message-queue-vorgaben]]
 ==== Vorgaben
 
 Message-Broker müssen *JMS* (Jakarta Messaging, ehemals _Java Message Service_) unterstützen.
@@ -329,58 +313,46 @@ Sender und Empfänger kennen sich nicht.
 .Ablauf der Kommunikation bei Publish/Subscribe
 image::software-technisch/publish-subscribe.dn.svg[]
 
-[[publish-subscribe-betrachtung]]
-==== Betrachtung der Vorteile, Herausforderungen und Risiken
-
-Der Einsatz von Publish/Subscribe kann die Erfüllung der folgenden Qualitätskriterien fördern.
-
-.Publish/Subscribe: Vorteile nach Qualitätskriterien (ISO 25010)
-[cols="1,2", options="header"]
-|===
-|Qualitätskriterium
-|Vorteile
-
-|Leistungseffizienz (Performance Efficiency)
-|Publisher blockieren nicht und Subscriber können die Nachrichten parallel zueinander verarbeiten.
-
-|Wartbarkeit (Maintainability)
-|Publisher und Subscriber sind lose miteinander gekoppelt.
-Änderungen an Publisher und Subscriber sind isoliert möglich, solange das Format der Nachrichten stabil bleibt.
-
-|===
-
-Demgegenüber kann der Einsatz von Publish/Subscribe zu Herausforderungen und Risiken bei folgenden Qualitätskriterien führen.
-
-.Publish/Subscribe: Herausforderungen und Risiken nach Qualitätskriterien (ISO 25010)
-[cols="1,2", options="header"]
-|===
-|Qualitätskriterium
-|Herausforderungen / Risiken
-
-|Zuverlässigkeit (Reliability)
-|Es ist in der Regel nicht garantiert, dass alle Subscriber eine Nachricht erhalten.
-Bei temporärer Nichtverfügbarkeit eines Subscribers können Nachricht verloren gehen, sofern keine Persistenz oder Replay-Mechanismen vorhanden sind. +
-Message-Broker sind zentrale Infrastrukturkomponenten.
-Ein Ausfall oder temporäre Störungen des Brokers wirken sich direkt auf die Kommunikation von weiten Teilen der Systemlandschaft aus.
-Zur Minderung dieser Risiken sollte der Message-Broker redundant betrieben werden.
-Außerdem sollten Maßnahmen gegen eine Überlastung des Brokers getroffen werden.
-
-|Sicherheit (Security)
-|Neben Sender und Empfänger muss auch der Message-Broker abgesichert werden, da er Nachrichten von vielen Systemen verarbeitet und speichert. +
-Nachrichten können potenziell im Message-Broker abgefangen oder manipuliert werden.
-Zur Minderung dieser Risiken sind zusätzliche Maßnahmen wie Signierung, Verschlüsselung oder Zugriffskontrollen nötig. +
-Die Nachrichten eines Topics werden an alle Subscriber verteilt.
-Nachrichten dürfen nur Information beinhalten, die alle Subscriber erhalten dürfen.
-
-|===
-
-[[publish-subscribe-empfehlungen]]
-==== Empfehlungen zum Einsatz
-
 Publish/Subscribe eignet sich gut, wenn es um die Verteilung von Ereignissen (englisch: _events_) an mehrere Empfänger geht.
-Ereignisse übermitteln zum Beispiel Benachrichtigungen oder ZustandsänderungenFakten und benötigen keine Antwort des Subscribers.
-Effiziente Umsetzungen unterstützen Multicast-Kommunikation ohne Kenntnis der Empfänger.
+Ereignisse übermitteln zum Beispiel Benachrichtigungen oder Zustandsänderungen und benötigen keine Antwort des Subscribers.
 
+[[publish-subscribe-staerken]]
+==== Stärken
+
+Publisher blockieren nicht und Subscriber können die Nachrichten parallel zueinander verarbeiten.
+Dies wirkt sich positiv auf die _Leistungseffizienz_ beider Kommunikationsteilnehmer aus.
+
+Publisher und Subscriber sind lose miteinander gekoppelt.
+Änderungen an Publisher und Subscriber sind isoliert möglich, solange das Format der Nachrichten stabil bleibt.
+Dies wirkt sich positiv auf die _Wartbarkeit_ der Publisher und Subscriber aus.
+
+[[publish-subscribe-herausforderungen]]
+==== Herausforderungen
+
+Das Muster Publish/Subscribe benötigt ebenso einen Message-Broker als zentrale Infrastrukturkomponente.
+Demnach bestehen Ähnlichkeiten zu den <<message-queue-herausforderungen,Herausforderungen des Musters Message-Queue>>.
+
+Darüber hinaus ist in der Regel nicht garantiert, dass alle Subscriber eine Nachricht erhalten.
+Bei temporärer Nichtverfügbarkeit eines Subscribers können Nachricht verloren gehen, sofern keine Persistenz oder Replay-Mechanismen vorhanden sind.
+Dies wirkt sich nachteilig auf die _Zuverlässigkeit_ der Kommunikation aus.
+
+Die Nachrichten eines Topics werden an alle Subscriber verteilt.
+Nachrichten dürfen demnach nur Information beinhalten, die alle Subscriber erhalten dürfen.
+
+==== Event Streaming
+
+Event Streaming ist eine Form des Publish/Subscribe-Musters, bei der Events kontinuierlich von Produzenten (Producer) erzeugt, veröffentlicht und von einem oder mehreren Konsumenten (Consumer) verarbeitet werden.
+Bei Event Streaming steht die dauerhafte, sequenzielle Verarbeitung von Ereignisströmen im Vordergrund.
+Entsprechende Produkte stellen hierzu ein geordnetes, wiederholbares Event-Log bereit.
+Das bedeutet, dass Konsumenten vergangene Events wiederholt verarbeiten können, um zum Beispiel ihren Zustand wiederherzustellen.
+
+Die Stärken von Event Streaming decken sich im Wesentlichen mit denen des Musters <<publish-subscribe>>.
+Das geordnete, wiederholbare Event-Log adressiert die Herausforderung, dass Subscriber bei Ausfällen nicht alle an sie gerichteten Nachrichten erhalten.
+
+Zusätzliche Stärken und Herausforderungen ergeben sich daraus, dass Produkte im Bereich Event Streaming in der Regel auf Echtzeitanforderungen bezüglich der Event-Verarbeitung und Hochverfügbarkeit ausgelegt sind.
+Dadurch skalieren sie gut horizontal und können große Mengen an Events verarbeiten, sowie eine Vielzahl von Produzenten und Konsumenten anbinden.
+Dadurch bedeuten sie allerdings auch einen vergleichsweise hohen Aufwand bei Installation, Konfiguration und Betrieb als Infrastrukturkomponenten anderer Kommunikationsmuster.
+Sie stellen wesentlich höhere Anforderungen an die Hardware-Infrastruktur (Rechen- und Speicherkapazität) und an andere Infrastrukturkomponenten (u.a. Monitoring).
 
 == Kommunikation mit externen Systemen
 
