@@ -14,8 +14,6 @@ Werden die Entscheidungen nicht oder implizit getroffen, erhöht sich das Risiko
 [[grundlagen]]
 == Grundlagen
 
-// TODO IFS-4874 Servicekommunikation abschaffen!
-
 IT-Systeme kommunizieren auf Basis von Services.
 Wenn ausschließlich IT-Systeme innerhalb der Systemlandschaft miteinander kommunizieren, spricht die Referenzarchitektur von *interner Servicekommunikation*.
 Wenn die Kommunikation auch Systeme einschließt, die außerhalb liegen, verwendet die Referenzarchitektur den Begriff *externe Servicekommunikation*.
@@ -144,6 +142,8 @@ Die zusätzlichen Infrastrukturkomponenten müssen in die Umsetzung querschnittl
 [[kommunikationsmuster]]
 == Kommunikationsmuster
 
+Die Referenzarchitektur sieht die folgenden Kommunikationsmuster zur Kommunikation zwischen IT-Systemen vor: <<request-reponse>>, <<message-queue>> sowie <<publish-subscribe>> mit der Unterform <<event-streaming>>.
+
 [[request-reponse]]
 === Request-Response
 
@@ -161,7 +161,7 @@ Die Abwägung muss während der Erstellung des Systementwurfs geschehen.
 
 Das Request-Response-Muster ist gut verstanden und wird von einer Vielzahl an Technologien, Frameworks und Werkzeugen unterstützt.
 Es ist aufgrund seiner einfachen Struktur verständlich und vergleichsweise leicht umsetzbar.
-Seine Stärken liegen u.a. in Interaktionen zwischen Backends und Frontends, bei denen eine direkte Antwort mit klar definiertem Zeitverhalten erwartet wird, oder es in kurzer Zeit eine Vielzahl von kleineren, klar definierten Interaktionen gibt.
+Das Muster ist gut für Interaktionen zwischen Backends und Frontends geeignet, bei denen eine direkte Antwort mit klar definiertem Zeitverhalten erwartet wird, oder es in kurzer Zeit eine Vielzahl von kleineren, klar definierten Interaktionen gibt.
 
 [[request-response-staerken]]
 ==== Stärken
@@ -176,10 +176,10 @@ Anforderungen an die _Sicherheit_ lassen sich leicht und gezielt durch Mechanism
 
 Da im synchronen Fall der Sender blockiert, bis die Antwort vom Empfänger kommt, kann dies zu Skalierungsproblemen führen.
 Die Latenz und der Durchsatz sind in diesem Fall begrenzt, oder der Sender läuft in einen Timeout.
-Diese Effekte verstärken sich, wenn der Empfänger viel Zeit für die Verarbeitung der Anfrage benötigt, oder dazu weitere, kaskadierende Aufrufe benötigt.
+Diese Effekte verstärken sich, wenn der Empfänger viel Zeit für die Verarbeitung der Anfrage benötigt, oder dazu weitere, kaskadierende Aufrufe tätigt.
 Empfänger wiederum skalieren auch nur begrenzt, insbesondere bei vielen gleichzeitigen Anfragen.
 Sie müssen jede Anfrage sofort bearbeiten, was Ressourcen bindet.
-Hohe Qualitätsanforderungen im Bereich der _Effizienz_ können unter diesen Umständen schwer zu erfüllen sind.
+Hohe Qualitätsanforderungen im Bereich der _Effizienz_ können unter diesen Umständen schwer zu erfüllen sein.
 
 Im synchronen Fall berücksichtigt die Fehlerbehandlung fachliche und technische Fehler beim Empfänger, aber in der Regel keine Ausfälle der Netzwerke oder Infrastruktur.
 Solche Fehler, besonders im Fall von kaskadierenden Aufrufen, benötigen eine robuste Fehlerbehandlung und Strategien zur Einhaltung transaktionaler Integrität.
@@ -192,11 +192,11 @@ Den Herausforderungen im synchronen Fall können IT-Systeme dadurch begegnen, in
 Hierbei ergeben sich, im Wesentlichen aus der Entkopplung von Anfrage und Antwort, andere Herausforderungen.
 Während bei den anderen Kommunikationsmustern Infrastrukturkomponenten diese Herausforderungen auffangen, fallen sie beim Request-Response-Muster Sender und Empfänger zu.
 
-Durch die Asynchronität erfolgen die Antworten nicht direkt, sondern zeitverzögert, und nicht in der Reihenfolge der Anfragen.
+Durch die Asynchronität erfolgen die Antworten nicht direkt, sondern zeitverzögert, und nicht zwingend in der Reihenfolge der Anfragen.
 Der Sender muss die Antworten aktiv beziehen (oder einen Callback anbieten), richtig zuordnen und Nebenläufigkeiten sowie Antworten in beliebiger Reihenfolge verarbeiten können.
 Dies kann Auswirkungen auf die _funktionelle Eignung_ haben.
 
-Für eine hohe Erfüllung von Qualitätsanforderungen im Bereich der _Zuverlässigkeit_ sollte die asynchrone Verarbeitung durch eine robuste Fehlerbehandlung unterstützt werden.
+Für eine Erfüllung hoher Qualitätsanforderungen im Bereich der _Zuverlässigkeit_ sollte die asynchrone Verarbeitung durch eine robuste Fehlerbehandlung unterstützt werden.
 Hier stehen eine Vielzahl von Resilienz-Mustern zur Verfügung.
 
 [NOTE]
@@ -254,7 +254,7 @@ Message-Broker können so die _Zuverlässigkeit_ der Kommunikation der IT-System
 
 Sender und Empfänger können durch die lose Kopplung unabhängig voneinander skalieren.
 Sender werden nicht durch langsame Empfänger blockiert, was Engpässe reduziert und den Gesamtdurchsatz des Systems verbessert.
-Message-Broker ermöglichen zudem eine Lastverteilung, sodass Instanzen des Empfängers dynamisch hinzugefügt oder entfernt werden können, um der aktuellen Last gerecht zu werden.
+Message-Broker ermöglichen zudem eine Lastverteilung, indem Instanzen des Empfängers dynamisch hinzugefügt oder entfernt werden.
 Dies hat eine positive Auswirkung auf die _Leistungseffizienz_ der Sender und Empfänger.
 Durch die lose Kopplung sind außerdem Änderungen an Sender oder Empfänger isoliert möglich, solange das Nachrichtenformat stabil bleibt.
 Dies wirkt sich positiv auf die _Wartbarkeit_ der Sender und Empfänger aus.
@@ -338,7 +338,7 @@ Das Muster Publish/Subscribe benötigt ebenso einen Message-Broker als zentrale 
 Demnach bestehen Ähnlichkeiten zu den <<message-queue-herausforderungen,Herausforderungen des Musters Message-Queue>>.
 
 Darüber hinaus ist in der Regel nicht garantiert, dass alle Subscriber eine Nachricht erhalten.
-Bei temporärer Nichtverfügbarkeit eines Subscribers können Nachricht verloren gehen, sofern keine Persistenz oder Replay-Mechanismen vorhanden sind.
+Bei temporärer Nichtverfügbarkeit eines Subscribers können Nachrichten verloren gehen, sofern keine Persistenz oder Replay-Mechanismen vorhanden sind.
 Die Einhaltung von Konsistenzkriterien über mehrere Subscriber hinweg erfordert robuste Mechanismen für den Umgang mit Teilfehlern und erneuter Zustellung.
 
 Ebenso gibt es in der Regel keine Garantie für eine (globale) Reihenfolge der Nachrichten.

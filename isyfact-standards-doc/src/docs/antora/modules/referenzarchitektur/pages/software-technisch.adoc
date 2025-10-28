@@ -79,7 +79,7 @@ Eine Ausnahme bilden Querschnittsanwendungen in Form eines xref:glossary::terms-
 [[servicekommunikation]]
 == Servicekommunikation
 
-// TODO IFS-4874 überarbeiten!
+include::documentation-guide::partial$content-revised.adoc[]
 
 Services sind ein wesentlicher Bestandteil jeder <<strukturierung-der-systemlandschaft,Systemlandschaft>>.
 Die software-technische Referenzarchitektur definiert HTTP als grundsätzliches Übertragungsprotokoll und xref:software-technisch/kommunikation.adoc[weitere Vorgaben für Services] zu den Themen:
