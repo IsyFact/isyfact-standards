@@ -21,7 +21,7 @@ jobs:
     uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_build_template.yml@v1.7.0
     with:
       version: ${{ needs.Version.outputs.next-version }}
-      maven-opts: '--settings ./.github/settings.xml'
+      maven-opts: '-PcentralSnapshot'
     secrets:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
@@ -32,9 +32,9 @@ jobs:
     uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_deploy_template.yml@v1.7.0
     with:
       version: ${{ needs.Version.outputs.next-version }}
-      maven-opts: '-PcentralSnapshot --settings ./.github/settings.xml'
+      maven-opts: '-PcentralSnapshot'
       deploy-server-id: central
-      sbom: ${{ startsWith(github.ref, 'refs/heads/release/') }}
+      sbom: true
       sign: true
       environment: 'Release'
     secrets:
