@@ -1,21 +1,22 @@
 * xref:bausteine.adoc[]
-** Fehlerbehandlung
-*** xref:isy-exception-core:konzept/master.adoc[Konzept]
-*** xref:isy-exception-core:nutzungsvorgaben/master.adoc[Nutzungsvorgaben]
-** Logging
-*** xref:isy-logging:konzept/master.adoc[Konzept]
-*** xref:isy-logging:nutzungsvorgaben/master.adoc[Nutzungsvorgaben]
-** Überwachung
-*** xref:isy-ueberwachung:konzept/master.adoc[Konzept]
-*** xref:isy-ueberwachung:nutzungsvorgaben/master.adoc[Nutzungsvorgaben]
-** Entkoppelte Bausteine icon:external-link-square[]
-*** xref:angular::konzept.adoc[Angular]
-*** xref:isy-bedienkonzept-doc::bedienkonzept.adoc[Bedienkonzept]
-*** xref:isy-datetime-docs::konzept/master.adoc[Datum & Zeit]
-*** xref:datetime-persistence::konzept.adoc[Datum & Zeit (Persistenz)]
-*** xref:polling::konzept.adoc[Polling]
-*** xref:security::konzept.adoc[Security]
-*** xref:isy-sonderzeichen-docs::konzept/master.adoc[Sonderzeichen]
-*** xref:task::konzept.adoc[Task Scheduling]
-*** xref:util::konzept.adoc[Util]
+** IsyFact-Standards
+*** xref:isy-datetime-docs::konzept/master.adoc[Datum & Zeit icon:external-link-square[]]
+*** xref:datetime-persistence::konzept.adoc[Datum & Zeit (Persistenz) icon:external-link-square[]]
+*** Fehlerbehandlung
+**** xref:isy-exception-core:konzept/master.adoc[Konzept]
+**** xref:isy-exception-core:nutzungsvorgaben/master.adoc[Nutzungsvorgaben]
+*** Logging
+**** xref:isy-logging:konzept/master.adoc[Konzept]
+**** xref:isy-logging:nutzungsvorgaben/master.adoc[Nutzungsvorgaben]
+*** xref:polling::konzept.adoc[Polling icon:external-link-square[]]
+*** xref:security::konzept.adoc[Security icon:external-link-square[]]
+*** xref:isy-sonderzeichen-docs::konzept/master.adoc[Sonderzeichen icon:external-link-square[]]
+*** xref:task::konzept.adoc[Task Scheduling icon:external-link-square[]]
+*** Überwachung
+**** xref:isy-ueberwachung:konzept/master.adoc[Konzept]
+**** xref:isy-ueberwachung:nutzungsvorgaben/master.adoc[Nutzungsvorgaben]
+*** xref:util::konzept.adoc[Util icon:external-link-square[]]
+** IsyFact-Erweiterungen
+*** xref:angular::konzept.adoc[Angular icon:external-link-square[]]
+*** xref:isy-bedienkonzept-doc::bedienkonzept.adoc[Bedienkonzept icon:external-link-square[]]
 
