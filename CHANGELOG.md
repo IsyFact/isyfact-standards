@@ -1,5 +1,6 @@
 # 5.0.0
 ### FEATURES
+- `IFS-4897`: [isyfact-standards-doc] Erweiterung der Vorlage Systementwurf um "lokale" Architekturentscheidungen
 - `IFS-4792`: [isyfact-standards-doc] Definition des IT-Systemtyps "Gateway"
 - `IFS-4746`: [isyfact-standards-doc] Verbesserung der Beschreibung entkoppelter Bausteine und der Bausteinnavigation
 - `IFS-4880`: [isyfact-standards-doc] Entfernung der AsciiDoc-Changelogs und Dokumentation zu Changelogs
@@ -117,6 +118,12 @@ Für diese Bausteine gilt:
 Die konzeptionellen Inhalte des Bausteins REST wurden in die Referenzarchitektur überführt.
 Die Beschreibung der Werkzeuge (OpenAPI-Editor und -Generator) wurden in die Werkzeuge überführt.
 Die Konzeption wurde um die strukturierten Verwendung von HTTP-Statuscodes (inkl. `Retry-After`, Status-URLs, Fehlermeldungen) im Kapitel "Verwendung von HTTP-Statuscodes" ergänzt.
+
+### Methodik
+
+#### Systementwurf
+
+Architekturentscheidungen, die Abweichungen und Erweiterungen zur Referenzarchitektur begründen, und die nur im Rahmen der Umsetzung einer Anwendung gelten, müssen nun im Systementwurf dokumentiert werden.
 
 [//]: # (### Deprecations)
 [//]: # (_keine_)
