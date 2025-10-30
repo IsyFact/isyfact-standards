@@ -284,17 +284,28 @@ _Ausführliche Beschreibung von zusätzlichen Randbedingungen und Annahmen, die 
 === Konformität zur Referenzarchitektur
 
 ====
-_In diesem Kapitel wird die Konformität des Systems zur Referenzarchitektur bestätigt und evtl. vorhandene Abweichungen beschrieben und begründet.
-In dieser Vorlage wird zunächst davon ausgegangen, dass die Standard-Versionen des aktuellen IsyFact Releases verwendet werden.
+_In diesem Kapitel wird die Konformität des Systems zur Referenzarchitektur bestätigt und auf eventuell vorhandene Erweiterungen, Abweichungen und abweichende Versionen verwiesen.
 Eine Übersicht über die Software-Artefakte der IsyFact findet sich in <<table-verwendete-elemente-isyfact-standards-erweiterungen>>._
 
-_Für nicht relevante Elemente wird in die Status-Spalte „*nicht benötigt*“ eingetragen._
+_Die Spalte "Status" nimmt die folgenden Werte an:_
 
-_Bei relevanten Elementen, die erweitert werden müssen, um den Anforderungen des Systems gerecht zu werden, wird in die Status-Spalte „*wird erweitert*“ eingetragen.
-Die durchzuführenden Erweiterungen sind in der darauffolgenden Tabelle zu begründen._
+_berücksichtigt_::
+_Das Element wird in der Standard-Version des aktuellen IsyFact-Releases berücksichtigt._
 
-_Bei relevanten Elementen, die in einer anderen als der in <<table-verwendete-elemente-isyfact-standards-erweiterungen>> angegebenen Version verwendet werden, wird in die Status-Spalte „*abweichende Version*“, in der Version-Spalte die Version des Elements und in der Referenz-Spalte die Referenz auf das Dokument ergänzt.
-Die Abweichungen sind ebenfalls in der darauffolgenden Tabelle zu begründen._
+_nicht benötigt_::
+_Das Element ist nicht relevant._
+
+_wird erweitert_::
+_Das Element wird erweitert, um den Anforderungen des Gesamtsystems gerecht zu werden._
+
+_abweichend_::
+_Das Element wird mit Abweichungen berücksichtigt, um den Anforderungen des Systems gerecht zu werden._
+
+_abweichende Version_::
+_Das Element wird in einer abweichenden Version zu der des aktuellen IsyFact-Releases berücksichtigt.
+Die Spalte "Version" enthält die abweichende Version des Elements._
+
+_In den letzten drei Fällen (Erweiterung, Abweichung sowie abweichende Versionen) sind im folgenden Kapitel, <<abweichungen-und-erweiterungen-zur-referenzarchitektur>>, Architekturentscheidungen in Form von ADRs zu dokumentieren und in Form von Verweisen auf die ADRs in der Spalte "Referenz" der jeweiligen Elemente aufzuführen._
 ====
 
 Das IT-System <System> wird konform zur Referenzarchitektur der IsyFact umgesetzt.
@@ -308,7 +319,7 @@ Die folgende Tabelle führt die vom IT-System verwendeten Elemente der IsyFact a
 |===
 |Thema |Status |Version |Referenz
 4+|*Allgemein*  {set:cellbgcolor:#D9D9D9}
-| {set:cellbgcolor} IsyFact-Referenzarchitektur |berücksichtigt |4.0 |xref:referenzarchitektur:index.adoc[]
+| {set:cellbgcolor} IsyFact-Referenzarchitektur |berücksichtigt |5.0 |
 4+|*Referenzarchitektur* {set:cellbgcolor:#D9D9D9}
 |Anwendungskern {set:cellbgcolor}|berücksichtigt |_Standard_ |
 |Batch |berücksichtigt |_Standard_ |
@@ -317,8 +328,8 @@ Die folgende Tabelle führt die vom IT-System verwendeten Elemente der IsyFact a
 |Interne Servicekommunikation |berücksichtigt |_Standard_ |
 4+|*Bausteine (Standard)*  {set:cellbgcolor:#D9D9D9}
 | {set:cellbgcolor} Fehlerbehandlung |berücksichtigt |_Standard_ |
-|Logging |berücksichtigt |_Standard_ |xref:isy-logging:konzept/master.adoc[], xref:isy-logging:nutzungsvorgaben/master.adoc[]
-|Sicherheitskomponente |Abweichungen |_Standard_ |
+|Logging |berücksichtigt |_Standard_ |
+|Sicherheitskomponente |Abweichungen |_Standard_ | <<adr-gesamtsystem-1>>
 |Überwachung und Konfiguration |berücksichtigt |_Standard_ |
 4+|*Bausteine (Erweiterungen)* {set:cellbgcolor:#D9D9D9}
 | {set:cellbgcolor}  Alphanumerisches Suchverfahren |berücksichtigt |_Standard_ |
@@ -344,19 +355,52 @@ Die folgende Tabelle führt die vom IT-System verwendeten Elemente der IsyFact a
 |Java-Programmierkonventionen |berücksichtigt |_Standard_ |
 |===
 
+[[abweichungen-und-erweiterungen-zur-referenzarchitektur]]
+=== Abweichungen und Erweiterungen zur Referenzarchitektur
 
-Abweichungen zur Referenzarchitektur sind in Tabelle 2 dokumentiert und begründet.
+====
+_In diesem Kapitel werden Abweichungen und Erweiterungen zur Referenzarchitektur in Form von Architecture Decision Records (ADRs) dokumentiert.
+Es sollten auch abgelehnte und abgelöste ADRs im Systementwurf enthalten sein, um das in ihnen enthaltene Wissen festzuhalten._
+====
 
+Die folgenden Architekturentscheidungen begründen Abweichungen und Erweiterungen zur Referenzarchitektur.
+Sie gelten für das im Dokument beschriebene Gesamtsystem.
+Darüber hinaus sind folgende, übergreifende Architekturentscheidungen zu beachten: https://verweis.auf.adrs[übergreifende Architekturentscheidungen].
 
-:desc-table-abweichungen-zur-referenzarchitektur: Abweichungen zur Referenzarchitektur
-[id="table-abweichungen-zur-referenzarchitektur", reftext = "{table-caption} {counter:tables}"]
-.{desc-table-abweichungen-zur-referenzarchitektur}
-[cols="3,3,3", options="header"]
+[[adr-gesamtsystem-1,ADR-Gesamtsystem-1]]
+==== ADR-Gesamtsystem-1: Titel
+
+[cols="1,4"]
 |===
-|Thema |Abweichung |Begründung
-|Batch |Im Batch XXX (siehe Kapitel XXX) wird… |Der Batch hat extrem große Datenmengen zu bearbeiten. Daher muss…
-|… | |
+h| Entscheidung
+|_Architekturentscheidung im Wortlaut. +
+*Empfohlener Umfang:* wenige Sätze._
+
+h|Begründung
+|_Begründung der Architekturentscheidung. +
+*Empfohlener Umfang:* wesentliche Argumente, die zur Architekturentscheidung geführt haben, in jeweils wenigen Sätzen. +
+*Optional:* wesentliche Gegenargumente, die von den Argumenten überwogen wurden, in jeweils wenigen Sätzen._
+
+h|Entscheidende
+| _Aufzählung der Personen, welche die Entscheidung getroffen haben. Im Fall einer Abstimmung auch Enthaltungen und Gegenstimmen dokumentieren, ggf. mit kurzem Bezug auf wesentliche Gegenargumente. +
+*Falls vorhanden:* Verweis auf das Protokoll, in dem der Beschluss dokumentiert ist._
+
+h|Datum
+| _Datum der Entscheidung._
+
+h|_Alternativen_
+| *_Optional:_* _Beschreibung der Alternativen mit den wesentlichen Beweggründen ihrer Betrachtung, in jeweils wenigen Sätzen._
+
+
+h|_Auswirkungen_
+| *_Optional:_* _Beschreibung von Auswirkungen, vor allem falls nicht direkt ersichtlich  oder durch Zusammenspiel mit anderen (übergreifenden) ADRs, in jeweils wenigen Sätzen._
+
 |===
+
+[[adr-gesamtsystem-2]]
+==== ADR-Gesamtsystem-2: Titel
+
+...
 
 
 [[systemarchitektur-gesamtsystems]]
