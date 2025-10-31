@@ -3,6 +3,7 @@
 :sectnums:
 
 Diese Änderung ist dazu da, den neuen PR-Build der Dokumentation zu testen.
+Und jetzt fügen wir noch einen Fehler hinzu: xref:erste-schritte234.adoc[]
 
 // tag::whitepaper[]
 
