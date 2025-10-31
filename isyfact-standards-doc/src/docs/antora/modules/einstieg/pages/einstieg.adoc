@@ -2,7 +2,7 @@
 :icons: font
 :sectnums:
 
-include::glossary:licence:partial$licence.adoc[]
+Diese Änderung ist dazu da, den neuen PR-Build der Dokumentation zu testen.
 
 // tag::whitepaper[]
 
