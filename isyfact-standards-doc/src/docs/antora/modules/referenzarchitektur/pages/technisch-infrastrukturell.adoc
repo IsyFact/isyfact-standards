@@ -74,18 +74,17 @@ Alle nichtfunktionalen Anforderungen müssen von dieser Systemumgebung vollstän
 image::technisch-infrastrukturell/ti-architektur-awl-pru.dn.svg[]
 
 Der Zugriff durch die internen Anwender (über Clients) bzw. externen Anwender (über Clients oder xref:glossary::terms-definitions.adoc#externes-system[externe Systeme]) erfolgt über das interne LAN bzw. das WAN.
-Die Kommunikation erfolgt per Secure HTTP (HTTPS) mit einem Browser oder ebenfalls per HTTPS oder SMTP via XML- oder Webservice-Schnittstelle direkt aus dem externen System über ein Service-Gateway-System.
+Die Kommunikation erfolgt per Secure HTTP (HTTPS) mit einem Browser oder ebenfalls per HTTPS oder SMTP via XML- oder Webservice-Schnittstelle direkt aus dem externen System über ein Service-Gateway.
 Innerhalb der Produktionsumgebung sollten die IT-Systeme ebenfalls verschlüsselt miteinander kommunizieren.
 
-Interne Drittsysteme, die aus dem internen LAN mit der IsyFact-Systemlandschaft kommunizieren, tun dies genau wie externe Anwendungen per HTTPS oder SMTP via XML- oder Webservice-Schnittstellen über ein Service-Gateway-System.
+Interne Drittsysteme, die aus dem internen LAN mit der IsyFact-Systemlandschaft kommunizieren, tun dies genau wie externe Anwendungen per HTTPS oder SMTP via XML- oder Webservice-Schnittstellen über ein Service-Gateway.
 Die Authentifizierung geschieht über einen Identity & Access Management (IAM) Cluster, bzw. ein IAM-System.
 
 Administratoren greifen aus dem Admin-Netz direkt mittels Secure-Shell auf die Serversysteme der IsyFact-Systemlandschaft zu (Betriebssystem-Ebene).
 Aus dem Admin-Netz ist der Zugriff auf die Anwendungen nicht möglich.
 
-Web-Server und Service-Gateway-Systeme kommunizieren mit den Applikationsservern der Logik- und Verarbeitungszone.
-In der Produktionsumgebung
-wird aus Gründen der Vereinfachung davon ausgegangen, dass je Rechnersystem ein Applikationsserver betrieben wird.
+Web-Server und Service-Gateways kommunizieren mit den Applikationsservern der Logik- und Verarbeitungszone.
+In der Produktionsumgebung wird aus Gründen der Vereinfachung davon ausgegangen, dass je Rechnersystem ein Applikationsserver betrieben wird.
 Zu empfehlen ist allerdings generell die Nutzung eines Rechnersystems mit mehreren Applikationsservern.
 
 Für die Datenhaltung wird i.d.R. ein auf einem relationalen Datenbank-Management-System (RDBMS) basierender Datenbank-Cluster eingesetzt.
@@ -163,7 +162,7 @@ include::documentation-guide::partial$content-revised.adoc[]
 
 Als Ablaufumgebung benötigen die gemäß der xref:software-technisch/backend.adoc[] erstellten Backends einen Tomcat Servlet-Container.
 
-Service-Gateway-Systeme und das Portal benötigen zusätzlich noch einen Apache-Webserver.
+Service-Gateways und das Portal benötigen zusätzlich noch einen Apache-Webserver.
 
 [[ti-architektur-anwendung]]
 == TI-Architektur einer Anwendung
