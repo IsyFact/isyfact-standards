@@ -305,7 +305,7 @@ _abweichende Version_::
 _Das Element wird in einer abweichenden Version zu der des aktuellen IsyFact-Releases berücksichtigt.
 Die Spalte "Version" enthält die abweichende Version des Elements._
 
-_In den letzten drei Fällen (Erweiterung, Abweichung sowie abweichende Versionen) sind im folgenden Kapitel, <<abweichungen-und-erweiterungen-zur-referenzarchitektur>>, Architekturentscheidungen in Form von ADRs zu dokumentieren und in Form von Verweisen auf die ADRs in der Spalte "Referenz" der jeweiligen Elemente aufzuführen._
+_In den letzten drei Fällen (Erweiterung, Abweichung sowie abweichende Versionen) sind im folgenden Kapitel, <<abweichungen-und-erweiterungen-zur-referenzarchitektur>>, Architekturentscheidungen in Form von ADRs zu dokumentieren und in Form von Verweisen auf die ADRs in der Spalte "Referenzen" der jeweiligen Elemente aufzuführen._
 ====
 
 Das IT-System <System> wird konform zur Referenzarchitektur der IsyFact umgesetzt.
@@ -317,7 +317,7 @@ Die folgende Tabelle führt die vom IT-System verwendeten Elemente der IsyFact a
 .{desc-table-verwendete-elemente-isyfact-standards-erweiterungen}
 [cols="4,2,2,3", options="header"]
 |===
-|Thema |Status |Version |Referenz
+|Thema |Status |Version |Referenzen
 4+|*Allgemein*  {set:cellbgcolor:#D9D9D9}
 | {set:cellbgcolor} IsyFact-Referenzarchitektur |berücksichtigt |5.0 |
 4+|*Referenzarchitektur* {set:cellbgcolor:#D9D9D9}
@@ -359,8 +359,11 @@ Die folgende Tabelle führt die vom IT-System verwendeten Elemente der IsyFact a
 === Abweichungen und Erweiterungen zur Referenzarchitektur
 
 ====
-_In diesem Kapitel werden Abweichungen und Erweiterungen zur Referenzarchitektur in Form von Architecture Decision Records (ADRs) dokumentiert.
-Es sollten auch abgelehnte und abgelöste ADRs im Systementwurf enthalten sein, um das in ihnen enthaltene Wissen festzuhalten._
+_In diesem Kapitel werden Abweichungen und Erweiterungen zur Referenzarchitektur in Form von Architecture Decision Records (ADRs) dokumentiert._
+
+_Falls mehr als die von der Vorlage vorgesehenen Informationen erfasst werden müssen, kann die ADR-Vorlage um weitere Zeilen ergänzt werden._
+
+_Es sollten auch abgelehnte und abgelöste ADRs im Systementwurf enthalten sein, um das in ihnen enthaltene Wissen festzuhalten._
 ====
 
 Die folgenden Architekturentscheidungen begründen Abweichungen und Erweiterungen zur Referenzarchitektur.
