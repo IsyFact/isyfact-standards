@@ -7,7 +7,7 @@ Sie setzen auf eine https://de.wikipedia.org/wiki/Schichtenarchitektur#Drei-Schi
 
 [[systemarchitektur-backend]]
 .Systemarchitektur eines Backends
-image::software-technisch/backend/architektur-backend.dn.svg[width=80%, align=center]
+image::software-technisch/backend/architektur-backend.dn.svg[width=50%, align=center]
 
 [[uebergreifende-technische-konzeption]]
 == Übergreifende Aspekte
@@ -31,7 +31,7 @@ Hierzu setzen Backends Transaktionen ein.
 Transaktionen müssen die https://de.wikipedia.org/wiki/ACID[ACID-Eigenschaften] erfüllen, um grundlegende Anforderungen an Datenqualität zu erfüllen.
 
 In Backends ist der Anwendungskern für die xref:software-technisch/backend/anwendungskern.adoc#transaktionssteuerung[Transaktionssteuerung] zuständig.
-In Ausnahmefällen kann die Transaktionssteuerung auch über die xref:software-technisch/backend/serviceschicht.adoc#transaktionssteuerung[Serviceschicht] erfolgen.
+In Ausnahmefällen kann die Transaktionssteuerung auch über die xref:software-technisch/backend/service/rest-querschnitt.adoc#transaktionssteuerung[Serviceschicht] erfolgen.
 
 === Caching
 
@@ -120,7 +120,7 @@ include::backend/serviceschicht.adoc[tags=service-framework-definition]
 === Umsetzung
 
 Zur Konzeption von Services definiert die Referenzarchitektur xref:software-technisch/services.adoc[weitere Vorgaben].
-Die Umsetzung der xref:software-technisch/backend/serviceschicht.adoc[] geschieht mithilfe des xref:isy-service-rest:konzept/master.adoc[Bausteins REST].
+Zur Umsetzung von REST-Services mit Spring Web definiert die Referenzarchitektur xref:software-technisch/backend/serviceschicht.adoc[weitere Vorgaben].
 
 [[querschnitt]]
 == Querschnitt
@@ -129,7 +129,7 @@ Neben der Geschäftslogik müssen Backends ebenso querschnittliche Funktionalit�
 
 [[systemarchitektur-querschnitt]]
 .Einbettung des Querschnitts in die Systemarchitektur
-image::software-technisch/backend/querschnitt.dn.svg[width=80%,align=center]
+image::software-technisch/backend/querschnitt.dn.svg[width=50%,align=center]
 
 Die IsyFact hilft hierbei durch eigens entwickelte xref:bausteine:bausteine.adoc[] sowie durch den Einsatz von Standard-Produkten aus dem xref:einstieg:produktkatalog/technologiestackJavaSpring.adoc[].
 

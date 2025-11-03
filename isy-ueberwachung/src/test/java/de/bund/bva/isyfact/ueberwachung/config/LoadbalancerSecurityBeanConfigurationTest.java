@@ -2,7 +2,7 @@ package de.bund.bva.isyfact.ueberwachung.config;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLoggingListener;
 import org.springframework.boot.test.context.FilteredClassLoader;
@@ -13,7 +13,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
 import org.springframework.security.web.SecurityFilterChain;
 
-import de.bund.bva.isyfact.ueberwachung.autoconfigure.IsyUeberwachungAutoConfiguration;
+import de.bund.bva.isyfact.ueberwachung.autoconfigure.IsyLoadbalancerAutoConfiguration;
+import de.bund.bva.isyfact.ueberwachung.autoconfigure.IsyLoadbalancerSecurityAutoConfiguration;
 
 public class LoadbalancerSecurityBeanConfigurationTest {
 
@@ -27,7 +28,7 @@ public class LoadbalancerSecurityBeanConfigurationTest {
      */
     private final ApplicationContextRunner contextRunner = new ApplicationContextRunner(
             AnnotationConfigApplicationContext::new).withConfiguration(AutoConfigurations.of(
-                    IsyUeberwachungAutoConfiguration.class
+                    IsyLoadbalancerAutoConfiguration.class, IsyLoadbalancerSecurityAutoConfiguration.class
             ))
             .withInitializer(initializer);
 
@@ -38,6 +39,9 @@ public class LoadbalancerSecurityBeanConfigurationTest {
                 .run(context -> assertThat(context)
                         .hasNotFailed()
                         .hasSingleBean(LoadbalancerSecurityConfiguration.class)
+                        .hasSingleBean(LoadbalancerServletConfigurationProperties.class)
+                        .hasSingleBean(AuthenticationConfiguration.class)
+                        .hasSingleBean(WebSecurityConfiguration.class)
                 );
     }
 
@@ -51,7 +55,7 @@ public class LoadbalancerSecurityBeanConfigurationTest {
                         .doesNotHaveBean(LoadbalancerSecurityConfiguration.class)
                         .doesNotHaveBean(AuthenticationConfiguration.class)
                         .doesNotHaveBean(WebSecurityConfiguration.class)
+                        .hasSingleBean(LoadbalancerServletConfigurationProperties.class)
                 );
     }
-
 }

@@ -2,8 +2,8 @@ package de.bund.bva.isyfact.logging.autoconfigure;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 import org.springframework.test.util.ReflectionTestUtils;
@@ -43,7 +43,7 @@ public class IsyLoggingAutoConfigurationTest {
     }
 
     @Test
-    @Ignore("ClassLoader für Test nicht mit @EnableLoadTimeWeaving kompatibel") // TODO Lösung?
+    @Disabled("ClassLoader für Test nicht mit @EnableLoadTimeWeaving kompatibel") // TODO Lösung?
     public void isyPerformanceLoggingEnabled() {
         contextRunner.withPropertyValues("isy.logging.anwendung.name=test", "isy.logging.anwendung.typ=test",
             "isy.logging.anwendung.version=test", "isy.logging.performancelogging.enabled=true")

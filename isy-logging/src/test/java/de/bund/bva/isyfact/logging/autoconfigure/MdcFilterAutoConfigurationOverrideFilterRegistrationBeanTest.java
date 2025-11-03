@@ -2,19 +2,16 @@ package de.bund.bva.isyfact.logging.autoconfigure;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import de.bund.bva.isyfact.logging.http.HttpHeaderNestedDiagnosticContextFilter;
 import de.bund.bva.isyfact.logging.test.config.LeereTestConfig;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest(
         classes = {
                 LeereTestConfig.class,

@@ -1,7 +1,0 @@
-[[gui-tests-changelog]]
-
-== Changelog
-
-*Änderungen IsyFact 3.0.0*
-
-- Initiale Beschreibung zur Verwendung von GUI-Tests mit Selenium

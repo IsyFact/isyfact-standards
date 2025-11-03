@@ -106,30 +106,6 @@ xref:isy-logging:nutzungsvorgaben/master.adoc[Nutzungsvorgaben Logging]
 |===
 
 
-[[table-changelog]]
-.Changelog
-[cols="1s,4",options="header"]
-|===
-2+|Changelog
-
-|Ziel
-|Änderungsdokumentation eines Bausteins. 
-
-|Inhalt
-a|
-* Textuelle Beschreibung der Änderungen, nach Releases geordnet.
-
-|Zielgruppe(n)
-|Architekten, Entwickler
-
-|Scope
-|Baustein (allgemein)
-
-|Vorlage / Beispiel
-a|xref:werkzeuge:dokumentation/changelog-doku.adoc[Vorgaben zu Changelogs] +
-|===
-
-
 [[table-systemspezifikation]]
 .Systemspezifikation
 [cols="1s,4",options="header"]
@@ -261,7 +237,7 @@ Abgrenzung zur <<table-fachliche-schnittstellenspezifikation,fachlichen Schnitts
 |Baustein (QA)
 
 |Vorlage / Beispiel
-|REST / OpenAPI: Für REST-Schnittstellen erfolgt die Erstellung gemäß der xref:isy-service-rest:nutzungsvorgaben/inhalt.adoc#mapping-fachlichen-schnittstellen[Nutzungsvorgaben des REST-Bausteins].
+|Für REST-Services erfolgt die Erstellung anhand einer xref:referenzarchitektur:software-technisch/backend/service/openapi-spezifikation.adoc[].
 |===
 
 

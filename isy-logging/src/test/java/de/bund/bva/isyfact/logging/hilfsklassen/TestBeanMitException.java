@@ -3,27 +3,27 @@ package de.bund.bva.isyfact.logging.hilfsklassen;
 
 
 /**
- * Test-Bean, dass innerhalb eines Getters einen Fehler wirft.
+ * Test-Bean throwing an error in a getter.
  */
 public class TestBeanMitException {
     
-    /** Einfache Property bei "get" eine Exception erzeugt. */
+    /** Simple property creating an exception for "get". */
     private String a;
 
     /**
-     * Liefert den Wert des Attributs 'a'.
+     * Gets value of attribut 'a'.
      * 
-     * @return Wert des Attributs.
+     * @return value of attribut.
      */
     public String getA() {
-        // Wirft Nullpointer
+        // throws Nullpointer
         return a.toString();
     }
 
     /**
-     * Setzt den Wert des Attributs 'a'.
+     * Sets value of attribut 'a'.
      *
-     * @param a Neuer Wert des Attributs.
+     * @param a new value for attribut.
      */
     public void setA(String a) {
         this.a = a;

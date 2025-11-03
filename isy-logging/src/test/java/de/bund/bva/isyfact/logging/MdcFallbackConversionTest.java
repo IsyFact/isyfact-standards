@@ -2,7 +2,7 @@ package de.bund.bva.isyfact.logging;
 
 import java.net.URL;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.slf4j.LoggerFactory;
 
 import de.bund.bva.isyfact.logging.hilfsklassen.TestBeanKomplex;
@@ -13,41 +13,41 @@ import ch.qos.logback.classic.joran.JoranConfigurator;
 import ch.qos.logback.core.joran.spi.JoranException;
 
 /**
- * Klasse zum Testen der richtigen Mdc Formattierung, wenn als Parameter ein Objekt mit rekusiever Referenz übergeben wird.
+ * Class to test the proper Mdc formating when an object with recursive reference is used as parameter
  */
 public class MdcFallbackConversionTest extends AbstractLogTest {
 
     /**
-     * Testet die korrekte Formatierung des Mdc Elements in der Log Ausgabe.
+     * Test the correct formating of the Mdc element in the log
      *
      * @throws Exception
-     *          wird geworfen wenn das Setzen der Logback Konfiguration scheitert.
+     *          is thrown if setting the logback configuration fails
      */
     @Test
     public void testMdcFormattierung() throws Exception {
         IsyLoggerStandard logger = IsyLoggerFactory.getLogger(this.getClass());
 
-        // Ein komplexes Objekt mit rekusiver Referenz auf sich selbst.
+        // a complex object with recursive reference on its own
         TestBeanKomplex tbk = new TestBeanKomplex(true);
 
-        // Setze Logback Konfiguration mit eingeschalteten Mdc Ausgaben.
+        // setting logback configuration with active Mdc outputs
         konfiguriereLogback("logback-MDC-test.xml");
         MdcHelper.setzeMarkerFachdaten(true);
         logger.debug("Eine Testnachricht mit vollständigen MDC und {} als Parameter.", tbk);
 
-        // Setze Logback Konfiguration zurück.
+        // reset logback configuration
         konfiguriereLogback("logback-test.xml");
 
         pruefeLogdatei("testMdcFormatting");
     }
 
     /**
-     * Hilfsmethode zum Konfigurieren alternativer Log-Konfigurationsdateien.
+     * Helper method to configure alternative log configurations
      *
      * @param konfigDatei
-     *            die Name der zu verwendenden Datei.
+     *            config file name.
      * @throws JoranException
-     *             falls ein Fehler beim Einlesen der Datei auftritt.
+     *             if an exception occurs reading the file.
      */
     private void konfiguriereLogback(String konfigDatei) throws JoranException {
         URL url = this.getClass().getClassLoader().getResource(konfigDatei);

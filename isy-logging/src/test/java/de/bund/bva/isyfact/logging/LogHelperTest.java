@@ -2,9 +2,9 @@ package de.bund.bva.isyfact.logging;
 
 import java.util.Random;
 
-import org.junit.Test;
-
 import de.bund.bva.isyfact.logging.hilfsklassen.TestBeanEinfach;
+
+import org.junit.jupiter.api.Test;
 import de.bund.bva.isyfact.logging.hilfsklassen.TestSignaturKlasse;
 import de.bund.bva.isyfact.logging.util.LogHelper;
 
@@ -33,7 +33,7 @@ public class LogHelperTest extends AbstractLogTest {
                 null, "Ergebnis");
         logHelper.loggeErgebnis(logger, TestSignaturKlasse.class.getMethod("methodWithException", String.class), true,
                 null, "Ergebnis");
-        // LoggeErgebnis wird mit einem Parameter aufgerufen
+        // calling LoggeErgebnis with one parameter
         logHelper.loggeErgebnis(logger, TestSignaturKlasse.class.getMethod("method", String.class), false,
                 new String[] { "EinString" }, "Ergebnis");
         logHelper.loggeErgebnis(logger, TestSignaturKlasse.class.getMethod("method", String.class), true,
@@ -54,7 +54,7 @@ public class LogHelperTest extends AbstractLogTest {
                 null, "Ergebnis");
         logHelper.loggeErgebnis(logger, TestSignaturKlasse.class.getMethod("methodWithException", String.class), true,
                 null, "Ergebnis");
-        // LoggeErgebnis wird mit einem Parameter aufgerufen
+        // calling LoggeErgebnis with one parameter
         logHelper.loggeErgebnis(logger, TestSignaturKlasse.class.getMethod("method", String.class), false,
                 new String[] { "EinString" }, "Ergebnis");
         logHelper.loggeErgebnis(logger, TestSignaturKlasse.class.getMethod("method", String.class), true,

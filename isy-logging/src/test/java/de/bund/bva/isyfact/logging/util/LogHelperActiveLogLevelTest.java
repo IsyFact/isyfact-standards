@@ -7,9 +7,9 @@ import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.slf4j.LoggerFactory;
 
@@ -31,7 +31,7 @@ public class LogHelperActiveLogLevelTest {
     IsyLogger isyLogger;
     LogHelper logHelper;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         logHelper = new LogHelper(
                 true,
@@ -50,7 +50,7 @@ public class LogHelperActiveLogLevelTest {
         isyLogger = Mockito.spy(new IsyLocationAwareLoggerImpl(logger));
     }
 
-    @After
+    @AfterEach
     public void tearDown() {
         logger.detachAppender(appender);
         appender.list.clear();

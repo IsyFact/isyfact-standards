@@ -1,32 +1,32 @@
 package de.bund.bva.isyfact.batchrahmen.batch.protokoll;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 public class VerarbeitungsMeldungTest {
     @Test
     public void testConstructorWithId() {
         VerarbeitungsMeldung meldung = new VerarbeitungsMeldung("123", MeldungTyp.INFO, "Eine Testmeldung");
-        Assert.assertEquals("123", meldung.getId());
-        Assert.assertEquals(MeldungTyp.INFO, meldung.getTyp());
-        Assert.assertEquals("Eine Testmeldung", meldung.getText());
-        Assert.assertNull(meldung.getFachlicheId());
+        Assertions.assertEquals("123", meldung.getId());
+        Assertions.assertEquals(MeldungTyp.INFO, meldung.getTyp());
+        Assertions.assertEquals("Eine Testmeldung", meldung.getText());
+        Assertions.assertNull(meldung.getFachlicheId());
     }
 
     @Test
     public void testConstructorWithFachlicheId() {
         VerarbeitungsMeldung meldung = new VerarbeitungsMeldung("123", "456", MeldungTyp.INFO, "Eine Testmeldung");
-        Assert.assertEquals("123", meldung.getId());
-        Assert.assertEquals("456", meldung.getFachlicheId());
-        Assert.assertEquals(MeldungTyp.INFO, meldung.getTyp());
-        Assert.assertEquals("Eine Testmeldung", meldung.getText());
+        Assertions.assertEquals("123", meldung.getId());
+        Assertions.assertEquals("456", meldung.getFachlicheId());
+        Assertions.assertEquals(MeldungTyp.INFO, meldung.getTyp());
+        Assertions.assertEquals("Eine Testmeldung", meldung.getText());
     }
 
     @Test
     public void testSetFachlicheId() {
         VerarbeitungsMeldung meldung = new VerarbeitungsMeldung("123", MeldungTyp.INFO, "Eine Testmeldung");
-        Assert.assertNull(meldung.getFachlicheId());
+        Assertions.assertNull(meldung.getFachlicheId());
         meldung.setFachlicheId("456");
-        Assert.assertEquals("456", meldung.getFachlicheId());
+        Assertions.assertEquals("456", meldung.getFachlicheId());
     }
 }

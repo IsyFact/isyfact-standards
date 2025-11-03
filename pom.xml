@@ -82,6 +82,7 @@
         <!-- Fixed patch for commons-text CVE-2022-42889 -->
         <commons-text.version>1.13.0</commons-text.version>
         <isy-checkstyle-config.version>0.2.0</isy-checkstyle-config.version>
+        <central-publishing-maven-plugin.version>0.8.0</central-publishing-maven-plugin.version>
     </properties>
 
     <build>
@@ -615,6 +616,35 @@
         </profile>
 
         <profile>
+            <id>centralSnapshot</id>
+            <repositories>
+                <repository>
+                    <id>central-snapshots</id>
+                    <url>https://central.sonatype.com/repository/maven-snapshots/</url>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                    <releases>
+                        <enabled>false</enabled>
+                    </releases>
+                </repository>
+            </repositories>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.sonatype.central</groupId>
+                        <artifactId>central-publishing-maven-plugin</artifactId>
+                        <version>${central-publishing-maven-plugin.version}</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <publishingServerId>central</publishingServerId>
+                            <autoPublish>true</autoPublish>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
             <id>centralRelease</id>
             <build>
                 <plugins>
@@ -645,7 +675,7 @@
                     <plugin>
                         <groupId>org.sonatype.central</groupId>
                         <artifactId>central-publishing-maven-plugin</artifactId>
-                        <version>0.7.0</version>
+                        <version>${central-publishing-maven-plugin.version}</version>
                         <extensions>true</extensions>
                         <configuration>
                             <publishingServerId>central</publishingServerId>

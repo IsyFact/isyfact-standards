@@ -1,27 +1,21 @@
 package de.bund.bva.isyfact.ueberwachung.config;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.time.Duration;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.model.Nachbarsystem;
 import de.bund.bva.isyfact.ueberwachung.autoconfigure.IsyHealthAutoConfiguration;
-import de.bund.bva.isyfact.ueberwachung.autoconfigure.IsyUeberwachungAutoConfiguration;
+import de.bund.bva.isyfact.ueberwachung.autoconfigure.IsyLoadbalancerAutoConfiguration;
 
 /**
- * Test zum überprüfen, ob die gesetzten properties korrekt geladen werden.
+ * Test to verify that set properties are loaded correctly.
  */
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = { IsyUeberwachungAutoConfiguration.class, IsyHealthAutoConfiguration.class },
+@SpringBootTest(classes = { IsyLoadbalancerAutoConfiguration.class, IsyHealthAutoConfiguration.class },
     properties = {
         "isy.ueberwachung.nachbarsysteme.nachbar1.systemname=Nachbar",
         "isy.ueberwachung.nachbarsysteme.nachbar1.essentiell=true",
@@ -40,8 +34,7 @@ public class NachbarsystemConfigurationPropertiesTest {
     @Autowired
     private NachbarsystemConfigurationProperties nachbarsystemConfigurationProperties;
 
-    //testet, ob die Properties korrekt in die
-    //nachbarsystemConfigurationProperties geladen werden
+    //test to verify that properties are loaded correctly in nachbarsystemConfigurationProperties
     @Test
     public void nachbarsystemConfigurationPropertiesTest() {
         Nachbarsystem nachbar1 = nachbarsystemConfigurationProperties.getNachbarsysteme().get("nachbar1");

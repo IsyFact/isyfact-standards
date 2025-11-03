@@ -28,6 +28,21 @@ Hellblau umrandete Waben bedeuten, dass der Baustein als Software-Bibliothek ver
 
 Bausteine stellen in der Regel ein Dokument aus architektonischer Sicht – das Konzept – und ein Dokument aus technischer Sicht – die Nutzungsvorgaben – sowie eine Software-Bibliothek zur Integration in eigene Anwendungen bereit.
 
+.Entkopplung der Bausteine
+****
+Mit Veröffentlichung der IsyFact 4 hat ein umfassendes, technisches Redesign der Bausteine begonnen, dessen Ziel die *Entkopplung* der Bausteine ist.
+Das bedeutet, dass:
+
+* Abhängigkeiten zwischen Bausteinen aufgelöst werden,
+* Bausteine nur diejenigen Produkte verwenden, die durch ihren Zweck _direkt_ begründet sind, und
+* Bausteine unabhängig voneinander weiterentwickelt und veröffentlicht werden.
+
+Der letzte Punkt betrifft ebenso die Dokumentation, sodass entkoppelte Bausteine jeweils einen _eigenen Bereich mit eigener Navigation_ besitzen.
+Dieser Umstand ist in der Navigation mit dem Symbol icon:external-link-square[] gekennzeichnet.
+
+Aktuell sind alle Bausteine bis auf die Bausteine *Fehlerbehandlung*, *Logging* und *Überwachung* entkoppelt.
+****
+
 == IsyFact-Standards
 
 include::einstieg:vorstellung.adoc[tags=isyfact-standards-definition]
@@ -54,9 +69,6 @@ Dieser Baustein dient zur Persistierung dieser Datums- und Zeitangaben.
 |Der Baustein _Polling_ implementiert Verfahren zum koordinierten, regelmäßigen Abholen von Daten (Polling) durch mehrere redundant ausgelegte Instanzen einer Anwendung.
 Der Baustein unterstützt unterschiedliche Arten von Schnittstellen und sorgt dafür, dass Daten jeweils nur von einer Instanz der Anwendung verarbeitet werden.
 
-|REST
-|Der Baustein _REST_ bietet die Möglichkeit, interne Services der Anwendungslandschaft als REST-Services zu realisieren.
-
 |Security
 |Der Baustein _Security_ übernimmt die Authentifizierungsanfragen von natürlichen Anwendern als auch von technischen Systemen und leitet diese in die entsprechenden Credential-Flows des IAM-Service.
 Aus den vom IAM-Service erhaltenen Zugangsdaten übernimmt der Baustein das Rollen- und Rechte-Handling zur Autorisierung der Anwendungsaufrufe innerhalb der Aufrufkette der Fachanwendungen.
@@ -74,7 +86,6 @@ Die einheitliche Überwachungsschnittstelle erlaubt die frühzeitige Erkennung v
 
 |Util
 |Der Baustein _Util_ bietet nützliche Hilfsmittel, die von den Anwendungen der IsyFact genutzt werden können.
-Es handelt sich dabei um kleinere Utility-Klassen, wie z.B. Interzeptoren, mit denen sich das Laufzeitverhalten von Anwendungen nachvollziehen lässt.
 |===
 
 == IsyFact-Erweiterungen

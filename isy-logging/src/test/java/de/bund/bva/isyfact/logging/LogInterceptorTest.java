@@ -7,9 +7,8 @@ import java.util.List;
 
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.springframework.aop.Advisor;
 import org.springframework.aop.aspectj.AspectJExpressionPointcut;
 import org.springframework.aop.support.DefaultPointcutAdvisor;
@@ -18,9 +17,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 
 import de.bund.bva.isyfact.logging.hilfsklassen.DefaultMethodInvocation;
@@ -31,64 +29,62 @@ import de.bund.bva.isyfact.logging.util.BeanToMapConverter;
 import de.bund.bva.isyfact.logging.util.LoggingMethodInterceptor;
 
 /**
- * Testfälle des LogInterceptors.
+ * Testing the LogInterceptors.
  *
  */
-@RunWith(SpringRunner.class)
-@ContextConfiguration(classes = LogInterceptorTest.LogInterceptorTestConfig.class)
+@SpringJUnitConfig(classes = LogInterceptorTest.LogInterceptorTestConfig.class)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class })
 public class LogInterceptorTest extends AbstractLogTest {
 
     /**
-     * MethodInterceptor bei dem alle Flags auf "true" gesetzt sind (max. Ausgabe).
+     * Method interceptor with all flags "true" (maximum output)
      */
     @Autowired
     @Qualifier("alleFlagsTrueInterceptor")
     private LoggingMethodInterceptor alleFlagsTrueInterceptor;
 
     /**
-     * MethodInterceptor bei dem alle Flags auf "true" gesetzt sind. Das Flag 'loggeDaten' ist nicht gesetzt
-     * und damit 'false'.
+     * Method interceptor with all flags "true". flag 'loggeDaten' is false and not set
      */
     @Autowired
     @Qualifier("alleFlagsTrueOhneLoggeDatenInterceptor")
     private LoggingMethodInterceptor alleFlagsTrueOhneLoggeDatenInterceptor;
 
     /**
-     * MethodInterceptor bei dem alle Flags auf "false" gesetzt sind (min. Ausgabe).
+     * Method interceptor with all flags "false" (minimum output)
      */
     @Autowired
     @Qualifier("alleFlagsFalseInterceptor")
     private LoggingMethodInterceptor alleFlagsFalseInterceptor;
 
     /**
-     * MethodInterceptor bei dem alle Flags auf "true" gesetzt sind, der Converter aber so konfiguriert wurde,
-     * dass das Package 'de.bund.bva' auf Exlude steht.
+     * Method interceptor with all flags "true", but converter is configured,
+     * so that package 'de.bund.bva' is excluded
      */
     @Autowired
     @Qualifier("individuellerInterceptor")
     private LoggingMethodInterceptor individuellerInterceptor;
 
     /**
-     * Zielklasse bei der ein Log-Interceptor per Aspekt so konfiguriert ist, dass er Logeinträge für
-     * Systemgrenzen erzeugt.
+     * Target class in which a log interceptor is configured per aspect to generate log entries for
+     * system boundaries.
      */
     @Autowired
     private TestZielKlasse boundaryZielKlasse;
 
     /**
-     * Zielklasse bei der ein Log-Interceptor per Aspekt so konfiguriert ist, dass er Logeinträge für
-     * Komponentengrenzen erzeugt.
+     * Target class in which a log interceptor is configured per aspect to generate log entries for
+     * component boundaries.
      */
     @Autowired
     private TestZielKlasse2 componentZielKlasse;
 
     /**
-     * Test des Loggings eines erfolgreichen Methodenaufrufs mit maximaler Logausgabe. Interceptor wird direkt
-     * und nicht über Spring aufgerufen.
+     * Test logging with a successful method call on maximal log output. The interceptor is called direct
+     * and not with Spring.
      *
      * @throws Throwable
-     *             wenn bei der Testausführung ein Fehler aufgetreten ist.
+     *             if an exception is thrown during the test.
      */
     @Test
     public void testAufrufErfolgreichDirekt() throws Throwable {
@@ -106,11 +102,11 @@ public class LogInterceptorTest extends AbstractLogTest {
     }
 
     /**
-     * Test des Loggings eines nicht erfolgreichen Methodenaufrufs (Exception) mit maximaler Logausgabe.
-     * Interceptor wird direkt und nicht über Spring aufgerufen.
+     * Test logging with a not successful method call (exception) on maximal log output.
+     * The interceptor is called direct and not with Spring.
      *
      * @throws Throwable
-     *             wenn bei der Testausführung ein Fehler aufgetreten ist.
+     *             if an exception is thrown during the test.
      */
     @Test
     public void testAufrufMitExceptionDirekt() throws Throwable {
@@ -123,9 +119,9 @@ public class LogInterceptorTest extends AbstractLogTest {
 
         try {
             alleFlagsTrueOhneLoggeDatenInterceptor.invoke(invocation);
-            Assert.fail("Es wurde eine Exception erwartet - der Aufruf war aber erfolgreich.");
+            Assertions.fail("Es wurde eine Exception erwartet - der Aufruf war aber erfolgreich.");
         } catch (InvocationTargetException e) {
-            // Diese Exception wird erwartet.
+            // exception is expected.
             e.printStackTrace();
         }
 
@@ -134,11 +130,11 @@ public class LogInterceptorTest extends AbstractLogTest {
     }
 
     /**
-     * Test des Loggings eines erfolgreichen Methodenaufrufs mit minimaler Logausgabe. Interceptor wird direkt
-     * und nicht über Spring aufgerufen.
+     * Test logging with a successful method call on minimal log output. The interceptor is called direct
+     * and not with Spring.
      *
      * @throws Throwable
-     *             wenn bei der Testausführung ein Fehler aufgetreten ist.
+     *             if an exception is thrown during the test.
      */
     @Test
     public void testAufrufErfolgreichParameterFalseDirekt() throws Throwable {
@@ -156,11 +152,11 @@ public class LogInterceptorTest extends AbstractLogTest {
     }
 
     /**
-     * Test des Loggings eines nicht erfolgreichen Methodenaufrufs (Exception) mit minimaler Logausgabe.
-     * Interceptor wird direkt und nicht über Spring aufgerufen.
+     * Test logging with a not successful method call (exception) on minimal log output.
+     * The interceptor is called direct and not with Spring.
      *
      * @throws Throwable
-     *             wenn bei der Testausführung ein Fehler aufgetreten ist.
+     *             if an exception is thrown during the test.
      */
     @Test
     public void testAufrufMitExceptionParameterFalseDirekt() throws Throwable {
@@ -173,37 +169,36 @@ public class LogInterceptorTest extends AbstractLogTest {
 
         try {
             alleFlagsFalseInterceptor.invoke(invocation);
-            Assert.fail("Es wurde eine Exception erwartet - der Aufruf war aber erfolgreich.");
+            Assertions.fail("Es wurde eine Exception erwartet - der Aufruf war aber erfolgreich.");
         } catch (InvocationTargetException e) {
-            // Diese Exception wird erwartet.
+            // exception is expected.
             pruefeLogdatei("testAufrufMitExceptionParameterFalse");
         }
 
     }
 
     /**
-     * Test des Loggings eines erfolgreichen Systemschnittstellenaufrufs. Es wird dabei ein per
-     * Spring-Konfigurierter Interceptor getestet.
+     * Test logging with a successful system interface call. The interceptor is configured by Spring and tested.
      *
      * @throws Throwable
-     *             wenn bei der Testausführung ein Fehler aufgetreten ist.
+     *             if an exception is thrown during the test.
      */
     @Test
     public void testBoundaryAufrufErfolgreich() throws Throwable {
 
         boundaryZielKlasse.setzeName(new TestZielParameterPerson("Mustermann", "Max", "Peter", "Hans"),
                 "TestParameter 2");
-        // Analog zu direktem Aufruf (alle Parameter sind "true")
+        // analogue to direct call (all parameter are "true")
         pruefeLogdatei("testAufrufErfolgreichInterceptor");
 
     }
 
     /**
-     * Test des Loggings eines nicht erfolgreichen Systemschnittstellenaufrufs (Exception). Es wird dabei ein
-     * per Spring-Konfigurierter Interceptor getestet.
+     * Test logging with a not successful system interface call (exception).
+     * The interceptor is configured by Spring and tested.
      *
      * @throws Throwable
-     *             wenn bei der Testausführung ein Fehler aufgetreten ist.
+     *             if an exception is thrown during the test.
      */
     @Test
     public void testBoundaryAufrufMitException() throws Throwable {
@@ -212,19 +207,18 @@ public class LogInterceptorTest extends AbstractLogTest {
             boundaryZielKlasse.setzeNameException(new TestZielParameterPerson("Mustermann", "Max", "Peter",
                     "Hans"), "TestParameter 2");
         } catch (Exception e) {
-            // Diese Exception wird erwartet.
-            // Analog zu direktem Aufruf (alle Parameter sind "true")
+            // exception is expected.
+            // analogue to direct call (all parameter are "true")
             pruefeLogdatei("testAufrufMitExceptionInterceptor", true);
         }
 
     }
 
     /**
-     * Test des Loggings eines erfolgreichen Komponentenschnittstellenaufrufs. Es wird dabei ein per
-     * Spring-Konfigurierter Interceptor getestet.
+     * Test logging with a successful component interface call. The interceptor is configured by Spring and tested.
      *
      * @throws Throwable
-     *             wenn bei der Testausführung ein Fehler aufgetreten ist.
+     *             if an exception is thrown during the test.
      */
     @Test
     public void testComponentAufrufErfolgreich() throws Throwable {
@@ -236,11 +230,11 @@ public class LogInterceptorTest extends AbstractLogTest {
     }
 
     /**
-     * Test des Loggings eines nicht erfolgreichen Komponentenschnittstellenaufrufs (Exception). Es wird dabei
-     * ein per Spring-Konfigurierter Interceptor getestet.
+     * Test logging with a not successful component interface call (exception).
+     * The interceptor is configured by Spring and tested.
      *
      * @throws Throwable
-     *             wenn bei der Testausführung ein Fehler aufgetreten ist.
+     *             if an exception is thrown during the test.
      */
     @Test
     public void testComponentAufrufMitException() throws Throwable {
@@ -249,18 +243,17 @@ public class LogInterceptorTest extends AbstractLogTest {
             componentZielKlasse.setzeNameException(new TestZielParameterPerson("Mustermann", "Max", "Peter",
                     "Hans"), "TestParameter 2");
         } catch (Exception e) {
-            // Diese Exception wird erwartet.
+            // exception is expected.
             pruefeLogdatei("testAufrufMitExceptionComponentInterceptor");
         }
 
     }
 
     /**
-     * Testet die Initialisierung von Includes und Excludes des BeanMappers, wenn nicht der Standardmapper
-     * verwendet werden soll.
+     * Testing initializing of includes and excludes of the BeanMapper, if not a standard mapper should be used.
      *
      * @throws Exception
-     *             falls bei der Testdurchführung ein Fehler aufgetreten ist.
+     *             if an exception is thrown during the test.
      */
     @Test
     public void testInitialisierungIncludesExcludes() throws Exception {
@@ -270,17 +263,17 @@ public class LogInterceptorTest extends AbstractLogTest {
         loggingMethodInterceptor.afterPropertiesSet();
         BeanToMapConverter converter = (BeanToMapConverter) loggingMethodInterceptor.getLogHelper()
                 .getKonverter();
-        Assert.assertEquals(includes, converter.getIncludes());
-        Assert.assertEquals(excludes, converter.getExcludes());
+        Assertions.assertEquals(includes, converter.getIncludes());
+        Assertions.assertEquals(excludes, converter.getExcludes());
     }
 
     /**
-     * Test des Loggings eines nicht erfolgreichen Methodenaufrufs (Exception) mit maximaler Logausgabe.
-     * Interceptor wird direkt und nicht über Spring aufgerufen. Der Interceptor ist dabei so konfiguriert,
-     * dass der BeanConverter alle Beans unter de.bund.bva bei Serialisierung nicht berücksichtigt.
+     * Test logging with a not successful method (exception) call on maximal log output.
+     * The interceptor is called direct and not with Spring. The interceptor is configured,
+     * so that the bean converter ignores all beans in package 'de.bund.bva' for serialization
      *
      * @throws Throwable
-     *             wenn bei der Testausführung ein Fehler aufgetreten ist.
+     *             if an exception is thrown during the test.
      */
     @Test
     public void testAufrufMitExceptionDirektIndividuell() throws Throwable {
@@ -293,9 +286,9 @@ public class LogInterceptorTest extends AbstractLogTest {
 
         try {
             individuellerInterceptor.invoke(invocation);
-            Assert.fail("Es wurde eine Exception erwartet - der Aufruf war aber erfolgreich.");
+            Assertions.fail("Es wurde eine Exception erwartet - der Aufruf war aber erfolgreich.");
         } catch (InvocationTargetException e) {
-            // Diese Exception wird erwartet.
+            // exception is expected.
             e.printStackTrace();
         }
 
@@ -304,11 +297,11 @@ public class LogInterceptorTest extends AbstractLogTest {
     }
 
     /**
-     * Test des Loggings eines erfolgreichen Methodenaufrufs mit maximaler Logausgabe. Interceptor wird direkt
-     * und nicht über Spring aufgerufen.
+     * Test logging with a successful method call on maximal log output. The interceptor is called direct
+     * and not with Spring.
      *
      * @throws Throwable
-     *             wenn bei der Testausführung ein Fehler aufgetreten ist.
+     *             if an exception is thrown during the test.
      */
     @Test
     public void testAufrufErfolgreichLoggeDatenDirekt() throws Throwable {
@@ -319,10 +312,10 @@ public class LogInterceptorTest extends AbstractLogTest {
         MethodInvocation invocation = new DefaultMethodInvocation(new TestZielKlasse(), methode,
                 new TestZielParameterPerson("Mustermann", "Max", "Peter", "Hans"), "TestParameter 2");
 
-        // Erst ohne Loggedaten aufrufen
+        // first call without logging
         alleFlagsTrueOhneLoggeDatenInterceptor.invoke(invocation);
 
-        // Dann mit Loggedaten aufrufen
+        // second call with logging
         alleFlagsTrueInterceptor.invoke(invocation);
 
         pruefeLogdatei("testAufrufErfolgreichLoggeDatenDirekt");

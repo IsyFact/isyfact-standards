@@ -4,10 +4,12 @@ import static de.bund.bva.isyfact.security.authentication.RolePrivilegeGrantedAu
 import static org.springframework.security.config.Customizer.withDefaults;
 
 import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
+import org.springframework.boot.actuate.health.HealthEndpoint;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -31,17 +33,8 @@ import de.bund.bva.isyfact.ueberwachung.config.ActuatorSecurityConfigurationProp
 @ConditionalOnClass({SecurityFilterChain.class, HttpSecurity.class})
 public class IsyActuatorSecurityAutoConfiguration {
 
-    /** Enpoint role to identify the actuator Enpoint Admin. */
+    /** Endpoint role to identify the actuator Endpoint Admin. */
     public static final String ENDPOINT_ROLE = "ENDPOINT_ADMIN";
-
-    /**
-     * Monitoring user configuration.
-     */
-    private final ActuatorSecurityConfigurationProperties properties;
-
-    public IsyActuatorSecurityAutoConfiguration(ActuatorSecurityConfigurationProperties properties) {
-        this.properties = properties;
-    }
 
     @Bean
     @Order(1)
@@ -50,6 +43,7 @@ public class IsyActuatorSecurityAutoConfiguration {
         http
             .securityMatcher(EndpointRequest.toAnyEndpoint())
             .authorizeHttpRequests(requests -> requests
+                .requestMatchers(EndpointRequest.to(HealthEndpoint.class)).permitAll()
                 .anyRequest().hasRole(ENDPOINT_ROLE))
             .httpBasic(withDefaults());
         return http.build();
@@ -65,7 +59,8 @@ public class IsyActuatorSecurityAutoConfiguration {
     @Bean
     @ConditionalOnProperty("isy.ueberwachung.security.username")
     @ConditionalOnMissingBean(name = "actuatorUserDetailsService")
-    public UserDetailsService actuatorUserDetailsService(PasswordEncoder passwordEncoder) {
+    public UserDetailsService actuatorUserDetailsService(PasswordEncoder passwordEncoder,
+                                                         ActuatorSecurityConfigurationProperties properties) {
         UserDetails actuatorEndpointUser = User
             // Username must contain at least one non-whitespace character
             .withUsername(properties.getUsername())
@@ -85,6 +80,20 @@ public class IsyActuatorSecurityAutoConfiguration {
     @ConditionalOnMissingBean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    /**
+     * Configuration properties for actuator security.
+     * <p>
+     * The prefix is "isy.ueberwachung.security".
+     * </p>
+     *
+     * @return {@link ActuatorSecurityConfigurationProperties}
+     */
+    @Bean
+    @ConfigurationProperties(prefix = "isy.ueberwachung.security")
+    public ActuatorSecurityConfigurationProperties actuatorSecurityConfigurationProperties() {
+        return new ActuatorSecurityConfigurationProperties();
     }
 }
 /* end::actuatorSecurity[] */
