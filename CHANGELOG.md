@@ -57,3 +57,4 @@
 - `IFS-4570`: [isyfact-standards-doc] Alte Einträge aus Negativliste entfernt
 - `IFS-4549`: [isyfact-standards-doc] Verwaltung von Versionen zentralisiert
 - `IFS-4771`: [isyfact-standards-doc] Ergänzung der Dokumentation durch Punkt: Migration auf Spring Boot 3.5
+- `IFS-4923`: [isyfact-standards-doc] Aktualisierung des Produktkatalogs: Tomcat in Version 10.x (embedded)
