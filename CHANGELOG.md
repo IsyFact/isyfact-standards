@@ -1,5 +1,6 @@
 # 5.0.0
 ### FEATURES
+- `IFS-4923`: [isyfact-standards-doc] Aktualisierung des Produktkatalogs: Tomcat in Version 10.x (embedded)
 - `IFS-4897`: [isyfact-standards-doc] Erweiterung der Vorlage Systementwurf um "lokale" Architekturentscheidungen
 - `IFS-4792`: [isyfact-standards-doc] Definition des IT-Systemtyps "Gateway"
 - `IFS-4746`: [isyfact-standards-doc] Verbesserung der Beschreibung entkoppelter Bausteine und der Bausteinnavigation
