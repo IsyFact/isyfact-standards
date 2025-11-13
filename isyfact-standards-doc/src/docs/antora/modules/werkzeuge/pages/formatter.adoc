@@ -1,5 +1,8 @@
 = Formatter
 
+NOTE: Entwickler können ihren bevorzugten Formatierungsstil verwenden. Der Formatter vereinheitlicht lediglich den Quellcode im Projekt.
+
+== Java
 In der IsyFact wird ein eigener Formatter für die Entwicklung mit Java verwendet. 
 Ebenfalls sind eigene Checkstyle-Regeln festgelegt, mit denen der Formatter konform ist.
 
@@ -15,5 +18,11 @@ Hier liegen die XML-Dateien des Formatters für IntelliJ und Eclipse:
 |xref:attachment$IsyFact_Formatter_Eclipse.xml[Download icon:file-code-o[]]
 |====
 
-Entwickler können ihren bevorzugten Formatierungsstil verwenden.
-Der Formatter vereinheitlicht lediglich den Code im Projekt.
+== Typescript
+
+Für das Formatieren von TypeScript Quellcode wird das @isyfact/prettier-plugin verwendet.
+Eine genaue Installationsanleitung ist hier zu finden: https://github.com/IsyFact/isy-prettier-plugin[@isyfact/prettier-plugin].
+
+Das Plugin hat eine direkte Abhängigkeit zu dem npm-Paket `Prettier`.
+Für detaillierte Konfigurationsmöglichkeiten – wie Custom-Options, Plugins oder Editor-Integration – siehe die offizielle Prettier-Dokumentation: https://prettier.io/docs/[Prettier]
+

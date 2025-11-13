@@ -2,6 +2,7 @@
 ### FEATURES
 - `IFS-4874`: [isyfact-standards-doc] Beschreibung asynchroner Kommunikationsmuster
   * Request-Response asynchron, Message-Queue, Publish/Subscribe, Event Streaming
+- `IFS-4897`: [isyfact-standards-doc] Erweiterung der Vorlage Systementwurf um "lokale" Architekturentscheidungen
 - `IFS-4792`: [isyfact-standards-doc] Definition des IT-Systemtyps "Gateway"
 - `IFS-4746`: [isyfact-standards-doc] Verbesserung der Beschreibung entkoppelter Bausteine und der Bausteinnavigation
 - `IFS-4880`: [isyfact-standards-doc] Entfernung der AsciiDoc-Changelogs und Dokumentation zu Changelogs
@@ -35,6 +36,7 @@
 - `IFS-4582`: [isy-persistence], [isy-polling], [isy-security], [isy-security-test], [isy-task], [isy-util] Entfernen der entkoppelten Bausteine aus dem Standards-Repository
 
 ### DEPENDENCY UPGRADES
+- Update metro.webservices.version von Version 4.0.3 auf 4.0.4
 - `IFS-4530`: Update von UCP auf Version 19.27.0.0
 - `IFS-4655`: Update von Maven Checkstyle Plugin auf Version 3.6.0
 - `IFS-4531`: Update von Flatten Maven Plugin auf Version 1.7.1
@@ -119,6 +121,12 @@ Für diese Bausteine gilt:
 Die konzeptionellen Inhalte des Bausteins REST wurden in die Referenzarchitektur überführt.
 Die Beschreibung der Werkzeuge (OpenAPI-Editor und -Generator) wurden in die Werkzeuge überführt.
 Die Konzeption wurde um die strukturierten Verwendung von HTTP-Statuscodes (inkl. `Retry-After`, Status-URLs, Fehlermeldungen) im Kapitel "Verwendung von HTTP-Statuscodes" ergänzt.
+
+### Methodik
+
+#### Systementwurf
+
+Architekturentscheidungen, die Abweichungen und Erweiterungen zur Referenzarchitektur begründen, und die nur im Rahmen der Umsetzung einer Anwendung gelten, müssen nun im Systementwurf dokumentiert werden.
 
 [//]: # (### Deprecations)
 [//]: # (_keine_)

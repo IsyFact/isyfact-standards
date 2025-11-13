@@ -19,7 +19,7 @@
         <resilience4j.version>1.7.1</resilience4j.version>
         <apache.poi.version>5.4.0</apache.poi.version>
         <greenmail.version>1.6.15</greenmail.version>
-        <metro.webservices.version>4.0.3</metro.webservices.version>
+        <metro.webservices.version>4.0.4</metro.webservices.version>
         <woodstox.stax.version>4.2.2</woodstox.stax.version>
         <logback-json-classic.version>0.1.5</logback-json-classic.version>
         <logback-jackson.version>0.1.5</logback-jackson.version>
@@ -32,7 +32,7 @@
         <guava.version>33.3.0-jre</guava.version>
         <commons-cli.version>1.9.0</commons-cli.version>
         <commons-net.version>3.11.1</commons-net.version>
-        <commons-validator.version>1.7</commons-validator.version>
+        <commons-validator.version>1.10.0</commons-validator.version>
         <jsoup.version>1.18.1</jsoup.version>
         <ApacheJMeter_core.version>5.6.3</ApacheJMeter_core.version>
         <wiremock-standalone.version>3.9.1</wiremock-standalone.version>
