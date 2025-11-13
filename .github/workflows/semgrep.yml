@@ -1,0 +1,37 @@
+name: Semgrep Scan
+
+on:
+  pull_request:
+    branches:
+      - feature/IFS-4896_ci_semgrep
+  push:
+    branches:
+      - feature/IFS-4896_ci_semgrep
+  workflow_dispatch: { }
+
+jobs:
+  semgrep-scan:
+    runs-on: ubuntu-latest
+    container:
+      image: semgrep/semgrep
+
+    # Skip any PR created by dependabot to avoid permission issues
+    if: (github.actor != 'dependabot[bot]')
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          lfs: ${{ inputs.checkout-lfs }}
+
+      - name: semgrep scan
+        run: semgrep ci \
+            --json --json-output semgrep-report.json \
+            --metrics=off \
+            --config="p/default"
+
+#      - name: save report as pipeline artifact
+#        uses: actions/upload-artifact@v4
+#        with:
+#          name: semgrep-report.json
+#          path: semgrep-report.json
