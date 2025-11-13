@@ -16,10 +16,15 @@ Die für die Versionierung notwendigen Transformationen sind Teil der jeweiligen
 In komplexen Fällen kann es auch notwendig sein, den Anwendungskern zu erweitern und die Versionierung dort zu behandeln.
 Die Entscheidung dafür ist im Systementwurf zu dokumentieren.
 
-Externe Services werden durch Service-Gateways bereitgestellt.
+Externe Services werden durch xref:glossary::terms-definitions.adoc#glossar-service-gateway[Service-Gateways] bereitgestellt.
 Die Versionierung eines Services muss also auch auf Ebene des Service-Gateways durchgeführt werden.
-Ein Service-Gateway ist ein rein technischer Protokoll-Wandler, der Webservices in interne Schnittstellen konvertiert.
-Im Service-Gateway erfolgt daher immer nur ein einfaches Mapping auf die entsprechenden Service-Schnittstellen der angebundenen Backends.
+
+****
+Ein Service-Gateway ist ein technischer Zugriffspunkt zwischen externen Systemen und internen Services.
+Hauptaufgaben können Routing, Security, Lastverteilung und Mapping auf die entsprechenden Service-Schnittstellen der angebundenen Backends sein.
+Fachlogik oder komplexe Orchestrierungen finden im Gateway nicht statt.
+****
+
 Der Ausgleich der Versionsunterschiede erfolgt ausschließlich im Backend und nicht im Service-Gateway.
 Es ist möglich, pro Service-Version ein eigenes Service-Gateway zu erstellen.
 

@@ -183,7 +183,7 @@ Hohe Qualitätsanforderungen im Bereich der _Effizienz_ können unter diesen Ums
 
 Im synchronen Fall berücksichtigt die Fehlerbehandlung fachliche und technische Fehler beim Empfänger, aber in der Regel keine Ausfälle der Netzwerke oder Infrastruktur.
 Solche Fehler, besonders im Fall von kaskadierenden Aufrufen, benötigen eine robuste Fehlerbehandlung und Strategien zur Einhaltung transaktionaler Integrität.
-Hohe Qualitätsanforderungen im Bereich der _Zuverlässigkeit_ können unter diesen Umständen schwer zu erfüllen sind.
+Hohe Qualitätsanforderungen im Bereich der _Zuverlässigkeit_ können unter diesen Umständen schwer zu erfüllen sein.
 
 [[request-response-herausforderungen-asynchron]]
 ==== Herausforderungen (asynchron)
@@ -201,10 +201,8 @@ Hier stehen eine Vielzahl von Resilienz-Mustern zur Verfügung.
 
 [NOTE]
 ====
-Gute Einführungen zu Resilienz finden sich hier:
+Eine gute Einführung zu Resilienz mit Verweisen auf weitere Quellen findet sich unter: https://jugsaxony.org/downloads/day/slides/JSD2022_Muster-fuer-resilientere-Anwendungen_Uwe-Friedrichsen.pdf[10 patterns for more resilient applications: a gentle start into resilient software design icon:file-pdf-o[]]
 
-* https://medium.com/@deepak.gupta79/top-15-proven-patterns-for-resilient-software-architecture-design-5849b5053b1f[15 Proven Patterns for Resilient Software Architecture Design]
-* https://jugsaxony.org/downloads/day/slides/JSD2022_Muster-fuer-resilientere-Anwendungen_Uwe-Friedrichsen.pdf[10 patterns for more resilient applications: a gentle start into resilient software design icon:file-pdf-o[]]
 ====
 
 [[request-response-vorgaben]]
@@ -240,7 +238,7 @@ Dies entkoppelt Sender und Empfänger voneinander.
 .Kommunikationsmuster Message-Queue
 image::software-technisch/kommunikation/message-queue.dn.svg[]
 
-Das Kommunikationsmuster Message-Queue eignet sich für Interaktionen, die keine direkte Antwort benötigen, keine hohen Anforderungen an das Zeitverhalten stellen und nicht von einer festgelegten Reihenfolge der Verarbeitung abhängig sind.
+Das Kommunikationsmuster Message-Queue eignet sich für Interaktionen, die keine direkte Antwort benötigen, keine hohen Anforderungen an das Zeitverhalten stellen und robust gegenüber Fehlern sein müssen.
 Das Message-Queue-Muster benötigt eine Infrastrukturkomponente, den Message-Broker, welche die Kommunikation zwischen Sender und Empfänger ermöglicht.
 Zur Umsetzung der Infrastrukturkomponente gibt viele bewährte Produkte, die auch hohe Anforderungen an die Kommunikation über Message-Queues erfüllen.
 
@@ -309,7 +307,7 @@ Besonders relevant für die Referenzarchitektur sind die Abschnitte https://jaka
 === Publish/Subscribe
 
 Das Kommunikationsmuster Publish/Subscribe (Pub/Sub) ist ein asynchrones, ereignisgesteuertes Modell.
-Es ermöglicht die Entkopplung von Sendern (Publishern) und Empfängern (Subscriber), indem Nachrichten durch Publisher an ein zentrales Thema (Topic) veröffentlicht und von mehreren Subscribern abonniert werden.
+Es ermöglicht die Entkopplung von Sendern (Publishern) und Empfängern (Subscriber), indem Nachrichten durch Publisher an ein zentrales Thema (Topic) veröffentlicht und von mehreren Subscribern abonniert werden können.
 Publisher und Subscriber kennen sich nicht.
 
 [[publish-subscribe-pattern]]
