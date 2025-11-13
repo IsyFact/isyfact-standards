@@ -1,0 +1,35 @@
+name: Semgrep Full Scan
+
+on:
+  pull_request:
+    branches:
+      - feature/IFS-4896_ci_semgrep
+  push:
+    branches:
+      - feature/IFS-4896_ci_semgrep
+  workflow_dispatch: { }
+
+jobs:
+  semgrep-full:
+    runs-on: ubuntu-latest
+    container:
+      image: returntocorp/semgrep
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          lfs: ${{ inputs.checkout-lfs }}
+
+      - name: full scan
+        run: |
+          semgrep \
+            --sarif --output report.sarif \
+            --metrics=off \
+            --config="p/default"
+
+      - name: save report as pipeline artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: report.sarif
+          path: report.sarif
