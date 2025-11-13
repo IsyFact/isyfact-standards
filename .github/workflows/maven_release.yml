@@ -44,7 +44,6 @@ jobs:
   DependencyScan:
     uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_dependency_scan_template.yml@v2.0.0
     with:
-      jdk-version: 17
       snyk-organization: ${{ vars.SNYK_ORG_ID }}
       snyk-reference: master
       snyk-arguments: "--maven-aggregate-project"
@@ -70,7 +69,6 @@ jobs:
   DependencyMonitor:
     uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_dependency_scan_template.yml@v2.0.0
     with:
-      jdk-version: 17
       snyk-organization: ${{ vars.SNYK_ORG_ID }}
       snyk-reference: ${{ github.ref_name }}
       snyk-arguments: "--maven-aggregate-project"
