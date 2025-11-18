@@ -1,5 +1,7 @@
 package de.bund.bva.isyfact.logging.exceptions;
 
+import java.io.Serial;
+
 import de.bund.bva.isyfact.exception.TechnicalRuntimeException;
 
 /**
@@ -10,6 +12,7 @@ import de.bund.bva.isyfact.exception.TechnicalRuntimeException;
 public class FehlerhafterLogeintrag extends LoggingTechnicalRuntimeException {
 
     /** Eindeutige UID. */
+    @Serial
     private static final long serialVersionUID = 1L;
 
     /**

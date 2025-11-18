@@ -1,5 +1,6 @@
 package de.bund.bva.isyfact.batchrahmen.persistence.rahmen;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 /**
@@ -9,8 +10,9 @@ import java.io.Serializable;
  * 
  */
 public class BatchKonfigurationsParameter implements Serializable {
-    
+
     /** Die Versions-ID.  */
+    @Serial
     private static final long serialVersionUID = -8564991741012915474L;
 
 

@@ -1,5 +1,6 @@
 package de.bund.bva.isyfact.batchrahmen.batch.protokoll;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 /**
@@ -11,6 +12,7 @@ public class VerarbeitungsMeldung implements Serializable {
     /**
      * Die UID.
      */
+    @Serial
     private static final long serialVersionUID = -8443300338938265834L;
 
     /**

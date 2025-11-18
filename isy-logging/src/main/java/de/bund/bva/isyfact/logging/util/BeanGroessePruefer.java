@@ -111,7 +111,7 @@ public class BeanGroessePruefer {
                                     stack.push(attributWert);
                                 }
                             }
-                        } catch (IllegalAccessException e) {
+                        } catch (IllegalAccessException _) {
                             // Wenn Reflection nicht funktioniert, ist die Größenmessung deaktiviert.
                         }
                     }
@@ -146,7 +146,7 @@ public class BeanGroessePruefer {
         // So gibt es nur eine Anfrage an den SecurityManager
         try {
             AccessibleObject.setAccessible(fields.toArray(new AccessibleObject[fields.size()]), true);
-        } catch (SecurityException e) {
+        } catch (SecurityException _) {
             // Wenn es die Sicherheit nicht erlaubt, ist die Messung deaktiviert.
             return Collections.emptyList();
         }

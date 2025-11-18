@@ -101,10 +101,10 @@ public class TestBatchLauncher {
                     while (!Thread.currentThread().isInterrupted()) {
                         String input = processIn.readLine();
                         if (input != null) {
-                            System.out.println(input);
+                            IO.println(input);
                         }
                     }
-                } catch (IOException ex) {
+                } catch (IOException _) {
                     // Thread terminated.
                 }
             });
@@ -113,7 +113,7 @@ public class TestBatchLauncher {
                 int returnCode = batchProcess.waitFor();
                 LOG.info(LogKategorie.JOURNAL, BatchRahmenEreignisSchluessel.EPLBAT00001, "Batch beendet...");
                 return returnCode;
-            } catch (InterruptedException ex) {
+            } catch (InterruptedException _) {
                 Thread.currentThread().interrupt();
                 return -1;
             }
@@ -159,14 +159,11 @@ public class TestBatchLauncher {
      * @return Command line parameters for the start type.
      */
     private String getStartTypParam(BatchStartTyp startTyp) {
-        switch (startTyp) {
-        case RESTART:
-            return "-restart";
-        case START:
-            return "-start";
-        default:
-            return null;
-        }
+        return switch (startTyp) {
+        case RESTART -> "-restart";
+        case START -> "-start";
+        default -> null;
+        };
     }
 
     /**

@@ -1,5 +1,7 @@
 package de.bund.bva.isyfact.batchrahmen.core.exception;
 
+import java.io.Serial;
+
 import de.bund.bva.isyfact.batchrahmen.batch.rahmen.BatchReturnCode;
 import de.bund.bva.isyfact.batchrahmen.core.rahmen.impl.NachrichtenProvider;
 
@@ -12,11 +14,12 @@ public abstract class BatchrahmenException extends RuntimeException {
     /**
      * AusnahmeId, wird für Ergebnisprotokoll verwendet.
      */
-    private String ausnahmeId;    
-    
+    private String ausnahmeId;
+
     /**
      * UID der Exception.
      */
+    @Serial
     private static final long serialVersionUID = 1L;
     
     /**

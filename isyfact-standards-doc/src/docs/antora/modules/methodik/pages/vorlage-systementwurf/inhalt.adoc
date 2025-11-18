@@ -571,7 +571,7 @@ _Die Laufzeitumgebung für das IT-System [yellow]#<SYSTEM># besteht gemäß Prod
 |===
 |Kategorie |Name |Version |Bemerkung
 |Betriebssystem|Linux 64 bit |Kernel >= 4.12|
-|Java-Laufzeitumgebung | https://adoptium.net/de/temurin/releases[OpenJDK (Eclipse Temurin von Adoptium)]|17.x|
+|Java-Laufzeitumgebung | https://adoptium.net/de/temurin/releases[OpenJDK (Eclipse Temurin von Adoptium)]|25.x|
 |Servlet-Container |Apache Tomcat |[yellow]#16.0.18# |
 |===
 

@@ -13,5 +13,5 @@ public enum BatchStartTyp {
     /** Start-Modus "Start". */
     START,
     /** Start-Modus "Restart". */
-    RESTART;
+    RESTART
 }

@@ -121,7 +121,7 @@ public class BatchKonfiguration {
         String propValue = this.properties.getProperty(name);
         try {
             return Long.parseLong(propValue);
-        } catch (NumberFormatException ex) {
+        } catch (NumberFormatException _) {
             throw new BatchrahmenKonfigurationException(NachrichtenSchluessel.ERR_KONF_PARAMETER_UNGUELTIG,
                     propValue, name);
         }
