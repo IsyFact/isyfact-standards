@@ -20,6 +20,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           lfs: ${{ inputs.checkout-lfs }}
+          fetch-depth: 0
 
       - name: Run semgrep scan on changed files
         run: |
@@ -27,7 +28,7 @@ jobs:
           TARGET_BRANCH="origin/${{ github.base_ref }}"
 
           semgrep scan \
-              -- error \
+              --error \
               --json --json-output semgrep-report.json \
               --metrics=off \
               --config="p/default" \
