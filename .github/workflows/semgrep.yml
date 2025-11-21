@@ -3,10 +3,7 @@ name: Semgrep Scan
 on:
   pull_request:
     branches:
-      - feature/IFS-4896_ci_semgrep
-  push:
-    branches:
-      - feature/IFS-4896_ci_semgrep
+      - master
   workflow_dispatch: { }
 
 jobs:
@@ -24,14 +21,20 @@ jobs:
         with:
           lfs: ${{ inputs.checkout-lfs }}
 
-      - name: semgrep scan
-        run: semgrep ci \
-            --json --json-output semgrep-report.json \
-            --metrics=off \
-            --config="p/default"
+      - name: Run semgrep scan on changed files
+        run: |
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          TARGET_BRANCH="origin/${{ github.base_ref }}"
 
-#      - name: save report as pipeline artifact
-#        uses: actions/upload-artifact@v4
-#        with:
-#          name: semgrep-report.json
-#          path: semgrep-report.json
+          semgrep scan \
+              -- error \
+              --json --json-output semgrep-report.json \
+              --metrics=off \
+              --config="p/default" \
+              $(git diff --name-only $(git merge-base $TARGET_BRANCH HEAD))
+
+      - name: Upload report as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: semgrep-report.json
+          path: semgrep-report.json
