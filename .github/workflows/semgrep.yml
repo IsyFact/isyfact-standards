@@ -25,14 +25,23 @@ jobs:
       - name: Run semgrep scan on changed files
         run: |
           git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          
           TARGET_BRANCH="origin/${{ github.base_ref }}"
-
-          semgrep scan \
-              --error \
-              --json --json-output semgrep-report.json \
-              --metrics=off \
-              --config="p/default" \
-              $(git diff --name-only $(git merge-base $TARGET_BRANCH HEAD))
+          MERGE_BASE=$(git merge-base "$TARGET_BRANCH" HEAD)
+          
+          # Geänderte Dateien ermitteln
+          CHANGED_FILES=$(git diff --name-only "$MERGE_BASE")
+          
+          if [ -n "$CHANGED_FILES" ]; then
+            semgrep scan \
+            --error \
+            --json --json-output semgrep-report.json \
+            --metrics=off \
+            --config="p/default" \
+            $CHANGED_FILES
+          else
+            echo "Keine geänderten Dateien gefunden."
+          fi
 
       - name: Upload report as artifact
         uses: actions/upload-artifact@v4
