@@ -2,5 +2,6 @@
 ** xref:openapi-tooling.adoc[]
 ** xref:documentation-guide::index.adoc[]
 ** xref:formatter.adoc[]
+** xref:semgrep.adoc[]
 ** xref:versionierungskontrolle/master.adoc[]
 ** xref:gui-tests/gui-tests-mit-selenium.adoc[]
