@@ -84,13 +84,11 @@ public abstract class TechnicalRuntimeException extends RuntimeException {
      *            Die übergebene Exception.
      */
     private void setUniqueId(Throwable throwable) {
-        if (throwable instanceof BaseException exception1) {
-            this.uniqueId = exception1.getUniqueId();
-        } else if (throwable instanceof TechnicalRuntimeException exception) {
-            this.uniqueId = exception.getUniqueId();
-        } else {
-            this.uniqueId = UUID.randomUUID().toString();
-        }
+        this.uniqueId = switch (throwable) {
+            case BaseException baseException -> baseException.getUniqueId();
+            case TechnicalRuntimeException technicalRuntimeException -> technicalRuntimeException.getUniqueId();
+            default -> UUID.randomUUID().toString();
+        };
     }
 
     /**
