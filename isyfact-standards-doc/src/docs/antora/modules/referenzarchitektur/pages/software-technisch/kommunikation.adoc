@@ -166,9 +166,9 @@ Das Muster ist gut für Interaktionen zwischen Backends und Frontends geeignet, 
 [[request-response-staerken]]
 ==== Stärken
 
-Das Request-Response-Muster erfüllt bei sinngemäßem Einsatz auch hohe Anforderungen in den Bereichen _Zuverlässigkeit_ und _Wartbarkeit_.
+Das Request-Response-Muster erfüllt bei stabilen Netzwerken und kurzen Verarbeitungszeiten auch hohe Anforderungen zur  _Zuverlässigkeit_.
 Fehler lassen sich direkt anhand der Antwort erkennen und behandeln.
-Die Kommunikation zwischen zwei IT-Systemen ist klar definiert und leicht nachvollziehbar.
+Die Kommunikation zwischen zwei IT-Systemen ist klar definiert und leicht nachvollziehbar, was sich positiv auf die _Wartbarkeit_ auswirkt.
 Anforderungen an die _Sicherheit_ lassen sich leicht und gezielt durch Mechanismen wie Authentifizierung und Autorisierung erfüllen.
 
 [[request-response-herausforderungen-synchron]]
@@ -182,7 +182,7 @@ Sie müssen jede Anfrage sofort bearbeiten, was Ressourcen bindet.
 Hohe Qualitätsanforderungen im Bereich der _Effizienz_ können unter diesen Umständen schwer zu erfüllen sein.
 
 Im synchronen Fall berücksichtigt die Fehlerbehandlung fachliche und technische Fehler beim Empfänger, aber in der Regel keine Ausfälle der Netzwerke oder Infrastruktur.
-Solche Fehler, besonders im Fall von kaskadierenden Aufrufen, benötigen eine robuste Fehlerbehandlung und Strategien zur Einhaltung transaktionaler Integrität.
+Solche Fehler, besonders im Fall von kaskadierenden Aufrufen, benötigen eine robuste Fehlerbehandlung.
 Hohe Qualitätsanforderungen im Bereich der _Zuverlässigkeit_ können unter diesen Umständen schwer zu erfüllen sein.
 
 [[request-response-herausforderungen-asynchron]]
@@ -261,6 +261,8 @@ Dies wirkt sich positiv auf die _Wartbarkeit_ der Sender und Empfänger aus.
 ==== Herausforderungen
 
 Message-Broker sind zentrale Infrastrukturkomponenten.
+Um ihre Stärken konsequent zu nutzen, müssen sie korrekt konfiguriert und betrieben werden.
+
 Ein Ausfall oder temporäre Störungen des Message-Brokers wirken sich direkt nachteilig auf die _Zuverlässigkeit_ der Kommunikation von weiten Teilen der Systemlandschaft aus.
 Zur Minderung dieser Risiken sollte der Message-Broker redundant betrieben werden.
 Außerdem sollten Maßnahmen gegen eine Überlastung des Brokers getroffen werden.
