@@ -57,8 +57,7 @@ class IsyHealthContributorRegistryCache {
 
         CacheNode cacheNode = parentNode.makeChild(name);
 
-        if (contributor instanceof CompositeHealthContributor) {
-            CompositeHealthContributor composite = (CompositeHealthContributor) contributor;
+        if (contributor instanceof CompositeHealthContributor composite) {
             for (NamedContributor<HealthContributor> healthContributorNamedContributor : composite) {
                 update(healthContributorNamedContributor, cacheNode);
             }
@@ -100,8 +99,8 @@ class IsyHealthContributorRegistryCache {
     }
 
     private static HealthContributor adapt(HealthContributor healthContributor, CacheNode cacheNode) {
-        if (healthContributor instanceof CompositeHealthContributor) {
-            return adapt((CompositeHealthContributor) healthContributor, cacheNode);
+        if (healthContributor instanceof CompositeHealthContributor contributor) {
+            return adapt(contributor, cacheNode);
         }
         return adapt(cacheNode);
     }

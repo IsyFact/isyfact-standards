@@ -57,7 +57,7 @@ public class BeanToMapConverter implements BeanConverter {
         /** Auf der Property wird die "toString-Methode" aufgerufen. */
         TOSTRING,
         /** Die Property wird ignoriert. */
-        IGNORE;
+        IGNORE
     }
 
     /**
@@ -204,10 +204,10 @@ public class BeanToMapConverter implements BeanConverter {
             value = valueList;
         }
 
-        if (value instanceof Iterable<?>) {
-            return processIterableValue((Iterable<?>) value, seen);
-        } else if (value instanceof Map<?, ?>) {
-            return processMapValue((Map<?, ?>) value, seen);
+        if (value instanceof Iterable<?> iterable) {
+            return processIterableValue(iterable, seen);
+        } else if (value instanceof Map<?, ?> map) {
+            return processMapValue(map, seen);
         } else {
             return processSimpleValue(value, seen);
         }

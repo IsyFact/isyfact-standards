@@ -101,7 +101,7 @@ public class BeanToMapConverterTest {
         @SuppressWarnings("unchecked")
         List<Object> eineListeValues = (List<Object>) valueList.get(currentPos);
         assertEquals(2, eineListeValues.size());
-        assertEquals(BeanToMapConverter.EXCLUDED_VALUE, eineListeValues.get(0));
+        assertEquals(BeanToMapConverter.EXCLUDED_VALUE, eineListeValues.getFirst());
         assertEquals(BeanToMapConverter.EXCLUDED_VALUE, eineListeValues.get(1));
 
         // Property
@@ -224,7 +224,7 @@ public class BeanToMapConverterTest {
         assertEquals("einEnumArray", keyList.get(currentPos));
         @SuppressWarnings("unchecked")
         ArrayList<String> einEnumArray = (ArrayList<String>) valueList.get(currentPos);
-        assertEquals(einEnumArray.get(0), LogErrorKategorie.ERROR.toString());
+        assertEquals(einEnumArray.getFirst(), LogErrorKategorie.ERROR.toString());
         assertEquals(einEnumArray.get(1), LogErrorKategorie.FATAL.toString());
         assertEquals(einEnumArray.get(2), LogErrorKategorie.ERROR.toString());
         currentPos++;
@@ -244,7 +244,7 @@ public class BeanToMapConverterTest {
             assertEquals(3, einObjectArray.size());
         }
         // Objects from java.lang will be taken by toString
-        assertEquals(bean.getJavaLang().toString(), einObjectArray.get(0));
+        assertEquals(bean.getJavaLang().toString(), einObjectArray.getFirst());
         // NULL is converted in a Null-String
         assertEquals(BeanToMapConverter.NULL_STRING, einObjectArray.get(1));
         // simple string
@@ -267,7 +267,7 @@ public class BeanToMapConverterTest {
         assertEquals("einStringArray", keyList.get(currentPos));
         @SuppressWarnings("unchecked")
         ArrayList<String> einStringArray = (ArrayList<String>) valueList.get(currentPos);
-        assertEquals("A", einStringArray.get(0));
+        assertEquals("A", einStringArray.getFirst());
         assertEquals("B", einStringArray.get(1));
         assertEquals(BeanToMapConverter.NULL_STRING, einStringArray.get(2));
         assertEquals("C", einStringArray.get(3));
@@ -282,7 +282,7 @@ public class BeanToMapConverterTest {
         assertEquals("eineEnumListe", keyList.get(currentPos));
         @SuppressWarnings("unchecked")
         ArrayList<String> eineEnumListe = (ArrayList<String>) valueList.get(currentPos);
-        assertEquals(eineEnumListe.get(0), LogErrorKategorie.ERROR.toString());
+        assertEquals(eineEnumListe.getFirst(), LogErrorKategorie.ERROR.toString());
         assertEquals(eineEnumListe.get(1), LogErrorKategorie.FATAL.toString());
         assertEquals(eineEnumListe.get(2), LogErrorKategorie.ERROR.toString());
         currentPos++;
@@ -296,7 +296,7 @@ public class BeanToMapConverterTest {
         } else {
             assertEquals(3, eineObjectListe.size());
         }
-        assertEquals(bean.getJavaLang().toString(), eineObjectListe.get(0));
+        assertEquals(bean.getJavaLang().toString(), eineObjectListe.getFirst());
         assertEquals(BeanToMapConverter.NULL_STRING, eineObjectListe.get(1));
         assertEquals(bean.getEinString(), eineObjectListe.get(2));
         if (rekursiv) {
@@ -309,7 +309,7 @@ public class BeanToMapConverterTest {
         assertEquals("eineStringListe", keyList.get(currentPos));
         @SuppressWarnings("unchecked")
         ArrayList<String> einStringListe = (ArrayList<String>) valueList.get(currentPos);
-        assertEquals("A", einStringListe.get(0));
+        assertEquals("A", einStringListe.getFirst());
         assertEquals("B", einStringListe.get(1));
         assertEquals(BeanToMapConverter.NULL_STRING, einStringListe.get(2));
         assertEquals("C", einStringListe.get(3));

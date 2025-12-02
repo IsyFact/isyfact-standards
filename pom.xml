@@ -50,11 +50,11 @@
         <revision>0.0.0-SNAPSHOT</revision>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.build.propertiesEncoding>ISO-8859-1</project.build.propertiesEncoding>
-        <maven.compiler.release>17</maven.compiler.release>
+        <maven.compiler.release>25</maven.compiler.release>
         <maven.build.timestamp.format>dd.MM.yyyy</maven.build.timestamp.format>
 
         <!-- maven-enforcer-plugin configuration -->
-        <enforced.jdk.version>[17,18)</enforced.jdk.version>
+        <enforced.jdk.version>[25,26)</enforced.jdk.version>
         <enforced.maven.version>[3.6.3,4)</enforced.maven.version>
 
         <!-- Property is set by jacoco and user by surefire -->
@@ -64,11 +64,11 @@
         <maven.surefire.argline>
             -Xmx1g -Dfile.encoding=${project.build.sourceEncoding} @{maven.jacoco.argLine}
         </maven.surefire.argline>
-        <maven-surefire.version>3.2.5</maven-surefire.version>
+        <maven-surefire.version>3.3.1</maven-surefire.version>
 
         <!-- Plugin versions used in several places -->
         <maven.enforcer.plugin.version>3.5.0</maven.enforcer.plugin.version>
-        <maven.javadoc.plugin.version>3.3.2</maven.javadoc.plugin.version>
+        <maven.javadoc.plugin.version>3.8.0</maven.javadoc.plugin.version>
         <flatten-maven-plugin.version>1.7.1</flatten-maven-plugin.version>
         <maven.checkstyle.version>3.6.0</maven.checkstyle.version>
 
@@ -204,7 +204,7 @@
                 <plugin>
                     <groupId>org.jacoco</groupId>
                     <artifactId>jacoco-maven-plugin</artifactId>
-                    <version>0.8.12</version>
+                    <version>0.8.14</version>
                     <executions>
                         <execution>
                             <goals>
@@ -239,7 +239,7 @@
                 <plugin>
                     <groupId>com.github.spotbugs</groupId>
                     <artifactId>spotbugs-maven-plugin</artifactId>
-                    <version>4.8.6.4</version>
+                    <version>4.9.8.1</version>
                     <configuration>
                         <effort>Max</effort>
                         <threshold>high</threshold>
@@ -309,7 +309,7 @@
                 <plugin>
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
-                    <version>2.7.18</version>
+                    <version>3.3.1</version>
                     <executions>
                         <execution>
                             <id>build-info</id>
@@ -363,7 +363,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.9.0</version>
+                <version>3.14.1</version>
                 <configuration>
                     <!-- requires that maven.compiler.release is set -->
                     <encoding>${project.build.sourceEncoding}</encoding>
@@ -421,7 +421,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>3.3.2</version>
+                <version>3.4.0</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -441,7 +441,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-clean-plugin</artifactId>
-                <version>3.3.2</version>
+                <version>3.4.0</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -456,7 +456,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-site-plugin</artifactId>
-                <version>3.10.0</version>
+                <version>3.12.1</version>
             </plugin>
             <!-- Quality Gates 1 -->
             <!-- Check if all POMs are formatted according to the Maven-Team-Standard. -->
@@ -505,7 +505,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-project-info-reports-plugin</artifactId>
-                <version>3.5.0</version>
+                <version>3.6.2</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -531,7 +531,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-pmd-plugin</artifactId>
-                <version>3.22.0</version>
+                <version>3.24.0</version>
                 <configuration>
                     <sourceEncoding>${project.build.sourceEncoding}</sourceEncoding>
                     <targetJdk>${java.release.version}</targetJdk>
@@ -760,7 +760,7 @@
         <profile>
             <id>JDK-17-Workaround</id>
             <activation>
-                <jdk>[17,18)</jdk>
+                <jdk>[17,26)</jdk>
             </activation>
             <properties>
                 <maven.surefire.argline>

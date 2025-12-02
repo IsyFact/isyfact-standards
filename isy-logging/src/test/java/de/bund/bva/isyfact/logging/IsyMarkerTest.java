@@ -93,7 +93,7 @@ public class IsyMarkerTest {
         assertFalse(marker1.equals(marker4), "Marker sind fälschlicherweise gleich.");
         assertFalse(marker1.equals(marker5), "Marker sind fälschlicherweise gleich.");
         assertFalse(marker1.equals(null), "Marker sind fälschlicherweise gleich.");
-        assertFalse(marker5.equals(new Integer(1)), "Marker sind fälschlicherweise gleich.");
+        assertFalse(marker5.equals(Integer.valueOf(1)), "Marker sind fälschlicherweise gleich.");
 
         // Test Compare-Method by reflection because the situation 'null' is first parameter
         // cannot happen yet.

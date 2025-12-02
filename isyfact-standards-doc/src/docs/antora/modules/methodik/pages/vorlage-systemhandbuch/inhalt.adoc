@@ -219,7 +219,7 @@ Die Laufzeitumgebung für das {anwendung} besteht aus den Produkten, die in folg
 
 |Java Virtual Machine
 |https://adoptium.net/de/temurin/releases[OpenJDK (Eclipse Temurin von Adoptium)]
-| 17.x
+| 25.x
 |
 
 |Servlet-Container
@@ -339,7 +339,7 @@ Weitere Abhängigkeiten werden durch die erforderlichen Build-Werkzeuge selbstst
 | ...
 
 |Java Development Kit https://adoptium.net/de/temurin/releases[OpenJDK (Eclipse Temurin von Adoptium)]
-| 17.x
+| 25.x
 
 |(node.js)
 | ...

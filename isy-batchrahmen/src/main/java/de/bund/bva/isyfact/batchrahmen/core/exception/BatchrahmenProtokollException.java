@@ -2,6 +2,8 @@
 
 package de.bund.bva.isyfact.batchrahmen.core.exception;
 
+import java.io.Serial;
+
 import de.bund.bva.isyfact.batchrahmen.batch.rahmen.BatchReturnCode;
 
 /**
@@ -9,8 +11,9 @@ import de.bund.bva.isyfact.batchrahmen.batch.rahmen.BatchReturnCode;
  *
  */
 public class BatchrahmenProtokollException extends BatchrahmenException {
-    
+
     /** Versions-ID. */
+    @Serial
     private static final long serialVersionUID = -8998498430670506383L;
 
     /**

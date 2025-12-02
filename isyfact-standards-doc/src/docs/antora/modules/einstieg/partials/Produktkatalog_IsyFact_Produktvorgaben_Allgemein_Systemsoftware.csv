@@ -1,6 +1,6 @@
 ﻿Kategorie / Anwendungsbereich;Hersteller / Produkt;Version;Seit Release;Status;Lizenz;Erläuterung
 Betriebssystem für die Application-Server;Linux 64bit mit Kernel ;Kernel >= 4.12, 64bit;1.5.0;verbindlich;;
-Java Runtime Environment (JRE);https://adoptium.net/de/temurin/releases[OpenJDK (Eclipse Temurin von Adoptium)]; 17.x; 3.0.0;verbindlich; Apache License, Version 2.0,Eclipse Distribution License 1.0 (BSD), GPL v2 with Classpath Exception (GPLv2+CE) GPL v2 with Assembly Exception (GPLv2+Assembly), Eclipse Public License 2.0; Installations-anweisungen: https://adoptium.net/de/installation/linux/
+Java Runtime Environment (JRE);https://adoptium.net/de/temurin/releases[OpenJDK (Eclipse Temurin von Adoptium)]; 25.x; 5.0.0;verbindlich; Apache License, Version 2.0,Eclipse Distribution License 1.0 (BSD), GPL v2 with Classpath Exception (GPLv2+CE) GPL v2 with Assembly Exception (GPLv2+Assembly), Eclipse Public License 2.0; Installations-anweisungen: https://adoptium.net/de/installation/linux/
 Application-Server;http://tomcat.apache.org[Apache Tomcat];10.x;1.3.5;verbindlich;Apache Software License;Embedded Tomcat soll benutzt werden
 Java Service Wrapper;https://wrapper.tanukisoftware.com[Tanuki Software];3.3.x;1.3.0;verbindlich;GPL v2;Community Edition 3.3.2
 Web-Server;http://httpd.apache.org[Apache];2.4.x;1.5.0;verbindlich;Apache Software License;
