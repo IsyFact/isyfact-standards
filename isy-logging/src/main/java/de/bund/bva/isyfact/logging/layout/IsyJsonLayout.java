@@ -108,7 +108,7 @@ public class IsyJsonLayout extends JsonLayout {
 
         try {
             return formatter.toJsonString(map);
-        } catch (Exception e) {
+        } catch (Exception _) {
             Map<String, Object> stringMap = new LinkedHashMap<>();
             for (Map.Entry<String, Object> entry : map.entrySet()) {
                 if (MDC_ATTR_NAME.equals(entry.getKey())) {
@@ -211,8 +211,7 @@ public class IsyJsonLayout extends JsonLayout {
             return;
         }
 
-        if (marker instanceof IsyMarker) {
-            IsyMarker isyMarker = (IsyMarker) marker;
+        if (marker instanceof IsyMarker isyMarker) {
             // Values of root markers are not included
             if (!isyMarker.isRootMarker()) {
                 // Markers with "NULL values" are also included.

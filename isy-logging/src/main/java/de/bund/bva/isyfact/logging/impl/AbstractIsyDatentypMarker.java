@@ -1,5 +1,7 @@
 package de.bund.bva.isyfact.logging.impl;
 
+import java.io.Serial;
+
 import de.bund.bva.isyfact.logging.IsyDatentypMarker;
 
 /**
@@ -7,6 +9,7 @@ import de.bund.bva.isyfact.logging.IsyDatentypMarker;
  * MarkerSchluessel#DATENTYP} festlegt.
  */
 public abstract class AbstractIsyDatentypMarker extends IsyMarkerImpl implements IsyDatentypMarker {
+    @Serial
     private static final long serialVersionUID = 1L;
 
     /**

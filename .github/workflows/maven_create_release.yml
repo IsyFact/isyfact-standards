@@ -12,4 +12,4 @@ permissions:
 
 jobs:
   CreateRelease:
-    uses:  IsyFact/isy-github-actions-templates/.github/workflows/maven_create_release_template.yml@v1.7.0
+    uses:  IsyFact/isy-github-actions-templates/.github/workflows/maven_create_release_template.yml@v2.0.0

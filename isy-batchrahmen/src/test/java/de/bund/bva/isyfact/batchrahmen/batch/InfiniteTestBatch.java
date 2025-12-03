@@ -54,7 +54,7 @@ public class InfiniteTestBatch implements BatchAusfuehrungsBean {
                     "Verarbeite Satz."));
             Thread.sleep(1000);
             return new VerarbeitungsErgebnis(null, false);
-        } catch (InterruptedException e) {
+        } catch (InterruptedException _) {
             return new VerarbeitungsErgebnis(null, true);
         }
     }
