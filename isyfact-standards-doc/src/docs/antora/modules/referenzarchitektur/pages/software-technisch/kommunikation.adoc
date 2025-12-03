@@ -1,4 +1,4 @@
-= Services
+= Kommunikation
 
 In einer Systemlandschaft ist Kommunikation ein Element, das die technische Architektur prägt.
 Die Art und Weise, wie IT-Systeme miteinander kommunizieren, bestimmt maßgeblich ihre _Effizienz_, _Wartbarkeit_ und _Zuverlässigkeit_.
@@ -45,7 +45,7 @@ Die Verwendung von externen Standards bleibt davon unberührt.
 So überträgt der Standard OAuth 2 beispielsweise Informationen zur Autorisierung einer Anfrage BASE64-kodiert.
 ====
 
-Die Übertragung von Metadaten geschieht in der Regel über Schlüssel-Wert-Paare (_key-value pairs_), z.B. in HTTP-Headern oder JMS-Properties.
+Die Übertragung von Metadaten geschieht in der Regel über Schlüssel-Wert-Paare (englisch: _key-value pairs_), z.B. in HTTP-Headern oder JMS-Properties.
 
 .icon:university[title=Architekturregel] Benennung von Metadaten
 ****
@@ -142,7 +142,7 @@ Die zusätzlichen Infrastrukturkomponenten müssen in die Umsetzung querschnittl
 [[kommunikationsmuster]]
 == Kommunikationsmuster
 
-include::documentation-guide::partial$content-revised.adoc[]
+Die Referenzarchitektur sieht die folgenden Kommunikationsmuster zur Kommunikation zwischen IT-Systemen vor: <<request-reponse>>, <<message-queue>> sowie <<publish-subscribe>> mit der Unterform <<event-streaming>>.
 
 [[request-reponse]]
 === Request-Response
@@ -150,17 +150,65 @@ include::documentation-guide::partial$content-revised.adoc[]
 Das Request-Response-Muster bietet die Möglichkeit der direkten Kommunikation zwischen zwei IT-Systemen.
 Hierbei schickt der Sender eine Anfrage (englisch: _request_) an den Empfänger.
 Der Empfänger bearbeitet die Anfrage und schickt eine Antwort (englisch: _response_) an den Sender zurück.
-Je nachdem, ob Sender oder Empfänger synchron oder asynchron miteinander kommunizieren, wartet der Sender auf die Antwort, bevor er seine Verarbeitung fortsetzt, oder nimmt die Verarbeitung erst durch die Antwort des Empfängers wieder auf, z.B. in Form eines Callbacks.
 
-[[service-aufruf-synchron]]
-.Ablauf des Request-Response-Musters (links: synchron, rechts: asynchron)
-image::software-technisch/request-response.dn.svg[]
+[[request-response-pattern]]
+.Kommunikationsmuster Request-Response
+image::software-technisch/kommunikation/request-response.dn.svg[]
 
+Je nachdem, ob Sender oder Empfänger synchron oder asynchron miteinander kommunizieren, wartet der Sender auf die Antwort, bevor er seine Verarbeitung fortsetzt, oder nimmt die Verarbeitung frühestens durch die Antwort des Empfängers wieder auf.
 Ob zwei IT-Systeme synchron oder asynchron über Request-Response miteinander kommunizieren, muss anhand der zu erfüllenden Qualitätskriterien abgewogen werden.
-Das Request-Response-Muster ermöglicht so asynchrone Kommunikation, wo trotzdem direkte Antworten benötigt werden.
 Die Abwägung muss während der Erstellung des Systementwurfs geschehen.
 
-==== Protokoll für Request-Response
+Das Request-Response-Muster ist gut verstanden und wird von einer Vielzahl an Technologien, Frameworks und Werkzeugen unterstützt.
+Es ist aufgrund seiner einfachen Struktur verständlich und vergleichsweise leicht umsetzbar.
+Das Muster ist gut für Interaktionen zwischen Backends und Frontends geeignet, bei denen eine direkte Antwort mit klar definiertem Zeitverhalten erwartet wird, oder es in kurzer Zeit eine Vielzahl von kleineren, klar definierten Interaktionen gibt.
+
+[[request-response-staerken]]
+==== Stärken
+
+Das Request-Response-Muster erfüllt bei stabilen Netzwerken und kurzen Verarbeitungszeiten auch hohe Anforderungen zur  _Zuverlässigkeit_.
+Fehler lassen sich direkt anhand der Antwort erkennen und behandeln.
+Die Kommunikation zwischen zwei IT-Systemen ist klar definiert und leicht nachvollziehbar, was sich positiv auf die _Wartbarkeit_ auswirkt.
+Anforderungen an die _Sicherheit_ lassen sich leicht und gezielt durch Mechanismen wie Authentifizierung und Autorisierung erfüllen.
+
+[[request-response-herausforderungen-synchron]]
+==== Herausforderungen (synchron)
+
+Da im synchronen Fall der Sender blockiert, bis die Antwort vom Empfänger kommt, kann dies zu Skalierungsproblemen führen.
+Die Latenz und der Durchsatz sind in diesem Fall begrenzt, oder der Sender läuft in einen Timeout.
+Diese Effekte verstärken sich, wenn der Empfänger viel Zeit für die Verarbeitung der Anfrage benötigt, oder dazu weitere, kaskadierende Aufrufe tätigt.
+Empfänger wiederum skalieren auch nur begrenzt, insbesondere bei vielen gleichzeitigen Anfragen.
+Sie müssen jede Anfrage sofort bearbeiten, was Ressourcen bindet.
+Hohe Qualitätsanforderungen im Bereich der _Effizienz_ können unter diesen Umständen schwer zu erfüllen sein.
+
+Im synchronen Fall berücksichtigt die Fehlerbehandlung fachliche und technische Fehler beim Empfänger, aber in der Regel keine Ausfälle der Netzwerke oder Infrastruktur.
+Solche Fehler, besonders im Fall von kaskadierenden Aufrufen, benötigen eine robuste Fehlerbehandlung.
+Hohe Qualitätsanforderungen im Bereich der _Zuverlässigkeit_ können unter diesen Umständen schwer zu erfüllen sein.
+
+[[request-response-herausforderungen-asynchron]]
+==== Herausforderungen (asynchron)
+
+Den Herausforderungen im synchronen Fall können IT-Systeme dadurch begegnen, indem sie das Request-Response-Muster asynchron anwenden.
+Hierbei ergeben sich, im Wesentlichen aus der Entkopplung von Anfrage und Antwort, andere Herausforderungen.
+Während bei den anderen Kommunikationsmustern Infrastrukturkomponenten diese Herausforderungen auffangen, fallen sie beim Request-Response-Muster Sender und Empfänger zu.
+
+Durch die Asynchronität erfolgen die Antworten nicht direkt, sondern zeitverzögert, und nicht zwingend in der Reihenfolge der Anfragen.
+Der Sender muss die Antworten aktiv beziehen (oder einen Callback anbieten), richtig zuordnen und Nebenläufigkeiten sowie Antworten in beliebiger Reihenfolge verarbeiten können.
+Dies kann Auswirkungen auf die _funktionelle Eignung_ haben.
+
+Für eine Erfüllung hoher Qualitätsanforderungen im Bereich der _Zuverlässigkeit_ sollte die asynchrone Verarbeitung durch eine robuste Fehlerbehandlung unterstützt werden.
+Hier stehen eine Vielzahl von Resilienz-Mustern zur Verfügung.
+
+[NOTE]
+====
+Eine gute Einführung zu Resilienz mit Verweisen auf weitere Quellen findet sich unter: https://jugsaxony.org/downloads/day/slides/JSD2022_Muster-fuer-resilientere-Anwendungen_Uwe-Friedrichsen.pdf[10 patterns for more resilient applications: a gentle start into resilient software design icon:file-pdf-o[]]
+
+====
+
+[[request-response-vorgaben]]
+==== Vorgaben
+
+Das Request-Response-Muster wird in der IsyFact auf Basis von xref:software-technisch/services/rest.adoc[REST] umgesetzt.
 
 .icon:university[title=Architekturregel] Verwendung von HTTP für Request-Response
 ****
@@ -179,22 +227,62 @@ Allerdings gilt zu beachten, dass URLs (und damit auch die URL-Parameter) an vie
 Hierbei sind z.B. datenschutzrechtliche Aspekte zu prüfen, wenn URL-Parameter personenbezogene Daten enthalten.
 Im Zweifelsfall ist die Methode `POST` die empfohlene Alternative, um solche Nutzdaten im Body zu übertragen.
 
-[[queueing]]
-=== Queueing
+[[message-queue]]
+=== Message-Queue
 
-Beim Queueing baut ein Message-Broker eine Punkt-zu-Punkt-Verbindung zwischen zwei IT-Systemen auf.
-Dies geschieht in Form einer Queue.
-Ein IT-System tritt fest als Sender auf, eines als Empfänger.
-Der Sender ist nun in der Lage, dem Empfänger über die Queue Nachrichten zu schicken.
-Die Nachrichten sind anhand eines zentral definierten Formats strukturiert.
-Der Sender enthält keine direkte Antwort vom Empfänger.
+Das Kommunikationsmuster Message-Queue ist ein asynchrones, entkoppeltes Kommunikationsmodell.
+Es basiert auf dem Prinzip, dass ein Sender eine Nachricht in eine Warteschlange (englisch: _queue_) stellt, die vom Empfänger zu einem späteren Zeitpunkt verarbeitet wird.
+Dies entkoppelt Sender und Empfänger voneinander.
 
-[[service-aufruf-queueing]]
-.Ablauf der Kommunikation beim Queueing
-image::software-technisch/queueing.dn.svg[]
+[[message-queue-pattern]]
+.Kommunikationsmuster Message-Queue
+image::software-technisch/kommunikation/message-queue.dn.svg[]
 
-Für das Queueing infrage kommende Message-Broker müssen *JMS* (Jakarta Messaging, ehemals _Java Message Service_) unterstützen.
-Queueing wird ausschließlich in der internen Servicekommunikation eingesetzt.
+Das Kommunikationsmuster Message-Queue eignet sich für Interaktionen, die keine direkte Antwort benötigen, keine hohen Anforderungen an das Zeitverhalten stellen und robust gegenüber Fehlern sein müssen.
+Das Message-Queue-Muster benötigt eine Infrastrukturkomponente, den Message-Broker, welche die Kommunikation zwischen Sender und Empfänger ermöglicht.
+Zur Umsetzung der Infrastrukturkomponente gibt viele bewährte Produkte, die auch hohe Anforderungen an die Kommunikation über Message-Queues erfüllen.
+
+[[message-queue-staerken]]
+==== Stärken
+
+Message-Broker nehmen Sender und Empfänger viele Aufgaben ab und erledigen sie zuverlässig an zentraler Stelle.
+Sie speichern Nachrichten persistent und überbrücken so Ausfälle der Empfänger.
+Außerdem übernehmen sie Wiederholungsversuche, kümmern sich um unzustellbare Nachrichten und garantieren die Zustellung der Nachrichten.
+Message-Broker können so die _Zuverlässigkeit_ der Kommunikation der IT-Systeme untereinander maßgeblich positiv beeinflussen.
+
+Sender und Empfänger können durch die lose Kopplung unabhängig voneinander skalieren.
+Sender werden nicht durch langsame Empfänger blockiert, was Engpässe reduziert und den Gesamtdurchsatz des Systems verbessert.
+Message-Broker ermöglichen zudem eine Lastverteilung, indem Instanzen des Empfängers dynamisch hinzugefügt oder entfernt werden.
+Dies hat eine positive Auswirkung auf die _Leistungseffizienz_ der Sender und Empfänger.
+Durch die lose Kopplung sind außerdem Änderungen an Sender oder Empfänger isoliert möglich, solange das Nachrichtenformat stabil bleibt.
+Dies wirkt sich positiv auf die _Wartbarkeit_ der Sender und Empfänger aus.
+
+[[message-queue-herausforderungen]]
+==== Herausforderungen
+
+Message-Broker sind zentrale Infrastrukturkomponenten.
+Um ihre Stärken konsequent zu nutzen, müssen sie korrekt konfiguriert und betrieben werden.
+
+Ein Ausfall oder temporäre Störungen des Message-Brokers wirken sich direkt nachteilig auf die _Zuverlässigkeit_ der Kommunikation von weiten Teilen der Systemlandschaft aus.
+Zur Minderung dieser Risiken sollte der Message-Broker redundant betrieben werden.
+Außerdem sollten Maßnahmen gegen eine Überlastung des Brokers getroffen werden.
+
+Message-Broker sind _sicherheitskritische_ Infrastrukturkomponenten.
+Sie müssen entsprechend abgesichert werden, da sie Nachrichten von vielen Systemen verarbeiten und speichern.
+Nachrichten können potenziell im Message-Broker abgefangen oder manipuliert werden.
+Zur Minderung dieser Risiken sind zusätzliche Sicherheitsmaßnahmen wie Signierung, Verschlüsselung oder Zugriffskontrollen nötig.
+
+Message-Broker sollten nach dem Prinzip _at-least-once_ funktionieren: Die Zustellung der Nachrichten wird garantiert, aber Duplikate sind möglich.
+Schreibende Operationen, die durch Nachrichten ausgelöst werden, sind dementsprechend _idempotent_ zu spezifizieren und umzusetzen.
+
+Die unter <<message-queue-staerken>> beschriebene Lastverteilung benötigt ein entsprechendes Monitoring sowie eine Möglichkeit zur dynamischen Skalierung des Empfängers.
+Sind diese nicht vorhanden, und der Empfänger kann die Nachrichten nicht schnell genug verarbeiten, führt dies zu potenziell unbegrenzt anwachsenden Queues, die in Folge wiederum Speicher- oder Stabilitätsprobleme für den Message-Broker bedeuten.
+
+[[message-queue-vorgaben]]
+==== Vorgaben
+
+Message-Broker müssen *JMS* (Jakarta Messaging, ehemals _Java Message Service_) unterstützen.
+Das Muster Message Queue wird ausschließlich in der Kommunikation innerhalb der Systemlandschaft eingesetzt.
 
 JMS-Nachrichten bestehen aus Header, Properties und einem Body.
 Die Properties unterteilen sich noch einmal in applikationsspezifische Properties, die nur für Publisher und Subscriber Bedeutung haben, sowie provider-spezifische und Standard-Properties, die zur Verarbeitung der JMS-Nachrichten durch den Message-Broker gedacht sind.
@@ -216,6 +304,67 @@ Die Architekturvorgabe sieht die alleinige Nutzung der Ausprägung `TextMessage`
 Weitere Details zu JMS-Nachrichten finden sich in der JMS-Spezifikation im Kapitel https://jakarta.ee/specifications/messaging/3.0/jakarta-messaging-spec-3.0.html#jakarta-messaging-message-model[3. Jakarta Messaging message model].
 Besonders relevant für die Referenzarchitektur sind die Abschnitte https://jakarta.ee/specifications/messaging/3.0/jakarta-messaging-spec-3.0.html#jakarta-messaging-messages[3.3. Jakarta Messaging messages] sowie https://jakarta.ee/specifications/messaging/3.0/jakarta-messaging-spec-3.0.html#jakarta-messaging-message-body[3.11. Jakarta Messaging message body].
 ====
+
+[[publish-subscribe]]
+=== Publish/Subscribe
+
+Das Kommunikationsmuster Publish/Subscribe (Pub/Sub) ist ein asynchrones, ereignisgesteuertes Modell.
+Es ermöglicht die Entkopplung von Sendern (Publishern) und Empfängern (Subscriber), indem Nachrichten durch Publisher an ein zentrales Thema (Topic) veröffentlicht und von mehreren Subscribern abonniert werden können.
+Publisher und Subscriber kennen sich nicht.
+
+[[publish-subscribe-pattern]]
+.Kommunikationsmuster Publish/Subscribe
+image::software-technisch/kommunikation/publish-subscribe.dn.svg[]
+
+Publish/Subscribe eignet sich gut, wenn es um die Verteilung von Ereignissen (englisch: _events_) an mehrere Subscriber geht.
+Ereignisse übermitteln zum Beispiel Benachrichtigungen oder Zustandsänderungen und benötigen keine Antwort des Subscribers.
+
+[[publish-subscribe-staerken]]
+==== Stärken
+
+Publish/Subscribe unterstützt die gleichzeitige Zustellung von Nachrichten an mehrere Subscriber und ermöglicht dadurch effiziente parallele Arbeitsabläufe.
+Dies wirkt sich positiv auf die _Leistungseffizienz_ beider Kommunikationsteilnehmer aus.
+
+Publisher und Subscriber sind voneinander entkoppelt.
+Publisher arbeiten unabhängig von den Subscribern, was eine einfache Erweiterung oder Entfernung von Subscribern erlaubt.
+Änderungen an Publisher und Subscriber sind isoliert möglich, solange das Format der Nachrichten stabil bleibt.
+Dies wirkt sich positiv auf die _Wartbarkeit_ der Publisher und Subscriber aus.
+
+
+[[publish-subscribe-herausforderungen]]
+==== Herausforderungen
+
+Das Muster Publish/Subscribe benötigt ebenso einen Message-Broker als zentrale Infrastrukturkomponente.
+Demnach bestehen Ähnlichkeiten zu den <<message-queue-herausforderungen,Herausforderungen des Musters Message-Queue>>.
+
+Darüber hinaus ist in der Regel nicht garantiert, dass alle Subscriber eine Nachricht erhalten.
+Bei temporärer Nichtverfügbarkeit eines Subscribers können Nachrichten verloren gehen, sofern keine Persistenz oder Replay-Mechanismen vorhanden sind.
+Die Einhaltung von Konsistenzkriterien über mehrere Subscriber hinweg erfordert robuste Mechanismen für den Umgang mit Teilfehlern und erneuter Zustellung.
+
+Ebenso gibt es in der Regel keine Garantie für eine (globale) Reihenfolge der Nachrichten.
+Wenn diese wichtig ist, lohnt sich ein Blick auf <<event-streaming>>.
+
+Schließlich darf der Inhalt von Nachrichten nur Informationen beinhalten, die alle Subscriber erhalten dürfen.
+
+[[event-streaming]]
+==== Event Streaming
+
+Event Streaming ist eine Form des Publish/Subscribe-Musters, bei der Events kontinuierlich von Produzenten (Producer) erzeugt, veröffentlicht und von einem oder mehreren Konsumenten (Consumer) verarbeitet werden.
+Bei Event Streaming steht die dauerhafte, sequenzielle Verarbeitung von Ereignisströmen im Vordergrund.
+Entsprechende Produkte stellen hierzu ein geordnetes, wiederholbares Event-Log bereit.
+Das bedeutet, dass Konsumenten vergangene Events wiederholt verarbeiten können, um zum Beispiel ihren Zustand wiederherzustellen.
+
+[[event-streaming-pattern]]
+.Kommunikationsmuster Event Streaming
+image::software-technisch/kommunikation/event-streaming.dn.svg[]
+
+Die Stärken von Event Streaming decken sich im Wesentlichen mit denen des Musters <<publish-subscribe>>.
+Das geordnete, wiederholbare Event-Log adressiert die Herausforderung, dass Subscriber bei Ausfällen nicht alle an sie gerichteten Nachrichten erhalten.
+
+Zusätzliche Stärken und Herausforderungen ergeben sich daraus, dass Produkte im Bereich Event Streaming in der Regel auf Echtzeitanforderungen bezüglich der Event-Verarbeitung und Hochverfügbarkeit ausgelegt sind.
+Dadurch skalieren sie gut horizontal und können große Mengen an Events verarbeiten, sowie eine Vielzahl von Produzenten und Konsumenten anbinden.
+Dadurch bedeuten sie allerdings auch einen vergleichsweise hohen Aufwand bei Installation, Konfiguration und Betrieb als Infrastrukturkomponenten anderer Kommunikationsmuster.
+Sie stellen wesentlich höhere Anforderungen an die Hardware-Infrastruktur (Rechen- und Speicherkapazität) und an andere Infrastrukturkomponenten (u.a. Monitoring).
 
 == Kommunikation mit externen Systemen
 
@@ -241,61 +390,4 @@ Die Service-Gateways stellen somit die Schnittstelle einer Systemlandschaft zur 
 
 .Nutzung von Service Gateways zur Kommunikation mit externen Systemen
 image::software-technisch/services/kommunikation-externe-systeme.dn.svg[]
-
-[[versionierung]]
-== Versionierung
-
-Die Notwendigkeit, Services in mehreren Versionen anbieten zu können, ist bedingt durch die Vielzahl an Service-Nutzern, die bei Änderung an einem Service nicht alle zeitgleich auf die neue Version eines Service umschalten können.
-Daher ist es notwendig, dass in einem – möglichst klein zu haltenden – Übergangszeitraum mehrere Versionen eines Service parallel betrieben werden können.
-
-Die Versionierung wird auf der Ebene von Services, nicht Service-Operationen ausgeführt, da diese Ebene von ihrer Granularität zu den üblichen fachlichen Änderungen passt.
-
-Es kann vorkommen, dass in _einem_ Systemrelease neue Versionen von _mehreren_ Services ausgeliefert werden.
-
-[[architektur]]
-=== Architektur
-
-Backends bieten pro Service-Version eine eigene Service-Schnittstelle an.
-Die unterschiedlichen Versionen des Services verwenden alle denselben xref:referenzarchitektur:software-technisch/backend/anwendungskern.adoc[Anwendungskern].
-Die für die Versionierung notwendigen Transformationen sind Teil der jeweiligen Service-Schnittstelle (z.B. das Einfügen eines Standardwerts für neu hinzugefügte Attribute).
-In komplexen Fällen kann es auch notwendig sein, den Anwendungskern zu erweitern und die Versionierung dort zu behandeln.
-Die Entscheidung dafür ist im Systementwurf zu dokumentieren.
-
-Externe Services werden durch Service-Gateways bereitgestellt.
-Die Versionierung eines Services muss also auch auf Ebene des Service-Gateways durchgeführt werden.
-Ein Service-Gateway ist ein rein technischer Protokoll-Wandler, der Webservices in interne Schnittstellen konvertiert.
-Im Service-Gateway erfolgt daher immer nur ein einfaches Mapping auf die entsprechenden Service-Schnittstellen der angebundenen Backends.
-Der Ausgleich der Versionsunterschiede erfolgt ausschließlich im Backend und nicht im Service-Gateway.
-Es ist möglich, pro Service-Version ein eigenes Service-Gateway zu erstellen.
-
-[[image-archversServ]]
-.Architektur versionierter Services
-image::referenzarchitektur:software-technisch/services/versionierung.dn.svg[]
-
-[[abwaertskompatible-erweiterung]]
-=== Abwärtskompatible Erweiterung eines Services
-
-Ein Backend stellt einen Service bereit, mit dem Personendaten gemeldet werden können.
-Parameter dieser Meldung sind Vor- und Nachname sowie das Geburtsdatum.
-Dazu gibt es einen Meldung-Service in der Version 1.0.
-Dieser wird in der Serviceschicht des Backends implementiert.
-Ab einem Stichtag soll zusätzlich noch der Geburtsort gemeldet werden.
-Im bisherigen Datenbestand wird dieses neue Attribut auf den Wert "unbekannt" gesetzt.
-Der bestehende Service wird um dieses Attribut erweitert und erhält die Versionsnummer 1.1.
-Anwendungskern und Persistenzschicht müssen ebenfalls erweitert werden.
-Aus Gründen der Rückwärtskompatibilität soll aber weiterhin die Version 1.0 des Service angeboten werden.
-Dazu wird ein neuer Service innerhalb der Serviceschicht implementiert, der die Meldung entgegennimmt, das fehlende Attribut mit dem Wert "unbekannt" ergänzt und dann den Anwendungskern aufruft.
-
-Werden die beiden Services durch ein Service-Gateway nach außen verfügbar gemacht, existieren dort zwei parallele Mappings auf die jeweiligen Services des Backends.
-Innerhalb des Service-Gateways existiert keine Geschäftslogik, d.h. die Abbildung von Version 1.0 auf 1.1 findet erst im Backend statt.
-
-[[inkompatible-veraenderung]]
-=== Inkompatible Veränderung eines Services
-
-In einem komplexeren Fall kann es passieren, dass Services von Backends so umgestaltet werden, dass die Aufrufe nicht mehr aufeinander abgebildet werden können.
-Wird in so einem Fall ein neuer Service eingeführt, während der alte Service noch verfügbar bleiben muss, müssen die inkompatiblen Verarbeitungslogiken im Anwendungskern parallel unterstützt werden.
-Auch hier enthält das Service-Gateway keine Geschäftslogik.
-
-IMPORTANT: Eine Versionierung ist nur dann sinnvoll, wenn kleine Änderungen an der Schnittstelle zwischen den Versionen auftreten.
-Für den Fall, dass sich die Schnittstelle sowohl syntaktisch als auch semantisch grundlegend ändert, sollte anstatt einer neuen Version besser eine eigenständige, neue Schnittstelle entstehen.
 
