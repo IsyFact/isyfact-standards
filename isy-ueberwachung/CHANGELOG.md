@@ -7,3 +7,6 @@
 
 ## BUG FIXES
 - `IFS-4817`: Verwendung von `securityMatcher` in actuatorSecurityFilterChain und loadbalancerSecurityFilterChain für korrektes Filtern von Anfragen.
+
+## BREAKING CHANGES
+- `IFS-4911`: Absicherung Actuator mit OAuth2

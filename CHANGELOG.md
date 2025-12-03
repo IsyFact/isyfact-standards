@@ -43,6 +43,7 @@
 - `IFS-4812`: [isy-security] Verwendung sicherer Hashfunktion mit SHA-512 für Caching
   * Rückgabe eines Byte-Arrays statt eines Integers in der Methode `generateCacheKey` der Klasse `AbstractClientRegistrationAuthenticationToken`
   * Konfigurierbare Properties für Hashfunktion und Bytegröße des Salts
+- `IFS-4911`: [isy-ueberwachung] Absicherung Actuator mit OAuth2
 
 ## Documentation
 - `IFS-1800`: [isyfact-standards-doc] Formulierung von Empfehlungen für den Einsatz von Bulk Queries in der Persistenz von Backends
