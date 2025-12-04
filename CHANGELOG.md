@@ -1,5 +1,6 @@
 # 5.0.0
 ### FEATURES
+- `IFS-4980`: [isyfact-standards-doc] Erstellung initiale Gliederung und Einleitung & Zielbild für Referenzarchitektur Frontend
 - `IFS-4874`: [isyfact-standards-doc] Beschreibung asynchroner Kommunikationsmuster
   * Request-Response asynchron, Message-Queue, Publish/Subscribe, Event Streaming
 - `IFS-4923`: [isyfact-standards-doc] Aktualisierung des Produktkatalogs: Tomcat in Version 10.x (embedded)
