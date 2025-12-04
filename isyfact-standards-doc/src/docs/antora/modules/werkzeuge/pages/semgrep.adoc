@@ -1,0 +1,22 @@
+= Semgrep SAST
+
+NOTE: Semgrep ist ein statischer Anwendungsscan-Tool (SAST), das automatisch Sicherheitslücken im Quellcode erkennt.
+
+== Funktionalität
+
+Semgrep ermöglicht es, benutzerdefinierte Regeln basierend auf Mustern im Code zu definieren.
+Es scannt Code auf bekannte Schwachstellen, unsichere Muster und Coding-Standards-Verstöße.
+
+Es unterstützt mehrere Sprachen, darunter Java und TypeScript, und kann sowohl lokal als auch in CI/CD-Pipelines eingesetzt werden.
+
+== Weiterführende Informationen
+
+[[download-bibliothek]]
+.Dokumentation und Ersten Schritte
+[cols="^1s,^2"]
+|====
+|Lokal nutzen
+|xref:https://semgrep.dev/docs/getting-started/quickstart[Semgrep Quickstart]
+|CI/CD integrieren
+|xref:https://semgrep.dev/docs/semgrep-ci/sample-ci-configs#sample-github-actions-configuration-file[Semgrep CI Configuration]
+|====
