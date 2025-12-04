@@ -38,6 +38,7 @@
 - `IFS-4922`: Aktualisierung von Java 17 auf 25
 
 ### DEPENDENCY UPGRADES
+- Update org.apache.maven.plugins:maven-compiler-plugin von Version 3.9.0 auf 3.14.1
 - Update metro.webservices.version von Version 4.0.3 auf 4.0.4
 - `IFS-4530`: Update von UCP auf Version 19.27.0.0
 - `IFS-4655`: Update von Maven Checkstyle Plugin auf Version 3.6.0
