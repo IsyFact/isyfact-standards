@@ -11,7 +11,7 @@ import org.springframework.boot.actuate.health.Status;
 /**
  * Enthält Informationen zur Health eines Nachbarsystems.
  * Spring Webflux benötigt POJOs (mit Settern) um JSON-Objekte einzulesen,
- * daher kann nicht direkt {@link org.springframework.boot.actuate.health.Health} verwendet werden,
+ * daher kann nicht direkt {@link Health} verwendet werden,
  * sondern Status und Details müssen separat eingelesen werden
  */
 public class NachbarsystemHealth {
