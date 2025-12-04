@@ -332,26 +332,15 @@ isy.task.tasks.isyHealthTask.fixed-delay=30s
 [[absicherung-von-endpoints]]
 ===== Absicherung von Endpoints
 
-Standardmäßig wird der Zugriff auf Endpoints durch eine HTTP Basic Authentifizierung abgesichert, wenn die Dependencies:
+Standardmäßig wird der Zugriff auf Endpoints durch OAuth2 Authentifizierung abgesichert, wenn die Dependencies:
 
  * `org.springframework.security:spring-security-config` und
  * `org.springframework.security:spring-security-web`
 
-im Klassenpfad verfügbar sind.
+im Klassenpfad verfügbar sind. D.h. hier muss ein Token mitgeschicket werden. das auf Gütligkeit geprüft wird.
 
-Die Konfiguration von Benutzername und Passwort zum Zugriff auf die Endpoints ist optional und wird in der `application.properties` gepflegt (siehe <<listing-endpoint-security-properties>>).
-Ohne Konfiguration von Benutzername und Passwort bleibt die Absicherung aktiv und es kann auf keine Endpoints zugegriffen werden,
-außer dem Health-Endpoint, welcher nicht abgesichert ist.
+Nicht abgesichert ist der Health-Endpoint.
 
-.Konfiguration der Absicherung in `application.properties`
-[id="listing-endpoint-security-properties",reftext="{listing-caption} {counter:listings }"]
-[source,properties]
-----
-# Benutzername des Monitoring Users (Default: Null)
-isy.ueberwachung.security.username=<username>
-# Passwort des Monitoring Users (Default: Null)
-isy.ueberwachung.security.password=<password>
-----
 
 Die Standardabsicherung der Endpoints kann per Konfiguration deaktiviert werden:
 
