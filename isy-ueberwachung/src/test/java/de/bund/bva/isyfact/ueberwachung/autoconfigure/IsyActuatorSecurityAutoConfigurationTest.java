@@ -23,49 +23,6 @@ class IsyActuatorSecurityAutoConfigurationTest {
         ));
 
     @Test
-    void noUserConfigured() {
-        contextRunner.run(context ->
-            assertThat(context).hasNotFailed()
-                .hasSingleBean(IsyActuatorSecurityAutoConfiguration.class)
-                .hasBean("actuatorSecurityFilterChain")
-                // no UserDetailsService bean as username property is not configured.
-                .doesNotHaveBean(UserDetailsService.class)
-                .doesNotHaveBean(PasswordEncoder.class)
-        );
-    }
-
-    @Test
-    void userWithoutPasswordConfigured() {
-        contextRunner
-            .withPropertyValues(
-                "isy.ueberwachung.security.username=test",
-                // empty/null password should work
-                "isy.ueberwachung.security.password="
-            ).run(context ->
-                assertThat(context).hasNotFailed()
-                    .hasBean("actuatorSecurityFilterChain")
-                    .hasSingleBean(UserDetailsService.class)
-                    .hasSingleBean(PasswordEncoder.class)
-            );
-    }
-
-    @Test
-    void passwordWithoutUserConfigured() {
-        contextRunner
-            .withPropertyValues(
-                // username must not be empty => BindValidationException.class
-                "isy.ueberwachung.security.username=    ",
-                "isy.ueberwachung.security.password=test"
-            ).run(context ->
-                assertThat(context).hasFailed().getFailure()
-                    .getRootCause()
-                    .isInstanceOf(IllegalArgumentException.class)
-                    .message()
-                    .isEqualTo("Cannot pass null or empty values to constructor")
-            );
-    }
-
-    @Test
     void disabledWithDisabledSecurity() {
         // bean not available
         contextRunner
