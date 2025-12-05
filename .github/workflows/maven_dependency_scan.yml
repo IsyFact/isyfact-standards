@@ -14,5 +14,6 @@ jobs:
     with:
       snyk-reference: $GITHUB_REF_NAME
       snyk-organization: ${{ vars.SNYK_ORG_ID }}
+      snyk-arguments: --maven-aggregate-project -d -- -PcentralSnapshot
     secrets:
       SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
