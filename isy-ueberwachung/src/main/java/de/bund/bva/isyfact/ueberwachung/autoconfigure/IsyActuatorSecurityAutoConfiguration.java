@@ -36,7 +36,6 @@ public class IsyActuatorSecurityAutoConfiguration {
     @ConditionalOnMissingBean(name = "actuatorSecurityFilterChain")
     public SecurityFilterChain actuatorSecurityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(AbstractHttpConfigurer::disable)
                 .securityMatcher(EndpointRequest.toAnyEndpoint())
                 .authorizeHttpRequests(requests -> requests
                     .requestMatchers(EndpointRequest.to(HealthEndpoint.class)).permitAll()

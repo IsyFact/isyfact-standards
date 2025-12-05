@@ -38,7 +38,6 @@ public class LoadbalancerSecurityConfiguration {
                 .securityMatcher(EndpointRequest.toAnyEndpoint())
                 .authorizeHttpRequests(requests -> requests
                                 .requestMatchers(LOADBALANCER_SERVLET_PATH).permitAll())
-                .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(sessionConfig ->
                         sessionConfig.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         return http.build();
