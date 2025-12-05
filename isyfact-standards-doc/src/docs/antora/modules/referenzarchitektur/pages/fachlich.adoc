@@ -1,15 +1,6 @@
 = Fachliche Referenzarchitektur
 
-include::glossary:licence:partial$licence.adoc[]
-
-Zu den Aufgaben einer öffentlichen oder privatwirtschaftlichen Organisation gehört die Durchführung verschiedener fachlicher Verfahren.
-Wenn solche Verfahren vollständig oder teilweise automatisiert werden sollen, so erfolgt dies in der Regel mit Anwendungen, die zunächst aus fachlicher Sicht beschrieben, dann mit softwaretechnischen Mitteln umgesetzt und schließlich auf einer technischen Infrastruktur betrieben werden.
-
-Bei einer großen Zahl von vollständig oder teilweise automatisierten Verfahren entsteht eine entsprechende Anzahl von Anwendungen.
-Hier kann schnell der Überblick verloren gehen, sodass Prinzipien zur Strukturierung benötigt werden, die Ordnung schaffen.
-
-Die Menge aller Anwendungen einer Organisation und deren Nutzungsbeziehungen untereinander bilden eine Anwendungslandschaft.
-Die fachliche Architektur einer Anwendungslandschaft gibt hier die Strukturierung aus fachlicher Sicht vor und legt fest, wie Anwendungen in die Anwendungslandschaft integriert werden.
+Die fachliche Referenzarchitektur beschreibt die Strukturierung von Anwendungslandschaften aus fachlicher Sicht und legt fest, wie Anwendungen in die Anwendungslandschaft integriert werden.
 
 [[awl-fachliche-architektur]]
 == Fachliche Architektur einer Anwendungslandschaft
@@ -18,34 +9,39 @@ Die fachliche Architektur einer Anwendungslandschaft gibt hier die Strukturierun
 .Fachliche Architektur einer Anwendungslandschaft
 image::referenzarchitektur:fachlich/fachliche-referenzarchitektur-anwendungslandschaft.dn.svg[]
 
-Zur Strukturierung der xref:glossary::terms-definitions.adoc#glossar-anwendungslandschaft[Anwendungslandschaft] werden drei fachliche Hierarchieebenen festgelegt:
+Zur Strukturierung der xref:glossary::terms-definitions.adoc#glossar-anwendungslandschaft[Anwendungslandschaft] werden drei fachliche Hierarchieebenen festgelegt.
 
-*xref:glossary::terms-definitions.adoc#glossar-domaene[Domäne]:*
+[[domaene]]
+=== Domäne
 
-Auf der obersten Hierarchieebene werden Domänen gebildet.
+Auf der obersten Hierarchieebene werden xref:glossary::terms-definitions.adoc#glossar-domaene[Domänen] gebildet.
 Eine Domäne gruppiert fachlich zusammengehörende Anwendungen zur Unterstützung von Geschäftsprozessen, die als eine Einheit angesehen werden können.
 In <<awl-fachlich,der obigen Abbildung>> wurden zwei Domänen gebildet.
-
 Zwischen den Anwendungen unterschiedlicher Domänen sollten nur wenige, klar definierte Nutzungsbeziehungen existieren.
 
-*xref:glossary::terms-definitions.adoc#glossar-anwendung[Anwendung]:*
+[[anwendung]]
+=== Anwendung
+
 include::glossary::terms-definitions.adoc[tag="anwendung-definition"]
 
-*Anwendungskomponenten:*
+[[anwendungskomponente]]
+=== Anwendungskomponente
 
 Eine Anwendungskomponente beschreibt eine Menge funktional zusammenhängender Anwendungsfälle.
 Anwendungskomponenten sind Bestandteile von Anwendungen.
 Im Rahmen weitergehender Architekturvorgaben beim Einsatz der IsyFact in einem konkreten Anwendungskontext wird man in der Regel auch vorgeben, welche Arten von Anwendungen es in diesem Kontext geben soll und aus welchen Komponenten sie bestehen.
 In <<awl-fachlich,der obigen Abbildung>> werden Anwendungskomponenten nicht dargestellt: Sie wären die Bestandteile der blauen und gelben Kästen.
 
-=== Arten von Anwendungen
+[[anwendungstypen]]
+=== Anwendungstypen
 
-Im Rahmen der Referenzarchitektur werden zunächst Geschäftsanwendungen und Querschnittsanwendungen als Typen von Anwendungen unterschieden.
-Eine weitergehende Unterscheidung der Geschäftsanwendungen muss durch ein xref:tailoring.adoc[Tailoring] der Referenzarchitektur erfolgen.
+Im Rahmen der Referenzarchitektur werden Geschäftsanwendungen und Querschnittsanwendungen als Typen von Anwendungen unterschieden.
+Eine weitergehende Unterscheidung von Geschäftsanwendungen muss durch ein xref:tailoring.adoc[Tailoring] der Referenzarchitektur erfolgen.
 
-*xref:glossary::terms-definitions.adoc#glossar-geschaeftsanwendung[Geschäftsanwendung]:* 
+[[geschaeftsanwendung]]
+==== Geschäftsanwendung
 
-Eine Geschäftsanwendung implementiert für sich genommen oder im Zusammenspiel mit anderen Geschäftsanwendungen einen oder mehrere Geschäftsprozesse einer Domäne.
+Eine xref:glossary::terms-definitions.adoc#glossar-geschaeftsanwendung[Geschäftsanwendung] implementiert für sich genommen oder im Zusammenspiel mit anderen Geschäftsanwendungen einen oder mehrere Geschäftsprozesse einer Domäne.
 Sie implementiert entweder die gesamte hierfür notwendige Funktionalität (monolithisch), von der Benutzerschnittstelle über die Geschäftslogik, die Prozesse bis hin zur Datenhaltung, oder sie implementiert nur einen Teilbereich der Funktionalität und greift für den Rest über Schnittstellen auf benachbarte Geschäftsanwendungen zu.
 
 .Trennung in Bestandsverwaltung und Benutzerinteraktion
@@ -55,19 +51,29 @@ Im Zuge einer solchen Aufgabenteilung werden auch weitergehende Regeln definiert
 Derartige Prinzipien und Regeln zur Strukturierung sind jedoch immer spezifisch für den jeweiligen Kontext der Anwendungslandschaft und können nicht allgemeingültig festgelegt werden.
 ====
 
-*xref:glossary::terms-definitions.adoc#glossar-querschnittsanwendung[Querschnittsanwendung]:*
+[[querschnittsanwendung]]
+==== Querschnittsanwendung
+
 include::glossary::terms-definitions.adoc[tag="querschnittsanwendung-definition"]
 
+[[awl-zugriff]]
 === Zugriff auf die Anwendungslandschaft
 
-*xref:glossary::terms-definitions.adoc#glossar-portal[Portal]:* Das Portal stellt den Benutzenden eine einheitliche Dialogoberfläche für den Zugriff auf die Services der Anwendungslandschaft zur Verfügung.
-Einzelne Geschäftsanwendungen stellen Nutzerschnittstellen zur Verfügung, das Portal integriert diese, bildet einen zentralen Einstiegspunkt für alle Web-Anwendungen und übernimmt die Aufgabe der Authentifizierung und der Autorisierung auf Anwendungsebene.
+Anwendungslandschaften bieten menschlichen Anwendern und externen Anwendungen zwei dedizierte Zugriffswege.
 
-*xref:glossary::terms-definitions.adoc#glossar-service-gateway[Service-Gateway]:* Im Service-Gateway werden alle Services der Anwendungen bereitgestellt, die externe Nutzende direkt nutzen dürfen.
-Dazu führt das Service-Gateway die Authentifizierung und Autorisierung der Service-Aufrufer auf Anwendungsebene durch.
-Weiterhin transformiert das Service-Gateway das interne Kommunikationsprotokoll einer IsyFact-Systemlandschaft in das vom Service-Aufrufer erwartete Protokoll.
-Dies sind in der Regel Web Service-Aufrufe.
+[[portal]]
+==== Portal
 
+Das xref:glossary::terms-definitions.adoc#glossar-portal[Portal] stellt den Anwendern eine einheitliche Dialogoberfläche für den Zugriff auf die Anwendungen der Anwendungslandschaft zur Verfügung.
+Geschäftsanwendungen stellen grafische Oberflächen zur Verfügung.
+Das Portal integriert diese, bildet einen zentralen Einstiegspunkt für alle Anwendungen und übernimmt die Aufgabe der Authentifizierung und der Autorisierung auf Anwendungsebene.
+
+[[api-gateway]]
+==== API-Gateway
+
+Im xref:glossary::terms-definitions.adoc#api-gateway[API-Gateway] werden alle Services der Anwendungen bereitgestellt, die externe Anwendungen direkt nutzen dürfen.
+Das API-Gateway übernimmt die Authentifizierung und Autorisierung der externen Anwendungen.
+Weiterhin transformiert es das intern verwendete Kommunikationsprotokoll in das von den externen Anwendungen erwartete Protokoll.
 
 [[anwendung-fachliche-architektur]]
 == Fachliche Architektur einer Anwendung
