@@ -1,5 +1,6 @@
 # 5.0.0
 ### FEATURES
+- `IFS-4980`: [isyfact-standards-doc] Erstellung initiale Gliederung und Einleitung & Zielbild für Referenzarchitektur Frontend
 - `IFS-4924`: [isyfact-standards-doc] Einführung des API-Gateways als Sammelbegriff für alle Gateway-Systeme
 - `IFS-4874`: [isyfact-standards-doc] Beschreibung asynchroner Kommunikationsmuster
   * Request-Response asynchron, Message-Queue, Publish/Subscribe, Event Streaming
