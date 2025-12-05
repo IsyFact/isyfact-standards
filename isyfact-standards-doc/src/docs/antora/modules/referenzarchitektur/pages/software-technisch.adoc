@@ -27,18 +27,6 @@ Wichtige Grundlagen für die Software-Referenzarchitektur sind die Schnittstelle
 Aufruf-Beziehungen werden stets unterschieden in _interne Aufrufe_, in welchen ein IT-System einer Systemlandschaft mit einem anderen IT-System derselben Systemlandschaft kommuniziert, und _externe Aufrufe_, in welchen ein IT-System der Systemlandschaft mit einem Anwender oder einem IT-System außerhalb dieser Systemlandschaft kommuniziert.
 Interne und externe Aufrufe unterscheiden sich sowohl in ihrer Authentifizierung und Autorisierung als auch (bei automatisierten Schnittstellen) in der verwendeten Technologie.
 
-[[service-gateways]]
-=== Service Gateways
-
-xref:glossary::terms-definitions.adoc#glossar-service-gateway[Service-Gateways] haben die Aufgabe, Aufrufe aus der Systemlandschaft an xref:glossary::terms-definitions.adoc#externes-system[externe Systeme] sowie Aufrufe von externen Systemen in die Systemlandschaft weiterzuleiten und dabei unterschiedliche Schnittstellentechnologien zu überbrücken.
-
-Für die Weiterleitung von Aufrufen enthält ein Service-Gateway die folgenden Funktionalitäten:
-
-* Es bildet die Aufrufe zwischen der Schnittstellentechnologie der externen Systeme und der Schnittstellentechnologie der Systemlandschaft ab.
-* Bei Aufrufen durch externe Systeme führt es die Authentifizierung und eine erste Autorisierung des Aufrufs durch.
-
-Service-Gateways besitzen weder eine eigene Datenhaltung noch eigene Fachlichkeit.
-
 [[geschaeftsanwendungen]]
 === Geschäftsanwendungen
 
@@ -54,6 +42,15 @@ Für die Kommunikation mit externen Systemen muss eine Geschäftsanwendung ein S
 
 Geschäftsanwendungen, die eine Benutzeroberfläche bereitstellen, dürfen aus Sicherheitsgründen nicht direkt vom Benutzer aufgerufen werden, sondern werden in das <<portal>> der Systemlandschaft eingebunden.
 
+[[querschnittsanwendungen]]
+=== Querschnittsanwendungen
+
+xref:glossary::terms-definitions.adoc#glossar-querschnittsanwendung[Querschnittsanwendungen] bieten Geschäftsanwendungen querschnittlich genutzte Funktionalitäten an, etwa für die Bereitstellung von Schlüsseldaten.
+Querschnittsanwendungen können eine eigene Datenhaltung besitzen.
+
+Querschnittsanwendungen werden nur von internen Benutzern oder anderen IT-Systemen derselben Systemlandschaft aufgerufen. Sie rufen selbst nur andere Querschnittsanwendungen auf.
+Eine Ausnahme bilden Querschnittsanwendungen in Form eines xref:glossary::terms-definitions.adoc#gateway[Gateways], wie z.B. ein zentrales Mail-Gateway für den Versand von E-Mails an externe Empfänger.
+
 [[portal]]
 === Portal
 
@@ -67,14 +64,26 @@ Das xref:glossary::terms-definitions.adoc#glossar-portal[Portal] im Sinne der Re
 
 Der Zweck eines Portals ist die gemeinsame Authentifizierung und Autorisierung für alle Geschäftsanwendungen und die Indirektion des Zugriffs von Nutzern auf die Geschäftsanwendungen.
 
-[[querschnittsanwendungen]]
-=== Querschnittsanwendungen
+[[api-gateway]]
+=== API-Gateway
 
-xref:glossary::terms-definitions.adoc#glossar-querschnittsanwendung[Querschnittsanwendungen] bieten Geschäftsanwendungen querschnittlich genutzte Funktionalitäten an, etwa für die Bereitstellung von Schlüsseldaten.
-Querschnittsanwendungen können eine eigene Datenhaltung besitzen.
+include::glossary::terms-definitions.adoc[tag=api-gateway-definition]
 
-Querschnittsanwendungen werden nur von internen Benutzern oder anderen IT-Systemen derselben Systemlandschaft aufgerufen. Sie rufen selbst nur andere Querschnittsanwendungen auf.
-Eine Ausnahme bilden Querschnittsanwendungen in Form eines xref:glossary::terms-definitions.adoc#gateway[Gateways], wie z.B. ein zentrales Mail-Gateway für den Versand von E-Mails an externe Empfänger.
+Das API-Gateway besteht aus IT-Systemen des Typs xref:software-technisch/gateway.adoc[].
+Das bekannteste Beispiel hierfür sind <<service-gateways>>.
+Die <<prinzipien-der-sicherheitsarchitektur,Sicherheitsarchitektur>> beschreibt ein Authentication Gateway, das sich zentral um Authentifizierung und Autorisierung kümmert.
+Anwendungen können weitere Gateways erfordern, falls sie neben Services andere Dienste, zum Beispiel E-Mail-Empfang oder -Versand, für externe Systeme bereitstellen.
+
+[[service-gateways]]
+==== Service Gateways
+
+xref:glossary::terms-definitions.adoc#glossar-service-gateway[Service-Gateways] bilden aktuell die meisten Aufgaben des API-Gateways ab, auch die des geplanten Authentication Gateways.
+Hierzu enthalten sie folgende Funktionalitäten:
+
+* Sie bilden die Aufrufe zwischen der Schnittstellentechnologie der externen Systeme und der Schnittstellentechnologie der Systemlandschaft ab.
+* Bei Aufrufen durch externe Systeme führen sie die Authentifizierung und eine erste Autorisierung des Aufrufs durch.
+
+Service-Gateways besitzen weder eine eigene Datenhaltung noch eigene Fachlichkeit.
 
 [[servicekommunikation]]
 == Servicekommunikation
