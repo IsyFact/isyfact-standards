@@ -77,15 +77,9 @@
                 <version>${metro.webservices.version}</version>
             </dependency>
 
-            <!-- org.glassfish.metro:webservices-rt:4.0.3 brings conflicting versions of org.codehaus.woodstox:stax2-api,
-                 causing the enforcer plugin (dependency convergence) to fail.
-                 This dependency definition can be removed when an improved version of webservices-rt is used. -->
-            <dependency>
-                <groupId>org.codehaus.woodstox</groupId>
-                <artifactId>stax2-api</artifactId>
-                <version>${woodstox.stax.version}</version>
-            </dependency>
-
+            <!-- org.glassfish.metro:webservices-rt:4.0.3 brings conflicting versions of org.codehaus.woodstox:stax2-api (transitive),
+            causing the enforcer plugin (dependency convergence) to fail.
+            This dependency definition can be removed when an improved version of webservices-rt is used. -->
             <dependency>
                 <groupId>com.fasterxml.woodstox</groupId>
                 <artifactId>woodstox-core</artifactId>
