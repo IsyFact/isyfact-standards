@@ -37,6 +37,7 @@
 - `IFS-4736`: [isy-persistence] Entfernung der Bibliothek aus den IsyFact-Standards
 - `IFS-4582`: [isy-persistence], [isy-polling], [isy-security], [isy-security-test], [isy-task], [isy-util] Entfernen der entkoppelten Bausteine aus dem Standards-Repository
 - `IFS-4922`: Aktualisierung von Java 17 auf 25
+- `IFS-4849`: Klassen des Pakets `de.bund.bva.isyfact.persistence.datetime` wurden aufgelöst.
 
 ### DEPENDENCY UPGRADES
 - Update metro.webservices.version von Version 4.0.3 auf 4.0.4
@@ -100,8 +101,6 @@ Diese Metriken waren zuvor über die `ServiceStatistik`-Schnittstelle verfügbar
 #### Entkopplung
 Folgende Bausteine wurden in eigenständige Repositories umgezogen:
 
-* [isyfact-standards (Package `de.bund.bva.isyfact.persistence.datetime`)](https://github.com/IsyFact/isyfact-standards/tree/release/4.x/isy-persistence/src/main/java/de/bund/bva/isyfact/persistence/datetime) →
-  [isy-datetime-persistence](https://github.com/IsyFact/isy-datetime-persistence)
 * [isyfact-standards (Modul isy-polling)](https://github.com/IsyFact/isyfact-standards/tree/release/4.x/isy-polling) → [isy-polling](https://github.com/IsyFact/isy-polling)
 * [isyfact-standards (Modul isy-security)](https://github.com/IsyFact/isyfact-standards/tree/release/4.x/isy-security) → [isy-security](https://github.com/IsyFact/isy-security)
 * [isyfact-standards (Modul isy-task)](https://github.com/IsyFact/isyfact-standards/tree/release/4.x/isy-task) → [isy-task](https://github.com/IsyFact/isy-task)
