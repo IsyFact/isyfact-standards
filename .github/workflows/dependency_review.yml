@@ -7,3 +7,5 @@ on:
 jobs:
   DependencyReview:
     uses: IsyFact/isy-github-actions-templates/.github/workflows/dependency_review_template.yml@v2.1.1
+    with:
+      allow-dependencies-licenses: 'pkg:maven/io.github.git-commit-id/git-commit-id-maven-plugin'
