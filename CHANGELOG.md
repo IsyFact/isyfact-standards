@@ -45,6 +45,7 @@
 - `IFS-4531`: Update von Flatten Maven Plugin auf Version 1.7.1
     * Update von Maven Version auf 3.6.3
 - `IFS-4864`: Update von Spring Boot auf Version 3.5.6
+- `IFS-5006`: Update des git-commit-id-maven-plugins auf Version 9.0.2
 
 ## RELEASE NOTES
 
@@ -153,3 +154,17 @@ Anwendungen, die auf die zeitbeschränkten Metriken (`...LetzteMinute`) zur Übe
 Die übrigen Metriken ohne Zeitbeschränkung funktionieren weiterhin wie gehabt.
 
 > **Hinweis:** Mithilfe der z.B. in Prometheus verfügbaren Funktionen lässt sich die gewohnte Funktionalität nahezu vollständig nachbilden.
+
+### Dependency Änderungen
+
+- isy-git-commit-id-plugin:
+
+```xml
+<!-- Alt -->
+<groupId>pl.project13.maven</groupId>
+<artifactId>git-commit-id-plugin</artifactId>
+
+<!-- Neu -->
+<groupId>io.github.git-commit-id</groupId>
+<artifactId>git-commit-id-maven-plugin</artifactId>
+```
