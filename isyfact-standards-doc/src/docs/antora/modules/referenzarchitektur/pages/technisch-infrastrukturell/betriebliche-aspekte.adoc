@@ -76,8 +76,8 @@ Um nachvollziehen zu können, was sich wann warum geändert hat, ist es empfehle
 
 *Auslieferung:* Mit dem Begriff "Auslieferung“ wird die Übergabe von Liefergegenständen aus der Hoheit der Software-Entwicklung in die Hoheit des Betriebs bezeichnet.
 Dabei werden im allgemeinen Software, Parameter und eine Dokumentation ausgeliefert.
-Bei der Software wird eine ablauffähige Einheit (RPM-Paket) ausgeliefert.
-Dieses RPM-Paket wird durch das Installationsprogramm unter Angabe der Parameter installiert.
+Bei der Software wird eine ablauffähige Einheit (JAR-Paket) ausgeliefert.
+Dieses JAR-Paket wird unter Angabe der Parameter installiert.
 Anschließend wird die installierte Software gemäß der in der Auslieferungsdokumentation angegebenen Parameter konfiguriert.
 Die Auslieferungsdokumentation besteht aus einem Releaseletter, einem Betriebshandbuch und ggf. einem Benutzerhandbuch.
 Im Releaseletter werden Inhalt und Version der Pakete in Form einer Stückliste beschrieben.
