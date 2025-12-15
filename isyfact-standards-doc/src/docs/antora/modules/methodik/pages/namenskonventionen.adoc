@@ -1,6 +1,15 @@
-= Namenskonventionen: Inhalt
+= Namenskonventionen
 
-// tag::inhalt[]
+Die umfassenden Konzepte der IsyFact automatisieren und vereinheitlichen den Bau von Anwendungen.
+Um dies zu erreichen ist es wichtig, dass Namen und Benennungen über die gesamte xref:glossary::terms-definitions.adoc#glossar-anwendungslandschaft[Anwendungslandschaft] hinweg einheitlich sind.
+Es existiert daher eine Vielzahl von Namenskonventionen in den verschiedenen Konzepten der IsyFact.
+Diese Seite sammelt die Namenskonventionen der IsyFact an einem zentralen Ort.
+In den jeweiligen Konzepten werden die Vorgabe nochmals erwähnt.
+
+Jede Namenskonvention ist in Tabellenform dargestellt.
+Es ist jeweils das Namensschema der Konvention mit Beispielen zu sehen.
+Ergänzt wird diese Darstellung durch eine Erklärung der genutzten Variablen und ihrer möglichen Ausprägungen.
+
 [[namenskonventionen]]
 == Namenskonventionen
 
@@ -295,7 +304,7 @@ Einige der hier genannten Namenskonventionen sind von denen der Spezifikation ab
 [[artefakte-module]]
 ==== Maven-Artefakte und -Module
 
-include::methodik:page$java-programmierkonventionen/inhalt.adoc[tag=namenskonvention]
+include::java-programmierkonventionen/inhalt.adoc[tag=namenskonvention]
 
 
 [[technische-systemnamen]]
@@ -477,7 +486,7 @@ Beispiel:
 * `<awl>-fachanwendung-gk-...`
 * `<awl>-fachanwendung-gkbatch-...`
 
-m|<versionsnummer> |Versionsnummer der Deployment-Einheit, z.B. „1.2.0“. Die Versionierung basiert auf Semantic Versioning und ist im Konzept xref:methodik:versionierung/master.adoc[IsyFact Versionierung] beschrieben.
+m|<versionsnummer> |Versionsnummer der Deployment-Einheit, z.B. „1.2.0“. Die Versionierung basiert auf Semantic Versioning und ist im Konzept xref:versionierung/master.adoc[IsyFact Versionierung] beschrieben.
 m|<build-version> a|
 Hier wird die Build-Nummer eingesetzt.
 Sie wird bei dem Bau jeder Auslieferungsversion (insbesondere auch bei Nachlieferungen) erhöht.
@@ -561,6 +570,4 @@ m|<parameter> |Name des Parameters. Darf Verschachtelungen enthalten.
 [[dokumentation]]
 === Dokumentation
 
-Die Namenskonventionen für die Dokumentation sind Teil des xref:documentation-guide:ROOT:namenskonventionen.adoc[Leitfadens Dokumentation].
-
-// end::inhalt[]
+Die Namenskonventionen für die Dokumentation sind Teil des xref:documentation-guide::namenskonventionen.adoc[Leitfadens Dokumentation].
