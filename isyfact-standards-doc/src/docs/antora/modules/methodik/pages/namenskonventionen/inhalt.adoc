@@ -521,6 +521,29 @@ Die Installationspfade sind im xref:vorlage-systemhandbuch/antora-master.adoc[Sy
 |*Beispiele* m|/etc/isy-xyz-anwendung
 |====
 
+[[konfiguration-parameter]]
+==== Konfigurationsparameter
+
+Alle von einem IT-System oder einer Bibliothek der IsyFact definierten Konfigurationsparameter entsprechen einem einheitlichen Schema.
+Konfigurationsparameter von Produkten sind davon nicht berührt.
+
+.Konfigurationsparameter
+[id="table-konfiguration-parameter",reftext="{table-caption} {counter:tables}"]
+[cols="1,4",options="header"]
+|====
+2+|Konfigurationsparameter – IT-System
+|*Schema* m|<präfix>.<system>.(<fachkomponente>.)<parameter>
+|*Beispiele* m|awl.bsp-backend.auskunft.ergebnisse.anzahl
+
+awl.bsp-backend.caching
+
+2+h|Konfigurationsparameter – IsyFact-Bibliothek
+|*Schema* m|<präfix>.<bibliothek>.<parameter>
+|*Beispiele* m|isy.security.oauth2.client.default-certificate-ou
+
+isy.security.oauth2.client.registration.<client>.username
+|====
+
 [[dokumentation]]
 === Dokumentation
 
