@@ -527,21 +527,35 @@ Die Installationspfade sind im xref:vorlage-systemhandbuch/antora-master.adoc[Sy
 Alle von einem IT-System oder einer Bibliothek der IsyFact definierten Konfigurationsparameter entsprechen einem einheitlichen Schema.
 Konfigurationsparameter von Produkten sind davon nicht berührt.
 
-.Konfigurationsparameter
-[id="table-konfiguration-parameter",reftext="{table-caption} {counter:tables}"]
+.Konfigurationsparameter - IT-System
+[id="konfiguration-parameter-it-system",reftext="{table-caption} {counter:tables}"]
 [cols="1,4",options="header"]
 |====
 2+|Konfigurationsparameter – IT-System
-|*Schema* m|<präfix>.<system>.(<fachkomponente>.)<parameter>
-|*Beispiele* m|awl.bsp-backend.auskunft.ergebnisse.anzahl
+h|Schema m|<präfix>.<system>.(<fachkomponente>.)<parameter>
+h|Beispiele m|awl.bsp-backend.auskunft.ergebnisse.anzahl
 
 awl.bsp-backend.caching
+h|Variable h|Mögliche Ausprägungen
+m|<präfix> |Kurzbezeichnung der Anwendungslandschaft
+m|<system> |Kurzbezeichnung des IT-Systems
+m|<fachkomponente> |Name der Fachkomponente (optional)
+m|<parameter> |Name des Parameters. Darf Verschachtelungen enthalten.
+|====
 
-2+h|Konfigurationsparameter – IsyFact-Bibliothek
-|*Schema* m|<präfix>.<bibliothek>.<parameter>
-|*Beispiele* m|isy.security.oauth2.client.default-certificate-ou
+.Konfigurationsparameter - Bibliothek
+[id="konfiguration-parameter-bibliothek",reftext="{table-caption} {counter:tables}"]
+[cols="1,4",options="header"]
+|====
+2+|Konfigurationsparameter – IsyFact-Bibliothek
+h|Schema m|<präfix>.<bibliothek>.<parameter>
+h|Beispiele m|isy.security.oauth2.client.default-certificate-ou
 
 isy.security.oauth2.client.registration.<client>.username
+h|Variable h|Mögliche Ausprägungen
+m|<präfix> |Kurzbezeichnung der Factory / der Anwendungslandschaft
+m|<bibliothek> |Bezeichnung der Bibliothek
+m|<parameter> |Name des Parameters. Darf Verschachtelungen enthalten.
 |====
 
 [[dokumentation]]
