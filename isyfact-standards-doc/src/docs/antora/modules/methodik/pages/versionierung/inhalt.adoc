@@ -108,6 +108,8 @@ Zusätzlich zur Version des IT-Systems muss der Container oder die Installations
 [[rpm]]
 ==== RPM
 
+WARNING: DEPRECATED: RPM soll nicht mehr für die Auslieferung/Installation verwendet werden. Umstellung auf executable JAR als Distributionsformat; Bestehende RPM-basierte Deployments sind schrittweise abzulösen.
+
 Bei RPM-Paketen muss die Versionsnummer des RPMs folgendes Format aufweisen:
 
 [frame="none"]
