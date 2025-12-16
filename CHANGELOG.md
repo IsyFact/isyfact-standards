@@ -161,3 +161,10 @@ Anwendungen, die auf die zeitbeschränkten Metriken (`...LetzteMinute`) zur Übe
 Die übrigen Metriken ohne Zeitbeschränkung funktionieren weiterhin wie gehabt.
 
 > **Hinweis:** Mithilfe der z.B. in Prometheus verfügbaren Funktionen lässt sich die gewohnte Funktionalität nahezu vollständig nachbilden.
+
+### RPM-Deprecation als Auslieferungsmedium
+
+RPM als Auslieferungsmedium wird nicht mehr unterstützt.
+Stattdessen wird eine ausführbare JAR als Standard-Auslieferungsmedium verwendet.
+
+Weitere Informationen finden Sie in der [Spring Boot Dokumentation](https://docs.spring.io/spring-boot/specification/executable-jar/index.html).
