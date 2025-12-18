@@ -40,6 +40,7 @@
 - `IFS-4911`: [isy-ueberwachung] Absicherung Actuator mit OAuth2
 
 ### DEPENDENCY UPGRADES
+- Update IsyFact/isy-github-actions-templates/.github/workflows/maven_create_release_template.yml von Version 1.7.0 auf 1.8.0
 - Update metro.webservices.version von Version 4.0.3 auf 4.0.4
 - `IFS-4530`: Update von UCP auf Version 19.27.0.0
 - `IFS-4655`: Update von Maven Checkstyle Plugin auf Version 3.6.0
