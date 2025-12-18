@@ -152,6 +152,8 @@ Deployment-Projekte bestehen im Wesentlichen aus den Skripten zur Erstellung ein
 Deployment-Projekte besitzen unter dem Wurzelverzeichnis (`project-root`) ein einzelnes Unterverzeichnis `src/main/resources`.
 In diesem finden sich weitere Unterverzeichnisse, die für die Erstellung von RPMs angepasst sind.
 
+WARNING: DEPRECATED: RPM soll nicht mehr für die Auslieferung/Installation verwendet werden. Umstellung auf executable JAR als Distributionsformat; Bestehende RPM-basierte Deployments sind schrittweise abzulösen.
+
 .Struktur eines Deployment-Projekts
 [id="listing-Projektstruktur-Deployment",reftext="{listing-caption} {counter:listings }"]
 [source, xml]

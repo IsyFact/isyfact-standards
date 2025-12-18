@@ -454,6 +454,8 @@ include::isy-service-rest:page$konzept/inhalt.adoc[tag=namenskonvention]
 [[rpm-pakete]]
 ==== RPM-Pakete
 
+WARNING: RPM soll nicht mehr für die Auslieferung/Installation verwendet werden. Umstellung auf executable JAR als Distributionsformat; Bestehende RPM-basierte Deployments sind schrittweise abzulösen.
+
 Für die Benennung von RPM-Paketen existiert eine Konvention, welche durch den RPM-Standard vorgeben wird.
 
 NOTE: Siehe https://rpm-packaging-guide.github.io/#what-is-a-spec-file[RPM Packaging Guide]

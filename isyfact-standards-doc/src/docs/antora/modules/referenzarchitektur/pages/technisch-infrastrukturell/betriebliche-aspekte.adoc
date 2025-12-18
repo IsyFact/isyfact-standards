@@ -85,6 +85,8 @@ Weiterhin wird beschrieben, welche bekannten Fehler und Probleme es mit diesem P
 Im Releaseletter sind auch die Installationsanleitung inklusive der Parameter der Installation und die Aufstellung der mit dem Release geschlossenen Fehler-Meldungen enthalten.
 Eine Auslieferung umfasst ebenfalls Ergänzungen und Anpassungen der betroffenen Betriebshandbücher.
 
+WARNING: DEPRECATED: RPM soll nicht mehr für die Auslieferung/Installation verwendet werden. Umstellung auf executable JAR als Distributionsformat; Bestehende RPM-basierte Deployments sind schrittweise abzulösen.
+
 Wie oben bereits erwähnt bezeichnet der Begriff Auslieferung einen Verantwortungsübergang zwischen zwei Organisationseinheiten.
 Die Entwicklung erstellt und testet die Software-Pakete und erzeugt die zugehörigen Dokumentationen.
 Der Betrieb übernimmt diese Artefakte.
