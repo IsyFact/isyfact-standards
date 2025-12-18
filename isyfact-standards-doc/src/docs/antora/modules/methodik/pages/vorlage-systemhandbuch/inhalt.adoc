@@ -524,7 +524,7 @@ After=network.target
 User={it-system-ga}
 Group={it-system-ga}
 WorkingDirectory=/opt/{it-system-ga}
-ExecStart=/usr/bin/java -jar {it-system-ga}.jar --spring.config.location=file:/etc/{it-system-ga}/
+ExecStart=/usr/bin/java -jar {it-system-ga}.jar --spring.config.additional-location=file:/etc/{it-system-ga}/
 SuccessExitStatus=143
 Restart=on-failure
 RestartSec=10
@@ -547,8 +547,6 @@ Als Ablageort und Stammverzeichnis der relativen Pfade in diesem Kapitel dient d
 
 [[konfiguration-ga]]
 === Konfiguration der {anwendung-ga}
-
-Nach der Installation liegen die Konfigurationsdateien der {it-system-ga} unter `/etc/{it-system-ga}`.
 
 Folgende Konfigurationsdateien müssen für die Konfiguration angepasst werden:
 
@@ -672,33 +670,8 @@ Das Passwort ist nicht verschlüsselt.
 |Name des Datenbank-Schemas.
 |===
 
-[[konfigurationsdatei-isalive]]
-==== Konfigurationsdatei isAlive
-
-Für Wartungszwecke kann es notwendig sein, dass die Anwendung keine weiteren Anfragen vom Loadbalancer mehr zugewiesen bekommt.
-
-Dazu überprüft das Loadbalancer-Servlet regelmäßig, ob die folgende (leere) Datei existiert.
-
-[source,subs="attributes"]
-----
-/opt/{it-system-ga}/etc/isAlive
-----
-
-Nach der Erstinstallation ist diese Datei noch nicht vorhanden. Sie muss so angelegt werden, dass der Nutzer `tomcat` die Datei lesen kann, z. B. wie folgt:
-
-[source,subs="attributes"]
-----
-touch /opt/{it-system-ga}/etc/isAlive
-----
-
-Im Regelbetrieb ist das Loadbalancer-Servlet unter folgender URL erreichbar:
-
- http(s)://<host>:<port>/Loadbalancer
-
 [[konfiguration-batch]]
 === Konfiguration der {anwendung-batch}
-
-Nach der Installation liegen die Konfigurationsdateien der Batch-Anwendung unter `/etc/{it-system-batch}`.
 
 Die Konfiguration der {anwendung-batch} erfolgt analog zur <<konfiguration-ga>>:
 Allein die Logging-Konfiguration unterscheidet sich minimal.
@@ -733,8 +706,6 @@ _Freitext_
 
 [[konfiguration-sgw]]
 === Konfiguration des {anwendung-sgw}
-
-Nach der Installation liegen die Konfigurationsdateien des {anwendung-sgw} unter `/etc/{it-system-sgw}`.
 
 Folgende Konfigurationsdateien müssen für die Konfiguration angepasst werden:
 
@@ -838,12 +809,10 @@ Die `ZEITSTEMPEL` werden durch die Log-Rotation erzeugt und markieren ältere Lo
 |===
 |Konfigurationsdatei |Inhalt / Bemerkung
 2+^d|*{anwendung-ga}* (`/etc/{it-system-ga}`)
-|isAlive |Steuerdatei für Loadbalancer
 |{it-system-ga}.properties |Konfiguration der Anwendung
 |jpa.properties |Konfiguration der Datenbank-Verbindung
 |logback.xml |Logging-Konfiguration
 2+^d|*{anwendung-sgw}* (`/etc/{it-system-sgw}`)
-|isAlive |Steuerdatei für Loadbalancer
 |{it-system-sgw}.properties |Konfiguration der Anwendung
 |jpa.properties |Konfiguration der Datenbank-Verbindung
 |logback.xml |Logging-Konfiguration
