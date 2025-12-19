@@ -9,7 +9,7 @@ Sie dient als verbindliche Grundlage für die Gestaltung und Umsetzung benutzero
 .Einbettung Frontends in der fachlichen Referenzarchitektur
 image::referenzarchitektur:software-technisch/frontend/kotext-referenzarchitektur-frontend.drawio.svg[width=50%,align=center]
 
-Wie in <<fachliche-referenzarchitektur-frontend>> dargestellt, erfolgt grundsätzlich eine Unterteilung der xref:glossary::terms-definitions.adoc#glossar-geschaeftsanwendung[Geschäftsanwendung (GA)] in zwei zentrale Bereiche:
+Wie in <<fachliche-referenzarchitektur-frontend>> dargestellt, erfolgt grundsätzlich eine Unterteilung der xref:glossary::terms-definitions.adoc#glossar-geschaeftsanwendung[Geschäftsanwendung (GA)] in zwei IT-Systeme:
 die Geschäftskomponente Backend (GK) zur Bereitstellung fachlicher Logik und Services sowie die Geschäftskomponente Frontend (GKGUI) als Benutzeroberfläche zur Interaktion mit dem Anwender.
 
 Diese softwaretechnische Trennung erfolgt ausschließlich aus technologischen und organisatorischen Gründen: Frontend und Backend können unabhängig voneinander entwickelt, betrieben und skaliert werden und setzen in der Regel unterschiedliche Technologien sowie potenziell getrennte Entwicklungsteams ein.
