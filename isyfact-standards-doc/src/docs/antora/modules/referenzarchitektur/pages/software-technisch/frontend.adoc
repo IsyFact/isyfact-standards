@@ -15,7 +15,7 @@ die Geschäftskomponente Backend (GK) zur Bereitstellung fachlicher Logik und Se
 Diese softwaretechnische Trennung erfolgt ausschließlich aus technologischen und organisatorischen Gründen: Frontend und Backend können unabhängig voneinander entwickelt, betrieben und skaliert werden und setzen in der Regel unterschiedliche Technologien sowie potenziell getrennte Entwicklungsteams ein.
 Aus Sicht der Anwender bleibt die Anwendung dabei weiterhin als einheitliches System wahrnehmbar.
 
-Dieses Strukturprinzip gilt analog für xref:glossary::terms-definitions.adoc#glossar-querschnittsanwendung[Querschnittsanwendungen (QA)], die entsprechend in QK (Querschnittskomponente) und QKGUI (Querschnitts-Frontend) gegliedert werden.
+Dieses Strukturprinzip gilt analog für xref:glossary::terms-definitions.adoc#glossar-querschnittsanwendung[Querschnittsanwendungen (QA)], die entsprechend in QK (Backend) und QKGUI (Frontend) gegliedert werden.
 
 == Zielbild & Geltungsbereich
 
