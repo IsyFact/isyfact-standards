@@ -7,7 +7,7 @@ Sie dient als verbindliche Grundlage für die Gestaltung und Umsetzung benutzero
 
 [[fachliche-referenzarchitektur-frontend]]
 .Einbettung Frontends in der fachlichen Referenzarchitektur
-image::referenzarchitektur:software-technisch/frontend/kotext-referenzarchitektur-frontend.drawio.svg[width=50%,align=center]
+image::referenzarchitektur:software-technisch/frontend/kontext-referenzarchitektur-frontend.drawio.svg[width=50%,align=center]
 
 Wie in <<fachliche-referenzarchitektur-frontend>> dargestellt, erfolgt grundsätzlich eine Unterteilung der xref:glossary::terms-definitions.adoc#glossar-geschaeftsanwendung[Geschäftsanwendung (GA)] in zwei IT-Systeme:
 die Geschäftskomponente Backend (GK) zur Bereitstellung fachlicher Logik und Services sowie die Geschäftskomponente Frontend (GKGUI) als Benutzeroberfläche zur Interaktion mit dem Anwender.
@@ -16,6 +16,8 @@ Diese softwaretechnische Trennung erfolgt ausschließlich aus technologischen un
 Aus Sicht der Anwender bleibt die Anwendung dabei weiterhin als einheitliches System wahrnehmbar.
 
 Dieses Strukturprinzip gilt analog für xref:glossary::terms-definitions.adoc#glossar-querschnittsanwendung[Querschnittsanwendungen (QA)], die entsprechend in QK (Backend) und QKGUI (Frontend) gegliedert werden.
+
+Die Referenzarchitektur Frontend fokussiert sich auf die Beschreibung von Rahmenbedingungen und konzeptionellen Leitlinien für den IT-Systemtyp Frontend sowie dessen Interaktion mit anderen IT-Systemtypen, insbesondere dem Backend, zu dem aufgrund der Darstellung und Verarbeitung fachlicher Anwendungsfälle in der Regel eine enge funktionale Kopplung besteht.
 
 == Zielbild & Geltungsbereich
 
@@ -47,16 +49,8 @@ Im Vergleich zur xref:referenzarchitektur:software-technisch.adoc[allgemeinen Da
 image::referenzarchitektur:software-technisch/frontend/software-technisch-frontend.svg[width=50%,align=center]
 
 Durch die Verwendung von SPAs befindet sich der Frontend-Teil der GA im Webbrowser des Anwenders, während der Backend-Teil weiterhin auf den Servern der Anwendungslandschaft betrieben wird.
-Aus diesem Grund bietet es sich an, ein zentrales API-Gateway als querschnittliche Komponente zwischen Frontends und Backends zu schalten – insbesondere aus folgenden Gründen:
-
-• Einheitliche Sicherheitskontrollen über alle APIs (Token-Validierung, Zugriffsschutz via Keycloak)
-• Zentrales Routing zur Entkopplung von Frontends und Backends (Backend-Änderungen erfordern keine Anpassungen an SPAs)
-• Konsistente technische Standards für alle Services (CORS, TLS, Protokolle, Header)
-• Zentrale Durchsetzung von Rate Limiting, Timeouts und Circuit Breaking zum Schutz der Backends
-• Vereinheitlichtes Monitoring, Logging und Tracing für vollständige Transparenz der Anfragen
-• Unterstützung kontrollierter Deployment-Strategien wie API-Versionierung, Canary-Releases und Blue-Green-Deployments
-• Vermeidung redundanter Security- und Infrastruktur-Implementierungen in einzelnen Services
-• Klare und konsistente Exposition interner und externer APIs
+Zur strukturierten, sicheren und einheitlichen Anbindung der Frontends an die Backend-Systeme ist verpflichtend ein zentrales API-Gateway als querschnittliche Komponente vorzuschalten.
+Das API-Gateway stellt einen eigenständigen Systemtyp dar und wird in der xref:referenzarchitektur:software-technisch.adoc[software-technischen Referenzarchitektur] detailliert beschrieben.
 
 === Architekturvariante mit Backend-for-Frontend (BFF)
 
