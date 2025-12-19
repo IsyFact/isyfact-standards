@@ -40,6 +40,7 @@
 - `IFS-4911`: [isy-ueberwachung] Absicherung Actuator mit OAuth2
 
 ### DEPENDENCY UPGRADES
+- Update apache.poi.version von Version 5.4.0 auf 5.5.1
 - Update com.oracle.database.jdbc:ucp von Version 19.27.0.0 auf 19.29.0.0
 - Update metro.webservices.version von Version 4.0.3 auf 4.0.4
 - `IFS-4530`: Update von UCP auf Version 19.27.0.0
