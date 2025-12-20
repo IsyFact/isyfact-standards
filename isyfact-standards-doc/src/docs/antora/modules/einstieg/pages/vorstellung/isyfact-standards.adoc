@@ -42,7 +42,7 @@ Die fachliche Architektur der Geschäftsanwendungen wird in Spezifikationen doku
 
 Systemspezifikationen besitzen eine festgelegte Form und beschreiben stets gleichartige Inhalte.
 Die Vorgaben dazu befinden sich mitsamt Vorgehen und Beispielen in der Vorlage für die xref:methodik:vorlagen.adoc#dokumentation-anwendung[Systemspezifikation].
-Bereits bei der Systemspezifikation ist auf die Einhaltung der xref:methodik:namenskonventionen/master.adoc#einleitung[Namenskonventionen] zu achten.
+Bereits bei der Systemspezifikation ist auf die Einhaltung der xref:methodik:namenskonventionen.adoc[] zu achten.
 Bei der Erstellung von Diagrammen mit dem Enterprise Architect helfen die xref:methodik:diagrammerstellung/enterprise-architect.adoc[Nutzungsvorgaben Enterprise Architect].
 
 Für die Erfassung von Anforderungslisten gibt es ebenfalls eine xref:methodik:vorlagen.adoc#anforderungsliste[Vorlage] mit Erläuterungen.

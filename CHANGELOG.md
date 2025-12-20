@@ -1,5 +1,6 @@
 # 5.0.0
 ### FEATURES
+- `IFS-4899`: [isyfact-standards-doc] Dokumentation des Schemas für Konfigurationsparameter
 - `IFS-4924`: [isyfact-standards-doc] Einführung des API-Gateways als Sammelbegriff für alle Gateway-Systeme
 - `IFS-4874`: [isyfact-standards-doc] Beschreibung asynchroner Kommunikationsmuster
   * Request-Response asynchron, Message-Queue, Publish/Subscribe, Event Streaming
