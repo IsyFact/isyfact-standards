@@ -1,6 +1,7 @@
 # 5.0.0
 ### FEATURES
 - `IFS-4903`: [isyfact-standards-doc] Anpassung der Service-Gateways an die Definition des IT-Systemtyps "Gateway"
+- `IFS-4899`: [isyfact-standards-doc] Dokumentation des Schemas für Konfigurationsparameter
 - `IFS-4924`: [isyfact-standards-doc] Einführung des API-Gateways als Sammelbegriff für alle Gateway-Systeme
 - `IFS-4874`: [isyfact-standards-doc] Beschreibung asynchroner Kommunikationsmuster
   * Request-Response asynchron, Message-Queue, Publish/Subscribe, Event Streaming
