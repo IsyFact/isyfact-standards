@@ -370,23 +370,17 @@ Sie stellen wesentlich höhere Anforderungen an die Hardware-Infrastruktur (Rech
 
 Die Kommunikation mit xref:glossary::terms-definitions.adoc#externes-system[externen Systemen] basiert auf Webservices.
 Wird ein Service von einem externen System angeboten, wird er als *externer Service* bezeichnet.
-Im Folgenden werden zwei Szenarien betrachtet:
+Im Folgenden werden zwei Szenarien betrachtet.
 
-*Aufruf von Services der Systemlandschaft*: Durch die Systemlandschaft wird externen Systemen die Schnittstelle eines Backends in Form eines Webservices zur Verfügung gestellt.
+Aufruf von Services der Systemlandschaft:: Durch die Systemlandschaft wird externen Systemen die Schnittstelle eines Backends in Form eines Webservices zur Verfügung gestellt.
 Hierbei definiert das Backend selbst keinen Webservice.
-Vielmehr definiert das Backend, wie bei der internen Kommunikation auch, eine Schnittstelle.
-Diese Schnittstelle wird dann durch ein eigenständiges IT-System als Webservice exportiert.
-Dies geschieht mittels eines xref:glossary::terms-definitions.adoc#glossar-service-gateway[Service-Gateways], das als *Service-Provider* bezeichnet wird.
-Für jede Schnittstelle, die als Webservices exportiert werden soll, muss ein eigener Service-Provider definiert werden.
+Vielmehr definiert das Backend, wie bei der internen Kommunikation auch, eine REST-Schnittstelle.
+Diese Schnittstelle wird dann durch ein xref:glossary::terms-definitions.adoc#glossar-service-gateway[Service-Gateway] in Form eines xref:software-technisch/gateway.adoc#ingress-gateway[*Ingress-Gateways*] als Webservice exportiert.
 
-*Nutzung von externen Services*: Ähnlich wie im vorigen Fall ruft das interne IT-System den externen Service nicht direkt auf.
-Es ruft ein eigenständiges IT-System auf, welches den externen Service als Schnittstelle in die Systemlandschaft importiert.
-Dies geschieht ebenfalls mittels eines xref:glossary::terms-definitions.adoc#glossar-service-gateway[Service-Gateways], das als *Service-Consumer* bezeichnet wird.
-Das interne IT-System ruft dann lediglich die Schnittstelle des Service-Consumers auf.
-Für das interne IT-System ist dieser Aufruf nicht von einem Aufruf zu einem anderen internen IT-System zu unterscheiden.
-Für jeden Webservice, der in die Systemlandschaft importiert werden soll, muss ein eigener Service-Consumer definiert werden.
+Nutzung von externen Services:: Ähnlich wie im vorigen Fall ruft das interne IT-System den externen Service nicht direkt auf.
+Es ruft ein xref:glossary::terms-definitions.adoc#glossar-service-gateway[Service-Gateway] in Form eines xref:software-technisch/gateway.adoc#egress-gateway[*Egress-Gateways*] auf, welches den externen Service als Schnittstelle in die Systemlandschaft importiert.
 
-Die Service-Gateways stellen somit die Schnittstelle einer Systemlandschaft zur Außenwelt dar.
+Die Gesamtheit aller Service-Gateways stellt somit sowohl die Schnittstelle der Systemlandschaft für externe Systeme dar, als auch die Schnittstelle der "Außenwelt" für alle internen IT-Systeme.
 
 .Nutzung von Service Gateways zur Kommunikation mit externen Systemen
 image::software-technisch/services/kommunikation-externe-systeme.dn.svg[]
