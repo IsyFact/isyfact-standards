@@ -209,7 +209,8 @@ Die einzelnen Platzhalter im Namensschema sind in folgender Tabelle beschrieben:
 |====
 |Bestandteil |Werte |Beschreibung
 |HOST |z.B. xyzweb01 |Name des Servers, auf dem die Logs entstehen
-|SYSTEM-ID |Durch den Technischen Chefdesigner für die jeweilige Anwendung in Abstimmung mit dem Auftraggeber festzulegen (siehe xref:methodik:namenskonventionen/master.adoc#einleitung[IsyFact Namenskonventionen]) a|Name der Anwendung bzw. des Batches.
+|SYSTEM-ID |Durch den Technischen Chefdesigner für die jeweilige Anwendung in Abstimmung mit dem Auftraggeber festzulegen (siehe xref:methodik:namenskonventionen.adoc#technische-systemnamen[technische Systemnamen])
+a|Name der Anwendung bzw. des Batches.
 _Anwendung bezieht sich hierbei auf die Anwendungen, die im Tomcat laufen, in Abgrenzung zu Batches._
 |ZEITSTEMPEL |YYYY-MM-DD_HH00 |Datum der Logdateien inkl. stundengenauer Uhrzeit.
 Zu beachten ist, dass der Zeitstempel erst beim Rotieren der Logs an die Datei angehängt wird (siehe <<log-rotation-und-komprimierung>>).
