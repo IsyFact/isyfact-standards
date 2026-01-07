@@ -7,6 +7,10 @@ on:
       - 'release/**'
     types: [opened, synchronize]
 
+permissions:
+  pull-requests: write
+  contents: write
+
 jobs:
   generate-changelog-entry:
     uses: IsyFact/isy-github-actions-templates/.github/workflows/dependabot_auto_changelog_template.yml@v2.1.1

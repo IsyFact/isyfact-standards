@@ -1,6 +1,8 @@
 # 5.0.0
 ### FEATURES
 - `IFS-4980`: [isyfact-standards-doc] Erstellung initiale Gliederung und Einleitung & Zielbild für Referenzarchitektur Frontend
+- `IFS-4903`: [isyfact-standards-doc] Anpassung der Service-Gateways an die Definition des IT-Systemtyps "Gateway"
+- `IFS-4899`: [isyfact-standards-doc] Dokumentation des Schemas für Konfigurationsparameter
 - `IFS-4924`: [isyfact-standards-doc] Einführung des API-Gateways als Sammelbegriff für alle Gateway-Systeme
 - `IFS-4874`: [isyfact-standards-doc] Beschreibung asynchroner Kommunikationsmuster
   * Request-Response asynchron, Message-Queue, Publish/Subscribe, Event Streaming
@@ -41,6 +43,7 @@
 - `IFS-4911`: [isy-ueberwachung] Absicherung Actuator mit OAuth2
 
 ### DEPENDENCY UPGRADES
+- Update com.google.guava:guava von Version 33.3.0-jre auf 33.5.0-jre
 - Update com.oracle.database.jdbc:ucp von Version 19.27.0.0 auf 19.29.0.0
 - Update metro.webservices.version von Version 4.0.3 auf 4.0.4
 - `IFS-4530`: Update von UCP auf Version 19.27.0.0
