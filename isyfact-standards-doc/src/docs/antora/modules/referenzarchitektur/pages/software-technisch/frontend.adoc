@@ -50,7 +50,7 @@ image::referenzarchitektur:software-technisch/frontend/software-technisch-fronte
 
 Durch die Verwendung von SPAs befindet sich der Frontend-Teil der GA im Webbrowser des Anwenders, während der Backend-Teil weiterhin auf den Servern der Anwendungslandschaft betrieben wird.
 Zur strukturierten, sicheren und einheitlichen Anbindung der Frontends an die Backend-Systeme ist verpflichtend ein zentrales API-Gateway als querschnittliche Komponente vorzuschalten.
-Das API-Gateway stellt einen eigenständigen Systemtyp dar und wird in der xref:referenzarchitektur:software-technisch.adoc[software-technischen Referenzarchitektur] detailliert beschrieben.
+Das API-Gateway ist ein Bestandteil der Systemlandschaft und wird in der xref:referenzarchitektur:software-technisch.adoc[software-technischen Referenzarchitektur] detailliert beschrieben.
 
 === Architekturvariante mit Backend-for-Frontend (BFF)
 
