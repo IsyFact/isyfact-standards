@@ -1,5 +1,6 @@
 = Referenzarchitektur Gateway
 :navtitle: Gateway
+:reftext: Gateway
 
 include::glossary::terms-definitions.adoc[tag=gateway-definition]
 

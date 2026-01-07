@@ -1,5 +1,5 @@
 * xref:methodik.adoc[]
-** xref:namenskonventionen/master.adoc[]
+** xref:namenskonventionen.adoc[]
 ** xref:versionierung/master.adoc[]
 ** xref:java-programmierkonventionen/master.adoc[]
 ** xref:typescript-programmierkonventionen/master.adoc[]

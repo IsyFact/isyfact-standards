@@ -2,6 +2,13 @@
 
 // tag::whitepaper[]
 
+Zu den Aufgaben einer öffentlichen oder privatwirtschaftlichen Organisation gehört die Durchführung verschiedener fachlicher Verfahren.
+Wenn solche Verfahren vollständig oder teilweise automatisiert werden sollen, so erfolgt dies in der Regel mit Anwendungen, die zunächst aus fachlicher Sicht beschrieben, dann mit softwaretechnischen Mitteln umgesetzt und schließlich auf einer technischen Infrastruktur betrieben werden.
+
+Bei einer großen Zahl von vollständig oder teilweise automatisierten Verfahren entsteht eine entsprechende Anzahl von Anwendungen.
+Hier kann schnell der Überblick verloren gehen, sodass Prinzipien zur Strukturierung benötigt werden, die Ordnung schaffen.
+Die Menge aller Anwendungen einer Organisation und deren Nutzungsbeziehungen untereinander bilden eine oder mehrere Anwendungslandschaften.
+
 *Die Referenzarchitektur bildet einen Strukturierungsrahmen für Anwendungslandschaften.
 Sie betrachtet Anwendungslandschaften und Anwendungen dabei aus fachlicher Sicht, software-technischer Sicht und technisch-infrastruktureller Sicht.*
 
@@ -36,7 +43,7 @@ Die mit dieser Referenzarchitektur erstellten Geschäftsanwendungen sind hierdur
 
 == Fachliche Referenzarchitektur
 
-Die xref:referenzarchitektur:fachlich.adoc[fachliche Referenzarchitektur] strukturiert die Anwendungslandschaft hierarchisch in Domänen, Systeme und Komponenten.
+Die xref:referenzarchitektur:fachlich.adoc[fachliche Referenzarchitektur] strukturiert die Anwendungslandschaft hierarchisch in Domänen, Anwendungen und Komponenten.
 
 .Anwendungslandschaft
 image::referenzarchitektur:fachlich/fachliche-referenzarchitektur-anwendungslandschaft.dn.svg[]
@@ -52,7 +59,7 @@ Je nach Domäne kann es unterschiedliche Arten von Geschäftsanwendungen geben, 
 Eine Anwendung besteht aus Anwendungskomponenten, die eine Menge funktional zusammenhängender Anwendungsfälle beschreiben.
 
 Für den Zugriff der Anwender auf die Anwendungen dient eine Benutzeroberfläche im Portal.
-Externen Anwendungen stellen Service-Gateways die entsprechenden Schnittstellen über Webservices zur Verfügung.
+Externen Anwendungen stellt das API-Gateway die entsprechenden Schnittstellen zur Verfügung.
 
 == Software-technische Referenzarchitektur
 
