@@ -1,12 +1,14 @@
 name: Documentation Build
 
 on:
+  pull_request:
+    types: [ opened, synchronize, reopened ]
   push:
     tags:
       - '^\\d+\\.\\d+\\.\\d+$'
 
 jobs:
   DocsBuild:
-    uses:  IsyFact/isy-github-actions-templates/.github/workflows/docs_build_template.yml@v1.6.0
+    uses: IsyFact/isy-github-actions-templates/.github/workflows/docs_build_template.yml@v2.1.1
     secrets:
       ANTORA_TRIGGER_TOKEN: ${{ secrets.ANTORA_TRIGGER_TOKEN }}
