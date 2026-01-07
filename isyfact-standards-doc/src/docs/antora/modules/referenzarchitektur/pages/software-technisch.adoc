@@ -74,6 +74,16 @@ Das bekannteste Beispiel hierfür sind <<service-gateways>>.
 Die <<prinzipien-der-sicherheitsarchitektur,Sicherheitsarchitektur>> beschreibt ein Authentication Gateway, das sich zentral um Authentifizierung und Autorisierung kümmert.
 Anwendungen können weitere Gateways erfordern, falls sie neben Services andere Dienste, zum Beispiel E-Mail-Empfang oder -Versand, für externe Systeme bereitstellen.
 
+Durch diese zentrale Rolle übernimmt das API-Gateway eine Vielzahl querschnittlicher technischer und sicherheitsrelevanter Aufgaben, die in der folgenden Übersicht zusammengefasst sind:
+
+• Einheitliche Sicherheitskontrollen über alle APIs (Token-Validierung, Zugriffsschutz via Keycloak)
+• Zentrales Routing zur Entkopplung von Frontends und Backends (Backend-Änderungen erfordern keine Anpassungen an SPAs)
+• Konsistente technische Standards für alle Services (CORS, TLS, Protokolle, Header)
+• Zentrale Durchsetzung von Rate Limiting, Timeouts und Circuit Breaking zum Schutz der Backends
+• Vereinheitlichtes Monitoring, Logging und Tracing für vollständige Transparenz der Anfragen
+• Unterstützung kontrollierter Deployment-Strategien wie API-Versionierung, Canary-Releases und Blue-Green-Deployments
+• Vermeidung redundanter Security- und Infrastruktur-Implementierungen in einzelnen Services
+• Klare und konsistente Exposition interner und externer APIs
 [[service-gateways]]
 ==== Service Gateways
 

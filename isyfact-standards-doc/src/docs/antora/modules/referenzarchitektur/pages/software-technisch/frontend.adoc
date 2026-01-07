@@ -2,6 +2,102 @@
 
 include::documentation-guide::partial$content-new.adoc[]
 
-Hier wird in naher Zukunft die Systemarchitektur und die Umsetzung querschnittlicher, technischer Aspekte für den IT-Systemtyp Frontend beschrieben.
+Die xref:glossary::terms-definitions.adoc#glossar-referenzarchitektur[Referenzarchitektur] Frontend beschreibt die grundlegenden Rahmenbedingungen sowie die architekturellen Leitlinien für die Entwicklung des xref:glossary::terms-definitions.adoc#glossar-it-systemtyp[IT-Systemtyps Frontend] in Anwendungen.
+Sie dient als verbindliche Grundlage für die Gestaltung und Umsetzung benutzerorientierter Komponenten im Kontext moderner Geschäftsanwendungen.
 
-Bis dahin geben das xref:angular::konzept.adoc[] sowie die https://isyfact.github.io/isy-angular-widgets/documentation/[Dokumentation der Komponenten-Bibliothek icon:external-link[]^] Hinweise auf die Umsetzung von Frontends.
+[[fachliche-referenzarchitektur-frontend]]
+.Einbettung Frontends in der fachlichen Referenzarchitektur
+image::referenzarchitektur:software-technisch/frontend/kontext-referenzarchitektur-frontend.drawio.svg[width=50%,align=center]
+
+Wie in <<fachliche-referenzarchitektur-frontend>> dargestellt, erfolgt grundsätzlich eine Unterteilung der xref:glossary::terms-definitions.adoc#glossar-geschaeftsanwendung[Geschäftsanwendung (GA)] in zwei IT-Systeme:
+das Backend (GK) zur Bereitstellung fachlicher Logik und Services sowie das Frontend (GKGUI) als Benutzeroberfläche zur Interaktion mit dem Anwender.
+
+Diese softwaretechnische Trennung erfolgt ausschließlich aus technologischen und organisatorischen Gründen: Frontend und Backend können unabhängig voneinander entwickelt, betrieben und skaliert werden und setzen in der Regel unterschiedliche Technologien sowie potenziell getrennte Entwicklungsteams ein.
+Aus Sicht der Anwender bleibt die Anwendung dabei weiterhin als einheitliches System wahrnehmbar.
+
+Dieses Strukturprinzip gilt analog für xref:glossary::terms-definitions.adoc#glossar-querschnittsanwendung[Querschnittsanwendungen (QA)], die entsprechend in QK (Backend) und QKGUI (Frontend) gegliedert werden.
+
+Die Referenzarchitektur Frontend fokussiert sich auf die Beschreibung von Rahmenbedingungen und konzeptionellen Leitlinien für den IT-Systemtyp Frontend sowie dessen Interaktion mit anderen IT-Systemtypen, insbesondere dem Backend, zu dem aufgrund der Darstellung und Verarbeitung fachlicher Anwendungsfälle in der Regel eine enge funktionale Kopplung besteht.
+
+== Zielbild & Geltungsbereich
+
+*Geltungsbereich*
+====
+* [x] Alle neu zu entwickelnden Frontends für Anwendungen (Standardsoftware ausgeschlossen)
+* [x] Kürzlich entwickelte Bestandsanwendungen, die bereits als Single-Page Application umgesetzt wurden
+* [x] Explizit ausgeschlossen sind alte Bestandsanwendungen, die noch auf Basis von JSF entwickelt wurden
+====
+
+Die unten beschriebenen Zielbilder sowie der Geltungsbereich der Referenzarchitektur Frontend konzentrieren sich auf die Bereitstellung von Frontends als Single-Page Applications.
+Geschäftsanwendungen in der öffentlichen Verwaltung sind überwiegend Business-Anwendungen, die auf die Verarbeitung von Daten sowie eine geringe Anzahl von Anwendern (Sachbearbeitern) ausgelegt sind.
+Anforderungen wie schnelle LCP (Largest Contentful Paint) oder Search Engine Optimization (SEO) haben keine hohe Priorität, sodass der Architekturstil Server-Side Rendering (SSR) zunächst ausgeklammert werden kann.
+
+.icon:university[title=Architekturregel] Verwendung von Single-Page Applications (SPA)
+****
+Für alle im Geltungsbereich liegenden Frontends ist verpflichtend der Einsatz des Architekturstils Single-Page Application (SPA) vorgesehen.
+****
+
+Auf Basis dieser Architekturvorgabe werden zwei konkrete Zielbilder besprochen: _Single-Page Application (SPA) mit direkter Backend-Anbindung_ sowie die _Architekturvariante mit Backend-for-Frontend (BFF)_.
+
+=== Single-Page Application (SPA) mit direkter Backend-Anbindung
+
+<<software-technisch-frontend>> zeigt die softwaretechnische Darstellung von Frontends in einer Anwendungslandschaft.
+Im Vergleich zur xref:referenzarchitektur:software-technisch.adoc[allgemeinen Darstellung der softwaretechnischen Referenzarchitektur] geht die folgende Abbildung näher auf die bereits in der Einführung erwähnte Verteilung von Frontend und Backend ein.
+
+[[software-technisch-frontend]]
+.Darstellung der Frontends in der softwaretechnischen Architektur inklusive Security
+image::referenzarchitektur:software-technisch/frontend/software-technisch-frontend.svg[width=50%,align=center]
+
+Durch die Verwendung von SPAs befindet sich der Frontend-Teil der GA im Webbrowser des Anwenders, während der Backend-Teil weiterhin auf den Servern der Anwendungslandschaft betrieben wird.
+Zur strukturierten, sicheren und einheitlichen Anbindung der Frontends an die Backend-Systeme ist verpflichtend ein zentrales API-Gateway als querschnittliche Komponente vorzuschalten.
+Das API-Gateway ist ein Bestandteil der Systemlandschaft und wird in der xref:referenzarchitektur:software-technisch.adoc[software-technischen Referenzarchitektur] detailliert beschrieben.
+
+=== Architekturvariante mit Backend-for-Frontend (BFF)
+
+<<software-technisch-frontend-bff>> zeigt eine Variante für die Darstellung von SPAs in der softwaretechnischen Referenzarchitektur unter Verwendung eines Backend-for-Frontend (BFF).
+
+[[software-technisch-frontend-bff]]
+.Darstellung der Frontends in der softwaretechnischen Architektur mit der Variante BFF
+image::referenzarchitektur:software-technisch/frontend/software-technisch-frontend-bff.svg[width=50%,align=center]
+
+Dabei wird eine zusätzliche Anwendung zwischen Backend und Frontend auf der Serverseite vorgesehen, um das Backend über eine spezifische API vom Frontend zu entkoppeln.
+Diese Vorgehensweise erhöht zunächst die Komplexität, ist jedoch ein bewährtes Muster, um folgende Herausforderungen zu lösen:
+
+* Auslieferung unterschiedlicher Darstellungen je nach Endgerät (Smartphone, Tablet, Desktop).
+* Umsetzung von Performance-, Sicherheits- oder Skalierbarkeitsanforderungen, die speziell für die Kommunikation zwischen Frontend und Backend relevant sind.
+* Vorverarbeitung, Filterung und Validierung sensibler oder sicherheitskritischer Daten im Backend, bevor sie an das Frontend gesendet werden – ohne die Backend-API für andere Dienste einschränken zu müssen.
+
+== Architekturgrundsätze & Leitlinien
+
+NOTE: Abschnitt ist noch WIP
+
+== Technologie-Stack & Referenzbausteine
+
+NOTE: Abschnitt ist noch WIP
+
+== Security & Compliance
+
+NOTE: Abschnitt ist noch WIP
+
+== Qualitätssicherung
+
+NOTE: Abschnitt ist noch WIP
+
+== Betrieb & Deployment von Frontends
+
+NOTE: Abschnitt ist noch WIP
+
+== Daten & Zustandsmanagement
+
+NOTE: Abschnitt ist noch WIP
+
+== UX, UI & Accessibility
+
+Die Gestaltung der xref:glossary::terms-definitions.adoc#frontend[Frontends] folgt verbindlichen Leitlinien zu User Interface (UI), User Experience (UX) sowie zur Barrierefreiheit.
+Diese Rahmenvorgaben sind im xref:isy-bedienkonzept-doc::bedienkonzept.adoc[Bedienkonzept] umfassend beschrieben.
+Darin finden sich sowohl UI/UX-Richtlinien für Bedienelemente, Fenstertypen und Layoutstrukturen als auch zentrale Anforderungen zur Barrierefreiheit.
+Insbesondere werden relevante Akzeptanzkriterien der WCAG 2.2 berücksichtigt, um sicherzustellen, dass alle Anwendungen für Nutzende mit unterschiedlichen Fähigkeiten uneingeschränkt und normkonform zugänglich sind.
+
+== Logging, Monitoring & Telemetrie
+
+NOTE: Abschnitt ist noch WIP
