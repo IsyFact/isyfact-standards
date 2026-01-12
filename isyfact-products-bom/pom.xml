@@ -30,7 +30,7 @@
         <xstream.version>1.4.21</xstream.version>
         <opencsv.version>5.9</opencsv.version>
         <guava.version>33.5.0-jre</guava.version>
-        <commons-cli.version>1.9.0</commons-cli.version>
+        <commons-cli.version>1.11.0</commons-cli.version>
         <commons-net.version>3.11.1</commons-net.version>
         <commons-validator.version>1.10.1</commons-validator.version>
         <jsoup.version>1.18.1</jsoup.version>
