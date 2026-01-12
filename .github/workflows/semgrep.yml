@@ -1,0 +1,39 @@
+name: Semgrep Scan
+
+on:
+  pull_request:
+    branches:
+      - master
+  workflow_dispatch: {}
+
+jobs:
+  semgrep-scan:
+    runs-on: ubuntu-latest
+    container:
+      image: semgrep/semgrep
+
+    # Skip any PR created by dependabot to avoid permission issues
+    if: (github.actor != 'dependabot[bot]')
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run semgrep version
+        run: |
+          semgrep --version
+
+      - name: Run semgrep scan on changed files
+        run: |
+          semgrep ci \
+            --config .github/config/semgrep/github_java.yml \
+            --config .github/config/semgrep/find_sec_bugs.yml \
+            --json --output semgrep-report.json \
+            --metrics=off || export SEMGREP_EXIT=$?
+          exit $SEMGREP_EXIT
+
+      - name: Upload report as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: semgrep-report.json
+          path: semgrep-report.json
