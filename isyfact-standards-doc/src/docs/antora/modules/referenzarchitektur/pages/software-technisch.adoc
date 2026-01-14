@@ -35,7 +35,7 @@ Geschäftsanwendungen können monolithisch strukturiert sein und alle Schichten 
 Sie können aber auch jeweils nur Teile davon implementieren, sodass z.B. eine Geschäftsanwendung eine GUI bereitstellt, eine weitere die Geschäftslogik implementiert und eine dritte schließlich die Persistierung der Daten realisiert.
 In diesem Fall würde die Gesamtfunktionalität durch das Zusammenwirken der drei Geschäftsanwendungen erbracht.
 
-Die Geschäftsanwendungen einer Systemlandschaft können sich intern gegenseitig über ihre Service-Schnittstellen aufrufen.
+Die Geschäftsanwendungen einer Systemlandschaft können sich intern gegenseitig über ihre Services aufrufen.
 In einem konkreten Anwendungskontext einer Systemlandschaft wird man in der Regel die Arten von Geschäftsanwendungen noch genauer definieren und dabei auch die möglichen Aufrufbeziehungen zwischen ihnen geeignet einschränken.
 
 Für die Kommunikation mit externen Systemen muss eine Geschäftsanwendung ein Service-Gateway verwenden, egal in welche Richtung die Kommunikation verläuft.
@@ -76,16 +76,17 @@ Anwendungen können weitere Gateways erfordern, falls sie neben Services andere 
 
 Durch diese zentrale Rolle übernimmt das API-Gateway eine Vielzahl querschnittlicher technischer und sicherheitsrelevanter Aufgaben, die in der folgenden Übersicht zusammengefasst sind:
 
-• Einheitliche Sicherheitskontrollen über alle APIs (Token-Validierung, Zugriffsschutz via Keycloak)
-• Zentrales Routing zur Entkopplung von Frontends und Backends (Backend-Änderungen erfordern keine Anpassungen an SPAs)
-• Konsistente technische Standards für alle Services (CORS, TLS, Protokolle, Header)
-• Zentrale Durchsetzung von Rate Limiting, Timeouts und Circuit Breaking zum Schutz der Backends
-• Vereinheitlichtes Monitoring, Logging und Tracing für vollständige Transparenz der Anfragen
-• Unterstützung kontrollierter Deployment-Strategien wie API-Versionierung, Canary-Releases und Blue-Green-Deployments
-• Vermeidung redundanter Security- und Infrastruktur-Implementierungen in einzelnen Services
-• Klare und konsistente Exposition interner und externer APIs
+* Einheitliche Sicherheitskontrollen über alle APIs (Token-Validierung, Zugriffsschutz via Keycloak)
+* Zentrales Routing zur Entkopplung von Frontends und Backends (Backend-Änderungen erfordern keine Anpassungen an SPAs)
+* Konsistente technische Standards für alle Services (CORS, TLS, Protokolle, Header)
+* Zentrale Durchsetzung von Rate Limiting, Timeouts und Circuit Breaking zum Schutz der Backends
+* Vereinheitlichtes Monitoring, Logging und Tracing für vollständige Transparenz der Anfragen
+* Unterstützung kontrollierter Deployment-Strategien wie API-Versionierung, Canary-Releases und Blue-Green-Deployments
+* Vermeidung redundanter Security- und Infrastruktur-Implementierungen in einzelnen Services
+* Klare und konsistente Exposition interner und externer APIs
+
 [[service-gateways]]
-==== Service Gateways
+==== Service-Gateways
 
 xref:glossary::terms-definitions.adoc#glossar-service-gateway[Service-Gateways] bilden aktuell die meisten Aufgaben des API-Gateways ab, auch die des geplanten Authentication Gateways.
 Hierzu enthalten sie folgende Funktionalitäten:
@@ -195,7 +196,7 @@ Für den Einsatz eines Sicherheitszertifikates wird eine Public Key Infrastructu
 Hierbei besitzt jede Entität ein Schlüsselpaar mit einem öffentlichen und privaten Schlüssel, um ein Entitätsbezogenes Zertifikat zu erstellen, das mittels des privaten Schlüssels signiert wird.
 Der Identitätsbeweis einer Entität erfolgt dann durch die Signatur-Validierung mit dem öffentlichen Schlüssel, der entweder zuvor schon zwischen den beteiligten Kommunikationspartner ausgetauscht wurde oder erst direkt vor der Validierung beim Besitzer des Zertifikats abgeholt wird.
 Für die konkrete Umsetzung der Absicherung der Kommunikationsstrecke sind die Vorgaben der jeweiligen Security, die gegebene Infrastruktur und die Tatsache, dass sich diese verändern, zu beachten (Vgl. xref:methodik:versionierung/master.adoc[Versionierung]).
-Welche Maßnahmen für eine sichere Kommunikation realisiert werden, ist mit dem jeweiligen Partner, der einen xref:isyfact-standards-doku:referenzarchitektur:software-technisch/kommunikation.adoc[Service]  anbietet, abzustimmen.
+Welche Maßnahmen für eine sichere Kommunikation realisiert werden, ist mit dem jeweiligen Partner, der einen xref:isyfact-standards-doku:referenzarchitektur:software-technisch/kommunikation.adoc[Service] anbietet, abzustimmen.
 
 Für alle implementierten Authentifizierungs- und Verschlüsselungsverfahren werden jedoch die folgenden Festlegungen getroffen:
 

@@ -1,7 +1,5 @@
 = Nutzungsvorgaben Logging
 
-include::glossary:licence:partial$licence.adoc[]
-
 include::docinfo.adoc[]
 
 include::thisdoc.adoc[tags=inhalt]

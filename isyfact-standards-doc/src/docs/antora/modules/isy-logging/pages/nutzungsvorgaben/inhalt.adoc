@@ -9,7 +9,7 @@ In diesem Kapitel sind die Grundlagen des Loggings beschrieben.
 [[grundprinzipien-des-loggings]]
 === Grundprinzipien des Loggings
 
-Im Folgenden werden zunächst die Grundprinzipien des Loggings beschrieben, die den nachfolgenden Kapiteln zu Grunde liegen und das Logging in der IsyFact geprägt haben.
+Im Folgenden werden zunächst die Grundprinzipien des Loggings beschrieben, die den nachfolgenden Kapiteln zugrunde liegen und das Logging in der IsyFact geprägt haben.
 Diese sollen ein einheitliches Verständnis und „Gefühl“ für das Logging vermitteln.
 
 *Logs als Ereignisdatenbank:* Logdateien werden häufig als einfache Textdateien verstanden, in die Einträge – vergleichbar mit der Ausgabe von Text in der Konsole – hinzugefügt werden.
@@ -31,7 +31,7 @@ Daher gelten die Prinzipien:
 [start=3]
 .  *Definiere den Zweck*: Für jeden Logeintrag muss klar sein, zu welchem Zweck dieser erstellt wird.
 .  *Formuliere Ausgaben für einen konkreten Anwendungsfall**: Das Erstellen eines Logeintrags erfolgt für einen konkreten Anwendungsfall, in dem der Logeintrag später genutzt wird.
-Die Inhalte des Logeintrags müssen alle Informationen enthalten, so dass dieser Anwendungsfall effizient ausgeführt werden kann.
+Die Inhalte des Logeintrags müssen alle Informationen enthalten, sodass dieser Anwendungsfall effizient ausgeführt werden kann.
 .  *Definiere den Konsumenten*: Für jeden Logeintrag muss klar sein, wer der Konsument des Logeintrags ist – also durch welchen Akteur der Eintrag später ausgewertet wird.
 Dies wird erreicht, in dem jedem Anwendungsfall ein Akteur zugeordnet ist, durch den er ausgeführt wird.
 .  *Verwende nur Ausgaben, die auch ausgewertet werden*: Logeinträge sind nur dann sinnvoll, wenn sie später auch ausgewertet werden.
@@ -91,14 +91,14 @@ Der Betrieb muss im Hinblick auf die Fehleranalyse hierbei (zunächst) nicht akt
 |4 |INFO |(Status-) Hinweise a|
 Meldungen über den laufenden Betrieb, zum Beispiel zu verarbeiteten Anfragen, ihrem Ergebnis und ihrer Dauer, Anwendung gestartet/beendet
 
-Durchführung eines Retries (bspw. auf Grund eines OptimisticLocking-Fehlers)
+Durchführung eines Retries (bspw. aufgrund eines OptimisticLocking-Fehlers)
 
-|5 |DEBUG |Erweiterte Informationen, um Details im Programmablauf zur Fehleranalyse nachvollziehen zu können. |Meldungen zu markanten Verarbeitungsschritten (bspw. „ Führe Suche nach Personen durch“)
+|5 |DEBUG |Erweiterte Informationen, um Details im Programmablauf zur Fehleranalyse nachvollziehen zu können. |Meldungen zu markanten Verarbeitungsschritten (bspw. „Führe Suche nach Personen durch“)
 |6 |TRACE |Feingranulare und umfangreiche Informationen als Ergänzung des DEBUG-Levels für besonders schwierige Fehleranalysen. |Vollständige HTTP-Kommunikation an einer Schnittstelle (Header, Body, technische Informationen).
 |====
 
 [underline]#Hinweis zum Log-Level FATAL#: SLF4J und damit auch logback (welches `isy-logging` zugrunde liegt) besitzen kein Log-Level FATAL.
-Die Unterscheidung, ob ein Error-Logeintrag „FATAL“ ist oder nicht, kann mit Hilfe von Markern umgesetzt werden.
+Die Unterscheidung, ob ein Error-Logeintrag „FATAL“ ist oder nicht, kann mithilfe von Markern umgesetzt werden.
 
 NOTE: Siehe auch bei https://www.slf4j.org/faq.html#fatal[SLF4J FATAL]
 
@@ -141,12 +141,12 @@ Herunterfahren des Systems,
 [[ereignisschluessel]]
 ==== Ereignisschlüssel
 
-Ereignisschlüssel dienen der _eindeutigen_ Identifikation des Zwecks, auf Grund dessen der Logeintrag im Log-Level INFO erstellt wurde (bspw. Erstellung eines Logeintrags beim Verlassen einer Systemgrenze zur Performancemessung).
+Ereignisschlüssel dienen der _eindeutigen_ Identifikation des Zwecks, aufgrund dessen der Logeintrag im Log-Level INFO erstellt wurde (bspw. Erstellung eines Logeintrags beim Verlassen einer Systemgrenze zur Performancemessung).
 Dies ist notwendig, da das Log-Level INFO eine Vielzahl unterschiedlicher Auswertungsmöglichkeiten bietet.
 Ohne die Verwendung des Schlüssels könnte der Zweck des jeweiligen Eintrags meist nur mit Kenntnis des Quellcodes oder Interpretation der Lognachricht ermittelt werden, was eine maschinelle Auswertung der Einträge erschwert oder gar unmöglich macht.
 
 Wenn an mehreren Stellen Logeinträge für den gleichen Zweck erstellt werden, wird hierfür der gleiche Ereignisschlüssel verwendet.
-Dies ist bspw. im Logszenario „Loggen fachlicher Operationen“ (siehe <<loggen-fachlicher-operationen>>) der Fall, in dem die Durchführung fachlicher Operationen jeweils mit dem gleichen Ereignisschlüssel geloggt werden, so dass alle diese Einträge mit einer einzelnen Abfrage auf den definierten Schlüssel ausgewertet werden können.
+Dies ist bspw. im Logszenario „Loggen fachlicher Operationen“ (siehe <<loggen-fachlicher-operationen>>) der Fall, in dem die Durchführung fachlicher Operationen jeweils mit dem gleichen Ereignisschlüssel geloggt werden, sodass alle diese Einträge mit einer einzelnen Abfrage auf den definierten Schlüssel ausgewertet werden können.
 
 In den Log-Leveln FATAL, ERROR und WARN wird der jeweilige Fehlerschlüssel als Ereignisschlüssel verwendet.
 In den Log-Leveln DEBUG und TRACE werden keine Ereignisschlüssel verwendet, da dort der Zweck bereits eindeutig durch den Log-Level (Zweck „Fehleranalyse“) bestimmt ist.
@@ -164,7 +164,7 @@ Der Aufbau der Ereignisschlüssel entspricht dem folgenden Schema:
 
 Dieses setzt sich aus den folgenden Elementen zusammen:
 
-* Jedem Schlüssel wird die feste Zeichenkette „**E**“ vorangestellt, um den Eintrag als Ereignisschlüssel zu Kennzeichnen und zu verhindern, dass dieser mit Fehler- oder Hinweisschlüsseln verwechselt wird.
+* Jedem Schlüssel wird die feste Zeichenkette „**E**“ vorangestellt, um den Eintrag als Ereignisschlüssel zu kennzeichnen und zu verhindern, dass dieser mit Fehler- oder Hinweisschlüsseln verwechselt wird.
 * *5 Buchstaben*, zur Identifikation des Systems.
 Diese ist analog zur Identifikation, die auch bei den Ausnahme-IDs (siehe xref:isy-exception-core:konzept/master.adoc#einleitung[Konzept Fehlerbehandlung]) verwendet wird.
 +
@@ -208,7 +208,7 @@ Die einzelnen Platzhalter im Namensschema sind in folgender Tabelle beschrieben:
 [cols="2,3,2",options="header"]
 |====
 |Bestandteil |Werte |Beschreibung
-|HOST |z.B. xyzweb01 |Name des Servers, auf dem die Logs entstehen
+|HOST |z.B. `xyzweb01` |Name des Servers, auf dem die Logs entstehen
 |SYSTEM-ID |Durch den Technischen Chefdesigner für die jeweilige Anwendung in Abstimmung mit dem Auftraggeber festzulegen (siehe xref:methodik:namenskonventionen.adoc#technische-systemnamen[technische Systemnamen])
 a|Name der Anwendung bzw. des Batches.
 _Anwendung bezieht sich hierbei auf die Anwendungen, die im Tomcat laufen, in Abgrenzung zu Batches._
@@ -221,7 +221,7 @@ Ein Beispiel des Namens einer Logdatei ist demnach:
 [frame="none"]
 |====
 ^a|`xyzweb01_abc_2007-09-16_0900.log` +
-(Log vom 16. September 2007 ~9 Uhr, von der Anwendung bzw. dem Batch ABC auf dem Server xyzweb01)
+(Log vom 16. September 2007 ~9 Uhr, von der Anwendung bzw. dem Batch ABC auf dem Server `xyzweb01`)
 |====
 
 [[speicherort]]
@@ -314,7 +314,7 @@ warn(String schlussel, String nachricht, Object... werte)
 info(LogKategorie kategorie, String schlussel, String nachricht, Object... werte)
 ----
 Der Aufruf wird an die entsprechende Methode des SLF4J-Loggers (mit gleicher Signatur) delegiert.
-Dabei werden alle Werte (d.h. die Inhalte für Platzhalter in der Nachricht) zusätzlich als Marker übergeben, so dass sie im Logeintrag als separate Attribute ausgegeben werden können und damit einfacher auswertbar sind:
+Dabei werden alle Werte (d.h. die Inhalte für Platzhalter in der Nachricht) zusätzlich als Marker übergeben, sodass sie im Logeintrag als separate Attribute ausgegeben werden können und damit einfacher auswertbar sind:
 
 * `parameter1`: werte[1].
 * `parameter2`: werte[2].
@@ -544,7 +544,7 @@ Daher stellt der Invoker für Methodenaufrufe von Nachbarsystemen einen eigenen 
 
 * `LoggingMethodInvoker(Method methode, IsyLogger logger, boolean loggeAufruf, boolean loggeErgebnis, boolean loggeDauer, boolean loggeDaten, boolean loggeDatenBeiException , long loggeMaximaleParameterGroesse, String nachbarsystemName, String nachbarsystemUrl)`: Analog zu oben, nur das der Name und die URL des aufgerufenen Nachbarsystems übergeben wird.
 
-Dieser Konstruktor ist beim Aufruf einer Service-Schnittstelle eines Nachbarsystems zu verwenden (vgl. auch Szenario „Performance überwachen“ in <<performance-ueberwachen>>).
+Dieser Konstruktor ist beim Aufruf eines Services eines Nachbarsystems zu verwenden (vgl. auch Szenario <<performance-ueberwachen>>).
 Bei Verwendung dieses Konstruktors werden die Logeinträge mit folgenden Ereignisschlüsseln erstellt:
 
 Ereignisschlüssel LoggingMethodInvoker (Nachbarsystemaufruf)
@@ -589,8 +589,8 @@ Die Klasse MdcHelper erleichtert das Setzen von Informationen im MDC (Mapped Dia
 
 Es werden Methoden zum Setzen und Lesen der Korrelations-ID bereitgestellt:
 
-* pushKorrelationsId(…): Zum „pushen“ einer neuen Korrelations-ID in den MDC.
-Dies bedeutet: Wenn die Korrelations-ID „X“ gesetzt wird, wird diese im Attribut „korrelationsid“ im MDC gesetzt.
+* `pushKorrelationsId(...)`: Zum „pushen“ einer neuen Korrelations-ID in den MDC.
+Dies bedeutet: Wenn die Korrelations-ID „X“ gesetzt wird, wird diese im Attribut `korrelationsid` im MDC gesetzt.
 Sollte dieses Attribut bereits gesetzt sein (bspw. mit der Korrelations-ID „Y“), so wird das Attribut durch „Y;X“ ersetzt.
 * `liesKorrelationsId()`: Liest die Korrelations-ID aus dem MDC.
 * `entferneKorrelationsId()`: Entfernt die zuletzt „gepushte“ Korrelations-ID (bspw. „Y;X“ wird zu „Y“).
@@ -674,7 +674,7 @@ Da der Client einem bestimmten Benutzer zugeordnet werden kann, wird hier kein M
 Sollte jedoch Multi-Threading innerhalb eines Requests vorhanden sein, so ist der MDC dem Thread mitzugeben.
 Somit müssen alle Klassen, die das Interface Runnable implementieren, eine Methode vorsehen, um den MDC von der Klasse zu bekommen, die den Thread startet.
 Ansonsten besitzt der gestartete Thread nicht den Kontext des aufrufenden Threads.
-Zusätzlich muss im Thread eine weitere Unique-ID an die Korrelations-ID im MDC angehängt werden, so dass auch die Logeinträge des Threads eindeutig identifiziert werden können.
+Zusätzlich muss im Thread eine weitere Unique-ID an die Korrelations-ID im MDC angehängt werden, sodass auch die Logeinträge des Threads eindeutig identifiziert werden können.
 
 [[konfiguration]]
 === Konfiguration
@@ -737,7 +737,7 @@ Folgende Parameter sind zu setzen:
 [[lokale-entwicklungsumgebung-konsolenausgabe]]
 ===== Lokale Entwicklungsumgebung (Konsolenausgabe)
 
-In der lokalen Entwicklungsumgebung ist es hilfreich, die Log-Ausgaben direkt auf der Konsole in einem einfachlesbaren Format auszugeben.
+In der lokalen Entwicklungsumgebung ist es hilfreich, die Log-Ausgaben direkt auf der Konsole in einem einfach lesbaren Format auszugeben.
 Hierfür wird folgende Konfiguration verwendet:
 
 [source,xml]
@@ -762,7 +762,7 @@ In diesem Abschnitt werden weitere Möglichkeiten der Konfiguration von logback 
 
 Es kann die maximale Länge eines Logeintrags in Bytes festgelegt werden.
 Sollte ein Logeintrag länger als dieser Wert sein, so wird der Logeintrag gekürzt (siehe xref:konzept/master.adoc#einleitung[Logging - Konzept]).
-Wird kein Wert angegeben, so beträgt der Standardwert 32000 Bytes.
+Wird kein Wert angegeben, so beträgt der Standardwert 32.000 Bytes.
 Wird der Wert auf 0 festgelegt, so gibt es keine Begrenzung in der Länge des Logeintrags.
 Die Beschränkung der Länge gilt nur für Logeinträge der Levels `INFO`, `WARN` und `ERROR`.
 
@@ -953,7 +953,7 @@ Bei sämtlichen Bridges muss sichergestellt werden, dass das `logback.jar` als e
 [[bridge-fuer-commons-logging]]
 ===== Bridge für commons-logging
 
-SLF4J stellt mit der Bibliothek `jcl-over-slf4j.jar` eine Bridge von commons-logging zu slf4j zur Verfügung.
+SLF4J stellt mit der Bibliothek `jcl-over-slf4j.jar` eine Bridge von `commons-logging` zu `slf4j` zur Verfügung.
 Diese kann wie folgt eingesetzt werden:
 
 .  `commons-logging*.jar` aus der Anwendung entfernen (bzw. sicherstellen, dass diese durch Maven nicht in die Anwendung integriert werden)
@@ -962,8 +962,8 @@ Diese kann wie folgt eingesetzt werden:
 [[bridge-fuer-java.util.logging]]
 ===== Bridge für java.util.logging
 
-SLF4J stellt für die java.util.logging API ebenfalls eine Bridge zur Verfügung (jul-to-slf4j.jar).
-Um die Bridge zu aktivieren müssen zunächst alle vorhandenen Log-Handler entfernt und danach ein Handler
+SLF4J stellt für die `java.util.logging` API ebenfalls eine Bridge zur Verfügung (`jul-to-slf4j.jar`).
+Um die Bridge zu aktivieren, müssen zunächst alle vorhandenen Log-Handler entfernt und danach ein Handler
 zum Weiterleiten der Log-Aufrufe an SLF4J installiert werden.
 
 NOTE: Weitere Informationen über SLF4J unter https://www.slf4j.org/api/org/slf4j/bridge/SLF4JBridgeHandler.html[SLF4JBridgeHandler]
@@ -990,7 +990,7 @@ public class LoggingBridgeConfig {
 == Vorgaben zur Logerstellung
 
 Die Zielsetzung des Loggings ist es, unterschiedliche Auswertungen zu ermöglichen, um damit verschiedene Problemstellungen und Informationsbedarfe, die während des Betriebs der Systeme entstehen, einfach und effizient beantworten zu können.
-Grundlage hierfür bildet zum einen die technische Vereinheitlichung des Loggings, die in den vorangegangen Abschnitten (Nutzung und Konfiguration) beschrieben wurde.
+Grundlage hierfür bildet zum einen die technische Vereinheitlichung des Loggings, die in den vorangegangenen Abschnitten (Nutzung und Konfiguration) beschrieben wurde.
 Zum Anderen muss das Logging jedoch insbesondere auch inhaltlich – also _wann_ wird _was_ geloggt – einheitlich und zielgerichtet im Hinblick auf die verschiedenen Auswertungen erfolgen.
 Dadurch wird sichergestellt, dass die Logeinträge einfach ausgewertet werden können und alle notwendigen Informationen vorliegen.
 
@@ -1005,7 +1005,7 @@ Die konkreten Szenarien, in denen Logeinträge zu erstellen sind, werden in <<lo
 
 In diesem Abschnitt werden Auswertungen beschrieben, die auf den Logs der xref:glossary:glossary:master.adoc#glossar-anwendungslandschaft[Anwendungslandschaft] durchgeführt werden können müssen.
 Die Auswertung erfolgt dabei meist durch den Betrieb und nicht durch die Entwickler.
-Es ist jedoch Aufgabe der Entwickler sämtliche Informationen in den Logs bereitzustellen, so dass die Szenarien effizient durchgeführt werden können.
+Es ist jedoch Aufgabe der Entwickler sämtliche Informationen in den Logs bereitzustellen, sodass die Szenarien effizient durchgeführt werden können.
 
 Es wird zwischen folgenden Akteuren unterschieden:
 
@@ -1025,7 +1025,7 @@ Es wird zwischen folgenden Akteuren unterschieden:
 Schwerwiegende Fehler, von denen sich die Anwendung nicht erholen kann und beendet werden muss ("Unrecoverable Error"), müssen umgehend erkannt werden.
 Zu diesem Zweck überwacht das betriebliche Monitoring das Log-Level FATAL und alarmiert den Betrieb bei jedem neuen Eintrag.
 
-Logeinträge im Level FATAL signalisieren, dass der Systembetrieb unterbrochen ist und der Betrieb schnellstmöglich aktiv werden muss, um die Fehlerursache mit Hilfe der bereitgestellten Informationen zu analysieren, zu beheben und die Anwendung wieder neu zu starten.
+Logeinträge im Level FATAL signalisieren, dass der Systembetrieb unterbrochen ist und der Betrieb schnellstmöglich aktiv werden muss, um die Fehlerursache mithilfe der bereitgestellten Informationen zu analysieren, zu beheben und die Anwendung wieder neu zu starten.
 
 Falls der Betrieb im Rahmen der Fehleranalyse feststellt, dass die Exception auf einen Fehler in der Anwendung zurückzuführen ist, wird der Logeintrag zur Fehleranalyse an die Entwickler übergeben.
 
@@ -1048,7 +1048,7 @@ Beeinträchtigungen des Systembetriebs (bspw. Netzwerkverbindung kann nicht aufg
 Zu diesem Zweck überwacht das betriebliche Monitoring das Log-Level ERROR und alarmiert den Betrieb bei jedem neuen Eintrag.
 
 Logeinträge im Level ERROR signalisieren, dass der Fehler durch die Anwendung behandelt wurde und die Anwendung weiterläuft.
-Der Betrieb muss jedoch schnellstmöglich aktiv werden, um die Fehlerursache mit Hilfe der bereitgestellten Informationen zu analysieren, zu beheben und damit ein erneutes Auftreten des Fehlers zu verhindern.
+Der Betrieb muss jedoch schnellstmöglich aktiv werden, um die Fehlerursache mithilfe der bereitgestellten Informationen zu analysieren, zu beheben und damit ein erneutes Auftreten des Fehlers zu verhindern.
 
 Falls der Betrieb im Rahmen der Fehleranalyse feststellt, dass die Exception auf einen Fehler in der Anwendung zurückzuführen ist, wird der Logeintrag zur Fehleranalyse an die Entwickler übergeben.
 
@@ -1131,7 +1131,7 @@ wenn Aufrufe einer Komponente zunehmend länger dauern.
 Die Analyse der Nutzungshäufigkeit bestimmter kritischer Stellen der Anwendungslandschaft (bspw. von Service-Methoden oder Komponenten) und insbesondere deren Entwicklung über die Zeit wird zu folgenden Zwecken durchgeführt:
 
 * Anomalien in Nutzung erkennen: Durch die betriebliche Überwachung der Nutzungshäufigkeit von Systemen können Ausreißer
- im Nutzerverhalten erkannt werden, die ggf. ein Fehlverhalten des Aufrufers (bspw. große Anzahl an Aufrufen weil Testsystem auf Produktivumgebung gelenkt ist) oder gar auf einen Missbrauchsversuch (Vielzahl unautorisierter Zugriffe, um Benutzerdaten zu erraten) hindeuten.
+ im Nutzerverhalten erkannt werden, die ggf. ein Fehlverhalten des Aufrufers (bspw. große Anzahl an Aufrufen, weil Testsystem auf Produktivumgebung gelenkt ist) oder gar auf einen Missbrauchsversuch (Vielzahl unautorisierter Zugriffe, um Benutzerdaten zu erraten) hindeuten.
 * Auswirkung von Änderungen prognostizieren: Es kann bspw. überprüft werden, wie oft eine alte Schnittstelle noch verwendet wird und ob (bzw. mit welchem Aufwand) dieses abgeschaltet werden kann.
 * Auswirkung von Änderungen analysieren: Es kann bspw. überprüft werden, ob eine Erhöhung der Cache-Größe zur gewünschten Reduktion der Nachbarsystemaufrufe geführt hat.
 |====
@@ -1221,7 +1221,7 @@ Die Szenarien sind nach folgendem Schema aufgebaut:
 
 Die folgenden Regeln sind für alle Logeinträge zu beachten:
 
-1.  **Keine Binärdaten loggen**: Binärdaten sind nur schwer auswertbar und führen potentiell zu sehr langen Einträgen.
+1.  **Keine Binärdaten loggen**: Binärdaten sind nur schwer auswertbar und führen potenziell zu sehr langen Einträgen.
 Binärdaten dürfen daher nicht gelogged werden.
 2.  **Größe der Parameter beschränken**: Beim Loggen der Schnittstellenkommunikation können durch große Objektstrukturen ebenfalls sehr große Logeinträge entstehen.
 Das Loggen von Parametern kann durch entsprechende Konfiguration auf eine Maximalgröße beschränkt werden.
@@ -1241,7 +1241,7 @@ Sollte einer dieser Mechanismen in einer Anwendung nicht umgesetzt werden könne
 [cols="2s,5"]
 |====
 |Beschreibung |Es wird eine Außenschnittstelle des Systems – Service oder Batch – aufgerufen (eingehender Aufruf).
-|Logging |Der Aufruf der Methode wird mit Hilfe des `LogInterceptor` geloggt.
+|Logging |Der Aufruf der Methode wird mithilfe des `LogInterceptor` geloggt.
 Dieser muss gemäß <<loggingmethodinterceptor>> für alle Außenschnittstellen des Systems konfiguriert sein.
 |Auswertungsszenario a|
 * Performance analysieren
@@ -1257,7 +1257,7 @@ Dieser muss gemäß <<loggingmethodinterceptor>> für alle Außenschnittstellen 
 |====
 |Beschreibung |Beim Aufruf eines Systems ist ein Fehler aufgetreten.
 Es wird eine Exception an den Aufrufer zurückgegeben.
-|Logging |Es müssen die übermittelten Eingabeparameter mit Hilfe des `LogInterceptor` geloggt werden.
+|Logging |Es müssen die übermittelten Eingabeparameter mithilfe des `LogInterceptor` geloggt werden.
 Dieser muss gemäß <<loggingmethodinterceptor>> für alle Außenschnittstellen des Systems konfiguriert sein.
 |Auswertungsszenario a|
 * Fehleranalyse (Debugging)
@@ -1272,7 +1272,7 @@ Dieser muss gemäß <<loggingmethodinterceptor>> für alle Außenschnittstellen 
 |Logging a|
 Das Loggen von Aufrufen an Komponentengrenzen liefert insbesondere für die Performanceanalyse wichtige Informationen, führt jedoch in den meisten Anwendungen zu einem sehr hohen Logvolumen.
 
-Jede Anwendung muss den LogInterceptor gemäß <<loggingmethodinterceptor>> konfigurieren, so dass das Logging an den Komponentengrenzen bei Bedarf aktiviert werden kann.
+Jede Anwendung muss den LogInterceptor gemäß <<loggingmethodinterceptor>> konfigurieren, sodass das Logging an den Komponentengrenzen bei Bedarf aktiviert werden kann.
 
 |Auswertungsszenario a|
 * Performance überwachen
@@ -1286,7 +1286,7 @@ Jede Anwendung muss den LogInterceptor gemäß <<loggingmethodinterceptor>> konf
 [cols="2s,5"]
 |====
 |Beschreibung |Es wird eine Methode eines DAOs aufgerufen (eingehender Aufruf).
-|Logging |Der Aufruf der Methode wird mit Hilfe des `LogInterceptor` geloggt.
+|Logging |Der Aufruf der Methode wird mithilfe des `LogInterceptor` geloggt.
 Dieser muss gemäß <<loggingmethodinterceptor>> für alle Komponentenschnittstellen konfiguriert sein.
 |Auswertungsszenario a|
 * Performance überwachen
@@ -1364,11 +1364,9 @@ Wird eine Exception nicht behandelt (also an den Aufrufer weitergereicht), wird 
 |Logging a|
 Je nach Schwere des Fehlers wird die Exception in einem der folgenden Log-Level geloggt (siehe <<log-level>>):
 
-* FATAL: Falls es sich um einen schwerwiegenden Fehler handelt (vgl. auch Szenario „Schwerwiegenden Fehler erkennen und behandeln“ in <<schwerwiegenden-fehler-erkennen-und-behandeln>>).
-* ERROR: Falls der Fehler zur Beeinträchtigung des Systembetriebs führt, das System aber weiterlaufen kann (vgl. auch Szenario „Beeinträchtigung des Betriebs erkennen und behandeln“ in
-<<beeintraechtigung-des-betriebs-erkennen-und-behandeln>>)
-* WARN: Wenn es sich um ein inkonsistentes / unerwartetes Systemverhalten handelt, welches der Entwicklungsabteilung mitgeteilt werden muss (vgl. auch Szenario „Unerwartetes Systemverhalten erkennen und behandeln“ in
-<<unerwartetes-systemverhalten-erkennen-und-behandeln>>).
+* FATAL: Falls es sich um einen schwerwiegenden Fehler handelt (vgl. auch Szenario <<schwerwiegenden-fehler-erkennen-und-behandeln>>).
+* ERROR: Falls der Fehler zur Beeinträchtigung des Systembetriebs führt, das System aber weiterlaufen kann (vgl. auch Szenario <<beeintraechtigung-des-betriebs-erkennen-und-behandeln>>).
+* WARN: Wenn es sich um ein inkonsistentes / unerwartetes Systemverhalten handelt, welches der Entwicklungsabteilung mitgeteilt werden muss (vgl. auch Szenario <<unerwartetes-systemverhalten-erkennen-und-behandeln>>).
 * INFO: Wenn es sich um einen „erwarteten“ Fehler handelt, der durch das System behandelt werden.
 Dies umfasst insbesondere auch Exceptions, die mit einem Retry behandelt werden – bspw. wenn eine OptimisticLockException gefangen und die Anfrage wiederholt wird.
 
@@ -1398,7 +1396,7 @@ Es tritt ein wichtiges Ereignis auf, welches für die Durchführung der folgende
 * Nutzungshäufigkeit auswerten
 * Systemzustand und -ereignisse überwachen
 
-Es ist Aufgabe des technischen Chefdesigners diese Stellen im Rahmen des Systementwurfs zu Identifizieren und mit dem Auftraggeber abzustimmen.
+Es ist Aufgabe des technischen Chefdesigners diese Stellen im Rahmen des Systementwurfs zu identifizieren und mit dem Auftraggeber abzustimmen.
 
 |Logging a|
 Es muss ein spezifischer Ereignisschlüssel definiert, im Systementwurf dokumentiert und ein Logeintrag im Level INFO erstellt werden.
@@ -1461,7 +1459,7 @@ Bspw.:
 * *Falsch*: „Hier“, „Fertig“, „1“, „OK“
 * *Richtig*: „Regelwerksprüfungen erfolgreich abgeschlossen“, „Führe Suche nach Personen durch“
 
-[underline]#Anmerkung#: Für eine detaillierte Fehleranalyse ist es natürlich meist unerlässlich auch den Programmcode einzusehen.
+[underline]#Anmerkung#: Für eine detaillierte Fehleranalyse ist es oft unerlässlich, auch den Programmcode einzusehen.
 Durch die verständliche Formulierung der Logeinträge kann der Hergang, der zu einem Fehler geführt hat, jedoch viel einfacher und schneller nachvollzogen werden und damit die Fehlerquelle schneller identifiziert werden.
 |Auswertungsszenario a|
 * Fehleranalyse (Debugging)
@@ -1473,7 +1471,7 @@ Durch die verständliche Formulierung der Logeinträge kann der Hergang, der zu 
 [cols="2s,5"]
 |====
 |Beschreibung a|
-In komplexen Verfahren kann es notwendig sein, die erstellten Logeinträge fachlich in Verbindung zueinander zu setzen – bspw. Kennzeichnen aller Logeinträge, die sich auf einen bestimmten Datensatz beziehen, durch Aufnahme des eindeutigen Schlüssel des betroffenen Datensatzes.
+In komplexen Verfahren kann es notwendig sein, die erstellten Logeinträge fachlich in Verbindung zueinander zu setzen – bspw. Kennzeichnen aller Logeinträge, die sich auf einen bestimmten Datensatz beziehen, durch Aufnahme des eindeutigen Schlüssels des betroffenen Datensatzes.
 
 Wenn diese Anforderung gegeben ist, kann dies beim Aufruf an der Systemgrenze (vgl. Szenario <<aufruf-an-systemgrenze>>) wie im Folgenden beschrieben berücksichtigt werden.
 |Logging a|

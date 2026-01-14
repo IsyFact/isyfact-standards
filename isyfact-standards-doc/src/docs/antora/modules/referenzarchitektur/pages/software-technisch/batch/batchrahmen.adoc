@@ -476,7 +476,7 @@ Wie in Kapitel <<grobe-architektur-des-batchrahmens>> beschrieben, werden für e
 Für den Kontext des eigentlichen Backends können die Spring-Konfigurationsdateien übernommen werden.
 In ihnen müssen folgende Anpassungen vorgenommen werden:
 
-* Service-Beans, die für die Batch-Verarbeitung nicht benötigt werden, sollten deaktiviert werden,
+* Beans (z.B. der Serviceschicht), die für die Batch-Verarbeitung nicht benötigt werden, sollten deaktiviert werden,
 * Entity-Klassen des Batchrahmens müssen in der Spring-Konfiguration der Batches hinzugefügt werden:
 
  @EntityScan("de.bund.bva.isyfact.batchrahmen.persistence.rahmen")

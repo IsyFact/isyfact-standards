@@ -60,7 +60,7 @@ Für die vom Anwendungskern gelieferten Ergebnisse ist eine Transformation in um
 Dabei führt die Service-Fassade eine Validierung der Aufrufparameter durch.
 
 Die Service-Fassade übernimmt darüber hinaus auch die Autorisierung des Aufrufs.
-Dazu nutzt sie den xref:security::nutzungsvorgaben.adoc#autorisierung_service_schnittstelle[Baustein Security].
+Dazu nutzt sie den xref:security::nutzungsvorgaben.adoc#autorisierung-service[Baustein Security].
 
 [[exception-fassade]]
 ==== Exception-Fassade
