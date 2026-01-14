@@ -119,7 +119,7 @@ include::backend/serviceschicht.adoc[tags=service-framework-definition]
 [[serviceschicht-umsetzung]]
 === Umsetzung
 
-Zur Konzeption von Services definiert die Referenzarchitektur xref:software-technisch/kommunikation.adoc[weitere Vorgaben].
+Zur Konzeption von xref:glossary::terms-definitions.adoc#service[Services] definiert die Referenzarchitektur xref:software-technisch/kommunikation.adoc[weitere Vorgaben].
 Zur Umsetzung von REST-Services mit Spring Web definiert die Referenzarchitektur xref:software-technisch/backend/serviceschicht.adoc[weitere Vorgaben].
 
 [[querschnitt]]

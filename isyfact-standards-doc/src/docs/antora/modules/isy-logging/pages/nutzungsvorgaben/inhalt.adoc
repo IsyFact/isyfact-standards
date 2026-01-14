@@ -544,7 +544,7 @@ Daher stellt der Invoker für Methodenaufrufe von Nachbarsystemen einen eigenen 
 
 * `LoggingMethodInvoker(Method methode, IsyLogger logger, boolean loggeAufruf, boolean loggeErgebnis, boolean loggeDauer, boolean loggeDaten, boolean loggeDatenBeiException , long loggeMaximaleParameterGroesse, String nachbarsystemName, String nachbarsystemUrl)`: Analog zu oben, nur das der Name und die URL des aufgerufenen Nachbarsystems übergeben wird.
 
-Dieser Konstruktor ist beim Aufruf eines Services eines Nachbarsystems zu verwenden (vgl. auch Szenario <<performance-ueberwachen>>).
+Dieser Konstruktor ist beim Aufruf eines xref:glossary::terms-definitions.adoc#service[Services] eines Nachbarsystems zu verwenden (vgl. auch Szenario <<performance-ueberwachen>>).
 Bei Verwendung dieses Konstruktors werden die Logeinträge mit folgenden Ereignisschlüsseln erstellt:
 
 Ereignisschlüssel LoggingMethodInvoker (Nachbarsystemaufruf)

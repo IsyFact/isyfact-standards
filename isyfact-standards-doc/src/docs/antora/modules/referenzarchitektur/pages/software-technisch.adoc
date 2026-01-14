@@ -35,7 +35,7 @@ Geschäftsanwendungen können monolithisch strukturiert sein und alle Schichten 
 Sie können aber auch jeweils nur Teile davon implementieren, sodass z.B. eine Geschäftsanwendung eine GUI bereitstellt, eine weitere die Geschäftslogik implementiert und eine dritte schließlich die Persistierung der Daten realisiert.
 In diesem Fall würde die Gesamtfunktionalität durch das Zusammenwirken der drei Geschäftsanwendungen erbracht.
 
-Die Geschäftsanwendungen einer Systemlandschaft können sich intern gegenseitig über ihre Services aufrufen.
+Die Geschäftsanwendungen einer Systemlandschaft können sich intern gegenseitig über ihre xref:glossary::terms-definitions.adoc#service[Services] aufrufen.
 In einem konkreten Anwendungskontext einer Systemlandschaft wird man in der Regel die Arten von Geschäftsanwendungen noch genauer definieren und dabei auch die möglichen Aufrufbeziehungen zwischen ihnen geeignet einschränken.
 
 Für die Kommunikation mit externen Systemen muss eine Geschäftsanwendung ein Service-Gateway verwenden, egal in welche Richtung die Kommunikation verläuft.
@@ -72,7 +72,7 @@ include::glossary::terms-definitions.adoc[tag=api-gateway-definition]
 Das API-Gateway besteht aus IT-Systemen des Typs xref:software-technisch/gateway.adoc[].
 Das bekannteste Beispiel hierfür sind <<service-gateways>>.
 Die <<prinzipien-der-sicherheitsarchitektur,Sicherheitsarchitektur>> beschreibt ein Authentication Gateway, das sich zentral um Authentifizierung und Autorisierung kümmert.
-Anwendungen können weitere Gateways erfordern, falls sie neben Services andere Dienste, zum Beispiel E-Mail-Empfang oder -Versand, für externe Systeme bereitstellen.
+Anwendungen können weitere Gateways erfordern, falls sie neben xref:glossary::terms-definitions.adoc#service[Services] andere Dienste, zum Beispiel E-Mail-Empfang oder -Versand, für externe Systeme bereitstellen.
 
 Durch diese zentrale Rolle übernimmt das API-Gateway eine Vielzahl querschnittlicher technischer und sicherheitsrelevanter Aufgaben, die in der folgenden Übersicht zusammengefasst sind:
 
@@ -101,7 +101,7 @@ Service-Gateways besitzen weder eine eigene Datenhaltung noch eigene Fachlichkei
 
 include::documentation-guide::partial$content-revised.adoc[]
 
-Services sind ein wesentlicher Bestandteil jeder <<strukturierung-der-systemlandschaft,Systemlandschaft>>.
+xref:glossary::terms-definitions.adoc#service[Services] sind ein wesentlicher Bestandteil jeder <<strukturierung-der-systemlandschaft,Systemlandschaft>>.
 Die software-technische Referenzarchitektur definiert HTTP als grundsätzliches Übertragungsprotokoll und xref:software-technisch/kommunikation.adoc[weitere Vorgaben für Services] zu den Themen:
 
 * Kommunikation mit Systemen innerhalb und außerhalb der Systemlandschaft,

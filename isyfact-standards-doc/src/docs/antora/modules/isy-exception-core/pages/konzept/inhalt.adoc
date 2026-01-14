@@ -15,7 +15,7 @@ Aus den genannten Anforderungen ergeben sich entsprechende Detailvorgaben, die z
 Außerdem müssen die Fehlertexte so aufgebaut sein, dass sie sowohl den Betrieb als auch die Entwickler bei der Ursachenforschung und der schnellen Bearbeitung unterstützen.
 
 **Zuordnung von Fehlern**: Die IsyFact-Architektur beschreibt eine serviceorientierte xref:glossary:glossary:master.adoc#glossar-anwendungslandschaft[Anwendungslandschaft].
-Das Ergebnis, das einem Nutzer angezeigt wird, entsteht durch das Zusammenspiel verschiedener Anwendungen, die jeweils Services anbieten.
+Das Ergebnis, das einem Nutzer angezeigt wird, entsteht durch das Zusammenspiel verschiedener Anwendungen, die jeweils xref:glossary::terms-definitions.adoc#service[Services] anbieten.
 Ein gemeldeter Fehler muss in dieser Landschaft einer Anwendung zuzuordnen sein.
 
 **Eigene Fehlertexte für Drittanbieter-Komponenten**: Für unchecked Exceptions von Drittanbieter-Komponenten, wie z. B. Hibernate, müssen eigene Fehlertexte für die Komponente (nicht für die einzelnen möglichen Exceptions) hinterlegt sein.
