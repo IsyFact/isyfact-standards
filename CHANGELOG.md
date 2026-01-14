@@ -1,5 +1,6 @@
 # 5.0.0
 ### FEATURES
+- `IFS-4734`: [isyfact-standards-doc] Verwendungen des Begriffs "Service" und damit verwandter Begriffe korrigieren
 - `IFS-4980`: [isyfact-standards-doc] Erstellung initiale Gliederung und Einleitung & Zielbild für Referenzarchitektur Frontend
 - `IFS-4903`: [isyfact-standards-doc] Anpassung der Service-Gateways an die Definition des IT-Systemtyps "Gateway"
 - `IFS-4899`: [isyfact-standards-doc] Dokumentation des Schemas für Konfigurationsparameter
@@ -70,7 +71,8 @@ Die Begrifflichkeiten "internes System" bzw. "interne Anwendung" wurden entfernt
 
 Der IT-Systemtyp "Gateway" wurde eingeführt. Er bildet die architektonische Grundlage für Service-Gateways und weitere Systeme, die eine Systemlandschaft mit der Außenwelt verbinden. 
 
-Der Bereich Services der Referenzarchitektur enthält eine Beschreibung von REST sowie allgemeine Seite zu Vorgaben und Konventionen aus dem abgelösten Baustein REST. 
+Der Bereich Services der Referenzarchitektur enthält eine Beschreibung von REST sowie allgemeine Seite zu Vorgaben und Konventionen aus dem abgelösten Baustein REST.
+Außerdem wurde der Begriff "Service" überarbeitet und dessen Verwendung in der gesamten IsyFact, wo nötig, angepasst. 
 
 #### Backend
 
