@@ -50,7 +50,7 @@
 - `IFS-4655`: Update von Maven Checkstyle Plugin auf Version 3.6.0
 - `IFS-4531`: Update von Flatten Maven Plugin auf Version 1.7.1
     * Update von Maven Version auf 3.6.3
-- `IFS-4864`: Update von Spring Boot auf Version 3.5.6
+- `IFS-4830`: Update von Spring Boot auf 3.5.9, Apache Poi auf 5.5.1 und Apache Tika auf 3.2.3
 
 ## RELEASE NOTES
 
