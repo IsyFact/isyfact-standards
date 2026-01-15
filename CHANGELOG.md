@@ -1,5 +1,8 @@
 # 5.0.0
 ### FEATURES
+- `IFS-4980`: [isyfact-standards-doc] Erstellung initiale Gliederung und Einleitung & Zielbild für Referenzarchitektur Frontend
+- `IFS-4903`: [isyfact-standards-doc] Anpassung der Service-Gateways an die Definition des IT-Systemtyps "Gateway"
+- `IFS-4899`: [isyfact-standards-doc] Dokumentation des Schemas für Konfigurationsparameter
 - `IFS-4924`: [isyfact-standards-doc] Einführung des API-Gateways als Sammelbegriff für alle Gateway-Systeme
 - `IFS-4874`: [isyfact-standards-doc] Beschreibung asynchroner Kommunikationsmuster
   * Request-Response asynchron, Message-Queue, Publish/Subscribe, Event Streaming
@@ -38,14 +41,17 @@
 - `IFS-4582`: [isy-persistence], [isy-polling], [isy-security], [isy-security-test], [isy-task], [isy-util] Entfernen der entkoppelten Bausteine aus dem Standards-Repository
 - `IFS-4922`: Aktualisierung von Java 17 auf 25
 - `IFS-4849`: Klassen des Pakets `de.bund.bva.isyfact.persistence.datetime` wurden aufgelöst.
+- `IFS-4911`: [isy-ueberwachung] Absicherung Actuator mit OAuth2
 
 ### DEPENDENCY UPGRADES
+- Update com.google.guava:guava von Version 33.3.0-jre auf 33.5.0-jre
+- Update com.oracle.database.jdbc:ucp von Version 19.27.0.0 auf 19.29.0.0
 - Update metro.webservices.version von Version 4.0.3 auf 4.0.4
 - `IFS-4530`: Update von UCP auf Version 19.27.0.0
 - `IFS-4655`: Update von Maven Checkstyle Plugin auf Version 3.6.0
 - `IFS-4531`: Update von Flatten Maven Plugin auf Version 1.7.1
     * Update von Maven Version auf 3.6.3
-- `IFS-4864`: Update von Spring Boot auf Version 3.5.6
+- `IFS-4830`: Update von Spring Boot auf 3.5.9, Apache Poi auf 5.5.1 und Apache Tika auf 3.2.3
 
 ## RELEASE NOTES
 

@@ -23,7 +23,7 @@ Vorgehensweise zur Auswahl von Fremdprodukten::
 
 Konventionen für die Implementierung::
 * xref:methodik:java-programmierkonventionen/master.adoc[]
-* xref:methodik:namenskonventionen/master.adoc[]
+* xref:namenskonventionen.adoc[]
 * xref:methodik:versionierung/master.adoc[]
 
 // end::whitepaper[]

@@ -17,29 +17,29 @@
     <properties>
         <spring.boot.version>3.5.6</spring.boot.version>
         <resilience4j.version>1.7.1</resilience4j.version>
-        <apache.poi.version>5.4.0</apache.poi.version>
+        <apache.poi.version>5.5.1</apache.poi.version>
         <greenmail.version>1.6.15</greenmail.version>
         <metro.webservices.version>4.0.4</metro.webservices.version>
-        <woodstox.stax.version>4.2.2</woodstox.stax.version>
+        <woodstox.core.version>7.1.1</woodstox.core.version>
         <logback-json-classic.version>0.1.5</logback-json-classic.version>
         <logback-jackson.version>0.1.5</logback-jackson.version>
-        <ojdbc8.version>19.23.0.0</ojdbc8.version>
-        <ucp.version>19.27.0.0</ucp.version>
+        <ojdbc8.version>19.29.0.0</ojdbc8.version>
+        <ucp.version>19.29.0.0</ucp.version>
         <mapstruct.version>1.6.3</mapstruct.version>
-        <pojobuilder.version>4.3.0</pojobuilder.version>
+        <pojobuilder.version>4.3.1</pojobuilder.version>
         <xstream.version>1.4.21</xstream.version>
-        <opencsv.version>5.9</opencsv.version>
-        <guava.version>33.3.0-jre</guava.version>
-        <commons-cli.version>1.9.0</commons-cli.version>
+        <opencsv.version>5.12.0</opencsv.version>
+        <guava.version>33.5.0-jre</guava.version>
+        <commons-cli.version>1.11.0</commons-cli.version>
         <commons-net.version>3.11.1</commons-net.version>
-        <commons-validator.version>1.10.0</commons-validator.version>
-        <jsoup.version>1.18.1</jsoup.version>
+        <commons-validator.version>1.10.1</commons-validator.version>
+        <jsoup.version>1.22.1</jsoup.version>
         <ApacheJMeter_core.version>5.6.3</ApacheJMeter_core.version>
-        <wiremock-standalone.version>3.9.1</wiremock-standalone.version>
+        <wiremock-standalone.version>3.13.2</wiremock-standalone.version>
         <dbunit.version>2.8.0</dbunit.version>
         <commons-beanutils.version>1.11.0</commons-beanutils.version>
-        <tika-core.version>1.28.5</tika-core.version>
-        <commons-io.version>2.18.0</commons-io.version>
+        <tika-core.version>3.2.3</tika-core.version>
+        <commons-io.version>2.21.0</commons-io.version>
     </properties>
 
     <!-- Dependency management for IsyFact core technology stack. -->
@@ -58,7 +58,7 @@
             <dependency>
                 <groupId>com.nimbusds</groupId>
                 <artifactId>nimbus-jose-jwt</artifactId>
-                <version>10.0.2</version>
+                <version>10.7</version>
             </dependency>
 
             <!-- Web service framework (SOAP): Metro
@@ -76,13 +76,13 @@
                 <version>${metro.webservices.version}</version>
             </dependency>
 
-            <!-- org.glassfish.metro:webservices-rt:4.0.3 brings conflicting versions of org.codehaus.woodstox:stax2-api,
-                 causing the enforcer plugin (dependency convergence) to fail.
-                 This dependency definition can be removed when an improved version of webservices-rt is used. -->
+            <!-- org.glassfish.metro:webservices-rt:4.0.3 brings conflicting versions of org.codehaus.woodstox:stax2-api (transitive),
+            causing the enforcer plugin (dependency convergence) to fail.
+            This dependency definition can be removed when an improved version of webservices-rt is used. -->
             <dependency>
-                <groupId>org.codehaus.woodstox</groupId>
-                <artifactId>stax2-api</artifactId>
-                <version>${woodstox.stax.version}</version>
+                <groupId>com.fasterxml.woodstox</groupId>
+                <artifactId>woodstox-core</artifactId>
+                <version>${woodstox.core.version}</version>
             </dependency>
 
             <!-- Resilience Framework: Resilience4J -->

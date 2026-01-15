@@ -86,6 +86,8 @@ Aus der fachlichen Sicht heraus enthält sie:
 .Fachliche Sicht auf die Beispielanwendung
 image::software-technisch/beispiel-fachliche-sicht.dn.svg[]
 
+Die Nachbarsystemschnittstelle `NST_BSP_3` wird sowohl von internen als auch xref:glossary::terms-definitions.adoc#externes-system[externen Systemen] genutzt.
+
 Die Anwendung des obigen Vorgehens führt zur Erkenntnis, dass die Anwendungskomponenten `ANK_BSP_1` und `ANK_BSP_2` so stark zusammenhängen, dass eine Umsetzung in getrennten IT-Systemen nicht sinnvoll ist.
 Alle anderen Anwendungskomponenten können in separaten IT-Systemen umgesetzt werden.
 Es entsteht eine Abbildung von Anwendungskomponenten auf IT-Systeme.
@@ -108,7 +110,8 @@ Es entsteht eine Abbildung von Anwendungskomponenten auf IT-Systeme.
 
 Im nächsten Schritt werden alle weiteren fachlichen Inhalte zugeordnet und die IT-Systemtypen identifiziert.
 Gemäß der xref:software-technisch/it-system.adoc#abbildung-it-systemtypen-fachlichkeit[Abbildung von IT-Systemtypen auf ihre maßgeblich umgesetzte Fachlichkeit] werden aus Dialogen und Batches jeweils eigene IT-Systeme.
-Die Nachbarsystemschnittstelle wird dem Backend mit der zugehörigen ANK zugeordnet.
+Die Bereitstellung der Nachbarsystemschnittstelle für externe Systeme geschieht ebenfalls in einem eigenen IT-System.
+Die Nachbarsystemschnittstelle selbst wird dem Backend mit der zugehörigen Anwendungskomponente zugeordnet.
 Allen IT-Systemen kann nun ein IT-Systemtyp zugeordnet werden.
 
 .Abbildung von Fachlichkeit auf IT-Systeme
@@ -137,6 +140,10 @@ Allen IT-Systemen kann nun ein IT-Systemtyp zugeordnet werden.
 |ANK_BSP_4
 |BSP_4-GK
 |Backend
+
+|NST_BSP_3
+|BSP_3-SGW
+|Gateway
 |===
 
 Zum Abschluss ist die Zerlegung noch einmal grafisch dargestellt.
