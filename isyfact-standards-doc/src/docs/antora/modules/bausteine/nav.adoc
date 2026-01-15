@@ -1,7 +1,6 @@
 * xref:bausteine.adoc[]
 ** IsyFact-Standards
 *** xref:isy-datetime-docs::konzept/master.adoc[Datum & Zeit icon:external-link-square[]]
-*** xref:datetime-persistence::konzept.adoc[Datum & Zeit (Persistenz) icon:external-link-square[]]
 *** Fehlerbehandlung
 **** xref:isy-exception-core:konzept/master.adoc[Konzept]
 **** xref:isy-exception-core:nutzungsvorgaben/master.adoc[Nutzungsvorgaben]
