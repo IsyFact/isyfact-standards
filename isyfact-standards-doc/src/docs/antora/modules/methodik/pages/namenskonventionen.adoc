@@ -313,7 +313,7 @@ include::java-programmierkonventionen/inhalt.adoc[tag=namenskonvention]
 include::documentation-guide::partial$content-revised.adoc[]
 
 Die technischen Systemnamen entsprechen der technischen Bezeichnung für eine IsyFact-konforme Anwendung.
-Sie werden unter anderem für Projektnamen in Eclipse, Dokument Basis / Context Root bei Schnittstellen-URLs und als Namen von Deployment-Einheiten (vgl. Kapitel <<rpm-pakete>>) verwendet.
+Sie werden unter anderem für Projektnamen in Eclipse, Dokument Basis / Context Root bei Schnittstellen-URLs und als Namen von Deployment-Einheiten (vgl. Kapitel <<jar-pakete>>) verwendet.
 
 [[geschaeftsanwendung-1]]
 ===== Geschäftsanwendung
@@ -457,115 +457,33 @@ include::referenzarchitektur:software-technisch/services/rest-vorgaben-konventio
 ==== Batchrahmen
 include::referenzarchitektur:software-technisch/batch/batchrahmen.adoc[tag=namenskonvention]
 
-
 [[deploymentbetrieb-von-anwendungen]]
 === Deployment/Betrieb von Anwendungen
 
-[[rpm-pakete]]
-==== RPM-Pakete
+[[jar-pakete]]
+==== JAR-Pakete
 
-Für die Benennung von RPM-Paketen existiert eine Konvention, welche durch den RPM-Standard vorgeben wird.
+Für executable Spring Boot-JARs wird eine Namenskonvention verwendet, die dem von https://docs.spring.io/spring-boot/specification/executable-jar/index.html[Spring Boot] bereitgestellten Fat-JAR-Format folgt.
 
-NOTE: Siehe https://rpm-packaging-guide.github.io/#what-is-a-spec-file[RPM Packaging Guide]
-
-.RPM-Pakete
-[id="table-rpmpak",reftext="{table-caption} {counter:tables}"]
+.Executable Spring Boot-JARs
+[id="table-jarpak",reftext="{table-caption} {counter:tables}"]
 [cols="1,4",options="header"]
 |====
-2+|RPM-Pakete
-|*Schema* m|<paketname>-<versionsnummer>-<build-version>.<architektur>.rpm
-|*Beispiele* m|isy-geschaeftsanwendung-batch-1.2.0-01.noarch.rpm
+2+|Executable Spring Boot-JARs
+|*Schema* m|<paketname>-<versionsnummer>.jar
+|*Beispiele* m|isy-geschaeftsanwendung-batch-1.2.0.jar
 |*Variable* |*Mögliche Ausprägungen*
-m|<paketname> a|
-Name der Deployment-Einheit.
-Setzt sich in der Regel aus einem Präfix für die Anwendungslandschaft (<awl>) und dem Anwendungsnamen (siehe Kapitel 2.1.1) zusammen.
-Deployment-Einheiten der Anwendungslandschaft IsyFact besitzen z.B. das Präfix „isy“.
-
-Beispiel:
+m|<paketname> a|Name der Deployment-Einheit. Setzt sich in der Regel aus einem Präfix für die Anwendungslandschaft (<awl>) und dem Anwendungsnamen (siehe Kapitel 2.1.1) zusammen. Beispiele:
 
 * `<awl>-fachanwendung-gk-...`
-* `<awl>-fachanwendung-gkbatch-...`
-
-m|<versionsnummer> |Versionsnummer der Deployment-Einheit, z.B. „1.2.0“. Die Versionierung basiert auf Semantic Versioning und ist im Konzept xref:versionierung/master.adoc[IsyFact Versionierung] beschrieben.
-m|<build-version> a|
-Hier wird die Build-Nummer eingesetzt.
-Sie wird bei dem Bau jeder Auslieferungsversion (insbesondere auch bei Nachlieferungen) erhöht.
-
-Während der Entwicklung (Continuous Integration) wird hier eine laufende Nummer (Revisionsnummer der Versionsverwaltung, laufende Build-Nummer des CI-Servers etc.) eingesetzt.
-
-m|<architektur> |Gibt die Systemarchitektur an, für welche das Paket erstellt wurde.
-Da IsyFact-konforme Anwendungen in Java erstellt werden, wird hier immer „noarch“ eingesetzt.
-Sollten Anwendungen Architektur-spezifische Bestandteile enthalten, wird hier die vom RPM-Standard vorgegebene Architektur-Bezeichnung eingesetzt.
+* `<awl>-fachanwendung-batch-...`
+m|<versionsnummer> |Versionsnummer der Deployment-Einheit, z.B. `1.2.0`. Die Versionierung basiert auf Semantic Versioning und ist im Konzept xref:versionierung/master.adoc[IsyFact Versionierung] beschrieben.
 |====
 
 [[installationspfade]]
 ==== Installationspfade
 
 Die Installationspfade sind im xref:vorlage-systemhandbuch/antora-master.adoc[Systemhandbuch] beschrieben.
-
-.Installationspfade – Anwendung
-[id="table-instpathanw",reftext="{table-caption} {counter:tables}"]
-[cols="1,4",options="header"]
-|====
-2+|Installationspfade – Anwendung
-|*Schema* m|/opt/<rpm-paketname> (Anwendungsbasis)
-
-/opt/<rpm-paketname>/bin (Skript-Verzeichnis)
-
-/opt/<rpm-paketname>/tomcat (Tomcat)
-
-/opt/<rpm-paketname>/tomcat/webapps/<name> (Basis der Webapp)
-|*Beispiele* m|/opt/isy-xyz-anwendung
-
-/opt/isy-xyz-anwendung/bin
-
-/opt/isy-xyz-anwendung/tomcat
-
-/opt/isy-xyz-anwendung/tomcat/webapp/xyz-anwendung
-2+|*Installationspfade: Logdateien*
-|*Schema* m|/var/log/<rpm-paketname>
-|*Beispiele* m|/var/log/isy-xyz-anwendung
-2+|*Installationspfade: Betriebliche Konfiguration*
-|*Schema* m|/etc/<rpm-paketname>
-|*Beispiele* m|/etc/isy-xyz-anwendung
-|====
-
-[[konfiguration-parameter]]
-==== Konfigurationsparameter
-
-Alle von einem IT-System oder einer Bibliothek der IsyFact definierten Konfigurationsparameter entsprechen einem einheitlichen Schema.
-Konfigurationsparameter von Produkten sind davon nicht berührt.
-
-.Konfigurationsparameter - IT-System
-[id="konfiguration-parameter-it-system",reftext="{table-caption} {counter:tables}"]
-[cols="1,4",options="header"]
-|====
-2+|Konfigurationsparameter – IT-System
-h|Schema m|<präfix>.<system>.(<fachkomponente>.)<parameter>
-h|Beispiele m|awl.bsp-backend.auskunft.ergebnisse.anzahl
-
-awl.bsp-backend.caching
-h|Variable h|Mögliche Ausprägungen
-m|<präfix> |Kurzbezeichnung der Anwendungslandschaft
-m|<system> |Kurzbezeichnung des IT-Systems
-m|<fachkomponente> |Name der Fachkomponente (optional)
-m|<parameter> |Name des Parameters. Darf Verschachtelungen enthalten.
-|====
-
-.Konfigurationsparameter - Bibliothek
-[id="konfiguration-parameter-bibliothek",reftext="{table-caption} {counter:tables}"]
-[cols="1,4",options="header"]
-|====
-2+|Konfigurationsparameter – IsyFact-Bibliothek
-h|Schema m|<präfix>.<bibliothek>.<parameter>
-h|Beispiele m|isy.security.oauth2.client.default-certificate-ou
-
-isy.security.oauth2.client.registration.<client>.username
-h|Variable h|Mögliche Ausprägungen
-m|<präfix> |Kurzbezeichnung der Factory / der Anwendungslandschaft
-m|<bibliothek> |Bezeichnung der Bibliothek
-m|<parameter> |Name des Parameters. Darf Verschachtelungen enthalten.
-|====
 
 [[dokumentation]]
 === Dokumentation
