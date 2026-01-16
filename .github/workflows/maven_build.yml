@@ -20,6 +20,7 @@ jobs:
     needs: [Version]
     uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_build_template.yml@v1.6.0
     with:
+      jdk-version: 17
       version: ${{ needs.Version.outputs.next-version }}
       maven-opts: '-PcentralSnapshot'
     secrets:
@@ -31,6 +32,7 @@ jobs:
     needs: [ Version, Maven ]
     uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_deploy_template.yml@v2.1.1
     with:
+      jdk-version: 17
       version: ${{ needs.Version.outputs.next-version }}
       maven-opts: '-PcentralSnapshot'
       deploy-server-id: central
