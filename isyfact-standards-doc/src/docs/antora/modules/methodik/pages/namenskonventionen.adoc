@@ -344,13 +344,13 @@ m|<verfahren> |Der (Kurz)name des Verfahrens/Anwendungsbereichs.
 |====
 
 [[servicegateway]]
-===== Servicegateway
+===== Service-Gateway
 
-.Name eines Servicegateways
+.Name eines Service-Gateways
 [id="table-namsgw",reftext="{table-caption} {counter:tables}"]
 [cols="1,4",options="header"]
 |====
-2+|Name eines Servicegateways
+2+|Name eines Service-Gateways
 |*Schemata* m|<verfahren>-sgw
 
 <verfahren>-<zielverfahren>-sgw

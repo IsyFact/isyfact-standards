@@ -20,7 +20,7 @@ In diesem Abschnitt werden alle Aspekte zur Fehlerbehandlung in REST-Services be
 Bei der Fehlerbehandlung müssen zwei Varianten unterschieden werden: technische Fehler und fachliche Fehler.
 
 *Definition von technischen Exceptions*: Service-Methoden deklarieren keine oder eine technische Exception.
-Die technische Exception muss für alle Service-Methoden einer Service-Schnittstelle gleich sein.
+Die technische Exception muss für alle Service-Methoden eines Services gleich sein.
 
 *Definition von fachlichen Exceptions*: Service-Methoden können beliebig viele fachliche Exceptions deklarieren.
 Diese können spezifisch für jede Service-Methode sein.
@@ -41,9 +41,9 @@ Fachlichen Fehlern muss ein entsprechend passender Fehlercode im Bereich 4xx zug
 [[entkopplung-von-fehlerbehandlung-und-service-logik]]
 === Entkopplung von Fehlerbehandlung und Service-Logik
 
-Die Fehlerbehandlung erfolgt wie im Detailkonzept Service beschrieben, außerhalb der Service-Fassade, an zentraler Stelle, in einer Exception-Fassade.
+Die Fehlerbehandlung erfolgt außerhalb der Service-Fassade, an zentraler Stelle, in der Exception-Fassade.
 Die Exception-Fassade wird durch `RestExceptionHandler` Klassen implementiert, (vgl. <<image-fehlerbehandlung>>). 
-In der Exception-Fassade werden alle Exceptions aus Methoden des Anwendungskerns oder Methoden der Service-Endpoints gefangen, geloggt, in Exception-Transport-Objekte umgewandelt und als Response zurückgegeben.
+In der Exception-Fassade werden alle Exceptions aus Methoden des Anwendungskerns oder Service-Methoden gefangen, geloggt, in Exception-Transport-Objekte umgewandelt und als Response zurückgegeben.
 
 [[image-fehlerbehandlung]]
 .Entkopplung Fehlerbehandlung und Service-Logik
@@ -154,8 +154,8 @@ Nähere Informationen zu OAuth2 gibt es auf der https://oauth.net/2/[OAuth2 Home
 Informationen zur Bearer Propagation gibt es in der https://docs.spring.io/spring-security/site/docs/5.2.x/reference/html/oauth2.html#oauth2resourceserver-bearertoken-resolver[offiziellen Spring Dokumentation].
 ====
 
-Um eine Klasse oder einzelne Methoden zu sichern, wird empfohlen, die `@Secured` Annotation von Spring Security in der Service-Schicht zu verwenden.
-Die Verwendung auf einzelnen Webcontroller Klassen/Methoden wird nicht empfohlen. Für Webcontroller ohne Service Schicht kann https://docs.spring.io/spring-security/reference/servlet/authorization/authorize-http-requests.html[Request Level Autorisierung] genutzt werden.
+Um eine Klasse oder einzelne Methoden zu sichern, wird empfohlen, die `@Secured` Annotation von Spring Security in der Serviceschicht zu verwenden.
+Die Verwendung auf einzelnen Webcontroller Klassen/Methoden wird nicht empfohlen. Für Webcontroller ohne Serviceschicht kann https://docs.spring.io/spring-security/reference/servlet/authorization/authorize-http-requests.html[Request Level Autorisierung] genutzt werden.
 
 Generell ist das xref:security:ROOT:konzept.adoc[] zu beachten.
 
@@ -166,10 +166,9 @@ Eingehende und ausgehende Nachrichten sind an der Systemgrenze zu loggen.
 Für die Erstellung der Log-Einträge ist der Baustein Logging zu verwenden.
 Abweichungen zum Konzept des Bausteins Logging sind im Folgenden aufgeführt.
 
-[[server-service-provider]]
-=== Server / Service-Provider
-Der Baustein bietet mit `@Systemgrenze` eine Annotation, die einen Interceptor aufruft, der automatisch Aufrufe aller Methoden in der annotierten Klasse (z. B. Controller) fachlich loggt.
-(vgl. xref:isy-logging:nutzungsvorgaben/master.adoc[] Kapitel 4.2.2.1)
+[[server-empfaenger]]
+=== Server / Empfänger
+Der Baustein Logging bietet mit `@Systemgrenze` eine Annotation, die einen xref:isy-logging:nutzungsvorgaben/master.adoc#loggingmethodinterceptor[Interceptor] aufruft, der automatisch Aufrufe aller Methoden in der annotierten Klasse (z. B. Controller) fachlich loggt.
 Für ein technisches Logging soll zusätzlich ein weiterer Interceptor verwendet werden.
 
 Dieser Interceptor soll folgende Nachrichten am Controller loggen:
@@ -177,10 +176,10 @@ Dieser Interceptor soll folgende Nachrichten am Controller loggen:
 * eingehende Anfragen (eingehende Nachrichten),
 * ausgehende Antworten (ausgehende Nachrichten).
 
-[[client-service-provider]]
-=== Client / Service-Consumer
+[[client-sender]]
+=== Client / Sender
 
-In der Klasse, welche die Aufrufe an den Service-Provider stellt, sollen
+In der Klasse, welche die Aufrufe an den Server bzw. Empfänger stellt, sollen:
 
 *  ausgehende Anfragen (ausgehende Nachrichten),
 *  eingehende Antworten (eingehende Nachrichten),
@@ -194,7 +193,7 @@ Wie auch serverseitig sollen diese Log-Nachrichten möglichst automatisiert via 
 
 Um die Nachrichten im Zuge der Log-Auswertung zu filtern, sind nachrichtenspezifische Ereignisschlüssel zu verwenden.
 
-Zusätzlich zu den Anforderungen an die Inhalte einer Log-Nachricht (xref:isy-logging:konzept/master.adoc[] Kapitel 4.1.1) sollen folgende Informationen als Marker in der Log-Nachricht enthalten sein:
+Zusätzlich zu den Anforderungen an die xref:isy-logging:konzept/master.adoc#log-inhalte[Inhalte einer Log-Nachricht] sollen folgende Informationen als Marker in der Log-Nachricht enthalten sein:
 
 .Standard für zu erfassende Logging-Informationen
 [[table-logging-data]]
@@ -327,14 +326,11 @@ xref:isy-logging:konzept/master.adoc#korrelations-id[Konzept] und den xref:isy-l
 
 Die IsyFact stellt zur Überwachung von Anwendungen den Baustein Überwachung bereit.
 
-Die Grundlagen der Überwachung von IsyFact basierten Anwendungen werden im xref:isy-ueberwachung:konzept/master.adoc[] beschrieben.
-
-
-Detailliertere Informationen zur Konfiguration und zur Verwendung des Bausteins Überwachung findet man in den xref:isy-ueberwachung:nutzungsvorgaben/master.adoc[].
-Dieses Dokument beinhaltet auch das Kapitel "Informationen von Services".
+Die Grundlagen der Überwachung von IsyFact-basierten Anwendungen beschreibt das xref:isy-ueberwachung:konzept/master.adoc[] beschrieben.
+Detailliertere Informationen zur Konfiguration und zur Verwendung des Bausteins Überwachung finden sich in den xref:isy-ueberwachung:nutzungsvorgaben/master.adoc[], insbesondere das Kapitel xref:isy-ueberwachung:nutzungsvorgaben/master.adoc#informationen-von-services["Informationen von Services"].
 Dieses Kapitel beinhaltet eine Liste der zu überwachenden bzw. anzubietenden Informationen für die Services von Anwendungen.
 Die dort aufgelisteten Informationen müssen für jeden Service einzeln angeboten werden.
-Die dort beschriebenen Informationen zur Überwachung gelten in gleichem Maße auch für REST Services.
+Die dort beschriebenen Informationen zur Überwachung gelten in gleichem Maße auch für REST-Services.
 
 
 [[versionierung]]

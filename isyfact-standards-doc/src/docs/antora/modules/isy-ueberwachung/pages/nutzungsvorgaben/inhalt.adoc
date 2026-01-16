@@ -67,7 +67,7 @@ Die folgenden Metriken müssen durch Spring Boot automatisch registriert und ber
 [[informationen-von-services]]
 ===== Informationen von Services
 
-<<table-StdueberServ>> zeigt eine Liste der zu überwachenden bzw. anzubietenden Informationen für die Services von Anwendungen.
+<<table-StdueberServ>> zeigt eine Liste der zu überwachenden bzw. anzubietenden Informationen für die xref:glossary::terms-definitions.adoc#service[Services] von Anwendungen.
 Die dort aufgelisteten Informationen müssen für jeden Service einzeln angeboten werden.
 
 .Standard Überwachungsinformationen für Services
