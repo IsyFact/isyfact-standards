@@ -86,7 +86,7 @@
         <git-commit-id-plugin.version>4.9.10</git-commit-id-plugin.version>
 
         <!-- Fixed patch for commons-text CVE-2022-42889 -->
-        <commons-text.version>1.13.1</commons-text.version>
+        <commons-text.version>1.15.0</commons-text.version>
         <isy-checkstyle-config.version>0.2.0</isy-checkstyle-config.version>
         <central-publishing-maven-plugin.version>0.8.0</central-publishing-maven-plugin.version>
     </properties>
