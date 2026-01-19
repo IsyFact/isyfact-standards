@@ -44,9 +44,9 @@ _Für die Abstimmungskapitel sind die Inhalte und deren Detailtiefe vorgegeben, 
 Eine Architektur wird immer Top-down erklärt:
 
 * _Zunächst wird gezeigt, wie sich das neue System in die gesamte technische Anwendungslandschaft einfügt.
-Kapitel: <<einbettung-in-anwendungslandschaft, Systemüberblick/Einbettung in die Anwendungslandschaft>>._
+Kapitel: <<einbettung-in-anwendungslandschaft,Systemüberblick/Einbettung in die Anwendungslandschaft>>._
 * _Danach wird das System detailliert, indem gezeigt wird, wie die Teilsysteme des neuen Systems zusammen arbeiten.
-Kapitel: <<gesamtsystem-systemueberblick, Systemarchitektur des Gesamtsystems/Systemüberblick>>._
+Kapitel: <<gesamtsystem-systemueberblick,Systemarchitektur des Gesamtsystems/Systemüberblick>>._
 * _Dann wird jedes Teilsystem einzeln beschrieben.
 Zunächst werden die Komponenten des Systems und ihr Zusammenspiel erklärt, dann wieder die einzelnen Komponenten selbst.
 Diese schrittweise Vertiefung setzt sich bis zum benötigten Detaillierungsgrad fort._
@@ -58,7 +58,7 @@ _Generell muss in diesem Dokument nichts erklärt und beschrieben werden, was sc
 
 *_Werkzeugunterstützung bei der Erstellung von UML-Modellen_*
 
-_Für die Erstellung der UML- Modelle, die in diesem Dokument als Beispiele aufgeführt sind, wurde das Werkzeug „Enterprise Architect“ der Firma SparxSystems verwendet._
+_Für die Erstellung der UML-Modelle, die in diesem Dokument als Beispiele aufgeführt sind, wurde das Werkzeug „Enterprise Architect“ der Firma SparxSystems verwendet._
 
 _Anstelle des Enterprise Architect kann auch jedes andere Modellierungswerkzeug eingesetzt werden, dass den Sprachumfang von UML in hinreichender Breite abdeckt._
 
@@ -72,7 +72,7 @@ In der Systemdokumentation verbleiben alle Teile, die eine Übersicht über die 
 
 _In den Kapiteln ist damit folgendes zu modifizieren:_
 
-* *_Kapitel 1_*: _Anpassen, da sich der Zweck der Systemdokumentation vom dem eines Systementwurfs unterscheidet._
+* *_Kapitel 1_*: _Anpassen, da sich der Zweck der Systemdokumentation von dem eines Systementwurfs unterscheidet._
 
 * *_Kapitel 2_*: _Belassen._
 
@@ -98,7 +98,7 @@ Es behandelt eine Vielzahl unterschiedlicher Themenbereiche._
 _Der Detaillierungsgrad, in welchem die Themenbereiche beschrieben werden, ist nicht für alle Systementwürfe gleich: Er hängt von der Art und Komplexität der Problematik und der Erfahrung des Zielpublikums ab.
 In diesem Dokument werden deshalb beispielsweise keine Vorgaben für den Umfang und die Art der Beschreibung von Anwendungslogik jenseits der Anwendungsfall-Klassen aufgestellt._
 
-_Auf Grund der obigen Punkte wurde entschieden, das Systementwurfsdokument manuell zu erstellen.
+_Aufgrund der obigen Punkte wurde entschieden, das Systementwurfsdokument manuell zu erstellen.
 Es wurde entschieden, die Teile im Enterprise Architect zu modellieren, bei welchen eine Modellierung im Enterprise Architect möglich und sinnvoll ist.
 Welche Teile dies sind, wird im vorliegenden Dokument definiert._
 
@@ -120,7 +120,7 @@ _Für die obigen Themenbereiche sind jeweils unterschiedliche Diagramme zu erzeu
 Neben den Diagrammen sind vor allem die konkreten Komponenten mit ihren Interfaces, Klassen und Tabellen ein wichtiges Ergebnis der Modellierung im Enterprise Architect.
 Die Anforderungen an die konkrete Ausgestaltung der Diagramme werden im Rahmen dieser Vorlage in den jeweiligen Kapiteln detailliert._
 
-_Die Paketstruktur des Enterprise Architect Modells orientiert sich sowohl an der Benamung als auch an der Hierarchie der Verzeichnisstruktur des Systementwurfs.
+_Die Paketstruktur des Enterprise Architect Modells orientiert sich sowohl an der Benennung als auch an der Hierarchie der Verzeichnisstruktur des Systementwurfs.
 So wird die Einheitlichkeit der EA-Modelle für unterschiedliche Projekte erhöht und das Auffinden benötigter Diagramme erleichtert.
 Das folgende Listing zeigt beispielhaft ein EA-Modell._
 ====
@@ -193,7 +193,7 @@ _Für welche Zielgruppe sind welche Kapitel hauptsächlich interessant?_
 
 Dieses Dokument ist eine Adaption (Tailoring) der Vorgaben des V-Modells auf die Entwicklung mit der IsyFact.
 Der Systementwurf kann nach V-Modell® allgemein verschiedene Produkte umfassen.
-Bei der Nutzung der IsyFact sind einige dieser Produkte bereits vollständig oder in großen Teilen vorgegeben, so dass sie in diesem Dokument nicht mehr beschrieben werden müssen.
+Bei der Nutzung der IsyFact sind einige dieser Produkte bereits vollständig oder in großen Teilen vorgegeben, sodass sie in diesem Dokument nicht mehr beschrieben werden müssen.
 
 Generell sind grundsätzliche Architekturprinzipien und Entwurfsalternativen bereits im Rahmen der Erstellung der IsyFactReferenzarchitektur diskutiert worden und müssen daher in diesem Dokument nicht wiederholt werden.
 Gleiches gilt für die Absicherung des Designs.
@@ -209,10 +209,10 @@ In diesem Dokument wird beschrieben, wie diese Referenzarchitektur instanziiert 
 Sollte eine Verfeinerung oder spezifische Ergänzung der Referenzarchitektur notwendig sein, erfolgt dies im Kapitel <<querschnittskonzepte>>.
 +
 ** Die Schnittstellenübersicht des Systems erfolgt der Übersichtlichkeit halber auf zwei Abstraktionsebenen: auf Ebene der Gesamtanwendungslandschaft erfolgt dies im Kapitel <<einbettung-in-anwendungslandschaft,Systemüberblick/Einbettung in die Anwendungslandschaft>>.
-Die konkreten Schnittstellen des Systems und ggf. von Teilsystemen sind im Kapitel <<systemarchitektur-gesamtsystems, Systemarchitektur des Gesamtsystems/Systemüberblick>> beschrieben.
-Die Details zur Implementierung und Dateninhalten der Schnittstellen finden sich in der Konstruktion der jeweiligen Services unter <<service, Architektur des Teilsystems A/Service>>.
+Die konkreten Schnittstellen des Systems und ggf. von Teilsystemen sind im Kapitel <<systemarchitektur-gesamtsystems,Systemarchitektur des Gesamtsystems/Systemüberblick>> beschrieben.
+Details zur Implementierung und Dateninhalten der Schnittstellen finden sich in der Konstruktion der jeweiligen Services unter <<service,Architektur des Teilsystems A/Service>>.
 +
-** Die zu spezifizierenden Systemelemente sind der Gegenstand von Kapitel <<systemarchitektur-gesamtsystems>>, insbesondere in den Kapiteln <<architektur-teilsystems-a, Architektur des Teilsystems (ff.)>>.
+** Die zu spezifizierenden Systemelemente sind der Gegenstand von Kapitel <<systemarchitektur-gesamtsystems>>, insbesondere in den Kapiteln <<architektur-teilsystems-a,Architektur des Teilsystems (ff.)>>.
 
 * *Unterstützungs-Systemarchitektur:* Unterstützungssysteme sind in der Regel durch die IsyFact vorgegeben.
 Sollte es trotzdem nötig sein, ein neues Unterstützungssystem zu konstruieren, erfolgt dies in einem eigenen Dokument nach dieser Vorlage.
@@ -224,7 +224,7 @@ Es wird jedoch vorausgesetzt, dass ein solcher Styleguide für die Organisation,
 Die konkrete HW-Architektur für das System befindet sich im Kapitel <<ti-architektur>>.
 
 * *SW-Architektur:* Die SW-Architektur ist in den Grundlagen durch die IsyFact Referenzarchitektur vorgegeben.
-Die Instanziierung dieser Architektur befindet sich in Abschnitt <<architektur-teilsystems-a, Architektur des Teilsystems A (ff.)>>.
+Die Instanziierung dieser Architektur befindet sich in Abschnitt <<architektur-teilsystems-a,Architektur des Teilsystems A (ff.)>>.
 
 * *Datenbankentwurf*: Der Datenbankentwurf findet sich unter <<datenmodell>>.
 
@@ -251,7 +251,7 @@ _Z.B.: „Verwalten der Daten der Domäne X, keine Bereitstellung der Oberfläch
 ====
 _Wie fügt sich das neue IT-System in die Anwendungslandschaft ein?_
 
-_An dieser Stelle einfügen: Ein Bild der Anwendungslandschaft gemäß Ist- bzw. Referenzarchitektur mit hervorgehobenem neuem System._
+_An dieser Stelle einfügen: ein Bild der Anwendungslandschaft gemäß Ist- bzw. Referenzarchitektur mit hervorgehobenem neuem System._
 
 _In jedem Systementwurf soll hier der Bezug zur Referenzarchitektur hergestellt werden.
 Folgende Inhalte sind aufzunehmen:_
@@ -423,7 +423,7 @@ _Festlegungen, die bereits in den übergeordneten Dokumenten (z.B. Referenzarchi
 
 _Dieser Abschnitt beschreibt, aus welchen Teilsystemen das Gesamtsystem besteht und gibt damit einen Top-level-Überblick über das System.
 Teilsysteme sind z. B.: ein Service-Gateway oder eine Geschäftsanwendung.
-Dieses Kapitel ist die nächste Konkretisierungsstufe nach der Einordnung in die Anwendungslandschaft aus Kapitel <<einbettung-in-anwendungslandschaft,Systemüberblick/Einbettung in die Anwendungslandschaft>>_
+Dieses Kapitel ist die nächste Stufe der Konkretisierung nach der Einordnung in die Anwendungslandschaft aus Kapitel <<einbettung-in-anwendungslandschaft,Systemüberblick/Einbettung in die Anwendungslandschaft>>_
 
 *_Inhalte_*
 
@@ -467,7 +467,7 @@ _Falls Anforderungen seit der Spezifikation hinzugekommen sind oder konkretisier
 ==== Funktionale Anforderungen
 
 ====
-_Referenz auf die Systemspezifikation, ein Satz: „Die funktionalen Anforderungen sind in der Systemspezifikation XYZ in Abschnitt n beschrieben…“_
+_Referenz auf die Systemspezifikation, ein Satz: „Die funktionalen Anforderungen sind in der Systemspezifikation XYZ in Abschnitt n beschrieben …“_
 ====
 
 [[nichtfunktionale-anforderungen]]
@@ -483,7 +483,7 @@ _Nichtfunktionale Anforderungen, die schon in der Systemspezifikation beschriebe
 ====
 _Aufrufhäufigkeit von Funktionen, Anzahl von Datensätzen, …_
 
-_- - > Kann tabellarisch dargestellt werden._
+_Kann tabellarisch dargestellt werden._
 ====
 
 [[verfuegbarkeit]]
@@ -500,7 +500,7 @@ _Auflistung durchschnittlicher Antwortzeiten und maximaler Laufzeiten für Batch
 
 _Eine Grundlast durch den Ablauf definierter Anwendungsfälle wird auf das System gelegt. Dann wird an einem speziellen Client die Antwortzeiten für einen oder mehrere Anwendungsfälle oder wichtige Funktionen gemessen._
 
-_Dabei wird die Antwortzeit z. B. so beschrieben: „In 90% der Fälle benötigt die Anfrage weniger als 2s, in 10% der Fälle unter 5s.“
+_Dabei wird die Antwortzeit z. B. so beschrieben: „In 90 % der Fälle benötigt die Anfrage weniger als 2s, in 10 % der Fälle unter 5s.“
 Ggf. kann man noch eine Festlegung aufnehmen, ob einmalige Ausreißer erlaubt sind._
 ====
 
@@ -586,7 +586,7 @@ _- Mengengerüst für die Datenbank_
 
 _- Platzbedarf von (temporären) Dateien_
 
-_Form: Tabellarische Darstellung und erläuternder Text._
+_Form: tabellarische Darstellung und erläuternder Text._
 ====
 
 Mengengerüst für die Datenbank
@@ -616,7 +616,7 @@ _Abschätzung der Ressourcen in der Produktionsumgebung:_
 
 _- Mengengerüst für die Dateien auf dem lokalen Laufwerk_
 
-_Form: Tabellarische Darstellung und erläuternder Text._
+_Form: tabellarische Darstellung und erläuternder Text._
 ====
 
 In <<table-mengengeruest-dateien-auf-dem-lokalen-laufwerk>> ist eine Abschätzung für die auf dem lokalen Laufwerk gespeicherten Dateien enthalten.
@@ -695,7 +695,7 @@ _Die konkrete Ausgestaltung dieser Architektur mit den konkreten Komponenten ist
 
 _Dazu wird zunächst eine Übersicht über das Teilsystem gegeben, anschließend werden bei Bedarf die einzelnen Komponenten detailliert._
 
-_Falls es sich bei dem Teilsystem z. B. um ein Service-Gateway oder einen Querschnittlichen Service handelt, muss die Gliederung im Sinne des oben gesagten. angepasst werden._
+_Falls es sich bei dem Teilsystem z. B. um ein Service-Gateway oder einen querschnittlichen Service handelt, muss die Gliederung im Sinne des oben gesagten. angepasst werden._
 ====
 
 [[ueberblick]]
@@ -772,12 +772,12 @@ Es gibt einen Überblick über die wichtigsten Klassen der Komponente._
 * _Ein Boundary-Element für die Schicht „Anwendungskern“._
 
 _Da sich die Komponenten-Innensichten je nach Komponente stark unterscheiden können, werden keine Stereotypen vorgegeben.
-Der Stereotyp << use >> ist nicht zu verwenden.
-Die Nutzung folgender Stereotypen für Verbinder wird empfohlen:_
+Der Stereotyp `+<<use>>+` ist nicht zu verwenden.
+Folgende Stereotypen für Verbinder werden empfohlen:_
 
-* _Für eine Beziehung, welche über Spring konfiguriert wird: SpringDependency._
+* _Für eine Beziehung, welche über Spring konfiguriert wird: `+<<SpringDependency>>+`._
 
-* _Für Datenfluss-Beziehungen (etwa Eingabe-Dateien): flow._
+* _Für Datenfluss-Beziehungen (etwa Eingabe-Dateien): `+<<flow>>+`._
 
 _Die Komponente wird im Diagramm als Component-Element dargestellt.
 Die Klassen der Komponente werden innerhalb des Komponenten-Elements dargestellt.
@@ -791,7 +791,7 @@ _Spring Beans werden durch den Stereotype „Spring Bean“ gekennzeichnet werde
 
 _Alle Elemente werden innerhalb von Package-Elementen dargestellt._
 
-_Sehr Umfangreiche Datenstrukturen für Ein- und Ausgaben können bei Bedarf in weiteren Diagrammen dargestellt werden._
+_Sehr umfangreiche Datenstrukturen für Ein- und Ausgaben können bei Bedarf in weiteren Diagrammen dargestellt werden._
 
 _Beispiel für das Diagramm:_
 ====
@@ -913,7 +913,7 @@ Bis dahin sind die spezifischen Vorgaben für das vorliegende System in diesem A
 
 ====
 _In diesem Abschnitt wird die Erstellung der einzelnen Druckstücke beschrieben.
-Da die Druckstücke durch das Oputput Management erstellt werden, reduziert sich dies auf:_
+Da die Druckstücke durch das Output Management erstellt werden, reduziert sich dies auf:_
 
 * _Die Vorlagen_
 * _Die Aufbereitung der Daten für die einzelnen Druckstücke_
@@ -948,12 +948,12 @@ _Dieses ist ebenfalls ein UML-Modell. In der Regel entsprechen die Entitäten de
 . _Das technische Modell wird angepasst, indem z. B. Denormalisierungen vorgenommen werden oder Entitäten mit 1:1-Relationen in einer Entität zusammengefasst werden._
 . _Aus dem technischen Modell im Modellierungswerkzeug werden dann die entsprechenden Java-Klassen für die Entitäten generiert._
 . _Die generierten Java-Klassen werden mit Annotationen für das DB-Mapping ergänzt._
-. _Aus diesen annotierten Klassen wird mit Hilfe der entsprechenden Hibernate-Werkzeuge das passende DB-Schema generiert._
+. _Aus diesen annotierten Klassen wird mithilfe der entsprechenden Hibernate-Werkzeuge das passende DB-Schema generiert._
 . _Dieses Schema wird als physisches Datenbankschema in das Modellierungswerkzeug importiert. Damit erhält man eine Darstellung der Entitäten, die die Grundlage für die Grafiken zum Datenmodell im Systementwurf sind._
 . _In der Regel ist das so entstandene Datenmodell zu groß und unübersichtlich, um in einer einzigen Grafik dargestellt zu werden.
-Wenn möglich wird das Diagramm daher in Teil-Diagramme zerlegt, die in einer logischen Reihenfolge aufeinander aufbauen._
+Wenn möglich wird das Diagramm daher in Teildiagramme zerlegt, die in einer logischen Reihenfolge aufeinander aufbauen._
 _Grundsätzlich sollen sich diese Teildiagramme am Komponentenschnitt orientieren, sie können aber auch noch feiner zerlegt werden.
-Zusätzlich zu den einzelnen Teil-Diagrammen sollte auch noch das Gesamt-Datenmodell in Form einer Übersicht (z. B. ohne Attribute) dargestellt werden, um dem Leser eine bessere Orientierung zu geben._
+Zusätzlich zu den einzelnen Teildiagrammen sollte auch noch das Gesamt-Datenmodell in Form einer Übersicht (z. B. ohne Attribute) dargestellt werden, um dem Leser eine bessere Orientierung zu geben._
 
 ====
 
@@ -973,7 +973,7 @@ Es enthält alle persistenten Entitäten des Systems._
 
 * _Beziehungen zwischen Entitäten werden über Assoziationen dargestellt._
 * _Dargestellt werden Entitäten über Class-Elemente mit Stereotyp „Entität“._
-* _Es werden alle Attribute dargestellt. Besondere technische Attribute für primär Schlüssel und optimistisches Locking werden über die Stereotypes „Id“ und „Version“ gekennzeichnet._
+* _Es werden alle Attribute dargestellt. Besondere technische Attribute für Primärschlüssel und optimistisches Locking werden über die Stereotypes „Id“ und „Version“ gekennzeichnet._
 * _Die Komponenten, zu denen eine Gruppe von Tabellen gehört, werden über Boundary-Elemente dargestellt._
 * _Die Beziehungen zwischen Tabellen werden über Assoziation-Verbinder dargestellt._
 * _Die Tabellen sollen nach Komponenten gruppiert werden. Jede Komponente soll als Boundary um die Tabellen der Komponente dargestellt werden._
@@ -1034,14 +1034,14 @@ Die Optimierung des Diagramms in Hinblick auf den benötigten Platz ist nicht ge
 === Systemarchitektur des Teilsystems B
 
 ====
-_Analog zu oben, für jedes Teilsystem entsteht ein eigenes Unterkapitel 3.x._
+_Analog zu oben: für jedes Teilsystem entsteht ein eigenes Unterkapitel 3.x._
 ====
 
 [[systemarchitektur-teilsystems-c]]
 === Systemarchitektur des Teilsystems C
 
 ====
-_Analog zu oben, für jedes Teilsystem entsteht ein eigenes Unterkapitel 3.x._
+_Analog zu oben: für jedes Teilsystem entsteht ein eigenes Unterkapitel 3.x._
 ====
 
 [[querschnittskonzepte]]
