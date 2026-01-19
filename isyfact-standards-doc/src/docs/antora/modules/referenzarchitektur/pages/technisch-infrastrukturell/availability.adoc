@@ -154,7 +154,7 @@ Eine weitere bekannte Ursache für Nichtverfügbarkeit ist die Umgebungskonfigur
 Zustandsbehaftete Verbindungen wie sie bei Datenbank-Clients eingesetzt werden, sind von dieser Restriktion betroffen.
 Diese Clients müssen vorsehen, dass Sie eine von der Firewall geschlossene Verbindung erkennen und wieder neu aufbauen.
 
-Die IsyFact setzt als Transportprotokoll für Service-Kommunikation durchgängig HTTP ein.
+Die IsyFact setzt als Transportprotokoll, vor allem für das Kommunikationsmuster xref:software-technisch/kommunikation.adoc#request-reponse[Request-Response], HTTP ein.
 HTTP ist ein zustandsloses Protokoll und baut bei jeder Anfrage eine neue Verbindung zwischen Client und Server auf.
 HTTP 1.1 bietet einen Mechanismus an, mehrere Anfragen über eine TCP-Verbindung zu transportieren.
 Wenn eine Schnittstellentechnologie diesen Mechanismus nutzt, müssen die TCP-Verbindungen vor ihrer Verwendung validiert werden.

@@ -71,7 +71,7 @@ Das Portal integriert diese, bildet einen zentralen Einstiegspunkt für alle Anw
 [[api-gateway]]
 ==== API-Gateway
 
-Im xref:glossary::terms-definitions.adoc#api-gateway[API-Gateway] werden alle Services der Anwendungen bereitgestellt, die externe Anwendungen direkt nutzen dürfen.
+Im xref:glossary::terms-definitions.adoc#api-gateway[API-Gateway] werden alle xref:glossary::terms-definitions.adoc#service[Services] der Anwendungen bereitgestellt, die externe Anwendungen direkt nutzen dürfen.
 Das API-Gateway übernimmt die Authentifizierung und Autorisierung der externen Anwendungen.
 Weiterhin transformiert es das intern verwendete Kommunikationsprotokoll in das von den externen Anwendungen erwartete Protokoll.
 

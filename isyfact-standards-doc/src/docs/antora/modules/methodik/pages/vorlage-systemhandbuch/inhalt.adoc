@@ -1166,7 +1166,7 @@ disk.
 |Metriken zu ausgeführten Tasks.
 |...
 
-|REST Services
+|REST-Services
 |Metriken zu aufgerufenen REST-Services.
 |http.server.requests
 

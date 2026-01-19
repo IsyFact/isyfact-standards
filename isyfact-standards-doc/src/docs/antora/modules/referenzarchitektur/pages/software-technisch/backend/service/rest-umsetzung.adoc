@@ -30,7 +30,7 @@ Die IsyFact legt folgende <<table-frameworks>> von REST-Services fest.
 
 |OpenAPI
 |technologie-unabhängig
-|Dokumentation der Service Schnittstelle und Erzeugung von Service und Client
+|Dokumentation der Service-Schnittstelle und Erzeugung von Service und Client
 
 |===
 
