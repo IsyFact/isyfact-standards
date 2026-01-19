@@ -5,7 +5,7 @@ on:
 
 jobs:
   Build:
-    uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_build_template.yml@v1.6.0
+    uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_build_template.yml@v2.1.1
     with:
       jdk-version: 17
       version: ${{ github.ref_name }}
