@@ -2,6 +2,7 @@
 ### FEATURES
 - `IFS-4748`: [isy-batchrahmen], [isy-security] Alle deprecated Spring-Boot-Funktionen auf aktuelle Alternativen umgestellt
 - `IFS-5066`: Update von Spring Boot auf 3.5.10 und Apache Tika auf 3.2.3
+- `IFS-5162`: [isy-logging] Konfiguration für die Bean Injection angepasst, sodass der PerformanceLogAdvisor korrekt geladen wird
 
 ### BUG FIXES
 - `IFS-5038`: [isy-persistence] Implementierung eigener UserType-Klassen an Hibernate Version 6.x angepasst
