@@ -35,7 +35,7 @@ jobs:
         fi
         
         # Exclude specific artifactIds
-        EXCLUDED_ARTIFACT_IDS=("spring-boot-dependencies")
+        EXCLUDED_ARTIFACT_IDS=("spring-boot-dependencies" "resilience4j-bom")
         for artifactId in "${EXCLUDED_ARTIFACT_IDS[@]}"; do
         DEPENDENCIES=$(echo "$DEPENDENCIES" | sed -n '/<dependency>/,/<\/dependency>/ {
         H;
