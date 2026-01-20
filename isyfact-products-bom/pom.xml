@@ -16,7 +16,6 @@
 
     <properties>
         <spring.boot.version>3.5.10</spring.boot.version>
-        <resilience4j.version>1.7.1</resilience4j.version>
         <apache.poi.version>5.5.1</apache.poi.version>
         <greenmail.version>1.6.15</greenmail.version>
         <metro.webservices.version>4.0.4</metro.webservices.version>
@@ -40,6 +39,7 @@
         <commons-beanutils.version>1.11.0</commons-beanutils.version>
         <tika-core.version>3.2.3</tika-core.version>
         <commons-io.version>2.21.0</commons-io.version>
+        <resilience4j-bom.version>2.3.0</resilience4j-bom.version>
     </properties>
 
     <!-- Dependency management for IsyFact core technology stack. -->
@@ -50,6 +50,14 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
                 <version>${spring.boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>io.github.resilience4j</groupId>
+                <artifactId>resilience4j-bom</artifactId>
+                <version>${resilience4j-bom.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -85,42 +93,6 @@
                 <version>${woodstox.core.version}</version>
             </dependency>
 
-            <!-- Resilience Framework: Resilience4J -->
-            <dependency>
-                <groupId>io.github.resilience4j</groupId>
-                <artifactId>resilience4j-spring-boot2</artifactId>
-                <version>${resilience4j.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.github.resilience4j</groupId>
-                <artifactId>resilience4j-circuitbreaker</artifactId>
-                <version>${resilience4j.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.github.resilience4j</groupId>
-                <artifactId>resilience4j-ratelimiter</artifactId>
-                <version>${resilience4j.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.github.resilience4j</groupId>
-                <artifactId>resilience4j-retry</artifactId>
-                <version>${resilience4j.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.github.resilience4j</groupId>
-                <artifactId>resilience4j-bulkhead</artifactId>
-                <version>${resilience4j.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.github.resilience4j</groupId>
-                <artifactId>resilience4j-cache</artifactId>
-                <version>${resilience4j.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.github.resilience4j</groupId>
-                <artifactId>resilience4j-timelimiter</artifactId>
-                <version>${resilience4j.version}</version>
-            </dependency>
             <dependency>
                 <groupId>ch.qos.logback.contrib</groupId>
                 <artifactId>logback-json-classic</artifactId>
