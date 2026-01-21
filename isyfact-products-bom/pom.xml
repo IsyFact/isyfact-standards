@@ -150,6 +150,12 @@
                 <groupId>org.apache.poi</groupId>
                 <artifactId>poi</artifactId>
                 <version>${apache.poi.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.apache.commons</groupId>
+                        <artifactId>commons-collections4</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <!-- Excel XML (2007+) processing: Apache POI -->
             <dependency>
