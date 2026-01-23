@@ -144,37 +144,6 @@ project-root/
 ----
 <1> Ausführungsdateien (Shell-Skripte) und Konfigurationsdateien
 
-[[deploymentprojekte]]
-=== Deployment-Projekte
-
-Deployment-Projekte bestehen im Wesentlichen aus den Skripten zur Erstellung einer Deployment-Einheit.
-
-Deployment-Projekte besitzen unter dem Wurzelverzeichnis (`project-root`) ein einzelnes Unterverzeichnis `src/main/resources`.
-In diesem finden sich weitere Unterverzeichnisse, die für die Erstellung von RPMs angepasst sind.
-
-.Struktur eines Deployment-Projekts
-[id="listing-Projektstruktur-Deployment",reftext="{listing-caption} {counter:listings }"]
-[source, xml]
-----
-project-root/
-  |- src/main/resources/ <1>
-  |    |- BUILD/
-  |    |- RPMS.noarch/
-  |    |- SOURCES/
-  |    |- SPECS/
-  |    |- SRPMS/
-  |
-  |- (build.xml) <2>
-  |- (.gitattributes)
-  |- .gitignore
-  |- CHANGELOG.md
-  |- (LICENSE.md)
-  |- pom.xml
-  |- README.md
-----
-<1> Skripte und Vorschriften zur Erstellung eines RPMs
-<2> Optional: Anweisungen zum RPM-Build via Ant (deprecated)
-
 [[dokumentationsprojekte]]
 === Dokumentationsprojekte
 

@@ -57,9 +57,6 @@ import-bhknz-liste.sh
 
 Die Dateien sollten entweder in einen eigenen Ordner unter `/opt` abgelegt werden oder – falls der Batch Teil eines bestehenden Batch-Projekts ist – in den vorhandenen Batch-Ordner des Systems deployt werden.
 
-In letzterem Fall sollte das Deployment über das RPM des Batch-Projekts erfolgen.
-Andernfalls ist – insbesondere bei nur einmaligen auszuführenden Batches – ein manuelles Deployment möglich.
-
 Shell-Batches müssen immer nach dem folgenden Schema aufgebaut werden:
 
 * Beschreibungskommentar mit Parametern und Return Codes,

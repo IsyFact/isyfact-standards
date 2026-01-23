@@ -105,22 +105,6 @@ Diese sollten daher dem folgenden Schema folgen:
 
 Zusätzlich zur Version des IT-Systems muss der Container oder die Installationsdatei mit Build-Metadaten versehen werden, um möglichst genau feststellen zu können, welcher Entwicklungsstand enthalten ist.
 
-[[rpm]]
-==== RPM
-
-Bei RPM-Paketen muss die Versionsnummer des RPMs folgendes Format aufweisen:
-
-[frame="none"]
-|====
-^m| *MAJOR.MINOR.PATCH[-LABEL][+BUILDMETADATA]-RPMNR* +
- +
-dies entspricht auch +
- +
-*TAGNAME-RPMNR*
-|====
-
-*Beispiele:* 1.0.2+CG.101-1, 2.5.1+BSERV.277-1, 1.2.1+CG.54.sha.5114f85-1, 1.0.2-1
-
 [[versionierung-von-bibliotheken]]
 == Versionierung von Bibliotheken
 

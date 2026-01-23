@@ -1,5 +1,4 @@
-﻿
-// tag::inhalt[]
+﻿// tag::inhalt[]
 :anwendung: Beispielverzeichnis
 :anwendung-ga: Beispielverzeichnis-GA
 :anwendung-sgw: Beispielverzeichnis-SGW
@@ -96,7 +95,7 @@ Es umfasst die folgenden IT-Systeme:
 Das Kapitel <<ueberblick>> bietet einen groben fachlichen, technischen sowie betrieblichen Überblick über die Anwendung und liefert Verweise auf weitergehende Dokumente.
 Es ist für alle Leser des Dokuments relevant.
 
-Das Kapitel <<bau-anwendung>> beschreibt, wie aus dem Quellcode die Deployment-Einheiten (RPMs) entstehen.
+Das Kapitel <<bau-anwendung>> beschreibt, wie aus dem Quellcode die Deployment-Einheiten entstehen.
 Es ist im Wesentlichen für die Softwareentwicklungsabteilung relevant.
 
 Das Kapitel <<vorbereitung-systemumgebung>> beschreibt, wie die Systemumgebung auf den Betrieb der Anwendung hin zu konfigurieren ist.
@@ -219,12 +218,12 @@ Die Laufzeitumgebung für das {anwendung} besteht aus den Produkten, die in folg
 
 |Java Virtual Machine
 |https://adoptium.net/de/temurin/releases[OpenJDK (Eclipse Temurin von Adoptium)]
-| 25.x
+| Gemäß Produktkatalog
 |
 
 |Servlet-Container
 |Apache Tomcat
-|8.5.x
+|Gemäß Produktkatalog
 |
 
 |RDBMS
@@ -316,7 +315,6 @@ Dokumentationsform::
 _Deployment-Diagramme, Tabellen, Freitext_
 ====
 
-
 [[bau-anwendung]]
 == Bau der Anwendung
 
@@ -335,9 +333,6 @@ Weitere Abhängigkeiten werden durch die erforderlichen Build-Werkzeuge selbstst
 |Maven
 |3.x
 
-|(RPM)
-| ...
-
 |Java Development Kit https://adoptium.net/de/temurin/releases[OpenJDK (Eclipse Temurin von Adoptium)]
 | 25.x
 
@@ -355,74 +350,8 @@ Dokumentationsform::
 _Tabelle_
 ====
 
-
 [[bau-ga-batches-legacy]]
 === Bau der {anwendung-ga} und {anwendung-batch}
-
-NOTE: *Falls die Anwendung den traditionellen RPM Build (via `ant` und `rpmbuild`) nicht verwendet, kann dieser Abschnitt entfallen.*
-
-Zum Erzeugen der RPM-Pakete wird das Werkzeug `rpmbuild` mithilfe von Ant über Maven benutzt.
-Dies setzt ein Artefakt-Repository zum Auflösen von Paketabhängigkeiten voraus.
-
-Der Build wird folgendermaßen ausgeführt:
-
-:desc-listing-maven-build-legacy: Maven-Befehl zum Build der {anwendung-ga} & {anwendung-batch}
-[id="listing-maven-build-legacy",reftext="{listing-caption} {counter:listings}"]
-.{desc-listing-maven-build-legacy}
-[source]
-----
-mvn -Dbuild.number=<Build-Nummer> -Dtest=false -DfailIfNoTests=false clean package
-----
-
-TIP: Die Build-Nummer (Argument `-Dbuild.number`) wird üblicherweise mit der Lieferungsnummer belegt.
-Das bedeutet z. B.: `1.0.0_14` wird zu `14`, oder allgemein: `1.0.0_x` wird zu `x`.
-
-Nach erfolgreichem Build befinden sich im Ordner `{it-system-ga}-deployment/target/RPMS/noarch` folgende RPM-Pakete:
-
-* `{it-system-ga}-<VERSION>.noarch.rpm`: {anwendung-ga},
-* `{it-system-batch}-<VERSION>.noarch.rpm`: {anwendung-batch}.
-
-In den folgenden Kapiteln wird die Installation der einzelnen Pakete näher beschrieben.
-
-====
-Inhalt::
-_Für weitere Build-Schritte ggf. weitere Unterkapitel anlegen. +
-Die Anleitung soll hier vollständig sein und darf nicht auf andere Dokumente der IsyFact verweisen._
-
-Quelle::
-_Entwicklerhandbuch_
-
-Dokumentationsform::
-_Freitext_
-====
-
-[[bau-ga-batches]]
-=== Bau der {anwendung-ga} und {anwendung-batch}
-
-NOTE: *Falls die Anwendung den neuen RPM Build (via Maven-Plugin) nicht verwendet, kann dieser Abschnitt entfallen.*
-
-Zum Erzeugen der RPM-Pakete wird ein Maven-Plugin benutzt.
-Dies setzt ein Artefakt-Repository zum Auflösen von Paketabhängigkeiten voraus.
-
-Der Build wird folgendermaßen ausgeführt:
-
-:desc-listing-maven-build: Maven-Befehl zum Build der {anwendung-ga} & {anwendung-batch}
-[id="listing-maven-build",reftext="{listing-caption} {counter:listings}"]
-.{desc-listing-maven-build}
-[source]
-----
-mvn -Drpm.release=<Build-Nummer> -Dtest=false -DfailIfNoTests=false clean package
-----
-
-TIP: Das Feld `release` (Argument `-Drpm.release`) wird üblicherweise mit der Lieferungsnummer belegt.
-Das bedeutet z. B.: `1.0.0_14` wird zu `14`, oder allgemein: `1.0.0_x` wird zu `x`.
-
-Nach erfolgreichem Build befinden sich im jeweiligen Modul unter `target` die RPM-Pakete:
-
-* `{it-system-ga}-<VERSION>.noarch.rpm`: {anwendung-ga},
-* `{it-system-batch}-<VERSION>.noarch.rpm`: {anwendung-batch}.
-
-In den folgenden Kapiteln wird die Installation der einzelnen Pakete näher beschrieben.
 
 ====
 Inhalt::
@@ -477,12 +406,9 @@ _Freitext_
 [[anlegen-betriebssystemnutzer-gruppen]]
 === Anlegen der Betriebssystemnutzer und -gruppen
 
-Die Anwendungen {anwendung-ga} und {anwendung-sgw} benötigen den Betriebssystemnutzer `tomcat` in der Benutzergruppe `tomcat`.
-Die Batch-Anwendung {anwendung-batch} benötigt den Betriebssystemnutzer `batch` in der Benutzergruppe `batch`.
-
+Für den Betrieb der Anwendung {anwendung} empfiehlt es, einen seperaten Nutzer und eine Gruppe anzulegen.
 Die Erzeugung der Nutzer und Gruppen ist abhängig vom verwendeten Betriebssystem.
 Das Kennwort wird vom Betrieb vergeben.
-Der Tomcat-Nutzer und der Batch-Nutzer dürfen nicht das Recht besitzen, sich am System anzumelden.
 
 [[einrichten-datenbank]]
 === Einrichten der Datenbank
@@ -563,80 +489,56 @@ Dokumentationsform::
 _Freitext_
 ====
 
-
 [[installation-anwendung]]
 == Installation der Anwendung
 
 Als Ablageort und Stammverzeichnis der relativen Pfade in diesem Kapitel dient das Quellcode-Repository der Anwendung {anwendung}.
 
-[[installation-default-tomcat]]
-=== Installation der Default-Tomcats
-
-Es müssen Tomcat-Basisinstallationen für die Anwendung vorliegen.
-
-:desc-table-tomcat-installationspfade: Installationspfade der Tomcats
-[id="table-tomcat-installationspfade",reftext="{table-caption} {counter:tables}"]
-.{desc-table-tomcat-installationspfade}
-[cols="1m,2m",options="header"]
-|===
-|IT-System | Tomcat-Installationspfad
-|{anwendung-ga} | /opt/{it-system-ga}/tomcat
-|{anwendung-sgw} | /opt/{it-system-sgw}/tomcat
-|===
-
-Die Tomcat-Basisinstallation kann nur von einem Benutzer mit Root-Rechten vorgenommen werden.
-
-Für die Erstinstallation muss der zum {anwendung} gehörende Default-Tomcat installiert werden:
-
-:desc-listing-tomcat-install: Installation der Tomcats via RPM
-[id="listing-tomcat-install",reftext="{listing-caption} {counter:listings}"]
-.{desc-listing-tomcat-install}
-[source,subs="attributes"]
-----
-rpm -i {it-system-ga}-tomcat-(version).x86_64.rpm
-rpm -i {it-system-sgw}-tomcat-(version).x86_64.rpm
-----
-
-Nach der Installation muss ggf. die Konfiguration des Wrappers angepasst werden.
-Dazu ist die Datei `/opt/{it-system-ga}/tomcat/conf/wrapper.conf` anzupassen.
-
-Wichtige Einstellungen umfassen:
-
-* das Setzen der Umgebungsvariable `JAVA<X>_HOME` auf den korrekten Wert (vor allem, wenn mehrere Java-Versionen installiert sind),
-* das Setzen von sinnvollen Werten für die Heap-Size (siehe Parameter `wrapper.java.initmemory` und `wrapper.java.maxmemory`).
-
 [[installation-it-systeme]]
 === Installation der IT-Systeme
 
-NOTE: *Falls die Anwendung den traditionellen RPM Build (via `ant` und `rpmbuild`) verwendet, liegen die RPMs in einem zentralen Deployment-Modul.*
+Für Anwendungen, die als ausführbares Spring Boot-Fat-JAR ausgeliefert werden, empfiehlt die Spring Boot-Dokumentation den Betrieb über einen `systemd`-Service.
 
-Die RPM-Pakete können direkt über Kommandozeile installiert werden.
-Hierzu sind Root-Rechte erforderlich.
-Ein laufender Tomcat muss gegebenenfalls zuvor gestoppt werden.
+NOTE: Siehe https://docs.spring.io/spring-boot/how-to/deployment/installing.html#howto.deployment.installing[Spring Boot Deployment Guide]
 
-:desc-listing-rpm-install: Manuelle Installation der IT-Systeme
-[id="listing-rpm-install",reftext="{listing-caption} {counter:listings}"]
-.{desc-listing-rpm-install}
-[source,subs="attributes"]
+.1. Artefakt bereitstellen
+* Kopieren Sie `{it-system-ga}.jar` nach `/opt/{it-system-ga}/{it-system-ga}.jar`.
+* Setzen Sie Besitz und Rechte, damit `{it-system-ga}` das JAR lesen kann (`chown {it-system-ga}:{it-system-ga}` und `chmod 750`).
+
+.2. Service-Benutzer anlegen
+* Legen Sie, falls nicht vorhanden, einen Systembenutzer ohne Login an (`useradd --system --shell /usr/sbin/nologin {it-system-ga}`).
+
+.3. `systemd`-Unit erstellen
+Speichern Sie die Unit-Datei unter `/etc/systemd/system/{it-system-ga}.service`.
+
+:desc-listing-systemd-service: {it-system-ga}: systemd-Service
+[id="listing-systemd-service",reftext="{listing-caption} {counter:listings}"]
+.{desc-listing-systemd-service}
+[source,ini,subs="verbatim,attributes"]
 ----
-rpm -fUhv {it-system-ga}/target/RPMS/noarch/{it-system-ga}-(version).noarch.rpm
-rpm -fUhv {it-system-sgw}/target/RPMS/noarch/{it-system-sgw}-(version).noarch.rpm
-rpm -fUhv {it-system-batch}/target/RPMS/noarch/{it-system-batch}-(version).noarch.rpm
+[Unit]
+Description={anwendung-ga} (Spring Boot)
+After=network.target
+
+[Service]
+User={it-system-ga}
+Group={it-system-ga}
+WorkingDirectory=/opt/{it-system-ga}
+ExecStart=/usr/bin/java -jar {it-system-ga}.jar --spring.config.location=file:/etc/{it-system-ga}/
+SuccessExitStatus=143
+Restart=on-failure
+RestartSec=10
+Environment=JAVA_OPTS="-Xms512m -Xmx1024m"
+
+[Install]
+WantedBy=multi-user.target
 ----
 
-TIP: Die Option `-U` kann auch für die erstmalige Installation, nicht nur für Upgrades, verwendet werden.
+.4. Service aktivieren
+* `systemctl daemon-reload`
+* `systemctl enable --now {it-system-ga}.service`
 
-:desc-table-rpm-installationspfade: Installationspfade der IT-Systeme
-[id="table-rpm-installationspfade",reftext="{table-caption} {counter:tables}"]
-.{desc-table-rpm-installationspfade}
-[cols="3m,4m,1m",options="header"]
-|===
-|IT-System | RPM-Installationspfad | Owner
-|{anwendung-ga} |/opt/{it-system-ga} | tomcat
-|{anwendung-sgw} |/opt/{it-system-sgw} | tomcat
-|{anwendung-batch} |/opt/{it-system-batch} | batch
-|===
-
+Damit wird das ausführbare JAR automatisch beim Booten gestartet und kann über `systemctl status {it-system-ga}` überwacht werden.
 
 [[konfiguration-anwendung]]
 == Konfiguration der Anwendung
@@ -653,12 +555,8 @@ Folgende Konfigurationsdateien müssen für die Konfiguration angepasst werden:
 * `logback.xml`,
 * `{it-system-ga}.properties`,
 * `jpa.properties`,
-* (Liste der Konfigurationsdateien der Tomcat-Anwendung).
 
 Änderungen an den Konfigurationsdateien müssen bei heruntergefahrener Anwendung durchgeführt werden.
-
-IMPORTANT: Dieses Verhalten gilt nicht für die Konfigurationsdatei `logback.xml`.
-Änderungen an dieser Konfigurationsdatei können bei laufender Anwendung ausgeführt werden.
 
 [[konfigurationsdatei-logback]]
 ==== Konfigurationsdatei `logback.xml`
@@ -963,47 +861,6 @@ NOTE: *Falls die Anwendung ein Datenbankschema enthält, kann dieser Abschnitt e
 
 Die Anwendung {anwendung} enthält kein Datenbankschema.
 
-[[start-stopp-statuspruefung-server-prozesse]]
-=== Start, Stopp, Statusprüfung der Server-Prozesse
-
-Das Starten, Stoppen und die Statusüberprüfung der Tomcat-Installationen wird über ein Skript in `/etc/init.d` durchgeführt.
-
-[id="table-start-stop-script", reftext = "{table-caption} {counter:tables}"]
-.Funktionen des Start-/Stopp-Skripts
-[cols="1m,1", options="header"]
-|===
-|Befehl |Beschreibung
-
-|/etc/init.d/{it-system-ga}-tomcat start
-|Start der {anwendung-ga}
-
-|/etc/init.d/{it-system-ga}-tomcat stop
-|Stopp der {anwendung-ga}
-
-|/etc/init.d/{it-system-ga}-tomcat status
-|Statusüberprüfung der {anwendung-ga}
-
-|/etc/init.d/{it-system-sgw}-tomcat start
-|Start des {anwendung-sgw}
-
-|/etc/init.d/{it-system-sgw}-tomcat stop
-|Stopp des {anwendung-sgw}
-
-|/etc/init.d/{it-system-sgw}-tomcat status
-|Statusüberprüfung des {anwendung-sgw}
-|===
-
-Die Aufrufe werden in der Produktionsumgebung über die Batch-Steuerung in die betrieblichen Abläufe integriert.
-Das Skript wird dabei nicht in die Runlevel des Betriebssystems integriert.
-Die Tomcats werden ausschließlich über die betriebliche Batch-Steuerung gestartet und gestoppt.
-
-In allen anderen Umgebungen wird das Skript von Hand aufgerufen.
-Ein Eintrag in die Runlevel kann bei Bedarf erfolgen.
-
-Eine weitere Möglichkeit zur Überprüfung der Tomcat-Prozesse bietet folgender Befehl:
-
- ps -u tomcat -f
-
 [[batch-prozesse]]
 === Batch-Prozesse
 
@@ -1266,7 +1123,7 @@ Außerdem werden Fehlermeldungen des Selbsttests der Anwendung dort ausgegeben.
 |===
 |Smoke-Test Checkliste |Erledigt
 |*Prüfen der Log-Datei:* +
-Die Log-Datei der Anwendung darf nach dem Starten des Tomcats keine Fehler enthalten.
+Die Log-Datei der Anwendung darf nach dem Starten des JARs keine Fehler enthalten.
 Außerdem sollte die Wrapper-Log-Datei als letzte Zeile folgenden Hinweis enthalten: +
 `INFO: Server startup in <ZAHL> ms`
 |
