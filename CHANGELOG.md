@@ -54,7 +54,8 @@
 - `IFS-4531`: Update von Flatten Maven Plugin auf Version 1.7.1
     * Update von Maven Version auf 3.6.3
 - `IFS-4830`: Update von Spring Boot auf 3.5.9, Apache Poi auf 5.5.1 und Apache Tika auf 3.2.3
-
+- `IFS-5006`: Update des git-commit-id-maven-plugins auf Version 9.0.2
+ 
 ## RELEASE NOTES
 
 [//]: # (### Allgemeine Änderungen)
@@ -168,3 +169,17 @@ RPM als Auslieferungsmedium wird nicht mehr unterstützt.
 Stattdessen wird eine ausführbare JAR als Standard-Auslieferungsmedium verwendet.
 
 Weitere Informationen finden Sie in der [Spring Boot Dokumentation](https://docs.spring.io/spring-boot/specification/executable-jar/index.html).
+
+### Dependency Änderungen
+
+- isy-git-commit-id-plugin:
+
+```xml
+<!-- Alt -->
+<groupId>pl.project13.maven</groupId>
+<artifactId>git-commit-id-plugin</artifactId>
+
+<!-- Neu -->
+<groupId>io.github.git-commit-id</groupId>
+<artifactId>git-commit-id-maven-plugin</artifactId>
+```
