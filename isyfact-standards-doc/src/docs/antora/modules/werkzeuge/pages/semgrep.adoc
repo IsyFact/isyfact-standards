@@ -1,0 +1,33 @@
+= Semgrep SAST
+
+NOTE: Semgrep ist ein statischer Anwendungsscan-Tool (SAST), das automatisch Sicherheitslücken im Quellcode erkennt.
+
+== Funktionalität
+
+Semgrep ermöglicht es, benutzerdefinierte Regeln basierend auf Mustern im Code zu definieren.
+Es scannt Code auf bekannte Schwachstellen, unsichere Muster und Coding-Standards-Verstöße.
+
+Es unterstützt mehrere Sprachen, darunter Java und TypeScript, und kann sowohl lokal als auch in CI/CD-Pipelines eingesetzt werden.
+
+=== CI/CD
+Speziell für die CI/CD kann der Befehl `semgrep ci` verwendet werden.
+Hier werden nur die geänderten/hinzugefügten Zeilen berücksichtigt.
+Es ist zu beachten, dass hierfür die SAST-Regeln manuell konfiguriert sein müssen.
+Um ein Community gepflegtes Regelset zu verwenden, muss ein Account auf der https://semgrep.dev/docs/deployment/oss-deployment[Semgrep AppSec Platform] erstellt werden.
+
+=== Lokale Nutzung
+Für die lokale Nutzung kann die https://semgrep.dev/docs/cli-reference[CLI] installiert werden.
+Über den Befehl `semgrep scan --config="p/java" --json --json-output=semgrep-report.json` wird ein Report in JSON-Format generiert.
+Die Konfiguration "p/java" bezieht sich auf ein Community https://semgrep.dev/p/default[gepflegtes Java-Set an Regeln], welche aktiv gepflegt werden.
+
+== Weiterführende Informationen
+
+[[download-bibliothek]]
+.Dokumentation und Ersten Schritte
+[cols="^1s,^2"]
+|====
+|Lokal nutzen
+|xref:https://semgrep.dev/docs/getting-started/quickstart[Semgrep Quickstart]
+|CI/CD integrieren
+|xref:https://semgrep.dev/docs/semgrep-ci/sample-ci-configs#sample-github-actions-configuration-file[Semgrep CI Configuration]
+|====
