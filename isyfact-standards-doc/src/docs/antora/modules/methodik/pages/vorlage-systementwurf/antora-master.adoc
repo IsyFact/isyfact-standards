@@ -1,6 +1,4 @@
-:doctitle: IsyFact Systementwurf <System>
-[discrete]
-=== Vorlage
+= IsyFact Systementwurf <System>
 
 // Inhalt
 include::inhalt.adoc[tags=inhalt]
