@@ -970,66 +970,49 @@ Dieser Abschnitt kann folgende Inhalte enthalten:
 [[systementwicklung]]
 == Systementwicklung
 
+[NOTE]
 ====
-_Verweis auf das Entwicklerhandbuch. Hier kann entweder ein eigenes Entwicklerhandbuch erstellt werden und ein Verweis hierauf in das Gesamtentwicklerhandbuch aufgenommen werden, oder der Inhalt kann direkt in das Gesamtentwicklerhandbuch aufgenommen werden._
+Dieses Kapitel verweist, wo möglich, auf übergreifende Regelungen (Entwicklungshandbuch, Coding Guidelines, ...).
 
-_Die Tiefe dieses Kapitel sollte den Vorkenntnissen des Entwicklerteams angepasst werden. Es ist kein Selbstzweck und kann ggf. sogar ganz entfallen bzw. nur auf sehr wenige Punkte beschränkt sein._
+Die Tiefe dieses Kapitel passt sich den Vorkenntnissen des Entwicklungsteams an.
+Es ist kein Selbstzweck und kann sich auf wenige Punkte beschränken oder ggf. sogar ganz entfallen.
 
-_Zu folgenden Themen sollen dem Entwicklerteam die Vorgaben klar sein:_
+Wenn es keine übergreifenden Regelungen gibt, adressiert das Kapitel unter anderem folgende Themen:
 
-* _Konventionen (Namenskonventionen, Packagestruktur, …)_
-* _Entwicklungsumgebung (IDE, Tools, …)_
-* _Codegenerierung (was wird wie generiert)_
-* _Konfigurationsmanagement (welche Tools, welche Verfahren, …)_
-* _Buildmanagement (welche Tools, welche Verfahren, …)_
+* Konventionen (Namenskonventionen, Code-Struktur, ...),
+* Entwicklungsumgebung (IDEs, Tools, ...),
+* Codegenerierung (was und wie),
+* Konfigurationsmanagement (Tools, Verfahren, ...),
+* Buildmanagement (Tools, Verfahren, ...).
 ====
 
 [[betrieb]]
 == Betrieb
 
+[NOTE]
 ====
-_Verweis auf das Betriebshandbuch._
+Dieses Kapitel verweist, wo möglich, auf ein Betriebshandbuch (oder dazu ähnliche Dokumente).
 
-_Auf folgende Themen ist zu referenzieren:_
+Es verweist in der Regel auf folgende Themen:
 
-* _Migration (Datenmigration, …)_
-* _Schulung_
-* _Installation (Systemübergabe (Deployment), Konfiguration, …)_
-* _Systemüberwachung (Logging, Monitoring, …)_
+* Migration (Datenmigration, ...),
+* Schulung,
+* Installation (Systemübergabe, Deployment, Konfiguration, ...),
+* Systemüberwachung (Logging, Monitoring, ...).
 ====
 
 [[anhang]]
 == Anhang
 
+[NOTE]
+====
+Der Anhang führt weiterführende oder vertiefende Inhalte auf, die den Lesefluss und die Übersicht des Dokuments "an Ort und Stelle" stören würde.
+Beispiele hierzu sind Templates für Dateien, zum Beispiel zur Konfiguration oder zum Build.
+====
+
 [[anhang-ass-referenzen]]
 === Anhang A: Optionaler Inhalt
 
-====
-_Im Anhang können optionale Inhalte aufgeführt werden._
-
-_Sämtliche relevanten Dokumente der IsyFact werden in der  <<table-verwendete-elemente-isyfact-standards-erweiterungen>> aufgeführt._
-_Die Referenzen auf diese Dokumente sind im automatisch generiertem Kapitel Literaturverweise aufgeführt._
-
-====
-
-[.lead]
-_Hinweis zur Dokumentenerstellung_
-
-[NOTE]
-====
-[.underscore]#Automatisch generierte Kapitel:#
-
-_Die Kapitel_
-
-* _Literaturverweise_
-* _Tabellenverzeichnis_
-* _Abbildungsverzeichnis_
-
-_werden automatisch generiert und am Ende des Dokuments eingefügt._
-
-_Diese Kapitel sind daher **nicht manuell anzulegen!**_
-
-====
-
+...
 
 // end::inhalt[]
