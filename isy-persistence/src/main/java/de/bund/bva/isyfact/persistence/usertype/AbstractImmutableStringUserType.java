@@ -12,11 +12,10 @@ import org.hibernate.usertype.UserType;
 /**
  * Abstract {@link UserType} for any immutable attributes that are persisted as a string in a VARCHAR column.
  */
-public abstract class AbstractImmutableStringUserType extends AbstractImmutableUserType {
-
+public abstract class AbstractImmutableStringUserType<T> extends AbstractImmutableUserType<T> {
 
     /**
-     * SQL-Typ der DB-Spalte.
+     * type of given SQL column.
      */
     private static final int SQL_TYPE = Types.VARCHAR;
 
@@ -26,7 +25,8 @@ public abstract class AbstractImmutableStringUserType extends AbstractImmutableU
     }
 
     @Override
-    public Object nullSafeGet(ResultSet rs, int position, SharedSessionContractImplementor session, Object owner) throws SQLException {
+    public T nullSafeGet(ResultSet rs, int position, SharedSessionContractImplementor session,
+                         Object owner) throws SQLException {
         String value = rs.getString(position);
         if (rs.wasNull()) {
             return null;
@@ -35,7 +35,7 @@ public abstract class AbstractImmutableStringUserType extends AbstractImmutableU
     }
 
     @Override
-    public void nullSafeSet(PreparedStatement st, Object value, int index,
+    public void nullSafeSet(PreparedStatement st, T value, int index,
                             SharedSessionContractImplementor sessionImplementor) throws HibernateException, SQLException {
         if (value == null) {
             st.setNull(index, SQL_TYPE);
@@ -51,7 +51,7 @@ public abstract class AbstractImmutableStringUserType extends AbstractImmutableU
      * @param value the persistent string representation
      * @return the attribute value
      */
-    protected abstract Object convertStringToInstance(String value);
+    protected abstract T convertStringToInstance(String value);
 
     /**
      * Converts an attribute value into the string representation to be persisted.
@@ -59,5 +59,5 @@ public abstract class AbstractImmutableStringUserType extends AbstractImmutableU
      * @param value the attribute value
      * @return the string representation to be persisted
      */
-    protected abstract String convertInstanceToString(Object value);
+    protected abstract String convertInstanceToString(T value);
 }
