@@ -110,7 +110,7 @@ public class EnumUserTypeTest {
 
     	userType.setEnumClass(Vorgangsstatus.class);
     	Object obj = userType.nullSafeGet(rs, 0, null, null);
-    	assertEquals(null, (Vorgangsstatus)obj);
+        assertNull(obj);
     }
     
     @Test
