@@ -4,6 +4,7 @@
 - `IFS-5066`: Update von Spring Boot auf 3.5.10 und Apache Tika auf 3.2.3
 
 ### BUG FIXES
+- `IFS-5038`: [isy-persistence] Implementierung eigener UserType-Klassen an Hibernate Version 6.x angepasst
 
 ### BREAKING CHANGES
 - `IFS-4911`: [isy-ueberwachung] Absicherung Actuator mit OAuth2
