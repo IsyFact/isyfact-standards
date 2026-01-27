@@ -212,13 +212,13 @@ Im Folgenden sind die Produkte eines Systementwurfs gemäß V-Modell® XT aufgef
 
 * *Systemarchitektur:* Die grundsätzliche Systemarchitektur ist durch die Referenzarchitektur vorgegeben.
 In diesem Dokument wird beschrieben, wie diese Referenzarchitektur instanziiert wird.
-** Die Dekomposition des Systems ist im Kapitel <<systemarchitektur-gesamtsystems>> beschrieben.
+** Die Dekomposition des Systems ist im Kapitel <<systemarchitektur-bsp-ga>> beschrieben.
 ** Querschnittliche Systemeigenschaften sind bereits im Rahmen der IsyFact-Referenzarchitektur betrachtet worden und werden nicht wiederholt.
 Sollte eine Verfeinerung oder spezifische Ergänzung der Referenzarchitektur notwendig sein, erfolgt dies im Kapitel <<querschnittskonzepte>>.
 ** Die Schnittstellenübersicht des Systems erfolgt der Übersichtlichkeit halber auf zwei Abstraktionsebenen: auf Ebene der Gesamtanwendungslandschaft erfolgt dies im Kapitel <<einbettung-in-anwendungslandschaft,Systemüberblick/Einbettung in die Anwendungslandschaft>>.
-Die konkreten Schnittstellen des Systems und ggf. von Teilsystemen sind im Kapitel <<systemarchitektur-gesamtsystems,Systemarchitektur des Gesamtsystems/Systemüberblick>> beschrieben.
+Die konkreten Schnittstellen des Systems und ggf. von Teilsystemen sind im Kapitel <<systemarchitektur-bsp-ga,Systemarchitektur des Gesamtsystems/Systemüberblick>> beschrieben.
 Details zur Implementierung und Dateninhalten der Schnittstellen finden sich in der Konstruktion der jeweiligen <<serviceschicht,Backend-Services>>.
-** Die zu spezifizierenden Systemelemente sind der Gegenstand der <<systemarchitektur-gesamtsystems>>, insbesondere der <<BSP-1u2-GK,Systemarchitektur der Teilsysteme (ff.)>>.
+** Die zu spezifizierenden Systemelemente sind der Gegenstand der <<systemarchitektur-bsp-ga>>, insbesondere der <<BSP-1u2-GK,Systemarchitektur der Teilsysteme (ff.)>>.
 * *Unterstützungs-Systemarchitektur:* Unterstützungssysteme sind in der Regel durch die IsyFact vorgegeben.
 Sollte es trotzdem nötig sein, ein neues Unterstützungssystem zu konstruieren, erfolgt dies in einem eigenen Dokument nach dieser Vorlage.
 * *Mensch-Maschine-Schnittstelle (Styleguide):* Ein Styleguide ist durch die IsyFact nicht vorgegeben.
@@ -226,7 +226,7 @@ Es wird jedoch vorausgesetzt, dass ein solcher Styleguide für die Organisation,
 * *HW-Architektur:* Die HW-Architektur ist als Referenzarchitektur bereits vorgegeben.
 Die konkrete HW-Architektur für das System befindet sich im Kapitel <<ti-architektur>>.
 * *SW-Architektur:* Die SW-Architektur ist in den Grundlagen durch die IsyFact Referenzarchitektur vorgegeben.
-Die Instanziierung dieser Architektur befindet sich in der Beschreibung der <<systemarchitektur-gesamtsystems>>.
+Die Instanziierung dieser Architektur befindet sich in der Beschreibung der <<systemarchitektur-bsp-ga>>.
 * *Datenbankentwurf*: Der Datenbankentwurf findet sich unter <<datenmodell>>.
 * *Implementierungs-, Integrations- und Prüfkonzepte für System, Unterstützungssystem, HW und SW:* Die Prozesse sind im Rahmen der IsyFact bzw. im Gesamtprojektrahmen vorgegeben und werden hier nicht wiederholt.
 * *Migrationskonzept:* Für Migrationsszenarien wird ein eigenes Konzept erstellt.
@@ -405,165 +405,137 @@ h|_Auswirkungen_
 ...
 
 
-[[systemarchitektur-gesamtsystems]]
-== Systemarchitektur des Gesamtsystems
+[[systemarchitektur-bsp-ga]]
+== Systemarchitektur der BSP-GA
 
+[NOTE]
 ====
-_In diesem Kapitel wird ein Systemüberblick gegeben und die Aspekte des Gesamtsystems beschrieben, die für alle oder mehrere Teilsysteme gelten. Das können Verfahren, Festlegungen oder die Beschreibung gemeinsam genutzter Komponenten sein. In der Regel hat ein System mehrere Teilsysteme, z. B. eine Geschäftsanwendung und ein Service-Gateway._
+Dieses Kapitel stellt den Überblick über die technische Umsetzung der Geschäftsanwendung dar.
+Es beschreibt außerdem die Aspekte, die für mehrere der IT-Systeme gelten, in welche die Geschäftsanwendung zerlegt wird.
+Das können Verfahren, Festlegungen oder die Beschreibung gemeinsam genutzter Komponenten sein.
+In der Regel zerlegt sich eine Geschäftsanwendung in:
 
-_Festlegungen, die bereits in den übergeordneten Dokumenten (z.B. Referenzarchitektur, Sicherheitsrichtlinie, …) gemacht wurden, sind im gesamten Kapitel nur zu referenzieren, Abweichungen hiervon sind zu begründen._
+* mindestens ein Backend,
+* ein Frontend (beim Vorhandensein einer grafischen Oberfläche),
+* Batches,
+* Gateways, falls externe Zugriffe nötig sind.
+
+Festlegungen, die bereits in übergeordneten Dokumenten der IsyFact oder der Organisation (z.B. IsyFact-Referenzarchitektur, Sicherheitsrichtlinie der Organisation, ...) enthalten sind, werden referenziert.
+*Abweichungen hiervon sind zu begründen!*
 ====
 
 [[gesamtsystem-systemueberblick]]
 === Systemüberblick
 
+[NOTE]
 ====
-*_Zweck_*
+Der Systemüberblick beschreibt, in welche IT-Systeme die Geschäftsanwendung zerlegt wird, und von welchem IT-Systemtyp diese sind.
+Die Referenzarchitektur der IsyFact definiert die IT-Systemtypen Backend, Frontend, Batch und Gateway.
+Dieses Kapitel ist die nächste Stufe der Konkretisierung nach der <<einbettung-in-anwendungslandschaft>>.
 
-_Dieser Abschnitt beschreibt, aus welchen Teilsystemen das Gesamtsystem besteht und gibt damit einen Top-level-Überblick über das System.
-Teilsysteme sind z. B.: ein Service-Gateway oder eine Geschäftsanwendung.
-Dieses Kapitel ist die nächste Stufe der Konkretisierung nach der Einordnung in die Anwendungslandschaft aus Kapitel <<einbettung-in-anwendungslandschaft,Systemüberblick/Einbettung in die Anwendungslandschaft>>_
+Das Kapitel besteht aus einem UML-Diagramm, das darstellt, aus welchen IT-Systemen die Geschäftsanwendung besteht, wie diese sich gegenseitig aufrufen und welche Nachbarsysteme aufgerufen werden.
+Zur besseren Orientierung sind der Farbcode und das Layout der Referenzarchitektur zu beachten.
+Für die Schnittstellen und Services soll ein geeigneter Abstraktionsgrad gewählt werden.
+Übersichtlichkeit steht klar über der Beschreibung von Details!
 
-*_Inhalte_*
+Das UML-Diagramm beschreibt ein begleitender Text, der sich folgender Fragen annimmt:
 
-_An dieser Stelle befindet sich eine Übersichtsgrafik, die darstellt, aus welchen Teilsystemen das Gesamtsystem besteht, wie diese sich gegenseitig aufrufen und welche Nachbarsysteme und Querschnittsfunktionen aufgerufen werden.
-Zur besseren Orientierung sind der Farbcode und das Layout der Referenzarchitektur zu beachten. Für die Schnittstellen und Services soll ein geeigneter Abstraktionsgrad gewählt werden.
-Zweck dieser Übersicht ist es einen prinzipiellen Überblick zu geben und nicht jedes Detail zu beschreiben._
+* Was sind die Aufgaben der einzelnen IT-Systeme?
+Welche Funktionalität bieten sie an?
+* Wie sieht das Zusammenspiel der IT-Systeme aus, um die Gesamtaufgabe des Systems zu erfüllen?
+Wie sieht die Aufgabenverteilung aus?
 
-_In der Beschreibung der Grafik ist Folgendes beschrieben:_
-
-* _Was sind die Aufgaben der einzelnen Teilsysteme, welche Funktionalität bieten sie an?_
-* _Wie ist das Zusammenspiel der Teilsysteme um die Gesamtaufgabe des Systems zu erfüllen, wie sieht die Aufgabenverteilung aus?_
-
-_Ein Beispiel für ein solches Diagramm ist:_
-====
+Die folgende <<image-teilsysteme>> basiert auf der Beispielzerlegung der Referenzarchitektur.
+Es zeigt nicht nur die Zerlegung, sondern schafft auch den Rückbezug auf die Systemspezifikation.
+Wenn dies der Übersicht nicht dienlich ist, kann der Rückbezug auch textuell oder tabellarisch hergestellt werden.
 
 :desc-image-teilsysteme: Teilsysteme
 [id="image-teilsysteme", reftext = "{figure-caption} {counter:figures}"]
 .{desc-image-teilsysteme}
-image::vorlage-systementwurf/teilsysteme.png[align = center, title-align=center]
+image::vorlage-systementwurf/ueberblick.dn.svg[align = center, title-align=center]
 
-====
-_Die Farbgebung für ein Teilsystem-Element orientiert sich an der fachlichen Referenzarchitektur. Für die verschiedenen Systeme sind folgende Hintergründe zu verwenden:_
-
-* _Blau für Geschäftsanwendungen (R/G/B: 153 / 204 / 255)_
-* _Orange für Register (R/G/B: 255 / 204 / 153)_
-* _Gelb für Querschnittsanwendungen (R/G/B: 255 / 255 / 153)_
-* _Violett für das Service-Gateway (R/G/B: 255 / 153 / 204)_
-* _Hellgrün für Portal-Systeme (R/G/B: 204 / 255 / 204)_
-* _Weiß für technische Systeme oder Produkte (Datenbank etc.) (R/G/B: 255 / 255 / 255)_
+Im begleitenden Text wären die Aufrufbeziehungen der IT-Systeme untereinander knapp zu erläutern.
+Ebenso wäre zu beschreiben, wieso die Verbindung zum IAM-Service von der fachlichen Klammer der Anwendung ausgeht. In diesem Beispiel soll dies verdeutlichen, dass alle enthaltenen IT-Systeme den IAM-Service aufrufen.
 ====
 
 [[anforderungen]]
 === Anforderungen
-====
-_In diesem Kapitel werden die Anforderungen an das System genannt. In der Regel wird auf die Systemspezifikation verwiesen. Abweichungen zur Systemspezifikation sollten aufgeführt werden._
 
-_Falls Anforderungen seit der Spezifikation hinzugekommen sind oder konkretisiert wurden, wird das hier dokumentiert._
+[NOTE]
 ====
+In diesem Kapitel werden die Anforderungen an das System genannt. In der Regel wird auf die Systemspezifikation verwiesen. Abweichungen zur Systemspezifikation sollten aufgeführt werden.
+
+Falls Anforderungen seit der Spezifikation hinzugekommen sind oder konkretisiert wurden, wird das hier dokumentiert.
+====
+
+// TODO Besser die Spezifikation anpassen, als hier noch einmal etwas konkretisieren oder separat von der Spezifikation beschreiben.
 
 [[funktionale-anforderungen]]
 ==== Funktionale Anforderungen
 
+[NOTE]
 ====
-_Referenz auf die Systemspezifikation, ein Satz: „Die funktionalen Anforderungen sind in der Systemspezifikation XYZ in Abschnitt n beschrieben …“_
+Referenz auf die Systemspezifikation, ein Satz: "Die funktionalen Anforderungen sind in der Systemspezifikation XYZ in Abschnitt n beschrieben."
 ====
 
 [[nichtfunktionale-anforderungen]]
 ==== Nichtfunktionale Anforderungen
 
+[NOTE]
 ====
-_Nichtfunktionale Anforderungen, die schon in der Systemspezifikation beschrieben sind, werden hier nicht wiederholt, sondern nur referenziert und falls erforderlich im Folgenden konkretisiert._
-====
+Nichtfunktionale Anforderungen, die schon in der Systemspezifikation beschrieben sind, werden hier nicht wiederholt, sondern nur referenziert und falls erforderlich im Folgenden konkretisiert.
+Stattdessen können hier nichtfunktionale Anforderungen *an die Architektur* der Lösung formuliert werden.
 
-[[mengengeruest]]
-===== Mengengerüst
+Die Strukturierung dieses Kapitels sollte sich an den Qualitätskriterien der ISO 25010 orientieren:
 
-====
-_Aufrufhäufigkeit von Funktionen, Anzahl von Datensätzen, …_
-
-_Kann tabellarisch dargestellt werden._
-====
-
-[[verfuegbarkeit]]
-===== Verfügbarkeit
-====
-_Angabe der Ausfallzeit in Stunden pro Woche und am Stück._
-====
-
-
-[[performance]]
-===== Performance
-====
-_Auflistung durchschnittlicher Antwortzeiten und maximaler Laufzeiten für Batches. Bewährt hat sich eine Darstellung mit folgenden Inhalten:_
-
-_Eine Grundlast durch den Ablauf definierter Anwendungsfälle wird auf das System gelegt. Dann wird an einem speziellen Client die Antwortzeiten für einen oder mehrere Anwendungsfälle oder wichtige Funktionen gemessen._
-
-_Dabei wird die Antwortzeit z. B. so beschrieben: „In 90 % der Fälle benötigt die Anfrage weniger als 2s, in 10 % der Fälle unter 5s.“
-Ggf. kann man noch eine Festlegung aufnehmen, ob einmalige Ausreißer erlaubt sind._
-====
-
-[[skalierbarkeit]]
-===== Skalierbarkeit
-====
-_In der Regel ein kurzer Satz:_
-
-_Durch die Verwendung der IsyFact-Referenzarchitektur erfüllt die Anwendung XYZ die Anforderungen, die allgemein an Geschäftsanwendungen gestellt werden: Sie läuft auf separaten Hardware-Systemen, die Failover und Lastverteilung ermöglichen.
-Eine weitere Skalierung ist durch Hinzufügen weiterer Systeme möglich._
-====
-
-[[sicherheit]]
-==== Sicherheit
+* Funktionale Eignung,
+* Sicherheit,
+* Effizienz,
+* Zuverlässigkeit,
+* Benutzbarkeit,
+* Wartbarkeit,
+* Kompatibilität,
+* Übertragbarkeit.
 
 ====
-_In der Regel in der Spezifikation beschrieben. Verweis auf Sicherheitskonzept_
-====
+// TODO Besser die Spezifikation anpassen, als hier noch einmal etwas konkretisieren.
+
 [[ti-architektur]]
 === TI-Architektur
 
+[NOTE]
 ====
-_Zunächst ein Überblick: Kurze Beschreibung der wichtigsten Eckpunkte der TI-Architektur._
+Das Kapitel enthält eine kurze Beschreibung der wichtigsten Eckpunkte der TI-Architektur.
 
-_TI-Diagramme sind als Deployment Diagramme umzusetzen. Diese enthalten die Elemente:_
+Die Beschreibung besteht aus Deployment-Diagrammen mit begleitendem Text.
+Die Diagramme beschreiben die Zuordnung der Server bzw. Laufzeitumgebungen zu den Zonen sowie die Zuordnung der Deployment-Einheiten auf die Server/Laufzeitumgebungen. Es enthält keine konkreten Adressen, Portnummern und Dimensionierungen, sondern eine logische Sicht.
 
-* _Component für Software-Deploymenteinheiten_
-* _Execution Environment für Application Server, Servlet Container etc._
-* _Nodes für Server, Clients, Router, Firewalls, Loadbalancer, etc._
-* _Boundaries für Netzsegmente_
-====
+Die Kommunikationsbeziehungen werden zu den Load Balancern bzw. Firewalls dargestellt.
+Es soll klar werden, über welche Zonengrenzen hinweg mit welchen Protokollen kommuniziert wird.
 
-:desc-image-deployment-diagramm: Deployment Diagramm
+Existierende Nachbarsysteme werden in der Regel nicht dargestellt.
+
+:desc-image-deployment-diagramm: TI-Architektur BSP-GA (teilweise)
 [id="image-deployment-diagramm", reftext = "{figure-caption} {counter:figures}"]
 .{desc-image-deployment-diagramm}
-image::vorlage-systementwurf/deployment-diagramm.png[align = center, title-align=center]
+image::vorlage-systementwurf/ueberblick-ti.dn.svg[]
 
-====
-_Wichtige Inhalte:_
+Das Beispiel-Diagramm in <<image-deployment-diagramm>> zeigt mit einem Backend und einem Batch einen Teil der BSP-GA.
 
-* _Zuordnung der Server bzw. Laufzeitumgebungen zu den Saga-Zonen._
-* _Zuordnung der Deployment-Einheiten auf die Server/Laufzeitumgebungen._
-* _Kommunikationsbeziehungen werden zu den Loadbalancern bzw. Firewalls dargestellt.
-Es soll klar werden, über welche Zonengrenzen hinweg mit welchen Protokollen kommuniziert wird._
-* _Existierende Nachbarsysteme werden in der Regel nicht dargestellt.
-Ausnahmen sind aber möglich, wenn ein besonderer Aspekt dargestellt werden soll.
-Z.B. ein neuer Native-Client, der an einen bestehenden Service angebunden wird._
-* _Keine konkreten Adressen, Portnummern, Dimensionierungen, sondern eine logische Sicht._
 ====
 
 [[laufzeitumgebung]]
 ==== Laufzeitumgebung
+[NOTE]
 ====
-_Liste der eingesetzten Produkte für die Laufzeitumgebung.
-Diese Umgebung ist für Anwendungen nach Referenzarchitektur vorgegeben, deshalb kann der Abschnitt unten in der Regel übernommen werden, gegebenenfalls ergänzt um das konkrete Linux-Betriebssystem._
-
-_Die Versionen sind nach dem Produktkatalog zu überprüfen und mit dem Gesamtprojekt abzustimmen.
-Für die Laufzeitumgebung wird ein Default-Tomcat bereitgestellt._
+Der Abschnitt erläutert die eingesetzten Produkte für die Laufzeitumgebung.
+Diese Umgebung ist durch den Produktkatalog der IsyFact zum größten Teil vorgegeben.
 ====
 
-_Die Laufzeitumgebung für das IT-System [yellow]#<SYSTEM># besteht gemäß Produktkatalog der Referenzarchitektur aus den folgenden Produkten:_
+Die Laufzeitumgebung für die IT-Systeme der Geschäftsanwendung BSP-GA besteht gemäß aus den folgenden Produkten:
 
 
-:desc-table-laufzeitumgebung: Laufzeitumgebung für <SYSTEM>
+:desc-table-laufzeitumgebung: Laufzeitumgebung für IT-Systeme der BSP-GA
 [id="table-laufzeitumgebung", reftext = "{table-caption} {counter:tables}"]
 .{desc-table-laufzeitumgebung}
 [cols="4,2,2,4", options="header"]
@@ -571,24 +543,24 @@ _Die Laufzeitumgebung für das IT-System [yellow]#<SYSTEM># besteht gemäß Prod
 |Kategorie |Name |Version |Bemerkung
 |Betriebssystem|Linux 64 bit |Kernel >= 4.12|
 |Java-Laufzeitumgebung | https://adoptium.net/de/temurin/releases[OpenJDK (Eclipse Temurin von Adoptium)]|25.x|
-|Servlet-Container |Apache Tomcat |[yellow]#16.0.18# |
+|Servlet-Container |Apache Tomcat |8.5.x |
 |===
-
 
 [[ressourcen]]
 ==== Ressourcen
 
+[NOTE]
 ====
-_Abschätzung der Ressourcen in der Produktionsumgebung:_
+Der Abschnitt enthält eine Abschätzung der Ressourcen in der Produktionsumgebung:
 
-_- Mengengerüst für die Datenbank_
+* Mengengerüst für die Datenbank,
+* Platzbedarf von (temporären) Dateien.
 
-_- Platzbedarf von (temporären) Dateien_
-
-_Form: tabellarische Darstellung und erläuternder Text._
+Die Abschätzung geschieht in tabellarischer Darstellung und mithilfe erläuterndem Text.
 ====
 
-Mengengerüst für die Datenbank
+[[mengengeruest-db]]
+===== Mengengerüst für die Datenbank
 
 In <<table-mengengeruest-datenbank>> ist eine Abschätzung für die Datenbankgröße enthalten.
 Hier ist allerdings nur die Größe der Rohdaten angegeben.
@@ -600,22 +572,23 @@ Die Berechnung der Größe der Table-Spaces erfolgt durch die Datenbank-Administ
 .{desc-table-mengengeruest-datenbank}
 [cols=",,,,,", options="header"]
 |===
-| Tabelle/Index | Typ | Anzahl/Zeilen 2+| Größe Rohdaten | Bemerkung
-
-h| h| h| h|Zeile h|Tabelle h|
+^|Tabelle/Index ^|Typ ^|Anzahl/Zeilen 2+^|Größe Rohdaten ^|Bemerkung
+h| h| h| ^h|Zeile ^h|Tabelle h|
 |... | | | | |
 |... | | | | |
 |... | | | | |
 |===
 
+[[platzbedarf-dateien]]
+===== Platzbedarf für Dateien
 
-Platzbedarf für Dateien
+[NOTE]
 ====
-_Abschätzung der Ressourcen in der Produktionsumgebung:_
+Der Abschnitt enthält eine Abschätzung der Ressourcen in der Produktionsumgebung:
 
-_- Mengengerüst für die Dateien auf dem lokalen Laufwerk_
+* Mengengerüst für Dateien auf dem lokalen Laufwerk.
 
-_Form: tabellarische Darstellung und erläuternder Text._
+Die Abschätzung geschieht in tabellarischer Darstellung und mithilfe erläuterndem Text.
 ====
 
 In <<table-mengengeruest-dateien-auf-dem-lokalen-laufwerk>> ist eine Abschätzung für die auf dem lokalen Laufwerk gespeicherten Dateien enthalten.
@@ -625,7 +598,7 @@ In <<table-mengengeruest-dateien-auf-dem-lokalen-laufwerk>> ist eine Abschätzun
 .{desc-table-mengengeruest-dateien-auf-dem-lokalen-laufwerk}
 [cols="3,2,4", options="header"]
 |===
-|Datei |Größe |Bemerkung
+^|Datei ^|Größe ^|Bemerkung
 |...
 |
 |
@@ -639,30 +612,49 @@ In <<table-mengengeruest-dateien-auf-dem-lokalen-laufwerk>> ist eine Abschätzun
 [[bibliotheken-drittsoftware]]
 ==== Bibliotheken, Drittsoftware
 
+[NOTE]
 ====
-_Auflistung der benötigten Bibliotheken für die Anwendungsentwicklung und Software auf den Zielsystemen._
+Auflistung der benötigten Bibliotheken für die Entwicklung der IT-Systeme in tabellarischer Darstellung.
 
-_tabellarische Darstellung_
+Wenn keine Version eingetragen wird, richtet sich die Version nach dem Produktkatalog der IsyFact-Version, die in <<konformitaet-zur-referenzarchitektur>> benannt ist.
+
+Wenn Produkte nur für bestimmte IT-Systeme oder IT-Systemtypen relevant sind, ist dies in der Spalte "Bemerkung" zu hinterlegen.
+Zusätzliche, nicht von der IsyFact vorgeschriebene und empfohlene Produkte sind ebenfalls zu kennzeichnen.
+Transitive Abhängigkeiten sind nicht einzutragen.
 ====
 
-Das IT-System [yellow]#<SYSTEM># benötigt gemäß Produktkatalog der Referenzarchitektur die folgenden Bibliotheken bzw. Drittsoftware:
+Die IT-Systeme der BSP-GA benötigen gemäß Produktkatalog der IsyFact die folgenden Bibliotheken bzw. Drittsoftware:
 
 
 :desc-table-benoetigte-bibliotheken-drittsoftware: Benötigte Bibliotheken und Drittsoftware
 [id="table-benoetigte-bibliotheken-drittsoftware", reftext = "{table-caption} {counter:tables}"]
 .{desc-table-benoetigte-bibliotheken-drittsoftware}
-[cols="3,2,1,4", options="header"]
+[cols="3,2,2,4", options="header"]
 |===
 |Kategorie |Name |Version |Bemerkung
-|Programmiersprache | | |
+|Programmiersprache
+|Java
+||für Backends, Batches und das Service-Gateway
+
+|Programmiersprache
+|TypeScript
+||für Frontends
+
+|Application Framework
+|
+||
+
 |Webservice-Framework | | |
-|Komponenten-Framework | | |
 |Persistenz-Framework | | |
 |Logging-Framework | | |
 |JDBC-Treiber | | |
 |Unit-Testing | | |
-|Scheduler | | |
-|Datenbank | | |
+
+|Batch-Framework
+|Spring Batch
+|s. Spring Boot Dependency Management
+|nur für BSP_1+2-GKBATCH, Entscheidung für Alternativprodukt gemäß <<adr-gesamtsystem-2>>
+
 |… | | |
 |===
 
