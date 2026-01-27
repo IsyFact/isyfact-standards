@@ -21,7 +21,7 @@
         <greenmail.version>1.6.15</greenmail.version>
         <metro.webservices.version>4.0.4</metro.webservices.version>
         <woodstox.stax.version>4.2.2</woodstox.stax.version>
-        <woodstox.core.version>7.0.0</woodstox.core.version>
+        <woodstox.core.version>7.1.1</woodstox.core.version>
         <logback-json-classic.version>0.1.5</logback-json-classic.version>
         <logback-jackson.version>0.1.5</logback-jackson.version>
         <ojdbc8.version>19.29.0.0</ojdbc8.version>
