@@ -23,7 +23,7 @@ jobs:
         
         # Extract dependencies from dependencyManagement
         echo "Installing xmllint..."
-        sudo apt-get install libxml2-utils
+        sudo apt-get update && sudo apt-get install libxml2-utils
         
         echo "Extracting dependencies from dependencyManagement..."
         
