@@ -232,56 +232,66 @@ Die Instanziierung dieser Architektur befindet sich in der Beschreibung der <<sy
 * *Migrationskonzept:* Für Migrationsszenarien wird ein eigenes Konzept erstellt.
 Dieses Dokument macht keine Aussagen zu einer Migration.
 
-[[systemueberblick]]
-== Systemüberblick
+[[ueberblick]]
+== Überblick
 
-[[systemabgrenzung-scope]]
-=== Systemabgrenzung (Scope)
+// TODO Hier sollten alle wesentlichen Rückbezüge zur Spezifikation erwähnt werden.
+// TODO Hier sollten auch die Qualitätsanforderungen stehen.
+// TODO Konformität in nächstes Kapitel verschieben.
+// TODO Architektur der IT-Systeme in neues Kapitel verschieben.
 
+[[abgrenzung-scope]]
+=== Abgrenzung (Scope)
+
+[NOTE]
 ====
-_Was sind die Aufgaben des Systems, was nicht?
-Nur ein kurzer Abriss._
-
-_Z.B.: „Verwalten der Daten der Domäne X, keine Bereitstellung der Oberfläche, das erfolgt durch das System Y.“_
+Knapper Text darüber, was die Aufgaben der Anwendung sind, und was nicht.
 ====
 
 [[einbettung-in-anwendungslandschaft]]
 === Einbettung in die Anwendungslandschaft
+
+// TODO Unklar, ob AWL oder Systemlandschaft. In der Systemspezifikation findet eine solche Einordnung ebenfalls nicht statt.
+// TODO Auch zeigt die Systemspezifikation nicht den fachlichen Kontext des Systems.
+
+[NOTE]
 ====
-_Wie fügt sich das neue IT-System in die Anwendungslandschaft ein?_
-
-_An dieser Stelle einfügen: ein Bild der Anwendungslandschaft gemäß Ist- bzw. Referenzarchitektur mit hervorgehobenem neuem System._
-
-_In jedem Systementwurf soll hier der Bezug zur Referenzarchitektur hergestellt werden.
-Folgende Inhalte sind aufzunehmen:_
-
-* _Benennung der Teile/Komponenten der Referenzarchitektur, die im Rahmen des Projektes/der Systementwicklung entwickelt werden („Was ist der Beitrag des Projekts zur Referenzarchitektur?“)_
-
-* _Aussagen zur Konformität der Bestandteile / Komponenten des neuen Systems mit der IsyFact-Referenzarchitektur und anderen Vorgaben (z.B. Standard Kataloge für Produkte).
-Insbesondere: Welche Komponenten sind nicht konform zur Referenzarchitektur und warum nicht?_
-
-_Zur Einordnung in die Systemlandschaft kann eine Abbildung ähnlich der folgenden verwendet werden.
-Für konkrete Entwürfe muss die Grafik durch eine nicht anonymisierte aktuelle Version der zugehörigen Systemlandschaft ersetzt werden._
+Dieser Abschnitt beschreibt, wie sich die zu entwickelnde Anwendung (im Beispiel: BSP-GA) in die Anwendungslandschaft einfügt.
+Dies wird in der Regel durch ein UML-Diagramm der Anwendungslandschaft dargestellt, in der die Anwendung hervorgehoben ist.
 ====
 
-:desc-image-einbettung-anwendung: Einbettung von <Anwendung (roten Rahmen platzieren)> in die Systemlandschaft.
+IMPORTANT: Das UML-Diagramm der Anwendungslandschaft sollte so abstrahiert sein, dass es nicht oft Änderungen von außen unterworfen ist.
+Ein solches Diagramm veraltet sehr schnell und macht häufige Änderungen am Entwurf nötig, ohne dass die Anwendung selbst sich ändert.
 
+:desc-image-einbettung-anwendung: Einbettung der BSP-GA in die Anwendungslandschaft
 [id="image-einbettung-anwendung", reftext = "{figure-caption} {counter:figures}"]
 .{desc-image-einbettung-anwendung}
 image::vorlage-systementwurf/einbettung-anwendung.png[align = center, title-align=center]
 
+// TODO Gibt es einen Unterschied zwischen internen Anwendern und externen?
+// TODO BSP-GA ist auch im API-Gateway vertreten!
+
+TIP: Anwendungen, mit denen die zu entwickelnde Anwendung (im Beispiel: BSP-GA) nicht kommuniziert, sollten nicht dargestellt werden.
+Die Domänen, die sich selten ändern, können hingegen umrissen werden.
+
+
 [[randbedingungen-annahmen]]
 === Randbedingungen und Annahmen
 
+[NOTE]
 ====
-_Verweis auf die Randbedingungen und Annahmen in der Systemspezifikation._
-
-_Ausführliche Beschreibung von zusätzlichen Randbedingungen und Annahmen, die für den Systementwurf relevant sind._
+Dieser Abschnitt verweist auf die Randbedingungen und Annahmen in der Systemspezifikation.
+Er beschreibt zusätzlich Randbedingungen und Annahmen, die für den Systementwurf relevant sind, ausführlich.
 ====
 
 [[konformitaet-zur-referenzarchitektur]]
 === Konformität zur Referenzarchitektur
 
+// TODO Hier Festlegungen für ALLE IT-Systeme (die gesamte Anwendung) beschreiben.
+// TODO Bzw. was die Systeme in Summe benötigen.
+// TODO Bei den Systemen dann runtergehen auf konkrete Bausteine und Bibliotheken, bzw. auf Bestandteile der Referenzarchitektur.
+
+[NOTE]
 ====
 _In diesem Kapitel wird die Konformität des Systems zur Referenzarchitektur bestätigt und auf eventuell vorhandene Erweiterungen, Abweichungen und abweichende Versionen verwiesen.
 Eine Übersicht über die Software-Artefakte der IsyFact findet sich in <<table-verwendete-elemente-isyfact-standards-erweiterungen>>._
@@ -307,8 +317,8 @@ Die Spalte "Version" enthält die abweichende Version des Elements._
 _In den letzten drei Fällen (Erweiterung, Abweichung sowie abweichende Versionen) sind im folgenden Kapitel, <<abweichungen-und-erweiterungen-zur-referenzarchitektur>>, Architekturentscheidungen in Form von ADRs zu dokumentieren und in Form von Verweisen auf die ADRs in der Spalte "Referenzen" der jeweiligen Elemente aufzuführen._
 ====
 
-Das IT-System <System> wird konform zur Referenzarchitektur der IsyFact umgesetzt.
-Die folgende Tabelle führt die vom IT-System verwendeten Elemente der IsyFact auf.
+Das Anwendung BSP-GA wird konform zur Referenzarchitektur der IsyFact umgesetzt.
+Die folgende Tabelle führt die verwendeten Elemente der IsyFact auf.
 
 
 :desc-table-verwendete-elemente-isyfact-standards-erweiterungen: Verwendete Elemente der IsyFact (Standards und Erweiterungen)
@@ -317,46 +327,42 @@ Die folgende Tabelle führt die vom IT-System verwendeten Elemente der IsyFact a
 [cols="4,2,2,3", options="header"]
 |===
 |Thema |Status |Version |Referenzen
-4+|*Allgemein*  {set:cellbgcolor:#D9D9D9}
-| {set:cellbgcolor} IsyFact-Referenzarchitektur |berücksichtigt |5.0 |
-4+|*Referenzarchitektur* {set:cellbgcolor:#D9D9D9}
-|Anwendungskern {set:cellbgcolor}|berücksichtigt |_Standard_ |
+4+h|Allgemein
+|IsyFact-Referenzarchitektur |berücksichtigt |{page-component-version} |
+4+h|Referenzarchitektur
+|Anwendungskern |berücksichtigt |_Standard_ |
 |Batch |berücksichtigt |_Standard_ |
 |Persistenz |berücksichtigt |_Standard_ |
 |Service |berücksichtigt |_Standard_ |
-|Interne Servicekommunikation |berücksichtigt |_Standard_ |
-4+|*Bausteine (Standard)*  {set:cellbgcolor:#D9D9D9}
-| {set:cellbgcolor} Fehlerbehandlung |berücksichtigt |_Standard_ |
+4+h|Bausteine (IsyFact-Standards)
+|Datum & Zeit |berücksichtigt |... |
+|Fehlerbehandlung |berücksichtigt |_Standard_ |
 |Logging |berücksichtigt |_Standard_ |
-|Sicherheitskomponente |Abweichungen |_Standard_ | <<adr-gesamtsystem-1>>
-|Überwachung und Konfiguration |berücksichtigt |_Standard_ |
-4+|*Bausteine (Erweiterungen)* {set:cellbgcolor:#D9D9D9}
-| {set:cellbgcolor}  Alphanumerisches Suchverfahren |berücksichtigt |_Standard_ |
-|Behördenverzeichnis |berücksichtigt |_Standard_ |
-|Benutzerverzeichnis |berücksichtigt |_Standard_ |
-|Bildbearbeitung |berücksichtigt |_Standard_ |
-|Biometrie |berücksichtigt |_Standard_ |
-|Mail-Gateway |berücksichtigt |_Standard_ |
-|Nummernkreis |berücksichtigt |_Standard_ |
-|Output-Management |berücksichtigt |_Standard_ |
-|Portal |berücksichtigt |_Standard_ |
-|Protokollierung und Protokollrecherche |berücksichtigt |_Standard_ |
-|Regelwerk |berücksichtigt |_Standard_ |
-|Schlüsselverzeichnis |berücksichtigt |_Standard_ |
-|Service-Gateway |berücksichtigt |_Standard_ |
-|Spooling |berücksichtigt |_Standard_ |
-|Bedienkonzept |berücksichtigt |_Standard_ |
-|Umgang mit Sonderzeichen |berücksichtigt |_Standard_ |
-4+|*Plattform*  {set:cellbgcolor:#D9D9D9}
-| {set:cellbgcolor} Deployment-Konzept |berücksichtigt |_Standard_ |
-4+|*Methodik*  {set:cellbgcolor:#D9D9D9}
-| {set:cellbgcolor} Template Systementwurf |berücksichtigt |_Standard_ |
+|Polling |berücksichtigt |... |
+|Security |Abweichungen |... | <<adr-gesamtsystem-1>>
+|Sonderzeichen |Abweichungen |... | <<adr-gesamtsystem-1>>
+|Task Scheduling |Abweichungen |... | <<adr-gesamtsystem-1>>
+|Überwachung |berücksichtigt |_Standard_ |
+|Util |berücksichtigt |... |
+4+h|Bausteine (IsyFact-Erweiterungen)
+|Angular |berücksichtigt |... |
+|Bedienkonzept |berücksichtigt |... |
+|... |... |... |
+4+h|Plattform
+|Deployment-Konzept |berücksichtigt |_Standard_ |
+4+h|Methodik
+|Namenskonventionen |berücksichtigt |_Standard_ |
+|Versionierung |berücksichtigt |_Standard_ |
 |Java-Programmierkonventionen |berücksichtigt |_Standard_ |
+|TypeScript-Programmierkonventionen |berücksichtigt |_Standard_ |
+|Vorlagen |berücksichtigt |_Standard_ |
+|Diagrammerstellung |berücksichtigt |_Standard_ |
 |===
 
 [[abweichungen-und-erweiterungen-zur-referenzarchitektur]]
 === Abweichungen und Erweiterungen zur Referenzarchitektur
 
+[NOTE]
 ====
 _In diesem Kapitel werden Abweichungen und Erweiterungen zur Referenzarchitektur in Form von Architecture Decision Records (ADRs) dokumentiert._
 
@@ -661,9 +667,11 @@ Die IT-Systeme der BSP-GA benötigen gemäß Produktkatalog der IsyFact die folg
 [[BSP-1u2-GK]]
 === Backend BSP_1+2-GK
 
+// TODO Wir brauchen ein Template-Kapitel pro IT-Systemtyp. Für Frontends und Gateways muss dies noch erstellt werden!
+
 [NOTE]
 ====
-Im Kapitel <<systemueberblick>> wurde die in der Systemspezifikation beschriebene Anwendung in IT-Systeme zerlegt.
+Im Kapitel <<systemarchitektur-bsp-ga>> wurde die in der Systemspezifikation beschriebene Anwendung in IT-Systeme zerlegt.
 Diese werden ab hier in eigenen Unterkapiteln der Reihe nach beschrieben.
 
 Dieses Kapitel enthält vornehmlich eine Top-Down-Beschreibung des IT-Systems anhand seines IT-Systemtyps.
@@ -688,7 +696,7 @@ Dieser Abschnitt zeigt einen Überblick über das IT-System.
 Dies erfolgt in der Regel mit einem UML-Komponentendiagramm und einem knappen begleitenden Text, der die einzelnen Komponenten und ihr Zusammenspiel erklärt.
 Als Leitfaden für das Diagramm kann die Beschreibung des https://docs.arc42.org/section-3/#32-technical-context[technischen Kontextes von arc42] dienen.
 Im Unterschied dazu ist hier vorgesehen, auch die Innensicht des betrachteten IT-Systems zu zeigen.
-Ein Diagramm, das den technischen Kontext des Gesamtsystems zeigt, befindet sich im <<systemueberblick>>.
+Ein Diagramm, das den technischen Kontext des Gesamtsystems zeigt, befindet sich in der <<systemarchitektur-bsp-ga>>.
 
 Das Komponentendiagramm zeigt eine Übersicht der fachlichen Schnittstellen und sowohl fachlichen als auch technischen Komponenten des IT-Systems.
 Es stellt die Zusammenhänge und Beziehungen zwischen den Bestandteilen des IT-Systems dar.
