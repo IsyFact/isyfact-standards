@@ -15,5 +15,71 @@ jobs:
       jdk-version: 17
       snyk-reference: $GITHUB_REF_NAME
       snyk-organization: ${{ vars.SNYK_ORG_ID }}
+      snyk-arguments: --maven-aggregate-project -d -- -PcentralSnapshot
+      pre-scan-script: |
+        POM_FILE="isyfact-products-bom/pom.xml"
+        TEMP_DEPENDENCIES_FILE="dependencies_temp.xml"
+        
+        echo "Modifying the POM file."
+        
+        # Extract dependencies from dependencyManagement
+        echo "Installing xmllint..."
+        sudo apt-get update && sudo apt-get install libxml2-utils
+        
+        echo "Extracting dependencies from dependencyManagement..."
+        
+        DEPENDENCIES=$(xmllint --xpath "//*[local-name()='dependencyManagement']/*[local-name()='dependencies']/*[local-name()='dependency']" "$POM_FILE" 2>/dev/null)
+        
+        if ! [[ "$DEPENDENCIES" ]]; then
+        echo "Warning: No dependencies found in dependencyManagement. Skipping modification."
+        exit 0
+        fi
+        
+        # Exclude specific artifactIds
+        EXCLUDED_ARTIFACT_IDS=("spring-boot-dependencies" "resilience4j-bom")
+        for artifactId in "${EXCLUDED_ARTIFACT_IDS[@]}"; do
+        DEPENDENCIES=$(echo "$DEPENDENCIES" | sed -n '/<dependency>/,/<\/dependency>/ {
+        H;
+        /<\/dependency>/ {
+            x;
+            /<artifactId>'"$artifactId"'<\/artifactId>/d;
+            p
+        }
+        }')
+        done
+        
+        # Remove <exclusions> blocks and extract only groupId and artifactId from <dependency>
+        DEPENDENCIES=$(echo "$DEPENDENCIES" | sed -n '
+        /<dependency>/,/<\/dependency>/ {
+        /<dependency>/p;
+        /<\/dependency>/p;
+        /<exclusions>/,/<\/exclusions>/d;  # Remove exclusions block
+        /<groupId>/p;                      # Only print groupId
+        /<artifactId>/p;                   # Only print artifactId
+        }')
+        
+        # Insert extracted dependencies into the <dependencies> section right after </dependencyManagement>
+        echo "Inserting extracted dependencies into the POM file..."
+        echo "$DEPENDENCIES" > "$TEMP_DEPENDENCIES_FILE"
+        
+        awk -v depfile="$TEMP_DEPENDENCIES_FILE" '
+        /<\/dependencyManagement>/ {
+        print $0
+        print "<dependencies>"
+        while ((getline line < depfile) > 0) {
+        print line
+        }
+        print "</dependencies>"
+        next
+        }
+        { print $0 }
+        ' "$POM_FILE" > "$POM_FILE.tmp" && mv "$POM_FILE.tmp" "$POM_FILE"
+        
+        if [[ $? -eq 0 ]]; then
+        echo "Dependencies successfully inserted into $POM_FILE"
+        else
+        echo "Failed to insert dependencies."
+        exit 1
+        fi
     secrets:
       SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
