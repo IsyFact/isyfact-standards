@@ -455,7 +455,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-site-plugin</artifactId>
-                <version>3.12.1</version>
+                <version>3.21.0</version>
             </plugin>
             <!-- Quality Gates 1 -->
             <!-- Check if all POMs are formatted according to the Maven-Team-Standard. -->
