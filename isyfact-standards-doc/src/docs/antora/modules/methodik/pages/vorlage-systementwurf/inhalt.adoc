@@ -11,130 +11,107 @@ Dieses Kapitel beschreibt den Zweck der Vorlage zum Systementwurf und gibt allge
 *Es ist vor der Veröffentlichung des Systementwurfs zu entfernen!*
 ====
 
-====
-*_Zweck dieses Dokuments_*
+=== Zweck
 
-_Die Dokumentvorlage enthält die Gliederung für einen V-Modell-konformen Gesamtsystementwurf eines Softwaresystems (Software-Entwicklungsprojekt).
-Es legt fest, welche Inhalte für einen Systementwurf eines IsyFact-Systems festgelegt werden sollen._
+Die Dokumentvorlage enthält die Gliederung für einen V-Modell-konformen Gesamtsystementwurf eines Softwaresystems (Software-Entwicklungsprojekt).
+Es legt fest, welche Inhalte für einen Systementwurf einer gemäß IsyFact entwickelten Anwendung festgelegt werden sollen.
 
-_Der Systementwurf dient dabei folgenden Zwecken:_
+Der Systementwurf dient dabei mehreren Zwecken:
 
-* _Grundlage für die Abstimmung mit dem Auftraggeber.
-Verschiedene Aspekte, wie z. B. die Einbettung in die Gesamtsystemlandschaft, müssen frühzeitig abgestimmt werden._
+Grundlage für die Abstimmung mit dem Auftraggeber::
+Verschiedene Aspekte, wie zum Beispiel die Einbettung in die Anwendungslandschaft, müssen frühzeitig abgestimmt werden.
 
-* _Anleitung der Entwickler, Vorbereitung auf die Implementierung.
-Je nach Vorkenntnissen der SW-Entwickler und der Komplexität der umzusetzenden Fachlichkeit müssen diese Vorgaben angemessen detailliert sein._
+Anleitung der Entwicklung, Vorbereitung auf die Implementierung::
+Je nach Vorkenntnissen der SW-Entwickler und der Komplexität den umzusetzenden fachlichen Anforderungen müssen diese Vorgaben angemessen detailliert sein.
 
-_Dieses Dokument dient nicht zur Dokumentation des Systems._
-_Die Systemdokumentation wird separat erstellt, dabei werden Teile dieses Dokuments übernommen._
+=== Umfang
 
-*_Umfang:_*
+In der Regel wird für jede Anwendung jeweils ein eigener Systementwurf angelegt.
+Für einzelne IT-Systeme der Anwendung kann ein eigener Systementwurf angelegt werden, falls für die IT-Systeme grundsätzlich andere Vorgaben oder Architekturentscheidungen vorliegen, und ein gemeinsamer Systementwurf daher zu unübersichtlich wäre.
 
-_In der Regel wird für jedes IT-System (Geschäftsanwendung) jeweils ein eigenes Dokument Systementwurf angelegt.
-Es gibt jedoch auch IT-Systeme die alleinstehend keine sinnvolle Funktion erbringen können.
-Dafür kann ein gemeinsamer Systementwurf in einem Dokument erstellt werden._
+=== Nutzung
 
-_Beispiel:_
+Sukzessive sollen Ausfüllhinweise und Beispiele in den jeweiligen Kapiteln ergänzt werden.
+Vorgehen, Beispiele und Hinweise sind mit einem Rahmen markiert und später zu entfernen.
 
-_Für ein neues Verfahren sind eine Geschäftsanwendung und ein Service-Gateway zu erstellen.
-Das Service-Gateway stellt die Services der Geschäftsanwendung bereit.
-Weiterhin wird ein Native-Client benötigt, welcher ebenfalls die Geschäftsanwendung aufruft.
-Für diesen Fall werden Geschäftsanwendung, Native-Client und Service-Gateway als Teilsysteme in einem gemeinsamen Systementwurf beschrieben._
+==== Beschreibung der Software-Architektur
 
-*_Nutzung:_*
+Der Systementwurf folgt dem Ansatz "top-down":
 
-_Sukzessive sollen Ausfüllhinweise und Beispiele in den jeweiligen Kapiteln ergänzt werden.
-Die Hinweise und Beispiele sind mit einem Rahmen markiert und später zu entfernen._
+* Zunächst zeigt er, wie sich die Anwendung in die Anwendungslandschaft einfügt. +
+Kapitel: <<einbettung-in-anwendungslandschaft>>
+* Danach stellt er die Zerlegung der Anwendung in IT-Systeme dar und beschreibt, wie die IT-Systeme zusammenarbeiten. +
+Kapitel: <<gesamtsystem-systemueberblick>>
+* Danach beschreibt er die IT-Systeme.
+Zunächst werden die Komponenten des IT-Systems (Schichten bzw. Fachkomponenten) und ihr Zusammenspiel erklärt, dann wieder die Fachkomponente selbst.
+Diese schrittweise Vertiefung setzt sich bis zum benötigten Detaillierungsgrad fort.
 
-_Für die Abstimmungskapitel sind die Inhalte und deren Detailtiefe vorgegeben, für die Anleitung der SW-Entwickler entscheidet der für dieses Dokument verantwortliche Systemarchitekt (Chefdesigner) dabei selber über die Detailtiefe und die konkreten Inhalte._
+Schnittstellen eines Systems werden immer in der Dokumentation und dem Systementwurf des Implementierers beschrieben.
+Beim Aufruf einer Schnittstelle eines anderen Systems wird lediglich beschrieben, wie die konkrete Nutzung aussieht, also z. B. wie die internen Daten des Systems auf die Daten der Schnittstelle abgebildet werden.
 
-*_Generelles zur Beschreibung einer Architektur:_*
+Generell muss in diesem Dokument nichts erklärt und beschrieben werden, was schon an anderer Stelle, insbesondere in der Referenzarchitektur, den Bausteinen und der Methodik der IsyFact, enthalten ist.
 
-Eine Architektur wird immer Top-down erklärt:
+==== Werkzeugunterstützung bei der Erstellung von UML-Modellen
 
-* _Zunächst wird gezeigt, wie sich das neue System in die gesamte technische Anwendungslandschaft einfügt.
-Kapitel: <<einbettung-in-anwendungslandschaft,Systemüberblick/Einbettung in die Anwendungslandschaft>>._
-* _Danach wird das System detailliert, indem gezeigt wird, wie die Teilsysteme des neuen Systems zusammen arbeiten.
-Kapitel: <<gesamtsystem-systemueberblick,Systemarchitektur des Gesamtsystems/Systemüberblick>>._
-* _Dann wird jedes Teilsystem einzeln beschrieben.
-Zunächst werden die Komponenten des Systems und ihr Zusammenspiel erklärt, dann wieder die einzelnen Komponenten selbst.
-Diese schrittweise Vertiefung setzt sich bis zum benötigten Detaillierungsgrad fort._
+Für die Erstellung der UML-Modelle, die in diesem Dokument als Beispiele aufgeführt sind, sind die Empfehlungen der IsyFact zu beachten.
+Die IsyFact empfiehlt die Werkzeuge "diagrams.net/draw.io" sowie "Enterprise Architect".
 
-_Schnittstellen eines Systems werden immer in der Dokumentation und dem Systementwurf des Implementierers beschrieben.
-Beim Aufruf einer Schnittstelle eines anderen Systems wird lediglich beschrieben, wie die konkrete Nutzung aussieht, also z. B. wie die internen Daten des Systems auf die Daten der Schnittstelle abgebildet werden._
+// TODO Abstimmungspunkt: Gibt es diese Systemdokumentation noch? Die IsyFact beschreibt sie nicht weiter...
 
-_Generell muss in diesem Dokument nichts erklärt und beschrieben werden, was schon in anderen Dokumenten, insbesondere in den Detailkonstruktionen und Vorgaben der Referenzarchitektur enthalten ist._
+=== Systemdokumentation
 
-*_Werkzeugunterstützung bei der Erstellung von UML-Modellen_*
+Aus dem Systementwurf entsteht die Systemdokumentation.
+Die Systemdokumentation erklärt die Zusammenhänge eines Systems und dient als Einstiegspunkt, um den Code zu verstehen und damit warten und weiterentwickeln zu können.
 
-_Für die Erstellung der UML-Modelle, die in diesem Dokument als Beispiele aufgeführt sind, wurde das Werkzeug „Enterprise Architect“ der Firma SparxSystems verwendet._
+Generell werden daher zum Zweck der Dokumentation alle Details und Konstruktionshinweise gelöscht, die nur dazu dienten, die Softwareentwickler bei der Programmierung des Systems anzuleiten.
+In der Systemdokumentation verbleiben alle Teile, die eine Übersicht über die Software beinhalten.
 
-_Anstelle des Enterprise Architect kann auch jedes andere Modellierungswerkzeug eingesetzt werden, dass den Sprachumfang von UML in hinreichender Breite abdeckt._
+In den Kapiteln ist damit folgendes zu modifizieren:
 
-*_Systemdokumentation_*
-
-_Aus dem Systementwurf entsteht die Systemdokumentation.
-Die Systemdokumentation erklärt die Zusammenhänge eines Systems und dient als Einstiegspunkt, um den Code zu verstehen und damit Warten und Weiterentwickeln zu können._
-
-_Generell werden daher zum Zweck der Dokumentation alle Details und Konstruktionshinweise gelöscht, die nur dazu dienten, die Softwareentwickler bei der Programmierung des Systems anzuleiten.
-In der Systemdokumentation verbleiben alle Teile, die eine Übersicht über die Software beinhalten._
-
-_In den Kapiteln ist damit folgendes zu modifizieren:_
-
-* *_Kapitel 1_*: _Anpassen, da sich der Zweck der Systemdokumentation von dem eines Systementwurfs unterscheidet._
-
-* *_Kapitel 2_*: _Belassen._
-
-* *_Kapitel 3_*: _Verringern der Tiefe der Beschreibung in den Kapiteln zur Architektur der Teilsysteme und Querschnittskonzepte.
-Entfernen des Abschnitts zu Anforderungen._
-
-* *_Kapitel 4_*: _Die Anpassung dieses Kapitels liegt im Ermessen des Chefdesigners._
-
-* *_Kapitel 5_*: _Dieses Kapitel ist in der Regel lediglich eine Referenz.
-Die Anpassung dieses Kapitels liegt im Ermessen des Chefdesigners._
-
-====
+* *<<einleitung>>*: Anpassen, da sich der Zweck der Systemdokumentation von dem eines Systementwurfs unterscheidet.
+* *<<ueberblick>>*: Belassen.
+* *<<systemarchitektur-bsp-ga>>*: Verringern der Tiefe der Beschreibung in den Kapiteln zur Architektur der IT-Systeme und Querschnittskonzepte.
+Entfernen des Abschnitts zu Anforderungen.
+* *<<systementwicklung>>*: Die Anpassung dieses Kapitels liegt im Ermessen des jeweiligen Autors.
+* *<<betrieb>>*: Dieses Kapitel ist in der Regel lediglich eine Referenz.
+Die Anpassung dieses Kapitels liegt im Ermessen des jeweiligen Autors.
 
 [[einleitung]]
 == Einleitung
 
+// TODO Liest jemand von der Beschaffung diese Dokumente?
+// TODO Abstimmungspunkt EA: Diese Vorgaben reichen für eine eigene Seite. Extrahieren?
+
+[NOTE]
 ====
-[.lead]
-[.underline]#Vorgehen für die Erstellung des Systementwurfsdokuments#
+Der Systementwurf enthält alle Informationen, welche für die an der Erstellung der Software beteiligten Parteien (Betrieb, Netzwerk-Administration, Auftraggeber, Entwickler, Beschaffung) benötigt werden.
+Er behandelt eine Vielzahl unterschiedlicher Themenbereiche.
 
-_Das Systementwurfsdokument enthält alle Informationen, welche für die an der Erstellung der Software beteiligten Parteien (Betrieb, Netzwerk-Administration, Auftraggeber, Entwickler, Beschaffung) benötigt werden.
-Es behandelt eine Vielzahl unterschiedlicher Themenbereiche._
+Der Detaillierungsgrad, in welchem die Themenbereiche beschrieben werden, ist nicht für alle Systementwürfe gleich: Er hängt von der Art und Komplexität der Problematik und der Erfahrung des Zielpublikums ab.
+In diesem Dokument werden deshalb beispielsweise keine Vorgaben für den Umfang und die Art der Beschreibung von Anwendungslogik jenseits der Anwendungsfall-Klassen aufgestellt.
 
-_Der Detaillierungsgrad, in welchem die Themenbereiche beschrieben werden, ist nicht für alle Systementwürfe gleich: Er hängt von der Art und Komplexität der Problematik und der Erfahrung des Zielpublikums ab.
-In diesem Dokument werden deshalb beispielsweise keine Vorgaben für den Umfang und die Art der Beschreibung von Anwendungslogik jenseits der Anwendungsfall-Klassen aufgestellt._
+*Systementwürfe sollen grundsätzlich mit der vorliegenden Vorlage und im Einklang zu den beschriebenen Vorgaben und Ausfüllhinweisen erstellt werden.*
 
-_Aufgrund der obigen Punkte wurde entschieden, das Systementwurfsdokument manuell zu erstellen.
 Es wurde entschieden, die Teile im Enterprise Architect zu modellieren, bei welchen eine Modellierung im Enterprise Architect möglich und sinnvoll ist.
-Welche Teile dies sind, wird im vorliegenden Dokument definiert._
-
-*_Vorgaben für die Konstruktion_*
-
-_Systementwurf-Dokumente sollen grundsätzlich mit der vorliegenden Vorlage und im Einklang zu den beschriebenen Vorgaben und Ausfüllhinweisen erstellt werden._
+Welche Teile dies sind, wird im vorliegenden Dokument definiert.
 
 *_Modellierung im Enterprise Architect_*
 
-_Der Enterprise Architect (oder ein entsprechendes anderes UML-Modellierungswerkzeug) wird für die Modellierung folgender Themenbereiche eingesetzt:_
+Der Enterprise Architect (oder ein entsprechendes anderes UML-Modellierungswerkzeug) wird für die Modellierung folgender Themenbereiche eingesetzt:
 
-* _TI-Architektur des Systems_
-* _T-Architektur des Systems_
-* _Datenmodell_
-* _Querschnittskonzepte_
-* _Erläuterungen von Lösungsansätzen._
+* TI-Architektur des Systems,
+* T-Architektur des Systems,
+* Datenmodell,
+* Querschnittskonzepte,
+* Erläuterungen von Lösungsansätzen.
 
-_Für die obigen Themenbereiche sind jeweils unterschiedliche Diagramme zu erzeugen.
+Für die obigen Themenbereiche sind jeweils unterschiedliche Diagramme zu erzeugen.
 Neben den Diagrammen sind vor allem die konkreten Komponenten mit ihren Interfaces, Klassen und Tabellen ein wichtiges Ergebnis der Modellierung im Enterprise Architect.
-Die Anforderungen an die konkrete Ausgestaltung der Diagramme werden im Rahmen dieser Vorlage in den jeweiligen Kapiteln detailliert._
+Die Anforderungen an die konkrete Ausgestaltung der Diagramme werden im Rahmen dieser Vorlage in den jeweiligen Kapiteln detailliert.
 
-_Die Paketstruktur des Enterprise Architect Modells orientiert sich sowohl an der Benennung als auch an der Hierarchie der Verzeichnisstruktur des Systementwurfs.
+Die Paketstruktur des Enterprise Architect Modells orientiert sich sowohl an der Benennung als auch an der Hierarchie der Verzeichnisstruktur des Systementwurfs.
 So wird die Einheitlichkeit der EA-Modelle für unterschiedliche Projekte erhöht und das Auffinden benötigter Diagramme erleichtert.
-Das folgende Listing zeigt beispielhaft ein EA-Modell._
-====
-
+Das folgende Listing zeigt beispielhaft ein EA-Modell.
 
 [[paketstruktur-enterprise-architect-modell]]
 .Paketstruktur eines Enterprise Architect Modells
@@ -165,38 +142,45 @@ Das folgende Listing zeigt beispielhaft ein EA-Modell._
       📂 Nachbarsystemschnittstellen
 ----
 
+====
 
 [[zusammenfassung]]
 === Zusammenfassung
 
+[NOTE]
 ====
-_Kurze Zusammenfassung._
-_Was ist der Hintergrund dieses Systems?_
+Dieser Abschnitt beinhaltet eine knappe Zusammenfassung der Anwendung:
 
-_Wozu dient dieses System?_
+* Was ist ihr Hintergrund?
+* Wozu dient sie?
 
-
-
-_Gegebenenfalls kann die Zusammenfassung aus der Systemspezifikation übernommen werden._
+Gegebenenfalls kann die Zusammenfassung aus der Systemspezifikation übernommen werden.
 ====
+// TODO Dann doch lieber auf die Systemspezifikation verweisen! Oder die Vorlagen so ablegen, dass Texte direkt in mehreren Dokumenten auftauchen!
 
 [[ziel-dokuments]]
 === Ziel des Dokuments
 
-Dieses Dokument dient folgenden Zwecken:
+Der Systementwurf dient folgenden Zwecken:
 
-* Es ist die Grundlage zur Abstimmung zwischen dem Projektmanagement, der Softwareentwicklung des Auftraggebers/–nehmers und dem Systembetrieb.
-* Es dient als Vorgabe und zur Anleitung für die Entwicklung.
-* Es ist Grundlage für die Erstellung und frühzeitige Abstimmung des IT-Sicherheitskonzeptes (siehe: hier ggf. einen Link setzen).
+* Er ist die Grundlage zur Abstimmung zwischen dem Projektmanagement, der Softwareentwicklung des Auftraggebers/–nehmers und dem Systembetrieb.
+* Er dient als Vorgabe und zur Anleitung für die Entwicklung.
+* Er ist Grundlage für die Erstellung und frühzeitige Abstimmung weiterer Dokumente (zum Beispiel des Sicherheitskonzepts nach IT-Grundschutz).
 
-[[leseanleitung]]
-=== Leseanleitung
+[[zielgruppen]]
+=== Zielgruppen
 
+// TODO Auch das hier ist gedoppelt! Im Abschnitt darüber werden bereits Zielgruppen genannt!
+
+[NOTE]
 ====
-_An wen richtet sich das Dokument? Z.B. Entwickler, Betrieb, …_
+Dieser Abschnitt beinhaltet eine Auflistung derjenigen, an die sich der Systementwurf richtet: Entwicklung, Betrieb, ...
 
-_Für welche Zielgruppe sind welche Kapitel hauptsächlich interessant?_
+Für welche Zielgruppe sind welche Kapitel hauptsächlich interessant?
 ====
+
+// TODO Der Absatz muss nicht im jedem Systementwurf stehen, sondern passt auf eine Seite zur Vorlage in der IF-Methodik.
+// TODO Hier fehlt außerdem die Version des VMXT, gegen die das Dokument zu halten ist. Aktuell wäre VMXT Bund 2.4.
 
 [[bezug-zum-v-modell-xt]]
 === Bezug zum V-Modell® XT
@@ -210,26 +194,43 @@ Gleiches gilt für die Absicherung des Designs.
 
 Im Folgenden sind die Produkte eines Systementwurfs gemäß V-Modell® XT aufgeführt und kommentiert.
 
-* *Systemarchitektur:* Die grundsätzliche Systemarchitektur ist durch die Referenzarchitektur vorgegeben.
+==== Systemarchitektur
+
+Die grundsätzliche Systemarchitektur ist durch die Referenzarchitektur vorgegeben.
 In diesem Dokument wird beschrieben, wie diese Referenzarchitektur instanziiert wird.
-** Die Dekomposition des Systems ist im Kapitel <<systemarchitektur-bsp-ga>> beschrieben.
-** Querschnittliche Systemeigenschaften sind bereits im Rahmen der IsyFact-Referenzarchitektur betrachtet worden und werden nicht wiederholt.
+
+* Die Dekomposition des Systems ist im Kapitel <<systemarchitektur-bsp-ga>> beschrieben.
+* Querschnittliche Systemeigenschaften sind bereits im Rahmen der IsyFact-Referenzarchitektur betrachtet worden und werden nicht wiederholt.
 Sollte eine Verfeinerung oder spezifische Ergänzung der Referenzarchitektur notwendig sein, erfolgt dies im Kapitel <<querschnittskonzepte>>.
-** Die Schnittstellenübersicht des Systems erfolgt der Übersichtlichkeit halber auf zwei Abstraktionsebenen: auf Ebene der Gesamtanwendungslandschaft erfolgt dies im Kapitel <<einbettung-in-anwendungslandschaft,Systemüberblick/Einbettung in die Anwendungslandschaft>>.
+* Die Schnittstellenübersicht des Systems erfolgt der Übersichtlichkeit halber auf zwei Abstraktionsebenen: auf Ebene der Gesamtanwendungslandschaft erfolgt dies im Kapitel <<einbettung-in-anwendungslandschaft,Systemüberblick/Einbettung in die Anwendungslandschaft>>.
 Die konkreten Schnittstellen des Systems und ggf. von Teilsystemen sind im Kapitel <<systemarchitektur-bsp-ga,Systemarchitektur des Gesamtsystems/Systemüberblick>> beschrieben.
 Details zur Implementierung und Dateninhalten der Schnittstellen finden sich in der Konstruktion der jeweiligen <<serviceschicht,Backend-Services>>.
-** Die zu spezifizierenden Systemelemente sind der Gegenstand der <<systemarchitektur-bsp-ga>>, insbesondere der <<BSP-1u2-GK,Systemarchitektur der Teilsysteme (ff.)>>.
-* *Unterstützungs-Systemarchitektur:* Unterstützungssysteme sind in der Regel durch die IsyFact vorgegeben.
+* Die zu spezifizierenden Systemelemente sind der Gegenstand der <<systemarchitektur-bsp-ga>>, insbesondere der <<BSP-1u2-GK,Systemarchitektur der Teilsysteme (ff.)>>.
+
+==== Unterstützungs-Systemarchitektur
+Unterstützungssysteme sind in der Regel durch die IsyFact vorgegeben.
 Sollte es trotzdem nötig sein, ein neues Unterstützungssystem zu konstruieren, erfolgt dies in einem eigenen Dokument nach dieser Vorlage.
-* *Mensch-Maschine-Schnittstelle (Styleguide):* Ein Styleguide ist durch die IsyFact nicht vorgegeben.
-Es wird jedoch vorausgesetzt, dass ein solcher Styleguide für die Organisation, die die IsyFact einsetzt, bereits vorhanden ist und verwendet werden kann.
-* *HW-Architektur:* Die HW-Architektur ist als Referenzarchitektur bereits vorgegeben.
+
+==== Mensch-Maschine-Schnittstelle (Styleguide)
+Ein Styleguide ist durch die IsyFact nicht vorgegeben, jedoch ein Bedienkonzept.
+Es wird vorausgesetzt, dass ein solcher Styleguide für die Organisation, die die IsyFact einsetzt, bereits vorhanden ist und verwendet werden kann.
+
+==== HW-Architektur
+Die HW-Architektur ist als Referenzarchitektur bereits vorgegeben.
 Die konkrete HW-Architektur für das System befindet sich im Kapitel <<ti-architektur>>.
-* *SW-Architektur:* Die SW-Architektur ist in den Grundlagen durch die IsyFact Referenzarchitektur vorgegeben.
+
+==== SW-Architektur
+Die SW-Architektur ist in den Grundlagen durch die IsyFact-Referenzarchitektur vorgegeben.
 Die Instanziierung dieser Architektur befindet sich in der Beschreibung der <<systemarchitektur-bsp-ga>>.
-* *Datenbankentwurf*: Der Datenbankentwurf findet sich unter <<datenmodell>>.
-* *Implementierungs-, Integrations- und Prüfkonzepte für System, Unterstützungssystem, HW und SW:* Die Prozesse sind im Rahmen der IsyFact bzw. im Gesamtprojektrahmen vorgegeben und werden hier nicht wiederholt.
-* *Migrationskonzept:* Für Migrationsszenarien wird ein eigenes Konzept erstellt.
+
+==== Datenbankentwurf
+Der Datenbankentwurf findet sich unter <<datenmodell>>.
+
+==== Implementierungs-, Integrations- und Prüfkonzepte für System, Unterstützungssystem, HW und SW
+Die Prozesse sind im Rahmen der IsyFact bzw. im Gesamtprojektrahmen vorgegeben und werden hier nicht wiederholt.
+
+==== Migrationskonzept
+Für Migrationsszenarien wird ein eigenes Konzept erstellt.
 Dieses Dokument macht keine Aussagen zu einer Migration.
 
 [[ueberblick]]
