@@ -56,8 +56,6 @@ Generell muss in diesem Dokument nichts erklärt und beschrieben werden, was sch
 Für die Erstellung der UML-Modelle, die in diesem Dokument als Beispiele aufgeführt sind, sind die Empfehlungen der IsyFact zu beachten.
 Die IsyFact empfiehlt die Werkzeuge "diagrams.net/draw.io" sowie "Enterprise Architect".
 
-// TODO Abstimmungspunkt: Gibt es diese Systemdokumentation noch? Die IsyFact beschreibt sie nicht weiter...
-
 === Systemdokumentation
 
 Aus dem Systementwurf entsteht die Systemdokumentation.
@@ -78,9 +76,6 @@ Die Anpassung dieses Kapitels liegt im Ermessen des jeweiligen Autors.
 
 [[einleitung]]
 == Einleitung
-
-// TODO Liest jemand von der Beschaffung diese Dokumente?
-// TODO Abstimmungspunkt EA: Diese Vorgaben reichen für eine eigene Seite. Extrahieren?
 
 [NOTE]
 ====
@@ -156,7 +151,6 @@ Dieser Abschnitt beinhaltet eine knappe Zusammenfassung der Anwendung:
 
 Gegebenenfalls kann die Zusammenfassung aus der Systemspezifikation übernommen werden.
 ====
-// TODO Dann doch lieber auf die Systemspezifikation verweisen! Oder die Vorlagen so ablegen, dass Texte direkt in mehreren Dokumenten auftauchen!
 
 [[ziel-dokuments]]
 === Ziel des Dokuments
@@ -170,17 +164,12 @@ Der Systementwurf dient folgenden Zwecken:
 [[zielgruppen]]
 === Zielgruppen
 
-// TODO Auch das hier ist gedoppelt! Im Abschnitt darüber werden bereits Zielgruppen genannt!
-
 [NOTE]
 ====
 Dieser Abschnitt beinhaltet eine Auflistung derjenigen, an die sich der Systementwurf richtet: Entwicklung, Betrieb, ...
 
 Für welche Zielgruppe sind welche Kapitel hauptsächlich interessant?
 ====
-
-// TODO Der Absatz muss nicht im jedem Systementwurf stehen, sondern passt auf eine Seite zur Vorlage in der IF-Methodik.
-// TODO Hier fehlt außerdem die Version des VMXT, gegen die das Dokument zu halten ist. Aktuell wäre VMXT Bund 2.4.
 
 [[bezug-zum-v-modell-xt]]
 === Bezug zum V-Modell® XT
@@ -236,10 +225,11 @@ Dieses Dokument macht keine Aussagen zu einer Migration.
 [[ueberblick]]
 == Überblick
 
-// TODO Hier sollten alle wesentlichen Rückbezüge zur Spezifikation erwähnt werden.
-// TODO Hier sollten auch die Qualitätsanforderungen stehen.
-// TODO Konformität in nächstes Kapitel verschieben.
-// TODO Architektur der IT-Systeme in neues Kapitel verschieben.
+// TODO Strukturelle Überarbeitung:
+// Fachlicher Überblick
+// * Nennung aller wesentlichen Rückbezüge zur Spezifikation
+// * Nennung der Qualitätsanforderungen an die Architektur.
+// > Konformität in nächstes Kapitel verschieben.
 
 [[abgrenzung-scope]]
 === Abgrenzung (Scope)
@@ -251,9 +241,6 @@ Knapper Text darüber, was die Aufgaben der Anwendung sind, und was nicht.
 
 [[einbettung-in-anwendungslandschaft]]
 === Einbettung in die Anwendungslandschaft
-
-// TODO Unklar, ob AWL oder Systemlandschaft. In der Systemspezifikation findet eine solche Einordnung ebenfalls nicht statt.
-// TODO Auch zeigt die Systemspezifikation nicht den fachlichen Kontext des Systems.
 
 [NOTE]
 ====
@@ -269,8 +256,9 @@ Ein solches Diagramm veraltet sehr schnell und macht häufige Änderungen am Ent
 .{desc-image-einbettung-anwendung}
 image::vorlage-systementwurf/einbettung-anwendung.png[align = center, title-align=center]
 
-// TODO Gibt es einen Unterschied zwischen internen Anwendern und externen?
-// TODO BSP-GA ist auch im API-Gateway vertreten!
+// TODO Diagramm überarbeiten:
+// * Gibt es einen Unterschied zwischen internen Anwendern und externen?
+// * BSP-GA ist auch im API-Gateway vertreten!
 
 TIP: Anwendungen, mit denen die zu entwickelnde Anwendung (im Beispiel: BSP-GA) nicht kommuniziert, sollten nicht dargestellt werden.
 Die Domänen, die sich selten ändern, können hingegen umrissen werden.
@@ -288,9 +276,10 @@ Er beschreibt zusätzlich Randbedingungen und Annahmen, die für den Systementwu
 [[konformitaet-zur-referenzarchitektur]]
 === Konformität zur Referenzarchitektur
 
-// TODO Hier Festlegungen für ALLE IT-Systeme (die gesamte Anwendung) beschreiben.
-// TODO Bzw. was die Systeme in Summe benötigen.
-// TODO Bei den Systemen dann runtergehen auf konkrete Bausteine und Bibliotheken, bzw. auf Bestandteile der Referenzarchitektur.
+// TODO Strukturelle Überarbeitung:
+// * Hier Festlegungen für ALLE IT-Systeme (die gesamte Anwendung) beschreiben, bzw. was die IT-Systeme in Summe benötigen.
+// > Abschnitt zu IT-Systemen übernehme und Abweichungen des IT-Systems beschreiben.
+// > Abschnitt zu IT-Systemen übernehmen und Konkretisierungen beschreiben, z.B. welche Bibliotheken eines Produkts oder welche Bestandteile der Referenzarchitektur relevant sind.
 
 [NOTE]
 ====
@@ -415,6 +404,11 @@ h|_Auswirkungen_
 [[systemarchitektur-bsp-ga]]
 == Systemarchitektur der BSP-GA
 
+// TODO Strukturelle Überarbeitung:
+// Software-technische Architektur der BSP-GA
+// > Architektur der IT-Systeme in neues Kapitel verschieben.
+
+
 [NOTE]
 ====
 Dieses Kapitel stellt den Überblick über die technische Umsetzung der Geschäftsanwendung dar.
@@ -475,8 +469,6 @@ In diesem Kapitel werden die Anforderungen an das System genannt. In der Regel w
 Falls Anforderungen seit der Spezifikation hinzugekommen sind oder konkretisiert wurden, wird das hier dokumentiert.
 ====
 
-// TODO Besser die Spezifikation anpassen, als hier noch einmal etwas konkretisieren oder separat von der Spezifikation beschreiben.
-
 [[funktionale-anforderungen]]
 ==== Funktionale Anforderungen
 
@@ -505,7 +497,6 @@ Die Strukturierung dieses Kapitels sollte sich an den Qualitätskriterien der IS
 * Übertragbarkeit.
 
 ====
-// TODO Besser die Spezifikation anpassen, als hier noch einmal etwas konkretisieren.
 
 [[ti-architektur]]
 === TI-Architektur
@@ -517,7 +508,7 @@ Das Kapitel enthält eine kurze Beschreibung der wichtigsten Eckpunkte der TI-Ar
 Die Beschreibung besteht aus Deployment-Diagrammen mit begleitendem Text.
 Die Diagramme beschreiben die Zuordnung der Server bzw. Laufzeitumgebungen zu den Zonen sowie die Zuordnung der Deployment-Einheiten auf die Server/Laufzeitumgebungen. Es enthält keine konkreten Adressen, Portnummern und Dimensionierungen, sondern eine logische Sicht.
 
-Die Kommunikationsbeziehungen werden zu den Load Balancern bzw. Firewalls dargestellt.
+Die Kommunikationsbeziehungen werden zum Load Balancer bzw. zur Firewall dargestellt.
 Es soll klar werden, über welche Zonengrenzen hinweg mit welchen Protokollen kommuniziert wird.
 
 Existierende Nachbarsysteme werden in der Regel nicht dargestellt.
@@ -668,8 +659,6 @@ Die IT-Systeme der BSP-GA benötigen gemäß Produktkatalog der IsyFact die folg
 [[BSP-1u2-GK]]
 === Backend BSP_1+2-GK
 
-// TODO Wir brauchen ein Template-Kapitel pro IT-Systemtyp. Für Frontends und Gateways muss dies noch erstellt werden!
-
 [NOTE]
 ====
 Im Kapitel <<systemarchitektur-bsp-ga>> wurde die in der Systemspezifikation beschriebene Anwendung in IT-Systeme zerlegt.
@@ -743,8 +732,6 @@ Die Beschreibung einer Anwendungskomponente enthält in der Regel ein UML-Kompon
 Das Diagramm beschreibt den Aufbau der Anwendungskomponente und gibt einen Überblick über ihre wichtigsten Klassen.
 Ein Beispiel für eine generische Fachkomponente mit Klassen für Anwendungsfälle und Anwendungsfunktionen ist in der Beschreibung des Anwendungskerns der Referenzarchitektur enthalten.
 ====
-
-// TODO Fachkomponente AWK Diagramm um Parameterklassen und um Aufrufbeziehungen zu anderen Fachkomponenten oder Service Consumer oder Persistenzschicht erweitern!
 
 .Rückbezug auf die Systemspezifikation
 [IMPORTANT]
