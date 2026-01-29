@@ -15,7 +15,7 @@
     <description>Definiert die Versionen aller 3rd-Party Abhängigkeiten des Core Technology Stack der IsyFact.</description>
 
     <properties>
-        <spring.boot.version>3.5.5</spring.boot.version>
+        <spring.boot.version>3.5.10</spring.boot.version>
         <resilience4j.version>1.7.1</resilience4j.version>
         <apache.poi.version>4.1.2</apache.poi.version>
         <greenmail.version>1.6.15</greenmail.version>
@@ -41,6 +41,7 @@
         <commons-beanutils.version>1.11.0</commons-beanutils.version>
         <tika-core.version>1.28.5</tika-core.version>
         <commons-io.version>2.21.0</commons-io.version>
+        <nimbus-jose-jwt.version>9.48</nimbus-jose-jwt.version>
     </properties>
 
     <!-- Dependency management for IsyFact core technology stack. -->
@@ -59,7 +60,7 @@
             <dependency>
                 <groupId>com.nimbusds</groupId>
                 <artifactId>nimbus-jose-jwt</artifactId>
-                <version>9.48</version>
+                <version>${nimbus-jose-jwt.version}</version>
             </dependency>
 
             <!-- Web service framework (SOAP): Metro
