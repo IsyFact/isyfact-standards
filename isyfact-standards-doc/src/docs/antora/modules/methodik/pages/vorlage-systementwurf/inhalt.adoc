@@ -67,8 +67,8 @@ In der Systemdokumentation verbleiben alle Teile, die eine Übersicht über die 
 In den Kapiteln ist damit folgendes zu modifizieren:
 
 * *<<einleitung>>*: Anpassen, da sich der Zweck der Systemdokumentation von dem eines Systementwurfs unterscheidet.
-* *<<ueberblick>>*: Belassen.
-* *<<systemarchitektur-bsp-ga>>*: Verringern der Tiefe der Beschreibung in den Kapiteln zur Architektur der IT-Systeme und Querschnittskonzepte.
+* *<<fachlicher-ueberblick>>*: Belassen.
+* *<<softwarearchitektur-bsp-ga>>*: Verringern der Tiefe der Beschreibung in den Kapiteln zur Architektur der IT-Systeme und Querschnittskonzepte.
 Entfernen des Abschnitts zu Anforderungen.
 * *<<systementwicklung>>*: Die Anpassung dieses Kapitels liegt im Ermessen des jeweiligen Autors.
 * *<<betrieb>>*: Dieses Kapitel ist in der Regel lediglich eine Referenz.
@@ -188,13 +188,13 @@ Im Folgenden sind die Produkte eines Systementwurfs gemäß V-Modell® XT aufgef
 Die grundsätzliche Systemarchitektur ist durch die Referenzarchitektur vorgegeben.
 In diesem Dokument wird beschrieben, wie diese Referenzarchitektur instanziiert wird.
 
-* Die Dekomposition des Systems ist im Kapitel <<systemarchitektur-bsp-ga>> beschrieben.
+* Die Dekomposition des Systems ist im Kapitel <<softwarearchitektur-bsp-ga>> beschrieben.
 * Querschnittliche Systemeigenschaften sind bereits im Rahmen der IsyFact-Referenzarchitektur betrachtet worden und werden nicht wiederholt.
 Sollte eine Verfeinerung oder spezifische Ergänzung der Referenzarchitektur notwendig sein, erfolgt dies im Kapitel <<querschnittskonzepte>>.
 * Die Schnittstellenübersicht des Systems erfolgt der Übersichtlichkeit halber auf zwei Abstraktionsebenen: auf Ebene der Gesamtanwendungslandschaft erfolgt dies im Kapitel <<einbettung-in-anwendungslandschaft,Systemüberblick/Einbettung in die Anwendungslandschaft>>.
-Die konkreten Schnittstellen des Systems und ggf. von Teilsystemen sind im Kapitel <<systemarchitektur-bsp-ga,Systemarchitektur des Gesamtsystems/Systemüberblick>> beschrieben.
+Die konkreten Schnittstellen des Systems und ggf. von Teilsystemen sind im Kapitel <<softwarearchitektur-bsp-ga>> beschrieben.
 Details zur Implementierung und Dateninhalten der Schnittstellen finden sich in der Konstruktion der jeweiligen <<serviceschicht,Backend-Services>>.
-* Die zu spezifizierenden Systemelemente sind der Gegenstand der <<systemarchitektur-bsp-ga>>, insbesondere der <<BSP-1u2-GK,Systemarchitektur der Teilsysteme (ff.)>>.
+* Die zu spezifizierenden Systemelemente sind der Gegenstand der <<softwarearchitektur-bsp-ga>>, insbesondere der <<BSP-1u2-GK,Systemarchitektur der Teilsysteme (ff.)>>.
 
 ==== Unterstützungs-Systemarchitektur
 Unterstützungssysteme sind in der Regel durch die IsyFact vorgegeben.
@@ -210,7 +210,7 @@ Die konkrete HW-Architektur für das System befindet sich im Kapitel <<ti-archit
 
 ==== SW-Architektur
 Die SW-Architektur ist in den Grundlagen durch die IsyFact-Referenzarchitektur vorgegeben.
-Die Instanziierung dieser Architektur befindet sich in der Beschreibung der <<systemarchitektur-bsp-ga>>.
+Die Instanziierung dieser Architektur befindet sich in der Beschreibung der <<softwarearchitektur-bsp-ga>>.
 
 ==== Datenbankentwurf
 Der Datenbankentwurf findet sich unter <<datenmodell>>.
@@ -222,14 +222,8 @@ Die Prozesse sind im Rahmen der IsyFact bzw. im Gesamtprojektrahmen vorgegeben u
 Für Migrationsszenarien wird ein eigenes Konzept erstellt.
 Dieses Dokument macht keine Aussagen zu einer Migration.
 
-[[ueberblick]]
-== Überblick
-
-// TODO Strukturelle Überarbeitung:
-// Fachlicher Überblick
-// * Nennung aller wesentlichen Rückbezüge zur Spezifikation
-// * Nennung der Qualitätsanforderungen an die Architektur.
-// > Konformität in nächstes Kapitel verschieben.
+[[fachlicher-ueberblick]]
+== Fachlicher Überblick
 
 [[abgrenzung-scope]]
 === Abgrenzung (Scope)
@@ -264,13 +258,129 @@ TIP: Anwendungen, mit denen die zu entwickelnde Anwendung (im Beispiel: BSP-GA) 
 Die Domänen, die sich selten ändern, können hingegen umrissen werden.
 
 
-[[randbedingungen-annahmen]]
-=== Randbedingungen und Annahmen
+[[randbedingungen-annahmen-fachlich]]
+=== Fachliche Randbedingungen und Annahmen
 
 [NOTE]
 ====
 Dieser Abschnitt verweist auf die Randbedingungen und Annahmen in der Systemspezifikation.
-Er beschreibt zusätzlich Randbedingungen und Annahmen, die für den Systementwurf relevant sind, ausführlich.
+====
+
+[[anforderungen]]
+=== Anforderungen
+
+[NOTE]
+====
+In diesem Kapitel werden die Anforderungen an das System genannt.
+In der Regel wird auf die Quelle der Anforderungen (Anforderungsliste, Systemspezifikation, Ticketsystem, ...) verwiesen.
+
+Abweichungen zur Quelle (zusätzliche Anforderungen oder Konkretisierungen) sollten aufgeführt werden.
+====
+
+[[funktionale-anforderungen]]
+==== Funktionale Anforderungen
+
+[NOTE]
+====
+Referenz auf die Quelle der Anforderungen, ein Satz: "Die funktionalen Anforderungen sind in der (Quelle) in (Verweis/URL) beschrieben."
+====
+
+[[nichtfunktionale-anforderungen]]
+==== Nichtfunktionale Anforderungen
+
+[NOTE]
+====
+Nichtfunktionale Anforderungen, die schon in der Quelle der Anforderungen beschrieben sind, werden hier nicht wiederholt, sondern nur referenziert und falls erforderlich konkretisiert.
+====
+
+[[softwarearchitektur-bsp-ga]]
+== Softwarearchitektur der BSP-GA
+
+// TODO Strukturelle Überarbeitung:
+// > Architektur der IT-Systeme in neues Kapitel verschieben.
+
+[NOTE]
+====
+Dieses Kapitel stellt den Überblick über die technische Umsetzung der Geschäftsanwendung dar.
+Es beschreibt außerdem die Aspekte, die für mehrere der IT-Systeme gelten, in welche die Geschäftsanwendung zerlegt wird.
+Das können Verfahren, Festlegungen oder die Beschreibung gemeinsam genutzter Komponenten sein.
+In der Regel zerlegt sich eine Geschäftsanwendung in:
+
+* mindestens ein Backend,
+* ein Frontend (beim Vorhandensein einer grafischen Oberfläche),
+* Batches,
+* Gateways, falls externe Zugriffe nötig sind.
+
+Festlegungen, die bereits in übergeordneten Dokumenten der IsyFact oder der Organisation (z.B. IsyFact-Referenzarchitektur, Sicherheitsrichtlinie der Organisation, ...) enthalten sind, werden referenziert.
+*Abweichungen hiervon sind zu begründen!*
+====
+
+[[gesamtsystem-systemueberblick]]
+=== Systemüberblick
+
+[NOTE]
+====
+Der Systemüberblick beschreibt, in welche IT-Systeme die Geschäftsanwendung zerlegt wird, und von welchem IT-Systemtyp diese sind.
+Die Referenzarchitektur der IsyFact definiert die IT-Systemtypen Backend, Frontend, Batch und Gateway.
+Dieses Kapitel ist die nächste Stufe der Konkretisierung nach der <<einbettung-in-anwendungslandschaft>>.
+
+Das Kapitel besteht aus einem UML-Diagramm, das darstellt, aus welchen IT-Systemen die Geschäftsanwendung besteht, wie diese sich gegenseitig aufrufen und welche Nachbarsysteme aufgerufen werden.
+Zur besseren Orientierung sind der Farbcode und das Layout der Referenzarchitektur zu beachten.
+Für die Schnittstellen und Services soll ein geeigneter Abstraktionsgrad gewählt werden.
+Übersichtlichkeit steht klar über der Beschreibung von Details!
+
+Das UML-Diagramm beschreibt ein begleitender Text, der sich folgender Fragen annimmt:
+
+* Was sind die Aufgaben der einzelnen IT-Systeme?
+Welche Funktionalität bieten sie an?
+* Wie sieht das Zusammenspiel der IT-Systeme aus, um die Gesamtaufgabe des Systems zu erfüllen?
+Wie sieht die Aufgabenverteilung aus?
+
+Die folgende <<image-teilsysteme>> basiert auf der Beispielzerlegung der Referenzarchitektur.
+Es zeigt nicht nur die Zerlegung, sondern schafft auch den Rückbezug auf die Systemspezifikation.
+Wenn dies der Übersicht nicht dienlich ist, kann der Rückbezug auch textuell oder tabellarisch hergestellt werden.
+
+:desc-image-teilsysteme: Zerlegung der BSP-GA in IT-Systeme
+[id="image-teilsysteme", reftext = "{figure-caption} {counter:figures}"]
+.{desc-image-teilsysteme}
+image::vorlage-systementwurf/ueberblick.dn.svg[align = center, title-align=center]
+
+Im begleitenden Text wären die Aufrufbeziehungen der IT-Systeme untereinander knapp zu erläutern.
+Ebenso wäre zu beschreiben, wieso die Verbindung zum IAM-Service von der fachlichen Klammer der Anwendung ausgeht. In diesem Beispiel soll dies verdeutlichen, dass alle enthaltenen IT-Systeme den IAM-Service aufrufen.
+====
+
+[[randbedingungen-annahmen-technisch]]
+=== Technische Randbedingungen und Annahmen
+
+[NOTE]
+====
+Dieser Abschnitt beschreibt technische Randbedingungen und Annahmen, die für den Systementwurf relevant sind, ausführlich.
+
+*Annahmen* sind Aussagen, deren Gültigkeit für möglich gehalten wird, die aber nicht bewiesen oder verifiziert sind.
+Annahmen benötigen immer eine Begründung (das heißt: "Warum nehmen wir das an?") und sollten während des Vorhabens periodisch überprüft werden.
+
+*Randbedingungen* (auch als Rahmenbedingungen bezeichnet) sind Umstände, die nur mit großem Aufwand oder gar nicht beeinflussbar sind oder sich aus der Problemstellung zwingend ergeben, und daher als gegeben betrachtet werden.
+====
+
+
+[[qualitaetsziele-architektur]]
+=== Qualitätsziele der Architektur
+
+[NOTE]
+====
+Qualitätsziele sind nichtfunktionale Anforderungen *an die Architektur* der Lösung.
+
+Die Strukturierung dieses Kapitels sollte sich an den Qualitätskriterien der ISO 25010 orientieren:
+
+* Funktionale Eignung,
+* Sicherheit,
+* Effizienz,
+* Zuverlässigkeit,
+* Benutzbarkeit,
+* Wartbarkeit,
+* Kompatibilität,
+* Übertragbarkeit.
+
 ====
 
 [[konformitaet-zur-referenzarchitektur]]
@@ -397,106 +507,8 @@ h|_Auswirkungen_
 
 [[adr-gesamtsystem-2]]
 ==== ADR-Gesamtsystem-2: Titel
-
 ...
 
-
-[[systemarchitektur-bsp-ga]]
-== Systemarchitektur der BSP-GA
-
-// TODO Strukturelle Überarbeitung:
-// Software-technische Architektur der BSP-GA
-// > Architektur der IT-Systeme in neues Kapitel verschieben.
-
-
-[NOTE]
-====
-Dieses Kapitel stellt den Überblick über die technische Umsetzung der Geschäftsanwendung dar.
-Es beschreibt außerdem die Aspekte, die für mehrere der IT-Systeme gelten, in welche die Geschäftsanwendung zerlegt wird.
-Das können Verfahren, Festlegungen oder die Beschreibung gemeinsam genutzter Komponenten sein.
-In der Regel zerlegt sich eine Geschäftsanwendung in:
-
-* mindestens ein Backend,
-* ein Frontend (beim Vorhandensein einer grafischen Oberfläche),
-* Batches,
-* Gateways, falls externe Zugriffe nötig sind.
-
-Festlegungen, die bereits in übergeordneten Dokumenten der IsyFact oder der Organisation (z.B. IsyFact-Referenzarchitektur, Sicherheitsrichtlinie der Organisation, ...) enthalten sind, werden referenziert.
-*Abweichungen hiervon sind zu begründen!*
-====
-
-[[gesamtsystem-systemueberblick]]
-=== Systemüberblick
-
-[NOTE]
-====
-Der Systemüberblick beschreibt, in welche IT-Systeme die Geschäftsanwendung zerlegt wird, und von welchem IT-Systemtyp diese sind.
-Die Referenzarchitektur der IsyFact definiert die IT-Systemtypen Backend, Frontend, Batch und Gateway.
-Dieses Kapitel ist die nächste Stufe der Konkretisierung nach der <<einbettung-in-anwendungslandschaft>>.
-
-Das Kapitel besteht aus einem UML-Diagramm, das darstellt, aus welchen IT-Systemen die Geschäftsanwendung besteht, wie diese sich gegenseitig aufrufen und welche Nachbarsysteme aufgerufen werden.
-Zur besseren Orientierung sind der Farbcode und das Layout der Referenzarchitektur zu beachten.
-Für die Schnittstellen und Services soll ein geeigneter Abstraktionsgrad gewählt werden.
-Übersichtlichkeit steht klar über der Beschreibung von Details!
-
-Das UML-Diagramm beschreibt ein begleitender Text, der sich folgender Fragen annimmt:
-
-* Was sind die Aufgaben der einzelnen IT-Systeme?
-Welche Funktionalität bieten sie an?
-* Wie sieht das Zusammenspiel der IT-Systeme aus, um die Gesamtaufgabe des Systems zu erfüllen?
-Wie sieht die Aufgabenverteilung aus?
-
-Die folgende <<image-teilsysteme>> basiert auf der Beispielzerlegung der Referenzarchitektur.
-Es zeigt nicht nur die Zerlegung, sondern schafft auch den Rückbezug auf die Systemspezifikation.
-Wenn dies der Übersicht nicht dienlich ist, kann der Rückbezug auch textuell oder tabellarisch hergestellt werden.
-
-:desc-image-teilsysteme: Teilsysteme
-[id="image-teilsysteme", reftext = "{figure-caption} {counter:figures}"]
-.{desc-image-teilsysteme}
-image::vorlage-systementwurf/ueberblick.dn.svg[align = center, title-align=center]
-
-Im begleitenden Text wären die Aufrufbeziehungen der IT-Systeme untereinander knapp zu erläutern.
-Ebenso wäre zu beschreiben, wieso die Verbindung zum IAM-Service von der fachlichen Klammer der Anwendung ausgeht. In diesem Beispiel soll dies verdeutlichen, dass alle enthaltenen IT-Systeme den IAM-Service aufrufen.
-====
-
-[[anforderungen]]
-=== Anforderungen
-
-[NOTE]
-====
-In diesem Kapitel werden die Anforderungen an das System genannt. In der Regel wird auf die Systemspezifikation verwiesen. Abweichungen zur Systemspezifikation sollten aufgeführt werden.
-
-Falls Anforderungen seit der Spezifikation hinzugekommen sind oder konkretisiert wurden, wird das hier dokumentiert.
-====
-
-[[funktionale-anforderungen]]
-==== Funktionale Anforderungen
-
-[NOTE]
-====
-Referenz auf die Systemspezifikation, ein Satz: "Die funktionalen Anforderungen sind in der Systemspezifikation XYZ in Abschnitt n beschrieben."
-====
-
-[[nichtfunktionale-anforderungen]]
-==== Nichtfunktionale Anforderungen
-
-[NOTE]
-====
-Nichtfunktionale Anforderungen, die schon in der Systemspezifikation beschrieben sind, werden hier nicht wiederholt, sondern nur referenziert und falls erforderlich im Folgenden konkretisiert.
-Stattdessen können hier nichtfunktionale Anforderungen *an die Architektur* der Lösung formuliert werden.
-
-Die Strukturierung dieses Kapitels sollte sich an den Qualitätskriterien der ISO 25010 orientieren:
-
-* Funktionale Eignung,
-* Sicherheit,
-* Effizienz,
-* Zuverlässigkeit,
-* Benutzbarkeit,
-* Wartbarkeit,
-* Kompatibilität,
-* Übertragbarkeit.
-
-====
 
 [[ti-architektur]]
 === TI-Architektur
@@ -661,7 +673,7 @@ Die IT-Systeme der BSP-GA benötigen gemäß Produktkatalog der IsyFact die folg
 
 [NOTE]
 ====
-Im Kapitel <<systemarchitektur-bsp-ga>> wurde die in der Systemspezifikation beschriebene Anwendung in IT-Systeme zerlegt.
+Im Kapitel <<softwarearchitektur-bsp-ga>> wurde die in der Systemspezifikation beschriebene Anwendung in IT-Systeme zerlegt.
 Diese werden ab hier in eigenen Unterkapiteln der Reihe nach beschrieben.
 
 Dieses Kapitel enthält vornehmlich eine Top-Down-Beschreibung des IT-Systems anhand seines IT-Systemtyps.
@@ -686,7 +698,7 @@ Dieser Abschnitt zeigt einen Überblick über das IT-System.
 Dies erfolgt in der Regel mit einem UML-Komponentendiagramm und einem knappen begleitenden Text, der die einzelnen Komponenten und ihr Zusammenspiel erklärt.
 Als Leitfaden für das Diagramm kann die Beschreibung des https://docs.arc42.org/section-3/#32-technical-context[technischen Kontextes von arc42] dienen.
 Im Unterschied dazu ist hier vorgesehen, auch die Innensicht des betrachteten IT-Systems zu zeigen.
-Ein Diagramm, das den technischen Kontext des Gesamtsystems zeigt, befindet sich in der <<systemarchitektur-bsp-ga>>.
+Ein Diagramm, das den technischen Kontext des Gesamtsystems zeigt, befindet sich in der <<softwarearchitektur-bsp-ga>>.
 
 Das Komponentendiagramm zeigt eine Übersicht der fachlichen Schnittstellen und sowohl fachlichen als auch technischen Komponenten des IT-Systems.
 Es stellt die Zusammenhänge und Beziehungen zwischen den Bestandteilen des IT-Systems dar.
