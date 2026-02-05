@@ -14,30 +14,27 @@ import de.bund.bva.isyfact.persistence.exception.FehlerSchluessel;
 import de.bund.bva.isyfact.persistence.exception.PersistenzException;
 
 /**
- * Ein {@link UserType} zur Persistierung von Enumtypen, die einen Schlüssel enthalten, als String, d.h. in
- * eine VARCHAR-Spalte. Die get-Methode in der Enumklasse, die den Schlüssel liefert, muss mit {@link EnumId}
- * annotiert sein.
- * 
+ * An {@link UserType} for persistence of custom enum types, saved as strings (VARCHAR-fields in DB).
+ * The getEnumID method of given enum class must be annotated with {@link EnumId}.
  */
-public class EnumWithIdUserType extends AbstractImmutableStringUserType implements ParameterizedType {
+public class EnumWithIdUserType extends AbstractImmutableStringUserType<Enum<?>> implements ParameterizedType {
 
-    /** Die Enum-Klasse. */
-    private Class<? extends Enum<?>> enumClass;
+    /** Enum class type. */
+    private Class<Enum<?>> enumClass;
 
-    /** Abbildung von String nach Enum-Ausprägung. */
-    private Map<String, Enum<?>> stringToEnum = new HashMap<String, Enum<?>>();
+    /** Map string representation to enum values. */
+    private final Map<String, Enum<?>> stringToEnum = new HashMap<>();
 
-    /** Die Methode der Enumklasse, die den Schlüssel liefert. */
+    /** The getEnumID method. */
     private Method idGetter;
 
     /**
-     * Setzt die Enum-Klasse.
-     * 
-     * @param enumClass
-     *            die Enum-Klasse.
+     * Set enum type.
+     *
+     * @param enumClass enum type.
      */
     public void setEnumClass(Class<? extends Enum<?>> enumClass) {
-        this.enumClass = enumClass;
+        this.enumClass = (Class<Enum<?>>) enumClass;
 
         for (Method m : enumClass.getMethods()) {
             if (m.getAnnotation(EnumId.class) != null) {
@@ -67,7 +64,7 @@ public class EnumWithIdUserType extends AbstractImmutableStringUserType implemen
     /**
      * {@inheritDoc}
      */
-    public Class<? extends Enum<?>> returnedClass() {
+    public Class<Enum<?>> returnedClass() {
         return enumClass;
     }
 
@@ -75,7 +72,7 @@ public class EnumWithIdUserType extends AbstractImmutableStringUserType implemen
      * {@inheritDoc}
      */
     @Override
-    public Object convertStringToInstance(String value) {
+    public Enum<?> convertStringToInstance(String value) {
         Enum<?> e = stringToEnum.get(value);
         if (e == null) {
             throw new PersistenzException(FehlerSchluessel.UNBEKANNTER_STRING, value, enumClass.getName());
@@ -87,8 +84,8 @@ public class EnumWithIdUserType extends AbstractImmutableStringUserType implemen
      * {@inheritDoc}
      */
     @Override
-    public String convertInstanceToString(Object value) {
-        String enumId = getEnumId((Enum<?>) value);
+    public String convertInstanceToString(Enum<?> value) {
+        String enumId = getEnumId(value);
         if (enumId == null) {
             throw new PersistenzException(FehlerSchluessel.UNBEKANNTE_AUSPRAEGUNG, value.toString(),
                 enumClass.getName());
@@ -97,19 +94,16 @@ public class EnumWithIdUserType extends AbstractImmutableStringUserType implemen
     }
 
     /**
-     * Liefert den Schlüssel einer Enumausprägung.
+     * Get enum value ID.
      * 
-     * @param enumValue
-     *            die Enumausprägung
-     * @return der Schlüssel
+     * @param enumValue given enum value.
+     * @return enum ID.
      */
     private String getEnumId(Enum<?> enumValue) {
         String enumId;
         try {
             enumId = (String) idGetter.invoke(enumValue);
-        } catch (IllegalAccessException e) {
-            throw new RuntimeException(e);
-        } catch (InvocationTargetException e) {
+        } catch (IllegalAccessException | InvocationTargetException e) {
             throw new RuntimeException(e);
         }
         return enumId;

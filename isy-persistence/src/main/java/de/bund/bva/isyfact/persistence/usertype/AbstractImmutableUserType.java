@@ -8,34 +8,40 @@ import org.hibernate.usertype.UserType;
 /**
  * Abstract {@link UserType} for any immutable attributes.
  */
-public abstract class AbstractImmutableUserType implements UserType {
+public abstract class AbstractImmutableUserType<T> implements UserType<T> {
 
+    @Override
     public boolean equals(Object x, Object y) {
         return Objects.equals(x, y);
     }
 
+    @Override
     public int hashCode(Object x) {
         return Objects.hashCode(x);
     }
 
-    public Object deepCopy(Object value) {
+    @Override
+    public T deepCopy(T value) {
         return value;
     }
 
+    @Override
     public boolean isMutable() {
         return false;
     }
 
-    public Serializable disassemble(Object value) {
+    @Override
+    public Serializable disassemble(T value) {
         return (Serializable) value;
     }
 
-    public Object assemble(Serializable cached, Object owner) {
-        return cached;
+    @Override
+    public T assemble(Serializable cached, Object owner) {
+        return (T) cached;
     }
 
     @Override
-    public Object replace(Object original, Object target, Object owner) {
+    public T replace(T original, T target, Object owner) {
         return original;
     }
 
