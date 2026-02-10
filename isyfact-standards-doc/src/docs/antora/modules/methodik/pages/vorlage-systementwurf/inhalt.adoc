@@ -79,7 +79,7 @@ Die Anpassung dieses Kapitels liegt im Ermessen des jeweiligen Autors.
 
 [NOTE]
 ====
-Der Systementwurf enthält alle Informationen, welche für die an der Erstellung der Software beteiligten Parteien (Betrieb, Netzwerk-Administration, Auftraggeber, Entwickler, Beschaffung) benötigt werden.
+Der Systementwurf enthält alle Informationen, welche für die an der Erstellung der Software beteiligten Parteien (Betrieb, Netzwerk-Administration, Auftraggeber, Entwickler) benötigt werden.
 Er behandelt eine Vielzahl unterschiedlicher Themenbereiche.
 
 Der Detaillierungsgrad, in welchem die Themenbereiche beschrieben werden, ist nicht für alle Systementwürfe gleich: Er hängt von der Art und Komplexität der Problematik und der Erfahrung des Zielpublikums ab.
@@ -149,7 +149,7 @@ Dieser Abschnitt beinhaltet eine knappe Zusammenfassung der Anwendung:
 * Was ist ihr Hintergrund?
 * Wozu dient sie?
 
-Gegebenenfalls kann die Zusammenfassung aus der Systemspezifikation übernommen werden.
+Der Abschnitt kann auf die Zusammenfassung der Systemspezifikation verweisen.
 ====
 
 [[ziel-dokuments]]
@@ -248,11 +248,7 @@ Ein solches Diagramm veraltet sehr schnell und macht häufige Änderungen am Ent
 :desc-image-einbettung-anwendung: Einbettung der BSP-GA in die Anwendungslandschaft
 [id="image-einbettung-anwendung", reftext = "{figure-caption} {counter:figures}"]
 .{desc-image-einbettung-anwendung}
-image::vorlage-systementwurf/einbettung-anwendung.png[align = center, title-align=center]
-
-// TODO Diagramm überarbeiten:
-// * Gibt es einen Unterschied zwischen internen Anwendern und externen?
-// * BSP-GA ist auch im API-Gateway vertreten!
+image::vorlage-systementwurf/einbettung-anwendung.dn.png[]
 
 TIP: Anwendungen, mit denen die zu entwickelnde Anwendung (im Beispiel: BSP-GA) nicht kommuniziert, sollten nicht dargestellt werden.
 Die Domänen, die sich selten ändern, können hingegen umrissen werden.
@@ -266,37 +262,29 @@ Die Domänen, die sich selten ändern, können hingegen umrissen werden.
 Dieser Abschnitt verweist auf die Randbedingungen und Annahmen in der Systemspezifikation.
 ====
 
-[[anforderungen]]
-=== Anforderungen
-
-[NOTE]
-====
-In diesem Kapitel werden die Anforderungen an das System genannt.
-In der Regel wird auf die Quelle der Anforderungen (Anforderungsliste, Systemspezifikation, Ticketsystem, ...) verwiesen.
-
-Abweichungen zur Quelle (zusätzliche Anforderungen oder Konkretisierungen) sollten aufgeführt werden.
-====
-
 [[funktionale-anforderungen]]
-==== Funktionale Anforderungen
+=== Funktionale Anforderungen
 
 [NOTE]
 ====
-Referenz auf die Quelle der Anforderungen, ein Satz: "Die funktionalen Anforderungen sind in der (Quelle) in (Verweis/URL) beschrieben."
+Referenz auf die Quelle der Anforderungen (Anforderungsliste, Systemspezifikation, Ticketsystem, ...)
 ====
+Die funktionalen Anforderungen sind in der (Quelle) in/erreichbar unter (Verweis/URL) beschrieben.
 
 [[nichtfunktionale-anforderungen]]
-==== Nichtfunktionale Anforderungen
+=== Nichtfunktionale Anforderungen
 
 [NOTE]
 ====
-Nichtfunktionale Anforderungen, die schon in der Quelle der Anforderungen beschrieben sind, werden hier nicht wiederholt, sondern nur referenziert und falls erforderlich konkretisiert.
+Referenz auf die Quelle der Anforderungen (Anforderungsliste, Systemspezifikation, Ticketsystem, ...)
 ====
+Die nichtfunktionalen Anforderungen sind in der (Quelle) in/erreichbar unter (Verweis/URL) beschrieben.
 
 [[softwarearchitektur-bsp-ga]]
 == Softwarearchitektur der BSP-GA
 
 // TODO Strukturelle Überarbeitung:
+// > Konformität an IT-Systemtypen anpassen.
 // > Architektur der IT-Systeme in neues Kapitel verschieben.
 
 [NOTE]
@@ -343,7 +331,7 @@ Wenn dies der Übersicht nicht dienlich ist, kann der Rückbezug auch textuell o
 :desc-image-teilsysteme: Zerlegung der BSP-GA in IT-Systeme
 [id="image-teilsysteme", reftext = "{figure-caption} {counter:figures}"]
 .{desc-image-teilsysteme}
-image::vorlage-systementwurf/ueberblick.dn.svg[align = center, title-align=center]
+image::vorlage-systementwurf/ueberblick.dn.png[]
 
 Im begleitenden Text wären die Aufrufbeziehungen der IT-Systeme untereinander knapp zu erläutern.
 Ebenso wäre zu beschreiben, wieso die Verbindung zum IAM-Service von der fachlichen Klammer der Anwendung ausgeht. In diesem Beispiel soll dies verdeutlichen, dass alle enthaltenen IT-Systeme den IAM-Service aufrufen.
@@ -439,9 +427,9 @@ Die folgende Tabelle führt die verwendeten Elemente der IsyFact auf.
 |Fehlerbehandlung |berücksichtigt |_Standard_ |
 |Logging |berücksichtigt |_Standard_ |
 |Polling |berücksichtigt |... |
-|Security |Abweichungen |... | <<adr-gesamtsystem-1>>
-|Sonderzeichen |Abweichungen |... | <<adr-gesamtsystem-1>>
-|Task Scheduling |Abweichungen |... | <<adr-gesamtsystem-1>>
+|Security |berücksichtigt |... |
+|Sonderzeichen |berücksichtigt |... |
+|Task Scheduling |Abweichungen |... | <<adr-bsp-ga-1>>
 |Überwachung |berücksichtigt |_Standard_ |
 |Util |berücksichtigt |... |
 4+h|Bausteine (IsyFact-Erweiterungen)
@@ -475,8 +463,8 @@ Die folgenden Architekturentscheidungen begründen Abweichungen und Erweiterunge
 Sie gelten für das im Dokument beschriebene Gesamtsystem.
 Darüber hinaus sind folgende, übergreifende Architekturentscheidungen zu beachten: https://verweis.auf.adrs[übergreifende Architekturentscheidungen].
 
-[[adr-gesamtsystem-1,ADR-Gesamtsystem-1]]
-==== ADR-Gesamtsystem-1: Titel
+[[adr-bsp-ga-1,ADR-BSP-GA-1]]
+==== ADR-BSP-GA-1: Titel
 
 [cols="1,4"]
 |===
@@ -505,8 +493,8 @@ h|_Auswirkungen_
 
 |===
 
-[[adr-gesamtsystem-2]]
-==== ADR-Gesamtsystem-2: Titel
+[[adr-bsp-ga-2,ADR-BSP-GA-2]]
+==== ADR-BSP-GA-2: Titel
 ...
 
 
@@ -528,7 +516,7 @@ Existierende Nachbarsysteme werden in der Regel nicht dargestellt.
 :desc-image-deployment-diagramm: TI-Architektur BSP-GA (teilweise)
 [id="image-deployment-diagramm", reftext = "{figure-caption} {counter:figures}"]
 .{desc-image-deployment-diagramm}
-image::vorlage-systementwurf/ueberblick-ti.dn.svg[]
+image::vorlage-systementwurf/ueberblick-ti.dn.png[]
 
 Das Beispiel-Diagramm in <<image-deployment-diagramm>> zeigt mit einem Backend und einem Batch einen Teil der BSP-GA.
 
@@ -663,7 +651,7 @@ Die IT-Systeme der BSP-GA benötigen gemäß Produktkatalog der IsyFact die folg
 |Batch-Framework
 |Spring Batch
 |s. Spring Boot Dependency Management
-|nur für BSP_1+2-GKBATCH, Entscheidung für Alternativprodukt gemäß <<adr-gesamtsystem-2>>
+|nur für BSP_1+2-GKBATCH, Entscheidung für Alternativprodukt gemäß <<adr-bsp-ga-1>>
 
 |… | | |
 |===
@@ -709,7 +697,7 @@ Die folgende <<image-ueberblick-teilsysteme>> zeigt eines der Backends aus der B
 :desc-image-ueberblick-teilsysteme: Backend der Beispielzerlegung
 [id="image-ueberblick-teilsysteme", reftext = "{figure-caption} {counter:figures}"]
 .{desc-image-ueberblick-teilsysteme}
-image::vorlage-systementwurf/ueberblick-backend.dn.svg[]
+image::vorlage-systementwurf/ueberblick-backend.dn.png[]
 
 Hinweise zur Darstellung:
 
