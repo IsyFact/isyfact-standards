@@ -19,7 +19,8 @@ Folgende Bibliotheken entfallen ab IsyFact 4.0:
 
 [[isy-security]]
 === Security
-Method Security ist in der IsyFact 4 version von isy-security standardmäßig nicht mehr aktiviert und muss durch Setzen der `@EnableMethodSecurity`- Annotation an einer `@Configuration`-Klasse aktiviert werden.
+Method Security ist in der IsyFact 4 version von isy-security standardmäßig nicht mehr aktiviert und muss durch Setzen der `@EnableMethodSecurity(securedEnabled = true)`- Annotation an einer `@Configuration`-Klasse aktiviert werden.
+Dies ist vor allem dann notwendig, wenn Controller-Klassen mit `@Secured` annotiert sind.
 
 Detaillierte Konfigurationsmöglichkeiten sind den
 xref:isy-security:nutzungsvorgaben/master.adoc#autorisierung_service_schnittstelle[Nutzungsvorgaben Security] und der https://docs.spring.io/spring-security/reference/servlet/authorization/method-security.html[Spring Security Dokumentation] zu entnehmen.
