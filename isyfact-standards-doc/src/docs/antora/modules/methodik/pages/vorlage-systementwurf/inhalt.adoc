@@ -194,7 +194,7 @@ Sollte eine Verfeinerung oder spezifische Ergänzung der Referenzarchitektur not
 * Die Schnittstellenübersicht des Systems erfolgt der Übersichtlichkeit halber auf zwei Abstraktionsebenen: auf Ebene der Gesamtanwendungslandschaft erfolgt dies im Kapitel <<einbettung-in-anwendungslandschaft,Systemüberblick/Einbettung in die Anwendungslandschaft>>.
 Die konkreten Schnittstellen des Systems und ggf. von Teilsystemen sind im Kapitel <<softwarearchitektur-bsp-ga>> beschrieben.
 Details zur Implementierung und Dateninhalten der Schnittstellen finden sich in der Konstruktion der jeweiligen <<serviceschicht,Backend-Services>>.
-* Die zu spezifizierenden Systemelemente sind der Gegenstand der <<softwarearchitektur-bsp-ga>>, insbesondere der <<BSP-1u2-GK,Systemarchitektur der Teilsysteme (ff.)>>.
+* Die zu spezifizierenden Systemelemente sind der Gegenstand der Kapitel <<BSP-1u2-GK>> und folgende.
 
 ==== Unterstützungs-Systemarchitektur
 Unterstützungssysteme sind in der Regel durch die IsyFact vorgegeben.
@@ -281,11 +281,7 @@ Referenz auf die Quelle der Anforderungen (Anforderungsliste, Systemspezifikatio
 Die nichtfunktionalen Anforderungen sind in der (Quelle) in/erreichbar unter (Verweis/URL) beschrieben.
 
 [[softwarearchitektur-bsp-ga]]
-== Softwarearchitektur der BSP-GA
-
-// TODO Strukturelle Überarbeitung:
-// > Konformität an IT-Systemtypen anpassen.
-// > Architektur der IT-Systeme in neues Kapitel verschieben.
+== SW-Architektur BSP-GA
 
 [NOTE]
 ====
@@ -374,11 +370,6 @@ Die Strukturierung dieses Kapitels sollte sich an den Qualitätskriterien der IS
 [[konformitaet-zur-referenzarchitektur]]
 === Konformität zur Referenzarchitektur
 
-// TODO Strukturelle Überarbeitung:
-// * Hier Festlegungen für ALLE IT-Systeme (die gesamte Anwendung) beschreiben, bzw. was die IT-Systeme in Summe benötigen.
-// > Abschnitt zu IT-Systemen übernehme und Abweichungen des IT-Systems beschreiben.
-// > Abschnitt zu IT-Systemen übernehmen und Konkretisierungen beschreiben, z.B. welche Bibliotheken eines Produkts oder welche Bestandteile der Referenzarchitektur relevant sind.
-
 [NOTE]
 ====
 _In diesem Kapitel wird die Konformität des Systems zur Referenzarchitektur bestätigt und auf eventuell vorhandene Erweiterungen, Abweichungen und abweichende Versionen verwiesen.
@@ -408,7 +399,6 @@ _In den letzten drei Fällen (Erweiterung, Abweichung sowie abweichende Versione
 Das Anwendung BSP-GA wird konform zur Referenzarchitektur der IsyFact umgesetzt.
 Die folgende Tabelle führt die verwendeten Elemente der IsyFact auf.
 
-
 :desc-table-verwendete-elemente-isyfact-standards-erweiterungen: Verwendete Elemente der IsyFact (Standards und Erweiterungen)
 [id="table-verwendete-elemente-isyfact-standards-erweiterungen", reftext = "{table-caption} {counter:tables}"]
 .{desc-table-verwendete-elemente-isyfact-standards-erweiterungen}
@@ -416,12 +406,13 @@ Die folgende Tabelle führt die verwendeten Elemente der IsyFact auf.
 |===
 |Thema |Status |Version |Referenzen
 4+h|Allgemein
-|IsyFact-Referenzarchitektur |berücksichtigt |{page-component-version} |
+|IsyFact |berücksichtigt |{page-component-version} |
 4+h|Referenzarchitektur
-|Anwendungskern |berücksichtigt |_Standard_ |
+|Backend | berücksichtigt |_Standard_ |
 |Batch |berücksichtigt |_Standard_ |
-|Persistenz |berücksichtigt |_Standard_ |
-|Service |berücksichtigt |_Standard_ |
+|Frontend |berücksichtigt |_Standard_ |
+|Gateway |berücksichtigt |_Standard_ |
+|Kommunikation |berücksichtigt |_Standard_ |
 4+h|Bausteine (IsyFact-Standards)
 |Datum & Zeit |berücksichtigt |... |
 |Fehlerbehandlung |berücksichtigt |_Standard_ |
@@ -445,6 +436,9 @@ Die folgende Tabelle führt die verwendeten Elemente der IsyFact auf.
 |TypeScript-Programmierkonventionen |berücksichtigt |_Standard_ |
 |Vorlagen |berücksichtigt |_Standard_ |
 |Diagrammerstellung |berücksichtigt |_Standard_ |
+4+h|Werkzeuge
+|OpenAPI Editor |berücksichtigt |_Standard_ |
+|OpenAPI Generator |berücksichtigt |_Standard_ |
 |===
 
 [[abweichungen-und-erweiterungen-zur-referenzarchitektur]]
@@ -606,58 +600,21 @@ In <<table-mengengeruest-dateien-auf-dem-lokalen-laufwerk>> ist eine Abschätzun
 |
 |===
 
-
-[[bibliotheken-drittsoftware]]
-==== Bibliotheken, Drittsoftware
+[[querschnittskonzepte]]
+=== Querschnittskonzepte
 
 [NOTE]
 ====
-Auflistung der benötigten Bibliotheken für die Entwicklung der IT-Systeme in tabellarischer Darstellung.
+Dieser Abschnitt kann folgende Inhalte enthalten:
 
-Wenn keine Version eingetragen wird, richtet sich die Version nach dem Produktkatalog der IsyFact-Version, die in <<konformitaet-zur-referenzarchitektur>> benannt ist.
-
-Wenn Produkte nur für bestimmte IT-Systeme oder IT-Systemtypen relevant sind, ist dies in der Spalte "Bemerkung" zu hinterlegen.
-Zusätzliche, nicht von der IsyFact vorgeschriebene und empfohlene Produkte sind ebenfalls zu kennzeichnen.
-Transitive Abhängigkeiten sind nicht einzutragen.
+* Verfeinerungen oder Konkretisierungen zu bestehenden IsyFact-Bausteinen,
+* für alle IT-Systeme geltende Abweichungen von Bausteinen,
+* Querschnittskonzepte, zu denen noch kein Baustein existiert.
 ====
 
-Die IT-Systeme der BSP-GA benötigen gemäß Produktkatalog der IsyFact die folgenden Bibliotheken bzw. Drittsoftware:
-
-
-:desc-table-benoetigte-bibliotheken-drittsoftware: Benötigte Bibliotheken und Drittsoftware
-[id="table-benoetigte-bibliotheken-drittsoftware", reftext = "{table-caption} {counter:tables}"]
-.{desc-table-benoetigte-bibliotheken-drittsoftware}
-[cols="3,2,2,4", options="header"]
-|===
-|Kategorie |Name |Version |Bemerkung
-|Programmiersprache
-|Java
-||für Backends, Batches und das Service-Gateway
-
-|Programmiersprache
-|TypeScript
-||für Frontends
-
-|Application Framework
-|
-||
-
-|Webservice-Framework | | |
-|Persistenz-Framework | | |
-|Logging-Framework | | |
-|JDBC-Treiber | | |
-|Unit-Testing | | |
-
-|Batch-Framework
-|Spring Batch
-|s. Spring Boot Dependency Management
-|nur für BSP_1+2-GKBATCH, Entscheidung für Alternativprodukt gemäß <<adr-bsp-ga-1>>
-
-|… | | |
-|===
 
 [[BSP-1u2-GK]]
-=== Backend BSP_1+2-GK
+== SW-Architektur Backend BSP_1+2-GK
 
 [NOTE]
 ====
@@ -678,7 +635,7 @@ Wenn diese Gemeinsamkeiten die Referenzarchitektur oder bestehende Bausteine der
 Dieses Kapitel beschreibt die Systemarchitektur des Backends BSP_1+2-GK.
 
 [[backend-ueberblick]]
-==== Überblick
+=== Überblick
 
 [NOTE]
 ====
@@ -711,8 +668,43 @@ In diesem Beispiel verweisen die Stereotypen auf Inhalte der Referenzarchitektur
 * Das Diagramm verzichtet, vor allem innerhalb des IT-Systems, auf Stereotypen an Aufrufbeziehungen, wenn diese keine Zusatzinformation beitragen (u.a.`+<<use>>+`).
 ====
 
+[[BSP-1u2-GK-produkte]]
+=== Bibliotheken & Produkte
+
+[NOTE]
+====
+Auflistung der benötigten Bibliotheken für die Entwicklung des IT-Systems in tabellarischer Darstellung.
+
+Wenn keine Version eingetragen wird, richtet sich die Version nach dem Produktkatalog der IsyFact-Version, die in <<konformitaet-zur-referenzarchitektur>> benannt ist.
+
+Abweichungen von der Referenzarchitektur sind in der Spalte "Bemerkung" zu hinterlegen.
+Zusätzliche, nicht von der IsyFact vorgeschriebene und empfohlene Produkte sind ebenfalls zu kennzeichnen.
+Transitive Abhängigkeiten sind nicht einzutragen.
+====
+
+Das IT-System BSP_1+2-GK benötigt gemäß Produktkatalog der IsyFact die folgenden Bibliotheken bzw. Produkte:
+
+:desc-table-benoetigte-bibliotheken-produkte: BSP_1+2-GK: Bibliotheken & Produkte
+[id="table-benoetigte-bibliotheken-produkte", reftext = "{table-caption} {counter:tables}"]
+.{desc-table-benoetigte-bibliotheken-produkte}
+[cols="3,2,2,4", options="header"]
+|===
+|Kategorie |Name |Version |Bemerkung
+|Programmiersprache
+|Java
+||
+
+|Application Framework
+|Spring Boot
+||
+
+|... |... | |
+
+|===
+
+
 [[anwendungskern]]
-==== Anwendungskern
+=== Anwendungskern
 
 [NOTE]
 ====
@@ -723,7 +715,7 @@ Die Tiefe der Darstellung richtet sich nach der fachlichen Komplexität der umzu
 Die folgenden Abschnitte beschreiben die technische Umsetzung der Anwendungskomponenten.
 
 [[ank-bsp-1]]
-===== ANK_BSP_1
+==== ANK_BSP_1
 
 [NOTE]
 ====
@@ -743,12 +735,12 @@ Die Komponente stellt in ihrer Beschreibung den Bezug zur Spezifikation dar:
 ====
 
 [[ank-bsp-2]]
-===== ANK_BSP_2
+==== ANK_BSP_2
 
 ...
 
 [[persistenzschicht]]
-==== Persistenzschicht
+=== Persistenzschicht
 
 [NOTE]
 ====
@@ -760,7 +752,7 @@ Beispiele hierfür sind der Umgang mit Sperren oder Löschfristen.
 ====
 
 [[serviceschicht]]
-==== Serviceschicht
+=== Serviceschicht
 
 [NOTE]
 ====
@@ -780,18 +772,18 @@ Die Komponente stellt in ihrer Beschreibung den Bezug zur Spezifikation dar:
 ====
 
 [[bsp-1-service]]
-===== BSP1Service
+==== BSP1Service
 
 ...
 
 [[bsp-2-service]]
-===== BSP2Service
+==== BSP2Service
 
 ...
 
 
 [[querschnitt]]
-==== Querschnitt
+=== Querschnitt
 
 [NOTE]
 ====
@@ -799,7 +791,7 @@ Dieser optionale Abschnitt enthält Konzepte des Querschnitts, welche nur für d
 ====
 
 [[datenmodell]]
-==== Datenmodell
+=== Datenmodell
 
 [NOTE]
 ====
@@ -828,7 +820,7 @@ Zusätzlich zu den einzelnen Teildiagrammen sollte auch noch das Gesamt-Datenmod
 ====
 
 [[logisches-datenmodell]]
-===== Logisches Datenmodell
+==== Logisches Datenmodell
 
 [NOTE]
 ====
@@ -870,7 +862,7 @@ image::vorlage-systementwurf/logisches-datenmodell.png[align = center, title-ali
 ====
 
 [[physisches-datenmodell]]
-===== Physisches Datenmodell
+==== Physisches Datenmodell
 
 [NOTE]
 ====
@@ -902,7 +894,7 @@ Die Optimierung des Diagramms in Hinblick auf den benötigten Platz ist nicht ge
 ====
 
 [[BSP-1u2-GKBATCH]]
-=== Batch BSP_1+2-GKBATCH
+== SW-Architektur Batch BSP_1+2-GKBATCH
 
 [NOTE]
 ====
@@ -918,12 +910,51 @@ Dies kann textuell oder durch eine UML-Grafik geschehen._
 ====
 
 [[batch-ueberblick]]
-==== Überblick
+=== Überblick
 
 NOTE: Der Überblick richtet sich nach dem in <<backend-ueberblick>> beschriebenen Vorgehen.
 
+[[BSP-1u2-GKBATCH-produkte]]
+=== Bibliotheken & Produkte
+
+[NOTE]
+====
+Auflistung der benötigten Bibliotheken für die Entwicklung des IT-Systems in tabellarischer Darstellung.
+
+Wenn keine Version eingetragen wird, richtet sich die Version nach dem Produktkatalog der IsyFact-Version, die in <<konformitaet-zur-referenzarchitektur>> benannt ist.
+
+Abweichungen von der Referenzarchitektur sind in der Spalte "Bemerkung" zu hinterlegen.
+Zusätzliche, nicht von der IsyFact vorgeschriebene und empfohlene Produkte sind ebenfalls zu kennzeichnen.
+Transitive Abhängigkeiten sind nicht einzutragen.
+====
+
+Das IT-System BSP_1+2-GKBATCH benötigt gemäß Produktkatalog der IsyFact die folgenden Bibliotheken bzw. Produkte:
+
+:desc-table-benoetigte-bibliotheken-produkte-gkbatch: BSP_1+2-GKBATCH: Bibliotheken & Produkte
+[id="table-benoetigte-bibliotheken-produkte-gkbatch", reftext = "{table-caption} {counter:tables}"]
+.{desc-table-benoetigte-bibliotheken-produkte-gkbatch}
+[cols="3,2,2,4", options="header"]
+|===
+|Kategorie |Name |Version |Bemerkung
+|Programmiersprache
+|Java
+||
+
+|Application Framework
+|Spring Boot
+||
+
+|Batch-Framework
+|Spring Batch
+|s. Spring Boot Dependency Management
+|nur für BSP_1+2-GKBATCH, Entscheidung für Alternativprodukt gemäß <<adr-bsp-ga-1>>
+
+|... |... | |
+|===
+
+
 [[batchschicht]]
-==== Batchschicht
+=== Batchschicht
 
 [NOTE]
 ====
@@ -931,29 +962,18 @@ In diesem Abschnitt findet sich die konkrete Konstruktion der Batches, in der Re
 ====
 
 [[bat-bsp-2]]
-===== BAT_BSP_2
+==== BAT_BSP_2
 
 ...
 
 [[it-system-bezeichner]]
-=== <IT-Systemtyp> <IT-System-Bezeichner>
+== SW-Architektur <IT-Systemtyp> <IT-System-Bezeichner>
 
 [NOTE]
 ====
 Analog zu <<BSP-1u2-GK>> und <<BSP-1u2-GKBATCH>>: für jedes IT-System entsteht ein eigenes Unterkapitel gemäß seines IT-Systemtyps.
 ====
 
-[[querschnittskonzepte]]
-=== Querschnittskonzepte
-
-[NOTE]
-====
-Dieser Abschnitt kann folgende Inhalte enthalten:
-
-* Verfeinerungen oder Konkretisierungen zu bestehenden IsyFact-Bausteinen,
-* für alle IT-Systeme geltende Abweichungen von Bausteinen,
-* Querschnittskonzepte, zu denen noch kein Baustein existiert.
-====
 
 [[systementwicklung]]
 == Systementwicklung

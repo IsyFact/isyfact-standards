@@ -48,7 +48,8 @@
                         <configuration>
                             <outputDirectory>${project.build.directory}</outputDirectory>
                             <attributes>
-                                <revnumber>IsyFact 4.0.x</revnumber>
+                                <revnumber>IsyFact ${version}</revnumber>
+                                <if-release>${version}</if-release>
                                 <revdate>${maven.build.timestamp}</revdate>
                             </attributes>
                         </configuration>
