@@ -83,7 +83,7 @@ public abstract class BaseException extends Exception {
         this.uniqueId = switch (throwable) {
             case BaseException baseException -> baseException.getUniqueId();
             case TechnicalRuntimeException technicalRuntimeException -> technicalRuntimeException.getUniqueId();
-            default -> UUID.randomUUID().toString();
+            case null, default -> UUID.randomUUID().toString();
         };
     }
 
