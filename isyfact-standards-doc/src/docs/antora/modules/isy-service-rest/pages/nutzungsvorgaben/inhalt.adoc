@@ -488,21 +488,12 @@ Zunächst wird das Interface `ExchangeFilterFunction` implementiert:
 ----
 ExchangeFilterFunction correlationIdAddingFilter =
         (clientRequest, nextFilter) -> {
-
-    StringBuilder correlationIdBuilder = new StringBuilder();
-
-    String existingCorrelationId = MdcHelper.liesKorrelationsId();
-    if (existingCorrelationId != null && !existingCorrelationId.isEmpty()) {
-        correlationIdBuilder.append(existingCorrelationId).append(";");
-    }
-
     String newCorrelationId = UUID.randomUUID().toString();
-    correlationIdBuilder.append(newCorrelationId);
 
-    MdcHelper.pushKorrelationsId(newCorrelationId);
+    String correlationId = MdcHelper.pushKorrelationsId(newCorrelationId);
 
     ClientRequest filteredRequest = ClientRequest.from(clientRequest)
-        .header("X-Correlation-Id", correlationIdBuilder.toString())
+        .header("X-Correlation-Id", correlationId)
         .build();
     return nextFilter.exchange(filteredRequest);
 };
