@@ -875,8 +875,7 @@ Das Startskript `batch-ausfuehren.sh` liegt in dem Verzeichnis:
 /opt/{it-system-batch}/bin/
 ----
 
-IMPORTANT: Eine wichtige Voraussetzung für die Ausführung von Batches ist das Setzen der Variable `JAVA<X>_HOME`.
-Dieser Schritt ist in <<installation-default-tomcat>> beschrieben.
+IMPORTANT: Eine wichtige Voraussetzung für die Ausführung von Batches ist das Setzen der Umgebungsvariable `JAVA_HOME` auf den korrekten Wert, vor allem, wenn mehrere Java-Versionen installiert sind.
 
 ====
 *_Ausfüllhinweise_*
