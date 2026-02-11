@@ -277,25 +277,15 @@ Für das Setzen des korrekten Werts in den HTTP-Header sind folgende Schritte au
 ----
 ExchangeFilterFunction addCorrelationId =
         (clientRequest, nextFilter) -> {
-
-    StringBuilder correlationIdBuilder = new StringBuilder();
-
-    String existingCorrelationId = MdcHelper.liesKorrelationsId(); //<.>
-    if (existingCorrelationId != null && !existingCorrelationId.isEmpty()) {
-        correlationIdBuilder.append(existingCorrelationId).append(";");
-    }
-
     String newCorrelationId = UUID.randomUUID().toString(); //<.>
-    correlationIdBuilder.append(newCorrelationId);
-    MdcHelper.pushKorrelationsId(newCorrelationId);
+    String correlationId = MdcHelper.pushKorrelationsId(newCorrelationId);
 
     ClientRequest filteredRequest = ClientRequest.from(clientRequest)
-        .header("X-Correlation-Id", correlationIdBuilder.toString()) //<.>
+        .header("X-Correlation-Id", correlationId) //<.>
         .build();
     return nextFilter.exchange(filteredRequest);
 };
 ----
-<.> Auslesen der bestehenden Korrelations-ID aus dem `MdcHelper`.
 <.> Erzeugen einer neuen UUID, Anhängen an die bestehende Korrelations-ID und Setzen im `MdcHelper`.
 <.> Setzen der aktualisierten Korrelations-ID im Header `X-Correlation-Id` der REST-Anfrage.
 
