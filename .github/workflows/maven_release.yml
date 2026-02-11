@@ -9,7 +9,7 @@ jobs:
     with:
       jdk-version: 17
       version: ${{ github.ref_name }}
-      sonar-skip: true
+      sonar-skip: false
 
   QualityGate:
     runs-on: ubuntu-latest
