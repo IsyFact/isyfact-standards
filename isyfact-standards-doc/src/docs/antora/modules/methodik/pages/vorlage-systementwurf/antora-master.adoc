@@ -1,8 +1,4 @@
-:doctitle: IsyFact Systementwurf <System>
-[discrete]
-=== Vorlage
-
-include::glossary:licence:partial$licence.adoc[]
+= IsyFact Systementwurf <System>
 
 // Inhalt
 include::inhalt.adoc[tags=inhalt]

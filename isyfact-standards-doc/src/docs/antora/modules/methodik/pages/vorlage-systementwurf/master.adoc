@@ -6,8 +6,11 @@
 :toc-title: Inhaltsverzeichnis
 :figure-caption: Abbildung
 :table-caption: Tabelle
+:note-caption: Vorgehen
 :!chapter-signifier:
+:page-component-version: {if-release}
 
 toc::[]
+
 
 include::inhalt.adoc[tags=inhalt]
