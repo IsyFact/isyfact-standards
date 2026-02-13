@@ -261,7 +261,7 @@ Die Domänen, die sich selten ändern, können hingegen umrissen werden.
 ====
 Dieser Abschnitt verweist auf die Randbedingungen und Annahmen in der Systemspezifikation.
 ====
-Fachliche Randbedingungen und Annahmen sind in der Systemspezifikation in/erreichbar unter (Verweis/URL) beschrieben.
+Fachliche Randbedingungen und Annahmen sind in der Systemspezifikation erreichbar unter (Verweis/URL) beschrieben.
 
 [[funktionale-anforderungen]]
 === Funktionale Anforderungen
