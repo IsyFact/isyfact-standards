@@ -270,7 +270,7 @@ Fachliche Randbedingungen und Annahmen sind in der Systemspezifikation in/erreic
 ====
 Referenz auf die Quelle der Anforderungen (Anforderungsliste, Systemspezifikation, Ticketsystem, ...)
 ====
-Die funktionalen Anforderungen sind in der (Quelle) in/erreichbar unter (Verweis/URL) beschrieben.
+Die funktionalen Anforderungen sind in der (Quelle) erreichbar unter (Verweis/URL) beschrieben.
 
 [[nichtfunktionale-anforderungen]]
 === Nichtfunktionale Anforderungen
@@ -279,7 +279,7 @@ Die funktionalen Anforderungen sind in der (Quelle) in/erreichbar unter (Verweis
 ====
 Referenz auf die Quelle der Anforderungen (Anforderungsliste, Systemspezifikation, Ticketsystem, ...)
 ====
-Die nichtfunktionalen Anforderungen sind in der (Quelle) in/erreichbar unter (Verweis/URL) beschrieben.
+Die nichtfunktionalen Anforderungen sind in der (Quelle) erreichbar unter (Verweis/URL) beschrieben.
 
 [[softwarearchitektur-bsp-ga]]
 == SW-Architektur BSP-GA
@@ -331,7 +331,8 @@ Wenn dies der Übersicht nicht dienlich ist, kann der Rückbezug auch textuell o
 image::vorlage-systementwurf/ueberblick.dn.png[]
 
 Im begleitenden Text wären die Aufrufbeziehungen der IT-Systeme untereinander knapp zu erläutern.
-Ebenso wäre zu beschreiben, wieso die Verbindung zum IAM-Service von der fachlichen Klammer der Anwendung ausgeht. In diesem Beispiel soll dies verdeutlichen, dass alle enthaltenen IT-Systeme den IAM-Service aufrufen.
+Ebenso wäre zu beschreiben, wieso die Verbindung zum IAM-Service von der fachlichen Klammer der Anwendung ausgeht. 
+In diesem Beispiel soll dies verdeutlichen, dass alle enthaltenen IT-Systeme den IAM-Service aufrufen.
 ====
 
 [[randbedingungen-annahmen-technisch]]
@@ -537,7 +538,7 @@ Die Laufzeitumgebung für die IT-Systeme der Geschäftsanwendung BSP-GA besteht 
 |Kategorie |Name |Version |Bemerkung
 |Betriebssystem|Linux 64 bit |Kernel >= 4.12|
 |Java-Laufzeitumgebung | https://adoptium.net/de/temurin/releases[OpenJDK (Eclipse Temurin von Adoptium)]|25.x|
-|Servlet-Container |Apache Tomcat |8.5.x |
+|Servlet-Container |Apache Tomcat | Z.B. 8.5.x |
 |===
 
 [[ressourcen]]
