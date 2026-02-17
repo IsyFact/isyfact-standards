@@ -1,5 +1,6 @@
 # 5.0.0
 ### FEATURES
+- `IFS-5170`: [isyfact-standards-doc] Logik für Berechnung der KorrelationsId vereinfacht
 - `IFS-4925`: [isyfact-standards-doc] Anpassung der Vorlage Systementwurf an die IsyFact 5
 - `IFS-4926`: [isyfact-standards-doc] Anpassung der Darstellung von Gateways in der TI-Architektur
 - `IFS-4734`: [isyfact-standards-doc] Verwendungen des Begriffs "Service" und damit verwandter Begriffe korrigieren
