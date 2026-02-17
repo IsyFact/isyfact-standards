@@ -23,6 +23,7 @@
         <isy-security-test.version>4.0.0</isy-security-test.version>
         <isy-task.version>5.0.0-SNAPSHOT</isy-task.version>
         <isy-util.version>5.0.0-SNAPSHOT</isy-util.version>
+        <isy-batchrahmen.version>5.0.0-SNAPSHOT</isy-batchrahmen.version>
     </properties>
 
     <!-- Dependency-Management für die Komponenten der IsyFact-Standards. -->
@@ -34,6 +35,11 @@
                 <version>${project.parent.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>de.bund.bva.isyfact</groupId>
+                <artifactId>isy-batchrahmen</artifactId>
+                <version>${isy-batchrahmen.version}</version>
             </dependency>
             <dependency>
                 <groupId>de.bund.bva.isyfact</groupId>
