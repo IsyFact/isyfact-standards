@@ -26,10 +26,8 @@ jobs:
       - name: Run semgrep scan on changed files
         run: |
           semgrep ci \
-            --config .github/config/semgrep/java.yml \
-            --config .github/config/semgrep/typescript.yml \
-            --config .github/config/semgrep/dockerfile.yml \
-            --config .github/config/semgrep/openapi.yml \
+            --config .github/config/semgrep \
+            --exclude ".github/config/semgrep/**" \
             --json --output semgrep-report.json \
             --metrics=off || export SEMGREP_EXIT=$?
           exit $SEMGREP_EXIT
