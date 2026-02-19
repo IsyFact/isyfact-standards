@@ -1,0 +1,35 @@
+rules:
+- id: missing-user
+  patterns:
+    - pattern: |
+        CMD $...VARS
+    - pattern-not-inside: |
+        USER $USER
+        ...
+    - pattern-not-inside: |
+        HEALTHCHECK ... CMD ...
+  fix: |
+    USER non-root
+    CMD $...VARS
+  message: By not specifying a USER, a program in the container may run as 'root'. This is a security
+    hazard. If an attacker can control a process running as root, they may have control over the container.
+    Ensure that the last USER in a Dockerfile is a USER other than 'root'. 
+  severity: ERROR
+  languages: 
+    - dockerfile
+  metadata:
+    cwe:
+    - 'CWE-250: Execution with Unnecessary Privileges'
+    category: security
+    technology:
+    - dockerfile
+    confidence: MEDIUM
+    owasp:
+    - A04:2021 - Insecure Design
+    - A06:2025 - Insecure Design
+    references:
+    - https://owasp.org/Top10/A04_2021-Insecure_Design
+    subcategory:
+    - audit
+    likelihood: LOW
+    impact: MEDIUM
