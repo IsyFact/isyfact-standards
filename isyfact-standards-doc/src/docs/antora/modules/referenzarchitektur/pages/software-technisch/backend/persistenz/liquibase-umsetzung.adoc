@@ -237,7 +237,7 @@ Liquibase gewährleistet die Nachvollziehbarkeit aller Datenbankänderungen übe
 Damit wird sichergestellt, dass jede definierte Änderung genau einmal und in der richtigen Reihenfolge ausgeführt wird.
 
 Liquibase prüft nicht, ob die tatsächliche Datenbankversion mit der vom Anwendungscode erwarteten Release-Version übereinstimmt.
-Dadurch kann es trotz konsistentem Changelog zu einem xref:https://www.liquibase.com/blog/database-drift[Schema-Drift] kommen.
+Dadurch kann es trotz konsistentem Changelog zu einem https://www.liquibase.com/blog/database-drift[Schema-Drift] kommen.
 
 Schema-Drift kann folgende Ursachen haben:
 
@@ -525,7 +525,7 @@ Gleichzeitig bleibt die Datenbank in einem Zustand, in dem ältere Anwendungsver
 Sobald alle Altversionen abgeschaltet sind, wird in einer dritten Phase das alte Datenbankfeld aus der Datenbank entfernt.
 
 +1.+ Phase::
-Schema- und Migration-Changeset mit Label `pre/db-deploy` nutzen (z.B. <addColumn> und Trigger oder Batch-SQL nutzen um Bestandsdaten zu kopieren.
+Schema- und Migration-Changeset mit Label `pre/db-deploy` nutzen (z.B. `<addColumn>` und Trigger oder Batch-SQL nutzen, um Bestandsdaten zu kopieren.
 Hier sollte die Rollback-SQL bereitgehalten werden.
 
 +2.+ Phase::
@@ -534,12 +534,12 @@ Hier wird auf neues Feld umgestellt.
 Falls nötig, ist ein Changeset für zusätzliche Indizes mit dem Label `app-deploy` zu nutzen.
 
 +3.+ Phase::
-Laufen alle Instanzen der Anwendung auf der neuen Version, ist mit einem Changeset mit dem Label `clean-up` das Datenbankschema zu bereinigen (z.B. <dropColumn>).
+Laufen alle Instanzen der Anwendung auf der neuen Version, ist mit einem Changeset mit dem Label `clean-up` das Datenbankschema zu bereinigen (z.B. `<dropColumn>`).
 
 [NOTE]
 ====
-Für CI-Pipelines sind diese Tätigkeiten am besten in einzelnen Jobs auszuführen.
-Mindestens jedoch in zwei, Phase 1 und Phase 2 können zusammen ausgeführt werden.
+Für CI-Pipelines sind diese Tätigkeiten am besten in einzelnen Jobs auszuführen, mindestens jedoch in zwei.
+Phase 1 und Phase 2 können zusammen ausgeführt werden.
 ====
 
 [[nuetzliche-liquibase-befehle-zur-schema-verwaltung]]
@@ -572,7 +572,7 @@ Oder um zu überprüfen, ob alle Objekte in einer Baseline berücksichtigt sind.
 Hierfür können die Unterschiede zwischen dem IST-Zustand und einer leeren Datenbank erzeugt werden.
 
 |liquibase label
-|Labels können genutzt werden, um Datenbankänderungen, die ein Feature betreffen, zu kennzeichnen und zum gewünschten Zeitpunkt auszuführen. (Vgl. xref:https://docs.liquibase.com/reference-guide/changelog-attributes/labels[Liquibase-Doku-Labels]).
+|Labels können genutzt werden, um Datenbankänderungen, die ein Feature betreffen, zu kennzeichnen und zum gewünschten Zeitpunkt auszuführen. (vgl. https://docs.liquibase.com/reference-guide/changelog-attributes/labels[Liquibase-Doku-Labels]).
 Dies kann in Verbindung mit Feature-Toggles genutzt werden.
 
 |liquibase snapshot
