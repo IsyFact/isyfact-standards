@@ -152,8 +152,7 @@ Andernfalls SOLL eine einfache SPA oder ein modularer Monolith bevorzugt werden.
 
 .icon:university[title=Architekturregel] Verwendung von Single-Page Applications (SPA)
 ****
-Für alle Frontends im Geltungsbereich dieser Referenzarchitektur
-MUSS der Architekturstil Single-Page Application (SPA) verwendet werden.
+Für alle Frontends im Geltungsbereich dieser Referenzarchitektur MUSS der Architekturstil Single-Page Application (SPA) verwendet werden.
 ****
 
 .icon:university[title=Architekturregel] Verwendung von Native Federation zur Laufzeit-Modularisierung
