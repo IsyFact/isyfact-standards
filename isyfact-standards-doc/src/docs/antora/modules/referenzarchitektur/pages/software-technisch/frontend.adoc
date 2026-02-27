@@ -66,7 +66,7 @@ Diese Vorgehensweise erhöht zunächst die Komplexität, ist jedoch ein bewährt
 
 Die Architekturvariante _Native Federation_ beschreibt eine modularisierte Single Page Application (SPA), bei der fachlich abgegrenzte Anwendungsdomänen (z. B. „Suche“, „Fallbearbeitung“, „Administration“) als eigenständig lieferbare Frontend-Komponenten umgesetzt und zur Laufzeit durch eine zentrale Anwendungskomponente (Shell) integriert werden.
 
-NOTE: Eine Shell-Anwendung ist die zentrale Anwendungskomponente innerhalb einer modularisierten Single Page Application.
+NOTE: Eine https://training.techtalk.at/blog/micro-frontends-mit-modernem-angular[Shell-Anwendung] ist die zentrale Anwendungskomponente innerhalb einer modularisierten Single Page Application.
 Sie stellt den technischen Rahmen der Anwendung bereit und integriert fachliche Frontend-Komponenten zur Laufzeit.
 
 [[native-federation-vs-spa]]
@@ -107,12 +107,12 @@ Konkrete technische Ausprägungen und Detailvorgaben werden in den nachfolgenden
 === Architekturgrundsätze
 
 ==== AG-1: Trennung von Frontend und Backend
-Frontend und Backend SOLLEN als eigenständige IT-Systemtypen mit klar abgegrenzten Verantwortlichkeiten konzipiert und betrieben werden.
+Frontend und Backend MÜSSEN als eigenständige IT-Systemtypen mit klar abgegrenzten Verantwortlichkeiten konzipiert und betrieben werden.
 Diese Trennung SOLL eine unabhängige Entwicklung, den separaten Betrieb sowie eine evolvierbare Weiterentwicklung ermöglichen.
 
 ==== AG-2: Frontend als nicht vertrauenswürdige Komponente
-Der IT-Systemtyp Frontend SOLL grundsätzlich als nicht vertrauenswürdige Komponente betrachtet werden.
-Sicherheits- oder fachkritische Entscheidungen SOLLEN nicht im Frontend getroffen werden, sondern in Backend-Systemen.
+Der IT-Systemtyp Frontend DARF NICHT als vertrauenswürdige Komponente betrachtet werden.
+Sicherheits- oder fachkritische Entscheidungen DÜRFEN NICHT im Frontend getroffen werden, sondern in Backend-Systemen.
 
 ==== AG-3: Standardisierung vor projektspezifischen Sonderlösungen
 Die Gestaltung von Frontends SOLL einheitlichen architektonischen, technologischen und organisatorischen IsyFact-Standards des BVA folgen.
@@ -136,17 +136,17 @@ Ein Backend-for-Frontend (BFF) SOLL als optionale Architekturvariante vorgesehen
 Sicherheits- und Datenschutzanforderungen SOLLEN von Beginn an integraler Bestandteil der Frontend-Architektur sein.
 Personenbezogene Daten SOLLEN auf das notwendige Minimum beschränkt und zweckgebunden verarbeitet werden.
 
-==== AG-9: Kontrollierte Runtime-Integration über Shell
+==== AG-9: Modularisierung nur bei nachgewiesenem Bedarf
+Eine Laufzeit-Modularisierung (z. B. via Native Federation) SOLL nur eingesetzt werden, wenn organisatorische oder fachliche Gründe dies erfordern (z. B. mehrere Teams/Lieferanten, unabhängige Release-Zyklen).
+Andernfalls SOLL eine einfache SPA oder ein modularer Monolith bevorzugt werden.
+
+==== AG-10: Kontrollierte Runtime-Integration über Shell
 Frontends, die aus mehreren unabhängig bereitgestellten Modulen bestehen (Native Federation), SOLLEN über eine zentrale Shell-Anwendung integriert werden.
 Die Shell SOLL ausschließlich Integrations- und Querschnittsaufgaben (z. B. Routing, Authentifizierung, Layout, Fehlerbehandlung) übernehmen; fachliche Logik SOLL in den Fachmodulen verbleiben.
 
-==== AG-10: Verbindliche Integrationsverträge und Versionierung
+==== AG-11: Verbindliche Integrationsverträge und Versionierung
 Bei der Integration unabhängig deployter Frontend-Module über Native Federation MÜSSEN öffentliche Schnittstellen (Contracts) definiert, versioniert und über Deprecation-Regeln gesteuert werden.
 Die produktive Einbindung SOLL versiongebunden erfolgen (keine ungebundenen „Latest“-Referenzen), um Laufzeitinkompatibilitäten zu vermeiden.
-
-==== AG-11: Modularisierung nur bei nachgewiesenem Bedarf
-Eine Laufzeit-Modularisierung (z. B. via Native Federation) SOLL nur eingesetzt werden, wenn organisatorische oder fachliche Gründe dies erfordern (z. B. mehrere Teams/Lieferanten, unabhängige Release-Zyklen).
-Andernfalls SOLL eine einfache SPA oder ein modularer Monolith bevorzugt werden.
 
 === Architekturregeln
 
