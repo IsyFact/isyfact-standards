@@ -157,8 +157,7 @@ Für alle Frontends im Geltungsbereich dieser Referenzarchitektur MUSS der Archi
 
 .icon:university[title=Architekturregel] Verwendung von Native Federation zur Laufzeit-Modularisierung
 ****
-Für alle Frontends im Geltungsbereich dieser Referenzarchitektur, bei denen eine Laufzeit-Modularisierung erforderlich ist (z. B. mehrere Teams/Lieferanten und getrennte Release-Zyklen),
-MUSS Native Federation (ES-Module-basierte Integration über eine Shell-Anwendung) verwendet werden.
+Für alle Frontends im Geltungsbereich dieser Referenzarchitektur, bei denen eine Laufzeit-Modularisierung erforderlich ist (z. B. mehrere Teams/Lieferanten und getrennte Release-Zyklen), MUSS Native Federation (ES-Module-basierte Integration über eine Shell-Anwendung) verwendet werden.
 Bundler- bzw. Webpack-gebundene Federation-Mechanismen (insbesondere Module Federation) DÜRFEN hierfür nicht eingesetzt werden.
 ****
 
