@@ -85,11 +85,11 @@ Native Federation ist sinnvoll, wenn mehrere der folgenden Entscheidungskriterie
 - *Governance- und Architekturvorgaben*: Es bestehen verbindliche Regeln für Schnittstellen, Versionierung, Deprecation und Freigabeprozesse, um die kontrollierte Laufzeitintegration unabhängig bereitgestellter Frontend-Komponenten sicherzustellen.
 Ohne diese Architekturvorgaben besteht das Risiko von Laufzeitinkompatibilitäten und Beeinträchtigungen der Gesamtanwendung.
 Ein minimaler Rahmen umfasst:
-** Definition und Dokumentation von Integrationsschnittstellen
-** Verbindliche Versionierungsregeln (z. B. Semantic Versioning gemäß xref:methodik:versionierung/master.adoc[ISyFact-Versionierungskonzept])
-** Geregelte Deprecation- und Übergangsfristen bei inkompatiblen Änderungen
-** Versionierte Einbindung externer Komponenten (keine ungebundenen „Latest“-Referenzen)
-** Etablierte Freigabe- und Qualitätssicherungsprozesse vor produktiver Integration
+** Definition und Dokumentation von Integrationsschnittstellen,
+** verbindliche Versionierungsregeln (z. B. Semantic Versioning gemäß xref:methodik:versionierung/master.adoc[IsyFact-Versionierungskonzept]),
+** geregelte Deprecation- und Übergangsfristen bei inkompatiblen Änderungen,
+** versionierte Einbindung externer Komponenten (keine ungebundenen „Latest“-Referenzen),
+** etablierte Freigabe- und Qualitätssicherungsprozesse vor produktiver Integration.
 - *Betriebs- und Sicherheitsanforderungen*: Sicherheits- und Supply-Chain-Kontrollen (z. B. kontrollierte Bezugsquellen, Nachvollziehbarkeit von Build-Artefakten) sowie etablierte Verfahren für Protokollierung, Monitoring und Nachvollziehbarkeit sind organisatorisch und technisch umgesetzt.
 - *Testkonzept*: Es existiert ein belastbares Testkonzept mit einer Kombination aus Schnittstellen- (Contract-)Tests und Integrations- bzw. Smoke-Tests, um die Kompatibilität zwischen Shell-Komponente und fachlichen Komponenten kontinuierlich sicherzustellen.
 
