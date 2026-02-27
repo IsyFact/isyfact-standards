@@ -101,7 +101,8 @@ Dieses Kapitel beschreibt die übergreifenden Architekturgrundsätze und -regeln
 
 Die hier formulierten Grundsätze sind verbindlich und dienen als normative Leitplanken für alle neu zu entwickelnden Frontends sowie für relevante Weiterentwicklungen bestehender Anwendungen.
 
-Ziel ist es, eine einheitliche, sichere, wartbare und langfristig evolvierbare Frontend-Landschaft sicherzustellen. Konkrete technische Ausprägungen und Detailvorgaben werden in den nachfolgenden Kapiteln behandelt.
+Ziel ist es, eine einheitliche, sichere, wartbare und langfristig evolvierbare Frontend-Landschaft sicherzustellen. 
+Konkrete technische Ausprägungen und Detailvorgaben werden in den nachfolgenden Kapiteln behandelt.
 
 === Architekturgrundsätze
 
