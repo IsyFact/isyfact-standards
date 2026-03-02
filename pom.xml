@@ -307,7 +307,7 @@
                 <plugin>
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
-                    <version>3.5.11</version>
+                    <version>4.0.3</version>
                     <executions>
                         <execution>
                             <id>build-info</id>
