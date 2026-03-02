@@ -32,7 +32,7 @@ jobs:
     if: (github.event_name == 'push' || github.event_name == 'workflow_dispatch') &&
       (github.ref == 'refs/heads/develop' || startsWith(github.ref, 'refs/heads/release/'))
     needs: [ Version, Maven ]
-    uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_deploy_template.yml@v2.1.1
+    uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_deploy_template.yml@v2.2.1
     with:
       jdk-version: 17
       version: ${{ needs.Version.outputs.next-version }}
