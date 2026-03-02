@@ -1,130 +1,112 @@
-﻿// tag::inhalt[]
+﻿= Vorlage Systementwurf: Inhalt
 
+// tag::inhalt[]
+:note-caption: Vorgehen
+
+== Allgemeine Hinweise zur Dokumentvorlage
+[IMPORTANT]
 ====
-[.underline]#Allgemeine Hinweise zur Dokumentvorlage#
+Dieses Kapitel beschreibt den Zweck der Vorlage zum Systementwurf und gibt allgemeine Hinweise zum Ausfüllen.
 
-*_Zweck dieses Dokuments_*
-
-_Die Dokumentvorlage enthält die Gliederung für einen V-Modell-konformen Gesamtsystementwurf eines Softwaresystems (Software-Entwicklungsprojekt).
-Es legt fest, welche Inhalte für einen Systementwurf eines IsyFact-Systems festgelegt werden sollen._
-
-_Der Systementwurf dient dabei folgenden Zwecken:_
-
-* _Grundlage für die Abstimmung mit dem Auftraggeber.
-Verschiedene Aspekte, wie z. B. die Einbettung in die Gesamtsystemlandschaft, müssen frühzeitig abgestimmt werden._
-
-* _Anleitung der Entwickler, Vorbereitung auf die Implementierung.
-Je nach Vorkenntnissen der SW-Entwickler und der Komplexität der umzusetzenden Fachlichkeit müssen diese Vorgaben angemessen detailliert sein._
-
-_Dieses Dokument dient nicht zur Dokumentation des Systems._
-_Die Systemdokumentation wird separat erstellt, dabei werden Teile dieses Dokuments übernommen._
-
-*_Umfang:_*
-
-_In der Regel wird für jedes IT-System (Geschäftsanwendung) jeweils ein eigenes Dokument Systementwurf angelegt.
-Es gibt jedoch auch IT-Systeme die alleinstehend keine sinnvolle Funktion erbringen können.
-Dafür kann ein gemeinsamer Systementwurf in einem Dokument erstellt werden._
-
-_Beispiel:_
-
-_Für ein neues Verfahren sind eine Geschäftsanwendung und ein Service-Gateway zu erstellen.
-Das Service-Gateway stellt die Services der Geschäftsanwendung bereit.
-Weiterhin wird ein Native-Client benötigt, welcher ebenfalls die Geschäftsanwendung aufruft.
-Für diesen Fall werden Geschäftsanwendung, Native-Client und Service-Gateway als Teilsysteme in einem gemeinsamen Systementwurf beschrieben._
-
-*_Nutzung:_*
-
-_Sukzessive sollen Ausfüllhinweise und Beispiele in den jeweiligen Kapiteln ergänzt werden.
-Die Hinweise und Beispiele sind mit einem Rahmen markiert und später zu entfernen._
-
-_Für die Abstimmungskapitel sind die Inhalte und deren Detailtiefe vorgegeben, für die Anleitung der SW-Entwickler entscheidet der für dieses Dokument verantwortliche Systemarchitekt (Chefdesigner) dabei selber über die Detailtiefe und die konkreten Inhalte._
-
-*_Generelles zur Beschreibung einer Architektur:_*
-
-Eine Architektur wird immer Top-down erklärt:
-
-* _Zunächst wird gezeigt, wie sich das neue System in die gesamte technische Anwendungslandschaft einfügt.
-Kapitel: <<einbettung-in-anwendungslandschaft, Systemüberblick/Einbettung in die Anwendungslandschaft>>._
-* _Danach wird das System detailliert, indem gezeigt wird, wie die Teilsysteme des neuen Systems zusammen arbeiten.
-Kapitel: <<gesamtsystem-systemueberblick, Systemarchitektur des Gesamtsystems/Systemüberblick>>._
-* _Dann wird jedes Teilsystem einzeln beschrieben.
-Zunächst werden die Komponenten des Systems und ihr Zusammenspiel erklärt, dann wieder die einzelnen Komponenten selbst.
-Diese schrittweise Vertiefung setzt sich bis zum benötigten Detaillierungsgrad fort._
-
-_Schnittstellen eines Systems werden immer in der Dokumentation und dem Systementwurf des Implementierers beschrieben.
-Beim Aufruf einer Schnittstelle eines anderen Systems wird lediglich beschrieben, wie die konkrete Nutzung aussieht, also z. B. wie die internen Daten des Systems auf die Daten der Schnittstelle abgebildet werden._
-
-_Generell muss in diesem Dokument nichts erklärt und beschrieben werden, was schon in anderen Dokumenten, insbesondere in den Detailkonstruktionen und Vorgaben der Referenzarchitektur enthalten ist._
-
-*_Werkzeugunterstützung bei der Erstellung von UML-Modellen_*
-
-_Für die Erstellung der UML- Modelle, die in diesem Dokument als Beispiele aufgeführt sind, wurde das Werkzeug „Enterprise Architect“ der Firma SparxSystems verwendet._
-
-_Anstelle des Enterprise Architect kann auch jedes andere Modellierungswerkzeug eingesetzt werden, dass den Sprachumfang von UML in hinreichender Breite abdeckt._
-
-*_Systemdokumentation_*
-
-_Aus dem Systementwurf entsteht die Systemdokumentation.
-Die Systemdokumentation erklärt die Zusammenhänge eines Systems und dient als Einstiegspunkt, um den Code zu verstehen und damit Warten und Weiterentwickeln zu können._
-
-_Generell werden daher zum Zweck der Dokumentation alle Details und Konstruktionshinweise gelöscht, die nur dazu dienten, die Softwareentwickler bei der Programmierung des Systems anzuleiten.
-In der Systemdokumentation verbleiben alle Teile, die eine Übersicht über die Software beinhalten._
-
-_In den Kapiteln ist damit folgendes zu modifizieren:_
-
-* *_Kapitel 1_*: _Anpassen, da sich der Zweck der Systemdokumentation vom dem eines Systementwurfs unterscheidet._
-
-* *_Kapitel 2_*: _Belassen._
-
-* *_Kapitel 3_*: _Verringern der Tiefe der Beschreibung in den Kapiteln zur Architektur der Teilsysteme und Querschnittskonzepte.
-Entfernen des Abschnitts zu Anforderungen._
-
-* *_Kapitel 4_*: _Die Anpassung dieses Kapitels liegt im Ermessen des Chefdesigners._
-
-* *_Kapitel 5_*: _Dieses Kapitel ist in der Regel lediglich eine Referenz.
-Die Anpassung dieses Kapitels liegt im Ermessen des Chefdesigners._
+*Es ist vor der Veröffentlichung des Systementwurfs zu entfernen!*
 ====
+
+=== Zweck
+
+Die Dokumentvorlage enthält die Gliederung für einen V-Modell-konformen Gesamtsystementwurf eines Softwaresystems (Software-Entwicklungsprojekt).
+Es legt fest, welche Inhalte für einen Systementwurf einer gemäß IsyFact entwickelten Anwendung festgelegt werden sollen.
+
+Der Systementwurf dient dabei mehreren Zwecken:
+
+Grundlage für die Abstimmung mit dem Auftraggeber::
+Verschiedene Aspekte, wie zum Beispiel die Einbettung in die Anwendungslandschaft, müssen frühzeitig abgestimmt werden.
+
+Anleitung der Entwicklung, Vorbereitung auf die Implementierung::
+Je nach Vorkenntnissen der SW-Entwickler und der Komplexität den umzusetzenden fachlichen Anforderungen müssen diese Vorgaben angemessen detailliert sein.
+
+=== Umfang
+
+In der Regel wird für jede Anwendung jeweils ein eigener Systementwurf angelegt.
+Für einzelne IT-Systeme der Anwendung kann ein eigener Systementwurf angelegt werden, falls für die IT-Systeme grundsätzlich andere Vorgaben oder Architekturentscheidungen vorliegen, und ein gemeinsamer Systementwurf daher zu unübersichtlich wäre.
+
+=== Nutzung
+
+Sukzessive sollen Ausfüllhinweise und Beispiele in den jeweiligen Kapiteln ergänzt werden.
+Vorgehen, Beispiele und Hinweise sind mit einem Rahmen markiert und später zu entfernen.
+
+==== Beschreibung der Software-Architektur
+
+Der Systementwurf folgt dem Ansatz "top-down":
+
+* Zunächst zeigt er, wie sich die Anwendung in die Anwendungslandschaft einfügt. +
+Kapitel: <<einbettung-in-anwendungslandschaft>>
+* Danach stellt er die Zerlegung der Anwendung in IT-Systeme dar und beschreibt, wie die IT-Systeme zusammenarbeiten. +
+Kapitel: <<gesamtsystem-systemueberblick>>
+* Danach beschreibt er die IT-Systeme.
+Zunächst werden die Komponenten des IT-Systems (Schichten bzw. Fachkomponenten) und ihr Zusammenspiel erklärt, dann wieder die Fachkomponente selbst.
+Diese schrittweise Vertiefung setzt sich bis zum benötigten Detaillierungsgrad fort.
+
+Schnittstellen eines Systems werden immer in der Dokumentation und dem Systementwurf des Implementierers beschrieben.
+Beim Aufruf einer Schnittstelle eines anderen Systems wird lediglich beschrieben, wie die konkrete Nutzung aussieht, also z. B. wie die internen Daten des Systems auf die Daten der Schnittstelle abgebildet werden.
+
+Generell muss in diesem Dokument nichts erklärt und beschrieben werden, was schon an anderer Stelle, insbesondere in der Referenzarchitektur, den Bausteinen und der Methodik der IsyFact, enthalten ist.
+
+==== Werkzeugunterstützung bei der Erstellung von UML-Modellen
+
+Für die Erstellung der UML-Modelle, die in diesem Dokument als Beispiele aufgeführt sind, sind die Empfehlungen der IsyFact zu beachten.
+Die IsyFact empfiehlt die Werkzeuge "diagrams.net/draw.io" sowie "Enterprise Architect".
+
+=== Systemdokumentation
+
+Aus dem Systementwurf entsteht die Systemdokumentation.
+Die Systemdokumentation erklärt die Zusammenhänge eines Systems und dient als Einstiegspunkt, um den Code zu verstehen und damit warten und weiterentwickeln zu können.
+
+Generell werden daher zum Zweck der Dokumentation alle Details und Konstruktionshinweise gelöscht, die nur dazu dienten, die Softwareentwickler bei der Programmierung des Systems anzuleiten.
+In der Systemdokumentation verbleiben alle Teile, die eine Übersicht über die Software beinhalten.
+
+In den Kapiteln ist damit folgendes zu modifizieren:
+
+* *<<einleitung>>*: Anpassen, da sich der Zweck der Systemdokumentation von dem eines Systementwurfs unterscheidet.
+* *<<fachlicher-ueberblick>>*: Belassen.
+* *<<softwarearchitektur-bsp-ga>>*: Verringern der Tiefe der Beschreibung in den Kapiteln zur Architektur der IT-Systeme und Querschnittskonzepte.
+Entfernen des Abschnitts zu Anforderungen.
+* *<<systementwicklung>>*: Die Anpassung dieses Kapitels liegt im Ermessen des jeweiligen Autors.
+* *<<betrieb>>*: Dieses Kapitel ist in der Regel lediglich eine Referenz.
+Die Anpassung dieses Kapitels liegt im Ermessen des jeweiligen Autors.
 
 [[einleitung]]
 == Einleitung
 
+[NOTE]
 ====
-[.lead]
-[.underline]#Vorgehen für die Erstellung des Systementwurfsdokuments#
+Der Systementwurf enthält alle Informationen, welche für die an der Erstellung der Software beteiligten Parteien (Betrieb, Netzwerk-Administration, Auftraggeber, Entwickler) benötigt werden.
+Er behandelt eine Vielzahl unterschiedlicher Themenbereiche.
 
-_Das Systementwurfsdokument enthält alle Informationen, welche für die an der Erstellung der Software beteiligten Parteien (Betrieb, Netzwerk-Administration, Auftraggeber, Entwickler, Beschaffung) benötigt werden.
-Es behandelt eine Vielzahl unterschiedlicher Themenbereiche._
+Der Detaillierungsgrad, in welchem die Themenbereiche beschrieben werden, ist nicht für alle Systementwürfe gleich: Er hängt von der Art und Komplexität der Problematik und der Erfahrung des Zielpublikums ab.
+In diesem Dokument werden deshalb beispielsweise keine Vorgaben für den Umfang und die Art der Beschreibung von Anwendungslogik jenseits der Anwendungsfall-Klassen aufgestellt.
 
-_Der Detaillierungsgrad, in welchem die Themenbereiche beschrieben werden, ist nicht für alle Systementwürfe gleich: Er hängt von der Art und Komplexität der Problematik und der Erfahrung des Zielpublikums ab.
-In diesem Dokument werden deshalb beispielsweise keine Vorgaben für den Umfang und die Art der Beschreibung von Anwendungslogik jenseits der Anwendungsfall-Klassen aufgestellt._
+*Systementwürfe sollen grundsätzlich mit der vorliegenden Vorlage und im Einklang zu den beschriebenen Vorgaben und Ausfüllhinweisen erstellt werden.*
 
-_Auf Grund der obigen Punkte wurde entschieden, das Systementwurfsdokument manuell zu erstellen.
 Es wurde entschieden, die Teile im Enterprise Architect zu modellieren, bei welchen eine Modellierung im Enterprise Architect möglich und sinnvoll ist.
-Welche Teile dies sind, wird im vorliegenden Dokument definiert._
-
-*_Vorgaben für die Konstruktion_*
-
-_Systementwurf-Dokumente sollen grundsätzlich mit der vorliegenden Vorlage und im Einklang zu den beschriebenen Vorgaben und Ausfüllhinweisen erstellt werden._
+Welche Teile dies sind, wird im vorliegenden Dokument definiert.
 
 *_Modellierung im Enterprise Architect_*
 
-_Der Enterprise Architect (oder ein entsprechendes anderes UML-Modellierungswerkzeug) wird für die Modellierung folgender Themenbereiche eingesetzt:_
+Der Enterprise Architect (oder ein entsprechendes anderes UML-Modellierungswerkzeug) wird für die Modellierung folgender Themenbereiche eingesetzt:
 
-* _TI-Architektur des Systems_
-* _T-Architektur des Systems_
-* _Datenmodell_
-* _Querschnittskonzepte_
-* _Erläuterungen von Lösungsansätzen._
+* TI-Architektur des Systems,
+* T-Architektur des Systems,
+* Datenmodell,
+* Querschnittskonzepte,
+* Erläuterungen von Lösungsansätzen.
 
-_Für die obigen Themenbereiche sind jeweils unterschiedliche Diagramme zu erzeugen.
+Für die obigen Themenbereiche sind jeweils unterschiedliche Diagramme zu erzeugen.
 Neben den Diagrammen sind vor allem die konkreten Komponenten mit ihren Interfaces, Klassen und Tabellen ein wichtiges Ergebnis der Modellierung im Enterprise Architect.
-Die Anforderungen an die konkrete Ausgestaltung der Diagramme werden im Rahmen dieser Vorlage in den jeweiligen Kapiteln detailliert._
+Die Anforderungen an die konkrete Ausgestaltung der Diagramme werden im Rahmen dieser Vorlage in den jeweiligen Kapiteln detailliert.
 
-_Die Paketstruktur des Enterprise Architect Modells orientiert sich sowohl an der Benamung als auch an der Hierarchie der Verzeichnisstruktur des Systementwurfs.
+Die Paketstruktur des Enterprise Architect Modells orientiert sich sowohl an der Benennung als auch an der Hierarchie der Verzeichnisstruktur des Systementwurfs.
 So wird die Einheitlichkeit der EA-Modelle für unterschiedliche Projekte erhöht und das Auffinden benötigter Diagramme erleichtert.
-Das folgende Listing zeigt beispielhaft ein EA-Modell._
-====
-
+Das folgende Listing zeigt beispielhaft ein EA-Modell.
 
 [[paketstruktur-enterprise-architect-modell]]
 .Paketstruktur eines Enterprise Architect Modells
@@ -155,37 +137,38 @@ Das folgende Listing zeigt beispielhaft ein EA-Modell._
       📂 Nachbarsystemschnittstellen
 ----
 
+====
 
 [[zusammenfassung]]
 === Zusammenfassung
 
+[NOTE]
 ====
-_Kurze Zusammenfassung._
-_Was ist der Hintergrund dieses Systems?_
+Dieser Abschnitt beinhaltet eine knappe Zusammenfassung der Anwendung:
 
-_Wozu dient dieses System?_
+* Was ist ihr Hintergrund?
+* Wozu dient sie?
 
-
-
-_Gegebenenfalls kann die Zusammenfassung aus der Systemspezifikation übernommen werden._
+Der Abschnitt kann auf die Zusammenfassung der Systemspezifikation verweisen.
 ====
 
 [[ziel-dokuments]]
 === Ziel des Dokuments
 
-Dieses Dokument dient folgenden Zwecken:
+Der Systementwurf dient folgenden Zwecken:
 
-* Es ist die Grundlage zur Abstimmung zwischen dem Projektmanagement, der Softwareentwicklung des Auftraggebers/–nehmers und dem Systembetrieb.
-* Es dient als Vorgabe und zur Anleitung für die SW-Entwickler.
-* Es ist Grundlage für die Erstellung und frühzeitige Abstimmung des IT-Sicherheitskonzeptes (siehe: hier ggf. einen Link setzen).
+* Er ist die Grundlage zur Abstimmung zwischen dem Projektmanagement, der Softwareentwicklung des Auftraggebers/–nehmers und dem Systembetrieb.
+* Er dient als Vorgabe und zur Anleitung für die Entwicklung.
+* Er ist Grundlage für die Erstellung und frühzeitige Abstimmung weiterer Dokumente (zum Beispiel des Sicherheitskonzepts nach IT-Grundschutz).
 
-[[leseanleitung]]
-=== Leseanleitung
+[[zielgruppen]]
+=== Zielgruppen
 
+[NOTE]
 ====
-_An wen richtet sich das Dokument? Z.B. Entwickler, Betrieb, …_
+Dieser Abschnitt beinhaltet eine Auflistung derjenigen, an die sich der Systementwurf richtet: Entwicklung, Betrieb, ...
 
-_Für welche Zielgruppe sind welche Kapitel hauptsächlich interessant?_
+Für welche Zielgruppe sind welche Kapitel hauptsächlich interessant?
 ====
 
 [[bezug-zum-v-modell-xt]]
@@ -193,96 +176,204 @@ _Für welche Zielgruppe sind welche Kapitel hauptsächlich interessant?_
 
 Dieses Dokument ist eine Adaption (Tailoring) der Vorgaben des V-Modells auf die Entwicklung mit der IsyFact.
 Der Systementwurf kann nach V-Modell® allgemein verschiedene Produkte umfassen.
-Bei der Nutzung der IsyFact sind einige dieser Produkte bereits vollständig oder in großen Teilen vorgegeben, so dass sie in diesem Dokument nicht mehr beschrieben werden müssen.
+Bei der Nutzung der IsyFact sind einige dieser Produkte bereits vollständig oder in großen Teilen vorgegeben, sodass sie in diesem Dokument nicht mehr beschrieben werden müssen.
 
-Generell sind grundsätzliche Architekturprinzipien und Entwurfsalternativen bereits im Rahmen der Erstellung der IsyFactReferenzarchitektur diskutiert worden und müssen daher in diesem Dokument nicht wiederholt werden.
+Generell sind grundsätzliche Architekturprinzipien und Entwurfsalternativen bereits im Rahmen der Erstellung der IsyFact-Referenzarchitektur diskutiert worden und müssen daher in diesem Dokument nicht wiederholt werden.
 Gleiches gilt für die Absicherung des Designs.
 
 Im Folgenden sind die Produkte eines Systementwurfs gemäß V-Modell® XT aufgeführt und kommentiert.
 
-* *Systemarchitektur:* Die grundsätzliche Systemarchitektur ist durch die Referenzarchitektur vorgegeben.
-In diesem Dokument wird beschrieben, wie diese Referenzarchitektur instanziiert wird.
-+
-** Die Dekomposition des Systems ist im Kapitel <<systemarchitektur-gesamtsystems>> beschrieben.
-+
-** Querschnittliche Systemeigenschaften sind bereits im Rahmen der IsyFact-Referenzarchitektur betrachtet worden und werden nicht wiederholt.
-Sollte eine Verfeinerung oder spezifische Ergänzung der Referenzarchitektur notwendig sein, erfolgt dies im Kapitel <<querschnittskonzepte>>.
-+
-** Die Schnittstellenübersicht des Systems erfolgt der Übersichtlichkeit halber auf zwei Abstraktionsebenen: auf Ebene der Gesamtanwendungslandschaft erfolgt dies im Kapitel <<einbettung-in-anwendungslandschaft,Systemüberblick/Einbettung in die Anwendungslandschaft>>.
-Die konkreten Schnittstellen des Systems und ggf. von Teilsystemen sind im Kapitel <<systemarchitektur-gesamtsystems, Systemarchitektur des Gesamtsystems/Systemüberblick>> beschrieben.
-Die Details zur Implementierung und Dateninhalten der Schnittstellen finden sich in der Konstruktion der jeweiligen Services unter <<service, Architektur des Teilsystems A/Service>>.
-+
-** Die zu spezifizierenden Systemelemente sind der Gegenstand von Kapitel <<systemarchitektur-gesamtsystems>>, insbesondere in den Kapiteln <<architektur-teilsystems-a, Architektur des Teilsystems (ff.)>>.
+==== Systemarchitektur
 
-* *Unterstützungs-Systemarchitektur:* Unterstützungssysteme sind in der Regel durch die IsyFact vorgegeben.
+Die grundsätzliche Systemarchitektur ist durch die Referenzarchitektur vorgegeben.
+In diesem Dokument wird beschrieben, wie diese Referenzarchitektur instanziiert wird.
+
+* Die Dekomposition des Systems ist im Kapitel <<softwarearchitektur-bsp-ga>> beschrieben.
+* Querschnittliche Systemeigenschaften sind bereits im Rahmen der IsyFact-Referenzarchitektur betrachtet worden und werden nicht wiederholt.
+Sollte eine Verfeinerung oder spezifische Ergänzung der Referenzarchitektur notwendig sein, erfolgt dies im Kapitel <<querschnittskonzepte>>.
+* Die Schnittstellenübersicht des Systems erfolgt der Übersichtlichkeit halber auf zwei Abstraktionsebenen: auf Ebene der Gesamtanwendungslandschaft erfolgt dies im Kapitel <<einbettung-in-anwendungslandschaft,Systemüberblick/Einbettung in die Anwendungslandschaft>>.
+Die konkreten Schnittstellen des Systems und ggf. von Teilsystemen sind im Kapitel <<softwarearchitektur-bsp-ga>> beschrieben.
+Details zur Implementierung und Dateninhalten der Schnittstellen finden sich in der Konstruktion der jeweiligen <<serviceschicht,Backend-Services>>.
+* Die zu spezifizierenden Systemelemente sind der Gegenstand der Kapitel <<BSP-1u2-GK>> und folgende.
+
+==== Unterstützungs-Systemarchitektur
+Unterstützungssysteme sind in der Regel durch die IsyFact vorgegeben.
 Sollte es trotzdem nötig sein, ein neues Unterstützungssystem zu konstruieren, erfolgt dies in einem eigenen Dokument nach dieser Vorlage.
 
-* *Mensch-Maschine-Schnittstelle (Styleguide):* Ein Styleguide ist durch die IsyFact nicht vorgegeben.
-Es wird jedoch vorausgesetzt, dass ein solcher Styleguide für die Organisation, die die IsyFact einsetzt, bereits vorhanden ist und verwendet werden kann.
+==== Mensch-Maschine-Schnittstelle (Styleguide)
+Ein Styleguide ist durch die IsyFact nicht vorgegeben, jedoch ein Bedienkonzept.
+Es wird vorausgesetzt, dass ein solcher Styleguide für die Organisation, die die IsyFact einsetzt, bereits vorhanden ist und verwendet werden kann.
 
-* *HW-Architektur:* Die HW-Architektur ist als Referenzarchitektur bereits vorgegeben.
+==== HW-Architektur
+Die HW-Architektur ist als Referenzarchitektur bereits vorgegeben.
 Die konkrete HW-Architektur für das System befindet sich im Kapitel <<ti-architektur>>.
 
-* *SW-Architektur:* Die SW-Architektur ist in den Grundlagen durch die IsyFact Referenzarchitektur vorgegeben.
-Die Instanziierung dieser Architektur befindet sich in Abschnitt <<architektur-teilsystems-a, Architektur des Teilsystems A (ff.)>>.
+==== SW-Architektur
+Die SW-Architektur ist in den Grundlagen durch die IsyFact-Referenzarchitektur vorgegeben.
+Die Instanziierung dieser Architektur befindet sich in der Beschreibung der <<softwarearchitektur-bsp-ga>>.
 
-* *Datenbankentwurf*: Der Datenbankentwurf findet sich unter <<datenmodell>>.
+==== Datenbankentwurf
+Der Datenbankentwurf findet sich unter <<datenmodell>>.
 
-* *Implementierungs-, Integrations- und Prüfkonzepte für System, Unterstützungssystem, HW und SW:* Die Prozesse sind im Rahmen der IsyFact bzw. im Gesamtprojektrahmen vorgegeben und werden hier nicht wiederholt.
+==== Implementierungs-, Integrations- und Prüfkonzepte für System, Unterstützungssystem, HW und SW
+Die Prozesse sind im Rahmen der IsyFact bzw. im Gesamtprojektrahmen vorgegeben und werden hier nicht wiederholt.
 
-* *Migrationskonzept:* Für Migrationsszenarien wird ein eigenes Konzept erstellt.
+==== Migrationskonzept
+Für Migrationsszenarien wird ein eigenes Konzept erstellt.
 Dieses Dokument macht keine Aussagen zu einer Migration.
 
-[[systemueberblick]]
-== Systemüberblick
+[[fachlicher-ueberblick]]
+== Fachlicher Überblick
 
-[[systemabgrenzung-scope]]
-=== Systemabgrenzung (Scope)
+[[abgrenzung-scope]]
+=== Abgrenzung (Scope)
 
+[NOTE]
 ====
-_Was sind die Aufgaben des Systems, was nicht?
-Nur ein kurzer Abriss._
-
-_Z.B.: „Verwalten der Daten der Domäne X, keine Bereitstellung der Oberfläche, das erfolgt durch das System Y.“_
+Knapper Text darüber, was die Aufgaben der Anwendung sind, und was nicht.
 ====
 
 [[einbettung-in-anwendungslandschaft]]
 === Einbettung in die Anwendungslandschaft
+
+[NOTE]
 ====
-_Wie fügt sich das neue IT-System in die Anwendungslandschaft ein?_
-
-_An dieser Stelle einfügen: Ein Bild der Anwendungslandschaft gemäß Ist- bzw. Referenzarchitektur mit hervorgehobenem neuem System._
-
-_In jedem Systementwurf soll hier der Bezug zur Referenzarchitektur hergestellt werden.
-Folgende Inhalte sind aufzunehmen:_
-
-* _Benennung der Teile/Komponenten der Referenzarchitektur, die im Rahmen des Projektes/der Systementwicklung entwickelt werden („Was ist der Beitrag des Projekts zur Referenzarchitektur?“)_
-
-* _Aussagen zur Konformität der Bestandteile / Komponenten des neuen Systems mit der IsyFact-Referenzarchitektur und anderen Vorgaben (z.B. Standard Kataloge für Produkte).
-Insbesondere: Welche Komponenten sind nicht konform zur Referenzarchitektur und warum nicht?_
-
-_Zur Einordnung in die Systemlandschaft kann eine Abbildung ähnlich der folgenden verwendet werden.
-Für konkrete Entwürfe muss die Grafik durch eine nicht anonymisierte aktuelle Version der zugehörigen Systemlandschaft ersetzt werden._
+Dieser Abschnitt beschreibt, wie sich die zu entwickelnde Anwendung (im Beispiel: BSP-GA) in die Anwendungslandschaft einfügt.
+Dies wird in der Regel durch ein UML-Diagramm der Anwendungslandschaft dargestellt, in der die Anwendung hervorgehoben ist.
 ====
 
-:desc-image-einbettung-anwendung: Einbettung von <Anwendung (roten Rahmen platzieren)> in die Systemlandschaft.
+IMPORTANT: Das UML-Diagramm der Anwendungslandschaft sollte so abstrahiert sein, dass es nicht oft Änderungen von außen unterworfen ist.
+Ein solches Diagramm veraltet sehr schnell und macht häufige Änderungen am Entwurf nötig, ohne dass die Anwendung selbst sich ändert.
 
+:desc-image-einbettung-anwendung: Einbettung der BSP-GA in die Anwendungslandschaft
 [id="image-einbettung-anwendung", reftext = "{figure-caption} {counter:figures}"]
 .{desc-image-einbettung-anwendung}
-image::vorlage-systementwurf/einbettung-anwendung.png[align = center, title-align=center]
+image::vorlage-systementwurf/einbettung-anwendung.dn.png[]
 
-[[randbedingungen-annahmen]]
-=== Randbedingungen und Annahmen
+TIP: Anwendungen, mit denen die zu entwickelnde Anwendung (im Beispiel: BSP-GA) nicht kommuniziert, sollten nicht dargestellt werden.
+Die Domänen, die sich selten ändern, können hingegen umrissen werden.
 
+
+[[randbedingungen-annahmen-fachlich]]
+=== Fachliche Randbedingungen und Annahmen
+
+[NOTE]
 ====
-_Verweis auf die Randbedingungen und Annahmen in der Systemspezifikation._
+Dieser Abschnitt verweist auf die Randbedingungen und Annahmen in der Systemspezifikation.
+====
+Fachliche Randbedingungen und Annahmen sind in der Systemspezifikation erreichbar unter (Verweis/URL) beschrieben.
 
-_Ausführliche Beschreibung von zusätzlichen Randbedingungen und Annahmen, die für den Systementwurf relevant sind._
+[[funktionale-anforderungen]]
+=== Funktionale Anforderungen
+
+[NOTE]
+====
+Referenz auf die Quelle der Anforderungen (Anforderungsliste, Systemspezifikation, Ticketsystem, ...)
+====
+Die funktionalen Anforderungen sind in der (Quelle) erreichbar unter (Verweis/URL) beschrieben.
+
+[[nichtfunktionale-anforderungen]]
+=== Nichtfunktionale Anforderungen
+
+[NOTE]
+====
+Referenz auf die Quelle der Anforderungen (Anforderungsliste, Systemspezifikation, Ticketsystem, ...)
+====
+Die nichtfunktionalen Anforderungen sind in der (Quelle) erreichbar unter (Verweis/URL) beschrieben.
+
+[[softwarearchitektur-bsp-ga]]
+== SW-Architektur BSP-GA
+
+[NOTE]
+====
+Dieses Kapitel stellt den Überblick über die technische Umsetzung der Geschäftsanwendung dar.
+Es beschreibt außerdem die Aspekte, die für mehrere der IT-Systeme gelten, in welche die Geschäftsanwendung zerlegt wird.
+Das können Verfahren, Festlegungen oder die Beschreibung gemeinsam genutzter Komponenten sein.
+In der Regel zerlegt sich eine Geschäftsanwendung in:
+
+* mindestens ein Backend,
+* ein Frontend (beim Vorhandensein einer grafischen Oberfläche),
+* Batches,
+* Gateways, falls externe Zugriffe nötig sind.
+
+Festlegungen, die bereits in übergeordneten Dokumenten der IsyFact oder der Organisation (z.B. IsyFact-Referenzarchitektur, Sicherheitsrichtlinie der Organisation, ...) enthalten sind, werden referenziert.
+*Abweichungen hiervon sind zu begründen!*
+====
+
+[[gesamtsystem-systemueberblick]]
+=== Systemüberblick
+
+[NOTE]
+====
+Der Systemüberblick beschreibt, in welche IT-Systeme die Geschäftsanwendung zerlegt wird, und von welchem IT-Systemtyp diese sind.
+Die Referenzarchitektur der IsyFact definiert die IT-Systemtypen Backend, Frontend, Batch und Gateway.
+Dieses Kapitel ist die nächste Stufe der Konkretisierung nach der <<einbettung-in-anwendungslandschaft>>.
+
+Das Kapitel besteht aus einem UML-Diagramm, das darstellt, aus welchen IT-Systemen die Geschäftsanwendung besteht, wie diese sich gegenseitig aufrufen und welche Nachbarsysteme aufgerufen werden.
+Zur besseren Orientierung sind der Farbcode und das Layout der Referenzarchitektur zu beachten.
+Für die Schnittstellen und Services soll ein geeigneter Abstraktionsgrad gewählt werden.
+Übersichtlichkeit steht klar über der Beschreibung von Details!
+
+Das UML-Diagramm beschreibt ein begleitender Text, der sich folgender Fragen annimmt:
+
+* Was sind die Aufgaben der einzelnen IT-Systeme?
+Welche Funktionalität bieten sie an?
+* Wie sieht das Zusammenspiel der IT-Systeme aus, um die Gesamtaufgabe des Systems zu erfüllen?
+Wie sieht die Aufgabenverteilung aus?
+
+Die folgende <<image-teilsysteme>> basiert auf der Beispielzerlegung der Referenzarchitektur.
+Es zeigt nicht nur die Zerlegung, sondern schafft auch den Rückbezug auf die Systemspezifikation.
+Wenn dies der Übersicht nicht dienlich ist, kann der Rückbezug auch textuell oder tabellarisch hergestellt werden.
+
+:desc-image-teilsysteme: Zerlegung der BSP-GA in IT-Systeme
+[id="image-teilsysteme", reftext = "{figure-caption} {counter:figures}"]
+.{desc-image-teilsysteme}
+image::vorlage-systementwurf/ueberblick.dn.png[]
+
+Im begleitenden Text wären die Aufrufbeziehungen der IT-Systeme untereinander knapp zu erläutern.
+Ebenso wäre zu beschreiben, wieso die Verbindung zum IAM-Service von der fachlichen Klammer der Anwendung ausgeht. 
+In diesem Beispiel soll dies verdeutlichen, dass alle enthaltenen IT-Systeme den IAM-Service aufrufen.
+====
+
+[[randbedingungen-annahmen-technisch]]
+=== Technische Randbedingungen und Annahmen
+
+[NOTE]
+====
+Dieser Abschnitt beschreibt technische Randbedingungen und Annahmen, die für den Systementwurf relevant sind, ausführlich.
+
+*Annahmen* sind Aussagen, deren Gültigkeit für möglich gehalten wird, die aber nicht bewiesen oder verifiziert sind.
+Annahmen benötigen immer eine Begründung (das heißt: "Warum nehmen wir das an?") und sollten während des Vorhabens periodisch überprüft werden.
+
+*Randbedingungen* (auch als Rahmenbedingungen bezeichnet) sind Umstände, die nur mit großem Aufwand oder gar nicht beeinflussbar sind oder sich aus der Problemstellung zwingend ergeben, und daher als gegeben betrachtet werden.
+====
+
+
+[[nichtfunktionale-anforderungen-architektur]]
+=== Nichtfunktionale Anforderungen
+
+[NOTE]
+====
+Architekturrelevante nichtfunktionale Anforderungen konkretisieren in der Regel die Qualitätsziele der Anwendung.
+Sie machen diese Qualitätsziele messbar und durch Tests überprüfbar.
+
+Die Strukturierung dieses Kapitels sollte sich an den Qualitätskriterien der ISO 25010 orientieren:
+
+* Funktionale Eignung,
+* Sicherheit,
+* Effizienz,
+* Zuverlässigkeit,
+* Benutzbarkeit,
+* Wartbarkeit,
+* Kompatibilität,
+* Übertragbarkeit.
+
 ====
 
 [[konformitaet-zur-referenzarchitektur]]
 === Konformität zur Referenzarchitektur
 
+[NOTE]
 ====
 _In diesem Kapitel wird die Konformität des Systems zur Referenzarchitektur bestätigt und auf eventuell vorhandene Erweiterungen, Abweichungen und abweichende Versionen verwiesen.
 Eine Übersicht über die Software-Artefakte der IsyFact findet sich in <<table-verwendete-elemente-isyfact-standards-erweiterungen>>._
@@ -308,9 +399,8 @@ Die Spalte "Version" enthält die abweichende Version des Elements._
 _In den letzten drei Fällen (Erweiterung, Abweichung sowie abweichende Versionen) sind im folgenden Kapitel, <<abweichungen-und-erweiterungen-zur-referenzarchitektur>>, Architekturentscheidungen in Form von ADRs zu dokumentieren und in Form von Verweisen auf die ADRs in der Spalte "Referenzen" der jeweiligen Elemente aufzuführen._
 ====
 
-Das IT-System <System> wird konform zur Referenzarchitektur der IsyFact umgesetzt.
-Die folgende Tabelle führt die vom IT-System verwendeten Elemente der IsyFact auf.
-
+Das Anwendung BSP-GA wird konform zur Referenzarchitektur der IsyFact umgesetzt.
+Die folgende Tabelle führt die verwendeten Elemente der IsyFact auf.
 
 :desc-table-verwendete-elemente-isyfact-standards-erweiterungen: Verwendete Elemente der IsyFact (Standards und Erweiterungen)
 [id="table-verwendete-elemente-isyfact-standards-erweiterungen", reftext = "{table-caption} {counter:tables}"]
@@ -318,46 +408,46 @@ Die folgende Tabelle führt die vom IT-System verwendeten Elemente der IsyFact a
 [cols="4,2,2,3", options="header"]
 |===
 |Thema |Status |Version |Referenzen
-4+|*Allgemein*  {set:cellbgcolor:#D9D9D9}
-| {set:cellbgcolor} IsyFact-Referenzarchitektur |berücksichtigt |5.0 |
-4+|*Referenzarchitektur* {set:cellbgcolor:#D9D9D9}
-|Anwendungskern {set:cellbgcolor}|berücksichtigt |_Standard_ |
+4+h|Allgemein
+|IsyFact |berücksichtigt |{page-component-version} |
+4+h|Referenzarchitektur
+|Backend | berücksichtigt |_Standard_ |
 |Batch |berücksichtigt |_Standard_ |
-|Persistenz |berücksichtigt |_Standard_ |
-|Service |berücksichtigt |_Standard_ |
-|Interne Servicekommunikation |berücksichtigt |_Standard_ |
-4+|*Bausteine (Standard)*  {set:cellbgcolor:#D9D9D9}
-| {set:cellbgcolor} Fehlerbehandlung |berücksichtigt |_Standard_ |
+|Frontend |berücksichtigt |_Standard_ |
+|Gateway |berücksichtigt |_Standard_ |
+|Kommunikation |berücksichtigt |_Standard_ |
+4+h|Bausteine (IsyFact-Standards)
+|Datum & Zeit |berücksichtigt |... |
+|Fehlerbehandlung |berücksichtigt |_Standard_ |
 |Logging |berücksichtigt |_Standard_ |
-|Sicherheitskomponente |Abweichungen |_Standard_ | <<adr-gesamtsystem-1>>
-|Überwachung und Konfiguration |berücksichtigt |_Standard_ |
-4+|*Bausteine (Erweiterungen)* {set:cellbgcolor:#D9D9D9}
-| {set:cellbgcolor}  Alphanumerisches Suchverfahren |berücksichtigt |_Standard_ |
-|Behördenverzeichnis |berücksichtigt |_Standard_ |
-|Benutzerverzeichnis |berücksichtigt |_Standard_ |
-|Bildbearbeitung |berücksichtigt |_Standard_ |
-|Biometrie |berücksichtigt |_Standard_ |
-|Mail-Gateway |berücksichtigt |_Standard_ |
-|Nummernkreis |berücksichtigt |_Standard_ |
-|Output-Management |berücksichtigt |_Standard_ |
-|Portal |berücksichtigt |_Standard_ |
-|Protokollierung und Protokollrecherche |berücksichtigt |_Standard_ |
-|Regelwerk |berücksichtigt |_Standard_ |
-|Schlüsselverzeichnis |berücksichtigt |_Standard_ |
-|Service-Gateway |berücksichtigt |_Standard_ |
-|Spooling |berücksichtigt |_Standard_ |
-|Bedienkonzept |berücksichtigt |_Standard_ |
-|Umgang mit Sonderzeichen |berücksichtigt |_Standard_ |
-4+|*Plattform*  {set:cellbgcolor:#D9D9D9}
-| {set:cellbgcolor} Deployment-Konzept |berücksichtigt |_Standard_ |
-4+|*Methodik*  {set:cellbgcolor:#D9D9D9}
-| {set:cellbgcolor} Template Systementwurf |berücksichtigt |_Standard_ |
+|Polling |berücksichtigt |... |
+|Security |berücksichtigt |... |
+|Sonderzeichen |berücksichtigt |... |
+|Task Scheduling |Abweichungen |... | <<adr-bsp-ga-1>>
+|Überwachung |berücksichtigt |_Standard_ |
+|Util |berücksichtigt |... |
+4+h|Bausteine (IsyFact-Erweiterungen)
+|Angular |berücksichtigt |... |
+|Bedienkonzept |berücksichtigt |... |
+|... |... |... |
+4+h|Plattform
+|Deployment-Konzept |berücksichtigt |_Standard_ |
+4+h|Methodik
+|Namenskonventionen |berücksichtigt |_Standard_ |
+|Versionierung |berücksichtigt |_Standard_ |
 |Java-Programmierkonventionen |berücksichtigt |_Standard_ |
+|TypeScript-Programmierkonventionen |berücksichtigt |_Standard_ |
+|Vorlagen |berücksichtigt |_Standard_ |
+|Diagrammerstellung |berücksichtigt |_Standard_ |
+4+h|Werkzeuge
+|OpenAPI Editor |berücksichtigt |_Standard_ |
+|OpenAPI Generator |berücksichtigt |_Standard_ |
 |===
 
 [[abweichungen-und-erweiterungen-zur-referenzarchitektur]]
 === Abweichungen und Erweiterungen zur Referenzarchitektur
 
+[NOTE]
 ====
 _In diesem Kapitel werden Abweichungen und Erweiterungen zur Referenzarchitektur in Form von Architecture Decision Records (ADRs) dokumentiert._
 
@@ -370,8 +460,8 @@ Die folgenden Architekturentscheidungen begründen Abweichungen und Erweiterunge
 Sie gelten für das im Dokument beschriebene Gesamtsystem.
 Darüber hinaus sind folgende, übergreifende Architekturentscheidungen zu beachten: https://verweis.auf.adrs[übergreifende Architekturentscheidungen].
 
-[[adr-gesamtsystem-1,ADR-Gesamtsystem-1]]
-==== ADR-Gesamtsystem-1: Titel
+[[adr-bsp-ga-1,ADR-BSP-GA-1]]
+==== ADR-BSP-GA-1: Titel
 
 [cols="1,4"]
 |===
@@ -400,171 +490,47 @@ h|_Auswirkungen_
 
 |===
 
-[[adr-gesamtsystem-2]]
-==== ADR-Gesamtsystem-2: Titel
-
+[[adr-bsp-ga-2,ADR-BSP-GA-2]]
+==== ADR-BSP-GA-2: Titel
 ...
 
 
-[[systemarchitektur-gesamtsystems]]
-== Systemarchitektur des Gesamtsystems
-
-====
-_In diesem Kapitel wird ein Systemüberblick gegeben und die Aspekte des Gesamtsystems beschrieben, die für alle oder mehrere Teilsysteme gelten. Das können Verfahren, Festlegungen oder die Beschreibung gemeinsam genutzter Komponenten sein. In der Regel hat ein System mehrere Teilsysteme, z. B. eine Geschäftsanwendung und ein Service-Gateway._
-
-_Festlegungen, die bereits in den übergeordneten Dokumenten (z.B. Referenzarchitektur, Sicherheitsrichtlinie, …) gemacht wurden, sind im gesamten Kapitel nur zu referenzieren, Abweichungen hiervon sind zu begründen._
-====
-
-[[gesamtsystem-systemueberblick]]
-=== Systemüberblick
-
-====
-*_Zweck_*
-
-_Dieser Abschnitt beschreibt, aus welchen Teilsystemen das Gesamtsystem besteht und gibt damit einen Top-level-Überblick über das System.
-Teilsysteme sind z. B.: ein Service-Gateway oder eine Geschäftsanwendung.
-Dieses Kapitel ist die nächste Konkretisierungsstufe nach der Einordnung in die Anwendungslandschaft aus Kapitel <<einbettung-in-anwendungslandschaft,Systemüberblick/Einbettung in die Anwendungslandschaft>>_
-
-*_Inhalte_*
-
-_An dieser Stelle befindet sich eine Übersichtsgrafik, die darstellt, aus welchen Teilsystemen das Gesamtsystem besteht, wie diese sich gegenseitig aufrufen und welche Nachbarsysteme und Querschnittsfunktionen aufgerufen werden.
-Zur besseren Orientierung sind der Farbcode und das Layout der Referenzarchitektur zu beachten. Für die Schnittstellen und Services soll ein geeigneter Abstraktionsgrad gewählt werden.
-Zweck dieser Übersicht ist es einen prinzipiellen Überblick zu geben und nicht jedes Detail zu beschreiben._
-
-_In der Beschreibung der Grafik ist Folgendes beschrieben:_
-
-* _Was sind die Aufgaben der einzelnen Teilsysteme, welche Funktionalität bieten sie an?_
-* _Wie ist das Zusammenspiel der Teilsysteme um die Gesamtaufgabe des Systems zu erfüllen, wie sieht die Aufgabenverteilung aus?_
-
-_Ein Beispiel für ein solches Diagramm ist:_
-====
-
-:desc-image-teilsysteme: Teilsysteme
-[id="image-teilsysteme", reftext = "{figure-caption} {counter:figures}"]
-.{desc-image-teilsysteme}
-image::vorlage-systementwurf/teilsysteme.png[align = center, title-align=center]
-
-====
-_Die Farbgebung für ein Teilsystem-Element orientiert sich an der fachlichen Referenzarchitektur. Für die verschiedenen Systeme sind folgende Hintergründe zu verwenden:_
-
-* _Blau für Geschäftsanwendungen (R/G/B: 153 / 204 / 255)_
-* _Orange für Register (R/G/B: 255 / 204 / 153)_
-* _Gelb für Querschnittsanwendungen (R/G/B: 255 / 255 / 153)_
-* _Violett für das Service-Gateway (R/G/B: 255 / 153 / 204)_
-* _Hellgrün für Portal-Systeme (R/G/B: 204 / 255 / 204)_
-* _Weiß für technische Systeme oder Produkte (Datenbank etc.) (R/G/B: 255 / 255 / 255)_
-====
-
-[[anforderungen]]
-=== Anforderungen
-====
-_In diesem Kapitel werden die Anforderungen an das System genannt. In der Regel wird auf die Systemspezifikation verwiesen. Abweichungen zur Systemspezifikation sollten aufgeführt werden._
-
-_Falls Anforderungen seit der Spezifikation hinzugekommen sind oder konkretisiert wurden, wird das hier dokumentiert._
-====
-
-[[funktionale-anforderungen]]
-==== Funktionale Anforderungen
-
-====
-_Referenz auf die Systemspezifikation, ein Satz: „Die funktionalen Anforderungen sind in der Systemspezifikation XYZ in Abschnitt n beschrieben…“_
-====
-
-[[nichtfunktionale-anforderungen]]
-==== Nichtfunktionale Anforderungen
-
-====
-_Nichtfunktionale Anforderungen, die schon in der Systemspezifikation beschrieben sind, werden hier nicht wiederholt, sondern nur referenziert und falls erforderlich im Folgenden konkretisiert._
-====
-
-[[mengengeruest]]
-===== Mengengerüst
-
-====
-_Aufrufhäufigkeit von Funktionen, Anzahl von Datensätzen, …_
-
-_- - > Kann tabellarisch dargestellt werden._
-====
-
-[[verfuegbarkeit]]
-===== Verfügbarkeit
-====
-_Angabe der Ausfallzeit in Stunden pro Woche und am Stück._
-====
-
-<<<
-[[performance]]
-===== Performance
-====
-_Auflistung durchschnittlicher Antwortzeiten und maximaler Laufzeiten für Batches. Bewährt hat sich eine Darstellung mit folgenden Inhalten:_
-
-_Eine Grundlast durch den Ablauf definierter Anwendungsfälle wird auf das System gelegt. Dann wird an einem speziellen Client die Antwortzeiten für einen oder mehrere Anwendungsfälle oder wichtige Funktionen gemessen._
-
-_Dabei wird die Antwortzeit z. B. so beschrieben: „In 90% der Fälle benötigt die Anfrage weniger als 2s, in 10% der Fälle unter 5s.“
-Ggf. kann man noch eine Festlegung aufnehmen, ob einmalige Ausreißer erlaubt sind._
-====
-
-[[skalierbarkeit]]
-===== Skalierbarkeit
-====
-_In der Regel ein kurzer Satz:_
-
-_Durch die Verwendung der IsyFact-Referenzarchitektur erfüllt die Anwendung XYZ die Anforderungen, die allgemein an Geschäftsanwendungen gestellt werden: Sie läuft auf separaten Hardware-Systemen, die Failover und Lastverteilung ermöglichen.
-Eine weitere Skalierung ist durch Hinzufügen weiterer Systeme möglich._
-====
-
-[[sicherheit]]
-==== Sicherheit
-
-====
-_In der Regel in der Spezifikation beschrieben. Verweis auf Sicherheitskonzept_
-====
 [[ti-architektur]]
 === TI-Architektur
 
+[NOTE]
 ====
-_Zunächst ein Überblick: Kurze Beschreibung der wichtigsten Eckpunkte der TI-Architektur._
+Das Kapitel enthält eine kurze Beschreibung der wichtigsten Eckpunkte der TI-Architektur.
 
-_TI-Diagramme sind als Deployment Diagramme umzusetzen. Diese enthalten die Elemente:_
+Die Beschreibung besteht aus Deployment-Diagrammen mit begleitendem Text.
+Die Diagramme beschreiben die Zuordnung der Server bzw. Laufzeitumgebungen zu den Zonen sowie die Zuordnung der Deployment-Einheiten auf die Server/Laufzeitumgebungen. Es enthält keine konkreten Adressen, Portnummern und Dimensionierungen, sondern eine logische Sicht.
 
-* _Component für Software-Deploymenteinheiten_
-* _Execution Environment für Application Server, Servlet Container etc._
-* _Nodes für Server, Clients, Router, Firewalls, Loadbalancer, etc._
-* _Boundaries für Netzsegmente_
-====
+Die Kommunikationsbeziehungen werden zum Load Balancer bzw. zur Firewall dargestellt.
+Es soll klar werden, über welche Zonengrenzen hinweg mit welchen Protokollen kommuniziert wird.
 
-:desc-image-deployment-diagramm: Deployment Diagramm
+Existierende Nachbarsysteme werden in der Regel nicht dargestellt.
+
+:desc-image-deployment-diagramm: TI-Architektur BSP-GA (teilweise)
 [id="image-deployment-diagramm", reftext = "{figure-caption} {counter:figures}"]
 .{desc-image-deployment-diagramm}
-image::vorlage-systementwurf/deployment-diagramm.png[align = center, title-align=center]
+image::vorlage-systementwurf/ueberblick-ti.dn.png[]
 
-====
-_Wichtige Inhalte:_
+Das Beispiel-Diagramm in <<image-deployment-diagramm>> zeigt mit einem Backend und einem Batch einen Teil der BSP-GA.
 
-* _Zuordnung der Server bzw. Laufzeitumgebungen zu den Saga-Zonen._
-* _Zuordnung der Deployment-Einheiten auf die Server/Laufzeitumgebungen._
-* _Kommunikationsbeziehungen werden zu den Loadbalancern bzw. Firewalls dargestellt.
-Es soll klar werden, über welche Zonengrenzen hinweg mit welchen Protokollen kommuniziert wird._
-* _Existierende Nachbarsysteme werden in der Regel nicht dargestellt.
-Ausnahmen sind aber möglich, wenn ein besonderer Aspekt dargestellt werden soll.
-Z.B. ein neuer Native-Client, der an einen bestehenden Service angebunden wird._
-* _Keine konkreten Adressen, Portnummern, Dimensionierungen, sondern eine logische Sicht._
 ====
 
 [[laufzeitumgebung]]
 ==== Laufzeitumgebung
+[NOTE]
 ====
-_Liste der eingesetzten Produkte für die Laufzeitumgebung.
-Diese Umgebung ist für Anwendungen nach Referenzarchitektur vorgegeben, deshalb kann der Abschnitt unten in der Regel übernommen werden, gegebenenfalls ergänzt um das konkrete Linux-Betriebssystem._
-
-_Die Versionen sind nach dem Produktkatalog zu überprüfen und mit dem Gesamtprojekt abzustimmen.
-Für die Laufzeitumgebung wird ein Default-Tomcat bereitgestellt._
+Der Abschnitt erläutert die eingesetzten Produkte für die Laufzeitumgebung.
+Diese Umgebung ist durch den Produktkatalog der IsyFact zum größten Teil vorgegeben.
 ====
 
-_Die Laufzeitumgebung für das IT-System [yellow]#<SYSTEM># besteht gemäß Produktkatalog der Referenzarchitektur aus den folgenden Produkten:_
+Die Laufzeitumgebung für die IT-Systeme der Geschäftsanwendung BSP-GA besteht gemäß aus den folgenden Produkten:
 
 
-:desc-table-laufzeitumgebung: Laufzeitumgebung für <SYSTEM>
+:desc-table-laufzeitumgebung: Laufzeitumgebung für IT-Systeme der BSP-GA
 [id="table-laufzeitumgebung", reftext = "{table-caption} {counter:tables}"]
 .{desc-table-laufzeitumgebung}
 [cols="4,2,2,4", options="header"]
@@ -572,24 +538,24 @@ _Die Laufzeitumgebung für das IT-System [yellow]#<SYSTEM># besteht gemäß Prod
 |Kategorie |Name |Version |Bemerkung
 |Betriebssystem|Linux 64 bit |Kernel >= 4.12|
 |Java-Laufzeitumgebung | https://adoptium.net/de/temurin/releases[OpenJDK (Eclipse Temurin von Adoptium)]|25.x|
-|Servlet-Container |Apache Tomcat |[yellow]#16.0.18# |
+|Servlet-Container |Apache Tomcat | Z.B. 8.5.x |
 |===
-
 
 [[ressourcen]]
 ==== Ressourcen
 
+[NOTE]
 ====
-_Abschätzung der Ressourcen in der Produktionsumgebung:_
+Der Abschnitt enthält eine Abschätzung der Ressourcen in der Produktionsumgebung:
 
-_- Mengengerüst für die Datenbank_
+* Mengengerüst für die Datenbank,
+* Platzbedarf von (temporären) Dateien.
 
-_- Platzbedarf von (temporären) Dateien_
-
-_Form: Tabellarische Darstellung und erläuternder Text._
+Die Abschätzung geschieht in tabellarischer Darstellung und mithilfe erläuterndem Text.
 ====
 
-Mengengerüst für die Datenbank
+[[mengengeruest-db]]
+===== Mengengerüst für die Datenbank
 
 In <<table-mengengeruest-datenbank>> ist eine Abschätzung für die Datenbankgröße enthalten.
 Hier ist allerdings nur die Größe der Rohdaten angegeben.
@@ -601,22 +567,23 @@ Die Berechnung der Größe der Table-Spaces erfolgt durch die Datenbank-Administ
 .{desc-table-mengengeruest-datenbank}
 [cols=",,,,,", options="header"]
 |===
-| Tabelle/Index | Typ | Anzahl/Zeilen 2+| Größe Rohdaten | Bemerkung
-
-h| h| h| h|Zeile h|Tabelle h|
+^|Tabelle/Index ^|Typ ^|Anzahl/Zeilen 2+^|Größe Rohdaten ^|Bemerkung
+h| h| h| ^h|Zeile ^h|Tabelle h|
 |... | | | | |
 |... | | | | |
 |... | | | | |
 |===
 
+[[platzbedarf-dateien]]
+===== Platzbedarf für Dateien
 
-Platzbedarf für Dateien
+[NOTE]
 ====
-_Abschätzung der Ressourcen in der Produktionsumgebung:_
+Der Abschnitt enthält eine Abschätzung der Ressourcen in der Produktionsumgebung:
 
-_- Mengengerüst für die Dateien auf dem lokalen Laufwerk_
+* Mengengerüst für Dateien auf dem lokalen Laufwerk.
 
-_Form: Tabellarische Darstellung und erläuternder Text._
+Die Abschätzung geschieht in tabellarischer Darstellung und mithilfe erläuterndem Text.
 ====
 
 In <<table-mengengeruest-dateien-auf-dem-lokalen-laufwerk>> ist eine Abschätzung für die auf dem lokalen Laufwerk gespeicherten Dateien enthalten.
@@ -626,7 +593,7 @@ In <<table-mengengeruest-dateien-auf-dem-lokalen-laufwerk>> ist eine Abschätzun
 .{desc-table-mengengeruest-dateien-auf-dem-lokalen-laufwerk}
 [cols="3,2,4", options="header"]
 |===
-|Datei |Größe |Bemerkung
+^|Datei ^|Größe ^|Bemerkung
 |...
 |
 |
@@ -636,304 +603,203 @@ In <<table-mengengeruest-dateien-auf-dem-lokalen-laufwerk>> ist eine Abschätzun
 |
 |===
 
+[[querschnittskonzepte]]
+=== Querschnittskonzepte
 
-[[bibliotheken-drittsoftware]]
-==== Bibliotheken, Drittsoftware
-
+[NOTE]
 ====
-_Auflistung der benötigten Bibliotheken für die Anwendungsentwicklung und Software auf den Zielsystemen._
+Dieser Abschnitt kann folgende Inhalte enthalten:
 
-_tabellarische Darstellung_
-====
-
-Das IT-System [yellow]#<SYSTEM># benötigt gemäß Produktkatalog der Referenzarchitektur die folgenden Bibliotheken bzw. Drittsoftware:
-
-
-:desc-table-benoetigte-bibliotheken-drittsoftware: Benötigte Bibliotheken und Drittsoftware
-[id="table-benoetigte-bibliotheken-drittsoftware", reftext = "{table-caption} {counter:tables}"]
-.{desc-table-benoetigte-bibliotheken-drittsoftware}
-[cols="3,2,1,4", options="header"]
-|===
-|Kategorie |Name |Version |Bemerkung
-|Programmiersprache | | |
-|Webservice-Framework | | |
-|Komponenten-Framework | | |
-|Persistenz-Framework | | |
-|Logging-Framework | | |
-|JDBC-Treiber | | |
-|Unit-Testing | | |
-|Scheduler | | |
-|Datenbank | | |
-|… | | |
-|===
-
-<<<
-[[architektur-teilsystems-a]]
-=== Architektur des Teilsystems A
-====
-_Bei der Beschreibung des Gesamtsystems in 3.1 wurden Teilsysteme eingeführt.
-Diese werden jetzt in eigenen Unterkapiteln der Reihe nach beschrieben. Ggf. kann es sinnvoll sein, ein Kapitel voranzustellen, das Gemeinsamkeiten aller Teilsysteme erklärt._
-
-_Dieses Kapitel enthält vornehmlich eine Top-down Beschreibung des Teilsystems.
-Die Beschreibung umfasst die Aufteilung des Systems in Komponenten und deren Bezug zur Systemspezifikation.
-Wie detailliert die einzelnen Komponenten und deren Teile beschrieben werden, hängt davon ab, wie detailliert die Erläuterungen für die Entwickler sein sollen._
-
-_Weiterhin werden in diesem Kapitel auch übergeordnete Designprinzipien und Patterns vorgestellt, die bei der Konstruktion der Software eine Rolle gespielt haben._
-
-_Schließlich finden sich in diesem Kapitel noch Details, auf die der Chefdesigner besonders hinweisen möchte, und die sonst im Code versteckt sind, z. B. die Konfiguration zur Anbindung von Nachbarsystemen._
-
-*_Beschreibung der Teilsysteme_*
-
-_Die Teilsysteme haben, wenn es sich um Geschäftsanwendungen handelt, folgende, fest vorgegebene T-Architektur:_
-
-:desc-image-darstellung-teilsysteme: Technisches Architektur eines Teilsystems
-[id="image-darstellung-teilsysteme", reftext = "{figure-caption} {counter:figures}"]
-.{desc-image-darstellung-teilsysteme}
-image::vorlage-systementwurf/architektur-it-system.dn.svg[]
-
-_Die konkrete Ausgestaltung dieser Architektur mit den konkreten Komponenten ist Inhalt dieses Unterkapitels._
-
-_Dazu wird zunächst eine Übersicht über das Teilsystem gegeben, anschließend werden bei Bedarf die einzelnen Komponenten detailliert._
-
-_Falls es sich bei dem Teilsystem z. B. um ein Service-Gateway oder einen Querschnittlichen Service handelt, muss die Gliederung im Sinne des oben gesagten. angepasst werden._
+* Verfeinerungen oder Konkretisierungen zu bestehenden IsyFact-Bausteinen,
+* für alle IT-Systeme geltende Abweichungen von Bausteinen,
+* Querschnittskonzepte, zu denen noch kein Baustein existiert.
 ====
 
-[[ueberblick]]
-==== Überblick
 
+[[BSP-1u2-GK]]
+== SW-Architektur Backend BSP_1+2-GK
+
+[NOTE]
 ====
-_In diesem Abschnitt findet sich ein Überblick über das Teilsystem.
-Dies erfolgt mit einem UML-Komponentendiagramm und einem Text der die einzelnen Komponenten und ihr Zusammenspiel erklärt._
+Im Kapitel <<softwarearchitektur-bsp-ga>> wurde die in der Systemspezifikation beschriebene Anwendung in IT-Systeme zerlegt.
+Diese werden ab hier in eigenen Unterkapiteln der Reihe nach beschrieben.
 
-_Das Diagramm soll eine Übersicht über die Schnittstellen, Batches und Komponenten des Teilsystems bieten. Die Zusammenhänge und Beziehungen zwischen den Bestandteilen des Teilsystems sollen dargestellt werden._
+Dieses Kapitel enthält vornehmlich eine Top-Down-Beschreibung des IT-Systems anhand seines IT-Systemtyps.
+Die Beschreibung umfasst die Aufteilung des IT-Systems in Komponenten und deren Bezug zur Systemspezifikation.
+Der Detailgrad der Beschreibung der Komponenten hängt u.a. vom Maß an nötigen <<abweichungen-und-erweiterungen-zur-referenzarchitektur>> sowie von der vorhandenen Erfahrung in den Architektur- und Entwicklungsteams mit der IsyFact und den verwendeten Produkten ab.
 
-_Das Diagramm soll nicht die Logik der Verarbeitung beschreiben._
-
-*_Dargestellte Elemente_*
-
-* _Schnittstellen als Interface-Elemente, Schnittstellen-Klassen als Class-Elemente._
-
-* _Batches als Class Elemente, Eingabedateien als Artifact-Elemente._
-
-* _Schichten-Begrenzungen (Batch etc.) als Boundary Elemente_
-
-* _Technische Systeme und Produkte als Component-Elemente_
-
-* _Komponenten-Schnittstellen als Interface-, Komponenten als Component-Elemente._
-
-* _Für Aufrufbeziehungen ist kein Stereotyp zu verwenden.
-Keine Zusatzinformationen tragende Stereotypen wie << use >> sind explizit zu vermeiden._
-
-* _Für Eingabedateien ist das Stereotyp Eingabedatei zu verwenden._
+Weiterhin referenziert das Kapitel übergeordnete Designprinzipien und Patterns, die beim Entwurf des IT-Systems eine Rolle spielen.
+Schließlich enthält es weitergehende Details, Hinweise und Besonderheiten, deren Kenntnis für die Entwicklung und Wartung des IT-Systems hilfreich sind.
 ====
 
-:desc-image-ueberblick-teilsysteme: Überblick über die Teilsysteme
+TIP: Wenn sich Beschreibungen in den folgenden Kapiteln doppeln, ist es sinnvoll, ein Kapitel voranzustellen, das Gemeinsamkeiten aller IT-Systeme bzw. einzelner IT-Systemtypen (zum Beispiel aller Backends) erläutert.
+Wenn diese Gemeinsamkeiten die Referenzarchitektur oder bestehende Bausteine der IsyFact betreffen, können sie auch Einzug in die <<querschnittskonzepte>> halten.
+
+Dieses Kapitel beschreibt die Systemarchitektur des Backends BSP_1+2-GK.
+
+[[backend-ueberblick]]
+=== Überblick
+
+[NOTE]
+====
+Dieser Abschnitt zeigt einen Überblick über das IT-System.
+Dies erfolgt in der Regel mit einem UML-Komponentendiagramm und einem knappen begleitenden Text, der die einzelnen Komponenten und ihr Zusammenspiel erklärt.
+Als Leitfaden für das Diagramm kann die Beschreibung des https://docs.arc42.org/section-3/#32-technical-context[technischen Kontextes von arc42] dienen.
+Im Unterschied dazu ist hier vorgesehen, auch die Innensicht des betrachteten IT-Systems zu zeigen.
+Ein Diagramm, das den technischen Kontext des Gesamtsystems zeigt, befindet sich in der <<softwarearchitektur-bsp-ga>>.
+
+Das Komponentendiagramm zeigt eine Übersicht der fachlichen Schnittstellen und sowohl fachlichen als auch technischen Komponenten des IT-Systems.
+Es stellt die Zusammenhänge und Beziehungen zwischen den Bestandteilen des IT-Systems dar.
+Es beschreibt nicht die Logik der Verarbeitung.
+
+Die folgende <<image-ueberblick-teilsysteme>> zeigt eines der Backends aus der Beispielzerlegung der Referenzarchitektur.
+
+:desc-image-ueberblick-teilsysteme: Backend der Beispielzerlegung
 [id="image-ueberblick-teilsysteme", reftext = "{figure-caption} {counter:figures}"]
 .{desc-image-ueberblick-teilsysteme}
-image::vorlage-systementwurf/ueberblick-teilsysteme.png[align = center, title-align=center]
+image::vorlage-systementwurf/ueberblick-backend.dn.png[]
 
+Hinweise zur Darstellung:
+
+* Der Einfachheit halber sind nur fachliche Schnittstellen und diejenigen technischen Schnittstellen, die zur Kommunikation mit anderen Systemen notwendig sind, explizit dargestellt.
+* UML-Komponenten außerhalb des IT-Systems stellen Systeme dar, mit denen das IT-System kommuniziert.
+* Rechts neben dem IT-System sind Artefakte dargestellt, die als Ein- und Ausgabe für das IT-System gelten.
+Hierfür verwendet das Diagramm die Stereotypen `+<<input>>+` respektive `+<<output>>+`.
+* Im Querschnitt befinden sich hauptsächlich von der IsyFact bereitgestellte Bausteine.
+* Die Stereotypen der Komponenten verweisen auf die Referenzarchitektur und geben hierdurch die Umsetzung vor.
+In diesem Beispiel verweisen die Stereotypen auf Inhalte der Referenzarchitektur Backend.
+* Das Diagramm verzichtet, vor allem innerhalb des IT-Systems, auf Stereotypen an Aufrufbeziehungen, wenn diese keine Zusatzinformation beitragen (u.a.`+<<use>>+`).
 ====
-_Die Struktur des Anwendungskerns findet sich in den Komponenten Batch, Service und Persistenz wieder.
-Der Designer muss abwägen, ob eine differenzierte Darstellung dieser Komponenten hier einen Nutzen bringt._
+
+[[BSP-1u2-GK-produkte]]
+=== Bibliotheken & Produkte
+
+[NOTE]
 ====
+Auflistung der benötigten Bibliotheken für die Entwicklung des IT-Systems in tabellarischer Darstellung.
+
+Wenn keine Version eingetragen wird, richtet sich die Version nach dem Produktkatalog der IsyFact-Version, die in <<konformitaet-zur-referenzarchitektur>> benannt ist.
+
+Abweichungen von der Referenzarchitektur sind in der Spalte "Bemerkung" zu hinterlegen.
+Zusätzliche, nicht von der IsyFact vorgeschriebene und empfohlene Produkte sind ebenfalls zu kennzeichnen.
+Transitive Abhängigkeiten sind nicht einzutragen.
+====
+
+Das IT-System BSP_1+2-GK benötigt gemäß Produktkatalog der IsyFact die folgenden Bibliotheken bzw. Produkte:
+
+:desc-table-benoetigte-bibliotheken-produkte: BSP_1+2-GK: Bibliotheken & Produkte
+[id="table-benoetigte-bibliotheken-produkte", reftext = "{table-caption} {counter:tables}"]
+.{desc-table-benoetigte-bibliotheken-produkte}
+[cols="3,2,2,4", options="header"]
+|===
+|Kategorie |Name |Version |Bemerkung
+|Programmiersprache
+|Java
+||
+
+|Application Framework
+|Spring Boot
+||
+
+|... |... | |
+
+|===
+
 
 [[anwendungskern]]
-==== Anwendungskern
+=== Anwendungskern
+
+[NOTE]
 ====
-_In diesem Abschnitt werden die Komponenten des Anwendungskerns vorgestellt und beschrieben.
-Die Tiefe der Darstellung richtet sich nach der Komplexität der umzusetzenden Fachlichkeit und den Kenntnissen der Entwickler, die nach diesen Vorgaben die Software programmieren sollen._
-
-_Jede Komponente wird in einem eigenen Abschnitt vorgestellt._
-====
-
-<<<
-[[komponente-x]]
-===== Komponente X
-====
-_In der Regel finden sich hier ein UML-Komponentendiagramm und ein erklärender Text._
-
-_Dieses Diagramm beschreibt den Aufbau einer Komponente.
-Es gibt einen Überblick über die wichtigsten Klassen der Komponente._
-
-*_Darstellung_*
-
-* _Die Komponente selbst als Component-Element._
-
-* _Das Interface der Komponente als Interface-Element._
-
-* _Die Parameter-Klassen und Exceptions des Interfaces als Class- und Interface-Elemente._
-
-* _Die Klassen der Komponente als Class-Elemente_
-
-* _Nutzungsbeziehungen zwischen den dargestellten Elementen als Dependency-Verbinder._
-
-* _Implementierungs- und Vererbungsbeziehungen als Realization-Verbinder._
-
-* _Ein Boundary-Element für die Schicht „Anwendungskern“._
-
-_Da sich die Komponenten-Innensichten je nach Komponente stark unterscheiden können, werden keine Stereotypen vorgegeben.
-Der Stereotyp << use >> ist nicht zu verwenden.
-Die Nutzung folgender Stereotypen für Verbinder wird empfohlen:_
-
-* _Für eine Beziehung, welche über Spring konfiguriert wird: SpringDependency._
-
-* _Für Datenfluss-Beziehungen (etwa Eingabe-Dateien): flow._
-
-_Die Komponente wird im Diagramm als Component-Element dargestellt.
-Die Klassen der Komponente werden innerhalb des Komponenten-Elements dargestellt.
-Auf jeden Fall dargestellt werden die Fassaden-Klasse sowie die Anwendungsfall-Klassen._
-
-_Das Komponenten-Interface mit seinen Operationen wird oberhalb des Komponenten-Elements angezeigt.
-Dargestellt werden außerdem die Parameter-Klassen der Interface-Operationen und die geworfenen Exceptions.
-Es werden keine Beziehungen zwischen dem Interface und den Parameter-Klassen bzw. Exceptions dargestellt._
-
-_Spring Beans werden durch den Stereotype „Spring Bean“ gekennzeichnet werden._
-
-_Alle Elemente werden innerhalb von Package-Elementen dargestellt._
-
-_Sehr Umfangreiche Datenstrukturen für Ein- und Ausgaben können bei Bedarf in weiteren Diagrammen dargestellt werden._
-
-_Beispiel für das Diagramm:_
+Dieser Abschnitt beschreibt die technische Umsetzung der Anwendungskomponenten (ANK) in Fachkomponenten.
+Die Tiefe der Darstellung richtet sich nach der fachlichen Komplexität der umzusetzenden Funktionalität, das heißt Anwendungsfälle (AWF) und Modellkomponenten (MKO), aus der Systemspezifikation.
 ====
 
-:desc-image-uml-komponentendiagramm: UML-Komponentendiagramm
-[id="image-uml-komponentendiagramm", reftext = "{figure-caption} {counter:figures}"]
-.{desc-image-uml-komponentendiagramm}
-image::vorlage-systementwurf/uml-komponentendiagramm.png[align = center, title-align=center]
+Die folgenden Abschnitte beschreiben die technische Umsetzung der Anwendungskomponenten.
 
+[[ank-bsp-1]]
+==== ANK_BSP_1
+
+[NOTE]
 ====
-_Hier ist sowohl die innere Struktur der Komponente als auch die Beziehung zu aufrufenden/aufgerufenen Komponenten dargestellt._
+Die Beschreibung einer Anwendungskomponente enthält in der Regel ein UML-Komponentendiagramm und erklärenden Text.
 
-*_Rückbezug Systemspezifikation_*
-
-_Bei der Beschreibung der Komponente muss noch der Bezug zur Spezifikation erklärt werden, d. h. es muss gezeigt werden_
-
-* _wie sich die Anwendungsfälle der Spezifikation auf die Anwendungsfallklassen des Codes abbilden_.
-* _wie sich die Anwendungsfunktionen der Spezifikation auf die Anwendungsfunktionsklassen im Code abbilden._
-
-_Falls die Elemente der Systemspezifikation nicht im Enterprise Architect-Repository vorliegen, werden sie im Diagramm-Paket erstellt.
-Sie werden nicht dokumentiert und besitzen keine weiteren Eigenschaften.
-Es sind lediglich Platzhalter._
-
-_Dargestellt werden:_
-
-* _Die Elemente der Systemspezifikation_
-
-* _Die Elemente der Konstruktion_
-
-* _Die Zusammenhänge als Assoziationen_
-
-* _Eine Boundary, welche die Elemente der Systemspezifikation beinhaltet._
+Das Diagramm beschreibt den Aufbau der Anwendungskomponente und gibt einen Überblick über ihre wichtigsten Klassen.
+Ein Beispiel für eine generische Fachkomponente mit Klassen für Anwendungsfälle und Anwendungsfunktionen ist in der Beschreibung des Anwendungskerns der Referenzarchitektur enthalten.
 ====
 
-:desc-image-komponenten-zusammenhaenge: Komponenten Zusammenhänge
-[id="image-komponenten-zusammenhaenge", reftext = "{figure-caption} {counter:figures}"]
-.{desc-image-komponenten-zusammenhaenge}
-image::vorlage-systementwurf/komponenten-zusammenhaenge.png[align = center, title-align=center]
-
-
-[[komponente-y]]
-===== Komponente Y
-
-[[komponente-z]]
-===== Komponente Z
-
-<<<
-[[persistenz]]
-==== Persistenz
+.Rückbezug auf die Systemspezifikation
+[IMPORTANT]
 ====
-_Die Vorgaben zur Persistenz sind in einem eigenen Konzept der IsyFact beschrieben und werden hier nicht wiederholt._
+Die Komponente stellt in ihrer Beschreibung den Bezug zur Spezifikation dar:
 
-_In diesem Abschnitt können sich Themen finden wie z. B._
-
-* _Besonderheiten in der Persistenz, die über die Vorgaben der Referenzarchitektur hinausgehen_
-* _Umgang mit Sperren_
-* _Ggf. die Konstruktion der persistenten Entitäten und DAOs_
+* Wie bilden sich die Anwendungsfälle (AWF) der Spezifikation auf die Anwendungsfallklassen des Codes ab?
+* Wie bilden sich die Anwendungsfunktionen (AFU) der Spezifikation auf die Anwendungsfunktionsklassen im Code ab?
 ====
 
-[[batch]]
-==== Batch
+[[ank-bsp-2]]
+==== ANK_BSP_2
 
+...
+
+[[persistenzschicht]]
+=== Persistenzschicht
+
+[NOTE]
 ====
-_Die allgemeinen Vorgaben zum Batch sind in einem eigenen Konzept der IsyFact beschrieben und werden hier nicht wiederholt.
-Ggf. werden hier Spezialisierungen und zusätzliche Festlegungen zu den Batches beschrieben._
+Die Vorgaben zur Persistenzschicht sind in der Referenzarchitektur Backend beschrieben.
 
-_In diesem Abschnitt findet sich die konkrete Konstruktion der Batches, in der Regel mit einem eigenen Abschnitt pro Batch._
-
-_Weiterhin wird hier der Rückbezug zur Systemspezifikation hergestellt, indem die Batches der Spezifikation den Batches der Software zugeordnet werden.
-Dies kann textuell oder durch eine UML-Grafik geschehen._
-====
-
-<<<
-[[service]]
-==== Service
-
-====
-_Die allgemeinen Vorgaben zu Services sind in eigenen Konzepten der IsyFact beschrieben und werden hier nicht wiederholt.
-Ggf. werden hier Spezialisierungen und zusätzliche Festlegungen zu Services beschrieben._
-
-_In diesem Abschnitt ist die konkrete Konstruktion der einzelnen Services beschrieben, in der Regel mit einem eigenen Abschnitt pro Service, den das System anbietet.
-Dies sind Services, die per REST bereitgestellt werden.
-Services, die externen Nutzern zur Verfügung gestellt werden, werden im Rahmen der Dokumentation des Teilsystems Service-Gateway beschrieben.
-Die eigentliche Servicedokumentation für externe Nutzer ist dabei dann ein eigenes Dokument._
-
-*_Rückbezug Systemspezifikation_*
-
-_Bei der Beschreibung der Komponente muss noch der Bezug zur Spezifikation erklärt werden, d. h. es muss gezeigt werden_
-
-* _wie sich die Anwendungsfälle der Spezifikation auf die Anwendungsfallklassen des Codes abbilden_.
-* _wie sich die Anwendungsfunktionen der Spezifikation auf die Anwendungsfunktionsklassen im Code abbilden._
-
-_Falls die Elemente der Systemspezifikation nicht im Enterprise Architect-Repository vorliegen, werden sie im Diagramm-Paket erstellt.
-Sie werden nicht dokumentiert und besitzen keine weiteren Eigenschaften: Es sind lediglich Platzhalter._
-
-_Dargestellt werden:_
-
-* _Die Elemente der Systemspezifikation_
-
-* _Die Elemente der Konstruktion_
-
-* _Die Zusammenhänge als Assoziationen_
-
-* _Eine Boundary, welche die Elemente der Systemspezifikation beinhaltet._
+Dieser Abschnitt kann Besonderheiten der Persistenzschicht erläutern, die über die Vorgaben der Referenzarchitektur hinausgehen.
+Ebenfalls sinnvoll ist der Verweis auf zusätzliche, fachliche Konzepte, die Auswirkungen auf die Persistenzschicht haben.
+Beispiele hierfür sind der Umgang mit Sperren oder Löschfristen.
 ====
 
-[[auswertungen]]
-==== Auswertungen
+[[serviceschicht]]
+=== Serviceschicht
 
+[NOTE]
 ====
-_In diesem Abschnitt werden die einzelnen Auswertungen beschrieben und deren Umsetzung.
-Für Reports, die über ein DWH-Werkzeug bereitgestellt werden, wird es in einer der nachfolgenden Versionen der IsyFact allgemeine Vorgaben geben.
-Bis dahin sind die spezifischen Vorgaben für das vorliegende System in diesem Abschnitt zu beschreiben._
-====
+Die Vorgaben zur Serviceschicht sind in der Referenzarchitektur Backend beschrieben.
 
-<<<
-[[druck]]
-==== Druck
+Dieser Abschnitt kann Besonderheiten der Serviceschicht erläutern, die über die Vorgaben der Referenzarchitektur hinausgehen. Ebenfalls sinnvoll ist der Verweis auf zusätzliche, fachliche Konzepte, die Auswirkungen auf die Serviceschicht haben.
 
-====
-_In diesem Abschnitt wird die Erstellung der einzelnen Druckstücke beschrieben.
-Da die Druckstücke durch das Oputput Management erstellt werden, reduziert sich dies auf:_
-
-* _Die Vorlagen_
-* _Die Aufbereitung der Daten für die einzelnen Druckstücke_
-
+Die konkrete Konstruktion der einzelnen Services sind in einem eigenen Unterabschnitt pro Service beschrieben.
 ====
 
-[[querschnittskonzepte-teilsystems]]
-==== Querschnittskonzepte des Teilsystems
+.Rückbezug auf die Systemspezifikation
+[IMPORTANT]
 ====
-_In diesem Abschnitt werden Querschnittskonzepte beschrieben, welche nur für das vorliegende Teilsystem gelten.
-Falls es keine gibt, entfällt dieser Abschnitt._
+Die Komponente stellt in ihrer Beschreibung den Bezug zur Spezifikation dar:
+
+* Wie bilden sich die Nachbarsystemschnittstellen (NST) der Spezifikation auf die Klassen des Codes ab?
 ====
 
-<<<
+[[bsp-1-service]]
+==== BSP1Service
+
+...
+
+[[bsp-2-service]]
+==== BSP2Service
+
+...
+
+
+[[querschnitt]]
+=== Querschnitt
+
+[NOTE]
+====
+Dieser optionale Abschnitt enthält Konzepte des Querschnitts, welche nur für das vorliegende Teilsystem gelten.
+====
+
 [[datenmodell]]
-==== Datenmodell
+=== Datenmodell
 
+[NOTE]
 ====
-_Beschreibung des logischen und physischen Datenmodells des Teilsystems.
-Die Datenmodelle werden als UML-Klassendiagramme erstellt._
+Beschreibung des logischen und physischen Datenmodells des Teilsystems.
+Die Datenmodelle werden als UML-Klassendiagramme erstellt.
 
 *[.underline]#Vorgehen zur Konstruktion#*
 
@@ -942,186 +808,222 @@ Dazu werden in die Diagramme Boundaries eingezeichnet, die die Entitäten einer 
 
 _Das Vorgehen zur Konstruktion der Entitäten ist dabei in der Regel das folgende:_
 
-[arabic]
 . _Aus dem fachlichen Modell (UML-Modell im Modellierungswerkzeug) werden die Entitäten in das technische Modell übernommen._
 _Dieses ist ebenfalls ein UML-Modell. In der Regel entsprechen die Entitäten des technischen Modells 1:1 den Entitäten des fachlichen Modells, daher ist diese Übernahme ein guter Ausgangspunkt._
 . _Das technische Modell wird angepasst, indem z. B. Denormalisierungen vorgenommen werden oder Entitäten mit 1:1-Relationen in einer Entität zusammengefasst werden._
 . _Aus dem technischen Modell im Modellierungswerkzeug werden dann die entsprechenden Java-Klassen für die Entitäten generiert._
 . _Die generierten Java-Klassen werden mit Annotationen für das DB-Mapping ergänzt._
-. _Aus diesen annotierten Klassen wird mit Hilfe der entsprechenden Hibernate-Werkzeuge das passende DB-Schema generiert._
+. _Aus diesen annotierten Klassen wird mithilfe der entsprechenden Hibernate-Werkzeuge das passende DB-Schema generiert._
 . _Dieses Schema wird als physisches Datenbankschema in das Modellierungswerkzeug importiert. Damit erhält man eine Darstellung der Entitäten, die die Grundlage für die Grafiken zum Datenmodell im Systementwurf sind._
 . _In der Regel ist das so entstandene Datenmodell zu groß und unübersichtlich, um in einer einzigen Grafik dargestellt zu werden.
-Wenn möglich wird das Diagramm daher in Teil-Diagramme zerlegt, die in einer logischen Reihenfolge aufeinander aufbauen._
+Wenn möglich wird das Diagramm daher in Teildiagramme zerlegt, die in einer logischen Reihenfolge aufeinander aufbauen._
 _Grundsätzlich sollen sich diese Teildiagramme am Komponentenschnitt orientieren, sie können aber auch noch feiner zerlegt werden.
-Zusätzlich zu den einzelnen Teil-Diagrammen sollte auch noch das Gesamt-Datenmodell in Form einer Übersicht (z. B. ohne Attribute) dargestellt werden, um dem Leser eine bessere Orientierung zu geben._
+Zusätzlich zu den einzelnen Teildiagrammen sollte auch noch das Gesamt-Datenmodell in Form einer Übersicht (z. B. ohne Attribute) dargestellt werden, um dem Leser eine bessere Orientierung zu geben._
 
 ====
 
-<<<
 [[logisches-datenmodell]]
-===== Logisches Datenmodell
+==== Logisches Datenmodell
 
+[NOTE]
 ====
-_Das logische Datenmodell entsteht aus dem fachlichen Datenmodell der Systemspezifikation.
-Es ist weitgehend identisch, passt jedoch z. B. die Namensgebung der Entitäten den Coding-Richtlinien an und legt fest, in welcher Richtung Relationen navigierbar sind._
+Das logische Datenmodell entsteht aus dem fachlichen Datenmodell der Systemspezifikation.
+Es ist weitgehend identisch, passt jedoch z. B. die Namensgebung der Entitäten den Coding-Richtlinien an und legt fest, in welcher Richtung Relationen navigierbar sind.
 
-_Das Diagramm ist eine Übersicht über das logische Datenmodell eines Teilsystems.
-Es enthält alle persistenten Entitäten des Systems._
+Das Diagramm ist eine Übersicht über das logische Datenmodell des IT-Systems.
+Es enthält alle persistenten Entitäten des Systems.
 
+*[.underline]#Darstellung#*
 
-*_Darstellung_*
+* Beziehungen zwischen Entitäten werden über Assoziationen dargestellt.
+* Dargestellt werden Entitäten über Class-Elemente mit Stereotyp `+<<Entität>>+`.
+* Es werden alle Attribute dargestellt.
+Besondere technische Attribute für Primärschlüssel und optimistisches Locking werden über die Stereotypes `+<<Id>>+` und `+<<Version>>+` gekennzeichnet.
+* Die Komponenten, zu denen eine Gruppe von Tabellen gehört, werden über Boundary-Elemente dargestellt.
+* Die Beziehungen zwischen Tabellen werden über Assoziation-Verbinder dargestellt.
+* Die Tabellen sollen nach Komponenten gruppiert werden.
+Jede Komponente soll als Boundary um die Tabellen der Komponente dargestellt werden.
 
-* _Beziehungen zwischen Entitäten werden über Assoziationen dargestellt._
-* _Dargestellt werden Entitäten über Class-Elemente mit Stereotyp „Entität“._
-* _Es werden alle Attribute dargestellt. Besondere technische Attribute für primär Schlüssel und optimistisches Locking werden über die Stereotypes „Id“ und „Version“ gekennzeichnet._
-* _Die Komponenten, zu denen eine Gruppe von Tabellen gehört, werden über Boundary-Elemente dargestellt._
-* _Die Beziehungen zwischen Tabellen werden über Assoziation-Verbinder dargestellt._
-* _Die Tabellen sollen nach Komponenten gruppiert werden. Jede Komponente soll als Boundary um die Tabellen der Komponente dargestellt werden._
+Innerhalb einer Komponente sollen die folgenden Regeln für die Anordnung von Tabellen eingehalten werden:
 
-_Innerhalb einer Komponente sollen die folgenden Regeln für Tabellen eingehalten werden:_
+* Voneinander erbende Tabellen sollen untereinander (von oben nach unten) dargestellt werden.
+* Dekomposition von Tabellen soll von links nach rechts dargestellt werden: Bestandteil-Tabellen stehen rechts von ihren Haupt-Tabellen.
 
-* _Voneinander erbende Tabellen sollen untereinander (von oben nach unten) dargestellt werden._
-* _Dekomposition von Tabellen soll von links nach rechts dargestellt werden: Bestandteil-Tabellen stehen rechts von ihren Haupt-Tabellen._
-
-_Die Wichtigkeit von Entitäten soll über ihre Position und Größe dargestellt werden.
+Die Wichtigkeit von Entitäten soll über ihre Position und Größe dargestellt werden.
 Das Ziel ist ein intuitiv möglichst gut verständliches Diagramm zu erstellen, in dem z.B. die Hauptentität groß in der Mitte dargestellt wird.
 Durch die Gruppierung nach Komponenten und die Verwendung des Standard-Layouts wird das Diagramm äußerst groß (Tapete).
 Dies wird in Kauf genommen: Das Layout ist mit die wichtigste Information.
-Die Optimierung des Diagramms in Hinblick auf den benötigten Platz ist nicht gewünscht._
-====
+Die Optimierung des Diagramms in Hinblick auf den benötigten Platz ist nicht gewünscht.
 
-_Beispiel für ein logisches Datenmodell_
+*[.underline]#Beispiel für ein logisches Datenmodell#*
 
 :desc-image-logisches-datenmodell: Logisches Datenmodell
 [id="image-logisches-datenmodell", reftext = "{figure-caption} {counter:figures}"]
 .{desc-image-logisches-datenmodell}
 image::vorlage-systementwurf/logisches-datenmodell.png[align = center, title-align=center]
 
-<<<
-[[physisches-datenmodell]]
-===== Physisches Datenmodell
+====
 
+[[physisches-datenmodell]]
+==== Physisches Datenmodell
+
+[NOTE]
 ====
 Das physische Datenmodell ist die Umsetzung des logischen Datenmodells in der DB.
 Dort wird z. B. festgelegt, an welchen Stellen Denormalisierungen und Redundanzen aufgenommen werden oder wie Vererbungsbeziehungen abgebildet werden.
 
 Zum physischen Datenmodell werden ebenfalls ein oder mehrere UML-Diagramme analog zum logischen Datenmodell erzeugt.
 
-*_Darstellung_*
+*[.underline]#Darstellung#*
 
-* _Dargestellt werden Tabellen über Class-Elemente mit Stereotyp table._
+* Dargestellt werden Tabellen über Class-Elemente mit Stereotyp `+<<table>>+`.
+* Die Komponenten, zu denen eine Gruppe von Tabellen gehört, werden über Boundary-Elemente dargestellt.
+* Die Beziehungen zwischen Tabellen werden über Assoziation-Verbinder dargestellt.
 
-* _Die Komponenten, zu denen eine Gruppe von Tabellen gehört, werden über Boundary-Elemente dargestellt._
+*[.underline]#Layout#*
 
-* _Die Beziehungen zwischen Tabellen werden über Assoziation-Verbinder dargestellt._
+Die Tabellen sollen nach Komponenten gruppiert werden.
+Jede Komponente soll als Boundary um die Tabellen der Komponente dargestellt werden.
+Innerhalb einer Komponente sollen die folgenden Regeln für die Anordnung von Tabellen eingehalten werden:
 
-*_Layout_*
+* Voneinander erbende Tabellen sollen untereinander (von oben nach unten) dargestellt werden.
+* Dekomposition von Tabellen soll von links nach rechts dargestellt werden: Bestandteil-Tabellen stehen rechts von ihren Haupt-Tabellen.
 
-_Die Tabellen sollen nach Komponenten gruppiert werden. Jede Komponente soll als Boundary um die Tabellen der Komponente dargestellt werden.
-Innerhalb einer Komponente sollen die folgenden Regeln für Tabellen eingehalten werden:_
-
-* _Voneinander erbende Tabellen sollen untereinander (von oben nach unten) dargestellt werden._
-* _Dekomposition von Tabellen soll von links nach rechts dargestellt werden: Bestandteil-Tabellen stehen rechts von ihren Haupt-Tabellen._
-
-_Die Wichtigkeit von Tabellen soll über ihre Position und Größe dargestellt werden.
+Die Wichtigkeit von Tabellen soll über ihre Position und Größe dargestellt werden.
 Das Ziel ist ein intuitiv möglichst gut verständliches Diagramm zu erstellen, in dem z.B. die Hauptentität groß in der Mitte dargestellt wird.
 Durch die Gruppierung nach Komponenten und die Verwendung des Standard-Layouts wird das Diagramm äußerst groß (Tapete).
 Dies wird in Kauf genommen: Das Layout ist mit die wichtigste Information.
-Die Optimierung des Diagramms in Hinblick auf den benötigten Platz ist nicht gewünscht._
+Die Optimierung des Diagramms in Hinblick auf den benötigten Platz ist nicht gewünscht.
 ====
 
-[[systemarchitektur-teilsystems-b]]
-=== Systemarchitektur des Teilsystems B
+[[BSP-1u2-GKBATCH]]
+== SW-Architektur Batch BSP_1+2-GKBATCH
 
+[NOTE]
 ====
-_Analog zu oben, für jedes Teilsystem entsteht ein eigenes Unterkapitel 3.x._
+Die allgemeinen Vorgaben zu Batches sind in der Referenzarchitektur Batch der IsyFact beschrieben.
+Sie können bei Bedarf referenziert werden.
+
+Da sich Batches laut Referenzarchitektur oft den Anwendungskern und die Persistenzschicht mit einem Backend teilen, kann auf die entsprechenden Kapitel referenziert werden.
+Falls dies nicht der Fall ist, ist das Backend wie ein Nachbarsystem zu behandeln und die Batches erhalten einen Anwendungskern mit einem Service Consumer pro benötigtem Service.
+
+
+_Weiterhin wird hier der Rückbezug zur Systemspezifikation hergestellt, indem die Batches der Spezifikation den Batches der Software zugeordnet werden.
+Dies kann textuell oder durch eine UML-Grafik geschehen._
 ====
 
-[[systemarchitektur-teilsystems-c]]
-=== Systemarchitektur des Teilsystems C
+[[batch-ueberblick]]
+=== Überblick
 
+NOTE: Der Überblick richtet sich nach dem in <<backend-ueberblick>> beschriebenen Vorgehen.
+
+[[BSP-1u2-GKBATCH-produkte]]
+=== Bibliotheken & Produkte
+
+[NOTE]
 ====
-_Analog zu oben, für jedes Teilsystem entsteht ein eigenes Unterkapitel 3.x._
+Auflistung der benötigten Bibliotheken für die Entwicklung des IT-Systems in tabellarischer Darstellung.
+
+Wenn keine Version eingetragen wird, richtet sich die Version nach dem Produktkatalog der IsyFact-Version, die in <<konformitaet-zur-referenzarchitektur>> benannt ist.
+
+Abweichungen von der Referenzarchitektur sind in der Spalte "Bemerkung" zu hinterlegen.
+Zusätzliche, nicht von der IsyFact vorgeschriebene und empfohlene Produkte sind ebenfalls zu kennzeichnen.
+Transitive Abhängigkeiten sind nicht einzutragen.
 ====
 
-[[querschnittskonzepte]]
-=== Querschnittskonzepte
-====
-_In der Regel sind für alle wichtigen Querschnittskonzepte wie z. B. Fehlerbehandlung, Logging, Konfiguration oder Authentifizierung IsyFact-Architekturdokumente vorhanden, deshalb müssen diese hier nicht wieder aufgeführt werden._
+Das IT-System BSP_1+2-GKBATCH benötigt gemäß Produktkatalog der IsyFact die folgenden Bibliotheken bzw. Produkte:
 
-_In diesem Abschnitt genannt werden können:_
+:desc-table-benoetigte-bibliotheken-produkte-gkbatch: BSP_1+2-GKBATCH: Bibliotheken & Produkte
+[id="table-benoetigte-bibliotheken-produkte-gkbatch", reftext = "{table-caption} {counter:tables}"]
+.{desc-table-benoetigte-bibliotheken-produkte-gkbatch}
+[cols="3,2,2,4", options="header"]
+|===
+|Kategorie |Name |Version |Bemerkung
+|Programmiersprache
+|Java
+||
 
-* _Verfeinerungen oder Konkretisierungen zu bestehenden Konzepten, z. B.:_
-** _Konfiguration: die konkrete Ausgestaltung der Konfiguration_
-** _Fehlerbehandlung: konkrete Fehlerklassen_
-** _Regelwerk: konkrete Hilfsklassen zum Regelwerk_
-** _Authentifizierung und Autorisierung: Rollen und Rechte_
-* _Querschnittskonzepte, zu denen noch kein IsyFact-Standard existiert._
+|Application Framework
+|Spring Boot
+||
+
+|Batch-Framework
+|Spring Batch
+|s. Spring Boot Dependency Management
+|nur für BSP_1+2-GKBATCH, Entscheidung für Alternativprodukt gemäß <<adr-bsp-ga-1>>
+
+|... |... | |
+|===
+
+
+[[batchschicht]]
+=== Batchschicht
+
+[NOTE]
 ====
+In diesem Abschnitt findet sich die konkrete Konstruktion der Batches, in der Regel mit einem eigenen Abschnitt pro Batch.
+====
+
+[[bat-bsp-2]]
+==== BAT_BSP_2
+
+...
+
+[[it-system-bezeichner]]
+== SW-Architektur <IT-Systemtyp> <IT-System-Bezeichner>
+
+[NOTE]
+====
+Analog zu <<BSP-1u2-GK>> und <<BSP-1u2-GKBATCH>>: für jedes IT-System entsteht ein eigenes Unterkapitel gemäß seines IT-Systemtyps.
+====
+
 
 [[systementwicklung]]
 == Systementwicklung
 
+[NOTE]
 ====
-_Verweis auf das Entwicklerhandbuch. Hier kann entweder ein eigenes Entwicklerhandbuch erstellt werden und ein Verweis hierauf in das Gesamtentwicklerhandbuch aufgenommen werden, oder der Inhalt kann direkt in das Gesamtentwicklerhandbuch aufgenommen werden._
+Dieses Kapitel verweist, wo möglich, auf übergreifende Regelungen (Entwicklungshandbuch, Coding Guidelines, ...).
 
-_Die Tiefe dieses Kapitel sollte den Vorkenntnissen des Entwicklerteams angepasst werden. Es ist kein Selbstzweck und kann ggf. sogar ganz entfallen bzw. nur auf sehr wenige Punkte beschränkt sein._
+Die Tiefe dieses Kapitel passt sich den Vorkenntnissen des Entwicklungsteams an.
+Es ist kein Selbstzweck und kann sich auf wenige Punkte beschränken oder ggf. sogar ganz entfallen.
 
-_Zu folgenden Themen sollen dem Entwicklerteam die Vorgaben klar sein:_
+Wenn es keine übergreifenden Regelungen gibt, adressiert das Kapitel unter anderem folgende Themen:
 
-* _Konventionen (Namenskonventionen, Packagestruktur, …)_
-* _Entwicklungsumgebung (IDE, Tools, …)_
-* _Codegenerierung (was wird wie generiert)_
-* _Konfigurationsmanagement (welche Tools, welche Verfahren, …)_
-* _Buildmanagement (welche Tools, welche Verfahren, …)_
+* Konventionen (Namenskonventionen, Code-Struktur, ...),
+* Entwicklungsumgebung (IDEs, Tools, ...),
+* Codegenerierung (was und wie),
+* Konfigurationsmanagement (Tools, Verfahren, ...),
+* Buildmanagement (Tools, Verfahren, ...).
 ====
 
 [[betrieb]]
 == Betrieb
 
+[NOTE]
 ====
-_Verweis auf das Betriebshandbuch._
+Dieses Kapitel verweist, wo möglich, auf ein Betriebshandbuch (oder dazu ähnliche Dokumente).
 
-_Auf folgende Themen ist zu referenzieren:_
+Es verweist in der Regel auf folgende Themen:
 
-* _Migration (Datenmigration, …)_
-* _Schulung_
-* _Installation (Systemübergabe (Deployment), Konfiguration, …)_
-* _Systemüberwachung (Logging, Monitoring, …)_
+* Migration (Datenmigration, ...),
+* Schulung,
+* Installation (Systemübergabe, Deployment, Konfiguration, ...),
+* Systemüberwachung (Logging, Monitoring, ...).
 ====
 
 [[anhang]]
 == Anhang
 
+[NOTE]
+====
+Der Anhang führt weiterführende oder vertiefende Inhalte auf, die den Lesefluss und die Übersicht des Dokuments "an Ort und Stelle" stören würde.
+Beispiele hierzu sind Templates für Dateien, zum Beispiel zur Konfiguration oder zum Build.
+====
+
 [[anhang-ass-referenzen]]
 === Anhang A: Optionaler Inhalt
 
-====
-_Im Anhang können optionale Inhalte aufgeführt werden._
-
-_Sämtliche relevanten Dokumente der IsyFact werden in der  <<table-verwendete-elemente-isyfact-standards-erweiterungen>> aufgeführt._
-_Die Referenzen auf diese Dokumente sind im automatisch generiertem Kapitel Literaturverweise aufgeführt._
-
-====
-
-[.lead]
-_Hinweis zur Dokumentenerstellung_
-
-[NOTE]
-====
-[.underscore]#Automatisch generierte Kapitel:#
-
-_Die Kapitel_
-
-* _Literaturverweise_
-* _Tabellenverzeichnis_
-* _Abbildungsverzeichnis_
-
-_werden automatisch generiert und am Ende des Dokuments eingefügt._
-
-_Diese Kapitel sind daher **nicht manuell anzulegen!**_
-
-====
-
+...
 
 // end::inhalt[]

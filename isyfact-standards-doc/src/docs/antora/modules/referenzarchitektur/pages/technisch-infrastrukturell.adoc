@@ -10,8 +10,9 @@ Die technisch-infrastrukturelle Referenzarchitektur beschreibt folgende Umgebung
 
 * Produktionsumgebung,
 * Staging-Umgebung,
-* Schulungs- und externe Testumgebung,
-* Entwicklungs- und Abnahme-Testumgebung.
+* Externe Testumgebung und Abnahme-Testumgebung,
+* Schulungsumgebung, und
+* Entwicklungsumgebung.
 
 Die Aufteilung in Zonen leitet sich aus dem SAGA 4-Standard ab.
 
@@ -96,7 +97,7 @@ Um Auswertungen auf Stichtagsbeständen durchführen zu können, wird ein dedizi
 [[staging-umgebung-stu]]
 === Staging-Umgebung (STU)
 
-Mit dem Begriff „Staging-Umgebung“ werden die Komponenten der technischen Infrastruktur bezeichnet, die zum internen Test verwendet werden und auf denen Probleme des Wirkbetriebs nachgestellt werden können.
+Mit dem Begriff „Staging-Umgebung“ werden die Komponenten der technischen Infrastruktur bezeichnet, die zum internen Test verwendet werden und auf denen Probleme des produktiven Betriebs nachgestellt werden können.
 Eine solche Umgebung ist notwendig, um Problemanalysen durchzuführen und Lösungen für bekannte Probleme vor dem Einsatz im Wirkbetrieb auf ihre Funktionsfähigkeit hin zu prüfen.
 Die Staging-Umgebung dient auch zu Last- und Performance-Tests, zur Überprüfung der Installationsroutinen und zur Überprüfung der Ausfallsicherheit.
 Daher muss sie so ausgelegt sein, dass verlässliche Aussagen in Bezug auf die Produktionsumgebung möglich sind.

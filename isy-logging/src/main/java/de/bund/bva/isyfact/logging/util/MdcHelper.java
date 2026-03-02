@@ -2,12 +2,8 @@ package de.bund.bva.isyfact.logging.util;
 
 import org.slf4j.MDC;
 
-import de.bund.bva.isyfact.logging.IsyLoggerFactory;
-import de.bund.bva.isyfact.logging.IsyLoggerStandard;
-
 /**
  * Hilfsklasse zum Zugriff auf den MDC.
- * 
  */
 public final class MdcHelper {
 
@@ -19,9 +15,6 @@ public final class MdcHelper {
 
     /** Trenner der Korrelations-IDs. */
     private static final String TRENNER = ";";
-
-    /** Logger der Klasse. */
-    private static final IsyLoggerStandard LOG = IsyLoggerFactory.getLogger(MdcHelper.class);
 
     /**
      * Privater Konstruktor der Klasse. Verhindert, dass Instanzen der Klasse angelegt werden.
@@ -66,11 +59,7 @@ public final class MdcHelper {
      * @return die gelesen Korrelations-ID.
      */
     public static String liesKorrelationsId() {
-        String korrelationsId = MDC.get(MDC_KORRELATIONS_ID);
-        if (korrelationsId == null) {
-            LOG.debug("Keine Korrelations-ID unter dem Schlüssel {} im MDC gesetzt.", MDC_KORRELATIONS_ID);
-        }
-        return korrelationsId;
+        return MDC.get(MDC_KORRELATIONS_ID);
     }
 
     /**

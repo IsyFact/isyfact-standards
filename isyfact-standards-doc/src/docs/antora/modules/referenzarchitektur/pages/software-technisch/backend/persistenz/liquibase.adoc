@@ -95,7 +95,7 @@ Für eine reibungslose Verwaltung von Datenbankänderungen wird Liquibase direkt
 * Änderungen werden zuerst in isolierten Entwicklungsumgebungen getestet, bevor sie auf andere Umgebungen ausgerollt werden.
 * Die automatisierte Bereitstellung von Änderungen erfolgt über eine Integration in CI/CD-Pipelines.
 * Changelogs unterliegen Code-Reviews, um Konsistenz und Dokumentation sicherzustellen.
-* Darüber hinaus unterstützt xref:https://docs.liquibase.com/user-guide/what-are-preconditions[Liquibase Preconditions].
+* Darüber hinaus unterstützt Liquibase https://docs.liquibase.com/user-guide/what-are-preconditions[Preconditions].
 
 Liquibase stellt sicher, dass jede Änderung nur einmal und in der richtigen Reihenfolge ausgeführt wird, wodurch manuelle Fehler vermieden und die Konsistenz über alle Umgebungen gewährleistet wird.
 

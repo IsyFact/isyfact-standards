@@ -21,4 +21,5 @@ Die IsyFact beschreibt aktuell die folgenden Werkzeuge:
 
 * xref:openapi-tooling.adoc[],
 * xref:formatter.adoc[] für die IDEs Eclipse und IntelliJ,
+* xref:semgrep.adoc[] für die statische Code-Analyse,
 * ein Konzept für xref:gui-tests/gui-tests-mit-selenium.adoc[].

@@ -382,6 +382,6 @@ Es ruft ein xref:glossary::terms-definitions.adoc#glossar-service-gateway[Servic
 
 Die Gesamtheit aller Service-Gateways stellt somit sowohl die Schnittstelle der Systemlandschaft für externe Systeme dar, als auch die Schnittstelle der "Außenwelt" für alle internen IT-Systeme.
 
-.Nutzung von Service Gateways zur Kommunikation mit externen Systemen
+.Nutzung von Service-Gateways zur Kommunikation mit externen Systemen
 image::software-technisch/services/kommunikation-externe-systeme.dn.svg[]
 

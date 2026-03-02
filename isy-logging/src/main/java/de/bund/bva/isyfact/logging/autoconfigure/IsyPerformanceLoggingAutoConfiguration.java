@@ -3,6 +3,7 @@ package de.bund.bva.isyfact.logging.autoconfigure;
 import org.springframework.aop.Advisor;
 import org.springframework.aop.aspectj.AspectJExpressionPointcut;
 import org.springframework.aop.support.DefaultPointcutAdvisor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -36,7 +37,7 @@ public class IsyPerformanceLoggingAutoConfiguration {
     }
 
     @Bean
-    public Advisor performanceLogAdvisor(LoggingMethodInterceptor performanceLogInterceptor) {
+    public Advisor performanceLogAdvisor(@Qualifier("performanceLogInterceptor") LoggingMethodInterceptor performanceLogInterceptor) {
         AspectJExpressionPointcut pointcut = new AspectJExpressionPointcut();
         pointcut.setExpression(String.join(" or ", pointcuts));
         DefaultPointcutAdvisor advisor = new DefaultPointcutAdvisor(pointcut, performanceLogInterceptor);
