@@ -61,7 +61,7 @@ Weitere Fachlichkeit wie z. B. Datenmodelle oder Akteure stehen mit der Fachli
 include::glossary::terms-definitions.adoc[tag=backend-definition]
 
 Backends setzen auf den xref:einstieg:produktkatalog/technologiestackJavaSpring.adoc[].
-Sie nutzen Spring Boot als Anwendungsframework und weitere Produkte von Spring sowie JEE-Standards und xref:bausteine:bausteine.adoc[] der IsyFact zur Umsetzung der Services.
+Sie nutzen Spring Boot als Anwendungsframework und weitere Produkte von Spring sowie JEE-Standards und xref:bausteine:bausteine.adoc[] der IsyFact zur Umsetzung der xref:glossary::terms-definitions.adoc#service[Services].
 
 Die xref:software-technisch/backend.adoc[Referenzarchitektur für Backends] beschreibt die Systemarchitektur und die Umsetzung querschnittlicher, technischer Aspekte für Backends.
 
@@ -81,7 +81,7 @@ Die xref:software-technisch/frontend.adoc[Referenzarchitektur für Frontends] be
 include::glossary::terms-definitions.adoc[tag=batch-definition]
 
 Batches setzen wie Backends auf den xref:einstieg:produktkatalog/technologiestackJavaSpring.adoc[].
-Sie nutzen Spring Boot als Anwendungsframework und weitere Produkte von Spring sowie JEE-Standards und xref:bausteine:bausteine.adoc[] der IsyFact zur Umsetzung der Services.
+Sie nutzen Spring Boot als Anwendungsframework und weitere Produkte von Spring sowie JEE-Standards und xref:bausteine:bausteine.adoc[] der IsyFact zur Umsetzung der Batches.
 
 Die xref:software-technisch/batch.adoc[Referenzarchitektur für Batches] beschreibt die Systemarchitektur und die Umsetzung querschnittlicher, technischer Aspekte für Batches.
 

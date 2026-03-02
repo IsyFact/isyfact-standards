@@ -4,7 +4,7 @@
 
 *Wiederverwendbare Softwarelösungen, querschnittliche Anwendungen sowie Programmierbibliotheken und -vorlagen zur Erstellung von Geschäftsanwendungen.*
 
-Diese Bausteine liegen in unterschiedlichen Formen vor: es gibt fachliche und technische Services im Sinne einer Service-Orientierten Architektur (SOA), querschnittlich nutzbare Komponenten sowie wiederverwendbare Bibliotheken und Programmiervorlagen.
+Diese Bausteine liegen in unterschiedlichen Formen vor: es gibt fachliche und technische xref:glossary::terms-definitions.adoc#service[Services] im Sinne einer Service-Orientierten Architektur (SOA), querschnittlich nutzbare Komponenten sowie wiederverwendbare Bibliotheken und Programmiervorlagen.
 
 Die Bausteine können auch am Markt verfügbare Fertigprodukte enthalten, dabei sowohl proprietäre als auch Open-Source-Software.
 

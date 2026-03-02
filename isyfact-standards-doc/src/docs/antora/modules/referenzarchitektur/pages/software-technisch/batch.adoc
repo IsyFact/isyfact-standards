@@ -1,3 +1,4 @@
+
 = Referenzarchitektur Batch
 
 include::documentation-guide::partial$licence.adoc[]
@@ -29,7 +30,7 @@ Sie bieten dafür eine konfigurierbare Begrenzung der Laufzeit, nach deren Ablau
 Es gibt auch Batches, die Daten von mehreren Backends verarbeiten.
 Dies kann beispielsweise der Fall sein, wenn ein Batch Daten mehrerer Backends miteinander abgleichen muss.
 Batches, die nicht eindeutig einem Backend zuzuordnen sind, können umgesetzt werden, ohne Quellcode aus einem Backend einzubinden.
-Stattdessen rufen sie die Service-Schnittstellen der benötigten Backends direkt auf und setzen selbst nur die Batchlogik um.
+Stattdessen rufen sie die Services der benötigten Backends direkt auf und setzen selbst nur die Batchlogik um.
 
 Insgesamt ist dies jedoch als Sonderfall zu betrachten, der nur unter oben genannter Bedingung zum Tragen kommt.
 ****

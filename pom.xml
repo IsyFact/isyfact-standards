@@ -64,25 +64,24 @@
         <maven.surefire.argline>
             -Xmx1g -Dfile.encoding=${project.build.sourceEncoding} @{maven.jacoco.argLine}
         </maven.surefire.argline>
-        <maven-surefire.version>3.3.1</maven-surefire.version>
+        <maven-surefire.version>3.5.5</maven-surefire.version>
 
         <!-- Plugin versions used in several places -->
-        <maven.enforcer.plugin.version>3.5.0</maven.enforcer.plugin.version>
-        <maven.javadoc.plugin.version>3.8.0</maven.javadoc.plugin.version>
-        <flatten-maven-plugin.version>1.7.1</flatten-maven-plugin.version>
+        <maven.enforcer.plugin.version>3.6.2</maven.enforcer.plugin.version>
+        <maven.javadoc.plugin.version>3.12.0</maven.javadoc.plugin.version>
+        <flatten-maven-plugin.version>1.7.3</flatten-maven-plugin.version>
         <maven.checkstyle.version>3.6.0</maven.checkstyle.version>
 
         <!-- Pfade für Dokumentation -->
         <isy.doku.standards.bausteine>10_IsyFact-Standards/20_Bausteine</isy.doku.standards.bausteine>
 
         <!-- Maven plugins for static information -->
-        <!-- Update to 5.0.0 when using java 11 -->
-        <git-commit-id-plugin.version>4.9.10</git-commit-id-plugin.version>
+        <git-commit-id-maven-plugin.version>9.0.2</git-commit-id-maven-plugin.version>
 
         <!-- Fixed patch for commons-text CVE-2022-42889 -->
-        <commons-text.version>1.13.0</commons-text.version>
+        <commons-text.version>1.15.0</commons-text.version>
         <isy-checkstyle-config.version>0.2.0</isy-checkstyle-config.version>
-        <central-publishing-maven-plugin.version>0.8.0</central-publishing-maven-plugin.version>
+        <central-publishing-maven-plugin.version>0.10.0</central-publishing-maven-plugin.version>
     </properties>
 
     <build>
@@ -239,7 +238,7 @@
                 <plugin>
                     <groupId>com.github.spotbugs</groupId>
                     <artifactId>spotbugs-maven-plugin</artifactId>
-                    <version>4.9.8.1</version>
+                    <version>4.9.8.2</version>
                     <configuration>
                         <effort>Max</effort>
                         <threshold>high</threshold>
@@ -309,7 +308,7 @@
                 <plugin>
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
-                    <version>3.3.1</version>
+                    <version>3.5.11</version>
                     <executions>
                         <execution>
                             <id>build-info</id>
@@ -320,9 +319,9 @@
                     </executions>
                 </plugin>
                 <plugin>
-                    <groupId>pl.project13.maven</groupId>
-                    <artifactId>git-commit-id-plugin</artifactId>
-                    <version>${git-commit-id-plugin.version}</version>
+                    <groupId>io.github.git-commit-id</groupId>
+                    <artifactId>git-commit-id-maven-plugin</artifactId>
+                    <version>${git-commit-id-maven-plugin.version}</version>
                     <executions>
                         <execution>
                             <id>get-the-git-infos</id>
@@ -356,17 +355,18 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
-                <version>3.3.1</version>
+                <version>3.4.0</version>
                 <configuration>
                     <propertiesEncoding>${project.build.propertiesEncoding}</propertiesEncoding>
                 </configuration>
             </plugin>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.14.1</version>
+                <version>3.15.0</version>
                 <configuration>
                     <!-- requires that maven.compiler.release is set -->
                     <encoding>${project.build.sourceEncoding}</encoding>
+                    <parameters>true</parameters>
                 </configuration>
             </plugin>
             <plugin>
@@ -391,7 +391,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>3.4.2</version>
+                <version>3.5.0</version>
                 <configuration>
                     <archive>
                         <manifest>
@@ -403,7 +403,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
-                <version>3.3.1</version>
+                <version>3.4.0</version>
                 <executions>
                     <execution>
                         <id>attach-sources</id>
@@ -421,12 +421,12 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>3.4.0</version>
+                <version>3.5.1</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
-                <version>3.7.1</version>
+                <version>3.10.0</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -441,12 +441,12 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-clean-plugin</artifactId>
-                <version>3.4.0</version>
+                <version>3.5.0</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-antrun-plugin</artifactId>
-                <version>3.1.0</version>
+                <version>3.2.0</version>
             </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -505,7 +505,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-project-info-reports-plugin</artifactId>
-                <version>3.6.2</version>
+                <version>3.9.0</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -692,7 +692,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-jarsigner-plugin</artifactId>
-                        <version>3.0.0</version>
+                        <version>3.1.0</version>
                         <executions>
                             <execution>
                                 <id>sign</id>
@@ -731,7 +731,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
-                        <version>3.0.1</version>
+                        <version>3.2.8</version>
                         <executions>
                             <execution>
                                 <id>sign-artifacts</id>

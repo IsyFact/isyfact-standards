@@ -1,0 +1,23 @@
+rules:
+  - id: missing-image-version
+    patterns:
+      - pattern-either:
+          - pattern: FROM $IMAGE
+      - pattern-not: FROM $IMAGE:$VERSION
+      - pattern-not: FROM $IMAGE@$DIGEST
+      - pattern-not: FROM $IMAGE:$VERSION@$DIGEST
+      - pattern-not: FROM scratch
+    message: >-
+      Detected docker image with no explicit version attached.
+      Images should be tagged with an explicit version to produce
+      deterministic container images -- attach a version when using 
+      `FROM <image>`.
+    severity: WARNING
+    languages: [dockerfile]
+    metadata:
+      source-rule-url: https://github.com/hadolint/hadolint/wiki/DL3006
+      references:
+        - https://github.com/hadolint/hadolint/wiki/DL3006
+      category: best-practice
+      technology:
+        - dockerfile

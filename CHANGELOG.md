@@ -1,5 +1,9 @@
 # 5.0.0
 ### FEATURES
+- `IFS-5170`: [isyfact-standards-doc] Logik für Berechnung der KorrelationsId vereinfacht
+- `IFS-4925`: [isyfact-standards-doc] Anpassung der Vorlage Systementwurf an die IsyFact 5
+- `IFS-4926`: [isyfact-standards-doc] Anpassung der Darstellung von Gateways in der TI-Architektur
+- `IFS-4734`: [isyfact-standards-doc] Verwendungen des Begriffs "Service" und damit verwandter Begriffe korrigieren
 - `IFS-4980`: [isyfact-standards-doc] Erstellung initiale Gliederung und Einleitung & Zielbild für Referenzarchitektur Frontend
 - `IFS-4903`: [isyfact-standards-doc] Anpassung der Service-Gateways an die Definition des IT-Systemtyps "Gateway"
 - `IFS-4899`: [isyfact-standards-doc] Dokumentation des Schemas für Konfigurationsparameter
@@ -29,6 +33,8 @@
   * Update von Maven Version auf 3.6.3
 - `IFS-4763`: [isyfact-standards-doc] Erweiterung und Konkretisierung der Liquibase-Dokumentation
 - `IFS-4748`: [isy-ueberwachung] Dokumentation von aktualisierten Properties
+- `IFS-5162`: [isy-logging] Konfiguration für die Bean Injection angepasst, sodass der PerformanceLogAdvisor korrekt geladen wird
+- `IFS-4946`: [isyfact-standards-doc] Entfernt Installations- und Betriebsanleitung für RPM Deployment
 
 ### BUG FIXES
 - `IFS-4753`: [isy-batchrahmen] Änderung der Konfigurationsreihenfolge.
@@ -40,6 +46,7 @@
 - `IFS-4736`: [isy-persistence] Entfernung der Bibliothek aus den IsyFact-Standards
 - `IFS-4582`: [isy-persistence], [isy-polling], [isy-security], [isy-security-test], [isy-task], [isy-util] Entfernen der entkoppelten Bausteine aus dem Standards-Repository
 - `IFS-4922`: Aktualisierung von Java 17 auf 25
+- `IFS-4849`: Klassen des Pakets `de.bund.bva.isyfact.persistence.datetime` wurden aufgelöst.
 - `IFS-4911`: [isy-ueberwachung] Absicherung Actuator mit OAuth2
 
 ### DEPENDENCY UPGRADES
@@ -50,8 +57,9 @@
 - `IFS-4655`: Update von Maven Checkstyle Plugin auf Version 3.6.0
 - `IFS-4531`: Update von Flatten Maven Plugin auf Version 1.7.1
     * Update von Maven Version auf 3.6.3
-- `IFS-4864`: Update von Spring Boot auf Version 3.5.6
-
+- `IFS-4830`: Update von Spring Boot auf 3.5.9, Apache Poi auf 5.5.1 und Apache Tika auf 3.2.3
+- `IFS-5006`: Update des git-commit-id-maven-plugins auf Version 9.0.2
+ 
 ## RELEASE NOTES
 
 [//]: # (### Allgemeine Änderungen)
@@ -70,7 +78,8 @@ Die Begrifflichkeiten "internes System" bzw. "interne Anwendung" wurden entfernt
 
 Der IT-Systemtyp "Gateway" wurde eingeführt. Er bildet die architektonische Grundlage für Service-Gateways und weitere Systeme, die eine Systemlandschaft mit der Außenwelt verbinden. 
 
-Der Bereich Services der Referenzarchitektur enthält eine Beschreibung von REST sowie allgemeine Seite zu Vorgaben und Konventionen aus dem abgelösten Baustein REST. 
+Der Bereich Services der Referenzarchitektur enthält eine Beschreibung von REST sowie allgemeine Seite zu Vorgaben und Konventionen aus dem abgelösten Baustein REST.
+Außerdem wurde der Begriff "Service" überarbeitet und dessen Verwendung in der gesamten IsyFact, wo nötig, angepasst. 
 
 #### Backend
 
@@ -106,8 +115,6 @@ Diese Metriken waren zuvor über die `ServiceStatistik`-Schnittstelle verfügbar
 #### Entkopplung
 Folgende Bausteine wurden in eigenständige Repositories umgezogen:
 
-* [isyfact-standards (Package `de.bund.bva.isyfact.persistence.datetime`)](https://github.com/IsyFact/isyfact-standards/tree/release/4.x/isy-persistence/src/main/java/de/bund/bva/isyfact/persistence/datetime) →
-  [isy-datetime-persistence](https://github.com/IsyFact/isy-datetime-persistence)
 * [isyfact-standards (Modul isy-polling)](https://github.com/IsyFact/isyfact-standards/tree/release/4.x/isy-polling) → [isy-polling](https://github.com/IsyFact/isy-polling)
 * [isyfact-standards (Modul isy-security)](https://github.com/IsyFact/isyfact-standards/tree/release/4.x/isy-security) → [isy-security](https://github.com/IsyFact/isy-security)
 * [isyfact-standards (Modul isy-task)](https://github.com/IsyFact/isyfact-standards/tree/release/4.x/isy-task) → [isy-task](https://github.com/IsyFact/isy-task)
@@ -159,3 +166,24 @@ Anwendungen, die auf die zeitbeschränkten Metriken (`...LetzteMinute`) zur Übe
 Die übrigen Metriken ohne Zeitbeschränkung funktionieren weiterhin wie gehabt.
 
 > **Hinweis:** Mithilfe der z.B. in Prometheus verfügbaren Funktionen lässt sich die gewohnte Funktionalität nahezu vollständig nachbilden.
+
+### RPM-Deprecation als Auslieferungsmedium
+
+RPM als Auslieferungsmedium wird nicht mehr unterstützt.
+Stattdessen wird eine ausführbare JAR als Standard-Auslieferungsmedium verwendet.
+
+Weitere Informationen finden Sie in der [Spring Boot Dokumentation](https://docs.spring.io/spring-boot/specification/executable-jar/index.html).
+
+### Dependency Änderungen
+
+- isy-git-commit-id-plugin:
+
+```xml
+<!-- Alt -->
+<groupId>pl.project13.maven</groupId>
+<artifactId>git-commit-id-plugin</artifactId>
+
+<!-- Neu -->
+<groupId>io.github.git-commit-id</groupId>
+<artifactId>git-commit-id-maven-plugin</artifactId>
+```
