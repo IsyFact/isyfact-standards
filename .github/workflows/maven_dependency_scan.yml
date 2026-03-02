@@ -10,7 +10,7 @@ on:
 
 jobs:
   SnykScan:
-    uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_dependency_scan_template.yml@v2.1.1
+    uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_dependency_scan_template.yml@v2.2.1
     with:
       jdk-version: 17
       snyk-reference: $GITHUB_REF_NAME
