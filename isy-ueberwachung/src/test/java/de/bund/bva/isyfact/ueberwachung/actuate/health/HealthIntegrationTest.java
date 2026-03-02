@@ -1,8 +1,5 @@
 package de.bund.bva.isyfact.ueberwachung.actuate.health;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
-
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -14,13 +11,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointProperties;
 import org.springframework.boot.actuate.endpoint.ApiVersion;
 import org.springframework.boot.actuate.endpoint.SecurityContext;
-import org.springframework.boot.actuate.health.CompositeHealthContributor;
-import org.springframework.boot.actuate.health.Health;
-import org.springframework.boot.actuate.health.HealthContributor;
-import org.springframework.boot.actuate.health.HealthEndpointWebExtension;
-import org.springframework.boot.actuate.health.HealthIndicator;
-import org.springframework.boot.actuate.health.Status;
+import org.springframework.boot.actuate.endpoint.web.WebServerNamespace;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.health.contributor.CompositeHealthContributor;
+import org.springframework.boot.health.contributor.Health;
+import org.springframework.boot.health.contributor.HealthContributor;
+import org.springframework.boot.health.contributor.HealthIndicator;
+import org.springframework.boot.health.contributor.Status;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -34,6 +31,9 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 
 import de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.model.NachbarsystemHealth;
 import de.bund.bva.isyfact.ueberwachung.autoconfigure.IsyHealthAutoConfiguration;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
 @TestMethodOrder(MethodOrderer.MethodName.class)
 @SpringBootTest(
@@ -87,7 +87,7 @@ class HealthIntegrationTest {
      * If the property "management.endpoint.health.show-details" is set to "never" getting the health of a nested
      * component always return 404, even if the HealthContributor exists.
      *
-     * @see HealthEndpointWebExtension#health(ApiVersion, SecurityContext, String...)
+     * @see org.springframework.boot.health.actuate.endpoint.HealthEndpointWebExtension#health(ApiVersion, WebServerNamespace, SecurityContext, String...)
      */
     @Test
     void test3_andereEndpointsLiefern404() {
