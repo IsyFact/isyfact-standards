@@ -116,7 +116,7 @@ Sicherheits- oder fachkritische Entscheidungen DÜRFEN NICHT im Frontend getroff
 
 ==== AG-3: Standardisierung vor projektspezifischen Sonderlösungen
 Die Gestaltung von Frontends SOLL einheitlichen architektonischen, technologischen und organisatorischen IsyFact-Standards des BVA folgen.
-Abweichungen SOLLEN begründet und dokumentiert werden.
+Abweichungen MÜSSEN begründet und dokumentiert werden.
 
 ==== AG-4: Evolvierbarkeit und Austauschbarkeit
 Frontend-Architekturen SOLLEN so gestaltet werden, dass technologische Weiterentwicklungen, der Austausch einzelner Komponenten sowie funktionale Erweiterungen mit vertretbarem Aufwand möglich sind
