@@ -9,7 +9,9 @@ jobs:
     with:
       jdk-version: 17
       version: ${{ github.ref_name }}
-      sonar-skip: true
+      sonar-skip: false
+    secrets:
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
   QualityGate:
     runs-on: ubuntu-latest
