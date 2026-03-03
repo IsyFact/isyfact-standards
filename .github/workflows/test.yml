@@ -11,8 +11,8 @@ jobs:
     with:
       version: 5.0.0-SNAPSHOT
       maven-opts: "-DskipTests"
-  #    secrets:
-  #      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+    secrets:
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
   QualityGate:
     runs-on: ubuntu-latest
