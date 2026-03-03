@@ -35,100 +35,102 @@ public class IsyRestLogger {
      * @return ExchangeFilterFunction to call build() on
      */
     public ExchangeFilterFunction loggingFilter(IsyLogger logger, String system) {
-        boolean loggeAufruf = properties.isLoggeAufruf();
-        boolean loggeErgebnis = properties.isLoggeErgebnis();
-        boolean loggeDauer = properties.isLoggeDauer();
-        boolean loggeDaten = properties.isLoggeDaten();
-        boolean loggeDatenBeiException = properties.isLoggeDatenBeiException();
-
-
         return (request, next) -> {
             long start = System.currentTimeMillis();
             HttpMethod method = request.method();
             String url = request.url().getPath();
 
-            if (loggeAufruf) {
-                logger.info(
-                        LogKategorie.JOURNAL,
-                        Ereignisschluessel.EISYLO01011.name(),
-                        Ereignisschluessel.EISYLO01011.getNachricht(),
-                        method,
-                        system,
-                        url
-                );
-            }
+            logRequestIfEnabled(logger, system, method, url);
 
             return next.exchange(request)
-                    .flatMap(response -> {
-                        long duration = System.currentTimeMillis() - start;
-                        int status = response.statusCode().value();
-
-                        if (status >= 400) {
-                            if (!loggeDauer) {
-                                logger.info(LogKategorie.PROFILING,
-                                        Ereignisschluessel.EISYLO01013.name(),
-                                        Ereignisschluessel.EISYLO01013.getNachricht(),
-                                        method,
-                                        system,
-                                        url);
-                            }
-                            if (loggeDauer) {
-                                logger.info(LogKategorie.PROFILING,
-                                        Ereignisschluessel.EISYLO01015.name(),
-                                        Ereignisschluessel.EISYLO01015.getNachricht(),
-                                        method,
-                                        system,
-                                        url,
-                                        duration);
-                            }
-                            if (loggeDatenBeiException && logger.isDebugEnabled()) {
-                                return logResponseBody(logger, request, response);
-                            }
-                        } else {
-                            if (loggeErgebnis && !loggeDauer) {
-                                logger.info(LogKategorie.METRIK,
-                                        Ereignisschluessel.EISYLO01012.name(),
-                                        Ereignisschluessel.EISYLO01012.getNachricht(),
-                                        method,
-                                        system,
-                                        url);
-                            }
-                            if (loggeErgebnis && loggeDauer) {
-                                logger.info(LogKategorie.METRIK,
-                                        Ereignisschluessel.EISYLO01014.name(),
-                                        Ereignisschluessel.EISYLO01014.getNachricht(),
-                                        method,
-                                        system,
-                                        url,
-                                        duration);
-                            }
-                            if (loggeDaten && logger.isDebugEnabled()) {
-                                return logResponseBody(logger, request, response);
-                            }
-                        }
-                        return Mono.just(response);
-                    })
-                    .doOnError(ex -> {
-                        long duration = System.currentTimeMillis() - start;
-                        if (!loggeDauer) {
-                            logger.info(LogKategorie.PROFILING,
-                                    Ereignisschluessel.EISYLO01013.name(),
-                                    Ereignisschluessel.EISYLO01013.getNachricht(),
-                                    method,
-                                    system,
-                                    url);
-                        }
-                        if (loggeDauer) {
-                            logger.info(LogKategorie.PROFILING,
-                                    Ereignisschluessel.EISYLO01015.name(),
-                                    Ereignisschluessel.EISYLO01015.getNachricht(),
-                                    method,
-                                    system,
-                                    url,
-                                    duration);
-                        }
-                    });
+                    .flatMap(response -> handleResponse(
+                            logger, request, response, system, method, url,
+                            start))
+                    .doOnError(ex -> logException(logger, system, method, url, start));
         };
+    }
+
+    private Mono<ClientResponse> handleResponse(
+            IsyLogger logger,
+            ClientRequest request,
+            ClientResponse response,
+            String system,
+            HttpMethod method,
+            String url,
+            long start) {
+        boolean loggeErgebnis = properties.isLoggeErgebnis();
+        boolean loggeDauer = properties.isLoggeDauer();
+        boolean loggeDaten = properties.isLoggeDaten();
+        boolean loggeDatenBeiException = properties.isLoggeDatenBeiException();
+
+        long duration = System.currentTimeMillis() - start;
+        int status = response.statusCode().value();
+
+        if (status >= 400) {
+            logError(logger, system, method, url, duration);
+
+            if (loggeDatenBeiException && logger.isDebugEnabled()) {
+                return logResponseBody(logger, request, response);
+            }
+            return Mono.just(response);
+        }
+
+        if (loggeErgebnis) {
+            logSuccess(logger, system, method, url, duration, loggeDauer);
+        }
+
+        if (loggeDaten && logger.isDebugEnabled()) {
+            return logResponseBody(logger, request, response);
+        }
+
+        return Mono.just(response);
+    }
+
+    private void logRequestIfEnabled(IsyLogger logger, String system, HttpMethod method, String url) {
+        if (!properties.isLoggeAufruf()) {
+            return;
+        }
+        logger.info(
+                LogKategorie.JOURNAL,
+                Ereignisschluessel.EISYLO01011.name(),
+                Ereignisschluessel.EISYLO01011.getNachricht(),
+                method,
+                system,
+                url
+        );
+    }
+
+    private void logSuccess(IsyLogger logger, String system, HttpMethod method, String url, long duration, boolean loggeDauer) {
+        if (loggeDauer) {
+            logger.info(LogKategorie.METRIK,
+                    Ereignisschluessel.EISYLO01014.name(),
+                    Ereignisschluessel.EISYLO01014.getNachricht(),
+                    method, system, url, duration);
+        } else {
+            logger.info(LogKategorie.METRIK,
+                    Ereignisschluessel.EISYLO01012.name(),
+                    Ereignisschluessel.EISYLO01012.getNachricht(),
+                    method, system, url);
+        }
+    }
+
+    private void logError(IsyLogger logger, String system, HttpMethod method, String url, long duration) {
+        if (properties.isLoggeDauer()) {
+            logger.info(LogKategorie.PROFILING,
+                    Ereignisschluessel.EISYLO01015.name(),
+                    Ereignisschluessel.EISYLO01015.getNachricht(),
+                    method, system, url, duration);
+        } else {
+            logger.info(LogKategorie.PROFILING,
+                    Ereignisschluessel.EISYLO01013.name(),
+                    Ereignisschluessel.EISYLO01013.getNachricht(),
+                    method, system, url);
+        }
+    }
+
+    private void logException(IsyLogger logger, String system, HttpMethod method, String url, long start) {
+        long duration = System.currentTimeMillis() - start;
+        logError(logger, system, method, url, duration);
     }
 
     /**
