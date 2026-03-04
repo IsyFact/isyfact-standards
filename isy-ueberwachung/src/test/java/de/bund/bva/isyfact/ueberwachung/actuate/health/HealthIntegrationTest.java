@@ -19,6 +19,8 @@ import org.springframework.boot.health.contributor.HealthContributor;
 import org.springframework.boot.health.contributor.HealthIndicator;
 import org.springframework.boot.health.contributor.Status;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
+import org.springframework.boot.webtestclient.autoconfigure.AutoConfigureWebTestClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -33,11 +35,11 @@ import de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.model.
 import de.bund.bva.isyfact.ueberwachung.autoconfigure.IsyHealthAutoConfiguration;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
 @TestMethodOrder(MethodOrderer.MethodName.class)
+@AutoConfigureWebTestClient
+@AutoConfigureMockMvc
 @SpringBootTest(
-    webEnvironment = RANDOM_PORT,
     classes = {IsyHealthAutoConfiguration.class, HealthIntegrationTest.TestConfig.class},
     properties = {
         "isy.logging.anwendung.name=HealthIntegrationTest",
@@ -62,12 +64,12 @@ class HealthIntegrationTest {
 
 
     @Test
-    void test1_initialerStatusUnknown() {
+    void test1_initialerStatusUp() {
         var healthResponse = actuatorCall("/health").expectStatus().isOk()
             .expectBody(NachbarsystemHealth.class)
             .returnResult().getResponseBody();
         assertThat(healthResponse).isNotNull();
-        assertThat(healthResponse.getStatus()).isEqualTo(Status.UNKNOWN);
+        assertThat(healthResponse.getStatus()).isEqualTo(Status.UP);
         assertThat(healthResponse.getDetails()).isEmpty();
     }
 
