@@ -111,7 +111,7 @@ Die software-technische Referenzarchitektur definiert HTTP als grundsätzliches 
 [[prinzipien-der-sicherheitsarchitektur]]
 == Prinzipien der Sicherheitsarchitektur
 
-Die IsyFact-Referenzarchitektur beinhaltet auch xref:xref:software-technisch/sicherheit.adoc[Vorgaben für die Sicherheitsarchitektur] einer Systemlandschaft, die auch über den Menüeintrag "Sicherheit" zu erreichen ist.
+Die IsyFact-Referenzarchitektur beinhaltet auch xref:software-technisch/sicherheit.adoc[Vorgaben für die Sicherheitsarchitektur] einer Systemlandschaft, die auch über den Menüeintrag "Sicherheit" zu erreichen ist.
 
 
 [[verwendung-von-produkten]]
