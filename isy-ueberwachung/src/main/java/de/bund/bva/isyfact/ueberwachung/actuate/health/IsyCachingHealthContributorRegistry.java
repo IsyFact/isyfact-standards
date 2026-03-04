@@ -1,8 +1,10 @@
 package de.bund.bva.isyfact.ueberwachung.actuate.health;
 
 import java.util.Iterator;
+import java.util.stream.Stream;
 
 import org.springframework.boot.health.contributor.HealthContributor;
+import org.springframework.boot.health.contributor.HealthContributors;
 import org.springframework.boot.health.contributor.HealthIndicator;
 import org.springframework.boot.health.registry.HealthContributorRegistry;
 
@@ -26,6 +28,9 @@ public class IsyCachingHealthContributorRegistry implements HealthContributorReg
      */
     private final HealthContributorRegistry registry;
 
+    /**
+     * The cache containing the cached health indicator values.
+     */
     private final IsyHealthContributorRegistryCache cache = new IsyHealthContributorRegistryCache();
 
     /**
@@ -57,10 +62,15 @@ public class IsyCachingHealthContributorRegistry implements HealthContributorReg
         return cache.iterator(registry);
     }
 
+    @Override
+    public Stream<HealthContributors.Entry> stream() {
+        return registry.stream();
+    }
+
     /**
      * Updates the cache by walking the original registry and thereby always syncing the cache to the registry.
      */
     public void updateCache() {
-        cache.update(registry);
+        cache.update(registry.stream().toList());
     }
 }

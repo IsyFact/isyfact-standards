@@ -1,7 +1,5 @@
 package de.bund.bva.isyfact.ueberwachung.actuate.health;
 
-import static org.mockito.Mockito.*;
-
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -13,10 +11,17 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.health.contributor.CompositeHealthContributor;
 import org.springframework.boot.health.contributor.Health;
 import org.springframework.boot.health.contributor.HealthContributor;
+import org.springframework.boot.health.contributor.HealthContributors;
 import org.springframework.boot.health.contributor.HealthIndicator;
 import org.springframework.boot.health.contributor.Status;
 import org.springframework.boot.health.registry.DefaultHealthContributorRegistry;
 import org.springframework.boot.health.registry.HealthContributorRegistry;
+
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 
 /**
@@ -152,43 +157,41 @@ public class IsyHealthContributorRegistryCacheTest {
     }
 
     private void consumeIndicators(HealthContributorRegistry registry, Consumer<HealthIndicator> consumer) {
-        for (NamedContributor<HealthContributor> namedContributor : registry) {
-            consumeIndicators(namedContributor.getContributor(), consumer);
+        for (HealthContributors.Entry contributorEntry : registry) {
+            consumeIndicators(contributorEntry.contributor(), consumer);
         }
     }
 
     private void consumeIndicators(HealthContributor contributor, Consumer<HealthIndicator> consumer) {
         if (contributor instanceof CompositeHealthContributor composite) {
-            for (NamedContributor<HealthContributor> namedContributor : composite) {
-                consumeIndicators(namedContributor.getContributor(), consumer);
+            for (HealthContributors.Entry contributorEntry : composite) {
+                consumeIndicators(contributorEntry.contributor(), consumer);
             }
         } else {
             consumer.accept((HealthIndicator) contributor);
         }
     }
 
-    private void assertEquals(NamedContributors<HealthContributor> contA, NamedContributors<HealthContributor> contB) {
-        assertSubsetOf(contA, contB);
-        assertSubsetOf(contB, contA);
+    private void assertEquals(HealthContributors contA, HealthContributors contB) {
+        assertSubsetOf(contA.iterator(), contB.iterator());
+        assertSubsetOf(contB.iterator(), contA.iterator());
     }
 
     @SuppressWarnings("unchecked")
-    private void assertSubsetOf(HealthContributor contA, HealthContributor contB) {
-        if (contA instanceof NamedContributors && contB instanceof NamedContributors) {
-            assertSubsetOf((NamedContributors<HealthContributor>) contA, (NamedContributors<HealthContributor>) contB);
+    private void assertSubsetOfHealthContributor(HealthContributor contA, HealthContributor contB) {
+        if (contA instanceof CompositeHealthContributor && contB instanceof CompositeHealthContributor) {
+            assertSubsetOf(((CompositeHealthContributor) contA).iterator(), ((CompositeHealthContributor) contB).iterator());
         } else if (!(contA instanceof HealthIndicator && contB instanceof HealthIndicator)) {
             Assertions.fail("Die Strukturen ist nicht gleich");
         }
     }
 
-    private void assertSubsetOf(NamedContributors<HealthContributor> contA, NamedContributors<HealthContributor> contB) {
-        Iterator<NamedContributor<HealthContributor>> iterA = contA.iterator();
-        Iterator<NamedContributor<HealthContributor>> iterB = contB.iterator();
+    private void assertSubsetOf(Iterator<HealthContributors.Entry> iterA, Iterator<HealthContributors.Entry> iterB) {
         while (iterA.hasNext() && iterB.hasNext()) {
-            NamedContributor<HealthContributor> nextA = iterA.next();
-            NamedContributor<HealthContributor> nextB = iterB.next();
-            Assertions.assertEquals(nextA.getName(), nextB.getName());
-            assertSubsetOf(nextA.getContributor(), nextB.getContributor());
+            HealthContributors.Entry nextA = iterA.next();
+            HealthContributors.Entry nextB = iterB.next();
+            Assertions.assertEquals(nextA.name(), nextB.name());
+            assertSubsetOfHealthContributor(nextA.contributor(), nextB.contributor());
         }
         if (iterA.hasNext() || iterB.hasNext()) {
             Assertions.fail("Die Strukturen ist nicht gleich");
