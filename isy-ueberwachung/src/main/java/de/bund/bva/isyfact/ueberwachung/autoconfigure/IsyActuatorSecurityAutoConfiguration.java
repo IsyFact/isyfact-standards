@@ -27,6 +27,9 @@ public class IsyActuatorSecurityAutoConfiguration {
 
     /** Endpoint role to identify the actuator Endpoint Admin. */
     public static final String ENDPOINT_ROLE = "ENDPOINT_ADMIN";
+    /**
+     * jwt-set-uri Url for JwtDecoder.
+     */
     public static final String URL = "jwk-set-uri";
 
 

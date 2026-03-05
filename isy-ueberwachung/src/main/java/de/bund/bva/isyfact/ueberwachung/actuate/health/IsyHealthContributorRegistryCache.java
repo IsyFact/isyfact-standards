@@ -82,8 +82,14 @@ class IsyHealthContributorRegistryCache {
 
     private static final class CacheNode implements HealthIndicator {
 
+        /**
+         * Map associating a CacheNode to its name.
+         */
         private Map<String, CacheNode> children;
 
+        /**
+         * Default value for a health status (default=unknown).
+         */
         private Health health = DEFAULT_HEALTH;
 
         /**
