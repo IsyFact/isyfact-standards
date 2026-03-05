@@ -35,6 +35,7 @@
 - `IFS-4748`: [isy-ueberwachung] Dokumentation von aktualisierten Properties
 - `IFS-5162`: [isy-logging] Konfiguration für die Bean Injection angepasst, sodass der PerformanceLogAdvisor korrekt geladen wird
 - `IFS-4946`: [isyfact-standards-doc] Entfernt Installations- und Betriebsanleitung für RPM Deployment
+- `IFS-5252`: [isy-logging] Implementieren von Logging in ausgehenden REST-Requests
 
 ### BUG FIXES
 - `IFS-4753`: [isy-batchrahmen] Änderung der Konfigurationsreihenfolge.
