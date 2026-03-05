@@ -1,4 +1,2 @@
-# 3.3.0
-
-### Features
-- `IFS-4731`: Korrektes Auflösen der URL in SBOMs
+# 3.4.0
+- `IFS-5252`: [isy-logging] Implementieren von Logging in ausgehenden REST-Requests
