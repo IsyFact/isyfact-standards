@@ -23,6 +23,7 @@
         <isy-security-test.version>4.0.0</isy-security-test.version>
         <isy-task.version>5.0.0-SNAPSHOT</isy-task.version>
         <isy-util.version>5.0.0-SNAPSHOT</isy-util.version>
+        <isy-ueberwachung.version>5.0.0-SNAPSHOT</isy-ueberwachung.version>
         <isy-batchrahmen.version>5.0.0-SNAPSHOT</isy-batchrahmen.version>
     </properties>
 
@@ -84,7 +85,7 @@
             <dependency>
                 <groupId>de.bund.bva.isyfact</groupId>
                 <artifactId>isy-ueberwachung</artifactId>
-                <version>${project.parent.version}</version>
+                <version>${isy-ueberwachung.version}</version>
             </dependency>
             <dependency>
                 <groupId>de.bund.bva.isyfact</groupId>
