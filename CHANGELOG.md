@@ -1,5 +1,6 @@
 # 5.0.0
 ### FEATURES
+- `IFS-5209`: [isyfact-standards-doc] Verschiebung der Beschreibung "Prinzipien der Sicherheitsarchitektur" auf die neue Seite "Sicherheit"
 - `IFS-5170`: [isyfact-standards-doc] Logik für Berechnung der KorrelationsId vereinfacht
 - `IFS-4925`: [isyfact-standards-doc] Anpassung der Vorlage Systementwurf an die IsyFact 5
 - `IFS-4926`: [isyfact-standards-doc] Anpassung der Darstellung von Gateways in der TI-Architektur
@@ -80,6 +81,9 @@ Der IT-Systemtyp "Gateway" wurde eingeführt. Er bildet die architektonische Gru
 
 Der Bereich Services der Referenzarchitektur enthält eine Beschreibung von REST sowie allgemeine Seite zu Vorgaben und Konventionen aus dem abgelösten Baustein REST.
 Außerdem wurde der Begriff "Service" überarbeitet und dessen Verwendung in der gesamten IsyFact, wo nötig, angepasst. 
+
+Im Menü wurde ein neuer Eintrag "Sicherheit" aufgenommen, der auf eine neue Seite verweist und nun die Beschreibungen zum Thema "Prinzipien der Sicherheitsarchitektur" enthält.
+Diese waren zuvor als Unterkapitel auf der Seite "software-technische Referenzarchitektur" enthalten und wurden dort durch eine Referenzierung auf die neue Seite "Sicherheit" ersetzt.
 
 #### Backend
 
