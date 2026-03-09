@@ -27,7 +27,7 @@ Die Konfiguration "p/java" bezieht sich auf ein Community https://semgrep.dev/p/
 [cols="^1s,^2"]
 |====
 |Lokal nutzen
-|xref:https://semgrep.dev/docs/getting-started/quickstart[Semgrep Quickstart]
+|https://semgrep.dev/docs/getting-started/quickstart[Semgrep Quickstart]
 |CI/CD integrieren
-|xref:https://semgrep.dev/docs/semgrep-ci/sample-ci-configs#sample-github-actions-configuration-file[Semgrep CI Configuration]
+|https://semgrep.dev/docs/semgrep-ci/sample-ci-configs#sample-github-actions-configuration-file[Semgrep CI Configuration]
 |====
