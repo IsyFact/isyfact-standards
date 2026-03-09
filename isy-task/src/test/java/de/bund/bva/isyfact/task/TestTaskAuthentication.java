@@ -1,5 +1,6 @@
 package de.bund.bva.isyfact.task;
 
+import io.micrometer.core.instrument.MeterRegistry;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
 import java.util.Collections;
@@ -17,8 +18,6 @@ import org.springframework.test.context.ActiveProfiles;
 import de.bund.bva.isyfact.task.test.TestTaskRunAssertion;
 import de.bund.bva.isyfact.task.test.config.TestConfig;
 
-import io.micrometer.core.instrument.MeterRegistry;
-
 @ActiveProfiles("security-test")
 @SpringBootTest(
         classes = {
@@ -26,6 +25,7 @@ import io.micrometer.core.instrument.MeterRegistry;
                 TestTaskAuthenticationTasks.class
         },
         properties = {
+                "spring.main.web-application-type=servlet",
                 "isy.task.authentication.enabled=true",
                 "spring.task.scheduling.pool.size=2",
         })

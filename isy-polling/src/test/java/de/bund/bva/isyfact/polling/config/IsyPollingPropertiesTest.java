@@ -1,5 +1,8 @@
 package de.bund.bva.isyfact.polling.config;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,9 +12,6 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Configuration;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
 public class IsyPollingPropertiesTest {
 
@@ -42,7 +42,11 @@ public class IsyPollingPropertiesTest {
         properties.put("isy.polling.cluster.POSTFACH2_CLUSTER.jmxverbindungen", "server1,server2");
 
         ConfigurableApplicationContext context =
-            new SpringApplicationBuilder().sources(TestConfig.class).properties(properties).run();
+            new SpringApplicationBuilder()
+                    .sources(TestConfig.class)
+                    .properties(properties)
+                    .web(org.springframework.boot.WebApplicationType.NONE)
+                    .run();
 
         IsyPollingProperties isyPollingProperties = context.getBean(IsyPollingProperties.class);
 
@@ -68,7 +72,11 @@ public class IsyPollingPropertiesTest {
 
         properties.put("isy.polling.jmx.verbindungen.server1.port", "-1");
 
-        new SpringApplicationBuilder().sources(TestConfig.class).properties(properties).run();
+        new SpringApplicationBuilder()
+                .sources(TestConfig.class)
+                .properties(properties)
+                .web(org.springframework.boot.WebApplicationType.NONE)
+                .run();
     }
 
     @Configuration
