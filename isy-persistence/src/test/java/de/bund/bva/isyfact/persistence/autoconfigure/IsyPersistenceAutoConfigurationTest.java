@@ -30,6 +30,7 @@ class IsyPersistenceAutoConfigurationTest {
         ConfigurableApplicationContext context = new SpringApplicationBuilder()
             .sources(TestConfig.class)
             .properties(properties)
+            .web(org.springframework.boot.WebApplicationType.NONE)
             .run();
 
         assertThatThrownBy(() -> context.getBean(IsyDataSource.class))
@@ -50,6 +51,7 @@ class IsyPersistenceAutoConfigurationTest {
             new SpringApplicationBuilder()
                 .sources(TestConfig.class)
                 .properties(properties)
+                .web(org.springframework.boot.WebApplicationType.NONE)
                 .run())
             .isInstanceOf(UnsatisfiedDependencyException.class)
             .getRootCause()
@@ -63,6 +65,7 @@ class IsyPersistenceAutoConfigurationTest {
             new SpringApplicationBuilder()
                 .sources(TestConfig.class)
                 .profiles("h2")
+                .web(org.springframework.boot.WebApplicationType.NONE)
                 .run())
             .isInstanceOf(UnsatisfiedDependencyException.class)
             .hasMessageContaining("Is there an unresolvable circular reference?");
