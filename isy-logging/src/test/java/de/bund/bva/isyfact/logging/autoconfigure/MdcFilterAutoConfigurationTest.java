@@ -37,6 +37,7 @@ import de.bund.bva.isyfact.logging.util.MdcHelper;
                 MdcFilterAutoConfigurationTest.TestConfig.class
         },
         properties = {
+                "spring.main.web-application-type=servlet",
                 "spring.main.banner-mode = off",
                 "isy.logging.anwendung.name = test",
                 "isy.logging.anwendung.typ = test",
