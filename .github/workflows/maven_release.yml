@@ -54,7 +54,7 @@ jobs:
 
   DeployReleaseVersion:
     needs: [QualityGate, DependencyScan]
-    uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_deploy_template.yml@v2.1.1
+    uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_deploy_template.yml@v2.3.0
     with:
       version: ${{ github.ref_name }}
       jdk-version: 17
