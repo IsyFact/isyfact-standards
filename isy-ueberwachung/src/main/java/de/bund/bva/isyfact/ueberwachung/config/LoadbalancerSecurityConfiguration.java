@@ -32,7 +32,7 @@ public class LoadbalancerSecurityConfiguration {
      */
     @Bean
     @Order(20)
-    SecurityFilterChain loadbalancerSecurityFilterChain(HttpSecurity http) throws Exception {
+    SecurityFilterChain loadbalancerSecurityFilterChain(HttpSecurity http) {
         http
                 .securityMatcher(EndpointRequest.toAnyEndpoint())
                 .authorizeHttpRequests(requests -> requests

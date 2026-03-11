@@ -36,7 +36,7 @@ public class IsyActuatorSecurityAutoConfiguration {
     @Bean
     @Order(10)
     @ConditionalOnMissingBean(name = "actuatorSecurityFilterChain")
-    public SecurityFilterChain actuatorSecurityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain actuatorSecurityFilterChain(HttpSecurity http) {
         http
                 .securityMatcher(EndpointRequest.toAnyEndpoint())
                 .authorizeHttpRequests(requests -> requests

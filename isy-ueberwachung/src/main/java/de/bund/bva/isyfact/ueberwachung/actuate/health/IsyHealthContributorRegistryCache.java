@@ -136,33 +136,7 @@ class IsyHealthContributorRegistryCache {
     }
 
     private static CompositeHealthContributor adapt(CompositeHealthContributor composite, CacheNode cacheNode) {
-        return new CompositeHealthContributor() {
-
-            @Override
-            public HealthContributor getContributor(String name) {
-                CacheNode childNode = null;
-                if (cacheNode != null) {
-                    childNode = cacheNode.getChild(name);
-                }
-                return adapt(composite.getContributor(name), childNode);
-            }
-
-            @Override
-            public Iterator<HealthContributors.Entry> iterator() {
-                return createAdapterIterator(composite, cacheNode);
-            }
-
-            @Override
-            public Stream<HealthContributors.Entry> stream() {
-                return composite.stream().map(entry -> {
-                    String name = entry.name();
-                    CacheNode childNode = cacheNode != null
-                            ? cacheNode.getChild(name)
-                            : null;
-                    return new HealthContributors.Entry(name, adapt(entry.contributor(), childNode));
-                });
-            }
-        };
+        return new CacheNodeHealthContributor(composite, cacheNode);
     }
 
 
@@ -196,5 +170,46 @@ class IsyHealthContributorRegistryCache {
             }
 
         };
+    }
+
+    private static class CacheNodeHealthContributor implements CompositeHealthContributor {
+
+        /**
+         * CompositeHealthContributor associated with the CacheNode.
+         */
+        private CompositeHealthContributor composite;
+        /**
+         * CacheNode HealthIndicator.
+         */
+        private CacheNode cacheNode;
+
+        CacheNodeHealthContributor(CompositeHealthContributor composite, CacheNode cacheNode) {
+            this.composite = composite;
+            this.cacheNode = cacheNode;
+        }
+        @Override
+        public HealthContributor getContributor(String name) {
+            CacheNode childNode = null;
+            if (cacheNode != null) {
+                childNode = cacheNode.getChild(name);
+            }
+            return adapt(composite.getContributor(name), childNode);
+        }
+
+        @Override
+        public Iterator<HealthContributors.Entry> iterator() {
+            return createAdapterIterator(composite, cacheNode);
+        }
+
+        @Override
+        public Stream<HealthContributors.Entry> stream() {
+            return composite.stream().map(entry -> {
+                String name = entry.name();
+                CacheNode childNode = cacheNode != null
+                        ? cacheNode.getChild(name)
+                        : null;
+                return new HealthContributors.Entry(name, adapt(entry.contributor(), childNode));
+            });
+        }
     }
 }

@@ -9,7 +9,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.client.ClientHttpResponse;
-import org.springframework.lang.NonNull;
 import org.springframework.web.client.DefaultResponseErrorHandler;
 
 /**
@@ -38,7 +37,7 @@ public final class NachbarsystemRestTemplateConfigurer {
     public static class CustomErrorHandler extends DefaultResponseErrorHandler {
 
         @Override
-        public void handleError(@NonNull ClientHttpResponse response, @NonNull HttpStatusCode statusCode, URI uri, HttpMethod method)
+        public void handleError(ClientHttpResponse response, HttpStatusCode statusCode, URI uri, HttpMethod method)
             throws IOException {
 
             //skip Default Error Handling for SERVICE_UNAVAILABLE
