@@ -2,21 +2,23 @@ package de.bund.bva.isyfact.ueberwachung.actuate.health;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Stream;
 
-import org.springframework.boot.actuate.health.CompositeHealthContributor;
-import org.springframework.boot.actuate.health.Health;
-import org.springframework.boot.actuate.health.HealthContributor;
-import org.springframework.boot.actuate.health.HealthContributorRegistry;
-import org.springframework.boot.actuate.health.HealthIndicator;
-import org.springframework.boot.actuate.health.NamedContributor;
-import org.springframework.boot.actuate.health.NamedContributors;
+import org.springframework.boot.health.contributor.CompositeHealthContributor;
+import org.springframework.boot.health.contributor.Health;
+import org.springframework.boot.health.contributor.HealthContributor;
+import org.springframework.boot.health.contributor.HealthContributors;
+import org.springframework.boot.health.contributor.HealthIndicator;
+import org.springframework.boot.health.registry.HealthContributorRegistry;
+
 
 /**
  * This class serves as a cache for the individual {@link Health} results from the {@link HealthIndicator}s in
  * a {@link HealthContributorRegistry}.
  * <p/>
- * The method {@link #update(NamedContributors)} will refresh the cache using the original registry hence synchronising
+ * The method {@link #update(List)} will refresh the cache using the original registry hence synchronising
  * the cache and the registry in case the registry has been modified during runtime.
  */
 class IsyHealthContributorRegistryCache {
@@ -32,33 +34,45 @@ class IsyHealthContributorRegistryCache {
      */
     private volatile CacheNode rootNode = new CacheNode();
 
+    /**
+     * Retrieves the HealthContributor from the cache node structure.
+     * @param contributor the HealthContributor to be found in the cache
+     * @param name name of the contributor
+     * @return the contributor stored in the cache under the given parameters
+     */
     HealthContributor getContributor(HealthContributor contributor, String name) {
         return adapt(contributor, rootNode.getChild(name));
     }
 
-    Iterator<NamedContributor<HealthContributor>> iterator(NamedContributors<HealthContributor> contributors) {
+    /**
+     * Provides an iterator that traverses the tree structure in the cache to retrieve all contributor Entry objects.
+     * @param contributors set of contributors
+     * @return iterator iterating over all contributor entries in the cache
+     */
+    Iterator<HealthContributors.Entry> iterator(HealthContributors contributors) {
+
         return createAdapterIterator(contributors, rootNode);
     }
 
     /**
      * Updates the cache by walking the original registry and thereby always syncing the cache to the registry.
      */
-    void update(NamedContributors<HealthContributor> contributors) {
+    void update(List<HealthContributors.Entry> contributors) {
         CacheNode newRootNode = new CacheNode();
-        for (NamedContributor<HealthContributor> namedContributor : contributors) {
-            update(namedContributor, newRootNode);
+        for (HealthContributors.Entry contributorEntry : contributors) {
+            update(contributorEntry, newRootNode);
         }
         rootNode = newRootNode;
     }
 
-    private static void update(NamedContributor<HealthContributor> namedContributor, CacheNode parentNode) {
-        String name = namedContributor.getName();
-        HealthContributor contributor = namedContributor.getContributor();
+    private static void update(HealthContributors.Entry contributorEntry, CacheNode parentNode) {
+        String name = contributorEntry.name();
+        HealthContributor contributor = contributorEntry.contributor();
 
         CacheNode cacheNode = parentNode.makeChild(name);
 
         if (contributor instanceof CompositeHealthContributor composite) {
-            for (NamedContributor<HealthContributor> healthContributorNamedContributor : composite) {
+            for (HealthContributors.Entry healthContributorNamedContributor : composite) {
                 update(healthContributorNamedContributor, cacheNode);
             }
         } else {
@@ -68,10 +82,21 @@ class IsyHealthContributorRegistryCache {
 
     private static final class CacheNode implements HealthIndicator {
 
+        /**
+         * Map associating a CacheNode to its name.
+         */
         private Map<String, CacheNode> children;
 
+        /**
+         * Default value for a health status (default=unknown).
+         */
         private Health health = DEFAULT_HEALTH;
 
+        /**
+         * Retrieves the CacheNodes child with the given name as key.
+         * @param name name/key of the CacheNode
+         * @return CacheNode
+         */
         CacheNode getChild(String name) {
             if (children == null) {
                 children = new HashMap<>();
@@ -79,6 +104,11 @@ class IsyHealthContributorRegistryCache {
             return children.get(name);
         }
 
+        /**
+         * Adds a new child CacheNode.
+         * @param name name/key of the added child CacheNode.
+         * @return the newly added child CacheNode.
+         */
         CacheNode makeChild(String name) {
             if (children == null) {
                 children = new HashMap<>();
@@ -106,21 +136,7 @@ class IsyHealthContributorRegistryCache {
     }
 
     private static CompositeHealthContributor adapt(CompositeHealthContributor composite, CacheNode cacheNode) {
-        return new CompositeHealthContributor() {
-            @Override
-            public HealthContributor getContributor(String name) {
-                CacheNode childNode = null;
-                if (cacheNode != null) {
-                    childNode = cacheNode.getChild(name);
-                }
-                return adapt(composite.getContributor(name), childNode);
-            }
-
-            @Override
-            public Iterator<NamedContributor<HealthContributor>> iterator() {
-                return createAdapterIterator(composite, cacheNode);
-            }
-        };
+        return new CacheNodeHealthContributor(composite, cacheNode);
     }
 
 
@@ -131,10 +147,11 @@ class IsyHealthContributorRegistryCache {
         return () -> DEFAULT_HEALTH;
     }
 
-    private static Iterator<NamedContributor<HealthContributor>> createAdapterIterator(
-            Iterable<NamedContributor<HealthContributor>> composite, CacheNode cacheNode) {
-        Iterator<NamedContributor<HealthContributor>> iterator = composite.iterator();
-        return new Iterator<NamedContributor<HealthContributor>>() {
+    private static Iterator<HealthContributors.Entry> createAdapterIterator(
+            Iterable<HealthContributors.Entry> composite, CacheNode cacheNode) {
+
+        Iterator<HealthContributors.Entry> iterator = composite.iterator();
+        return new Iterator<>() {
 
             @Override
             public boolean hasNext() {
@@ -142,16 +159,57 @@ class IsyHealthContributorRegistryCache {
             }
 
             @Override
-            public NamedContributor<HealthContributor> next() {
-                NamedContributor<HealthContributor> next = iterator.next();
-                String name = next.getName();
+            public HealthContributors.Entry next() {
+                HealthContributors.Entry next = iterator.next();
+                String name = next.name();
                 CacheNode childNode = null;
                 if (cacheNode != null) {
                     childNode = cacheNode.getChild(name);
                 }
-                return NamedContributor.of(name, adapt(next.getContributor(), childNode));
+                return new HealthContributors.Entry(name, adapt(next.contributor(), childNode));
             }
 
         };
+    }
+
+    private static class CacheNodeHealthContributor implements CompositeHealthContributor {
+
+        /**
+         * CompositeHealthContributor associated with the CacheNode.
+         */
+        private CompositeHealthContributor composite;
+        /**
+         * CacheNode HealthIndicator.
+         */
+        private CacheNode cacheNode;
+
+        CacheNodeHealthContributor(CompositeHealthContributor composite, CacheNode cacheNode) {
+            this.composite = composite;
+            this.cacheNode = cacheNode;
+        }
+        @Override
+        public HealthContributor getContributor(String name) {
+            CacheNode childNode = null;
+            if (cacheNode != null) {
+                childNode = cacheNode.getChild(name);
+            }
+            return adapt(composite.getContributor(name), childNode);
+        }
+
+        @Override
+        public Iterator<HealthContributors.Entry> iterator() {
+            return createAdapterIterator(composite, cacheNode);
+        }
+
+        @Override
+        public Stream<HealthContributors.Entry> stream() {
+            return composite.stream().map(entry -> {
+                String name = entry.name();
+                CacheNode childNode = cacheNode != null
+                        ? cacheNode.getChild(name)
+                        : null;
+                return new HealthContributors.Entry(name, adapt(entry.contributor(), childNode));
+            });
+        }
     }
 }

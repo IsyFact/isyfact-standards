@@ -20,9 +20,9 @@ Spring Boot bringt mit Actuator eine Reihe zusätzlicher Funktionen mit, die dab
 Die Kommunikation mit der Anwendung erfolgt über sogenannte _Endpoints_.
 Diese können über HTTP oder JMX bereitgestellt werden.
 Actuator bringt eine Reihe von eingebauten Endpoints mit und bietet auch die Möglichkeit, eigene Endpoints hinzuzufügen.
-So wird für Informationen über den Systemzustand die Endpoints `health`, `livenessProbe`, `ReadinessProbe` angeboten und über den Endpoint `metrics` können Metriken gelesen werden.
+So wird für Informationen über den Systemzustand die Endpoints `health`, `livenessState`, `readinessState` angeboten und über den Endpoint `metrics` können Metriken gelesen werden.
 
-Weitergehende Details zu den Actuator Endpoints können bei https://docs.spring.io/spring-boot/docs/2.7.x/reference/html/actuator.html#actuator.endpoints.info[Spring Boot Actuator Endpoint] nachgelesen werden.
+Weitergehende Details zu den Actuator Endpoints können bei https://docs.spring.io/spring-boot/api/rest/actuator/index.html[Spring Boot Actuator Endpoint] nachgelesen werden.
 
 [[informationen-ueber-den-systemzustand]]
 == Informationen über den Systemzustand
@@ -58,7 +58,7 @@ Erläutert wird, wie diese mit der Hilfe von _Liveness_- und _Readiness_-Probes 
 ==== Liveness
 Eine Anwendung wird als "live" (lebendig) angesehen, wenn diese in einem korrekten inneren Zustand ist.
 Ist eine Anwendung nicht "live", ist ihr innerer Zustand defekt und kann nicht wiederhergestellt werden.
-Die Anwendung muss daher auf jeden Fall neu gestartet werden (vgl. https://docs.spring.io/spring-boot/docs/2.7.x/api/org/springframework/boot/availability/LivenessState.html[Spring Boot `LivenessState`], https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/[Kubernetes Liveness und Readiness Probes]).
+Die Anwendung muss daher auf jeden Fall neu gestartet werden (vgl. https://docs.spring.io/spring-boot/api/java/org/springframework/boot/availability/LivenessState.html[Spring Boot `LivenessState`], https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/[Kubernetes Liveness und Readiness Probes]).
 
 [[Readiness]]
 ==== Readiness

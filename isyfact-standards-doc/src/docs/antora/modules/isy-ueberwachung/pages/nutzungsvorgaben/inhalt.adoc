@@ -261,14 +261,14 @@ Durch das Einbinden der Plugins (s. <<listing-info-maven-config>>) werden 2 Date
 ** `build.version`
 * `git.properties` mit den Keys:
 ** `git.branch`
-** `git.commit.id.abbrev`
+** `git.commit.id`
 ** `git.commit.time`
 
 Die Werte der Keys werden über den Info-Endpoint bereitgestellt.
 
 Bei Bedarf können weitere statische Informationen durch zusätzliche Konfiguration von der Anwendung bereitgestellt werden.
 
-NOTE: Weiterführende Informationen enthält die https://docs.spring.io/spring-boot/docs/2.7.x/reference/html/actuator.html#actuator.endpoints.info[Dokumentation von Spring Boot zum Info-Endpoint].
+NOTE: Weiterführende Informationen enthält die https://docs.spring.io/spring-boot/api/rest/actuator/info.html[Dokumentation von Spring Boot zum Info-Endpoint].
 
 [[konfiguration-und-absicherung-von-endpoints]]
 ==== Konfiguration und Absicherung von Endpoints

@@ -33,7 +33,6 @@
     <modules>
         <module>isyfact-standards-bom</module>
         <module>isyfact-products-bom</module>
-        <module>isy-batchrahmen</module>
         <module>isy-exception-core</module>
         <module>isy-logging</module>
         <module>isy-ueberwachung</module>
@@ -308,7 +307,7 @@
                 <plugin>
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
-                    <version>3.5.11</version>
+                    <version>4.0.3</version>
                     <executions>
                         <execution>
                             <id>build-info</id>
