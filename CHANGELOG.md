@@ -37,12 +37,10 @@
 - `IFS-4946`: [isyfact-standards-doc] Entfernt Installations- und Betriebsanleitung für RPM Deployment
 
 ### BUG FIXES
-- `IFS-4753`: [isy-batchrahmen] Änderung der Konfigurationsreihenfolge.
-  * BatchSecurityConfiguration wird nach Anwendung und BatchRahmen Konfiguration geladen.
-  * Beans mit der `@ConditionalOnMissingBean(...)` Annotation können wie erwartet überschrieben werden.
 - `IFS-4817`: [isy-ueberwachung] Verwendung von `securityMatcher` in actuatorSecurityFilterChain und loadbalancerSecurityFilterChain für korrektes Filtern von Anfragen.
 
 ### BREAKING CHANGES
+- `IFS-5214`: [isy-batchrahmen] Entfernung der Bibliothek aus den IsyFact-Standards
 - `IFS-4736`: [isy-persistence] Entfernung der Bibliothek aus den IsyFact-Standards
 - `IFS-4582`: [isy-persistence], [isy-polling], [isy-security], [isy-security-test], [isy-task], [isy-util] Entfernen der entkoppelten Bausteine aus dem Standards-Repository
 - `IFS-4922`: Aktualisierung von Java 17 auf 25
@@ -120,6 +118,7 @@ Folgende Bausteine wurden in eigenständige Repositories umgezogen:
 * [isyfact-standards (Modul isy-security)](https://github.com/IsyFact/isyfact-standards/tree/release/4.x/isy-security) → [isy-security](https://github.com/IsyFact/isy-security)
 * [isyfact-standards (Modul isy-task)](https://github.com/IsyFact/isyfact-standards/tree/release/4.x/isy-task) → [isy-task](https://github.com/IsyFact/isy-task)
 * [isyfact-standards (Modul isy-util)](https://github.com/IsyFact/isyfact-standards/tree/release/4.x/isy-util) → [isy-util](https://github.com/IsyFact/isy-util)
+* [isyfact-standards (Modul isy-batchrahmen)](https://github.com/IsyFact/isyfact-standards/tree/release/4.x/isy-batchrahmen) → [isy-batchrahmen](https://github.com/IsyFact/isy-batchrahmen)
 
 Für diese Bausteine gilt:
 
