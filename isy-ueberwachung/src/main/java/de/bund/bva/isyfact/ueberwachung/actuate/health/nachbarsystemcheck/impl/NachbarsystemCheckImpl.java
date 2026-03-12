@@ -4,7 +4,7 @@ import java.net.URI;
 
 import jakarta.validation.constraints.NotNull;
 
-import org.springframework.boot.actuate.health.Status;
+import org.springframework.boot.health.contributor.Status;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
