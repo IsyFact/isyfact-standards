@@ -12,7 +12,6 @@ import org.junit.Test;
 
 import de.bund.bva.isyfact.batchrahmen.test.BatchProtokollTester;
 
-
 public class BatchLauncherTest {
 
     /** File for Batch protocol. Is set in {@link #init()}. */
@@ -44,6 +43,8 @@ public class BatchLauncherTest {
 
     @Test
     public void testConditionalBeanOverride() {
+
+        System.setProperty("spring.main.web-application-type", "none");
         BatchProtokollTester bpt;
         BatchLauncher.run(new String[] {"-start", "-cfg", "/resources/batch/batch-launcher-test.properties", "-Batchrahmen.Ergebnisdatei", ERGEBNIS_DATEI});
         bpt = new BatchProtokollTester(ERGEBNIS_DATEI);
