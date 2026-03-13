@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
+import org.springframework.boot.webtestclient.autoconfigure.AutoConfigureWebTestClient;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.oidc.StandardClaimNames;
 import org.springframework.security.oauth2.jwt.Jwt;
@@ -21,6 +23,8 @@ import java.util.Arrays;
 /**
  * Checks whether a response is received with authentication and whether it is rejected as 401 without authentication.
  */
+@AutoConfigureWebTestClient
+@AutoConfigureMockMvc
 @SpringBootTest(
     webEnvironment = RANDOM_PORT,
     classes = {IsyActuatorSecurityAutoConfiguration.class},
