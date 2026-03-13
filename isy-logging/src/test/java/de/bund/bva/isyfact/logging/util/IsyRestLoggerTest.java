@@ -39,12 +39,14 @@ public class IsyRestLoggerTest {
 
         @Override
         public void trace(String nachricht, Object... werte) {
-
+            // no-op
+            // default implementation for test adapter
         }
 
         @Override
         public void debug(String nachricht, Object... werte) {
-
+            // no-op
+            // default implementation for test adapter
         }
 
         @Override
@@ -54,82 +56,98 @@ public class IsyRestLoggerTest {
 
         @Override
         public void info(LogKategorie kategorie, String nachricht, BaseException exception, Object... werte) {
-
+            // no-op
+            // default implementation for test adapter
         }
 
         @Override
         public void info(LogKategorie kategorie, String nachricht, TechnicalRuntimeException exception, Object... werte) {
-
+            // no-op
+            // default implementation for test adapter
         }
 
         @Override
         public void info(LogKategorie kategorie, String schluessel, String nachricht, Throwable t, Object... werte) {
-
+            // no-op
+            // default implementation for test adapter
         }
 
         @Override
         public void warn(String schluessel, String nachricht, Object... werte) {
-
+            // no-op
+            // default implementation for test adapter
         }
 
         @Override
         public void warn(String nachricht, BaseException exception, Object... werte) {
-
+            // no-op
+            // default implementation for test adapter
         }
 
         @Override
         public void warn(String nachricht, TechnicalRuntimeException exception, Object... werte) {
-
+            // no-op
+            // default implementation for test adapter
         }
 
         @Override
         public void warn(String schluessel, String nachricht, Throwable t, Object... werte) {
-
+            // no-op
+            // default implementation for test adapter
         }
 
         @Override
         public void error(String nachricht, BaseException exception, Object... werte) {
-
+            // no-op
+            // default implementation for test adapter
         }
 
         @Override
         public void error(String nachricht, TechnicalRuntimeException exception, Object... werte) {
-
+            // no-op
+            // default implementation for test adapter
         }
 
         @Override
         public void error(String schluessel, String nachricht, Throwable t, Object... werte) {
-
+            // no-op
+            // default implementation for test adapter
         }
 
         @Override
         public void error(String schluessel, String nachricht, Object... werte) {
-
+            // no-op
+            // default implementation for test adapter
         }
 
         @Override
         public void fatal(String nachricht, BaseException exception, Object... werte) {
-
+            // no-op
+            // default implementation for test adapter
         }
 
         @Override
         public void fatal(String nachricht, TechnicalRuntimeException exception, Object... werte) {
-
+            // no-op
+            // default implementation for test adapter
         }
 
         @Override
         public void fatal(String schluessel, String nachricht, Throwable t, Object... werte) {
-
+            // no-op
+            // default implementation for test adapter
         }
 
         @Override
         public void fatal(String schluessel, String nachricht, Object... werte) {
-
+            // no-op
+            // default implementation for test adapter
         }
 
         @Override
         public void traceFachdaten(String nachricht, Object... werte) {
-
+            // no-op
+            // default implementation for test adapter
         }
 
         @Override
@@ -139,82 +157,98 @@ public class IsyRestLoggerTest {
 
         @Override
         public void infoFachdaten(LogKategorie kategorie, String schluessel, String nachricht, Object... werte) {
-
+            // no-op
+            // default implementation for test adapter
         }
 
         @Override
         public void infoFachdaten(LogKategorie kategorie, String nachricht, BaseException exception, Object... werte) {
-
+            // no-op
+            // default implementation for test adapter
         }
 
         @Override
         public void infoFachdaten(LogKategorie kategorie, String nachricht, TechnicalRuntimeException exception, Object... werte) {
-
+            // no-op
+            // default implementation for test adapter
         }
 
         @Override
         public void infoFachdaten(LogKategorie kategorie, String schluessel, String nachricht, Throwable t, Object... werte) {
-
+            // no-op
+            // default implementation for test adapter
         }
 
         @Override
         public void warnFachdaten(String nachricht, BaseException exception, Object... werte) {
-
+            // no-op
+            // default implementation for test adapter
         }
 
         @Override
         public void warnFachdaten(String nachricht, TechnicalRuntimeException exception, Object... werte) {
-
+            // no-op
+            // default implementation for test adapter
         }
 
         @Override
         public void warnFachdaten(String schluessel, String nachricht, Throwable t, Object... werte) {
-
+            // no-op
+            // default implementation for test adapter
         }
 
         @Override
         public void warnFachdaten(String schluessel, String nachricht, Object... werte) {
-
+            // no-op
+            // default implementation for test adapter
         }
 
         @Override
         public void errorFachdaten(String nachricht, BaseException exception, Object... werte) {
-
+            // no-op
+            // default implementation for test adapter
         }
 
         @Override
         public void errorFachdaten(String nachricht, TechnicalRuntimeException exception, Object... werte) {
-
+            // no-op
+            // default implementation for test adapter
         }
 
         @Override
         public void errorFachdaten(String schluessel, String nachricht, Throwable t, Object... werte) {
-
+            // no-op
+            // default implementation for test adapter
         }
 
         @Override
         public void errorFachdaten(String schluessel, String nachricht, Object... werte) {
-
+            // no-op
+            // default implementation for test adapter
         }
 
         @Override
         public void fatalFachdaten(String nachricht, BaseException exception, Object... werte) {
-
+            // no-op
+            // default implementation for test adapter
         }
 
         @Override
         public void fatalFachdaten(String nachricht, TechnicalRuntimeException exception, Object... werte) {
-
+            // no-op
+            // default implementation for test adapter
         }
 
         @Override
         public void fatalFachdaten(String schluessel, String nachricht, Throwable t, Object... werte) {
-
+            // no-op
+            // default implementation for test adapter
         }
 
         @Override
         public void fatalFachdaten(String schluessel, String nachricht, Object... werte) {
-
+            // no-op
+            // default implementation for test adapter
         }
 
         @Override
@@ -249,92 +283,110 @@ public class IsyRestLoggerTest {
 
         @Override
         public void trace(IsyDatentypMarker typ, String nachricht, Object... werte) {
-
+            // no-op
+            // default implementation for test adapter
         }
 
         @Override
         public void debug(IsyDatentypMarker typ, String nachricht, Object... werte) {
-
+            // no-op
+            // default implementation for test adapter
         }
 
         @Override
         public void info(LogKategorie kategorie, IsyDatentypMarker typ, String schluessel, String nachricht, Object... werte) {
-
+            // no-op
+            // default implementation for test adapter
         }
 
         @Override
         public void info(LogKategorie kategorie, IsyDatentypMarker typ, String nachricht, BaseException exception, Object... werte) {
-
+            // no-op
+            // default implementation for test adapter
         }
 
         @Override
         public void info(LogKategorie kategorie, IsyDatentypMarker typ, String nachricht, TechnicalRuntimeException exception, Object... werte) {
-
+            // no-op
+            // default implementation for test adapter
         }
 
         @Override
         public void info(LogKategorie kategorie, IsyDatentypMarker typ, String schluessel, String nachricht, Throwable t, Object... werte) {
-
+            // no-op
+            // default implementation for test adapter
         }
 
         @Override
         public void warn(IsyDatentypMarker typ, String schluessel, String nachricht, Object... werte) {
-
+            // no-op
+            // default implementation for test adapter
         }
 
         @Override
         public void warn(IsyDatentypMarker typ, String nachricht, BaseException exception, Object... werte) {
-
+            // no-op
+            // default implementation for test adapter
         }
 
         @Override
         public void warn(IsyDatentypMarker typ, String nachricht, TechnicalRuntimeException exception, Object... werte) {
-
+            // no-op
+            // default implementation for test adapter
         }
 
         @Override
         public void warn(IsyDatentypMarker typ, String schluessel, String nachricht, Throwable t, Object... werte) {
-
+            // no-op
+            // default implementation for test adapter
         }
 
         @Override
         public void error(IsyDatentypMarker typ, String nachricht, BaseException exception, Object... werte) {
-
+            // no-op
+            // default implementation for test adapter
         }
 
         @Override
         public void error(IsyDatentypMarker typ, String nachricht, TechnicalRuntimeException exception, Object... werte) {
-
+            // no-op
+            // default implementation for test adapter
         }
 
         @Override
         public void error(IsyDatentypMarker typ, String schluessel, String nachricht, Throwable t, Object... werte) {
-
+            // no-op
+            // default implementation for test adapter
         }
 
         @Override
         public void error(IsyDatentypMarker typ, String schluessel, String nachricht, Object... werte) {
-
+            // no-op
+            // default implementation for test adapter
         }
 
         @Override
         public void fatal(IsyDatentypMarker typ, String nachricht, BaseException exception, Object... werte) {
-
+            // no-op
+            // default implementation for test adapter
         }
 
         @Override
         public void fatal(IsyDatentypMarker typ, String nachricht, TechnicalRuntimeException exception, Object... werte) {
-
+            // no-op
+            // default implementation for test adapter
         }
 
         @Override
         public void fatal(IsyDatentypMarker typ, String schluessel, String nachricht, Throwable t, Object... werte) {
-
+            // no-op
+            // default implementation for test adapter
         }
 
         @Override
         public void fatal(IsyDatentypMarker typ, String schluessel, String nachricht, Object... werte) {
-
+            // no-op
+            // default implementation for test adapter
         }
     }
 
@@ -401,7 +453,7 @@ public class IsyRestLoggerTest {
                 filter.filter(createRequest(), exchange).block();
 
         assertNotNull(response);
-        assertEquals(500, response.rawStatusCode());
+        assertEquals(500, response.statusCode().value());
         assertFalse(logger.infos.isEmpty());
     }
 
@@ -418,9 +470,10 @@ public class IsyRestLoggerTest {
 
         ExchangeFilterFunction filter = restLogger.loggingFilter(logger, "TEST");
 
-        assertThrows(RuntimeException.class, () ->
-                filter.filter(createRequest(), exchange).block()
-        );
+        ClientRequest request = createRequest();
+        Mono<ClientResponse> result = filter.filter(request, exchange);
+
+        assertThrows(RuntimeException.class, result::block);
 
         assertFalse(logger.infos.isEmpty());
     }
@@ -444,5 +497,53 @@ public class IsyRestLoggerTest {
         filter.filter(createRequest(), exchange).block();
 
         assertFalse(logger.debugs.isEmpty());
+    }
+
+    @Test
+    public void testSuccessfulResponseWithoutDurationLogging() {
+
+        TestLogger logger = new TestLogger();
+        TestProperties props = new TestProperties();
+        props.logDauer = false;
+
+        IsyRestLogger restLogger = new IsyRestLogger(props);
+
+        ExchangeFunction exchange = request ->
+                Mono.just(ClientResponse.create(HttpStatus.OK).build());
+
+        ExchangeFilterFunction filter = restLogger.loggingFilter(logger, "TEST");
+
+        ClientResponse response =
+                filter.filter(createRequest(), exchange).block();
+
+        assertNotNull(response);
+        assertTrue(response.statusCode().is2xxSuccessful());
+
+        // logging should still happen
+        assertFalse(logger.infos.isEmpty());
+    }
+
+    @Test
+    public void testErrorResponseWithoutDurationLogging() {
+
+        TestLogger logger = new TestLogger();
+        TestProperties props = new TestProperties();
+        props.logDauer = false;
+
+        IsyRestLogger restLogger = new IsyRestLogger(props);
+
+        ExchangeFunction exchange = request ->
+                Mono.just(ClientResponse.create(HttpStatus.BAD_REQUEST).build());
+
+        ExchangeFilterFunction filter = restLogger.loggingFilter(logger, "TEST");
+
+        ClientResponse response =
+                filter.filter(createRequest(), exchange).block();
+
+        assertNotNull(response);
+        assertEquals(400, response.statusCode().value());
+
+        // error logging path executed
+        assertFalse(logger.infos.isEmpty());
     }
 }
