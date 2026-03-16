@@ -11,9 +11,7 @@
 *** xref:security::konzept.adoc[Security icon:external-link-square[]]
 *** xref:isy-sonderzeichen-docs::konzept/master.adoc[Sonderzeichen icon:external-link-square[]]
 *** xref:task::konzept.adoc[Task Scheduling icon:external-link-square[]]
-*** Überwachung
-**** xref:isy-ueberwachung:konzept/master.adoc[Konzept]
-**** xref:isy-ueberwachung:nutzungsvorgaben/master.adoc[Nutzungsvorgaben]
+*** xref:ueberwachung::konzept.adoc[Überwachung icon:external-link-square[]]
 *** xref:util::konzept.adoc[Util icon:external-link-square[]]
 ** IsyFact-Erweiterungen
 *** xref:angular::konzept.adoc[Angular icon:external-link-square[]]
