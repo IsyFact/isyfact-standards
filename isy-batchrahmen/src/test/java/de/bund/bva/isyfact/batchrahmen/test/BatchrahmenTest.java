@@ -1,12 +1,16 @@
 package de.bund.bva.isyfact.batchrahmen.test;
 
+import ch.qos.logback.classic.LoggerContext;
 import static com.github.tomakehurst.wiremock.client.WireMock.postRequestedFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.resetAllRequests;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlMatching;
 import static com.github.tomakehurst.wiremock.client.WireMock.verify;
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
-import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -32,10 +36,9 @@ import de.bund.bva.isyfact.batchrahmen.config.AbstractOidcProviderTest;
 import de.bund.bva.isyfact.batchrahmen.core.launcher.BatchLauncher;
 import de.bund.bva.isyfact.security.authentication.ClaimsOnlyOAuth2Token;
 
-import ch.qos.logback.classic.LoggerContext;
 
-
-@SpringBootTest(classes = AnwendungTestConfig.class)
+@SpringBootTest(classes = AnwendungTestConfig.class,
+        properties = "spring.main.web-application-type=servlet")
 class BatchrahmenTest extends AbstractOidcProviderTest {
 
     /**
