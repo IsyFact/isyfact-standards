@@ -10,7 +10,7 @@ Die folgenden Inhalte beschreiben die allgemeine Nutzung von Spring und Spring B
 Die Nutzung spezifischer Features sind Bestandteile der folgenden Bausteine:
 
 * Konfiguration des Logging: beschrieben in den xref:isy-logging:nutzungsvorgaben/master.adoc[],
-* Bereitstellung von Metriken zur Überwachung: beschrieben im xref:isy-ueberwachung:konzept/master.adoc[].
+* Bereitstellung von Metriken zur Überwachung: beschrieben im xref:ueberwachung::konzept.adoc[].
 
 [[konfiguration]]
 == Vorgaben zur Konfiguration

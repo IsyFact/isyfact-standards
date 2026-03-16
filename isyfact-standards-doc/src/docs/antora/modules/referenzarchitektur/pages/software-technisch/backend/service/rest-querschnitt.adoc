@@ -316,8 +316,8 @@ xref:isy-logging:konzept/master.adoc#korrelations-id[Konzept] und den xref:isy-l
 
 Die IsyFact stellt zur Überwachung von Anwendungen den Baustein Überwachung bereit.
 
-Die Grundlagen der Überwachung von IsyFact-basierten Anwendungen beschreibt das xref:isy-ueberwachung:konzept/master.adoc[] beschrieben.
-Detailliertere Informationen zur Konfiguration und zur Verwendung des Bausteins Überwachung finden sich in den xref:isy-ueberwachung:nutzungsvorgaben/master.adoc[], insbesondere das Kapitel xref:isy-ueberwachung:nutzungsvorgaben/master.adoc#informationen-von-services["Informationen von Services"].
+Die Grundlagen der Überwachung von IsyFact-basierten Anwendungen beschreibt das xref:ueberwachung::konzept.adoc[] beschrieben.
+Detailliertere Informationen zur Konfiguration und zur Verwendung des Bausteins Überwachung finden sich in den xref:ueberwachung::nutzungsvorgaben.adoc[], insbesondere das Kapitel xref:ueberwachung::nutzungsvorgaben.adoc#informationen-von-services["Informationen von Services"].
 Dieses Kapitel beinhaltet eine Liste der zu überwachenden bzw. anzubietenden Informationen für die Services von Anwendungen.
 Die dort aufgelisteten Informationen müssen für jeden Service einzeln angeboten werden.
 Die dort beschriebenen Informationen zur Überwachung gelten in gleichem Maße auch für REST-Services.
