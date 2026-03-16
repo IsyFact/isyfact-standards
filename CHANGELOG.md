@@ -37,8 +37,6 @@
 - `IFS-5252`: [isy-logging] Implementieren von Logging in ausgehenden REST-Requests
 
 ### BUG FIXES
-  * BatchSecurityConfiguration wird nach Anwendung und BatchRahmen Konfiguration geladen.
-  * Beans mit der `@ConditionalOnMissingBean(...)` Annotation können wie erwartet überschrieben werden.
 
 ### BREAKING CHANGES
 - `IFS-5214`: [isy-batchrahmen] Entfernung der Bibliothek aus den IsyFact-Standards
@@ -47,6 +45,7 @@
     * isy.persistence.datasource.schema-version -> isy.util.datasource.schema-version
     * isy.persistence.datasource.schema-invalid-version-action -> isy.util.datasource.schema-invalid-version-action
 - `IFS-4736`: [isy-persistence] Entfernung der Bibliothek aus den IsyFact-Standards
+- `IFS-5215`: [isy-ueberwachung] Entfernung der Bibliothek aus den IsyFact-Standards 
 - `IFS-4582`: [isy-persistence], [isy-polling], [isy-security], [isy-security-test], [isy-task], [isy-util] Entfernen der entkoppelten Bausteine aus dem Standards-Repository
 - `IFS-4922`: Aktualisierung von Java 17 auf 25
 - `IFS-4849`: Klassen des Pakets `de.bund.bva.isyfact.persistence.datetime` wurden aufgelöst.
@@ -113,6 +112,7 @@ Folgende Bausteine wurden in eigenständige Repositories umgezogen:
 * [isyfact-standards (Modul isy-security)](https://github.com/IsyFact/isyfact-standards/tree/release/4.x/isy-security) → [isy-security](https://github.com/IsyFact/isy-security)
 * [isyfact-standards (Modul isy-task)](https://github.com/IsyFact/isyfact-standards/tree/release/4.x/isy-task) → [isy-task](https://github.com/IsyFact/isy-task)
 * [isyfact-standards (Modul isy-util)](https://github.com/IsyFact/isyfact-standards/tree/release/4.x/isy-util) → [isy-util](https://github.com/IsyFact/isy-util)
+* [isyfact-standards (Modul isy-ueberwachung)](https://github.com/IsyFact/isyfact-standards/tree/release/4.x/isy-ueberwachung) → [isy-ueberwachung](https://github.com/IsyFact/isy-ueberwachung)
 * [isyfact-standards (Modul isy-batchrahmen)](https://github.com/IsyFact/isyfact-standards/tree/release/4.x/isy-batchrahmen) → [isy-batchrahmen](https://github.com/IsyFact/isy-batchrahmen)
 
 Für diese Bausteine gilt:
@@ -187,21 +187,4 @@ Weitere Informationen finden Sie in der [Spring Boot Dokumentation](https://docs
 <!-- Neu -->
 <groupId>io.github.git-commit-id</groupId>
 <artifactId>git-commit-id-maven-plugin</artifactId>
-```
-- neue Dependencys in isy-ueberwachung durch Spring Boot 4 Update
-
-```xml
-<groupId>org.springframework.boot</groupId>
-<artifactId>spring-boot-starter-webmvc-test</artifactId>
-<scope>test</scope>
-
-<groupId>org.springframework.boot</groupId>
-<artifactId>spring-boot-webtestclient</artifactId>
-<scope>test</scope>
-```
-
-- neue Dependencys in isy-logging durch Spring Boot 4 Update
-```xml
-<groupId>org.springframework.boot</groupId>
-<artifactId>spring-boot-restclient</artifactId>
 ```
