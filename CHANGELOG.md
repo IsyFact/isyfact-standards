@@ -32,13 +32,13 @@
 - `IFS-4531`: Update von Flatten Maven Plugin auf Version 1.7.1
   * Update von Maven Version auf 3.6.3
 - `IFS-4763`: [isyfact-standards-doc] Erweiterung und Konkretisierung der Liquibase-Dokumentation
-- `IFS-4748`: [isy-ueberwachung] Dokumentation von aktualisierten Properties
 - `IFS-5162`: [isy-logging] Konfiguration für die Bean Injection angepasst, sodass der PerformanceLogAdvisor korrekt geladen wird
 - `IFS-4946`: [isyfact-standards-doc] Entfernt Installations- und Betriebsanleitung für RPM Deployment
 - `IFS-5252`: [isy-logging] Implementieren von Logging in ausgehenden REST-Requests
 
 ### BUG FIXES
-- `IFS-4817`: [isy-ueberwachung] Verwendung von `securityMatcher` in actuatorSecurityFilterChain und loadbalancerSecurityFilterChain für korrektes Filtern von Anfragen.
+  * BatchSecurityConfiguration wird nach Anwendung und BatchRahmen Konfiguration geladen.
+  * Beans mit der `@ConditionalOnMissingBean(...)` Annotation können wie erwartet überschrieben werden.
 
 ### BREAKING CHANGES
 - `IFS-5214`: [isy-batchrahmen] Entfernung der Bibliothek aus den IsyFact-Standards
@@ -50,7 +50,6 @@
 - `IFS-4582`: [isy-persistence], [isy-polling], [isy-security], [isy-security-test], [isy-task], [isy-util] Entfernen der entkoppelten Bausteine aus dem Standards-Repository
 - `IFS-4922`: Aktualisierung von Java 17 auf 25
 - `IFS-4849`: Klassen des Pakets `de.bund.bva.isyfact.persistence.datetime` wurden aufgelöst.
-- `IFS-4911`: [isy-ueberwachung] Absicherung Actuator mit OAuth2
 - `IFS-4860`: Update auf Spring Boot 4.0.3
 
 ### DEPENDENCY UPGRADES
@@ -106,15 +105,6 @@ Die Seiten zur Serviceschicht enthalten nun Inhalte zur REST-Umsetzung sowie zu 
 Die Nutzung des Begriffs "Webservice" wurde vereinheitlicht und entspricht jetzt der Definition des W3C.
 
 ### Bausteine
-
-#### Überwachung
-Die folgenden zeitbeschränkten Metriken wurden entfernt:
-
-* `AnzahlAufrufeLetzteMinute`: Anzahl der Anrufe in der letzten Minute
-* `AnzahlTechnicalExceptionsLetzteMinute`: Anzahl der technischen Fehler in der letzten Minute
-* `AnzahlBusinessExceptionsLetzteMinute`: Anzahl der geschäftlichen Fehler in der letzten Minute
-
-Diese Metriken waren zuvor über die `ServiceStatistik`-Schnittstelle verfügbar und wurden automatisch bei Micrometer in der `IsyMetricsAutoConfiguration` registriert.
 
 #### Entkopplung
 Folgende Bausteine wurden in eigenständige Repositories umgezogen:
@@ -178,12 +168,6 @@ Für die Migration von `isy-persistence` zu `isy-util` sind folgende Properties 
 
 Detaillierte Informationen finden sich in den [Nutzungsvorgaben](https://isyfact.github.io/util/current/nutzungsvorgaben.html#persistence-datasource) von `isy-util`.
 
-### Baustein Überwachung
-Anwendungen, die auf die zeitbeschränkten Metriken (`...LetzteMinute`) zur Überwachung oder Alarmierung angewiesen sind, müssen ihre Überwachungskonfigurationen anpassen. 
-Die übrigen Metriken ohne Zeitbeschränkung funktionieren weiterhin wie gehabt.
-
-> **Hinweis:** Mithilfe der z.B. in Prometheus verfügbaren Funktionen lässt sich die gewohnte Funktionalität nahezu vollständig nachbilden.
-
 ### RPM-Deprecation als Auslieferungsmedium
 
 RPM als Auslieferungsmedium wird nicht mehr unterstützt.
@@ -204,8 +188,19 @@ Weitere Informationen finden Sie in der [Spring Boot Dokumentation](https://docs
 <groupId>io.github.git-commit-id</groupId>
 <artifactId>git-commit-id-maven-plugin</artifactId>
 ```
-- neue Dependency in isy-ueberwachung durch Spring Boot 4 Update
+- neue Dependencys in isy-ueberwachung durch Spring Boot 4 Update
 
+```xml
+<groupId>org.springframework.boot</groupId>
+<artifactId>spring-boot-starter-webmvc-test</artifactId>
+<scope>test</scope>
+
+<groupId>org.springframework.boot</groupId>
+<artifactId>spring-boot-webtestclient</artifactId>
+<scope>test</scope>
+```
+
+- neue Dependencys in isy-logging durch Spring Boot 4 Update
 ```xml
 <groupId>org.springframework.boot</groupId>
 <artifactId>spring-boot-restclient</artifactId>
