@@ -358,7 +358,7 @@ Anwendungen nach IsyFact-Architektur sollen Mechanismen bereitstellen, die es er
 
 Grundlage dafür ist die Bereitstellung eines HealthEndpoints.
 
-[[implementierung-von-ping-und-pruefmethoden]]
+[[implementierung-von-pruefmethoden]]
 ===== Konfiguration des Nachbarsystem-HealthIndicator
 
 Jede Anwendung stellt einen HealthEndpoint unter `/actuator/health` bereit.

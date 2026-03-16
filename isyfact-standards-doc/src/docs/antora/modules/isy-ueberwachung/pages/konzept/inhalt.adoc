@@ -176,8 +176,8 @@ Die Nutzungsvorgaben finden sich in den xref:nutzungsvorgaben/master.adoc[].
 
 Das Konzept für die Prüfung der Verfügbarkeit ist:
 
-* Anwendungen nach IsyFact-Architektur sollen Mechanismen bereitstellen, die es erlauben, die Verfügbarkeit der Anwendung durch eine betriebliche Überwachung zu prüfen.
-* Grundlage dafür ist die Bereitstellung eines `HealthIndicators` und einer Ping-Methode durch die Anwendung.
+* Anwendungen nach IsyFact-Architektur müssen Mechanismen bereitstellen, die es erlauben, den Zustand der Anwendung durch den Betrieb zu prüfen.
+* Die Bereitstellung erfolgt auf der Basis von `Indicators`, diese müssen für alle jeweils betrieblich relevanten Zustände der Anwendung zur Verfügung gestellt werden.
 
 Folgende Punkte sind bewusst nicht Teil dieses Konzeptes:
 
