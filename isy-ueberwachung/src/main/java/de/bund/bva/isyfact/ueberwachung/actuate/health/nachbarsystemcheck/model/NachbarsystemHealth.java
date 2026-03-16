@@ -5,8 +5,9 @@ import java.util.Map;
 
 import jakarta.validation.constraints.NotNull;
 
-import org.springframework.boot.actuate.health.Health;
-import org.springframework.boot.actuate.health.Status;
+import org.springframework.boot.health.contributor.Health;
+import org.springframework.boot.health.contributor.Status;
+
 
 /**
  * Enthält Informationen zur Health eines Nachbarsystems.

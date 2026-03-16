@@ -1,22 +1,24 @@
 package de.bund.bva.isyfact.ueberwachung.actuate.health;
 
 import java.util.Iterator;
+import java.util.stream.Stream;
 
-import org.springframework.boot.actuate.health.HealthContributor;
-import org.springframework.boot.actuate.health.HealthContributorRegistry;
-import org.springframework.boot.actuate.health.HealthIndicator;
-import org.springframework.boot.actuate.health.NamedContributor;
+import org.springframework.boot.health.contributor.HealthContributor;
+import org.springframework.boot.health.contributor.HealthContributors;
+import org.springframework.boot.health.contributor.HealthIndicator;
+import org.springframework.boot.health.registry.HealthContributorRegistry;
+
 
 /**
  * Adapts the original {@link HealthContributorRegistry} linking it to the cache, so that calls to
  * {@link HealthIndicator#health()} are replaces by the cached values.
  * <p/>
- * {@link HealthContributorRegistry#registerContributor(String, Object)} and
+ * {@link HealthContributorRegistry#registerContributor(String, HealthContributor)} and
  * {@link HealthContributorRegistry#unregisterContributor(String)} remain uncached modifying the original
  * registry.
  * <p/>
  * {@link HealthContributor}s added to the adapted or original registry between two update calls will return
- * {@link org.springframework.boot.actuate.health.Status#UNKNOWN} until updated.
+ * {@link org.springframework.boot.health.contributor.Status#UNKNOWN} until updated.
  *
  * @see #updateCache()
  */
@@ -26,6 +28,9 @@ public class IsyCachingHealthContributorRegistry implements HealthContributorReg
      */
     private final HealthContributorRegistry registry;
 
+    /**
+     * The cache containing the cached health indicator values.
+     */
     private final IsyHealthContributorRegistryCache cache = new IsyHealthContributorRegistryCache();
 
     /**
@@ -53,14 +58,19 @@ public class IsyCachingHealthContributorRegistry implements HealthContributorReg
     }
 
     @Override
-    public Iterator<NamedContributor<HealthContributor>> iterator() {
+    public Iterator<Entry> iterator() {
         return cache.iterator(registry);
+    }
+
+    @Override
+    public Stream<HealthContributors.Entry> stream() {
+        return registry.stream();
     }
 
     /**
      * Updates the cache by walking the original registry and thereby always syncing the cache to the registry.
      */
     public void updateCache() {
-        cache.update(registry);
+        cache.update(registry.stream().toList());
     }
 }

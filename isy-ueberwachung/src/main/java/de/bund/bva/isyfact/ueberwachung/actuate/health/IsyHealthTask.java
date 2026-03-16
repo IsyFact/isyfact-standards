@@ -13,8 +13,14 @@ import de.bund.bva.isyfact.logging.IsyLoggerFactory;
  */
 public class IsyHealthTask {
 
+    /**
+     * Logger.
+     */
     private static final IsyLogger LOGISY = IsyLoggerFactory.getLogger(IsyHealthTask.class);
 
+    /**
+     * Contributor registry using cached values.
+     */
     private final IsyCachingHealthContributorRegistry cachingHealthContributorRegistry;
 
     public IsyHealthTask(IsyCachingHealthContributorRegistry cachingHealthContributorRegistry) {
