@@ -514,8 +514,8 @@ Beim Umwandeln der internen Exceptions in Transport-Exceptions wird der Stack-Tr
 
 In diesem Abschnitt wird beschrieben, wie die Überwachung einer Anwendung realisiert wird.
 
-NOTE: Detaillierte Informationen zur Überwachung sind im Dokument xref:isy-ueberwachung:konzept/master.adoc#einleitung[Konzept Überwachung] und in
-xref:isy-ueberwachung:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Überwachung] enthalten.
+NOTE: Detaillierte Informationen zur Überwachung sind im Dokument xref:ueberwachung::konzept.adoc#einleitung[Konzept Überwachung] und in
+xref:ueberwachung::nutzungsvorgaben.adoc#einleitung[Nutzungsvorgaben Überwachung] enthalten.
 
 [[designvorgaben-11]]
 ==== Designvorgaben

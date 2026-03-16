@@ -1099,7 +1099,7 @@ Die folgenden Auswertungen werden dazu durchgeführt:
 * Ermittlung der Anzahl der Aufrufe eines Services, die einen Fehler erzeugt haben, innerhalb der letzten Minute.
 * Ermittlung der Durchschnittsdauer der letzten Aufrufe eines Services.
 * Ermittlung des Zeitpunkts, wann die letzte Prüfung des Systems durchgeführt wurde und wann die letzte Prüfung erfolgreich war.
-Detaillierte Informationen zur Systemprüfung und der zu erstellenden Logeinträge ist im xref:isy-ueberwachung:konzept/master.adoc#einleitung[Konzept Überwachung] beschrieben.
+Detaillierte Informationen zur Systemprüfung und der zu erstellenden Logeinträge ist im xref:ueberwachung::konzept.adoc#einleitung[Konzept Überwachung] beschrieben.
 |====
 
 [[performance-ueberwachen]]
