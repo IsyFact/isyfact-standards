@@ -205,31 +205,9 @@ Weitere Informationen finden Sie in der [Spring Boot Dokumentation](https://docs
 <groupId>io.github.git-commit-id</groupId>
 <artifactId>git-commit-id-maven-plugin</artifactId>
 ```
-- neue Dependencys in isy-ueberwachung durch Spring Boot 4 Update
+- neue Dependency in isy-ueberwachung durch Spring Boot 4 Update
 
 ```xml
 <groupId>org.springframework.boot</groupId>
-<artifactId>spring-boot-starter-webmvc-test</artifactId>
-<scope>test</scope>
-
-<groupId>org.springframework.boot</groupId>
-<artifactId>spring-boot-webtestclient</artifactId>
-<scope>test</scope>
-```
-
-- neue Dependencys in isy-logging durch Spring Boot 4 Update
-```xml
-<groupId>org.springframework.boot</groupId>
-<artifactId>spring-boot-resttestclient</artifactId>
-
-<groupId>org.springframework.boot</groupId>
-<artifactId>spring-boot-starter-restclient</artifactId>
-
-<groupId>org.springframework.boot</groupId>
-<artifactId>spring-boot-webtestclient</artifactId>
-<scope>test</scope>
-
-<groupId>org.springframework.boot</groupId>
-<artifactId>spring-boot-starter-webmvc-test</artifactId>
-<scope>test</scope>
+<artifactId>spring-boot-restclient</artifactId>
 ```
