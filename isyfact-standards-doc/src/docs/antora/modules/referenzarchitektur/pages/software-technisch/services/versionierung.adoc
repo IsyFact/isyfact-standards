@@ -7,6 +7,18 @@ Die Versionierung wird auf der Ebene von Services, nicht Service-Operationen aus
 
 Es kann vorkommen, dass in _einem_ Systemrelease neue Versionen von _mehreren_ Services ausgeliefert werden.
 
+[[abwaertskompatibilitaet]]
+== Abwärtskompatibilität
+
+Als Abwärtskompatibilität wird die Verwendbarkeit bzw. Kompatibilität neuerer oder erweiterter Versionen eines Services bzw. einer Nachricht oder eines Events zu den Anwendungsbedingungen einer früheren Version bezeichnet.
+
+NOTE: Diese Definition basiert auf dem Wikipedia-Artikel zur https://de.wikipedia.org/wiki/Kompatibilit%C3%A4t_(Technik)#Abw%C3%A4rtskompatibilit%C3%A4t[Abwärtskompatibilität].
+
+Die Kommunikation zwischen IT-Systemen ist abwärtskompatibel, wenn Empfänger (von Services, Nachrichten oder Events) ohne Anpassung auch mit neuen Versionen derselben Services, Nachrichten oder Events kommunizieren können.
+Diese Eigenschaft von Services ist wichtig, um die Auswirkungen von Änderungen auf die Empfänger zu minimieren.
+Abwärtskompatibilität ermöglicht Übergangszeiträume, in denen sich die Empfänger schrittweise an die neuen Versionen anpassen können, ohne dass es zu Unterbrechungen oder Fehlern in der Kommunikation kommt.
+Gleichzeitig befreit sie Sender davon, mehrere Versionen eines Services anbieten zu müssen, oder mehrere Versionen von Nachrichten oder Events zu versenden, um Empfänger auf unterschiedlichen Versionsständen zu bedienen.
+
 [[architektur]]
 == Architektur
 
