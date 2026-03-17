@@ -433,6 +433,9 @@ Damit die OpenAPI-Spezifikation verfügbar sein kann, muss diese auch verwaltet 
 In den jeweiligen Spring Projekten wird die OpenAPI-Spezifikation unter folgendem Pfad gespeichert: `/src/main/resources/openapi.yml`.
 
 Falls es Änderungen innerhalb der OpenAPI-Spezifikation geben sollte, werden diese automatisch vom Versionskontrollsystem verwaltet.
+Die Änderungen werden in Form eines Changelogs in einer .md-Datei dokumentiert und neben der OpenAPI-Spezifikation abgelegt.
+Für die korrekte Zuordnung des Changelogs sollte der gleiche Dateiname verwendet werden (Beispiel: `openapi.md`).
+Das Changelog ist in der Asciidoc-Schnittstellendokumentation als Anhang einzubinden.
 
 [[veroeffentlichung]]
 == Veröffentlichung von OpenAPI-Spezifikationen
@@ -451,7 +454,7 @@ Antora erzeugt aus AsciiDoc-Quellen, die über mehrere Git-Repositories verteilt
 Mithilfe des xref:werkzeuge:openapi-tooling.adoc#openapi-generator[OpenAPI Generators] kann aus der https://swagger.io/specification/[OpenAPI-Spezifikation] AsciiDoc generiert werden.
 Die generierten AsciiDoc-Dateien können dann in Antora aufgenommen und gemeinsam mit der übrigen Dokumentation des Bausteins oder der Anwendung generiert und veröffentlicht werden.
 
-Es empfehlt es sich auch, die OpenAPI-Spezifikation im YAML-Format in Antora zu verlinken.
+Es empfehlt es sich auch, sowohl die OpenAPI-Spezifikation im YAML-Format als auch die Changelog-Datei in Antora zu verlinken.
 
 Die Integration in Antora ermöglicht somit einen einfachen Zugriff auf verschiedene Versionen der OpenAPI-Spezifikation: einerseits das Herunterladen der OpenAPI-Spezifikationen für technische Nutzer (YAML-Format), andererseits den Zugang zu einer verständlichen Schnittstellen-Spezifikation für nicht technisch versierte Benutzer (AsciiDoc-Format).
 
