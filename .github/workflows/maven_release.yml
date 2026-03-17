@@ -42,7 +42,7 @@ jobs:
           fi
 
   DependencyScan:
-    uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_dependency_scan_template.yml@v1.6.0
+    uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_dependency_scan_template.yml@v1.8.0
     with:
       jdk-version: 17
       snyk-organization: ${{ vars.SNYK_ORG_ID }}
@@ -70,7 +70,7 @@ jobs:
       DEPLOY_SERVER_TOKEN: ${{ secrets.MAVEN_CENTRAL_TOKEN }}
 
   DependencyMonitor:
-    uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_dependency_scan_template.yml@v1.6.0
+    uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_dependency_scan_template.yml@v1.8.0
     with:
       jdk-version: 17
       snyk-organization: ${{ vars.SNYK_ORG_ID }}
