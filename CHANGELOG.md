@@ -36,6 +36,7 @@
 - `IFS-5162`: [isy-logging] Konfiguration für die Bean Injection angepasst, sodass der PerformanceLogAdvisor korrekt geladen wird
 - `IFS-4946`: [isyfact-standards-doc] Entfernt Installations- und Betriebsanleitung für RPM Deployment
 - `IFS-5252`: [isy-logging] Implementieren von Logging in ausgehenden REST-Requests
+- `IFS-5178`: [isyfact-standards-doc] Dokumentation der Bereitstellung von Changelogs von Schnittstellen
 
 ### BUG FIXES
 
