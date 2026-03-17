@@ -16,6 +16,7 @@ import de.bund.bva.isyfact.logging.config.AbstractBoundaryLoggerProperties;
 import de.bund.bva.isyfact.logging.config.IsyLoggingApplicationLoggerProperties;
 import de.bund.bva.isyfact.logging.config.IsyLoggingBoundaryLoggerProperties;
 import de.bund.bva.isyfact.logging.config.IsyLoggingComponentLoggerProperties;
+import de.bund.bva.isyfact.logging.util.IsyRestLogger;
 import de.bund.bva.isyfact.logging.util.LogApplicationListener;
 import de.bund.bva.isyfact.logging.util.LoggingMethodInterceptor;
 
@@ -48,6 +49,11 @@ public class IsyLoggingAutoConfiguration {
     @ConfigurationProperties(prefix = "isy.logging.boundary")
     public IsyLoggingBoundaryLoggerProperties isyLoggingBoundaryLoggerProperties() {
         return new IsyLoggingBoundaryLoggerProperties();
+    }
+
+    @Bean
+    public IsyRestLogger restLogger(IsyLoggingBoundaryLoggerProperties isyLoggingBoundaryLoggerProperties) {
+        return new IsyRestLogger(isyLoggingBoundaryLoggerProperties);
     }
 
     /**

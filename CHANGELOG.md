@@ -35,6 +35,7 @@
 - `IFS-4748`: [isy-ueberwachung] Dokumentation von aktualisierten Properties
 - `IFS-5162`: [isy-logging] Konfiguration für die Bean Injection angepasst, sodass der PerformanceLogAdvisor korrekt geladen wird
 - `IFS-4946`: [isyfact-standards-doc] Entfernt Installations- und Betriebsanleitung für RPM Deployment
+- `IFS-5252`: [isy-logging] Implementieren von Logging in ausgehenden REST-Requests
 
 ### BUG FIXES
 - `IFS-4753`: [isy-batchrahmen] Änderung der Konfigurationsreihenfolge.
@@ -48,6 +49,7 @@
 - `IFS-4922`: Aktualisierung von Java 17 auf 25
 - `IFS-4849`: Klassen des Pakets `de.bund.bva.isyfact.persistence.datetime` wurden aufgelöst.
 - `IFS-4911`: [isy-ueberwachung] Absicherung Actuator mit OAuth2
+- `IFS-4860`: Update auf Spring Boot 4.0.3
 
 ### DEPENDENCY UPGRADES
 - Update com.google.guava:guava von Version 33.3.0-jre auf 33.5.0-jre
@@ -186,4 +188,32 @@ Weitere Informationen finden Sie in der [Spring Boot Dokumentation](https://docs
 <!-- Neu -->
 <groupId>io.github.git-commit-id</groupId>
 <artifactId>git-commit-id-maven-plugin</artifactId>
+```
+- neue Dependencys in isy-ueberwachung durch Spring Boot 4 Update
+
+```xml
+<groupId>org.springframework.boot</groupId>
+<artifactId>spring-boot-starter-webmvc-test</artifactId>
+<scope>test</scope>
+
+<groupId>org.springframework.boot</groupId>
+<artifactId>spring-boot-webtestclient</artifactId>
+<scope>test</scope>
+```
+
+- neue Dependencys in isy-logging durch Spring Boot 4 Update
+```xml
+<groupId>org.springframework.boot</groupId>
+<artifactId>spring-boot-resttestclient</artifactId>
+
+<groupId>org.springframework.boot</groupId>
+<artifactId>spring-boot-starter-restclient</artifactId>
+
+<groupId>org.springframework.boot</groupId>
+<artifactId>spring-boot-webtestclient</artifactId>
+<scope>test</scope>
+
+<groupId>org.springframework.boot</groupId>
+<artifactId>spring-boot-starter-webmvc-test</artifactId>
+<scope>test</scope>
 ```

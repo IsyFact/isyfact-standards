@@ -7,11 +7,15 @@ import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
+import org.springframework.boot.webtestclient.autoconfigure.AutoConfigureWebTestClient;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
 @TestMethodOrder(MethodOrderer.MethodName.class)
+@AutoConfigureWebTestClient
+@AutoConfigureMockMvc
 @SpringBootTest(
         webEnvironment = RANDOM_PORT,
         classes = {IsyHealthAutoConfiguration.class, LoadbalancerIntegrationTest.TestConfig.class},
