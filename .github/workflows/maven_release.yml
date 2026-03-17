@@ -8,7 +8,9 @@ jobs:
     uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_build_template.yml@v2.2.1
     with:
       version: ${{ github.ref_name }}
-      sonar-skip: true
+      sonar-skip: false
+    secrets:
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
   QualityGate:
     runs-on: ubuntu-latest
