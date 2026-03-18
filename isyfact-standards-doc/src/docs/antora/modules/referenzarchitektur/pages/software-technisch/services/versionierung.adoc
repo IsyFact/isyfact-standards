@@ -1,5 +1,7 @@
 = Versionierung
 
+include::documentation-guide::partial$content-revised-page.adoc[]
+
 Die Notwendigkeit, Services in mehreren Versionen anbieten zu können, ist bedingt durch die Vielzahl an Service-Nutzern, die bei Änderung an einem Service nicht alle zeitgleich auf die neue Version eines Service umschalten können.
 Daher ist es notwendig, dass in einem – möglichst klein zu haltenden – Übergangszeitraum mehrere Versionen eines Service parallel betrieben werden können.
 
@@ -14,10 +16,56 @@ Als Abwärtskompatibilität wird die Verwendbarkeit bzw. Kompatibilität neuerer
 
 NOTE: Diese Definition basiert auf dem Wikipedia-Artikel zur https://de.wikipedia.org/wiki/Kompatibilit%C3%A4t_(Technik)#Abw%C3%A4rtskompatibilit%C3%A4t[Abwärtskompatibilität].
 
-Die Kommunikation zwischen IT-Systemen ist abwärtskompatibel, wenn Empfänger (von Services, Nachrichten oder Events) ohne Anpassung auch mit neuen Versionen derselben Services, Nachrichten oder Events kommunizieren können.
-Diese Eigenschaft von Services ist wichtig, um die Auswirkungen von Änderungen auf die Empfänger zu minimieren.
-Abwärtskompatibilität ermöglicht Übergangszeiträume, in denen sich die Empfänger schrittweise an die neuen Versionen anpassen können, ohne dass es zu Unterbrechungen oder Fehlern in der Kommunikation kommt.
-Gleichzeitig befreit sie Sender davon, mehrere Versionen eines Services anbieten zu müssen, oder mehrere Versionen von Nachrichten oder Events zu versenden, um Empfänger auf unterschiedlichen Versionsständen zu bedienen.
+Abwärtskompatibilität ermöglicht Übergangszeiträume, in denen sich die Kommunikationsteilnehmer schrittweise an die Änderungen anpassen können, ohne dass es zu Unterbrechungen oder Fehlern in der Kommunikation kommt.
+
+Die Verantwortung für Änderungen - und damit auch für die Abwärtskompatibilität - liegt in der Regel beim Provider von Services bzw. beim Producer/Publisher von Nachrichten und Events, da diese die Schnittstelle bzw. das Format der Nachrichten und Events definieren und somit für die Consumer festlegen.
+Ausnahmen bilden Szenarien, in denen ein Consumer viele Producer/Publisher orchestriert und aus diesem Grund das Format der Nachrichten oder Events vorgibt, zum Beispiel im Bereich Telemetrie oder Protokollierung.
+
+Inkompatible Änderungen (englisch: _breaking changes_) sind dagegen Änderungen an der Schnittstelle eines Services bzw. am Format einer Nachricht oder eines Events, welche die Anwendungsbedingungen einer früheren Version verletzen.
+Sie führen zu Fehlern oder Unterbrechungen in der Kommunikation, wenn die Kommunikationsteilnehmer nicht gleichzeitig auf die neue Version wechseln können und sollten daher genau geplant und kommuniziert werden.
+
+=== Abwärtskompatible Änderungen
+
+Die folgenden Beispiele stellen häufig vorkommende, abwärtskompatible Änderungen dar.
+
+[cols="1,2",options="header"]
+|===
+|Änderungstyp
+|Auswirkung auf die Kommunikation
+
+|Optionales Feld hinzufügen
+|Die Kommunikationsteilnehmer können das Feld bei Bedarf setzen.
+
+|Neues Feld mit Standardwert hinzufügen
+|Die Kommunikationsteilnehmer können das Feld bei Bedarf mit einem eigenen Wert belegen.
+
+|Optionale neue Operation / Nachricht / Event hinzufügen
+|Die Kommunikationsteilnehmer können die Operation bei Bedarf aufrufen, bzw. die Nachricht oder das Event produzieren oder konsumieren.
+|===
+
+=== Inkompatible Änderungen
+
+Die folgenden Beispiele stellen häufig vorkommende, inkompatible Änderungen (auch: Breaking Changes) dar.
+
+[cols="1,2",options="header"]
+|===
+|Änderungstyp
+|Auswirkung auf die Kommunikation
+
+|Neues Pflichtfeld hinzufügen
+|Die Kommunikationsteilnehmer müssen sich anpassen, und das neue Feld setzen.
+Eine Übergangsphase mit einer frühzeitigen Einführung des Feldes als optional kann die Auswirkungen dieses Breaking Changes abfedern.
+
+|Feld umbenennen / entfernen
+|Die Kommunikationsteilnehmer können Services ggf. nicht mehr nutzen oder keine Nachrichten / Event mehr produzieren oder konsumieren.
+Flexible Validierungen und Verarbeitungslogiken können die Auswirkungen eines solchen Breaking Changes abfedern.
+
+|Typ oder Semantik eines Felds ändern
+|Werte werden von den Kommunikationsteilnehmern falsch interpretiert oder führen zu Konvertierungsfehlern.
+Diese Änderungen sollte vermieden werden, da sie schwer zu kommunizieren und abzufedern ist.
+Stattdessen sollte ein neues Feld eingeführt und das alte Feld zu einem späteren Zeitpunkt entfernt werden.
+|===
+
 
 [[architektur]]
 == Architektur
