@@ -24,7 +24,11 @@ Spring Boot bringt mit Actuator eine Reihe zusätzlicher Funktionen mit, die dab
 Die Kommunikation mit der Anwendung erfolgt über sogenannte _Endpoints_.
 Diese können über HTTP oder JMX bereitgestellt werden.
 Actuator bringt eine Reihe von eingebauten Endpoints mit und bietet auch die Möglichkeit, eigene Endpoints hinzuzufügen.
-So wird für Informationen über den Systemzustand die Endpoints `health`, `livenessState`, `readinessState` angeboten und über den Endpoint `metrics` können Metriken gelesen werden.
+Die von Spring Boot bereitgestellten Verfügbarkeitszustände sind verbindlich zu verwenden.
+Die Endpunkte `/actuator/health/readiness` und `/actuator/health/liveness` werden gemäß Spring-Boot-Standard bereitgestellt.
+Diese sollen standardmäßig aktiviert sein.
+Der bestehende Endpoint `/actuator/health` bleibt davon unberührt und wird weiterhin parallel bereitgestellt.
+Über den Endpoint `metrics` können Metriken gelesen werden.
 
 Weitergehende Details zu den Actuator Endpoints können bei https://docs.spring.io/spring-boot/api/rest/actuator/index.html[Spring Boot Actuator Endpoint] nachgelesen werden.
 
@@ -48,9 +52,17 @@ Diese Endpoints sind in den Bibliotheken nicht standardmäßig eingebaut und mü
 IMPORTANT: Anders als von Spring vorgesehen entkoppelt die IsyFact den Health-Check vom Aufruf des Endpoints `health`.
 Durch diese Entkopplung wird die Systemstabilität durch häufige Aufrufe des Endpoints nicht beeinflusst.
 
-Der Status der `health`-Endpoints wird maßgeblich von Nachbarsystemchecks bestimmt. Einzelheiten finden sich dazu in Kapitel <<nachbarsystemcheck-health-endpoint>>.
+Der Status der `health`-Endpoints wird maßgeblich von Nachbarsystemchecks bestimmt.
+Einzelheiten finden sich dazu in Kapitel <<nachbarsystemcheck-health-endpoint>>.
+FÜr bestehende Implementierungen kann `/actuator/health` als fachlich führender Endpoint für Traffic-Steuerung genutzt werden.
+Es sollte aber und muss für neue Integrationen hierfür `/actuator/health/readiness` verwendet werden.
 
 Implementiert und konfiguriert wurde bzw. wird der Health-Check als xref:task::nutzungsvorgaben.adoc#erstellung-eines-tasks[Task].
+
+Der `health`-Endpoint bleibt semantisch und funktional als bestehende und abwärtskompatible Gesamtsicht auf den Anwendungszustand unverändert bestehen.
+Insbesondere wird dieser Endpoint nicht auf die Semantik von _Readiness_ oder _Liveness_ gedeutet.
+Bestehende Integrationen, die `/actuator/health` verwenden, bleiben funktionsfähig.
+Die verpflichtende Einführung von `/actuator/health/readiness` und `/actuator/health/liveness` erfolgt zusätzlich im Parallelbetrieb und ohne Breaking Change.
 
 [[Liveness-und-Readiness]]
 === Liveness und Readiness
@@ -60,17 +72,19 @@ Erläutert wird, wie diese mit der Hilfe von _Liveness_- und _Readiness_-Probes 
 
 [[liveness]]
 ==== Liveness
+Liveness beschreibt, ob sich die Anwendung aus Sicht von Prozess und Runtime in einem lauffähigen Zustand befindet.
 Eine Anwendung wird als "live" (lebendig) angesehen, wenn diese in einem korrekten inneren Zustand ist.
-Ist eine Anwendung nicht "live", ist ihr innerer Zustand defekt und kann nicht wiederhergestellt werden.
-Die Anwendung muss daher auf jeden Fall neu gestartet werden (vgl. https://docs.spring.io/spring-boot/api/java/org/springframework/boot/availability/LivenessState.html[Spring Boot `LivenessState`], https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/[Kubernetes Liveness und Readiness Probes]).
+Ist eine Anwendung nicht "live", liegt ein irreparabler interner Fehlerzustand, der einen Neustart durch die Infrastruktur erforderlich macht (vgl. https://docs.spring.io/spring-boot/api/java/org/springframework/boot/availability/LivenessState.html[Spring Boot `LivenessState`], https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/[Kubernetes Liveness und Readiness Probes]).
+Externe Abhängigkeiten wie Datenbanken, Messaging-Systeme oder entfernte Services beeinflussen die Liveness grundsätzlich nicht, sofern kein irreparabler interner Defekt der Anwendung selbst vorliegt.
 
 [[Readiness]]
 ==== Readiness
-Eine Anwendung wird als "ready" (bereit) angesehen, wenn sie live ist und bereit für Anfragen ist.
-Ist eine Anwendung nicht "ready", kann sie temporär keine Anfragen bearbeiten.
-Ist eine Anwendung nicht "ready", darf die Infrastruktur keine weiteren Anfragen an sie senden (vgl. https://docs.spring.io/spring-boot/docs/current/api/org/springframework/boot/availability/ReadinessState.html[Spring Boot `ReadinessState`], https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/[Kubernetes Liveness und Readiness Probes]).
+Eine Anwendung wird als "ready" (bereit) angesehen, wenn sie live ist, Anfragen korrekt verarbeiten kann und daher Traffic erhalten darf.
+Eine Anwendung ist nicht "ready", wenn essenzielle Ressourcen oder essenzielle Nachbarsysteme nicht verfügbar sind oder andere Zustände vorliegen, die keinen Neustart erfordern, aber die Bearbeitung von Anfragen verhindern oder unzulässig machen.
+Ist eine Anwendung nicht "ready", darf die Infrastruktur keine Anfragen an sie senden (vgl. https://docs.spring.io/spring-boot/docs/current/api/org/springframework/boot/availability/ReadinessState.html[Spring Boot `ReadinessState`], https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/[Kubernetes Liveness und Readiness Probes]).
 
 Ein Service (d.h. eine Bündelung von Instanzen/Anwendungen, die denselben Service anbieten) wird als "ready" angesehen, wenn mindestens eine Instanz "ready" ist.
+Readiness ist der maßgebliche Zustand für das Herausnehmen einzelner Instanzen aus dem Traffic, ohne das die Prozesslebendigkeit infrage zu stellen ist.
 Prüfungen der _Readiness_ von Services müssen über die Infrastruktur erfolgen.
 
 [[liveness_Readiness_diskussion]]
@@ -83,20 +97,60 @@ Aus praktischer Sicht wird die _Liveness_-Abfrage zur Evaluierung, ob eine Anwen
 Eine Anwendung, die "live", aber nicht "ready" ist, ist in einem korrekten Zustand, hat aber nicht alle notwendigen Abhängigkeiten oder Ressourcen zur Verfügung, um Anfragen anzunehmen.
 Aus praktischer Sicht ist diese nicht neu zu starten.
 
+Daraus folgt:
+Zustände, die eine Instanz temporär an der Annahme oder korrekten Bearbeitung von Traffic hindern, sind über Readiness abzubilden.
+Zustände, die einen Neustart der Instanz erfordern, sind über Liveness abzubilden.
 
 Ist für eine Anwendung die Abfrage beider Zustande vorgesehen, ergeben sich folgende Zustände:
 
-[[table-LivenessReadinessState]]
-.Unterscheidung zwischen _Liveness_- und _Readiness_-Zustand
-[cols="1,1,1,1", options="header"]
-|===
-||korrekter innerer Zustand & bereit für Anfragen
-|korrekter innerer Zustand & [.underline]#nicht# bereit für Anfragen
-|inkorrekter innerer Zustand -> [.underline]#nicht# bereit für Anfragen
+[[zuordnung-healthindicator-und-abhängigkeiten]]
+=== Zuordnung von HealthIndicators und Abhängigkeiten
 
-|_Liveness_-Zustand |	korrekt (up)| korrekt (up)|	inkorrekt (down)
-|_Readiness_-Zustand|	korrekt (up)| inkorrekt (down)|	inkorrekt (down)
+Für alle relevanten Indicators und Abhängigkeiten ist fachlich zu entscheiden, ob diese Readiness, Liveness und/oder den bestehenden Health-Status beeinflussen.
+Maßgeblich ist die Frage, ob die Anwendung ohne die betroffene Abhängigkeit noch zulässige Anfragen verarbeiten darf.
+[[table-zuordnung-healthindikatoren]]
+.Zuordnung von Indicators und Abhängigkeiten
+[cols="2,1,1,1,3", options="header"]
 |===
+|Indicator / Abhängigkeit | Readiness | Liveness | Health | Begründung
+
+|Essenzielles Nachbarsystem
+|ja
+|nein
+|ja
+|Fehlt eine essenzielle Abhängigkeit, darf die Anwendung keinen Traffic annehmen; ein interner Defekt liegt dadurch nicht zwingend vor.
+
+|Optionales Nachbarsystem
+|nein
+|nein
+|ja
+|Der Ausfall ist sichtbar zu machen, verhindert aber nicht grundsätzlich die Traffic-Annahme.
+
+|Datenbank für Kernfunktionalität
+|ja
+|nein
+|ja
+|Ohne Datenbank kann die Anwendung fachlich regelmäßig keine Anfragen korrekt bearbeiten.
+
+|Optionales Hilfssystem z.B. Cache
+|nein
+|nein
+|ja
+|Beeinflusst ggf. Performance, aber nicht zwingend die Betriebsbereitschaft.
+
+|Irreparabler Laufzeitfehler
+|ja
+|ja
+|ja
+|Die Anwendung kann keinen Traffic mehr zuverlässig verarbeiten; ein Neustart ist erforderlich.
+
+|Manuell gesetzter Wartungszustand
+|ja
+|nein
+|optional
+|Die Instanz soll gezielt aus dem Traffic genommen werden, bleibt aber technisch lauffähig.
+|===
+
 
 [[micrometer]]
 == Bestimmung von Metriken (Micrometer)
