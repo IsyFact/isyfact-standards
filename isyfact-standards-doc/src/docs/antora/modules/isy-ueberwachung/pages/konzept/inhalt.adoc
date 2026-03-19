@@ -5,11 +5,15 @@
 == Einleitung
 
 In diesem Konzept werden die Designvorgaben für die Überwachung von Anwendungen gemäß der xref:referenzarchitektur:index.adoc[] vorgestellt.
+Es legt ein standardkonformes Modell zur Überwachung von Anwendungen auf Basis von Spring Boot Actuator fest.
 
 Die Realisierung einer einheitlichen Überwachungsschnittstelle erlaubt dem Betrieb frühzeitig Probleme in der xref:glossary:glossary:master.adoc#glossar-anwendungslandschaft[Anwendungslandschaft] zu erkennen und darauf zu reagieren.
 Dadurch können Ausfallzeiten minimiert werden.
 
 Der Fokus des Konzepts liegt auf der Schaffung von einheitlichen Administrationsschnittstellen, welche dem Betrieb eine einfache Überwachung der Anwendungen erlauben.
+Dabei wird Readiness als fachlich und betrieblich führendes Signal für die Annahme von Traffic definiert.
+Liveness bildet demgegenüber ausschließlich die Prozess- und Runtime-Lebendigkeit einer Anwendung ab.
+Der bestehende Endpoint `/actuator/health` bleibt im Sinne der Abwärtskompatibilität semantisch und funktional unverändert und wird parallel zu den Endpunkten `/actuator/health/readiness` und `/actuator/health/liveness` bereitgestellt.
 In Systementwürfen können Verfeinerungen der hier getroffenen Vorgaben gemacht werden.
 Weiterhin können die hier gemachten Vorgaben als Basis für die Beschreibung der Überwachungsschnittstelle im xref:methodik:vorlagen.adoc#dokumentation-anwendung[Systemhandbuch] verwendet werden.
 
