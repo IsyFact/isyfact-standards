@@ -22,7 +22,7 @@ Die Verantwortung für Änderungen - und damit auch für die Abwärtskompatibili
 Ausnahmen bilden Szenarien, in denen ein Consumer viele Producer/Publisher orchestriert und aus diesem Grund das Format der Nachrichten oder Events vorgibt, zum Beispiel im Bereich Telemetrie oder Protokollierung.
 
 Inkompatible Änderungen (englisch: _breaking changes_) sind dagegen Änderungen an der Schnittstelle eines Services bzw. am Format einer Nachricht oder eines Events, welche die Anwendungsbedingungen einer früheren Version verletzen.
-Sie führen zu Fehlern oder Unterbrechungen in der Kommunikation, wenn die Kommunikationsteilnehmer nicht gleichzeitig auf die neue Version wechseln können und sollten daher genau geplant und kommuniziert werden.
+Sie führen zu Fehlern oder Unterbrechungen in der Kommunikation, wenn die Kommunikationsteilnehmer nicht gleichzeitig auf die neue Version wechseln können und müssen daher genau geplant und kommuniziert werden.
 
 === Abwärtskompatible Änderungen
 
@@ -34,10 +34,10 @@ Die folgenden Beispiele stellen häufig vorkommende, abwärtskompatible Änderun
 |Auswirkung auf die Kommunikation
 
 |Optionales Feld hinzufügen
-|Die Kommunikationsteilnehmer können das Feld bei Bedarf setzen.
+|Die Kommunikationsteilnehmer können das Feld bei Bedarf setzen bzw. berücksichtigen.
 
 |Neues Feld mit Standardwert hinzufügen
-|Die Kommunikationsteilnehmer können das Feld bei Bedarf mit einem eigenen Wert belegen.
+|Die Kommunikationsteilnehmer können das Feld bei Bedarf mit einem eigenen Wert belegen bzw. berücksichtigen.
 
 |Optionale neue Operation / Nachricht / Event hinzufügen
 |Die Kommunikationsteilnehmer können die Operation bei Bedarf aufrufen, bzw. die Nachricht oder das Event produzieren oder konsumieren.
@@ -45,7 +45,7 @@ Die folgenden Beispiele stellen häufig vorkommende, abwärtskompatible Änderun
 
 === Inkompatible Änderungen
 
-Die folgenden Beispiele stellen häufig vorkommende, inkompatible Änderungen (auch: Breaking Changes) dar.
+Die folgenden Beispiele stellen häufig vorkommende, inkompatible Änderungen (Breaking Changes) dar.
 
 [cols="1,2",options="header"]
 |===
@@ -53,16 +53,16 @@ Die folgenden Beispiele stellen häufig vorkommende, inkompatible Änderungen (a
 |Auswirkung auf die Kommunikation
 
 |Neues Pflichtfeld hinzufügen
-|Die Kommunikationsteilnehmer müssen sich anpassen, und das neue Feld setzen.
-Eine Übergangsphase mit einer frühzeitigen Einführung des Feldes als optional kann die Auswirkungen dieses Breaking Changes abfedern.
+|Die Kommunikationsteilnehmer müssen das neue Feld verwenden.
+Eine Übergangsphase mit einer frühzeitigen Einführung des Feldes als optional kann die Auswirkungen dieses Breaking Changes mindern.
 
 |Feld umbenennen / entfernen
-|Die Kommunikationsteilnehmer können Services ggf. nicht mehr nutzen oder keine Nachrichten / Event mehr produzieren oder konsumieren.
-Flexible Validierungen und Verarbeitungslogiken können die Auswirkungen eines solchen Breaking Changes abfedern.
+|Die Kommunikationsteilnehmer können Services nicht mehr nutzen oder keine Nachrichten / Event mehr produzieren oder konsumieren.
+Flexible Validierungen und Verarbeitungslogiken können die Auswirkungen eines solchen Breaking Changes mindern.
 
 |Typ oder Semantik eines Felds ändern
 |Werte werden von den Kommunikationsteilnehmern falsch interpretiert oder führen zu Konvertierungsfehlern.
-Diese Änderungen sollte vermieden werden, da sie schwer zu kommunizieren und abzufedern ist.
+Diese Änderungen sollte vermieden werden, da sie schwer zu kommunizieren und zu behandeln ist.
 Stattdessen sollte ein neues Feld eingeführt und das alte Feld zu einem späteren Zeitpunkt entfernt werden.
 |===
 
