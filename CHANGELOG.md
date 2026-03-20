@@ -1,5 +1,7 @@
 # 5.0.0
 ### FEATURES
+- `IFS-5290`: [isyfact-standards-doc] Playwright in den Produktkatalog aufgenommen
+  * Selenium ist als bestandsgeschützt gesetzt. Es wird empfohlen auf Playwright zu migrieren.
 - `IFS-5170`: [isyfact-standards-doc] Logik für Berechnung der KorrelationsId vereinfacht
 - `IFS-4925`: [isyfact-standards-doc] Anpassung der Vorlage Systementwurf an die IsyFact 5
 - `IFS-4926`: [isyfact-standards-doc] Anpassung der Darstellung von Gateways in der TI-Architektur
