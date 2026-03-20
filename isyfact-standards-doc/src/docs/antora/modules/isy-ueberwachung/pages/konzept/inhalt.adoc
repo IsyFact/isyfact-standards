@@ -11,9 +11,9 @@ Die Realisierung einer einheitlichen Überwachungsschnittstelle erlaubt dem Betr
 Dadurch können Ausfallzeiten minimiert werden.
 
 Der Fokus des Konzepts liegt auf der Schaffung von einheitlichen Administrationsschnittstellen, welche dem Betrieb eine einfache Überwachung der Anwendungen erlauben.
-Dabei wird Readiness als fachlich und betrieblich führendes Signal für die Annahme von Traffic definiert.
-Liveness bildet demgegenüber ausschließlich die Prozess- und Runtime-Lebendigkeit einer Anwendung ab.
-Der bestehende Endpoint `/actuator/health` bleibt im Sinne der Abwärtskompatibilität semantisch und funktional unverändert und wird parallel zu den Endpunkten `/actuator/health/readiness` und `/actuator/health/liveness` bereitgestellt.
+Dabei wird _Readiness_ als fachlich und betrieblich führendes Signal für die Annahme von _Traffic_ definiert.
+_Liveness_ bildet ausschließlich die Prozess- und Runtime-Lebendigkeit einer Anwendung ab.
+Der bestehende Endpoint `/actuator/health` bleibt im Sinne der Abwärtskompatibilität semantisch und funktional unverändert und ist parallel zu den Endpunkten `/actuator/health/readiness` und `/actuator/health/liveness` bereitzustellen.
 In Systementwürfen können Verfeinerungen der hier getroffenen Vorgaben gemacht werden.
 Weiterhin können die hier gemachten Vorgaben als Basis für die Beschreibung der Überwachungsschnittstelle im xref:methodik:vorlagen.adoc#dokumentation-anwendung[Systemhandbuch] verwendet werden.
 
@@ -38,12 +38,12 @@ Zur Überwachung von Anwendungen unterscheiden wir zwischen zwei unterschiedlich
 
 Der `health`-Endpoint ist der ursprüngliche Status, über den der Zustand und die Erreichbarkeit einer Anwendung geprüft werden kann.
 
-_Liveness_ und _Readiness_ sind zusätzliche Überwachungsmöglichkeiten.
+_Liveness_ und _Readiness_ sind moderne Überwachungsmöglichkeiten.
 Durch die Unterscheidung in dies zwei Zuständen kann im Gegensatz zu dem `health`-Endpoint ein feingranulares Monitoring ermöglicht werden.
 
-IMPORTANT: In der IsyFact wird (Stand IsyFact 3.0) standardmäßig der `health`-Endpoint verwendet.
+IMPORTANT: In der IsyFact wurde (Stand IsyFact 3.0) standardmäßig der `health`-Endpoint verwendet.
 Mit der IsyFact 3.0 werden _Liveness_ und _Readiness_ konzeptionell zur Verfügung gestellt.
-Diese Endpoints sind in den Bibliotheken nicht standardmäßig eingebaut und müssen individuell eingeschalten werden.
+Mit der IsyFact 5.0 sind die Zustände _Liveness_ und _Readiness_ verbindlich von Anwendungen zu exponieren.
 
 [[health-endpoint]]
 === `health`-Endpoint
@@ -53,13 +53,14 @@ IMPORTANT: Anders als von Spring vorgesehen entkoppelt die IsyFact den Health-Ch
 Durch diese Entkopplung wird die Systemstabilität durch häufige Aufrufe des Endpoints nicht beeinflusst.
 
 Der Status der `health`-Endpoints wird maßgeblich von Nachbarsystemchecks bestimmt.
-Einzelheiten finden sich dazu in Kapitel <<nachbarsystemcheck-health-endpoint>>.
-FÜr bestehende Implementierungen kann `/actuator/health` als fachlich führender Endpoint für Traffic-Steuerung genutzt werden.
-Es sollte aber und muss für neue Integrationen hierfür `/actuator/health/readiness` verwendet werden.
+Einzelheiten finden sich dazu in Kapitel <<nachbarsystemcheck-allgemein>>.
+FÜr bestehende Implementierungen kann `/actuator/health` als Endpunkt genutzt werden.
+Es sollte aber `/actuator/health/readiness` verwendet werden.
+Für neue Implementierungen ist dieser verbindlich zu nutzen.
 
-Implementiert und konfiguriert wurde bzw. wird der Health-Check als xref:task::nutzungsvorgaben.adoc#erstellung-eines-tasks[Task].
+Implementiert und konfiguriert wurde bzw. wird der Health-Check als https://isyfact.github.io/task/current/nutzungsvorgaben.html#erstellung-eines-tasks[Tasks].
 
-Der `health`-Endpoint bleibt semantisch und funktional als bestehende und abwärtskompatible Gesamtsicht auf den Anwendungszustand unverändert bestehen.
+Der `health`-Endpoint bleibt, unverändert, semantisch und funktional als bestehende und abwärtskompatible Gesamtsicht auf den Anwendungszustand bestehen.
 Insbesondere wird dieser Endpoint nicht auf die Semantik von _Readiness_ oder _Liveness_ gedeutet.
 Bestehende Integrationen, die `/actuator/health` verwenden, bleiben funktionsfähig.
 Die verpflichtende Einführung von `/actuator/health/readiness` und `/actuator/health/liveness` erfolgt zusätzlich im Parallelbetrieb und ohne Breaking Change.
@@ -79,7 +80,7 @@ Externe Abhängigkeiten wie Datenbanken, Messaging-Systeme oder entfernte Servic
 
 [[Readiness]]
 ==== Readiness
-Eine Anwendung wird als "ready" (bereit) angesehen, wenn sie live ist, Anfragen korrekt verarbeiten kann und daher Traffic erhalten darf.
+Eine Anwendung wird als "ready" (bereit) angesehen, wenn sie live ist und Anfragen korrekt verarbeiten kann, daher also Traffic erhalten darf.
 Eine Anwendung ist nicht "ready", wenn essenzielle Ressourcen oder essenzielle Nachbarsysteme nicht verfügbar sind oder andere Zustände vorliegen, die keinen Neustart erfordern, aber die Bearbeitung von Anfragen verhindern oder unzulässig machen.
 Ist eine Anwendung nicht "ready", darf die Infrastruktur keine Anfragen an sie senden (vgl. https://docs.spring.io/spring-boot/docs/current/api/org/springframework/boot/availability/ReadinessState.html[Spring Boot `ReadinessState`], https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/[Kubernetes Liveness und Readiness Probes]).
 
@@ -97,17 +98,19 @@ Aus praktischer Sicht wird die _Liveness_-Abfrage zur Evaluierung, ob eine Anwen
 Eine Anwendung, die "live", aber nicht "ready" ist, ist in einem korrekten Zustand, hat aber nicht alle notwendigen Abhängigkeiten oder Ressourcen zur Verfügung, um Anfragen anzunehmen.
 Aus praktischer Sicht ist diese nicht neu zu starten.
 
+[NOTE]
 Daraus folgt:
-Zustände, die eine Instanz temporär an der Annahme oder korrekten Bearbeitung von Traffic hindern, sind über Readiness abzubilden.
-Zustände, die einen Neustart der Instanz erfordern, sind über Liveness abzubilden.
+Zustände, die eine Instanz temporär an der Annahme oder korrekten Bearbeitung von Traffic hindern, sind über _Readiness_ abzubilden.
+Zustände, die einen Neustart der Instanz erfordern, sind über _Liveness_ abzubilden.
 
 Ist für eine Anwendung die Abfrage beider Zustande vorgesehen, ergeben sich folgende Zustände:
 
-[[zuordnung-healthindicator-und-abhängigkeiten]]
+[[zuordnung-healthindicator-und-abhaengigkeiten]]
 === Zuordnung von HealthIndicators und Abhängigkeiten
 
-Für alle relevanten Indicators und Abhängigkeiten ist fachlich zu entscheiden, ob diese Readiness, Liveness und/oder den bestehenden Health-Status beeinflussen.
+Für alle relevanten Indicators und Abhängigkeiten ist fachlich zu entscheiden, ob diese _Readiness_, _Liveness_ und/oder den bestehenden Health-Status beeinflussen.
 Maßgeblich ist die Frage, ob die Anwendung ohne die betroffene Abhängigkeit noch zulässige Anfragen verarbeiten darf.
+
 [[table-zuordnung-healthindikatoren]]
 .Zuordnung von Indicators und Abhängigkeiten
 [cols="2,1,1,1,3", options="header"]
@@ -151,7 +154,6 @@ Maßgeblich ist die Frage, ob die Anwendung ohne die betroffene Abhängigkeit no
 |Die Instanz soll gezielt aus dem Traffic genommen werden, bleibt aber technisch lauffähig.
 |===
 
-
 [[micrometer]]
 == Bestimmung von Metriken (Micrometer)
 Die im Endpoint `metrics` bereitgestellten Metriken werden von Micrometer erfasst.
@@ -177,22 +179,22 @@ Nachbarsysteme sind hinsichtlich ihrer Relevanz für die Betriebsbereitschaft de
 Bei Nachbarsystemen muss mindestens unterschieden werden, ob ein Nachbarsystem essenziell, oder nicht-essenziell also optional für die prüfende Anwendung ist.
 Ein Health-Check mit negativem Ergebnis eines essenziellen Nachbarsystems muss in der `health` der prüfenden Anwendung sichtbar sein.
 
-
-
 Die Nachbarsystemchecks können individuell konfiguriert werden.
 So kann z. B. konfiguriert werden, ob ein Nachbarsystem essenziell ist oder nicht.
 Details hierzu finden sich in den xref:nutzungsvorgaben/master.adoc#vorgaben-fuer-die-pruefung-der-verfuegbarkeit[Nutzungsvorgaben].
 
-[[nachbarsystemcheck-health-endpoint]]
-==== Nachbarsystemchecks über `health`-Endpoints
+[[nachbarsystemcheck-allgemein]]
+==== Nachbarsystemchecks (allgemein)
 
-Die Nachbarsystemchecks werden über `Readiness`-Checks der Nachbarsysteme durchgeführt.
+Die Nachbarsystemchecks werden über `Health`- oder `Readiness`-Checks der Nachbarsysteme durchgeführt.
 
 Schlägt ein Check eines Nachbarsystems fehl, führt dies zu einem Eintrag im technischen Log.
 Bei einem nicht essenziellen Nachbarsystem wird darauf eine Warnung geloggt.
-Bei einem essenziellen Nachbarsystem wird ein Fehler geloggt und die `health` des prüfenden Systems muss ebenso einen Fehler aufweisen.
-Die Zuordnung zu Readiness erfolgt zusätzlich und ohne Umdeutung des bestehenden `health` Endpunkts.
-Ein essenzielles Nachbarsystem beeinflusst die Readiness der Anwendung.
+Bei einem essenziellen Nachbarsystem wird ein Fehler geloggt und die `health` sowie die _Readiness_ des prüfenden Systems muss ebenso einen Fehler aufweisen.
+Die Zuordnung zu _Readiness_ erfolgt zusätzlich und ohne Umdeutung des bestehenden `health` Endpunkts.
+Ein essenzielles Nachbarsystem beeinflusst also die _Readiness_ der Anwendung.
+
+[IMPORTANT]
 Ist dieses nicht verfügbar, darf die Anwendung keinen Traffic erhalten.
 Ein optionales Nachbarsystem beeinflusst die Readiness grundsätzlich nicht.
 Ein Ausfall ist im bestehenden Health-Status und im Logging sichtbar zu machen.
@@ -200,8 +202,8 @@ Ein Ausfall ist im bestehenden Health-Status und im Logging sichtbar zu machen.
 [[nachbarsystemcheck-liveness-Readiness]]
 ==== Nachbarsystemchecks über Liveness/Readiness Endpoints
 
-Im Rahmen von Nachbarsystemchecks muss (alternativ zum `health`-Endpoint) die _Liveness_ und _Readiness_ überprüft werden.
-Auch hier kann unterschieden und geloggt werden, ob ein essenzielles Nachbarsystem ausgefallen ist oder ein nicht essenzielles.
+Im Rahmen von Nachbarsystemchecks muss (alternativ zum `health`-Endpoint) die _Readiness_ überprüft werden.
+Auch hier muss unterschieden und geloggt werden, ob ein essenzielles Nachbarsystem ausgefallen ist oder ein nicht essenzielles.
 Ist ein essenzielles Nachbarsystem ausgefallen, dann hat dies Auswirkungen auf die _Readiness_ des Systems jedoch nicht auf die _Liveness_.
 Nachbarsystemchecks von essenziellen Systemen sind damit essenziell für die _Readiness_ eines Systems.
 
@@ -214,11 +216,11 @@ Für Anwendungen nach der IsyFact-Architektur sollen einzelne Knoten eines Anwen
 Dies ist für das Durchführen von Updates erforderlich.
 Aus diesem Grund wird als Teil jeder Webanwendung ein sog. Loadbalancer-Servlet ausgeliefert.
 
-Readiness ist das führende Signal für Loadbalancer und sonstige Traffic-Steuerung.
-Instanzen, deren /actuator/health/readiness keinen betriebsbereiten Zustand meldet, sind aus dem Traffic zu nehmen.
-Die Prüfung über eine isAlive-Datei kann während der Übergangszeit oder aus betrieblichen Gründen weiterhin verwendet werden, ersetzt jedoch konzeptionell nicht die Readiness-Semantik.
-Soweit technisch möglich ist die Infrastruktur direkt den Endpoint /actuator/health/readiness auszuwerten.
-Die isAlive-Datei bleibt ein zulässiger Mechanismus für betrieblich initiierte temporäre Nichtverfügbarkeit, insbesondere während Migration und Betriebsübergang.
+_Readiness_ ist das führende Signal für Loadbalancer und sonstige Traffic-Steuerung.
+Instanzen, deren `/actuator/health/readiness` keinen betriebsbereiten Zustand meldet, sind aus dem Traffic zu nehmen.
+Die Prüfung über eine `isAlive`-Datei kann während der Übergangszeit oder aus betrieblichen Gründen weiterhin verwendet werden, ersetzt jedoch konzeptionell nicht die _Readiness_-Semantik.
+Soweit technisch möglich ist die Infrastruktur direkt den Endpoint `/actuator/health/readiness` auszuwerten.
+Die `isAlive`-Datei bleibt ein zulässiger Mechanismus für betrieblich initiierte temporäre Nichtverfügbarkeit, insbesondere während Migration und Betriebsübergang.
 
 [[beschreibung-des-loadbalancer-servlets]]
 ==== Beschreibung des Loadbalancer-Servlets
@@ -236,13 +238,13 @@ Alle anderen Anwendungen auf dem entsprechenden Server müssen weiterhin bedient
 
 Sind _Liveness_ und _Readiness_ definiert, soll der Loadbalancer die _Readiness_ eines Knotens prüfen.
 Ist die _Readiness_ nicht gegeben, ist der Knoten aus dem Loadbalancing heraus zu nehmen.
-Je nach betrieblichen Bedingungen und den technischen Möglichkeiten des eingesetzten Loadbalancers ist die Abfrage der _Readiness_ über den _Readiness_ Endpoint oder eine `isAlive`-Datei festzustellen.
+Je nach betrieblichen Bedingungen und den technischen Möglichkeiten des eingesetzten Loadbalancers ist die Abfrage der _Readiness_ über den _Readiness_ Endpoint oder alternativ über eine `isAlive`-Datei festzustellen.
 Die betrieblich begründete, temporäre Nichtverfügbarkeit einer Anwendung, kann über die Löschung einer `isAlive`-Datei gesteuert werden (vgl. xref:nutzungsvorgaben/master.adoc#integration-des-loadbalancer-servlets[Nutzungsvorgaben]).
 Ist das Vorhandensein einer `isAlive`-Datei aus betrieblichen Anforderungen nicht notwendig ist die direkte Prüfung über den _Readiness_ Endpoint vorzunehmen.
 
 [[migrations-und-parallelbetrieb]]
 == Migration und Parallelbetrieb
-Die verpflichtende Einführung von _Readiness_ und _Liveness_ erfolgt in der aktuellen Version ohne Breaking Change im Parallelbetrieb zum bestehenden Endpoint `/actuator/health`.
+Die verpflichtende Einführung von _Readiness_ und _Liveness_ erfolgt in der IsyFact 5.0 ohne Breaking Change im Parallelbetrieb zum bestehenden Endpoint `/actuator/health`.
 
 [[migrationsphase-1]]
 === Phase 1: Parallele Einführung
@@ -251,7 +253,7 @@ Der bestehende Endpoint `/actuator/health` bleibt semantisch und funktional unve
 
 [[migrationsphase-2]]
 === Phase 2: Umstellung von Monitoring und Traffic-Steuerung
-Monitoring, Loadbalancer und sonstige Komponenten der Traffic-Steuerung sollen schrittweise auf die Auswertung von `/actuator/health/readiness` umgestellt werden.
+Monitoring, Loadbalancer und sonstige Komponenten der Traffic-Steuerung und des Monitorings sollen schrittweise auf die Auswertung von `/actuator/health/readiness` umgestellt werden.
 Für Neustart-Entscheidungen und Prozessüberwachung ist `/actuator/health/liveness` heranzuziehen.
 
 [[migrationsphase-3]]
