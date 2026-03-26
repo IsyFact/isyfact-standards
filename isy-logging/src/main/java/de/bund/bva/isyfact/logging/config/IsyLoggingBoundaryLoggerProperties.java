@@ -1,21 +1,25 @@
 package de.bund.bva.isyfact.logging.config;
 
 /**
- * Properties, die das Loggen an Systemgrenzen konfigurieren.
+ * Properties that configure logging at system boundaries.
  */
 public class IsyLoggingBoundaryLoggerProperties extends AbstractBoundaryLoggerProperties {
 
     /**
-     * Erzeugt eine neue Instanz der Konfigurationsparameter.
+     * Creates a new instance of the configuration parameters.
      */
     public IsyLoggingBoundaryLoggerProperties() {
-        // Default-Werte setzen
-        setPointcut("@within(de.bund.bva.isyfact.logging.annotation.Systemgrenze)");
-        setLoggeDauer(true);
-        setLoggeAufruf(true);
-        setLoggeErgebnis(true);
-        setLoggeDaten(false);
-        setLoggeDatenBeiException(true);
+        applyDefaults();
+    }
+
+    private void applyDefaults() {
+        // Set default values
+        super.setPointcut("@within(de.bund.bva.isyfact.logging.annotation.Systemgrenze)");
+        super.setLoggeDauer(true);
+        super.setLoggeAufruf(true);
+        super.setLoggeErgebnis(true);
+        super.setLoggeDaten(false);
+        super.setLoggeDatenBeiException(true);
     }
 
 }
