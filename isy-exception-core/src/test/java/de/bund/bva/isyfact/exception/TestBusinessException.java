@@ -15,24 +15,34 @@ public class TestBusinessException {
 
 	@BeforeEach
 	public void setUp(){
-		pE = new BaseException(TestExceptionFactory.ausnahmeId, TestExceptionFactory.provider, TestExceptionFactory.parameter) {
+		pE = new BaseException(
+			TestExceptionFactory.AUSNAHME_ID,
+			TestExceptionFactory.PROVIDER,
+			TestExceptionFactory.PARAMETER
+		) {
 		};
-		ptE = new TechnicalRuntimeException(TestExceptionFactory.ausnahmeId, TestExceptionFactory.provider, TestExceptionFactory.parameter) {
+		ptE = new TechnicalRuntimeException(
+			TestExceptionFactory.AUSNAHME_ID,
+			TestExceptionFactory.PROVIDER,
+			TestExceptionFactory.PARAMETER
+		) {
 		};
 	}
 	
 	@Test
 	public void testBusinessException(){
 		TestExceptionFactory.MyBusinessException pbe = TestExceptionFactory.getBusinessException();
-		assertEquals(TestExceptionFactory.ausnahmeId, pbe.getAusnahmeId());
+		assertEquals(TestExceptionFactory.AUSNAHME_ID, pbe.getAusnahmeId());
 		assertEquals(
-			TestExceptionFactory.provider.getMessage(TestExceptionFactory.ausnahmeId, TestExceptionFactory.parameter), pbe.getFehlertext());
+			TestExceptionFactory.PROVIDER.getMessage(TestExceptionFactory.AUSNAHME_ID, TestExceptionFactory.PARAMETER),
+			pbe.getFehlertext()
+		);
 	}
 	
 	@Test
 	public void testBusinessException2(){
 		TestExceptionFactory.MyBusinessException pbe = TestExceptionFactory.getBusinessException(pE);
-		assertEquals(TestExceptionFactory.ausnahmeId, pbe.getAusnahmeId());
+		assertEquals(TestExceptionFactory.AUSNAHME_ID, pbe.getAusnahmeId());
 		assertEquals(pE, pbe.getCause());
 		assertEquals(pE.getMessage(), pbe.getMessage());
 	}
@@ -41,14 +51,14 @@ public class TestBusinessException {
 	public void testBusinessException3(){
 		RuntimeException e = new RuntimeException("meine Exception");
 		TestExceptionFactory.MyBusinessException pbe = TestExceptionFactory.getBusinessException(e);
-		assertEquals(TestExceptionFactory.ausnahmeId, pbe.getAusnahmeId());
+		assertEquals(TestExceptionFactory.AUSNAHME_ID, pbe.getAusnahmeId());
 		assertEquals(e, pbe.getCause());
 	}
 	
 	@Test
 	public void testBusinessException4(){
 		TestExceptionFactory.MyBusinessException pbe = TestExceptionFactory.getBusinessException(ptE);
-		assertEquals(TestExceptionFactory.ausnahmeId, pbe.getAusnahmeId());
+		assertEquals(TestExceptionFactory.AUSNAHME_ID, pbe.getAusnahmeId());
 		assertEquals(ptE, pbe.getCause());
 	}
 }
