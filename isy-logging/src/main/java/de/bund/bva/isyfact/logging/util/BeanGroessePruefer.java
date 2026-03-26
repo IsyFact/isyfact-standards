@@ -68,58 +68,109 @@ public class BeanGroessePruefer {
      * Parameter zu groß ist.
      */
     private boolean ermittleGroesseInBytes(Object bean, Long maximalGroesse) {
-        Set<Object> bereitsGezaehlteBeans = Collections.newSetFromMap(new IdentityHashMap<>());
-        long beanGroesse = 0L;
+        Set<Object> alreadyCountedBeans = Collections.newSetFromMap(new IdentityHashMap<>());
+        Deque<Object> stack = initializeStack(bean);
 
+        long sizeInBytes = 0L;
+        while (!stack.isEmpty() && sizeInBytes <= maximalGroesse) {
+            Object currentObject = stack.pop();
+
+            if (shouldIgnore(currentObject, alreadyCountedBeans)) {
+                continue;
+            }
+
+            sizeInBytes += processObjectAndPushChildren(currentObject, stack);
+        }
+
+        return sizeInBytes <= maximalGroesse;
+    }
+
+    private Deque<Object> initializeStack(Object bean) {
         Deque<Object> stack = new ArrayDeque<>();
         if (bean != null) {
             stack.push(bean);
         }
+        return stack;
+    }
 
-        while (!stack.isEmpty() && beanGroesse <= maximalGroesse) {
-            Object objekt = stack.pop();
+    private boolean shouldIgnore(Object objekt, Set<Object> alreadyCountedBeans) {
+        if (objekt == null) {
+            return true;
+        }
+        if (isVmSingleton(objekt)) {
+            return true;
+        }
+        return !alreadyCountedBeans.add(objekt);
+    }
 
-            // Ignoriere die Instanz, falls sie:
-            // - eine Enum oder Klasse ist (dann liegt sie einmal pro VM im Speicher)
-            // - schon einmal gezählt wurde
-            // - null ist, da sie dann nichts zur Größe beiträgt
-            if (objekt != null && !(Enum.class.isAssignableFrom(objekt.getClass())
-                || objekt instanceof Class<?>) && bereitsGezaehlteBeans.add(objekt)) {
-                Class<?> klasse = objekt.getClass();
-                if (PRIMITIVE_TYPEN_GROESSE.containsKey(klasse)) {
-                    beanGroesse += PRIMITIVE_TYPEN_GROESSE.get(klasse);
-                } else if (klasse.isArray()) {
-                    if (PRIMITIVE_TYPEN_GROESSE.containsKey(klasse.getComponentType())) {
-                        beanGroesse +=
-                            PRIMITIVE_TYPEN_GROESSE.get(klasse.getComponentType()) * Array.getLength(objekt);
-                    } else {
-                        for (int i = Array.getLength(objekt) - 1; i >= 0; i--) {
-                            Object childValue = Array.get(objekt, i);
-                            if (childValue != null) {
-                                stack.push(childValue);
-                            }
-                        }
-                    }
-                } else {
-                    for (Field attribut : ermittleAlleInstanzAttribute(objekt)) {
-                        try {
-                            Object attributWert = attribut.get(objekt);
-                            if (attributWert != null) {
-                                if (PRIMITIVE_TYPEN_GROESSE.containsKey(attributWert.getClass())) {
-                                    beanGroesse += PRIMITIVE_TYPEN_GROESSE.get(attributWert.getClass());
-                                } else {
-                                    stack.push(attributWert);
-                                }
-                            }
-                        } catch (IllegalAccessException _) {
-                            // Wenn Reflection nicht funktioniert, ist die Größenmessung deaktiviert.
-                        }
-                    }
-                }
+    private boolean isVmSingleton(Object objekt) {
+        Class<?> clazz = objekt.getClass();
+        return Enum.class.isAssignableFrom(clazz) || objekt instanceof Class<?>;
+    }
+
+    /**
+     * Liefert die Byte-Anteile, die direkt gezählt werden können, und pushed ggf. Kindobjekte auf den Stack.
+     */
+    private long processObjectAndPushChildren(Object objekt, Deque<Object> stack) {
+        Class<?> objectClass = objekt.getClass();
+
+        Integer primitiveSize = PRIMITIVE_TYPEN_GROESSE.get(objectClass);
+        if (primitiveSize != null) {
+            return primitiveSize;
+        }
+
+        if (objectClass.isArray()) {
+            return processArrayAndPushChildren(objekt, stack);
+        }
+
+        return processInstanceAndPushFields(objekt, stack);
+    }
+
+    private long processArrayAndPushChildren(Object arrayObj, Deque<Object> stack) {
+        Class<?> componentType = arrayObj.getClass().getComponentType();
+        int length = Array.getLength(arrayObj);
+
+        Integer componentSize = PRIMITIVE_TYPEN_GROESSE.get(componentType);
+        if (componentSize != null) {
+            return componentSize * (long) length;
+        }
+
+        for (int i = length - 1; i >= 0; i--) {
+            Object childValue = Array.get(arrayObj, i);
+            if (childValue != null) {
+                stack.push(childValue);
+            }
+        }
+        return 0L;
+    }
+
+    private long processInstanceAndPushFields(Object objekt, Deque<Object> stack) {
+        long sizeInBytes = 0L;
+
+        for (Field field : ermittleAlleInstanzAttribute(objekt)) {
+            Object fieldValue = getFieldValueOrNull(field, objekt);
+            if (fieldValue == null) {
+                continue;
+            }
+
+            Integer primitiveSize = PRIMITIVE_TYPEN_GROESSE.get(fieldValue.getClass());
+            if (primitiveSize != null) {
+                sizeInBytes += primitiveSize;
+            } else {
+                stack.push(fieldValue);
             }
         }
 
-        return beanGroesse <= maximalGroesse;
+        return sizeInBytes;
+    }
+
+    private Object getFieldValueOrNull(Field attribut, Object objekt) {
+        try {
+            return attribut.get(objekt);
+        } catch (IllegalAccessException _) {
+            // Wenn Reflection nicht funktioniert, ist die Größenmessung deaktiviert.
+            return null;
+        }
     }
 
     /**
