@@ -1,5 +1,7 @@
 package de.bund.bva.isyfact.logging;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+
 import org.junit.jupiter.api.Test;
 
 import de.bund.bva.isyfact.logging.util.MdcHelper;
@@ -26,8 +28,8 @@ public class MdcFachdatenTest extends AbstractLogTest {
         
         MdcHelper.entferneMarkerFachdaten();
         logger.debug("MdcFachdaten wurde auf 'null' gesetzt.");
-        
-        pruefeLogdatei("testMdcFachdaten");
+
+        assertDoesNotThrow(() -> pruefeLogdatei("testMdcFachdaten"));
     }
 
 }

@@ -1,5 +1,7 @@
 package de.bund.bva.isyfact.logging;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+
 import java.net.URL;
 
 import org.junit.jupiter.api.Test;
@@ -41,8 +43,8 @@ public class LogbackConfigTest extends AbstractLogTest {
         
         // rollback to standard configuration.
         konfiguriereLogback("logback-test.xml");
-        
-        pruefeLogdatei("testMdcConfig");
+
+        assertDoesNotThrow(() -> pruefeLogdatei("testMdcConfig"));
     }
 
     /**
