@@ -1,5 +1,7 @@
 package de.bund.bva.isyfact.logging.autoconfigure;
 
+import jakarta.validation.Valid;
+
 import org.aopalliance.intercept.MethodInterceptor;
 import org.springframework.aop.Advisor;
 import org.springframework.aop.aspectj.AspectJExpressionPointcut;
@@ -74,7 +76,7 @@ public class IsyLoggingAutoConfiguration {
      * @return Listener for logging during startup/shutdown.
      */
     @Bean
-    public LogApplicationListener statusLogger(IsyLoggingApplicationLoggerProperties properties) {
+    public LogApplicationListener statusLogger(@Valid IsyLoggingApplicationLoggerProperties properties) {
         return new LogApplicationListener(properties.getName(), properties.getTyp(), properties.getVersion());
     }
 
