@@ -146,4 +146,4 @@ Autorisierung::
 Vorgaben und Umsetzung mithilfe des xref:security::konzept.adoc[Bausteins Security]
 
 Monitoring::
-Vorgaben und Umsetzung mithilfe des xref:isy-ueberwachung:konzept/master.adoc[Bausteins Überwachung]
+Vorgaben und Umsetzung mithilfe des xref:ueberwachung::konzept.adoc[Bausteins Überwachung]

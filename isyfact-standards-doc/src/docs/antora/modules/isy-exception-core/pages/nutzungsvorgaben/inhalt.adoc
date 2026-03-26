@@ -348,7 +348,7 @@ Beschreibungen dazu finden sich in den jeweiligen Detailkonzepten oder den Baust
 === Fehlertexte und deren Einsatz
 
 Fehlertexte müssen in `ResourceBundles` abgelegt werden.
-Die Ablage der Fehlertexte wird durch das xref:isy-ueberwachung:konzept/master.adoc[Konzept Überwachung] vorgegeben, das Laden der Dateien wird in Spring durch Holder-Klassen realisiert.
+Die Ablage der Fehlertexte wird durch das xref:ueberwachung::konzept.adoc[Konzept Überwachung] vorgegeben, das Laden der Dateien wird in Spring durch Holder-Klassen realisiert.
 
 Als Schlüssel werden die Ausnahme-IDs verwendet.
 Diese setzen sich aus fünf Buchstaben und fünf numerischen Zeichen zusammen:

@@ -35,7 +35,6 @@
         <module>isyfact-products-bom</module>
         <module>isy-exception-core</module>
         <module>isy-logging</module>
-        <module>isy-ueberwachung</module>
     </modules>
 
     <scm>
