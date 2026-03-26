@@ -1,11 +1,71 @@
 = Versionierung
 
+include::documentation-guide::partial$content-revised-page.adoc[]
+
 Die Notwendigkeit, Services in mehreren Versionen anbieten zu können, ist bedingt durch die Vielzahl an Service-Nutzern, die bei Änderung an einem Service nicht alle zeitgleich auf die neue Version eines Service umschalten können.
 Daher ist es notwendig, dass in einem – möglichst klein zu haltenden – Übergangszeitraum mehrere Versionen eines Service parallel betrieben werden können.
 
 Die Versionierung wird auf der Ebene von Services, nicht Service-Operationen ausgeführt, da diese Ebene von ihrer Granularität zu den üblichen fachlichen Änderungen passt.
 
 Es kann vorkommen, dass in _einem_ Systemrelease neue Versionen von _mehreren_ Services ausgeliefert werden.
+
+[[abwaertskompatibilitaet]]
+== Abwärtskompatibilität
+
+Als Abwärtskompatibilität wird die Verwendbarkeit bzw. Kompatibilität neuerer oder erweiterter Versionen eines Services bzw. einer Nachricht oder eines Events zu den Anwendungsbedingungen einer früheren Version bezeichnet.
+
+NOTE: Diese Definition basiert auf dem Wikipedia-Artikel zur https://de.wikipedia.org/wiki/Kompatibilit%C3%A4t_(Technik)#Abw%C3%A4rtskompatibilit%C3%A4t[Abwärtskompatibilität].
+
+Abwärtskompatibilität ermöglicht Übergangszeiträume, in denen sich die Kommunikationsteilnehmer schrittweise an die Änderungen anpassen können, ohne dass es zu Unterbrechungen oder Fehlern in der Kommunikation kommt.
+
+Die Verantwortung für Änderungen - und damit auch für die Abwärtskompatibilität - liegt in der Regel beim Provider von Services bzw. beim Producer/Publisher von Nachrichten und Events, da diese die Schnittstelle bzw. das Format der Nachrichten und Events definieren und somit für die Consumer festlegen.
+Ausnahmen bilden Szenarien, in denen ein Consumer viele Producer/Publisher orchestriert und aus diesem Grund das Format der Nachrichten oder Events vorgibt, zum Beispiel im Bereich Telemetrie oder Protokollierung.
+
+Inkompatible Änderungen (englisch: _breaking changes_) sind dagegen Änderungen an der Schnittstelle eines Services bzw. am Format einer Nachricht oder eines Events, welche die Anwendungsbedingungen einer früheren Version verletzen.
+Sie führen zu Fehlern oder Unterbrechungen in der Kommunikation, wenn die Kommunikationsteilnehmer nicht gleichzeitig auf die neue Version wechseln können und müssen daher genau geplant und kommuniziert werden.
+
+=== Abwärtskompatible Änderungen
+
+Die folgenden Beispiele stellen häufig vorkommende, abwärtskompatible Änderungen dar.
+
+[cols="1,2",options="header"]
+|===
+|Änderungstyp
+|Auswirkung auf die Kommunikation
+
+|Optionales Feld hinzufügen
+|Die Kommunikationsteilnehmer können das Feld bei Bedarf setzen bzw. berücksichtigen.
+
+|Neues Feld mit Standardwert hinzufügen
+|Die Kommunikationsteilnehmer können das Feld bei Bedarf mit einem eigenen Wert belegen bzw. berücksichtigen.
+
+|Optionale neue Operation / Nachricht / Event hinzufügen
+|Die Kommunikationsteilnehmer können die Operation bei Bedarf aufrufen, bzw. die Nachricht oder das Event produzieren oder konsumieren.
+|===
+
+=== Inkompatible Änderungen
+
+Die folgenden Beispiele stellen häufig vorkommende, inkompatible Änderungen (Breaking Changes) dar.
+
+[cols="1,2",options="header"]
+|===
+|Änderungstyp
+|Auswirkung auf die Kommunikation
+
+|Neues Pflichtfeld hinzufügen
+|Die Kommunikationsteilnehmer müssen das neue Feld verwenden.
+Eine Übergangsphase mit einer frühzeitigen Einführung des Feldes als optional kann die Auswirkungen dieses Breaking Changes mindern.
+
+|Feld umbenennen / entfernen
+|Die Kommunikationsteilnehmer können Services nicht mehr nutzen oder keine Nachrichten / Event mehr produzieren oder konsumieren.
+Flexible Validierungen und Verarbeitungslogiken können die Auswirkungen eines solchen Breaking Changes mindern.
+
+|Typ oder Semantik eines Felds ändern
+|Werte werden von den Kommunikationsteilnehmern falsch interpretiert oder führen zu Konvertierungsfehlern.
+Diese Änderungen sollte vermieden werden, da sie schwer zu kommunizieren und zu behandeln ist.
+Stattdessen sollte ein neues Feld eingeführt und das alte Feld zu einem späteren Zeitpunkt entfernt werden.
+|===
+
 
 [[architektur]]
 == Architektur
