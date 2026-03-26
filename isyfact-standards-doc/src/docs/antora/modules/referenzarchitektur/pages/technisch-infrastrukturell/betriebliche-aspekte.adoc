@@ -98,7 +98,7 @@ Der Betrieb ist auch für die Dokumentation der Konfigurationsänderungen durch 
 == Betriebsüberwachung
 
 Um den Gesamt-Status eines Systems zu überwachen, sind die Überwachung der IT-Systeme sowie das Monitoring der Komponenten der technischen Infrastruktur notwendig.
-Auf die Überwachung der IT-Systeme wird im Dokument xref:isy-ueberwachung:konzept/master.adoc#einleitung[Konzept Überwachung] im Detail eingegangen.
+Auf die Überwachung der IT-Systeme wird im Dokument xref:ueberwachung::konzept.adoc#einleitung[Konzept Überwachung] im Detail eingegangen.
 Hier wird unter anderem festgelegt, welche Informationen ein nach der Referenzarchitektur erstelltes IT-System für die Überwachung mindestens bereitstellen muss.
 Hierfür wird das Framework Micrometer verwendet, das sich an eine Vielzahl gängiger Überwachungstools anbinden kann.
 
