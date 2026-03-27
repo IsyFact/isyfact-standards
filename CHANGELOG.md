@@ -36,6 +36,7 @@
 - `IFS-4748`: [isy-ueberwachung] Dokumentation von aktualisierten Properties
 - `IFS-5162`: [isy-logging] Konfiguration für die Bean Injection angepasst, sodass der PerformanceLogAdvisor korrekt geladen wird
 - `IFS-4946`: [isyfact-standards-doc] Entfernt Installations- und Betriebsanleitung für RPM Deployment
+- `IFS-5252`: [isy-logging] Implementieren von Logging in ausgehenden REST-Requests
 
 ### BUG FIXES
 - `IFS-4753`: [isy-batchrahmen] Änderung der Konfigurationsreihenfolge.
@@ -44,6 +45,10 @@
 - `IFS-4817`: [isy-ueberwachung] Verwendung von `securityMatcher` in actuatorSecurityFilterChain und loadbalancerSecurityFilterChain für korrektes Filtern von Anfragen.
 
 ### BREAKING CHANGES
+- `IFS-4890`: [isy-persistence] Überführung der Schema Validierung in isy-util
+  * Die Properties müssen migriert werden:
+    * isy.persistence.datasource.schema-version -> isy.util.datasource.schema-version
+    * isy.persistence.datasource.schema-invalid-version-action -> isy.util.datasource.schema-invalid-version-action
 - `IFS-4736`: [isy-persistence] Entfernung der Bibliothek aus den IsyFact-Standards
 - `IFS-4582`: [isy-persistence], [isy-polling], [isy-security], [isy-security-test], [isy-task], [isy-util] Entfernen der entkoppelten Bausteine aus dem Standards-Repository
 - `IFS-4922`: Aktualisierung von Java 17 auf 25
@@ -166,11 +171,23 @@ Die bisherigen Changelogs sowie die Release Notes und der Migrationsleitfaden in
 ## MIGRATION GUIDE
 
 ### Aufgelöster Baustein "JPA/Hibernate"
-Anwendungen migrieren konzeptionell auf die Beschreibungen zur Persistenzschicht von Backends in der Referenzarchitektur.
 
-Die Bibliothek `isy-persistence` entfällt.
-Hilfsfunktionen zur Definition von Enums und zur Prüfung der Schema-Version wurden in den Baustein Util in die Bibliothek `isy-util` verschoben.
-Alle weitere Funktionalität entfällt und wird durch die direkte Verwendung der Produkte Spring Data, Spring Boot und Spring ersetzt.
+#### Migration von isy-persistence
+
+Mit der Ablösung der Bibliothek `isy-persistence` gelten die Vorgaben der [Referenzarchitektur](https://isyfact.github.io/isyfact-standards-doku/dev/referenzarchitektur/software-technisch/backend/persistenzschicht.html).
+Diese sieht den Einsatz von Spring Data JPA in Kombination mit Liquibase vor.
+
+#### Schema-Prüfung (optional)
+
+Die bisherige Schema-Prüfung kann bei begründetem Bedarf weiterhin genutzt werden.
+Sie ist nun Bestandteil von `isy-util`.
+
+Für die Migration von `isy-persistence` zu `isy-util` sind folgende Properties umzubenennen:
+
+- `isy.persistence.datasource.schema-version` → `isy.util.datasource.schema-version`
+- `isy.persistence.datasource.schema-invalid-version-action` → `isy.util.datasource.schema-invalid-version-action`
+
+Detaillierte Informationen finden sich in den [Nutzungsvorgaben](https://isyfact.github.io/util/current/nutzungsvorgaben.html#persistence-datasource) von `isy-util`.
 
 ### Baustein Überwachung
 Anwendungen, die auf die zeitbeschränkten Metriken (`...LetzteMinute`) zur Überwachung oder Alarmierung angewiesen sind, müssen ihre Überwachungskonfigurationen anpassen. 
@@ -198,31 +215,9 @@ Weitere Informationen finden Sie in der [Spring Boot Dokumentation](https://docs
 <groupId>io.github.git-commit-id</groupId>
 <artifactId>git-commit-id-maven-plugin</artifactId>
 ```
-- neue Dependencys in isy-ueberwachung durch Spring Boot 4 Update
+- neue Dependency in isy-ueberwachung durch Spring Boot 4 Update
 
 ```xml
 <groupId>org.springframework.boot</groupId>
-<artifactId>spring-boot-starter-webmvc-test</artifactId>
-<scope>test</scope>
-
-<groupId>org.springframework.boot</groupId>
-<artifactId>spring-boot-webtestclient</artifactId>
-<scope>test</scope>
-```
-
-- neue Dependencys in isy-logging durch Spring Boot 4 Update
-```xml
-<groupId>org.springframework.boot</groupId>
-<artifactId>spring-boot-resttestclient</artifactId>
-
-<groupId>org.springframework.boot</groupId>
-<artifactId>spring-boot-starter-restclient</artifactId>
-
-<groupId>org.springframework.boot</groupId>
-<artifactId>spring-boot-webtestclient</artifactId>
-<scope>test</scope>
-
-<groupId>org.springframework.boot</groupId>
-<artifactId>spring-boot-starter-webmvc-test</artifactId>
-<scope>test</scope>
+<artifactId>spring-boot-restclient</artifactId>
 ```
