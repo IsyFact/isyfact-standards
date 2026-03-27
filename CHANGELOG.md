@@ -1,5 +1,6 @@
 # 5.0.0
 ### FEATURES
+- `IFS-5234`: [isyfact-standards-doc] Hinzugefügt: Konzeptionelles Readiness- und Liveness-Modell für IF.5
 - `IFS-5170`: [isyfact-standards-doc] Logik für Berechnung der KorrelationsId vereinfacht
 - `IFS-4925`: [isyfact-standards-doc] Anpassung der Vorlage Systementwurf an die IsyFact 5
 - `IFS-4926`: [isyfact-standards-doc] Anpassung der Darstellung von Gateways in der TI-Architektur
@@ -105,6 +106,15 @@ Die Nutzung des Begriffs "Webservice" wurde vereinheitlicht und entspricht jetzt
 ### Bausteine
 
 #### Überwachung
+##### Modernisierung der Anwendungsüberwachung (Readiness & Liveness)
+Mit der Aktualisierung des IsyFact 5 (IF.5) Konzepts führen wir einen Cloud-nativen Monitoring-Standard ein, der die bisherige Vermischung von Betriebszuständen auflöst.
+Die Neuerungen im Überblick:
+* Präzise Traffic-Steuerung (Readiness): Loadbalancer erkennen über /actuator/health/readiness exakt, wann eine Instanz fachlich bereit ist (z. B. nach Cache-Initialisierung).
+* Erhöhte Robustheit (Liveness): Der neue /actuator/health/liveness Endpunkt liefert Infrastrukturen (wie Kubernetes) ein sauberes Signal für Prozess-Neustarts, ohne durch temporäre Nachbarsystem-Störungen Fehlalarme auszulösen.
+* Klare Abhängigkeiten: Neue Architekturvorgaben definieren präzise, welche Nachbarsysteme (Datenbanken, APIs) als essenziell für die Betriebsbereitschaft gelten.
+* Risikofreie Migration: Durch Parallelbetrieb bleibt der bestehende /actuator/health Endpunkt funktional identisch. Bestehende Monitorings laufen ohne Anpassungszwang weiter (kein Breaking Change).
+
+##### Metriken
 Die folgenden zeitbeschränkten Metriken wurden entfernt:
 
 * `AnzahlAufrufeLetzteMinute`: Anzahl der Anrufe in der letzten Minute
