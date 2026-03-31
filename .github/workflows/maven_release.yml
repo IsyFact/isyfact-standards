@@ -5,7 +5,7 @@ on:
 
 jobs:
   Build:
-    uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_build_template.yml@v2.2.1
+    uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_build_template.yml@v2.3.0
     with:
       version: ${{ github.ref_name }}
       sonar-skip: false
@@ -54,7 +54,7 @@ jobs:
 
   DeployReleaseVersion:
     needs: [QualityGate, DependencyScan]
-    uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_deploy_template.yml@v2.2.1
+    uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_deploy_template.yml@v2.3.0
     with:
       version: ${{ github.ref_name }}
       maven-opts: '-P centralRelease'
