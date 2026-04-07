@@ -74,7 +74,7 @@
         <isy.doku.standards.bausteine>10_IsyFact-Standards/20_Bausteine</isy.doku.standards.bausteine>
 
         <!-- Maven plugins for static information -->
-        <git-commit-id-maven-plugin.version>9.1.0</git-commit-id-maven-plugin.version>
+        <git-commit-id-maven-plugin.version>9.2.0</git-commit-id-maven-plugin.version>
 
         <!-- Fixed patch for commons-text CVE-2022-42889 -->
         <commons-text.version>1.15.0</commons-text.version>
