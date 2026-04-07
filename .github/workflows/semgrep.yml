@@ -33,7 +33,7 @@ jobs:
           exit $SEMGREP_EXIT
 
       - name: Upload report as artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: semgrep-report.json
           path: semgrep-report.json
