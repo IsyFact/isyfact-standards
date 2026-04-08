@@ -13,18 +13,30 @@ Es kann vorkommen, dass in _einem_ Systemrelease neue Versionen von _mehreren_ S
 == Abwärtskompatibilität
 
 Als Abwärtskompatibilität wird die Verwendbarkeit bzw. Kompatibilität neuerer oder erweiterter Versionen eines Services bzw. einer Nachricht oder eines Events zu den Anwendungsbedingungen einer früheren Version bezeichnet.
+Diese liegt vor, wenn bestehende Kommunikationsteilnehmer eine neue Version eines Services, einer Nachricht oder eines Events ohne Anpassung ihres Codes oder ihrer Konfiguration weiterhin korrekt nutzen können
 
 NOTE: Diese Definition basiert auf dem Wikipedia-Artikel zur https://de.wikipedia.org/wiki/Kompatibilit%C3%A4t_(Technik)#Abw%C3%A4rtskompatibilit%C3%A4t[Abwärtskompatibilität].
 
+Abwärtskompatibilität umfasst sowohl technische als auch fachliche Aspekte.
+Technische Kompatibilität liegt vor, wenn die Struktur und Datentypen weiterhin verarbeitet werden können.
+Fachliche Kompatibilität liegt vor, wenn die Semantik der Daten unverändert bleibt.
+Eine Änderung kann technisch kompatibel, aber fachlich inkompatibel sein und stellt in diesem Fall einen Breaking Change dar.
 Abwärtskompatibilität ermöglicht Übergangszeiträume, in denen sich die Kommunikationsteilnehmer schrittweise an die Änderungen anpassen können, ohne dass es zu Unterbrechungen oder Fehlern in der Kommunikation kommt.
 
-Die Verantwortung für Änderungen - und damit auch für die Abwärtskompatibilität - liegt in der Regel beim Provider von Services bzw. beim Producer/Publisher von Nachrichten und Events, da diese die Schnittstelle bzw. das Format der Nachrichten und Events definieren und somit für die Consumer festlegen.
+Die Verantwortung für Änderungen und damit für die Abwärtskompatibilität liegt in der Regel beim Provider von Services bzw. beim Producer/Publisher von Nachrichten und Events, da diese die Schnittstelle bzw. das Format der Nachrichten und Events definieren und somit für die Consumer festlegen.
 Ausnahmen bilden Szenarien, in denen ein Consumer viele Producer/Publisher orchestriert und aus diesem Grund das Format der Nachrichten oder Events vorgibt, zum Beispiel im Bereich Telemetrie oder Protokollierung.
 
 Inkompatible Änderungen (englisch: _breaking changes_) sind dagegen Änderungen an der Schnittstelle eines Services bzw. am Format einer Nachricht oder eines Events, welche die Anwendungsbedingungen einer früheren Version verletzen.
 Sie führen zu Fehlern oder Unterbrechungen in der Kommunikation, wenn die Kommunikationsteilnehmer nicht gleichzeitig auf die neue Version wechseln können und müssen daher genau geplant und kommuniziert werden.
 
 === Abwärtskompatible Änderungen
+
+Für die Gewährleistung von Abwärtskompatibilität wird ein tolerantes Verhalten der Kommunikationsteilnehmer vorausgesetzt:
+
+- Consumer müssen unbekannte Felder ignorieren können.
+- Producer dürfen bestehende Felder nicht entfernen oder in ihrer Bedeutung verändern.
+
+Bei asynchroner Kommunikation ist Abwärtskompatibilität dann gegeben, wenn bestehende Consumer Nachrichten oder Events weiterhin verarbeiten können, ohne dass Fehlverhalten entsteht.
 
 Die folgenden Beispiele stellen häufig vorkommende, abwärtskompatible Änderungen dar.
 
@@ -41,6 +53,8 @@ Die folgenden Beispiele stellen häufig vorkommende, abwärtskompatible Änderun
 
 |Optionale neue Operation / Nachricht / Event hinzufügen
 |Die Kommunikationsteilnehmer können die Operation bei Bedarf aufrufen, bzw. die Nachricht oder das Event produzieren oder konsumieren.
+|Zusätzliche Response-Felder
+|Die Kommunikationsteilnehmer können zusätzliche Felder ignorieren, sofern sie diese nicht auswerten.
 |===
 
 === Inkompatible Änderungen
@@ -61,9 +75,12 @@ Eine Übergangsphase mit einer frühzeitigen Einführung des Feldes als optional
 Flexible Validierungen und Verarbeitungslogiken können die Auswirkungen eines solchen Breaking Changes mindern.
 
 |Typ oder Semantik eines Felds ändern
-|Werte werden von den Kommunikationsteilnehmern falsch interpretiert oder führen zu Konvertierungsfehlern.
+|Werte werden von den Kommunikationsteilnehmern falsch interpretiert oder führen zu Konvertierungsfehlern, auch wenn die Struktur gleich bleibt.
 Diese Änderungen sollte vermieden werden, da sie schwer zu kommunizieren und zu behandeln ist.
 Stattdessen sollte ein neues Feld eingeführt und das alte Feld zu einem späteren Zeitpunkt entfernt werden.
+
+|Änderung des Fehlerverhaltens oder von Statuscodes
+|Die Kommunikationsteilnehmer können auf unerwartete Fehler reagieren oder bestehende Fehlerbehandlungen greifen nicht mehr.
 |===
 
 
