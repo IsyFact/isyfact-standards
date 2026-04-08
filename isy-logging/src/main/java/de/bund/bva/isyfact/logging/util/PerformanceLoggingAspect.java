@@ -12,26 +12,27 @@ import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 
 /**
- * AspectJ-Aspect zum Logging von AWF- und AFU-Klassen, die nicht public sind und deshalb nicht
- * über Spring AOP geloggt werden können.
+ * AspectJ aspect for logging AWF and AFU classes that are not public and therefore
+ * cannot be logged through Spring AOP.
  */
 @Aspect
 public class PerformanceLoggingAspect {
 
+    /** Helper for writing duration log entries. */
     private LogHelper logHelper = new LogHelper(false, false, true, false,
         false, 0, LogHelper.erstelleStandardKonverter());
 
     @Around("awfUndAfuKlassen()")
     public Object loggeDauer(ProceedingJoinPoint pjp) throws Throwable {
         Class<?> klasse = pjp.getTarget().getClass();
-        Method methode = ((MethodSignature)pjp.getSignature()).getMethod();
+        Method methode = ((MethodSignature) pjp.getSignature()).getMethod();
 
         IsyLogger logger = IsyLoggerFactory.getLogger(klasse);
 
         long startzeit = logHelper.ermittleAktuellenZeitpunkt();
 
         try {
-            Object ergebnis =  pjp.proceed();
+            Object ergebnis = pjp.proceed();
             long dauer = ermittleDauer(startzeit);
             logHelper.loggeDauer(logger, methode, dauer, true);
             return ergebnis;
@@ -43,15 +44,14 @@ public class PerformanceLoggingAspect {
     }
 
     @Pointcut("execution(* * ..core..Awf*.*(..)) || execution(* * ..core..Afu*.*(..))")
-    public void awfUndAfuKlassen(){}
+    public void awfUndAfuKlassen() { }
 
     /**
-     * Interne Hilfsmethode zum ermitteln der Dauer eines Aufrufs an hand der Startzeit und der aktuellen
-     * Zeit.
+     * Internal helper method to calculate the duration of an invocation based on its start time.
      *
      * @param startzeit
-     *            die Startzeit des Aufrufs.
-     * @return Aufrufdauer (Aktuelle Zeit - Startzeit).
+     *            start time of the invocation.
+     * @return invocation duration (current time - start time).
      */
     private long ermittleDauer(long startzeit) {
         long endezeit = logHelper.ermittleAktuellenZeitpunkt();

@@ -105,8 +105,7 @@ public class LogHelper {
         this.pruefer = new BeanGroessePruefer();
         if (konverter == null) {
             this.konverter = erstelleStandardKonverter();
-        }
-        else {
+        } else {
             this.konverter = konverter;
         }
     }

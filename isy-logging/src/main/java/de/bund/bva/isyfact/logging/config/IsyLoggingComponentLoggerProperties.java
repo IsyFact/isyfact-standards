@@ -13,7 +13,7 @@ public class IsyLoggingComponentLoggerProperties extends AbstractBoundaryLoggerP
     }
 
     private void applyDefaults() {
-        // Set default values
+        // Set default values.
         super.setPointcut("@within(de.bund.bva.isyfact.logging.annotation.Komponentengrenze)");
         super.setLoggeDauer(false);
         super.setLoggeAufruf(false);

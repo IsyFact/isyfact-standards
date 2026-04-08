@@ -16,17 +16,17 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Prüft Beans, die als Parameter automatisch an Komponenten- oder Außengrenzen des Systems ins Log
- * geschrieben werden sollen, auf ihre potentielle Größe im Log. Dazu wird der Speicherbedarf aller primitiven
- * Typen im Objektgraph gezählt.
+ * Validates beans that are logged automatically as parameters at component or external system boundaries
+ * against their potential log size. It sums the memory footprint of all primitive types in the object graph.
  */
 public class BeanGroessePruefer {
 
+    /** Stores the sizes of known primitive and primitive-wrapper types. */
     private static final Map<Class<?>, Integer> PRIMITIVE_TYPEN_GROESSE;
 
     static {
         Map<Class<?>, Integer> typen = new HashMap<>();
-        // Tatsächliche Größe unklar, sollte aber gezählt werden.
+        // Actual size is unclear but should still be counted.
         typen.put(boolean.class, 1);
         typen.put(Boolean.class, 1);
         typen.put(byte.class, 1);
@@ -47,25 +47,28 @@ public class BeanGroessePruefer {
     }
 
     /**
-     * Prüft die Größe eines Log-Parameters gegen einen Maximalwert.
+     * Checks the size of a log parameter against a maximum value.
      *
-     * @param bean        Log-Parameter
-     * @param maximalSize maximal erlaubte Größe (in Byte)
-     * @return {@code true} falls der Parameter innerhalb der erlaubten Größe liegt oder kein Maximalwert
-     * definiert ist, {@code false} falls der Parameter zu groß ist.
+     * @param bean
+     *            log parameter.
+     * @param maximalSize
+     *            maximum allowed size (in bytes).
+     * @return {@code true} if the parameter is within the allowed size or no maximum is defined,
+     *         {@code false} if the parameter is too large.
      */
     public boolean pruefeGroesse(Object bean, Long maximalSize) {
         return maximalSize == null || maximalSize <= 0 || ermittleGroesseInBytes(bean, maximalSize);
     }
 
     /**
-     * Ermittelt die Größe eines Log-Parameters in Byte. Bricht ab, wenn die Größe des Beans die Maximalgröße
-     * übersteigt.
+     * Determines the size of a log parameter in bytes and stops early when the bean exceeds the maximum size.
      *
-     * @param bean           Log-Parameter
-     * @param maximalGroesse maximal erlaubte Größe (in Byte)
-     * @return {@code true} falls der Parameter innerhalb der erlaubten Größe liegt, {@code false} falls der
-     * Parameter zu groß ist.
+     * @param bean
+     *            log parameter.
+     * @param maximalGroesse
+     *            maximum allowed size (in bytes).
+     * @return {@code true} if the parameter is within the allowed size, {@code false} if the parameter
+     *         is too large.
      */
     private boolean ermittleGroesseInBytes(Object bean, Long maximalGroesse) {
         Set<Object> alreadyCountedBeans = Collections.newSetFromMap(new IdentityHashMap<>());
@@ -109,7 +112,7 @@ public class BeanGroessePruefer {
     }
 
     /**
-     * Liefert die Byte-Anteile, die direkt gezählt werden können, und pushed ggf. Kindobjekte auf den Stack.
+     * Returns byte portions that can be counted directly and pushes child objects onto the stack if needed.
      */
     private long processObjectAndPushChildren(Object objekt, Deque<Object> stack) {
         Class<?> objectClass = objekt.getClass();
@@ -168,17 +171,18 @@ public class BeanGroessePruefer {
         try {
             return attribut.get(objekt);
         } catch (IllegalAccessException _) {
-            // Wenn Reflection nicht funktioniert, ist die Größenmessung deaktiviert.
+            // If reflection access fails, size measurement is disabled.
             return null;
         }
     }
 
     /**
-     * Ermittelt alle Attribute einer Instanz, die nicht statisch sind. Schaut dazu auch in die Superklassen.
-     * Setzt die Felder alle "accessible", so dass via Reflection darauf zugegriffen werden kann.
+     * Determines all non-static fields of an instance, including fields from superclasses.
+     * Marks all fields as accessible so they can be accessed via reflection.
      *
-     * @param instanz Instanz
-     * @return eine Liste aller nicht-statischen Attribute.
+     * @param instanz
+     *            instance.
+     * @return a list of all non-static fields.
      */
     private List<Field> ermittleAlleInstanzAttribute(Object instanz) {
         List<Field> fields = new ArrayList<>();
@@ -186,7 +190,7 @@ public class BeanGroessePruefer {
         Class<?> clazz = instanz.getClass();
         while (clazz != null) {
             for (Field field : Arrays.asList(clazz.getDeclaredFields())) {
-                // nur nicht-statische Attribute aufnehmen
+                // Include non-static fields only.
                 if (!Modifier.isStatic(field.getModifiers())) {
                     fields.add(field);
                 }
@@ -194,11 +198,11 @@ public class BeanGroessePruefer {
             clazz = clazz.getSuperclass();
         }
 
-        // So gibt es nur eine Anfrage an den SecurityManager
+        // This avoids multiple requests to the SecurityManager.
         try {
             AccessibleObject.setAccessible(fields.toArray(new AccessibleObject[fields.size()]), true);
         } catch (SecurityException _) {
-            // Wenn es die Sicherheit nicht erlaubt, ist die Messung deaktiviert.
+            // If the security policy does not allow this, measurement is disabled.
             return Collections.emptyList();
         }
         return fields;
