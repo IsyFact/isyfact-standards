@@ -1,5 +1,7 @@
 # 5.0.0
 ### FEATURES
+- `IFS-5226`: [isyfact-standards-doc] describe how to use adaptive colors in draw.io diagrams
+  * turn off adaptive colors support for all diagrams using adaptive colors
 - `IFS-5228`: [isyfact-standards-doc] Migration der Inhalte zu V-Modell XT und Enterprise Architect aus dem Systementwurf in die Methodik
 - `IFS-5260`: [isyfact-standards-doc] Abwärtskompatibilität definieren und gängige Beispiele für abwärtskompatible Änderungen und Breaking Changes formulieren
 - `IFS-5170`: [isyfact-standards-doc] Logik für Berechnung der Korrelations-Id vereinfacht
