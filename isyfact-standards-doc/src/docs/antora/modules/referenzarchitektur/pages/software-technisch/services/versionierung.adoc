@@ -83,6 +83,94 @@ Stattdessen sollte ein neues Feld eingeführt und das alte Feld zu einem später
 |Die Kommunikationsteilnehmer können auf unerwartete Fehler reagieren oder bestehende Fehlerbehandlungen greifen nicht mehr.
 |===
 
+[[entscheidungsmodell-versionierung]]
+== Entscheidungsmodell zur Versionierung
+
+Aufbauend auf der Definition der Abwärtskompatibilität legt die Referenzarchitektur ein verbindliches Entscheidungsmodell für die Versionierung von Services, Nachrichten und Events fest.
+
+Das Entscheidungsmodell beantwortet normativ, wann
+
+- eine bestehende Schnittstelle erweitert werden sollte, wann eine neue Version bereitzustellen ist,
+- ein neuer Kanal erforderlich ist und
+- ein neues Backend sinnvoll ist.
+
+Die Entscheidung über die Notwendigkeit einer neuen Version ist von ihrer technischen Umsetzung zu trennen.
+Eine neue Service-Version bedeutet nicht zwingend eine neue Serviceschnittstelle oder ein neues Backend.
+In der Regel wird eine neue Service-Version als eigene Serviceschnittstelle innerhalb derselben Serviceschicht realisiert.
+
+=== Entscheidungsregeln
+==== Abwärtskompatible Änderungen
+
+Ist eine Änderung abwärtskompatibel, so wird die bestehende Schnittstelle erweitert.
+Dies bedeutet:
+
+- keine neue Service-Version,
+- kein neuer Kanal,
+- kein neues Backend.
+
+Abwärtskompatible Änderungen sollen innerhalb derselben Version weiterentwickelt werden, um unnötige Parallelität und Versionsvielfalt zu vermeiden.
+
+==== Nicht abwärtskompatible Änderungen an synchronen Services
+Ist eine Änderung an einem synchronen Service nicht abwärtskompatibel, so ist eine neue Service-Version bereitzustellen.
+Die bestehende Version bleibt für einen Übergangszeitraum parallel verfügbar, sofern bestehende Service-Nutzende nicht zeitgleich migriert werden können.
+
+==== Nicht abwärtskompatible Änderungen an Nachrichten und Events
+Ist eine Änderung an einer Nachricht oder einem Event nicht abwärtskompatibel, so ist eine neue Version des Formats bereitzustellen.
+Können bestehende Consumer mehrere Versionen nicht sicher parallel verarbeiten, ist zusätzlich ein neuer Kanal vorzusehen, zum Beispiel eine eigene Queue, ein eigenes Topic oder ein eigener Event-Typ.
+
+==== Neues Backend
+Ein neues Backend ist nicht die Standardmaßnahme bei Versionierung.
+Es ist dann sinnvoll, wenn
+
+- sich die fachliche Verarbeitung zwischen den Versionen nicht mehr mit vertretbarem Aufwand gemeinsam abbilden lässt,
+- mehrere inkompatible Versionen langfristig parallel betrieben werden müssen oder
+-  nicht-funktionale Anforderungen eine getrennte Bereitstellung erfordern.
+
+In allen anderen Fällen sollen mehrere Versionen durch dasselbe Backend unterstützt werden.
+
+=== Entscheidungsraster
+
+[cols="2,2,4",options="header"]
+|===
+|Kommunikationsmuster
+|Änderungstyp
+|Empfohlene Maßnahme
+
+|Synchroner Service
+|abwärtskompatibel
+|Bestehende Schnittstelle erweitern
+
+|Synchroner Service
+|nicht abwärtskompatibel
+|Neue Service-Version bereitstellen
+
+|Nachricht
+|abwärtskompatibel
+|Bestehendes Nachrichtenformat erweitern
+
+|Nachricht
+|nicht abwärtskompatibel
+|Neue Version des Nachrichtenformats bereitstellen; bei fehlender Parallelverarbeitbarkeit zusätzlicher neuer Kanal
+
+|Event
+|abwärtskompatibel
+|Bestehendes Event erweitern
+
+|Event
+|nicht abwärtskompatibel
+|Neue Version des Event-Formats bereitstellen; bei fehlender Parallelverarbeitbarkeit zusätzlicher neuer Kanal
+|===
+
+=== Einordnung in die Service-Schicht-Architektur
+Die Referenzarchitektur der IsyFact setzt Versionierungsentscheidungen für synchrone Services in der Regel innerhalb einer Serviceschicht um.
+
+Daraus folgen für synchrone Services die folgenden Grundsätze:
+
+- Eine neue Service-Version wird in der Regel als eigene Service-Schnittstelle in der Serviceschicht umgesetzt.
+- Verschiedene Service-Versionen verwenden denselben Anwendungskern.
+- Versionsspezifische Transformationen erfolgen grundsätzlich in der Service-Schnittstelle des Backends.
+- Ein Service-Gateway übernimmt keine Fachlogik zur Behandlung unterschiedlicher Versionen.
+
 
 [[architektur]]
 == Architektur
@@ -135,4 +223,5 @@ Auch hier enthält das Service-Gateway keine Geschäftslogik.
 
 IMPORTANT: Eine Versionierung ist nur dann sinnvoll, wenn kleine Änderungen an der Schnittstelle zwischen den Versionen auftreten.
 Für den Fall, dass sich die Schnittstelle sowohl syntaktisch als auch semantisch grundlegend ändert, sollte anstatt einer neuen Version besser eine eigenständige, neue Schnittstelle entstehen.
+
 
