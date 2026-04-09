@@ -1,7 +1,5 @@
 = Eingesetzte Produkte
 
-include::glossary:licence:partial$licence.adoc[]
-
 // tag::whitepaper[]
 
 *Basistechnologie der IsyFact sind die Programmiersprache Java und das Anwendungsframework Spring Boot.
@@ -48,7 +46,7 @@ Eclipse Metro (Soap)
 |====
 2+|Werkzeuge und Methodiken
 |Programmierung |Eclipse, IntelliJ IDEA
-|Modellierung|diagrams.net, Enterprise Architect
+|Modellierung|draw.io, Enterprise Architect
 |====
 
 [cols="1,1",options="header"]

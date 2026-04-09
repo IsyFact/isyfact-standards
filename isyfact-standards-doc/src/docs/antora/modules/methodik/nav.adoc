@@ -5,7 +5,7 @@
 ** xref:typescript-programmierkonventionen/master.adoc[]
 ** xref:vorgaben-dokumentation.adoc[Vorgaben Dokumentation]
 *** xref:diagrammerstellung.adoc[]
-**** xref:diagrammerstellung/diagramsnet.adoc[diagrams.net]
+**** xref:diagrammerstellung/drawio.adoc[]
 **** xref:diagrammerstellung/enterprise-architect.adoc[Enterprise Architect]
 *** xref:vorgaben-dokumentation/dokumentationstypen.adoc[]
 ** xref:vorlagen.adoc[]
