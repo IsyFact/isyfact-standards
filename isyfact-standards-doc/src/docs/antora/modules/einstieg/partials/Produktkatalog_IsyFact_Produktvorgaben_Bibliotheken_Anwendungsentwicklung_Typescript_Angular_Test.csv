@@ -1,0 +1,2 @@
+Kategorie / Anwendungsbereich;Hersteller / Produkt;Version;Seit Release;Status;Lizenz;Erläuterung
+Testautomatisierung;https://playwright.dev/[playwright];1.x;5.0.0;empfohlen;Apache License 2.0;Playwright ist ein Tool zur automatisierten Steuerung von Browsern (z.B. Chromium, Firefox, WebKit) und wird vor allem für End-to-End-Tests von Webanwendungen genutzt. Damit lassen sich Nutzeraktionen wie Klicken, Tippen und Navigation zuverlässig nachstellen und prüfen.
