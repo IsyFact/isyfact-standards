@@ -3,6 +3,9 @@
 - `IFS-5290`: [isyfact-standards-doc] Playwright in den Produktkatalog aufgenommen
   * Selenium ist als bestandsgeschützt gesetzt. Es wird empfohlen auf Playwright zu migrieren.
 - `IFS-5170`: [isyfact-standards-doc] Logik für Berechnung der KorrelationsId vereinfacht
+- `IFS-5228`: [isyfact-standards-doc] Migration der Inhalte zu V-Modell XT und Enterprise Architect aus dem Systementwurf in die Methodik
+- `IFS-5260`: [isyfact-standards-doc] Abwärtskompatibilität definieren und gängige Beispiele für abwärtskompatible Änderungen und Breaking Changes formulieren
+- `IFS-5170`: [isyfact-standards-doc] Logik für Berechnung der Korrelations-Id vereinfacht
 - `IFS-4925`: [isyfact-standards-doc] Anpassung der Vorlage Systementwurf an die IsyFact 5
 - `IFS-4926`: [isyfact-standards-doc] Anpassung der Darstellung von Gateways in der TI-Architektur
 - `IFS-4734`: [isyfact-standards-doc] Verwendungen des Begriffs "Service" und damit verwandter Begriffe korrigieren
@@ -37,6 +40,7 @@
 - `IFS-5162`: [isy-logging] Konfiguration für die Bean Injection angepasst, sodass der PerformanceLogAdvisor korrekt geladen wird
 - `IFS-4946`: [isyfact-standards-doc] Entfernt Installations- und Betriebsanleitung für RPM Deployment
 - `IFS-5252`: [isy-logging] Implementieren von Logging in ausgehenden REST-Requests
+- `IFS-5178`: [isyfact-standards-doc] Dokumentation der Bereitstellung von Changelogs von Schnittstellen
 
 ### BUG FIXES
 

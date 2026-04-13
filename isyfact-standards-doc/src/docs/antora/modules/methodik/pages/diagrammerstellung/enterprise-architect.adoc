@@ -2,11 +2,9 @@
 
 :experimental:
 
-include::glossary:licence:partial$licence.adoc[]
-
 [[enterprise-architect-fuer-die-modellierung]]
 == Enterprise Architect für die Modellierung
-Das Werkzeug „Enterprise Architect“ (nachfolgend kurz „EA“) der Firma SparxSystems unterstützt im Kontext der IsyFact in erster Linie die Modellierung und Diagrammerstellung im Zuge der Systemspezifikation und Geschäftsprozessdokumentation. 
+Das Werkzeug "Enterprise Architect" (nachfolgend kurz "EA") unterstützt im Kontext der IsyFact in erster Linie die Modellierung und Diagrammerstellung im Zuge der Systemspezifikation und Geschäftsprozessdokumentation.
 Der Einsatz des Werkzeuges EA ist optional, jedoch für die genannten Einsatzzwecke empfohlen. 
 Ziel dieser Dokumentation ist, dass alle mit dem EA erstellten Modelle einer einheitlichen Methodik folgen. 
 Dadurch soll der Einarbeitungsaufwand für neue Projektmitarbeitende verringert, die Wartbarkeit der erstellten Modelle verbessert und die Übernahme von Spezifikationen in eine Masterspezifikation erleichtert werden.
@@ -18,8 +16,7 @@ Die Dokumentation des Werkzeugs entstand für die Version EA 7.5.
 [[vorgehen-zur-erstellung-der-spezifikationsdokumente]]
 == Vorgehen zur Erstellung der Spezifikationsdokumente
 
-Die Dokumente Systemspezifikation und Geschäftsprozesse werden nach den hier beschriebenen Vorgaben in Microsoft Word (oder einer dazu kompatiblen Textverarbeitung) erstellt.
-Diagramme aus dem Enterprise Architect, werden nach der Erstellung / Aktualisierung in MS Word aktualisiert.
+Die Dokumente Systemspezifikation und Geschäftsprozesse werden nach den hier beschriebenen Vorgaben erstellt.
 Die beschriebenen Aufzählungen der Elemente unter den Diagrammen dienen dazu, Querverweise auf die Spezifikationselemente hinzufügen zu können.
 
 [[uml-profile-einbinden]]
@@ -31,7 +28,7 @@ Diese Profile werden auf Anfrage bereitgestellt.
 Im EA kann zur Erstellung der Spezifikation mit einem neuen, leeren Modell begonnen werden (menu:File[New Project...]).
 
 Nun ist ein Hinzufügen der UML-Profile möglich.
-Hierzu wird der „Resource Browser“ genutzt (menu:View[Resources]).
+Hierzu wird der "Resource Browser" genutzt (menu:View[Resources]).
 Über das Kontextmenü wird btn:[Import Profile] ausgewählt und importiert hiermit alle UML-Profile.
 
 Danach sollte der Resource Browser etwa wie folgt aussehen:
@@ -46,7 +43,7 @@ Elemente wie Anwendungsfälle werden erzeugt, indem man diese in ein Diagramm zi
 Verbinder werden im UML-Profil ausgewählt und dann zwischen zwei Elementen eine Verbindung gezogen.
 
 [[struktur-des-modells-im-enterprise-architect]]
-=== Struktur des Modells im Enterprise Architect
+=== Struktur des EA-Modells
 
 Generell orientiert sich die Struktur im EA am Aufbau des zu erstellenden Dokumentationstyps.
 Zur Modellierung der Geschäftsprozesse und der Systemspezifikation gelten Empfehlungen zur Strukturierung des EA-Modells, die in den nun folgenden Abbildungen verdeutlicht werden sollen.
@@ -54,7 +51,8 @@ Zur Modellierung der Geschäftsprozesse und der Systemspezifikation gelten Empfe
 [WARNING]
 ====
 Elemente, die in der Systemspezifikation benannt werden (z.B. Anwendungsfälle, Entitätstypen, usw.) dürfen nur einmal im EA-Modell enthalten sein.
-Wird dieselbe Entität in mehreren Diagrammen verwendet, wird diese nicht jedes mal neu angelegt, sondern wird aus den UML-Profilen herausgezogen. Nun kann die Entität aus dem Project Browser heraus in anderen Diagrammen genutzt werden.
+Wird dieselbe Entität in mehreren Diagrammen verwendet, wird diese nicht neu angelegt, sondern aus den UML-Profilen herausgezogen.
+Nun kann die Entität aus dem Project Browser heraus in anderen Diagrammen genutzt werden.
 
 Bei Nichtbeachtung dieser Regel besteht die Gefahr der Inkonsistenz bei Umbenennungen.
 ====
@@ -162,7 +160,7 @@ Um die Inhalte aller Elemente in einem Diagramm auszublenden, muss in dessen Kon
 [[rahmen-um-diagramme-beim-kopieren-unterdruecken]]
 === Rahmen um Diagramme beim Kopieren unterdrücken
 
-Im Dialog menu:Tools[Options > Diagram] kann der Rahmen eines Diagrammes beim Druck (Checkbox btn:[Print with Border]) oder Export über den Zwischenspeicher (Checkbox btn:[On Clipboard Images]) unterdrückt werden.
+Im Dialog menu:Tools[Options > Diagram] kann der Rahmen eines Diagramms beim Druck (Checkbox btn:[Print with Border]) oder Export über den Zwischenspeicher (Checkbox btn:[On Clipboard Images]) unterdrückt werden.
 
 [[verbinder-im-aktuellen-diagramm-in-allen-anderen-diagrammen-und-in-ausgewaehlten-diagrammen-ausblenden]]
 === Verbinder im aktuellen Diagramm, in allen anderen Diagrammen und in ausgewählten Diagrammen ausblenden
@@ -189,10 +187,68 @@ Falls die Elemente in einer früheren Version bereits im Modell sind, dann werde
 .. Wird das Häkchen bei btn:[Strip GUIDs] gesetzt, dann werden die eindeutigen IDs der Elemente beibehalten.
 Falls Elemente mit denselben GUIDs bereits im Modell sind, dann werden sie durch die neuen Versionen überschrieben.
 
-Beide Vorgehen können in unterschiedlichen Situationen sinnvoll sein: Wenn z.B. eine Altsystem-Spezifikation „kopiert“ wird, um das Neusystem zu beschreiben, dann sollen beide Spezifikationen nicht vermischt werden.
+Beide Vorgehen können in unterschiedlichen Situationen sinnvoll sein: Wenn z.B. eine Spezifikation eines bestehenden Systems "kopiert" wird, um das neue System zu beschreiben, dann sollen beide Spezifikationen nicht vermischt werden.
 Hierbei sollte btn:[Strip GUIDs] anschaltet werden.
 
 Soll ein - in einem Teilprojekt verändertes - System hingegen zurück in ein zentrales Modell gebracht werden, wird hierfür btn:[Strip GUIDs] ausgeschaltet.
 Dadurch werden die alten Versionen der Elemente durch die neuen ersetzt.
 Dieses Vorgehen muss sich aber vor Beginn der Änderungsspezifikation überlegt und bei den Änderungen beachten werden, wie der Rückimport später funktioniert.
 Im Normalfall ist eine manuelle Übernahme der Änderungen hier der weniger fehleranfällige Weg.
+
+[[vorgehen-erstellung-systementwurf]]
+== Vorgehen zur Erstellung des Systementwurfs
+
+Der Enterprise Architect kann für die Modellierung folgender Themenbereiche eingesetzt werden:
+
+* T-Architektur des Systems,
+* TI-Architektur des Systems,
+* Datenmodell,
+* Querschnittskonzepte,
+* Erläuterungen von Lösungsansätzen.
+
+Für die obigen Themenbereiche sind jeweils unterschiedliche Diagramme zu erzeugen.
+Neben den Diagrammen sind vor allem die konkreten Komponenten mit ihren Interfaces, Klassen und Tabellen ein wichtiges Ergebnis der Modellierung.
+
+Die Paketstruktur des Enterprise Architect Modells orientiert sich sowohl an der Benennung als auch an der Hierarchie der Verzeichnisstruktur des Systementwurfs.
+So wird die Einheitlichkeit der EA-Modelle für unterschiedliche Projekte erhöht und das Auffinden benötigter Diagramme erleichtert.
+Das folgende Listing zeigt beispielhaft ein EA-Modell.
+
+[[paketstruktur-enterprise-architect-modell]]
+.Paketstruktur eines Enterprise Architect Modells
+----
+📂 Geschäftsanwendung XYZ
+  📂 Systementwurf
+    📂 Systemarchitektur des Gesamtsystems
+      📂 Querschnittkonzepte
+      📂 Systemüberblick
+      📂 TI-Architektur
+    📂 <<IT-System>> Geschäftskomponente XYZ
+      📂 Anwendungskern
+        📂 <<A-Komponente>> Auskunft
+        📂 <<T-Komponente>> Berechtigung
+        📂 <<A-Komponente>> Meldung
+        📂 <<A-Komponente>> Protokoll
+      📂 Batch
+      📂 Datenmodell
+      📂 Externe Schnittstellen
+      📂 Teilsystem-Querschnittskonzepte
+      📂 Teilsystem-Überblick
+    📂 <<IT-System>> Service-Gateway
+    📂 Rückbezug Systemspezifikation
+      📂 Anwendungsfälle
+      📂 Anwendungskomponenten
+      📂 Batches
+      📂 Entitäten
+      📂 Nachbarsystemschnittstellen
+----
+
+=== Datenmodell
+
+Mit dem Enterprise Architect kann das im xref:vorlage-systementwurf/antora-master.adoc#datenmodell[Systementwurf] beschriebene Datenmodell so erstellt werden, dass gleichzeitig eine grundlegende Implementierung entsteht:
+
+. Aus dem technischen Datenmodell werden die Java-Klassen für die Entitäten generiert.
+. Die generierten Java-Klassen werden mit Annotationen für das DB-Mapping ergänzt.
+. Aus den annotierten Klassen wird mithilfe der entsprechenden Hibernate-Werkzeuge das passende DB-Schema generiert.
+. Dieses Schema wird als physisches Datenbankschema in den Enterprise Architect importiert.
+Damit erhält man eine Darstellung der Entitäten, die die Grundlage für die Grafiken zum Datenmodell im Systementwurf sind.
+

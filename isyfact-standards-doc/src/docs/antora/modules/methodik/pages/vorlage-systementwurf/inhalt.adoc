@@ -56,6 +56,10 @@ Generell muss in diesem Dokument nichts erklärt und beschrieben werden, was sch
 Für die Erstellung der UML-Modelle, die in diesem Dokument als Beispiele aufgeführt sind, sind die Empfehlungen der IsyFact zu beachten.
 Die IsyFact empfiehlt die Werkzeuge "diagrams.net/draw.io" sowie "Enterprise Architect".
 
+[[bezug-v-modell-xt]]
+=== Bezug zum V-Modell® XT
+Der Bezug zum V-Modell® XT ist in der Methodik der IsyFact beschrieben.
+
 === Systemdokumentation
 
 Aus dem Systementwurf entsteht die Systemdokumentation.
@@ -86,56 +90,6 @@ Der Detaillierungsgrad, in welchem die Themenbereiche beschrieben werden, ist ni
 In diesem Dokument werden deshalb beispielsweise keine Vorgaben für den Umfang und die Art der Beschreibung von Anwendungslogik jenseits der Anwendungsfall-Klassen aufgestellt.
 
 *Systementwürfe sollen grundsätzlich mit der vorliegenden Vorlage und im Einklang zu den beschriebenen Vorgaben und Ausfüllhinweisen erstellt werden.*
-
-Es wurde entschieden, die Teile im Enterprise Architect zu modellieren, bei welchen eine Modellierung im Enterprise Architect möglich und sinnvoll ist.
-Welche Teile dies sind, wird im vorliegenden Dokument definiert.
-
-*_Modellierung im Enterprise Architect_*
-
-Der Enterprise Architect (oder ein entsprechendes anderes UML-Modellierungswerkzeug) wird für die Modellierung folgender Themenbereiche eingesetzt:
-
-* TI-Architektur des Systems,
-* T-Architektur des Systems,
-* Datenmodell,
-* Querschnittskonzepte,
-* Erläuterungen von Lösungsansätzen.
-
-Für die obigen Themenbereiche sind jeweils unterschiedliche Diagramme zu erzeugen.
-Neben den Diagrammen sind vor allem die konkreten Komponenten mit ihren Interfaces, Klassen und Tabellen ein wichtiges Ergebnis der Modellierung im Enterprise Architect.
-Die Anforderungen an die konkrete Ausgestaltung der Diagramme werden im Rahmen dieser Vorlage in den jeweiligen Kapiteln detailliert.
-
-Die Paketstruktur des Enterprise Architect Modells orientiert sich sowohl an der Benennung als auch an der Hierarchie der Verzeichnisstruktur des Systementwurfs.
-So wird die Einheitlichkeit der EA-Modelle für unterschiedliche Projekte erhöht und das Auffinden benötigter Diagramme erleichtert.
-Das folgende Listing zeigt beispielhaft ein EA-Modell.
-
-[[paketstruktur-enterprise-architect-modell]]
-.Paketstruktur eines Enterprise Architect Modells
-----
-📂 Geschäftsanwendung XYZ
-  📂 Systementwurf
-    📂 Systemarchitektur des Gesamtsystems
-      📂 Querschnittkonzepte
-      📂 Systemüberblick
-      📂 TI-Architektur
-    📂 <<IT-System>> Geschäftskomponente XYZ
-      📂 Anwendungskern
-        📂 <<A-Komponente>> Auskunft
-        📂 <<T-Komponente>> Berechtigung
-        📂 <<A-Komponente>> Meldung
-        📂 <<A-Komponente>> Protokoll
-      📂 Batch
-      📂 Datenmodell
-      📂 Externe Schnittstellen
-      📂 Teilsystem-Querschnittskonzepte
-      📂 Teilsystem-Überblick
-    📂 <<IT-System>> Service-Gateway
-    📂 Rückbezug Systemspezifikation
-      📂 Anwendungsfälle
-      📂 Anwendungskomponenten
-      📂 Batches
-      📂 Entitäten
-      📂 Nachbarsystemschnittstellen
-----
 
 ====
 
@@ -170,57 +124,6 @@ Dieser Abschnitt beinhaltet eine Auflistung derjenigen, an die sich der Systemen
 
 Für welche Zielgruppe sind welche Kapitel hauptsächlich interessant?
 ====
-
-[[bezug-zum-v-modell-xt]]
-=== Bezug zum V-Modell® XT
-
-Dieses Dokument ist eine Adaption (Tailoring) der Vorgaben des V-Modells auf die Entwicklung mit der IsyFact.
-Der Systementwurf kann nach V-Modell® allgemein verschiedene Produkte umfassen.
-Bei der Nutzung der IsyFact sind einige dieser Produkte bereits vollständig oder in großen Teilen vorgegeben, sodass sie in diesem Dokument nicht mehr beschrieben werden müssen.
-
-Generell sind grundsätzliche Architekturprinzipien und Entwurfsalternativen bereits im Rahmen der Erstellung der IsyFact-Referenzarchitektur diskutiert worden und müssen daher in diesem Dokument nicht wiederholt werden.
-Gleiches gilt für die Absicherung des Designs.
-
-Im Folgenden sind die Produkte eines Systementwurfs gemäß V-Modell® XT aufgeführt und kommentiert.
-
-==== Systemarchitektur
-
-Die grundsätzliche Systemarchitektur ist durch die Referenzarchitektur vorgegeben.
-In diesem Dokument wird beschrieben, wie diese Referenzarchitektur instanziiert wird.
-
-* Die Dekomposition des Systems ist im Kapitel <<softwarearchitektur-bsp-ga>> beschrieben.
-* Querschnittliche Systemeigenschaften sind bereits im Rahmen der IsyFact-Referenzarchitektur betrachtet worden und werden nicht wiederholt.
-Sollte eine Verfeinerung oder spezifische Ergänzung der Referenzarchitektur notwendig sein, erfolgt dies im Kapitel <<querschnittskonzepte>>.
-* Die Schnittstellenübersicht des Systems erfolgt der Übersichtlichkeit halber auf zwei Abstraktionsebenen: auf Ebene der Gesamtanwendungslandschaft erfolgt dies im Kapitel <<einbettung-in-anwendungslandschaft,Systemüberblick/Einbettung in die Anwendungslandschaft>>.
-Die konkreten Schnittstellen des Systems und ggf. von Teilsystemen sind im Kapitel <<softwarearchitektur-bsp-ga>> beschrieben.
-Details zur Implementierung und Dateninhalten der Schnittstellen finden sich in der Konstruktion der jeweiligen <<serviceschicht,Backend-Services>>.
-* Die zu spezifizierenden Systemelemente sind der Gegenstand der Kapitel <<BSP-1u2-GK>> und folgende.
-
-==== Unterstützungs-Systemarchitektur
-Unterstützungssysteme sind in der Regel durch die IsyFact vorgegeben.
-Sollte es trotzdem nötig sein, ein neues Unterstützungssystem zu konstruieren, erfolgt dies in einem eigenen Dokument nach dieser Vorlage.
-
-==== Mensch-Maschine-Schnittstelle (Styleguide)
-Ein Styleguide ist durch die IsyFact nicht vorgegeben, jedoch ein Bedienkonzept.
-Es wird vorausgesetzt, dass ein solcher Styleguide für die Organisation, die die IsyFact einsetzt, bereits vorhanden ist und verwendet werden kann.
-
-==== HW-Architektur
-Die HW-Architektur ist als Referenzarchitektur bereits vorgegeben.
-Die konkrete HW-Architektur für das System befindet sich im Kapitel <<ti-architektur>>.
-
-==== SW-Architektur
-Die SW-Architektur ist in den Grundlagen durch die IsyFact-Referenzarchitektur vorgegeben.
-Die Instanziierung dieser Architektur befindet sich in der Beschreibung der <<softwarearchitektur-bsp-ga>>.
-
-==== Datenbankentwurf
-Der Datenbankentwurf findet sich unter <<datenmodell>>.
-
-==== Implementierungs-, Integrations- und Prüfkonzepte für System, Unterstützungssystem, HW und SW
-Die Prozesse sind im Rahmen der IsyFact bzw. im Gesamtprojektrahmen vorgegeben und werden hier nicht wiederholt.
-
-==== Migrationskonzept
-Für Migrationsszenarien wird ein eigenes Konzept erstellt.
-Dieses Dokument macht keine Aussagen zu einer Migration.
 
 [[fachlicher-ueberblick]]
 == Fachlicher Überblick
@@ -798,28 +701,20 @@ Dieser optionale Abschnitt enthält Konzepte des Querschnitts, welche nur für d
 
 [NOTE]
 ====
-Beschreibung des logischen und physischen Datenmodells des Teilsystems.
-Die Datenmodelle werden als UML-Klassendiagramme erstellt.
+Beschreibung des logischen und physischen Datenmodells des Backends als UML-Klassendiagramm.
 
-*[.underline]#Vorgehen zur Konstruktion#*
+Die Entitäten des Datenmodells werden den Fachkomponenten des <<anwendungskern,Anwendungskerns>> zugeordnet.
+Die Fachkomponenten werden in den Diagrammen durch Boundaries repräsentiert.
 
-_Die Entitäten des Datenmodells sollen den Komponenten des Anwendungskerns zugeordnet werden.
-Dazu werden in die Diagramme Boundaries eingezeichnet, die die Entitäten einer Komponente einrahmen._
+Das übliche Vorgehen besteht aus den folgenden Schritten:
 
-_Das Vorgehen zur Konstruktion der Entitäten ist dabei in der Regel das folgende:_
-
-. _Aus dem fachlichen Modell (UML-Modell im Modellierungswerkzeug) werden die Entitäten in das technische Modell übernommen._
-_Dieses ist ebenfalls ein UML-Modell. In der Regel entsprechen die Entitäten des technischen Modells 1:1 den Entitäten des fachlichen Modells, daher ist diese Übernahme ein guter Ausgangspunkt._
-. _Das technische Modell wird angepasst, indem z. B. Denormalisierungen vorgenommen werden oder Entitäten mit 1:1-Relationen in einer Entität zusammengefasst werden._
-. _Aus dem technischen Modell im Modellierungswerkzeug werden dann die entsprechenden Java-Klassen für die Entitäten generiert._
-. _Die generierten Java-Klassen werden mit Annotationen für das DB-Mapping ergänzt._
-. _Aus diesen annotierten Klassen wird mithilfe der entsprechenden Hibernate-Werkzeuge das passende DB-Schema generiert._
-. _Dieses Schema wird als physisches Datenbankschema in das Modellierungswerkzeug importiert. Damit erhält man eine Darstellung der Entitäten, die die Grundlage für die Grafiken zum Datenmodell im Systementwurf sind._
-. _In der Regel ist das so entstandene Datenmodell zu groß und unübersichtlich, um in einer einzigen Grafik dargestellt zu werden.
-Wenn möglich wird das Diagramm daher in Teildiagramme zerlegt, die in einer logischen Reihenfolge aufeinander aufbauen._
-_Grundsätzlich sollen sich diese Teildiagramme am Komponentenschnitt orientieren, sie können aber auch noch feiner zerlegt werden.
-Zusätzlich zu den einzelnen Teildiagrammen sollte auch noch das Gesamt-Datenmodell in Form einer Übersicht (z. B. ohne Attribute) dargestellt werden, um dem Leser eine bessere Orientierung zu geben._
-
+. Die Entitäten werden aus dem fachlichen Modell (Datenmodell der Systemspezifikation) in das technische Modell übernommen.
+In der Regel entsprechen die Entitäten des technischen Modells 1:1 den Entitäten des fachlichen Modells.
+Daher ist diese Übernahme ein guter Ausgangspunkt.
+. Das technische Modell wird angepasst, indem z. B. Denormalisierungen vorgenommen werden oder Entitäten mit 1:1-Relationen in einer Entität zusammengefasst werden.
+. Das technische Modell wird in Grafiken für den Systementwurf überführt. Ist das so entstandene technische Datenmodell zu groß und unübersichtlich für eine einzelne Grafik, wird es in Teildiagramme zerlegt.
+Grundsätzlich orientieren sich die Teildiagramme am Schnitt der Fachkomponenten, können bei Bedarf aber auch feiner zerlegt werden.
+Zusätzlich sollte das gesamte Datenmodell in Form einer groben Übersicht (z. B. ohne Attribute) dargestellt werden, um den Lesenden eine bessere Orientierung zu geben.
 ====
 
 [[logisches-datenmodell]]
