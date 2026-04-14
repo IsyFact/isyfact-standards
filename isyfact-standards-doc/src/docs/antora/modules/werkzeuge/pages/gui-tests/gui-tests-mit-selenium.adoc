@@ -1,5 +1,8 @@
 = GUI-Tests mit Selenium
 
+NOTE: Selenium ist eine Legacy-/Bestandsschutz-Lösung und wird nicht weiter empfohlen.
+xref:einstieg:produktkatalog/technologiestackTypescriptAngular.adoc#Tests[Playwright] ist der bevorzugte Standard für Testautomatisierungen.
+
 include::glossary:licence:partial$licence.adoc[]
 
 // tag::inhalt[]
