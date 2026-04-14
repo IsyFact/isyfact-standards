@@ -2,8 +2,6 @@
 
 :experimental:
 
-include::glossary:licence:partial$licence.adoc[]
-
 [[modellierung-und-diagrammerstellung]]
 == Modellierung und Diagrammerstellung
 Schaubilder, Diagramme und grafische Modelle unterstützen das Verständnis von Inhalten.
@@ -11,13 +9,13 @@ Die Ausprägungen von Diagrammen sind vielfältig:
 Insbesondere grenzen sich durch Modelle getriebene, stark formalisierte Darstellungen und Diagramme von freieren Schaubildern ab.
 Abhängig von den Anforderungen an die Diagrammerstellung kommen grundsätzlich unterschiedliche Werkzeugen mit ebenso unterschiedlichen Stärken und Schwächen infrage.
 
-Die IsyFact empfiehlt die Verwendung von *diagrams.net* und *Enterprise Architect*.
+Die IsyFact empfiehlt die Verwendung von *draw.io* und *Enterprise Architect*.
 
 [[table-anforderungen]]
 .Entscheidungshilfe zur Auswahl eines Werkzeugs zur Diagrammerstellung
 [cols="5,1,1",options="header"]
 |===
-|Anforderung an die Diagrammerstellung|Enterprise Architect|diagrams.net
+|Anforderung an die Diagrammerstellung|Enterprise Architect|draw.io
 |Einheitlichkeit der Diagramme (z.B. über Schablonen)|ja|eingeschränkt¹
 |Diagramme können in AsciiDoc integriert werden|ja|ja
 |Quelldateien können einzeln als Teil des Quellcodes abgelegt werden|ja²|ja
@@ -31,9 +29,9 @@ Die IsyFact empfiehlt die Verwendung von *diagrams.net* und *Enterprise Architec
 ³ Automatisches Bauen nur über Frameworks wie docToolchain; bisher kein Plan zur Standardisierung.
 
 [[einsatzszenarien_diagrams_net]]
-== Einsatzszenarien diagrams.net
+== Einsatzszenarien draw.io
 
-https://diagrams.net[_diagrams.net_] eignet sich insbesondere für:
+https://www.drawio.com/[_draw.io_] eignet sich insbesondere für:
 
 * Diagramme und Schaubilder, die nicht UML-konform sein müssen,
 * Mockups und andere Diagrammtypen.
@@ -42,10 +40,10 @@ Eine wesentliche Stärke des Werkzeugs ist die Speicherung des editierbaren Quel
 Durch direktes Ablegen der Datei beim Code ist keine getrennte Datenhaltung oder Generierung erforderlich.
 Die Datei kann direkt eingebunden werden.
 
-NOTE: Für das Wiki-System _Confluence_ sowie das Ticket-System _Jira_ der Firma _Atlassian_ gibt es das Add-on _draw.io_, welches das Erstellen und Bearbeiten von Diagrammen erlaubt und im Kern _diagrams.net_ entspricht.
-Die Erstellung von Diagrammen im Kontext Wiki-getriebener Dokumentation erfolgt somit voll integriert.
+NOTE: Für das Wiki-System _Confluence_ sowie das Ticket-System _Jira_ der Firma _Atlassian_ gibt es das Add-on _draw.io_.
+Die Bearbeitung von Diagrammen im Kontext Wiki-getriebener Dokumentation erfolgt somit voll integriert.
 
-Die IsyFact bietet xref:diagrammerstellung/diagramsnet.adoc[eine Konfiguration sowie vorgefertigte Elemente] für die Erstellung von Diagrammen mit diagrams.net.
+Die IsyFact bietet xref:diagrammerstellung/drawio.adoc[eine Konfiguration sowie vorgefertigte Elemente] für die Erstellung von Diagrammen mit draw.io.
 
 [[einsatzszenarien_enterprise_architect]]
 == Einsatzszenarien Enterprise Architect

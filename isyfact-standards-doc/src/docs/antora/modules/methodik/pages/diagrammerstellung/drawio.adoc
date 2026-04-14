@@ -1,36 +1,35 @@
-= Handbuch diagrams.net
+= Handbuch draw.io
+:navtitle: draw.io
 
 :experimental:
 
-include::glossary:licence:partial$licence.adoc[]
-
-_diagrams.net_ ist ein Werkzeug zur flexiblen und leichtgewichtigen Erzeugung von Diagrammen.
+_draw.io_ ist ein Werkzeug zur flexiblen und leichtgewichtigen Erzeugung von Diagrammen.
 Dabei kann auf bestehende Grafik-Objekte (_Shapes_ genannt) unterschiedlicher Notationen (z.B. UML oder BPMN) zurückgegriffen werden.
 Grafik-Objekte sind in Bibliotheken zusammengefasst.
 Bibliotheken können im linken Bereich unten unter btn:[+ Mehr Shapes] hinzugeladen und dann verwendet werden.
 
 [[image-dn-diagramsnet-gui]]
-.diagrams.net Benutzeroberfläche
-image::diagramsnet/dn-diagramsnet-gui.png[]
+.draw.io Benutzeroberfläche
+image::drawio/main-ui.png[]
 
-[[Installation-diagrams.net]]
-== Einrichtung von diagrams.net
-diagrams.net kann auf vielfältige Weise verwendet werden.
-Ohne Installation kann die Browser-Variante über https://app.diagrams.net[] direkt aufgerufen werden.
+[[Installation-draw.io]]
+== Einrichtung von draw.io
+draw.io kann auf vielfältige Weise verwendet werden.
+Ohne Installation kann die https://app.diagrams.net[Browser-Variante] direkt aufgerufen werden.
 Für zahlreiche Betriebssystem-Plattformen stehen außerdem Installationspakete bereit.
 Darüber hinaus gibt es Unterstützung für weit verbreitete IDEs, beispielsweise für https://plugins.jetbrains.com/plugin/15635-diagrams-net-integration[IntelliJ IDEA], allerdings ohne Konfigurationsmöglichkeit, oder https://marketplace.visualstudio.com/items?itemName=hediet.vscode-drawio[Visual Studio Code].
 
 [[feature-matrix]]
-.Features der Varianten von diagrams.net
+.Features der Varianten von draw.io
 [cols="1s,^.^1,^.^1",options="header"]
 |===
 |Tool|Bibliothek einbinden|Konfiguration einbinden
 
-|diagrams.net (Web)
+|draw.io (Web)
 |icon:check[]
 |icon:check[]
 
-|diagrams.net (Standalone)
+|draw.io (Standalone)
 |icon:check[]
 |icon:check[]
 
@@ -61,16 +60,16 @@ Die Bibliothek stellt eine Empfehlung für Nutzer der IsyFact dar.
 Sie wird intensiv zur Dokumentation der IsyFact verwendet.
 
 [[image-dn-bibliothek-isyfact-uebersicht]]
-.diagrams.net IsyFact Bibliothek
-image::diagramsnet/dn-bibliothek-isyfact-uebersicht.dn.svg[]
+.draw.io IsyFact Bibliothek
+image::drawio/dn-bibliothek-isyfact-uebersicht.dn.svg[]
 
-==== Einbindung in diagrams.net
+==== Einbindung in draw.io
 
 Über das Menü menu:Datei[Bibliothek öffen...] kann die Bibliothek eingebunden werden.
 
 TIP: In der Web-Version wird die Bibliothek am besten über ihre URL eingebunden.
 Die URL kann über den Download-Link in der Tabelle <<download-bibliothek>> bezogen werden.
-Dazu genügt ein Rechtsklick auf den Download-Link und das Auswählen der Option "Link kopieren" (o.ä.).
+Dazu genügt ein Rechtsklick auf den Download-Link und das Kopieren des Links.
 
 ==== Einbindung in Visual Studio Code
 
@@ -93,13 +92,13 @@ In der Visual Studio Code Extension muss die Bibliothek manuell konfiguriert wer
 
 [[IsyFact-Konfiguration-einbinden]]
 === IsyFact-Konfiguration einbinden
-Mit einer diagrams.net-Konfigurationsdatei können darüber hinaus u.a. Farbpaletten mit vordefinierten Werten belegt oder Standards für Verbinder gesetzt werden.
+Mit einer draw.io-Konfigurationsdatei können darüber hinaus u.a. Farbpaletten mit vordefinierten Werten belegt oder Standards für Verbinder gesetzt werden.
 
 [[download-konfiguration]]
 .Download-Optionen der Konfiguration
 [cols="^2s,^.^3"]
 |====
-|Konfiguration (diagrams.net)
+|Konfiguration (draw.io)
 |xref:attachment$diagrams_net_standalone_configuration.json[Download icon:file-code-o[]]
 
 |Konfiguration (Visual Studio Code)
@@ -109,10 +108,10 @@ Mit einer diagrams.net-Konfigurationsdatei können darüber hinaus u.a. Farbpale
 Diese enthält u.a. Farbvorgaben in Anlehnung an die Systemspezifikation-, Systementwurf- und Referenzarchitektur-Diagramme der IsyFact.
 
 [[image-dn-custom-farbpalette]]
-.diagrams.net IsyFact Farbpalette
-image::diagramsnet/dn-custom-farbpalette.png[]
+.draw.io IsyFact Farbpalette
+image::drawio/dn-custom-farbpalette.png[]
 
-==== Einbindung in diagrams.net
+==== Einbindung in draw.io
 
 Über das Menü menu:Extras[Konfiguration...] kann die Konfiguration eingebunden werden.
 
@@ -121,34 +120,42 @@ image::diagramsnet/dn-custom-farbpalette.png[]
 Im Fall der Visual Studio Code Extension wird eine angepasste Extension-Konfiguration benötigt.
 Die Extension-Konfiguration im xref:attachment$diagrams_net_vs_studio_code_settings.json[JSON-Format] muss manuell in die Konfiguration von Visual Studio Code kopiert werden.
 
-[[arbeiten-mit-diagrams.net]]
-== Arbeiten mit diagrams.net
-Beim Start der Anwendung erscheint ein Dialog, der das Neuerstellen eines Diagramms sowie das Öffnen eines vorhandenen Diagramms ermöglicht.
+[[arbeiten-mit-draw.io]]
+== Arbeiten mit draw.io
 
-[[image-dn-abb-erstellen-startauswahl]]
-.Startdialog
-image::diagramsnet/dn-abb-erstellen-startauswahl.png[]
+Die folgenden Abschnitte geben Hinweise und Tipps, um die Arbeit mit draw.io zu erleichtern.
 
-[[erstellung-eines-neuen-diagramm]]
-=== Erstellung eines neuen Diagramms
+[[auswahl-speicherformat]]
+=== Auswahl des Speicherformats
 
-Die Erstellung eines neuen Diagramms geschieht über btn:[Neues Diagramm erstellen] im Startdialog.
-Im folgenden Dialog lassen sich Voreinstellungen für das neu zu erstellende Diagramm festlegen.
+draw.io speichert in manchen Formaten ein Modell des Diagramms.
+Dies hilft dabei, ein Diagramm später direkt aus dem Bild heraus weiter bearbeiten zu können.
 
-[[image-dn-abb-erstellen-eigenschaften]]
-.Voreinstellungen für Diagramme
-image::diagramsnet/dn-abb-erstellen-eigenschaften.dn.svg[]
+TIP: Für Online-Dokumentationen wird das Format *Editierbares Vektor-Bild (.svg)* empfohlen.
+Für PDF-Dokumentationen wird das Format *Editierbares Bitmap-Bild (.png)* empfohlen, da PDF-Viewer meist eingeschränkte Unterstützung für Vektorgrafiken bieten.
 
-1. Auswahl eines Beispieldiagramms; Empfehlung btn:[leeres Diagramm]
-2. Auswahl des Speicherformats; Empfehlung btn:[Editierbares Vektor Bild .svg] welches neben dem Zielbild die Modell-Source in den Metadaten des Bildes vorhält und damit editierbar macht
-3. Vergabe des Dateinamens; Empfehlung: Suffix zur Kennzeichnung der in der Datei enthaltenen Quelldaten (`<Dateiname>.dn.<Dateityp>`)
-4. Mit btn:[Erstellen] wird dann ein Diagramm initialisiert, aber noch nicht der Ablageort festgelegt.
+[[adaptive-colors]]
+=== Adaptive Farben
 
-Zum Speichern ist im menu:Datei[Speichern unter]-Dialog der Ablageort zu wählen und als Dateityp btn:[Editierbares Vektor Bild (.svg) (*.svg)] zu bestätigen.
-Der Ablageort sollte beim Quellcode liegen.
+draw.io bietet die Möglichkeit, für Diagrammelemente sogenannte "adaptive Farben" zu verwenden.
+Diese passen sich automatisch an die Einstellung des Viewers an, um eine gute Lesbarkeit zu gewährleisten.
+Im Allgemeinen ist das Feature auch als "Dark Mode Support" bekannt.
 
-[[bearbeitung-einer-bestehenden-diagrams-net-diagramms]]
-=== Bearbeitung eines bestehenden Diagramms
+Soll ein Diagramm adaptive Farben nicht unterstützen, so ist das Feature für das gesamte Diagramm zu deaktivieren.
+Dazu ist in der rechten Sidebar der Tab menu:Style[] auszuwählen und dort die Option btn:[Adaptive Farben] entsprechend auf "Ohne" zu setzen.
 
-Die Bearbeitung eines bestehenden Diagramms geschieht über btn:[Vorhandenes Diagramm öffnen] im Startdialog oder über menu:Datei[Öffnen...] auf der Benutzeroberfläche.
-Sofern die zu editierende Datei die Quelldaten enthält, kann die Datei direkt editierbar geöffnet werden.
+[[image-turn-off-adaptive-colors]]
+.Einstellung "Adaptive Farben" für ein Diagramm
+image::drawio/turn-off-adaptive-colors.png[]
+
+Für eine dauerhafte Deaktivierung von adaptiven Farben in draw.io kann der folgende Eintrag der globalen Konfiguration unter menu:Extras[Konfiguration...] hinzugefügt werden.
+
+.Globale Voreinstellung zu adaptiven Farben
+[source,json]
+----
+{
+  "defaultAdaptiveColors": "none"
+}
+----
+
+Der Effekt dieser Einstellung ist in <<image-turn-off-adaptive-colors,obiger Abbildung>> anhand des Wertes "Vorgegeben (Ohne)" zu sehen.
