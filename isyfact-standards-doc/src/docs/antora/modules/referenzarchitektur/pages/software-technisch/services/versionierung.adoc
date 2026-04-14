@@ -176,6 +176,230 @@ Daraus folgen für synchrone Services die folgenden Grundsätze:
 - Versionsspezifische Transformationen erfolgen grundsätzlich in der Service-Schnittstelle des Backends.
 - Ein Service-Gateway übernimmt keine Fachlogik zur Behandlung unterschiedlicher Versionen.
 
+[[versionierung-synchroner-services]]
+== Versionierung synchroner Services
+
+Dieses Kapitel konkretisiert das im <<entscheidungsmodell-versionierung>> definierte Entscheidungsmodell für synchrone Services.
+Die relevanten Zielmuster unterstützen bei der Umsetzung von Änderungen und bei der Auswahl eines geeigneten Vorgehens.
+
+Die Auswahl eines Musters sind folgende Dimensionen zu betrachten:
+
+- Abwärtskompatibilität der Änderung.
+- Nicht abwärtskompatible Änderungen: Weiterverwendung der fachlichen Logik.
+- Nicht abwärtskompatible Änderungen: Notwendigkeit von fachlicher und technischer Entwicklung
+
+Die folgenden Muster sind definiert.
+
+=== Überblick der Muster
+
+[cols="2,2,3,3",options="header"]
+|===
+|Muster
+|Änderungstyp
+|Backend
+|Komplexität
+
+|Kompatible Evolution
+|abwärtskompatibel
+|gemeinsam
+|gering
+
+|Parallele Versionen (gemeinsames Backend)
+|inkompatibel
+|gemeinsam
+|mittel
+
+|Parallele Versionen (teilweise getrennt)
+|inkompatibel
+|teilweise getrennt
+|mittel-hoch
+
+|Neue Version als eigenes Backend
+|inkompatibel
+|getrennt
+|hoch
+|===
+
+=== Kompatible Evolution eines Services
+
+==== Beschreibung
+Abwärtskompatible Änderungen werden innerhalb derselben Service-Version umgesetzt.
+Die bestehende Service-Schnittstelle wird erweitert, ohne bestehende Nutzende zu beeinträchtigen.
+
+==== Einsatzbedingungen
+
+- Änderung ist vollständig abwärtskompatibel
+- Consumer können unbekannte Felder ignorieren
+- keine Änderung der fachlichen Semantik bestehender Felder
+
+==== Umsetzung
+
+- Erweiterung der bestehenden Service-Schnittstelle
+- Ergänzung von Defaultwerten in der Serviceschicht
+- Anpassung von Anwendungskern und Persistenz
+
+==== Vorteile
+
+- kein Parallelbetrieb erforderlich
+- minimaler Betriebsaufwand
+- keine zusätzliche Komplexität
+
+==== Nachteile
+
+- eingeschränkte Änderungsfreiheit
+- Altlasten verbleiben im System
+
+==== Auswirkungen
+
+- Deployment: Update eines bestehenden Deployments
+- Betrieb: keine zusätzlichen Instanzen
+- Komplexität: gering
+
+==== Beispiel
+
+Hinzufügen eines optionalen Attributs zu einer bestehenden Operation.
+
+=== Parallele Service-Versionen (gemeinsames Backend)
+
+==== Beschreibung
+
+Nicht abwärtskompatible Änderungen werden durch eine neue Service-Version umgesetzt.
+Mehrere Versionen werden parallel betrieben und nutzen denselben Anwendungskern.
+
+==== Einsatzbedingungen
+
+- Änderung ist nicht abwärtskompatibel
+- fachliche Logik bleibt weitgehend gleich
+- Mapping zwischen Versionen ist möglich
+
+==== Umsetzung
+
+- zusätzliche Service-Schnittstelle in der Serviceschicht
+- gemeinsame Nutzung des Anwendungskerns
+- Transformation zwischen Versionen in der Serviceschicht
+
+==== Vorteile
+
+- kontrollierte Migration möglich
+- keine Duplikation der Fachlogik
+- geringer Infrastrukturaufwand
+
+==== Nachteile
+
+- erhöhte Komplexität in der Serviceschicht
+- Mapping-Logik notwendig
+- steigende Wartungskosten bei vielen Versionen
+
+==== Auswirkungen
+
+- Deployment: ein Deployment mit mehreren Schnittstellen
+- Betrieb: gemeinsame Skalierung
+- Komplexität: mittel
+
+==== Beispiel
+
+Aufspaltung eines Feldes in mehrere Felder bei gleichbleibender fachlicher Logik.
+
+---
+
+=== Parallele Service-Versionen (teilweise getrennt)
+
+==== Beschreibung
+
+Mehrere Service-Versionen werden parallel betrieben, verwenden jedoch teilweise getrennte Komponenten im Backend.
+
+==== Einsatzbedingungen
+
+- Änderung ist nicht abwärtskompatibel
+- fachliche Logik beginnt zu divergieren
+- vollständige Wiederverwendung nicht mehr sinnvoll
+
+==== Umsetzung
+
+- getrennte Verarbeitungspfade im Anwendungskern
+- weiterhin gemeinsame Infrastrukturkomponenten möglich
+- versionsspezifische Logik wird separiert
+
+==== Vorteile
+
+- bessere Wartbarkeit bei wachsender Divergenz
+- geringere Komplexität pro Version
+
+==== Nachteile
+
+- erhöhte Komplexität im Backend
+- teilweise Duplikation von Logik
+- steigender Testaufwand
+
+==== Auswirkungen
+
+- Deployment: ein Deployment mit differenzierter Logik
+- Betrieb: gemeinsame Laufzeit, komplexeres Monitoring
+- Komplexität: mittel bis hoch
+
+==== Beispiel
+
+Unterschiedliche fachliche Validierungslogiken zwischen Versionen.
+
+---
+
+=== Neue Version als eigenes Backend
+
+==== Beschreibung
+
+Eine neue Service-Version wird als eigenständiges Backend realisiert.
+
+==== Einsatzbedingungen
+
+- starke fachliche oder technische Divergenz
+- langfristiger Parallelbetrieb notwendig
+- unterschiedliche Skalierungs- oder Betriebsanforderungen
+
+==== Umsetzung
+
+- vollständige Trennung von Serviceschicht und Anwendungskern
+- eigenständiges Deployment
+- ggf. getrennte Datenhaltung
+
+==== Vorteile
+
+- maximale Entkopplung
+- unabhängige Weiterentwicklung
+- klare Systemgrenzen
+
+==== Nachteile
+
+- hoher Infrastruktur- und Betriebsaufwand
+- komplexe Datenkonsistenz
+- erhöhter Integrationsaufwand
+
+==== Auswirkungen
+
+- Deployment: separate Deployments / Container
+- Betrieb: getrennte Skalierung und Überwachung
+- Komplexität: hoch
+
+==== Beispiel
+
+Technologiewechsel oder grundlegende fachliche Neuausrichtung eines Services.
+
+---
+
+=== Zuordnung zum Entscheidungsmodell
+
+Die Auswahl eines Musters erfolgt auf Basis von <<entscheidungsmodell-versionierung>>:
+
+1. Abwärtskompatible Änderung
+→ Kompatible Evolution
+
+2. Nicht abwärtskompatible Änderung
+→ Parallele Versionen
+
+3. Divergierende fachliche Logik
+→ Teilweise getrennte Umsetzung oder eigenes Backend
+
+Diese Zuordnung ist im Systementwurf zu dokumentieren und zu begründen.
+
 [[architektur]]
 == Architektur
 
