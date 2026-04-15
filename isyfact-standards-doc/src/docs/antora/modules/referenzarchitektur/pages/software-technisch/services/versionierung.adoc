@@ -179,6 +179,152 @@ Daraus folgen für synchrone Services die folgenden Grundsätze:
 - Versionsspezifische Transformationen erfolgen grundsätzlich in der Service-Schnittstelle des Backends.
 - Ein Service-Gateway übernimmt keine Fachlogik zur Behandlung unterschiedlicher Versionen.
 
+[[versionierung-synchroner-services]]
+== Versionierung synchroner Services
+
+Dieses Kapitel konkretisiert das im <<entscheidungsmodell-versionierung>> definierte Entscheidungsmodell für synchrone Services.
+Die relevanten Zielmuster unterstützen bei der Umsetzung von Änderungen und bei der Auswahl eines geeigneten Vorgehens.
+
+Die Auswahl eines Musters sind folgende Dimensionen zu betrachten:
+
+- Abwärtskompatibilität der Änderung.
+- Nicht abwärtskompatible Änderungen: Weiterverwendung der fachlichen Logik.
+- Nicht abwärtskompatible Änderungen: Notwendigkeit von fachlicher und technischer Entwicklung
+
+Die folgenden Muster sind definiert.
+
+=== Überblick der Muster
+
+[cols="2,2,3,3",options="header"]
+|===
+|Muster
+|Änderungstyp
+|Backend
+|Komplexität
+
+|Kompatible Weiterentwicklung
+|abwärtskompatibel
+|gemeinsam
+|gering
+
+|Parallele Versionen (gemeinsames Backend)
+|inkompatibel
+|gemeinsam
+|mittel
+
+|Parallele Versionen (teilweise getrennt)
+|inkompatibel
+|teilweise getrennt
+|mittel-hoch
+
+|Neue Version als eigenes Backend
+|inkompatibel
+|getrennt
+|hoch
+|===
+
+=== Kompatible Weiterentwicklung eines Services
+
+Ein Beispiel für die hier behandelte Änderungen ist das Hinzufügen eines optionalen Attributs zu einer bestehenden Operation.
+
+Abwärtskompatible Änderungen werden innerhalb derselben Service-Version umgesetzt.
+Die bestehende Service-Schnittstelle wird erweitert, ohne bestehende Nutzende zu beeinträchtigen.
+Dies ist möglich, wenn die Änderungen vollständig abwärtskompatibel sind, die Consumer unbekannte Fehler ignorieren können und keine Änderung der fachlichen Semantik bei bestehenden Feldern vorgenommen wurde.
+
+Hierfür ist die bestehende Service-Schnittstelle zu erweitern.
+Für neue Felder sind in der Serviceschicht Defaultwerte einzutragen.
+
+Mit diesem Vorgehen ist kein Parallelbetrieb erforderlich.
+Dadurch ergibt sich minimaler Betriebsaufwand und keine zusätzliche Komplexität.
+
+Die Änderungsfreiheit ist jedoch eingeschränkt.
+
+==== Auswirkungen
+
+- Deployment: Update eines bestehenden Deployments
+- Betrieb: keine zusätzlichen Instanzen
+- Komplexität: gering
+
+=== Parallele Service-Versionen (gemeinsames Backend)
+Ein Beispiel für die hier behandelte Änderungen ist die Aufspaltung eines Feldes in mehrere Felder bei gleichbleibender fachlicher Logik.
+Nicht abwärtskompatible Änderungen werden durch eine neue Service-Version umgesetzt.
+Hierfür ist eine zusätzliche Service-Schnittstelle in der Serviceschicht vorzusehen.
+Die Transformation zwischen Versionen findet in der Serviceschicht statt.
+Mehrere Versionen werden parallel betrieben und nutzen denselben Anwendungskern.
+
+Dies ist das angemessene Vorgehen für Änderung, die nicht abwärtskompatibel sind aber die fachliche Logik weitesgehend  gleich bleibt.
+Ein Mapping zwischen Versionen ist möglich.
+
+Mit diesem Vorgehen wird eine kontrollierte Migration möglich.
+Eine Duplikation der Fachlogik ist nicht notwendig und der Infrastrukturaufwand bleibt gering.
+
+Die Komplexität in der Serviceschicht ist aber höher da eine Mapping-Logik notwendig ist.
+Zu beachten ist, dass bei vielen Versionen die Wartungskosten steigen.
+
+==== Auswirkungen
+
+- Deployment: ein Deployment mit mehreren Schnittstellen
+- Betrieb: gemeinsame Skalierung
+- Komplexität: mittel
+
+=== Parallele Service-Versionen (teilweise getrennt)
+
+Mehrere Service-Versionen werden parallel betrieben, verwenden jedoch teilweise getrennte Komponenten im Backend.
+Die Änderung ist nicht abwärtskompatibel oder die fachliche Logik beginnt zu divergieren damit ist die vollständige Wiederverwendung nicht mehr sinnvoll.
+Bei der Umsetzung sind im Anwendungskern sind getrennte Verarbeitungspfade notwendig  und die Separierung erfolgt entlang einer versionsspezifischen Logik.
+Eine angemessene Wartbarkeit bei wachsender Divergenz wird durch die Nutzung möglicher gemeinsame Infrastrukturkomponenten erreicht und die Komplexität pro Version verringert. (TODO: Sinnvoll?)
+Negativ ist jedoch eine erhöhte Komplexität im Backend und eine teilweise Duplikation von Logik was sich in steigendem Testaufwand niederschlägt.
+
+==== Auswirkungen
+
+- Deployment: ein Deployment mit differenzierter Logik
+- Betrieb: gemeinsame Laufzeit, Monitoring jeder Version
+- Komplexität: mittel bis hoch
+
+==== Beispiel
+
+Unterschiedliche fachliche Validierungslogik zwischen Versionen.
+
+---
+
+=== Neue Version als eigenes Backend
+
+Eine neue Service-Version wird als eigenständiges Backend realisiert.
+Notwendig aufgrund hoher fachliche oder technische Divergenz bei gleichzeigter Notwendigkeit eines langfristigen Parallelbetriebs.
+Jedes Backend hat eigene Betriebsanforderungen.
+
+Diese Ausgestaltung zeichnet sich durch die vollständige Trennung von Serviceschicht und Anwendungskern jeder Version aus.
+Jede Version hat ein eigenständiges Deployment.
+Über eine getrennte Datenhaltung ist zu entscheiden.
+
+Als Vorteil ergibt sich eine maximale Entkopplung und eine unabhängige Weiterentwicklung mit klaren Systemgrenzen.
+Dafür ist der Infrastruktur-, Betriebs- und Integrationsaufwand hoch.
+Auch ist es komplexer Datenkonsistenz zu gewährleisten.
+
+==== Auswirkungen
+
+- Deployment: separate Deployments / Container
+- Betrieb: getrennte Skalierung und Überwachung
+- Komplexität: hoch
+
+==== Beispiel
+
+Technologiewechsel oder grundlegende fachliche Neuausrichtung eines Services.
+
+---
+
+=== Zuordnung zum Entscheidungsmodell
+
+Die Auswahl eines Musters erfolgt auf Basis von <<entscheidungsmodell-versionierung>>:
+
+1. Abwärtskompatible Änderung -> Kompatible Weiterentwicklung
+
+2. Nicht abwärtskompatible Änderung -> Parallele Versionen
+
+3. Divergierende fachliche Logik -> Teilweise getrennte Umsetzung oder eigenes Backend
+
+Diese Zuordnung ist im Systementwurf zu dokumentieren und zu begründen.
+
 [[architektur]]
 == Architektur
 
@@ -246,5 +392,4 @@ Führen Änderungen zu einer wesentlichen fachlichen Neuauslegeung der Schnittst
 In diesem Fall ist zu prüfen, ob es sich fachlich noch um dasselbe Konzept handelt.
 Wenn Versionen nicht mehr durch einfache Transformation verbunden werden können, handelt es sich nicht mehr um Versionen desselben fachlichen Konzepts, sondern die Einführung eines neuen fachlichen Konzepts.
 In diesem Fall ist zu prüfen, ob eine eigenständige neue Schnittstelle oder ein eigenes Backend die fachlich und technisch sauberere Lösung darstellt.
-
 
