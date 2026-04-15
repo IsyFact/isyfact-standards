@@ -9,6 +9,9 @@ Die Versionierung wird auf der Ebene von Services, nicht Service-Operationen aus
 
 Es kann vorkommen, dass in _einem_ Systemrelease neue Versionen von _mehreren_ Services ausgeliefert werden.
 
+IMPORTANT: Eine Version beschreibt die evolutionäre Weiterentwicklung desselben fachlichen Konzepts.
+Wird ein anderes fachliches Konzept umgesetzt, ist keine Versionierung, sondern eine neue Schnittstelle erforderlich.
+
 [[abwaertskompatibilitaet]]
 == Abwärtskompatibilität
 
@@ -37,6 +40,13 @@ Für die Gewährleistung von Abwärtskompatibilität wird ein tolerantes Verhalt
 - Producer dürfen bestehende Felder nicht entfernen oder in ihrer Bedeutung verändern.
 
 Bei asynchroner Kommunikation ist Abwärtskompatibilität dann gegeben, wenn bestehende Consumer Nachrichten oder Events weiterhin verarbeiten können, ohne dass Fehlverhalten entsteht.
+
+Diese Grundsätze gelten auch für synchrone Kommunikation.
+Bei asynchroner Kommunikation ist ein tolerantes Verhalten der Consumer zwingend erforderlich, da Producer und Consumer zeitlich und technisch entkoppelt sind.
+
+Bei synchroner Kommunikation wird Abwärtskompatibilität dadurch erreicht, dass bestehende Service-Nutzende neue Versionen ohne Anpassung weiterhin korrekt nutzen können.
+Dies setzt insbesondere voraus, dass zusätzliche Felder die Verarbeitung bestehender Clients nicht beeinträchtigen.
+Die Schnittstelle muss so gestaltet sein, dass bestehende Clients weiterhin funktionieren.
 
 Die folgenden Beispiele stellen häufig vorkommende, abwärtskompatible Änderungen dar.
 
@@ -77,7 +87,7 @@ Flexible Validierungen und Verarbeitungslogiken können die Auswirkungen eines s
 
 |Typ oder Semantik eines Felds ändern
 |Werte werden von den Kommunikationsteilnehmern falsch interpretiert oder führen zu Konvertierungsfehlern, auch wenn die Struktur gleich bleibt.
-Diese Änderungen sollte vermieden werden, da sie schwer zu kommunizieren und zu behandeln sind.
+Diese Änderungen sollten vermieden werden, da sie schwer zu kommunizieren und zu behandeln sind.
 
 Stattdessen sollte ein neues Feld eingeführt und das alte Feld zu einem späteren Zeitpunkt entfernt werden.
 
@@ -121,6 +131,7 @@ Die bestehende Version bleibt für einen Übergangszeitraum parallel verfügbar,
 ==== Nicht abwärtskompatible Änderungen an Nachrichten und Events
 Ist eine Änderung an einer Nachricht oder einem Event nicht abwärtskompatibel, so ist eine neue Version des Formats bereitzustellen.
 Können bestehende Consumer mehrere Versionen nicht sicher parallel verarbeiten, ist zusätzlich ein neuer Kanal vorzusehen, zum Beispiel eine eigene Queue, ein eigenes Topic oder ein eigener Event-Typ.
+Dieser Kanal ist dann fpr die neue Version der Consumer vorgesehen.
 Dies bedeutet: Wenn bestehende Consumer eine geänderte Nachricht oder ein Event nicht mehr korrekt verarbeiten können, dann darf das bestehende Format nicht einfach verändert werden, vielmehr muss ein neues, getrenntes Nachrichtenformat definiert werden.
 
 ==== Neues Backend
@@ -149,21 +160,13 @@ In allen anderen Fällen sollen mehrere Versionen durch dasselbe Backend unterst
 |nicht abwärtskompatibel
 |Neue Service-Version bereitstellen (In der Regel über eine zusätzliche Service-Schnittstelle realisiert.)
 
-|Nachricht
+|Nachricht/ Event
 |abwärtskompatibel
-|Bestehendes Nachrichtenformat erweitern
+|Bestehendes Nachrichtenformat/ Event erweitern
 
-|Nachricht
+|Nachricht/ Event
 |nicht abwärtskompatibel
-|Neue Version des Nachrichtenformats bereitstellen; bei fehlender Parallelverarbeitbarkeit zusätzlicher neuer Kanal
-
-|Event
-|abwärtskompatibel
-|Bestehendes Event erweitern
-
-|Event
-|nicht abwärtskompatibel
-|Neue Version des Event-Formats bereitstellen; bei fehlender Parallelverarbeitbarkeit zusätzlicher neuer Kanal
+|Neue Version des Event-/ Nachrichtenformats bereitstellen; bei fehlender Parallelverarbeitbarkeit zusätzlicher neuer Kanal
 |===
 
 === Einordnung in die Referenzarchitektur
@@ -175,6 +178,152 @@ Daraus folgen für synchrone Services die folgenden Grundsätze:
 - Verschiedene Service-Versionen verwenden denselben Anwendungskern.
 - Versionsspezifische Transformationen erfolgen grundsätzlich in der Service-Schnittstelle des Backends.
 - Ein Service-Gateway übernimmt keine Fachlogik zur Behandlung unterschiedlicher Versionen.
+
+[[versionierung-synchroner-services]]
+== Versionierung synchroner Services
+
+Dieses Kapitel konkretisiert das im <<entscheidungsmodell-versionierung>> definierte Entscheidungsmodell für synchrone Services.
+Die relevanten Zielmuster unterstützen bei der Umsetzung von Änderungen und bei der Auswahl eines geeigneten Vorgehens.
+
+Die Auswahl eines Musters sind folgende Dimensionen zu betrachten:
+
+- Abwärtskompatibilität der Änderung.
+- Nicht abwärtskompatible Änderungen: Weiterverwendung der fachlichen Logik.
+- Nicht abwärtskompatible Änderungen: Notwendigkeit von fachlicher und technischer Entwicklung
+
+Die folgenden Muster sind definiert.
+
+=== Überblick der Muster
+
+[cols="2,2,3,3",options="header"]
+|===
+|Muster
+|Änderungstyp
+|Backend
+|Komplexität
+
+|Kompatible Weiterentwicklung
+|abwärtskompatibel
+|gemeinsam
+|gering
+
+|Parallele Versionen (gemeinsames Backend)
+|inkompatibel
+|gemeinsam
+|mittel
+
+|Parallele Versionen (teilweise getrennt)
+|inkompatibel
+|teilweise getrennt
+|mittel-hoch
+
+|Neue Version als eigenes Backend
+|inkompatibel
+|getrennt
+|hoch
+|===
+
+=== Kompatible Weiterentwicklung eines Services
+
+Ein Beispiel für die hier behandelte Änderungen ist das Hinzufügen eines optionalen Attributs zu einer bestehenden Operation.
+
+Abwärtskompatible Änderungen werden innerhalb derselben Service-Version umgesetzt.
+Die bestehende Service-Schnittstelle wird erweitert, ohne bestehende Nutzende zu beeinträchtigen.
+Dies ist möglich, wenn die Änderungen vollständig abwärtskompatibel sind, die Consumer unbekannte Fehler ignorieren können und keine Änderung der fachlichen Semantik bei bestehenden Feldern vorgenommen wurde.
+
+Hierfür ist die bestehende Service-Schnittstelle zu erweitern.
+Für neue Felder sind in der Serviceschicht Defaultwerte einzutragen.
+
+Mit diesem Vorgehen ist kein Parallelbetrieb erforderlich.
+Dadurch ergibt sich minimaler Betriebsaufwand und keine zusätzliche Komplexität.
+
+Die Änderungsfreiheit ist jedoch eingeschränkt.
+
+==== Auswirkungen
+
+- Deployment: Update eines bestehenden Deployments
+- Betrieb: keine zusätzlichen Instanzen
+- Komplexität: gering
+
+=== Parallele Service-Versionen (gemeinsames Backend)
+Ein Beispiel für die hier behandelte Änderungen ist die Aufspaltung eines Feldes in mehrere Felder bei gleichbleibender fachlicher Logik.
+Nicht abwärtskompatible Änderungen werden durch eine neue Service-Version umgesetzt.
+Hierfür ist eine zusätzliche Service-Schnittstelle in der Serviceschicht vorzusehen.
+Die Transformation zwischen Versionen findet in der Serviceschicht statt.
+Mehrere Versionen werden parallel betrieben und nutzen denselben Anwendungskern.
+
+Dies ist das angemessene Vorgehen für Änderung, die nicht abwärtskompatibel sind aber die fachliche Logik weitesgehend  gleich bleibt.
+Ein Mapping zwischen Versionen ist möglich.
+
+Mit diesem Vorgehen wird eine kontrollierte Migration möglich.
+Eine Duplikation der Fachlogik ist nicht notwendig und der Infrastrukturaufwand bleibt gering.
+
+Die Komplexität in der Serviceschicht ist aber höher da eine Mapping-Logik notwendig ist.
+Zu beachten ist, dass bei vielen Versionen die Wartungskosten steigen.
+
+==== Auswirkungen
+
+- Deployment: ein Deployment mit mehreren Schnittstellen
+- Betrieb: gemeinsame Skalierung
+- Komplexität: mittel
+
+=== Parallele Service-Versionen (teilweise getrennt)
+
+Mehrere Service-Versionen werden parallel betrieben, verwenden jedoch teilweise getrennte Komponenten im Backend.
+Die Änderung ist nicht abwärtskompatibel oder die fachliche Logik beginnt zu divergieren damit ist die vollständige Wiederverwendung nicht mehr sinnvoll.
+Bei der Umsetzung sind im Anwendungskern sind getrennte Verarbeitungspfade notwendig  und die Separierung erfolgt entlang einer versionsspezifischen Logik.
+Eine angemessene Wartbarkeit bei wachsender Divergenz wird durch die Nutzung möglicher gemeinsame Infrastrukturkomponenten erreicht und die Komplexität pro Version verringert. (TODO: Sinnvoll?)
+Negativ ist jedoch eine erhöhte Komplexität im Backend und eine teilweise Duplikation von Logik was sich in steigendem Testaufwand niederschlägt.
+
+==== Auswirkungen
+
+- Deployment: ein Deployment mit differenzierter Logik
+- Betrieb: gemeinsame Laufzeit, Monitoring jeder Version
+- Komplexität: mittel bis hoch
+
+==== Beispiel
+
+Unterschiedliche fachliche Validierungslogik zwischen Versionen.
+
+---
+
+=== Neue Version als eigenes Backend
+
+Eine neue Service-Version wird als eigenständiges Backend realisiert.
+Notwendig aufgrund hoher fachliche oder technische Divergenz bei gleichzeigter Notwendigkeit eines langfristigen Parallelbetriebs.
+Jedes Backend hat eigene Betriebsanforderungen.
+
+Diese Ausgestaltung zeichnet sich durch die vollständige Trennung von Serviceschicht und Anwendungskern jeder Version aus.
+Jede Version hat ein eigenständiges Deployment.
+Über eine getrennte Datenhaltung ist zu entscheiden.
+
+Als Vorteil ergibt sich eine maximale Entkopplung und eine unabhängige Weiterentwicklung mit klaren Systemgrenzen.
+Dafür ist der Infrastruktur-, Betriebs- und Integrationsaufwand hoch.
+Auch ist es komplexer Datenkonsistenz zu gewährleisten.
+
+==== Auswirkungen
+
+- Deployment: separate Deployments / Container
+- Betrieb: getrennte Skalierung und Überwachung
+- Komplexität: hoch
+
+==== Beispiel
+
+Technologiewechsel oder grundlegende fachliche Neuausrichtung eines Services.
+
+---
+
+=== Zuordnung zum Entscheidungsmodell
+
+Die Auswahl eines Musters erfolgt auf Basis von <<entscheidungsmodell-versionierung>>:
+
+1. Abwärtskompatible Änderung -> Kompatible Weiterentwicklung
+
+2. Nicht abwärtskompatible Änderung -> Parallele Versionen
+
+3. Divergierende fachliche Logik -> Teilweise getrennte Umsetzung oder eigenes Backend
+
+Diese Zuordnung ist im Systementwurf zu dokumentieren und zu begründen.
 
 [[architektur]]
 == Architektur
@@ -234,12 +383,13 @@ Kann die neue Version mit vertretbarem Aufwand auf dieselbe fachliche Verarbeitu
 In diesem Fall enthält die Serviceschicht für jede Version eine eigene Service-Schnittstelle mit der jeweils erforderlichen Transformationslogik.
 
 Wird in so einem Fall ein neuer Service eingeführt, während der alte Service noch verfügbar bleiben muss, müssen die inkompatiblen Verarbeitungslogiken im Anwendungskern parallel unterstützt werden.
-Bei starken fachlicher oder technischer Unterschieden kann es sinnvoll sein, die neue Version in einem eigenen Backend bereitzustellen.
+Bei starken fachlichen oder technischen Unterschieden kann es sinnvoll sein, die neue Version in einem eigenen Backend bereitzustellen.
 Auch in diesem Fall enthält das Service-Gateway keine Fachlogik.
 
 IMPORTANT: Eine neue Version ist dann erforderlich, wenn eine Änderung nicht abwärtskompatibel ist und bestehende Nutzende nicht ohne Anpassung weiterarbeiten können.
 
 Führen Änderungen zu einer wesentlichen fachlichen Neuauslegeung der Schnittstelle, soll keine weitere Version derselben Schnittstelle entstehen.
+In diesem Fall ist zu prüfen, ob es sich fachlich noch um dasselbe Konzept handelt.
+Wenn Versionen nicht mehr durch einfache Transformation verbunden werden können, handelt es sich nicht mehr um Versionen desselben fachlichen Konzepts, sondern die Einführung eines neuen fachlichen Konzepts.
 In diesem Fall ist zu prüfen, ob eine eigenständige neue Schnittstelle oder ein eigenes Backend die fachlich und technisch sauberere Lösung darstellt.
-
 
