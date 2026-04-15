@@ -1,8 +1,9 @@
 # 5.0.0
 ### FEATURES
 
-- `IFS-5226`: [isyfact-standards-doc] describe how to use adaptive colors in draw.io diagrams
-  * turn off adaptive colors support for all diagrams using adaptive colors
+- `IFS-5285`: [isyfact-standards-doc] Beschreibung des API-Gateways in der fachlichen Referenzarchitektur
+- `IFS-5226`: [isyfact-standards-doc] Nutzung von adaptiven Farben in draw.io Diagrammen
+  * Zur Vermeidung von Darstellungsfehlern muss die Unterstützung adaptiver Farben abgeschaltet werden.
 - `IFS-5290`: [isyfact-standards-doc] Playwright in den Produktkatalog aufgenommen
   * Selenium ist als bestandsgeschützt gesetzt. Es wird empfohlen auf Playwright zu migrieren.
 - `IFS-5170`: [isyfact-standards-doc] Logik für Berechnung der KorrelationsId vereinfacht
