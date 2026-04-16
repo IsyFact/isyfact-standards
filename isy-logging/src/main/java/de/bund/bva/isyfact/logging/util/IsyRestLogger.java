@@ -1,7 +1,5 @@
 package de.bund.bva.isyfact.logging.util;
 
-import reactor.core.publisher.Mono;
-
 import org.springframework.http.HttpMethod;
 import org.springframework.web.reactive.function.client.ClientRequest;
 import org.springframework.web.reactive.function.client.ClientResponse;
@@ -11,6 +9,8 @@ import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.LogKategorie;
 import de.bund.bva.isyfact.logging.config.IsyLoggingBoundaryLoggerProperties;
 import de.bund.bva.isyfact.logging.impl.Ereignisschluessel;
+
+import reactor.core.publisher.Mono;
 
 /**
  * Bean class that provides a logging function for outgoing REST calls. It provides logging calls for

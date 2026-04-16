@@ -1,5 +1,7 @@
 package de.bund.bva.isyfact.logging;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Collections;
@@ -96,9 +98,7 @@ public class LogInterceptorTest extends AbstractLogTest {
                 new TestZielParameterPerson("Mustermann", "Max", "Peter", "Hans"), "TestParameter 2");
 
         alleFlagsTrueOhneLoggeDatenInterceptor.invoke(invocation);
-
-        pruefeLogdatei("testAufrufErfolgreichInterceptor");
-
+        assertDoesNotThrow(() -> pruefeLogdatei("testAufrufErfolgreichInterceptor"));
     }
 
     /**
@@ -125,7 +125,7 @@ public class LogInterceptorTest extends AbstractLogTest {
             e.printStackTrace();
         }
 
-        pruefeLogdatei("testAufrufMitExceptionInterceptorDirekt", true);
+        assertDoesNotThrow(() -> pruefeLogdatei("testAufrufMitExceptionInterceptorDirekt", true));
 
     }
 
@@ -147,7 +147,7 @@ public class LogInterceptorTest extends AbstractLogTest {
 
         alleFlagsFalseInterceptor.invoke(invocation);
 
-        pruefeLogdatei("testAufrufErfolgreichParameterFalse");
+        assertDoesNotThrow(() -> pruefeLogdatei("testAufrufErfolgreichParameterFalse"));
 
     }
 
@@ -172,7 +172,7 @@ public class LogInterceptorTest extends AbstractLogTest {
             Assertions.fail("Es wurde eine Exception erwartet - der Aufruf war aber erfolgreich.");
         } catch (InvocationTargetException _) {
             // exception is expected.
-            pruefeLogdatei("testAufrufMitExceptionParameterFalse");
+            assertDoesNotThrow(() -> pruefeLogdatei("testAufrufMitExceptionParameterFalse"));
         }
 
     }
@@ -189,7 +189,7 @@ public class LogInterceptorTest extends AbstractLogTest {
         boundaryZielKlasse.setzeName(new TestZielParameterPerson("Mustermann", "Max", "Peter", "Hans"),
                 "TestParameter 2");
         // analogue to direct call (all parameter are "true")
-        pruefeLogdatei("testAufrufErfolgreichInterceptor");
+        assertDoesNotThrow(() -> pruefeLogdatei("testAufrufErfolgreichInterceptor"));
 
     }
 
@@ -209,7 +209,7 @@ public class LogInterceptorTest extends AbstractLogTest {
         } catch (Exception _) {
             // exception is expected.
             // analogue to direct call (all parameter are "true")
-            pruefeLogdatei("testAufrufMitExceptionInterceptor", true);
+            assertDoesNotThrow(() -> pruefeLogdatei("testAufrufMitExceptionInterceptor", true));
         }
 
     }
@@ -225,7 +225,7 @@ public class LogInterceptorTest extends AbstractLogTest {
 
         componentZielKlasse.setzeName(new TestZielParameterPerson("Mustermann", "Max", "Peter", "Hans"),
                 "TestParameter 2");
-        pruefeLogdatei("testAufrufErfolgreichComponentInterceptor");
+        assertDoesNotThrow(() -> pruefeLogdatei("testAufrufErfolgreichComponentInterceptor"));
 
     }
 
@@ -244,7 +244,7 @@ public class LogInterceptorTest extends AbstractLogTest {
                     "Hans"), "TestParameter 2");
         } catch (Exception _) {
             // exception is expected.
-            pruefeLogdatei("testAufrufMitExceptionComponentInterceptor");
+            assertDoesNotThrow(() -> pruefeLogdatei("testAufrufMitExceptionComponentInterceptor"));
         }
 
     }
@@ -292,7 +292,7 @@ public class LogInterceptorTest extends AbstractLogTest {
             e.printStackTrace();
         }
 
-        pruefeLogdatei("testAufrufMitExceptionInterceptorIndividuell", true);
+        assertDoesNotThrow(() -> pruefeLogdatei("testAufrufMitExceptionInterceptorIndividuell", true));
 
     }
 
@@ -318,7 +318,7 @@ public class LogInterceptorTest extends AbstractLogTest {
         // second call with logging
         alleFlagsTrueInterceptor.invoke(invocation);
 
-        pruefeLogdatei("testAufrufErfolgreichLoggeDatenDirekt");
+        assertDoesNotThrow(() -> pruefeLogdatei("testAufrufErfolgreichLoggeDatenDirekt"));
 
     }
 

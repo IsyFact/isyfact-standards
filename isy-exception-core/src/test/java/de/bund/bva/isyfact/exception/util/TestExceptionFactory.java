@@ -6,10 +6,10 @@ import de.bund.bva.isyfact.exception.TechnicalException;
 import de.bund.bva.isyfact.exception.TechnicalRuntimeException;
 
 public class TestExceptionFactory {
-	
-	public static final String ausnahmeId = "BaseException";
-	public static final String parameter = "param";
-	public static final TestFehlertextProviderImpl provider = new TestFehlertextProviderImpl();
+
+	public static final String AUSNAHME_ID = "BaseException";
+	public static final String PARAMETER = "param";
+	public static final TestFehlertextProviderImpl PROVIDER = new TestFehlertextProviderImpl();
 	
 	private TestExceptionFactory(){}
 	
@@ -40,11 +40,11 @@ public class TestExceptionFactory {
 	public static class MyBusinessException extends BusinessException {
 		 
 		MyBusinessException(){
-			this(ausnahmeId, provider, parameter);
+			this(AUSNAHME_ID, PROVIDER, PARAMETER);
 		}
 		
 		MyBusinessException(Throwable t){
-			this(ausnahmeId, t, provider, parameter);
+			this(AUSNAHME_ID, t, PROVIDER, PARAMETER);
 		}
 		
 		MyBusinessException(String ausnahmeId, FehlertextProvider provider, String... parameters) {
@@ -59,11 +59,11 @@ public class TestExceptionFactory {
 	public static class MyTechnicalException extends TechnicalException {
 		
 		MyTechnicalException(){
-			this(ausnahmeId, provider, parameter);
+			this(AUSNAHME_ID, PROVIDER, PARAMETER);
 		}
 		
 		MyTechnicalException(Throwable t){
-			this(ausnahmeId, t, provider, parameter);
+			this(AUSNAHME_ID, t, PROVIDER, PARAMETER);
 		}
 		
 		MyTechnicalException(String ausnahmeId, FehlertextProvider fehlertextProvider,
@@ -80,11 +80,11 @@ public class TestExceptionFactory {
 	public static class MyTechnicalRuntimeException extends TechnicalRuntimeException {
 		
 		MyTechnicalRuntimeException(){
-			this(ausnahmeId, provider, parameter);
+			this(AUSNAHME_ID, PROVIDER, PARAMETER);
 		}
 		
 		MyTechnicalRuntimeException(Throwable t){
-			this(ausnahmeId, t, provider, parameter);
+			this(AUSNAHME_ID, t, PROVIDER, PARAMETER);
 		}
 		
 		MyTechnicalRuntimeException(String ausnahmeId, FehlertextProvider fehlertextProvider,

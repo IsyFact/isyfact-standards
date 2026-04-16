@@ -1,5 +1,7 @@
 package de.bund.bva.isyfact.logging.util;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
@@ -31,12 +33,12 @@ public class LogMethodInterceptorAnnotationTest extends AbstractLogTest {
     @Test
     public void testBoundaryLogAdvice() throws Throwable {
         testZielKlasse.setzeName(new TestZielParameterPerson("Nachname"), "Name");
-        pruefeLogdatei("testAufrufErfolgreichInterceptor");
+        assertDoesNotThrow(() -> pruefeLogdatei("testAufrufErfolgreichInterceptor"));
     }
 
     @Test
     public void testComponentLogAdvice() throws Throwable {
         testZielKlasse2.setzeName(new TestZielParameterPerson("Nachname"), "Name");
-        pruefeLogdatei("testAufrufErfolgreichComponentInterceptor");
+        assertDoesNotThrow(() -> pruefeLogdatei("testAufrufErfolgreichComponentInterceptor"));
     }
 }

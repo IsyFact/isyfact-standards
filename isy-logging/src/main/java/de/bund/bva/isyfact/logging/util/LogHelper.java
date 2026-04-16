@@ -105,8 +105,7 @@ public class LogHelper {
         this.pruefer = new BeanGroessePruefer();
         if (konverter == null) {
             this.konverter = erstelleStandardKonverter();
-        }
-        else {
+        } else {
             this.konverter = konverter;
         }
     }
@@ -154,42 +153,25 @@ public class LogHelper {
      *            The result of the method invocation (This can also be an exception).
      */
     public void loggeErgebnis(IsyLogger logger, Method methode, boolean erfolgreich, Object[] parameter,
-            Object ergebnis) {
-        if (logger.isInfoEnabled() && loggeErgebnis) {
-            if (erfolgreich) {
-                logger.info(LogKategorie.METRIK, Ereignisschluessel.EISYLO01002.name(),
-                        Ereignisschluessel.EISYLO01002.getNachricht(), erstelleMethodenname(methode),
-                        erstelleSignatur(methode));
-            } else {
-                logger.info(LogKategorie.METRIK, Ereignisschluessel.EISYLO01003.name(),
-                        Ereignisschluessel.EISYLO01003.getNachricht(), erstelleMethodenname(methode),
-                        erstelleSignatur(methode));
-            }
-        }
-        // Outputs the data if
-        // either "loggeDaten" is set to true
+                              Object ergebnis) {
+        loggeMetrik(logger, methode, erfolgreich);
+
+        // Outputs the data if either "loggeDaten" is set to true
         // or the invocation was not successful and "loggeDatenBeiException" is set to true.
-        boolean loggeAufrufUndErgebnisdaten = loggeDaten || !erfolgreich && loggeDatenBeiException;
-        if (logger.isDebugEnabled() && loggeAufrufUndErgebnisdaten) {
-
-            List<Object> parameterWerte = null;
-            if (parameter != null) {
-                parameterWerte = new ArrayList<>();
-                for (int index = 0; index < parameter.length; index++) {
-                    if (pruefer.pruefeGroesse(parameter[index], loggeMaximaleParameterGroesse)) {
-                        parameterWerte.add(konverter.convert(parameter[index]));
-                    } else {
-                        parameterWerte
-                            .add(Ereignisschluessel.DEBUG_LOGGE_DATEN_PARAMETER_ZU_GROSS.getNachricht());
-                        logger.debugFachdaten(Ereignisschluessel.DEBUG_LOGGE_DATEN_GROESSE.getNachricht(),
-                            erstelleMethodenname(methode), index + 1, parameterWerte.getClass().getName());
-                    }
-                }
-            }
-
-            logger.debugFachdaten(Ereignisschluessel.DEBUG_LOGGE_DATEN.getNachricht(),
-                    erstelleMethodenname(methode), parameterWerte, ergebnis, erstelleSignatur(methode));
+        boolean loggeAufrufUndErgebnisdaten = loggeDaten || (!erfolgreich && loggeDatenBeiException);
+        if (!logger.isDebugEnabled() || !loggeAufrufUndErgebnisdaten) {
+            return;
         }
+
+        List<Object> parameterWerte = null;
+        if (parameter != null) {
+            parameterWerte = erstelleParameterWerte(logger, methode, parameter);
+        }
+
+        logger.debugFachdaten(
+            Ereignisschluessel.DEBUG_LOGGE_DATEN.getNachricht(),
+            erstelleMethodenname(methode), parameterWerte, ergebnis, erstelleSignatur(methode)
+        );
     }
 
     /**
@@ -338,6 +320,41 @@ public class LogHelper {
      */
     private static String erstelleMethodenname(Method methode) {
         return methode.getDeclaringClass().getSimpleName() + "." + methode.getName();
+    }
+
+    private void loggeMetrik(IsyLogger logger, Method methode, boolean erfolgreich) {
+        if (!logger.isInfoEnabled() || !loggeErgebnis) {
+            return;
+        }
+
+        Ereignisschluessel key = erfolgreich
+            ? Ereignisschluessel.EISYLO01002
+            : Ereignisschluessel.EISYLO01003;
+
+        logger.info(
+            LogKategorie.METRIK, key.name(), key.getNachricht(),
+            erstelleMethodenname(methode), erstelleSignatur(methode)
+        );
+    }
+
+    private List<Object> erstelleParameterWerte(IsyLogger logger, Method methode, Object[] parameter) {
+
+        List<Object> parameterWerte = new ArrayList<>();
+        for (int index = 0; index < parameter.length; index++) {
+            Object param = parameter[index];
+
+            if (pruefer.pruefeGroesse(param, loggeMaximaleParameterGroesse)) {
+                parameterWerte.add(konverter.convert(param));
+                continue;
+            }
+
+            parameterWerte.add(Ereignisschluessel.DEBUG_LOGGE_DATEN_PARAMETER_ZU_GROSS.getNachricht());
+            logger.debugFachdaten(
+                Ereignisschluessel.DEBUG_LOGGE_DATEN_GROESSE.getNachricht(),
+                erstelleMethodenname(methode), index + 1, parameterWerte.getClass().getName()
+            );
+        }
+        return parameterWerte;
     }
 
     /**

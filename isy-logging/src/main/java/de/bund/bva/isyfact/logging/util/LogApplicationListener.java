@@ -56,7 +56,7 @@ public class LogApplicationListener implements ApplicationListener<ApplicationEv
     private final String systemversion;
 
     /**
-     * Applikationskontext des Loggers
+     * Applikationskontext des Loggers.
      */
     private ApplicationContext applicationContext;
 

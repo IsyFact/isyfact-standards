@@ -1,6 +1,11 @@
 package de.bund.bva.isyfact.logging.impl;
 
-public class PersonenbezogeneDatenMarker extends AbstractIsyDatentypMarker {
+import java.io.Serial;
+
+public final class PersonenbezogeneDatenMarker extends AbstractIsyDatentypMarker {
+
+    @Serial
+    private static final long serialVersionUID = 7491072361151423674L;
 
     /**
      * Ein Marker für personenbezogene Daten.

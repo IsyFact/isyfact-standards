@@ -1,10 +1,12 @@
 package de.bund.bva.isyfact.logging;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+
 import java.util.Random;
 
-import de.bund.bva.isyfact.logging.hilfsklassen.TestBeanEinfach;
-
 import org.junit.jupiter.api.Test;
+
+import de.bund.bva.isyfact.logging.hilfsklassen.TestBeanEinfach;
 import de.bund.bva.isyfact.logging.hilfsklassen.TestSignaturKlasse;
 import de.bund.bva.isyfact.logging.util.LogHelper;
 
@@ -78,7 +80,7 @@ public class LogHelperTest extends AbstractLogTest {
         logHelper = new LogHelper(true, true, false, false, true, 0);
         logHelper.loggeNachbarsystemDauer(logger, null, 1, null, null, true);
 
-        pruefeLogdatei("testLogHelperSpezialfaelle");
+        assertDoesNotThrow(() -> pruefeLogdatei("testLogHelperSpezialfaelle"));
     }
 
     /**
@@ -98,6 +100,6 @@ public class LogHelperTest extends AbstractLogTest {
         logHelper.loggeErgebnis(logger, TestBeanEinfach.class.getMethod("setEinString", String.class), true,
             new Object[] { binaerDaten, "einString" }, "Ergebnis");
 
-        pruefeLogdatei("testLogHelperParameterGroesse");
+       assertDoesNotThrow(() -> pruefeLogdatei("testLogHelperParameterGroesse"));
     }
 }

@@ -191,25 +191,27 @@ public class BeanToMapConverter implements BeanConverter {
             return processSimpleValue(value, seen);
         }
 
+        Object normalizedValue = value;
+
         // Arrays werden wie Listen behandelt
-        if (value.getClass().isArray()) {
+        if (normalizedValue.getClass().isArray()) {
             List<Object> valueList = new ArrayList<>();
 
             // Hier wird explizit nicht Arrays.asList verwendet, da dies zu problemen bei Arrays von
             // primitiven Datentypen führt.
-            for (int i = 0; i < Array.getLength(value); i++) {
-                Object entry = Array.get(value, i);
+            for (int i = 0; i < Array.getLength(normalizedValue); i++) {
+                Object entry = Array.get(normalizedValue, i);
                 valueList.add(entry);
             }
-            value = valueList;
+            normalizedValue = valueList;
         }
 
-        if (value instanceof Iterable<?> iterable) {
+        if (normalizedValue instanceof Iterable<?> iterable) {
             return processIterableValue(iterable, seen);
-        } else if (value instanceof Map<?, ?> map) {
+        } else if (normalizedValue instanceof Map<?, ?> map) {
             return processMapValue(map, seen);
         } else {
-            return processSimpleValue(value, seen);
+            return processSimpleValue(normalizedValue, seen);
         }
 
     }
