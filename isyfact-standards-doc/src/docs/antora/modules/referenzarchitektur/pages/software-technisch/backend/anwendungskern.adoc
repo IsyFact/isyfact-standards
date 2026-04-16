@@ -28,6 +28,12 @@ Die Trennung von Anwendungslogik und Technik ist deshalb auch in anderen Schicht
 
 Von außen betrachtet besteht jede Fachkomponente aus einer Schnittstelle (Interface) und den von ihr verwendeten Geschäftsobjekten (Model) sowie Ausnahmen (Exceptions).
 Alle Zugriffe auf die Fachkomponente von außen, auch von anderen Fachkomponenten aus, geschehen über die Schnittstelle.
+Die folgende Abbildung fasst den <<image-aufbau-fachkomponente>> noch einmal grafisch zusammen.
+Sie zeigt ebenso die Verwendungen und Aufrufbeziehungen innerhalb einer Fachkomponente, sowie die Aufrufbeziehungen zu anderen Fachkomponenten und die Anbindung von Services anderer IT-Systeme über Service Consumer.
+
+[[image-aufbau-fachkomponente]]
+.Aufbau einer Fachkomponente
+image::software-technisch/backend/aufbau_fachkomponente_awk.dn.svg[]
 
 Die *Schnittstelle* stellt eine Fassade (Facade) für mindestens eine Anwendungsfallklasse dar.
 Die Aufgaben der Schnittstelle sind:
@@ -57,10 +63,15 @@ Sie werden primär nach ihrer Funktion benannt.
 
 In einer allgemeinen Anwendung gibt es z.B. die Geschäftsobjekte `Aufgabe`, `Zeitpunkt` und `Nutzer`.
 
+Bei komplexen Datenmodellen hat es sich bewährt, zwischen den Geschäftsobjekten zu unterscheiden, die für den Aufruf der Fachkomponente (Komponente `input` oder `eingabedaten`) verwendet werden, und denen, die von der Fachkomponente zurückgegeben werden (Komponente `output` oder `ausgabedaten`).
+
 Eine *Anwendungsfallklasse* setzt genau einen Anwendungsfall um.
 Ihr Schnitt ergibt sich aus der fachlichen Architektur.
 Die Schnittstelle der Fachkomponente delegiert Aufrufe von außen an die jeweils passende Anwendungsfallklasse.
 Anwendungsfallklassen werden anhand des Namens des Anwendungsfalls aus der Spezifikation benannt und mit dem Präfix `Awf` gekennzeichnet.
+Falls Anwendungsfallklassen andere Fachkomponenten desselben Backends aufrufen, so geschieht dies direkt über die Schnittstellen dieser Fachkomponenten.
+Benötigen Anwendungsfallklassen Funktionalität, die in anderen IT-Systemen umgesetzt ist, so geschieht dies über den jeweiligen Service Consumer im Anwendungskern.
+Schließlich rufen Anwendungsfallklassen zur Persistierung ihrer Geschäftsobjekte die Persistenzschicht auf.
 
 // tag::namenskonvention[]
 
@@ -95,13 +106,6 @@ AfuErmittlungEntscheidungsrelevanz
 |====
 
 // end::namenskonvention[]
-
-Die folgende Abbildung fasst den <<image-aufbau-fachkomponente>> noch einmal grafisch zusammen.
-Sie zeigt ebenso die Verwendungen und Aufrufbeziehungen innerhalb einer Fachkomponente.
-
-[[image-aufbau-fachkomponente]]
-.Aufbau einer Fachkomponente
-image::software-technisch/backend/aufbau_fachkomponente_awk.dn.svg[]
 
 [[das-anwendungskern-framework]]
 == Anwendungskern-Framework
@@ -153,7 +157,7 @@ In diesem Fall wird die Transaktion nicht fortgeschrieben, sondern zurückgeroll
 Der Anwendungskern bietet an seiner Schnittstelle fachliche Operationen, in fachliche Komponenten gruppiert, an.
 Die fachlichen Operationen sind in der Regel zustandslos.
 Daher ist eine Transaktion über mehrere Aufrufe des Anwendungskerns nach Möglichkeit zu vermeiden.
-Ist eine solche Steuerung trotzdem unumgänglich, muss sie über die xref:software-technisch/backend/serviceschicht.adoc#transaktionssteuerung[Serviceschicht] erfolgen.
+Ist eine solche Steuerung trotzdem unumgänglich, muss sie über die xref:software-technisch/backend/service/rest-querschnitt.adoc#transaktionssteuerung[Serviceschicht] erfolgen.
 
 [[transaktionssteuerung-mit-jpa]]
 === Transaktionssteuerung mit JPA
