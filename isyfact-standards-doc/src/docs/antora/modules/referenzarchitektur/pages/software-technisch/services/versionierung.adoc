@@ -220,34 +220,21 @@ Die folgenden Muster sind definiert.
 |hoch
 |===
 
-=== Kompatible Evolution eines Services
+=== Kompatible Weiterentwicklung eines Services
 
-==== Beschreibung
+Ein Beispiel für die hier behandelte Änderungen ist das Hinzufügen eines optionalen Attributs zu einer bestehenden Operation.
+
 Abwärtskompatible Änderungen werden innerhalb derselben Service-Version umgesetzt.
 Die bestehende Service-Schnittstelle wird erweitert, ohne bestehende Nutzende zu beeinträchtigen.
+Dies ist möglich, wenn die Änderungen vollständig abwärtskompatibel sind, die Consumer unbekannte Fehler ignorieren können und keine Änderung der fachlichen Semantik bei bestehenden Feldern vorgenommen wurde.
 
-==== Einsatzbedingungen
+Hierfür ist die bestehende Service-Schnittstelle zu erweitern.
+Für neue Felder sind in der Serviceschicht Defaultwerte einzutragen.
 
-- Änderung ist vollständig abwärtskompatibel
-- Consumer können unbekannte Felder ignorieren
-- keine Änderung der fachlichen Semantik bestehender Felder
+Mit diesem Vorgehen ist kein Parallelbetrieb erforderlich.
+Dadurch ergibt sich minimaler Betriebsaufwand und keine zusätzliche Komplexität.
 
-==== Umsetzung
-
-- Erweiterung der bestehenden Service-Schnittstelle
-- Ergänzung von Defaultwerten in der Serviceschicht
-- Anpassung von Anwendungskern und Persistenz
-
-==== Vorteile
-
-- kein Parallelbetrieb erforderlich
-- minimaler Betriebsaufwand
-- keine zusätzliche Komplexität
-
-==== Nachteile
-
-- eingeschränkte Änderungsfreiheit
-- Altlasten verbleiben im System
+Die Änderungsfreiheit ist jedoch eingeschränkt.
 
 ==== Auswirkungen
 
@@ -255,52 +242,27 @@ Die bestehende Service-Schnittstelle wird erweitert, ohne bestehende Nutzende zu
 - Betrieb: keine zusätzlichen Instanzen
 - Komplexität: gering
 
-==== Beispiel
-
-Hinzufügen eines optionalen Attributs zu einer bestehenden Operation.
-
 === Parallele Service-Versionen (gemeinsames Backend)
-
-==== Beschreibung
-
+Ein Beispiel für die hier behandelte Änderungen ist die Aufspaltung eines Feldes in mehrere Felder bei gleichbleibender fachlicher Logik.
 Nicht abwärtskompatible Änderungen werden durch eine neue Service-Version umgesetzt.
+Hierfür ist eine zusätzliche Service-Schnittstelle in der Serviceschicht vorzusehen.
+Die Transformation zwischen Versionen findet in der Serviceschicht statt.
 Mehrere Versionen werden parallel betrieben und nutzen denselben Anwendungskern.
 
-==== Einsatzbedingungen
+Dies ist das angemessene Vorgehen für Änderung, die nicht abwärtskompatibel sind aber die fachliche Logik weitesgehend  gleich bleibt.
+Ein Mapping zwischen Versionen ist möglich.
 
-- Änderung ist nicht abwärtskompatibel
-- fachliche Logik bleibt weitgehend gleich
-- Mapping zwischen Versionen ist möglich
+Mit diesem Vorgehen wird eine kontrollierte Migration möglich.
+Eine Duplikation der Fachlogik ist nicht notwendig und der Infrastrukturaufwand bleibt gering.
 
-==== Umsetzung
-
-- zusätzliche Service-Schnittstelle in der Serviceschicht
-- gemeinsame Nutzung des Anwendungskerns
-- Transformation zwischen Versionen in der Serviceschicht
-
-==== Vorteile
-
-- kontrollierte Migration möglich
-- keine Duplikation der Fachlogik
-- geringer Infrastrukturaufwand
-
-==== Nachteile
-
-- erhöhte Komplexität in der Serviceschicht
-- Mapping-Logik notwendig
-- steigende Wartungskosten bei vielen Versionen
+Die Komplexität in der Serviceschicht ist aber höher da eine Mapping-Logik notwendig ist.
+Zu beachten ist, dass bei vielen Versionen die Wartungskosten steigen.
 
 ==== Auswirkungen
 
 - Deployment: ein Deployment mit mehreren Schnittstellen
 - Betrieb: gemeinsame Skalierung
 - Komplexität: mittel
-
-==== Beispiel
-
-Aufspaltung eines Feldes in mehrere Felder bei gleichbleibender fachlicher Logik.
-
----
 
 === Parallele Service-Versionen (teilweise getrennt)
 
