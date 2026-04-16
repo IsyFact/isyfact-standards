@@ -1,5 +1,7 @@
 package de.bund.bva.isyfact.logging;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,7 +40,7 @@ public class LogbackTest extends AbstractLogTest {
                         .getName()));
         logbackLogger.warn(marker, "Dies ist eine Warn-Logausgabe mit Logback {} {}", 1, 2);
 
-        pruefeLogdatei("testLogback");
+        assertDoesNotThrow(() -> pruefeLogdatei("testLogback"));
 
     }
 
@@ -60,7 +62,7 @@ public class LogbackTest extends AbstractLogTest {
         // test with a not serializable object (no getter and setter)
         logbackLogger.info("Type registration [{}] overrides previous : {}", "A", new LogbackTest());
 
-        pruefeLogdatei("testLogbackNichtSerialisierbar");
+        assertDoesNotThrow(() -> pruefeLogdatei("testLogbackNichtSerialisierbar"));
     }
 
 }

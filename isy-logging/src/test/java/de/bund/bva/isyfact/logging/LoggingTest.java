@@ -1,5 +1,7 @@
 package de.bund.bva.isyfact.logging;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Collections;
@@ -96,7 +98,7 @@ public class LoggingTest extends AbstractLogTest {
         logger.info(LogKategorie.JOURNAL, EREIGNISSCHLUESSEL, nachricht, "super", "info", tbk);
 
 
-        pruefeLogdatei("testLoggingErfolgreich");
+        assertDoesNotThrow(() -> pruefeLogdatei("testLoggingErfolgreich"));
     }
 
     /**
@@ -174,7 +176,7 @@ public class LoggingTest extends AbstractLogTest {
             "Fachdaten");
         logger.warnFachdaten(EREIGNISSCHLUESSEL, nachricht, t, "super", "warn", "Fachdaten");
 
-        pruefeLogdatei("testLoggingFachdatenErfolgreich");
+        assertDoesNotThrow(() -> pruefeLogdatei("testLoggingFachdatenErfolgreich"));
     }
 
     /**
@@ -255,7 +257,7 @@ public class LoggingTest extends AbstractLogTest {
             "Fachdaten");
         logger.warn(marker, EREIGNISSCHLUESSEL, nachricht, t, "super", "warn", "Fachdaten");
 
-        pruefeLogdatei("testLoggingTypisiertErfolgreich");
+        assertDoesNotThrow(() -> pruefeLogdatei("testLoggingTypisiertErfolgreich"));
     }
 
     /**
@@ -274,7 +276,7 @@ public class LoggingTest extends AbstractLogTest {
         // not enough parameters
         logger.debug(KENNZEICHNUNG_FEHLERTEST + " - Dies ist ein {} {} Test. {}");
 
-        pruefeLogdatei("testLoggingFehlerhaft");
+        assertDoesNotThrow(() -> pruefeLogdatei("testLoggingFehlerhaft"));
 
         try {
             // info log entry without key causes an exception.
@@ -440,7 +442,7 @@ public class LoggingTest extends AbstractLogTest {
         logger.warn(FehlerSchluessel.FEHLERHAFTER_EINTRAG_KEINE_KATEGORIE, "Zu große WARN Nachricht {}",
             nachrichtA);
 
-        pruefeLogdatei("testLogEintragZuGross");
+        assertDoesNotThrow(() -> pruefeLogdatei("testLogEintragZuGross"));
     }
 
 }
