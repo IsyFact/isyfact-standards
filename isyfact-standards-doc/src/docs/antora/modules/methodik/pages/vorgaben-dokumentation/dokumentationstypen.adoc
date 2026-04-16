@@ -410,5 +410,5 @@ a|* Beschreibung des Werkzeugs (s. Vorlage/Beispiel)
 
 |Vorlage / Beispiel
 a|* xref:documentation-guide:ROOT:seitenvorlage.adoc[]
-* xref:methodik:diagrammerstellung/diagramsnet.adoc[]
+* xref:methodik:diagrammerstellung/drawio.adoc[]
 |===

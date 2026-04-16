@@ -23,7 +23,7 @@ target/
 .flattened-pom.xml
 
 # Ignore diagrams.net-specific files
-*.dn.svg.bkp
+*.svg.bkp
 *.xml.bkp
 
 # Ignore OS-specific files
