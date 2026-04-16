@@ -15,31 +15,41 @@ public class TestTechnicalRuntimeException {
 		
 	@BeforeEach
 	public void setUp(){
-		pE = new BaseException(TestExceptionFactory.ausnahmeId, TestExceptionFactory.provider, TestExceptionFactory.parameter) {
+		pE = new BaseException(
+			TestExceptionFactory.AUSNAHME_ID,
+			TestExceptionFactory.PROVIDER,
+			TestExceptionFactory.PARAMETER
+		) {
 		};
-		ptE = new TechnicalRuntimeException(TestExceptionFactory.ausnahmeId, TestExceptionFactory.provider, TestExceptionFactory.parameter) {
+		ptE = new TechnicalRuntimeException(
+			TestExceptionFactory.AUSNAHME_ID,
+			TestExceptionFactory.PROVIDER,
+			TestExceptionFactory.PARAMETER
+		) {
 		};
 	}
 	
 	@Test
 	public void testGetterRuntimeException() {
 		TestExceptionFactory.MyTechnicalRuntimeException pte = TestExceptionFactory.getTechnicalRuntimeException();
-		assertEquals(TestExceptionFactory.ausnahmeId, pte.getAusnahmeId());
+		assertEquals(TestExceptionFactory.AUSNAHME_ID, pte.getAusnahmeId());
 	}
 	
 	@Test
 	public void testGetterRuntimeException2() {
 		RuntimeException e = new RuntimeException("meine Exception");
 		TestExceptionFactory.MyTechnicalRuntimeException pte = TestExceptionFactory.getTechnicalRuntimeException();
-		assertEquals(TestExceptionFactory.ausnahmeId, pte.getAusnahmeId());
+		assertEquals(TestExceptionFactory.AUSNAHME_ID, pte.getAusnahmeId());
 		assertEquals(
-			TestExceptionFactory.provider.getMessage(TestExceptionFactory.ausnahmeId, TestExceptionFactory.parameter), pte.getFehlertext());
+			TestExceptionFactory.PROVIDER.getMessage(TestExceptionFactory.AUSNAHME_ID, TestExceptionFactory.PARAMETER),
+			pte.getFehlertext()
+		);
 	}
 	
 	@Test
 	public void testBusinessException2(){
 		TestExceptionFactory.MyTechnicalRuntimeException pte = TestExceptionFactory.getTechnicalRuntimeException(pE);
-		assertEquals(TestExceptionFactory.ausnahmeId, pte.getAusnahmeId());
+		assertEquals(TestExceptionFactory.AUSNAHME_ID, pte.getAusnahmeId());
 		assertEquals(pE, pte.getCause());
 		assertEquals(pE.getMessage(), pte.getMessage());
 	}
@@ -47,7 +57,7 @@ public class TestTechnicalRuntimeException {
 	@Test
 	public void testBusinessException4(){
 		TestExceptionFactory.MyTechnicalRuntimeException pte = TestExceptionFactory.getTechnicalRuntimeException(ptE);
-		assertEquals(TestExceptionFactory.ausnahmeId, pte.getAusnahmeId());
+		assertEquals(TestExceptionFactory.AUSNAHME_ID, pte.getAusnahmeId());
 		assertEquals(ptE, pte.getCause());
 	}
 	
@@ -55,7 +65,7 @@ public class TestTechnicalRuntimeException {
 	public void testBusinessException5(){
 		Exception e = new Exception();
 		TestExceptionFactory.MyTechnicalRuntimeException pte = TestExceptionFactory.getTechnicalRuntimeException(e);
-		assertEquals(TestExceptionFactory.ausnahmeId, pte.getAusnahmeId());
+		assertEquals(TestExceptionFactory.AUSNAHME_ID, pte.getAusnahmeId());
 		assertEquals(e, pte.getCause());
 	}
 }

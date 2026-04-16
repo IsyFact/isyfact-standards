@@ -251,43 +251,65 @@ public class IsyJsonLayout extends JsonLayout {
      * @return the checked and possibly shortened log entry as a string
      */
     private String pruefeGroesse(Map<String, Object> map, String logeintrag, ILoggingEvent event) {
-        if (maxLength > 0 && // Check whether a maximum length has been defined (0 = any length)
-            event.getLevel().isGreaterOrEqual(Level.INFO) && // Consider only log messages that have level INFO or higher
-            logeintrag.length() >= (maxLength / 2.0)) { // Check whether the log message can reach the maximum size in bytes at all with its length
-
-            byte[] zeichen = logeintrag.getBytes(StandardCharsets.UTF_8);
-            int tatsaechlicheLaenge = zeichen.length;
-            if (tatsaechlicheLaenge > maxLength) {
-                // First remove all parameters from the log entry
-                map.replaceAll((k, v) -> {
-                    if (k.startsWith(PARAMETER_ATTR_NAME)) {
-                        return Ereignisschluessel.DEBUG_LOG_GEKUERZT.getNachricht();
-                    } else {
-                        return v;
-                    }
-                });
-
-                map.put(GEKUERZT_ATTR_NAME, LoggingKonstanten.TRUE);
-
-                int ueberhang = berechneUeberhang(map);
-
-                if (ueberhang > 0) {
-                    if (map.containsKey(EXCEPTION_ATTR_NAME)) {
-                        // First shorten exception if present, then message if still too long
-                        ueberhang = feldKuerzen(EXCEPTION_ATTR_NAME, map, ueberhang);
-                        if (ueberhang > 0) {
-                            feldKuerzen(NACHRICHT_ATTR_NAME, map, ueberhang);
-                        }
-                    } else {
-                        // Otherwise directly shorten the message
-                        feldKuerzen(NACHRICHT_ATTR_NAME, map, ueberhang);
-                    }
-                }
-                return getStringFromFormatter(map);
-            }
+        if (!isValidationRequired(logeintrag, event)) {
+            return logeintrag;
         }
 
-        return logeintrag;
+        if (!exceedsSize(logeintrag)) {
+            return logeintrag;
+        }
+
+        removeParameter(map);
+        map.put(GEKUERZT_ATTR_NAME, LoggingKonstanten.TRUE);
+
+        int ueberhang = berechneUeberhang(map);
+        shortenFieldsIfNecessary(map, ueberhang);
+
+        return getStringFromFormatter(map);
+    }
+
+    private boolean isValidationRequired(String logeintrag, ILoggingEvent event) {
+        // Check whether a maximum length has been defined (0 = any length)
+        if (maxLength <= 0) {
+            return false;
+        }
+        // Consider only log messages that have level INFO or higher
+        if (!event.getLevel().isGreaterOrEqual(Level.INFO)) {
+            return false;
+        }
+        // Check whether a maximum length has been defined (0 = any length)
+        return logeintrag.length() >= (maxLength / 2.0);
+    }
+
+    private boolean exceedsSize(String logeintrag) {
+        byte[] characters = logeintrag.getBytes(StandardCharsets.UTF_8);
+        return characters.length > maxLength;
+    }
+
+    private void removeParameter(Map<String, Object> map) {
+        map.replaceAll((k, v) -> k.startsWith(PARAMETER_ATTR_NAME)
+            ? Ereignisschluessel.DEBUG_LOG_GEKUERZT.getNachricht()
+            : v);
+    }
+
+    private void shortenFieldsIfNecessary(Map<String, Object> map, int ueberhang) {
+        if (ueberhang <= 0) {
+            return;
+        }
+
+        if (map.containsKey(EXCEPTION_ATTR_NAME)) {
+            limitMessageLength(map, ueberhang);
+            return;
+        }
+
+        feldKuerzen(NACHRICHT_ATTR_NAME, map, ueberhang);
+    }
+
+    private void limitMessageLength(Map<String, Object> map, int ueberhang) {
+        int rest = feldKuerzen(EXCEPTION_ATTR_NAME, map, ueberhang);
+        if (rest > 0) {
+            feldKuerzen(NACHRICHT_ATTR_NAME, map, rest);
+        }
     }
 
     /**

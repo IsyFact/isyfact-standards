@@ -8,11 +8,10 @@ import de.bund.bva.isyfact.logging.exceptions.InterceptionFehler;
 import de.bund.bva.isyfact.logging.impl.FehlerSchluessel;
 
 /**
- * Hilfsklasse zum Aufruf von Methoden per Reflection und dem gleichzeitigen erstellen standardisierter
- * Logeinträge.
- * 
- * 'T' ist die Ergebnisklasse der aufgerufenen Methode.
- * 
+ * Helper class for invoking methods via reflection while creating standardized log entries.
+ *
+ * @param <T>
+ *            Result type of the invoked method.
  */
 public class LoggingMethodInvoker<T> {
 

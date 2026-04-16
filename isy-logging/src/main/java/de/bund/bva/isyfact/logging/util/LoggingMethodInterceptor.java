@@ -32,7 +32,7 @@ public class LoggingMethodInterceptor implements MethodInterceptor, Initializing
     private boolean loggeDauer = true;
 
     /** Flag zum Kennzeichnen, ob immer die kompletten Anfragedaten gelogged werden sollen. */
-    private boolean loggeDaten = false;
+    private boolean loggeDaten;
 
     /**
      * Flag zum Kennzeichnen, ob die übergebenen Parameter des Aufrufs gelogged werden sollen, wenn eine
@@ -44,7 +44,7 @@ public class LoggingMethodInterceptor implements MethodInterceptor, Initializing
      * Konfigurationsparameter zum Festlegen der maximalen Größe von übergebenen Parameter des Aufrufs, mit
      * der sie noch ins Log geschrieben werden.
      */
-    private long loggeMaximaleParameterGroesse = 0;
+    private long loggeMaximaleParameterGroesse;
 
 
     /** Gibt an, ob der Standard BeanToMapConverter verwendet werden soll. */

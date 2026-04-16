@@ -16,31 +16,31 @@ public abstract class AbstractBoundaryLoggerProperties {
     /**
      * Kennzeichnen, ob an den Schnittstellen die Dauer eines Aufrufs gelogged werden soll. Default = false.
      */
-    private boolean loggeDauer = false;
+    private boolean loggeDauer;
 
     /**
      * Kennzeichnen, ob an den Schnittstellen der Start eines Methodenaufrufs gelogged werden soll. Default =
      * false.
      */
-    private boolean loggeAufruf = false;
+    private boolean loggeAufruf;
 
     /**
      * Kennzeichnen, ob an den Schnittstellen das Ergebnis eines Aufrufs (Erfolg/Misserfolg) gelogged werden
      * soll. Default = false.
      */
-    private boolean loggeErgebnis = false;
+    private boolean loggeErgebnis;
 
     /**
      * Kennzeichnen, ob an den Schnittstellen immer die kompletten Anfragedaten gelogged werden sollen.
      * Default = false.
      */
-    private boolean loggeDaten = false;
+    private boolean loggeDaten;
 
     /**
      * Kennzeichnen, ob an den Schnittstellen die übergebenen Parameter des Aufrufs gelogged werden sollen,
      * wenn eine Exception auftritt. Default = false.
      */
-    private boolean loggeDatenBeiException = false;
+    private boolean loggeDatenBeiException;
 
     /**
      * Includes, die für den BeanToMapConverter bei der Seriailiserung von Objektstrukturen zu verwenden sind.

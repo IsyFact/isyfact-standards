@@ -18,7 +18,7 @@ import de.bund.bva.isyfact.logging.http.HttpHeaderNestedDiagnosticContextFilter;
 public class MdcFilterAutoConfiguration {
 
     /**
-     * Automatically sets the Correlation-ID
+     * Automatically sets the Correlation-ID.
      */
     @Bean
     @ConditionalOnMissingBean(name = "httpHeaderNestedDiagnosticContextFilter")
