@@ -315,7 +315,7 @@ Technologiewechsel oder grundlegende fachliche Neuausrichtung eines Services.
 
 === Zuordnung zum Entscheidungsmodell
 
-Die Auswahl eines Musters erfolgt auf Basis von <<entscheidungsmodell-versionierung>>:
+Die Auswahl eines Musters erfolgt auf Basis des <<entscheidungsmodell-versionierung>>:
 
 1. Abwärtskompatible Änderung -> Kompatible Weiterentwicklung
 
