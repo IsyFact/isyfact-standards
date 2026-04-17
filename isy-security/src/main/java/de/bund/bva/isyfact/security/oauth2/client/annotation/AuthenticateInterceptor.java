@@ -58,8 +58,14 @@ public class AuthenticateInterceptor extends EmbeddedValueResolutionSupport impl
             authenticateOAuth2Client(invocation);
             return invocation.proceed();
         } finally {
-            // reset the authenticated principal after method
-            SecurityContextHolder.getContext().setAuthentication(initialAuthentication);
+            // clear the authenticated principal, when authentication was null
+            if (initialAuthentication == null) {
+                SecurityContextHolder.clearContext();
+            } else {
+                // set authentication in context, when authentication was not null
+                SecurityContextHolder.getContext().setAuthentication(initialAuthentication);
+            }
+
             if (correlationIdCreated) {
                 MdcHelper.entferneKorrelationsId();
             }
