@@ -1,11 +1,8 @@
 # 5.0.0
 ### FEATURES
 
-<<<<<<< feature/IFS-5379_kommunikation_mit_externen_system_flexibel_beschreiben
 - `IFS-5379`: [isyfact-standards-doc] Kommunikation mit externen Systemen flexibel beschreiben
-=======
 - `IFS-5227`: [isyfact-standards-doc] Erweiterung der Beschreibung des Anwendungskerns um Aufrufbeziehungen und Modellen für Parameter und Ergebnisse
->>>>>>> master
 - `IFS-5285`: [isyfact-standards-doc] Beschreibung des API-Gateways in der fachlichen Referenzarchitektur
 - `IFS-5226`: [isyfact-standards-doc] Nutzung von adaptiven Farben in draw.io Diagrammen
   * Zur Vermeidung von Darstellungsfehlern muss die Unterstützung adaptiver Farben abgeschaltet werden.
