@@ -368,7 +368,7 @@ Sie stellen wesentlich höhere Anforderungen an die Hardware-Infrastruktur (Rech
 
 == Kommunikation mit externen Systemen
 
-Die Kommunikation mit xref:glossary::terms-definitions.adoc#externes-system[externen Systemen] basiert auf Services, die über REST- oder SOAP-Schnittstellen bereitgestellt werden.
+Die Kommunikation mit xref:glossary::terms-definitions.adoc#externes-system[externen Systemen] basiert auf Services, die beispielsweise über REST- oder SOAP-Schnittstellen bereitgestellt werden.
 Wird ein Service von einem externen System angeboten, wird er als *externer Service* bezeichnet.
 Im Folgenden werden zwei Szenarien betrachtet.
 
