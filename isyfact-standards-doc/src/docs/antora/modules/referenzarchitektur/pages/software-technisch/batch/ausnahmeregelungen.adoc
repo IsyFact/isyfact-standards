@@ -1,18 +1,14 @@
 = Ausnahmeregelungen
 
-include::documentation-guide::partial$licence.adoc[]
-
 In bestimmten Situationen, zum Beispiel bei der Verarbeitung extrem großer Datenmengen, kann der Fall auftreten, dass die Implementierung eines Batches in Java nicht sinnvoll ist.
 In solchen Fällen muss dann eine Sonderlösung, wie zum Beispiel ein SQL-Skript oder ein Shell-Skript, gefunden werden.
 
 Die Entscheidung, ob in einem solchen Einzelfall eine Sonderlösung gewählt werden kann, muss zwingend in einer Architekturentscheidung erfolgen.
-Eine solche Abweichung von der Referenzarchitektur muss im Systementwurf in der Liste der Abweichungen aufgeführt und begründet werden.
+Eine solche Abweichung von der Referenzarchitektur muss im xref:methodik:vorlage-systementwurf/antora-master.adoc[Systementwurf] in der Liste der Abweichungen aufgeführt und begründet werden.
 Dabei muss die Abwägung getroffen werden zwischen der Einhaltung der nicht-funktionalen Anforderungen und der Verringerung der Wartbarkeit durch mehrfach implementierte Funktionalität.
 
 Wichtig ist, dass die einheitliche Außenschnittstelle der Batches erhalten bleibt.
 Anhand der übergebenen Parameter, Return Codes, Daten im Log darf für Nutzende des Batches nicht erkennbar sein, dass dieser in einer anderen Technologie umgesetzt ist.
-
-Die Dokumentation der abweichenden Batch-Implementierung erfolgt im Systementwurf und wird daraus in die Systemdokumentation übernommen.
 
 [[shell-batches]]
 == Shell-Batches
