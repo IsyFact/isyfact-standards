@@ -42,11 +42,23 @@
         <commons-io.version>2.21.0</commons-io.version>
         <resilience4j-bom.version>2.3.0</resilience4j-bom.version>
         <nimbus-jose-jwt.version>9.48</nimbus-jose-jwt.version>
+        <spring-security.version>6.5.9</spring-security.version>
     </properties>
 
     <!-- Dependency management for IsyFact core technology stack. -->
     <dependencyManagement>
         <dependencies>
+
+
+            <!-- Manual spring security version override to mitigate CVE-2026-22732 -->
+            <!-- Can be deleted, if updating Spring Boot to >= 3.5.13 -->
+            <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-bom</artifactId>
+                <version>${spring-security.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
 
             <dependency>
                 <groupId>org.springframework.boot</groupId>
