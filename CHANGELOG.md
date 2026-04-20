@@ -156,7 +156,7 @@ Architekturentscheidungen, die Abweichungen und Erweiterungen zur Referenzarchit
 
 Dieser Dokumenttyp wird entfernt. 
 Anstelle dessen wird der Systementwurf konsequent fortgeschrieben.
-Bestehende Systemdokumentationen können in der Regel als Systementwurf weitergeführt werden, da die Dokumenttypen sich inhaltlich stark überschneiden.
+Bestehende Systemdokumentationen können in der Regel als Systementwurf weitergeführt werden, da die Dokumenttypen sich inhaltlich fast vollständig überschneiden.
 
 [//]: # (### Deprecations)
 [//]: # (_keine_)
@@ -207,3 +207,8 @@ Weitere Informationen finden Sie in der [Spring Boot Dokumentation](https://docs
 <groupId>io.github.git-commit-id</groupId>
 <artifactId>git-commit-id-maven-plugin</artifactId>
 ```
+
+### Dokumentation
+
+Der Dokumenttyp "Systemdokumentation" wird entfernt.
+Bestehende Systemdokumentationen können in der Regel als Systementwurf weitergeführt werden, da die Dokumenttypen sich inhaltlich fast vollständig überschneiden.
