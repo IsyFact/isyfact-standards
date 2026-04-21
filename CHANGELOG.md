@@ -1,7 +1,7 @@
 # 5.0.0
 ### FEATURES
 
-- `IFS-5228`: [isyfact-standards-doc] Entfernung des Dokumenttyps Systemdokumentation aus der Methodik
+- `IFS-5359`: [isyfact-standards-doc] Entfernung des Dokumenttyps Systemdokumentation aus der Methodik
 - `IFS-5379`: [isyfact-standards-doc] Kommunikation mit externen Systemen flexibel beschreiben
 - `IFS-5227`: [isyfact-standards-doc] Erweiterung der Beschreibung des Anwendungskerns um Aufrufbeziehungen und Modellen für Parameter und Ergebnisse
 - `IFS-5285`: [isyfact-standards-doc] Beschreibung des API-Gateways in der fachlichen Referenzarchitektur
