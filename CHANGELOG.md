@@ -1,6 +1,7 @@
 # 5.0.0
 ### FEATURES
 
+- `IFS-5359`: [isyfact-standards-doc] Entfernung des Dokumenttyps Systemdokumentation aus der Methodik
 - `IFS-5379`: [isyfact-standards-doc] Kommunikation mit externen Systemen flexibel beschreiben
 - `IFS-5227`: [isyfact-standards-doc] Erweiterung der Beschreibung des Anwendungskerns um Aufrufbeziehungen und Modellen für Parameter und Ergebnisse
 - `IFS-5285`: [isyfact-standards-doc] Beschreibung des API-Gateways in der fachlichen Referenzarchitektur
@@ -151,6 +152,12 @@ Die Konzeption wurde um die strukturierten Verwendung von HTTP-Statuscodes (inkl
 
 Architekturentscheidungen, die Abweichungen und Erweiterungen zur Referenzarchitektur begründen, und die nur im Rahmen der Umsetzung einer Anwendung gelten, müssen nun im Systementwurf dokumentiert werden.
 
+#### Systemdokumentation
+
+Dieser Dokumenttyp wird entfernt. 
+Anstelle dessen wird der Systementwurf konsequent fortgeschrieben.
+Bestehende Systemdokumentationen können in der Regel als Systementwurf weitergeführt werden, da die Dokumenttypen sich inhaltlich fast vollständig überschneiden.
+
 [//]: # (### Deprecations)
 [//]: # (_keine_)
 
@@ -200,3 +207,8 @@ Weitere Informationen finden Sie in der [Spring Boot Dokumentation](https://docs
 <groupId>io.github.git-commit-id</groupId>
 <artifactId>git-commit-id-maven-plugin</artifactId>
 ```
+
+### Dokumentation
+
+Der Dokumenttyp "Systemdokumentation" wird entfernt.
+Bestehende Systemdokumentationen können in der Regel als Systementwurf weitergeführt werden, da die Dokumenttypen sich inhaltlich fast vollständig überschneiden.
