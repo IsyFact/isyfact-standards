@@ -37,13 +37,14 @@ import de.bund.bva.isyfact.ueberwachung.autoconfigure.IsyHealthAutoConfiguration
 
 @TestMethodOrder(MethodOrderer.MethodName.class)
 @SpringBootTest(
-    webEnvironment = RANDOM_PORT,
-    classes = {IsyHealthAutoConfiguration.class, HealthIntegrationTest.TestConfig.class},
-    properties = {
-        "isy.logging.anwendung.name=HealthIntegrationTest",
-        "isy.logging.anwendung.version=1.0.0-SNAPSHOT",
-        "isy.logging.anwendung.typ=Integrationstest"
-    }
+        webEnvironment = RANDOM_PORT,
+        classes = {IsyHealthAutoConfiguration.class, HealthIntegrationTest.TestConfig.class},
+        properties = {
+                "isy.logging.anwendung.name=HealthIntegrationTest",
+                "isy.logging.anwendung.version=1.0.0-SNAPSHOT",
+                "isy.logging.anwendung.typ=Integrationstest",
+                "isy.ueberwachung.security.jwk-set-uri=https://<keycloak-host>:11776/auth/realms/<realm>/protocol/openid-connect/certs"
+        }
 )
 class HealthIntegrationTest {
 
