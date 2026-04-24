@@ -32,7 +32,7 @@ Für die Überwachbarkeit der Anwendungen werden die folgenden Festlegungen getr
   Alle nicht benötigten Endpoints sind zu deaktivieren.
 * Endpoints werden nur passiv benutzt.
   Die Anwendung wird nicht darüber konfiguriert.
-* Der Zugriff auf Endpoints wird mit Benutzername und Passwort abgesichert.
+* Der Zugriff auf Endpoints wird mit OAuth2-Token abgesichert.
 * Anwendungen stellen einen definierten Satz von Überwachungsinformationen bereit.
 
 Beispielhaft wird eine mögliche Konfiguration zur Anbindung beschrieben.
@@ -337,10 +337,21 @@ Standardmäßig wird der Zugriff auf Endpoints durch OAuth2 Authentifizierung ab
  * `org.springframework.security:spring-security-config` und
  * `org.springframework.security:spring-security-web`
 
-im Klassenpfad verfügbar sind. D.h. hier muss ein Token mitgeschicket werden. das auf Gütligkeit geprüft wird.
+im Klassenpfad verfügbar sind. D.h. hier muss ein Token mitgeschickt werden, das auf Gütligkeit geprüft wird.
+
+Es kann die Security-Konfiguration der Applikation benutzt werden. Dann ist die Absicherung der Monitoring-Endpunkte gleich der API-Endpunkte.
+Existiert keine Standard-Absicherung oder soll gegen einen anderen Endpunkt validiert werden, muss das Property `isy.ueberwachung.security.jwk-set-uri` gesetzt werden.
+
+.Konfiguration der Absicherung in `application.properties`
+[id="listing-endpoint-security-properties",reftext="{listing-caption} {counter:listings }"]
+[source,properties]
+----
+# OAuth2 Absicherung der Überwachungs-Endpunkte (Default: Null)
+# OpenID Connect Zertifikats‑Endpoint
+isy.ueberwachung.security.jwk-set-uri=https://<keycloak-uri>:<port>/auth/realms/<realm>/protocol/openid-connect/certs
+----
 
 Nicht abgesichert ist der Health-Endpoint.
-
 
 Die Standardabsicherung der Endpoints kann per Konfiguration deaktiviert werden:
 
