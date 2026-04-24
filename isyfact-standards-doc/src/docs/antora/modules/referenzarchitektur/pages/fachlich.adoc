@@ -71,7 +71,9 @@ Das Portal integriert diese, bildet einen zentralen Einstiegspunkt für alle Anw
 [[api-gateway]]
 ==== API-Gateway
 
-include::fachlich/api-gateway.adoc[tags=api-gateway-definition-fachlich]
+include::glossary::terms-definitions.adoc[tag="api-gateway-definition-fachlich"]
+
+Die fachliche Referenzarchitektur beschreibt im Weiteren den xref:fachlich/api-gateway.adoc[fachlichen Kontext des API-Gateways].
 
 [[anwendung-fachliche-architektur]]
 == Fachliche Architektur einer Anwendung
