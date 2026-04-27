@@ -242,9 +242,7 @@ IMPORTANT: Ob Entwicklerteams sich für ein einfaches Schema Management mit Wiki
 
 In den meisten Fällen handelt es sich bei den Änderungen an Event-Typen um <<abwaertskompatible-aenderungen,abwärtskompatible Änderungen>>. Kommt beispielsweise das optionale Feld `kommentar` zur <<listing-schema-bestellung,Version 1>> des Event-Typs `BestellungErstellt` hinzu, entsteht eine neue Version aber kein neuer Event-Typ. Eine fortschreitende Versionierung von Event-Typen, die im Rahmen der Kompatibilität bleibt, wird als Schema Evolution bezeichnet.
 
-NOTE: Vorwärtskompatibilität stellt sicher, dass alte Consumer neue Nachrichten lesen können. Diese Form von Kompatibilität ist interessant, wenn Consumer erst später auf die neue Version umgestellt werden können.
-
-Im Beispiel verwenden neue Consumer die Version 2 beim Lesen von Nachrichten. Nachrichten, welche in der Version 1 erstellt wurden enthalten kein Feld `kommentar`. Da dieses jedoch optional ist, wird es einfach mit dem Wert `null` belegt und die Verarbeitung geht normal weiter.
+Im Beispiel verwenden alte Consumer das Schema in der Version 1 beim Lesen von Nachrichten. Nachrichten, welche mit der Version 2 erzeugt wurden, enthalten zusätzlich das Feld `kommentar`. Da der alte Consumer dieses nicht kennt, wird es einfach ignoriert und die Verarbeitung geht normal weiter.
 
 [id="listing-schema-bestellung-feld-optional",source,json,reftext="{listing-caption} {listing-number} {counter:listings}"]
 .Schema für den Event-Typ `BestellungErstellt` mit optionalem Kommentarfeld (Version 2)
