@@ -49,6 +49,7 @@
 - `IFS-4946`: [isyfact-standards-doc] Entfernt Installations- und Betriebsanleitung für RPM Deployment
 - `IFS-5252`: [isy-logging] Implementieren von Logging in ausgehenden REST-Requests
 - `IFS-5178`: [isyfact-standards-doc] Dokumentation der Bereitstellung von Changelogs von Schnittstellen
+- `IFS-5419`: [isyfact-standards-doc] Schlüssel von Korrelations-ID zu korrelationsId geändert
 
 ### BUG FIXES
 
