@@ -206,14 +206,19 @@ Folgendes Listing in der Definitionssprache https://avro.apache.org[Avro] zeigt,
   ]
 }
 ----
-
 NOTE: Avro wird wegen der leichten Verständlichkeit auch in den Folgebeispielen genutzt. Die Version wird in Klammern als fortlaufende Ganzzahl zwecks Verweis angegeben.
+
+==== Abwärts- vs. Vorwärtskompatibilität
+
+In Literatur und Dokumentationen kommt es gelegentlich zu Verwechslungen zwischen  Abwärts- und Vorwärtskompatibilität. Daher im Folgenden eine kurze Definition der beiden zur Abgrenzung.
+
+Ein Schema ist _abwärtskompatibel_, wenn bestehende Consumer unter Verwendung des alten Schemas in der Lage sind, Nachrichten korrekt zu verarbeiten, die mit dem neuen Schema erzeugt wurden. Vereinfacht formuliert: alte Consumer können neue Nachrichten lesen.
+
+Ein Schema ist hingegen _vorwärtskompatibel_, wenn aktualisierte Consumer unter Verwendung des neuen Schemas in der Lage sind, Nachrichten korrekt zu verarbeiten, die mit dem alten Schema erzeugt wurden. Vereinfacht formuliert: neue Consumer können alte Nachrichten lesen.
 
 == Datenkonsistenz
 
 In Event-basierten Systemen wie Kafka werden Nachrichten in Logdateien in der Regel für einen längeren Zeitraum persistiert (Event-Log). Daher müssen im Vergleich zu Queue-basierten Systemen Consumer in der Lage sein, auch alte Nachrichten zu lesen, wenn sie wieder eingespielt werden (Replay), etwa beim Eintritt einer neuen Consumer-Group oder Zurücksetzen des Eventstroms (Offset Reset).
-
-NOTE: Abwärtskompatibilität in Event-basierten Systemen bedeutet, dass neue Consumer in der Lage sind, Nachrichten von alten Producern korrekt zu verarbeiten.
 
 Eine standardisierte Schema-Verwaltung spielt für den Erhalt der Datenkonsistenz eine Schlüsselrolle.
 
