@@ -1,2 +1,2 @@
-# 3.3.2
-- `IFS-5252`: [isy-logging] Implementieren von Logging in ausgehenden REST-Requests
+# 3.4.0
+- `IFS-5419`: [isyfact-standards-doc] Schlüssel von Korrelations-ID zu korrelationsId geändert
