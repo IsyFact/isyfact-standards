@@ -244,6 +244,8 @@ In den meisten Fällen handelt es sich bei den Änderungen an Event-Typen um <<a
 
 Im Beispiel verwenden alte Consumer das Schema in der <<listing-schema-bestellung,Version 1>> beim Lesen von Nachrichten. Nachrichten, welche mit der <<listing-schema-bestellung-feld-optional,Version 2>> erzeugt wurden, enthalten zusätzlich das Feld `kommentar`. Da der alte Consumer dieses nicht kennt, wird es einfach ignoriert und die Verarbeitung geht normal weiter.
 
+In Nachrichten, die mit der alten Schema-Version erzeugt wurden, fehlt das Feld `kommentar`. Das ist aber für neue Consumer kein Problem, da es optional ist und einfach mit dem Wert `null` belegt wird.
+
 [id="listing-schema-bestellung-feld-optional",source,json,reftext="{listing-caption} {listing-number} {counter:listings}"]
 .Schema für den Event-Typ `BestellungErstellt` mit optionalem Kommentarfeld (Version 2)
 ----
