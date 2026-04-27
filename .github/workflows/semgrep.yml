@@ -4,36 +4,9 @@ on:
   pull_request:
     branches:
       - master
+      - 'support/**'
   workflow_dispatch: {}
 
 jobs:
   semgrep-scan:
-    runs-on: ubuntu-latest
-    container:
-      image: semgrep/semgrep
-
-    # Skip any PR created by dependabot to avoid permission issues
-    if: (github.actor != 'dependabot[bot]')
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v6
-
-      - name: Run semgrep version
-        run: |
-          semgrep --version
-
-      - name: Run semgrep scan on changed files
-        run: |
-          semgrep ci \
-            --config .github/config/semgrep \
-            --exclude ".github/config/semgrep/**" \
-            --json --output semgrep-report.json \
-            --metrics=off || export SEMGREP_EXIT=$?
-          exit $SEMGREP_EXIT
-
-      - name: Upload report as artifact
-        uses: actions/upload-artifact@v7
-        with:
-          name: semgrep-report.json
-          path: semgrep-report.json
+    uses: IsyFact/isy-github-actions-templates/.github/workflows/semgrep.yml@v2.5.0
