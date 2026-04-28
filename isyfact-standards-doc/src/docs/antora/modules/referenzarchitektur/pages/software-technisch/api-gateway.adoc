@@ -64,7 +64,7 @@ Das Authentication Gateway wird über OAuth 2.x angesprochen und kommuniziert au
 
 == Architekturvarianten
 
-Neben dem oben beschriebenen <<api-gateway-aufbau>> als Systemverbund aus eigens entwickelten Gateways und Querschnittsanwendungen, gibt es die Möglichkeit, das API-Gateway auf Basis der xref:plattform:plattform.adoc[Betriebsplattform] zu implementieren.
+Neben dem oben beschriebenen <<image-api-gateway-aufbau>> als Systemverbund aus eigens entwickelten Gateways und Querschnittsanwendungen, gibt es die Möglichkeit, das API-Gateway auf Basis der xref:plattform:plattform.adoc[Betriebsplattform] zu implementieren.
 
 [[image-api-gateway-produkt]]
 .Aufbau des API-Gateways auf Basis einer Plattform
