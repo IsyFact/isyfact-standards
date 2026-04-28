@@ -1,0 +1,75 @@
+= Aufbau des API-Gateways
+:navtitle: API-Gateway
+
+include::glossary::terms-definitions.adoc[tag=api-gateway-definition-technisch]
+
+[[api-gateway-gliederung]]
+== Gliederung des API‑Gateways
+
+Das API-Gateway gliedert sich in drei Bereiche, die jeweils eine andere Funktionalität bereitstellen, aber im Kern jeweils eine Brücke zwischen der Außenwelt einer Systemlandschaft und ihren internen Systemen bilden.
+Diese drei Bereiche stehen für:
+
+* Zugriff auf *Services*,
+* Zugriff auf externe *Ressourcen*,
+* Aufgaben im Bereich des *IAM*.
+
+Das folgende Diagramm verdeutlicht den <<image-api-gateway-aufbau>> noch einmal grafisch und zeigt, wie die drei Bereiche durch IT-Systeme umgesetzt werden können.
+Alle IT-Systeme im API-Gateway sind vom Typ xref:software-technisch/gateway.adoc[].
+
+
+[[image-api-gateway-aufbau]]
+.Aufbau des API-Gateways
+image::software-technisch/api-gateway-aufbau.dn.svg[]
+
+.Legende
+[%collapsible]
+====
+****
+Die Komponenten entsprechen IT-Systemen.
+Farbverläufe kennzeichnen, dass ein IT-System mehr als eine Form der Umsetzung besitzt.
+Die Verbindungen zwischen den Komponenten sind gerichtete Aufrufbeziehungen.
+Die Bezeichnungen an den Verbindungen beschreiben das Kommunikationsprotokoll.
+****
+====
+
+[[zugriff-auf-services]]
+=== Zugriff auf Services
+
+Der Bereich "Services" umfasst IT-Systeme, sogenannte xref:glossary::terms-definitions.adoc#glossar-service-gateway[Service-Gateways], die den Zugriff externer Systeme auf interne Services, sowie den Zugriff interner Systeme auf externe Services, ermöglichen.
+Zum Zugriff auf interne Systeme dient ein xref:software-technisch/gateway.adoc#ingress-gateway[Ingress-Gateway], zum Zugriff auf externe Services ein xref:software-technisch/gateway.adoc#egress-gateway[Egress-Gateway].
+Neben der Bereitstellung eines Gateways können auch mehrere, hintereinandergeschaltete Gateways den Zugriff realisieren, wenn sie jeweils auf einen Teilbereich der Aufgaben spezialisiert sind.
+
+Im <<image-api-gateway-aufbau>> sind Service-Gateways mit Farbverläufen zu sehen.
+Dies bedeutet, dass die Service-Gateways sowohl in Form einer Eigenentwicklung als auch einer Querschnittsanwendung umgesetzt sein können.
+
+Service-Gateways kommunizieren zu internen Systemen immer über REST-Schnittstellen.
+Die Kommunikation zu externen Systemen richtet sich nach den Anforderungen der externen Systeme.
+Explizit unterstützt werden aktuell REST- sowie SOAP-Schnittstellen.
+
+[[zugriff-auf-externe-ressourcen]]
+=== Zugriff auf externe Ressourcen
+
+Der Bereich "Ressourcen" umfasst Gateways, die den einheitlichen Zugriff auf externe Ressourcen, wie Dateien oder E-Mails, ermöglichen.
+Diese IT-Systeme sind ausschließlich xref:software-technisch/gateway.adoc#egress-gateway[Egress-Gateways].
+Sie authentifizieren den Benutzer am externen Server und übersetzen dessen Protokoll in eine REST-Schnittstelle, die von internen Systemen verstanden wird.
+
+Genauso wie beim <<zugriff-auf-services>> können die Egress-Gateways sowohl in Form einer Eigenentwicklung als auch einer Querschnittsanwendung umgesetzt sein können.
+
+[[iam]]
+=== IAM
+
+Der Bereich "IAM" umfasst Gateways, die zur Authentifizierung und Autorisierung von Anwendern und Systemen dienen.
+Er umfasst im Wesentlichen das als Querschnittsanwendung umgesetzte xref:software-technisch.adoc#prinzipien-der-sicherheitsarchitektur[Authentication Gateway].
+Das Authentication Gateway wird über OAuth 2.x angesprochen und kommuniziert auf demselben Weg mit dem in der Systemlandschaft liegenden IAM-Service.
+
+== Architekturvarianten
+
+Neben dem oben beschriebenen <<image-api-gateway-aufbau>> als Systemverbund aus eigens entwickelten Gateways und Querschnittsanwendungen, gibt es die Möglichkeit, das API-Gateway auf Basis der xref:plattform:plattform.adoc[Betriebsplattform] zu implementieren.
+
+[[image-api-gateway-produkt]]
+.Aufbau des API-Gateways auf Basis einer Plattform
+image::software-technisch/api-gateway-aufbau-plattform.dn.svg[]
+
+Moderne Betriebsplattformen können einen Großteil der Aufgaben eines API-Gateways übernehmen.
+Dies betrifft insbesondere die Aufgaben Routing, Authentifizierung & Autorisierung, Protokollierung & Monitoring sowie Sicherheit.
+Es verbleiben Gateway-Systeme, welche nach dem Passieren der Anfrage durch das API-Gateway die Transformation von Schnittstellenformaten und -technologien vornehmen.
