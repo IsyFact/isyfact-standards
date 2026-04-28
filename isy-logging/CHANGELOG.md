@@ -1,6 +1,6 @@
-# 4.3.0
+# 4.2.2
 ### FEATURES
-- `IFS-5252`: Implementieren von Logging in ausgehenden REST-Requests
+
 ### BUG FIXES
 
 ### BREAKING CHANGES
