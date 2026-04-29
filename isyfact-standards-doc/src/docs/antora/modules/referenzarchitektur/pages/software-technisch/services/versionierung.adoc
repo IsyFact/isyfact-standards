@@ -254,7 +254,6 @@ Für neue Felder sind in der Serviceschicht Defaultwerte einzutragen.
 
 Mit diesem Vorgehen ist kein Parallelbetrieb erforderlich.
 Dadurch ergibt sich minimaler Betriebsaufwand und keine zusätzliche Komplexität.
-
 Die Änderungsfreiheit ist jedoch eingeschränkt.
 
 ==== Auswirkungen
@@ -262,7 +261,7 @@ Die Änderungsfreiheit ist jedoch eingeschränkt.
 - Betrieb: keine zusätzlichen Instanzen
 - Komplexität: gering
 
-=== Parallele Schnittstellenversionen im gemeinsamen Backend
+=== Neue versionierte Service-Schnittstelle im gemeinsamen Backend
 Ein Beispiel für die hier behandelte Änderungen ist die Aufspaltung eines Feldes in mehrere Felder bei gleichbleibender fachlicher Logik.
 Das Backend stellt mehrere Versionen der veröffentlichten Service-Schnittstelle bereit.
 Hierfür ist eine zusätzliche Service-Schnittstelle in der Serviceschicht vorzusehen.
@@ -275,12 +274,10 @@ Ein Mapping zwischen Versionen ist möglich.
 
 Mit diesem Vorgehen wird eine kontrollierte Migration möglich.
 Eine Duplikation der Fachlogik ist nicht notwendig und der Infrastrukturaufwand bleibt gering.
-
 Die Komplexität in der Serviceschicht ist aber höher da eine Mapping-Logik notwendig ist.
 Zu beachten ist, dass bei vielen Versionen die Wartungskosten steigen.
 
 ==== Auswirkungen
-
 - Deployment: ein Deployment mit mehreren Schnittstellenversionen
 - Betrieb: gemeinsame Skalierung
 - Komplexität: mittel
@@ -295,12 +292,11 @@ Versionsspezifische Fachlogik darf nicht in der Service-Schnittstelle implementi
 Sie ist in getrennten Anwendungskomponenten oder getrennten Implementierungspfaden des Anwendungskerns zu kapseln.
 Die Service-Schicht vermittelt nur zur jeweils passenden Implementierung.
 Eine angemessene Wartbarkeit bei wachsender Divergenz wird durch die Nutzung möglicher gemeinsame Infrastrukturkomponenten erreicht und die Komplexität pro Version verringert.
-Negativ ist jedoch eine erhöhte Komplexität im Backend und eine teilweise Duplikation von Logik was sich in steigendem Testaufwand niederschlägt.
+ Die erhöhte Komplexität im Backend und eine teilweise Duplikation von Logik, was sich in steigendem Testaufwand niederschlägt, ist bei diesem Vorgehen als negativ zu betrachten.
 
 ==== Auswirkungen
-
 - Deployment: ein Deployment mit differenzierter Logik
-- Betrieb: gemeinsame Laufzeit, Monitoring jeder Version
+- Betrieb: gemeinsame Laufzeit, Monitoring jeder Version notwendig
 - Komplexität: mittel bis hoch
 
 IMPORTANT: Das Muster "Versionierte Service-Implementierung im bestehenden Backend" darf nicht zu versionsabhängigen Verzweigungen im Anwendungskern führen.
@@ -315,8 +311,6 @@ Beispiel: Technologiewechsel oder grundlegende fachliche Neuausrichtung eines Se
 Eine neue Service-Version wird als eigenständiges Backend realisiert.
 Notwendig aufgrund hoher fachliche oder technische Divergenz bei gleichzeigter Notwendigkeit eines langfristigen Parallelbetriebs.
 Jedes Backend hat eigene Betriebsanforderungen.
-Ein neues Backend ist keine Standardmaßnahme für Versionierung.
-Es ist eine bewusste Architekturentscheidung und im Systementwurf zu begründen.
 
 Diese Ausgestaltung zeichnet sich durch die vollständige Trennung von Serviceschicht und Anwendungskern jeder Version aus.
 Jede Version hat ein eigenständiges Deployment.
@@ -330,7 +324,6 @@ Ein neues Backend ist keine Standardmaßnahme für Versionierung.
 Es ist eine bewusste Architekturentscheidung und im Systementwurf zu begründen.
 
 ==== Auswirkungen
-
 - Deployment: separate Deployments / Container
 - Betrieb: getrennte Skalierung und Überwachung
 - Komplexität: hoch
