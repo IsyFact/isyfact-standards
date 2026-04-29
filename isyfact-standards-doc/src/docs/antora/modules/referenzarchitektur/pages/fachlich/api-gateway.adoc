@@ -1,25 +1,9 @@
-= API-Gateway
+= Fachlicher Kontext des API-Gateways
+:navtitle: API-Gateway
 
-// tag::api-gateway-definition-fachlich[]
+include::glossary::terms-definitions.adoc[tag="api-gateway-definition-fachlich"]
 
-Das xref:fachlich/api-gateway.adoc[] stellt den zentralen, einheitlichen Einstiegspunkt für alle externen Anwendungen (Clients) dar, die auf fachliche Funktionalitäten der Anwendungslandschaft zugreifen. Es kapselt interne Schnittstellen, schützt nachgelagerte Geschäftsanwendungen und bietet nach außen konsolidierte, versionierte und gesicherte APIs an.
-
-// end::api-gateway-definition-fachlich[]
-
-[[fachliche-verantwortlichkeiten]]
-== Fachliche Verantwortlichkeiten
-
-Aus fachlicher Sicht übernimmt das API‑Gateway die folgenden Verantwortlichkeiten:
-
-* Entkopplung zwischen den externen Anwendungen und den internen Backends der Geschäftsanwendungen durch einheitlich bereitgestellte und versionierte APIs,
-* Standardisierung des Zugriffs auf Geschäftsobjekte und ‑prozesse,
-* Schutz der internen Anwendungen vor Angriffen, Überlastung und unzulässigen Zugriffen,
-* Durchsetzung fachlich relevanter Zugriffsregeln.
-
-[[fachlicher-kontext]]
-== Fachlicher Kontext
-
-Das API‑Gateway kommuniziert mit den folgenden Akteuren:
+Das API‑Gateway kommuniziert dazu mit den folgenden Akteuren:
 
 * externen Anwendungen,
 * internen Geschäfts- und Querschnittsanwendungen,

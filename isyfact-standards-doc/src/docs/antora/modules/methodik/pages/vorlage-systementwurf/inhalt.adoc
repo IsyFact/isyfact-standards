@@ -60,24 +60,6 @@ Die IsyFact empfiehlt die Werkzeuge "diagrams.net/draw.io" sowie "Enterprise Arc
 === Bezug zum V-Modell® XT
 Der Bezug zum V-Modell® XT ist in der Methodik der IsyFact beschrieben.
 
-=== Systemdokumentation
-
-Aus dem Systementwurf entsteht die Systemdokumentation.
-Die Systemdokumentation erklärt die Zusammenhänge eines Systems und dient als Einstiegspunkt, um den Code zu verstehen und damit warten und weiterentwickeln zu können.
-
-Generell werden daher zum Zweck der Dokumentation alle Details und Konstruktionshinweise gelöscht, die nur dazu dienten, die Softwareentwickler bei der Programmierung des Systems anzuleiten.
-In der Systemdokumentation verbleiben alle Teile, die eine Übersicht über die Software beinhalten.
-
-In den Kapiteln ist damit folgendes zu modifizieren:
-
-* *<<einleitung>>*: Anpassen, da sich der Zweck der Systemdokumentation von dem eines Systementwurfs unterscheidet.
-* *<<fachlicher-ueberblick>>*: Belassen.
-* *<<softwarearchitektur-bsp-ga>>*: Verringern der Tiefe der Beschreibung in den Kapiteln zur Architektur der IT-Systeme und Querschnittskonzepte.
-Entfernen des Abschnitts zu Anforderungen.
-* *<<systementwicklung>>*: Die Anpassung dieses Kapitels liegt im Ermessen des jeweiligen Autors.
-* *<<betrieb>>*: Dieses Kapitel ist in der Regel lediglich eine Referenz.
-Die Anpassung dieses Kapitels liegt im Ermessen des jeweiligen Autors.
-
 [[einleitung]]
 == Einleitung
 
