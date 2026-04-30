@@ -1,17 +1,17 @@
-name: Check Maven
+name: Maven Build
 on:
   pull_request:
     branches:
       - master
       - 'release/**'
     paths-ignore:
-      - 'isyfact-standards-doc'
+      - 'isyfact-standards-doc/**'
   push:
     branches:
       - master
       - 'release/**'
     paths-ignore:
-      - 'isyfact-standards-doc'
+      - 'isyfact-standards-doc/**'
 
 jobs:
   Version:
@@ -24,6 +24,7 @@ jobs:
     uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_build_template.yml@v1.7.0
     with:
       version: ${{ needs.Version.outputs.next-version }}
+      maven-opts: '-PcentralSnapshot'
     secrets:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
@@ -36,7 +37,7 @@ jobs:
       version: ${{ needs.Version.outputs.next-version }}
       maven-opts: '-PcentralSnapshot'
       deploy-server-id: central
-      sbom: ${{ startsWith(github.ref, 'refs/heads/release/') }}
+      sbom: true
       sign: true
       environment: 'Release'
     secrets:
@@ -44,15 +45,3 @@ jobs:
       GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
       DEPLOY_SERVER_USER_NAME: ${{ secrets.MAVEN_CENTRAL_USER_NAME }}
       DEPLOY_SERVER_TOKEN: ${{ secrets.MAVEN_CENTRAL_TOKEN }}
-
-  DeployGitHubPackages:
-    if: github.event_name == 'push'
-    needs: [Version, Maven]
-    uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_deploy_template.yml@v1.7.0
-    with:
-      version: ${{ needs.Version.outputs.next-version }}
-      maven-opts: '-DaltDeploymentRepository=github::default::https://maven.pkg.github.com/IsyFact/isyfact-standards'
-      deploy-server-id: github
-    secrets:
-      DEPLOY_SERVER_USER_NAME: ${{ github.actor }}
-      DEPLOY_SERVER_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -3,6 +3,7 @@ on:
   pull_request:
     branches:
       - release/3.x
+  workflow_dispatch:
 
 jobs:
   DependencyReview:
