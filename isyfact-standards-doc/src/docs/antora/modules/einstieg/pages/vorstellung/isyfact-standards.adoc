@@ -130,7 +130,7 @@ Die xref:isy-datetime-docs:ROOT:nutzungsvorgaben/master.adoc#einleitung[Nutzungs
 
 [[administrative-ueberwachung-und-konfiguration]]
 === Administrative Überwachung und Konfiguration
-Das Dokument xref:isy-ueberwachung:konzept/master.adoc#einleitung[Konzept Überwachung] beschreibt, welche Arten von Konfiguration für eine Anwendung vorgesehen sind und wie diese umgesetzt werden sollen.
+Das Dokument xref:ueberwachung::konzept.adoc#einleitung[Konzept Überwachung] beschreibt, welche Arten von Konfiguration für eine Anwendung vorgesehen sind und wie diese umgesetzt werden sollen.
 Weiterhin wird in diesem Dokument gezeigt, wie die Überwachung und Administration einer Anwendung seitens des Systembetriebs erfolgt und welche Schnittstellen dazu durch die Anwendung zur Verfügung gestellt werden müssen.
 
 [[behandlung-von-internationalen-sonderzeichen]]

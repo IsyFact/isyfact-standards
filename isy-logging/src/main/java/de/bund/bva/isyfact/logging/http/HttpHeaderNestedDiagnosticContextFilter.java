@@ -32,7 +32,7 @@ public class HttpHeaderNestedDiagnosticContextFilter extends AbstractRequestLogg
     private static final IsyLogger LOG =
         IsyLoggerFactory.getLogger(HttpHeaderNestedDiagnosticContextFilter.class);
 
-    /** The name of the http header with the Correlation-ID*/
+    /** The name of the HTTP header with the Correlation-ID. */
     private String correlationIdHttpHeaderName = "X-Correlation-Id";
 
     /**

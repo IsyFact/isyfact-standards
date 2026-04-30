@@ -14,9 +14,10 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.assertj.core.api.ObjectAssert;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.resttestclient.autoconfigure.AutoConfigureTestRestTemplate;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.boot.resttestclient.TestRestTemplate;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -30,6 +31,7 @@ import de.bund.bva.isyfact.logging.http.HttpHeaderNestedDiagnosticContextFilter;
 import de.bund.bva.isyfact.logging.test.config.LeereTestConfig;
 import de.bund.bva.isyfact.logging.util.MdcHelper;
 
+@AutoConfigureTestRestTemplate
 @SpringBootTest(
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
         classes = {
@@ -37,6 +39,7 @@ import de.bund.bva.isyfact.logging.util.MdcHelper;
                 MdcFilterAutoConfigurationTest.TestConfig.class
         },
         properties = {
+                "spring.main.web-application-type=servlet",
                 "spring.main.banner-mode = off",
                 "isy.logging.anwendung.name = test",
                 "isy.logging.anwendung.typ = test",

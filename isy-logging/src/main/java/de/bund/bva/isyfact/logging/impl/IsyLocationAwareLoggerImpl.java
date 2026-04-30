@@ -22,10 +22,13 @@ public class IsyLocationAwareLoggerImpl implements IsyLogger {
      */
     private final String fqcn = IsyLocationAwareLoggerImpl.class.getName();
 
+    /** Default throwable for log entries without an exception. */
     private static final Throwable DEFAULT_THROWABLE = null;
 
+    /** Marker for business-data log entries. */
     private static final IsyMarker[] FACHDATEN_MARKER = { new FachdatenMarker() };
 
+    /** Marker for technical-data log entries. */
     private static final IsyMarker[] TECHNIKDATEN_MARKER = { new TechnikdatenMarker() };
 
     /**

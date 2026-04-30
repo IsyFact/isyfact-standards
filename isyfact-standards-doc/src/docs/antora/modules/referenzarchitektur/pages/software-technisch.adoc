@@ -67,34 +67,21 @@ Der Zweck eines Portals ist die gemeinsame Authentifizierung und Autorisierung f
 [[api-gateway]]
 === API-Gateway
 
-include::glossary::terms-definitions.adoc[tag=api-gateway-definition]
-
-Das API-Gateway besteht aus IT-Systemen des Typs xref:software-technisch/gateway.adoc[].
-Das bekannteste Beispiel hierfür sind <<service-gateways>>.
-Die <<prinzipien-der-sicherheitsarchitektur,Sicherheitsarchitektur>> beschreibt ein Authentication Gateway, das sich zentral um Authentifizierung und Autorisierung kümmert.
-Anwendungen können weitere Gateways erfordern, falls sie neben xref:glossary::terms-definitions.adoc#service[Services] andere Dienste, zum Beispiel E-Mail-Empfang oder -Versand, für externe Systeme bereitstellen.
+include::glossary::terms-definitions.adoc[tag=api-gateway-definition-technisch]
 
 Durch diese zentrale Rolle übernimmt das API-Gateway eine Vielzahl querschnittlicher technischer und sicherheitsrelevanter Aufgaben, die in der folgenden Übersicht zusammengefasst sind:
 
-* Einheitliche Sicherheitskontrollen über alle APIs (Token-Validierung, Zugriffsschutz via Keycloak)
-* Zentrales Routing zur Entkopplung von Frontends und Backends (Backend-Änderungen erfordern keine Anpassungen an SPAs)
-* Konsistente technische Standards für alle Services (CORS, TLS, Protokolle, Header)
-* Zentrale Durchsetzung von Rate Limiting, Timeouts und Circuit Breaking zum Schutz der Backends
-* Vereinheitlichtes Monitoring, Logging und Tracing für vollständige Transparenz der Anfragen
-* Unterstützung kontrollierter Deployment-Strategien wie API-Versionierung, Canary-Releases und Blue-Green-Deployments
-* Vermeidung redundanter Security- und Infrastruktur-Implementierungen in einzelnen Services
-* Klare und konsistente Exposition interner und externer APIs
+* einheitliche Sicherheitskontrollen über alle APIs (Token-Validierung, Zugriffsschutz via IAM),
+* zentrales Routing zur Entkopplung von Frontends und Backends (Backend-Änderungen erfordern keine Anpassungen an SPAs),
+* konsistente technische Standards für alle Services (CORS, TLS, Protokolle, Header),
+* zentrale Durchsetzung von Rate Limiting, Timeouts und Circuit Breaking zum Schutz der Backends,
+* vereinheitlichtes Monitoring, Logging und Tracing für vollständige Transparenz der Anfragen,
+* Unterstützung kontrollierter Deployment-Strategien wie API-Versionierung, Canary-Releases und Blue-Green-Deployments,
+* Vermeidung redundanter Security- und Infrastruktur-Implementierungen in einzelnen Services,
+* klare und konsistente Exposition interner und externer APIs.
 
-[[service-gateways]]
-==== Service-Gateways
+Die software-technische Referenzarchitektur beschreibt im Weiteren den xref:software-technisch/api-gateway.adoc[].
 
-xref:glossary::terms-definitions.adoc#glossar-service-gateway[Service-Gateways] bilden aktuell die meisten Aufgaben des API-Gateways ab, auch die des geplanten Authentication Gateways.
-Hierzu enthalten sie folgende Funktionalitäten:
-
-* Sie bilden die Aufrufe zwischen der Schnittstellentechnologie der externen Systeme und der Schnittstellentechnologie der Systemlandschaft ab.
-* Bei Aufrufen durch externe Systeme führen sie die Authentifizierung und eine erste Autorisierung des Aufrufs durch.
-
-Service-Gateways besitzen weder eine eigene Datenhaltung noch eigene Fachlichkeit.
 
 [[servicekommunikation]]
 == Servicekommunikation

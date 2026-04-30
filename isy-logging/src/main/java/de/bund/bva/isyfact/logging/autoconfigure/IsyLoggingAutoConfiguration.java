@@ -1,5 +1,7 @@
 package de.bund.bva.isyfact.logging.autoconfigure;
 
+import jakarta.validation.Valid;
+
 import org.aopalliance.intercept.MethodInterceptor;
 import org.springframework.aop.Advisor;
 import org.springframework.aop.aspectj.AspectJExpressionPointcut;
@@ -16,6 +18,7 @@ import de.bund.bva.isyfact.logging.config.AbstractBoundaryLoggerProperties;
 import de.bund.bva.isyfact.logging.config.IsyLoggingApplicationLoggerProperties;
 import de.bund.bva.isyfact.logging.config.IsyLoggingBoundaryLoggerProperties;
 import de.bund.bva.isyfact.logging.config.IsyLoggingComponentLoggerProperties;
+import de.bund.bva.isyfact.logging.util.IsyRestLogger;
 import de.bund.bva.isyfact.logging.util.LogApplicationListener;
 import de.bund.bva.isyfact.logging.util.LoggingMethodInterceptor;
 
@@ -50,6 +53,11 @@ public class IsyLoggingAutoConfiguration {
         return new IsyLoggingBoundaryLoggerProperties();
     }
 
+    @Bean
+    public IsyRestLogger restLogger(IsyLoggingBoundaryLoggerProperties isyLoggingBoundaryLoggerProperties) {
+        return new IsyRestLogger(isyLoggingBoundaryLoggerProperties);
+    }
+
     /**
      * Creates a bean for the configuration parameters of the component logger.
      *
@@ -68,7 +76,7 @@ public class IsyLoggingAutoConfiguration {
      * @return Listener for logging during startup/shutdown.
      */
     @Bean
-    public LogApplicationListener statusLogger(IsyLoggingApplicationLoggerProperties properties) {
+    public LogApplicationListener statusLogger(@Valid IsyLoggingApplicationLoggerProperties properties) {
         return new LogApplicationListener(properties.getName(), properties.getTyp(), properties.getVersion());
     }
 

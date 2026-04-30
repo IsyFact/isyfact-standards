@@ -1,5 +1,7 @@
 package de.bund.bva.isyfact.logging;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -42,7 +44,7 @@ public class LogMethodInvokerTest extends AbstractLogTest {
         methodInvoker.fuehreMethodeAus(new TestZielKlasse(), new TestZielParameterPerson("Mustermann", "Max",
                 "Peter", "Hans"), "TestParameter 2");
 
-        pruefeLogdatei("testAufrufErfolgreich");
+        assertDoesNotThrow(() -> pruefeLogdatei("testAufrufErfolgreich"));
 
     }
 
@@ -74,7 +76,7 @@ public class LogMethodInvokerTest extends AbstractLogTest {
                     "Max", "Peter", "Hans"), "TestParameter 2");
             Assertions.fail("Es wurde eine Exception erwartet - der Aufruf war aber erfolgreich.");
         } catch (InvocationTargetException _) {
-            pruefeLogdatei("testAufrufMitException", true);
+            assertDoesNotThrow(() -> pruefeLogdatei("testAufrufMitException", true));
         }
 
     }
@@ -106,7 +108,7 @@ public class LogMethodInvokerTest extends AbstractLogTest {
         methodInvoker.fuehreMethodeAus(new TestZielKlasse(), new TestZielParameterPerson("Mustermann", "Max",
                 "Peter", "Hans"), "TestParameter 2");
 
-        pruefeLogdatei("testAufrufErfolgreichNachbarsystem");
+        assertDoesNotThrow(() -> pruefeLogdatei("testAufrufErfolgreichNachbarsystem"));
 
     }
 
@@ -140,7 +142,7 @@ public class LogMethodInvokerTest extends AbstractLogTest {
             Assertions.fail("Es wurde eine Exception erwartet - der Aufruf war aber erfolgreich.");
         } catch (InvocationTargetException _) {
             // expecting this exception.
-            pruefeLogdatei("testAufrufMitExceptionNachbarsystem");
+            assertDoesNotThrow(() -> pruefeLogdatei("testAufrufMitExceptionNachbarsystem"));
         }
 
     }

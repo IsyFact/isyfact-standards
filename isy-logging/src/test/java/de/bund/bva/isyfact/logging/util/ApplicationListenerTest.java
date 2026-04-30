@@ -1,5 +1,7 @@
 package de.bund.bva.isyfact.logging.util;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -31,7 +33,7 @@ public class ApplicationListenerTest extends AbstractLogTest {
         childContext.setParent(context);
         childContext.register(ApplicationListenerChildConfig.class);
         childContext.refresh();
-        pruefeLogdatei("testApplicationContext");
+        assertDoesNotThrow(() -> pruefeLogdatei("testApplicationContext"));
     }
 
     @Configuration

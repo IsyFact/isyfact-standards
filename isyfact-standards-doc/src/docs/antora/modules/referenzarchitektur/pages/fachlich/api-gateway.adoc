@@ -1,0 +1,24 @@
+= Fachlicher Kontext des API-Gateways
+:navtitle: API-Gateway
+
+include::glossary::terms-definitions.adoc[tag="api-gateway-definition-fachlich"]
+
+Das API‑Gateway kommuniziert dazu mit den folgenden Akteuren:
+
+* externen Anwendungen,
+* internen Geschäfts- und Querschnittsanwendungen,
+* dem zentralen Identity & Access Management (IAM).
+
+.Fachliches Kontextdiagramm des API‑Gateways
+image::fachlich/api-gateway.dn.svg[]
+
+Externe Anwendungen rufen über das API-Gateway fachliche Schnittstellen auf, um Geschäftsvorgänge auszuführen oder Informationen abzurufen.
+
+Interne Geschäfts- und Querschnittsanwendungen nutzen das API‑Gateway auf mehrere Arten.
+Sie verarbeiten die durch das API‑Gateway delegierten Anfragen externer Anwendungen oder greifen selbst auf fachliche Schnittstellen externer Anwendungen zu.
+Außerdem nutzen sie das API-Gateway zur Kommunikation zwischen ihren technischen Bestandteilen, falls diese in Teilen außerhalb der Anwendungslandschaft liegen, wie zum Beispiel die im Browser der Anwender laufenden xref:glossary::terms-definitions.adoc#frontend[Frontends].
+
+Ein zentrales IAM befähigt das API-Gateway, externe Anwendungen zu authentifizieren und für den Zugriff auf interne Backends der Geschäftsanwendungen zu autorisieren, zum Beispiel durch Rollen oder eine Mandantenkennung.
+
+
+

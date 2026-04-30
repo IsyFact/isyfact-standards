@@ -32,11 +32,6 @@ Die unten beschriebenen Zielbilder sowie der Geltungsbereich der Referenzarchite
 Geschäftsanwendungen in der öffentlichen Verwaltung sind überwiegend Business-Anwendungen, die auf die Verarbeitung von Daten sowie eine geringe Anzahl von Anwendern (Sachbearbeitern) ausgelegt sind.
 Anforderungen wie schnelle LCP (Largest Contentful Paint) oder Search Engine Optimization (SEO) haben keine hohe Priorität, sodass der Architekturstil Server-Side Rendering (SSR) zunächst ausgeklammert werden kann.
 
-.icon:university[title=Architekturregel] Verwendung von Single-Page Applications (SPA)
-****
-Für alle im Geltungsbereich liegenden Frontends ist verpflichtend der Einsatz des Architekturstils Single-Page Application (SPA) vorgesehen.
-****
-
 Auf Basis dieser Architekturvorgabe werden zwei konkrete Zielbilder besprochen: _Single-Page Application (SPA) mit direkter Backend-Anbindung_ sowie die _Architekturvariante mit Backend-for-Frontend (BFF)_.
 
 === Single-Page Application (SPA) mit direkter Backend-Anbindung
@@ -67,9 +62,104 @@ Diese Vorgehensweise erhöht zunächst die Komplexität, ist jedoch ein bewährt
 * Umsetzung von Performance-, Sicherheits- oder Skalierbarkeitsanforderungen, die speziell für die Kommunikation zwischen Frontend und Backend relevant sind.
 * Vorverarbeitung, Filterung und Validierung sensibler oder sicherheitskritischer Daten im Backend, bevor sie an das Frontend gesendet werden – ohne die Backend-API für andere Dienste einschränken zu müssen.
 
-== Architekturgrundsätze & Leitlinien
+=== Architekturvariante: Modularisierte Single Page Application mit Native Federation
 
-NOTE: Abschnitt ist noch WIP
+Die Architekturvariante _Native Federation_ beschreibt eine modularisierte Single Page Application (SPA), bei der fachlich abgegrenzte Anwendungsdomänen (z. B. „Suche“, „Fallbearbeitung“, „Administration“) als eigenständig lieferbare Frontend-Komponenten umgesetzt und zur Laufzeit durch eine zentrale Anwendungskomponente (Shell) integriert werden.
+
+NOTE: Eine https://training.techtalk.at/blog/micro-frontends-mit-modernem-angular[Shell-Anwendung] ist die zentrale Anwendungskomponente innerhalb einer modularisierten Single Page Application.
+Sie stellt den technischen Rahmen der Anwendung bereit und integriert fachliche Frontend-Komponenten zur Laufzeit.
+
+[[native-federation-vs-spa]]
+.Vergleich "einfache" SPA mit Native Federation
+image::referenzarchitektur:software-technisch/frontend/architekturvariante-native-federation.drawio.svg[width=100%,align=center]
+
+Im Unterschied zu einer „einfachen“ SPA (ein Build-Artefakt, ein Deployment) erlaubt diese Variante getrennte Build- und Bereitstellungsprozesse je Komponente und reduziert damit Kopplungseffekte zwischen Organisationseinheiten und Liefergegenständen (Artefakten).
+
+Die erhöhte Komplexität ist gerechtfertigt, wenn organisatorische oder technische Rahmenbedingungen eine Modularisierung erfordern; insbesondere dann, wenn mehrere Organisationseinheiten oder Auftragnehmer parallel an derselben Anwendung arbeiten und unabhängige Release-Zyklen bzw. Freigaben benötigt werden.
+
+Native Federation ist sinnvoll, wenn mehrere der folgenden Entscheidungskriterien erfüllt sind:
+
+- *Skalierung von Organisationseinheiten*: Mindestens drei Teams (oder mehrere Dienstleister) entwickeln parallel an derselben Anwendung, und die zentrale Integration eines monolithischen Frontends führt zu Blockaden im Bereitstellungsprozess.
+- *Unabhängige Freigaben*: Fachliche Anwendungsdomänen müssen getrennt bereitgestellt werden (z. B. aufgrund unterschiedlicher Roadmaps, Abnahme- oder Freigabeprozesse bzw. Wartungsfenster).
+- *Fachliche Modularisierbarkeit*: Die Anwendung lässt sich entlang stabiler fachlicher Domänen strukturieren, ohne dauerhaft stark domänenübergreifenden UI-Zustand oder eng verflochtene Nutzungsszenarien zu erzwingen.
+- *Governance- und Architekturvorgaben*: Es bestehen verbindliche Regeln für Schnittstellen, Versionierung, Deprecation und Freigabeprozesse, um die kontrollierte Laufzeitintegration unabhängig bereitgestellter Frontend-Komponenten sicherzustellen.
+Ohne diese Architekturvorgaben besteht das Risiko von Laufzeitinkompatibilitäten und Beeinträchtigungen der Gesamtanwendung.
+Ein minimaler Rahmen umfasst:
+** Definition und Dokumentation von Integrationsschnittstellen,
+** verbindliche Versionierungsregeln (z. B. Semantic Versioning gemäß xref:methodik:versionierung/master.adoc[IsyFact-Versionierungskonzept]),
+** geregelte Deprecation- und Übergangsfristen bei inkompatiblen Änderungen,
+** versionierte Einbindung externer Komponenten (keine ungebundenen „Latest“-Referenzen),
+** etablierte Freigabe- und Qualitätssicherungsprozesse vor produktiver Integration.
+- *Betriebs- und Sicherheitsanforderungen*: Sicherheits- und Supply-Chain-Kontrollen (z. B. kontrollierte Bezugsquellen, Nachvollziehbarkeit von Build-Artefakten) sowie etablierte Verfahren für Protokollierung, Monitoring und Nachvollziehbarkeit sind organisatorisch und technisch umgesetzt.
+- *Testkonzept*: Es existiert ein belastbares Testkonzept mit einer Kombination aus Schnittstellen- (Contract-)Tests und Integrations- bzw. Smoke-Tests, um die Kompatibilität zwischen Shell-Komponente und fachlichen Komponenten kontinuierlich sicherzustellen.
+
+Sind diese Voraussetzungen nicht gegeben (z. B. nur ein bis zwei Teams, gemeinsamer Freigabezyklus, hohe funktionale Verflechtung), ist eine einfache SPA oder ein modular strukturierter Monolith (klare Modulgrenzen innerhalb eines gemeinsamen Build-Artefakts) in der Regel wirtschaftlicher und risikoärmer.
+
+Native Federation ist somit kein Standardvorgehen, sondern eine gezielte Architekturentscheidung zur Skalierung von Organisation, Lieferfähigkeit und Modernisierungsfähigkeit bei großen, langfristig betriebenen Anwendungen.
+== Architekturgrundsätze & -regeln für Frontends
+Dieses Kapitel beschreibt die übergreifenden Architekturgrundsätze und -regeln für die Gestaltung von Frontends im Geltungsbereich dieser Referenzarchitektur.
+
+Die hier formulierten Grundsätze sind verbindlich und dienen als normative Leitplanken für alle neu zu entwickelnden Frontends sowie für relevante Weiterentwicklungen bestehender Anwendungen.
+
+Ziel ist es, eine einheitliche, sichere, wartbare und langfristig evolvierbare Frontend-Landschaft sicherzustellen. 
+Konkrete technische Ausprägungen und Detailvorgaben werden in den nachfolgenden Kapiteln behandelt.
+
+=== Architekturgrundsätze
+
+==== AG-1: Trennung von Frontend und Backend
+Frontend und Backend MÜSSEN als eigenständige IT-Systemtypen mit klar abgegrenzten Verantwortlichkeiten konzipiert und betrieben werden.
+Diese Trennung SOLL eine unabhängige Entwicklung, den separaten Betrieb sowie eine evolvierbare Weiterentwicklung ermöglichen.
+
+==== AG-2: Frontend als nicht vertrauenswürdige Komponente
+Der IT-Systemtyp Frontend DARF NICHT als vertrauenswürdige Komponente betrachtet werden.
+Sicherheits- oder fachkritische Entscheidungen DÜRFEN NICHT im Frontend getroffen werden, sondern in Backend-Systemen.
+
+==== AG-3: Standardisierung vor projektspezifischen Sonderlösungen
+Die Gestaltung von Frontends SOLL einheitlichen architektonischen, technologischen und organisatorischen IsyFact-Standards des BVA folgen.
+Abweichungen MÜSSEN begründet und dokumentiert werden.
+
+==== AG-4: Evolvierbarkeit und Austauschbarkeit
+Frontend-Architekturen SOLLEN so gestaltet werden, dass technologische Weiterentwicklungen, der Austausch einzelner Komponenten sowie funktionale Erweiterungen mit vertretbarem Aufwand möglich sind
+
+==== AG-5: Modularer Aufbau entlang fachlicher Verantwortlichkeiten
+Frontends SOLLEN modular aufgebaut sein.
+Die Strukturierung SOLL sich primär an fachlichen Verantwortlichkeiten und Anwendungsdomänen orientieren, nicht ausschließlich an technischen Schichten.
+
+==== AG-6: Einheitlicher Zugriff auf Backend-Systeme
+Der Zugriff von Frontends auf Backend-Systeme SOLL einheitlich erfolgen.
+Hierfür SOLL ein zentrales API-Gateway als vermittelnde Komponente vorgesehen werden.
+
+==== AG-7: Backend-for-Frontend als optionale Architekturvariante
+Ein Backend-for-Frontend (BFF) SOLL als optionale Architekturvariante vorgesehen werden, wenn Anforderungen an Vorverarbeitung, Sicherheit, Performance oder Entkopplung zwischen Frontend und Backend bestehen.
+
+==== AG-8: Security und Datenschutz by Design
+Sicherheits- und Datenschutzanforderungen SOLLEN von Beginn an integraler Bestandteil der Frontend-Architektur sein.
+Personenbezogene Daten MÜSSEN auf das notwendige Minimum beschränkt und zweckgebunden verarbeitet werden.
+
+==== AG-9: Modularisierung nur bei nachgewiesenem Bedarf
+Eine Laufzeit-Modularisierung (z. B. via Native Federation) SOLL nur eingesetzt werden, wenn organisatorische oder fachliche Gründe dies erfordern (z. B. mehrere Teams/Lieferanten, unabhängige Release-Zyklen).
+Andernfalls SOLL eine einfache SPA oder ein modularer Monolith bevorzugt werden.
+
+==== AG-10: Kontrollierte Runtime-Integration über Shell
+Frontends, die aus mehreren unabhängig bereitgestellten Modulen bestehen (Native Federation), SOLLEN über eine zentrale Shell-Anwendung integriert werden.
+Die Shell SOLL ausschließlich Integrations- und Querschnittsaufgaben (z. B. Routing, Authentifizierung, Layout, Fehlerbehandlung) übernehmen; fachliche Logik SOLL in den Fachmodulen verbleiben.
+
+==== AG-11: Verbindliche Integrationsverträge und Versionierung
+Bei der Integration unabhängig deployter Frontend-Module über Native Federation MÜSSEN öffentliche Schnittstellen (Contracts) definiert, versioniert und über Deprecation-Regeln gesteuert werden.
+Die produktive Einbindung SOLL versiongebunden erfolgen (keine ungebundenen „Latest“-Referenzen), um Laufzeitinkompatibilitäten zu vermeiden.
+
+=== Architekturregeln
+
+.icon:university[title=Architekturregel] Verwendung von Single-Page Applications (SPA)
+****
+Für alle Frontends im Geltungsbereich dieser Referenzarchitektur MUSS der Architekturstil Single-Page Application (SPA) verwendet werden.
+****
+
+.icon:university[title=Architekturregel] Verwendung von Native Federation zur Laufzeit-Modularisierung
+****
+Für alle Frontends im Geltungsbereich dieser Referenzarchitektur, bei denen eine Laufzeit-Modularisierung erforderlich ist (z. B. mehrere Teams/Lieferanten und getrennte Release-Zyklen), MUSS Native Federation (ES-Module-basierte Integration über eine Shell-Anwendung) verwendet werden.
+Bundler- bzw. Webpack-gebundene Federation-Mechanismen (insbesondere Module Federation) DÜRFEN hierfür nicht eingesetzt werden.
+****
 
 == Technologie-Stack & Referenzbausteine
 

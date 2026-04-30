@@ -1,35 +1,214 @@
 = Versionierung
 
+include::documentation-guide::partial$content-revised-page.adoc[]
+
 Die Notwendigkeit, Services in mehreren Versionen anbieten zu können, ist bedingt durch die Vielzahl an Service-Nutzern, die bei Änderung an einem Service nicht alle zeitgleich auf die neue Version eines Service umschalten können.
-Daher ist es notwendig, dass in einem – möglichst klein zu haltenden – Übergangszeitraum mehrere Versionen eines Service parallel betrieben werden können.
+Daher ist es notwendig, dass in einem, wenn möglich, kurz zu haltenden Übergangszeitraum mehrere Versionen eines Service parallel betrieben werden können.
 
 Die Versionierung wird auf der Ebene von Services, nicht Service-Operationen ausgeführt, da diese Ebene von ihrer Granularität zu den üblichen fachlichen Änderungen passt.
 
 Es kann vorkommen, dass in _einem_ Systemrelease neue Versionen von _mehreren_ Services ausgeliefert werden.
 
+IMPORTANT: Eine Version beschreibt die evolutionäre Weiterentwicklung desselben fachlichen Konzepts.
+Wird ein anderes fachliches Konzept umgesetzt, ist keine Versionierung, sondern eine neue Schnittstelle erforderlich.
+
+[[abwaertskompatibilitaet]]
+== Abwärtskompatibilität
+
+Als Abwärtskompatibilität wird die Verwendbarkeit bzw. Kompatibilität neuerer oder erweiterter Versionen eines Services bzw. einer Nachricht oder eines Events zu den Anwendungsbedingungen einer früheren Version bezeichnet.
+Diese liegt vor, wenn bestehende Kommunikationsteilnehmer eine neue Version eines Services, einer Nachricht oder eines Events ohne Anpassung ihres Codes oder ihrer Konfiguration weiterhin korrekt nutzen können
+
+NOTE: Diese Definition basiert auf dem Wikipedia-Artikel zur https://de.wikipedia.org/wiki/Kompatibilit%C3%A4t_(Technik)#Abw%C3%A4rtskompatibilit%C3%A4t[Abwärtskompatibilität].
+
+Abwärtskompatibilität umfasst sowohl technische als auch fachliche Aspekte.
+Technische Kompatibilität liegt vor, wenn die Struktur und Datentypen weiterhin verarbeitet werden können.
+Fachliche Kompatibilität liegt vor, wenn die Semantik der Daten unverändert bleibt.
+Eine Änderung kann technisch kompatibel, aber fachlich inkompatibel sein und stellt in diesem Fall einen Breaking Change dar.
+Abwärtskompatibilität ermöglicht Übergangszeiträume, in denen sich die Kommunikationsteilnehmer schrittweise an die Änderungen anpassen können, ohne dass es zu Unterbrechungen oder Fehlern in der Kommunikation kommt.
+
+Die Verantwortung für Änderungen und damit für die Abwärtskompatibilität liegt in der Regel beim Provider von Services bzw. beim Producer/Publisher von Nachrichten und Events, da diese die Schnittstelle bzw. das Format der Nachrichten und Events definieren und somit für die Consumer festlegen.
+Ausnahmen bilden Szenarien, in denen ein Consumer viele Producer/Publisher orchestriert und aus diesem Grund das Format der Nachrichten oder Events vorgibt, zum Beispiel im Bereich Telemetrie oder Protokollierung.
+
+Inkompatible Änderungen (englisch: _breaking changes_) sind dagegen Änderungen an der Schnittstelle eines Services bzw. am Format einer Nachricht oder eines Events, welche die Anwendungsbedingungen einer früheren Version verletzen.
+Sie führen zu Fehlern oder Unterbrechungen in der Kommunikation, wenn die Kommunikationsteilnehmer nicht gleichzeitig auf die neue Version wechseln können und müssen daher genau geplant und kommuniziert werden.
+
+=== Abwärtskompatible Änderungen
+
+Für die Gewährleistung von Abwärtskompatibilität wird ein tolerantes Verhalten der Kommunikationsteilnehmer vorausgesetzt:
+
+- Consumer müssen unbekannte Felder ignorieren können.
+- Producer dürfen bestehende Felder nicht entfernen oder in ihrer Bedeutung verändern.
+
+Bei asynchroner Kommunikation ist Abwärtskompatibilität dann gegeben, wenn bestehende Consumer Nachrichten oder Events weiterhin verarbeiten können, ohne dass Fehlverhalten entsteht.
+
+Diese Grundsätze gelten auch für synchrone Kommunikation.
+Bei asynchroner Kommunikation ist ein tolerantes Verhalten der Consumer zwingend erforderlich, da Producer und Consumer zeitlich und technisch entkoppelt sind.
+
+Bei synchroner Kommunikation wird Abwärtskompatibilität dadurch erreicht, dass bestehende Service-Nutzende neue Versionen ohne Anpassung weiterhin korrekt nutzen können.
+Dies setzt insbesondere voraus, dass zusätzliche Felder die Verarbeitung bestehender Clients nicht beeinträchtigen.
+Die Schnittstelle muss so gestaltet sein, dass bestehende Clients weiterhin funktionieren.
+
+Die folgenden Beispiele stellen häufig vorkommende, abwärtskompatible Änderungen dar.
+
+[cols="1,2",options="header"]
+|===
+|Änderungstyp
+|Auswirkung auf die Kommunikation
+
+|Optionales Feld hinzufügen
+|Die Kommunikationsteilnehmer können das Feld bei Bedarf setzen bzw. berücksichtigen.
+
+|Neues Feld mit Standardwert hinzufügen
+|Die Kommunikationsteilnehmer können das Feld bei Bedarf mit einem eigenen Wert belegen bzw. berücksichtigen.
+
+|Optionale neue Operation / Nachricht / Event hinzufügen
+|Die Kommunikationsteilnehmer können die Operation bei Bedarf aufrufen, bzw. die Nachricht oder das Event produzieren oder konsumieren.
+|Zusätzliche Response-Felder
+|Die Kommunikationsteilnehmer können zusätzliche Felder ignorieren, sofern sie diese nicht auswerten.
+|===
+
+=== Inkompatible Änderungen
+
+Die folgenden Beispiele stellen häufig vorkommende, inkompatible Änderungen (Breaking Changes) dar.
+
+[cols="1,2",options="header"]
+|===
+|Änderungstyp
+|Auswirkung auf die Kommunikation
+
+|Neues Pflichtfeld hinzufügen
+|Die Kommunikationsteilnehmer müssen das neue Feld verwenden.
+Eine Übergangsphase mit einer frühzeitigen Einführung des Feldes als optional kann die Auswirkungen dieses Breaking Changes mindern.
+
+|Feld umbenennen / entfernen
+|Die Kommunikationsteilnehmer können Services nicht mehr nutzen oder keine Nachrichten / Event mehr produzieren oder konsumieren.
+
+Flexible Validierungen und Verarbeitungslogiken können die Auswirkungen eines solchen Breaking Changes mindern.
+
+|Typ oder Semantik eines Felds ändern
+|Werte werden von den Kommunikationsteilnehmern falsch interpretiert oder führen zu Konvertierungsfehlern, auch wenn die Struktur gleich bleibt.
+Diese Änderungen sollten vermieden werden, da sie schwer zu kommunizieren und zu behandeln sind.
+
+Stattdessen sollte ein neues Feld eingeführt und das alte Feld zu einem späteren Zeitpunkt entfernt werden.
+
+|Änderung des Fehlerverhaltens oder von Statuscodes
+|Die Kommunikationsteilnehmer können auf unerwartete Fehler reagieren oder bestehende Fehlerbehandlungen greifen nicht mehr.
+|===
+
+[[entscheidungsmodell-versionierung]]
+== Entscheidungsmodell zur Versionierung
+
+Aufbauend auf der Definition der Abwärtskompatibilität legt die Referenzarchitektur ein verbindliches Entscheidungsmodell für die Versionierung von Services, Nachrichten und Events fest.
+
+Das Entscheidungsmodell beantwortet, wann
+
+- eine bestehende Schnittstelle erweitert werden sollte und wann eine neue Version bereitzustellen ist,
+- ein neuer Kanal erforderlich ist und
+- ein neues Backend sinnvoll ist.
+
+Die Entscheidung über die Notwendigkeit einer neuen Version ist von ihrer technischen Umsetzung zu trennen.
+Eine neue Service-Version bedeutet nicht zwingend eine neue Serviceschnittstelle oder ein neues Backend.
+Die Einführung einer neuen Service-Version erzwingt also keine bestimmte technische Realisierungsform.
+Sie kann beispielsweise innerhalb derselben Serviceschicht und desselben Backends umgesetzt werden.
+In der Regel wird eine neue Service-Version als eigene Serviceschnittstelle innerhalb derselben Serviceschicht realisiert.
+
+=== Entscheidungsregeln
+==== Abwärtskompatible Änderungen
+
+Ist eine Änderung abwärtskompatibel, so wird die bestehende Schnittstelle erweitert.
+Dies bedeutet:
+
+- keine neue Service-Version,
+- kein neuer Kanal,
+- kein neues Backend.
+
+Abwärtskompatible Änderungen sollen innerhalb derselben Version weiterentwickelt werden, um unnötige Parallelität und Versionsvielfalt zu vermeiden.
+
+==== Nicht abwärtskompatible Änderungen an synchronen Services
+Ist eine Änderung an einem synchronen Service nicht abwärtskompatibel, so ist eine neue Service-Version bereitzustellen.
+Die bestehende Version bleibt für einen Übergangszeitraum parallel verfügbar, sofern bestehende Service-Nutzende nicht zeitgleich migriert werden können.
+
+==== Nicht abwärtskompatible Änderungen an Nachrichten und Events
+Ist eine Änderung an einer Nachricht oder einem Event nicht abwärtskompatibel, so ist eine neue Version des Formats bereitzustellen.
+Können bestehende Consumer mehrere Versionen nicht sicher parallel verarbeiten, ist zusätzlich ein neuer Kanal vorzusehen, zum Beispiel eine eigene Queue, ein eigenes Topic oder ein eigener Event-Typ.
+Dieser Kanal ist dann fpr die neue Version der Consumer vorgesehen.
+Dies bedeutet: Wenn bestehende Consumer eine geänderte Nachricht oder ein Event nicht mehr korrekt verarbeiten können, dann darf das bestehende Format nicht einfach verändert werden, vielmehr muss ein neues, getrenntes Nachrichtenformat definiert werden.
+
+==== Neues Backend
+Ein neues Backend ist nicht die Standardmaßnahme bei Versionierung.
+Es ist dann sinnvoll, wenn
+
+- sich die fachliche Verarbeitung zwischen den Versionen nicht mehr mit vertretbarem Aufwand gemeinsam abbilden lässt,
+- mehrere inkompatible Versionen langfristig parallel betrieben werden müssen oder
+-  nicht-funktionale Anforderungen eine getrennte Bereitstellung erfordern.
+
+In allen anderen Fällen sollen mehrere Versionen durch dasselbe Backend unterstützt werden.
+
+=== Entscheidungsraster
+
+[cols="2,2,4",options="header"]
+|===
+|Kommunikationsmuster
+|Änderungstyp
+|Empfohlene Maßnahme
+
+|Synchroner Service
+|abwärtskompatibel
+|Bestehende Schnittstelle erweitern
+
+|Synchroner Service
+|nicht abwärtskompatibel
+|Neue Service-Version bereitstellen (In der Regel über eine zusätzliche Service-Schnittstelle realisiert.)
+
+|Nachricht/ Event
+|abwärtskompatibel
+|Bestehendes Nachrichtenformat/ Event erweitern
+
+|Nachricht/ Event
+|nicht abwärtskompatibel
+|Neue Version des Event-/ Nachrichtenformats bereitstellen; bei fehlender Parallelverarbeitbarkeit zusätzlicher neuer Kanal
+|===
+
+=== Einordnung in die Referenzarchitektur
+Gemäß der xref:referenzarchitektur:fachlich.adoc[Referenzarchitektur] der IsyFact werden Versionierungsentscheidungen für synchrone Services in der Regel innerhalb einer Serviceschicht umgesetzt.
+
+Daraus folgen für synchrone Services die folgenden Grundsätze:
+
+- Eine neue Service-Version wird in der Regel als eigene Service-Schnittstelle in der Serviceschicht umgesetzt.
+- Verschiedene Service-Versionen verwenden denselben Anwendungskern.
+- Versionsspezifische Transformationen erfolgen grundsätzlich in der Service-Schnittstelle des Backends.
+- Ein Service-Gateway übernimmt keine Fachlogik zur Behandlung unterschiedlicher Versionen.
+
 [[architektur]]
 == Architektur
 
-Backends bieten pro Service-Version eine eigene Service-Schnittstelle an.
-Die unterschiedlichen Versionen des Services verwenden alle denselben xref:referenzarchitektur:software-technisch/backend/anwendungskern.adoc[Anwendungskern].
-Die für die Versionierung notwendigen Transformationen sind Teil der jeweiligen Service-Schnittstelle (z.B. das Einfügen eines Standardwerts für neu hinzugefügte Attribute).
-In komplexen Fällen kann es auch notwendig sein, den Anwendungskern zu erweitern und die Versionierung dort zu behandeln.
-Die Entscheidung dafür ist im Systementwurf zu dokumentieren.
+Die in <<entscheidungsmodell-versionierung>> beschriebenen Entscheidungen werden für synchrone Services in der Referenzarchitektur der IsyFact in der Regel innerhalb einer Service-Schicht umgesetzt.
+
+Erfordert eine nicht abwärtskompatible Änderung eine neue Service-Version, so wird diese im Regelfall als eigene Service-Schnittstelle in der Serviceschicht des Backends bereitgestellt.
+Mehrere Service-Versionen können dabei denselben xref:referenzarchitektur:software-technisch/backend/anwendungskern.adoc[Anwendungskern] verwenden, sofern sich die fachliche Verarbeitung mit vertretbarem Aufwand gemeinsam abbilden lässt.
+
+Die für die Versionierung notwendigen Transformationen sind Teil der jeweiligen Service-Schnittstelle.
+Hierzu gehören insbesondere das Ergänzen von Standardwerten, die Abbildung unterschiedlicher Datenstrukturen sowie die Behandlung versionsspezifischer Unterschiede.
+Fachlogik des Anwendungskerns soll dabei nicht dupliziert werden.
+
+Eine Trennung innerhalb des Anwendungskerns oder die Bereitstellung eines eigenen Backends kann sinnvoll sein, wenn sich die fachliche Semantik zwischen den Versionen wesentlich unterscheidet, mehrere inkompatible Verarbeitungslogiken langfristig parallel unterstützt werden müssen oder die gemeinsame Realisierung zu unverhältnismäßig ist.
+
+Die Entscheidung hierfür ist im Systementwurf zu dokumentieren.
 
 Externe Services werden durch xref:glossary::terms-definitions.adoc#glossar-service-gateway[Service-Gateways] bereitgestellt.
-Die Versionierung eines Services muss also auch auf Ebene des Service-Gateways durchgeführt werden.
 
 ****
 Ein Service-Gateway ist ein technischer Zugriffspunkt zwischen externen Systemen und internen Services.
-Hauptaufgaben können Routing, Security, Lastverteilung und Mapping auf die entsprechenden Service-Schnittstellen der angebundenen Backends sein.
 Fachlogik oder komplexe Orchestrierungen finden im Gateway nicht statt.
+Die Behandlung von Versionsunterschieden erfolgt daher grundsätzlich im Backend und nicht im Service-Gateway.
 ****
 
-Der Ausgleich der Versionsunterschiede erfolgt ausschließlich im Backend und nicht im Service-Gateway.
-Es ist möglich, pro Service-Version ein eigenes Service-Gateway zu erstellen.
+Es ist möglich, pro Service-Version ein eigenes Service-Gateway zu erstellen, sofern dies aus technischen oder betrieblichen Gründen erforderlich ist.
+
+NOTE: Für den Standardfall einer nicht abwärtskompatible Änderung, bei gleichbleibender fachlicher Logik, die kein neues Backend erforderlich macht, ergibt sich folgende Architektur:
 
 [[image-archversServ]]
-.Architektur versionierter Services
+.Standardfall für die Architektur versionierter Services
 image::referenzarchitektur:software-technisch/services/versionierung.dn.svg[]
 
 [[abwaertskompatible-erweiterung]]
@@ -41,10 +220,11 @@ Dazu gibt es einen Meldung-Service in der Version 1.0.
 Dieser wird in der Serviceschicht des Backends implementiert.
 Ab einem Stichtag soll zusätzlich noch der Geburtsort gemeldet werden.
 Im bisherigen Datenbestand wird dieses neue Attribut auf den Wert "unbekannt" gesetzt.
-Der bestehende Service wird um dieses Attribut erweitert und erhält die Versionsnummer 1.1.
+Der bestehende Service wird um dieses Attribut erweitert.
+Da es sich um eine abwärtskompatible Änderung handelt, bleibt es bei derselben Service-Version.
 Anwendungskern und Persistenzschicht müssen ebenfalls erweitert werden.
-Aus Gründen der Rückwärtskompatibilität soll aber weiterhin die Version 1.0 des Service angeboten werden.
-Dazu wird ein neuer Service innerhalb der Serviceschicht implementiert, der die Meldung entgegennimmt, das fehlende Attribut mit dem Wert "unbekannt" ergänzt und dann den Anwendungskern aufruft.
+
+Die Serviceschicht stellt sicher, dass Aufrufe ohne Angabe des Geburtsorts weiterhin korrekt verarbeitet werden können, indem für das fehlende Attribut der Wert "unbekannt" ergänzt wird.
 
 Werden die beiden Services durch ein Service-Gateway nach außen verfügbar gemacht, existieren dort zwei parallele Mappings auf die jeweiligen Services des Backends.
 Innerhalb des Service-Gateways existiert keine Geschäftslogik, d.h. die Abbildung von Version 1.0 auf 1.1 findet erst im Backend statt.
@@ -52,10 +232,19 @@ Innerhalb des Service-Gateways existiert keine Geschäftslogik, d.h. die Abbildu
 [[inkompatible-veraenderung]]
 == Inkompatible Veränderung eines Services
 
-In einem komplexeren Fall kann es passieren, dass Services von Backends so umgestaltet werden, dass die Aufrufe nicht mehr aufeinander abgebildet werden können.
-Wird in so einem Fall ein neuer Service eingeführt, während der alte Service noch verfügbar bleiben muss, müssen die inkompatiblen Verarbeitungslogiken im Anwendungskern parallel unterstützt werden.
-Auch hier enthält das Service-Gateway keine Geschäftslogik.
+Ist eine Änderung an einem Service nicht abwärtskompatibel, ist gemäß dem <<entscheidungsmodell-versionierung>> eine neue Service-Version bereitzustellen.
+Kann die neue Version mit vertretbarem Aufwand auf dieselbe fachliche Verarbeitung abgebildet werden, so können mehrere Service-Versionen denselben Anwendungskern nutzen.
+In diesem Fall enthält die Serviceschicht für jede Version eine eigene Service-Schnittstelle mit der jeweils erforderlichen Transformationslogik.
 
-IMPORTANT: Eine Versionierung ist nur dann sinnvoll, wenn kleine Änderungen an der Schnittstelle zwischen den Versionen auftreten.
-Für den Fall, dass sich die Schnittstelle sowohl syntaktisch als auch semantisch grundlegend ändert, sollte anstatt einer neuen Version besser eine eigenständige, neue Schnittstelle entstehen.
+Wird in so einem Fall ein neuer Service eingeführt, während der alte Service noch verfügbar bleiben muss, müssen die inkompatiblen Verarbeitungslogiken im Anwendungskern parallel unterstützt werden.
+Bei starken fachlichen oder technischen Unterschieden kann es sinnvoll sein, die neue Version in einem eigenen Backend bereitzustellen.
+Auch in diesem Fall enthält das Service-Gateway keine Fachlogik.
+
+IMPORTANT: Eine neue Version ist dann erforderlich, wenn eine Änderung nicht abwärtskompatibel ist und bestehende Nutzende nicht ohne Anpassung weiterarbeiten können.
+
+Führen Änderungen zu einer wesentlichen fachlichen Neuauslegeung der Schnittstelle, soll keine weitere Version derselben Schnittstelle entstehen.
+In diesem Fall ist zu prüfen, ob es sich fachlich noch um dasselbe Konzept handelt.
+Wenn Versionen nicht mehr durch einfache Transformation verbunden werden können, handelt es sich nicht mehr um Versionen desselben fachlichen Konzepts, sondern die Einführung eines neuen fachlichen Konzepts.
+In diesem Fall ist zu prüfen, ob eine eigenständige neue Schnittstelle oder ein eigenes Backend die fachlich und technisch sauberere Lösung darstellt.
+
 

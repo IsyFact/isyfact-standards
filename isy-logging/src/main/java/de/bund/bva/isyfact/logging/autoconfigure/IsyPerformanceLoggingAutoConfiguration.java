@@ -16,11 +16,12 @@ import de.bund.bva.isyfact.logging.util.LoggingMethodInterceptor;
 @EnableLoadTimeWeaving
 public class IsyPerformanceLoggingAutoConfiguration {
 
-    String[] pointcuts = {"execution(public * *..gui..*Controller.*(..))",
-                          "execution(public * *..service..*ServiceImpl.*(..))",
-                          "execution(public * *..core..*Impl.*(..))",
-                          "execution(public * *..persistence..*DaoImpl.*(..))", // TODO: Mit Spring Data?
-                          "execution(@de.bund.bva.isyfact.logging.annotation.PerformanceLogging * *(..))"
+    /** Pointcuts for performance logging of standard application layers. */
+    private final String[] pointcuts = {"execution(public * *..gui..*Controller.*(..))",
+        "execution(public * *..service..*ServiceImpl.*(..))",
+        "execution(public * *..core..*Impl.*(..))",
+        "execution(public * *..persistence..*DaoImpl.*(..))", // TODO: Mit Spring Data?
+        "execution(@de.bund.bva.isyfact.logging.annotation.PerformanceLogging * *(..))"
     };
 
     @Bean

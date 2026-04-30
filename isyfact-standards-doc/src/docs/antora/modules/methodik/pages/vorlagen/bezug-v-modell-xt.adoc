@@ -1,0 +1,55 @@
+= Bezug zum V-Modell® XT
+
+Diese Seite stellt den Bezug zwischen der xref:vorlagen.adoc#dokumentation-anwendung[Dokumentation einer Anwendung] und dem V-Modell® XT her.
+
+[[systementwurf]]
+== Systementwurf
+
+Der Systementwurf stellt eine Adaption (Tailoring) der Vorgaben des V-Modells auf die Entwicklung mit der IsyFact dar.
+Er kann nach V-Modell® allgemein verschiedene Produkte umfassen.
+Bei der Nutzung der IsyFact sind einige dieser Produkte bereits vollständig oder in großen Teilen vorgegeben, sodass sie nicht mehr im Systementwurf beschrieben werden müssen.
+
+Die xref:referenzarchitektur:index.adoc[] legt grundsätzliche Architekturprinzipien und Entwurfsalternativen fest.
+Sie müssen im Systementwurf nicht wiederholt werden.
+Gleiches gilt für die Absicherung des Designs.
+
+Im Folgenden sind die Produkte eines Systementwurfs gemäß V-Modell® XT aufgeführt und kommentiert.
+
+=== Systemarchitektur
+
+Die grundsätzliche Systemarchitektur ist durch die xref:referenzarchitektur:software-technisch/it-system.adoc[Referenzarchitektur] vorgegeben.
+Der Systementwurf beschreibt, wie diese Referenzarchitektur instanziiert wird.
+
+* Die Dekomposition des Systems ist im Kapitel xref:vorlage-systementwurf/antora-master.adoc#softwarearchitektur-bsp-ga[SW-Architektur BSP-GA] beschrieben.
+* Querschnittliche Systemeigenschaften sind bereits im Rahmen der IsyFact-Referenzarchitektur betrachtet worden und werden nicht wiederholt.
+Sollte eine Verfeinerung oder spezifische Ergänzung der Referenzarchitektur notwendig sein, erfolgt dies im Kapitel xref:vorlage-systementwurf/antora-master.adoc#querschnittskonzepte[Querschnittskonzepte].
+* Die Schnittstellenübersicht des Systems erfolgt der Übersichtlichkeit halber auf zwei Abstraktionsebenen: auf Ebene der Gesamtanwendungslandschaft erfolgt dies im Kapitel xref:vorlage-systementwurf/antora-master.adoc#einbettung-in-anwendungslandschaft[Systemüberblick/Einbettung in die Anwendungslandschaft].
+Die konkreten Schnittstellen des Systems und ggf. von Teilsystemen sind im Kapitel xref:vorlage-systementwurf/antora-master.adoc#softwarearchitektur-bsp-ga[SW-Architektur BSP-GA] beschrieben.
+Details zur Implementierung und Dateninhalten der Schnittstellen finden sich in der Konstruktion der jeweiligen xref:vorlage-systementwurf/antora-master.adoc#serviceschicht[Backend-Services].
+* Die zu spezifizierenden Systemelemente sind der Gegenstand der Kapitel xref:vorlage-systementwurf/antora-master.adoc#BSP-1u2-GK[SW-Architektur Backend BSP_1+2-GK] und folgende.
+
+=== Unterstützungs-Systemarchitektur
+Unterstützungssysteme sind in der Regel durch die IsyFact vorgegeben.
+Sollte es trotzdem nötig sein, ein neues Unterstützungssystem zu konstruieren, erfolgt dies in einem eigenen Dokument nach dieser Vorlage.
+
+=== Mensch-Maschine-Schnittstelle (Styleguide)
+Ein Styleguide ist durch die IsyFact nicht vorgegeben, jedoch ein xref:isy-bedienkonzept-doc::bedienkonzept.adoc[Bedienkonzept].
+Es wird vorausgesetzt, dass ein solcher Styleguide für die Organisation, die die IsyFact einsetzt, bereits vorhanden ist und verwendet werden kann.
+
+=== HW-Architektur
+Die HW-Architektur ist als Referenzarchitektur bereits vorgegeben.
+Die konkrete HW-Architektur für das System befindet sich im Kapitel xref:vorlage-systementwurf/antora-master.adoc#ti-architektur[TI-Architektur].
+
+=== SW-Architektur
+Die SW-Architektur ist in den Grundlagen durch die xref:referenzarchitektur:software-technisch.adoc[] vorgegeben.
+Die Instanziierung dieser Architektur befindet sich in der Beschreibung der xref:vorlage-systementwurf/antora-master.adoc#softwarearchitektur-bsp-ga[SW-Architektur BSP-GA].
+
+=== Datenbankentwurf
+Der Datenbankentwurf findet sich unter xref:vorlage-systementwurf/antora-master.adoc#datenmodell[Datenmodell].
+
+=== Implementierungs-, Integrations- und Prüfkonzepte für System, Unterstützungssystem, HW und SW
+Die Prozesse sind im Rahmen der IsyFact bzw. im Gesamtprojektrahmen vorgegeben und werden hier nicht wiederholt.
+
+=== Migrationskonzept
+Für Migrationsszenarien wird ein eigenes Konzept erstellt.
+Der Systementwurf macht keine Aussagen zu einer Migration.

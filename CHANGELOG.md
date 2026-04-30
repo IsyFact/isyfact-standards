@@ -1,7 +1,19 @@
 # 5.0.0
 ### FEATURES
 - `IFS-5209`: [isyfact-standards-doc] Verschiebung der Beschreibung "Prinzipien der Sicherheitsarchitektur" auf die neue Seite "Sicherheit"
+- `IFS-5286`: [isyfact-standards-doc] Beschreibung des API-Gateways in der software-technischen Referenzarchitektur
+- `IFS-5359`: [isyfact-standards-doc] Entfernung des Dokumenttyps Systemdokumentation aus der Methodik
+- `IFS-5379`: [isyfact-standards-doc] Kommunikation mit externen Systemen flexibel beschreiben
+- `IFS-5227`: [isyfact-standards-doc] Erweiterung der Beschreibung des Anwendungskerns um Aufrufbeziehungen und Modellen für Parameter und Ergebnisse
+- `IFS-5285`: [isyfact-standards-doc] Beschreibung des API-Gateways in der fachlichen Referenzarchitektur
+- `IFS-5226`: [isyfact-standards-doc] Nutzung von adaptiven Farben in draw.io Diagrammen
+  * Zur Vermeidung von Darstellungsfehlern muss die Unterstützung adaptiver Farben abgeschaltet werden.
+- `IFS-5290`: [isyfact-standards-doc] Playwright in den Produktkatalog aufgenommen
+  * Selenium ist als bestandsgeschützt gesetzt. Es wird empfohlen auf Playwright zu migrieren.
 - `IFS-5170`: [isyfact-standards-doc] Logik für Berechnung der KorrelationsId vereinfacht
+- `IFS-5228`: [isyfact-standards-doc] Migration der Inhalte zu V-Modell XT und Enterprise Architect aus dem Systementwurf in die Methodik
+- `IFS-5260`: [isyfact-standards-doc] Abwärtskompatibilität definieren und gängige Beispiele für abwärtskompatible Änderungen und Breaking Changes formulieren
+- `IFS-5170`: [isyfact-standards-doc] Logik für Berechnung der Korrelations-Id vereinfacht
 - `IFS-4925`: [isyfact-standards-doc] Anpassung der Vorlage Systementwurf an die IsyFact 5
 - `IFS-4926`: [isyfact-standards-doc] Anpassung der Darstellung von Gateways in der TI-Architektur
 - `IFS-4734`: [isyfact-standards-doc] Verwendungen des Begriffs "Service" und damit verwandter Begriffe korrigieren
@@ -33,22 +45,25 @@
 - `IFS-4531`: Update von Flatten Maven Plugin auf Version 1.7.1
   * Update von Maven Version auf 3.6.3
 - `IFS-4763`: [isyfact-standards-doc] Erweiterung und Konkretisierung der Liquibase-Dokumentation
-- `IFS-4748`: [isy-ueberwachung] Dokumentation von aktualisierten Properties
 - `IFS-5162`: [isy-logging] Konfiguration für die Bean Injection angepasst, sodass der PerformanceLogAdvisor korrekt geladen wird
 - `IFS-4946`: [isyfact-standards-doc] Entfernt Installations- und Betriebsanleitung für RPM Deployment
+- `IFS-5252`: [isy-logging] Implementieren von Logging in ausgehenden REST-Requests
+- `IFS-5178`: [isyfact-standards-doc] Dokumentation der Bereitstellung von Changelogs von Schnittstellen
 
 ### BUG FIXES
-- `IFS-4753`: [isy-batchrahmen] Änderung der Konfigurationsreihenfolge.
-  * BatchSecurityConfiguration wird nach Anwendung und BatchRahmen Konfiguration geladen.
-  * Beans mit der `@ConditionalOnMissingBean(...)` Annotation können wie erwartet überschrieben werden.
-- `IFS-4817`: [isy-ueberwachung] Verwendung von `securityMatcher` in actuatorSecurityFilterChain und loadbalancerSecurityFilterChain für korrektes Filtern von Anfragen.
 
 ### BREAKING CHANGES
+- `IFS-5214`: [isy-batchrahmen] Entfernung der Bibliothek aus den IsyFact-Standards
+- `IFS-4890`: [isy-persistence] Überführung der Schema Validierung in isy-util
+  * Die Properties müssen migriert werden:
+    * isy.persistence.datasource.schema-version -> isy.util.datasource.schema-version
+    * isy.persistence.datasource.schema-invalid-version-action -> isy.util.datasource.schema-invalid-version-action
 - `IFS-4736`: [isy-persistence] Entfernung der Bibliothek aus den IsyFact-Standards
+- `IFS-5215`: [isy-ueberwachung] Entfernung der Bibliothek aus den IsyFact-Standards 
 - `IFS-4582`: [isy-persistence], [isy-polling], [isy-security], [isy-security-test], [isy-task], [isy-util] Entfernen der entkoppelten Bausteine aus dem Standards-Repository
 - `IFS-4922`: Aktualisierung von Java 17 auf 25
 - `IFS-4849`: Klassen des Pakets `de.bund.bva.isyfact.persistence.datetime` wurden aufgelöst.
-- `IFS-4911`: [isy-ueberwachung] Absicherung Actuator mit OAuth2
+- `IFS-4860`: Update auf Spring Boot 4.0.3
 
 ### DEPENDENCY UPGRADES
 - Update com.google.guava:guava von Version 33.3.0-jre auf 33.5.0-jre
@@ -107,15 +122,6 @@ Die Nutzung des Begriffs "Webservice" wurde vereinheitlicht und entspricht jetzt
 
 ### Bausteine
 
-#### Überwachung
-Die folgenden zeitbeschränkten Metriken wurden entfernt:
-
-* `AnzahlAufrufeLetzteMinute`: Anzahl der Anrufe in der letzten Minute
-* `AnzahlTechnicalExceptionsLetzteMinute`: Anzahl der technischen Fehler in der letzten Minute
-* `AnzahlBusinessExceptionsLetzteMinute`: Anzahl der geschäftlichen Fehler in der letzten Minute
-
-Diese Metriken waren zuvor über die `ServiceStatistik`-Schnittstelle verfügbar und wurden automatisch bei Micrometer in der `IsyMetricsAutoConfiguration` registriert.
-
 #### Entkopplung
 Folgende Bausteine wurden in eigenständige Repositories umgezogen:
 
@@ -123,6 +129,8 @@ Folgende Bausteine wurden in eigenständige Repositories umgezogen:
 * [isyfact-standards (Modul isy-security)](https://github.com/IsyFact/isyfact-standards/tree/release/4.x/isy-security) → [isy-security](https://github.com/IsyFact/isy-security)
 * [isyfact-standards (Modul isy-task)](https://github.com/IsyFact/isyfact-standards/tree/release/4.x/isy-task) → [isy-task](https://github.com/IsyFact/isy-task)
 * [isyfact-standards (Modul isy-util)](https://github.com/IsyFact/isyfact-standards/tree/release/4.x/isy-util) → [isy-util](https://github.com/IsyFact/isy-util)
+* [isyfact-standards (Modul isy-ueberwachung)](https://github.com/IsyFact/isyfact-standards/tree/release/4.x/isy-ueberwachung) → [isy-ueberwachung](https://github.com/IsyFact/isy-ueberwachung)
+* [isyfact-standards (Modul isy-batchrahmen)](https://github.com/IsyFact/isyfact-standards/tree/release/4.x/isy-batchrahmen) → [isy-batchrahmen](https://github.com/IsyFact/isy-batchrahmen)
 
 Für diese Bausteine gilt:
 
@@ -148,6 +156,12 @@ Die Konzeption wurde um die strukturierten Verwendung von HTTP-Statuscodes (inkl
 
 Architekturentscheidungen, die Abweichungen und Erweiterungen zur Referenzarchitektur begründen, und die nur im Rahmen der Umsetzung einer Anwendung gelten, müssen nun im Systementwurf dokumentiert werden.
 
+#### Systemdokumentation
+
+Dieser Dokumenttyp wird entfernt. 
+Anstelle dessen wird der Systementwurf konsequent fortgeschrieben.
+Bestehende Systemdokumentationen können in der Regel als Systementwurf weitergeführt werden, da die Dokumenttypen sich inhaltlich fast vollständig überschneiden.
+
 [//]: # (### Deprecations)
 [//]: # (_keine_)
 
@@ -159,17 +173,23 @@ Die bisherigen Changelogs sowie die Release Notes und der Migrationsleitfaden in
 ## MIGRATION GUIDE
 
 ### Aufgelöster Baustein "JPA/Hibernate"
-Anwendungen migrieren konzeptionell auf die Beschreibungen zur Persistenzschicht von Backends in der Referenzarchitektur.
 
-Die Bibliothek `isy-persistence` entfällt.
-Hilfsfunktionen zur Definition von Enums und zur Prüfung der Schema-Version wurden in den Baustein Util in die Bibliothek `isy-util` verschoben.
-Alle weitere Funktionalität entfällt und wird durch die direkte Verwendung der Produkte Spring Data, Spring Boot und Spring ersetzt.
+#### Migration von isy-persistence
 
-### Baustein Überwachung
-Anwendungen, die auf die zeitbeschränkten Metriken (`...LetzteMinute`) zur Überwachung oder Alarmierung angewiesen sind, müssen ihre Überwachungskonfigurationen anpassen. 
-Die übrigen Metriken ohne Zeitbeschränkung funktionieren weiterhin wie gehabt.
+Mit der Ablösung der Bibliothek `isy-persistence` gelten die Vorgaben der [Referenzarchitektur](https://isyfact.github.io/isyfact-standards-doku/dev/referenzarchitektur/software-technisch/backend/persistenzschicht.html).
+Diese sieht den Einsatz von Spring Data JPA in Kombination mit Liquibase vor.
 
-> **Hinweis:** Mithilfe der z.B. in Prometheus verfügbaren Funktionen lässt sich die gewohnte Funktionalität nahezu vollständig nachbilden.
+#### Schema-Prüfung (optional)
+
+Die bisherige Schema-Prüfung kann bei begründetem Bedarf weiterhin genutzt werden.
+Sie ist nun Bestandteil von `isy-util`.
+
+Für die Migration von `isy-persistence` zu `isy-util` sind folgende Properties umzubenennen:
+
+- `isy.persistence.datasource.schema-version` → `isy.util.datasource.schema-version`
+- `isy.persistence.datasource.schema-invalid-version-action` → `isy.util.datasource.schema-invalid-version-action`
+
+Detaillierte Informationen finden sich in den [Nutzungsvorgaben](https://isyfact.github.io/util/current/nutzungsvorgaben.html#persistence-datasource) von `isy-util`.
 
 ### RPM-Deprecation als Auslieferungsmedium
 
@@ -191,3 +211,8 @@ Weitere Informationen finden Sie in der [Spring Boot Dokumentation](https://docs
 <groupId>io.github.git-commit-id</groupId>
 <artifactId>git-commit-id-maven-plugin</artifactId>
 ```
+
+### Dokumentation
+
+Der Dokumenttyp "Systemdokumentation" wird entfernt.
+Bestehende Systemdokumentationen können in der Regel als Systementwurf weitergeführt werden, da die Dokumenttypen sich inhaltlich fast vollständig überschneiden.
