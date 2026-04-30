@@ -185,11 +185,65 @@ Daraus folgen für synchrone Services die folgenden Grundsätze:
 == Versionierung von Events
 
 Dieses Kapitel beschreibt bewährte Praktiken im Umgang mit Änderungen von Nachrichten in eventbasierten Systemen wie z.B. Kafka.
-Nach der Lektüre sollte der Leser in der Lage sein, mithilfe der definierten Entscheidungsmatrix die geeignete Vorgehensweise bei der Versionierung zu finden.
+Nach der Lektüre sollte der Leser in der Lage sein, diese richtig einzuordnen und mithilfe der definierten Entscheidungsmatrix die geeignete Vorgehensweise bei der Versionierung zu finden.
+
+=== Fachliche Änderungen
+
+In der asynchronen Kommunikation werden Events genutzt, um über geschäftsrelevante Ereignisse innerhalb der Anwendungslandschaft zu informieren.
+Aus der Sicht von konsumierenden Systemen sind Events wichtige historische Ereignisse (Fakten), die für die Weiterverarbeitung benötigten Daten enthalten.
+
+Ihre Semantik wird beim Domain Driven Design bereits zu Beginn beschrieben (z.B. im Rahmen von Event Storming Sitzungen).
+Es ist wichtig diese auch in der Dokumentation für alle Beteiligten Teams verbindlich festzuhalten (Design By Contract).
+
+Folgende Tabelle zeigt vereinfacht im Stil einer Karteikarte, wie die Definition der Semantik eines Events für eine aufgegebene Bestellung aussehen könnte.
+
+.Definition der Semantik für das Event BestellungAufgegeben (Version 5)
+|===
+
+|*Name* | BestellungAufgegeben
+|*Version* | 5
+|*Domäne*| Bestellung
+|*Eigentümer*| Team A
+|*Beschreibung* | Der Kunde hat eine Bestellung verbindlich aufgegeben. Die Bestellung wurde erfolgreich im System persistiert.
+|*Auslöser* | Das Event wird erzeugt, nachdem der Kunde den Kauf bestätigt hat und die Bestellung erfolgreich gespeichert wurde.
+|*Felder* |
+|artikelId | Eindeutige Kennung des Artikels, um den bestellten Artikel zu identifizieren. Typ String.
+|anzahl | Anzahl des bestellten Artikels. Typ Integer.
+|preis | Einzelpreis des Artikels. Typ Float.
+|datum | Datum an dem die Bestellung aufgegeben wurde. Typ String, in ISO-8601-Format.
+
+|===
+
+Fachliche Änderungen wirken sich auf die Semantik aus und führen in der Regel immer zu Breaking Changes.
+Im Gegensatz zu technischen inkompatiblen Änderungen können sie nicht automatisch erkannt werden.
+
+Folgende Tabelle zeigt beispielhaft die semantische Änderung des Feldes _preis_.
+Zuvor war der Preis für den einzelnen Artikel gemeint, nun soll das Feld den Gesamtbetrag für alle Artikel enthalten.
+Da Feldname und Datentyp dieselben sind, wissen Consumer von der Änderung nichts und berechnen weiterhin den Gesamtpreis durch Multiplikation mit der Anzahl.
+
+.Definition der Semantik für das Event BestellungAufgegeben mit Änderung (Version 6)
+|===
+
+|*Name* | BestellungAufgegeben
+|*Version* | 6
+| ... |
+|*Felder* |
+| ... |
+|preis | *Geändert:* Gesamtbetrag der bestellten Artikel. Typ Float.
+| ... |
+
+|===
+
+=== Technische Änderungen
+
+Änderungen an der Struktur von Nachrichten bei bleibender Semantik werden als technische Änderungen bezeichnet.
+Technische Änderungen sind in kompatible und inkompatible technische Änderungen untergliedert.
+Strukturelle Breaking Changes können bei der Nachrichtenvalidierung automatisch erkannt werden.
 
 === Nachrichtenvalidierung
 
-Systeme tauschen Events in einem wohldefinierten Format untereinander aus. Wie die Struktur einer Nachricht konkret aufgebaut ist (Syntax), wird in einem Schema festgehalten. 
+Systeme tauschen Events in einem wohldefinierten Format untereinander aus.
+Wie die Struktur einer Nachricht konkret aufgebaut ist (Syntax), wird in einem Schema festgehalten.
 Das vereinbarte Schema wird von Producern verwendet, um vor dem Versenden die Nachricht zu validieren.
 Der Consumer verwendet es für die Validierung der empfangenen Nachricht (Design by Contract).
 
@@ -298,17 +352,6 @@ WARNING: Im Falle von Breaking Changes wird dringend empfohlen, für das neue Sc
   ]
 }
 ----
-
-=== Fachliche Änderungen
-
-Die in diesem Kapitel bisher besprochenen Änderungen sind technischer Natur und können durch syntaktische Prüfung gegen das zugehörige Schema erkannt werden.
-Fachliche Änderungen beeinflussen die Semantik und können nicht automatisch erkannt werden.
-
-Der Event-Typ <<listing-schema-bestellung,`BestellungErstellt`>> hätte innerhalb der Bestandsverwaltung eine ganz andere Bedeutung als ursprünglich im Bestellsystem vorgesehen, wenn auch die Syntax dieselbe ist.
-Statt den Bestand zu aktualisieren, würden Consumer weiterhin einen Versand von Artikeln auslösen, d.h. die Verarbeitungslogik wäre aus fachlicher Sicht falsch implementiert.
-Die Semantik kann sich genauso auf feingranularer auf Feldebene ändern, die Auswirkungen sind dieselben.
-
-Fachliche Änderungen führen in der Regel immer zu Breaking Changes. Im letzten Beispiel kann das Schema <<listing-schema-bestellung,`BestellungErstellt`>> durch Kopieren unter einem anderen Namen (z.B. `LieferungEingetroffen`) "wiederverwendet" werden, allerdings werden damit  neuartige Events erzeugt, die eine passende Verarbeitungslogik in den neuen Consumern erfordern.
 
 === Entscheidungsmatrix neuer Event-Typ vs. Versionierung
 
