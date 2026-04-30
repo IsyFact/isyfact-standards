@@ -179,6 +179,156 @@ Daraus folgen für synchrone Services die folgenden Grundsätze:
 - Versionsspezifische Transformationen erfolgen grundsätzlich in der Service-Schnittstelle des Backends.
 - Ein Service-Gateway übernimmt keine Fachlogik zur Behandlung unterschiedlicher Versionen.
 
+[[versionierung-synchroner-services]]
+== Versionierung synchroner Services
+
+Dieses Kapitel konkretisiert das im <<entscheidungsmodell-versionierung>> definierte Modell für synchrone Services.
+
+Bei synchronen Services wird die veröffentlichte Schnittstelle eines Services versioniert.
+Die fachliche Identität des Services bleibt dabei erhalten.
+Eine neue Version ist nur dann eine Version desselben Services, wenn weiterhin dasselbe fachliche Konzept bereitgestellt wird.
+Eine neue Schnittstellenversion erfordert kein neues Backend.
+Im Regelfall werden mehrere Schnittstellenversionen durch dasselbe Backend bereitgestellt.
+Ein neues Backend ist nur dann vorzusehen, wenn fachliche Verantwortung, Datenhoheit oder Betriebsanforderungen ein eigenes IT-System erfordern.
+
+=== Zuordnung zum Entscheidungsmodell
+
+Die Auswahl eines Musters erfolgt auf Basis des <<entscheidungsmodell-versionierung>>:
+
+[[image-sync-service-versioning]]
+.Entscheidungsbaum für synchrone Service Versionierung
+image::referenzarchitektur:software-technisch/services/entscheidungsbaum-version-sync-services.dn.svg[]
+
+Diese Zuordnung ist im Systementwurf zu dokumentieren und zu begründen.
+
+=== Zuordnung der Entscheidungsdimensionen zu Mustern
+[cols="3,2,3,3,4", options="header"]
+|===
+|Muster
+|Änderung
+|Schnittstelle
+|Backend
+|Konsequenz
+
+|Kompatible Weiterentwicklung
+|abwärtskompatibel
+|bestehende Schnittstelle wird erweitert
+|bestehendes Backend
+|Keine neue Schnittstellenversion
+
+|Neue versionierte Service-Schnittstelle im bestehenden Backend
+|nicht abwärtskompatibel, gleiches fachliches Konzept, gleiche fachliche Semantik
+|neue Schnittstelle desselben Services in der Serviceschicht
+|bestehendes Backend
+|DTOs und Mapper je Version, gemeinsamer Anwendungskern
+
+|Versionierte Service-Implementierung im bestehenden Backend
+|nicht abwärtskompatibel, gleiches fachliches Konzept, abweichende Verarbeitung; nur zulässig, wenn keine widersprüchliche fachliche Semantik entsteht
+|neue Schnittstelle desselben Services in der Serviceschicht
+|bestehendes Backend
+|Getrennte Implementierungspfade, gleiche Datenhoheit und gleicher Lifecycle, keine Versionslogik im gemeinsamen Anwendungskern
+
+|Neue fachliche Schnittstelle im bestehenden Backend
+|neues fachliches Konzept, das weiterhin zur fachlichen Verantwortung des bestehenden Backends gehört
+|neue Schnittstelle eines neuen Services
+|bestehendes Backend
+|Neuer Service innerhalb desselben Backends
+
+|Neue fachliche Schnittstelle in neuem Backend
+|neues fachliches Konzept mit eigener Datenhoheit, Lifecycle oder Betriebsverantwortung
+|neue Schnittstelle eines neuen Services
+|neues Backend
+|Eigener Lifecycle, eigenes Deployment, eigener Betrieb
+|===
+
+=== Kompatible Weiterentwicklung eines Services
+
+Ein Beispiel für die hier behandelte Änderungen ist das Hinzufügen eines optionalen Attributs zu einer bestehenden Operation.
+
+Abwärtskompatible Änderungen werden innerhalb derselben Service-Version umgesetzt.
+Die bestehende Service-Schnittstelle wird erweitert, ohne bestehende Nutzende zu beeinträchtigen.
+Dies ist möglich, wenn die Änderungen vollständig abwärtskompatibel sind, die Consumer unbekannte Fehler ignorieren können und keine Änderung der fachlichen Semantik bei bestehenden Feldern vorgenommen wurde.
+
+Hierfür ist die bestehende Service-Schnittstelle zu erweitern.
+Für neue Felder sind in der Serviceschicht Defaultwerte einzutragen.
+
+Mit diesem Vorgehen ist kein Parallelbetrieb erforderlich.
+Dadurch ergibt sich minimaler Betriebsaufwand und keine zusätzliche Komplexität.
+Die Änderungsfreiheit ist jedoch eingeschränkt.
+
+==== Auswirkungen
+- Deployment: Update eines bestehenden Deployments
+- Betrieb: keine zusätzlichen Instanzen
+- Komplexität: gering
+
+=== Neue versionierte Service-Schnittstelle im gemeinsamen Backend
+Ein Beispiel für die hier behandelte Änderungen ist die Aufspaltung eines Feldes in mehrere Felder bei gleichbleibender fachlicher Logik.
+Das Backend stellt mehrere Versionen der veröffentlichten Service-Schnittstelle bereit.
+Hierfür ist eine zusätzliche Service-Schnittstelle in der Serviceschicht vorzusehen.
+Versionsspezifische Unterschiede sind in der Serviceschicht zu behandeln.
+Dazu gehören versionierte Schnittstellenendpunkte, versionierte Request- und Response-DTOs, Mapper zwischen Schnittstellenmodell und internem Modell und Defaultwerte sowie technische Adaptierungen.
+Mehrere Versionen werden parallel betrieben und nutzen denselben Anwendungskern.
+
+Dies ist das angemessene Vorgehen für Änderung, die nicht abwärtskompatibel sind, aber die fachliche Logik gleich bleibt.
+Ein Mapping zwischen Versionen ist möglich.
+
+Mit diesem Vorgehen wird eine kontrollierte Migration möglich.
+Eine Duplikation der Fachlogik ist nicht notwendig und der Infrastrukturaufwand bleibt gering.
+Die Komplexität in der Serviceschicht ist aber höher da eine Mapping-Logik notwendig ist.
+Zu beachten ist, dass bei vielen Versionen die Wartungskosten steigen.
+
+==== Auswirkungen
+- Deployment: ein Deployment mit mehreren Schnittstellenversionen
+- Betrieb: gemeinsame Skalierung
+- Komplexität: mittel
+
+=== Versionierte Service-Implementierung im bestehenden Backend
+Ein Beispiel für die hier behandelten Anpassungen ist eine unterschiedliche fachliche Validierungslogik zwischen Versionen.
+Die Änderung ist nicht abwärtskompatibel oder die fachliche Logik beginnt zu divergieren damit ist die vollständige Wiederverwendung nicht mehr sinnvoll.
+Das Backend bleibt dieselbe Systemeinheit.
+Innerhalb des Backends werden jedoch getrennte Implementierungspfade für die Versionen geführt.
+Ein gemeinsamer Anwendungskern ist nur zulässig, solange die Versionen dieselbe fachliche Semantik abbildet.
+Versionsspezifische Fachlogik darf nicht in der Service-Schnittstelle implementiert werden.
+Sie ist in getrennten Anwendungskomponenten oder getrennten Implementierungspfaden des Anwendungskerns zu kapseln.
+Die Service-Schicht vermittelt nur zur jeweils passenden Implementierung.
+Eine angemessene Wartbarkeit bei wachsender Divergenz wird durch die Nutzung möglicher gemeinsame Infrastrukturkomponenten erreicht und die Komplexität pro Version verringert.
+ Die erhöhte Komplexität im Backend und eine teilweise Duplikation von Logik, was sich in steigendem Testaufwand niederschlägt, ist bei diesem Vorgehen als negativ zu betrachten.
+
+==== Auswirkungen
+- Deployment: ein Deployment mit differenzierter Logik
+- Betrieb: gemeinsame Laufzeit, Monitoring jeder Version notwendig
+- Komplexität: mittel bis hoch
+
+IMPORTANT: Das Muster "Versionierte Service-Implementierung im bestehenden Backend" darf nicht zu versionsabhängigen Verzweigungen im Anwendungskern führen.
+
+Zulässig sind getrennte Implementierungsklassen, getrennte Anwendungskomponenten, explizite Auswahl der Implementierung durch die Service-Schnittstelle und eine gemeinsame Nutzung technischer Infrastruktur.
+
+Nicht zulässig sind weder verstreute if/else-Logik nach Version, fachliche Regeln in DTO-Mappern, langfristige Kopplung divergierender Fachmodelle noch implizite Unterscheidung über optionale Felder.
+
+=== Neue Version als eigenes Backend
+Beispiel: Technologiewechsel oder grundlegende fachliche Neuausrichtung eines Services.
+
+Eine neue Service-Version wird als eigenständiges Backend realisiert.
+Notwendig aufgrund hoher fachliche oder technische Divergenz bei gleichzeigter Notwendigkeit eines langfristigen Parallelbetriebs.
+Jedes Backend hat eigene Betriebsanforderungen.
+
+Diese Ausgestaltung zeichnet sich durch die vollständige Trennung von Serviceschicht und Anwendungskern jeder Version aus.
+Jede Version hat ein eigenständiges Deployment.
+Über eine getrennte Datenhaltung ist zu entscheiden.
+
+Als Vorteil ergibt sich eine maximale Entkopplung und eine unabhängige Weiterentwicklung mit klaren Systemgrenzen.
+Dafür ist der Infrastruktur-, Betriebs- und Integrationsaufwand hoch.
+Auch ist es komplexer Datenkonsistenz zu gewährleisten.
+
+Ein neues Backend ist keine Standardmaßnahme für Versionierung.
+Es ist eine bewusste Architekturentscheidung und im Systementwurf zu begründen.
+
+==== Auswirkungen
+- Deployment: separate Deployments / Container
+- Betrieb: getrennte Skalierung und Überwachung
+- Komplexität: hoch
+
+
 [[architektur]]
 == Architektur
 
@@ -226,8 +376,9 @@ Anwendungskern und Persistenzschicht müssen ebenfalls erweitert werden.
 
 Die Serviceschicht stellt sicher, dass Aufrufe ohne Angabe des Geburtsorts weiterhin korrekt verarbeitet werden können, indem für das fehlende Attribut der Wert "unbekannt" ergänzt wird.
 
-Werden die beiden Services durch ein Service-Gateway nach außen verfügbar gemacht, existieren dort zwei parallele Mappings auf die jeweiligen Services des Backends.
-Innerhalb des Service-Gateways existiert keine Geschäftslogik, d.h. die Abbildung von Version 1.0 auf 1.1 findet erst im Backend statt.
+Wird der Service durch ein Service-Gateway nach außen verfügbar gemacht, bleibt das Gateway auf dieselbe Service-Schnittstelle geroutet.
+Innerhalb des Gateways findet keine fachliche Abbildung statt.
+Die Behandlung fehlender optionaler Werte erfolgt im Backend.
 
 [[inkompatible-veraenderung]]
 == Inkompatible Veränderung eines Services
@@ -247,4 +398,16 @@ In diesem Fall ist zu prüfen, ob es sich fachlich noch um dasselbe Konzept hand
 Wenn Versionen nicht mehr durch einfache Transformation verbunden werden können, handelt es sich nicht mehr um Versionen desselben fachlichen Konzepts, sondern die Einführung eines neuen fachlichen Konzepts.
 In diesem Fall ist zu prüfen, ob eine eigenständige neue Schnittstelle oder ein eigenes Backend die fachlich und technisch sauberere Lösung darstellt.
 
+=== Lifecycle und Deprecation von Schnittstellenversionen
+Jede neue nicht abwärtskompatible Schnittstellenversion muss eine Deprecation-Policy für die Vorgängerversion definieren.
+
+Diese umfasst mindestens:
+
+- Datum der Einführung der neuen Version,
+- Datum der Deprecation der alten Version,
+- Mindestunterstützungszeitraum,
+- geplantes Abschaltdatum,
+- betroffene Consumer,
+- Migrationsanleitung,
+- technische Metrik zur Nutzung der alten Version.
 
