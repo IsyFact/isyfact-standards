@@ -189,7 +189,9 @@ Nach der Lektüre sollte der Leser in der Lage sein, mithilfe der definierten En
 
 === Nachrichtenvalidierung
 
-Systeme tauschen Events in einem wohldefinierten Format untereinander aus. Wie die Struktur einer Nachricht konkret aufgebaut ist (Syntax), wird in einem Schema festgehalten. Das vereinbarte Schema wird von Producern verwendet, um vor dem Versenden die Nachricht zu validieren. Der Consumer verwendet es für die Validierung der empfangenen Nachricht (Design by Contract).
+Systeme tauschen Events in einem wohldefinierten Format untereinander aus. Wie die Struktur einer Nachricht konkret aufgebaut ist (Syntax), wird in einem Schema festgehalten. 
+Das vereinbarte Schema wird von Producern verwendet, um vor dem Versenden die Nachricht zu validieren.
+Der Consumer verwendet es für die Validierung der empfangenen Nachricht (Design by Contract).
 
 Die Verwendung von Schemata stellt die korrekte Kommunikation zwischen den Teilnehmern und damit die Funktion insbesondere von Consumern sicher.
 
@@ -299,10 +301,11 @@ WARNING: Im Falle von Breaking Changes wird dringend empfohlen, für das neue Sc
 
 === Fachliche Änderungen
 
-Die in diesem Kapitel bisher besprochenen Änderungen sind technischer Natur und können durch syntaktische Prüfung durch Prüfung gegen das zugehörige Schema erkannt werden.
+Die in diesem Kapitel bisher besprochenen Änderungen sind technischer Natur und können durch syntaktische Prüfung gegen das zugehörige Schema erkannt werden.
 Fachliche Änderungen beeinflussen die Semantik und können nicht automatisch erkannt werden.
 
-Der Event-Typ <<listing-schema-bestellung,`BestellungErstellt`>> hätte innerhalb der Bestandsverwaltung eine ganz andere Bedeutung als ursprünglich im Bestellsystem vorgesehen, wenn auch die Syntax dieselbe ist. Statt den Bestand zu aktualisieren, würden Consumer weiterhin einen Versand von Artikeln auslösen, d.h. die Verarbeitungslogik wäre aus fachlicher Sicht falsch implementiert.
+Der Event-Typ <<listing-schema-bestellung,`BestellungErstellt`>> hätte innerhalb der Bestandsverwaltung eine ganz andere Bedeutung als ursprünglich im Bestellsystem vorgesehen, wenn auch die Syntax dieselbe ist.
+Statt den Bestand zu aktualisieren, würden Consumer weiterhin einen Versand von Artikeln auslösen, d.h. die Verarbeitungslogik wäre aus fachlicher Sicht falsch implementiert.
 Die Semantik kann sich genauso auf feingranularer auf Feldebene ändern, die Auswirkungen sind dieselben.
 
 Fachliche Änderungen führen in der Regel immer zu Breaking Changes. Im letzten Beispiel kann das Schema <<listing-schema-bestellung,`BestellungErstellt`>> durch Kopieren unter einem anderen Namen (z.B. `LieferungEingetroffen`) "wiederverwendet" werden, allerdings werden damit  neuartige Events erzeugt, die eine passende Verarbeitungslogik in den neuen Consumern erfordern.
