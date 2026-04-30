@@ -32,6 +32,7 @@ Ausnahmen bilden Szenarien, in denen ein Consumer viele Producer/Publisher orche
 Inkompatible Änderungen (englisch: _breaking changes_) sind dagegen Änderungen an der Schnittstelle eines Services bzw. am Format einer Nachricht oder eines Events, welche die Anwendungsbedingungen einer früheren Version verletzen.
 Sie führen zu Fehlern oder Unterbrechungen in der Kommunikation, wenn die Kommunikationsteilnehmer nicht gleichzeitig auf die neue Version wechseln können und müssen daher genau geplant und kommuniziert werden.
 
+[[abwaertskompatible-aenderungen]]
 === Abwärtskompatible Änderungen
 
 Für die Gewährleistung von Abwärtskompatibilität wird ein tolerantes Verhalten der Kommunikationsteilnehmer vorausgesetzt:
@@ -67,6 +68,7 @@ Die folgenden Beispiele stellen häufig vorkommende, abwärtskompatible Änderun
 |Die Kommunikationsteilnehmer können zusätzliche Felder ignorieren, sofern sie diese nicht auswerten.
 |===
 
+[[inkompatible-aenderungen]]
 === Inkompatible Änderungen
 
 Die folgenden Beispiele stellen häufig vorkommende, inkompatible Änderungen (Breaking Changes) dar.
@@ -178,6 +180,152 @@ Daraus folgen für synchrone Services die folgenden Grundsätze:
 - Verschiedene Service-Versionen verwenden denselben Anwendungskern.
 - Versionsspezifische Transformationen erfolgen grundsätzlich in der Service-Schnittstelle des Backends.
 - Ein Service-Gateway übernimmt keine Fachlogik zur Behandlung unterschiedlicher Versionen.
+
+[[versionierung-events]]
+== Versionierung von Events
+
+Dieses Kapitel beschreibt bewährte Praktiken im Umgang mit Änderungen von Nachrichten in eventbasierten Systemen wie z.B. Kafka.
+Nach der Lektüre sollte der Leser in der Lage sein, mithilfe der definierten Entscheidungsmatrix die geeignete Vorgehensweise bei der Versionierung zu finden.
+
+=== Nachrichtenvalidierung
+
+Systeme tauschen Events in einem wohldefinierten Format untereinander aus. Wie die Struktur einer Nachricht konkret aufgebaut ist (Syntax), wird in einem Schema festgehalten. Das vereinbarte Schema wird von Producern verwendet, um vor dem Versenden die Nachricht zu validieren. Der Consumer verwendet es für die Validierung der empfangenen Nachricht (Design by Contract).
+
+Die Verwendung von Schemata stellt die korrekte Kommunikation zwischen den Teilnehmern und damit die Funktion insbesondere von Consumern sicher.
+
+Folgendes Listing in der Definitionssprache https://avro.apache.org[Avro] zeigt, wie das Event `BestellungErstellt` aufgebaut ist.
+Darin ist z.B. das Feld `artikelId` als String definiert und ist verpflichtend in den daraus abgeleiteten Events.
+
+[id="listing-schema-bestellung",source,json,reftext="{listing-caption} {listing-number} {counter:listings}"]
+.Schema für den Event-Typ `BestellungErstellt` (Version 1)
+----
+{
+  "type": "record",
+  "name": "BestellungErstellt",
+  "fields": [
+    { "name": "artikelId", "type": "string" },
+    { "name": "anzahl", "type": "int" }
+  ]
+}
+----
+NOTE: Avro wird wegen der leichten Verständlichkeit auch in den Folgebeispielen genutzt.
+Die Version wird in Klammern als fortlaufende Ganzzahl zwecks Verweis angegeben.
+
+==== Abwärts- vs. Vorwärtskompatibilität
+
+In Literatur und Dokumentationen kommt es gelegentlich zu Verwechslungen zwischen  Abwärts- und Vorwärtskompatibilität.
+Daher im Folgenden eine kurze Definition der beiden zur Abgrenzung.
+
+Ein Schema ist _abwärtskompatibel_, wenn bestehende Consumer unter Verwendung der alten Schema-Version in der Lage sind, Nachrichten korrekt zu verarbeiten, die mit der neuen Schema-Version erzeugt wurden.
+Vereinfacht formuliert: alte Consumer können neue Nachrichten lesen.
+
+Ein Schema ist hingegen _vorwärtskompatibel_, wenn aktualisierte Consumer unter Verwendung der neuen Schema-Version in der Lage sind, Nachrichten korrekt zu verarbeiten, die mit der alten Schema-Version erzeugt wurden.
+Vereinfacht formuliert: neue Consumer können alte Nachrichten lesen.
+
+== Datenkonsistenz
+
+In Event-basierten Systemen wie Kafka werden Nachrichten in Logdateien in der Regel für einen längeren Zeitraum persistiert (Event-Log).
+Daher müssen im Vergleich zu Queue-basierten Systemen Consumer in der Lage sein, auch alte Nachrichten zu lesen, wenn sie wieder eingespielt werden (Replay), etwa beim Eintritt einer neuen Consumer-Group oder Zurücksetzen des Eventstroms (Offset Reset).
+
+Eine standardisierte Schema-Verwaltung spielt für den Erhalt der Datenkonsistenz eine wichtige Rolle.
+
+=== Replay und Idempotenz
+
+Neue Versionen von Events müssen so aufgebaut sein, dass weiterhin ein Verarbeiten von alten Nachrichten (Replay) möglich ist.
+Ein Event muss dazu in sich abgeschlossen und vollständig bleiben und es darf nicht von der externen Systemumgebung abhängen.
+So wird sichergestellt, dass durch Replay keine fachlichen Inkonsistenzen entstehen.
+
+Bei einer erneuten Nachrichtenzustellung muss die Verarbeitungslogik der neuen Consumer weiterhin Duplikate anhand einer eindeutigen Event-ID erkennen und ignorieren, um Mehrfachverarbeitungen zu vermeiden.
+
+=== Schema Management
+
+Schemata ändern sich fortlaufend mit neuen Anforderungen.
+Um Wildwuchs von Versionen zu vermeiden, werden sie an einer zentralen Stelle z.B. Wiki oder git-Repository von Entwicklerteams gemeinsam verwaltet.
+
+In der Praxis hat sich der Einsatz von Schema Registries wie https://www.apicur.io/registry/[Apicurio Registry] oder https://docs.confluent.io/platform/current/schema-registry/index.html[Confluent Schema Registry] bewährt.
+Der große Vorteil den Schema Registries mit sich bringen ist die Erkennung von Schemabrüchen während der Schema-Validierung. Damit sind Breaking Changes durch Anpassungen am Schema praktisch ausgeschlossen, weil  nur kompatible Änderungen zugelassen werden.
+
+Die Vorteile von Schema Registries erkauft man sich u.a. durch die gestiegene Komplexität und Aufwände für den Betrieb eines zusätzlichen Systems in der Anwendungslandschaft.
+
+IMPORTANT: Ob Entwicklerteams sich für ein einfaches Schema Management mit Wiki oder einer Schema Registry entscheidet, ist Abwägungssache.
+Wichtig ist nur, dafür eine zentrale Stelle zu verwenden, um Schemabrüche und Versionswildwuchs zu vermeiden.
+
+=== Schema Evolution vs. Schemabruch
+
+In den meisten Fällen handelt es sich bei den Änderungen an Event-Typen um <<abwaertskompatible-aenderungen,abwärtskompatible Änderungen>>.
+Kommt beispielsweise das optionale Feld `kommentar` zur <<listing-schema-bestellung,Version 1>> des Event-Typs `BestellungErstellt` hinzu, entsteht eine <<listing-schema-bestellung-feld-optional,neue Version>> aber kein neuer Event-Typ.
+Eine fortschreitende Versionierung von Event-Typen, die im Rahmen der Kompatibilität bleibt, wird als Schema Evolution bezeichnet.
+
+Im Beispiel verwenden alte Consumer das Schema in der <<listing-schema-bestellung,Version 1>> beim Lesen von Nachrichten. Nachrichten, welche mit der <<listing-schema-bestellung-feld-optional,Version 2>> erzeugt wurden, enthalten zusätzlich das Feld `kommentar`.
+Da der alte Consumer dieses nicht kennt, wird es einfach ignoriert und die Verarbeitung geht normal weiter.
+
+In Nachrichten, die mit der alten Schema-Version erzeugt wurden, fehlt das Feld `kommentar`.
+Das ist aber für neue Consumer kein Problem, da es optional ist und einfach mit dem Wert `null` belegt wird.
+
+[id="listing-schema-bestellung-feld-optional",source,json,reftext="{listing-caption} {listing-number} {counter:listings}"]
+.Schema für den Event-Typ `BestellungErstellt` mit optionalem Kommentarfeld (Version 2)
+----
+{
+  "type": "record",
+  "name": "BestellungErstellt",
+  "fields": [
+    { "name": "artikelId", "type": "string" },
+    { "name": "anzahl", "type": "int" },
+    { "name": "kommentar", "type": ["null" ,"string"], "default": null }
+  ]
+}
+----
+
+In Fällen bei denen Änderungen zum Bruch der Kompatibilität führen (<<abwaertskompatibilitaet,Breaking Change>>) reicht eine neue Schema-Version nicht mehr aus, d.h. es liegt ein Schemabruch vor.
+Als Folge muss ein neues Schema für einen neuen Event-Typ erstellt werden.
+
+Im <<listing-schema-bestellung,Beispiel-Event `BestellungErstellt`>> könnte ein neues Pflichtfeld `preis` dazukommen. Bei fortschreitender Versionierung könnten neue Consumer neue Nachrichten zwar lesen, aber bei den alten Nachrichten würde der Preis fehlen und der Consumer wüsste nicht, welcher Wert gemeint ist. Deswegen gibt es ein neues Schema für den Event-Typ `BestellungMitPreisErstellt`.
+
+WARNING: Im Falle von Breaking Changes wird dringend empfohlen, für das neue Schema auf generische Namen wie "BestellungErstelltV1" zu verzichten, um eine Vermischung von verschiedenen Versionskonzepten zu vermeiden, insbesondere wenn fortschreitende Versionen manuell z.B. über Header gesetzt werden.
+
+[id="listing-schema-bestellung-pflichtfeld-dazu",source,json,reftext="{listing-caption} {listing-number} {counter:listings}"]
+.Schema für den neuen Event-Typ `BestellungMitPreisErstellt` mit neuem Pflichtfeld (Version 1)
+----
+{
+  "type": "record",
+  "name": "BestellungMitPreisErstellt",
+  "fields": [
+    { "name": "artikelId", "type": "string" },
+    { "name": "anzahl", "type": "int" },
+    { "name": "preis", "type": "float" }
+  ]
+}
+----
+
+=== Fachliche Änderungen
+
+Die in diesem Kapitel bisher besprochenen Änderungen sind technischer Natur und können durch syntaktische Prüfung durch Prüfung gegen das zugehörige Schema erkannt werden.
+Fachliche Änderungen beeinflussen die Semantik und können nicht automatisch erkannt werden.
+
+Der Event-Typ <<listing-schema-bestellung,`BestellungErstellt`>> hätte innerhalb der Bestandsverwaltung eine ganz andere Bedeutung als ursprünglich im Bestellsystem vorgesehen, wenn auch die Syntax dieselbe ist. Statt den Bestand zu aktualisieren, würden Consumer weiterhin einen Versand von Artikeln auslösen, d.h. die Verarbeitungslogik wäre aus fachlicher Sicht falsch implementiert.
+Die Semantik kann sich genauso auf feingranularer auf Feldebene ändern, die Auswirkungen sind dieselben.
+
+Fachliche Änderungen führen in der Regel immer zu Breaking Changes. Im letzten Beispiel kann das Schema <<listing-schema-bestellung,`BestellungErstellt`>> durch Kopieren unter einem anderen Namen (z.B. `LieferungEingetroffen`) "wiederverwendet" werden, allerdings werden damit  neuartige Events erzeugt, die eine passende Verarbeitungslogik in den neuen Consumern erfordern.
+
+=== Entscheidungsmatrix neuer Event-Typ vs. Versionierung
+
+Folgende Tabelle führt als Entscheidungshilfe auf, wann ein neuer Event-Typ in Abhängigkeit der Änderung nötig ist oder eine neue Version ausreicht.
+
+.Entscheidungsmatrix neuer Event-Typ nötig
+|===
+|Änderung | Abwärtskompatibel | Konsequenz
+
+| fachlich | egal | neuer Event-Typ
+| technisch | nein | neuer Event-Typ
+| technische | ja | neue Version (Schema Evolution)
+
+|===
+
+Folgende Aussagen treffen zu:
+
+- Fachliche Änderungen erfordern immer einen neuen Event-Typ
+- Breaking Changes erfordern immer einen neuen Event-Typ
+- Nur kompatible technische Änderungen können mit Schema Evolution versioniert werden
 
 [[architektur]]
 == Architektur
