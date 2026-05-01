@@ -197,11 +197,11 @@ Es ist wichtig diese auch in der Dokumentation für alle Beteiligten Teams verbi
 
 Folgende Tabelle zeigt vereinfacht im Stil einer Karteikarte, wie die Definition der Semantik eines Events für eine aufgegebene Bestellung aussehen könnte.
 
-.Definition der Semantik für das Event BestellungAufgegeben (Version 5)
+.Definition der Semantik für das Event BestellungAufgegeben (Version 1)
 |===
 
 |*Name* | BestellungAufgegeben
-|*Version* | 5
+|*Version* | 1
 |*Domäne*| Bestellung
 |*Eigentümer*| Team A
 |*Beschreibung* | Der Kunde hat eine Bestellung verbindlich aufgegeben. Die Bestellung wurde erfolgreich im System persistiert.
@@ -210,7 +210,6 @@ Folgende Tabelle zeigt vereinfacht im Stil einer Karteikarte, wie die Definition
 |artikelId | Eindeutige Kennung des Artikels, um den bestellten Artikel zu identifizieren. Typ String.
 |anzahl | Anzahl des bestellten Artikels. Typ Integer.
 |preis | Einzelpreis des Artikels. Typ Float.
-|datum | Datum an dem die Bestellung aufgegeben wurde. Typ String, in ISO-8601-Format.
 
 |===
 
@@ -221,16 +220,15 @@ Folgende Tabelle zeigt beispielhaft die semantische Änderung des Feldes _preis_
 Zuvor war der Preis für den einzelnen Artikel gemeint, nun soll das Feld den Gesamtbetrag für alle Artikel enthalten.
 Da Feldname und Datentyp dieselben sind, wissen Consumer von der Änderung nichts und berechnen weiterhin den Gesamtpreis durch Multiplikation mit der Anzahl.
 
-.Definition der Semantik für das Event BestellungAufgegeben mit Änderung (Version 6)
+.Definition der Semantik für das Event BestellungAufgegeben mit Änderung (Version 2)
 |===
 
 |*Name* | BestellungAufgegeben
-|*Version* | 6
+|*Version* | 2
 | ... |
 |*Felder* |
 | ... |
-|preis | *Geändert:* Gesamtbetrag der bestellten Artikel. Typ Float.
-| ... |
+|preis | *Gesamtbetrag der bestellten Artikel*. Typ Float.
 
 |===
 
@@ -249,15 +247,15 @@ Der Consumer verwendet es für die Validierung der empfangenen Nachricht (Design
 
 Die Verwendung von Schemata stellt die korrekte Kommunikation zwischen den Teilnehmern und damit die Funktion insbesondere von Consumern sicher.
 
-Folgendes Listing in der Definitionssprache https://avro.apache.org[Avro] zeigt, wie das Event `BestellungErstellt` aufgebaut ist.
+Folgendes Listing in der Definitionssprache https://avro.apache.org[Avro] zeigt, wie das Event `BestellungAufgegeben` aufgebaut ist.
 Darin ist z.B. das Feld `artikelId` als String definiert und ist verpflichtend in den daraus abgeleiteten Events.
 
 [id="listing-schema-bestellung",source,json,reftext="{listing-caption} {listing-number} {counter:listings}"]
-.Schema für den Event-Typ `BestellungErstellt` (Version 1)
+.Schema für den Event-Typ `BestellungAufgegeben` (Version 1)
 ----
 {
   "type": "record",
-  "name": "BestellungErstellt",
+  "name": "BestellungAufgegeben",
   "fields": [
     { "name": "artikelId", "type": "string" },
     { "name": "anzahl", "type": "int" }
@@ -309,7 +307,7 @@ Wichtig ist nur, dafür eine zentrale Stelle zu verwenden, um Schemabrüche und 
 === Schema Evolution vs. Schemabruch
 
 In den meisten Fällen handelt es sich bei den Änderungen an Event-Typen um <<abwaertskompatible-aenderungen,abwärtskompatible Änderungen>>.
-Kommt beispielsweise das optionale Feld `kommentar` zur <<listing-schema-bestellung,Version 1>> des Event-Typs `BestellungErstellt` hinzu, entsteht eine <<listing-schema-bestellung-feld-optional,neue Version>> aber kein neuer Event-Typ.
+Kommt beispielsweise das optionale Feld `kommentar` zur <<listing-schema-bestellung,Version 1>> des Event-Typs `BestellungAufgegeben` hinzu, entsteht eine <<listing-schema-bestellung-feld-optional,neue Version>> aber kein neuer Event-Typ.
 Eine fortschreitende Versionierung von Event-Typen, die im Rahmen der Kompatibilität bleibt, wird als Schema Evolution bezeichnet.
 
 Im Beispiel verwenden alte Consumer das Schema in der <<listing-schema-bestellung,Version 1>> beim Lesen von Nachrichten. Nachrichten, welche mit der <<listing-schema-bestellung-feld-optional,Version 2>> erzeugt wurden, enthalten zusätzlich das Feld `kommentar`.
@@ -319,11 +317,11 @@ In Nachrichten, die mit der alten Schema-Version erzeugt wurden, fehlt das Feld 
 Das ist aber für neue Consumer kein Problem, da es optional ist und einfach mit dem Wert `null` belegt wird.
 
 [id="listing-schema-bestellung-feld-optional",source,json,reftext="{listing-caption} {listing-number} {counter:listings}"]
-.Schema für den Event-Typ `BestellungErstellt` mit optionalem Kommentarfeld (Version 2)
+.Schema für den Event-Typ `BestellungAufgegeben` mit optionalem Kommentarfeld (Version 2)
 ----
 {
   "type": "record",
-  "name": "BestellungErstellt",
+  "name": "BestellungAufgegeben",
   "fields": [
     { "name": "artikelId", "type": "string" },
     { "name": "anzahl", "type": "int" },
@@ -335,16 +333,16 @@ Das ist aber für neue Consumer kein Problem, da es optional ist und einfach mit
 In Fällen bei denen Änderungen zum Bruch der Kompatibilität führen (<<abwaertskompatibilitaet,Breaking Change>>) reicht eine neue Schema-Version nicht mehr aus, d.h. es liegt ein Schemabruch vor.
 Als Folge muss ein neues Schema für einen neuen Event-Typ erstellt werden.
 
-Im <<listing-schema-bestellung,Beispiel-Event `BestellungErstellt`>> könnte ein neues Pflichtfeld `preis` dazukommen. Bei fortschreitender Versionierung könnten neue Consumer neue Nachrichten zwar lesen, aber bei den alten Nachrichten würde der Preis fehlen und der Consumer wüsste nicht, welcher Wert gemeint ist. Deswegen gibt es ein neues Schema für den Event-Typ `BestellungMitPreisErstellt`.
+Im <<listing-schema-bestellung,Beispiel-Event `BestellungAufgegeben`>> könnte ein neues Pflichtfeld `preis` dazukommen. Bei fortschreitender Versionierung könnten neue Consumer neue Nachrichten zwar lesen, aber bei den alten Nachrichten würde der Preis fehlen und der Consumer wüsste nicht, welcher Wert gemeint ist. Deswegen gibt es ein neues Schema für den Event-Typ `BestellungMitPreisAufgegeben`.
 
-WARNING: Im Falle von Breaking Changes wird dringend empfohlen, für das neue Schema auf generische Namen wie "BestellungErstelltV1" zu verzichten, um eine Vermischung von verschiedenen Versionskonzepten zu vermeiden, insbesondere wenn fortschreitende Versionen manuell z.B. über Header gesetzt werden.
+WARNING: Im Falle von Breaking Changes wird dringend empfohlen, für das neue Schema auf generische Namen wie "BestellungAufgegebenV1" zu verzichten, um eine Vermischung von verschiedenen Versionskonzepten zu vermeiden, insbesondere wenn fortschreitende Versionen manuell z.B. über Header gesetzt werden.
 
 [id="listing-schema-bestellung-pflichtfeld-dazu",source,json,reftext="{listing-caption} {listing-number} {counter:listings}"]
-.Schema für den neuen Event-Typ `BestellungMitPreisErstellt` mit neuem Pflichtfeld (Version 1)
+.Schema für den neuen Event-Typ `BestellungMitPreisAufgegeben` mit neuem Pflichtfeld (Version 1)
 ----
 {
   "type": "record",
-  "name": "BestellungMitPreisErstellt",
+  "name": "BestellungMitPreisAufgegeben",
   "fields": [
     { "name": "artikelId", "type": "string" },
     { "name": "anzahl", "type": "int" },
