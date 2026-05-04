@@ -134,7 +134,7 @@ Ein Backend-for-Frontend (BFF) SOLL als optionale Architekturvariante vorgesehen
 
 ==== AG-8: Security und Datenschutz by Design
 Sicherheits- und Datenschutzanforderungen SOLLEN von Beginn an integraler Bestandteil der Frontend-Architektur sein.
-Personenbezogene Daten SOLLEN auf das notwendige Minimum beschränkt und zweckgebunden verarbeitet werden.
+Personenbezogene Daten MÜSSEN auf das notwendige Minimum beschränkt und zweckgebunden verarbeitet werden.
 
 ==== AG-9: Modularisierung nur bei nachgewiesenem Bedarf
 Eine Laufzeit-Modularisierung (z. B. via Native Federation) SOLL nur eingesetzt werden, wenn organisatorische oder fachliche Gründe dies erfordern (z. B. mehrere Teams/Lieferanten, unabhängige Release-Zyklen).
