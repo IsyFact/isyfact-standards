@@ -439,10 +439,17 @@ Der Ablauf gliedert sich in den Phasen Vorbereitung, Einfrieren der bestehenden 
 7. Nach einer Stabilitätsphase geht das System wieder in Betrieb.
 8. Topic `antrag.v1` kann gelöscht oder archiviert werden (*Phase: Dekommissionierung*).
 
+Das Bild <<image-big-bang-topic-migration>> veranschaulicht die wesentlichen Schritte der einfachen Migration mit Wartungsfenster.
+
+[[image-big-bang-topic-migration]]
+.Big Bang Migration eines Topics
+image::referenzarchitektur:software-technisch/kommunikation/big-bang-topic-migration.dn.svg[]
+
 ==== Migration nach dem Strangler Pattern (schrittweise, im laufenden Betrieb)
 
 In kritischen Systemen wie Banksystemen sind Ausfälle und Datenverluste inakzeptabel.
-Hier ist eine Strategie erforderlich, die eine Migration während des laufenden Betriebs ermöglicht, ohne bestehende Funktionalität zu beeinträchtigen. Dies ist in der Praxis der empfohlene Weg.
+Hier ist eine Strategie erforderlich, die eine Migration während des laufenden Betriebs ermöglicht, ohne bestehende Funktionalität zu beeinträchtigen.
+Dies ist in der Praxis der empfohlene Weg.
 
 Das https://martinfowler.com/bliki/StranglerFigApplication.html[Strangler Pattern] dient dazu, ein bestehendes System schrittweise durch ein neues zu ersetzen.
 Dabei werden neue Komponenten parallel zum Bestandssystem aufgebaut, die inkrementell dessen Funktionalität übernehmen, bis das Bestandssystem abgelöst werden kann.
@@ -456,11 +463,13 @@ Anschließend wird der alte Datenstrom vollständig in das neue Topic transformi
 Dies erfolgt über eine Transformationskomponente, die Nachrichten aus dem alten Topic liest, in das neue Format überführt und in das neue Topic schreibt.
 Technisch kann dies beispielsweise durch ein Consumer-/Producer-Paar oder mittels Kafka Streams umgesetzt werden.
 
-Zeitgleich werden neue Consumer schrittweise auf das neue Topic umgestellt (*Phase: schrittweise Umstellung der Consumer*). Voraussetzung hierfür ist, dass sowohl alte Daten als auch laufende Events im neuen Topic vollständig verfügbar sind.
+Zeitgleich werden neue Consumer schrittweise auf das neue Topic umgestellt (*Phase: schrittweise Umstellung der Consumer*).
+Voraussetzung hierfür ist, dass sowohl alte Daten als auch laufende Events im neuen Topic vollständig verfügbar sind.
 
 Während der gesamten Übergangsphase existieren altes und neues Topic parallel, wobei der vollständige Datenbestand in beiden Systemen vorliegt (Replikation).
 
-Sobald alle Consumer erfolgreich auf das neue Topic migriert sind, werden die Producer auf das neue Topic umgestellt (*Phase: Umstellung der Producer*). Die Umstellung der Producer muss atomar erfolgen, um Duplikate zu vermeiden.
+Sobald alle Consumer erfolgreich auf das neue Topic migriert sind, werden die Producer auf das neue Topic umgestellt (*Phase: Umstellung der Producer*).
+Die Umstellung der Producer muss atomar erfolgen, um Duplikate zu vermeiden.
 
 Nach einer Stabilitätsphase kann das alte Topic außer Betrieb genommen, gelöscht oder archiviert werden (*Phase: Dekommissionierung*).
 Die Transformationskomponente wird anschließend ebenfalls entfernt.
@@ -472,6 +481,8 @@ Das Bild <<image-strangler-topic-migration>> veranschaulicht nochmal die wichtig
 image::referenzarchitektur:software-technisch/kommunikation/strangler-topic-migration.dn.svg[]
 
 Dieses Vorgehen ermöglicht eine Migration mit minimalem Risiko, ohne den laufenden Betrieb zu stören und mit kontrollierter Umstellung aller beteiligten Systeme.
+Es ist jedoch zu berücksichtigen, dass durch den Parallelbetrieb von neuem und altem Topic und der zusätzlichen Komponente `Transformator` Komplexität der Infrastruktur und Systemlast ansteigen.
+Änderungen sind daher mit den Teams für Betrieb und Monitoring abzustimmen.
 
 [[architektur]]
 == Architektur
