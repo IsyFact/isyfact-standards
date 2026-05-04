@@ -1,6 +1,6 @@
 name: Maven Dependency Scan
 on:
-  push:
+  pull_request:
     branches:
       - master
       - 'release/**'
@@ -9,14 +9,11 @@ on:
   workflow_dispatch:
 
 jobs:
-  Dependencies:
-    uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_dependency_scan_template.yml@v1.6.0
+  SnykScan:
+    uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_dependency_scan_template.yml@v1.7.0
     with:
       scan-dependency-management: false
       snyk-reference: $GITHUB_REF_NAME
       snyk-organization: ${{ vars.SNYK_ORG_ID }}
     secrets:
       SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-
-#  ORT:
-#    uses: IsyFact/isy-github-actions-templates/.github/workflows/oss_review_toolkit_template.yml@v1.6.0
