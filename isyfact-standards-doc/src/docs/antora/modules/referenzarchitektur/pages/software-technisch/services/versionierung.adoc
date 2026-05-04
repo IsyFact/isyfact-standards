@@ -204,7 +204,7 @@ Folgende Tabelle zeigt vereinfacht im Stil einer Karteikarte, wie die Definition
 |*Version* | 1
 |*Domäne*| Bestellung
 |*Eigentümer*| Team A
-|*Beschreibung* | Der Kunde hat eine Bestellung verbindlich aufgegeben. 
+|*Beschreibung* | Der Kunde hat eine Bestellung verbindlich aufgegeben.
 Die Bestellung wurde erfolgreich im System persistiert.
 |*Auslöser* | Das Event wird erzeugt, nachdem der Kunde den Kauf bestätigt hat und die Bestellung erfolgreich gespeichert wurde.
 |*Felder* |
@@ -371,6 +371,118 @@ Folgende Aussagen treffen zu:
 - Fachliche Änderungen erfordern immer einen neuen Event-Typ
 - Breaking Changes erfordern immer einen neuen Event-Typ
 - Nur kompatible technische Änderungen können mit Schema Evolution versioniert werden
+
+[[kanalstrategie-asynchrone-kommunikation]]
+== Kanalstrategien bei Asynchroner Kommunikation
+
+Bei inkompatiblen Änderungen an der Struktur von Nachrichten können bestehende oder neue Consumer alte Nachrichten nicht mehr korrekt verarbeiten.
+Um Stabilität und Datenkonsistenz zu gewährleisten, wird ein neues Topic für inkompatible Schemaänderungen erstellt.
+Im nächsten Schritt können Producer und Consumer auf das neue Topic migriert werden.
+
+=== Versionierung von Queues/Topics
+
+Für die Benennung von Topic-Versionen hat sich ein Muster etabliert, das auch bei REST-APIs für Breaking Changes verwendet wird.
+
+Beispiel:
+
+----
+bestellung.erstellt.v1
+bestellung.erstellt.v2
+...
+----
+
+Eine Vergabe von Versionen nach dem https://semver.org/[Semantic Versioning] sollte vermieden werden, da sie zu einer Vermischung von API- und Datenstromsemantik führt.
+Beispielsweise würde die Benennung eines Topics mit `bestellung.erstellt.v1.2` eine kompatible Änderung suggerieren, ein neues Topic wird jedoch ausschließlich bei inkompatiblen Änderungen eingeführt.
+Versionen für kompatible Änderungen werden im Rahmen von Schema Evolution durch die Schema Registry verwaltet.
+
+Wenn beispielsweise im <<listing-schema-bestellung-pflichtfeld-dazu,Schema für Bestellungen>> der Datentyp des Feldes `artikelId` geändert wird, entsteht ein <<listing-schema-bestellung-geanderter-feldtyp,neues Schema mit einem Breaking Change>>.
+Mit der Verwendung des neuen Schemas befinden sich die alten Nachrichten weiterhin im alten Topic `bestellung.erstellt.v1` und die mit dem neuen Schema erzeugten Nachrichten im Topic `bestellung.erstellt.v2`.
+
+[id="listing-schema-bestellung-geanderter-feldtyp",source,json,reftext="{listing-caption} {listing-number} {counter:listings}"]
+.Schema `BestellungIdLongErstellt` mit geändertem Feldtyp (Version 1)
+----
+{
+  "type": "record",
+  "name": "BestellungIdLongErstellt",
+  "fields": [
+    { "name": "artikelId", "type": "long" },
+    { "name": "anzahl", "type": "int" }
+  ]
+}
+----
+
+=== Migration von Topics/Queues
+
+Die Strategie zur Migration von Topics hängt vom konkreten Anwendungsfall und den jeweiligen Anforderungen ab:
+
+1. Was passiert mit bestehenden Events - können diese gelöscht werden oder werden sie noch für spätere Analysen gebraucht, gegebenenfalls im neuen Format?
+2. Sind verlorene oder fehlerhaft verarbeitete Nachrichten während der Migration hinnehmbar?
+3. Darf der laufende Betrieb des Systems während der Wartung unterbrochen werden?
+4. Soll die Zustellreihenfolge der Nachrichten erhalten bleiben?
+5. Dürfen Nachrichten mehrfach verarbeitet werden (Duplikate)?
+
+==== Einfache Migration (Big-Bang, mit Wartungsfenster)
+
+Wenn eine kurzzeitige Unterbrechung des Betriebs akzeptabel ist (z.B. weil nachts wenige Anträge eingehen), kann die vollständige Migration während eines definierten Wartungsfensters in einem einzigen Schritt erfolgen, sofern sie mit den beteiligten Entwicklerteams und Abteilungen abgestimmt ist.
+
+Während einer Wartungszeit werden bestehende Producer zuerst eingestellt, sodass keine Nachrichten mehr in das alte Topic geschrieben werden. Anschließend arbeiten die bestehenden Consumer alle noch im System befindlichen Nachrichten im alten Topic vollständig ab.
+Sobald alle Nachrichten im alten Topic vollständig verarbeitet sind, werden die neuen Producer und Consumer gestartet und arbeiten ausschließlich mit dem neuen Topic.
+
+Der Ablauf gliedert sich in den Phasen Vorbereitung, Einfrieren der bestehenden Producer, Entleeren des bestehenden Topics, Umstellung auf das neue Topic und Dekommissionierung des alten Topics.
+
+1. Neues Topic `antrag.v2` wird angelegt (*Phase: Vorbereitung*).
+2. Neue Producer und Consumer werden erstellt.
+3. Wartungsfenster wird aktiviert.
+4. Alte Producer werden eingestellt, damit der Datenbestand nicht weiter befüllt wird (*Phase: Einfrieren*).
+5. Bestehende Consumer arbeiten verbleibende Nachrichten in `antrag.v1` vollständig ab (*Phase: Entleeren*).
+6. Neue Producer und Consumer werden gestartet und arbeiten ausschließlich mit dem neuen Topic `antrag.v2` (*Phase: Umstellung*).
+7. Nach einer Stabilitätsphase geht das System wieder in Betrieb.
+8. Topic `antrag.v1` kann gelöscht oder archiviert werden (*Phase: Dekommissionierung*).
+
+Das Bild <<image-big-bang-topic-migration>> veranschaulicht die wesentlichen Schritte der einfachen Migration mit Wartungsfenster.
+
+[[image-big-bang-topic-migration]]
+.Big Bang Migration eines Topics
+image::referenzarchitektur:software-technisch/kommunikation/big-bang-topic-migration.dn.svg[]
+
+==== Migration nach dem Strangler Pattern (schrittweise, im laufenden Betrieb)
+
+In kritischen Systemen wie Banksystemen sind Ausfälle und Datenverluste inakzeptabel.
+Hier ist eine Strategie erforderlich, die eine Migration während des laufenden Betriebs ermöglicht, ohne bestehende Funktionalität zu beeinträchtigen.
+Dies ist in der Praxis der empfohlene Weg.
+
+Das https://martinfowler.com/bliki/StranglerFigApplication.html[Strangler Pattern] dient dazu, ein bestehendes System schrittweise durch ein neues zu ersetzen.
+Dabei werden neue Komponenten parallel zum Bestandssystem aufgebaut, die inkrementell dessen Funktionalität übernehmen, bis das Bestandssystem abgelöst werden kann.
+
+Dieses Prinzip lässt sich auf Topics/Queues mit inkompatiblen Änderungen übertragen.
+
+Der Ablauf gliedert sich in den Phasen Vorbereitung, Parallelisierung des bestehenden Datenstroms, schrittweise Umstellung der Consumer, Umstellung der Producer und optional Dekommissionierung des alten Topics.
+
+Zu Beginn wird ein neues Topic mit dem aktualisierten Schema bereitgestellt (*Phase: Vorbereitung*).
+Anschließend wird der alte Datenstrom vollständig in das neue Topic transformiert und repliziert (*Phase: Parallelisierung*).
+Dies erfolgt über eine Transformationskomponente, die Nachrichten aus dem alten Topic liest, in das neue Format überführt und in das neue Topic schreibt.
+Technisch kann dies beispielsweise durch ein Consumer-/Producer-Paar oder mittels Kafka Streams umgesetzt werden.
+
+Zeitgleich werden neue Consumer schrittweise auf das neue Topic umgestellt (*Phase: schrittweise Umstellung der Consumer*).
+Voraussetzung hierfür ist, dass sowohl alte Daten als auch laufende Events im neuen Topic vollständig verfügbar sind.
+
+Während der gesamten Übergangsphase existieren altes und neues Topic parallel, wobei der vollständige Datenbestand in beiden Systemen vorliegt (Replikation).
+
+Sobald alle Consumer erfolgreich auf das neue Topic migriert sind, werden die Producer auf das neue Topic umgestellt (*Phase: Umstellung der Producer*).
+Die Umstellung der Producer muss atomar erfolgen, um Duplikate zu vermeiden.
+
+Nach einer Stabilitätsphase kann das alte Topic außer Betrieb genommen, gelöscht oder archiviert werden (*Phase: Dekommissionierung*).
+Die Transformationskomponente wird anschließend ebenfalls entfernt.
+
+Das Bild <<image-strangler-topic-migration>> veranschaulicht nochmal die wichtigen Phasen der Migration nach dem Strangler Pattern.
+
+[[image-strangler-topic-migration]]
+.Migration eines Topics nach dem Strangler Pattern
+image::referenzarchitektur:software-technisch/kommunikation/strangler-topic-migration.dn.svg[]
+
+Dieses Vorgehen ermöglicht eine Migration mit minimalem Risiko, ohne den laufenden Betrieb zu stören und mit kontrollierter Umstellung aller beteiligten Systeme.
+Es ist jedoch zu berücksichtigen, dass durch den Parallelbetrieb von neuem und altem Topic und der zusätzlichen Komponente `Transformator` Komplexität der Infrastruktur und Systemlast ansteigen.
+Änderungen sind daher mit den Teams für Betrieb und Monitoring abzustimmen.
 
 [[architektur]]
 == Architektur

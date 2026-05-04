@@ -1,5 +1,7 @@
 # 5.0.0
 ### FEATURES
+- `IFS-5367`: [isyfact-standards-doc] Erstellung einer Kanalstrategie für Änderungen bei der Nutzung asynchroner Kommunikation
+- `IFS-5366`: [isyfact-standards-doc] Erstellung Vorgaben zur Versionierung von Events
 - `IFS-5209`: [isyfact-standards-doc] Verschiebung der Beschreibung "Prinzipien der Sicherheitsarchitektur" auf die neue Seite "Sicherheit"
 - `IFS-5286`: [isyfact-standards-doc] Beschreibung des API-Gateways in der software-technischen Referenzarchitektur
 - `IFS-5359`: [isyfact-standards-doc] Entfernung des Dokumenttyps Systemdokumentation aus der Methodik
