@@ -204,7 +204,8 @@ Folgende Tabelle zeigt vereinfacht im Stil einer Karteikarte, wie die Definition
 |*Version* | 1
 |*Domäne*| Bestellung
 |*Eigentümer*| Team A
-|*Beschreibung* | Der Kunde hat eine Bestellung verbindlich aufgegeben. Die Bestellung wurde erfolgreich im System persistiert.
+|*Beschreibung* | Der Kunde hat eine Bestellung verbindlich aufgegeben. 
+Die Bestellung wurde erfolgreich im System persistiert.
 |*Auslöser* | Das Event wird erzeugt, nachdem der Kunde den Kauf bestätigt hat und die Bestellung erfolgreich gespeichert wurde.
 |*Felder* |
 |artikelId | Eindeutige Kennung des Artikels, um den bestellten Artikel zu identifizieren. Typ String.
@@ -213,8 +214,8 @@ Folgende Tabelle zeigt vereinfacht im Stil einer Karteikarte, wie die Definition
 
 |===
 
-Fachliche Änderungen wirken sich auf die Semantik aus und führen in der Regel immer zu Breaking Changes.
-Im Gegensatz zu technischen inkompatiblen Änderungen können sie nicht automatisch erkannt werden.
+Fachliche Änderungen wirken sich auf die Semantik aus und führen immer zu Breaking Changes.
+Im Gegensatz zu technisch inkompatiblen Änderungen können sie nicht automatisch erkannt werden.
 
 Folgende Tabelle zeigt beispielhaft die semantische Änderung des Feldes _preis_.
 Zuvor war der Preis für den einzelnen Artikel gemeint, nun soll das Feld den Gesamtbetrag für alle Artikel enthalten.
@@ -361,7 +362,7 @@ Folgende Tabelle führt als Entscheidungshilfe auf, wann ein neuer Event-Typ in 
 
 | fachlich | egal | neuer Event-Typ
 | technisch | nein | neuer Event-Typ
-| technische | ja | neue Version (Schema Evolution)
+| technisch | ja | neue Version (Schema Evolution)
 
 |===
 
