@@ -131,7 +131,7 @@ Die bestehende Version bleibt für einen Übergangszeitraum parallel verfügbar,
 ==== Nicht abwärtskompatible Änderungen an Nachrichten und Events
 Ist eine Änderung an einer Nachricht oder einem Event nicht abwärtskompatibel, so ist eine neue Version des Formats bereitzustellen.
 Können bestehende Consumer mehrere Versionen nicht sicher parallel verarbeiten, ist zusätzlich ein neuer Kanal vorzusehen, zum Beispiel eine eigene Queue, ein eigenes Topic oder ein eigener Event-Typ.
-Dieser Kanal ist dann fpr die neue Version der Consumer vorgesehen.
+Dieser Kanal ist dann für die neue Version der Consumer vorgesehen.
 Dies bedeutet: Wenn bestehende Consumer eine geänderte Nachricht oder ein Event nicht mehr korrekt verarbeiten können, dann darf das bestehende Format nicht einfach verändert werden, vielmehr muss ein neues, getrenntes Nachrichtenformat definiert werden.
 
 ==== Neues Backend
