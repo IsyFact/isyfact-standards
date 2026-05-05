@@ -511,4 +511,86 @@ class BatchrahmenTest extends AbstractOidcProviderTest {
         assertTrue(bpt.enthaeltFehler("BAT110", "-10"));
     }
 
+    /**
+     * Tests that a failed batch cannot be restarted more than the configured maximum number of times.
+     * With {@code Batchrahmen.MaxWiederholungen=2}, exactly 2 restart attempts are permitted.
+     */
+    @Test
+    void testMaxWiederholungen() {
+        // Initial run fails
+        assertEquals(BatchReturnCode.FEHLER_ABBRUCH.getWert(), BatchLauncher.run(
+                new String[]{"-start", "-cfg",
+                        "/resources/batch/error-test-batch-max-wiederholungen-config.properties",
+                        "-laufError", "true"}));
+        assertEquals("abgebrochen", getBatchStatus("errorTestBatch-1"));
+
+        // First restart is allowed (counter 0 < maxWiederholungen 2)
+        assertEquals(BatchReturnCode.FEHLER_ABBRUCH.getWert(), BatchLauncher.run(
+                new String[]{"-restart", "-cfg",
+                        "/resources/batch/error-test-batch-max-wiederholungen-config.properties",
+                        "-laufError", "true"}));
+        assertEquals("abgebrochen", getBatchStatus("errorTestBatch-1"));
+
+        // Second restart is allowed (counter 1 < maxWiederholungen 2)
+        assertEquals(BatchReturnCode.FEHLER_ABBRUCH.getWert(), BatchLauncher.run(
+                new String[]{"-restart", "-cfg",
+                        "/resources/batch/error-test-batch-max-wiederholungen-config.properties",
+                        "-laufError", "true"}));
+        assertEquals("abgebrochen", getBatchStatus("errorTestBatch-1"));
+
+        // Third restart is aborted with FEHLER_ABBRUCH (counter 2 >= maxWiederholungen 2)
+        assertEquals(BatchReturnCode.FEHLER_ABBRUCH.getWert(), BatchLauncher.run(
+                new String[]{"-restart", "-cfg",
+                        "/resources/batch/error-test-batch-max-wiederholungen-config.properties",
+                        "-laufError", "true"}));
+        assertEquals("abgebrochen", getBatchStatus("errorTestBatch-1"));
+
+        // A fresh start with -ignoriereRestart resets the counter
+        assertEquals(BatchReturnCode.FEHLER_ABBRUCH.getWert(), BatchLauncher.run(
+                new String[]{"-start", "-ignoriereRestart", "-cfg",
+                        "/resources/batch/error-test-batch-max-wiederholungen-config.properties",
+                        "-laufError", "true"}));
+        assertEquals("abgebrochen", getBatchStatus("errorTestBatch-1"));
+
+        // Restart is allowed again after the fresh start reset the counter (counter 0 < maxWiederholungen 2)
+        assertEquals(BatchReturnCode.FEHLER_ABBRUCH.getWert(), BatchLauncher.run(
+                new String[]{"-restart", "-cfg",
+                        "/resources/batch/error-test-batch-max-wiederholungen-config.properties",
+                        "-laufError", "true"}));
+        assertEquals("abgebrochen", getBatchStatus("errorTestBatch-1"));
+    }
+
+    /**
+     * Tests that a failed batch can be restarted without limit when {@code Batchrahmen.MaxWiederholungen}
+     * is not configured.
+     */
+    @Test
+    void testMaxWiederholungenNichtKonfiguriert() {
+        // Initial run fails
+        assertEquals(BatchReturnCode.FEHLER_ABBRUCH.getWert(), BatchLauncher.run(
+                new String[]{"-start", "-cfg",
+                        "/resources/batch/error-test-batch-1-config.properties",
+                        "-laufError", "true"}));
+        assertEquals("abgebrochen", getBatchStatus("errorTestBatch-1"));
+
+        // Multiple restarts succeed without hitting any limit
+        assertEquals(BatchReturnCode.FEHLER_ABBRUCH.getWert(), BatchLauncher.run(
+                new String[]{"-restart", "-cfg",
+                        "/resources/batch/error-test-batch-1-config.properties",
+                        "-laufError", "true"}));
+        assertEquals("abgebrochen", getBatchStatus("errorTestBatch-1"));
+
+        assertEquals(BatchReturnCode.FEHLER_ABBRUCH.getWert(), BatchLauncher.run(
+                new String[]{"-restart", "-cfg",
+                        "/resources/batch/error-test-batch-1-config.properties",
+                        "-laufError", "true"}));
+        assertEquals("abgebrochen", getBatchStatus("errorTestBatch-1"));
+
+        assertEquals(BatchReturnCode.FEHLER_ABBRUCH.getWert(), BatchLauncher.run(
+                new String[]{"-restart", "-cfg",
+                        "/resources/batch/error-test-batch-1-config.properties",
+                        "-laufError", "true"}));
+        assertEquals("abgebrochen", getBatchStatus("errorTestBatch-1"));
+    }
+
 }
