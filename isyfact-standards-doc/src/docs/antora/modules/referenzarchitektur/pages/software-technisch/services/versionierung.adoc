@@ -202,43 +202,41 @@ image::referenzarchitektur:software-technisch/services/entscheidungsbaum-version
 Diese Zuordnung ist im Systementwurf zu dokumentieren und zu begründen.
 
 === Zuordnung der Entscheidungsdimensionen zu Mustern
-[cols="3,2,3,3,4", options="header"]
+[cols="3,3,4", options="header"]
 |===
 |Muster
-|Änderung
-|Schnittstelle
-|Backend
 |Konsequenz
+|Kurzbeschreibung
 
 |Kompatible Weiterentwicklung
-|abwärtskompatibel
-|bestehende Schnittstelle wird erweitert
-|bestehendes Backend
-|Keine neue Schnittstellenversion
+|Kompatible Weiterentwicklung bestehender Schnittstelle im bestehenden Backend
+|Die bestehende Service-Schnittstelle wird kompatibel erweitert.
+Keine Parallelversion notwendig.
 
-|Neue versionierte Service-Schnittstelle im bestehenden Backend
-|nicht abwärtskompatibel, gleiches fachliches Konzept, gleiche fachliche Semantik
-|neue Schnittstelle desselben Services in der Serviceschicht
-|bestehendes Backend
-|DTOs und Mapper je Version, gemeinsamer Anwendungskern
 
-|Versionierte Service-Implementierung im bestehenden Backend
-|nicht abwärtskompatibel, gleiches fachliches Konzept, abweichende Verarbeitung; nur zulässig, wenn keine widersprüchliche fachliche Semantik entsteht
-|neue Schnittstelle desselben Services in der Serviceschicht
-|bestehendes Backend
-|Getrennte Implementierungspfade, gleiche Datenhoheit und gleicher Lifecycle, keine Versionslogik im gemeinsamen Anwendungskern
-
+|Fachliche Schnittstellenerweiterung
 |Neue fachliche Schnittstelle im bestehenden Backend
-|neues fachliches Konzept, das weiterhin zur fachlichen Verantwortung des bestehenden Backends gehört
-|neue Schnittstelle eines neuen Services
-|bestehendes Backend
-|Neuer Service innerhalb desselben Backends
+|Es entsteht eine neue fachliche Verantwortung, der bestehende Anwendungskern kann aber weiterverwendet werden.
+Keine Versionierung einer bestehenden Schnittstelle, sondern Ergänzung einer Neuen.
 
-|Neue fachliche Schnittstelle in neuem Backend
-|neues fachliches Konzept mit eigener Datenhoheit, Lifecycle oder Betriebsverantwortung
-|neue Schnittstelle eines neuen Services
-|neues Backend
-|Eigener Lifecycle, eigenes Deployment, eigener Betrieb
+
+|Fachliche Entkopplung in eigenem Backend
+|Neues Backend mit fachlicher Schnittstelle
+|Es entsteht eine neue fachliche Verantwortung, die nicht mehr durch den bestehenden Anwendungskern abgebildet werden kann.
+
+
+|Schnittstellenversionierung mit gemeinsamem Anwendungskern
+|Neue versionierte Service-Schnittstelle im bestehenden Backend (DTOs und Mapper je Version)
+|Die fachliche Verantwortung bleibt gleich, der bestehende Anwendungskern ist weiter nutzbar, aber die technische Schnittstelle ändert sich jedoch inkompatibel.
+
+
+|Implementierungsversionierung im gemeinsamen Backend
+|Versionierte Service-Implementierung im bestehenden Backend mit getrennten Anwendungskomponenten
+|Die fachliche Verantwortung bleibt gleich, aber eine sich unterscheidende fachliche Kernlogik muss parallel betrieben werden.
+
+|Vollständig entkoppelte Service-Version
+|Neue versionierte Service-Schnittstelle in neuem Backend
+|Die fachliche Verantwortung bleibt gleich, aber Datenhoheit, Lifecycle oder Betrieb erfordern vollständige Entkopplung.
 |===
 
 === Kompatible Weiterentwicklung eines Services
@@ -257,7 +255,7 @@ Dadurch ergibt sich minimaler Betriebsaufwand und keine zusätzliche Komplexitä
 Die Änderungsfreiheit ist jedoch eingeschränkt.
 
 ==== Auswirkungen
-- Deployment: Update eines bestehenden Deployments
+- Deployment: Redeployment (Update eines bestehenden Deployments in neuer Version)
 - Betrieb: keine zusätzlichen Instanzen
 - Komplexität: gering
 
@@ -278,7 +276,7 @@ Die Komplexität in der Serviceschicht ist aber höher da eine Mapping-Logik not
 Zu beachten ist, dass bei vielen Versionen die Wartungskosten steigen.
 
 ==== Auswirkungen
-- Deployment: ein Deployment mit mehreren Schnittstellenversionen
+- Redeployment mit mehreren Schnittstellenversionen (Update eines bestehenden Deployments in neuer Version) 
 - Betrieb: gemeinsame Skalierung
 - Komplexität: mittel
 
@@ -293,6 +291,7 @@ Sie ist in getrennten Anwendungskomponenten oder getrennten Implementierungspfad
 Die Service-Schicht vermittelt nur zur jeweils passenden Implementierung.
 Eine angemessene Wartbarkeit bei wachsender Divergenz wird durch die Nutzung möglicher gemeinsame Infrastrukturkomponenten erreicht und die Komplexität pro Version verringert.
  Die erhöhte Komplexität im Backend und eine teilweise Duplikation von Logik, was sich in steigendem Testaufwand niederschlägt, ist bei diesem Vorgehen als negativ zu betrachten.
+Bei zunehmender fachlicher Divergenz ist die Minimierung horizontaler Komplexität wichtiger als die Vermeidung technischer Redundanz.
 
 ==== Auswirkungen
 - Deployment: ein Deployment mit differenzierter Logik
@@ -309,16 +308,16 @@ Nicht zulässig sind weder verstreute if/else-Logik nach Version, fachliche Rege
 Beispiel: Technologiewechsel oder grundlegende fachliche Neuausrichtung eines Services.
 
 Eine neue Service-Version wird als eigenständiges Backend realisiert.
-Notwendig aufgrund hoher fachliche oder technische Divergenz bei gleichzeigter Notwendigkeit eines langfristigen Parallelbetriebs.
-Jedes Backend hat eigene Betriebsanforderungen.
+Dies ist nur bei hoher fachlicher oder technischer Divergenz sinnvoll, insbesondere wenn ein langfristiger Parallelbetrieb erforderlich ist.
+Jedes Backend besitzt eine eigene Serviceschicht, einen eigenen Anwendungskern, ein eigenes Deployment und eigene Betriebsanforderungen.
+Über die Datenhaltung ist explizit zu entscheiden.
+Die gemeinsame direkte Nutzung derselben Datenbank durch mehrere Backend-Versionen ist grundsätzlich zu vermeiden.
+Sie koppelt die Backends über das Datenmodell, verhindert unabhängige Weiterentwicklung und macht Änderungen riskant.
 
-Diese Ausgestaltung zeichnet sich durch die vollständige Trennung von Serviceschicht und Anwendungskern jeder Version aus.
-Jede Version hat ein eigenständiges Deployment.
-Über eine getrennte Datenhaltung ist zu entscheiden.
+Zulässig sind nur bewusst begründete Übergangslösungen, etwa während einer Migration.
+Diese sind mit Bezug auf Umfang und Dauer im Systementwurf zu dokumentieren.
 
 Als Vorteil ergibt sich eine maximale Entkopplung und eine unabhängige Weiterentwicklung mit klaren Systemgrenzen.
-Dafür ist der Infrastruktur-, Betriebs- und Integrationsaufwand hoch.
-Auch ist es komplexer Datenkonsistenz zu gewährleisten.
 
 Ein neues Backend ist keine Standardmaßnahme für Versionierung.
 Es ist eine bewusste Architekturentscheidung und im Systementwurf zu begründen.
@@ -327,7 +326,6 @@ Es ist eine bewusste Architekturentscheidung und im Systementwurf zu begründen.
 - Deployment: separate Deployments / Container
 - Betrieb: getrennte Skalierung und Überwachung
 - Komplexität: hoch
-
 
 [[architektur]]
 == Architektur
