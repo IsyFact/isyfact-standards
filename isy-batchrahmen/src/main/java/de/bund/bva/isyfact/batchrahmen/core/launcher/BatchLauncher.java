@@ -28,6 +28,7 @@ import de.bund.bva.isyfact.batchrahmen.batch.rahmen.BatchReturnCode;
 import de.bund.bva.isyfact.batchrahmen.config.BatchSecurityConfiguration;
 import de.bund.bva.isyfact.batchrahmen.core.exception.BatchrahmenException;
 import de.bund.bva.isyfact.batchrahmen.core.exception.BatchrahmenInitialisierungException;
+import de.bund.bva.isyfact.batchrahmen.core.exception.BatchrahmenMaxWiederholungenException;
 import de.bund.bva.isyfact.batchrahmen.core.exception.BatchrahmenProtokollException;
 import de.bund.bva.isyfact.batchrahmen.core.konstanten.NachrichtenSchluessel;
 import de.bund.bva.isyfact.batchrahmen.core.protokoll.DefaultBatchErgebnisProtokoll;
@@ -113,6 +114,12 @@ public class BatchLauncher {
             if (ex.getReturnCode() != null) {
                 returnCode = ex.getReturnCode();
             }
+        } catch (BatchrahmenMaxWiederholungenException ex) {
+            if (log != null) {
+                log.info(LogKategorie.JOURNAL, ex.getAusnahmeId(), ex.getMessage());
+            }
+            System.err.print(ex.getMessage());
+            returnCode = ex.getReturnCode();
         } catch (BatchrahmenException ex) {
             protokolliereFehler(log, protokoll, ex);
             returnCode = ex.getReturnCode();
