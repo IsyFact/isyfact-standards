@@ -405,7 +405,7 @@ Diese umfasst mindestens:
 - Datum der Deprecation der alten Version,
 - Mindestunterstützungszeitraum,
 - geplantes Abschaltdatum,
-- betroffene Consumer,
+- betroffene Clients,
 - Migrationsanleitung,
 - technische Metrik zur Nutzung der alten Version.
 
