@@ -75,11 +75,12 @@ Alle nichtfunktionalen Anforderungen müssen von dieser Systemumgebung vollstän
 image::technisch-infrastrukturell/ti-architektur-awl-pru.dn.svg[]
 
 Der Zugriff durch die internen Anwender (über Clients) bzw. externen Anwender (über Clients oder xref:glossary::terms-definitions.adoc#externes-system[externe Systeme]) erfolgt über das interne LAN bzw. das WAN.
-Die Kommunikation erfolgt per Secure HTTP (HTTPS) mit einem Browser oder ebenfalls per HTTPS oder SMTP via XML- oder Webservice-Schnittstelle direkt aus dem externen System über ein Service-Gateway.
+Die Kommunikation erfolgt per HTTPS mit einem Browser oder ebenfalls per HTTPS oder SMTP via XML- oder Webservice-Schnittstelle direkt aus dem externen System über ein Service-Gateway, das im xref:technisch-infrastrukturell/api-gateway.adoc[] liegt.
 Innerhalb der Produktionsumgebung sollten die IT-Systeme ebenfalls verschlüsselt miteinander kommunizieren.
 
-Interne Drittsysteme, die aus dem internen LAN mit der IsyFact-Systemlandschaft kommunizieren, tun dies genau wie externe Anwendungen per HTTPS oder SMTP via XML- oder Webservice-Schnittstellen über ein Service-Gateway.
-Die Authentifizierung geschieht über einen Identity & Access Management (IAM) Cluster, bzw. ein IAM-System.
+Interne Drittsysteme, die aus dem internen LAN mit der IsyFact-Systemlandschaft kommunizieren, tun dies genau wie externe Systeme.
+
+Die Authentifizierung geschieht über einen Identity & Access Management (IAM) Cluster, bzw. ein IAM-System, der von außen über das im xref:technisch-infrastrukturell/api-gateway.adoc[] liegende Authentication-Gateway erreichbar ist.
 
 Administratoren greifen aus dem Admin-Netz direkt mittels Secure-Shell auf die Serversysteme der IsyFact-Systemlandschaft zu (Betriebssystem-Ebene).
 Aus dem Admin-Netz ist der Zugriff auf die Anwendungen nicht möglich.
@@ -106,7 +107,7 @@ Idealerweise ist die Staging-Umgebung eine exakte Kopie der Produktionsumgebung.
 Häufig ist dies jedoch aufgrund der sehr großen Anzahl Server und den damit verbundenen Investitionskosten für die benötigte Hardware und Software aus Wirtschaftlichkeitsaspekten nicht sinnvoll.
 
 Daher ist die Staging-Umgebung eine in Bezug auf die Anzahl der Cluster-Knoten kleinere Kopie der Produktionsumgebung.
-Das heißt, an Stellen, in denen in der Produktionsumgebung ein Cluster mit mehr als zwei Knoten verwendet wird, wird in der Staging-Umgebung ein Cluster mit 2 Knoten eingesetzt.
+Das heißt, an Stellen, in denen in der Produktionsumgebung ein Cluster mit mehr als zwei Knoten verwendet wird, wird in der Staging-Umgebung ein Cluster mit zwei Knoten eingesetzt.
 In der Staging-Umgebung wird auch auf die Datenspiegelung verzichtet.
 
 Die Server der Staging-Umgebung stehen in eigenen Sicherheitszonen.

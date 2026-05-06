@@ -62,14 +62,18 @@ Der Bereich "IAM" umfasst Gateways, die zur Authentifizierung und Autorisierung 
 Er umfasst im Wesentlichen das als Querschnittsanwendung umgesetzte xref:software-technisch.adoc#prinzipien-der-sicherheitsarchitektur[Authentication Gateway].
 Das Authentication Gateway wird über OAuth 2.x angesprochen und kommuniziert auf demselben Weg mit dem in der Systemlandschaft liegenden IAM-Service.
 
-== Architekturvarianten
+== Architekturvariante auf Basis einer Plattform
 
-Neben dem oben beschriebenen <<image-api-gateway-aufbau>> als Systemverbund aus eigens entwickelten Gateways und Querschnittsanwendungen, gibt es die Möglichkeit, das API-Gateway auf Basis der xref:plattform:plattform.adoc[Betriebsplattform] zu implementieren.
+Neben dem oben beschriebenen <<image-api-gateway-aufbau>> als Systemverbund aus eigens oder querschnittlich entwickelten Gateways, gibt es die Möglichkeit, das API-Gateway auf Basis der xref:plattform:plattform.adoc[Betriebsplattform] zu implementieren.
 
 [[image-api-gateway-produkt]]
 .Aufbau des API-Gateways auf Basis einer Plattform
 image::software-technisch/api-gateway-aufbau-plattform.dn.svg[]
 
+//tag::api-gateway-platform[]
+
 Moderne Betriebsplattformen können einen Großteil der Aufgaben eines API-Gateways übernehmen.
 Dies betrifft insbesondere die Aufgaben Routing, Authentifizierung & Autorisierung, Protokollierung & Monitoring sowie Sicherheit.
-Es verbleiben Gateway-Systeme, welche nach dem Passieren der Anfrage durch das API-Gateway die Transformation von Schnittstellenformaten und -technologien vornehmen.
+Es verbleiben Gateway-Systeme, welche nach dem Passieren der Anfrage durch das Ingress Gateway der Betriebsplattform, bzw. vor dem Passieren der Anfrage durch ihr Egress Gateway, die Transformation von Schnittstellenformaten und -technologien vornehmen.
+
+//end::api-gateway-platform[]

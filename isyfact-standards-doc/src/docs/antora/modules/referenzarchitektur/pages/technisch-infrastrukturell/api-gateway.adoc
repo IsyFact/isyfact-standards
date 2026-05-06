@@ -1,0 +1,22 @@
+= Deployment des API-Gateways
+:navtitle: API-Gateway
+:reftext: API-Gateway
+
+Das API-Gateway wird vollständig in der Informations- und Dienstzone betrieben.
+Sämtliche Kommunikation von xref:glossary::terms-definitions.adoc#externes-system[externen Systemen], also Systemen außerhalb des internen Netzes, zu Systemen innerhalb der Logik- und Verarbeitungszone, sowie umgekehrt, erfolgt über das API-Gateway.
+
+[[image-api-gateway-deployment]]
+.Deployment des API-Gateways
+image::technisch-infrastrukturell/api-gateway-deployment.dn.svg[]
+
+Die drei Bereiche des API-Gateways aus der xref:software-technisch/api-gateway.adoc[software-technischen Sicht] bilden sich in Clustern ab, wobei auch mehrere Cluster einen Bereich bilden können.
+
+== Architekturvariante auf Basis einer Plattform
+
+Neben dem oben beschriebenen <<image-api-gateway-deployment>> als Cluster aus eigens oder querschnittlich entwickelten Gateways, gibt es die Möglichkeit, das API-Gateway auf Basis der xref:plattform:plattform.adoc[Betriebsplattform] umzusetzen.
+
+[[image-api-gateway-deployment-produkt]]
+.Deployment des API-Gateways auf Basis einer Plattform
+image::technisch-infrastrukturell/api-gateway-deployment-plattform.dn.svg[]
+
+include::referenzarchitektur:software-technisch/api-gateway.adoc[tag=api-gateway-platform]

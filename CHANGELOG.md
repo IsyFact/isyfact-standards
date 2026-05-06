@@ -1,5 +1,6 @@
 # 5.0.0
 ### FEATURES
+- `IFS-5287`: [isyfact-standards-doc] Beschreibung des API-Gateways in der technisch-infrastrukturellen Referenzarchitektur
 - `IFS-5367`: [isyfact-standards-doc] Erstellung einer Kanalstrategie für Änderungen bei der Nutzung asynchroner Kommunikation
 - `IFS-5366`: [isyfact-standards-doc] Erstellung Vorgaben zur Versionierung von Events
 - `IFS-5364`: [isyfact-standards-doc] Dokumentation zur Versionierung synchroner Services mit Entscheidungsmodell, Architekturmustern und Umsetzungsvarianten ergänzt
@@ -97,6 +98,7 @@ Der Begriff "externes System" wurde definiert und seine Verwendung, wo nötig, k
 Die Begrifflichkeiten "internes System" bzw. "interne Anwendung" wurden entfernt.
 
 Der IT-Systemtyp "Gateway" wurde eingeführt. Er bildet die architektonische Grundlage für Service-Gateways und weitere Systeme, die eine Systemlandschaft mit der Außenwelt verbinden. 
+Auf Basis dieses IT-Systemtyps wurde das API-Gateway als Sammelbegriff eingeführt und in der Referenzarchitektur beschrieben.
 
 Der Bereich Services der Referenzarchitektur enthält eine Beschreibung von REST sowie allgemeine Seite zu Vorgaben und Konventionen aus dem abgelösten Baustein REST.
 Außerdem wurde der Begriff "Service" überarbeitet und dessen Verwendung in der gesamten IsyFact, wo nötig, angepasst. 
@@ -159,6 +161,7 @@ Die Konzeption wurde um die strukturierten Verwendung von HTTP-Statuscodes (inkl
 #### Systementwurf
 
 Architekturentscheidungen, die Abweichungen und Erweiterungen zur Referenzarchitektur begründen, und die nur im Rahmen der Umsetzung einer Anwendung gelten, müssen nun im Systementwurf dokumentiert werden.
+Außerdem wurde der Systementwurf an die aktuelle Referenzarchitektur angepasst.
 
 #### Systemdokumentation
 
