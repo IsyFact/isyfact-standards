@@ -268,11 +268,11 @@ Keine Versionierung einer bestehenden Schnittstelle, sondern Ergänzung einer Ne
 
 === Kompatible Weiterentwicklung eines Services
 
-Ein Beispiel für die hier behandelte Änderungen ist das Hinzufügen eines optionalen Attributs zu einer bestehenden Operation.
+Ein Beispiel für die hier behandelten Änderungen ist das Hinzufügen eines optionalen Attributs zu einer bestehenden Operation.
 
 Abwärtskompatible Änderungen werden innerhalb derselben Service-Version umgesetzt.
 Die bestehende Service-Schnittstelle wird erweitert, ohne bestehende Nutzende zu beeinträchtigen.
-Dies ist möglich, wenn die Änderungen vollständig abwärtskompatibel sind, die Clients unbekannte Fehler ignorieren können und keine Änderung der fachlichen Semantik bei bestehenden Feldern vorgenommen wurde.
+Dies ist möglich, wenn die Änderungen vollständig abwärtskompatibel sind, die Clients unbekannte Felder ignorieren können und keine Änderung der fachlichen Semantik bei bestehenden Feldern vorgenommen wurde.
 
 Hierfür ist die bestehende Service-Schnittstelle zu erweitern.
 Für neue Felder sind in der Serviceschicht Defaultwerte einzutragen.
@@ -327,7 +327,7 @@ Versionsspezifische Unterschiede sind in der Serviceschicht zu behandeln.
 Dazu gehören versionierte Schnittstellenendpunkte, versionierte Request- und Response-DTOs, Mapper zwischen Schnittstellenmodell und internem Modell und Defaultwerte sowie technische Adaptierungen.
 Mehrere Versionen werden parallel betrieben und nutzen denselben Anwendungskern.
 
-Dies ist das angemessene Vorgehen für Änderung, die nicht abwärtskompatibel sind, aber die fachliche Logik gleich bleibt.
+Dies ist das angemessene Vorgehen für Änderungen, die nicht abwärtskompatibel sind, aber die fachliche Logik gleich bleibt.
 Ein Mapping zwischen Versionen ist möglich.
 
 Mit diesem Vorgehen wird eine kontrollierte Migration möglich.
@@ -344,15 +344,14 @@ Auswirkungen:
 [[versionierte-service-implementierung]]
 ==== Versionierte Service-Implementierung im bestehenden Backend
 Ein Beispiel für die hier behandelten Anpassungen ist eine unterschiedliche fachliche Validierungslogik zwischen Versionen.
-Die Änderung ist nicht abwärtskompatibel oder die fachliche Logik beginnt zu divergieren.
-Damit ist die vollständige Wiederverwendung nicht mehr sinnvoll.
+Die Änderung ist nicht abwärtskompatibel oder die fachliche Logik beginnt zu divergieren, damit ist die vollständige Wiederverwendung nicht mehr sinnvoll.
 Das Backend bleibt dieselbe Systemeinheit.
 Innerhalb des Backends werden jedoch getrennte Implementierungspfade für die Versionen geführt.
 Ein gemeinsamer Anwendungskern ist nur zulässig, solange die Versionen dieselbe fachliche Semantik abbildet.
 Versionsspezifische Fachlogik darf nicht in der Service-Schnittstelle implementiert werden.
 Sie ist in getrennten Anwendungskomponenten oder getrennten Implementierungspfaden des Anwendungskerns zu kapseln.
 Die Serviceschicht vermittelt nur zur jeweils passenden Implementierung.
-Eine angemessene Wartbarkeit bei wachsender Divergenz wird durch die Nutzung möglicher gemeinsame Infrastrukturkomponenten erreicht und die Komplexität pro Version verringert.
+Eine angemessene Wartbarkeit bei wachsender Divergenz wird durch die Wiederverwendung gemeinsamer Infrastrukturkomponenten erreicht.
 Die erhöhte Komplexität im Backend und eine teilweise Duplikation von Logik, was sich in steigendem Testaufwand niederschlägt, ist bei diesem Vorgehen als negativ zu betrachten.
 Bei zunehmender fachlicher Divergenz ist die Minimierung horizontaler Komplexität wichtiger als die Vermeidung technischer Redundanz.
 
