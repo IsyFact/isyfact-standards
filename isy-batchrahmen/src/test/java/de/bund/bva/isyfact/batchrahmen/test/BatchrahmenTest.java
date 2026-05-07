@@ -419,6 +419,30 @@ class BatchrahmenTest extends AbstractOidcProviderTest {
         assertEquals("beendet", getBatchStatus("returnCodeTestBatch-1"));
     }
 
+    /**
+     * Tests that {@code bestimmeReturnCode} returns {@code FEHLER_AUSGEFUEHRT} when the batch protocol
+     * contains an explicit return code (protokollCode != null branch).
+     */
+    @Test
+    void testBestimmeReturnCodeViaProtokollCode() {
+        assertEquals(BatchReturnCode.FEHLER_AUSGEFUEHRT.getWert(), BatchLauncher
+                .run(new String[]{"-start", "-cfg",
+                        "/resources/batch/returnCode-direct-test-batch-config.properties"}));
+        assertEquals("beendet", getBatchStatus("returnCodeTestBatch-direct-1"));
+    }
+
+    /**
+     * Tests that {@code bestimmeReturnCode} returns {@code FEHLER_AUSGEFUEHRT} when the batch protocol
+     * contains FEHLER-type messages (enthaeltFehlerNachrichten branch).
+     */
+    @Test
+    void testBestimmeReturnCodeViaFehlerNachricht() {
+        assertEquals(BatchReturnCode.FEHLER_AUSGEFUEHRT.getWert(), BatchLauncher
+                .run(new String[]{"-start", "-cfg",
+                        "/resources/batch/fehler-nachricht-test-batch-config.properties"}));
+        assertEquals("beendet", getBatchStatus("fehlerNachrichtTestBatch-1"));
+    }
+
     @Test
     void testBatchIdInLoggerContext() {
         assertEquals(BatchReturnCode.OK.getWert(), BatchLauncher
