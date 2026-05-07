@@ -329,6 +329,65 @@ Es ist eine bewusste Architekturentscheidung und im Systementwurf zu begründen.
 - Betrieb: getrennte Skalierung und Überwachung
 - Komplexität: hoch
 
+
+[[getrennte-backends]]
+=== Getrennte Backends
+
+Die Aufspaltung eines Backends in zwei eigenständige Systeme bietet den höchsten Grad der Entkopplung, ist als Maßnahme bei Breaking Changes jedoch mit der größten Tragweite verbunden und sollte daher möglichst vermieden werden.
+Ist dies dennoch aus den im <<entscheidungsmodell-versionierung>> beschriebenen Gründen notwendig, sollten folgende Konsequenzen beachtet werden:
+
+. Mehraufwand durch zusätzliche Codebasis
+. gestiegener Ressourcenverbrauch bei Parallelbetrieb der neuen Version
+. Mehraufwand im Betrieb und Monitoring
+. gestiegene Komplexität in der Infrastruktur
+. bei Nutzung einer gemeinsamen Datenbank höheres Risiko von Dateninkonsistenzen
+
+NOTE: Wenn getrennte Backends nur lesen, ist die Nutzung einer gemeinsamen Datenbank hinsichtlich Datenkonsistenz in der Regel unkritisch.
+Bei schreibendem Zugriff sollte über eine Trennung der Datenbanken bzw. Datenbank-Schemas nachgedacht werden.
+
+Es gibt zwei Arten von getrennten Backends bei der Versionierung:
+
+- Backend-Versionen
+- und Backend-Typen
+
+Getrennte Backend-Versionen entstehen bei technisch inkompatiblen Änderungen, die eine weitere Version von Schnittstelle und Anwendungskern erfordern, die fachliche Verantwortung aber erhalten bleibt.
+Dabei entstehen zwei voneinander unabhängige Systemversionen mit der jeweiligen Backend-Version, wie in Abbildung <<image-getrennte-backend-versionen>> dargestellt.
+
+[[image-getrennte-backend-versionen]]
+.Getrennte Backend-Versionen nach inkompatibler Änderung
+image::referenzarchitektur:software-technisch/services/getrennte-backend-versionen.dn.svg[]
+
+Ist hier keine Trennung in der Persistenzschicht möglich, kann ein weiterer Service Abhilfe schaffen, der durch Transformationslogik die Datenkonsistenz insbesondere bei konkurrierenden Schreibzugriffen oder divergierenden Datenmodellen sicherstellt.
+Ein weiterer Service bringt allerdings mehr Komplexität in die Anwendungslandschaft.
+
+Ein neuer Backend-Typ neben dem bestehenden entsteht, wenn sich die fachliche Verantwortung ändert. Abbildung <<image-getrennte-backend-typen>> veranschaulicht die Situation erneut. Darin wird aus dem fachlichen Konzept _Meldung_ das Konzept _Abruf_.
+
+[[image-getrennte-backend-typen]]
+.Getrennte Backends nach neuem Backend-Typ
+image::referenzarchitektur:software-technisch/services/getrennte-backend-typen.dn.svg[]
+
+WARNING: Bei der Änderung des fachlichen Konzepts ändert sich auch die fachliche Sprache, welche im Sinne von Domain Driven Design über Teams hinweg genutzt wird. Daher wird spätestens an dieser Stelle eine Auftrennung in der Persistenzschicht empfohlen, um Dateninkonsistenzen durch Missverständnisse zu vermeiden.
+
+Wegen der Zusatzkosten, die beim Parallelbetrieb von getrennten Backends entstehen, sollten mehr als zwei Systemversionen bzw. Systemtypen vermieden werden.
+Nach Möglichkeit wird eine zeitnahe Umstellung und Ablösung des bestehenden Backends empfohlen.
+
+==== Migration von Backends
+
+Eine Migration zu einer neuen Backend-Version bzw. einem neuen Backend-Typ kann vollständig in einem Schritt erfolgen (Big-Bang), vorausgesetzt eine Betriebsunterbrechung ist tolerabel.
+
+Vor der Umstellung ist ein Migrationsplan zu erstellen und mit den Abteilungen und Kunden abzustimmen.
+In der Vorbereitungsphase müssen dringend Backups von der Datenbank erstellt werden, um im Falle eines Scheiterns die Daten vollständig wiederherzustellen und den vorherigen Betriebszustand wiederherzustellen (Rollback).
+
+Die Umstellung auf das neue Backend, die neuen Service-Clients und gegebenenfalls die neue Datenbank erfolgt innerhalb eines Wartungsfensters, das vorzugsweise in einem Zeitraum mit geringem Verkehrsaufkommen aktiviert wird.
+
+Wenn eine Betriebsunterbrechung nicht möglich ist, werden die getrennten Backends parallel betrieben.
+Bei einer Trennung in der Persistenzschicht muss zu Beginn die bestehende Datenbank repliziert werden und Änderungen der alten Datenbank (z.B. durch Event-Streaming) auf die neue Datenbank zurückgespiegelt werden.
+
+Wenn alle alten Service-Clients umgestellt sind, kann das alte Backend eingestellt werden.
+Damit finden keine Schreiboperationen mehr auf die alte Datenbank statt, sondern nur noch auf die neue.
+Die alte Datenbank kann nach einer Stabilitätsphase dekommissioniert werden.
+
+
 [[versionierung-events]]
 == Versionierung von Events
 
@@ -713,4 +772,3 @@ Diese umfasst mindestens:
 - betroffene Clients,
 - Migrationsanleitung,
 - technische Metrik zur Nutzung der alten Version.
-
