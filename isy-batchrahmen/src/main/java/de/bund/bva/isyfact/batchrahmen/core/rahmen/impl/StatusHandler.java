@@ -89,7 +89,8 @@ public class StatusHandler {
             status.setSatzNummerLetztesCommit(0);
             status.setSchluesselLetztesCommit(null);
             resetRestartZaehler(status);
-        } else if (BatchStartTyp.RESTART.equals(konfiguration.getStartTyp())) {
+        }
+        if (BatchStartTyp.RESTART.equals(konfiguration.getStartTyp())) {
             incrementRestartZaehler(status);
         }
     }
@@ -125,6 +126,16 @@ public class StatusHandler {
                 KonfigurationSchluessel.KOMMANDO_PARAM_RESTART,
                 KonfigurationSchluessel.KOMMANDO_PARAM_IGNORIERE_RESTART);
         }
+        pruefeMaxWiederholungen(status, konfig);
+    }
+
+    /**
+     * Checks whether the maximum number of restart attempts for a failed batch has been exceeded.
+     *
+     * @param status the batch status from the database
+     * @param konfig the batch configuration parameters
+     */
+    private void pruefeMaxWiederholungen(BatchStatus status, BatchKonfiguration konfig) {
         long maxWiederholungen =
                 konfig.getAsLong(KonfigurationSchluessel.PROPERTY_BATCHRAHMEN_MAX_WIEDERHOLUNGEN, -1);
         if (maxWiederholungen >= 0

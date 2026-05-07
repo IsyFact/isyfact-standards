@@ -11,9 +11,13 @@
     <!-- Include the preconfigured Appender. -->
     <include resource="resources/isylogging/logback/appender.xml" />
 
+    <!-- In-memory appender for test assertions (see InMemoryAppender). -->
+    <appender name="MEMORY" class="de.bund.bva.isyfact.batchrahmen.test.InMemoryAppender"/>
+
     <!-- Root-Logger as the basis for all Logger Instances -->
     <root level="INFO">
         <appender-ref ref="DATEI_ANWENDUNG" />
+        <appender-ref ref="MEMORY" />
     </root>
 
     <!-- Prevents the logging of warning messages due to missing destruction callbacks, which the ThreadScope does not support and are not required. -->

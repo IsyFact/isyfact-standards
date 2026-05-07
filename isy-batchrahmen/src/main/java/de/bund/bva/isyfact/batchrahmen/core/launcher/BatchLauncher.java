@@ -1,22 +1,8 @@
 package de.bund.bva.isyfact.batchrahmen.core.launcher;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-import java.io.UnsupportedEncodingException;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.slf4j.LoggerFactory;
-import org.springframework.boot.Banner;
-import org.springframework.boot.WebApplicationType;
-import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.security.access.AccessDeniedException;
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.oauth2.client.ClientAuthorizationException;
-
+import ch.qos.logback.classic.LoggerContext;
+import ch.qos.logback.classic.joran.JoranConfigurator;
+import ch.qos.logback.core.joran.spi.JoranException;
 import de.bund.bva.isyfact.batchrahmen.batch.exception.BatchAusfuehrungsException;
 import de.bund.bva.isyfact.batchrahmen.batch.konfiguration.BatchKonfiguration;
 import de.bund.bva.isyfact.batchrahmen.batch.konstanten.BatchRahmenEreignisSchluessel;
@@ -36,10 +22,22 @@ import de.bund.bva.isyfact.batchrahmen.core.rahmen.Batchrahmen;
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.logging.LogKategorie;
+import org.slf4j.LoggerFactory;
+import org.springframework.boot.Banner;
+import org.springframework.boot.WebApplicationType;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.oauth2.client.ClientAuthorizationException;
 
-import ch.qos.logback.classic.LoggerContext;
-import ch.qos.logback.classic.joran.JoranConfigurator;
-import ch.qos.logback.core.joran.spi.JoranException;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class starts a batch (see {@link Batchrahmen} with the transferred configuration.
@@ -96,19 +94,7 @@ public class BatchLauncher {
             log = IsyLoggerFactory.getLogger(BatchLauncher.class);
             log.info(LogKategorie.JOURNAL, BatchRahmenEreignisSchluessel.EPLBAT00001, "Starte Batch.");
             new BatchLauncher(rahmenKonfiguration, protokoll).launch();
-            if (protokoll.isBatchAbgebrochen()) {
-                returnCode = BatchReturnCode.FEHLER_MANUELLER_ABBRUCH;
-            }
-            if (protokoll.isMaximaleLaufzeitUeberschritten()) {
-                returnCode = BatchReturnCode.FEHLER_MAX_LAUFZEIT_UEBERSCHRITTEN;
-            } else if (protokoll.enthaeltFehlerNachrichten()) {
-                returnCode = BatchReturnCode.FEHLER_AUSGEFUEHRT;
-            } else {
-                returnCode = protokoll.getReturnCode();
-                if (returnCode == null) {
-                    returnCode = BatchReturnCode.OK;
-                }
-            }
+            returnCode = bestimmeReturnCode(protokoll);
         } catch (BatchAusfuehrungsException ex) {
             protokolliereFehler(log, protokoll, ex);
             if (ex.getReturnCode() != null) {
@@ -118,7 +104,6 @@ public class BatchLauncher {
             if (log != null) {
                 log.info(LogKategorie.JOURNAL, ex.getAusnahmeId(), ex.getMessage());
             }
-            System.err.print(ex.getMessage());
             returnCode = ex.getReturnCode();
         } catch (BatchrahmenException ex) {
             protokolliereFehler(log, protokoll, ex);
@@ -128,7 +113,6 @@ public class BatchLauncher {
             returnCode = BatchReturnCode.FEHLER_KONFIGURATION;
         } catch (Throwable ex) {
             protokolliereFehler(log, protokoll, ex);
-            returnCode = BatchReturnCode.FEHLER_ABBRUCH;
         } finally {
             if (protokoll != null) {
                 protokoll.setReturnCode(returnCode);
@@ -147,6 +131,27 @@ public class BatchLauncher {
      * @param protokoll DefaultBatchErgebnisProtokoll.
      * @param ex        Occurred exception.
      */
+    /**
+     * Determines the return code based on the batch result protocol after successful execution.
+     * Checks in order: max runtime exceeded, error messages present, manual abort, protocol code, OK.
+     *
+     * @param protokoll the batch result protocol
+     * @return the appropriate {@link BatchReturnCode}
+     */
+    private static BatchReturnCode bestimmeReturnCode(DefaultBatchErgebnisProtokoll protokoll) {
+        if (protokoll.isMaximaleLaufzeitUeberschritten()) {
+            return BatchReturnCode.FEHLER_MAX_LAUFZEIT_UEBERSCHRITTEN;
+        }
+        if (protokoll.enthaeltFehlerNachrichten()) {
+            return BatchReturnCode.FEHLER_AUSGEFUEHRT;
+        }
+        if (protokoll.isBatchAbgebrochen()) {
+            return BatchReturnCode.FEHLER_MANUELLER_ABBRUCH;
+        }
+        BatchReturnCode protokollCode = protokoll.getReturnCode();
+        return protokollCode != null ? protokollCode : BatchReturnCode.OK;
+    }
+
     private static void protokolliereFehler(IsyLogger log, BatchErgebnisProtokoll protokoll, Throwable ex) {
         String nachricht = exceptionToString(ex);
         System.err.println(nachricht);
