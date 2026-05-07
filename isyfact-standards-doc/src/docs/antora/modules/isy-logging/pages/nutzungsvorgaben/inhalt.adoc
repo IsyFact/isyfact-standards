@@ -655,16 +655,16 @@ Das Ermitteln der Korrelations-ID erfolgt automatisch durch `isy-logging`.
 Hierzu wird der Mapped Diagnostic Context (MDC) verwendet, der durch SLF4J bzw. logback zur Verfügung gestellt wird.
 Der MDC wird über eine statische Methode gesetzt, und zwar pro Thread:
 
- MDC.put("Korrelations-ID", "<Korrelations-ID>");
+ MDC.put("korrelationsId", "<Korrelations-ID>");
 
 Die Korrelations-ID kann sich aus mehreren Unique-IDs zusammensetzen, durch die der Aufruf durch die Anwendungslandschaft nachverfolgt werden kann.
 Die IDs müssen hintereinander gehängt, getrennt durch ein Semikolon, im Kontext gesetzt werden, bspw.:
 
- MDC.put("Korrelations-ID", "c15638a2-4c38-4d18-b887-5ebd2a1c427d;f60143b3-3408-4501-9947-240ec1c48667;c893d44f-3b8e-446e-a360-06a520440e64");
+ MDC.put("korrelationsId", "c15638a2-4c38-4d18-b887-5ebd2a1c427d;f60143b3-3408-4501-9947-240ec1c48667;c893d44f-3b8e-446e-a360-06a520440e64");
 
 Am Ende der Verarbeitung ist der MDC wieder zu entfernen:
 
- MDC.remove("Korrelations-ID");
+ MDC.remove("korrelationsId");
 
 *Anmerkung zu Multi-Threading*
 
