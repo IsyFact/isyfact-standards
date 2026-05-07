@@ -28,6 +28,7 @@ import de.bund.bva.isyfact.batchrahmen.batch.rahmen.BatchReturnCode;
 import de.bund.bva.isyfact.batchrahmen.config.BatchSecurityConfiguration;
 import de.bund.bva.isyfact.batchrahmen.core.exception.BatchrahmenException;
 import de.bund.bva.isyfact.batchrahmen.core.exception.BatchrahmenInitialisierungException;
+import de.bund.bva.isyfact.batchrahmen.core.exception.BatchrahmenMaxWiederholungenException;
 import de.bund.bva.isyfact.batchrahmen.core.exception.BatchrahmenProtokollException;
 import de.bund.bva.isyfact.batchrahmen.core.konstanten.NachrichtenSchluessel;
 import de.bund.bva.isyfact.batchrahmen.core.protokoll.DefaultBatchErgebnisProtokoll;
@@ -95,24 +96,18 @@ public class BatchLauncher {
             log = IsyLoggerFactory.getLogger(BatchLauncher.class);
             log.info(LogKategorie.JOURNAL, BatchRahmenEreignisSchluessel.EPLBAT00001, "Starte Batch.");
             new BatchLauncher(rahmenKonfiguration, protokoll).launch();
-            if (protokoll.isBatchAbgebrochen()) {
-                returnCode = BatchReturnCode.FEHLER_MANUELLER_ABBRUCH;
-            }
-            if (protokoll.isMaximaleLaufzeitUeberschritten()) {
-                returnCode = BatchReturnCode.FEHLER_MAX_LAUFZEIT_UEBERSCHRITTEN;
-            } else if (protokoll.enthaeltFehlerNachrichten()) {
-                returnCode = BatchReturnCode.FEHLER_AUSGEFUEHRT;
-            } else {
-                returnCode = protokoll.getReturnCode();
-                if (returnCode == null) {
-                    returnCode = BatchReturnCode.OK;
-                }
-            }
+            returnCode = bestimmeReturnCode(protokoll);
         } catch (BatchAusfuehrungsException ex) {
             protokolliereFehler(log, protokoll, ex);
             if (ex.getReturnCode() != null) {
                 returnCode = ex.getReturnCode();
             }
+        } catch (BatchrahmenMaxWiederholungenException ex) {
+            if (log != null) {
+                log.info(LogKategorie.JOURNAL, ex.getAusnahmeId(), ex.getMessage());
+            }
+            System.err.print(ex.getMessage());
+            returnCode = ex.getReturnCode();
         } catch (BatchrahmenException ex) {
             protokolliereFehler(log, protokoll, ex);
             returnCode = ex.getReturnCode();
@@ -140,6 +135,27 @@ public class BatchLauncher {
      * @param protokoll DefaultBatchErgebnisProtokoll.
      * @param ex        Occurred exception.
      */
+    /**
+     * Determines the return code based on the batch result protocol after successful execution.
+     * Checks in order: max runtime exceeded, error messages present, manual abort, protocol code, OK.
+     *
+     * @param protokoll the batch result protocol
+     * @return the appropriate {@link BatchReturnCode}
+     */
+    private static BatchReturnCode bestimmeReturnCode(DefaultBatchErgebnisProtokoll protokoll) {
+        if (protokoll.isMaximaleLaufzeitUeberschritten()) {
+            return BatchReturnCode.FEHLER_MAX_LAUFZEIT_UEBERSCHRITTEN;
+        }
+        if (protokoll.enthaeltFehlerNachrichten()) {
+            return BatchReturnCode.FEHLER_AUSGEFUEHRT;
+        }
+        if (protokoll.isBatchAbgebrochen()) {
+            return BatchReturnCode.FEHLER_MANUELLER_ABBRUCH;
+        }
+        BatchReturnCode protokollCode = protokoll.getReturnCode();
+        return protokollCode != null ? protokollCode : BatchReturnCode.OK;
+    }
+
     private static void protokolliereFehler(IsyLogger log, BatchErgebnisProtokoll protokoll, Throwable ex) {
         String nachricht = exceptionToString(ex);
         System.err.println(nachricht);
