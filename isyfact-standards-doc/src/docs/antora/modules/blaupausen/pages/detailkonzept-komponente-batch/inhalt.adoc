@@ -458,7 +458,7 @@ Aus der Property-Datei werden durch den Batchrahmen folgende Properties gelesen:
 |`BatchName` |Name des Batches in der Batch-Statustabelle
 |`Batchrahmen.AnzahlZuVerarbeitendeDatensaetze` |Falls nicht die ganze Datei verarbeitet werden soll, sondern nur eine gewisse Anzahl an Datensätzen.
 |`Batchrahmen.Ergebnisdatei` |Pfad zur XML-Ergebnisdatei des Batchrahmens (siehe Kapitel <<rueckgabewerte-des-batchrahmens>>)
-|`Batchrahmen.MaxWiederholungen` |Maximale Anzahl automatischer Neustarts für einen fehlerhaft abgebrochenen Batch.
+|`Batchrahmen.MaxWiederholungen` |Maximale Anzahl automatischer Neustarts für einen fehlerhaft abgebrochenen Batch. Mit Parameter `ignoriereRestart` wird Zähler auf 0 zurückgesetzt.
 |====
 
 ===== Weitere Parameter
@@ -674,7 +674,7 @@ Der Batch verbleibt im Status „abgebrochen".
 
 Ein neuer Start mit dem Parameter `-start` (ggf. in Kombination mit `-ignoriereRestart`) setzt den Zähler zurück, so dass anschließend wieder Restarts möglich sind.
 
-Ist `Batchrahmen.MaxWiederholungen` nicht konfiguriert oder auf den Wert `-1` gesetzt, gibt es keine Begrenzung der Neustarts.
+Ist `Batchrahmen.MaxWiederholungen` nicht konfiguriert oder auf einen negativen Wert (z. B. -1) gesetzt, gibt es keine Begrenzung der Neustarts.
 
 [[das-vorlesen-durch-die-ausfuehrungsbean]]
 ==== Das Vorlesen durch die Ausführungsbean
