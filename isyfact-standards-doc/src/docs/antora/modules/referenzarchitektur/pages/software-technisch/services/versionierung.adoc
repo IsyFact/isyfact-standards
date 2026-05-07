@@ -329,10 +329,106 @@ Es ist eine bewusste Architekturentscheidung und im Systementwurf zu begründen.
 - Betrieb: getrennte Skalierung und Überwachung
 - Komplexität: hoch
 
+[[versionierung-nachrichten]]
+== Versionierung von Nachrichten
+
+Dieses Kapitel legt allgemeine Richtlinien für die Weiterentwicklung von Nachrichtenstrukturen in nachrichtenbasierten Systemen fest.
+Grundsätzlich gilt: Eine Nachrichtenstruktur darf nur so geändert werden, dass Producer und Consumer weiterhin unabhängig voneinander betrieben und migriert werden können.
+
+Vor der Umsetzung ist jede Änderung als kompatibel oder inkompatibel einzustufen.
+Eine Änderung gilt für bestehende Kanäle nur dann als kompatibel, wenn sie vollständig kompatibel ist, also <<abwaerts-und-vorwaertskompatibilitaet>> gegeben sind oder die betroffenen Producer und Consumer kontrolliert in einer abgestimmten Reihenfolge migriert werden.
+
+Vollständig kompatible Änderungen können auf demselben Topic, derselben Queue oder demselben Event-Typ umgesetzt werden.
+
+Inkompatible Änderungen, also Breaking Changes, dürfen nicht durch eine Änderung des bestehenden Nachrichtenformats auf demselben Kanal eingeführt werden.
+Standardmäßig ist hierfür ein neuer Event-Typ, ein neuer Routing-Key, ein neues Topic oder eine neue Queue vorzusehen.
+Die kontrollierte Weiterentwicklung einer Nachrichtenstruktur wird als Schema Evolution bezeichnet.
+
+Aufgrund der Eigenschaften nachrichtenbasierter Systeme sind diese Änderungen mit Risiken für die korrekte Funktionsweise des angepassten Systems verbunden, weil Nachrichten entkoppelt, asynchron und häufig über längere Zeit persistiert werden
+
+Fehlerhafte Schema Evolution kann zu Deserialisierungsfehlern, blockierten Queues, fehlerhaften Replays oder stillen fachlichen Fehlinterpretationen führen.
+Das relevanteste Risiko ist nicht ein offensichtliches Systemversagen, sondern der stille semantische Fehler:
+Der Konsument verarbeitet eine formal gültige Nachricht, sie wird aber fachlich falsch interpretiert.
+Die fachliche Kompatibilität ist daher zusätzlich zur technischen Schema-Kompatibilität zu prüfen.
+
+IMPORTANT: Neue Felder auf bestehenden Kanälen müssen standardmäßig optional sein oder einen fachlich sicheren Default haben.
+Ein neues Pflichtfeld ist nur erlaubt, wenn nachweislich alle Produzenten und alle relevanten historischen Nachrichten das Feld liefern oder wenn ein neuer Kanal/Event-Typ eingeführt wird.
+
+Ein bestehender Kanal darf nur weiterverwendet werden, wenn die Änderung für alle relevanten Consumer kompatibel ist, historische Nachrichten weiterhin verarbeitet werden können und keine fachliche Bedeutungsänderung bestehender Felder oder Events vorliegt.
+Ein neuer Event-Typ, Routing-Key, Topic oder eine neue Queue ist erforderlich, wenn die Änderung ein Breaking Change ist oder wenn alte und neue Consumer nicht sicher auf demselben Kanal parallel betrieben werden können.
+
+Die folgenden Änderungen sind typische Breaking Changes:
+
+.Typische Breaking Changes bei Nachrichten und Events
+[cols="1,2", options="header"]
+|===
+| Änderung
+| Erläuterung
+
+| Pflichtfeld hinzufügen
+| Alte Nachrichten und alte Produzenten enthalten es nicht.
+
+| Pflichtfeld entfernen
+| Bestehende Consumer können neue Nachrichten nicht mehr korrekt verarbeiten, wenn sie das Feld fachlich oder technisch voraussetzen.
+
+| Feld umbenennen
+| Entspricht technisch dem Entfernen des alten Feldes und dem Hinzufügen eines neuen Feldes.
+Bestehende Consumer finden das erwartete Feld nicht mehr.
+
+| Feldtyp ändern
+| Konsumenten erwarten den alten Typ.
+
+| Semantik eines Feldes ändern
+| Technisch gleich, fachlich anders.
+
+| Einheit ändern
+| Beispiel: `amount` von Euro zu Cent.
+
+| Enum-Wert entfernen
+| Konsumenten können alte Werte nicht mehr interpretieren.
+
+| Enum-Wert hinzufügen
+| Bestehende Consumer können den neuen Wert nur dann sicher verarbeiten, wenn sie unbekannte Enum-Werte explizit behandeln.
+Andernfalls ist die Änderung nicht kompatibel.
+
+| Bedeutung eines Events ändern
+| Konsumenten reagieren fachlich falsch.
+
+| Kardinalität ändern
+| Beispiel: `Id` wird zu `Ids`.
+
+| Struktur verschachteln oder abflachen
+| Feldpfade ändern sich.
+
+| Reihenfolge/Key-Semantik ändern
+| Besonders kritisch bei Kafka-Partitionierung.
+
+|===
+
+Eine Schema Registry ist sinnvoll, sobald mehr als ein Team oder mehr als ein Consumer beteiligt ist.
+Für Events wird dies in <<_schema_management>> konkretisiert.
+
+Zusammenfassend ist für die nachrichtenbasierte Systeme zu beachten:
+Nachrichtenverträge sind versionierte öffentliche Schnittstellen.
+Jede Änderung an einem Nachrichten-Schema muss vor Umsetzung auf <<abwaerts-und-vorwaertskompatibilitaet>> geprüft werden.
+
+Auf bestehenden Topics, Queues oder Event-Typen sind nur vollständig kompatible Änderungen erlaubt.
+Neue Felder müssen optional sein oder einen fachlich sicheren Default besitzen.
+Bestehende Felder dürfen nicht umbenannt, entfernt, typverändert oder semantisch verändert werden, solange aktive oder replayfähige Konsumenten existieren.
+
+Breaking Changes erfordern eine neue Version des Nachrichtenformats und einen neuen Event-Typ, neuen Routing-Key, neues Topic oder neue Queue.
+Für den Betrieb der alten und neuen Version ist eine für Migrationsstrategie festzulegen.
+Die alte Version darf erst abgeschaltet werden, wenn alle Konsumenten migriert sind.
+Das Monitoring muss die erfolgreiche Migration bestätigen und Retention-, Replay- sowie weitere relevante Fristen sind berücksichtigt.
+
+Technische Schema-Kompatibilität ersetzt keine fachliche Kompatibilitätsprüfung.
+Änderungen an Bedeutung, Einheit, Kardinalität, Identität, Ordering oder Idempotenz gelten als potenziell breaking, auch wenn das Schema formal kompatibel bleibt.
+
 [[versionierung-events]]
 == Versionierung von Events
 
-Dieses Kapitel beschreibt bewährte Praktiken im Umgang mit Änderungen von Nachrichten in eventbasierten Systemen wie z.B. Kafka.
+Dieses Kapitel beschreibt bewährte Praktiken im Umgang mit Änderungen von Events in eventbasierten Systemen wie z.B. Kafka.
+Der allgemeine Umgang mit Änderungen an Nachrichten wird in <<versionierung-nachrichten>> beschrieben.
 Nach der Lektüre sollte der Leser in der Lage sein, diese richtig einzuordnen und mithilfe der definierten Entscheidungsmatrix die geeignete Vorgehensweise bei der Versionierung zu finden.
 
 === Fachliche Änderungen
@@ -414,7 +510,8 @@ Darin ist z.B. das Feld `artikelId` als String definiert und ist verpflichtend i
 NOTE: Avro wird wegen der leichten Verständlichkeit auch in den Folgebeispielen genutzt.
 Die Version wird in Klammern als fortlaufende Ganzzahl zwecks Verweis angegeben.
 
-==== Abwärts- vs. Vorwärtskompatibilität
+[[abwaerts-und-vorwaertskompatibilitaet]]
+==== Abwärts- und Vorwärtskompatibilität
 
 In Literatur und Dokumentationen kommt es gelegentlich zu Verwechslungen zwischen  Abwärts- und Vorwärtskompatibilität.
 Daher im Folgenden eine kurze Definition der beiden zur Abgrenzung.
@@ -425,7 +522,7 @@ Vereinfacht formuliert: alte Consumer können neue Nachrichten lesen.
 Ein Schema ist hingegen _vorwärtskompatibel_, wenn aktualisierte Consumer unter Verwendung der neuen Schema-Version in der Lage sind, Nachrichten korrekt zu verarbeiten, die mit der alten Schema-Version erzeugt wurden.
 Vereinfacht formuliert: neue Consumer können alte Nachrichten lesen.
 
-== Datenkonsistenz
+=== Datenkonsistenz
 
 In Event-basierten Systemen wie Kafka werden Nachrichten in Logdateien in der Regel für einen längeren Zeitraum persistiert (Event-Log).
 Daher müssen im Vergleich zu Queue-basierten Systemen Consumer in der Lage sein, auch alte Nachrichten zu lesen, wenn sie wieder eingespielt werden (Replay), etwa beim Eintritt einer neuen Consumer-Group oder Zurücksetzen des Eventstroms (Offset Reset).
@@ -453,6 +550,7 @@ Die Vorteile von Schema Registries erkauft man sich u.a. durch die gestiegene Ko
 IMPORTANT: Ob Entwicklerteams sich für ein einfaches Schema Management mit Wiki oder einer Schema Registry entscheidet, ist Abwägungssache.
 Wichtig ist nur, dafür eine zentrale Stelle zu verwenden, um Schemabrüche und Versionswildwuchs zu vermeiden.
 
+[[schema-evolution-schema-bruch]]
 === Schema Evolution vs. Schemabruch
 
 In den meisten Fällen handelt es sich bei den Änderungen an Event-Typen um <<abwaertskompatible-aenderungen,abwärtskompatible Änderungen>>.
@@ -519,6 +617,9 @@ Folgende Aussagen treffen zu:
 - Fachliche Änderungen erfordern immer einen neuen Event-Typ
 - Breaking Changes erfordern immer einen neuen Event-Typ
 - Nur kompatible technische Änderungen können mit Schema Evolution versioniert werden
+
+
+
 
 [[kanalstrategie-asynchrone-kommunikation]]
 == Kanalstrategien bei Asynchroner Kommunikation
@@ -696,7 +797,7 @@ Auch in diesem Fall enthält das Service-Gateway keine Fachlogik.
 
 IMPORTANT: Eine neue Version ist dann erforderlich, wenn eine Änderung nicht abwärtskompatibel ist und bestehende Nutzende nicht ohne Anpassung weiterarbeiten können.
 
-Führen Änderungen zu einer wesentlichen fachlichen Neuauslegeung der Schnittstelle, soll keine weitere Version derselben Schnittstelle entstehen.
+Führen Änderungen zu einer wesentlichen fachlichen Neuausrichtung der Schnittstelle, soll keine weitere Version derselben Schnittstelle entstehen.
 In diesem Fall ist zu prüfen, ob es sich fachlich noch um dasselbe Konzept handelt.
 Wenn Versionen nicht mehr durch einfache Transformation verbunden werden können, handelt es sich nicht mehr um Versionen desselben fachlichen Konzepts, sondern die Einführung eines neuen fachlichen Konzepts.
 In diesem Fall ist zu prüfen, ob eine eigenständige neue Schnittstelle oder ein eigenes Backend die fachlich und technisch sauberere Lösung darstellt.
