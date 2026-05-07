@@ -1,7 +1,5 @@
 = Versionierung
 
-include::documentation-guide::partial$content-revised-page.adoc[]
-
 Die Notwendigkeit, Services in mehreren Versionen anbieten zu können, ist bedingt durch die Vielzahl an Service-Nutzern, die bei Änderung an einem Service nicht alle zeitgleich auf die neue Version eines Service umschalten können.
 Daher ist es notwendig, dass in einem, wenn möglich, kurz zu haltenden Übergangszeitraum mehrere Versionen eines Service parallel betrieben werden können.
 
@@ -102,10 +100,11 @@ Stattdessen sollte ein neues Feld eingeführt und das alte Feld zu einem später
 
 Aufbauend auf der Definition der Abwärtskompatibilität legt die Referenzarchitektur ein verbindliches Entscheidungsmodell für die Versionierung von Services, Nachrichten und Events fest.
 
-Das Entscheidungsmodell beantwortet, wann
+Das Entscheidungsmodell beantwortet, wann:
 
-- eine bestehende Schnittstelle erweitert werden sollte und wann eine neue Version bereitzustellen ist,
-- ein neuer Kanal erforderlich ist und
+- eine bestehende Schnittstelle erweitert werden sollte,
+- eine neue Version der Schnittstelle bereitzustellen ist,
+- ein neuer Kanal erforderlich ist, oder
 - ein neues Backend sinnvoll ist.
 
 Die Entscheidung über die Notwendigkeit einer neuen Version ist von ihrer technischen Umsetzung zu trennen.
@@ -138,11 +137,11 @@ Dies bedeutet: Wenn bestehende Consumer eine geänderte Nachricht oder ein Event
 
 ==== Neues Backend
 Ein neues Backend ist nicht die Standardmaßnahme bei Versionierung.
-Es ist dann sinnvoll, wenn
+Es ist dann sinnvoll, wenn:
 
 - sich die fachliche Verarbeitung zwischen den Versionen nicht mehr mit vertretbarem Aufwand gemeinsam abbilden lässt,
-- mehrere inkompatible Versionen langfristig parallel betrieben werden müssen oder
--  nicht-funktionale Anforderungen eine getrennte Bereitstellung erfordern.
+- mehrere inkompatible Versionen langfristig parallel betrieben werden müssen, oder
+- nicht-funktionale Anforderungen eine getrennte Bereitstellung erfordern.
 
 In allen anderen Fällen sollen mehrere Versionen durch dasselbe Backend unterstützt werden.
 
@@ -160,7 +159,7 @@ In allen anderen Fällen sollen mehrere Versionen durch dasselbe Backend unterst
 
 |Synchroner Service
 |nicht abwärtskompatibel
-|Neue Service-Version bereitstellen (In der Regel über eine zusätzliche Service-Schnittstelle realisiert.)
+|Neue Service-Version bereitstellen (in der Regel über eine zusätzliche Service-Schnittstelle realisiert)
 
 |Nachricht/ Event
 |abwärtskompatibel
@@ -172,7 +171,7 @@ In allen anderen Fällen sollen mehrere Versionen durch dasselbe Backend unterst
 |===
 
 === Einordnung in die Referenzarchitektur
-Gemäß der xref:referenzarchitektur:fachlich.adoc[Referenzarchitektur] der IsyFact werden Versionierungsentscheidungen für synchrone Services in der Regel innerhalb einer Serviceschicht umgesetzt.
+Versionierungsentscheidungen für synchrone Services werden in der Regel innerhalb einer xref:referenzarchitektur:software-technisch/backend.adoc#serviceschicht[Serviceschicht] umgesetzt.
 
 Daraus folgen für synchrone Services die folgenden Grundsätze:
 
@@ -278,21 +277,23 @@ Die Komplexität in der Serviceschicht ist aber höher da eine Mapping-Logik not
 Zu beachten ist, dass bei vielen Versionen die Wartungskosten steigen.
 
 ==== Auswirkungen
-- Redeployment mit mehreren Schnittstellenversionen (Update eines bestehenden Deployments in neuer Version)
+- Deployment: Redeployment mit mehreren Schnittstellenversionen (Update eines bestehenden Deployments in neuer Version)
 - Betrieb: gemeinsame Skalierung
 - Komplexität: mittel
 
+[[versionierte-service-implementierung]]
 === Versionierte Service-Implementierung im bestehenden Backend
 Ein Beispiel für die hier behandelten Anpassungen ist eine unterschiedliche fachliche Validierungslogik zwischen Versionen.
-Die Änderung ist nicht abwärtskompatibel oder die fachliche Logik beginnt zu divergieren damit ist die vollständige Wiederverwendung nicht mehr sinnvoll.
+Die Änderung ist nicht abwärtskompatibel oder die fachliche Logik beginnt zu divergieren.
+Damit ist die vollständige Wiederverwendung nicht mehr sinnvoll.
 Das Backend bleibt dieselbe Systemeinheit.
 Innerhalb des Backends werden jedoch getrennte Implementierungspfade für die Versionen geführt.
 Ein gemeinsamer Anwendungskern ist nur zulässig, solange die Versionen dieselbe fachliche Semantik abbildet.
 Versionsspezifische Fachlogik darf nicht in der Service-Schnittstelle implementiert werden.
 Sie ist in getrennten Anwendungskomponenten oder getrennten Implementierungspfaden des Anwendungskerns zu kapseln.
-Die Service-Schicht vermittelt nur zur jeweils passenden Implementierung.
+Die Serviceschicht vermittelt nur zur jeweils passenden Implementierung.
 Eine angemessene Wartbarkeit bei wachsender Divergenz wird durch die Nutzung möglicher gemeinsame Infrastrukturkomponenten erreicht und die Komplexität pro Version verringert.
- Die erhöhte Komplexität im Backend und eine teilweise Duplikation von Logik, was sich in steigendem Testaufwand niederschlägt, ist bei diesem Vorgehen als negativ zu betrachten.
+Die erhöhte Komplexität im Backend und eine teilweise Duplikation von Logik, was sich in steigendem Testaufwand niederschlägt, ist bei diesem Vorgehen als negativ zu betrachten.
 Bei zunehmender fachlicher Divergenz ist die Minimierung horizontaler Komplexität wichtiger als die Vermeidung technischer Redundanz.
 
 ==== Auswirkungen
@@ -300,11 +301,11 @@ Bei zunehmender fachlicher Divergenz ist die Minimierung horizontaler Komplexit�
 - Betrieb: gemeinsame Laufzeit, Monitoring jeder Version notwendig
 - Komplexität: mittel bis hoch
 
-IMPORTANT: Das Muster "Versionierte Service-Implementierung im bestehenden Backend" darf nicht zu versionsabhängigen Verzweigungen im Anwendungskern führen.
+IMPORTANT: Das Muster "<<versionierte-service-implementierung>>" darf nicht zu versionsabhängigen Verzweigungen im Anwendungskern führen.
 
 Zulässig sind getrennte Implementierungsklassen, getrennte Anwendungskomponenten, explizite Auswahl der Implementierung durch die Service-Schnittstelle und eine gemeinsame Nutzung technischer Infrastruktur.
 
-Nicht zulässig sind weder verstreute if/else-Logik nach Version, fachliche Regeln in DTO-Mappern, langfristige Kopplung divergierender Fachmodelle noch implizite Unterscheidung über optionale Felder.
+Nicht zulässig sind weder verstreute if/else-Logik nach Version, fachliche Regeln in DTO-Mappern, langfristige Kopplung divergierender Fachmodelle, noch implizite Unterscheidung über optionale Felder.
 
 === Neue Version als eigenes Backend
 Beispiel: Technologiewechsel oder grundlegende fachliche Neuausrichtung eines Services.
@@ -406,7 +407,7 @@ Andernfalls ist die Änderung nicht kompatibel.
 |===
 
 Eine Schema Registry ist sinnvoll, sobald mehr als ein Team oder mehr als ein Consumer beteiligt ist.
-Für Events wird dies in <<_schema_management>> konkretisiert.
+Für Events wird dies in <<schema-management>> konkretisiert.
 
 Zusammenfassend ist für die nachrichtenbasierte Systeme zu beachten:
 Nachrichtenverträge sind versionierte öffentliche Schnittstellen.
@@ -442,6 +443,7 @@ Es ist wichtig diese auch in der Dokumentation für alle Beteiligten Teams verbi
 Folgende Tabelle zeigt vereinfacht im Stil einer Karteikarte, wie die Definition der Semantik eines Events für eine aufgegebene Bestellung aussehen könnte.
 
 .Definition der Semantik für das Event BestellungAufgegeben (Version 1)
+[cols="1,2"]
 |===
 
 |*Name* | BestellungAufgegeben
@@ -466,6 +468,7 @@ Zuvor war der Preis für den einzelnen Artikel gemeint, nun soll das Feld den Ge
 Da Feldname und Datentyp dieselben sind, wissen Consumer von der Änderung nichts und berechnen weiterhin den Gesamtpreis durch Multiplikation mit der Anzahl.
 
 .Definition der Semantik für das Event BestellungAufgegeben mit Änderung (Version 2)
+[cols="1,2"]
 |===
 
 |*Name* | BestellungAufgegeben
@@ -495,8 +498,9 @@ Die Verwendung von Schemata stellt die korrekte Kommunikation zwischen den Teiln
 Folgendes Listing in der Definitionssprache https://avro.apache.org[Avro] zeigt, wie das Event `BestellungAufgegeben` aufgebaut ist.
 Darin ist z.B. das Feld `artikelId` als String definiert und ist verpflichtend in den daraus abgeleiteten Events.
 
-[id="listing-schema-bestellung",source,json,reftext="{listing-caption} {listing-number} {counter:listings}"]
+[[listing-schema-bestellung]]
 .Schema für den Event-Typ `BestellungAufgegeben` (Version 1)
+[source,json]
 ----
 {
   "type": "record",
@@ -537,6 +541,7 @@ So wird sichergestellt, dass durch Replay keine fachlichen Inkonsistenzen entste
 
 Bei einer erneuten Nachrichtenzustellung muss die Verarbeitungslogik der neuen Consumer weiterhin Duplikate anhand einer eindeutigen Event-ID erkennen und ignorieren, um Mehrfachverarbeitungen zu vermeiden.
 
+[[schema-management]]
 === Schema Management
 
 Schemata ändern sich fortlaufend mit neuen Anforderungen.
@@ -563,8 +568,9 @@ Da der alte Consumer dieses nicht kennt, wird es einfach ignoriert und die Verar
 In Nachrichten, die mit der alten Schema-Version erzeugt wurden, fehlt das Feld `kommentar`.
 Das ist aber für neue Consumer kein Problem, da es optional ist und einfach mit dem Wert `null` belegt wird.
 
-[id="listing-schema-bestellung-feld-optional",source,json,reftext="{listing-caption} {listing-number} {counter:listings}"]
+[[listing-schema-bestellung-feld-optional]]
 .Schema für den Event-Typ `BestellungAufgegeben` mit optionalem Kommentarfeld (Version 2)
+[source,json]
 ----
 {
   "type": "record",
@@ -584,8 +590,9 @@ Im <<listing-schema-bestellung,Beispiel-Event `BestellungAufgegeben`>> könnte e
 
 WARNING: Im Falle von Breaking Changes wird dringend empfohlen, für das neue Schema auf generische Namen wie "BestellungAufgegebenV1" zu verzichten, um eine Vermischung von verschiedenen Versionskonzepten zu vermeiden, insbesondere wenn fortschreitende Versionen manuell z.B. über Header gesetzt werden.
 
-[id="listing-schema-bestellung-pflichtfeld-dazu",source,json,reftext="{listing-caption} {listing-number} {counter:listings}"]
+[[listing-schema-bestellung-pflichtfeld-dazu]]
 .Schema für den neuen Event-Typ `BestellungMitPreisAufgegeben` mit neuem Pflichtfeld (Version 1)
+[source,json]
 ----
 {
   "type": "record",
@@ -603,6 +610,7 @@ WARNING: Im Falle von Breaking Changes wird dringend empfohlen, für das neue Sc
 Folgende Tabelle führt als Entscheidungshilfe auf, wann ein neuer Event-Typ in Abhängigkeit der Änderung nötig ist oder eine neue Version ausreicht.
 
 .Entscheidungsmatrix neuer Event-Typ nötig
+[cols="1,1,2", options="header"]
 |===
 |Änderung | Abwärtskompatibel | Konsequenz
 
@@ -612,14 +620,9 @@ Folgende Tabelle führt als Entscheidungshilfe auf, wann ein neuer Event-Typ in 
 
 |===
 
-Folgende Aussagen treffen zu:
-
-- Fachliche Änderungen erfordern immer einen neuen Event-Typ
-- Breaking Changes erfordern immer einen neuen Event-Typ
-- Nur kompatible technische Änderungen können mit Schema Evolution versioniert werden
-
-
-
+Fachliche Änderungen erfordern immer einen neuen Event-Typ.
+Breaking Changes erfordern immer einen neuen Event-Typ.
+Nur kompatible technische Änderungen können mit Schema Evolution versioniert werden.
 
 [[kanalstrategie-asynchrone-kommunikation]]
 == Kanalstrategien bei Asynchroner Kommunikation
@@ -647,8 +650,9 @@ Versionen für kompatible Änderungen werden im Rahmen von Schema Evolution durc
 Wenn beispielsweise im <<listing-schema-bestellung-pflichtfeld-dazu,Schema für Bestellungen>> der Datentyp des Feldes `artikelId` geändert wird, entsteht ein <<listing-schema-bestellung-geanderter-feldtyp,neues Schema mit einem Breaking Change>>.
 Mit der Verwendung des neuen Schemas befinden sich die alten Nachrichten weiterhin im alten Topic `bestellung.erstellt.v1` und die mit dem neuen Schema erzeugten Nachrichten im Topic `bestellung.erstellt.v2`.
 
-[id="listing-schema-bestellung-geanderter-feldtyp",source,json,reftext="{listing-caption} {listing-number} {counter:listings}"]
+[[listing-schema-bestellung-geanderter-feldtyp]]
 .Schema `BestellungIdLongErstellt` mit geändertem Feldtyp (Version 1)
+[source,json]
 ----
 {
   "type": "record",
@@ -664,11 +668,11 @@ Mit der Verwendung des neuen Schemas befinden sich die alten Nachrichten weiterh
 
 Die Strategie zur Migration von Topics hängt vom konkreten Anwendungsfall und den jeweiligen Anforderungen ab:
 
-1. Was passiert mit bestehenden Events - können diese gelöscht werden oder werden sie noch für spätere Analysen gebraucht, gegebenenfalls im neuen Format?
-2. Sind verlorene oder fehlerhaft verarbeitete Nachrichten während der Migration hinnehmbar?
-3. Darf der laufende Betrieb des Systems während der Wartung unterbrochen werden?
-4. Soll die Zustellreihenfolge der Nachrichten erhalten bleiben?
-5. Dürfen Nachrichten mehrfach verarbeitet werden (Duplikate)?
+. Was passiert mit bestehenden Events - können diese gelöscht werden oder werden sie noch für spätere Analysen gebraucht, gegebenenfalls im neuen Format?
+. Sind verlorene oder fehlerhaft verarbeitete Nachrichten während der Migration hinnehmbar?
+. Darf der laufende Betrieb des Systems während der Wartung unterbrochen werden?
+. Soll die Zustellreihenfolge der Nachrichten erhalten bleiben?
+. Dürfen Nachrichten mehrfach verarbeitet werden (Duplikate)?
 
 ==== Einfache Migration (Big-Bang, mit Wartungsfenster)
 
@@ -679,14 +683,14 @@ Sobald alle Nachrichten im alten Topic vollständig verarbeitet sind, werden die
 
 Der Ablauf gliedert sich in den Phasen Vorbereitung, Einfrieren der bestehenden Producer, Entleeren des bestehenden Topics, Umstellung auf das neue Topic und Dekommissionierung des alten Topics.
 
-1. Neues Topic `antrag.v2` wird angelegt (*Phase: Vorbereitung*).
-2. Neue Producer und Consumer werden erstellt.
-3. Wartungsfenster wird aktiviert.
-4. Alte Producer werden eingestellt, damit der Datenbestand nicht weiter befüllt wird (*Phase: Einfrieren*).
-5. Bestehende Consumer arbeiten verbleibende Nachrichten in `antrag.v1` vollständig ab (*Phase: Entleeren*).
-6. Neue Producer und Consumer werden gestartet und arbeiten ausschließlich mit dem neuen Topic `antrag.v2` (*Phase: Umstellung*).
-7. Nach einer Stabilitätsphase geht das System wieder in Betrieb.
-8. Topic `antrag.v1` kann gelöscht oder archiviert werden (*Phase: Dekommissionierung*).
+. Neues Topic `antrag.v2` wird angelegt (*Phase: Vorbereitung*).
+. Neue Producer und Consumer werden erstellt.
+. Wartungsfenster wird aktiviert.
+. Alte Producer werden eingestellt, damit der Datenbestand nicht weiter befüllt wird (*Phase: Einfrieren*).
+. Bestehende Consumer arbeiten verbleibende Nachrichten in `antrag.v1` vollständig ab (*Phase: Entleeren*).
+. Neue Producer und Consumer werden gestartet und arbeiten ausschließlich mit dem neuen Topic `antrag.v2` (*Phase: Umstellung*).
+. Nach einer Stabilitätsphase geht das System wieder in Betrieb.
+. Topic `antrag.v1` kann gelöscht oder archiviert werden (*Phase: Dekommissionierung*).
 
 Das Bild <<image-big-bang-topic-migration>> veranschaulicht die wesentlichen Schritte der einfachen Migration mit Wartungsfenster.
 
@@ -736,7 +740,7 @@ Es ist jedoch zu berücksichtigen, dass durch den Parallelbetrieb von neuem und 
 [[architektur]]
 == Architektur
 
-Die in <<entscheidungsmodell-versionierung>> beschriebenen Entscheidungen werden für synchrone Services in der Referenzarchitektur der IsyFact in der Regel innerhalb einer Service-Schicht umgesetzt.
+Die in <<entscheidungsmodell-versionierung>> beschriebenen Entscheidungen werden für synchrone Services in der Referenzarchitektur der IsyFact in der Regel innerhalb einer Serviceschicht umgesetzt.
 
 Erfordert eine nicht abwärtskompatible Änderung eine neue Service-Version, so wird diese im Regelfall als eigene Service-Schnittstelle in der Serviceschicht des Backends bereitgestellt.
 Mehrere Service-Versionen können dabei denselben xref:referenzarchitektur:software-technisch/backend/anwendungskern.adoc[Anwendungskern] verwenden, sofern sich die fachliche Verarbeitung mit vertretbarem Aufwand gemeinsam abbilden lässt.
