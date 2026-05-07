@@ -12,9 +12,12 @@ import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.net.URISyntaxException;
+import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.Optional;
 
@@ -538,11 +541,27 @@ class BatchrahmenTest extends AbstractOidcProviderTest {
                         "-laufError", "true"}));
         assertEquals("abgebrochen", getBatchStatus("errorTestBatch-1"));
 
-        // Third restart is aborted with FEHLER_ABBRUCH (counter 2 >= maxWiederholungen 2)
-        assertEquals(BatchReturnCode.FEHLER_ABBRUCH.getWert(), BatchLauncher.run(
-                new String[]{"-restart", "-cfg",
-                        "/resources/batch/error-test-batch-max-wiederholungen-config.properties",
-                        "-laufError", "true"}));
+        // Third restart is rejected because the restart counter (2) has reached maxWiederholungen (2).
+        // BatchrahmenMaxWiederholungenException (BAT350) writes its message to System.err.
+        // We capture stderr here to verify the rejection is due to max-restarts and not just a batch error,
+        // so the test fails when Batchrahmen.MaxWiederholungen is absent from the configuration.
+        PrintStream originalErr = System.err;
+        ByteArrayOutputStream capturedErr = new ByteArrayOutputStream();
+        System.setErr(new PrintStream(capturedErr));
+        int thirdRestartCode;
+        try {
+            thirdRestartCode = BatchLauncher.run(
+                    new String[]{"-restart", "-cfg",
+                            "/resources/batch/error-test-batch-max-wiederholungen-config.properties",
+                            "-laufError", "true"});
+        } finally {
+            System.setErr(originalErr);
+        }
+        assertEquals(BatchReturnCode.FEHLER_ABBRUCH.getWert(), thirdRestartCode);
+        assertThat(new String(capturedErr.toByteArray(), StandardCharsets.UTF_8))
+                .as("Dritter Restart muss wegen Überschreitung der konfigurierten maximalen Wiederholungen " +
+                        "(BAT350) abgebrochen werden, nicht wegen eines Batch-Fehlers")
+                .contains("Maximale Anzahl an Wiederholungen");
         assertEquals("abgebrochen", getBatchStatus("errorTestBatch-1"));
 
         // A fresh start with -ignoriereRestart resets the counter
