@@ -35,8 +35,8 @@ Sie führen zu Fehlern oder Unterbrechungen in der Kommunikation, wenn die Kommu
 
 Für die Gewährleistung von Abwärtskompatibilität wird ein tolerantes Verhalten der Kommunikationsteilnehmer vorausgesetzt:
 
-- Consumer müssen unbekannte Felder ignorieren können.
-- Producer dürfen bestehende Felder nicht entfernen oder in ihrer Bedeutung verändern.
+- Clients bzw. Consumer  müssen unbekannte Felder ignorieren können.
+- Server bzw. Producer dürfen bestehende Felder nicht entfernen oder in ihrer Bedeutung verändern.
 
 Bei asynchroner Kommunikation ist Abwärtskompatibilität dann gegeben, wenn bestehende Consumer Nachrichten oder Events weiterhin verarbeiten können, ohne dass Fehlverhalten entsteht.
 
@@ -170,8 +170,19 @@ In allen anderen Fällen sollen mehrere Versionen durch dasselbe Backend unterst
 |Neue Version des Event-/ Nachrichtenformats bereitstellen; bei fehlender Parallelverarbeitbarkeit zusätzlicher neuer Kanal
 |===
 
-=== Einordnung in die Referenzarchitektur
-Versionierungsentscheidungen für synchrone Services werden in der Regel innerhalb einer xref:referenzarchitektur:software-technisch/backend.adoc#serviceschicht[Serviceschicht] umgesetzt.
+== Einordnung in die Referenzarchitektur
+
+Die in <<entscheidungsmodell-versionierung>> beschriebenen Entscheidungen werden für synchrone Services in der Referenzarchitektur der IsyFact in der Regel innerhalb einer xref:referenzarchitektur:software-technisch/backend.adoc#serviceschicht[Serviceschicht] umgesetzt.
+
+Erfordert eine nicht abwärtskompatible Änderung eine neue Service-Version, so wird diese im Regelfall als eigene Service-Schnittstelle in der Serviceschicht des Backends bereitgestellt.
+Mehrere Service-Versionen können dabei denselben xref:referenzarchitektur:software-technisch/backend/anwendungskern.adoc[Anwendungskern] verwenden, sofern sich die fachliche Verarbeitung mit vertretbarem Aufwand gemeinsam abbilden lässt.
+
+Die für die Versionierung notwendigen Transformationen sind Teil der jeweiligen Service-Schnittstelle.
+Hierzu gehören insbesondere das Ergänzen von Standardwerten, die Abbildung unterschiedlicher Datenstrukturen sowie die Behandlung versionsspezifischer Unterschiede.
+Fachlogik des Anwendungskerns soll dabei nicht dupliziert werden.
+
+Eine Trennung innerhalb des Anwendungskerns oder die Bereitstellung eines eigenen Backends kann sinnvoll sein, wenn sich die fachliche Semantik zwischen den Versionen wesentlich unterscheidet, mehrere inkompatible Verarbeitungslogiken langfristig parallel unterstützt werden müssen oder die gemeinsame Realisierung nicht verhältnismäßig ist.
+Die Entscheidung hierfür ist im Systementwurf zu dokumentieren.
 
 Daraus folgen für synchrone Services die folgenden Grundsätze:
 
@@ -179,6 +190,21 @@ Daraus folgen für synchrone Services die folgenden Grundsätze:
 - Verschiedene Service-Versionen verwenden denselben Anwendungskern.
 - Versionsspezifische Transformationen erfolgen grundsätzlich in der Service-Schnittstelle des Backends.
 - Ein Service-Gateway übernimmt keine Fachlogik zur Behandlung unterschiedlicher Versionen.
+
+Externe Services werden durch xref:glossary::terms-definitions.adoc#glossar-service-gateway[Service-Gateways] bereitgestellt.
+
+NOTE: Ein Service-Gateway ist ein technischer Zugriffspunkt zwischen externen Systemen und internen Services.
+Fachlogik oder komplexe Orchestrierungen finden im Gateway nicht statt.
+Die Behandlung von Versionsunterschieden erfolgt daher grundsätzlich im Backend und nicht im Service-Gateway.
+
+
+Es ist möglich, pro Service-Version ein eigenes Service-Gateway zu erstellen, sofern dies aus technischen oder betrieblichen Gründen erforderlich ist.
+
+Für den Standardfall einer nicht abwärtskompatiblen Änderung, bei gleichbleibender fachlicher Logik, die kein neues Backend erforderlich macht, ergibt sich folgende Architektur:
+
+[[image-archversServ]]
+.Standardfall für die Architektur versionierter Services
+image::referenzarchitektur:software-technisch/services/versionierung.dn.svg[]
 
 [[versionierung-synchroner-services]]
 == Versionierung synchroner Services
@@ -246,10 +272,26 @@ Ein Beispiel für die hier behandelte Änderungen ist das Hinzufügen eines opti
 
 Abwärtskompatible Änderungen werden innerhalb derselben Service-Version umgesetzt.
 Die bestehende Service-Schnittstelle wird erweitert, ohne bestehende Nutzende zu beeinträchtigen.
-Dies ist möglich, wenn die Änderungen vollständig abwärtskompatibel sind, die Consumer unbekannte Fehler ignorieren können und keine Änderung der fachlichen Semantik bei bestehenden Feldern vorgenommen wurde.
+Dies ist möglich, wenn die Änderungen vollständig abwärtskompatibel sind, die Clients unbekannte Fehler ignorieren können und keine Änderung der fachlichen Semantik bei bestehenden Feldern vorgenommen wurde.
 
 Hierfür ist die bestehende Service-Schnittstelle zu erweitern.
 Für neue Felder sind in der Serviceschicht Defaultwerte einzutragen.
+
+Ein Backend stellt beispielsweise einen Service bereit, mit dem Personendaten gemeldet werden können.
+Parameter dieser Meldung sind Vor- und Nachname sowie das Geburtsdatum.
+Dazu gibt es einen Meldung-Service in der Version 1.0.
+Dieser wird in der Serviceschicht des Backends implementiert.
+Ab einem Stichtag soll zusätzlich noch der Geburtsort gemeldet werden.
+Im bisherigen Datenbestand wird dieses neue Attribut auf den Wert "unbekannt" gesetzt.
+Der bestehende Service wird um dieses Attribut erweitert.
+Da es sich um eine abwärtskompatible Änderung handelt, bleibt es bei derselben Service-Version.
+Anwendungskern und Persistenzschicht müssen ebenfalls erweitert werden.
+
+Die Serviceschicht stellt sicher, dass Aufrufe ohne Angabe des Geburtsorts weiterhin korrekt verarbeitet werden können, indem für das fehlende Attribut der Wert "unbekannt" ergänzt wird.
+
+Wird der Service durch ein Service-Gateway nach außen verfügbar gemacht, bleibt das Gateway auf dieselbe Service-Schnittstelle geroutet.
+Innerhalb des Gateways findet keine fachliche Abbildung statt.
+Die Behandlung fehlender optionaler Werte erfolgt im Backend.
 
 Mit diesem Vorgehen ist kein Parallelbetrieb erforderlich.
 Dadurch ergibt sich minimaler Betriebsaufwand und keine zusätzliche Komplexität.
@@ -260,7 +302,24 @@ Die Änderungsfreiheit ist jedoch eingeschränkt.
 - Betrieb: keine zusätzlichen Instanzen
 - Komplexität: gering
 
-=== Neue versionierte Service-Schnittstelle im gemeinsamen Backend
+=== Inkompatible Veränderung eines Services
+
+Ist eine Änderung an einem Service nicht abwärtskompatibel, ist gemäß dem <<entscheidungsmodell-versionierung>> eine neue Service-Version bereitzustellen.
+Eine neue Version ist dann erforderlich, wenn eine Änderung nicht abwärtskompatibel ist und bestehende Nutzende nicht ohne Anpassung weiterarbeiten können.
+
+Kann die neue Version mit vertretbarem Aufwand auf dieselbe fachliche Verarbeitung abgebildet werden, so können mehrere Service-Versionen denselben Anwendungskern nutzen.
+In diesem Fall enthält die Serviceschicht für jede Version eine eigene Service-Schnittstelle mit der jeweils erforderlichen Transformationslogik.
+
+Wird in so einem Fall ein neuer Service eingeführt, während der alte Service noch verfügbar bleiben muss, müssen die inkompatiblen Verarbeitungslogiken im Anwendungskern parallel unterstützt werden.
+Bei starken fachlichen oder technischen Unterschieden kann es sinnvoll sein, die neue Version in einem eigenen Backend bereitzustellen.
+Auch in diesem Fall enthält das Service-Gateway keine Fachlogik.
+
+Führen Änderungen zu einer wesentlichen fachlichen Neuausrichtung der Schnittstelle, soll keine weitere Version derselben Schnittstelle entstehen.
+In diesem Fall ist zu prüfen, ob es sich fachlich noch um dasselbe Konzept handelt.
+Wenn Versionen nicht mehr durch einfache Transformation verbunden werden können, handelt es sich nicht mehr um Versionen desselben fachlichen Konzepts, sondern die Einführung eines neuen fachlichen Konzepts.
+In diesem Fall ist zu prüfen, ob eine eigenständige neue Schnittstelle oder ein eigenes Backend die fachlich und technisch sauberere Lösung darstellt.
+
+==== Neue versionierte Service-Schnittstelle im gemeinsamen Backend
 Ein Beispiel für die hier behandelte Änderungen ist die Aufspaltung eines Feldes in mehrere Felder bei gleichbleibender fachlicher Logik.
 Das Backend stellt mehrere Versionen der veröffentlichten Service-Schnittstelle bereit.
 Hierfür ist eine zusätzliche Service-Schnittstelle in der Serviceschicht vorzusehen.
@@ -276,13 +335,14 @@ Eine Duplikation der Fachlogik ist nicht notwendig und der Infrastrukturaufwand 
 Die Komplexität in der Serviceschicht ist aber höher da eine Mapping-Logik notwendig ist.
 Zu beachten ist, dass bei vielen Versionen die Wartungskosten steigen.
 
-==== Auswirkungen
+Auswirkungen:
+
 - Deployment: Redeployment mit mehreren Schnittstellenversionen (Update eines bestehenden Deployments in neuer Version)
 - Betrieb: gemeinsame Skalierung
 - Komplexität: mittel
 
 [[versionierte-service-implementierung]]
-=== Versionierte Service-Implementierung im bestehenden Backend
+==== Versionierte Service-Implementierung im bestehenden Backend
 Ein Beispiel für die hier behandelten Anpassungen ist eine unterschiedliche fachliche Validierungslogik zwischen Versionen.
 Die Änderung ist nicht abwärtskompatibel oder die fachliche Logik beginnt zu divergieren.
 Damit ist die vollständige Wiederverwendung nicht mehr sinnvoll.
@@ -296,7 +356,8 @@ Eine angemessene Wartbarkeit bei wachsender Divergenz wird durch die Nutzung mö
 Die erhöhte Komplexität im Backend und eine teilweise Duplikation von Logik, was sich in steigendem Testaufwand niederschlägt, ist bei diesem Vorgehen als negativ zu betrachten.
 Bei zunehmender fachlicher Divergenz ist die Minimierung horizontaler Komplexität wichtiger als die Vermeidung technischer Redundanz.
 
-==== Auswirkungen
+Auswirkungen:
+
 - Deployment: ein Deployment mit differenzierter Logik
 - Betrieb: gemeinsame Laufzeit, Monitoring jeder Version notwendig
 - Komplexität: mittel bis hoch
@@ -307,7 +368,7 @@ Zulässig sind getrennte Implementierungsklassen, getrennte Anwendungskomponente
 
 Nicht zulässig sind weder verstreute if/else-Logik nach Version, fachliche Regeln in DTO-Mappern, langfristige Kopplung divergierender Fachmodelle, noch implizite Unterscheidung über optionale Felder.
 
-=== Neue Version als eigenes Backend
+==== Neue Version als eigenes Backend
 Beispiel: Technologiewechsel oder grundlegende fachliche Neuausrichtung eines Services.
 
 Eine neue Service-Version wird als eigenständiges Backend realisiert.
@@ -325,7 +386,8 @@ Als Vorteil ergibt sich eine maximale Entkopplung und eine unabhängige Weiteren
 Ein neues Backend ist keine Standardmaßnahme für Versionierung.
 Es ist eine bewusste Architekturentscheidung und im Systementwurf zu begründen.
 
-==== Auswirkungen
+Auswirkungen:
+
 - Deployment: separate Deployments / Container
 - Betrieb: getrennte Skalierung und Überwachung
 - Komplexität: hoch
@@ -410,26 +472,18 @@ Eine Schema Registry ist sinnvoll, sobald mehr als ein Team oder mehr als ein Co
 Für Events wird dies in <<schema-management>> konkretisiert.
 
 Zusammenfassend ist für die nachrichtenbasierte Systeme zu beachten:
-Nachrichtenverträge sind versionierte öffentliche Schnittstellen.
-Jede Änderung an einem Nachrichten-Schema muss vor Umsetzung auf <<abwaerts-und-vorwaertskompatibilitaet>> geprüft werden.
 
-Auf bestehenden Topics, Queues oder Event-Typen sind nur vollständig kompatible Änderungen erlaubt.
-Neue Felder müssen optional sein oder einen fachlich sicheren Default besitzen.
-Bestehende Felder dürfen nicht umbenannt, entfernt, typverändert oder semantisch verändert werden, solange aktive oder replayfähige Konsumenten existieren.
-
-Breaking Changes erfordern eine neue Version des Nachrichtenformats und einen neuen Event-Typ, neuen Routing-Key, neues Topic oder neue Queue.
-Für den Betrieb der alten und neuen Version ist eine für Migrationsstrategie festzulegen.
-Die alte Version darf erst abgeschaltet werden, wenn alle Konsumenten migriert sind.
-Das Monitoring muss die erfolgreiche Migration bestätigen und Retention-, Replay- sowie weitere relevante Fristen sind berücksichtigt.
-
-Technische Schema-Kompatibilität ersetzt keine fachliche Kompatibilitätsprüfung.
-Änderungen an Bedeutung, Einheit, Kardinalität, Identität, Ordering oder Idempotenz gelten als potenziell breaking, auch wenn das Schema formal kompatibel bleibt.
+- Nachrichtenverträge sind versionierte öffentliche Schnittstellen.
+- Bestehende Felder dürfen nicht umbenannt, entfernt, typverändert oder semantisch verändert werden, solange aktive oder replayfähige Konsumenten existieren.
+- Für den Betrieb der alten und neuen Version ist eine für Migrationsstrategie festzulegen.
+Die Abschaltung der alten Version erfolgt gemäß <<lifecycle-und-deprecation-von-versionen>>.
+- Änderungen an Bedeutung, Einheit, Kardinalität, Identität, Ordering oder Idempotenz gelten als potenziell breaking, auch wenn das Schema formal kompatibel bleibt.
 
 [[versionierung-events]]
 == Versionierung von Events
 
-Dieses Kapitel beschreibt bewährte Praktiken im Umgang mit Änderungen von Events in eventbasierten Systemen wie z.B. Kafka.
-Der allgemeine Umgang mit Änderungen an Nachrichten wird in <<versionierung-nachrichten>> beschrieben.
+Dieses Kapitel konkretisiert den allgemeinen Umgang mit Änderungen an Nachrichten aus <<versionierung-nachrichten>> für Events in eventbasierten Systemen wie z.B. Kafka.
+Events stellen fachliche Ereignisse dar und unterliegen daher neben der technischen Schema-Kompatibilität auch besonderen Anforderungen an Semantik, Datenkonsistenz, Replay und Idempotenz.
 Nach der Lektüre sollte der Leser in der Lage sein, diese richtig einzuordnen und mithilfe der definierten Entscheidungsmatrix die geeignete Vorgehensweise bei der Versionierung zu finden.
 
 === Fachliche Änderungen
@@ -517,7 +571,7 @@ Die Version wird in Klammern als fortlaufende Ganzzahl zwecks Verweis angegeben.
 [[abwaerts-und-vorwaertskompatibilitaet]]
 ==== Abwärts- und Vorwärtskompatibilität
 
-In Literatur und Dokumentationen kommt es gelegentlich zu Verwechslungen zwischen  Abwärts- und Vorwärtskompatibilität.
+In Literatur und Dokumentationen kommt es gelegentlich zu Verwechslungen zwischen Abwärts- und Vorwärtskompatibilität.
 Daher im Folgenden eine kurze Definition der beiden zur Abgrenzung.
 
 Ein Schema ist _abwärtskompatibel_, wenn bestehende Consumer unter Verwendung der alten Schema-Version in der Lage sind, Nachrichten korrekt zu verarbeiten, die mit der neuen Schema-Version erzeugt wurden.
@@ -583,7 +637,7 @@ Das ist aber für neue Consumer kein Problem, da es optional ist und einfach mit
 }
 ----
 
-In Fällen bei denen Änderungen zum Bruch der Kompatibilität führen (<<abwaertskompatibilitaet,Breaking Change>>) reicht eine neue Schema-Version nicht mehr aus, d.h. es liegt ein Schemabruch vor.
+In Fällen, bei denen Änderungen zum Bruch der Kompatibilität führen (<<abwaertskompatibilitaet,Breaking Change>>) reicht eine neue Schema-Version nicht mehr aus, d. h. es liegt ein Schemabruch vor.
 Als Folge muss ein neues Schema für einen neuen Event-Typ erstellt werden.
 
 Im <<listing-schema-bestellung,Beispiel-Event `BestellungAufgegeben`>> könnte ein neues Pflichtfeld `preis` dazukommen. Bei fortschreitender Versionierung könnten neue Consumer neue Nachrichten zwar lesen, aber bei den alten Nachrichten würde der Preis fehlen und der Consumer wüsste nicht, welcher Wert gemeint ist. Deswegen gibt es ein neues Schema für den Event-Typ `BestellungMitPreisAufgegeben`.
@@ -737,77 +791,10 @@ Dieses Vorgehen ermöglicht eine Migration mit minimalem Risiko, ohne den laufen
 Es ist jedoch zu berücksichtigen, dass durch den Parallelbetrieb von neuem und altem Topic und der zusätzlichen Komponente `Transformator` Komplexität der Infrastruktur und Systemlast ansteigen.
 Änderungen sind daher mit den Teams für Betrieb und Monitoring abzustimmen.
 
-[[architektur]]
-== Architektur
+[[lifecycle-und-deprecation-von-versionen]]
+== Lifecycle und Deprecation von Versionen
 
-Die in <<entscheidungsmodell-versionierung>> beschriebenen Entscheidungen werden für synchrone Services in der Referenzarchitektur der IsyFact in der Regel innerhalb einer Serviceschicht umgesetzt.
-
-Erfordert eine nicht abwärtskompatible Änderung eine neue Service-Version, so wird diese im Regelfall als eigene Service-Schnittstelle in der Serviceschicht des Backends bereitgestellt.
-Mehrere Service-Versionen können dabei denselben xref:referenzarchitektur:software-technisch/backend/anwendungskern.adoc[Anwendungskern] verwenden, sofern sich die fachliche Verarbeitung mit vertretbarem Aufwand gemeinsam abbilden lässt.
-
-Die für die Versionierung notwendigen Transformationen sind Teil der jeweiligen Service-Schnittstelle.
-Hierzu gehören insbesondere das Ergänzen von Standardwerten, die Abbildung unterschiedlicher Datenstrukturen sowie die Behandlung versionsspezifischer Unterschiede.
-Fachlogik des Anwendungskerns soll dabei nicht dupliziert werden.
-
-Eine Trennung innerhalb des Anwendungskerns oder die Bereitstellung eines eigenen Backends kann sinnvoll sein, wenn sich die fachliche Semantik zwischen den Versionen wesentlich unterscheidet, mehrere inkompatible Verarbeitungslogiken langfristig parallel unterstützt werden müssen oder die gemeinsame Realisierung zu unverhältnismäßig ist.
-
-Die Entscheidung hierfür ist im Systementwurf zu dokumentieren.
-
-Externe Services werden durch xref:glossary::terms-definitions.adoc#glossar-service-gateway[Service-Gateways] bereitgestellt.
-
-****
-Ein Service-Gateway ist ein technischer Zugriffspunkt zwischen externen Systemen und internen Services.
-Fachlogik oder komplexe Orchestrierungen finden im Gateway nicht statt.
-Die Behandlung von Versionsunterschieden erfolgt daher grundsätzlich im Backend und nicht im Service-Gateway.
-****
-
-Es ist möglich, pro Service-Version ein eigenes Service-Gateway zu erstellen, sofern dies aus technischen oder betrieblichen Gründen erforderlich ist.
-
-NOTE: Für den Standardfall einer nicht abwärtskompatible Änderung, bei gleichbleibender fachlicher Logik, die kein neues Backend erforderlich macht, ergibt sich folgende Architektur:
-
-[[image-archversServ]]
-.Standardfall für die Architektur versionierter Services
-image::referenzarchitektur:software-technisch/services/versionierung.dn.svg[]
-
-[[abwaertskompatible-erweiterung]]
-== Abwärtskompatible Erweiterung eines Services
-
-Ein Backend stellt einen Service bereit, mit dem Personendaten gemeldet werden können.
-Parameter dieser Meldung sind Vor- und Nachname sowie das Geburtsdatum.
-Dazu gibt es einen Meldung-Service in der Version 1.0.
-Dieser wird in der Serviceschicht des Backends implementiert.
-Ab einem Stichtag soll zusätzlich noch der Geburtsort gemeldet werden.
-Im bisherigen Datenbestand wird dieses neue Attribut auf den Wert "unbekannt" gesetzt.
-Der bestehende Service wird um dieses Attribut erweitert.
-Da es sich um eine abwärtskompatible Änderung handelt, bleibt es bei derselben Service-Version.
-Anwendungskern und Persistenzschicht müssen ebenfalls erweitert werden.
-
-Die Serviceschicht stellt sicher, dass Aufrufe ohne Angabe des Geburtsorts weiterhin korrekt verarbeitet werden können, indem für das fehlende Attribut der Wert "unbekannt" ergänzt wird.
-
-Wird der Service durch ein Service-Gateway nach außen verfügbar gemacht, bleibt das Gateway auf dieselbe Service-Schnittstelle geroutet.
-Innerhalb des Gateways findet keine fachliche Abbildung statt.
-Die Behandlung fehlender optionaler Werte erfolgt im Backend.
-
-[[inkompatible-veraenderung]]
-== Inkompatible Veränderung eines Services
-
-Ist eine Änderung an einem Service nicht abwärtskompatibel, ist gemäß dem <<entscheidungsmodell-versionierung>> eine neue Service-Version bereitzustellen.
-Kann die neue Version mit vertretbarem Aufwand auf dieselbe fachliche Verarbeitung abgebildet werden, so können mehrere Service-Versionen denselben Anwendungskern nutzen.
-In diesem Fall enthält die Serviceschicht für jede Version eine eigene Service-Schnittstelle mit der jeweils erforderlichen Transformationslogik.
-
-Wird in so einem Fall ein neuer Service eingeführt, während der alte Service noch verfügbar bleiben muss, müssen die inkompatiblen Verarbeitungslogiken im Anwendungskern parallel unterstützt werden.
-Bei starken fachlichen oder technischen Unterschieden kann es sinnvoll sein, die neue Version in einem eigenen Backend bereitzustellen.
-Auch in diesem Fall enthält das Service-Gateway keine Fachlogik.
-
-IMPORTANT: Eine neue Version ist dann erforderlich, wenn eine Änderung nicht abwärtskompatibel ist und bestehende Nutzende nicht ohne Anpassung weiterarbeiten können.
-
-Führen Änderungen zu einer wesentlichen fachlichen Neuausrichtung der Schnittstelle, soll keine weitere Version derselben Schnittstelle entstehen.
-In diesem Fall ist zu prüfen, ob es sich fachlich noch um dasselbe Konzept handelt.
-Wenn Versionen nicht mehr durch einfache Transformation verbunden werden können, handelt es sich nicht mehr um Versionen desselben fachlichen Konzepts, sondern die Einführung eines neuen fachlichen Konzepts.
-In diesem Fall ist zu prüfen, ob eine eigenständige neue Schnittstelle oder ein eigenes Backend die fachlich und technisch sauberere Lösung darstellt.
-
-=== Lifecycle und Deprecation von Schnittstellenversionen
-Jede neue nicht abwärtskompatible Schnittstellenversion muss eine Deprecation-Policy für die Vorgängerversion definieren.
+Jede neue nicht abwärtskompatible Version muss eine Deprecation-Policy für die Vorgängerversion definieren.
 
 Diese umfasst mindestens:
 
@@ -815,7 +802,10 @@ Diese umfasst mindestens:
 - Datum der Deprecation der alten Version,
 - Mindestunterstützungszeitraum,
 - geplantes Abschaltdatum,
-- betroffene Clients,
+- betroffene Clients bzw. Consumer,
 - Migrationsanleitung,
 - technische Metrik zur Nutzung der alten Version.
+
+Die alte Version darf erst abgeschaltet werden, wenn alle betroffenen Service-Nutzenden bzw. Consumer migriert sind.
+Das Monitoring muss die erfolgreiche Migration bestätigen und Retention-, Replay- sowie weitere relevante Fristen müssen berücksichtigt sein.
 
