@@ -446,7 +446,7 @@ Bei einer Trennung in der Persistenzschicht muss zu Beginn die bestehende Datenb
 
 Wenn alle alten Service-Clients umgestellt sind, kann das alte Backend eingestellt werden.
 Damit finden keine Schreiboperationen mehr auf die alte Datenbank statt, sondern nur noch auf die neue.
-Die alte Datenbank kann nach einer Stabilitätsphase dekommissioniert werden.
+Die alte Datenbank kann während einer Stabilitätsphase weiterhin im Lesebetrieb verbleiben, um gesetzliche Auskunftspflichten zu erfüllen, oder anschließend archiviert werden.
 
 [[versionierung-nachrichten]]
 == Versionierung von Nachrichten
