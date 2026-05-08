@@ -391,6 +391,30 @@ Auswirkungen:
 - Betrieb: getrennte Skalierung und Überwachung
 - Komplexität: hoch
 
+== Versionierung externer Schnittstellen
+
+Externe Service-Schnittstellen stellen Services der eigenen Anwendungslandschaft IT-Systemen außerhalb der eigenen Organisation bereit.
+Daher liegt der Fokus im Vergleich zu internen Schnittstellen stärker auf Stabilität, Sicherheit und klaren API-Verträgen.
+
+Bei inkompatiblen Änderungen können Schnittstellen auf zwei Arten versioniert werden:
+
+- innerhalb des bestehenden Service-Gateways
+- in eigenen Versionen des Service-Gateways
+
+Bei der Versionierung <<image-versionierung-innerhalb-gateway,innerhalb desselben Gateways>> wird neben dem bestehenden Provider- und Adapter-Paar eine neue Version erstellt, welche die neuen Anfragen verarbeitet.
+
+[[image-versionierung-innerhalb-gateway]]
+.Schnittstellenversionierung innerhalb des bestehenden Gateways
+image::referenzarchitektur:software-technisch/services/versionierung-innerhalb-gateway.dn.svg[]
+
+Bei der Versionierung <<image-versionierte-gateways,in eigenen Gateway-Versionen>> wird die neue Version des Provider- und Adapter-Paares in eine eigene Version des Service-Gateways implementiert.
+Dieser Ansatz bietet eine höhere Entkopplung und wird wegen des erwähnten Fokus auf Stabilität bevorzugt.
+
+[[image-versionierte-gateways]]
+.Schnittstellenversionierung in eigene Versionen von Gateways
+image::referenzarchitektur:software-technisch/services/versionierte-gateways.dn.svg[]
+Beide beschriebenen Varianten sind eine Anwendung der in der xref:referenzarchitektur:software-technisch/gateway.adoc#systemarchitektur-gateway[Referenzarchitektur] definierten Systemarchitektur von Gateways.
+
 [[versionierung-nachrichten]]
 == Versionierung von Nachrichten
 
