@@ -2,6 +2,7 @@
 ### FEATURES
 
 ### BUG FIXES
+- `IFS-5438`: [isy-security] Maven-Dependency ehcache verwendet classifier `jakarta`
 
 ### BREAKING CHANGES
 
