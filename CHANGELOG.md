@@ -1,5 +1,7 @@
 # 5.0.0
 ### FEATURES
+- `IFS-5368`: [isyfact-standards-doc] Vorgaben zu Backend-Trennung und IT-System-Zuschnitt bei Breaking Changes
+- `IFS-5365`: [isyfact-standards-doc] Erstellung Vorgaben zur Versionierung von Nachrichten
 - `IFS-5287`: [isyfact-standards-doc] Beschreibung des API-Gateways in der technisch-infrastrukturellen Referenzarchitektur
 - `IFS-5367`: [isyfact-standards-doc] Erstellung einer Kanalstrategie für Änderungen bei der Nutzung asynchroner Kommunikation
 - `IFS-5366`: [isyfact-standards-doc] Erstellung Vorgaben zur Versionierung von Events
