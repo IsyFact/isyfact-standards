@@ -538,7 +538,8 @@ Die Abschaltung der alten Version erfolgt gemäß <<lifecycle-und-deprecation-vo
 [[versionierung-events]]
 == Versionierung von Events
 
-Dieses Kapitel beschreibt bewährte Praktiken im Umgang mit Änderungen von Nachrichten in eventbasierten Systemen wie z.B. Kafka.
+Dieses Kapitel konkretisiert den allgemeinen Umgang mit Änderungen an Nachrichten aus <<versionierung-nachrichten>> für Events in eventbasierten Systemen wie z.B. Kafka.
+Events stellen fachliche Ereignisse dar und unterliegen daher neben der technischen Schema-Kompatibilität auch besonderen Anforderungen an Semantik, Datenkonsistenz, Replay und Idempotenz.
 Nach der Lektüre sollte der Leser in der Lage sein, diese richtig einzuordnen und mithilfe der definierten Entscheidungsmatrix die geeignete Vorgehensweise bei der Versionierung zu finden.
 
 === Fachliche Änderungen
