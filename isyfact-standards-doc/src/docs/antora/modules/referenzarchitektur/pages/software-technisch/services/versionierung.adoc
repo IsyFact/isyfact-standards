@@ -421,8 +421,8 @@ image::referenzarchitektur:software-technisch/services/getrennte-backend-version
 Ist hier keine Trennung in der Persistenzschicht möglich, kann ein weiterer Service Abhilfe schaffen, der durch Transformationslogik die Datenkonsistenz insbesondere bei konkurrierenden Schreibzugriffen oder divergierenden Datenmodellen sicherstellt.
 Ein weiterer Service bringt allerdings mehr Komplexität in die Anwendungslandschaft.
 
-Ein neuer Backend-Typ neben dem bestehenden entsteht, wenn sich die fachliche Verantwortung ändert. 
-Abbildung <<image-getrennte-backend-typen>> veranschaulicht die Situation erneut. 
+Ein neuer Backend-Typ neben dem bestehenden entsteht, wenn sich die fachliche Verantwortung ändert.
+Abbildung <<image-getrennte-backend-typen>> veranschaulicht die Situation erneut.
 Darin wird aus dem fachlichen Konzept _Meldung_ das Konzept _Abruf_.
 
 [[image-getrennte-backend-typen]]
@@ -450,6 +450,30 @@ Bei einer Trennung in der Persistenzschicht muss zu Beginn die bestehende Datenb
 Wenn alle alten Service-Clients umgestellt sind, kann das alte Backend eingestellt werden.
 Damit finden keine Schreiboperationen mehr auf die alte Datenbank statt, sondern nur noch auf die neue.
 Die alte Datenbank kann während einer Stabilitätsphase weiterhin im Lesebetrieb verbleiben, um gesetzliche Auskunftspflichten zu erfüllen, oder anschließend archiviert werden.
+
+== Versionierung externer Schnittstellen
+
+Externe Service-Schnittstellen stellen Services der eigenen Anwendungslandschaft IT-Systemen außerhalb der eigenen Organisation bereit.
+Daher liegt der Fokus im Vergleich zu internen Schnittstellen stärker auf Stabilität, Sicherheit und klaren API-Verträgen.
+
+Bei inkompatiblen Änderungen können Schnittstellen auf zwei Arten versioniert werden:
+
+- innerhalb des bestehenden Service-Gateways
+- in eigenen Versionen des Service-Gateways
+
+Bei der Versionierung <<image-versionierung-innerhalb-gateway,innerhalb desselben Gateways>> wird neben dem bestehenden Provider- und Adapter-Paar eine neue Version erstellt, welche die neuen Anfragen verarbeitet.
+
+[[image-versionierung-innerhalb-gateway]]
+.Schnittstellenversionierung innerhalb des bestehenden Gateways
+image::referenzarchitektur:software-technisch/services/versionierung-innerhalb-gateway.dn.svg[]
+
+Bei der Versionierung <<image-versionierte-gateways,in eigenen Gateway-Versionen>> wird die neue Version des Provider- und Adapter-Paares in eine eigene Version des Service-Gateways implementiert.
+Dieser Ansatz bietet eine höhere Entkopplung und wird wegen des erwähnten Fokus auf Stabilität bevorzugt.
+
+[[image-versionierte-gateways]]
+.Schnittstellenversionierung in eigene Versionen von Gateways
+image::referenzarchitektur:software-technisch/services/versionierte-gateways.dn.svg[]
+Beide beschriebenen Varianten sind eine Anwendung der in der xref:referenzarchitektur:software-technisch/gateway.adoc#systemarchitektur-gateway[Referenzarchitektur] definierten Systemarchitektur von Gateways.
 
 [[versionierung-nachrichten]]
 == Versionierung von Nachrichten
