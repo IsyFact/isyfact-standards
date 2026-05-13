@@ -421,13 +421,16 @@ image::referenzarchitektur:software-technisch/services/getrennte-backend-version
 Ist hier keine Trennung in der Persistenzschicht möglich, kann ein weiterer Service Abhilfe schaffen, der durch Transformationslogik die Datenkonsistenz insbesondere bei konkurrierenden Schreibzugriffen oder divergierenden Datenmodellen sicherstellt.
 Ein weiterer Service bringt allerdings mehr Komplexität in die Anwendungslandschaft.
 
-Ein neuer Backend-Typ neben dem bestehenden entsteht, wenn sich die fachliche Verantwortung ändert. Abbildung <<image-getrennte-backend-typen>> veranschaulicht die Situation erneut. Darin wird aus dem fachlichen Konzept _Meldung_ das Konzept _Abruf_.
+Ein neuer Backend-Typ neben dem bestehenden entsteht, wenn sich die fachliche Verantwortung ändert. 
+Abbildung <<image-getrennte-backend-typen>> veranschaulicht die Situation erneut. 
+Darin wird aus dem fachlichen Konzept _Meldung_ das Konzept _Abruf_.
 
 [[image-getrennte-backend-typen]]
 .Getrennte Backends nach neuem Backend-Typ
 image::referenzarchitektur:software-technisch/services/getrennte-backend-typen.dn.svg[]
 
-WARNING: Bei der Änderung des fachlichen Konzepts ändert sich auch die fachliche Sprache, welche im Sinne von Domain Driven Design über Teams hinweg genutzt wird. Daher wird spätestens an dieser Stelle eine Auftrennung in der Persistenzschicht empfohlen, um Dateninkonsistenzen durch Missverständnisse zu vermeiden.
+WARNING: Bei der Änderung des fachlichen Konzepts ändert sich auch die fachliche Sprache, welche im Sinne von Domain Driven Design über Teams hinweg genutzt wird.
+Daher wird spätestens an dieser Stelle eine Auftrennung in der Persistenzschicht empfohlen, um Dateninkonsistenzen durch Missverständnisse zu vermeiden.
 
 Wegen der Zusatzkosten, die beim Parallelbetrieb von getrennten Backends entstehen, sollten mehr als zwei Systemversionen bzw. Systemtypen vermieden werden.
 Nach Möglichkeit wird eine zeitnahe Umstellung und Ablösung des bestehenden Backends empfohlen.
@@ -437,7 +440,7 @@ Nach Möglichkeit wird eine zeitnahe Umstellung und Ablösung des bestehenden Ba
 Eine Migration zu einer neuen Backend-Version bzw. einem neuen Backend-Typ kann vollständig in einem Schritt erfolgen (Big-Bang), vorausgesetzt eine Betriebsunterbrechung ist tolerabel.
 
 Vor der Umstellung ist ein Migrationsplan zu erstellen und mit allen Betroffenen abzustimmen.
-Besonders wichtig ist es, im Falle eines Scheiterns die Daten vollständig wiederherzustellen und den vorherigen Betriebszustand wiederherzustellen (Rollback).
+Besonders wichtig ist es, im Falle eines Scheiterns die Daten vollständig wiederherzustellen und den vorherigen Betriebszustand wiederherstellen zu können (Rollback).
 
 Die Umstellung auf das neue Backend, die neuen Service-Clients und gegebenenfalls die neue Datenbank erfolgt innerhalb eines Wartungsfensters, das vorzugsweise in einem Zeitraum mit geringer Last liegt.
 
