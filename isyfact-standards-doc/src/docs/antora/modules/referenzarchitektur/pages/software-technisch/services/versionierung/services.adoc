@@ -1,0 +1,251 @@
+= Versionierung von REST-Services
+:navtitle: REST-Services
+
+Dieses Kapitel konkretisiert das xref:software-technisch/services/versionierung.adoc#entscheidungsmodell-versionierung[Entscheidungsmodell zur Versionierung] für REST-Services.
+
+Bei REST-Services wird die veröffentlichte Schnittstelle eines Services versioniert.
+Die fachliche Identität des REST-Services bleibt dabei erhalten.
+Eine neue Version ist nur dann eine Version desselben REST-Services, wenn weiterhin dasselbe fachliche Konzept bereitgestellt wird.
+Eine neue Schnittstellenversion erfordert kein neues Backend.
+Im Regelfall werden mehrere Schnittstellenversionen durch dasselbe Backend bereitgestellt.
+Ein neues Backend ist nur dann vorzusehen, wenn fachliche Verantwortung, Datenhoheit oder Betriebsanforderungen ein eigenes IT-System erfordern.
+
+[[zuordnung-entscheidungsmodell]]
+== Zuordnung zum Entscheidungsmodell
+
+Die Auswahl eines Musters erfolgt auf Basis des allgemeinen xref:software-technisch/services/versionierung.adoc#entscheidungsmodell-versionierung[Entscheidungsmodells] mit Hinzunahme weiterer Entscheidungen, die speziell für REST-Services relevant sind.
+
+[[image-sync-service-versioning]]
+.Entscheidungsbaum für die Versionierung von REST-Services
+image::referenzarchitektur:software-technisch/services/entscheidungsbaum-version-services.dn.svg[]
+
+Die folgende Tabelle beschreibt die Muster knapp und verweist auf die entsprechenden Abschnitte, in denen die Muster ausführlich beschrieben werden.
+
+.Zuordnung der Entscheidungsdimensionen zu Mustern
+[cols="3s,4", options="header"]
+|===
+|Muster / Abschnitt
+|Kurzbeschreibung
+
+|<<kompatible-weiterentwicklung>>
+|Die bestehende Service-Schnittstelle wird kompatibel erweitert.
+Keine Versionierung notwendig.
+
+|<<versionierte-service-schnittstelle>>
+|Die bestehende Fachkomponente des Anwendungskerns ist weiter nutzbar. Es entsteht eine neue, "versionierte" xref:software-technisch/backend/serviceschicht.adoc#fachkomponenten[Fachkomponente] in der Serviceschicht.
+
+|<<versionierte-service-schnittstelle-fachkomponente>>
+|Es entstehen eine neue, "versionierte" xref:software-technisch/backend/serviceschicht.adoc#fachkomponenten[Fachkomponente] in der Serviceschicht sowie eine dazugehörige, "versionierte" xref:software-technisch/backend/anwendungskern.adoc#fachkomponenten[Fachkomponente] im Anwendungskern.
+
+|<<versionierte-service-implementierung-backend>>
+|Es entsteht ein neues Backend mit Fachkomponenten in allen Schichten, welche die neue Version der Service-Schnittstelle umsetzen.
+|===
+
+[[kompatible-weiterentwicklung]]
+== Kompatible Weiterentwicklung
+
+====
+Ein Beispiel für die kompatible Weiterentwicklung ist das Hinzufügen optionaler Felder, oder andere xref:software-technisch/services/versionierung.adoc#abwaertskompatible-aenderungen[abwärtskompatible Änderungen].
+====
+
+Abwärtskompatible Änderungen werden innerhalb derselben Service-Version umgesetzt.
+Die bestehende Service-Schnittstelle wird geeignet erweitert, ohne bestehende Nutzende zu beeinträchtigen.
+Dies bedeutet zum Beispiel, dass neue Felder optional sind oder mit einem Standardwert versehen werden.
+
+.Kompatible Weiterentwicklung
+====
+Ein Backend stellt einen REST-Service bereit, mit dem Personendaten gemeldet werden können.
+Parameter dieser Meldung sind Vor- und Nachname sowie das Geburtsdatum.
+Dazu gibt es einen Service `Meldung` in der Version 1.0.
+Dieser wird in der Serviceschicht des Backends implementiert.
+
+Ab einem Stichtag soll zusätzlich noch der Geburtsort gemeldet werden.
+Im bisherigen Datenbestand wird dieses neue Attribut auf den Wert `unbekannt` gesetzt.
+Der bestehende REST-Service wird um dieses Attribut erweitert.
+Da es sich um eine abwärtskompatible Änderung handelt, bleibt es bei derselben Service-Version.
+Anwendungskern und Persistenzschicht müssen ebenfalls erweitert werden.
+
+Die Serviceschicht stellt sicher, dass Aufrufe ohne Angabe des Geburtsorts weiterhin korrekt verarbeitet werden können, indem für das fehlende Attribut der Wert `unbekannt` angenommen wird.
+
+====
+
+Wird der REST-Service durch ein Service-Gateway nach außen verfügbar gemacht, bleibt dieses auf dieselbe Service-Schnittstelle geroutet.
+Das Service-Gateway muss, falls es das Schnittstellenformat übersetzt, angepasst werden, um das optionale Feld zu unterstützen.
+Innerhalb des Service-Gateways findet keine fachliche Abbildung statt.
+Die Behandlung fehlender optionaler Werte erfolgt im Backend.
+
+Mit diesem Vorgehen ist kein Parallelbetrieb erforderlich.
+Dadurch ergibt sich minimaler Betriebsaufwand und keine zusätzliche Komplexität.
+
+.Auswirkungen
+****
+[cols="1s,3",frame="none",grid="none",stripes="none"]
+|===
+|Deployment
+|Redeployment (Update eines bestehenden Deployments in neuer Version)
+
+|Betrieb
+|keine zusätzlichen Instanzen, Routing oder Monitoring
+
+|Komplexität
+|gering
+|===
+****
+
+[[inkompatible-weiterentwicklung]]
+== Inkompatible Weiterentwicklung
+
+Ist eine Änderung an einem REST-Service nicht abwärtskompatibel, ist gemäß dem xref:software-technisch/services/versionierung.adoc#entscheidungsmodell-versionierung[Entscheidungsmodell] eine neue Service-Version bereitzustellen.
+
+Kann die neue Version mit vertretbarem Aufwand auf dieselbe fachliche Verarbeitung abgebildet werden, so können mehrere <<versionierte-service-schnittstelle,Versionen des REST-Services>> denselben Anwendungskern nutzen.
+Ist dies nicht der Fall, gibt es neben dem versionierten REST-Service auch mehrere <<versionierte-service-schnittstelle-fachkomponente,Versionen der zugehörigen Fachkomponente im Anwendungskern>>, um die unterschiedlichen fachlichen Verarbeitungslogiken zu kapseln.
+Bei starken fachlichen oder technischen Unterschieden kann es sinnvoll sein, die neue <<versionierte-service-implementierung-backend,Version in einem eigenen Backend>> bereitzustellen.
+
+IMPORTANT: Führen Änderungen zu einer wesentlichen fachlichen Neuausrichtung der Schnittstelle, ist die Versionierung als solches nicht praktikabel.
+In diesem Fall ist zu prüfen, ob es sich fachlich noch um dasselbe Konzept handelt.
+Dies kann zum Beispiel auf Basis des Vorgehens zur xref:software-technisch/it-system-zerlegung.adoc[] erfolgen.
+Statt einer Versionierung ist abzuwägen, ob ein weiterer REST-Service im bestehenden Backend oder ein neues Backend die geeignete Lösung darstellt.
+
+Inkompatible Änderungen führen in der Regel zum Parallelbetrieb mehrerer Versionen eines REST-Services, was zu erhöhtem Test-, Wartungs- und Betriebsaufwand sowie höherer Komplexität führt.
+Daher sollten alte Versionen zeitnah eingestellt werden, sobald die Umstellung der Clients erfolgt ist und Rahmenbedingungen wie gesetzliche Vorgaben dies zulassen.
+
+[[versionierte-service-schnittstelle]]
+=== Versionierte Service-Schnittstelle
+
+Dies ist ein angemessenes Vorgehen für Änderungen, die nicht abwärtskompatibel sind, aber die fachliche Logik gleich bleibt.
+
+====
+Ein Beispiel hierfür ist die Aufspaltung eines Feldes in mehrere Felder bei ansonsten gleichbleibender fachlicher Logik.
+====
+
+.Backend mit versionierten Service-Schnittstellen
+image::software-technisch/services/versionierung-getrennte-services.dn.svg[]
+
+Das Backend stellt mehrere Versionen der veröffentlichten Service-Schnittstelle bereit.
+Hierfür ist eine zusätzliche Fachkomponente in der Serviceschicht vorzusehen.
+Beide Fachkomponenten nutzen dieselbe Fachkomponente im Anwendungskern.
+Die Serviceschicht behandelt so alle versionsspezifischen Unterschiede.
+Dazu gehören versionierte Endpunkte, versionierte Request- und Response-DTOs, Mapper zwischen dem Modell der Schnittstelle und des Anwendungskerns sowie das Setzen von Standardwerten sowie technische Adaptierungen.
+
+Mit diesem Vorgehen steigt die Komplexität der Serviceschicht, aber die Änderung bleibt dort lokal begrenzt.
+Eine Duplikation der Fachlogik ist nicht notwendig und der Infrastrukturaufwand bleibt auf die Versionierung des REST-Services beschränkt.
+
+.Auswirkungen
+****
+[cols="1s,3",frame="none",grid="none",stripes="none"]
+|===
+|Deployment
+|Redeployment mit mehreren Schnittstellenversionen (Update eines bestehenden Deployments in neuer Version)
+
+|Betrieb
+|Komplexeres Routing durch den Parallelbetrieb mehrerer Service-Versionen, Monitoring jeder Version notwendig
+
+|Komplexität
+|mittel
+|===
+****
+
+[[versionierte-service-schnittstelle-fachkomponente]]
+=== Versionierte Service-Schnittstelle und Fachkomponente im Anwendungskern
+
+Dies ist ein angemessenes Vorgehen für Änderungen, die nicht abwärtskompatibel sind, und Unterschiede in der fachlichen Logik zur Folge haben.
+
+====
+Ein Beispiel für die hier behandelten Anpassungen sind eine unterschiedliche Validierung oder unterschiedliche Verarbeitungsvorschriften zwischen Versionen.
+====
+
+.Backend mit versionierten Fachkomponenten in Serviceschicht und Anwendungskern
+image::software-technisch/services/versionierung-getrennte-awk.dn.svg[]
+
+Das Backend stellt mehrere Versionen der veröffentlichten Service-Schnittstelle bereit.
+Hierfür ist eine zusätzliche Fachkomponente in der Serviceschicht vorzusehen.
+Die Fachkomponenten im Anwendungskern wird so versioniert, dass die versionierten Fachkomponenten in der Serviceschicht die jeweils passenden versionierten Fachkomponenten im Anwendungskern nutzen.
+Serviceschicht und Anwendungskern behandeln so alle versionsspezifischen Unterschiede.
+
+IMPORTANT: Dieses Muster darf nicht zu versionsabhängigen Verzweigungen im Anwendungskern führen.
+Zulässig sind getrennte Implementierungsklassen, getrennte Anwendungskomponenten, explizite Auswahl der Implementierung durch die Fachkomponente der Serviceschicht und eine gemeinsame Nutzung technischer Infrastruktur.
+Nicht zulässig sind weder verstreute `if`/`else`-Logik nach Version, fachliche Regeln im Mapping, langfristige Kopplung divergierender Fachmodelle, noch implizite Unterscheidung über optionale Felder.
+
+.Auswirkungen
+****
+[cols="1s,3",frame="none",grid="none",stripes="none"]
+|===
+|Deployment
+|Redeployment mit differenzierter Logik (Update eines bestehenden Deployments in neuer Version)
+
+|Betrieb
+|Komplexeres Routing durch den Parallelbetrieb mehrerer Service-Versionen, Monitoring jeder Version notwendig
+
+|Komplexität
+|mittel bis hoch
+|===
+****
+
+[[versionierte-service-implementierung-backend]]
+=== Versionierte Service-Schnittstelle in separatem Backend
+
+====
+Ein Beispiel für die hier behandelten Anpassungen ist eine grundlegende fachliche Neuausrichtung eines REST-Services.
+====
+
+.Versionierte Service-Schnittstelle in separatem Backend
+image::software-technisch/services/versionierung-getrennte-backends.dn.svg[]
+
+Im Unterschied zu den bisherigen Ansätzen werden hier der REST-Service und die Backends versioniert, aber nicht die jeweiligen Fachkomponenten.
+Dieser Ansatz ist nur bei starken fachlichen oder technischen Unterschieden zu empfehlen, insbesondere wenn ein langfristiger Parallelbetrieb erforderlich ist.
+Sein Vorteil ist eine maximale Entkopplung und eine unabhängige Weiterentwicklung mit klaren Systemgrenzen.
+
+Jedes Backend besitzt eine eigene Serviceschicht, einen eigenen Anwendungskern, ein eigenes Deployment und eigene Betriebsanforderungen.
+Über die Datenhaltung ist explizit zu entscheiden.
+In den meisten Fällen ist es sinnvoll, dass beide Backends auf jeweils eigene Datenbanken zugreifen, um die Unabhängigkeit zu gewährleisten.
+Ausnahmen sind für rein lesende REST-Services denkbar, bei denen die Datenkonsistenz durch die Nutzung einer gemeinsamen Datenbank nicht gefährdet wird. Die Entscheidung muss bewusst getroffen und im Systementwurf dokumentiert werden.
+
+.Neue Version als eigenes Backend
+****
+[cols="1s,3",frame="none",grid="none",stripes="none"]
+|===
+|Deployment
+|separate Deployments
+
+|Betrieb
+|zusätzliche Instanzen notwendig
+
+|Komplexität
+|hoch
+|===
+****
+
+[[migration-backends]]
+==== Migration von Backends
+
+Eine Migration zu einer neuen Service-Version kann vollständig in einem Schritt erfolgen (Big-Bang), vorausgesetzt eine Betriebsunterbrechung ist tolerabel.
+Vor der Umstellung ist ein Migrationsplan zu erstellen und mit allen Betroffenen abzustimmen.
+Besonders wichtig ist es, im Falle eines Scheiterns die Daten vollständig wiederherzustellen und den vorherigen Betriebszustand wiederherstellen zu können (Rollback).
+
+Die Umstellung auf das neue Backend, die neuen Service-Clients und das Deployment der neuen Instanzen sowie der Aufbau der dazu nötigen Infrastruktur wie Datenbanken und Monitoring erfolgt innerhalb eines Wartungsfensters, das vorzugsweise in einem Zeitraum mit geringer Last liegt.
+
+Wenn eine Betriebsunterbrechung nicht möglich ist, ist ein Parallelbetrieb die geeignete Wahl.
+Wenn alle Service-Clients umgestellt sind und die Rahmenbedingungen es zulassen, kann das alte Backend eingestellt werden.
+
+[[versionierung-sgw]]
+== Versionierung in Service-Gateways
+
+Service-Gateways stellen REST-Services der Anwendungslandschaft xref:glossary::terms-definitions.adoc#externes-system[externen Systemen] zur Verfügung.
+Daher liegt der Fokus im Vergleich zu internen Services stärker auf Stabilität, Sicherheit und klaren API-Verträgen.
+
+Bei <<inkompatible-weiterentwicklung,inkompatiblen Änderungen>> können REST-Services auf zwei Arten versioniert werden: innerhalb des bestehenden Service-Gateways, oder als separates Service-Gateway.
+
+Bei der Versionierung <<image-versionierung-innerhalb-gateway,innerhalb des bestehenden Service-Gateways>> wird neben dem bestehenden Provider- und Adapter-Paar eine neue Version erstellt, welche die neuen Anfragen verarbeitet.
+
+[[image-versionierung-innerhalb-gateway]]
+.Schnittstellenversionierung innerhalb des bestehenden Gateways
+image::referenzarchitektur:software-technisch/services/versionierung-sgw-innerhalb.dn.svg[]
+
+Bei der Versionierung als <<image-versionierte-gateways,separates Service-Gateway>> wird die neue Version des Provider- und Adapter-Paares in einem eigenen Service-Gateway implementiert.
+Dieser Ansatz bietet eine höhere Entkopplung und wird wegen des erwähnten Fokus auf Sicherheit und Stabilität bevorzugt.
+
+[[image-versionierte-gateways]]
+.Schnittstellenversionierung in eigene Versionen von Gateways
+image::referenzarchitektur:software-technisch/services/versionierung-sgw-getrennt.dn.svg[]
+
+Beide beschriebenen Varianten sind eine Anwendung der in der xref:referenzarchitektur:software-technisch/gateway.adoc#systemarchitektur-gateway[Referenzarchitektur] definierten Systemarchitektur von Gateways.
