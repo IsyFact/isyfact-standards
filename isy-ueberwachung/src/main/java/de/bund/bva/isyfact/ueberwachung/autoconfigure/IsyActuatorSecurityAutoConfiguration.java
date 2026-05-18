@@ -1,10 +1,5 @@
 package de.bund.bva.isyfact.ueberwachung.autoconfigure;
 
-import java.nio.charset.StandardCharsets;
-import java.util.UUID;
-
-import javax.crypto.spec.SecretKeySpec;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
 import org.springframework.boot.actuate.health.HealthEndpoint;
@@ -17,8 +12,6 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.oauth2.jwt.JwtDecoder;
-import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 /* tag::actuatorSecurity[] */
@@ -63,18 +56,6 @@ public class IsyActuatorSecurityAutoConfiguration {
         }
 
         return http.build();
-    }
-
-    /**
-     * Delivers 401 every request, if no decoder is defined.
-     */
-    @Bean
-    @ConditionalOnMissingBean(name = "jwtDecoder")
-    public JwtDecoder jwtDecoder() {
-        String secret = UUID.randomUUID().toString();
-        return NimbusJwtDecoder.withSecretKey(
-                new SecretKeySpec(secret.getBytes(StandardCharsets.UTF_8), "HmacSHA256")
-        ).build();
     }
 
 }
