@@ -448,8 +448,8 @@ Dies dient Performancegründen und der Vermeidung von Out-of-Memory-Fehlern.
 |Pfad zur <<rueckgabewerte-des-batchrahmens,XML-Ergebnisdatei>> des Batchrahmens
 
 |Batchrahmen.MaxWiederholungen
-|Maximale Anzahl automatischer Neustarts für einen fehlerhaften Batch.
-Ist der Parameter nicht gesetzt oder auf `-1` gesetzt, gibt es keine Begrenzung der Neustarts.
+|Maximale Anzahl automatischer Neustarts für einen fehlerhaft abgebrochenen Batch.
+Mit Parameter `ignoriereRestart` wird Zähler auf 0 zurückgesetzt.
 |====
 
 Die Property-Datei darf beliebige weitere Properties enthalten, die der Namenskonvention genügen.
@@ -673,7 +673,7 @@ Ein Wiederanlauf in dieser Situation ist mit dem Parameter `-restart` möglich.
 ==== Maximale Anzahl an Wiederholungen
 
 Über den Konfigurationsparameter `Batchrahmen.MaxWiederholungen` kann eine Obergrenze für automatische Neustarts eines fehlerhaften Batches festgelegt werden.
-Ist der Parameter nicht gesetzt oder auf `-1` gesetzt, gibt es keine Begrenzung.
+Ist `Batchrahmen.MaxWiederholungen` nicht konfiguriert oder auf einen negativen Wert (z. B. -1) gesetzt, gibt es keine Begrenzung der Neustarts.
 
 Wird ein Batch mit `-restart` gestartet und wurde die konfigurierte maximale Anzahl an Wiederholungen bereits erreicht, bricht der Batchrahmen den Start mit einer `BatchrahmenMaxWiederholungenException` ab.
 Der Rückgabewert ist in diesem Fall `FEHLER_ABBRUCH`.
