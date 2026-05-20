@@ -1,3 +1,5 @@
-# 5.0.0
+# 5.1.0
+### FEATURES
+
 ### BUG FIXES
-- `IFS-5029`: Ersetzt alte resilience4j-Abhängigkeiten mit aktualisierter resilience4j-BOM für Spring Boot 3 Kompatibilität
+
