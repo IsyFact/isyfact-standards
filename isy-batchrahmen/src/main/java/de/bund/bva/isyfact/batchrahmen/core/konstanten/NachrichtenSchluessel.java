@@ -55,6 +55,9 @@ public abstract class NachrichtenSchluessel {
     /** Failed to initialize DB connection. */
     public static final String ERR_BATCH_INIT_DB = "BAT340";
 
+    /** Maximum number of restarts exceeded. */
+    public static final String ERR_MAX_WIEDERHOLUNGEN_UEBERSCHRITTEN = "BAT350";
+
     // **** Error during execution ****
     /** Not all records were processed. */
     public static final String ERR_BATCH_UNVOLLSTAENDIG = "BAT400";
