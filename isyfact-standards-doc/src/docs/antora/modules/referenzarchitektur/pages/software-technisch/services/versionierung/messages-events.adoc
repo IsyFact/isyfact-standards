@@ -212,8 +212,9 @@ Im <<listing-schema-bestellung,Beispiel>> `BestellungAufgegeben` kommt ein neues
 }
 ----
 
-WARNING: Im Falle von Breaking Changes wird dringend empfohlen, für das neue Schema auf generische Namen wie `BestellungAufgegebenV1` zu verzichten, um eine Vermischung von verschiedenen Versionskonzepten zu vermeiden, insbesondere wenn fortschreitende Versionen manuell z.B. über Header gesetzt werden.
 ====
+
+WARNING: Im Falle von Breaking Changes wird dringend empfohlen, für das neue Schema auf generische Namen wie `BestellungAufgegebenV1` zu verzichten, um eine Vermischung von verschiedenen Versionskonzepten zu vermeiden, insbesondere wenn fortschreitende Versionen manuell z.B. über Header gesetzt werden.
 
 
 [[versionierung-events]]
