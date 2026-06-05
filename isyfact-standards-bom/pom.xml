@@ -18,12 +18,12 @@
         <isy-datetime.version>5.0.0</isy-datetime.version>
         <isy-sonderzeichen.version>5.0.0</isy-sonderzeichen.version>
         <isy-polling.version>5.0.0</isy-polling.version>
-        <isy-security.version>5.0.0</isy-security.version>
-        <isy-security-test.version>5.0.0</isy-security-test.version>
+        <isy-security.version>5.0.1</isy-security.version>
+        <isy-security-test.version>5.0.1</isy-security-test.version>
         <isy-task.version>5.0.0</isy-task.version>
         <isy-util.version>5.0.0</isy-util.version>
         <isy-ueberwachung.version>5.0.0</isy-ueberwachung.version>
-        <isy-batchrahmen.version>5.0.0</isy-batchrahmen.version>
+        <isy-batchrahmen.version>5.0.2</isy-batchrahmen.version>
     </properties>
 
     <!-- Dependency-Management für die Komponenten der IsyFact-Standards. -->
