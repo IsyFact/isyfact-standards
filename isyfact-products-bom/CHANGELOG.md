@@ -1,4 +1,4 @@
-# 5.0.2
+# 6.0.0
+### FEATURES
 
 ### BUG FIXES
-
