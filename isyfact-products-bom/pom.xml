@@ -40,7 +40,7 @@
         <commons-beanutils.version>1.11.0</commons-beanutils.version>
         <tika-core.version>3.2.3</tika-core.version>
         <commons-io.version>2.21.0</commons-io.version>
-        <resilience4j-bom.version>2.3.0</resilience4j-bom.version>
+        <resilience4j-bom.version>2.4.0</resilience4j-bom.version>
         <nimbus-jose-jwt.version>9.48</nimbus-jose-jwt.version>
         <spring-security.version>6.5.9</spring-security.version>
     </properties>
