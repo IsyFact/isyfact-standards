@@ -1,4 +1,4 @@
-# 6.0.0
+# 5.1.0
 ### FEATURES
 
 - `IFS-5370`: [isyfact-standards-doc] Konsolidierung der Vorgaben zur Versionierung von REST-Services, Nachrichten und Events

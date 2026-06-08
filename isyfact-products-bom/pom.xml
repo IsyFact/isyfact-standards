@@ -18,7 +18,7 @@
         <spring.boot.version>4.0.6</spring.boot.version>
         <apache.poi.version>5.5.1</apache.poi.version>
         <greenmail.version>1.6.15</greenmail.version>
-        <metro.webservices.version>4.0.6</metro.webservices.version>
+        <metro.webservices.version>4.0.7</metro.webservices.version>
         <woodstox.core.version>7.1.1</woodstox.core.version>
         <logback-json-classic.version>0.1.5</logback-json-classic.version>
         <logback-jackson.version>0.1.5</logback-jackson.version>
@@ -66,7 +66,7 @@
             <dependency>
                 <groupId>com.nimbusds</groupId>
                 <artifactId>nimbus-jose-jwt</artifactId>
-                <version>10.9</version>
+                <version>10.9.1</version>
             </dependency>
 
             <!-- Web service framework (SOAP): Metro
