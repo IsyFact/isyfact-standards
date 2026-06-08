@@ -1,4 +1,4 @@
-# 5.0.1
+# 5.0.2
 ### FEATURES
 
 - `IFS-5370`: [isyfact-standards-doc] Konsolidierung der Vorgaben zur Versionierung von REST-Services, Nachrichten und Events
@@ -8,7 +8,7 @@
 ### BREAKING CHANGES
 
 ### DEPENDENCY UPGRADES
-- `IFS-4780`: Set isy-security version to 5.0.1
+- `IFS-4780`: Set isy-batchrahmen version to 5.0.2
  
 ## RELEASE NOTES
 
