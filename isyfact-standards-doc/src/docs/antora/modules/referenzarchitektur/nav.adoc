@@ -28,6 +28,8 @@
 **** xref:software-technisch/services/rest.adoc[]
 **** xref:software-technisch/services/rest-vorgaben-konventionen.adoc[]
 **** xref:software-technisch/services/versionierung.adoc[]
+***** xref:software-technisch/services/versionierung/services.adoc[]
+***** xref:software-technisch/services/versionierung/messages-events.adoc[]
 *** xref:software-technisch/sicherheit.adoc[]
 ** xref:technisch-infrastrukturell.adoc[technisch-infrastrukturell]
 *** xref:technisch-infrastrukturell/api-gateway.adoc[]
