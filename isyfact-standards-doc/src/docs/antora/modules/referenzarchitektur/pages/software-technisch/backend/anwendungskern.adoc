@@ -55,8 +55,8 @@ Sie werden primär nach ihrer Funktion benannt.
 [cols="1s,4m",options="header"]
 |====
 2+|Geschäftsobjekt
-|Schema |<Entitaetsname>Bo
-|Beispiel |AkteBo
+|Schema |<Entitaetsname>
+|Beispiel |Akte
 |====
 
 // end::namenskonvention[]
@@ -77,13 +77,21 @@ Schließlich rufen Anwendungsfallklassen zur Persistierung ihrer Geschäftsobjek
 
 [[namenskonvention-anwendungsfallklassen]]
 .Namenskonvention Anwendungsfallklassen
-[cols="1s,4m",options="header"]
+[cols="1s,2m,2m",options="header"]
 |====
-2+|Anwendungsfallklassen
-|Schema |Awf<Anwendungsfall>
-|Beispiele |AwfAntragVerarbeiten
+3+|Anwendungsfallklassen
+
+|Schema
+|Awf<Anwendungsfall>
+| UC<Use Case>
+
+|Beispiele
+|AwfAntragVerarbeiten
 
 AwfEntscheidungDurchfuehren
+|UCProcessApplication
+
+UCExecuteDecision
 |====
 
 // end::namenskonvention[]
@@ -107,6 +115,29 @@ AfuErmittlungEntscheidungsrelevanz
 
 // end::namenskonvention[]
 
+[[service-consumer]]
+== Service Consumer
+
+// tag::service-consumer-definition[]
+
+Wenn Backends Services anderer IT-Systeme zur Erfüllung ihrer fachlichen Aufgaben benötigen, so werden diese als Komponente ("Service Consumer") im Anwendungskern abgebildet.
+Dabei ist es für ein Backend unerheblich, ob der Service innerhalb oder außerhalb der Anwendungslandschaft beheimatet ist.
+Service Consumer verhalten sich wie Fachkomponenten des Anwendungskerns.
+Sie übernehmen die technische Kommunikation mit dem Service sowie die Abbildung von Transportobjekten des Services auf Geschäftsobjekte und Exceptions des Backends.
+Dadurch ist ihre Funktionalität sauber gekapselt, sodass technische Änderungen am Service im Idealfall nur zu Änderungen am Service Consumer führen.
+
+// end::service-consumer-definition[]
+
+Service Consumer enthalten somit eine Schnittstelle und einen Adapter, der die Kommunikation mit dem Service des anderen IT-Systems übernimmt.
+Die Schnittstelle ist gleichartig zur Fassade einer Fachkomponente des Anwendungskerns aufgebaut.
+Der Adapter enthält die technische Logik, um mit dem Service zu kommunizieren, kapselt die Details der Kommunikation und übernimmt Aspekte wie Fehlerbehandlung und Logging.
+Der <<image-aufbau-service-consumer>> fasst den Aufbau grafisch zusammen.
+
+[[image-aufbau-service-consumer]]
+.Aufbau eines Service Consumers
+image::software-technisch/backend/aufbau_service_consumer.dn.svg[]
+
+
 [[das-anwendungskern-framework]]
 == Anwendungskern-Framework
 
@@ -122,28 +153,13 @@ Beispiel für querschnittliche Funktionalität ist die deklarative Steuerung von
 Allgemeine Vorgaben hierzu sind in der xref:software-technisch/backend/spring.adoc[] beschrieben.
 
 [[konfiguration-fachkomponente]]
-=== Konfiguration von Fachkomponenten
+=== Konfiguration
 
-Fachkomponenten werden durchgängig mittels Spring konfiguriert.
-Das umfasst vor allem, aber nicht ausschließlich, die Fassade (Schnittstellen der Fachkomponente) und zugehörige Anwendungsfallklassen.
+Fachkomponenten und Service Consumer werden mittels Spring konfiguriert.
+Das umfasst vor allem die Fassade (Schnittstellen der Fachkomponente bzw. des Service Consumers) und ihre Implementierung, da diese für andere Fachkomponenten im Anwendungskern und darüber hinaus auffindbar sein müssen.
 
-Bei Anwendungsfunktionsklassen oder Hilfsklassen ist je nach Relevanz zu entscheiden, ob diese als eigene Spring Beans definiert werden.
-Im Zweifel sollte die Konfiguration über Spring bevorzugt werden.
-Wenn eine Klasse nur an einer Stelle genutzt wird, kann sie als Kompromiss auch als anonyme Spring Bean definiert werden.
-Sind Klassen nicht von relevanter Bedeutung, so können sie beim Erzeugen der Spring Bean programmatisch erzeugt werden.
-
-[[service-consumer]]
-== Service Consumer
-
-// tag::service-consumer-definition[]
-
-Wenn Backends Services anderer IT-Systeme zur Erfüllung ihrer fachlichen Aufgaben benötigen, so werden diese als Komponente ("Service Consumer") im Anwendungskern abgebildet.
-Dabei ist es für ein Backend unerheblich, ob der Service innerhalb oder außerhalb der Anwendungslandschaft beheimatet ist.
-Service Consumer verhalten sich wie Fachkomponenten des Anwendungskerns.
-Sie übernehmen die technische Kommunikation mit dem Service sowie die Abbildung von Transportobjekten des Services auf Geschäftsobjekte und Exceptions des Backends.
-Dadurch ist ihre Funktionalität sauber gekapselt, sodass technische Änderungen am Service im Idealfall nur zu Änderungen am Service Consumer führen.
-
-// end::service-consumer-definition[]
+Bei den weiteren Bestandteilen einer Fachkomponente (Anwendungsfall-, Anwendungsfunktion- oder Hilfsklassen) oder eines Services Consumers (Service-Adapter) ist je nach Relevanz zu entscheiden, ob diese als eigene Spring Bean definiert werden.
+Im Zweifel sollten die Klassen ohne Spring implementiert werden.
 
 [[transaktionssteuerung]]
 == Transaktionssteuerung
