@@ -9,6 +9,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 import de.bund.bva.isyfact.batchrahmen.batch.BasicAuthenticationTestBatch;
 import de.bund.bva.isyfact.batchrahmen.batch.BasicTestBatch;
 import de.bund.bva.isyfact.batchrahmen.batch.ErrorTestBatch;
+import de.bund.bva.isyfact.batchrahmen.batch.FehlerNachrichtTestBatch;
 import de.bund.bva.isyfact.batchrahmen.batch.GesicherterTestBatch;
 import de.bund.bva.isyfact.batchrahmen.batch.GesicherterTestBatch2;
 import de.bund.bva.isyfact.batchrahmen.batch.InfiniteTestBatch;
@@ -64,6 +65,11 @@ public class BatchrahmenTestConfig {
     @Bean
     public GesicherterTestBatch2 gesicherterTestBatch2() {
         return new GesicherterTestBatch2();
+    }
+
+    @Bean
+    public FehlerNachrichtTestBatch fehlerNachrichtTestBatch() {
+        return new FehlerNachrichtTestBatch();
     }
 
     @Bean

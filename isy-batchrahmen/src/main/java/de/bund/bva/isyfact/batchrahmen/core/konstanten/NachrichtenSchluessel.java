@@ -52,6 +52,9 @@ public abstract class NachrichtenSchluessel {
     /** Restart not possible. */
     public static final String ERR_BATCH_INIT_ABGEBR = "BAT330";
 
+    /** Maximum number of restarts exceeded. */
+    public static final String ERR_MAX_WIEDERHOLUNGEN_UEBERSCHRITTEN = "BAT350";
+
     // **** Error during execution ****
     /** Not all records were processed. */
     public static final String ERR_BATCH_UNVOLLSTAENDIG = "BAT400";

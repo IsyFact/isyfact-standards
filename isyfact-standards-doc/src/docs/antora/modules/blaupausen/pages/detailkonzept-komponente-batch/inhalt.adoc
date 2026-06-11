@@ -458,6 +458,7 @@ Aus der Property-Datei werden durch den Batchrahmen folgende Properties gelesen:
 |`BatchName` |Name des Batches in der Batch-Statustabelle
 |`Batchrahmen.AnzahlZuVerarbeitendeDatensaetze` |Falls nicht die ganze Datei verarbeitet werden soll, sondern nur eine gewisse Anzahl an Datensätzen.
 |`Batchrahmen.Ergebnisdatei` |Pfad zur XML-Ergebnisdatei des Batchrahmens (siehe Kapitel <<rueckgabewerte-des-batchrahmens>>)
+|`Batchrahmen.MaxWiederholungen` |Maximale Anzahl automatischer Neustarts für einen fehlerhaft abgebrochenen Batch. Mit Parameter `ignoriereRestart` wird Zähler auf 0 zurückgesetzt.
 |====
 
 ===== Weitere Parameter
@@ -660,6 +661,20 @@ Dabei wird der Java-Prozess direkt entfernt ohne die Möglichkeit, den Batchrahm
 Dies ist daher nur in Ausnahmesituationen vom Betrieb durchzuführen.
 Da der Batchrahmen in dieser Situation kein Status-Update mehr schreiben kann, befindet sich der Eintrag „läuft“ in der Statustabelle.
 Ein Wiederanlauf in dieser Situation ist mit dem Parameter „-restart“ möglich.
+
+[[maximale-anzahl-automatischer-neustarts]]
+==== Maximale Anzahl automatischer Neustarts
+
+Der Batchrahmen ermöglicht es, die Anzahl automatischer Neustarts eines fehlerhaft abgebrochenen Batches zu begrenzen.
+Über den Konfigurationsparameter `Batchrahmen.MaxWiederholungen` wird eine Obergrenze für Restart-Versuche festgelegt.
+
+Ist der aktuelle Restart-Zähler (also die Anzahl der bisherigen Restarts seit dem letzten erfolgreichen Start) größer oder gleich dem konfigurierten Wert, bricht der Batchrahmen den Restart vorzeitig ab.
+Es wird eine `BatchrahmenMaxWiederholungenException` geworfen, die lediglich auf Info-Niveau geloggt wird.
+Der Batch verbleibt im Status „abgebrochen".
+
+Ein neuer Start mit dem Parameter `-start` (ggf. in Kombination mit `-ignoriereRestart`) setzt den Zähler zurück, so dass anschließend wieder Restarts möglich sind.
+
+Ist `Batchrahmen.MaxWiederholungen` nicht konfiguriert oder auf einen negativen Wert (z. B. -1) gesetzt, gibt es keine Begrenzung der Neustarts.
 
 [[das-vorlesen-durch-die-ausfuehrungsbean]]
 ==== Das Vorlesen durch die Ausführungsbean
