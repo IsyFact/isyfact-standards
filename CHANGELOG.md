@@ -1,5 +1,7 @@
 # 5.1.0
 ### FEATURES
+- `IFS-5259`: [isyfact-standards-doc] Beschreibung der konfigurierbaren maximalen Anzahl automatischer Neustarts für fehlerhafte Batches hinzugefügt
+- `IFS-5450`: [isyfact-standards-doc] Erweiterung der Beschreibung des Anwendungskerns (Service Consumer, Konfiguration) 
 
 - `IFS-5370`: [isyfact-standards-doc] Konsolidierung der Vorgaben zur Versionierung von REST-Services, Nachrichten und Events
 

@@ -444,6 +444,10 @@ Dies dient Performancegründen und der Vermeidung von Out-of-Memory-Fehlern.
 
 |Batchrahmen.Ergebnisdatei
 |Pfad zur <<rueckgabewerte-des-batchrahmens,XML-Ergebnisdatei>> des Batchrahmens
+
+|Batchrahmen.MaxWiederholungen
+|Maximale Anzahl automatischer Neustarts für einen fehlerhaften Batch.
+Ist der Parameter nicht gesetzt oder auf `-1` gesetzt, gibt es keine Begrenzung der Neustarts.
 |====
 
 Die Property-Datei darf beliebige weitere Properties enthalten, die der Namenskonvention genügen.
@@ -662,6 +666,19 @@ Dabei wird der Java-Prozess direkt entfernt ohne die Möglichkeit, den Batchrahm
 Dies ist daher nur in Ausnahmesituationen vom Betrieb durchzuführen.
 Da der Batchrahmen in dieser Situation kein Status-Update mehr schreiben kann, befindet sich der Eintrag `läuft` in der Statustabelle.
 Ein Wiederanlauf in dieser Situation ist mit dem Parameter `-restart` möglich.
+
+[[maximale-anzahl-an-wiederholungen]]
+==== Maximale Anzahl an Wiederholungen
+
+Über den Konfigurationsparameter `Batchrahmen.MaxWiederholungen` kann eine Obergrenze für automatische Neustarts eines fehlerhaften Batches festgelegt werden.
+Ist der Parameter nicht gesetzt oder auf `-1` gesetzt, gibt es keine Begrenzung.
+
+Wird ein Batch mit `-restart` gestartet und wurde die konfigurierte maximale Anzahl an Wiederholungen bereits erreicht, bricht der Batchrahmen den Start mit einer `BatchrahmenMaxWiederholungenException` ab.
+Der Rückgabewert ist in diesem Fall `FEHLER_ABBRUCH`.
+Die Exception wird nur auf Info-Niveau geloggt, da es sich um einen erwarteten Abbruch handelt.
+
+Ein Zähler der bisherigen Neustarts wird persistent in der Batch-Statustabelle gespeichert.
+Wird der Batch mit `-start` (oder `-start -ignoriereRestart`) neu gestartet, wird dieser Zähler zurückgesetzt.
 
 [[ueberlesen-von-datensaetzen]]
 ==== Überlesen von Datensätzen
