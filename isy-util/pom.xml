@@ -14,10 +14,6 @@
     <name>IsyFact-Utilities</name>
     <description>Stellt Hilfsfunktionen für IsyFact-Anwendungen bereit.</description>
 
-    <properties>
-        <spotbugs-annotations.version>4.9.8</spotbugs-annotations.version>
-    </properties>
-
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -57,15 +53,6 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <scope>test</scope>
-        </dependency>
-
-        <!-- TODO: Remove if Spotbug issues are fixed -->
-        <dependency>
-            <groupId>com.github.spotbugs</groupId>
-            <artifactId>spotbugs-annotations</artifactId>
-            <version>${spotbugs-annotations.version}</version>
-            <scope>provided</scope>
-            <optional>true</optional>
         </dependency>
     </dependencies>
 </project>
