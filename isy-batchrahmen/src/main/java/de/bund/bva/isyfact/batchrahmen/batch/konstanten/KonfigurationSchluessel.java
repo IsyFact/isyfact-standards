@@ -104,4 +104,10 @@ public final class KonfigurationSchluessel {
      */
     public static final String KOMMANDO_PARAM_LAUFZEIT = "laufzeit";
 
+    /**
+     * Property name for the maximum number of automatic restarts of a failed batch.
+     * If not set or set to a negative number, there is no limit on the number of restarts.
+     */
+    public static final String PROPERTY_BATCHRAHMEN_MAX_WIEDERHOLUNGEN = "Batchrahmen.MaxWiederholungen";
+
 }
