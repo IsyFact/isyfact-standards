@@ -53,8 +53,85 @@ Die Vorteile des reaktiven Programmierparadigmas erfüllen sich nur, wenn alle T
 Dies ist aktuell nicht der Fall.
 
 Für REST-Clients wiederum empfiehlt die IsyFact die Verwendung des `WebClient` anstatt des `RestTemplate`, da letzteres nicht mehr aktiv weiterentwickelt wird.
+Beim gleichzeitigen Einsatz von isy-logging, isy-security und isy-task  sind die <<reaktive-verarbeitung-einschraenkungen,bekannten Einschränkungen reaktiver Verarbeitung>> zu beachten.
 
 Für die Anbindung von Angular-Clients enthält der Baustein Angular eine entsprechende Komponente.
+
+[[reaktive-verarbeitung-einschraenkungen]]
+== Einschränkungen reaktiver Verarbeitung mit IsyFact-Querschnittsbausteinen
+
+Der `WebClient` basiert auf Project Reactor und verarbeitet HTTP-Anfragen in einem reaktiven, nicht-blockierenden Ausführungsmodell.
+Innerhalb einer reaktiven Pipeline kann Project Reactor zwischen Threads wechseln:
+Ein Request wird auf einem Thread begonnen und nach einer asynchronen Operation auf einem anderen Thread fortgesetzt.
+
+Die IsyFact setzt grundsätzlich auf dem imperativen Programmiermodell auf und nutzt`ThreadLocal`-Mechanismen zur Propagierung von Kontext-Informationen.
+Diese Mechanismen funktionieren im reaktiven Modell nicht zuverlässig, da `ThreadLocal`-Werte beim Thread-Wechsel auf dem neuen Thread nicht zur Verfügung stehen.
+
+[WARNING]
+====
+Reaktive Verarbeitung wird durch die IsyFact aktuell nicht vollständig unterstützt.
+Fachverfahren, die den `WebClient` einsetzen und gleichzeitig isy-logging, isy-security oder isy-task nutzen, sind von den im Folgenden beschriebenen Einschränkungen betroffen.
+====
+
+[[reaktive-verarbeitung-logging]]
+=== Einschränkungen bei isy-logging
+
+Der Baustein xref:isy-logging:konzept/master.adoc[isy-logging] basiert auf dem `ThreadLocal`-basierten Mapped Diagnostic Context (MDC) von Logback.
+Der MDC speichert Kontextinformationen wie die Korrelations-ID und die System-ID individuell pro Thread.
+
+Beim Einsatz des `WebClient` wechselt Project Reactor bei asynchronen Operationen den ausführenden Thread.
+Die MDC-Map des neuen Threads ist leer oder enthält Werte eines anderen Requests, der zufällig auf demselben Thread verarbeitet wird.
+
+Dies hat Konsequenzen:
+
+* Die Korrelations-ID und alle weiteren MDC-Felder gehen bei Thread-Wechseln verloren oder enthalten falsche Werte.
+* Dieser Datenverlust tritt ohne Fehler oder Exception auf und ist im Logging nicht erkennbar.
+* Die Logging-Nachvollziehbarkeit über Komponentengrenzen hinweg ist also nicht gewährleistet.
+
+Darüber hinaus basiert der `LogInterceptor` des Bausteins isy-logging auf Spring AOP.
+Spring-AOP-Aspekte sind an den aufrufenden Thread gebunden und können reaktive Pipelines daher nur eingeschränkt instrumentieren.
+
+[[reaktive-verarbeitung-security]]
+=== Einschränkungen bei isy-security
+
+Der Baustein xref:security::konzept.adoc[isy-security] nutzt den `SecurityContextHolder` von Spring Security.
+Dieser speichert den `SecurityContext`  in einem `ThreadLocal`.
+In diesem sind Authentifizierungsinformationen, zugewiesene Rollen und Behördenkennzeichen enthalten.
+
+Bei reaktiver Verarbeitung ist der `SecurityContext` nach einem Thread-Wechsel auf dem neuen Thread nicht mehr verfügbar.
+Dies hat folgende Auswirkungen:
+
+* Wird eine durch isy-security abgesicherte Methode nach einem Thread-Wechsel aufgerufen, schlägt die Autorisierung mit einer `OAuth2AuthenticationException` fehl.
+* Werden keine abgesicherten Methoden aufgerufen, verhalten sich diese wie für einen anonymen Aufrufer.
+Das Fehlen des `SecurityContext` fällt in diesem Fall nicht auf.
+
+Die Propagierung des `SecurityContext` in reaktiven Pipelines über den `ReactiveSecurityContextHolder` von Spring Security ist aktuell nicht Bestandteil der IsyFact.
+
+[[reaktive-verarbeitung-task]]
+=== Einschränkungen bei isy-task
+
+Der Baustein xref:task::konzept.adoc[isy-task] integriert isy-logging und isy-security in das Spring Scheduling.
+Wird innerhalb von Tasks reaktiver Code ausgeführt z.B. durch Nutzung des `WebClient` – werden die oben beschriebenen Einschränkungen von isy-logging und isy-security geerbt.
+
+Zusätzlich ist die Task-Überwachung von isy-task für den imperativen Ausführungsfall konzipiert.
+Im reaktiven Modell endet die gemessene Ausführungsdauer eines Tasks bereits beim Aufruf von `subscribe()` und nicht erst nach Abschluss der reaktiven Pipeline.
+Die tatsächliche Laufzeit eines reaktiven Tasks wird damit nicht korrekt gemessen.
+
+[[reaktive-verarbeitung-architekturelle-einordnung]]
+=== Architekturelle Einordnung
+
+Die fehlende Unterstützung reaktiver Verarbeitung durch die IsyFact stellt eine bekannte architekturelle Lücke dar.
+Wird der `WebClient` eingesetzt, können die beschriebenen Probleme nicht eigenständig behoben werden:
+Eigene AOP-Aspekte sind gemäß den Vorgaben der IsyFact nicht zulässig, und aktuell werden keine reaktiven Alternativen bereit gestellt.
+
+Technische Lösungsansätze existieren grundsätzlich:
+
+* Project Reactor unterstützt in Kombination mit Micrometer die automatische Propagierung von Kontext-Informationen in reaktiven Pipelines (`Hooks.enableAutomaticContextPropagation()`).
+Darüber ließe sich die MDC-Propagierung von isy-logging reaktiv-kompatibel gestalten.
+* Spring Security stellt mit dem `ReactiveSecurityContextHolder` eine reaktive Alternative zum `SecurityContextHolder` bereit, die den `SecurityContext` im Reactor-Kontext verwaltet.
+* Der AOP-Aspekt der Task-Überwachung in isy-task müsste für reaktive Rückgabetypen angepasst werden, sodass der Kontext erst nach Abschluss der reaktiven Pipeline bereinigt wird.
+
+Diese Lösungsansätze sind aktuell nicht Bestandteil der IsyFact.
 
 [[schnittstellendokumentation]]
 == Schnittstellendokumentation
