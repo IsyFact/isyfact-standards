@@ -1,4 +1,5 @@
 # 3.4.0
+- `IFS-5419`: [isyfact-standards-doc] Schlüssel von Korrelations-ID zu korrelationsId geändert
 ### Features
 - `IFS-5259`: [isy-batchrahmen] Maximale Anzahl automatischer Neustarts für fehlerhafte Batches konfigurierbar.
     * Über den Konfigurationsparameter `Batchrahmen.MaxWiederholungen` kann eine Obergrenze für automatische Neustarts festgelegt werden.
