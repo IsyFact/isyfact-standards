@@ -64,7 +64,7 @@ Der `WebClient` basiert auf Project Reactor und verarbeitet HTTP-Anfragen in ein
 Innerhalb einer reaktiven Pipeline kann Project Reactor zwischen Threads wechseln:
 Ein Request wird auf einem Thread begonnen und nach einer asynchronen Operation auf einem anderen Thread fortgesetzt.
 
-Die IsyFact setzt grundsätzlich auf dem imperativen Programmiermodell auf und nutzen `ThreadLocal`-Mechanismen zur Propagierung von Kontext-Informationen.
+Die IsyFact setzt grundsätzlich auf dem imperativen Programmiermodell auf und nutzt`ThreadLocal`-Mechanismen zur Propagierung von Kontext-Informationen.
 Diese Mechanismen funktionieren im reaktiven Modell nicht zuverlässig, da `ThreadLocal`-Werte beim Thread-Wechsel auf dem neuen Thread nicht zur Verfügung stehen.
 
 [WARNING]
