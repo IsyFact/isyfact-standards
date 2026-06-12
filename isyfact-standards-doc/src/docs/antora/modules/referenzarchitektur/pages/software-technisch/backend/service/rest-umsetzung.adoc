@@ -96,7 +96,7 @@ Spring-AOP-Aspekte sind an den aufrufenden Thread gebunden und können reaktive 
 
 Der Baustein xref:security::konzept.adoc[isy-security] nutzt den `SecurityContextHolder` von Spring Security.
 Dieser speichert den `SecurityContext`  in einem `ThreadLocal`.
-In diesem sind Authentifizierungsinformationen, zugewiesener Rollen und Behördenkennzeichen enthalten.
+In diesem sind Authentifizierungsinformationen, zugewiesene Rollen und Behördenkennzeichen enthalten.
 
 Bei reaktiver Verarbeitung ist der `SecurityContext` nach einem Thread-Wechsel auf dem neuen Thread nicht mehr verfügbar.
 Dies hat folgende Auswirkungen:
