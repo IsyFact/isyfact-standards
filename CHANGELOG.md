@@ -1,5 +1,6 @@
 # 4.3.0
 ### FEATURES
+- `IFS-5512` prepare isy-batchrahmen for usage as executable jar
 
 ### DEPENDENCIES
 - `IFS-5562`: [isyfact-products-bom] Aktualisierung der 3rd-Party-Dependencies auf aktuelle Versionen (via Dependabot PRs):
