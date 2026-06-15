@@ -42,8 +42,18 @@ class KommandozeilenParser {
         OptionBuilder.hasArg();
         OptionBuilder.isRequired();
         OptionBuilder.withDescription("Name der Property-Datei des Batches");
-
         this.options.addOption(OptionBuilder.create(KonfigurationSchluessel.KOMMANDO_PARAM_PROP_DATEI));
+
+        OptionBuilder.withArgName("Config-Verzeichnis-Pfad");
+        OptionBuilder.hasArg();
+        OptionBuilder.withDescription("Pfad zum config Verzeichnis. Default: ./config");
+        this.options.addOption(OptionBuilder.create(KonfigurationSchluessel.KOMMANDO_PARAM_KONFIGURATION_PFAD));
+
+        OptionBuilder.withArgName("Logback-Konfiguration-Pfad");
+        OptionBuilder.hasArg();
+        OptionBuilder.withDescription("Pfad zur logback-batch.xml");
+        this.options.addOption(OptionBuilder.create(KonfigurationSchluessel.KOMMANDO_PARAM_LOGBACK_KONFIGURATION));
+
         this.options.addOption(KonfigurationSchluessel.KOMMANDO_PARAM_START, false,
                 "Checkpoint/Restart Methode: START");
         this.options.addOption(KonfigurationSchluessel.KOMMANDO_PARAM_RESTART, false,
@@ -57,7 +67,6 @@ class KommandozeilenParser {
         OptionBuilder.hasArg();
         OptionBuilder.withDescription("Maximale Laufzeit des Batches");
         OptionBuilder.withType(Long.class);
-
         this.options.addOption(OptionBuilder.create(KonfigurationSchluessel.KOMMANDO_PARAM_LAUFZEIT));
     }
 
@@ -93,6 +102,16 @@ class KommandozeilenParser {
 
         cmdArgs.put(KonfigurationSchluessel.KOMMANDO_PARAM_PROP_DATEI,
                 line.getOptionValue(KonfigurationSchluessel.KOMMANDO_PARAM_PROP_DATEI));
+
+        String configDir = line.getOptionValue(KonfigurationSchluessel.KOMMANDO_PARAM_KONFIGURATION_PFAD);
+        if (configDir != null) {
+            cmdArgs.put(KonfigurationSchluessel.KOMMANDO_PARAM_KONFIGURATION_PFAD, configDir);
+        }
+
+        String logbackPath = line.getOptionValue(KonfigurationSchluessel.KOMMANDO_PARAM_LOGBACK_KONFIGURATION);
+        if (logbackPath != null) {
+            cmdArgs.put(KonfigurationSchluessel.KOMMANDO_PARAM_LOGBACK_KONFIGURATION, logbackPath);
+        }
 
         boolean start = line.hasOption(KonfigurationSchluessel.KOMMANDO_PARAM_START);
         boolean restart = line.hasOption(KonfigurationSchluessel.KOMMANDO_PARAM_RESTART);

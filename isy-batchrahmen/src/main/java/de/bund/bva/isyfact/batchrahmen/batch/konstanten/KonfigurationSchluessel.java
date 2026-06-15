@@ -80,6 +80,16 @@ public final class KonfigurationSchluessel {
     public static final String KOMMANDO_PARAM_PROP_DATEI = "cfg";
 
     /**
+     * Command line parameters for the config directory.
+     */
+    public static final String KOMMANDO_PARAM_KONFIGURATION_PFAD = "configVerzeichnis";
+
+    /**
+     * Command line parameters for the config directory.
+     */
+    public static final String KOMMANDO_PARAM_LOGBACK_KONFIGURATION = "logbackCfg";
+
+    /**
      * Command line parameter for the start type of the batch: Start.
      */
     public static final String KOMMANDO_PARAM_START = "start";
