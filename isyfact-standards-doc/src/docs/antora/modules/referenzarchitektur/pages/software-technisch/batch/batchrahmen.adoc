@@ -355,6 +355,15 @@ Ein detailliertes Konzept ist in Kapitel <<testmodus>> beschrieben.
 Wird die angegebene Zeit überschritten, wird der aktuelle Datensatz zu Ende bearbeitet.
 Der Batch bricht vor der Verarbeitung des nächsten Datensatzes mit einem dedizierten Return-Code ab.
 
+|-batch
+|Startet die Anwendung im Batchmodus
+
+|-configVerzeichnis <Pfad>
+|Pfad zum config Verzeichnis. Default: ./config
+
+|-logbackCfg <Pfad>
+|Pfad zur logback-batch.xml
+
 |====
 
 Es können auch andere Parameter angegeben werden, die der Namenskonvention genügen.
