@@ -9,9 +9,9 @@ public final class KonfigurationSchluessel {
         // class with config keys should not be initialized
     }
 
-    /***************************************************************************
-     * PROPERTY - PARAMETER *
-     **************************************************************************/
+    // ***************************************************************************
+    // PROPERTY - PARAMETER
+    // ***************************************************************************
 
     /**
      * Property name for the Batchrahmen-bean.
@@ -70,9 +70,9 @@ public final class KonfigurationSchluessel {
      */
     public static final String PROPERTY_BATCH_OAUTH2_MINIMUM_TOKEN_VALIDITY = "batch.oauth2MinimumTokenValidity";
 
-    /***************************************************************************
-     * COMMAND LINE PARAMETERS *
-     **************************************************************************/
+    // ***************************************************************************
+    // COMMAND LINE PARAMETERS
+    // ***************************************************************************
 
     /**
      * Command line parameters for the property file.
