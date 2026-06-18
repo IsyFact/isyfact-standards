@@ -1,6 +1,6 @@
 * xref:bausteine.adoc[]
 ** IsyFact-Standards
-*** xref:isy-datetime-docs::konzept/master.adoc[Datum & Zeit icon:external-link-square[]]
+*** xref:datetime::konzept.adoc[Datum & Zeit icon:external-link-square[]]
 *** Fehlerbehandlung
 **** xref:isy-exception-core:konzept/master.adoc[Konzept]
 **** xref:isy-exception-core:nutzungsvorgaben/master.adoc[Nutzungsvorgaben]
@@ -9,7 +9,7 @@
 **** xref:isy-logging:nutzungsvorgaben/master.adoc[Nutzungsvorgaben]
 *** xref:polling::konzept.adoc[Polling icon:external-link-square[]]
 *** xref:security::konzept.adoc[Security icon:external-link-square[]]
-*** xref:isy-sonderzeichen-docs::konzept/master.adoc[Sonderzeichen icon:external-link-square[]]
+*** xref:sonderzeichen::konzept.adoc[Sonderzeichen icon:external-link-square[]]
 *** xref:task::konzept.adoc[Task Scheduling icon:external-link-square[]]
 *** xref:ueberwachung::konzept.adoc[Überwachung icon:external-link-square[]]
 *** xref:util::konzept.adoc[Util icon:external-link-square[]]
