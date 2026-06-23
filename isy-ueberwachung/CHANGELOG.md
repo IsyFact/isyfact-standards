@@ -1,6 +1,2 @@
 # 4.3.0
-### FEATURES
-
-### BUG FIXES
-
-### BREAKING CHANGES
+- Keine

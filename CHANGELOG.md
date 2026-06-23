@@ -1,8 +1,13 @@
 # 4.3.0
+
 ### FEATURES
 - `IFS-5512` prepare isy-batchrahmen for usage as executable jar
 - `IFS-5491`: Maven wird jetzt in mindestens Version 3.9.0 vorausgesetzt (enforced via maven-enforcer-plugin)
   * Maven < 3.9.0 hat den Status End of Life erreicht
+- `IFS-5259`: [isy-batchrahmen] Maximale Anzahl automatischer Neustarts für fehlerhafte Batches konfigurierbar.
+  * Über den Konfigurationsparameter `Batchrahmen.MaxWiederholungen` kann eine Obergrenze für automatische Neustarts festgelegt werden.
+  * Bei Überschreitung wird eine `BatchrahmenMaxWiederholungenException` geworfen, die nur auf Info-Niveau geloggt wird.
+  * Ist der Parameter nicht oder auf eine negative Nummer gesetzt, gibt es keine Begrenzung der Neustarts.
 
 ### DEPENDENCIES
 - `IFS-5562`: [isyfact-products-bom] Aktualisierung der 3rd-Party-Dependencies auf aktuelle Versionen (via Dependabot PRs):
@@ -22,8 +27,6 @@
 
 ### BUG FIXES
 - `IFS-5438`: [isy-security] Maven-Dependency ehcache verwendet classifier `jakarta`
-
-### BREAKING CHANGES
 
 ### DOCUMENTATION
 - `IFS-5419`: [isyfact-standards-doc] Schlüssel von Korrelations-ID zu korrelationsId geändert
