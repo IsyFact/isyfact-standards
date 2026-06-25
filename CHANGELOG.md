@@ -1,5 +1,6 @@
 # 4.3.0
 ### FEATURES
+- `IFS-5512` prepare isy-batchrahmen for usage as executable jar
 - `IFS-5491`: Maven wird jetzt in mindestens Version 3.9.0 vorausgesetzt (enforced via maven-enforcer-plugin)
   * Maven < 3.9.0 hat den Status End of Life erreicht
 

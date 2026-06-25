@@ -6,31 +6,37 @@ import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.net.URISyntaxException;
+import java.net.URL;
+import java.util.Objects;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import de.bund.bva.isyfact.batchrahmen.batch.exception.BatchAusfuehrungsException;
 import de.bund.bva.isyfact.batchrahmen.test.BatchProtokollTester;
 
 public class BatchLauncherTest {
 
-    /** File for Batch protocol. Is set in {@link #init()}. */
+    /**
+     * File for Batch protocol. Is set in {@link #init()}.
+     */
     private static String ERGEBNIS_DATEI;
 
     @Before
     public void init() {
         try {
-            ERGEBNIS_DATEI = new File(
-                BatchLauncherTest.class.getResource("/resources/batch/ausgabe/ergebnisdatei.xml").toURI())
-                .getAbsolutePath();
+            final String ergebnisdateiPath = "/resources/batch/ausgabe/ergebnisdatei.xml";
+            final URL ergebnisdateiUrl = BatchLauncherTest.class.getResource(ergebnisdateiPath);
+            ERGEBNIS_DATEI = new File(Objects.requireNonNull(ergebnisdateiUrl, String.format(
+                    "failed to find classpath-resource: %s", ergebnisdateiPath)).toURI()).getAbsolutePath();
         } catch (URISyntaxException e) {
             fail(e.getMessage());
         }
     }
 
     /**
-     * Tests if a BatchAusfuehrungsException with error code "BAT420" (in case of a ClassNotFoundException)
-     * is thrown when a configuration class is not found.
+     * Tests if a {@link BatchAusfuehrungsException} with error code "BAT420" (in case of a
+     * {@link ClassNotFoundException}) is thrown when a configuration class is not found.
      */
 
     @Test
@@ -50,5 +56,4 @@ public class BatchLauncherTest {
         bpt = new BatchProtokollTester(ERGEBNIS_DATEI);
         assertThat(bpt.getAnzahlFehler()).isZero();
     }
-
 }

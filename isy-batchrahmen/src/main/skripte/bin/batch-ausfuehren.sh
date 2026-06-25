@@ -13,22 +13,19 @@ fi
 
 export JAVA_HOME=$JAVA8_HOME
 
-JAVA_COMMAND=$JAVA_HOME/bin/java
+JAVA=$JAVA_HOME/bin/java
 JAVA_OPTS="${JAVA_OPTS} -Duser.language=de -Duser.region=DE -Dfile.encoding=UTF-8" 
 
-CP=classes/
-for FILENAME in `ls -1 lib`;
-do
-    if [ -f "lib/${FILENAME}" ]
-    then
-        CP="${CP}:lib/${FILENAME}"
-    else
-        echo "Ignoriere Datei ${FILENAME}."
-    fi
-done
+CMD=(
+  "$JAVA"
+  $JAVA_OPTS
+  -jar "$JAR"
+  "$@"
+  -batch
+)
+echo "${CMD[@]}"
 
-echo ${JAVA_COMMAND} -classpath "${CP}" ${JAVA_OPTS} de.bund.bva.isyfact.batchrahmen.core.launcher.BatchLauncher $*
-${JAVA_COMMAND} -classpath "${CP}" ${JAVA_OPTS} de.bund.bva.isyfact.batchrahmen.core.launcher.BatchLauncher $*
+"${CMD[@]}"
 rueckgabe=$?
 
 popd > /dev/null
