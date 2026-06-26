@@ -241,7 +241,7 @@ Liquibase gewährleistet die Nachvollziehbarkeit aller Datenbankänderungen übe
 Damit wird sichergestellt, dass jede definierte Änderung genau einmal und in der richtigen Reihenfolge ausgeführt wird.
 
 Liquibase prüft nicht, ob die tatsächliche Datenbankversion mit der vom Anwendungscode erwarteten Release-Version übereinstimmt.
-Dadurch kann es trotz konsistentem Changelog zum xref:https://www.liquibase.com/blog/database-drift[Schema-Drift] kommen.
+Dadurch kann es trotz konsistentem Changelog zum https://www.liquibase.com/blog/database-drift[Schema-Drift] kommen.
 
 Schema-Drift kann folgende Ursachen haben:
 
@@ -568,7 +568,7 @@ Oder um zu überprüfen, ob alle Objekte in einer Baseline berücksichtigt sind.
 Hierfür können die Unterschiede zwischen dem IST-Zustand und einer leeren Datenbank erzeugt werden.
 
 |liquibase label
-|Labels können genutzt werden, um Datenbankänderungen, die ein Feature betreffen, zu kennzeichnen und zum gewünschten Zeitpunkt auszuführen. (Vgl. xref:https://docs.liquibase.com/reference-guide/changelog-attributes/labels[Liquibase-Doku-Labels]).
+|Labels können genutzt werden, um Datenbankänderungen, die ein Feature betreffen, zu kennzeichnen und zum gewünschten Zeitpunkt auszuführen. (Vgl. https://docs.liquibase.com/reference-guide/changelog-attributes/labels[Liquibase-Doku-Labels]).
 Dies kann in Verbindung mit Feature-Toggles genutzt werden.
 
 
