@@ -3,9 +3,9 @@
 
 *Änderungen IsyFact 4.3.0*
 
-tag::release-4.3.0[]
-- `IFS-5252` Neues Logszenario <<logging-von-webclient-aufrufen-mit-isyrestlogger>> hinzugefügt: Nutzung von `IsyRestLogger` für das Logging von WebClient-Aufrufen, einschließlich der Voraussetzung zur expliziten `spring-webflux`-Abhängigkeit
-end::release-4.3.0[]
+// tag::release-4.3.0[]
+- `IFS-5252`: Nutzung von `IsyRestLogger` für das Logging von WebClient-Aufrufen, einschließlich der Voraussetzung zur expliziten `spring-webflux`-Abhängigkeit hinzugefügt
+// end::release-4.3.0[]
 
 // *Änderungen IsyFact 3.0.0*
 

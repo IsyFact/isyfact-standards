@@ -1357,7 +1357,7 @@ Die Konfiguration erfolgt über die gleichen Properties wie der `boundaryLogInte
 
 .Voraussetzung: spring-webflux als explizite Abhängigkeit
 Die Nutzung von `IsyRestLogger` erfordert die explizite Hinzufügung der `spring-webflux`-Abhängigkeit zur Anwendung, da `isy-logging` diese nur als optionale Abhängigkeit mitliefert.
-Weitere Details dazu finden sich im xref:konzept/master.adoc#einleitung[Logging - Konzept] im Abschnitt <<isyrestlogger>>.
+Weitere Details dazu finden sich im xref:konzept/inhalt.adoc#isyrestlogger[Logging - Konzept].
 
 |Auswertungsszenario a|
 * Nutzungshäufigkeit analysieren
