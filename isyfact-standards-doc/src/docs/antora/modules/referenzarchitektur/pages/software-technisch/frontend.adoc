@@ -106,44 +106,55 @@ Konkrete technische Ausprägungen und Detailvorgaben werden in den nachfolgenden
 
 === Architekturgrundsätze
 
+[[AG-1]]
 ==== AG-1: Trennung von Frontend und Backend
 Frontend und Backend MÜSSEN als eigenständige IT-Systemtypen mit klar abgegrenzten Verantwortlichkeiten konzipiert und betrieben werden.
 Diese Trennung SOLL eine unabhängige Entwicklung, den separaten Betrieb sowie eine evolvierbare Weiterentwicklung ermöglichen.
 
+[[AG-2]]
 ==== AG-2: Frontend als nicht vertrauenswürdige Komponente
 Der IT-Systemtyp Frontend DARF NICHT als vertrauenswürdige Komponente betrachtet werden.
 Sicherheits- oder fachkritische Entscheidungen DÜRFEN NICHT im Frontend getroffen werden, sondern in Backend-Systemen.
 
+[[AG-3]]
 ==== AG-3: Standardisierung vor projektspezifischen Sonderlösungen
 Die Gestaltung von Frontends SOLL einheitlichen architektonischen, technologischen und organisatorischen IsyFact-Standards des BVA folgen.
 Abweichungen MÜSSEN begründet und dokumentiert werden.
 
+[[AG-4]]
 ==== AG-4: Evolvierbarkeit und Austauschbarkeit
 Frontend-Architekturen SOLLEN so gestaltet werden, dass technologische Weiterentwicklungen, der Austausch einzelner Komponenten sowie funktionale Erweiterungen mit vertretbarem Aufwand möglich sind
 
+[[AG-5]]
 ==== AG-5: Modularer Aufbau entlang fachlicher Verantwortlichkeiten
 Frontends SOLLEN modular aufgebaut sein.
 Die Strukturierung SOLL sich primär an fachlichen Verantwortlichkeiten und Anwendungsdomänen orientieren, nicht ausschließlich an technischen Schichten.
 
+[[AG-6]]
 ==== AG-6: Einheitlicher Zugriff auf Backend-Systeme
 Der Zugriff von Frontends auf Backend-Systeme SOLL einheitlich erfolgen.
 Hierfür SOLL ein zentrales API-Gateway als vermittelnde Komponente vorgesehen werden.
 
+[[AG-7]]
 ==== AG-7: Backend-for-Frontend als optionale Architekturvariante
 Ein Backend-for-Frontend (BFF) SOLL als optionale Architekturvariante vorgesehen werden, wenn Anforderungen an Vorverarbeitung, Sicherheit, Performance oder Entkopplung zwischen Frontend und Backend bestehen.
 
+[[AG-8]]
 ==== AG-8: Security und Datenschutz by Design
 Sicherheits- und Datenschutzanforderungen SOLLEN von Beginn an integraler Bestandteil der Frontend-Architektur sein.
 Personenbezogene Daten MÜSSEN auf das notwendige Minimum beschränkt und zweckgebunden verarbeitet werden.
 
+[[AG-9]]
 ==== AG-9: Modularisierung nur bei nachgewiesenem Bedarf
 Eine Laufzeit-Modularisierung (z. B. via Native Federation) SOLL nur eingesetzt werden, wenn organisatorische oder fachliche Gründe dies erfordern (z. B. mehrere Teams/Lieferanten, unabhängige Release-Zyklen).
 Andernfalls SOLL eine einfache SPA oder ein modularer Monolith bevorzugt werden.
 
+[[AG-10]]
 ==== AG-10: Kontrollierte Runtime-Integration über Shell
 Frontends, die aus mehreren unabhängig bereitgestellten Modulen bestehen (Native Federation), SOLLEN über eine zentrale Shell-Anwendung integriert werden.
 Die Shell SOLL ausschließlich Integrations- und Querschnittsaufgaben (z. B. Routing, Authentifizierung, Layout, Fehlerbehandlung) übernehmen; fachliche Logik SOLL in den Fachmodulen verbleiben.
 
+[[AG-11]]
 ==== AG-11: Verbindliche Integrationsverträge und Versionierung
 Bei der Integration unabhängig deployter Frontend-Module über Native Federation MÜSSEN öffentliche Schnittstellen (Contracts) definiert, versioniert und über Deprecation-Regeln gesteuert werden.
 Die produktive Einbindung SOLL versiongebunden erfolgen (keine ungebundenen „Latest“-Referenzen), um Laufzeitinkompatibilitäten zu vermeiden.
@@ -167,7 +178,445 @@ NOTE: Abschnitt ist noch WIP
 
 == Security & Compliance
 
-NOTE: Abschnitt ist noch WIP
+Dieses Kapitel schärft die übergreifenden Sicherheitsvorgaben aus der xref:software-technisch/sicherheit.adoc[Referenzarchitektur Sicherheit] für den IT-Systemtyp Frontend.
+Es beschreibt ausschließlich frontend-spezifische Vorgaben; alle übergreifenden Prinzipien (Authentifizierung, Autorisierung, Zertifikate) sind in der xref:software-technisch/sicherheit.adoc[Referenzarchitektur Sicherheit] festgelegt und gelten uneingeschränkt.
+
+Grundlage ist <<AG-2>>: Das Frontend DARF NICHT als vertrauenswürdige Komponente behandelt werden.
+Sämtliche sicherheits- und fachkritischen Entscheidungen MÜSSEN im Backend getroffen und dort validiert werden.
+Clientseitige Prüfungen dienen ausschließlich der Nutzerführung (UX), nicht der Sicherheitsdurchsetzung.
+Dies entspricht dem Zero-Trust-Prinzip für Frontends: Jede Anfrage an ein Backend-System trägt explizit Authentifizierungs- und Autorisierungsnachweise; implizites Vertrauen aufgrund des Netzwerkstandorts oder einer vorherigen Sitzung genügt nicht.
+
+=== Authentifizierung & Token-Handling
+
+Frontends authentifizieren Nutzer über den zentralen IAM-Service der Systemlandschaft.
+Die übergreifenden Vorgaben zu OAuth 2.0, IAM-Service und Autorisierungsinformationen sind in der xref:software-technisch/sicherheit.adoc#authentifizierung[Referenzarchitektur Sicherheit] festgelegt.
+Die folgenden Vorgaben schärfen diese für SPAs.
+
+.icon:university[title=Architekturregel] Bevorzugte Zielarchitektur: Backend-for-Frontend (BFF)
+****
+Für Anwendungen mit erhöhtem Schutzbedarf SOLL ein Backend-for-Frontend (BFF, siehe <<software-technisch-frontend-bff>>) als bevorzugtes Zielbild gewählt werden.
+In dieser Variante MÜSSEN Access Tokens und Refresh Tokens ausschließlich serverseitig im BFF gehalten werden und DÜRFEN NICHT an den Browser ausgeliefert werden.
+Die Kommunikation zwischen Frontend und BFF MUSS über ein sicheres Session-Cookie (`HttpOnly`, `Secure`, `SameSite`) erfolgen.
+
+Eine direkte SPA-zu-API-Kommunikation mit Token-Haltung im Browser MUSS eine bewusste und dokumentierte Architekturentscheidung sein und SOLL nur gewählt werden, wenn ein BFF nachweislich nicht erforderlich oder nicht umsetzbar ist.
+****
+
+.icon:university[title=Architekturregel] Authorization Code Flow mit PKCE
+****
+Frontends MÜSSEN den https://datatracker.ietf.org/doc/html/rfc7636[OAuth 2.0 Authorization Code Flow mit PKCE] (Proof Key for Code Exchange) zur Authentifizierung verwenden.
+Der Implicit Flow DARF NICHT eingesetzt werden (gemäß https://datatracker.ietf.org/doc/html/draft-ietf-oauth-security-topics[OAuth 2.0 Security Best Current Practice]).
+****
+
+.icon:university[title=Architekturregel] Token-Speicherung
+****
+Die Vorgaben unterscheiden sich nach Architekturvariante:
+
+*BFF-Architektur:*
+Access Tokens und Refresh Tokens MÜSSEN ausschließlich serverseitig im BFF gehalten werden.
+Tokens DÜRFEN NICHT an den Browser ausgeliefert werden.
+Der Browser erhält ausschließlich ein Session-Cookie (`HttpOnly`, `Secure`, `SameSite`).
+
+*Direkte SPA-zu-API-Architektur:*
+Access Tokens MÜSSEN ausschließlich im Arbeitsspeicher (JavaScript-Variable / In-Memory) gehalten werden.
+Refresh Tokens DÜRFEN NICHT im `localStorage` oder `sessionStorage` abgelegt werden.
+Sofern eine persistente Haltung des Refresh Tokens technisch erforderlich ist (z. B. für Silent Renewal), MUSS dieser ausschließlich in einem `HttpOnly`-Cookie gespeichert werden.
+
+NOTE: Eine reine In-Memory-Haltung von Access Tokens schützt nicht vollständig vor XSS-Angriffen: Bei erfolgreichem XSS-Angriff kann ein In-Memory-Token im laufenden Kontext missbraucht werden. In-Memory ist gegenüber `localStorage`/`sessionStorage` zu bevorzugen, ersetzt jedoch keine wirksame XSS-Prävention (siehe <<xss_pravention_im_code>>).
+
+*Übergreifend:*
+Client Secrets DÜRFEN NICHT im Frontend-Code oder in Build-Artefakten enthalten sein.
+****
+
+
+.icon:university[title=Architekturregel] Token-Lebensdauern
+****
+Die Lebensdauer von Access Tokens SOLL so kurz wie möglich gewählt werden
+(empfohlen: 5–15 Minuten, abhängig vom Schutzbedarf).
+
+Refresh Tokens SOLLEN eine begrenzte Lebensdauer besitzen
+(empfohlen: wenige Stunden bis maximal 24 Stunden, abhängig vom Schutzbedarf)
+und nach jeder Nutzung rotiert werden (Refresh Token Rotation).
+****
+
+
+[[http_sicherheits_header_cookies]]
+=== HTTP-Sicherheits-Header & Cookies
+
+HTTP-Response-Header sind die primäre Maßnahme des Browsers zum Schutz vor Clickjacking, Cross-Site-Scripting (XSS) und verwandten Angriffen.
+Sie MÜSSEN serverseitig gesetzt werden – entweder durch den Webserver/Reverse Proxy, der das Frontend ausliefert, oder durch ein vorgelagertes API-Gateway.
+
+.icon:university[title=Architekturregel] HTTP-Header
+****
+Frontends MÜSSEN mindestens die folgenden HTTP-Response-Header setzen:
+
+[cols="1,2", options="header"]
+|===
+| Header | Ziel
+
+| `Content-Security-Policy` (CSP)
+| Einschränkung erlaubter Ressourcenquellen; Schutz vor XSS und Injection
+
+| `Strict-Transport-Security` (HSTS)
+| Erzwingung von HTTPS
+
+| `Content-Type`
+| Explizite Deklaration des MIME-Typs zur Vermeidung von Content-Sniffing
+
+| `X-Content-Type-Options: nosniff`
+| Unterbindung von MIME-Type-Sniffing durch den Browser
+
+| `Cache-Control`
+| Steuerung der Browser-Cachebarkeit; sensible Seiten MÜSSEN mit `no-store` ausgeliefert werden
+|===
+
+Zusätzlich SOLLTEN folgende Header gesetzt werden:
+
+[cols="1,2", options="header"]
+|===
+| Header | Ziel
+
+| `Strict-Transport-Security` (`includeSubDomains`, `preload`)
+| Erweiterter HTTPS-Zwang für gesamte Domainstruktur
+
+| `X-Frame-Options` / CSP `frame-ancestors`
+| Schutz vor Clickjacking (CSP bevorzugt, Header als Fallback)
+
+| `Referrer-Policy`
+| Kontrolle über Weitergabe von Referrer-Informationen
+
+| `Permissions-Policy`
+| Einschränkung von Browser-APIs (z. B. Kamera, Mikrofon, Geolocation)
+|===
+****
+
+
+.icon:university[title=Architekturregel] Konfiguration der HTTP-Header
+****
+
+HTTP-Sicherheits-Header MÜSSEN auf die konkrete Webanwendung abgestimmt und so restriktiv wie möglich konfiguriert werden  (Prinzip der minimalen Berechtigungen / Whitelisting).
+
+Wildcard-Werte (z. B. `Content-Security-Policy: default-src *`)  DÜRFEN NICHT verwendet werden.
+
+Erlaubte Quellen MÜSSEN explizit definiert werden.
+****
+
+.icon:university[title=Architekturregel] Content Security Policy (CSP) — Mindestprofil
+****
+Die Content Security Policy MUSS mindestens die folgenden Direktiven enthalten:
+
+[cols="1,2", options="header"]
+|===
+| Direktive | Vorgabe
+
+| `default-src`
+| `'self'` — Fallback für nicht explizit gesetzte Ressourcentypen
+
+| `object-src`
+| `'none'` — Plugins (Flash, Java, etc.) DÜRFEN NICHT geladen werden
+
+| `base-uri`
+| `'self'` — Verhindert Manipulation der Basis-URL durch eingeschleustes `<base>`
+
+| `frame-ancestors`
+| `'none'` oder explizite Origin-Liste — Schutz vor Clickjacking
+
+| `script-src`
+| `'self'` ergänzt um explizite, vertrauenswürdige Origins; `'unsafe-inline'` und `'unsafe-eval'` DÜRFEN NICHT verwendet werden. Inline-Scripts MÜSSEN über Nonces oder Hashes abgesichert werden.
+
+| `style-src`
+| `'self'` ergänzt um explizite Origins; `'unsafe-inline'` SOLL vermieden werden.
+
+| `connect-src`
+| Explizite Liste der erlaubten Backend-/API-Endpunkte
+|===
+
+Bei Verwendung von Native Federation MUSS `script-src` zusätzlich die zulässigen Remote-Origins enumerieren (siehe <<native_federation_security>>).
+
+Verstöße SOLLEN über `report-to` / `report-uri` an einen kontrollierten Endpunkt gemeldet werden.
+****
+
+.icon:university[title=Architekturregel] Cookie-Sicherheitsattribute
+****
+Alle Cookies, die im Kontext der Webanwendung verwendet oder vom Backend gesetzt werden, MÜSSEN mit den folgenden Sicherheitsattributen versehen sein:
+
+* `Secure` — Übertragung MUSS ausschließlich über HTTPS erfolgen
+* `HttpOnly` — ein Zugriff durch JavaScript DARF NICHT möglich sein (Schutz vor XSS-basiertem Cookie-Diebstahl)
+* `SameSite=Strict` oder `SameSite=Lax` — Cross-Site Request Forgery (CSRF) SOLL verhindert werden
+
+`SameSite=None` DARF nur in begründeten Ausnahmefällen (z. B. Cross-Origin-Einbettung) verwendet werden und MUSS immer zusammen mit `Secure` gesetzt werden.
+
+Cookies SOLLTEN auf den kleinsten erforderlichen Scope (Domain und Path) eingeschränkt werden.
+
+Session- und Refresh-Token-Cookies MÜSSEN eindeutig identifizierbar sein und DÜRFEN KEINE sensiblen Daten im Klartext enthalten.
+****
+
+=== CORS & CSRF
+
+CORS (Cross-Origin Resource Sharing) und CSRF-Schutz werden primär serverseitig (API-Gateway, Backend) durchgesetzt.
+Das Frontend MUSS dennoch folgende Vorgaben einhalten.
+
+.icon:university[title=Architekturregel] CORS-Konfiguration
+****
+Requests an Backend-APIs DÜRFEN NICHT mit Wildcard-Origins (`Access-Control-Allow-Origin: *`)
+für authentifizierte Endpunkte konfiguriert werden.
+
+Erlaubte Origins MÜSSEN explizit, vollständig und präzise
+auf API-Gateway- oder BFF-Ebene definiert sein.
+
+Bei Verwendung von Credentials (z. B. Cookies oder Authorization Headern)
+MUSS `Access-Control-Allow-Credentials: true` korrekt gesetzt werden,
+und es DARF keine Wildcard-Origin verwendet werden.
+
+Origins SOLLTEN auf konkrete Hostnamen eingeschränkt werden
+(Wildcards wie `*.example.com` SOLLTEN nicht verwendet werden).
+****
+
+.icon:university[title=Architekturregel] CSRF-Schutz (Defense in Depth)
+****
+CSRF-Schutz MUSS als Defense-in-Depth-Strategie umgesetzt werden und DARF NICHT allein auf einer einzelnen Maßnahme beruhen.
+
+Folgende Maßnahmen MÜSSEN bzw. SOLLEN kombiniert werden:
+
+* `SameSite`-Cookie-Attribute (`Strict` oder `Lax`) MÜSSEN gesetzt werden (siehe <<http_sicherheits_header_cookies>>).
+* Bei cookie-basierter Authentifizierung MUSS zusätzlich ein expliziter CSRF-Schutzmechanismus eingesetzt werden, z. B. ein serverseitiges CSRF-Token-Verfahren (Synchronizer Token Pattern) oder das Double-Submit-Cookie-Pattern.
+* Für sicherheitskritische, zustandsverändernde Anfragen SOLL serverseitig zusätzlich `Origin`- und/oder `Referer`-Header geprüft werden.
+* Sicherheitsrelevante Endpunkte SOLLEN ausschließlich über sichere HTTP-Methoden mit explizitem Content-Type (z. B. `application/json`) angesprochen werden, um CSRF über einfache Formularsubmissions zu erschweren.
+
+Bei BFF-Architektur MUSS der CSRF-Schutz auf der Frontend↔BFF-Verbindung implementiert werden, da hier cookie-basierte Sessions verwendet werden.
+****
+
+=== Transport-Sicherheit & Protokolle
+
+Die übergreifenden Vorgaben zu TLS und Zertifikaten sind in der xref:software-technisch/sicherheit.adoc#nutzung-von-zertifikaten[Referenzarchitektur Sicherheit] normativ festgelegt.
+Die folgenden Vorgaben ergänzen diese für die Browser-Kommunikation.
+
+.icon:university[title=Architekturregel] HTTPS & TLS
+****
+Frontends MÜSSEN ausschließlich über HTTPS ausgeliefert werden.
+
+TLS 1.2 ist das Minimum; TLS 1.3 SOLL eingesetzt werden.
+
+TLS 1.0 und TLS 1.1 DÜRFEN NICHT verwendet werden.
+
+Mixed Content (Einbindung von HTTP-Ressourcen in einer HTTPS-Seite)
+ist VERBOTEN.
+
+Strict-Transport-Security (HSTS) MUSS gesetzt werden.
+****
+
+.icon:university[title=Architekturregel] HTTP-Protokollversion
+****
+Frontends SOLLEN über HTTP/2 ausgeliefert werden, um Ladeperformance und Multiplexing zu verbessern.
+HTTP/1.1 ist das erlaubte Minimum.
+HTTP/3 (QUIC) KANN eingesetzt werden, sofern Infrastruktur und Betriebsvorgaben dies unterstützen.
+****
+
+=== Supply-Chain-Sicherheit
+
+Build-Artefakte von Frontends bestehen typischerweise aus zahlreichen Open-Source-Abhängigkeiten und sind daher besonders Supply-Chain-Risiken ausgesetzt.
+Die nachfolgenden Vorgaben korrespondieren mit <<AG-11>> (Versionsbindung) und den Betriebs- und Sicherheitsanforderungen aus der <<Architekturvariante: Modularisierte Single Page Application mit Native Federation>>.
+
+.icon:university[title=Architekturregel] Dependency Scanning
+****
+Dependency Scanning (z. B. mittels `npm audit`, OWASP Dependency-Check oder äquivalenter Tooling) MUSS als Pflichtschritt in der CI/CD-Pipeline automatisiert ausgeführt werden.
+
+Builds mit bekannten kritischen Schwachstellen (CVSS ≥ 9.0) DÜRFEN NICHT in Produktivumgebungen deployt werden.
+
+Schwachstellen mit hohem Risiko (CVSS ≥ 7.0) SOLLTEN bewertet und zeitnah behoben oder durch geeignete Maßnahmen mitigiert werden.
+
+Ergebnisse des Dependency Scannings MÜSSEN dokumentiert und für Audits nachvollziehbar sein.
+****
+
+.icon:university[title=Architekturregel] Secret Scanning
+****
+Repositories und Build-Artefakte MÜSSEN durch automatisiertes Secret Scanning
+auf versehentlich eingecheckte Zugangsdaten, API-Keys oder Zertifikate geprüft werden.
+
+Secret Scanning MUSS als Pflichtschritt in der CI/CD-Pipeline automatisiert ausgeführt werden.
+
+Gefundene Secrets MÜSSEN unverzüglich entfernt, rotiert oder widerrufen werden.
+
+Builds mit enthaltenen Secrets DÜRFEN NICHT weiterverarbeitet oder in Produktivumgebungen deployt werden.
+****
+
+.icon:university[title=Architekturregel] Software Bill of Materials (SBOM)
+****
+Für jedes produktiv deployte Frontend-Build-Artefakt MUSS eine SBOM im Format https://cyclonedx.org/[CycloneDX] erstellt werden.
+
+Die SBOM MUSS versioniert und revisionssicher archiviert werden.
+
+Die SBOM MUSS für Vulnerability-Management-Prozesse genutzt werden,
+insbesondere zur Identifikation betroffener Abhängigkeiten bei bekannt werdenden Schwachstellen (CVEs).
+
+Die Generierung und Auswertung der SBOM SOLL automatisiert in der CI/CD-Pipeline erfolgen.
+****
+
+.icon:university[title=Architekturregel] Abhängigkeitsversionierung
+****
+Externe Abhängigkeiten DÜRFEN NICHT als ungebundene `latest`-Referenzen eingebunden werden.
+
+Alle Abhängigkeiten MÜSSEN auf eine konkrete, fest definierte Version festgelegt sein
+(→ <<AG-11>>).
+
+Ein Lockfile (z. B. `package-lock.json`, `yarn.lock`, `pnpm-lock.yaml`) MUSS eingecheckt und versioniert sein, um eine reproduzierbare Auflösung von Abhängigkeiten sicherzustellen.
+
+Auch transitive Abhängigkeiten MÜSSEN über das Lockfile nachvollziehbar versioniert und kontrollierbar sein.
+****
+
+.icon:university[title=Architekturregel] Reproduzierbare Builds & freigegebene Bezugsquellen
+****
+CI/CD-Pipelines MÜSSEN die Installation von Abhängigkeiten ausschließlich anhand des Lockfiles durchführen (z. B. `npm ci`, `yarn install --frozen-lockfile`, `pnpm install --frozen-lockfile`).
+Eine Auflösung neuer Versionen während des CI-Builds DARF NICHT erfolgen.
+
+Abhängigkeiten MÜSSEN ausschließlich aus organisationsweit freigegebenen Registries oder einem internen Proxy/Mirror bezogen werden.
+Direkte Bezugsquellen außerhalb dieser Registries (z. B. Git-URLs, beliebige HTTP-Quellen) DÜRFEN NICHT verwendet werden.
+
+Direkte Einbindungen von JavaScript-, CSS- oder Schriften-Ressourcen aus öffentlichen CDNs zur Laufzeit DÜRFEN NICHT ohne explizite Freigabe erfolgen.
+Erforderliche externe Ressourcen SOLLEN als Build-Abhängigkeit eingebunden und selbst ausgeliefert werden.
+****
+
+.icon:university[title=Architekturregel] Aktualisierung kritischer Abhängigkeiten
+****
+Kritische Abhängigkeiten (insbesondere Framework, Build-Toolchain und sicherheitsrelevante Bibliotheken) MÜSSEN regelmäßig und nachvollziehbar auf aktuelle, vom Hersteller unterstützte Versionen aktualisiert werden.
+
+Es MUSS ein definierter Prozess existieren, der Updates auf Basis von Schwachstellen- und Lifecycle-Informationen anstößt.
+
+End-of-Life-Versionen kritischer Abhängigkeiten DÜRFEN NICHT in Produktivumgebungen verwendet werden.
+****
+
+[[xss_pravention_im_code]]
+=== XSS-Prävention im Code
+
+Die in <<http_sicherheits_header_cookies>> definierten Header (insbesondere CSP) reduzieren die Auswirkungen von XSS, ersetzen jedoch keine sichere Implementierung im Anwendungscode.
+
+.icon:university[title=Architekturregel] Vermeidung unsicherer DOM-APIs
+****
+Die direkte Verwendung der folgenden DOM-APIs mit nicht-vertrauenswürdigen oder nicht nachweislich bereinigten Daten DARF NICHT erfolgen:
+
+* `innerHTML`, `outerHTML`
+* `document.write`, `document.writeln`
+* `insertAdjacentHTML`
+* `eval`, `Function`-Konstruktor, `setTimeout`/`setInterval` mit String-Argument
+
+Inhalte MÜSSEN bevorzugt über die framework-eigenen, kontext-sensitiven Binding-Mechanismen ausgegeben werden (z. B. Angular-Interpolation, React JSX-Textbindings), die eine automatische Ausgabe-Encodierung vornehmen.
+
+Wo dynamisches HTML zwingend erforderlich ist, MUSS eine etablierte Sanitizer-Bibliothek (z. B. DOMPurify, framework-eigener Sanitizer) verwendet werden.
+****
+
+.icon:university[title=Architekturregel] Kontrollierter Einsatz von Sanitizer-Bypässen
+****
+Framework-spezifische Bypass-Mechanismen für die Ausgabesicherung (z. B. Angular `DomSanitizer.bypassSecurityTrust*`, React `dangerouslySetInnerHTML`, Vue `v-html`) DÜRFEN nur in begründeten Ausnahmefällen verwendet werden.
+
+Jede Verwendung MUSS:
+
+* dokumentiert und im Code-Review explizit freigegeben werden,
+* auf eine konkrete, vertrauenswürdige Datenquelle eingeschränkt sein,
+* mit einer vorgeschalteten Sanitisierung kombiniert sein, sofern die Datenquelle nicht vollständig kontrolliert ist.
+****
+
+[[native_federation_security]]
+=== Native Federation — Sicherheitsanforderungen
+
+Bei Verwendung der Architekturvariante Native Federation (siehe <<Architekturvariante: Modularisierte Single Page Application mit Native Federation>>) werden zur Laufzeit Module aus separaten Bereitstellungen geladen.
+Daraus ergeben sich zusätzliche Sicherheitsanforderungen.
+
+.icon:university[title=Architekturregel] Kontrollierte Bezugsquellen für Remote-Module
+****
+Remote-Module DÜRFEN ausschließlich aus einer expliziten, organisationsweit gepflegten Allowlist von Origins geladen werden.
+
+Die erlaubten Origins MÜSSEN in der `script-src`- und `connect-src`-Direktive der CSP enumeriert sein (siehe <<http_sicherheits_header_cookies>>).
+
+Das Nachladen von Remote-Modulen aus beliebigen, vom Benutzer oder von externen Eingaben beeinflussbaren Origins DARF NICHT möglich sein.
+****
+
+.icon:university[title=Architekturregel] Versionierung von Remote-Modulen
+****
+Remote-Module MÜSSEN über fest definierte, unveränderliche Versionen referenziert werden (Immutable Artifacts).
+
+`latest`-Referenzen oder andere wandernde Versions-URLs DÜRFEN NICHT verwendet werden.
+
+Die Integrität geladener Remote-Module SOLL über Subresource Integrity (SRI) oder einen vergleichbaren Mechanismus geprüft werden, sofern technisch unterstützt.
+****
+
+.icon:university[title=Architekturregel] Rollback und Deaktivierung kompromittierter Remotes
+****
+Es MUSS ein dokumentierter Prozess existieren, mit dem ein einzelnes kompromittiertes oder fehlerhaftes Remote-Modul kurzfristig deaktiviert oder auf eine vorherige Version zurückgerollt werden kann, ohne dass ein vollständiges Re-Deployment der Shell-Anwendung erforderlich ist.
+
+Die zentrale Konfiguration der Remote-Module (z. B. Federation Manifest) MUSS unter Versionskontrolle stehen und über einen kontrollierten Freigabeprozess änderbar sein.
+****
+
+=== Logout, Caching & Service Worker
+
+.icon:university[title=Architekturregel] Logout und Session-Invalidierung
+****
+Beim Logout MÜSSEN alle sicherheitsrelevanten Zustände invalidiert werden:
+
+* Der Frontend-State (insbesondere In-Memory-Tokens, Benutzerinformationen und zwischengespeicherte fachliche Daten) MUSS vollständig verworfen werden.
+* Serverseitige Sessions sowie ggf. Refresh Tokens MÜSSEN serverseitig invalidiert werden (z. B. über den Logout-Endpunkt des IAM-Service bzw. des BFF).
+* Auth-Cookies (Session, Refresh) MÜSSEN serverseitig invalidiert und gelöscht werden.
+* Persistente Browser-Caches mit sensiblen Inhalten (siehe unten) MÜSSEN bereinigt werden.
+
+Ein clientseitiges Logout ohne serverseitige Invalidierung DARF NICHT als ausreichend betrachtet werden.
+****
+
+.icon:university[title=Architekturregel] Caching sensibler API-Antworten
+****
+Antworten von Backend-APIs, die personenbezogene oder sicherheitsrelevante Daten enthalten, DÜRFEN NICHT persistent im Browser- oder Zwischen-Cache abgelegt werden.
+
+Solche Antworten MÜSSEN serverseitig mit `Cache-Control: no-store` (und ergänzend `Pragma: no-cache` für Legacy-Clients) ausgeliefert werden.
+
+Die clientseitige Wiederverwendung sensibler Antworten SOLL auf den Arbeitsspeicher und die Dauer der aktiven Nutzersitzung beschränkt sein.
+****
+
+.icon:university[title=Architekturregel] Service Worker
+****
+Service Worker DÜRFEN keine personenbezogenen oder sicherheitsrelevanten Daten (z. B. Tokens, Session-Informationen, fachliche Bewegungsdaten) persistent speichern, es sei denn, dies wurde im Datenschutz- und Sicherheitskonzept der Anwendung explizit geprüft und freigegeben.
+
+Der Cache eines Service Workers SOLL ausschließlich nicht-sensible, öffentlich auslieferbare Ressourcen (Applikations-Shell, statische Assets) enthalten.
+
+Beim Logout MÜSSEN durch den Service Worker gehaltene Caches, die sensible Daten enthalten könnten, bereinigt werden.
+
+Der Lebenszyklus von Service Workern (Registrierung, Aktualisierung, Deregistrierung) MUSS dokumentiert und kontrolliert sein; ein Update-Mechanismus MUSS sicherstellen, dass kompromittierte oder fehlerhafte Worker zeitnah ersetzt werden können.
+****
+
+=== Datenschutz & Datenminimierung im Browser
+
+Das Frontend verarbeitet im Browser personenbezogene Daten, die den Anforderungen der DSGVO (insbesondere Art. 5 Abs. 1 lit. c – Datenminimierung) unterliegen.
+Da keine übergreifenden IsyFact-Vorgaben zu DSGVO existieren, sind die konkreten datenschutzrechtlichen Anforderungen im Berechtigungs- und Datenschutzkonzept der jeweiligen Systemlandschaft zu regeln.
+Die folgenden Vorgaben definieren den technischen Mindestrahmen.
+
+.icon:university[title=Architekturregel] Datenminimierung im Browser-Speicher
+****
+Personenbezogene und sicherheitsrelevante Daten (z. B. Tokens oder Session-Informationen) DÜRFEN NICHT persistent im Browser-Speicher (`localStorage`, `sessionStorage`, `IndexedDB`) abgelegt werden, sofern dies nicht fachlich zwingend erforderlich ist und im Datenschutzkonzept der Anwendung begründet wurde.
+
+Temporär verarbeitete Daten MÜSSEN nach Abschluss der fachlichen Operation aus dem Arbeitsspeicher entfernt werden.
+
+Persistente Speicherung im Browser SOLLTE grundsätzlich vermieden werden und ist auf das notwendige Minimum zu beschränken.
+****
+
+.icon:university[title=Architekturregel] Logging & Telemetrie
+****
+Personenbezogene Daten DÜRFEN NICHT in clientseitige Logs, Browser-Konsole oder Telemetrie-Dienste geschrieben werden.
+
+Sicherheitsrelevante Daten (z. B. Tokens, Session-IDs oder Authentifizierungsinformationen) DÜRFEN NICHT protokolliert werden.
+
+Sofern Telemetriedaten erhoben werden, MÜSSEN diese vor der Übermittlung anonymisiert oder pseudonymisiert werden.
+
+Die Übermittlung von Telemetriedaten an externe Dienste SOLLTE auf das notwendige Minimum beschränkt werden und MUSS den datenschutzrechtlichen Anforderungen entsprechen.
+
+Debug- und Entwicklungslogs DÜRFEN in Produktivumgebungen nicht aktiv sein.
+****
+
+.icon:university[title=Architekturregel] Zweckbindung
+****
+Im Frontend erhobene oder zwischengespeicherte Daten DÜRFEN ausschließlich für den definierten fachlichen Zweck verwendet werden, für den sie erhoben wurden.
+
+Personenbezogene Daten DÜRFEN NICHT für andere als die vorgesehenen Zwecke verarbeitet werden.
+
+Eine Weitergabe an Drittdienste (z. B. externe Analyse- oder Tracking-Dienste) MUSS datenschutzrechtlich geprüft und im Datenschutzkonzept dokumentiert sein.
+
+Die Weitergabe von Daten an Drittdienste SOLLTE auf das notwendige Minimum beschränkt werden.
+****
 
 == Qualitätssicherung
 
