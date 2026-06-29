@@ -1,6 +1,12 @@
 [[changelog]]
 = Changelog
 
+*Änderungen IsyFact 4.3.0*
+
+tag::release-4.3.0[]
+- `IFS-5252` Abschnitt <<isyrestlogger>> hinzugefügt: Beschreibung von `IsyRestLogger` und der notwendigen expliziten `spring-webflux`-Abhängigkeit
+end::release-4.3.0[]
+
 *Änderungen IsyFact 4.0.0*
 
 tag::release-4.0.0[]
