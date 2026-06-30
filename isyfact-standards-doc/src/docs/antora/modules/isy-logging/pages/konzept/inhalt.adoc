@@ -368,6 +368,41 @@ Die Informationen zur Konfiguration und Verwendung der beiden Klassen sind in de
 [id="image-hilfklas",reftext="{figure-caption} {counter:figures}"]
 image::isy-logging:konzept/hilfklas.png[align="center"]
 
+[[isyrestlogger]]
+==== IsyRestLogger – Logging für WebClient-Aufrufe
+
+`isy-logging` stellt mit der Klasse `IsyRestLogger` eine Hilfsklasse bereit, um ausgehende REST-Aufrufe via Spring `WebClient` zu loggen.
+Die Klasse implementiert eine `ExchangeFilterFunction`, die in die `WebClient`-Builder-Kette integriert wird und automatisch Logeinträge für folgende Ereignisse erstellt:
+
+* Start eines REST-Aufrufs
+* Erfolgreicher Abschluss eines REST-Aufrufs (optional mit Dauer)
+* Fehlgeschlagener REST-Aufruf (optional mit Dauer)
+* Detaillierte Informationen zu Request-Parametern und Response-Inhalten (nur im DEBUG-Modus)
+
+Die Konfiguration des `IsyRestLogger` erfolgt über dieselben Properties wie der `boundaryLogInterceptor` (Präfix `isy.logging.boundary`):
+
+* `isy.logging.boundary.loggeAufruf` – Loggt den Start eines Aufrufs
+* `isy.logging.boundary.loggeErgebnis` – Loggt den erfolgreichen Abschluss
+* `isy.logging.boundary.loggeDauer` – Loggt die Dauer des Aufrufs
+* `isy.logging.boundary.loggeDaten` – Loggt Request- und Response-Inhalte (nur bei DEBUG-Level)
+* `isy.logging.boundary.loggeDatenBeiException` – Loggt Request- und Response-Inhalte bei Fehlern (nur bei DEBUG-Level)
+
+.Voraussetzung: spring-webflux als explizite Abhängigkeit
+****
+Die `IsyRestLogger`-Funktionalität setzt auf Typen aus `spring-webflux` auf (`WebClient`, `ExchangeFilterFunction` usw.).
+Die Abhängigkeit `spring-webflux` ist in `isy-logging` als *optional* markiert.
+Anwendungen, die `IsyRestLogger` nutzen möchten, müssen `spring-webflux` daher als explizite Abhängigkeit hinzufügen:
+
+[source,xml]
+----
+<dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-webflux</artifactId>
+</dependency>
+----
+
+****
+
 [[logging-externer-bibliotheken]]
 ==== Logging externer Bibliotheken
 

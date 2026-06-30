@@ -5,12 +5,14 @@ import org.springframework.aop.Advisor;
 import org.springframework.aop.aspectj.AspectJExpressionPointcut;
 import org.springframework.aop.support.DefaultPointcutAdvisor;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import de.bund.bva.isyfact.logging.config.AbstractBoundaryLoggerProperties;
 import de.bund.bva.isyfact.logging.config.IsyLoggingApplicationLoggerProperties;
@@ -52,6 +54,7 @@ public class IsyLoggingAutoConfiguration {
     }
 
     @Bean
+    @ConditionalOnClass(WebClient.class)
     public IsyRestLogger restLogger(IsyLoggingBoundaryLoggerProperties isyLoggingBoundaryLoggerProperties) {
         return new IsyRestLogger(isyLoggingBoundaryLoggerProperties);
     }

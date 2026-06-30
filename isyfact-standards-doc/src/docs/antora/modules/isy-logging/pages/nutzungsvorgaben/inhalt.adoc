@@ -1341,6 +1341,30 @@ Zur Ausgabe der Schnittstellenkommunikation muss der Schalter loggeDaten auf tru
 * Fehleranalyse (Debugging)
 |====
 
+[[logging-von-webclient-aufrufen-mit-isyrestlogger]]
+===== Logging von WebClient-Aufrufen mit IsyRestLogger
+
+[cols="2s,5"]
+|====
+|Beschreibung |Es wird ein Nachbarsystem via ``WebClient`` aufgerufen (REST-Aufruf).
+|Logging a|
+Für das Logging von `WebClient`-Aufrufen stellt `isy-logging` die Klasse `IsyRestLogger` bereit.
+Sie erstellt eine `ExchangeFilterFunction`, die in die ``WebClient``-Builder-Kette integriert wird.
+
+Die erstellten Logeinträge entsprechen den Ereignisschlüsseln für Nachbarsystemaufrufe (EISYLO01011 – EISYLO01015, vgl. <<ereignisschluessel-isy-logging>>).
+
+Die Konfiguration erfolgt über die gleichen Properties wie der `boundaryLogInterceptor` (Präfix `isy.logging.boundary`, vgl. <<loggingmethodinterceptor>>).
+
+.Voraussetzung: spring-webflux als explizite Abhängigkeit
+Die Nutzung von `IsyRestLogger` erfordert die explizite Hinzufügung der `spring-webflux`-Abhängigkeit zur Anwendung, da `isy-logging` diese nur als optionale Abhängigkeit mitliefert.
+Weitere Details dazu finden sich im xref:konzept/inhalt.adoc#isyrestlogger[Logging - Konzept].
+
+|Auswertungsszenario a|
+* Nutzungshäufigkeit analysieren
+* Verarbeitung eines Aufrufs in Anwendungslandschaft nachvollziehen
+* Performance überwachen
+|====
+
 [[anwendungsentwicklung]]
 ==== Anwendungsentwicklung
 
