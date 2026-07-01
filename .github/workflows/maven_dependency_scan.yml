@@ -7,6 +7,8 @@ on:
     paths:
       - '**/pom.xml'
   workflow_dispatch:
+  schedule:
+    - cron: "5 0 * * *"
 
 jobs:
   SnykScan:
