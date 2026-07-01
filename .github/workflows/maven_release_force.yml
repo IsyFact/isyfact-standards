@@ -7,20 +7,24 @@ on:
         required: true
         type: boolean
         default: false
+      version:
+        description: 'Version to release (e.g. 4.3.0)'
+        required: false
+        type: string
 
 jobs:
   Build:
     uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_build_template.yml@v2.6.0
     with:
       jdk-version: 17
-      version: ${{ github.ref_name }}
+      version: ${{ inputs.version || github.event.release.tag_name }}
       sonar-skip: true
 
   DeployReleaseVersion:
     if: ${{ inputs.confirm_deployment_without_checks }}
     uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_deploy_template.yml@v2.6.0
     with:
-      version: ${{ github.ref_name }}
+      version: ${{ inputs.version || github.event.release.tag_name }}
       jdk-version: 17
       maven-opts: '-P centralRelease'
       deploy-server-id: central
@@ -38,7 +42,7 @@ jobs:
     with:
       jdk-version: 17
       snyk-organization: ${{ vars.SNYK_ORG_ID }}
-      snyk-reference: ${{ github.ref_name }}
+      snyk-reference: ${{ inputs.version || github.event.release.tag_name }}
       snyk-arguments: "--maven-aggregate-project"
       scan-dependency-management: false
     secrets:
