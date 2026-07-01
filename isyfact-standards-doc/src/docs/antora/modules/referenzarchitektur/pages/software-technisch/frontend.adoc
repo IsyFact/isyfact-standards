@@ -628,7 +628,149 @@ NOTE: Abschnitt ist noch WIP
 
 == Daten & Zustandsmanagement
 
-NOTE: Abschnitt ist noch WIP
+Dieses Kapitel beschreibt verbindliche Leitlinien für den Umgang mit Daten, Zustand und clientseitigem Caching in Frontends.
+Ziel ist es, Frontends wartbar, sicher und nachvollziehbar zu gestalten und gleichzeitig unnötige Komplexität durch überdimensioniertes State Management zu vermeiden.
+
+Der Zustand eines Frontends ist grundsätzlich als abgeleiteter Zustand zu betrachten.
+Fachlich verbindliche Daten, Berechtigungen und sicherheitsrelevante Entscheidungen MÜSSEN im Backend bzw. in den dafür vorgesehenen serverseitigen Komponenten verbleiben.
+Das Frontend DARF Daten lediglich darstellen, für die Benutzerinteraktion vorbereiten, temporär zwischenspeichern oder zur Verbesserung der Bedienbarkeit verwenden.
+
+=== Grundsätze
+
+Frontends SOLLEN ihren Zustand bewusst und nachvollziehbar modellieren.
+Dabei SOLL zwischen lokalem UI-Zustand, fachlichem Feature-Zustand, globalem Anwendungszustand, URL-/Navigationszustand und serverseitig geladenen Daten unterschieden werden.
+
+Lokaler UI-Zustand, zum Beispiel geöffnete Panels, aktive Tabs, Eingabefokus oder temporäre Formularwerte, SOLL möglichst nah an der jeweiligen Komponente gehalten werden.
+Feature-Zustand, der von mehreren Komponenten innerhalb eines fachlichen Bereichs benötigt wird, SOLL in einem fachlich abgegrenzten Service oder Store gekapselt werden.
+Globaler Anwendungszustand SOLL nur verwendet werden, wenn ein Zustand tatsächlich von mehreren fachlichen Bereichen benötigt wird oder querschnittliche Bedeutung hat.
+
+Serverseitig geladene Daten SOLLEN nicht unnötig in globalen Stores dupliziert werden.
+Für API-Daten ist zu prüfen, ob ein einfacher, fachlich begrenzter Cache ausreichend ist.
+Abgeleiteter Zustand SOLL nicht dauerhaft gespeichert werden, sondern aus dem eigentlichen Quellzustand berechnet werden.
+
+=== State-Modelle
+
+State-Modelle SOLLEN fachlich verständlich, typisiert und möglichst klein gehalten werden.
+Sie SOLLEN nur die Daten enthalten, die für die jeweilige Darstellung oder Interaktion notwendig sind.
+
+Data Transfer Objects (DTOs) aus Backend-Schnittstellen SOLLEN nicht unreflektiert als internes Frontend-State-Modell verwendet werden.
+Bei Bedarf SOLL eine Trennung zwischen Schnittstellenmodell, fachlichem View-Modell und UI-Zustand erfolgen.
+Dadurch bleiben Änderungen an Backend-Schnittstellen besser beherrschbar und die Darstellungsschicht wird nicht unnötig an technische Datenstrukturen gekoppelt.
+
+Gemeinsam genutzter Zustand SOLL nur über definierte Schnittstellen geändert werden.
+Komponenten SOLLEN gemeinsamen Zustand nicht direkt manipulieren, sondern dafür vorgesehene Methoden eines Services, Stores oder einer Fassade verwenden.
+Dadurch bleiben Zustandsänderungen nachvollziehbar und testbar.
+
+Für Zustandsänderungen gelten folgende Vorgaben:
+
+* Zustandsänderungen SOLLEN explizit und nachvollziehbar erfolgen.
+* Gemeinsam genutzter Zustand SOLL nicht unkontrolliert aus beliebigen Komponenten verändert werden.
+* Abgeleiteter Zustand SOLL berechnet und nicht redundant gespeichert werden.
+* Zustände SOLLEN so modelliert werden, dass sie testbar sind.
+* Fehler-, Lade- und Leerzustände SOLLEN explizit berücksichtigt werden.
+* Fachliche Validierung und Autorisierung MÜSSEN serverseitig erfolgen.
+
+Zustand, der für Navigation, Wiederherstellbarkeit oder Teilbarkeit relevant ist, SOLL bevorzugt in der URL abgebildet werden, zum Beispiel Suchparameter, Filter, Sortierung oder Pagination.
+Dadurch bleiben Ansichten nachvollziehbar, bookmarkfähig und leichter testbar.
+Sensible Daten DÜRFEN dabei nicht in URL-Parametern abgelegt werden.
+
+=== Caching
+
+Clientseitiges Caching DARF nur als Performance- und Bedienbarkeitsoptimierung verstanden werden.
+Der Cache DARF NICHT als fachlich verbindliche Datenquelle betrachtet werden.
+
+Caching SOLL gezielt und fachlich begründet eingesetzt werden.
+Für zwischengespeicherte Daten MÜSSEN Gültigkeit, Invalidierung und Aktualisierung geregelt sein.
+Insbesondere bei personenbezogenen oder berechtigungsabhängigen Daten ist sicherzustellen, dass keine veralteten oder unzulässigen Daten angezeigt werden.
+
+Für clientseitiges Caching gelten folgende Vorgaben:
+
+* Caches SOLLEN fachlich abgegrenzt und möglichst klein gehalten werden.
+* Cache-Einträge SOLLEN eine definierte Gültigkeit besitzen.
+* Caches MÜSSEN bei Benutzerwechsel, Logout oder Berechtigungsänderungen invalidiert werden.
+* Fehlerhafte oder unvollständige Antworten DÜRFEN NICHT ungeprüft als gültiger Cache-Zustand übernommen werden.
+* Berechtigungsabhängige Daten DÜRFEN NICHT benutzerübergreifend wiederverwendet werden.
+* Caching von sensiblen Daten MUSS begründet und durch geeignete Schutzmaßnahmen abgesichert werden.
+* HTTP-Cache-Vorgaben des Backends, insbesondere `Cache-Control`, SOLLEN berücksichtigt werden.
+
+Offline-Fähigkeit oder persistentes Caching fachlicher Daten ist eine eigene Architekturentscheidung.
+Sie DARF nur umgesetzt werden, wenn Anforderungen, Sicherheitsbetrachtung, Datenschutz, Synchronisation, Konfliktbehandlung und Löschkonzept beschrieben sind.
+
+=== Speicherung von Daten im Client
+
+Die Speicherung von Daten im Browser ist restriktiv zu verwenden.
+Grundsätzlich SOLL Zustand nur im Arbeitsspeicher gehalten werden.
+Persistente Speicherung im Client SOLL nur erfolgen, wenn sie fachlich oder technisch notwendig ist.
+
+Folgende Einordnung ist zu verwenden:
+
+[cols="1,3,3",options="header"]
+|===
+| Speicherort | Geeignete Verwendung | Einschränkungen
+
+| Arbeitsspeicher
+| Lokaler UI-Zustand, temporärer Feature-Zustand, nicht persistenter Cache
+| Standardfall für Frontend-State; Daten gehen bei Reload verloren
+
+| URL
+| Navigation, Filter, Sortierung, Pagination, wiederherstellbare Ansichten
+| Keine sensiblen Daten; URLs können protokolliert, geteilt oder im Browser-Verlauf gespeichert werden
+
+| `sessionStorage`
+| Kurzlebige, nicht sensible Daten für eine Browser-Session oder einen Tab
+| Zugriff durch JavaScript möglich; nicht für Zugangsdaten, Token oder sensible fachliche Daten verwenden
+
+| `localStorage`
+| Nicht sensible Benutzereinstellungen, zum Beispiel UI-Präferenzen
+| Persistiert über Sitzungen hinweg; Zugriff durch JavaScript möglich; nicht für sensible Daten verwenden
+
+| `IndexedDB`
+| Größere strukturierte Datenmengen, zum Beispiel fachlich begründete Offline-Szenarien
+| Nur mit explizitem Konzept für Datenschutz, Löschung, Versionierung und Validierung verwenden
+
+| Cookies
+| Nur für klar definierte technische Zwecke, insbesondere im Rahmen des abgestimmten Sicherheitskonzepts
+| Fachliche Anwendungsdaten SOLLEN nicht in Cookies gespeichert werden
+|===
+
+Sensible Daten DÜRFEN grundsätzlich NICHT in `localStorage`, `sessionStorage` oder `IndexedDB` gespeichert werden.
+Dazu zählen insbesondere Zugangsdaten, Session-IDs, Tokens, personenbezogene Daten mit erhöhtem Schutzbedarf, Berechtigungsinformationen und fachlich besonders schützenswerte Daten.
+
+Daten aus clientseitiger Speicherung MÜSSEN beim Lesen als nicht vertrauenswürdig behandelt werden.
+Sie können durch Benutzer, Browser-Erweiterungen oder Schadcode verändert worden sein.
+Deshalb MÜSSEN gespeicherte Daten validiert und bei fachlicher Relevanz serverseitig erneut geprüft werden.
+
+Für persistierte Client-Daten SOLLEN Versionierung, Migration und Löschung berücksichtigt werden.
+Nicht mehr benötigte Daten MÜSSEN entfernt werden, insbesondere bei Logout, Benutzerwechsel oder Änderung des fachlichen Kontextes.
+
+=== Umgang mit State-Management-Frameworks
+
+Die Referenzarchitektur legt keine konkrete State-Management-Bibliothek verbindlich fest.
+Die Auswahl eines Frameworks, zum Beispiel NgRx, ist eine konkrete technologische Ausprägung und SOLL in einem Angular-Konzeptbaustein beschrieben werden.
+
+Ein zusätzliches State-Management-Framework SOLL nur eingesetzt werden, wenn der Nutzen die zusätzliche Komplexität rechtfertigt.
+Dies kann insbesondere der Fall sein bei komplexem fachlichem Zustand, mehreren beteiligten Features, aufwendiger asynchroner Orchestrierung, Bedarf an Debugging-Werkzeugen oder einheitlichen Patterns für große Teams.
+
+Für einfache lokale oder feature-nahe Zustände SOLLEN leichtgewichtige Mechanismen bevorzugt werden, zum Beispiel Komponenten-State, reaktive Framework-Mechanismen wie Signals bei Angular-Anwendungen oder fachlich gekapselte Services.
+Dadurch bleibt die Architektur verständlich und vermeidet unnötigen Boilerplate-Code.
+
+.icon:university[title=Architekturregel] Backend als führende Datenquelle
+****
+Fachlich verbindliche Daten, Berechtigungen und sicherheitsrelevante Entscheidungen MÜSSEN serverseitig verwaltet und geprüft werden.
+Das Frontend DARF clientseitigen Zustand nicht als alleinige Grundlage für fachliche oder sicherheitskritische Entscheidungen verwenden.
+****
+
+.icon:university[title=Architekturregel] Restriktive Speicherung im Client
+****
+Sensible Daten, insbesondere Zugangsdaten, Tokens, Session-IDs und schützenswerte personenbezogene Daten, DÜRFEN NICHT in `localStorage`, `sessionStorage` oder `IndexedDB` gespeichert werden.
+Clientseitige Speicherung MUSS fachlich begründet, minimiert und bei Bedarf durch ein Lösch- und Sicherheitskonzept abgesichert sein.
+****
+
+.icon:university[title=Architekturregel] Kontrolliertes Caching
+****
+Clientseitiges Caching MUSS hinsichtlich Gültigkeit, Invalidierung und Benutzerkontext kontrolliert werden.
+Caches DÜRFEN NICHT zu veralteten, unzulässigen oder benutzerübergreifend sichtbaren Daten führen.
+****
 
 == UX, UI & Accessibility
 
