@@ -1,6 +1,7 @@
-# 4.3.0
+# 4.4.0
 
-### Hinweise & bekannte Probleme
+#### Features
+- Keine
 
-- `IFS-5252`: [isy-logging] Anwendungen, die die `IsyRestLogger`-Funktionalität für das Logging von ausgehenden REST-Calls via `WebClient` nutzen möchten, müssen `spring-webflux` explizit als Dependency hinzufügen.
-
+#### Interne Anpassungen
+- Keine

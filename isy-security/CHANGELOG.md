@@ -1,3 +1,7 @@
-# 4.3.0
-### BUG FIXES
-- `IFS-5438`: Maven-Dependency ehcache verwendet classifier `jakarta`
+# 4.4.0
+
+#### Features
+- Keine
+
+#### Interne Anpassungen
+- Keine
