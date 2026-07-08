@@ -13,5 +13,4 @@ jobs:
   semgrep-scan:
     permissions:
       contents: read
-      security-events: write
     uses: IsyFact/isy-github-actions-templates/.github/workflows/semgrep.yml@v2.5.0
