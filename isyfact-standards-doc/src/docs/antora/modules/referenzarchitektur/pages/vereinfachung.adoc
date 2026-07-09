@@ -1,7 +1,5 @@
 = Vereinfachung der Referenzarchitektur
 
-include::glossary:licence:partial$licence.adoc[]
-
 In der bisher vorgestellten Form ist die Referenzarchitektur für die Umsetzung großer Anwendungslandschaften ausgelegt, also für den Einsatz für Anwendungen mit hohem Funktionsumfang und hohen Anforderungen an Verfügbarkeit, Performance und Lastverhalten.
 Deshalb folgt sie einem serviceorientierten Plattform-Ansatz.
 
