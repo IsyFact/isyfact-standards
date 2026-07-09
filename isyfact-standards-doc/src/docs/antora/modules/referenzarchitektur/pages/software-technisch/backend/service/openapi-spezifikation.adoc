@@ -17,14 +17,14 @@ Die folgenden Abschnitte beschreiben die Best Practices dafür, wie xref:methodi
 Die Schnittstellenbeschreibung, die im Rahmen der Systemspezifikation erstellt wird, spezifiziert die angebotene(n) Nachbarsystemschnittstelle(n) (NST) aus fachlicher Sicht und gibt keine Auskunft über technische Details.
 Für das Erstellen dieser fachlichen Schnittstellenbeschreibung wird die  xref:methodik:vorlage-schnittstellendokumentation/master.adoc[] verwendet.
 Die fachlichen Schnittstellenbeschreibungen nach den Vorgaben der IsyFact enthalten in erster Linie die verwendeten Entitäten sowie Eingabe und Ausgabe Parameter.
-Ergänzt werden diese durch weitere Spezifika (z.B. Kurzbeschreibung, Synchron/Asynchron, Online/Offline …).
+Ergänzt werden diese durch weitere Spezifika (z.B. Kurzbeschreibung, synchron/asynchron, online/offline …).
 Diese Schnittstellenbeschreibung soll im Rahmen des Systementwurfs technisch als eine OpenAPI-Spezifikation konzipiert und bereitgestellt werden.
 
 Bei der Erstellung der Spezifikation sind die xref:software-technisch/services/rest-vorgaben-konventionen.adoc[] zu beachten.
 Relevante Vorgaben beziehen sich u.a. auf den Aufbau der URls und der Anfrage, die Verwendung der HTTP-Verben und Statuscodes.
 
 Die folgenden Abschnitte stellen ein Vorgehen zum Mappen der fachlichen Schnittstellenbeschreibung auf eine OpenAPI-Spezifikation vor.
-Alle Schnittstellen einer Anwendung sollen in einer einzigen OpenAPI-Spezifikation beschrieben werden.
+Alle Schnittstellen eines Backends sollen in einer einzigen OpenAPI-Spezifikation beschrieben werden.
 
 Die **Entitäten und die Datentypen** in den fachlichen Schnittstellenbeschreibungen werden mithilfe der OpenAPI Schemaobjekte definiert.
 Schemaobjekte können Objekte, aber auch primitive Datentypen und Listen (Arrays) sein.
@@ -208,7 +208,7 @@ Zur Spezifizierung von Header-Parametern wird der Eintrag `in: header` genutzt, 
 
 .Externe ID in `NST_Mitarbeiter_suchen`
 ====
-*Anforderung:* Die Anwendung erwartet bei jedem Aufruf einer Schnittstelle eine Externe ID.
+*Anforderung:* Das Backend erwartet bei jedem Aufruf einer Schnittstelle eine Externe ID.
 
 [source,yaml]
 ----
@@ -242,7 +242,7 @@ Zur Spezifizierung von URL-Parametern wird der Eintrag `in: path` genutzt, wie d
 
 .Protokollierung in `NST_Mitarbeiter_suchen`
 ====
-*Anforderung:* Die Anwendung protokolliert bei jedem Aufruf einer Schnittstelle den Zugriffsgrund.
+*Anforderung:* Das Backend protokolliert bei jedem Aufruf einer Schnittstelle den Zugriffsgrund.
 
 [source,yaml]
 ----
@@ -351,7 +351,7 @@ OpenAPI: 3.0.0
 info:
   description: "Ein Beispiel für das Mapping einer fachlichen Schnittstelle"
   version: "1.0.0"
-  title: "Beispiel Anwendung"
+  title: "BSP_1+2-GK"
 paths:
   /mitarbeiter/sucheNachSuchkriterien:
     get:
@@ -433,13 +433,13 @@ Damit die OpenAPI-Spezifikation verfügbar sein kann, muss diese auch verwaltet 
 In den jeweiligen Spring Projekten wird die OpenAPI-Spezifikation unter folgendem Pfad gespeichert: `/src/main/resources/openapi.yml`.
 
 Falls es Änderungen innerhalb der OpenAPI-Spezifikation geben sollte, werden diese automatisch vom Versionskontrollsystem verwaltet.
-Die Änderungen werden in Form eines Changelogs in einer .md-Datei dokumentiert und neben der OpenAPI-Spezifikation abgelegt.
+Die Änderungen werden in Form eines Changelogs in einer Markdown-Datei dokumentiert und neben der OpenAPI-Spezifikation abgelegt.
 Für die korrekte Zuordnung des Changelogs sollte der gleiche Dateiname verwendet werden (Beispiel: `openapi.md`).
 Das Changelog ist in der Asciidoc-Schnittstellendokumentation als Anhang einzubinden.
 
 [[veroeffentlichung]]
 == Veröffentlichung von OpenAPI-Spezifikationen
-Die OpenAPI-Spezifikationen werden mit jeder Veröffentlichung (Release) der Anwendung ausgeliefert.
+Die OpenAPI-Spezifikationen werden mit jeder Veröffentlichung (Release) des Backends ausgeliefert.
 Für die Auslieferung und Veröffentlichung der OpenAPI-Spezifikation ergeben sich unterschiedliche Möglichkeiten, die in den folgenden Kapiteln beschrieben werden.
 
 [[veroeffentlichung-artifactory]]
@@ -452,7 +452,7 @@ Der Zugriff auf das Artefakt ist über das entsprechende Artifactory und/oder Gi
 Antora erzeugt aus AsciiDoc-Quellen, die über mehrere Git-Repositories verteilt liegen können, eine gemeinsame, statische HTML-Seite.
 
 Mithilfe des xref:werkzeuge:openapi-tooling.adoc#openapi-generator[OpenAPI Generators] kann aus der https://swagger.io/specification/[OpenAPI-Spezifikation] AsciiDoc generiert werden.
-Die generierten AsciiDoc-Dateien können dann in Antora aufgenommen und gemeinsam mit der übrigen Dokumentation des Bausteins oder der Anwendung generiert und veröffentlicht werden.
+Die generierten AsciiDoc-Dateien können dann in Antora aufgenommen und gemeinsam mit der übrigen Dokumentation des Bausteins oder des Backends generiert und veröffentlicht werden.
 
 Es empfehlt es sich auch, sowohl die OpenAPI-Spezifikation im YAML-Format als auch die Changelog-Datei in Antora zu verlinken.
 
@@ -467,4 +467,4 @@ Hierzu müssen entsprechende Jobs in der Build-Pipeline angelegt werden.
 
 Für den Betrieb in Testumgebungen ist es empfehlenswert, die OpenAPI-Spezifikation im YAML-Format über eine Schnittstelle bereitzustellen.
 Dazu wird ein eigener Endpunkt implementiert, der die im Ressourcen-Verzeichnis liegende OpenAPI-Spezifikation bereitstellt.
-Über einen Webbrowser kann so auf die aktuelle OpenAPI-Spezifikation der Anwendung im Betrieb zugegriffen werden, um z.B. Testwerkzeuge zu konfigurieren.
+Über einen Webbrowser kann so auf die aktuelle OpenAPI-Spezifikation des Backends im Betrieb zugegriffen werden, um z.B. Testwerkzeuge zu konfigurieren.
