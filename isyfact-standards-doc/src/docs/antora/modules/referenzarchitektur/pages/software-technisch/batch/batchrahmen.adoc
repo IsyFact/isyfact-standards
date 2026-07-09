@@ -345,7 +345,7 @@ Batches im Status `abgebrochen` müssen mit `-restart` gestartet werden oder zus
 
 |-testmodus
 |Startet den Batch im Testmodus.
-Dieser arbeitet analog zum normalen Wirkbetrieb, jedoch werden keine Änderungen an Datenbeständen der Anwendung oder der Nachbarsysteme durchgeführt.
+Dieser arbeitet analog zum normalen Wirkbetrieb, jedoch werden keine Änderungen an Datenbeständen der Backends derselben Anwendung oder der Backends der Nachbarsysteme durchgeführt.
 Ein detailliertes Konzept ist in Kapitel <<testmodus>> beschrieben.
 
 |-laufzeit <Minuten>
@@ -418,7 +418,7 @@ Die nachfolgenden Parameter sind im Batchrahmen als Standard definiert und werde
 |Name der Batchrahmen-Bean
 
 |Anwendung.SpringDateien.<N>
-|Vollqualifizierte Namen der Spring-Konfigurationsklassen der Geschäftsanwendung
+|Vollqualifizierte Namen der Spring-Konfigurationsklassen des Backends
 
 |Batchrahmen.SpringDateien.<N>
 |Vollqualifizierte Namen der Spring-Konfigurationsklassen des Batchrahmens
@@ -487,7 +487,7 @@ In ihnen müssen folgende Anpassungen vorgenommen werden:
 
 * Das Nachrichten-Resource-Bundle für den Batch muss der `messageSource`-Bean hinzugefügt werden.
 
-Um Beans gezielt aus der Spring-Konfiguration der Anwendung für die Ausführung eines Batches auszuschließen, kann die
+Um Beans gezielt aus der Spring-Konfiguration des Backends für die Ausführung eines Batches auszuschließen, kann die
 Annotation `@ExcludeFromBatchContext` verwendet werden.
 Damit werden mit `@Component` annotierte Klassen oder `@Bean`-Methoden in `@Configuration`-Klassen annotiert.
 
@@ -599,7 +599,7 @@ spring.jpa.mapping-resources = \
 Die Tabelle dient nicht der Steuerung des Batches über den Betrieb, sondern nur der Ablage von Informationen zwischen zwei Batch-Läufen.
 Die Befüllung der Tabelle wird deshalb komplett über den Batchrahmen durchgeführt: Es müssen keine Datensätze manuell befüllt werden: Ist ein Datensatz für einen Batch noch nicht vorhanden, wird er angelegt.
 
-Üblicherweise ist das Locking-Verhalten in Geschäftsanwendungen optimistisch: Datensätze werden nicht explizit gelockt.
+Üblicherweise ist das Locking-Verhalten in Backends optimistisch: Datensätze werden nicht explizit gelockt.
 Stattdessen wird über Versions-Attribute zum Commit-Zeitpunkt geprüft, ob der Datensatz innerhalb der Transaktion verändert wurde.
 Für die Tabelle des Batchrahmens wird _nicht_ optimistisch, sondern pessimistisch gelockt.
 Zusätzlich wird als Hibernate Locking-Strategie `LOCK_NOWAIT` verwendet: Falls auf einen Datensatz zugegriffen wird, welcher gerade gelockt ist, wird nicht bis zur Freigabe gewartet, sondern eine Exception geworfen.
@@ -789,7 +789,7 @@ Steht ein Token weniger als die über die Property angegebenen Sekunden vor dem 
 Abhängig vom gewählten Grant-Type wird eine erneute Authentifizierung gegebenenfalls nur dann durchgeführt, wenn ein durch die Spring-Implementierung vorgegebener Zeitraum vor dem Ablauf des Tokens überschritten wird (siehe xref:security::nutzungsvorgaben.adoc#authentifizierungsmanager-authentifiziere-method-grant-type-note[Hinweis zur Methode `authentifiziere`]).
 |====
 
-In der Regel wird der Benutzer aus der betrieblichen Konfiguration der Anwendung oder alternativ aus den Aufrufparametern beim Start des Batches gelesen.
+In der Regel wird der Benutzer aus der betrieblichen Konfiguration des Backends oder alternativ aus den Aufrufparametern beim Start des Batches gelesen.
 
 In Ausnahmefällen ist es auch möglich, einen Batch zu implementieren, der ohne Benutzer laufen soll.
 Dies ist nur möglich, wenn bei Aufrufen des Anwendungskerns keine Autorisierungsprüfungen stattfinden und auch keine Nachbarsystemschnittstellen aufgerufen werden.
@@ -799,7 +799,8 @@ Enthält eine Anwendung mehrere Batches, so enthält sie auch mehrere BatchKonfi
 [[testmodus]]
 === Testmodus
 
-Der Batch im Testmodus arbeitet analog zum normalen Wirkbetrieb, jedoch werden keine Änderungen an Datenbeständen der Anwendung oder der Nachbarsysteme durchgeführt.
+Der Batch im Testmodus arbeitet analog zum normalen Wirkbetrieb, jedoch werden keine Änderungen an Datenbeständen der Backends derselben Anwendung oder der Backends der Nachbarsysteme durchgeführt.
+
 Der Testmodus ist für den Betrieb wichtig, um Abschätzungen der Laufzeit durchführen zu können und somit den Batchbetrieb planen zu können.
 Weiter ist der Testlauf für Bereinigungsläufe wichtig, da so der Fachbereich sehen kann, welche Änderungen durch den Bereinigungslauf ausgeführt werden würden.
 
@@ -916,13 +917,13 @@ Mittlerweile wurde diese durch eine UUID ersetzt.
 Zusätzlich erhält jeder zu verarbeitende Satz auch eine eigene Korrelations-ID, welche an die Korrelations-ID des Batches angehängt wird.
 Die entstehende Korrelations-ID Kette wird dann dem xref:isy-logging:nutzungsvorgaben/master.adoc#mdchelper[MDC] hinzugefügt.
 
-[[fachliche-logik-in-den-komponenten-der-geschaeftsanwendung-implementieren]]
-=== Geschäftslogik in den Komponenten der Geschäftsanwendung implementieren
+[[fachliche-logik-in-den-komponenten-des-backends-implementieren]]
+=== Geschäftslogik in den Komponenten des Backends implementieren
 
-Falls für die Verarbeitung im Batch Geschäftslogik benötigt wird, welche für die Webanwendung nicht benötigt wird, ist diese trotzdem den Fachkomponenten im Anwendungskern hinzuzufügen.
+Falls für die Verarbeitung im Batch Geschäftslogik benötigt wird, welche für das Backend nicht benötigt wird, ist diese trotzdem den Fachkomponenten im Anwendungskern hinzuzufügen.
 Die Ausführungsbean ruft die Geschäftslogik dort auf.
 
-Auch wenn in Sonderfällen Datenbank-Aufrufe direkt durch die Ausführungsbean ausgeführt werden müssen, ist die sonstige Geschäftslogik an die Fachkomponenten der Geschäftsanwendung zu delegieren.
+Auch wenn in Sonderfällen Datenbank-Aufrufe direkt durch die Ausführungsbean ausgeführt werden müssen, ist die sonstige Geschäftslogik an die Fachkomponenten des Backends zu delegieren.
 
 [[plausibilitaetspruefung-in-der-initialisierung]]
 === Plausibilitätsprüfung in der Initialisierung
@@ -977,7 +978,7 @@ Dieses Vorgehen ermöglicht es dem Betrieb, die Ursache des Fehlers zu korrigier
 === Beispiele Satzverarbeitung
 
 Abschließend ist die beispielhafte Satzverarbeitung in einer Batch-Ausführungsbean zu sehen.
-Die gezeigte Satzverarbeitung setzt den Testmodus um, die Anwendungslogik ist weiterhin im Anwendungskern umgesetzt und sie übernimmt Logging, Protokollierung und Statistik-Zählung.
+Die gezeigte Satzverarbeitung setzt den Testmodus um, die Geschäftslogik ist weiterhin im Anwendungskern umgesetzt und sie übernimmt Logging, Protokollierung und Statistik-Zählung.
 
 .Beispiel: Satzverarbeitung
 [source,java]
@@ -1065,7 +1066,7 @@ In diesem Fall sollte das <<standard-konfigurationsparameter,Commit-Intervall>> 
 Die Batches werden nicht einzeln deployt.
 Stattdessen wird ein Paket angeboten, welches sämtliche Batches eines Backends enthält.
 
-Das erstellte Paket enthält den Code des Batchrahmens sowie den Code der eigentlichen Geschäftsanwendung inklusive der Batch-Ausführungsklassen und der benötigten nicht-betrieblichen Batch-Konfigurationsdateien.
+Das erstellte Paket enthält den Code des Batchrahmens sowie den Code des zugehörigen Backends inklusive der Batch-Ausführungsklassen und der benötigten nicht-betrieblichen Batch-Konfigurationsdateien.
 Für jeden Batch wird ein Shellskript zum Start bereitgestellt.
 
 Für die Shellskripte existieren keine Vorgaben.
@@ -1075,7 +1076,7 @@ Beispiele für Aufruf-Skripte von Batches befinden sich https://github.com/IsyFa
 Eine sinnvolle Aufteilung bei den Shellskripten ist es, ein technisches Startskript zu erstellen, was von den eigentlichen Batch-Shellskripten zum Aufruf genutzt wird.
 Beispiele für ein solches Startskript befinden sich ebenfalls https://github.com/IsyFact/isyfact-standards/blob/master/isy-batchrahmen/src/main/skripte/bin/batch-ausfuehren.sh[in der Bibliothek `isy-batchrahmen`].
 
-Dieses Startskript soll in der Batch-Anwendung unter `<batch-projekt>/src/main/resources/bin` übernommen und mit der richtigen Java-Version versehen werden.
+Dieses Startskript soll im Deployment des Batch-Systems unter `<batch-projekt>/src/main/resources/bin` übernommen und mit der richtigen Java-Version versehen werden.
 
 Ein beispielhaftes Shellskript zum Aufruf eines Batches kann dieses Skript dann nutzen und folgendermaßen aussehen:
 
@@ -1094,8 +1095,8 @@ BATCH_DIR=`dirname $0`
 $BATCH_DIR/batch-ausfuehren.sh -start -cfg /resources/batch/batch-erinnerung-config.properties -Batchrahmen.Ergebnisdatei /tmp/erinnerung_out.xml $1 $2
 ----
 
-Bei der betrieblichen Konfiguration wird nicht zwischen dem Deployment als Web-Anwendung und dem Deployment als Batch unterschieden: Es werden jeweils dieselben betrieblichen Konfigurationsdateien verwendet.
-Damit der Betrieb Anpassungen dieser Dateien nicht zweimal durchführen muss, wird die betriebliche Konfiguration mit der Web-Anwendung deployt.
-Vor dem Deployment des Batch-Pakets muss die Web-Anwendung deployt sein.
-Falls der Batch nicht auf dem Server der Web-Anwendung läuft, muss die Konfigurationsdatei der Web-Anwendung vor der Installation des Batches auch auf diesem Server verfügbar gemacht (zum Beispiel gemountet oder kopiert) werden.
+Bei der betrieblichen Konfiguration wird nicht zwischen dem Deployment als Backend und dem Deployment als Batch unterschieden: Es werden jeweils dieselben betrieblichen Konfigurationsdateien verwendet.
+Damit der Betrieb Anpassungen dieser Dateien nicht zweimal durchführen muss, wird die betriebliche Konfiguration mit dem zugehörigen Backend deployt.
+Vor dem Deployment des Batch-Pakets muss das zugehörige Backend deployt sein.
+Falls der Batch nicht auf dem Server dieses Backends läuft, muss die Konfigurationsdatei des Backends vor der Installation des Batches auch auf diesem Server verfügbar gemacht (zum Beispiel gemountet oder kopiert) werden.
 Beim Deployment des Batch-Pakets werden über symbolische Links diese betriebliche Konfigurationsdatei referenziert.
