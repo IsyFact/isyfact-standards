@@ -745,9 +745,6 @@ Nicht mehr benötigte Daten MÜSSEN entfernt werden, insbesondere bei Logout, Be
 
 === Umgang mit State-Management-Frameworks
 
-Die Referenzarchitektur legt keine konkrete State-Management-Bibliothek verbindlich fest.
-Die Auswahl eines Frameworks, zum Beispiel NgRx, ist eine konkrete technologische Ausprägung und SOLL in einem Angular-Konzeptbaustein beschrieben werden.
-
 Ein zusätzliches State-Management-Framework SOLL nur eingesetzt werden, wenn der Nutzen die zusätzliche Komplexität rechtfertigt.
 Dies kann insbesondere der Fall sein bei komplexem fachlichem Zustand, mehreren beteiligten Features, aufwendiger asynchroner Orchestrierung, Bedarf an Debugging-Werkzeugen oder einheitlichen Patterns für große Teams.
 
