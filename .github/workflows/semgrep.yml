@@ -6,6 +6,11 @@ on:
       - master
   workflow_dispatch: {}
 
+permissions:
+  contents: read
+
 jobs:
   semgrep-scan:
+    permissions:
+      contents: read
     uses: IsyFact/isy-github-actions-templates/.github/workflows/semgrep.yml@v2.5.0
