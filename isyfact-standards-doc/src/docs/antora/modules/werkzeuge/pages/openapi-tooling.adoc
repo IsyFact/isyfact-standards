@@ -149,3 +149,121 @@ Die Ergebnisse hängen davon ab, ob das verwendete Template diese Funktionalitä
 `configOptions/sourceFolder`::
 Der Pfad für den zu generierenden Code.
 
+[[sst-deployment]]
+== Deployment der OpenAPI-Spezifikation als Maven-Submodul (SST-Artifact)
+
+Eine OpenAPI-Spezifikation wird häufig projektübergreifend genutzt, z.B. wenn mehrere Anwendungen dieselbe Schnittstelle konsumieren.
+Um die Spezifikation zentral und versioniert bereitzustellen, empfiehlt es sich, diese als eigenständiges Maven-Submodul (im Folgenden als SST-Artifact bezeichnet, für Service-Schnittstelle) zu modellieren und in ein Maven-Repository zu deployen.
+Dadurch wird die Spezifikation von den konsumierenden Projekten entkoppelt: Änderungen an der Schnittstelle werden über neue Artifact-Versionen ausgeliefert, statt die YAML-Datei manuell zwischen Projekten zu kopieren.
+
+=== Struktur des Submoduls
+
+Das Submodul enthält typischerweise folgende Bestandteile:
+
+* die OpenAPI-Spezifikation im YAML-Format (z.B. `openapi.yaml`)
+* ein Changelog, das die Änderungen an der Spezifikation über die Versionen hinweg dokumentiert (z.B. `CHANGELOG.md`)
+* eine `pom.xml`, welche die Spezifikation (und ggf. das Changelog) als Artifact-Inhalt deklariert
+
+Eine mögliche Verzeichnisstruktur sieht wie folgt aus:
+
+[source]
+----
+meine-sst/
+├── pom.xml
+├── CHANGELOG.md
+└── src/
+    └── main/
+        └── resources/
+            └── openapi.yaml
+----
+
+.Beispielhafte `pom.xml`-Konfiguration für das SST-Submodul
+[source,xml]
+----
+<project xmlns="http://maven.apache.org/POM/4.0.0">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>de.bund.example</groupId>
+        <artifactId>meine-anwendung</artifactId>
+        <version>1.0.0</version>
+    </parent>
+
+    <artifactId>meine-sst</artifactId>
+    <packaging>jar</packaging>
+
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>openapi.yaml</include>
+                </includes>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+</project>
+----
+
+Die Spezifikation wird über die `resources`-Konfiguration in das Artifact aufgenommen, sodass sie später aus dem Jar heraus referenziert werden kann (siehe <<sst-client-generierung>>).
+
+=== Einbindung des Changelogs
+
+Das `CHANGELOG.md` dokumentiert alle Änderungen an der OpenAPI-Spezifikation, analog zu einem Anwendungs-Changelog.
+Es wird im Wurzelverzeichnis des Submoduls gepflegt und mit jeder Änderung an der Spezifikation aktualisiert.
+Da das Changelog nicht Teil der Laufzeitartefakte ist, muss es nicht zwingend in das Jar eingebunden werden, es sollte jedoch als Bestandteil des Submoduls versioniert und im Repository (z.B. Git) mitgeführt werden, sodass Konsumenten des Artifacts die Änderungshistorie einer Version nachvollziehen können.
+
+=== Deployment in ein Maven-Repository
+
+Das Submodul wird wie jedes andere Maven-Modul über die üblichen Maven-Mechanismen (`mvn deploy`) in ein Maven-Repository deployt.
+Voraussetzung ist eine entsprechende `<distributionManagement>`-Konfiguration im Eltern-POM sowie die Konfiguration der Zugangsdaten in der `settings.xml`.
+Mit jedem Deployment wird eine neue, eindeutige Version des Artifacts (z.B. `1.0.0`, `1.1.0`, ...) im Repository bereitgestellt, die anschließend von konsumierenden Projekten referenziert werden kann (siehe <<sst-client-generierung>>).
+
+[[sst-client-generierung]]
+== Client-Generierung über ein deploytes SST-Artifact
+
+Wurde die OpenAPI-Spezifikation wie in <<sst-deployment>> beschrieben als SST-Artifact deployt, kann sie in konsumierenden Projekten als reguläre Maven-Dependency eingebunden werden, anstatt eine lokale Kopie der YAML-Datei zu pflegen.
+Dies stellt sicher, dass immer die zentral versionierte und freigegebene Fassung der Spezifikation für die Code-Generierung verwendet wird.
+
+Dazu wird das SST-Artifact als `<dependency>` des `openapi-generator-maven-plugin` eingebunden.
+Das Plugin extrahiert die im Artifact enthaltene YAML-Datei automatisch aus dem Classpath, sodass im `<inputSpec>`-Tag lediglich der relative Pfad der Datei innerhalb des Artifacts (z.B. `openapi.yaml`) angegeben werden muss, anstatt eines Pfads im lokalen Dateisystem.
+
+.Beispielhafte Maven-Konfiguration im konsumierenden Projekt
+[source,xml]
+----
+<plugin>
+    <groupId>org.openapitools</groupId>
+    <artifactId>openapi-generator-maven-plugin</artifactId>
+    <version>${version}</version>
+    <executions>
+        <execution>
+            <goals>
+                <goal>generate</goal>
+            </goals>
+            <configuration>
+                <inputSpec>openapi.yaml</inputSpec>
+                <generatorName>generator-name</generatorName>
+                <library>eingesetzte-library</library>
+            </configuration>
+        </execution>
+    </executions>
+    <dependencies>
+        <dependency>
+            <groupId>de.bund.example</groupId>
+            <artifactId>meine-sst</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+    </dependencies>
+</plugin>
+----
+
+Die übrigen Konfigurationsparameter (`generatorName`, `library`, etc.) entsprechen den in <<maven,Verwendung von Maven>> beschriebenen Parametern.
+Über die `version` der Dependency wird gesteuert, welche Version der Spezifikation für die Generierung verwendet wird.
+Ein Update der Schnittstelle im konsumierenden Projekt erfolgt somit allein durch das Anheben dieser Versionsnummer.
+
