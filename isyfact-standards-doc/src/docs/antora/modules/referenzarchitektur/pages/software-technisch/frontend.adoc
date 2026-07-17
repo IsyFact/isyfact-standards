@@ -44,7 +44,7 @@ Im Vergleich zur xref:referenzarchitektur:software-technisch.adoc[allgemeinen Da
 image::referenzarchitektur:software-technisch/frontend/software-technisch-frontend.svg[width=50%,align=center]
 
 Durch die Verwendung von SPAs befindet sich der Frontend-Teil der GA im Webbrowser des Anwenders, während der Backend-Teil weiterhin auf den Servern der Anwendungslandschaft betrieben wird.
-Zur strukturierten, sicheren und einheitlichen Anbindung der Frontends an die Backend-Systeme ist verpflichtend ein zentrales API-Gateway als querschnittliche Komponente vorzuschalten.
+Zur strukturierten, sicheren und einheitlichen Anbindung der Frontends an die Backend-Systeme ist verpflichtend, ein zentrales API-Gateway als querschnittliche Komponente vorzuschalten.
 Das API-Gateway ist ein Bestandteil der Systemlandschaft und wird in der xref:referenzarchitektur:software-technisch.adoc[software-technischen Referenzarchitektur] detailliert beschrieben.
 
 === Architekturvariante mit Backend-for-Frontend (BFF)
@@ -96,7 +96,9 @@ Ein minimaler Rahmen umfasst:
 Sind diese Voraussetzungen nicht gegeben (z. B. nur ein bis zwei Teams, gemeinsamer Freigabezyklus, hohe funktionale Verflechtung), ist eine einfache SPA oder ein modular strukturierter Monolith (klare Modulgrenzen innerhalb eines gemeinsamen Build-Artefakts) in der Regel wirtschaftlicher und risikoärmer.
 
 Native Federation ist somit kein Standardvorgehen, sondern eine gezielte Architekturentscheidung zur Skalierung von Organisation, Lieferfähigkeit und Modernisierungsfähigkeit bei großen, langfristig betriebenen Anwendungen.
+
 == Architekturgrundsätze & -regeln für Frontends
+
 Dieses Kapitel beschreibt die übergreifenden Architekturgrundsätze und -regeln für die Gestaltung von Frontends im Geltungsbereich dieser Referenzarchitektur.
 
 Die hier formulierten Grundsätze sind verbindlich und dienen als normative Leitplanken für alle neu zu entwickelnden Frontends sowie für relevante Weiterentwicklungen bestehender Anwendungen.
@@ -219,7 +221,7 @@ Der Browser erhält ausschließlich ein Session-Cookie (`HttpOnly`, `Secure`, `S
 *Direkte SPA-zu-API-Architektur:*
 Access Tokens MÜSSEN ausschließlich im Arbeitsspeicher (JavaScript-Variable / In-Memory) gehalten werden.
 Refresh Tokens DÜRFEN NICHT im `localStorage` oder `sessionStorage` abgelegt werden.
-Sofern eine persistente Haltung des Refresh Tokens technisch erforderlich ist (z. B. für Silent Renewal), MUSS dieser ausschließlich in einem `HttpOnly`-Cookie gespeichert werden.
+Sofern eine persistente Haltung des Refresh-Tokens technisch erforderlich ist (z. B. für Silent Renewal), MUSS dieser ausschließlich in einem `HttpOnly`-Cookie gespeichert werden.
 
 NOTE: Eine reine In-Memory-Haltung von Access Tokens schützt nicht vollständig vor XSS-Angriffen: Bei erfolgreichem XSS-Angriff kann ein In-Memory-Token im laufenden Kontext missbraucht werden. In-Memory ist gegenüber `localStorage`/`sessionStorage` zu bevorzugen, ersetzt jedoch keine wirksame XSS-Prävention (siehe <<xss_pravention_im_code>>).
 
@@ -315,7 +317,7 @@ Die Content Security Policy MUSS mindestens die folgenden Direktiven enthalten:
 | `'none'` — Plugins (Flash, Java, etc.) DÜRFEN NICHT geladen werden
 
 | `base-uri`
-| `'self'` — Verhindert Manipulation der Basis-URL durch eingeschleustes `<base>`
+| `'self'` — verhindert Manipulation der Basis-URL durch eingeschleustes `<base>`
 
 | `frame-ancestors`
 | `'none'` oder explizite Origin-Liste — Schutz vor Clickjacking
@@ -526,7 +528,7 @@ Remote-Module DÜRFEN ausschließlich aus einer expliziten, organisationsweit ge
 
 Die erlaubten Origins MÜSSEN in der `script-src`- und `connect-src`-Direktive der CSP enumeriert sein (siehe <<http_sicherheits_header_cookies>>).
 
-Das Nachladen von Remote-Modulen aus beliebigen, vom Benutzer oder von externen Eingaben beeinflussbaren Origins DARF NICHT möglich sein.
+Das Nachladen von Remote-Modulen aus beliebigen, vom Benutzer oder von externen Eingaben beeinflussbaren Origins, DARF NICHT möglich sein.
 ****
 
 .icon:university[title=Architekturregel] Versionierung von Remote-Modulen
