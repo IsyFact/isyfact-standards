@@ -1,5 +1,6 @@
 # 5.1.0
 ### FEATURES
+- `IFS-4990`: [isyfact-standards-doc] Kapitel "Daten & Zustandsmanagement" in der Referenzarchitektur Frontend ergänzt
 - `IFS-5416`: [isyfact-standards-doc] Umstellung der technischen Referenzarchitektur von Anwendungen auf IT-Systeme
 - `IFS-5538`: [isyfact-standards-doc] Aktualisierung des Produktkatalogs auf Mindestversionen, die von Spring Boot 4 und dem Spring Framework 7 verlangt werden
 - `IFS-5259`: [isyfact-standards-doc] Beschreibung der konfigurierbaren maximalen Anzahl automatischer Neustarts für fehlerhafte Batches hinzugefügt
