@@ -639,4 +639,168 @@ Insbesondere werden relevante Akzeptanzkriterien der WCAG 2.2 berücksichtigt, u
 
 == Logging, Monitoring & Telemetrie
 
-NOTE: Abschnitt ist noch WIP
+Dieses Kapitel beschreibt verbindliche Leitlinien für Logging, Monitoring und Telemetrie in Frontends.
+Ziel ist es, technische Fehler und Qualitätsprobleme im Betrieb nachvollziehbar zu machen, ohne personenbezogene, sicherheitsrelevante oder unnötige Daten aus dem Browser zu übertragen.
+
+Die Vorgaben aus dem Abschnitt „Datenschutz & Datenminimierung im Browser“ gelten ergänzend.
+Clientseitige Telemetrie ersetzt weder das serverseitige Logging noch das Monitoring der Backend-Systeme.
+Sie ergänzt diese um Informationen, die ausschließlich im Browser verfügbar sind.
+
+=== Ziele und Abgrenzung
+
+Logging, Monitoring und Telemetrie erfüllen unterschiedliche Aufgaben:
+
+* Logging erfasst einzelne technische Ereignisse und Fehler.
+* Monitoring bewertet den Betriebszustand anhand zusammengeführter Messwerte und definierter Schwellwerte.
+* Telemetrie bezeichnet die strukturierte Übermittlung technischer Ereignisse und Messwerte aus dem Frontend.
+* Tracing ermöglicht die Nachvollziehbarkeit einer Anfrage über Frontend, Backend-for-Frontend und nachgelagerte Backend-Systeme.
+
+Die Browser-Konsole ist kein zentraler Logging-Dienst.
+Ausgaben über `console.log`, `console.warn` oder `console.error` DÜRFEN NICHT ungefiltert an ein Backend oder einen Telemetrie-Dienst weitergeleitet werden.
+
+Debug- und Entwicklungsinformationen DÜRFEN in Produktivumgebungen nicht dauerhaft aktiviert sein.
+
+=== Erfassung von Fehlern in der SPA
+
+Eine SPA SOLL nur solche technischen Fehler zentral erfassen, die für die Bewertung der Stabilität, Verfügbarkeit oder Nutzbarkeit der Anwendung relevant sind.
+
+Hierzu zählen insbesondere:
+
+* unbehandelte Laufzeitfehler und unbehandelte Promise-Abweisungen,
+* Fehler beim Starten oder Initialisieren der Anwendung,
+* Fehler beim Laden kritischer JavaScript-, CSS- oder Konfigurationsressourcen,
+* fehlgeschlagene API-Aufrufe, sofern sie einen fachlichen Ablauf oder eine zentrale Funktion beeinträchtigen,
+* Fehler beim Laden dynamischer Module oder Remote-Komponenten,
+* wiederkehrende technische Fehler, die auf eine fehlerhafte Frontend-Version oder eine Störung angebundener Systeme hinweisen.
+
+Erwartete fachliche Fehler und reguläre Benutzereingaben SOLLEN nicht als technische Fehler gemeldet werden.
+Hierzu zählen beispielsweise Validierungsfehler, fachlich erwartete Ablehnungen, bewusst abgebrochene Vorgänge oder fehlende optionale Eingaben.
+
+HTTP-Statuscodes MÜSSEN fachlich eingeordnet werden.
+Insbesondere DÜRFEN nicht alle Antworten mit einem Statuscode aus dem Bereich `4xx` pauschal als technische Fehler behandelt werden.
+
+Ein erfasstes Fehlerereignis SOLL mindestens folgende strukturierte Angaben enthalten:
+
+* technische Fehlerkategorie und stabiler Fehlercode,
+* Schweregrad,
+* Zeitpunkt,
+* Anwendung und Anwendungsversion,
+* Umgebung,
+* betroffene Funktion oder abstrahierte Route,
+* Ergebnis der betroffenen technischen Operation,
+* Korrelations- oder Ereignis-ID, sofern verfügbar.
+
+Vollständige URLs, Request- und Response-Inhalte, Formulardaten, Tokens, Session-Informationen und andere personenbezogene oder sicherheitsrelevante Daten DÜRFEN NICHT Bestandteil des Fehlerereignisses sein.
+
+Stacktraces DÜRFEN nur übertragen werden, wenn sie vor der Übermittlung bereinigt und auf notwendige technische Informationen begrenzt wurden.
+Quellcode, Zugangsdaten, Inhalte aus Benutzereingaben oder interne Infrastrukturinformationen DÜRFEN dadurch nicht offengelegt werden.
+
+=== Übermittlung von Fehler- und Telemetriedaten
+
+Fehler- und Telemetriedaten MÜSSEN strukturiert über eine definierte und versionierte HTTPS-Schnittstelle übertragen werden.
+Die ungefilterte Übertragung von Konsolenausgaben oder beliebigen JavaScript-Objekten ist nicht zulässig.
+
+Die Schnittstelle MUSS insbesondere folgende Maßnahmen unterstützen:
+
+* Validierung des Datenformats,
+* Begrenzung der Größe einzelner Ereignisse und Übertragungen,
+* Filterung oder Verwerfung unzulässiger Inhalte,
+* Begrenzung der Übertragungsrate,
+* Schutz vor missbräuchlicher oder automatisierter Übermittlung,
+* Zuordnung zu Anwendung, Version und Umgebung,
+* kontrollierte Weiterleitung an die zentrale Logging- und Monitoring-Infrastruktur.
+
+Telemetrie-Endpunkte DÜRFEN nicht als allgemeine Proxy-Schnittstelle zu externen Monitoring-Diensten verwendet werden.
+
+Übertragungsfehler DÜRFEN die eigentliche Nutzung der Anwendung nicht blockieren.
+Wiederholungsversuche MÜSSEN zeitlich und mengenmäßig begrenzt werden.
+
+Ereignisse DÜRFEN gesammelt oder stichprobenartig übertragen werden, wenn dadurch das Datenvolumen reduziert wird.
+Sampling, Bündelung und Verwerfungsregeln MÜSSEN dokumentiert und für kritische Fehler nachvollziehbar konfiguriert sein.
+
+Eine dauerhafte Speicherung von Telemetriedaten im Browser SOLL vermieden werden.
+Insbesondere DÜRFEN fehlgeschlagene Übertragungen nicht zu einer unkontrollierten persistenten Sammlung von Fehler- oder Nutzungsdaten führen.
+
+=== Monitoring und Performance-Metriken
+
+Frontends SOLLEN technische Metriken erfassen, wenn diese zur Bewertung von Stabilität, Verfügbarkeit und wahrgenommener Performance benötigt werden.
+
+Geeignete Metriken sind insbesondere:
+
+* Dauer bis zur initialen Nutzbarkeit der Anwendung,
+* Lade- und Darstellungszeiten zentraler Ansichten,
+* Reaktionszeiten auf relevante Benutzerinteraktionen,
+* Dauer und Fehlerquote von API-Aufrufen,
+* Anzahl unbehandelter Frontend-Fehler,
+* Fehlerquote beim Laden kritischer Ressourcen oder dynamischer Module,
+* technische Abbruchquote zentraler Anwendungsabläufe,
+* Verteilung der eingesetzten Anwendungsversionen.
+
+Metriken SOLLEN aggregiert ausgewertet werden.
+Einzelne Messwerte DÜRFEN nicht ohne fachliche und datenschutzrechtliche Begründung einem konkreten Benutzer zugeordnet werden.
+
+Metriken MÜSSEN mindestens nach Anwendung, Version und Umgebung unterscheidbar sein.
+Weitere Dimensionen, beispielsweise Browserfamilie oder Gerätetyp, DÜRFEN nur in der für die technische Analyse erforderlichen Genauigkeit übertragen werden.
+
+Für relevante Metriken SOLLEN Zielwerte, Warnschwellen und Alarmierungsregeln definiert werden.
+Alarmierungen SOLLEN auf aggregierten und wiederholt auftretenden Problemen basieren und nicht unkontrolliert für jedes einzelne Client-Ereignis ausgelöst werden.
+
+Neben der realen Nutzung SOLLEN für geschäftskritische Frontends synthetische Prüfungen berücksichtigt werden.
+Diese können beispielsweise die Erreichbarkeit, den erfolgreichen Anwendungsstart und zentrale technische Abläufe überprüfen.
+
+=== Korrelation und Nachvollziehbarkeit
+
+Fehler und Messwerte SOLLEN einer technischen Benutzeraktion oder Backend-Anfrage zugeordnet werden können, ohne personenbezogene Daten zu verwenden.
+
+Für HTTP-Anfragen ist die in der xref:software-technisch/backend/service/rest-querschnitt.adoc#rest-setzen-von-korrelations-id-in-header[Referenzarchitektur REST] definierte Korrelations-ID im Header `X-Correlation-Id` zu berücksichtigen.
+Vorhandene Korrelationsinformationen SOLLEN bei der Kommunikation zwischen Frontend, Backend-for-Frontend und Backend weitergegeben werden, soweit dies technisch und sicherheitlich vorgesehen ist.
+
+Vom Browser übermittelte Korrelations- oder Ereignis-IDs MÜSSEN als nicht vertrauenswürdig behandelt werden.
+Sie DÜRFEN nicht als Grundlage für Autorisierung, Zugriffskontrolle oder andere sicherheitsrelevante Entscheidungen verwendet werden.
+
+Ein Backend-for-Frontend SOLL eingehende IDs validieren oder eigene vertrauenswürdige Korrelationsinformationen erzeugen.
+Die Zuordnung zwischen einem clientseitigen Ereignis und den zugehörigen serverseitigen Logs SOLL anschließend in der zentralen Observability-Infrastruktur möglich sein.
+
+=== Berücksichtigung des Backend-for-Frontend
+
+Bei Verwendung eines Backend-for-Frontend SOLL dieses als zentrale Annahmestelle für Frontend-Fehler und Telemetriedaten vorgesehen werden.
+
+Das Backend-for-Frontend SOLL insbesondere:
+
+* eine gleichartige, vorzugsweise Same-Origin-basierte Schnittstelle für die SPA bereitstellen,
+* eingehende Ereignisse anhand eines definierten Schemas validieren,
+* sensible oder unzulässige Inhalte filtern,
+* Größen- und Ratenbegrenzungen durchsetzen,
+* Anwendung, Version, Umgebung und technischen Kontext ergänzen,
+* Korrelationsinformationen erzeugen oder validieren,
+* Daten kontrolliert an zentrale Logging-, Monitoring- oder Tracing-Systeme weiterleiten.
+
+Benutzer- oder Sitzungsinformationen, die serverseitig bereits vorliegen, SOLLEN nicht zusätzlich durch das Frontend übertragen werden.
+Das Backend-for-Frontend DARF diese Informationen nur ergänzen, wenn dies für den festgelegten technischen Zweck erforderlich und datenschutzrechtlich zulässig ist.
+
+Ohne Backend-for-Frontend MUSS eine vergleichbare abgesicherte Telemetrie-Schnittstelle über das API-Gateway oder eine dafür vorgesehene Backend-Komponente bereitgestellt werden.
+Eine direkte Kopplung der SPA an interne Logging-Systeme ist nicht zulässig.
+
+.icon:university[title=Architekturregel] Strukturierte Erfassung von Frontend-Fehlern
+****
+Frontends DÜRFEN Konsolenausgaben und beliebige Fehlerobjekte NICHT ungefiltert an Backend- oder Telemetrie-Dienste übertragen.
+Technisch relevante Fehler MÜSSEN klassifiziert, bereinigt und über ein definiertes Schema übermittelt werden.
+****
+
+.icon:university[title=Architekturregel] Kontrollierte Telemetrie-Schnittstelle
+****
+Fehler- und Telemetriedaten MÜSSEN über eine abgesicherte, validierende und in ihrer Datenmenge begrenzte HTTPS-Schnittstelle übertragen werden.
+Bei Einsatz eines Backend-for-Frontend SOLL dieses die Annahme, Filterung, Korrelation und kontrollierte Weiterleitung übernehmen.
+****
+
+.icon:university[title=Architekturregel] Datenschutzkonformes Monitoring
+****
+Personenbezogene und sicherheitsrelevante Daten DÜRFEN NICHT Bestandteil von Frontend-Logs, Metriken oder Traces sein.
+Metriken SOLLEN aggregiert und auf den für den technischen Betriebszweck notwendigen Umfang begrenzt werden.
+****
+
+.icon:university[title=Architekturregel] Ende-zu-Ende-Nachvollziehbarkeit
+****
+Technische Ereignisse und Anfragen SOLLEN über Korrelationsinformationen zwischen Frontend, Backend-for-Frontend und Backend nachvollziehbar sein.
+Vom Client übermittelte IDs MÜSSEN als nicht vertrauenswürdig behandelt und serverseitig validiert oder ersetzt werden.
+****
