@@ -5,7 +5,7 @@
 
 ### Umgesetzte Tickets
 #### Features
-- keine
+- `IFS-5673`: [isyfact-standards-doc] Aufnahme von `apache.santuario:xmlsec` im Produktkatalog
 
 #### Bug Fixes
 - keine
