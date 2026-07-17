@@ -76,7 +76,7 @@ Anschließend kann der generierte Code in das Projekt manuell übernommen werden
 
 [[maven]]
 === Verwendung von Maven
-Auch in bereits existierenden Maven-Projekt kann der OpenAPI Generator über das https://github.com/OpenAPITools/openapi-generator/tree/master/modules/openapi-generator-maven-plugin[offizielle Maven-Plugin] aufgerufen werden.
+Auch in bereits existierenden Maven-Projekten kann der OpenAPI Generator über das https://github.com/OpenAPITools/openapi-generator/tree/master/modules/openapi-generator-maven-plugin[offizielle Maven-Plugin] aufgerufen werden.
 Es ist jedoch wichtig zu beachten, dass der generierte Code ein eigenes Projekt darstellt.
 Daher sollte die Integration des neuen Codes in das bereits bestehende Projekt noch manuell erfolgen.
 
@@ -222,7 +222,7 @@ Da das Changelog nicht Teil der Laufzeitartefakte ist, muss es nicht zwingend in
 === Deployment in ein Maven-Repository
 
 Das Submodul wird wie jedes andere Maven-Modul über die üblichen Maven-Mechanismen (`mvn deploy`) in ein Maven-Repository deployt.
-Voraussetzung ist eine entsprechende `<distributionManagement>`-Konfiguration im Eltern-POM sowie die Konfiguration der Zugangsdaten in der `settings.xml`.
+Voraussetzung ist eine entsprechende `<distributionManagement>`-Konfiguration im Parent-POM sowie die Konfiguration der Zugangsdaten in der `settings.xml`.
 Mit jedem Deployment wird eine neue, eindeutige Version des Artifacts (z.B. `1.0.0`, `1.1.0`, ...) im Repository bereitgestellt, die anschließend von konsumierenden Projekten referenziert werden kann (siehe <<sst-client-generierung>>).
 
 [[sst-client-generierung]]
@@ -241,6 +241,13 @@ Das Plugin extrahiert die im Artifact enthaltene YAML-Datei automatisch aus dem 
     <groupId>org.openapitools</groupId>
     <artifactId>openapi-generator-maven-plugin</artifactId>
     <version>${version}</version>
+    <dependencies>
+        <dependency>
+            <groupId>de.bund.example</groupId>
+            <artifactId>meine-sst</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+    </dependencies>
     <executions>
         <execution>
             <goals>
@@ -253,13 +260,6 @@ Das Plugin extrahiert die im Artifact enthaltene YAML-Datei automatisch aus dem 
             </configuration>
         </execution>
     </executions>
-    <dependencies>
-        <dependency>
-            <groupId>de.bund.example</groupId>
-            <artifactId>meine-sst</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-    </dependencies>
 </plugin>
 ----
 
