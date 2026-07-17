@@ -114,21 +114,24 @@ Daher sollte die Integration des neuen Codes in das bereits bestehende Projekt n
 Die Konfigurationsparameter für den Generator sind die Tags `generatorName` und `library`.
 
 .Parameter für die vorgesehenen Frameworks
-[cols=",m,m",options="header"]
+[cols=",m,m,",options="header"]
 |===
-|Framework|`generatorName`|`library`
+|Framework|`generatorName`|`library`|Client/Server
 
 |Spring MVC
 |spring
 |spring-mvc
+|Server
 
 |Spring Web Webflux
 |java
 |webclient
+|Client
 
 |Angular
 |typescript-angular
 | -
+|Client
 |===
 
 Die anderen Parameter für die Basis-Nutzung sind:
