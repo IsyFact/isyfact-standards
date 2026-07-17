@@ -7,6 +7,7 @@
 - `IFS-5259`: [isyfact-standards-doc] Beschreibung der konfigurierbaren maximalen Anzahl automatischer Neustarts für fehlerhafte Batches hinzugefügt
 - `IFS-5450`: [isyfact-standards-doc] Erweiterung der Beschreibung des Anwendungskerns (Service Consumer, Konfiguration) 
 - `IFS-5370`: [isyfact-standards-doc] Konsolidierung der Vorgaben zur Versionierung von REST-Services, Nachrichten und Events
+- `IFS-5340`: [isyfact-standards-doc] Erweiterung der OpenAPI-Dokumentation um Beschreibungen zum Deployment der Spezifikation als Maven-Submodul (SST-Artifact) sowie zur Client-Generierung über eine Maven-Dependency
 - `IFS-5491`: Maven wird jetzt in mindestens Version 3.9.0 vorausgesetzt (enforced via maven-enforcer-plugin)
     - Maven < 3.9.0 hat den Status End of Life erreicht
 
