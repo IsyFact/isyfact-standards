@@ -781,25 +781,25 @@ Das Backend-for-Frontend DARF diese Informationen nur ergänzen, wenn dies für 
 Ohne Backend-for-Frontend MUSS eine vergleichbare abgesicherte Telemetrie-Schnittstelle über das API-Gateway oder eine dafür vorgesehene Backend-Komponente bereitgestellt werden.
 Eine direkte Kopplung der SPA an interne Logging-Systeme ist nicht zulässig.
 
-.icon:university[title=Architekturregel] Strukturierte Erfassung von Frontend-Fehlern
+.Architekturregel: Strukturierte Erfassung von Frontend-Fehlern
 ****
 Frontends DÜRFEN Konsolenausgaben und beliebige Fehlerobjekte NICHT ungefiltert an Backend- oder Telemetrie-Dienste übertragen.
 Technisch relevante Fehler MÜSSEN klassifiziert, bereinigt und über ein definiertes Schema übermittelt werden.
 ****
 
-.icon:university[title=Architekturregel] Kontrollierte Telemetrie-Schnittstelle
+.Architekturregel: Kontrollierte Telemetrie-Schnittstelle
 ****
 Fehler- und Telemetriedaten MÜSSEN über eine abgesicherte, validierende und in ihrer Datenmenge begrenzte HTTPS-Schnittstelle übertragen werden.
 Bei Einsatz eines Backend-for-Frontend SOLL dieses die Annahme, Filterung, Korrelation und kontrollierte Weiterleitung übernehmen.
 ****
 
-.icon:university[title=Architekturregel] Datenschutzkonformes Monitoring
+.Architekturregel: Datenschutzkonformes Monitoring
 ****
 Personenbezogene und sicherheitsrelevante Daten DÜRFEN NICHT Bestandteil von Frontend-Logs, Metriken oder Traces sein.
 Metriken SOLLEN aggregiert und auf den für den technischen Betriebszweck notwendigen Umfang begrenzt werden.
 ****
 
-.icon:university[title=Architekturregel] Ende-zu-Ende-Nachvollziehbarkeit
+.Architekturregel: Ende-zu-Ende-Nachvollziehbarkeit
 ****
 Technische Ereignisse und Anfragen SOLLEN über Korrelationsinformationen zwischen Frontend, Backend-for-Frontend und Backend nachvollziehbar sein.
 Vom Client übermittelte IDs MÜSSEN als nicht vertrauenswürdig behandelt und serverseitig validiert oder ersetzt werden.
