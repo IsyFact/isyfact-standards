@@ -1,5 +1,6 @@
 # 5.1.0
 ### FEATURES
+- `IFS-5663`: [isyfact-standards-doc] Entfernung der Word-Vorlagen für die Erstellung von Systementwurf und Systemhandbuch
 - `IFS-5673`: [isyfact-standards-doc] Aufnahme von `apache.santuario:xmlsec` im Produktkatalog
 - `IFS-4990`: [isyfact-standards-doc] Kapitel "Daten & Zustandsmanagement" in der Referenzarchitektur Frontend ergänzt
 - `IFS-5416`: [isyfact-standards-doc] Umstellung der technischen Referenzarchitektur von Anwendungen auf IT-Systeme
@@ -30,5 +31,9 @@ Die Beschreibung der technischen Referenzarchitektur erfolgte bisher auf Basis v
 Dies war bis einschließlich IsyFact 3 korrekt, da die Referenzarchitektur bis dahin monolithische IT-Systeme zur Umsetzung von Anwendungen vorsah. 
 Ab der IsyFact 4 zerfallen die Anwendungen in mehrere IT-Systeme der Typen Backend, Frontend, Batch und Gateway.
 Diese Änderung wurde in der Dokumentation nachgezogen.
+
+### Dokumentation
+
+Die Word-Vorlagen für die Erstellung von Systementwürfen und Systemhandbüchern wurden entfernt.
 
 ## MIGRATION GUIDE
