@@ -3,12 +3,16 @@ name: Maven Build
 on:
   pull_request:
     branches:
-      - master
-      - 'release/**'
+      - 'develop'
+      - 'main'
+      - 'develop-**'
+      - 'support/**'
   push:
     branches:
-      - master
-      - 'release/**'
+      - 'develop'
+      - 'main'
+      - 'develop-**'
+      - 'support/**'
     paths-ignore:
       - 'isyfact-standards-doc/**'
 
@@ -27,7 +31,7 @@ jobs:
 
   DeploySnapshotToCentral:
     if: (github.event_name == 'push' || github.event_name == 'workflow_dispatch') &&
-      (github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/heads/release/'))
+      (github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/heads/develop-'))
     needs: [ Version, Maven ]
     uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_deploy_template.yml@v2.3.0
     with:

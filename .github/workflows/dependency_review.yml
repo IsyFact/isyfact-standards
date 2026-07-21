@@ -2,7 +2,10 @@ name: Dependency Review
 on:
   pull_request:
     branches:
-      - master
+      - 'develop'
+      - 'main'
+      - 'develop-**'
+      - 'support/**'
   workflow_dispatch:
 
 jobs:

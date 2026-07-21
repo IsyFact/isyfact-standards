@@ -3,7 +3,10 @@ name: Semgrep Scan
 on:
   pull_request:
     branches:
-      - master
+      - 'develop'
+      - 'main'
+      - 'develop-**'
+      - 'support/**'
   workflow_dispatch: {}
 
 permissions:

@@ -2,8 +2,10 @@ name: Dependency Scan
 on:
   pull_request:
     branches:
-      - master
-      - 'release/**'
+      - 'develop'
+      - 'main'
+      - 'develop-**'
+      - 'support/**'
     paths:
       - '**/pom.xml'
   workflow_dispatch:
