@@ -2,8 +2,8 @@ name: Dependabot Auto Merge
 on:
   pull_request:
     branches:
-      - master
-      - 'release/**'
+      - 'develop'
+      - 'develop-**'
     paths:
       - '**/pom.xml'
 

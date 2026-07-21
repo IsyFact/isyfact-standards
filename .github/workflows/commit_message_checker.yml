@@ -2,8 +2,10 @@ name: Commit Message Checker
 on:
   pull_request:
     branches:
-      - master
-      - 'release/**'
+      - 'develop'
+      - 'main'
+      - 'develop-**'
+      - 'support/**'
 
 jobs:
   check-commit-message:
