@@ -637,6 +637,7 @@ Diese Rahmenvorgaben sind im xref:isy-bedienkonzept-doc::bedienkonzept.adoc[Bedi
 Darin finden sich sowohl UI/UX-Richtlinien für Bedienelemente, Fenstertypen und Layoutstrukturen als auch zentrale Anforderungen zur Barrierefreiheit.
 Insbesondere werden relevante Akzeptanzkriterien der WCAG 2.2 berücksichtigt, um sicherzustellen, dass alle Anwendungen für Nutzende mit unterschiedlichen Fähigkeiten uneingeschränkt und normkonform zugänglich sind.
 
+[[logging-monitoring-telemetrie]]
 == Logging, Monitoring & Telemetrie
 
 Dieses Kapitel beschreibt verbindliche Leitlinien für Logging, Monitoring und Telemetrie in Frontends.
