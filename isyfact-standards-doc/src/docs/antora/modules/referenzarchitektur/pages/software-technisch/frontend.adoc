@@ -653,13 +653,15 @@ Logging, Monitoring und Telemetrie erfüllen unterschiedliche Aufgaben:
 
 * Logging erfasst einzelne technische Ereignisse und Fehler.
 * Monitoring bewertet den Betriebszustand anhand zusammengeführter Messwerte und definierter Schwellwerte.
-* Telemetrie bezeichnet die strukturierte Übermittlung technischer Ereignisse und Messwerte aus dem Frontend.
-* Tracing ermöglicht die Nachvollziehbarkeit einer Anfrage über Frontend, Backend-for-Frontend und nachgelagerte Backend-Systeme.
+* Telemetrie im Frontend bezeichnet die strukturierte Übermittlung technischer Ereignisse und Messwerte aus dem Frontend.
 
 Die Browser-Konsole ist kein zentraler Logging-Dienst.
 Ausgaben über `console.log`, `console.warn` oder `console.error` DÜRFEN NICHT ungefiltert an ein Backend oder einen Telemetrie-Dienst weitergeleitet werden.
 
 Debug- und Entwicklungsinformationen DÜRFEN in Produktivumgebungen nicht dauerhaft aktiviert sein.
+
+Die folgenden Vorgaben beziehen sich primär auf Single-Page Applications (SPA).
+Für serverseitig gerenderte oder hybride Frontend-Architekturen gelten sie sinngemäß, soweit nicht anders angegeben.
 
 === Erfassung von Fehlern in der SPA
 
@@ -678,7 +680,7 @@ Erwartete fachliche Fehler und reguläre Benutzereingaben SOLLEN nicht als techn
 Hierzu zählen beispielsweise Validierungsfehler, fachlich erwartete Ablehnungen, bewusst abgebrochene Vorgänge oder fehlende optionale Eingaben.
 
 HTTP-Statuscodes MÜSSEN fachlich eingeordnet werden.
-Insbesondere DÜRFEN nicht alle Antworten mit einem Statuscode aus dem Bereich `4xx` pauschal als technische Fehler behandelt werden.
+Insbesondere DÜRFEN NICHT alle Antworten mit einem Statuscode aus dem Bereich `4xx` pauschal als technische Fehler behandelt werden.
 
 Ein erfasstes Fehlerereignis SOLL mindestens folgende strukturierte Angaben enthalten:
 
@@ -689,7 +691,7 @@ Ein erfasstes Fehlerereignis SOLL mindestens folgende strukturierte Angaben enth
 * Umgebung,
 * betroffene Funktion oder abstrahierte Route,
 * Ergebnis der betroffenen technischen Operation,
-* Korrelations- oder Ereignis-ID, sofern verfügbar.
+* Korrelations-ID, sofern verfügbar.
 
 Vollständige URLs, Request- und Response-Inhalte, Formulardaten, Tokens, Session-Informationen und andere personenbezogene oder sicherheitsrelevante Daten DÜRFEN NICHT Bestandteil des Fehlerereignisses sein.
 
@@ -711,16 +713,13 @@ Die Schnittstelle MUSS insbesondere folgende Maßnahmen unterstützen:
 * Zuordnung zu Anwendung, Version und Umgebung,
 * kontrollierte Weiterleitung an die zentrale Logging- und Monitoring-Infrastruktur.
 
-Telemetrie-Endpunkte DÜRFEN nicht als allgemeine Proxy-Schnittstelle zu externen Monitoring-Diensten verwendet werden.
+Telemetrie-Endpunkte DÜRFEN NICHT als allgemeine Proxy-Schnittstelle zu externen Monitoring-Diensten verwendet werden.
 
 Übertragungsfehler DÜRFEN die eigentliche Nutzung der Anwendung nicht blockieren.
 Wiederholungsversuche MÜSSEN zeitlich und mengenmäßig begrenzt werden.
 
-Ereignisse DÜRFEN gesammelt oder stichprobenartig übertragen werden, wenn dadurch das Datenvolumen reduziert wird.
-Sampling, Bündelung und Verwerfungsregeln MÜSSEN dokumentiert und für kritische Fehler nachvollziehbar konfiguriert sein.
-
 Eine dauerhafte Speicherung von Telemetriedaten im Browser SOLL vermieden werden.
-Insbesondere DÜRFEN fehlgeschlagene Übertragungen nicht zu einer unkontrollierten persistenten Sammlung von Fehler- oder Nutzungsdaten führen.
+Insbesondere fehlgeschlagene Übertragungen DÜRFEN NICHT zu einer unkontrollierten persistenten Sammlung von Fehlerdaten führen.
 
 === Monitoring und Performance-Metriken
 
@@ -738,7 +737,7 @@ Geeignete Metriken sind insbesondere:
 * Verteilung der eingesetzten Anwendungsversionen.
 
 Metriken SOLLEN aggregiert ausgewertet werden.
-Einzelne Messwerte DÜRFEN nicht ohne fachliche und datenschutzrechtliche Begründung einem konkreten Benutzer zugeordnet werden.
+Einzelne Messwerte DÜRFEN NICHT ohne fachliche und datenschutzrechtliche Begründung einem konkreten Benutzer zugeordnet werden.
 
 Metriken MÜSSEN mindestens nach Anwendung, Version und Umgebung unterscheidbar sein.
 Weitere Dimensionen, beispielsweise Browserfamilie oder Gerätetyp, DÜRFEN nur in der für die technische Analyse erforderlichen Genauigkeit übertragen werden.
@@ -756,8 +755,8 @@ Fehler und Messwerte SOLLEN einer technischen Benutzeraktion oder Backend-Anfrag
 Für HTTP-Anfragen ist die in der xref:software-technisch/backend/service/rest-querschnitt.adoc#rest-setzen-von-korrelations-id-in-header[Referenzarchitektur REST] definierte Korrelations-ID im Header `X-Correlation-Id` zu berücksichtigen.
 Vorhandene Korrelationsinformationen SOLLEN bei der Kommunikation zwischen Frontend, Backend-for-Frontend und Backend weitergegeben werden, soweit dies technisch und sicherheitlich vorgesehen ist.
 
-Vom Browser übermittelte Korrelations- oder Ereignis-IDs MÜSSEN als nicht vertrauenswürdig behandelt werden.
-Sie DÜRFEN nicht als Grundlage für Autorisierung, Zugriffskontrolle oder andere sicherheitsrelevante Entscheidungen verwendet werden.
+Vom Browser übermittelte Korrelations-IDs MÜSSEN als nicht vertrauenswürdig behandelt werden.
+Sie DÜRFEN NICHT als Grundlage für Autorisierung, Zugriffskontrolle oder andere sicherheitsrelevante Entscheidungen verwendet werden.
 
 Ein Backend-for-Frontend SOLL eingehende IDs validieren oder eigene vertrauenswürdige Korrelationsinformationen erzeugen.
 Die Zuordnung zwischen einem clientseitigen Ereignis und den zugehörigen serverseitigen Logs SOLL anschließend in der zentralen Observability-Infrastruktur möglich sein.
