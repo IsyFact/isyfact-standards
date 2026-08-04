@@ -1,7 +1,7 @@
 version: 2
 updates:
   - package-ecosystem: "maven"
-    target-branch: "master"
+    target-branch: "develop"
     directory: "/"
     schedule:
       interval: "daily"
@@ -37,7 +37,7 @@ updates:
       - dependency-name: "de.bund.bva.isyfact:*"
 
   - package-ecosystem: "maven"
-    target-branch: "release/4.x"
+    target-branch: "develop-4.x"
     directory: "/"
     schedule:
       interval: "daily"
@@ -73,7 +73,7 @@ updates:
       - dependency-name: "de.bund.bva.isyfact:*"
 
   - package-ecosystem: "maven"
-    target-branch: "release/3.x"
+    target-branch: "develop-3.x"
     directory: "/"
     schedule:
       interval: "daily"
@@ -109,7 +109,7 @@ updates:
       - dependency-name: "de.bund.bva.isyfact:*"
 
   - package-ecosystem: "github-actions"
-    target-branch: "master"
+    target-branch: "develop"
     directory: "/"
     schedule:
       interval: "weekly"
@@ -117,7 +117,7 @@ updates:
       prefix: "ci"
 
   - package-ecosystem: "github-actions"
-    target-branch: "release/4.x"
+    target-branch: "develop-4.x"
     directory: "/"
     schedule:
       interval: "weekly"
@@ -125,7 +125,7 @@ updates:
       prefix: "ci"
 
   - package-ecosystem: "github-actions"
-    target-branch: "release/3.x"
+    target-branch: "develop-3.x"
     directory: "/"
     schedule:
       interval: "weekly"

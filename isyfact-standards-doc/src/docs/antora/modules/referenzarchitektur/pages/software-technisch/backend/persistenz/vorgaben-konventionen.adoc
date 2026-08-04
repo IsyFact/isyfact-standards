@@ -16,10 +16,10 @@ Der einzige Grund für die Verwendung von SQL ist die Verwendung von datenbanksp
 [[nichtfunktionale-aspekte-von-anfragen]]
 ==== Nichtfunktionale Aspekte von Queries
 
-Die folgenden Vorgaben für Queries verhindern negative Auswirkungen auf die Stabilität, Verfügbarkeit oder Sicherheit von Anwendungen:
+Die folgenden Vorgaben für Queries verhindern negative Auswirkungen auf die Stabilität, Verfügbarkeit oder Sicherheit von Backends:
 
 * Der `%`-Operator ist nach Möglichkeit zu vermeiden.
-Es können leicht lang laufende Queries entstehen, welche die Anwendung blockieren und die Datenbank unnötig belasten.
+Es können leicht lang laufende Queries entstehen, welche die Backends blockieren und die Datenbank unnötig belasten.
 * Für rein lesende Zugriffe und feste Auswertungen sind nach Möglichkeit Views zu verwenden und die Berechtigungen entsprechend zu setzen.
 Dadurch kann der Zugriff auf die tatsächlich benötigten Daten gesteuert und eingeschränkt werden.
 * Bei der Formulierung von Queries sind die Eigenheiten des Optimizers der eingesetzten Datenbank zu beachten.
@@ -125,7 +125,7 @@ Gezielt Cache-Regionen und passende Cache-Strategien nutzen.
 [[verwendung-von-hibernate-filtern]]
 === Verwendung von Hibernate Filtern
 
-Wenn in einer Anwendung viele wiederkehrende Abfragen auf Entitäten erfolgen, können Hibernate Filter eingesetzt werden, um die "WHERE-Klauseln" der Abfragen zu vereinfachen oder zu ersetzen.
+Wenn in einem Backend viele wiederkehrende Abfragen auf Entitäten erfolgen, können Hibernate Filter eingesetzt werden, um die "WHERE-Klauseln" der Abfragen zu vereinfachen oder zu ersetzen.
 
 Hibernate Filter vereinfachen wiederkehrende Abfragen.
 Sie können dynamisch gesetzt sowie pro Hibernate Session aktiviert und deaktiviert werden.
@@ -137,7 +137,7 @@ Wenn das fachliche Datenmodell variable Sichtbarkeitsregeln in größerem Umfang
 ****
 
 Außer der Annotation `@Filter` gibt es auch die Annotation `@Where`, die jedoch immer aktiv ist und eine statische Filterung durchführt.
-Im folgenden Beispiel würde ihr Einsatz dazu führen, dass die Anwendung generell keine gelöschten Items abfragen könnte.
+Im folgenden Beispiel würde ihr Einsatz dazu führen, dass das Backend generell keine gelöschten Items abfragen könnte.
 Deshalb wird Annotation `@Where` nur im Ausnahmefall empfohlen und hier nicht näher betrachtet.
 
 ==== Beispiel für die Verwendung von Hibernate Filtern
@@ -335,7 +335,7 @@ public class MyEntity {
 ==== 1-zu-n und n-zu-n Assoziationen
 
 Eine 1-zu-n-Assoziation (siehe https://docs.jboss.org/hibernate/orm/6.6/userguide/html_single/Hibernate_User_Guide.html#collections[Collection Mapping]) ist in der Regel als unsortierte Menge (`Set`) zu definieren, da in dieser keine Reihenfolge definiert ist.
-Wird von der Anwendung eine Sortierung benötigt und sind alle für die Sortierung benötigten Attribute in der Entität enthalten, dann kann auch eine Liste (`List`) verwendet werden, da die Datenbank effizienter sortieren kann als eine Java-Implementierung.
+Wird vom Backend eine Sortierung benötigt und sind alle für die Sortierung benötigten Attribute in der Entität enthalten, dann kann auch eine Liste (`List`) verwendet werden, da die Datenbank effizienter sortieren kann als eine Java-Implementierung.
 
 .Definition von 1-zu-n-Assoziationen
 [[definition-1-zu-n-assoziation]]
@@ -678,7 +678,7 @@ Der Baustein stellt zur Persistierung von Zeiträumen und ungewissen Datums- und
 WARNING: Der folgende, hervorgehobene Absatz wird nur noch aus historischen Gründen erwähnt und ist obsolet.
 
 ====
-Für alte Anwendungen, die nicht die _Java 8 Date Time API_, sondern noch `java.util.Date` verwenden, gelten die folgenden Vorgaben.
+Für alte Backends, die nicht die _Java 8 Date Time API_, sondern noch `java.util.Date` verwenden, gelten die folgenden Vorgaben.
 
 In der Datenbank erfolgt die Speicherung in einem Attribut vom Typ `TemporalType.TIMESTAMP`.
 Falls die Genauigkeit des Timestamp-Datentyps fachlich nicht gewünscht ist, kann der Typ `TemporalType.DATE` verwendet wird.
@@ -718,7 +718,7 @@ Aufgrund der genannten Schwächen stellt der Baustein Util xref:util::nutzungsvo
 === Datenbankschema anfangs über `hbm2ddl` erzeugen
 
 Für die Erstellung des Datenbankschemas wird empfohlen, es initial über Hibernate zu erzeugen.
-Die <<konfiguration-automatische-erzeugung-schema,Konfiguration>> hierzu geschieht in der Datei `application.properties` der Anwendung.
+Die <<konfiguration-automatische-erzeugung-schema,Konfiguration>> hierzu geschieht in der Datei `application.properties` des Backends.
 
 .Konfiguration zur automatischen Erzeugung von Datenbankschemas
 [[konfiguration-automatische-erzeugung-schema]]
@@ -730,7 +730,7 @@ spring.jpa.hibernate.ddl-auto=create
 Grundsätzlich ist es möglich, sämtliche Tabellen-Eigenschaften (etwa auch die Feldlängen und Indizes) über Annotationen zu definieren und das Datenbankschema komplett durch `hbm2ddl` zu erzeugen.
 Ob das Datenbankschema während der Entwicklung stets generiert wird oder es nach einer initialen Generierung verändert und parallel gepflegt wird, ist je nach Komplexität des Schemas zu entscheiden.
 
-Befindet sich die Anwendung in Produktion, dann muss die automatische Erzeugung von Datenbankschemas abgeschaltet sein.
+Befindet sich das Backend in Produktion, dann muss die automatische Erzeugung von Datenbankschemas abgeschaltet sein.
 
 .Konfiguration zur Abschaltung der automatischen Erzeugung
 [[konfiguration-abschaltung-automatische-erzeugung-schema]]
@@ -747,7 +747,7 @@ Stattdessen wird xref:software-technisch/backend/persistenz/liquibase.adoc[] ver
 
 Indizes sind ein wichtiges Element, um eine gute Performance des Datenbankzugriffs sicherzustellen.
 Indizes müssen dabei gezielt vergeben werden.
-Fehlende Indizes führen häufig zu einer schlechten Performance der Anwendung und belasten die Datenbank durch das vermehrte Auftreten von Full-Table-Scans sehr stark.
+Fehlende Indizes führen häufig zu einer schlechten Performance des Backends und belasten die Datenbank durch das vermehrte Auftreten von Full-Table-Scans sehr stark.
 Zu viele Indizes verschlechtern die Performance beim Schreiben von Datensätzen und verbrauchen unnötigen Speicherplatz.
 
 Die tatsächlich notwendigen Indizes können letztendlich häufig nur in Produktion festgestellt werden.
