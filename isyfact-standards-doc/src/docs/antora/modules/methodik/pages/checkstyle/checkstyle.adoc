@@ -1,0 +1,94 @@
+= Checkstyle-Konventionen
+
+include::glossary:licence:partial$licence.adoc[]
+
+[[einleitung]]
+== Einleitung
+
+Zur automatisierten Prüfung der xref:methodik:java-programmierkonventionen/master.adoc[Java-Programmierkonventionen] stellt die IsyFact ein eigenes Checkstyle-Regelwerk bereit: das https://github.com/IsyFact/isy-checkstyle-plugin[IsyFact Checkstyle Plugin] (`isy-checkstyle-config`).
+
+Das Regelwerk wird als Maven-Artefakt veröffentlicht und über das `maven-checkstyle-plugin` in den Build-Prozess eines Projekts integriert.
+Dadurch werden Verstöße gegen die Programmierkonventionen bereits während des Builds erkannt.
+
+[[integration]]
+== Integration
+
+[[integration-parent]]
+=== Integration über den Maven-Parent
+
+Wird eines der folgenden Maven-Parent-Module verwendet, ist `isy-checkstyle-config` bereits vorkonfiguriert und es sind keine weiteren Schritte notwendig:
+
+[cols="1,1",options="header"]
+|====
+|Modul
+|Version
+
+|`isyfact-standards`
+|&ge; 2.2.0
+
+|`isyfact-erweiterungen`
+|&ge; 2.1.1, &ge; 1.8.2
+|====
+
+[[integration-plugin]]
+=== Manuelle Integration als Plugin-Konfiguration
+
+Wird kein passender Parent verwendet, kann `isy-checkstyle-config` direkt über das `maven-checkstyle-plugin` eingebunden werden:
+
+[source,xml]
+----
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-checkstyle-plugin</artifactId>
+            <version>3.1.1</version>
+            <configuration>
+                <configLocation>checkstyle.config.xml</configLocation>
+                <encoding>UTF-8</encoding>
+                <consoleOutput>true</consoleOutput>
+                <failsOnError>true</failsOnError>
+                <linkXRef>false</linkXRef>
+            </configuration>
+            <dependencies>
+                <dependency>
+                    <groupId>de.bund.bva.isyfact</groupId>
+                    <artifactId>isy-checkstyle-config</artifactId>
+                    <version>0.2.0</version>
+                </dependency>
+            </dependencies>
+            <executions>
+                <execution>
+                    <id>validate</id>
+                    <phase>validate</phase>
+                    <goals>
+                        <goal>check</goal>
+                    </goals>
+                </execution>
+            </executions>
+        </plugin>
+    </plugins>
+</build>
+----
+
+Die Prüfung wird dabei in der Maven-Phase `validate` ausgeführt und bricht den Build bei Regelverstößen ab (`failsOnError=true`).
+
+[[zusammenspiel-formatter]]
+== Zusammenspiel mit dem Formatter
+
+Die Checkstyle-Regeln sind mit dem xref:werkzeuge:formatter.adoc[IsyFact-Formatter für Java] abgestimmt.
+Wird der Formatter verwendet, sollte der resultierende Quellcode ohne Checkstyle-Verstöße bleiben.
+Es empfiehlt sich daher, beide Werkzeuge gemeinsam einzusetzen: den Formatter zur Formatierung während der Entwicklung und Checkstyle zur automatisierten Prüfung im Build.
+
+[[versionierung]]
+== Versionierung und Änderungen
+
+Das Regelwerk wird nach den xref:methodik:versionierung/master.adoc[IsyFact-Versionierungsvorgaben] versioniert.
+Änderungen an den Regeln werden im https://github.com/IsyFact/isy-checkstyle-plugin/blob/develop/CHANGELOG.md[Changelog] des Plugins dokumentiert.
+
+[[weiterfuehrende-links]]
+== Weiterführende Links
+
+* https://github.com/IsyFact/isy-checkstyle-plugin[Quellcode des IsyFact Checkstyle Plugin]
+* xref:methodik:java-programmierkonventionen/master.adoc[Java-Programmierkonventionen]
+* xref:werkzeuge:formatter.adoc[Formatter]
