@@ -2,6 +2,7 @@ package de.bund.bva.isyfact.ueberwachung.service.loadbalancer;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.Serial;
 
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -13,8 +14,8 @@ import de.bund.bva.isyfact.logging.LogKategorie;
 import de.bund.bva.isyfact.ueberwachung.common.konstanten.EreignisSchluessel;
 
 /**
- * Servlet zur Steuerung des Loadbalancings einer Webanwendungen. Der Loadbalancer kann die URL des Servlets
- * regelmäßig abfragen. Das Servlet liefert HTTP OK, falls die IsAlive-Datei gefunden wurde. Falls nicht wird
+ * Servlet zur Steuerung des Loadbalancings einer Webanwendung. Der Loadbalancer kann die URL des Servlets
+ * regelmäßig abfragen. Das Servlet liefert HTTP OK, falls die IsAlive-Datei gefunden wurde. Falls nicht, wird
  * HTTP FORBIDDEN an den aufrufenden Loadbalancer gemeldet. Der Loadbalancer verteilt dann keine Anfragen an
  * die Webanwendung mehr. Der Pfad zur Loadbalancer-Datei kann bei Bedarf &uuml;ber den Init-Parameter
  * {@link #PARAM_IS_ALIVE_FILE_LOCATION} angegeben werden. Ist der Parameter nicht gesetzt, wird der
@@ -23,6 +24,7 @@ import de.bund.bva.isyfact.ueberwachung.common.konstanten.EreignisSchluessel;
  */
 public class LoadbalancerServlet extends HttpServlet {
     /** UID der Klasse. */
+    @Serial
     private static final long serialVersionUID = 7248576003928677600L;
 
     /** Logger der Klasse. */
@@ -53,8 +55,10 @@ public class LoadbalancerServlet extends HttpServlet {
                 DEFAULT_IS_ALIVE_FILE_LOCATION);
             isAliveFileLocation = DEFAULT_IS_ALIVE_FILE_LOCATION;
         }
-        String realIsAliveFilePath = getServletContext().getRealPath(isAliveFileLocation);
-        isAliveFile = new File(realIsAliveFilePath);
+        String realPath = getServletContext().getRealPath(isAliveFileLocation);
+        isAliveFile = realPath != null
+                ? new File(realPath)
+                : new File(isAliveFileLocation);
 
         LOG.info(LogKategorie.JOURNAL, EreignisSchluessel.PLUEB00001, "IsAlive-Datei {} konfiguriert.",
             isAliveFile.getAbsolutePath());
@@ -68,8 +72,6 @@ public class LoadbalancerServlet extends HttpServlet {
      * @param resp
      *            Die Antwort des Loadbalancer-Servlets.
      *
-     * @throws IOException
-     *             Wenn die Antwort nicht geschrieben werden kann.
      */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
@@ -91,4 +93,5 @@ public class LoadbalancerServlet extends HttpServlet {
             resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
         }
     }
+
 }

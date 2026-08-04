@@ -1,6 +1,5 @@
 package de.bund.bva.isyfact.ueberwachung.config;
 
-import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,6 +8,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.servlet.util.matcher.PathPatternRequestMatcher;
 
 @Configuration(proxyBeanMethods = false)
 @EnableWebSecurity
@@ -34,7 +34,7 @@ public class LoadbalancerSecurityConfiguration {
     @Order(20)
     SecurityFilterChain loadbalancerSecurityFilterChain(HttpSecurity http) throws Exception {
         http
-                .securityMatcher(EndpointRequest.toAnyEndpoint())
+                .securityMatcher(PathPatternRequestMatcher.withDefaults().matcher(LOADBALANCER_SERVLET_PATH))
                 .authorizeHttpRequests(requests -> requests
                                 .requestMatchers(LOADBALANCER_SERVLET_PATH).permitAll())
                 .sessionManagement(sessionConfig ->
