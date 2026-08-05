@@ -25,6 +25,7 @@ target/
 # Ignore diagrams.net-specific files
 *.svg.bkp
 *.xml.bkp
+*.png.bkp
 
 # Ignore OS-specific files
 .DS_Store

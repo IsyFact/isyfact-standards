@@ -1,0 +1,236 @@
+= Service-Gateway
+
+Das Service-Gateway (SGW) ist eine Ausprägung des IT-Systemtyps xref:software-technisch/gateway.adoc[Gateway] der Referenzarchitektur.
+Es ermöglicht die Kommunikation zwischen den Services der Anwendungslandschaft und externen Systemen.
+Als Ingress-Gateway stellt es Services der Anwendungslandschaft für externe Systeme bereit, während es als Egress-Gateway externe Services in die Anwendungslandschaft integriert.
+
+Als zentrale Vermittlungskomponente übernimmt das SGW wesentliche Aufgaben wie die Authentifizierung und Autorisierung sowie die Transformation von Anfragen und Antworten zwischen den angebundenen Services.
+
+[[ueberblick]]
+== Überblick
+
+Gemäß der xref:software-technisch/kommunikation.adoc[Referenzarchitektur] kommunizieren Systeme auf Basis von Services. 
+Die Kommunikation findet ausschließlich nach dem Kommunikationsmuster xref:software-technisch/kommunikation.adoc#request-reponse[Request-Response] statt.
+Das bedeutet, dass Systeme ihre Fachlichkeit anderen Systemen in Form von Services anbieten.
+Hierbei ist zu unterscheiden, ob ausschließlich Systeme innerhalb der Anwendungslandschaft miteinander kommunizieren oder ob die Kommunikation auch Systeme einschließt, die außerhalb der Anwendungslandschaft liegen.
+
+Service-Gateways beinhalten die Implementierung von Services.
+Damit bieten sie externen Systemen Services von Geschäftsanwendungen und Querschnittsystemen an und machen externe Services für die Systeme der Anwendungslandschaft verfügbar.
+
+Ein Service-Gateway darf beliebig viele Services anbieten bzw. konsumieren.
+Allerdings sollte die Zuordnung von Services zu einem Service-Gateway nach fachlichen bzw. inhaltlichen Gesichtspunkten erfolgen.
+Maßgebend sind hier die fachliche Nähe und der Entwicklungszyklus der beteiligten Systeme, um Anpassungszyklen und Inbetriebnahmen möglichst einfach zu halten.
+
+So wird in der Regel pro Geschäftsanwendung je ein Service-Gateway für eingehende Aufrufe (Service-Ingress) und ausgehende Aufrufe (Service-Egress) mit allen zugehörigen Services angeboten (siehe <<image-beispiel-servicekommunikation-gemaess-referenzarchitektur>> und xref:software-technisch/kommunikation.adoc#kommunikation-mit-externen-systemen[Kommunikation mit externen Systemen]).
+
+:desc-image-beispiel-servicekommunikation-gemaess-referenzarchitektur: Beispiel Servicekommunikation gemäß Referenzarchitektur
+[id="image-beispiel-servicekommunikation-gemaess-referenzarchitektur", reftext = "{figure-caption} {counter:figures}"]
+.{desc-image-beispiel-servicekommunikation-gemaess-referenzarchitektur}
+image::referenzarchitektur:software-technisch/sgw/beispiel-servicekommunikation-gemaess-referenzarchitektur.dn.png[align = center, title-align=center]
+
+Wird ein Service von einem externen System angeboten, wird er als „externer Service“ bezeichnet.
+Ein Service-Egress-Gateway macht diesen „externen Service“ als „internen Service“ der Anwendungslandschaft verfügbar.
+Wird ein Service von einem internen System angeboten, so ist das ebenfalls ein „interner Service“. 
+Wenn ein Service-Ingress-Gateway diesen „internen Service“ einem System außerhalb der Anwendungslandschaft zugänglich macht, ist dies ein „externer Service“ der Anwendungslandschaft.
+
+NOTE: Wir verwenden den Begriff _Service_ in der allgemeinen Form, der sowohl für einen Webservice als auch für einen REST-Service steht.
+Der Begriff _Webservice_ steht hier ausschließlich im Kontext von SOA-Technologien gemäß der https://www.w3.org/TR/ws-arch/#whatis[Definition des W3C icon:external-link-square[],window=_blank], um die Kommunikation mit externen Systemen zu beschreiben.
+REST-Service steht naturgemäß für einen Dienst, der über REST kommuniziert (siehe dazu die ursprüngliche https://roy.gbiv.com/pubs/dissertation/rest_arch_style.htm[Definition von Roy Fielding icon:external-link-square[],window=_blank]).
+
+[[service-ingress-gateway]]
+== Service-Ingress-Gateway
+
+Dieser Abschnitt behandelt das Service-Ingress-Gateway.
+Zunächst werden die <<aufgaben-anforderungen,Aufgaben und Anforderungen>> dargelegt, gefolgt von der Darstellung der <<standardarchitektur,Standardarchitektur>>.
+Abschließend wird die Deaktivierung von Services in Abschnitt <<deaktivierung-von-services,Deaktivierung von Services>> thematisiert.
+
+[[aufgaben-anforderungen]]
+=== Aufgaben und Anforderungen
+
+Ein Service-Ingress-Gateway stellt eine interne Service-Schnittstelle für externe Systeme zur Verfügung.
+Während die Kommunikation mit externen Systemen via SOAP/HTTP oder REST/HTTP erfolgen kann, findet der Datenaustausch zwischen dem Ingress-Gateway und den internen Systemen ausschließlich über REST statt.
+Zur Bereitstellung des Services muss ein Service-Ingress-Gateway unter anderem die folgenden Aufgaben erledigen:
+
+* *Authentifizierung:* Jeder Service-Aufruf eines externen Systems muss authentifiziert werden.
+* *Autorisierung:* Das Service-Ingress-Gateway führt eine Autorisierung von Service-Aufrufen auf Ebene von Service-Operationen durch.
+Nicht autorisierte Service-Aufrufe sollen so frühzeitig abgeblockt werden.
+* *Transformation:* Das Service-Ingress-Gateway muss für jeden Service-Aufruf die externe Repräsentation der Daten in eine interne Datenrepräsentation der Daten transformieren.
+Für die Rückgabewerte und Fehlermeldungen müssen die internen Repräsentationen in die externen Repräsentationen transformiert werden.
+* *Service-Aufruf:* Nachdem die Authentifizierung und die Autorisierung erfolgreich war und die externe Datenrepräsentation in die interne Datenrepräsentation umgewandelt wurde, muss das Service-Ingress-Gateway den entsprechenden internen Service aufrufen.
+
+Weiter muss ein Service-Ingress-Gateway die folgenden Anforderungen erfüllen:
+
+* *Zustandslosigkeit:* Entsprechend einer service-orientierten Architektur sollen alle Service-Aufrufe zustandslos sein.
+Das bedeutet letztendlich, dass bereits die interne Service-Schnittstelle zustandslos sein muss.
+* *Nachrichten-Zuordnung:* Jeder Service-Aufruf soll eindeutig identifizierbar sein.
+Insbesondere soll auch in den Logging-Meldungen des aufgerufenen Systems eindeutig erkennbar sein, welcher Service-Aufruf verantwortlich für die Logging-Meldung ist.
+Hierzu wird für jeden Service-Aufruf eine eindeutige Correlation-ID erzeugt.
+* *Konfigurierbarkeit:* Die URLs, unter denen die interne Service-Schnittstelle und die externen Services verfügbar sind, müssen konfigurierbar sein.
+* *Skalierbarkeit:* Das Service-Ingress-Gateway muss sich horizontal auf verschiedene Clusterknoten verteilen lassen.
+* *Monitoring:* Das Monitoring im Service-Ingress-Gateway soll gemäß xref:ueberwachung::konzept.adoc[Konzept Überwachung icon:external-link-square[]] erfolgen.
+* *Logging:* Fehler sollen innerhalb des Service-Ingress-Gateways gemäß xref:isy-logging:konzept/master.adoc[Konzept Logging icon:external-link-square[]] geloggt werden.
+
+[[standardarchitektur]]
+=== Standardarchitektur
+
+Die Standardarchitektur des Service-Ingress-Gateways ist in <<image-standardarchitektur-service-ingress-gateway>> dargestellt.
+Gemäß dieser Architektur beinhaltet das Service-Ingress-Gateway zwei wesentliche Komponenten, welche stellvertretend die Komponenten `Provider` und `Adapter` implementieren:
+
+* *ServiceSst:* Die Service-Schnittstelle, die nach außen angeboten wird. 
+Wenn über SOAP kommuniziert wird, dann handelt es sich um eine Webservice-Schnittstelle, andernfalls um eine REST-Schnittstelle.
+* *ServiceAdapter:* Die eigentliche Implementierung des Service-Ingress-Gateways, welche die Daten des Service-Aufrufs auf die REST-Schnittstelle des internen Systems abbildet und diese aufruft.
+
+Für die Beschreibung wird beispielhaft SOAP als Kommunikationsprotokoll mit dem externen System angenommen.
+
+:desc-image-standardarchitektur-service-ingress-gateway: Standardarchitektur Service-Ingress-Gateway
+[id="image-standardarchitektur-service-ingress-gateway", reftext = "{figure-caption} {counter:figures}"]
+.{desc-image-standardarchitektur-service-ingress-gateway}
+image::referenzarchitektur:software-technisch/sgw/standardarchitektur-service-ingress-gateway.dn.png[align = center, title-align=center]
+
+Ein Service-Ingress-Gateway nimmt über ein Webservice-Framework den Webservice-Aufruf des externen Systems entgegen.
+Das Webservice-Framework erzeugt dann auf Basis der übertragenen SOAP-Nachricht die passenden Modellobjekte (z.B. JAXB-Beans) und übergibt diese an die Webservice-Schnittstelle des Service-Ingress-Gateways (`ServiceSst`).
+
+Die Webservice-Schnittstelle (Komponente `ServiceSst`) ist intern analog zu REST-Service-Schnittstellen aufgebaut.
+Sie führt zunächst eine Authentifizierung und eine erste Autorisierung des aufrufenden externen Systems durch.
+Falls das externe System am IAM-System erfolgreich authentifiziert werden konnte und falls das externe System autorisiert ist, den Webservice aufzurufen, wird die Komponente `ServiceAdapter` aufgerufen.
+
+Die Komponente `ServiceAdapter` wandelt mithilfe von Mappings in die passenden Transportobjekte der REST-Schnittstelle des internen Systems um.
+Anschließend ruft sie die Schnittstelle des internen Systems über REST auf.
+Das Ergebnis des Schnittstellenaufrufs wird mithilfe von Mapping wieder in ein Objekt umgewandelt und an die Webservice-Schnittstelle (`ServiceSst`) zurückgegeben, die ihrerseits das Ergebnis über das Webservice-Framework an den externen Aufrufer zurückgibt.
+
+Tritt während der Verarbeitung des Service-Aufrufs eine Exception auf, so wird diese durch die Exception-Fassade in der Komponente `ServiceSst` abgefangen und in eine externe Fehlermeldung umgewandelt.
+Diese externe Fehlermeldung wird dann vom Webservice-Framework als Web-Fault an den Aufrufer zurückgegeben.
+
+[[authentifizierung-autorisierung]]
+==== Authentifizierung und Autorisierung
+
+Service-Aufrufer müssen sich xref:software-technisch/sicherheit.adoc#zertifikatsbasierte-authentifizierung[zertifikatsbasiert authentifizieren].
+Bei der Kommunikation über HTTP nimmt der Loadbalancer dazu die SSL-Terminierung vor.
+
+Die Autorisierung kann mithilfe eines im <<table-auth-header,Authorization Header>> gesetzten Bearer Tokens durchgeführt werden, welches der aufgerufene Service zuvor vom IAM-System bezieht.
+
+:desc-table-auth-header: Authorization Header
+[id="table-auth-header",reftext="{table-caption} {counter:tables}"]
+.{desc-table-auth-header}
+[cols="3,2",options="header"]
+|===
+| Authorization-Header | Beschreibung
+| `Authorization` | Der Authorization Header enthält das Bearer Token, welches zur Autorisierung des Service-Aufrufs verwendet wird.
+|===
+
+Bei der Weiterleitung der Anfragen an das interne System ist keine erneute Authentifizierung des aufrufenden Systems mehr notwendig, da die bereits durchgeführte Autorisierung im `SecurityContext` von Spring gespeichert und bei der Weiterleitung von Anfragen automatisch mit übermittelt wird.
+
+[[fehlerbehandlung]]
+==== Fehlerbehandlung
+
+Die Fehlerbehandlung innerhalb des Service-Ingress-Gateways richtet sich nach den Vorgaben des xref:isyfact-standards-doku:isy-exception-core:konzept/master.adoc[Konzepts zur Fehlerbehandlung] der IsyFact.
+
+Aus Sicherheitsgründen gibt das Service-Ingress-Gateway einige der Fehlermeldungen nicht im Original-Fehlertext an externe Systeme weiter.
+So kann der Aufrufer beispielsweise bei fehlgeschlagenem Login nicht erkennen, dass der Grund ein falsches Kennwort war.
+Fachliche und technische Fehler der internen Systeme werden nicht in eine externe Darstellung umgewandelt.
+Sie werden durchgereicht bzw. zu einer einzigen Fehlermeldung aggregiert.
+
+[[validierung]]
+==== Validierung
+
+Das Service-Ingress-Gateway kann beim Mapping von XML-Requests prüfen, ob diese in ihrer Struktur korrekt sind.
+Hierbei findet eine Validierung der Nachrichten gegen das XML-Schema statt.
+
+*Hintergrund:* Die internen IT-Systeme haben unabhängig von den Service-Gateways die Pflicht, eine vollständige Validierung durchzuführen.
+Bestimmte Fehler können bereits durch das Service-Gateway behandelt werden und sparen so die Weiterleitung an das interne System ein.
+
+Für weitere Informationen zur Validierung von REST-Anfragen siehe xref:referenzarchitektur:software-technisch/backend/service/rest-querschnitt.adoc[Validierung von Anfragen].
+
+[[deaktivierung-von-services]]
+=== Deaktivierung von Services
+
+Ein Service-Ingress-Gateway wird so implementiert, dass es durch xref:referenzarchitektur:software-technisch/backend/konfiguration.adoc[Konfiguration] z.B. mittels Schalter in der Datei `application.properties` deaktiviert werden kann, um beispielsweise Wartungsarbeiten am dahinter gelagerten Service vorzunehmen.
+
+Das Verhalten ist dabei wie folgt:
+
+* Im aktivierten Zustand werden die Anfragen regulär an den inneren Service gesendet.
+* Im deaktivierten Zustand wird ein Fehler mit einem entsprechenden Fehlercode ausgegeben und einer Fehlermeldung (z.B. "Der aufgerufene Service ist deaktiviert.") an den externen Aufrufer zurückgeliefert.
+
+[[service-egress-gateway]]
+== Service-Egress-Gateway
+
+Dieser Abschnitt befasst sich mit dem Service-Egress-Gateway.
+Die Darstellung beginnt mit den <<aufgaben-anforderungen-service-egress-gateway,Aufgaben und Anforderungen>>, gefolgt von der <<standardarchitektur-service-egress-gateway,Standardarchitektur>>.
+Die <<sicherheit,Sicherheitsaspekte>> werden im nachfolgenden Abschnitt erläutert.
+
+[[aufgaben-anforderungen-service-egress-gateway]]
+=== Aufgaben und Anforderungen
+
+Service-Egress-Gateways übernehmen die technische Kommunikation mit dem externen Service sowie die Abbildung von Transportobjekten des Services auf Geschäftsobjekte und Exceptions des Backends.
+
+[[standardarchitektur-service-egress-gateway]]
+=== Standardarchitektur
+
+Die Standardarchitektur des Service-Egress-Gateways ist in <<image-standardarchitektur-service-egress-gateway>> dargestellt.
+Gemäß dieser Architektur gliedert sich das Service-Egress-Gateway in die zwei Komponenten `Provider` und `Adapter`, welche jeweils durch `ServiceSst` und `ServiceAdapter` implementiert sind:
+
+* *ServiceSst:* Die REST-Schnittstelle, über die der externe Service den Systemen der Anwendungslandschaft angeboten wird.
+Im Falle von SOAP als Kommunikationsprotokoll handelt es sich um eine Webservice-Schnittstelle.
+* *ServiceAdapter:* Die eigentliche Implementierung des Service-Egress-Gateways, welche die Daten des internen Service-Aufrufs auf die Webservice-Schnittstelle des externen Systems abbildet und diese aufruft.
+
+Durch die Aufteilung eines Service-Egress-Gateways in diese beiden Komponenten kann er sauber in die Schichten der internen Strukturierung des Service-Gateways eingebunden werden (siehe <<image-standardarchitektur-service-egress-gateway>>).
+
+:desc-image-standardarchitektur-service-egress-gateway: Standardarchitektur Service-Egress-Gateway
+[id="image-standardarchitektur-service-egress-gateway", reftext = "{figure-caption} {counter:figures}"]
+.{desc-image-standardarchitektur-service-egress-gateway}
+image::referenzarchitektur:software-technisch/sgw/standardarchitektur-service-egress-gateway.dn.png[align = center, title-align=center]
+
+Der grobe Ablauf bei der Bearbeitung einer Anfrage beginnt mit einem Request eines internen Systems an das Service-Egress-Gateway im Service-Gateway geschickt wird.
+Die Authentifizierungsdaten werden dabei im Request des internen Systems mitgeschickt.
+So können Systeme aus verschiedenen Domänen das gleiche Service-Egress-Gateway verwenden, obwohl sie unterschiedliche Authentifizierungsinformationen für den Aufruf des externen Service benötigen.
+Authentifizierungsdaten sind üblicherweise Kennung, Kennwort und Zertifikat.
+
+Das Service-Egress-Gateway nimmt den Request des internen Systems über die Komponente `ServiceSst` entgegen.
+Diese Komponente implementiert einen normalen REST-Service und führt zunächst eine Autorisierung des Service-Aufrufs durch.
+Dabei wird geprüft, ob der Aufrufer aus Sicht der Anwendungslandschaft das Recht hat, den externen Service zu nutzen.
+Ist das der Fall, wird die Komponente `ServiceAdapter` aufgerufen.
+
+Der `ServiceAdapter` wandelt den Request des internen Systems in das benötigte Format des externen Services um.
+
+Die Verbindung zum externen Service wird durch den Adapter des Egress-Gateways aufgebaut.
+Je nach Konfiguration und Art der Kommunikation sorgt der Adapter des Egress-Gateways für den Aufbau einer verschlüsselten Verbindung über das HTTPS-Protokoll.
+Näheres dazu wird in Abschnitt <<sicherheit>> beschrieben.
+
+Bei Kommunikation über SOAP gibt das Webservice-Framework die Antwort des externen Service wieder als JAXB-Objekte an den Adapter zurück, der sie seinerseits an die `ServiceSst` zurückgibt.
+
+Die Schnittstelle des Egress-Gateways erzeugt daraus Transfer-Objekte oder ggf. Fehler-Exceptions und gibt diese als Ergebnis des REST-Aufrufs an das interne System zurück.
+
+Je nach Anwendungsfall kann SOAP oder REST als Protokoll für die Kommunikation mit dem externen System verwendet werden.
+Das Nachrichtenformat ist mit dem Anbieter des externen Service abzustimmen.
+Die  Kommunikation zwischen dem Egress-Service-Gateway und dem internen System findet ausschließlich unter Verwendung von REST statt.
+
+[[sicherheit]]
+=== Sicherheit
+
+Diese Kapitel behandelt die Absicherung der Verbindung eines Service-Egress-Gateways zu einem externen Service.
+
+[[grundlagen-festlegungen]]
+==== Zertifikatsbasierte Absicherung
+Informationen zur Nutzung von Zertifikaten sind in xref:software-technisch/sicherheit.adoc#nutzung-von-zertifikaten[IsyFact Dokumentation zu Zertifikaten] zu finden.
+
+[[kennungkennwort-basierte-client-authentifizierung]]
+==== Client-Credentials-basierte Client-Authentifizierung
+
+Sowohl für unverschlüsselte als auch für verschlüsselte Verbindungen kann eine Authentifizierung des Service-Egress-Gateways gegenüber dem externen Service auf Basis von Client-Credentials vereinbart werden.
+Die Konfiguration der Authentifizierung erfolgt über die üblichen Application-Properties des Springframeworks für die Definition von OAuth2-Client-Registrierungen einer `isy-security oauth2ClientRegistrationId` gemäß dem xref:security::konzept.adoc[Konzept Security icon:external-link-square[]].
+
+[[validierung-service-egress-gateway]]
+=== Validierung
+
+Das Service-Egress-Gateway nimmt keine Validierungen vor.
+Die Validierung der Antwort geschieht im internen System.
+Sollte eine Validierung innerhalb der Anwendungslandschaft notwendig sein, wird diese im internen System ausgeführt.
+
+[[monitoring]]
+== Monitoring
+
+Die Überwachung erfolgt sowohl im Service-Ingress-Gateway als auch im Service-Egress-Gateway, entsprechend dem xref:ueberwachung::konzept.adoc[Konzept Überwachung icon:external-link-square[]], per Spring Boot Actuator.
+Standardmäßig werden die Actuator-Endpunkte `health`, `info` und `metrics` über HTTP bereitgestellt.
+Die Liveness- und Readiness-Zustände werden als Health-Gruppen unter `/actuator/health/liveness` und `/actuator/health/readiness` bereitgestellt.
+
+Die bereitgestellten Endpunkte sind entsprechend den xref:ueberwachung::nutzungsvorgaben.adoc[Nutzungsvorgaben Überwachung icon:external-link-square[]] durch Authentifizierung abzusichern.

@@ -366,6 +366,7 @@ Dadurch skalieren sie gut horizontal und können große Mengen an Events verarbe
 Dadurch bedeuten sie allerdings auch einen vergleichsweise hohen Aufwand bei Installation, Konfiguration und Betrieb als Infrastrukturkomponenten anderer Kommunikationsmuster.
 Sie stellen wesentlich höhere Anforderungen an die Hardware-Infrastruktur (Rechen- und Speicherkapazität) und an andere Infrastrukturkomponenten (u.a. Monitoring).
 
+[[kommunikation-mit-externen-systemen]]
 == Kommunikation mit externen Systemen
 
 Die Kommunikation mit xref:glossary::terms-definitions.adoc#externes-system[externen Systemen] basiert auf Services, die beispielsweise über REST- oder SOAP-Schnittstellen bereitgestellt werden.

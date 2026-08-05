@@ -1,5 +1,6 @@
 # 5.1.0
 ### FEATURES
+- `IFS-5652`: [isyfact-standards-doc] Analyse+Umsetzung: Dokumentation aus isy-sgw-utilities Open Source stellen
 - `IFS-4991`: [isyfact-standards-doc] Kapitel "Logging, Monitoring & Telemetrie" in der Referenzarchitektur Frontend ergänzt
 - `IFS-5663`: [isyfact-standards-doc] Entfernung der Word-Vorlagen für die Erstellung von Systementwurf und Systemhandbuch
 - `IFS-5673`: [isyfact-standards-doc] Aufnahme von `apache.santuario:xmlsec` im Produktkatalog
