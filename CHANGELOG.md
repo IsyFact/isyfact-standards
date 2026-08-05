@@ -1,5 +1,6 @@
 # 5.1.0
 ### FEATURES
+- `IFS-4991`: [isyfact-standards-doc] Kapitel "Logging, Monitoring & Telemetrie" in der Referenzarchitektur Frontend ergänzt
 - `IFS-5663`: [isyfact-standards-doc] Entfernung der Word-Vorlagen für die Erstellung von Systementwurf und Systemhandbuch
 - `IFS-5673`: [isyfact-standards-doc] Aufnahme von `apache.santuario:xmlsec` im Produktkatalog
 - `IFS-4990`: [isyfact-standards-doc] Kapitel "Daten & Zustandsmanagement" in der Referenzarchitektur Frontend ergänzt
