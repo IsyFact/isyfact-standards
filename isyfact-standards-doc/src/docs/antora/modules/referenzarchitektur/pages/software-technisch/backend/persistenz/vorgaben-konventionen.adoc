@@ -354,7 +354,7 @@ Für neue Entitäten ohne Verwendung eines sequenzbasierten Primärschlüssels i
 Bei zeitkritischen Massendaten ist UUID Version 7 der Version 4 vorzuziehen.
 ****
 
-CAUTION: Sequenzbasierte künstliche Primärschlüssel gelten ab als deprecated für neu exponierte Identifikatoren.
+Sequenzbasierte künstliche Primärschlüssel gelten ab als deprecated für neu exponierte Identifikatoren.
 Bestehende, ausschließlich intern verwendete Primärschlüssel (z. B. in n:m-Zuordnungstabellen ohne externe Sichtbarkeit) sind von dieser Regelung nicht betroffen.
 
 .Konfiguration einer UUID als künstliche ID (Beispiel)
