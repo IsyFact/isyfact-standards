@@ -309,12 +309,70 @@ Es dürfen, neben numerischen Werten, auch Zeichenketten oder Datumsangaben sein
 [[konfiguration-der-id-und-sequenz]]
 ==== Konfiguration künstlicher IDs
 
-Künstliche IDs werden in JPA mit den Annotationen `@Id` und `@GeneratedValue` markiert.
-Der Parameter `strategy` der Annotation `@GeneratedValue` muss in jedem Fall `AUTO` sein.
+Für künstliche IDs stehen zwei Strategien zur Verfügung:
+sequenzbasierte numerische IDs und UUID-basierte IDs.
+Die Wahl der Strategie betrifft die technische Primärschlüssel-Generierung in der Persistenzschicht und ist getrennt von der Frage zu behandeln, welcher Identifikator nach außen (REST, Events, Logs) exponiert wird (siehe <<oeffentliche-kennung>>).
 
-CAUTION: Es muss unbedingt darauf geachtet werden, das Inkrement (`INCREMENT BY`) der entsprechenden Datenbanksequenz auf denselben Wert einzustellen, der auch im Parameter `allocationSize` der Annotation `@SequenceGenerator` angegeben ist.
+.icon:shield[title=Sicherheit] Die Verwendung von UUIDs ersetzt keine Autorisierungsprüfung.
+****
+Ein Backend, das Ressourcen ohne Prüfung der Zugriffsberechtigung anhand des übergebenen Identifikators ausliefert, ist unabhängig vom ID-Schema fehlerhaft.
+UUIDs reduzieren die Angreifbarkeit durch Enumeration, sie stellen keinen Ersatz für die vorgeschriebene Autorisierung an der Service- bzw. Use-Case-Grenze dar.
+****
 
-.Konfiguration der ID und Sequenz
+.Künstliche IDs: Vor- und Nachteile nach Strategie
+[cols="1,2,2", options="header"]
+|===
+|Kriterium |Sequenz (numerisch) |UUID
+
+|Erkennbarkeit / Enumeration
+|Werte sind fortlaufend und vorhersagbar
+|Werte sind praktisch nicht zu erraten
+
+|Index-Verhalten (Schreiben)
+|Anfügend, keine Fragmentierung
+|Bei UUID v4 (zufällig) zufällige Einfügepositionen, Fragmentierung des B-Tree-Index.
+Bei UUID v7 (zeitbasiert, RFC 9562) weitgehend anfügendes Verhalten, vergleichbar mit Sequenzen.
+
+|Speicherbedarf
+|4–8 Byte
+|16 Byte
+
+|Abhängigkeiten
+|Keine
+|UUID v4: +
+keine `UUID.randomUUID()`. +
+ UUID v7: +
+abhängig von der eingesetzten Hibernate-Version.
+|===
+
+.icon:university[title=Architekturregel] Wahl der künstlichen-ID-Strategie
+****
+Für Entitäten, deren künstliche ID an einer Systemgrenze (REST-Pfad, Event, Nachricht) sichtbar wird, ist eine separate, UUID-basierte öffentliche Kennung zu vergeben.
+Die interne technische ID (Primärschlüssel in der Persistenzschicht) kann unverändert sequenzbasiert bleiben, sofern sie die Systemgrenze nicht verlässt.
+
+Für neue Entitäten ohne Verwendung eines sequenzbasierten Primärschlüssels in bestehenden Fremdschlüsselbeziehungen kann der Primärschlüssel selbst als UUID angelegt werden.
+Bei zeitkritischen Massendaten ist UUID Version 7 der Version 4 vorzuziehen.
+****
+
+CAUTION: Sequenzbasierte künstliche Primärschlüssel gelten ab als deprecated für neu exponierte Identifikatoren.
+Bestehende, ausschließlich intern verwendete Primärschlüssel (z. B. in n:m-Zuordnungstabellen ohne externe Sichtbarkeit) sind von dieser Regelung nicht betroffen.
+
+.Konfiguration einer UUID als künstliche ID (Beispiel)
+[source,java]
+----
+@Entity
+public class MyEntity {
+
+    @Id
+    @GeneratedValue
+    @UuidGenerator // Default: UUID v4 (RANDOM)
+    private UUID id;
+
+}
+----
+
+[[oeffentliche-kennung]]
+.Konfiguration einer separaten öffentlichen Kennung bei sequenzbasiertem Primärschlüssel
 [source,java]
 ----
 @Entity
@@ -322,8 +380,12 @@ public class MyEntity {
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO, generator="my_seq")
-    @SequenceGenerator(name="my_seq",sequenceName="MY_SEQ", allocationSize=50)
-    private int id;
+    @SequenceGenerator(name="my_seq", sequenceName="MY_SEQ", allocationSize=50)
+    private long id; // ausschließlich technisch, der die Persistenzschicht nicht
+
+    @Column(name = "oeffentliche_kennung", unique = true, nullable = false)
+    @UuidGenerator
+    private UUID oeffentlicheKennung; // in Verwendung an einer Systemgrenze ( z. B. REST-Pfad, Event, Nachricht) zu verwenden
 
 }
 ----
@@ -372,7 +434,7 @@ Die folgenden Best Practices helfen bei der Verwendung von Assoziationen:
 [[bidirektionale-assoziationen]]
 ==== Bidirektionale Assoziationen
 
-Bidirektionale Assoziation beschreibt die Beziehung zwischen zwei Entitäten, wobei jede Entität einen Verweis auf die andere Entität besitzt. 
+Bidirektionale Assoziation beschreibt die Beziehung zwischen zwei Entitäten, wobei jede Entität einen Verweis auf die andere Entität besitzt.
 Sie ermöglicht es ihnen, von einer Entität zu einer anderen Entität zu navigieren, die mit ihr verbunden ist, und umgekehrt.
 
 Es gibt vier verschiedene Arten der bidirektionalen Assoziation, die wie folgt aussehen:
