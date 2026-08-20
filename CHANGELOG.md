@@ -1,5 +1,6 @@
 # 5.1.0
 ### FEATURES
+- `IFS-5651`: [isyfact-standards-doc] Referenzarchitektur (Vorgaben und Konventionen JPA/Hibernate) um Vorgabe für künstliche IDs ergänzt
 - `IFS-5652`: [isyfact-standards-doc] Analyse+Umsetzung: Dokumentation aus isy-sgw-utilities Open Source stellen
 - `IFS-4991`: [isyfact-standards-doc] Kapitel "Logging, Monitoring & Telemetrie" in der Referenzarchitektur Frontend ergänzt
 - `IFS-5663`: [isyfact-standards-doc] Entfernung der Word-Vorlagen für die Erstellung von Systementwurf und Systemhandbuch
@@ -56,6 +57,9 @@ Die Beschreibung der technischen Referenzarchitektur erfolgte bisher auf Basis v
 Dies war bis einschließlich IsyFact 3 korrekt, da die Referenzarchitektur bis dahin monolithische IT-Systeme zur Umsetzung von Anwendungen vorsah. 
 Ab der IsyFact 4 zerfallen die Anwendungen in mehrere IT-Systeme der Typen Backend, Frontend, Batch und Gateway.
 Diese Änderung wurde in der Dokumentation nachgezogen.
+
+Für künstliche IDs, die an einer Systemgrenze exponiert werden, ist zusätzlich zum internen technischen Primärschlüssel eine separate, UUID-basierte öffentliche Kennung zu vergeben.
+Sequenzbasierte künstliche Primärschlüssel gelten für neu zu exponierende Identifikatoren als deprecated; rein intern verwendete Primärschlüssel sind davon nicht betroffen.
 
 ### Dokumentation
 
