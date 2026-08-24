@@ -381,7 +381,7 @@ public class MyEntity {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO, generator="my_seq")
     @SequenceGenerator(name="my_seq", sequenceName="MY_SEQ", allocationSize=50)
-    private long id; // ausschließlich technisch, der die Persistenzschicht nicht
+    private long id; // ausschließlich technisch, der die Persistenzschicht nicht verlässt
 
     @Column(name = "oeffentliche_kennung", unique = true, nullable = false)
     @UuidGenerator
