@@ -385,7 +385,7 @@ public class MyEntity {
 
     @Column(name = "oeffentliche_kennung", unique = true, nullable = false)
     @UuidGenerator
-    private UUID oeffentlicheKennung; // in Verwendung an einer Systemgrenze ( z. B. REST-Pfad, Event, Nachricht) zu verwenden
+    private UUID oeffentlicheKennung; // zur Verwendung an einer Systemgrenze (z. B. REST-Pfad, Event, Nachricht)
 
 }
 ----
