@@ -9,4 +9,6 @@ on:
 
 jobs:
   check-commit-message:
+    permissions:
+      contents: read
     uses: IsyFact/isy-github-actions-templates/.github/workflows/commit_message_checker_template.yml@v3.0.0
