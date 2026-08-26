@@ -25,6 +25,7 @@ jobs:
       jdk-version: 17
       version: ${{ needs.Version.outputs.next-version }}
       maven-opts: '-PcentralSnapshot'
+      sonar-skip: true
     secrets:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
