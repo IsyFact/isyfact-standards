@@ -41,7 +41,7 @@ Im Vergleich zur xref:referenzarchitektur:software-technisch.adoc[allgemeinen Da
 
 [[software-technisch-frontend]]
 .Darstellung der Frontends in der softwaretechnischen Architektur inklusive Security
-image::referenzarchitektur:software-technisch/frontend/software-technisch-frontend.svg[width=50%,align=center]
+image::referenzarchitektur:software-technisch/frontend/software-technisch-frontend.drawio.svg[width=50%,align=center]
 
 Durch die Verwendung von SPAs befindet sich der Frontend-Teil der GA im Webbrowser des Anwenders, während der Backend-Teil weiterhin auf den Servern der Anwendungslandschaft betrieben wird.
 Zur strukturierten, sicheren und einheitlichen Anbindung der Frontends an die Backend-Systeme ist verpflichtend, ein zentrales API-Gateway als querschnittliche Komponente vorzuschalten.
@@ -53,7 +53,7 @@ Das API-Gateway ist ein Bestandteil der Systemlandschaft und wird in der xref:re
 
 [[software-technisch-frontend-bff]]
 .Darstellung der Frontends in der softwaretechnischen Architektur mit der Variante BFF
-image::referenzarchitektur:software-technisch/frontend/software-technisch-frontend-bff.svg[width=50%,align=center]
+image::referenzarchitektur:software-technisch/frontend/software-technisch-frontend-bff.drawio.svg[width=50%,align=center]
 
 Dabei wird eine zusätzliche Anwendung zwischen Backend und Frontend auf der Serverseite vorgesehen, um das Backend über eine spezifische API vom Frontend zu entkoppeln.
 Diese Vorgehensweise erhöht zunächst die Komplexität, ist jedoch ein bewährtes Muster, um folgende Herausforderungen zu lösen:
@@ -620,9 +620,329 @@ Eine Weitergabe an Drittdienste (z. B. externe Analyse- oder Tracking-Dienste) M
 Die Weitergabe von Daten an Drittdienste SOLLTE auf das notwendige Minimum beschränkt werden.
 ****
 
+[[qualitaetssicherung]]
 == Qualitätssicherung
 
-NOTE: Abschnitt ist noch WIP
+Dieses Kapitel beschreibt die verbindlichen Vorgaben zur Qualitätssicherung (QS) von Frontends im Geltungsbereich dieser Referenzarchitektur.
+Es konkretisiert <<AG-3>> (Standardisierung vor projektspezifischen Sonderlösungen) und <<AG-4>> (Evolvierbarkeit und Austauschbarkeit) für die Bereiche Teststrategie, statische Codeanalyse und automatisierte Qualitätsprüfungen.
+
+[[qs-ziele-abgrenzung]]
+=== Ziele und Abgrenzung
+
+* Zielsetzung: nachvollziehbare, reproduzierbare und automatisiert prüfbare Qualität von Frontends über den gesamten Lebenszyklus – als Voraussetzung für Wartbarkeit, Sicherheit und Barrierefreiheit.
+* *Werkzeugneutralität*: Verbindlich sind ausschließlich die Qualitätsziele, Prüfkriterien und Quality Gates.
+Vorgaben werden daher als prüfbare Kriterien formuliert (z. B. „Testausführung MUSS automatisiert in der CI/CD-Pipeline erfolgen“), nicht als Werkzeugkonfiguration.
+* *Werkzeugauswahl*: Vorgegebene und empfohlene Produkte sind im xref:einstieg:produkte.adoc#produktkatalog[Produktkatalog der IsyFact] festgelegt – für Frontends insbesondere im xref:einstieg:produktkatalog/technologiestackTypescriptAngular.adoc[Technologiestack Typescript/Angular]; die xref:einstieg:produktkatalog/negativliste.adoc[Negativliste] benennt untersagte Produkte.
+Innerhalb dieses Rahmens bleibt die Werkzeugwahl Projektentscheidung; Abweichungen vom Produktkatalog MÜSSEN begründet und dokumentiert werden (→ <<AG-3>>).
+* Alle in diesem Kapitel genannten Werkzeuge sind Beispiele zur Veranschaulichung der technischen Machbarkeit und haben keinen normativen Charakter.
+* Abgrenzung: Sicherheitsprüfungen der Lieferkette (Dependency-, Secret-Scanning, SBOM) sind bereits in <<Supply-Chain-Sicherheit>> geregelt und werden hier nur als Quality Gate referenziert, nicht erneut beschrieben.
+
+[[qs-grundsaetze]]
+=== Grundsätze der Qualitätssicherung
+
+* *Shift Left*: Qualitätsprüfungen SOLLEN so früh wie möglich greifen (lokal in der Entwicklungsumgebung, spätestens im Pull Request) statt erst in der Abnahme.
+* *Automatisierung vor manueller Prüfung*: Jede wiederholbare Prüfung MUSS automatisiert und in der CI/CD-Pipeline verankert sein; manuelle Tests bleiben auf explorative und fachliche Abnahmetests beschränkt.
+* *Verbindlichkeit statt Empfehlung*: Verletzte Quality Gates führen zum Abbruch der Pipeline; Ausnahmen MÜSSEN begründet, befristet und dokumentiert werden.
+* *Qualität ist Teamverantwortung*: QS ist integraler Bestandteil der Definition of Done und nicht an eine nachgelagerte Testphase delegierbar.
+* *Frontend-spezifische Risiken*: Da das Frontend gemäß <<AG-2>> nicht vertrauenswürdig ist, ersetzen Frontend-Tests keine serverseitige Validierung; sie sichern Darstellung, Bedienbarkeit und Integration ab.
+
+[[qs-teststrategie]]
+=== Teststrategie für Frontends
+
+Die Teststrategie legt fest, welche Eigenschaften eines Frontends auf welcher Teststufe abgesichert werden.
+Leitgedanke ist eine risikoorientierte Verteilung der Testfälle: Ein Fehler SOLL auf der niedrigsten Teststufe gefunden werden, auf der er feststellbar ist.
+
+Die Teststufen unterscheiden sich in Realitätsnähe und Kosten: Je höher die Stufe, desto aussagekräftiger ist das Ergebnis, desto langsamer, störanfälliger und wartungsintensiver ist der Test jedoch auch.
+Eine Konzentration auf hohe Teststufen – insbesondere auf End-to-End-Tests – führt zu langen Rückmeldezeiten, instabilen Testläufen und hohen Wartungskosten und widerspricht dem Grundsatz *Shift Left* (siehe <<qs-grundsaetze>>).
+Umgekehrt ersetzt eine hohe Abdeckung auf niedrigen Teststufen nicht den Nachweis, dass die Anwendung als Ganzes bedienbar ist.
+
+Die Verteilung ist kein Selbstzweck, sondern folgt dem fachlichen Risiko: Fachlich kritische Geschäftsvorfälle MÜSSEN durchgängig über alle Stufen abgesichert sein, während unkritische Oberflächenbereiche auf den unteren Stufen abgedeckt werden können.
+
+
+[[test-pyramide-frontend]]
+.Testpyramide für Frontends
+image::referenzarchitektur:software-technisch/frontend/testpyramide-frontend.drawio.svg[width=60%,align=center]
+
+
+<<qs-teststufen>> beschreibt die Teststufen der Pyramide von der Basis bis zur Spitze.
+
+.Teststufen der Frontend-Teststrategie
+[[qs-teststufen]]
+[cols="1,2,2,1,1",options="header"]
+|===
+|Teststufe |Prüfgegenstand |Abgrenzung und Testumgebung |Relativer Umfang |Quality Gate
+
+|Unit-Tests
+|Isolierte Logik ohne Oberflächenbezug: Services, Pipes, Utilities, Validierungen, Zustandsübergänge
+|Ohne DOM- und Netzwerkabhängigkeit; Fremdsysteme werden konsequent über Testdoubles ersetzt
+|hoch
+|<<qs-qg-0>>, <<qs-qg-1>>
+
+|Komponententests
+|UI-Komponenten inkl. Rendering, Eingabeverarbeitung, Ereignisbehandlung und Darstellung von Zuständen
+|Gerendertes Komponenten-DOM ohne echtes Backend; Interaktion SOLL über nutzerzentrierte Selektoren (Rollen, Beschriftungen) statt über Implementierungsdetails erfolgen
+|hoch
+|<<qs-qg-0>>, <<qs-qg-1>>
+
+|Integrations- und Contract-Tests
+|Zusammenspiel mehrerer Komponenten sowie die Backend-Anbindung gegen die vereinbarte Schnittstelle
+|Reale HTTP-Schicht gegen einen aus der OpenAPI-Spezifikation abgeleiteten Mock- bzw. Contract-Server (siehe xref:software-technisch/services/rest.adoc[REST-Vorgaben]), damit Schnittstellenänderungen im Build und nicht erst zur Laufzeit auffallen
+|mittel
+|<<qs-qg-2>>
+
+|End-to-End-Tests
+|Fachlich kritische Nutzerpfade über Komponentengrenzen hinweg, inklusive Authentifizierung und Autorisierung gegen den IAM-Service
+|Ausgelieferte Anwendung im realen Browser gegen eine produktionsnahe Umgebung; Tests MÜSSEN deterministisch und unabhängig von Testdatenreihenfolgen ablaufen
+|gering
+|<<qs-qg-3>>, <<qs-qg-4>>
+|===
+
+[[qs-nicht-funktionale-tests]]
+==== Nicht-funktionale Tests
+
+Neben der fachlichen Korrektheit MÜSSEN Frontends auch hinsichtlich ihrer nicht-funktionalen Eigenschaften abgesichert werden.
+Diese Eigenschaften sind für Nutzende unmittelbar erfahrbar und lassen sich nachträglich meist nur mit hohem Aufwand korrigieren, da sie strukturelle Änderungen an bereits abgenommenen Oberflächen erfordern.
+
+Die folgenden Prüfungen SOLLEN daher fester Bestandteil der automatisierten Testausführung sein und nicht als nachgelagerte Sonderaktivität behandelt werden.
+Sie ergänzen die Teststufen aus <<qs-teststufen>> und werden auf denselben Stufen ausgeführt.
+
+* *Performance*: Messung und Budgetierung von Bundle-Größen und Ladezeiten; Überschreitungen definierter Budgets SOLLEN die Pipeline verletzen.
+* *Sicherheit*: Automatisierte statische Sicherheitsanalyse (SAST) des Frontend-Codes zur Erkennung unsicherer Muster gemäß <<xss_pravention_im_code>>, insbesondere direkter DOM-Manipulation sowie der bewussten Umgehung der Framework-eigenen Sanitisierung.
+* *Kompatibilität*: Nachweis der Lauffähigkeit auf den für die Anwendung freigegebenen Browsern und Browser-Versionen.
+* *Barrierefreiheit*: Automatisierte Prüfung der maschinell entscheidbaren Kriterien (u. a. Alternativtexte, Label-Zuordnung, ARIA-Attribute, Kontrastwerte) auf Komponenten- und Seitenebene.
+Automatisierte Prüfungen decken nur einen Teil der Anforderungen ab; sie ersetzen weder die manuelle Prüfung noch eine formale Konformitätsbewertung (siehe <<ux-ui-accessibility>>).
+
+[[qs-modularisierte-frontends]]
+==== Besonderheiten modularisierter Frontends
+
+Wird ein Frontend gemäß <<AG-9>> als modularisierte Anwendung mit Native Federation umgesetzt, verschiebt sich das zentrale Qualitätsrisiko: Die einzelnen Fachmodule werden unabhängig voneinander gebaut und bereitgestellt, treffen aber erst zur Laufzeit in der Shell-Anwendung aufeinander.
+
+Fehler entstehen dadurch typischerweise nicht innerhalb eines Moduls, sondern an dessen Integrationsgrenzen – und werden von den QS-Maßnahmen eines einzelnen Moduls systematisch nicht erfasst.
+Die Teststrategie MUSS daher um eine übergreifende Absicherung des Zusammenspiels ergänzt werden.
+
+* Bei Native Federation MÜSSEN die Integrationsverträge zwischen Shell und Fachmodulen durch Contract-Tests abgesichert werden (→ <<AG-11>>).
+* Jede Frontend-Komponente durchläuft eine eigenständige QS-Pipeline; zusätzlich SOLL eine übergreifende Integrations- bzw. Smoke-Test-Stufe die Lauffähigkeit des Komposits nachweisen.
+* Versionswechsel eines Fachmoduls MÜSSEN vor produktiver Integration gegen die aktuell produktive Shell-Version verifiziert werden.
+* Bei Einsatz eines Backend-for-Frontend (BFF) gelten für dessen serverseitigen Anteil zusätzlich die QS-Vorgaben der xref:software-technisch/backend.adoc[Referenzarchitektur Backend].
+
+[[qs-statische-codeanalyse]]
+=== Statische Codeanalyse und Coding Standards
+
+Die statische Codeanalyse prüft den Quellcode ohne Ausführung der Anwendung gegen ein definiertes Regelwerk.
+Sie ist die kostengünstigste Qualitätsmaßnahme überhaupt, da sie unmittelbar an der Codestelle Rückmeldung gibt – bereits in der Entwicklungsumgebung und damit lange vor jeder Testausführung.
+
+Ihr Zweck ist zweigeteilt: Sie sichert die Einheitlichkeit des Codes über Teams und Auftragnehmer hinweg (→ <<AG-3>>) und erkennt zugleich fehleranfällige oder sicherheitskritische Muster, die durch Tests nur schwer aufzudecken sind.
+
+[IMPORTANT]
+.Offener Punkt: Abdeckung von Angular-Templates
+====
+Das https://github.com/IsyFact/isy-eslint-plugin[isy-eslint-plugin] analysiert ausschließlich TypeScript-Dateien.
+Ein wesentlicher Teil der frontend-spezifischen Qualitäts- und Sicherheitsrisiken liegt jedoch im Template: Barrierefreiheitsmerkmale (Alternativtexte, Label-Zuordnung, Tastaturbedienbarkeit, ARIA-Attribute) und unsichere Bindungen sind ausschließlich dort feststellbar.
+Da Templates kein TypeScript sind, werden sie von TypeScript-Analysewerkzeugen grundsätzlich nicht erfasst.
+
+Projekte müssen daher derzeit ein zweites, template-fähiges Regelset eigenständig auswählen, konfigurieren und pflegen.
+Diese Mischlösung verlagert die Auswahl sicherheits- und barrierefreiheitsrelevanter Regeln in die Projekte und führt absehbar zu uneinheitlichen Prüftiefen – im Widerspruch zu <<AG-3>>.
+
+*Vorschlag zur Klärung:* Es SOLLTE geprüft werden, ob das isy-eslint-plugin um ein Regelset für Angular-Templates erweitert wird, sodass Projekte ein einziges, ganzheitliches IsyFact-Regelset einbinden können.
+Die Entscheidung ist außerhalb dieser Referenzarchitektur zu treffen; bis dahin gilt die nachfolgende Vorgabe zur ergänzenden Einbindung.
+====
+
+* Verbindliche Grundlage sind die xref:methodik:typescript-programmierkonventionen/master.adoc[TypeScript-Programmierkonventionen] der IsyFact inklusive der dort referenzierten öffentlichen Regelsets.
+* Das isy-eslint-plugin SOLL als Basis-Regelset für die statische Codeanalyse eingebunden werden; Abweichungen sind im Quellcode zu begründen und zu dokumentieren.
+* Ergänzend SOLL ein template-fähiges Regelset eingebunden werden, um Barrierefreiheits- und Sicherheitsprüfungen im Template abzudecken.
+* Einheitliche Formatierung SOLL werkzeuggestützt und automatisiert sichergestellt werden (z. B. über das https://github.com/IsyFact/isy-prettier-plugin[isy-prettier-plugin]), um formatbedingtes Diff-Rauschen in Reviews zu vermeiden.
+* Statische Codeanalyse SOLL als Pflichtschritt der CI/CD-Pipeline ausgeführt werden; Regelverstöße der Kategorie „Fehler“ führen zum Build-Abbruch.
+* Ergänzend SOLL eine statische Sicherheitsanalyse (_Static Application Security Testing_, SAST) erfolgen: die werkzeuggestützte Prüfung des Quellcodes auf sicherheitskritische Muster ohne Ausführung der Anwendung.
+
+[[qs-quality-gates]]
+=== Quality Gates
+
+Ein Quality Gate ist ein definierter Prüfpunkt im Entwicklungs- und Auslieferungsprozess, an dem ein Artefakt festgelegte Kriterien erfüllen MUSS, um die nächste Stufe zu erreichen.
+
+Quality Gates überführen die in den vorangegangenen Abschnitten beschriebenen Einzelmaßnahmen in eine verbindliche Reihenfolge: Sie legen fest, *wann* eine Prüfung stattfindet, *wer oder was* sie ausführt und *welche Konsequenz* ein Verstoß hat.
+
+* Gates werden als *Kriterien* beschrieben (Schwellwerte, Pflichtprüfungen, Nachweise), nicht als Werkzeugkonfiguration – die technische Umsetzung liegt beim Projekt.
+* Jede automatisierbare Prüfung eines Gates MUSS automatisiert und blockierend implementiert sein; ein nicht bestandenes Gate DARF NICHT übergangen werden.
+* Prüfungen SOLLEN am frühestmöglichen Gate stattfinden und auf späteren Gates nur wiederholt werden, wenn die neue Stufe zusätzliche Erkenntnis liefert (z. B. produktionsnahe Konfiguration).
+* Ausnahmen MÜSSEN als befristete, begründete und freigegebene Abweichung dokumentiert werden.
+
+[[qs-qg-einordnung]]
+==== Einordnung in den Auslieferungsprozess
+
+Die Quality Gates orientieren sich am Weg einer Änderung vom Entwicklungsrechner bis in die Produktivumgebung.
+Maßgeblich ist dabei nicht die konkrete Werkzeugkette, sondern die *Stufe im Prozess*: Quellcode-Verwaltung, Build und Paketierung, Ablage im Artefakt-Repository sowie die aufeinanderfolgenden Zielumgebungen.
+
+Frontends werden als Bundle statischer Auslieferungsartefakte gebaut und über einen Webserver ausgeliefert.
+Daraus folgt ein zentrales Prinzip:
+
+.icon:university[title=Architekturregel] Einmaliger Build über alle Umgebungen
+****
+Das in <<qs-qg-2>> erzeugte und im Artefakt-Repository abgelegte Bundle MUSS unverändert durch alle nachfolgenden Umgebungen befördert werden.
+
+Umgebungsspezifische Konfiguration MUSS zur Auslieferungs- oder Laufzeit erfolgen und DARF NICHT zu einem erneuten Build führen.
+
+Ein Rebuild je Umgebung DARF NICHT erfolgen, da die in vorangegangenen Gates erbrachten Nachweise (Testergebnisse, Schwachstellenbewertung, SBOM) sonst ihre Gültigkeit für das ausgelieferte Artefakt verlieren.
+****
+
+[[quality-gates-frontend]]
+.Darstellung Quality Gates für Frontends
+image::referenzarchitektur:software-technisch/frontend/quality-gates-frontend.drawio.svg[width=60%,align=center]
+
+
+
+<<qs-qg-uebersicht>> ordnet die Gates den Prozessstufen zu.
+
+.Übersicht der Quality Gates
+[[qs-qg-uebersicht]]
+[cols="1,2,2,2",options="header"]
+|===
+|Gate |Stufe im Prozess |Auslöser |Ausführung und Wirkung
+
+|<<qs-qg-0>>
+|Entwicklungsrechner
+|Speichern bzw. Erstellen eines Commits
+|Automatisiert und lokal; nicht pipelineblockierend, aber Voraussetzung für ein zügiges Bestehen von QG-1
+
+|<<qs-qg-1>>
+|Quellcode-Verwaltung
+|Erstellen oder Aktualisieren eines Änderungsantrags (Merge bzw. Pull Request)
+|Automatisiert, ergänzt um ein manuelles Review; blockiert die Übernahme in den Integrationszweig
+
+|<<qs-qg-2>>
+|Build, Paketierung und Artefakt-Repository
+|Übernahme in den Integrationszweig
+|Vollautomatisiert; blockiert die Ablage des Bundles im Artefakt-Repository
+
+|<<qs-qg-3>>
+|Testumgebung
+|Auslieferung des Bundles auf die Testumgebung
+|Vollautomatisiert; blockiert die Weitergabe an die Staging-Umgebung
+
+|<<qs-qg-4>>
+|Staging-Umgebung
+|Auslieferung des Bundles auf die produktionsnahe Umgebung
+|Automatisiert, ergänzt um manuelle Prüfungen; blockiert die Freigabe für die Produktion
+
+|<<qs-qg-5>>
+|Produktivumgebung
+|Auslieferung des freigegebenen Bundles in die Produktion
+|Vollautomatisiert; löst bei Verletzung ein Rollback aus
+|===
+
+[[qs-qg-zuordnung]]
+==== Zuordnung der Prüfungen zu den Quality Gates
+
+<<qs-qg-matrix>> zeigt, an welcher Stelle des Prozesses eine Prüfung optimalerweise ausgeführt wird und ob sie automatisiert oder manuell erfolgt.
+Die Zuordnung folgt dem Grundsatz, jede Prüfung so früh wie möglich auszuführen und später nur dann zu wiederholen, wenn die höhere Stufe zusätzliche Aussagekraft besitzt.
+
+.Prüfungen je Quality Gate
+[[qs-qg-matrix]]
+[cols="3,1,1,1,1,1,1,1",options="header"]
+|===
+|Prüfung |Art |QG-0 |QG-1 |QG-2 |QG-3 |QG-4 |QG-5
+
+|Formatierung und statische Codeanalyse |A |○ |● |– |– |– |–
+|Statische Sicherheitsanalyse (SAST) |A |○ |● |– |– |– |–
+|Unit- und Komponententests |A |○ |● |● |– |– |–
+|Testabdeckung geänderter Codezeilen |A |– |● |– |– |– |–
+|Fachliches Review (Vier-Augen-Prinzip) |M |– |● |– |– |– |–
+|Reproduzierbarer Build aus dem Lockfile |A |– |– |● |– |– |–
+|Integrations- und Contract-Tests |A |– |○ |● |– |– |–
+|Dependency- und Secret-Scanning, SBOM |A |– |○ |● |– |● |–
+|Performance-Budget (Bundle-Größe) |A |– |– |● |– |– |–
+|Barrierefreiheit, automatisiert |A |○ |● |– |● |– |–
+|End-to-End-Tests |A |– |– |– |● |● |–
+|Smoke-Test nach Auslieferung |A |– |– |– |● |● |●
+|Sicherheitsrelevante Auslieferungskonfiguration |A |– |– |– |● |● |●
+|Barrierefreiheit, manuell |M |– |– |– |– |● |–
+|Fachliche Abnahme |M |– |– |– |– |● |–
+|Freigabeentscheidung |M |– |– |– |– |● |–
+|Überwachung nach Auslieferung |A |– |– |– |– |– |●
+|===
+
+[.small]
+--
+Legende: `●` verbindlich · `○` inkrementell bzw. auf den geänderten Umfang beschränkt · `–` nicht vorgesehen · `A` automatisiert · `M` manuell
+--
+
+[[qs-qg-0]]
+==== QG-0: Entwicklungsrechner
+
+Ausführung: automatisiert, lokal.
+Dieses Gate blockiert die Pipeline nicht, verlagert aber den Großteil der Rückmeldung von Minuten auf Sekunden und setzt <<qs-grundsaetze>> („Shift Left“) praktisch um.
+
+* Formatierung und statische Codeanalyse inkrementell in der Entwicklungsumgebung, unmittelbar an der Codestelle.
+* Unit- und Komponententests des bearbeiteten Moduls vor Erstellung eines Commits.
+* Die Prüfungen SOLLEN über einen automatisierten Mechanismus (z. B. einen Commit-Hook) ausgelöst werden, damit sie nicht von der Disziplin Einzelner abhängen.
+* Die lokal ausgeführten Prüfungen MÜSSEN denselben Regelstand verwenden wie die Pipeline, damit lokale und zentrale Ergebnisse nicht auseinanderlaufen.
+
+[[qs-qg-1]]
+==== QG-1: Änderungsantrag
+
+Ausführung: automatisiert, ergänzt um ein manuelles Review.
+Dieses Gate entscheidet über die Übernahme einer Änderung in den Integrationszweig und ist der letzte Punkt, an dem eine Änderung ohne Folgekosten korrigiert werden kann.
+
+* Statische Codeanalyse und Formatierungsprüfung ohne Regelverstöße der Kategorie „Fehler“.
+* Erfolgreiche Ausführung aller Unit- und Komponententests des betroffenen Moduls.
+* Einhaltung eines projektweit definierten Mindestwerts für die Testabdeckung geänderter Codezeilen.
+* Keine neu eingeführten Verstöße gegen die automatisiert prüfbaren Barrierefreiheitskriterien.
+* Erfolgreiches Vier-Augen-Review inklusive Prüfung auf Einhaltung der Architekturgrundsätze und -regeln dieses Kapitels.
+
+[[qs-qg-2]]
+==== QG-2: Build und Artefakterzeugung
+
+Ausführung: vollautomatisiert.
+Dieses Gate erzeugt das unveränderliche Artefakt, das alle weiteren Stufen durchläuft; nicht bestandene Prüfungen verhindern dessen Ablage im Artefakt-Repository.
+
+* Reproduzierbarer Build ausschließlich auf Basis des Lockfiles (→ <<Supply-Chain-Sicherheit>>).
+* Erfolgreiche Ausführung der Integrations- und Contract-Tests gegen die spezifizierten Backend-Schnittstellen.
+* Bestandene Sicherheitsprüfungen: Dependency Scanning, Secret Scanning und SBOM-Erstellung gemäß <<Supply-Chain-Sicherheit>>.
+* Einhaltung der definierten Performance-Budgets (u. a. Bundle-Größe).
+* Das Artefakt MUSS eindeutig versioniert abgelegt und mit den zugehörigen Qualitätsnachweisen verknüpft werden.
+
+[[qs-qg-3]]
+==== QG-3: Testumgebung
+
+Ausführung: vollautomatisiert.
+Erstmals wird nicht der Quellcode, sondern das tatsächlich ausgelieferte Bundle im Zusammenspiel mit Webserver und echten Backend-Schnittstellen geprüft.
+
+* Smoke-Test unmittelbar nach der Auslieferung: Erreichbarkeit der Anwendung sowie korrektes Laden der umgebungsspezifischen Konfiguration.
+* Erfolgreiche Ausführung der End-to-End-Tests für die als kritisch klassifizierten Nutzerpfade.
+* Automatisierte Barrierefreiheitsprüfung im realen Browserkontext, einschließlich dynamischer Zustände wie Dialogen, Fehlermeldungen und Fokusverwaltung nach Navigation.
+* Nachweis, dass die sicherheitsrelevante Auslieferungskonfiguration des Webservers aktiv ist (insbesondere die HTTP-Sicherheits-Header gemäß <<http_sicherheits_header_cookies>>).
+
+[[qs-qg-4]]
+==== QG-4: Staging-Umgebung und Freigabe
+
+Ausführung: automatisiert, ergänzt um manuelle Prüfungen.
+Dieses Gate ist der einzige Punkt mit verpflichtenden manuellen Prüfungen und schließt mit einer dokumentierten Freigabeentscheidung ab.
+
+* Wiederholung der End-to-End- und Smoke-Tests unter produktionsnaher Konfiguration.
+* Manuelle Barrierefreiheitsprüfung für neue oder wesentlich geänderte Oberflächen (Tastaturbedienung, Screenreader-Ausgabe, Kontrast, Zoom).
+* Manuelle fachliche Abnahme der umgesetzten Anforderungen.
+* Erneute Schwachstellenbewertung des Artefakts zum Freigabezeitpunkt, da nach QG-2 neue Schwachstellen bekannt geworden sein können.
+* Vollständige und archivierte Qualitätsnachweise (Testberichte, Analyseergebnisse, SBOM) für das freizugebende Artefakt.
+* Keine offenen kritischen Befunde; verbleibende Befunde MÜSSEN bewertet, dokumentiert und freigegeben sein.
+
+[[qs-qg-5]]
+==== QG-5: Produktivumgebung
+
+Ausführung: vollautomatisiert.
+Dieses Gate stellt sicher, dass ausschließlich das geprüfte Artefakt produktiv geht und eine fehlerhafte Auslieferung erkannt und zurückgenommen wird.
+
+* Es DARF ausschließlich die in QG-4 freigegebene, unveränderte Artefaktversion ausgeliefert werden.
+* Smoke-Test unmittelbar nach der Auslieferung; ein Fehlschlag MUSS ein Rollback auf die zuvor produktive Version auslösen.
+* Nachweis der aktiven sicherheitsrelevanten Auslieferungskonfiguration in der Produktivumgebung.
+* Überwachung von Fehlerraten und Verfügbarkeit über ein definiertes Zeitfenster nach der Auslieferung (→ <<logging-monitoring-telemetrie>>); die Schwellwerte für ein Rollback MÜSSEN vorab festgelegt sein.
+
+[[qs-nachweise-metriken]]
+=== Nachweisführung und Qualitätsmetriken
+
+* Ergebnisse aller Quality Gates MÜSSEN maschinenlesbar erzeugt, versioniert und dem jeweiligen Build-Artefakt eindeutig zugeordnet archiviert werden.
+* Als Mindestmetriken SOLLEN erhoben werden: Testabdeckung, Anzahl und Schweregrad statischer Befunde, Anzahl offener Schwachstellen sowie Barrierefreiheits- und Performance-Befunde.
+* Metriken SOLLEN im Zeitverlauf beobachtet werden; eine Verschlechterung gegenüber dem letzten Release MUSS bewertet und begründet werden.
+* Qualitätsziele und Schwellwerte MÜSSEN projektspezifisch festgelegt und in der Systemdokumentation nachvollziehbar dokumentiert werden.
+* Nachweise MÜSSEN für Audits und Freigabeprozesse revisionssicher verfügbar sein.
 
 == Betrieb & Deployment von Frontends
 
@@ -771,6 +1091,7 @@ Clientseitiges Caching MUSS hinsichtlich Gültigkeit, Invalidierung und Benutzer
 Caches DÜRFEN NICHT zu veralteten, unzulässigen oder benutzerübergreifend sichtbaren Daten führen.
 ****
 
+[[ux-ui-accessibility]]
 == UX, UI & Accessibility
 
 Die Gestaltung der xref:glossary::terms-definitions.adoc#frontend[Frontends] folgt verbindlichen Leitlinien zu User Interface (UI), User Experience (UX) sowie zur Barrierefreiheit.
