@@ -1,5 +1,6 @@
 # 5.1.0
 ### FEATURES
+- `IFS-4988`: [isyfact-standards-doc] Kapitel "Qualitätssicherung" in der Referenzarchitektur Frontend ergänzt
 - `IFS-5651`: [isyfact-standards-doc] Referenzarchitektur (Vorgaben und Konventionen JPA/Hibernate) um Vorgabe für künstliche IDs ergänzt
 - `IFS-5652`: [isyfact-standards-doc] Analyse+Umsetzung: Dokumentation aus isy-sgw-utilities Open Source stellen
 - `IFS-4991`: [isyfact-standards-doc] Kapitel "Logging, Monitoring & Telemetrie" in der Referenzarchitektur Frontend ergänzt
