@@ -46,6 +46,8 @@ jobs:
           fi
 
   DependencyScan:
+    permissions:
+      contents: read
     uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_dependency_scan_template.yml@v3.0.0
     with:
       snyk-organization: ${{ vars.SNYK_ORG_ID }}
