@@ -22,11 +22,14 @@ Das Dokument wird durch die Entwickler der Software erstellt und gepflegt.
 Es enthält nur solche Informationen, welche die eigentliche Software betreffen, Informationen zu Systemumgebungen, Hardware usw. werden vom Betrieb in separaten Dokumenten gepflegt.
 
 In diesem Dokument werden alle IT-Systeme einer Anwendung gemeinsam beschrieben.
+
+****
 Die Abgrenzung, welche IT-Systeme zusammen beschrieben werden, ist ggf. im Einzelfall abzuwägen.
 Typischerweise werden eine Geschäftsanwendung und ein zugehöriges Service-Gateway gemeinsam beschrieben, aber z.B. nicht zwei Geschäftsanwendungen die zu unterschiedlichen Fachverfahren gehören, auch wenn Sie sich gegenseitig aufrufen.
 Ein wichtiges Kriterium für die Auswahl der IT-Systeme ist deren Entwicklungszyklus.
 IT-Systeme, die immer gemeinsam weiterentwickelt werden, können gut in einem gemeinsamen Dokument beschrieben werden.
 Querschnittsanwendungen werden in eigenen Dokumenten beschrieben.
+****
 
 Die Vorlage enthält bewusst auch Kapitel für Themen, die nicht für alle Systeme benötigt werden.
 Dies soll eine möglichst große Vollständigkeit der damit erstellten Dokumentationen begünstigen.
@@ -406,7 +409,7 @@ _Freitext_
 [[anlegen-betriebssystemnutzer-gruppen]]
 === Anlegen der Betriebssystemnutzer und -gruppen
 
-Für den Betrieb der Anwendung {anwendung} empfiehlt es, einen seperaten Nutzer und eine Gruppe anzulegen.
+Für den Betrieb der Anwendung {anwendung} empfiehlt es, einen separaten Nutzer und eine Gruppe anzulegen.
 Die Erzeugung der Nutzer und Gruppen ist abhängig vom verwendeten Betriebssystem.
 Das Kennwort wird vom Betrieb vergeben.
 
@@ -675,7 +678,7 @@ Das Passwort ist nicht verschlüsselt.
 [[konfigurationsdatei-isalive]]
 ==== Konfigurationsdatei isAlive
 
-Für Wartungszwecke kann es notwendig sein, dass die Anwendung keine weiteren Anfragen vom Loadbalancer mehr zugewiesen bekommt.
+Für Wartungszwecke kann es notwendig sein, dass die {anwendung-ga} keine weiteren Anfragen vom Loadbalancer mehr zugewiesen bekommt.
 
 Dazu überprüft das Loadbalancer-Servlet regelmäßig, ob die folgende (leere) Datei existiert.
 
@@ -698,7 +701,7 @@ Im Regelbetrieb ist das Loadbalancer-Servlet unter folgender URL erreichbar:
 [[konfiguration-batch]]
 === Konfiguration der {anwendung-batch}
 
-Nach der Installation liegen die Konfigurationsdateien der Batch-Anwendung unter `/etc/{it-system-batch}`.
+Nach der Installation liegen die Konfigurationsdateien des {anwendung-batch} unter `/etc/{it-system-batch}`.
 
 Die Konfiguration der {anwendung-batch} erfolgt analog zur <<konfiguration-ga>>:
 Allein die Logging-Konfiguration unterscheidet sich minimal.
@@ -722,7 +725,7 @@ Außerdem ist für die Batches keine Log-Rotation aktiviert.
 
 ====
 Inhalt::
-_Beschreibung der Unterschiede bei der Konfiguration der Batch-Anwendung_
+_Beschreibung der Unterschiede bei der Konfiguration des {anwendung-batch} gegenüber der Konfiguration der {anwendung-ga}._
 
 Quelle::
 _Systementwurf_
@@ -741,10 +744,10 @@ Folgende Konfigurationsdateien müssen für die Konfiguration angepasst werden:
 * `logback.xml`,
 * `servicegateway.properties`.
 
-Änderungen an den Konfigurationsdateien müssen bei heruntergefahrener Anwendung durchgeführt werden.
+Änderungen an den Konfigurationsdateien müssen bei heruntergefahrenem Service-Gateway durchgeführt werden.
 
 IMPORTANT: Dieses Verhalten gilt nicht für die Konfigurationsdatei `logback.xml`.
-Änderungen an dieser Konfigurationsdatei können bei laufender Anwendung ausgeführt werden.
+Änderungen an dieser Konfigurationsdatei können im laufenden Betrieb ausgeführt werden.
 
 [[konfigurationsdatei-logback-sgw]]
 ==== Konfigurationsdatei `logback.xml`
@@ -791,7 +794,7 @@ Beispiel: +
 [[konfigurationsdatei-isalive-sgw]]
 ==== Konfigurationsdatei isAlive
 
-Für Wartungszwecke kann es notwendig sein, dass die Anwendung keine weiteren Anfragen vom Loadbalancer mehr zugewiesen bekommt.
+Für Wartungszwecke kann es notwendig sein, dass das {anwendung-sgw} keine weiteren Anfragen vom Loadbalancer mehr zugewiesen bekommt.
 Dazu überprüft das Loadbalancer-Servlet regelmäßig, ob die folgende (leere) Datei existiert.
 
 [source,subs="attributes"]
@@ -839,12 +842,12 @@ Die `ZEITSTEMPEL` werden durch die Log-Rotation erzeugt und markieren ältere Lo
 |Konfigurationsdatei |Inhalt / Bemerkung
 2+^d|*{anwendung-ga}* (`/etc/{it-system-ga}`)
 |isAlive |Steuerdatei für Loadbalancer
-|{it-system-ga}.properties |Konfiguration der Anwendung
+|{it-system-ga}.properties |Konfiguration des IT-Systems
 |jpa.properties |Konfiguration der Datenbank-Verbindung
 |logback.xml |Logging-Konfiguration
 2+^d|*{anwendung-sgw}* (`/etc/{it-system-sgw}`)
 |isAlive |Steuerdatei für Loadbalancer
-|{it-system-sgw}.properties |Konfiguration der Anwendung
+|{it-system-sgw}.properties |Konfiguration des IT-Systems
 |jpa.properties |Konfiguration der Datenbank-Verbindung
 |logback.xml |Logging-Konfiguration
 |===
@@ -864,10 +867,10 @@ Die Anwendung {anwendung} enthält kein Datenbankschema.
 [[batch-prozesse]]
 === Batch-Prozesse
 
-In diesem Abschnitt wird das Ausführen der Batch-Anwendung beschrieben.
+In diesem Abschnitt wird das Ausführen der Batches beschrieben.
 Die Batches sind unabhängig voneinander, d.h. sie können in beliebiger Reihenfolge ausgeführt werden.
 
-Die Batch-Anwendungen werden auf der Kommandozeile über ein Startskript gestartet.
+Die Batches werden auf der Kommandozeile über ein Startskript gestartet.
 Das Startskript `batch-ausfuehren.sh` liegt in dem Verzeichnis:
 
 [source,subs="attributes"]
@@ -989,7 +992,7 @@ _Tabelle, Freitext_
 [[monitoring-tomcat-anwendungen]]
 ==== Standard-Metriken
 
-Die Anwendung {anwendung} stellt folgende Standard-Metriken über den Endpunkt `/actuator/metrics` zur Verfügung.
+Die IT-Systeme der {anwendung} stellen folgende Standard-Metriken über den Endpunkt `/actuator/metrics` zur Verfügung.
 
 :desc-table-standard-metriken: Standard-Metriken
 [id="table-standard-metriken", reftext = "{table-caption} {counter:tables}"]
@@ -1005,13 +1008,13 @@ Die Anwendung {anwendung} stellt folgende Standard-Metriken über den Endpunkt `
 |jvm.
 
 |System
-|Metriken zur CPU-Auslastung, dem Dateisystem und der Uptime der Anwendung.
+|Metriken zur CPU-Auslastung, dem Dateisystem und der Uptime.
 |system. +
 process. +
 disk.
 
 |Application Startup
-|Metriken zur Startzeit der Anwendung.
+|Metriken zur Startzeit.
 |application.
 
 |Logger
@@ -1046,13 +1049,13 @@ disk.
 ====
 Ausfüllhinweise::
 _Metriken, die nicht angeboten werden, müssen aus der Tabelle entfernt werden._
-_Ebenso müssen Lücken gefüllt werden, da sie anwendungsspezifisch sind._
+_Ebenso müssen Lücken gefüllt werden, da sie systemspezifisch sind._
 ====
 
 [[monitoring-batches]]
 ==== Monitoring Batches
 
-Die Batch-Anwendungen werden durch die Skripte zunächst ohne JMX gestartet.
+Die Batches werden durch die Skripte zunächst ohne JMX gestartet.
 Wenn diese mit JMX verwaltet und beobachtet werden, so muss *vor* dem Aufruf des Startskriptes auf der Kommandozeile folgendes aufgerufen werden:
 
  export JAVA_OPTS= "-Dcom.sun.management.jmxremote.port=28000"
@@ -1110,7 +1113,7 @@ _Tabelle, Freitext_
 [[smoke-test]]
 ==== Smoke-Test
 
-Folgender Test kann ausgeführt werden, um zu prüfen, ob die Anwendung läuft:
+Folgender Test kann für jedes IT-System der Anwendung ausgeführt werden, um zu prüfen, ob es läuft:
 
 In der Log-Datei (siehe Kapitel <<log-konfigurationsdateien>>) kann der Start des Systems nachvollzogen werden.
 Außerdem werden Fehlermeldungen des Selbsttests der Anwendung dort ausgegeben.
@@ -1223,13 +1226,13 @@ _Interne Fehlercodes: ..._
 |_Konfigurationsfehler_
 |_{anwendung-ga}, +
 {anwendung-batch}_
-|_Die Anwendung startet nicht. Fehlercode: ..._
+|_Das System startet nicht. Fehlercode: ..._
 
 |3
 |_Konfigurationsfehler_
 |_{anwendung-ga}, +
 {anwendung-batch}_
-|_Die Anwendung startet.
+|_Das System startet.
 Zur Laufzeit kommt es vermehrt zum Fehlercode ..._
 
 |4
@@ -1275,7 +1278,7 @@ Die folgende Tabelle zeigt eine grobe Historie der Anwendung {anwendung}.
 |3.0.0
 |04.03.2020
 |Neue Schnittstelle für mehr Beispiele hinzugefügt. +
-Tech-Update auf IsyFact 2.1.
+Tech-Update auf IsyFact 5.1.
 
 |...
 |...
