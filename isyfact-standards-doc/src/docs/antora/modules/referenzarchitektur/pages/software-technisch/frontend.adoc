@@ -733,20 +733,6 @@ Sie ist die kostengünstigste Qualitätsmaßnahme überhaupt, da sie unmittelbar
 
 Ihr Zweck ist zweigeteilt: Sie sichert die Einheitlichkeit des Codes über Teams und Auftragnehmer hinweg (→ <<AG-3>>) und erkennt zugleich fehleranfällige oder sicherheitskritische Muster, die durch Tests nur schwer aufzudecken sind.
 
-[IMPORTANT]
-.Offener Punkt: Abdeckung von Angular-Templates
-====
-Das https://github.com/IsyFact/isy-eslint-plugin[isy-eslint-plugin] analysiert ausschließlich TypeScript-Dateien.
-Ein wesentlicher Teil der frontend-spezifischen Qualitäts- und Sicherheitsrisiken liegt jedoch im Template: Barrierefreiheitsmerkmale (Alternativtexte, Label-Zuordnung, Tastaturbedienbarkeit, ARIA-Attribute) und unsichere Bindungen sind ausschließlich dort feststellbar.
-Da Templates kein TypeScript sind, werden sie von TypeScript-Analysewerkzeugen grundsätzlich nicht erfasst.
-
-Projekte müssen daher derzeit ein zweites, template-fähiges Regelset eigenständig auswählen, konfigurieren und pflegen.
-Diese Mischlösung verlagert die Auswahl sicherheits- und barrierefreiheitsrelevanter Regeln in die Projekte und führt absehbar zu uneinheitlichen Prüftiefen – im Widerspruch zu <<AG-3>>.
-
-*Vorschlag zur Klärung:* Es SOLLTE geprüft werden, ob das isy-eslint-plugin um ein Regelset für Angular-Templates erweitert wird, sodass Projekte ein einziges, ganzheitliches IsyFact-Regelset einbinden können.
-Die Entscheidung ist außerhalb dieser Referenzarchitektur zu treffen; bis dahin gilt die nachfolgende Vorgabe zur ergänzenden Einbindung.
-====
-
 * Verbindliche Grundlage sind die xref:methodik:typescript-programmierkonventionen/master.adoc[TypeScript-Programmierkonventionen] der IsyFact inklusive der dort referenzierten öffentlichen Regelsets.
 * Das isy-eslint-plugin SOLL als Basis-Regelset für die statische Codeanalyse eingebunden werden; Abweichungen sind im Quellcode zu begründen und zu dokumentieren.
 * Ergänzend SOLL ein template-fähiges Regelset eingebunden werden, um Barrierefreiheits- und Sicherheitsprüfungen im Template abzudecken.
@@ -786,7 +772,7 @@ Ein Rebuild je Umgebung DARF NICHT erfolgen, da die in vorangegangenen Gates erb
 
 [[quality-gates-frontend]]
 .Darstellung Quality Gates für Frontends
-image::referenzarchitektur:software-technisch/frontend/quality-gates-frontend.drawio.svg[width=60%,align=center]
+image::referenzarchitektur:software-technisch/frontend/quality-gates-frontend.drawio.svg[width=100%,align=center]
 
 
 
