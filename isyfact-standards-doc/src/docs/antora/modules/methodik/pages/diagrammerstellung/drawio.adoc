@@ -148,6 +148,8 @@ Dazu ist in der rechten Sidebar der Tab menu:Style[] auszuwählen und dort die O
 .Einstellung "Adaptive Farben" für ein Diagramm
 image::drawio/turn-off-adaptive-colors.png[]
 
+NOTE: In *neueren Versionen* von draw.io befindet sich die Option btn:[Adaptive Farben] unter dem Menüpunkt *Datei > Seite einrichten...* (siehe https://www.drawio.com/docs/manual/editor/appearance/adaptive-colours/#adaptive-colour-settings[Adaptive colour settings icon:external-link-square[], window=_blank]).
+
 Für eine dauerhafte Deaktivierung von adaptiven Farben in draw.io kann der folgende Eintrag der globalen Konfiguration unter menu:Extras[Konfiguration...] hinzugefügt werden.
 
 .Globale Voreinstellung zu adaptiven Farben
