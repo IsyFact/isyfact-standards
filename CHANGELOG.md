@@ -1,5 +1,6 @@
 # 5.1.0
 ### FEATURES
+- `IFS-5664`: [isyfact-standards-doc] Vorlagen zur Diagrammerstellung der Methodik auf IT-Systeme umstellen
 - `IFS-5665`: [isyfact-standards-doc] Umstellung der Vorlagen von Anwendungen auf IT-Systeme
 - `IFS-5651`: [isyfact-standards-doc] Referenzarchitektur (Vorgaben und Konventionen JPA/Hibernate) um Vorgabe für künstliche IDs ergänzt
 - `IFS-5652`: [isyfact-standards-doc] Analyse+Umsetzung: Dokumentation aus isy-sgw-utilities Open Source stellen
