@@ -568,7 +568,7 @@ Es wird empfohlen, Leerzeichen wie folgt zu verwenden:
 * zwischen einer Klammer "*)*" und einer direkt darauf folgenden Klammer "*{*"
 * nach einem Komma (z. B. bei einer Methode mit mehreren Parametern)
 * zwischen einem binären (ternären) Operator (außer dem Punktoperator) und dem vorausgehenden und dem nachfolgenden Ausdruck. +
-Beispiel: `+double·length·=·Math.sqrt(x·*·x·+·y·*·y);+` +
+Beispiel: `+double·length·=·Math.sqrt(x·*·x·+++·y·*·y);+` +
 Dies gilt insbesondere für `·=·` und `·==·`
 
 Leerzeilen eignen sich zur Trennung logischer unabhängiger Teile des Codes.
