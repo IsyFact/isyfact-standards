@@ -11,7 +11,7 @@ Die IsyFact legt folgende <<table-frameworks>> von REST-Services fest.
 |===
 |Framework |Technologie-Stack |Beschreibung
 
-|Spring Webflux
+|Spring WebFlux
 |Java/Spring
 |Umsetzung von REST-Clients
 
@@ -22,6 +22,10 @@ Die IsyFact legt folgende <<table-frameworks>> von REST-Services fest.
 |Umsetzung von REST-Services
 
 (zur Nutzung mit Tomcat)
+
+|Spring RestClient
+|Java/Spring
+|Umsetzung von REST-Clients
 
 // TODO Umziehen zur Frontend-Architektur
 |Angular Framework Modul: @angular/common/http
@@ -35,37 +39,130 @@ Die IsyFact legt folgende <<table-frameworks>> von REST-Services fest.
 |===
 
 [[spring-mvc-vergleich-webflux]]
-== Spring MVC im Vergleich zu Spring Webflux
+== Spring MVC im Vergleich zu Spring WebFlux
 
 Das Spring Framework stellt seit Version 5 Spring Webflux als reaktive Alternative zu Spring MVC bereit.
 
-Mit Webflux ist es möglich, reaktive REST APIs zu implementieren.
+Mit WebFlux ist es möglich, reaktive REST APIs zu implementieren.
 Beim reaktiven Programmierparadigma geht es um die Reaktion auf Veränderungen (Observer Pattern), im Fall von REST APIs um die Reaktion auf gesendete Daten.
 Das ist hilfreich, wenn man große Datenmengen (z. B. Mediendateien oder größere Ergebnismengen aus einer Datenbankabfrage) über das REST API übertragen möchte.
 Die Daten werden dann in mehreren Paketen gesendet, der Empfänger reagiert jeweils auf den Erhalt eines Pakets.
 
-Der Hauptvorteil von Webflux liegt aber im geringeren Ressourcenverbrauch auf der Server Seite.
-Webflux basiert auf einem Event-Loop Mechanismus, während Spring MVC auf Thread Pools basiert.
-Der Performance Vorteil von Webflux macht sich insbesondere bei vielen gleichzeiten Service-Aufrufen und/oder der Übertragung größerer Datenmengen bei einem Service-Aufruf bemerkbar.
+Der Hauptvorteil von WebFlux liegt aber im geringeren Ressourcenverbrauch auf der Server Seite.
+WebFlux basiert auf einem Event-Loop Mechanismus, während Spring MVC auf Thread Pools basiert.
+Der Performance Vorteil von WebFlux macht sich insbesondere bei vielen gleichzeiten Service-Aufrufen und/oder der Übertragung größerer Datenmengen bei einem Service-Aufruf bemerkbar.
 
 Trotzdem empfiehlt die IsyFact grundsätzlich, Spring MVC für die Umsetzung von REST-Services einzusetzen.
 Die Vorteile des reaktiven Programmierparadigmas erfüllen sich nur, wenn alle Teile der Umsetzung entsprechend gestaltet sind.
 Dies ist aktuell nicht der Fall.
 
-Für REST-Clients wiederum empfiehlt die IsyFact die Verwendung des `WebClient`.
-Beim gleichzeitigen Einsatz von `isy-logging`, `isy-security` und `isy-task`  sind die <<reaktive-verarbeitung-einschraenkungen,bekannten Einschränkungen reaktiver Verarbeitung>> zu beachten.
+Für REST-Clients empfiehlt die IsyFact die Verwendung des synchronen `RestClient`, um die Kompatibilität zu bestehenden Bausteinen der IsyFact aufrecht zu halten.
+Bei der Verwendung des asynchronen `WebClient` sind die <<reaktive-verarbeitung-einschraenkungen>> zu beachten.
 
 Für die Anbindung von Angular-Clients enthält der Baustein Angular eine entsprechende Komponente.
 
+[[empfehlung-rest-client]]
+== Umsetzung von REST-Clients
+
+Die IsyFact empfiehlt für REST-Clients den `RestClient` aus dem Spring Framework ab Spring Framework 6.1 (Spring Boot 3.2).
+
+.Abgrenzung der Spring-Clients für REST
+[cols="1,1,2", options="header"]
+|===
+|Client
+|Beschreibung
+|Einordnung durch die IsyFact
+
+|`RestClient`
+|blockierend, fluide API
+|empfohlen ab Spring Framework 6.1
+
+|`RestTemplate`
+|blockierend, Template-Method-API
+|nicht empfohlen; seit Spring Framework 7.0 als `@Deprecated` gekennzeichnet, Entfernung in einer künftigen Version angekündigt.
+Funktionsumfang bleibt bis zur Entfernung erhalten, Weiterentwicklung auf Fehler- und Sicherheitskorrekturen beschränkt.
+
+|`WebClient`
+|nicht-blockierend, reaktiv, fluide API
+|nicht empfohlen; bei durchgängig reaktiver Fachlogik nur in Ausnahmefällen einsetzbar, sofern die <<reaktive-verarbeitung-einschraenkungen,Einschränkungen>> im Fachverfahren abgefangen und in der Architekturentscheidung dokumentiert sind.
+
+|===
+
+Der `RestClient` ist der Nachfolger des `RestTemplate`, welcher nicht mehr aktiv weiter entwickelt wird, und ersetzt diesen weitgehend.
+Beide bauen auf denselben Abstraktionen des Spring Framework auf:
+
+* `ClientHttpRequestFactory`/`SimpleClientHttpRequestFactory` als Anbindung an die HTTP-Client-Bibliothek
+* `HttpMessageConverter` für Serialisierung und Deserialisierung
+* `ClientHttpRequestInterceptor` für die Querschnittserweiterung von Anfragen
+* `UriBuilderFactory` für die URI-Erzeugung
+* `RestResponseErrorHandler` für die Fehlerbehandlung
+
+Bestehende Erweiterungen - insbesondere die in den Bausteinen `isy-logging`, `isy-security` und `isy-task` genutzten Interceptor- und Fehlerbehandlungsmechanismen - können daher nach Umstellung auf den `RestClient` übernommen werden.
+
+Der `RestClient` folgt dem imperativen Programmiermodell der IsyFact: Die Anfrage wird synchron auf dem aufrufenden Thread ausgeführt und beendet.
+Die für den <<reaktive-verarbeitung-einschraenkungen,WebClient>> beschriebenen Einschränkungen durch Thread-Wechsel treten also nicht auf.
+
+[NOTE]
+====
+Der `RestClient` ist kein Quellcode-kompatibler Austausch des `RestTemplate`.
+Der Aufruf erfolgt über eine https://docs.spring.io/spring-framework/reference/integration/rest-clients.html#rest-restclient[Fluent API], z.B:
+
+[[restclient-usage-code]]
+.Code-Beispiel RestClient
+[source,java]
+----
+RestClient restClient = RestClient.builder()
+        .baseUrl("https://beispiel-basis-url.de")
+        .build();
+DatenDto daten = restClient.get()
+        .uri("/daten/{id}", 12)
+        .accept(MediaType.APPLICATION_JSON)
+        .retrieve()
+        .body(DatenDto.class);
+----
+====
+
+Seit Spring Framework 7.0 ist `RestTemplate` als deprecated markiert und wird aus künftigen Versionen entfernt.
+Zu einer Migration gemäß der Anleitung https://docs.spring.io/spring-framework/reference/integration/rest-clients.html#migrating-to-restclient[Migrating to RestClient] wird daher geraten.
+
+Die Spring-Dokumentation empfiehlt bei der Migration eine zweistufige Vorgehensweise.
+
+. Das komponentenweise Ersetzen von `RestTemplate`- durch `RestClient`-Instanzen:
++
+[source,java]
+----
+RestClient restClient = RestClient.create(restTemplate);
+----
+
+. Replikation der `RestTemplate`-Instanziierung unter Verwendung von äquivalenten Methoden, die der `RestClient.Builder` bereitstellt (siehe <<restclient-usage-code>>).
+
+[WARNING]
+====
+Den `WebClient` blockierend zu nutzen, ist kein moderner Ersatz für `RestTemplate`.
+Abgesehen von der steigenden Code-Komplexität geht der Thread-Kontext (`MDC`, `SecurityContext`) beim Threadwechsel ohne zusätzliche Übertragungsmechanismen zur Propagation verloren.
+
+.WebClient blockierend
+[source,java]
+----
+DatenDto daten = webClient.get()
+        .retrieve()
+        .bodyToMono(DatenDto.class)
+        .block();// Thread-Kontext geht verloren!
+----
+====
+
 [[reaktive-verarbeitung-einschraenkungen]]
 == Einschränkungen reaktiver Verarbeitung mit IsyFact-Bausteinen
+
+Die folgenden Einschränkungen gelten für die reaktive Verarbeitung mit Project Reactor, insbesondere beim Einsatz des `WebClient`.
+Bei Nutzung des <<empfehlung-rest-client,RestClient>> treten sie nicht auf.
 
 Der `WebClient` basiert auf Project Reactor und verarbeitet HTTP-Anfragen in einem reaktiven, nicht-blockierenden Ausführungsmodell.
 Innerhalb einer reaktiven Pipeline kann Project Reactor zwischen Threads wechseln:
 Ein Request wird auf einem Thread begonnen und nach einer asynchronen Operation auf einem anderen Thread fortgesetzt.
 
 Die IsyFact setzt grundsätzlich auf dem imperativen Programmiermodell auf und nutzt `ThreadLocal`-Mechanismen zur Propagierung von Kontext-Informationen.
-Diese Mechanismen funktionieren im reaktiven Modell nicht zuverlässig, da `ThreadLocal`-Werte beim Thread-Wechsel auf dem neuen Thread nicht zur Verfügung stehen.
+Diese Mechanismen funktionieren im reaktiven Modell nicht zuverlässig, da `ThreadLocal`-Werte beim Threadwechsel auf dem neuen Thread nicht zur Verfügung stehen.
 
 [WARNING]
 ====
