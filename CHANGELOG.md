@@ -8,7 +8,7 @@
 - keine
 
 #### Bug Fixes
-- keine
+- `IFS-5784` isAlive-File des LoadBalancers in embedded Tomcat integrieren
 
 #### Interne Anpassungen
 - keine

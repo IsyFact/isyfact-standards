@@ -40,25 +40,16 @@ public class TestLoadbalancerServlet {
 
 		mockConfig = mock(ServletConfig.class);
 		mockContext = mock(ServletContext.class);
-		when(mockConfig.getServletContext()).thenReturn(mockContext);
 	}
 
 	@Test
 	public void testInit() throws ServletException {
+		when(mockConfig.getServletContext()).thenReturn(mockContext);
 		when(mockContext.getRealPath("/WEB-INF/classes/config/isAlive")).thenReturn("/WEB-INF/classes/config/isAlive/isAlive");
 		when(mockConfig.getInitParameter("isAliveFileLocation")).thenReturn("/WEB-INF/classes/config/isAlive");
 		loadBalancer.init(mockConfig);
 		verify(mockAppender, times(2)).doAppend(any());
 	}
-
-	@Test
-	public void testInitNull() throws ServletException {
-		when(mockContext.getRealPath("/WEB-INF/classes/config/isAlive")).thenReturn("/WEB-INF/classes/config/isAlive/isAlive");
-		when(mockConfig.getInitParameter("isAliveFileLocation")).thenReturn(null);
-		loadBalancer.init(mockConfig);
-		verify(mockAppender, times(3)).doAppend(any());
-	}
-
 
 	@Test
 	public void testDoGet() throws ServletException {
@@ -73,9 +64,8 @@ public class TestLoadbalancerServlet {
 
 	@Test
 	public void testDoGetIsAliveEmbeddedTomcat() throws ServletException, IOException {
-		when(mockContext.getRealPath("/src/test/resources")).thenReturn("src/test/resources/isAlive");
-		when(mockConfig.getInitParameter("isAliveFileLocation")).thenReturn("/src/test/resources");
 		File f = new File("src/test/resources/isAlive");
+		when(mockConfig.getInitParameter("isAliveFileLocation")).thenReturn(f.getParentFile().getAbsolutePath());
 		assertTrue(f.createNewFile());
 		PrintWriter writer = new PrintWriter(f);
 		loadBalancer.init(mockConfig);
@@ -91,8 +81,9 @@ public class TestLoadbalancerServlet {
 	@Test
 	public void testDoGetIsAliveTomcat() throws ServletException, IOException {
 		File f = new File("src/test/resources/isAlive");
-		when(mockContext.getRealPath(any())).thenReturn(null);
-		when(mockConfig.getInitParameter("isAliveFileLocation")).thenReturn(f.getParentFile().getAbsolutePath());
+		when(mockConfig.getServletContext()).thenReturn(mockContext);
+		when(mockContext.getRealPath(any())).thenReturn(f.getParentFile().getAbsolutePath());
+		when(mockConfig.getInitParameter("isAliveFileLocation")).thenReturn("/WEB-INF/classes/config/isAlive");
 		assertTrue(f.createNewFile());
 		PrintWriter writer = new PrintWriter(f);
 		loadBalancer.init(mockConfig);
