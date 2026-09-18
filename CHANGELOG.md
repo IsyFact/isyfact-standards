@@ -1,5 +1,6 @@
 # 5.1.0
 ### FEATURES
+- `IFS-5789`: [isyfact-standards-doc] Hinweis auf die seit Liquibase 4.30.0 standardmäßig aktivierte Telemetrie und deren Deaktivierung ergänzt
 - `IFS-5704`: [isyfact-standards-doc] Analyse: Verwendung von RestClient und WebClient
 - `IFS-5664`: [isyfact-standards-doc] Vorlagen zur Diagrammerstellung der Methodik auf IT-Systeme umstellen
 - `IFS-5665`: [isyfact-standards-doc] Umstellung der Vorlagen von Anwendungen auf IT-Systeme
@@ -66,6 +67,7 @@ Sequenzbasierte künstliche Primärschlüssel gelten für neu zu exponierende Id
 
 ### Dokumentation
 
+Die IsyFact weist nun darauf hin, dass Liquibase seit Version 4.30.0 standardmäßig Analysedaten an Fremdserver übermittelt, und beschreibt, wie diese Telemetrie deaktiviert werden kann.
 Die Word-Vorlagen für die Erstellung von Systementwürfen und Systemhandbüchern wurden entfernt.
 
 ## MIGRATION GUIDE
