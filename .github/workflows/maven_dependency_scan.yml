@@ -12,6 +12,8 @@ on:
 
 jobs:
   SnykScan:
+    permissions:
+      contents: read
     uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_dependency_scan_template.yml@v3.0.0
     with:
       snyk-reference: $GITHUB_REF_NAME
