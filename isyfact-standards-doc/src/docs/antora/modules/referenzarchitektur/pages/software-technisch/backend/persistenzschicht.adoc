@@ -136,6 +136,12 @@ Das Thema Transaktionssteuerung wird nicht im Rahmen der Persistenzschicht behan
 [[versionierung]]
 == Versionierung von Datenbankschemas
 
+[WARNING]
+====
+Seit Liquibase 4.30.0 werden standardmäßig Analysedaten an Fremdserver übermittelt.
+Um die Funktion zu deaktivieren, muss in der Konfiguration `liquibase.analyticsEnabled=false`beziehungsweise die Umgebungsvariable `LIQUIBASE_ANALYTICS_ENABLED=false` gesetzt werden.
+====
+
 Die Struktur der Daten, die von einer Anwendung dauerhaft gespeichert werden, kann sich im Laufe des Lebenszyklus der Anwendung ändern.
 Das bedeutet, dass sich neben der Anwendung auch das Datenbankschema ändert.
 Die Anwendung und das Datenbankschema müssen zueinander passen.
