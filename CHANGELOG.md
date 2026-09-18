@@ -1,5 +1,6 @@
 # 5.1.0
 ### FEATURES
+- `IFS-4988`: [isyfact-standards-doc] Kapitel "Qualitätssicherung" in der Referenzarchitektur Frontend ergänzt
 - `IFS-5789`: [isyfact-standards-doc] Hinweis auf die seit Liquibase 4.30.0 standardmäßig aktivierte Telemetrie und deren Deaktivierung ergänzt
 - `IFS-5704`: [isyfact-standards-doc] Analyse: Verwendung von RestClient und WebClient
 - `IFS-5664`: [isyfact-standards-doc] Vorlagen zur Diagrammerstellung der Methodik auf IT-Systeme umstellen
