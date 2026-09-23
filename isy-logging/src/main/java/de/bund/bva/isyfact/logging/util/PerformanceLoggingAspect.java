@@ -20,12 +20,16 @@ public class PerformanceLoggingAspect {
 
     private LogHelper logHelper = new LogHelper(false, false, true, false,
         false, 0, LogHelper.erstelleStandardKonverter());
+
+    /**
+     * Wether performance logging is enabled or not. If true the performance logging will be executed.
+     */
     private boolean enabled;
 
     @Around("awfUndAfuKlassen()")
     public Object loggeDauer(ProceedingJoinPoint pjp) throws Throwable {
 
-        if(!enabled){
+        if (!enabled) {
             return pjp.proceed();
         }
 
