@@ -169,9 +169,9 @@
                 <artifactId>aspectj-maven-plugin</artifactId>
                 <version>1.14</version>
                 <configuration>
-                    <source>17</source>
-                    <target>17</target>
-                    <complianceLevel>17</complianceLevel>
+                    <source>${maven.compiler.release}</source>
+                    <target>${maven.compiler.release}</target>
+                    <complianceLevel>${maven.compiler.release}</complianceLevel>
                     <showWeaveInfo>true</showWeaveInfo>
                 </configuration>
                 <dependencies>
