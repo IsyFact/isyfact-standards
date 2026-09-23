@@ -1,6 +1,6 @@
 package de.bund.bva.isyfact.logging.util;
 
-public class AspectJUtils {
+public final class AspectJUtils {
 
     public static <T> T aspectOf(Class<T> aspectClass) {
         try {
