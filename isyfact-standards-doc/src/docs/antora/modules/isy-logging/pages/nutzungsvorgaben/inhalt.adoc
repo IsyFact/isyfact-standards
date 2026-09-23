@@ -251,6 +251,80 @@ Dieser kann von der Systemzeit des Systems abweichen.
 
 In diesem Abschnitt wird der Einsatz des Logging-Frameworks `isy-logging` beschrieben.
 
+[[einbinden-des-frameworks]]
+=== Einbinden des Frameworks in der Anwendung
+
+Zusätzlich zu der Deklaration als Abhängigkeit muss für isy-logging der Build der verwendenden Anwendung angepasst werden, sodass per AspectJ das Performance-Logging zur Build-Zeit der Anwendung eingebunden werden kann. Hierfür kann folgende Konfiguration genutzt werden:
+
+[source,xml]
+----
+<plugin>
+    <groupId>dev.aspectj</groupId>
+    <artifactId>aspectj-maven-plugin</artifactId>
+    <version>1.14</version>
+    <configuration>
+        <complianceLevel>17</complianceLevel>
+        <source>17</source>
+        <target>17</target>
+
+        <showWeaveInfo>true</showWeaveInfo>
+        <verbose>true</verbose>
+
+        <excludes>
+            <exclude>**/*.java</exclude>
+        </excludes>
+        <forceAjcCompile>true</forceAjcCompile>
+        <sources/>
+
+        <aspectLibraries>
+            <aspectLibrary>
+                <groupId>de.bund.bva.isyfact</groupId>
+                <artifactId>isy-logging</artifactId>
+            </aspectLibrary>
+        </aspectLibraries>
+    </configuration>
+
+    <executions>
+        <execution>
+            <id>weave-main</id>
+            <phase>process-classes</phase>
+            <goals>
+                <goal>compile</goal>
+            </goals>
+            <configuration>
+                <weaveDirectories>
+                    <weaveDirectory>
+                        ${project.build.outputDirectory}
+                    </weaveDirectory>
+                </weaveDirectories>
+            </configuration>
+        </execution>
+        <execution>
+            <id>weave-test</id>
+            <phase>process-test-classes</phase>
+            <goals>
+                <goal>test-compile</goal>
+            </goals>
+            <configuration>
+                <weaveDirectories>
+                    <weaveDirectory>
+                        ${project.build.testOutputDirectory}
+                    </weaveDirectory>
+                </weaveDirectories>
+            </configuration>
+        </execution>
+    </executions>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjtools</artifactId>
+            <version>1.9.25.1</version>
+        </dependency>
+    </dependencies>
+</plugin>
+----
+
 [[aufruf-des-frameworks]]
 === Aufruf des Frameworks
 
