@@ -23,6 +23,10 @@
 ### BUG FIXES
 
 ### BREAKING CHANGES
+- `IFS-5782`: Die Migration des Performance-Loggings von Load-Time-Weaving nach Compile-Time-Weaving erfordert Anpassungen am Build von Anwender-Applikationen. Hierzu das Kapitel "Einbinden des Frameworks in der Anwendung" der Dokumentation von isy-logging beachten.
+### Umgesetzte Tickets
+#### Features
+- `IFS-5782`: Migration des Performance-Loggings von Load-Time-Weaving nach Compile-Time-Weaving
 
 ### DEPENDENCY UPGRADES
 - Update org.springframework.boot:spring-boot-maven-plugin von Version 4.0.6 auf 4.1.0
@@ -65,6 +69,9 @@ Diese Änderung wurde in der Dokumentation nachgezogen.
 
 Für künstliche IDs, die an einer Systemgrenze exponiert werden, ist zusätzlich zum internen technischen Primärschlüssel eine separate, UUID-basierte öffentliche Kennung zu vergeben.
 Sequenzbasierte künstliche Primärschlüssel gelten für neu zu exponierende Identifikatoren als deprecated; rein intern verwendete Primärschlüssel sind davon nicht betroffen.
+
+### Durchzuführende Aktionen vor dem ersten Einsatz
+- `IFS-5782`: Für die Nutzung des Performance-Loggings ist der Bau der nutzenden Anwendung anzupassen. Hierzu das Kapitel "Einbinden des Frameworks in der Anwendung" der Dokumentation von isy-logging beachten.
 
 ### Dokumentation
 
