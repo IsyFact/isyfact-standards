@@ -5,11 +5,11 @@ on:
   push:
     tags:
       - '*.*.*'
-
-# Write permission required to publish release
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   CreateRelease:
+    permissions:
+      contents: write
     uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_create_release_template.yml@v3.0.0
