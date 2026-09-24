@@ -22,8 +22,18 @@ public class PerformanceLoggingAspect {
     private LogHelper logHelper = new LogHelper(false, false, true, false,
         false, 0, LogHelper.erstelleStandardKonverter());
 
+    /**
+     * Wether performance logging is enabled or not. If true the performance logging will be executed.
+     */
+    private boolean enabled;
+
     @Around("awfUndAfuKlassen()")
     public Object loggeDauer(ProceedingJoinPoint pjp) throws Throwable {
+
+        if (!enabled) {
+            return pjp.proceed();
+        }
+
         Class<?> klasse = pjp.getTarget().getClass();
         Method methode = ((MethodSignature) pjp.getSignature()).getMethod();
 
@@ -56,5 +66,9 @@ public class PerformanceLoggingAspect {
     private long ermittleDauer(long startzeit) {
         long endezeit = logHelper.ermittleAktuellenZeitpunkt();
         return endezeit - startzeit;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 }
