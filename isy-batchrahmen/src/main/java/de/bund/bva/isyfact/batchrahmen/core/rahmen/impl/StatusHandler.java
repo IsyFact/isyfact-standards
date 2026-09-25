@@ -88,10 +88,16 @@ public class StatusHandler {
         if (BatchStartTyp.START.equals(konfiguration.getStartTyp())) {
             status.setSatzNummerLetztesCommit(0);
             status.setSchluesselLetztesCommit(null);
-            resetRestartZaehler(status);
         }
-        if (BatchStartTyp.RESTART.equals(konfiguration.getStartTyp())) {
-            incrementRestartZaehler(status);
+
+        // this will call db 'BATCHSTATUS_KONFIGURATIONSPARAMETER', prevent BREAKING CHANGE habit with feature flag
+        if (istMaxWiederholungenKonfiguriert(konfiguration)) {
+            if (BatchStartTyp.START.equals(konfiguration.getStartTyp())) {
+                resetRestartZaehler(status);
+            }
+            if (BatchStartTyp.RESTART.equals(konfiguration.getStartTyp())) {
+                incrementRestartZaehler(status);
+            }
         }
     }
 
@@ -136,15 +142,25 @@ public class StatusHandler {
      * @param konfig the batch configuration parameters
      */
     private void pruefeMaxWiederholungen(BatchStatus status, BatchKonfiguration konfig) {
-        long maxWiederholungen =
-                konfig.getAsLong(KonfigurationSchluessel.PROPERTY_BATCHRAHMEN_MAX_WIEDERHOLUNGEN, -1);
-        if (maxWiederholungen >= 0
+        if (istMaxWiederholungenKonfiguriert(konfig)
                 && BatchStatusTyp.ABGEBROCHEN.getName().equals(status.getBatchStatus())
                 && konfig.getStartTyp() == BatchStartTyp.RESTART
-                && leseRestartZaehler(status) >= maxWiederholungen) {
+                && leseRestartZaehler(status) >= konfig.getAsLong(
+                        KonfigurationSchluessel.PROPERTY_BATCHRAHMEN_MAX_WIEDERHOLUNGEN, -1)) {
             throw new BatchrahmenMaxWiederholungenException(NachrichtenSchluessel.ERR_MAX_WIEDERHOLUNGEN_UEBERSCHRITTEN,
-                    String.valueOf(maxWiederholungen));
+                    String.valueOf(konfig.getAsLong(
+                            KonfigurationSchluessel.PROPERTY_BATCHRAHMEN_MAX_WIEDERHOLUNGEN, -1)));
         }
+    }
+
+    /**
+     * Checks whether the 'maximum number of automatic restarts' feature is configured.
+     *
+     * @param konfiguration the batch configuration
+     * @return {@code true} if {@code Batchrahmen.MaxWiederholungen} is set to a value >= 0
+     */
+    private boolean istMaxWiederholungenKonfiguriert(BatchKonfiguration konfiguration) {
+        return konfiguration.getAsLong(KonfigurationSchluessel.PROPERTY_BATCHRAHMEN_MAX_WIEDERHOLUNGEN, -1) >= 0;
     }
 
     /**
