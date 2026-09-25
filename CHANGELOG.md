@@ -21,6 +21,8 @@
     - Maven < 3.9.0 hat den Status End of Life erreicht
 
 ### BUG FIXES
+- `IFS-5834`: Der Zugriff auf die Tabelle `BATCHSTATUS_KONFIGURATIONSPARAMETER` erfolgt nur, wenn das Feature `Batchrahmen.MaxWiederholungen` konfiguriert ist.
+  - Dadurch schlägt ein Batch ohne dieses Feature nicht mehr mit `ORA-00942` fehl.
 
 ### BREAKING CHANGES
 - `IFS-5782`: Die Migration des Performance-Loggings von Load-Time-Weaving nach Compile-Time-Weaving erfordert Anpassungen am Build von Anwender-Applikationen. Hierzu das Kapitel "Einbinden des Frameworks in der Anwendung" der Dokumentation von isy-logging beachten.
