@@ -599,6 +599,25 @@ spring.jpa.mapping-resources = \
 Die Tabelle dient nicht der Steuerung des Batches über den Betrieb, sondern nur der Ablage von Informationen zwischen zwei Batch-Läufen.
 Die Befüllung der Tabelle wird deshalb komplett über den Batchrahmen durchgeführt: Es müssen keine Datensätze manuell befüllt werden: Ist ein Datensatz für einen Batch noch nicht vorhanden, wird er angelegt.
 
+[[tabelle-konfigurationsparameter]]
+==== Tabelle `BATCH_STATUS_KONFIGURATIONS_PARAMETER`
+
+Für das Feature <<maximale-anzahl-an-wiederholungen,Maximale Anzahl an Wiederholungen>> wird der Zähler der bisherigen Neustarts eines fehlerhaften Batches in einer separaten Tabelle `BATCH_STATUS_KONFIGURATIONS_PARAMETER` gespeichert.
+
+.Das Schema der Tabelle BATCH_STATUS_KONFIGURATIONS_PARAMETER
+[id="table-SchemaTabKonfParam",reftext="{table-caption} {counter:tables}"]
+[cols="3m,7",options="header"]
+|====
+|Spalte |Beschreibung
+|BATCH_STATUS_BATCH_ID |Der Schlüssel des zugehörigen Batches. Verweist auf `BATCH_STATUS.BATCH_ID`.
+|KONFIGURATIONS_PARAMETER |Der serialisierte Inhalt der Konfigurationsparameter des Batches.
+|====
+
+Die Tabelle wird vom Batchrahmen nur dann benötigt und befüllt, wenn der Konfigurationsparameter `Batchrahmen.MaxWiederholungen` konfiguriert ist.
+Ist das Feature nicht konfiguriert, greift der Batchrahmen nicht auf die Tabelle zu, sodass sie für diesen Fall nicht angelegt werden muss.
+
+Für Batches, welche die BatchStatus-Tabelle mit der alten Benennung (`BATCHSTATUS` ohne Unterstriche, siehe `hibernate-mapping-if2.xml`) verwenden, heißt die Tabelle entsprechend `BATCHSTATUS_KONFIGURATIONSPARAMETER` mit der Spalte `BATCHSTATUS_BATCHID`.
+
 Üblicherweise ist das Locking-Verhalten in Backends optimistisch: Datensätze werden nicht explizit gelockt.
 Stattdessen wird über Versions-Attribute zum Commit-Zeitpunkt geprüft, ob der Datensatz innerhalb der Transaktion verändert wurde.
 Für die Tabelle des Batchrahmens wird _nicht_ optimistisch, sondern pessimistisch gelockt.
@@ -677,7 +696,7 @@ Wird ein Batch mit `-restart` gestartet und wurde die konfigurierte maximale Anz
 Der Rückgabewert ist in diesem Fall `FEHLER_ABBRUCH`.
 Die Exception wird nur auf Info-Niveau geloggt, da es sich um einen erwarteten Abbruch handelt.
 
-Ein Zähler der bisherigen Neustarts wird persistent in der Batch-Statustabelle gespeichert.
+Ein Zähler der bisherigen Neustarts wird persistent in der Tabelle <<tabelle-konfigurationsparameter,`BATCH_STATUS_KONFIGURATIONS_PARAMETER`>> gespeichert.
 Wird der Batch mit `-start` (oder `-start -ignoriereRestart`) neu gestartet, wird dieser Zähler zurückgesetzt.
 
 [[ueberlesen-von-datensaetzen]]
