@@ -21,10 +21,15 @@ public final class AdditionalCredentials {
     @Nullable
     private final String bhknz;
 
-    private AdditionalCredentials(@Nullable String username, @Nullable String password, @Nullable String bhknz) {
+    /** The certificate OU to send as part of the authentication request. */
+    @Nullable
+    private final String certificateOu;
+
+    private AdditionalCredentials(@Nullable String username, @Nullable String password, @Nullable String bhknz, @Nullable String certificateOu) {
         this.username = username;
         this.password = password;
         this.bhknz = bhknz;
+        this.certificateOu = certificateOu;
     }
 
     /**
@@ -37,22 +42,24 @@ public final class AdditionalCredentials {
     public static AdditionalCredentials createWithUsernamePassword(String username, String password) {
         Assert.notNull(username, "username cannot be null");
         Assert.notNull(password, "password cannot be null");
-        return new AdditionalCredentials(username, password, null);
+        return new AdditionalCredentials(username, password, null, null);
     }
 
     /**
-     * Creates a builder-object for AdditionalCredentials with username, password and BHKNZ.
+     * Creates a builder-object for AdditionalCredentials with username, password, BHKNZ and certificate OU.
      *
      * @param username the username of the resource owner
      * @param password the password of the resource owner
      * @param bhknz the BHKNZ to be sent as part of the authentication request
+     * @param certificateOu the certificate OU to be sent as part of the authentication request
      * @return a new AdditionalCredentials instance
      */
-    public static AdditionalCredentials createWithUsernamePasswordBhknz(String username, String password, String bhknz) {
+    public static AdditionalCredentials createWithUsernamePasswordBhknzOu(String username, String password, String bhknz, String certificateOu) {
         Assert.notNull(username, "username cannot be null");
         Assert.notNull(password, "password cannot be null");
         Assert.notNull(bhknz, "bhknz cannot be null");
-        return new AdditionalCredentials(username, password, bhknz);
+        Assert.notNull(certificateOu, "certificateOu cannot be null");
+        return new AdditionalCredentials(username, password, bhknz, certificateOu);
     }
 
     /**
@@ -63,7 +70,7 @@ public final class AdditionalCredentials {
      */
     public static AdditionalCredentials createWithBhknz(String bhknz) {
         Assert.notNull(bhknz, "bhknz cannot be null");
-        return new AdditionalCredentials(null, null, bhknz);
+        return new AdditionalCredentials(null, null, bhknz, null);
     }
 
     @Nullable
@@ -81,6 +88,11 @@ public final class AdditionalCredentials {
         return bhknz;
     }
 
+    @Nullable
+    public String getCertificateOu() {
+        return certificateOu;
+    }
+
     /**
      * Checks whether the username and password are set.
      *
@@ -93,9 +105,20 @@ public final class AdditionalCredentials {
     /**
      * Checks whether the BHKNZ is set.
      *
-     * @return true if BHKNZ is set, otherwise false
+     * @return {@code true} if BHKNZ is set, otherwise {@code false}
+     * @deprecated Checking only for the BHKNZ is deprecated. Use {@link #hasBhknzOu()} instead.
      */
+    @Deprecated
     public boolean hasBhknz() {
         return bhknz != null;
+    }
+
+    /**
+     * Checks whether the BHKNZ and certificate OU are set.
+     *
+     * @return {@code true} if BHKNZ and certificate OU are set, otherwise {@code false}
+     */
+    public boolean hasBhknzOu() {
+        return bhknz != null && certificateOu != null;
     }
 }
