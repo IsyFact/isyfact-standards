@@ -90,7 +90,7 @@ public class AuthentifizierungsmanagerWithoutClientsConfiguredTest extends Abstr
 
     @Test
     public void testAuthSystem() {
-        authentifizierungsmanager.authentifiziereSystem(getIssuer(), "testid", "testsecret", "testuser", "pw", "123456");
+        authentifizierungsmanager.authentifiziereSystem(getIssuer(), "testid", "testsecret", "testuser", "pw");
 
         ArgumentCaptor<PasswordClientRegistrationAuthenticationToken> tokenCaptor =
                 ArgumentCaptor.forClass(PasswordClientRegistrationAuthenticationToken.class);
@@ -102,7 +102,8 @@ public class AuthentifizierungsmanagerWithoutClientsConfiguredTest extends Abstr
         assertEquals("testsecret", value.getClientRegistration().getClientSecret());
         assertEquals("testuser", value.getUsername());
         assertEquals("pw", value.getPassword());
-        assertEquals("123456", value.getBhknz());
+        assertNull(value.getBhknz());
+        assertNull(value.getCertificateOu());
 
         assertEquals(mockJwt, SecurityContextHolder.getContext().getAuthentication());
     }
@@ -141,8 +142,8 @@ public class AuthentifizierungsmanagerWithoutClientsConfiguredTest extends Abstr
                 .authorizationGrantType(AuthorizationGrantType.PASSWORD)
                 .build();
 
-        AdditionalCredentials additionalCredentials = AdditionalCredentials.createWithUsernamePasswordBhknz(
-                "newUser", "newPassword", "900600");
+        AdditionalCredentials additionalCredentials = AdditionalCredentials.createWithUsernamePasswordBhknzOu(
+                "newUser", "newPassword", "900600", "Foo-OU");
 
         authentifizierungsmanager.authentifiziere(clientRegistration, additionalCredentials);
 
@@ -156,6 +157,7 @@ public class AuthentifizierungsmanagerWithoutClientsConfiguredTest extends Abstr
         assertEquals("newUser", value.getUsername());
         assertEquals("newPassword", value.getPassword());
         assertEquals("900600", value.getBhknz());
+        assertEquals("Foo-OU", value.getCertificateOu());
 
         assertEquals(mockJwt, SecurityContextHolder.getContext().getAuthentication());
     }
