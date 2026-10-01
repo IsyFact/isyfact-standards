@@ -1,14 +1,11 @@
-# 4.3.1
+# 4.3.2
 
 ### Hinweise & bekannte Probleme
-- keine
+- Siehe [isy-security CHANGELOG](./isy-security/CHANGELOG.md)
 
 ### Umgesetzte Tickets
 #### Features
-- `IFS-5715`: [isyfact-standards-doc] Dokumentation des IsyFact Checkstyle Plugin (`isy-checkstyle-config`) inkl. Integration hinzugefügt
-- `IFS-5340`: [isyfact-standards-doc] OpenAPI-Dokumentation inkl. Beschreibungen zum Deployment der Spezifikation als Maven-Submodul (SST-Artifact) sowie zur Client-Generierung über eine Maven-Dependency hinzugefügt
-- `IFS-5673`: [isyfact-standards-doc] Aufnahme von `apache.santuario:xmlsec` im Produktkatalog
-- `IFS-5691`: isy-ueberwachung LoadBalancer - Auslesen der isAlive-Datei aus Dateisystem und Servlet Context
+- `IFS-5872`: [isy-security] Konfigurierbarkeit der OU pro Authentifizierung
 
 #### Bug Fixes
 - keine
