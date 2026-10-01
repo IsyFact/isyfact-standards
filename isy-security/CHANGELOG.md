@@ -1,12 +1,37 @@
-# 4.1.0
-## Features
-- `IFS-4591`: Hinzufügen von Authentifizierungsmethoden zur Authentifizierung von Clients und Systemen ohne Issuer-URI.
-- `IFS-4754`: Einführung von Caching im Authentifizierungsprozess
-- `IFS-4785`: Hinzufügen einer Property für die Restlebensdauer gecachter OAuth2-Token
-- `IFS-4752`: Wiederherstellen der initialen Authentication nach Authentifizierung mit @Authenticate-Annotation
-- `IFS-4810`: Ausbau der Validierung des "aud"-Claims erstellter Tokens
+# 4.1.1
 
-## Breaking Changes
-- `IFS-4812`: Verwendung sicherer Hashfunktion mit SHA-512 für Caching
-    * Rückgabe eines Byte-Arrays statt eines Integers in der Methode `generateCacheKey` der Klasse `AbstractClientRegistrationAuthenticationToken`
-    * Konfigurierbare Properties für Hashfunktion und Bytegröße des Salts
+### Hinweise & bekannte Probleme
+Die folgenden Methoden wurden entfernt, da die Übergabe des BHKNZ ohne die passende Zertifikat-OU ein Sicherheitsrisiko darstellt:
+
+- `Authentifizierungsmanager#authentifiziereSystem(String issuerLocation, String clientId, String clientSecret, String username, String password, String bhknz)`
+- `AdditionalCredentials#createWithUsernamePasswordBhknz(String username, String password, String bhknz)`
+- `PasswordClientRegistrationAuthenticationToken(ClientRegistration clientRegistration, String username, String password, String bhknz)`
+
+Als Ersatz wurden die folgenden Methoden hinzugefügt:
+
+- `AdditionalCredentials#createWithUsernamePasswordBhknzOu(String username, String password, String bhknz, String certificateOu)`
+- `PasswordClientRegistrationAuthenticationToken(ClientRegistration clientRegistration, String username, String password, String bhknz, String certificateOu)`
+
+Im Falle von `authentifiziereSystem()` muss auf `authenticate(ClientRegistration, AdditionalCredentials)` umgestellt werden.
+Die ClientRegistration kann dabei wie folgt erstellt werden:
+
+```java
+ClientRegistration clientRegistration = ClientRegistrations.fromIssuerLocation(issuerLocation)
+        .clientId(clientId)
+        .clientSecret(clientSecret)
+        .authorizationGrantType(AuthorizationGrantType.PASSWORD)
+        .build();
+```
+
+### Umgesetzte Tickets
+#### Features
+- `IFS-5872`: Konfigurierbarkeit der OU pro Authentifizierung
+
+#### Bug Fixes
+- keine
+
+#### Interne Anpassungen
+- keine
+
+### Durchzuführende Aktionen vor dem ersten Einsatz
+- keine
