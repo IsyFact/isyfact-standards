@@ -110,13 +110,13 @@ Dabei wird anhand des Typs der Authentifizierungsdaten der passende Authenticati
 - Für den Credential-Typ bzw. _Credential_-Flow xref:client-credential-flow[] ist die Methode `authentifiziereClient` zu verwenden mit der `issuerLocation` als URI des IAM sowie `clientId`, `clientSecret` und optional das BHKNZ des externen Systems als Parameter.
 Hierbei ist zu beachten, dass aktuell keine Auswertung bzw. Weiterleitung des BHKNZ an das IAM stattfindet.
 
-- Für den Credential-Typ bzw. _Credential_-Flow xref:resource-owner-password-credential-flow[] die Methode `authentifiziereSystem` mit den Parametern `issuerLocation` als URI des IAM, `clientId` und `clientSecret` des Gateways als vermittelnden _confidential client_ sowie `username`, `password` und optional das BHKNZ der externen Anwendung.
+- Für den Credential-Typ bzw. _Credential_-Flow xref:resource-owner-password-credential-flow[] die Methode `authentifiziereSystem` mit den Parametern `issuerLocation` als URI des IAM, `clientId` und `clientSecret` des Gateways als vermittelnden _confidential client_ sowie `username` und `password` der externen Anwendung.
 
 - Für den Credential-Typ bzw. _Credential_-Flow xref:client-credential-flow[] sind folgende Methoden verfügbar:
 * `authentifiziere(String oauth2ClientRegistrationId)`: Nutzt die in der Anwendungskonfiguration hinterlegte Client-Registration mit der angegebenen ID. Die Client-ID und das Client-Secret werden aus der Konfiguration gelesen.
-* `authentifiziere(String oauth2ClientRegistrationId, AdditionalCredentials credentials)`: Wie oben, ermöglicht jedoch die Angabe eines BHKNZ über die AdditionalCredentials.
+* `authentifiziere(String oauth2ClientRegistrationId, AdditionalCredentials credentials)`: Wie oben, ermöglicht jedoch die Angabe eines BHKNZ und der Zertifikat-OU über die AdditionalCredentials.
 * `authentifiziere(ClientRegistration clientRegistration)`: Erlaubt die direkte Verwendung eines ClientRegistration-Objekts mit Token-URI und JWKS-URI.
-* `authentifiziere(ClientRegistration clientRegistration, AdditionalCredentials credentials)`: Wie oben, ergänzt um die Möglichkeit, ein BHKNZ über die AdditionalCredentials anzugeben.
+* `authentifiziere(ClientRegistration clientRegistration, AdditionalCredentials credentials)`: Wie oben, ergänzt um die Möglichkeit, ein BHKNZ und die Zertifikat-OU über die AdditionalCredentials anzugeben.
 * `authentifiziereClient-Methoden`: Sind zu verwenden mit der `issuerLocation` als URI des IAM sowie `clientId`, `clientSecret` und optional das BHKNZ des externen Systems als Parameter.
 Hierbei ist zu beachten, dass aktuell keine Auswertung bzw. Weiterleitung des BHKNZ an das IAM stattfindet.
 
@@ -124,12 +124,15 @@ Hierbei ist zu beachten, dass aktuell keine Auswertung bzw. Weiterleitung des BH
 * `authentifiziere(String oauth2ClientRegistrationId)`: Nutzt die in der Anwendungskonfiguration hinterlegte Client-Registration mit der angegebenen ID. Benutzername und Passwort müssen in der Konfiguration konfiguriert sein.
 * `authentifiziere(String oauth2ClientRegistrationId, AdditionalCredentials credentials)`: Ermöglicht die Verwendung dynamischer Benutzeranmeldedaten zur Laufzeit. Die AdditionalCredentials müssen Benutzername und Passwort enthalten und überschreiben ggf. in der Konfiguration hinterlegte Werte.
 * `authentifiziere(ClientRegistration clientRegistration, AdditionalCredentials credentials)`: Erlaubt die vollständig dynamische Authentifizierung mit einem selbst erstellten ClientRegistration-Objekt und Benutzerdaten. Die AdditionalCredentials müssen Benutzername und Passwort enthalten.
-* `authentifiziereSystem-Methoden`: Sind zu verwenden mit den Parametern `issuerLocation` als URI des IAM, `clientId` und `clientSecret` des Gateways als vermittelnden _confidential client_ sowie `username`, `password` und optional das BHKNZ der externen Anwendung.
+* `authentifiziereSystem-Methoden`: Sind zu verwenden mit den Parametern `issuerLocation` als URI des IAM, `clientId` und `clientSecret` des Gateways als vermittelnden _confidential client_ sowie `username` und `password` der externen Anwendung.
 
 ****
 *Anmerkung zur Deprecation*
 
 Die Methoden `authentifiziereClient` und `authentifiziereSystem` und ihre überladenen Varianten sind als deprecated markiert und sollten nicht mehr verwendet werden. In künftigen Versionen werden diese Methoden nicht mehr vorhanden sein.
+
+Die überladene Methode `authentifiziereSystem` mit Angabe des BHKNZ als Parameter wurde frühzeitig entfernt, da die Angabe des BHKNZ ohne die zugehörige Zertifikat-OU ein Sicherheitsrisiko darstellt.
+Stattdessen kann auf die Methode `authentifiziere(ClientRegistration clientRegistration, AdditionalCredentials credentials)` migriert werden.
 ****
 
 Die Klasse `AdditionalCredentials` dient zur Kapselung zusätzlicher Authentifizierungsdaten bei der Authentifizierung mit ClientRegistration-Objekten.
@@ -137,10 +140,10 @@ Sie ermöglicht die flexible Kombination verschiedener Credentials wie Benutzern
 Über statische Builder-Methoden können Instanzen mit den gewünschten Kombinationen erstellt werden:
 
 - `withUsernamePassword` für Benutzername und Passwort,
-- `withUsernamePasswordBhknz` für Benutzername, Passwort und BHKNZ, sowie
+- `withUsernamePasswordBhknzOu` für Benutzername, Passwort, BHKNZ und Zertifikat-OU, sowie
 - `withBhknz` nur für das BHKNZ.
 
-Die Klasse bietet zudem Prüfmethoden wie `hasUsernamePassword` und `hasBhknz`, um die Verfügbarkeit bestimmter Credentials zu ermitteln.
+Die Klasse bietet zudem Prüfmethoden wie `hasUsernamePassword` und `hasBhknzOu`, um die Verfügbarkeit bestimmter Credentials zu ermitteln.
 
 Der `Berechtigungsmanager` gibt Auskunft über die Rollen und Rechte des Anwenders.
 Die in der Benutzeradministration dem Anwender zugewiesenen Rollen werden mithilfe einer anwendungsspezifischen Rollen-Rechte-Datei in konkrete Rechte des Anwenders für diese Anwendung umgewandelt.
@@ -638,11 +641,11 @@ Hierbei muss Sicherheit gegen Benutzerkomfort abgewogen werden.
 [[nutzung-des-behoerdenkennzeichens]]
 === Nutzung des Behördenkennzeichens
 
-Als optional mögliche 2-Faktor-Authentifizierung ist im IAM-Service die Übermittlung und Auswertung des Behördenkennzeichens (BHKNZ) vorgesehen.
+Als optional mögliche 2-Faktor-Authentifizierung ist im IAM-Service die Übermittlung und Auswertung des Behördenkennzeichens (BHKNZ) und der passenden Zertifikat-OU vorgesehen.
 Die Implementierung des IAM-Service muss für die 2-Faktor-Authentifizierung dieses Feature unterstützen, andernfalls wird das BHKNZ als optionales Attribut betrachtet.
-Wenn die IAM-Service-Implementierung dieses Feature unterstützt, dann wird ein mit den Authentifizierungsdaten gemeinsam übergebenes Behördenkennzeichen gegen das Behördenkennzeichen aus dem zu authentifizierenden Nutzerprofil geprüft.
+Wenn die IAM-Service-Implementierung dieses Feature unterstützt, dann wird ein mit den Authentifizierungsdaten gemeinsam übergebene Kombination aus Behördenkennzeichen und Zertifikat-OU gegen die aus dem zu authentifizierenden Nutzerprofil geprüft.
 
-Wie in xref:konzept/master.adoc#aussensicht-der-komponente-security[Schnittstelle des Bausteins Security] beschrieben, wird bei den Authentifizierungsmethoden `authentifiziereClient()` und `authentifiziereSystem()` das Behördenkennzeichen als optionaler Parameter an den `Authentifizierungsmanager` übergeben, der es mit den anderen Authentifizierungsdaten zusammen an den IAM-Service weiterleitet.
+Wie in xref:konzept/master.adoc#aussensicht-der-komponente-security[Schnittstelle des Bausteins Security] beschrieben, wird bei den Authentifizierungsmethoden `authentifiziere(String oauth2ClientRegistrationId, AdditionalCredentials credentials)` und `authentifiziere(ClientRegistration clientRegistration, AdditionalCredentials credentials)` das Behördenkennzeichen und die Zertifikat-OU als optionaler Parameter an den `Authentifizierungsmanager` übergeben, der es mit den anderen Authentifizierungsdaten zusammen an den IAM-Service weiterleitet.
 
 [[multiple-uris]]
 === Aufruf des IAM-Services über unterschiedliche URIs
