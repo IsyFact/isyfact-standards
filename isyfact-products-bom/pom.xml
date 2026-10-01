@@ -19,7 +19,7 @@
         <apache.poi.version>5.5.1</apache.poi.version>
         <greenmail.version>1.6.15</greenmail.version>
         <metro.webservices.version>4.0.7</metro.webservices.version>
-        <stax2-api.version>4.3.0</stax2-api.version>
+        <stax2-api.version>4.3.1</stax2-api.version>
         <woodstox.core.version>7.2.2</woodstox.core.version>
         <logback-json-classic.version>0.1.5</logback-json-classic.version>
         <logback-jackson.version>0.1.5</logback-jackson.version>
