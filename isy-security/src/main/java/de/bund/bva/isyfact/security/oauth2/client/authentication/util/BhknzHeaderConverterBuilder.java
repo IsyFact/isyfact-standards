@@ -11,16 +11,12 @@ public class BhknzHeaderConverterBuilder {
     /** The name of the HTTP header that's used to pass the BHKNZ. */
     private final String headerName;
 
-    /** The certificate OU that should be passed as part of the header. */
-    private final String defaultCertificateOu;
-
     public BhknzHeaderConverterBuilder(IsyOAuth2ClientConfigurationProperties isyOAuth2ClientProps) {
         this.headerName = isyOAuth2ClientProps.getBhknzHeaderName();
-        this.defaultCertificateOu = isyOAuth2ClientProps.getDefaultCertificateOu();
     }
 
-    public Converter<OAuth2PasswordGrantRequest, HttpHeaders> buildWith(String bhknz) {
-        return new BhknzHeaderConverter(bhknz);
+    public Converter<OAuth2PasswordGrantRequest, HttpHeaders> buildWith(String bhknz, String certificateOu) {
+        return new BhknzHeaderConverter(bhknz, certificateOu);
     }
 
     private class BhknzHeaderConverter implements Converter<OAuth2PasswordGrantRequest, HttpHeaders> {
@@ -28,13 +24,17 @@ public class BhknzHeaderConverterBuilder {
         /** The BHKNZ to pass as part of the header. */
         private final String bhknz;
 
-        private BhknzHeaderConverter(String bhknz) {
+        /** The certificate OU to pass as part of the header. */
+        private final String certificateOu;
+
+        private BhknzHeaderConverter(String bhknz, String certificateOu) {
             this.bhknz = bhknz;
+            this.certificateOu = certificateOu;
         }
 
         @Override
         public HttpHeaders convert(OAuth2PasswordGrantRequest request) {
-            String headerValue = String.format("%s:%s", bhknz, defaultCertificateOu);
+            String headerValue = String.format("%s:%s", bhknz, certificateOu);
 
             HttpHeaders headers = new HttpHeaders();
             headers.add(headerName, headerValue);
