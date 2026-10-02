@@ -1,14 +1,13 @@
 # 4.4.0
 
 ### Hinweise & bekannte Probleme
-- keine
+- Siehe [isy-security CHANGELOG](./isy-security/CHANGELOG.md)
 
 ### Umgesetzte Tickets
-#### Features
-- `IFS-5782`: Migration des Performance-Loggings von Load-Time-Weaving nach Compile-Time-Weaving
 
 #### Bug Fixes
 - `IFS-5784` isAlive-File des LoadBalancers in embedded Tomcat integrieren
+- `IFS-5872`: [isy-security] Konfigurierbarkeit der OU pro Authentifizierung
 
 #### Interne Anpassungen
 - keine

@@ -49,7 +49,7 @@ public class PasswordClientRegistrationAuthenticationProvider extends IsyOAuth2A
            the AccessTokenResponseClient before each request in order to set the BHKNZ header. */
         ClientRegistration clientRegistration = token.getClientRegistration();
 
-        OAuth2AuthorizedClient authorizedClient = obtainAuthorizedClient(clientRegistration, token, token.getUsername(), token.getPassword(), token.getBhknz());
+        OAuth2AuthorizedClient authorizedClient = obtainAuthorizedClient(clientRegistration, token, token.getUsername(), token.getPassword(), token.getBhknz(), token.getCertificateOu());
         /* The authorized client could theoretically be null if a valid token already exists or a refresh token
            is configured, but since the OAuth2AuthorizationContext does not use authorized clients and the
            OAuth2AuthorizationContext is only configured for a single grant type this can currently not be the case. */
@@ -67,7 +67,7 @@ public class PasswordClientRegistrationAuthenticationProvider extends IsyOAuth2A
     }
 
     protected OAuth2AuthorizedClient obtainAuthorizedClient(ClientRegistration clientRegistration, Authentication principal,
-                                                            String username, String password, @Nullable String bhknz) {
+                                                            String username, String password, @Nullable String bhknz, @Nullable String certificateOu) {
         Assert.hasText(username, "username cannot be empty for client: " + clientRegistration.getRegistrationId());
         Assert.hasText(password, "password cannot be empty for client: " + clientRegistration.getRegistrationId());
 
@@ -77,22 +77,22 @@ public class PasswordClientRegistrationAuthenticationProvider extends IsyOAuth2A
                 .attribute(OAuth2AuthorizationContext.PASSWORD_ATTRIBUTE_NAME, password)
                 .build();
 
-        OAuth2AccessTokenResponseClient<OAuth2PasswordGrantRequest> responseClient = createPasswordTokenResponseClient(bhknz);
+        OAuth2AccessTokenResponseClient<OAuth2PasswordGrantRequest> responseClient = createPasswordTokenResponseClient(bhknz, certificateOu);
         OAuth2AuthorizedClientProvider clientProvider = OAuth2AuthorizedClientProviderBuilder.builder()
                 .password(passwordGrantBuilder -> passwordGrantBuilder.accessTokenResponseClient(responseClient))
                 .build();
         return clientProvider.authorize(authorizationContext);
     }
 
-    private OAuth2AccessTokenResponseClient<OAuth2PasswordGrantRequest> createPasswordTokenResponseClient(@Nullable String bhknz) {
+    private OAuth2AccessTokenResponseClient<OAuth2PasswordGrantRequest> createPasswordTokenResponseClient(@Nullable String bhknz, @Nullable String certificateOu) {
         // we need to create a new client every time because each request has a unique interceptor
         DefaultPasswordTokenResponseClient passwordTokenResponseClient = new DefaultPasswordTokenResponseClient();
 
-        if (bhknz != null) {
+        if (bhknz != null && certificateOu != null) {
             // add a headers converter to the default request entity converter which sets the bhknz header
             passwordTokenResponseClient.setRequestEntityConverter(passwordGrantRequest -> {
                 OAuth2PasswordGrantRequestEntityConverter converter = new OAuth2PasswordGrantRequestEntityConverter();
-                converter.addHeadersConverter(bhknzHeaderConverterBuilder.buildWith(bhknz));
+                converter.addHeadersConverter(bhknzHeaderConverterBuilder.buildWith(bhknz, certificateOu));
                 return converter.convert(passwordGrantRequest);
             });
         }

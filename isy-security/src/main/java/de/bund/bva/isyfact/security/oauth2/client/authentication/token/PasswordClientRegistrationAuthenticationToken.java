@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.springframework.lang.Nullable;
 import org.springframework.security.oauth2.client.registration.ClientRegistration;
+import org.springframework.util.Assert;
 import org.springframework.util.SerializationUtils;
 
 /**
@@ -20,10 +21,19 @@ public class PasswordClientRegistrationAuthenticationToken extends AbstractClien
     /** The resource owner's password. */
     private final String password;
 
-    public PasswordClientRegistrationAuthenticationToken(ClientRegistration clientRegistration, String username, String password, @Nullable String bhknz) {
+    /**
+     * The certificate OU to send as part of the authentication request (optional).
+     * If the certificaet OU is set the {@link #bhknz} must also be set.
+     */
+    @Nullable
+    private final String certificateOu;
+
+    public PasswordClientRegistrationAuthenticationToken(ClientRegistration clientRegistration, String username, String password, @Nullable String bhknz, @Nullable String certificateOu) {
         super(username, clientRegistration, bhknz);
+        Assert.isTrue(!(bhknz != null ^ certificateOu != null), "if bhknz is set the certifiateOu must also be set");
         this.username = username;
         this.password = password;
+        this.certificateOu = certificateOu;
         setAuthenticated(false);
     }
 
@@ -35,11 +45,17 @@ public class PasswordClientRegistrationAuthenticationToken extends AbstractClien
         return password;
     }
 
+    @Nullable
+    public String getCertificateOu() {
+        return certificateOu;
+    }
+
     /**
      * Generates a cache key that includes the following fields.
      * <ul>
      *     <li>principal</li>
      *     <li>bhknz</li>
+     *     <li>certificateOu</li>
      *     <li>issuerLocation</li>
      *     <li>clientId</li>
      *     <li>clientSecret</li>
@@ -59,7 +75,8 @@ public class PasswordClientRegistrationAuthenticationToken extends AbstractClien
 
             List<String> additionalValues = Arrays.asList(
                 String.valueOf(getUsername()),
-                String.valueOf(getPassword())
+                String.valueOf(getPassword()),
+                String.valueOf(getCertificateOu())
             );
             byte[] additionalBytes = SerializationUtils.serialize(additionalValues);
             digest.update(additionalBytes);

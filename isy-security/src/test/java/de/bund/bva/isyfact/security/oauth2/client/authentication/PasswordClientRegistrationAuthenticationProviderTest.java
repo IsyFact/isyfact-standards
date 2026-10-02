@@ -51,7 +51,7 @@ public class PasswordClientRegistrationAuthenticationProviderTest extends Abstra
     public void shouldGetAuthTokenForUserWithoutBhknz() {
         Authentication authentication = authenticationProvider.authenticate(
                 new PasswordClientRegistrationAuthenticationToken(clientRegistrationRepository.findByRegistrationId("ropc-client"),
-                        "testuser", "pw1234", null));
+                        "testuser", "pw1234", null, null));
 
         // security context is still empty
         SecurityContext securityContext = SecurityContextHolder.getContext();
@@ -71,8 +71,8 @@ public class PasswordClientRegistrationAuthenticationProviderTest extends Abstra
     @Test
     public void shouldGetAuthTokenForUserWithBhknz() {
         Authentication authentication = authenticationProvider.authenticate(
-                new PasswordClientRegistrationAuthenticationToken(clientRegistrationRepository.findByRegistrationId("ropc-client-with-bhknz"),
-                        "testuser-with-bhknz", "pw1234", "123456"));
+                new PasswordClientRegistrationAuthenticationToken(clientRegistrationRepository.findByRegistrationId("ropc-client"),
+                        "testuser-with-bhknz", "pw1234", "123456", "TESTOU"));
 
         // security context is still empty
         SecurityContext securityContext = SecurityContextHolder.getContext();
@@ -94,7 +94,7 @@ public class PasswordClientRegistrationAuthenticationProviderTest extends Abstra
         assertThrows(ClientAuthorizationException.class,
                 () -> authenticationProvider.authenticate(
                         new PasswordClientRegistrationAuthenticationToken(clientRegistrationRepository.findByRegistrationId("ropc-client-invalid"),
-                                "testuser", "wrong", null)));
+                                "testuser", "wrong", null, null)));
     }
 
     @Test
@@ -102,22 +102,44 @@ public class PasswordClientRegistrationAuthenticationProviderTest extends Abstra
         ClientAuthorizationException exception = assertThrows(ClientAuthorizationException.class,
                 () -> authenticationProvider.authenticate(
                         new PasswordClientRegistrationAuthenticationToken(clientRegistrationRepository.findByRegistrationId("cc-client-invalid-with-resource-owner"),
-                                "testuser", "pw1234", "123456")));
+                                "testuser", "pw1234", "123456", "TESTOU")));
 
         assertEquals(OAuth2ErrorCodes.INVALID_GRANT, exception.getError().getErrorCode());
         assertEquals("cc-client-invalid-with-resource-owner", exception.getClientRegistrationId());
     }
 
     @Test
-    public void shouldThrowErrorWithMissingBhknz() {
+    public void shouldThrowErrorWithMissingBhknzAndOu() {
         // user that requires a bhknz
         ClientAuthorizationException exception = assertThrows(ClientAuthorizationException.class,
                 () -> authenticationProvider.authenticate(
-                        new PasswordClientRegistrationAuthenticationToken(clientRegistrationRepository.findByRegistrationId("ropc-client-with-bhknz-without-bhknz"),
-                                "testuser-with-bhknz", "p1234", null)));
+                        new PasswordClientRegistrationAuthenticationToken(clientRegistrationRepository.findByRegistrationId("ropc-client"),
+                                "testuser-with-bhknz", "p1234", null, null)));
 
         assertEquals("invalid_token_response", exception.getError().getErrorCode());
-        assertEquals("ropc-client-with-bhknz-without-bhknz", exception.getClientRegistrationId());
+        assertEquals("ropc-client", exception.getClientRegistrationId());
+    }
+
+    @Test
+    public void shouldThrowErrorIfBhknzSetButNotOu() {
+        // user that requires a bhknz
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+                () -> authenticationProvider.authenticate(
+                        new PasswordClientRegistrationAuthenticationToken(clientRegistrationRepository.findByRegistrationId("ropc-client"),
+                                "testuser-with-bhknz", "p1234", "123456", null)));
+
+        assertThat(exception).hasMessageContaining("if bhknz is set the certifiateOu must also be set");
+    }
+
+    @Test
+    public void shouldThrowErrorIfOuSetButNotBhknz() {
+        // user that requires a bhknz
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+                () -> authenticationProvider.authenticate(
+                        new PasswordClientRegistrationAuthenticationToken(clientRegistrationRepository.findByRegistrationId("ropc-client"),
+                                "testuser-with-bhknz", "p1234", null, "TESTOU")));
+
+        assertThat(exception).hasMessageContaining("if bhknz is set the certifiateOu must also be set");
     }
 
     @Test
@@ -126,7 +148,7 @@ public class PasswordClientRegistrationAuthenticationProviderTest extends Abstra
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
                 () -> authenticationProvider.authenticate(
                         new PasswordClientRegistrationAuthenticationToken(clientRegistrationRepository.findByRegistrationId("ropc-client-without-resource-owner"),
-                                null, null, null)));
+                                null, null, null, null)));
 
         assertThat(exception.getMessage()).contains("ropc-client-without-resource-owner");
     }
