@@ -2,6 +2,10 @@ name: Build Documentation
 on:
   pull_request:
     types: [ opened, synchronize, reopened ]
+    branches:
+      - develop
+      - 'develop-**'
+      - 'doku/**'
   push:
     tags:
       - '^\\d+\\.\\d+\\.\\d+$'
