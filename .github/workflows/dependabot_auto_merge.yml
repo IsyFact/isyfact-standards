@@ -9,6 +9,9 @@ on:
 
 jobs:
   DependabotAutoMerge:
+    permissions:
+      contents: read
+      pull-requests: write
     uses: IsyFact/isy-github-actions-templates/.github/workflows/dependabot_auto_merge_template.yml@v3.0.0
     secrets:
       DEPENDABOT_TOKEN: ${{ secrets.DEPENDABOT_TOKEN }}
