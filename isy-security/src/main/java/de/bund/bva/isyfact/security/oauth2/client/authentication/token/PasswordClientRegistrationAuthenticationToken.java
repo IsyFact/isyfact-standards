@@ -2,6 +2,7 @@ package de.bund.bva.isyfact.security.oauth2.client.authentication.token;
 
 import org.springframework.lang.Nullable;
 import org.springframework.security.oauth2.client.registration.ClientRegistration;
+import org.springframework.util.Assert;
 
 /**
  * AuthenticationToken holding parameters required for creating a Client to use with Resource Owner Password Credentials Flow authentication.
@@ -14,10 +15,19 @@ public class PasswordClientRegistrationAuthenticationToken extends AbstractClien
     /** The resource owner's password. */
     private final String password;
 
-    public PasswordClientRegistrationAuthenticationToken(ClientRegistration clientRegistration, String username, String password, @Nullable String bhknz) {
+    /**
+     * The certificate OU to send as part of the authentication request (optional).
+     * If the certificaet OU is set the {@link #bhknz} must also be set.
+     */
+    @Nullable
+    private final String certificateOu;
+
+    public PasswordClientRegistrationAuthenticationToken(ClientRegistration clientRegistration, String username, String password, @Nullable String bhknz, @Nullable String certificateOu) {
         super(username, clientRegistration, bhknz);
+        Assert.isTrue(!(bhknz != null ^ certificateOu != null), "if bhknz is set the certifiateOu must also be set");
         this.username = username;
         this.password = password;
+        this.certificateOu = certificateOu;
         setAuthenticated(false);
     }
 
@@ -27,5 +37,10 @@ public class PasswordClientRegistrationAuthenticationToken extends AbstractClien
 
     public String getPassword() {
         return password;
+    }
+
+    @Nullable
+    public String getCertificateOu() {
+        return certificateOu;
     }
 }
