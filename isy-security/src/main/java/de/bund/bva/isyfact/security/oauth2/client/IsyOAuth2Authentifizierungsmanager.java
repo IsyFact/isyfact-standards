@@ -43,10 +43,10 @@ import de.bund.bva.isyfact.security.oauth2.util.IsySecurityTokenUtil;
  * <p>
  * The primary way for authentication is {@link #authentifiziere(String)}, which depends on OAuth 2.0 Client Registrations
  * to be configured in the application properties.
- * The other {@link #authentifiziere(ClientRegistration) method takes a Client Registration
+ * The other {@link #authentifiziere(ClientRegistration)} method takes a Client Registration
  * with the provided credentials and thus do not depend on any Registration to be configured in the application properties.
- * Both {@link #authentifiziere(String, AdditionalCredentials) and
- * {@link #authentifiziere(ClientRegistration, AdditionalCredentials) offer the option of passing
+ * Both {@link #authentifiziere(String, AdditionalCredentials)} and
+ * {@link #authentifiziere(ClientRegistration, AdditionalCredentials)} offer the option of passing
  * authentication credentials like username, password and bhknz.
  * The methods {@code authentifiziereClient}/{@code authentifiziereSystem} construct the necessary
  * Client Registration with the provided credentials and issuer location and thus do not depend on any to be
@@ -187,13 +187,6 @@ public class IsyOAuth2Authentifizierungsmanager implements Authentifizierungsman
     @Override
     @Deprecated
     public void authentifiziereSystem(String issuerLocation, String clientId, String clientSecret, String username, String password) throws AuthenticationException {
-        authentifiziereSystem(issuerLocation, clientId, clientSecret, username, password, null);
-    }
-
-    @Override
-    @Deprecated
-    public void authentifiziereSystem(String issuerLocation, String clientId, String clientSecret, String username, String password, @Nullable String bhknz)
-            throws AuthenticationException {
         Assert.notNull(issuerLocation, "issuerLocation cannot be null");
         Assert.notNull(clientId, "clientId cannot be null");
         Assert.notNull(clientSecret, "clientSecret cannot be null");
@@ -206,7 +199,7 @@ public class IsyOAuth2Authentifizierungsmanager implements Authentifizierungsman
                 .authorizationGrantType(AuthorizationGrantType.PASSWORD)
                 .build();
 
-        Authentication unauthenticatedToken = new PasswordClientRegistrationAuthenticationToken(clientRegistration, username, password, bhknz);
+        Authentication unauthenticatedToken = new PasswordClientRegistrationAuthenticationToken(clientRegistration, username, password, null, null);
         authenticateAndChangeAuthenticatedPrincipal(unauthenticatedToken);
     }
 
@@ -253,6 +246,11 @@ public class IsyOAuth2Authentifizierungsmanager implements Authentifizierungsman
             // the BHKNZ is optional but can be set for CC or ROPC
             bhknz = props.getBhknz();
         }
+        String certificateOu = null;
+        if (bhknz != null) {
+            // if the BHKNZ is set we also need the OU
+            certificateOu = isyOAuth2ClientProps.getDefaultCertificateOu();
+        }
 
         AuthorizationGrantType grantType = clientRegistration.getAuthorizationGrantType();
         if (AuthorizationGrantType.CLIENT_CREDENTIALS.equals(grantType)) {
@@ -260,7 +258,7 @@ public class IsyOAuth2Authentifizierungsmanager implements Authentifizierungsman
         } else if (AuthorizationGrantType.PASSWORD.equals(grantType)) {
             // ROPC requires the username and password to be set in the additional properties
             if (props != null && props.getUsername() != null && props.getPassword() != null) {
-                return new PasswordClientRegistrationAuthenticationToken(clientRegistration, props.getUsername(), props.getPassword(), bhknz);
+                return new PasswordClientRegistrationAuthenticationToken(clientRegistration, props.getUsername(), props.getPassword(), bhknz, certificateOu);
             } else {
                 throw new BadCredentialsException(
                         String.format("No configured credentials (username, password) found for client with registrationId: %s.",
@@ -309,7 +307,7 @@ public class IsyOAuth2Authentifizierungsmanager implements Authentifizierungsman
                                 clientRegistration.getRegistrationId()));
             } else {
                 return new PasswordClientRegistrationAuthenticationToken(clientRegistration,
-                        credentials.getUsername(), credentials.getPassword(), credentials.getBhknz());
+                        credentials.getUsername(), credentials.getPassword(), credentials.getBhknz(), credentials.getCertificateOu());
             }
         } else {
             throw new IllegalArgumentException("The AuthorizationGrantType '" + grantType.getValue() + "' is not supported.");
@@ -357,7 +355,7 @@ public class IsyOAuth2Authentifizierungsmanager implements Authentifizierungsman
         } else if (AuthorizationGrantType.PASSWORD.equals(grantType)) {
             if (credentials.hasUsernamePassword()) {
                 unauthenticatedToken = new PasswordClientRegistrationAuthenticationToken(clientRegistration,
-                        credentials.getUsername(), credentials.getPassword(), credentials.getBhknz());
+                        credentials.getUsername(), credentials.getPassword(), credentials.getBhknz(), credentials.getCertificateOu());
             } else {
                 throw new BadCredentialsException(
                         "No credentials (username, password) provided for client with password grant type.");
