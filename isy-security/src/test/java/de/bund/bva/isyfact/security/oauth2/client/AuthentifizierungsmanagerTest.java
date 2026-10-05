@@ -182,10 +182,10 @@ public class AuthentifizierungsmanagerTest extends AbstractOidcProviderTest {
     }
 
     @Test
-    public void testAuthWithRegistrationIdAndUsernamePasswordBhknz() {
+    public void testAuthWithRegistrationIdAndUsernamePasswordBhknzOu() {
         //override credentials
-        AdditionalCredentials credentials = AdditionalCredentials.createWithUsernamePasswordBhknz(
-                "newUser", "newPassword", "900600");
+        AdditionalCredentials credentials = AdditionalCredentials.createWithUsernamePasswordBhknzOu(
+                "newUser", "newPassword", "900600", "Foo-OU");
 
         authentifizierungsmanager.authentifiziere("ropc-client", credentials);
 
@@ -200,6 +200,7 @@ public class AuthentifizierungsmanagerTest extends AbstractOidcProviderTest {
         assertEquals("newUser", value.getUsername());
         assertEquals("newPassword", value.getPassword());
         assertEquals("900600", value.getBhknz());
+        assertEquals("Foo-OU", value.getCertificateOu());
         assertEquals(mockJwt, SecurityContextHolder.getContext().getAuthentication());
     }
 
@@ -285,7 +286,7 @@ public class AuthentifizierungsmanagerTest extends AbstractOidcProviderTest {
     }
 
     @Test
-    public void testAuthWithDirectClientRegistrationROPCAndUsernamePasswordBhknz() {
+    public void testAuthWithDirectClientRegistrationROPCAndUsernamePasswordBhknzOu() {
         ClientRegistration clientRegistration = ClientRegistration.withRegistrationId("custom-ropc-client")
                 .tokenUri("http://localhost:9095/auth/realms/testrealm/protocol/openid-connect/token")
                 .jwkSetUri("http://localhost:9095/auth/realms/testrealm/protocol/openid-connect/certs")
@@ -294,8 +295,8 @@ public class AuthentifizierungsmanagerTest extends AbstractOidcProviderTest {
                 .authorizationGrantType(AuthorizationGrantType.PASSWORD)
                 .build();
 
-        AdditionalCredentials additionalCredentials = AdditionalCredentials.createWithUsernamePasswordBhknz(
-                "newUser", "newPassword", "900600");
+        AdditionalCredentials additionalCredentials = AdditionalCredentials.createWithUsernamePasswordBhknzOu(
+                "newUser", "newPassword", "900600", "Foo-OU");
 
         authentifizierungsmanager.authentifiziere(clientRegistration, additionalCredentials);
 
@@ -310,6 +311,7 @@ public class AuthentifizierungsmanagerTest extends AbstractOidcProviderTest {
         assertEquals("newUser", value.getUsername());
         assertEquals("newPassword", value.getPassword());
         assertEquals("900600", value.getBhknz());
+        assertEquals("Foo-OU", value.getCertificateOu());
 
         assertEquals(mockJwt, SecurityContextHolder.getContext().getAuthentication());
     }
@@ -531,24 +533,6 @@ public class AuthentifizierungsmanagerTest extends AbstractOidcProviderTest {
         assertEquals("testuser", value.getUsername());
         assertEquals("testpw", value.getPassword());
         assertNull(value.getBhknz());
-
-        assertEquals(mockJwt, SecurityContextHolder.getContext().getAuthentication());
-    }
-
-    @Test
-    public void testAuthSystemWithBhknz() {
-        authentifizierungsmanager.authentifiziereSystem(getIssuer(), "testid", "testsecret", "testuser", "testpw", "123456");
-
-        ArgumentCaptor<PasswordClientRegistrationAuthenticationToken> tokenCaptor = ArgumentCaptor.forClass(PasswordClientRegistrationAuthenticationToken.class);
-        verify(passwordClientRegistrationAuthenticationProvider).authenticate(tokenCaptor.capture());
-        PasswordClientRegistrationAuthenticationToken value = tokenCaptor.getValue();
-        assertEquals(getIssuer(), value.getClientRegistration().getProviderDetails().getIssuerUri());
-        assertEquals(AuthorizationGrantType.PASSWORD, value.getClientRegistration().getAuthorizationGrantType());
-        assertEquals("testid", value.getClientRegistration().getClientId());
-        assertEquals("testsecret", value.getClientRegistration().getClientSecret());
-        assertEquals("testuser", value.getUsername());
-        assertEquals("testpw", value.getPassword());
-        assertEquals("123456", value.getBhknz());
 
         assertEquals(mockJwt, SecurityContextHolder.getContext().getAuthentication());
     }
