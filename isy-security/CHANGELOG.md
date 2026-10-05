@@ -1,32 +1,38 @@
-# 3.2.2
+# 3.2.3
 
-- `ISY-4754`: Einführung von Caching im Authentifizierungsprozess
+### Hinweise & bekannte Probleme
+Die folgenden Methoden wurden entfernt, da die Übergabe des BHKNZ ohne die passende Zertifikat-OU ein Sicherheitsrisiko darstellt:
 
-# 3.1.0
+- `Authentifizierungsmanager#authentifiziereSystem(String issuerLocation, String clientId, String clientSecret, String username, String password, String bhknz)`
+- `AdditionalCredentials#createWithUsernamePasswordBhknz(String username, String password, String bhknz)`
+- `PasswordClientRegistrationAuthenticationToken(ClientRegistration clientRegistration, String username, String password, String bhknz)`
 
-- `ISY-305`: Implementierung von IsySecurityTokenUtil zum Auslesen von Attributen aus dem Bearer Token
-- `ISY-980`: Anpassung der Dokumentation aufgrund von Security-Umstellungen
-- `IFS-2804`: `@EnableGlobalMethodSecurity` durch die modernere `@EnableMethodSecurity` Annotation ersetzt
-  - Aktiviert standardmäßig @PreAuthorize, @PostAuthorize, @PreFilter und @PostFilter (`prePostEnabled = true`)
-- `IFS-3833`: Implementierung von Multi-Tenancy-Support
-- `IFS-2248`: Bereitstellen von Funktionalität zur Token-Gültigkeitsüberprüfung und erneuten Authentifizierung
+Als Ersatz wurden die folgenden Methoden hinzugefügt:
 
-# 3.0.0
+- `AdditionalCredentials#createWithUsernamePasswordBhknzOu(String username, String password, String bhknz, String certificateOu)`
+- `PasswordClientRegistrationAuthenticationToken(ClientRegistration clientRegistration, String username, String password, String bhknz, String certificateOu)`
 
-- `IFS-2561`: Die Konfiguration via `rollenrechte.xml` erfolgt optional. 
-    - Initialisierung mit Standardwerten
-- `IFS-1852`: Bereitstellung einer Implementierung zur Authentifizierung eines Clients mit Client Credentials
-    - Property `isy.security.rolesClaimName` eingeführt
-- `IFS-2302`: Umsetzung des Mappings von Rollen auf Rechte
-- `IFS-2403`: Umstellung vorhandener Tests auf `isy-security-test`
-- `IFS-1960`: Bereitstellung einer Implementierung zur Authentifizierung mit Resource Owner Password Credentials
-- `IFS-1854`: Umsetzung des Berechtigungsmanagers
-- `IFS-2400`: Schnittstellen des Bausteins `isy-security`
-    - `Security` und `Authentifizierungsmanager` Interface
-    - Standard Implementierungen als Beans per Autokonfiguration bereitgestellt
-- `IFS-1855`: Umsetzung der Tokenweitergabe an Nachbarsysteme
-- `ISY-147`: Überarbeitung der Methoden des Authentifizierungsmanagers
-    - Vereinheitlichung der Methodensignaturen
-    - Ergänzung des BHKNZ als optionalen Parameter in allen Methoden (wird aktuell nur für den Resource Owner Password Credentials Flow ausgewertet)
-    - Überarbeitung der Dokumentation und Parameterbenennung um Unklarheiten zu beseitigen
-- `ISY-83`: Annotation zur Authentifizierung innerhalb von Methoden hinzugefügt
+Im Falle von `authentifiziereSystem()` muss auf `authenticate(ClientRegistration, AdditionalCredentials)` umgestellt werden.
+Die ClientRegistration kann dabei wie folgt erstellt werden:
+
+```java
+ClientRegistration clientRegistration = ClientRegistrations.fromIssuerLocation(issuerLocation)
+        .clientId(clientId)
+        .clientSecret(clientSecret)
+        .authorizationGrantType(AuthorizationGrantType.PASSWORD)
+        .build();
+```
+
+### Umgesetzte Tickets
+#### Features
+- `IFS-4591`: Hinzufügen von Authentifizierungsmethoden zur Authentifizierung von Clients und Systemen ohne Issuer-URI.
+- `IFS-5872`: Konfigurierbarkeit der OU pro Authentifizierung
+
+#### Bug Fixes
+- keine
+
+#### Interne Anpassungen
+- keine
+
+### Durchzuführende Aktionen vor dem ersten Einsatz
+- keine
