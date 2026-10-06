@@ -56,6 +56,24 @@
 
                         <executions>
                             <execution>
+                                <id>IsyFact-Vorlage-Systemspezifikation-pdf</id>
+                                <phase>generate-resources</phase>
+                                <goals>
+                                    <goal>process-asciidoc</goal>
+                                </goals>
+                                <configuration>
+                                    <backend>pdf</backend>
+                                    <sourceDirectory>
+                                        src/docs/antora/modules/methodik/pages/vorlage-systemspezifikation
+                                    </sourceDirectory>
+                                    <sourceDocumentName>master.adoc</sourceDocumentName>
+                                    <outputFile>
+                                        ${project.build.directory}/IsyFact-Vorlage-Systemspezifikation.pdf
+                                    </outputFile>
+                                </configuration>
+                            </execution>
+
+                            <execution>
                                 <id>IsyFact-Vorlage-Systementwurf-pdf</id>
                                 <phase>generate-resources</phase>
                                 <goals>
@@ -98,6 +116,20 @@
                         <artifactId>maven-assembly-plugin</artifactId>
                         <version>3.3.0</version>
                         <executions>
+                            <execution>
+                                <id>zip-systemspezifikation</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>single</goal>
+                                </goals>
+                                <configuration>
+                                    <descriptors>
+                                        <descriptor>${basedir}/assembly-systemspezifikation.xml</descriptor>
+                                    </descriptors>
+                                    <finalName>IsyFact-Vorlage-Systemspezifikation</finalName>
+                                    <appendAssemblyId>false</appendAssemblyId>
+                                </configuration>
+                            </execution>
                             <execution>
                                 <id>zip-systementwurf</id>
                                 <phase>package</phase>
@@ -142,6 +174,9 @@
                                 </goals>
                                 <configuration>
                                     <target>
+                                        <copy todir="${project.basedir}/${pfad.methodik}/pages/vorlage-systemspezifikation/vorlage-systemspezifikation">
+                                            <fileset dir="${project.basedir}/${pfad.methodik}/images/vorlage-systemspezifikation" />
+                                        </copy>
                                         <copy todir="${project.basedir}/${pfad.methodik}/pages/vorlage-systementwurf/vorlage-systementwurf">
                                             <fileset dir="${project.basedir}/${pfad.methodik}/images/vorlage-systementwurf" />
                                         </copy>
@@ -164,6 +199,7 @@
                                         <copy todir="${project.basedir}/${pfad.methodik}/attachments/vorlage-generated">
                                             <fileset dir="${project.build.directory}" includes="*.zip,*.pdf"/>
                                         </copy>
+                                        <delete dir="${project.basedir}/${pfad.methodik}/pages/vorlage-systementwurf/vorlage-systemspezifikation"/>
                                         <delete dir="${project.basedir}/${pfad.methodik}/pages/vorlage-systementwurf/vorlage-systementwurf"/>
                                         <delete dir="${project.basedir}/${pfad.methodik}/pages/vorlage-systemhandbuch/vorlage-systemhandbuch"/>
                                     </target>
