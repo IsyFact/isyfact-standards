@@ -84,5 +84,6 @@ jobs:
         echo "Failed to insert dependencies."
         exit 1
         fi
+        mvn clean install -DskipTests -Dmaven.javadoc.skip=true -PcentralSnapshot
     secrets:
       SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
