@@ -2,15 +2,19 @@ name: Dependency Scan
 on:
   pull_request:
     branches:
-      - master
-      - 'release/**'
+      - 'develop'
+      - 'main'
+      - 'develop-**'
+      - 'support/**'
     paths:
       - '**/pom.xml'
   workflow_dispatch:
 
 jobs:
   SnykScan:
-    uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_dependency_scan_template.yml@v2.3.0
+    permissions:
+      contents: read
+    uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_dependency_scan_template.yml@v3.0.0
     with:
       snyk-reference: $GITHUB_REF_NAME
       snyk-organization: ${{ vars.SNYK_ORG_ID }}
@@ -80,5 +84,6 @@ jobs:
         echo "Failed to insert dependencies."
         exit 1
         fi
+        mvn clean install -DskipTests -Dmaven.javadoc.skip=true -PcentralSnapshot
     secrets:
       SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}

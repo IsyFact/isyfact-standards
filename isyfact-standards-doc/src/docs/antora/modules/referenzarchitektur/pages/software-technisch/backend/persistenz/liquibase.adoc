@@ -2,6 +2,12 @@
 :navtitle: Liquibase
 :reftext: Liquibase
 
+[WARNING]
+====
+Seit Liquibase 4.30.0 werden standardmäßig Analysedaten an Fremdserver übermittelt.
+Um die Funktion zu deaktivieren, muss in der Konfiguration `liquibase.analyticsEnabled=false` beziehungsweise die Umgebungsvariable `LIQUIBASE_ANALYTICS_ENABLED=false` gesetzt werden.
+====
+
 Liquibase ist ein leistungsfähiges Tool zur Versionierung und Verwaltung von Datenbankänderungen.
 Es unterstützt als Werkzeug eine transparente, nachvollziehbare und automatisierte Änderungsverfolgung, wodurch manuelle Fehler minimiert und eine konsistente Synchronisation zwischen Entwicklungs-, Test- und Produktionsumgebungen sichergestellt wird.
 
@@ -29,26 +35,22 @@ Rollback-Funktionalität:: Fehlerhafte Änderungen können gezielt zurückgesetz
 [[vorbereitung-und-installation]]
 === Vorbereitung und Installation
 
-Liquibase kann direkt in die Anwendung integriert und kann automatisch mit dieser gestartet werden.
+Liquibase kann direkt in ein Backend integriert und kann automatisch mit dieser gestartet werden.
 Die wichtigsten Schritte umfassen die:
 
 * Einbindung in das Projekt über ein Abhängigkeitsmanagement,
-
 * Integration in das Anwendungsframework zur automatisierten Ausführung von Migrationen,
-
 * Bereitstellung von Datenbankänderungen im Rahmen von Deployment-Prozessen.
 
 [[konfiguration-der-datenbankverbindung]]
 === Konfiguration der Datenbankverbindung
 
-Liquibase nutzt JDBC für die Datenbankkommunikation in Java- beziehungsweise Spring-basierten Anwendungen.
+Liquibase nutzt JDBC für die Datenbankkommunikation in Java- beziehungsweise Spring-basierten Backends.
 Dabei sind folgende Punkte zu beachten:
 
-* Sicherstellen, dass sowohl Liquibase als auch die Anwendung über JDBC mit der Datenbank kommunizieren können.
-
+* Sicherstellen, dass sowohl Liquibase als auch das Backend über JDBC mit der Datenbank kommunizieren können.
 * Bereitstellung eines geeigneten Treibers für das verwendete Datenbanksystem.
-
-* Zentrale Verwaltung der Verbindungsinformationen innerhalb der Anwendung, um eine konsistente und sichere Nutzung der Datenbank zu gewährleisten.
+* Zentrale Verwaltung der Verbindungsinformationen innerhalb des Backends, um eine konsistente und sichere Nutzung der Datenbank zu gewährleisten.
 
 [[erfassung-des-bestehenden-schemas]]
 === Erfassung des bestehenden Schemas

@@ -18,8 +18,8 @@ Dem gegenüber stehen einige Herausforderungen:
 [[schritt-1]]
 == Schritt: Identifikation von IT-Systemen
 
-Das im Folgenden skizzierte Vorgehen orientiert sich an der Systemspezifikation und kann als Entscheidungshilfe bei der Frage unterstützen, ob zwei oder mehrere Anwendungskomponenten (ANKs) vom selben IT-System umgesetzt werden sollten.
-Es ist recht einfach zu befolgen und bezieht die wichtigsten Ergebnisse aus der xref:methodik:vorlagen.adoc#dokumentation-anwendung[Systemspezifikation] mit ein.
+Das im Folgenden skizzierte Vorgehen orientiert sich an der xref:methodik:vorlagen.adoc#dokumentation-anwendung[Systemspezifikation] und kann als Entscheidungshilfe bei der Frage unterstützen, ob zwei oder mehrere Anwendungskomponenten (ANKs) vom selben IT-System umgesetzt werden sollten.
+Es ist recht einfach zu befolgen und bezieht die wichtigsten Ergebnisse aus der Systemspezifikation mit ein.
 Als Ergebnis steht ein technischer Schnitt der Anwendung in IT-Systeme.
 
 [IMPORTANT]

@@ -9,11 +9,11 @@ Folgende Prinzipien der Sicherheit liegen der Erstellung einer Systemlandschaft 
 
 * Authentifizierungsinformationen, wie Benutzername und Passwort, werden nicht über IT-Systeme hinweg weitergegeben.
 Nur der Eigentümer der Authentifizierungsinformationen und der zentrale IAM-Service besitzen Kenntnis über diese Informationen.
-* Eine Zweifaktor-Authentifizierung ist durch das Client-Zertifikat und dem darin enthaltenen Behördenkennzeichen (BHKNZ) als zusätzliches Authentifizierungsmerkmal konzipiert, allerdings setzt dies im IAM-Service voraus, dass dieses Merkmal dort auch ausgewertet werden kann.
-* Bei Aufrufen von Außen (durch Web-Clients oder externen Anwendungen) erfolgt die Authentifizierung und grobgranulare Autorisierung an den Außengrenzen der Systemlandschaft (Portal, Service-Gateway bzw. Authentication-Gateway).
+* Eine Zwei-Faktor-Authentifizierung ist durch das Client-Zertifikat und dem darin enthaltenen Behördenkennzeichen (BHKNZ) als zusätzliches Authentifizierungsmerkmal konzipiert, allerdings setzt dies im IAM-Service voraus, dass dieses Merkmal dort auch ausgewertet werden kann.
+* Bei Aufrufen von Außen (durch Web-Clients oder externe Systeme) erfolgt die Authentifizierung und grobgranulare Autorisierung an den Außengrenzen der Systemlandschaft (Portal, Service-Gateway bzw. Authentication-Gateway).
 * Kommt der Aufruf von innerhalb der Systemlandschaft (z.B. bei einem Batch- oder Task-Aufruf), benötigt der (technische) Aufrufer eigene Authentifizierungsinformationen. Die Authentifizierung und grob granulare Autorisierung erfolgen durch das aufrufende IT-System (Batch/Task).
-* Wird zur Ausführung des Aufrufs ein Service einer anderen Geschäftsanwendung / Domäne benötigt, erfolgt dessen Aufruf im Namen und mit der Autorisierung des ursprünglichen Aufrufers.
-* Die feingranulare Autorisierung geschieht an den Systemgrenzen / externen Schnittstellen der aufgerufenen Geschäftsanwendung.
+* Wird zur Ausführung des Aufrufs ein Service eines Backends einer anderen Geschäftsanwendung / Domäne benötigt, erfolgt dessen Aufruf im Namen und mit der Autorisierung des ursprünglichen Aufrufers.
+* Die feingranulare Autorisierung geschieht an den Systemgrenzen / externen Schnittstellen der aufgerufenen IT-Systeme.
 * Existiert keine Systemlandschaft (d.h. IT-Systeme stehen für sich allein), gilt grundsätzlich, dass die Authentifizierung und grob granulare Autorisierung durch das aufrufende IT-System (Service oder Batch) erfolgen müssen.
 
 Folgende Abbildung zeigt die Umsetzung der Prinzipien in der Systemlandschaft:
@@ -22,25 +22,25 @@ Folgende Abbildung zeigt die Umsetzung der Prinzipien in der Systemlandschaft:
 image::software-technisch/sicherheit_iam_integration_awl.dn.svg[]
 
 Portal::
-Interne und externe Anwender rufen über das Portal die Geschäftsanwendung auf und werden dabei durch das Portal an den IAM-Service weitergeleitet, um die Authentifizierung durchzuführen.
-Erst nach erfolgreicher Authentifizierung leitet das Portal den Anwender zusammen mit den Autorisierungsinformationen an die Geschäftsanwendung weiter.
+Interne und externe Anwender rufen über das Portal die IT-Systeme der Geschäftsanwendung auf und werden dabei durch das Portal an den IAM-Service weitergeleitet, um die Authentifizierung durchzuführen.
+Erst nach erfolgreicher Authentifizierung leitet das Portal den Anwender zusammen mit den Autorisierungsinformationen an die IT-Systeme der Geschäftsanwendung weiter.
 
 Service-Gateway::
-Das Service-Gateway hat die Aufgabe, Anfragen von _externen Anwendungen_ entgegenzunehmen und zusammen mit den Autorisierungsinformationen an den passenden Service der Geschäftsanwendung weiterzuleiten.
-Aktuell übernimmt das Service-Gateway auch die Authentifizierung von externen Anwendungen.
-Dazu leitet es die von der externen Anwendung erhaltenen Authentifizierungsdaten an den IAM-Service weiter.
-Nach erfolgreicher Authentifizierung leitet das Service-Gateway die Anfrage zusammen mit den Autorisierungsinformationen an die Geschäftsanwendung weiter.
+Das Service-Gateway hat die Aufgabe, Anfragen von _externen Systemen_ entgegenzunehmen und zusammen mit den Autorisierungsinformationen an den passenden Service der Backends der Geschäftsanwendung weiterzuleiten.
+Aktuell übernimmt das Service-Gateway auch die Authentifizierung von externen Systemen.
+Dazu leitet es die vom externen System erhaltenen Authentifizierungsdaten an den IAM-Service weiter.
+Nach erfolgreicher Authentifizierung leitet das Service-Gateway die Anfrage zusammen mit den Autorisierungsinformationen an das aufgerufene Backend der Geschäftsanwendung weiter.
 Zukünftig soll das Service-Gateway keine Authentifizierungsanfragen mehr verarbeiten.
 Stattdessen soll das Authentication-Gateway verwendet werden.
 
 Authentication-Gateway::
-Das Authentication-Gateway übernimmt die Authentifizierung von externen Anwendungen.
-Dazu leitet es die von der externen Anwendung erhaltene Authentifizierungsanfrage an den IAM-Service weiter.
-Nach erfolgreicher Authentifizierung gibt das Authentication-Gateway die Autorisierungsinformationen an die externe Anwendung zurück.
-Die externe Anwendung sendet die erhaltenen Autorisierungsinformationen gemeinsam mit der fachlichen Anfrage über das Service-Gateway an die Geschäftsanwendung.
+Das Authentication-Gateway übernimmt die Authentifizierung von externen Systemen.
+Dazu leitet es die vom externen System erhaltene Authentifizierungsanfrage an den IAM-Service weiter.
+Nach erfolgreicher Authentifizierung gibt das Authentication-Gateway die Autorisierungsinformationen an das externe System zurück.
+Das externe System sendet die erhaltenen Autorisierungsinformationen gemeinsam mit der fachlichen Anfrage über das Service-Gateway an das aufgerufene Backend der Geschäftsanwendung.
 
 Anwendungen innerhalb der Anwendungslandschaft::
-Wenn Anwendungen andere Geschäfts- und Querschnittsanwendungen innerhalb der Systemlandschaft aufrufen, verwenden sie die Autorisierungsinformationen des ursprünglichen Aufrufers oder authentifizieren sich mit ihren eigenen Zugangsdaten direkt am IAM-Service und nutzen die erhaltenen Autorisierungsinformationen zum Aufruf.
+Wenn IT-Systeme von Anwendungen IT-Systeme anderer Geschäfts- und Querschnittsanwendungen innerhalb der Systemlandschaft aufrufen, verwenden sie die Autorisierungsinformationen des ursprünglichen Aufrufers oder authentifizieren sich mit ihren eigenen Zugangsdaten direkt am IAM-Service und nutzen die erhaltenen Autorisierungsinformationen zum Aufruf.
 
 IAM-Service::
 Der IAM-Service verarbeitet die Authentifizierungsanfragen und beantwortet sie mit zeitlich begrenzten Autorisierungsinformationen.
@@ -71,7 +71,7 @@ Für die zentrale Authentifizierung wird in der IsyFact ein OAuth 2.0 konformer 
 [[autorisierung]]
 === Autorisierung
 
-NOTE: Autorisierung: Zustimmung oder Erlaubnis, spezieller die Einräumung von Rechten gegenüber interessierten Rechtssubjekten, gegebenenfalls als Nutzungsrecht gegenüber Dritten.
+NOTE: Autorisierung: Zustimmung oder Erlaubnis, spezieller das Einräumen von Rechten gegenüber interessierten Rechtssubjekten, gegebenenfalls als Nutzungsrecht gegenüber Dritten.
 
 Im aufgerufenen IT-System wird die Anfrage – je nach Schutzbedarf und Funktionalität – autorisiert.
 Zwingend wird das Vorhandensein sowie die Authentizität und Gültigkeit der mit der Anfrage mitgegebenen Autorisierungsinformationen geprüft.
@@ -112,14 +112,14 @@ Bei Verwendung der Client-Authentifizierung per Zertifikat benötigt der Service
 
 * ein Zertifikat, das von einer vertrauenswürdigen CA signiert ist,
 * den zugehörigen privaten Schlüssel, welcher lokal im Keystore bleibt.
-Die nutzende Anwendung übergibt dem Service-Provider das Zertifikat beim Aufruf der externen Serviceprovider-Methode, der die Signatur des Zertifikats mittels des öffentlichen Schlüssels des Service-Consumers validiert.
+Das nutzende IT-System übergibt dem Service-Provider das Zertifikat beim Aufruf der externen Serviceprovider-Methode, der die Signatur des Zertifikats mittels des öffentlichen Schlüssels des Service-Consumers validiert.
 Der private Schlüssel wird ausschließlich zur kryptografischen Signatur des TSL-Handshakes genutzt.
 
 NOTE: Alle notwendigen Informationen zur Erstellung von Zertifikaten -ausgehend von einem Sicherheitsschlüsselpaar- können z.B. https://de.wikipedia.org/wiki/Certificate_Signing_Request[hier] eingesehen werden.
 
-In der nutzenden Anwendung werden das Zertifikat und der private Schlüssel in einer PKCS#12-Datei im Config-Verzeichnis der Anwendung abgelegt.
+Im nutzenden IT-System werden das Zertifikat und der private Schlüssel in einer PKCS#12-Datei im Config-Verzeichnis des IT-Systems abgelegt.
 Die Erstellung bzw. Aktualisierung des Zertifikats wird vom Betrieb durch Bearbeitung der Datei vorgenommen.
-Wird das Passwort für den privaten Schlüssel in einer Property, zusammen mit den übrigen betrieblichen Konfigurationen der Anwendung, vorgehalten, ist zu beachten:
+Wird das Passwort für den privaten Schlüssel in einer Property, zusammen mit den übrigen betrieblichen Konfigurationen des IT-Systems, vorgehalten, ist zu beachten:
 Die Gefahr besteht, dass der private Schlüssel über Logs, Artefakte, Konfigurations-Viewer oder Versions-Verwaltungslösungen zugänglich wird.
 Aus diesem Grund sollte das Passwort für den privaten Schlüssel über einen Secret-Mechanismus (Secret-Datei, Secret-Manager, ...) verfügbar gemacht werden.
 Die Bereitstellung des privaten Schlüssels ist vom Betrieb im Rahmen des betrieblichen Konfigurationsprozesses festzulegen.
@@ -140,13 +140,13 @@ Der TrustStore dagegen enthält ausschließlich die Zertifikate, die für die Au
 [[installation-des-zertifikates-auf-der-maschine]]
 ==== Installation des Zertifikats auf der Maschine
 Zertifikate können direkt als Dateien auf dem Dateisystem einer Maschine gespeichert werden, z. B. im Format `.pem`, `.crt` oder `.key`.
-Für den produktiven Einsatz wird jedoch die Ablage in Keystores/TrustStores empfohlen, die von der Anwendung beim Start oder zur Laufzeit geladen werden.
+Für den produktiven Einsatz wird jedoch die Ablage in Keystores/Trust-Stores empfohlen, die vom IT-System beim Start oder zur Laufzeit geladen werden.
 
 [[besonderheiten-bei-der-kommunikation-ueber-soap]]
 ==== Besonderheiten bei der Kommunikation über SOAP
 Für Kommunikation mit externen Services auf Basis von SOAP im Zusammenspiel mit Client-Zertifikaten ist zu beachten:
 Sofern nicht für alle Verbindungen derselbe Schlüssel verwendet wird, muss eine SocketFactory-Instanz pro Verbindung zur Verfügung gestellt werden.
-Damit ist ein globales Setzen von Key- und Truststores in der JVM nicht mehr ausreichend.
+Damit ist ein globales Setzen von Key- und Trust-Stores in der JVM nicht mehr ausreichend.
 Die SocketFactory-Instanzen können erst nach Initialisierung des ServiceStubs gesetzt werden, so kann die WSDL-Datei nicht über die gesicherte Verbindung abgerufen werden.
 Empfohlen wird die WSDL-Datei lokal vorzuhalten und aus dem Dateisystem zu laden, sodass sie nicht zur Laufzeit über das Netz geladen werden muss.
 Dies birgt allerdings die Möglichkeit einer Versions-Diskrepanz zwischen lokal vorgehaltener WSDL und aktueller Service-Provider WSDL.

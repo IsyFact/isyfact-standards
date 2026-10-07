@@ -3,9 +3,17 @@ name: Semgrep Scan
 on:
   pull_request:
     branches:
-      - master
+      - 'develop'
+      - 'main'
+      - 'develop-**'
+      - 'support/**'
   workflow_dispatch: {}
+
+permissions:
+  contents: read
 
 jobs:
   semgrep-scan:
-    uses: IsyFact/isy-github-actions-templates/.github/workflows/semgrep.yml@v2.5.0
+    permissions:
+      contents: read
+    uses: IsyFact/isy-github-actions-templates/.github/workflows/semgrep.yml@v3.0.0

@@ -260,14 +260,14 @@ Diese Konfigurationsparameter aus Kapitel 4.2.2.1 xref:isy-logging:nutzungsvorga
 
 *Nachrichten-Logging*
 
-Zum Test und Debuggen einer Anwendung soll es möglich sein, dass komplette Nachrichten in ihrem Rohformat inklusive dem kompletten Header geloggt werden.
+Zum Test und Debuggen eines Backends soll es möglich sein, dass komplette Nachrichten in ihrem Rohformat inklusive dem kompletten Header geloggt werden.
 Das Aktivieren des Nachrichten-Logging ist über einen Konfigurationsparameter steuerbar.
 
 [[rest-setzen-von-korrelations-id-in-header]]
 === Setzen der Korrelations-ID in den HTTP-Header
 
 Beim Versenden einer REST-Anfrage ist der Header `X-Correlation-Id` mit dem Wert der Korrelations-ID zu setzen.
-Die Anwendung, welche die REST-Anfragen stellt, muss dieses Verhalten implementieren.
+Das IT-System, welches die REST-Anfragen stellt, muss dieses Verhalten implementieren.
 In diesem Abschnitt wird ein Beispiel für die Implementierung gegeben.
 
 Für das Setzen des korrekten Werts in den HTTP-Header sind folgende Schritte auszuführen.
@@ -314,11 +314,11 @@ xref:isy-logging:konzept/master.adoc#korrelations-id[Konzept] und den xref:isy-l
 [[ueberwachung]]
 == Überwachung
 
-Die IsyFact stellt zur Überwachung von Anwendungen den Baustein Überwachung bereit.
+Die IsyFact stellt zur Überwachung von Backends den Baustein Überwachung bereit.
 
-Die Grundlagen der Überwachung von IsyFact-basierten Anwendungen beschreibt das xref:ueberwachung::konzept.adoc[] beschrieben.
+Die Grundlagen der Überwachung sind im xref:ueberwachung::konzept.adoc[] beschrieben.
 Detailliertere Informationen zur Konfiguration und zur Verwendung des Bausteins Überwachung finden sich in den xref:ueberwachung::nutzungsvorgaben.adoc[], insbesondere das Kapitel xref:ueberwachung::nutzungsvorgaben.adoc#informationen-von-services["Informationen von Services"].
-Dieses Kapitel beinhaltet eine Liste der zu überwachenden bzw. anzubietenden Informationen für die Services von Anwendungen.
+Dieses Kapitel beinhaltet eine Liste der zu überwachenden bzw. anzubietenden Informationen für die Services von Backends.
 Die dort aufgelisteten Informationen müssen für jeden Service einzeln angeboten werden.
 Die dort beschriebenen Informationen zur Überwachung gelten in gleichem Maße auch für REST-Services.
 

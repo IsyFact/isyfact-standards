@@ -1,7 +1,5 @@
 = Software-technische Referenzarchitektur
 
-include::glossary:licence:partial$licence.adoc[]
-
 // tag::architektursicht-definition[]
 
 Die software-technische Referenzarchitektur beschreibt, wie die in der fachlichen Referenzarchitektur definierten xref:glossary::terms-definitions.adoc#glossar-anwendung[Anwendungen] software-technisch in Form von xref:glossary::terms-definitions.adoc#glossar-it-system[IT-Systemen] umgesetzt werden.
@@ -13,43 +11,52 @@ Diese Ausprägung ist technisch motiviert und umfasst aktuell *Backends*, *Front
 
 // end::architektursicht-definition[]
 
+[[systemlandschaft]]
 == Definition der Systemlandschaft
 
 Der Begriff der Anwendungslandschaft ist fachlich motiviert.
 Die technische Entsprechung hierfür ist der Begriff der xref:glossary::terms-definitions.adoc#glossar-systemlandschaft[Systemlandschaft].
-Eine Systemlandschaft, die eine Anwendungslandschaft nach den IsyFact-Standards umsetzt, wird im Folgenden als _IsyFact-Systemlandschaft_ bezeichnet.
-Eine solche IsyFact-Systemlandschaft beinhaltet alle IT-Systeme als technische Umsetzung der Anwendungen  der Anwendungslandschaft sowie technische Systeme zur Unterstützung (z.B. Datenbanken oder Web-Server).
+Eine Systemlandschaft beinhaltet alle IT-Systeme als technische Umsetzung der Anwendungen der Anwendungslandschaft sowie technische Systeme zur Unterstützung (unter anderem Datenbanken oder Web-Server).
 
-[[strukturierung-der-systemlandschaft]]
-== Strukturierung der Systemlandschaft
-
-Wichtige Grundlagen für die Software-Referenzarchitektur sind die Schnittstellen und Aufruf-Beziehungen der IT-Systeme untereinander.
-Aufruf-Beziehungen werden stets unterschieden in _interne Aufrufe_, in welchen ein IT-System einer Systemlandschaft mit einem anderen IT-System derselben Systemlandschaft kommuniziert, und _externe Aufrufe_, in welchen ein IT-System der Systemlandschaft mit einem Anwender oder einem IT-System außerhalb dieser Systemlandschaft kommuniziert.
-Interne und externe Aufrufe unterscheiden sich sowohl in ihrer Authentifizierung und Autorisierung als auch (bei automatisierten Schnittstellen) in der verwendeten Technologie.
+[[awl-technisch]]
+.Technische Architektur einer Systemlandschaft
+image::software-technisch/systemlandschaft.dn.svg[]
 
 [[geschaeftsanwendungen]]
 === Geschäftsanwendungen
 
 xref:glossary::terms-definitions.adoc#glossar-geschaeftsanwendung[Geschäftsanwendungen] implementieren allgemein die Geschäftsprozesse einer Domäne.
-Geschäftsanwendungen können monolithisch strukturiert sein und alle Schichten der Softwarearchitektur umfassen, von der Benutzeroberfläche über Prozesse und xref:glossary::terms-definitions.adoc#glossar-geschaeftslogik[Geschäftslogik] bis hin zur Datenspeicherung.
-Sie können aber auch jeweils nur Teile davon implementieren, sodass z.B. eine Geschäftsanwendung eine GUI bereitstellt, eine weitere die Geschäftslogik implementiert und eine dritte schließlich die Persistierung der Daten realisiert.
-In diesem Fall würde die Gesamtfunktionalität durch das Zusammenwirken der drei Geschäftsanwendungen erbracht.
+Sie werden im Rahmen des xref:methodik:vorlage-systementwurf/antora-master.adoc[Systementwurfs] in folgende IT-Systeme xref:software-technisch/it-system-zerlegung.adoc[zerlegt]: Backends, Frontends, Batches und Gateways.
 
-Die Geschäftsanwendungen einer Systemlandschaft können sich intern gegenseitig über ihre xref:glossary::terms-definitions.adoc#service[Services] aufrufen.
-In einem konkreten Anwendungskontext einer Systemlandschaft wird man in der Regel die Arten von Geschäftsanwendungen noch genauer definieren und dabei auch die möglichen Aufrufbeziehungen zwischen ihnen geeignet einschränken.
+xref:software-technisch/backend.adoc[Backends] von Geschäftsanwendungen implementieren den Großteil der die xref:glossary::terms-definitions.adoc#glossar-geschaeftslogik[Geschäftslogik] und die Datenhaltung.
+Sie stellen die Geschäftslogik über xref:glossary::terms-definitions.adoc#service[Services] zur Verfügung.
+Backends rufen selbst Services anderer Backends auf.
+Die aufgerufenen Backends können zur selben Geschäftsanwendung gehören, zu einer anderen Geschäftsanwendung, oder zu einer <<querschnittsanwendungen,Querschnittsanwendung>>.
 
-Für die Kommunikation mit externen Systemen muss eine Geschäftsanwendung ein Service-Gateway verwenden, egal in welche Richtung die Kommunikation verläuft.
+xref:software-technisch/batch.adoc[Batches] von Geschäftsanwendungen implementieren die Geschäftslogik für zeitgesteuerte Aufgaben oder Massenoperationen.
+Sie rufen in der Regel Services von Backends derselben Geschäftsanwendung auf.
+Es kann aber auch sein, dass sie Services von Backends einer anderen Geschäftsanwendung oder einer <<querschnittsanwendungen,Querschnittsanwendung>> benötigen.
 
-Geschäftsanwendungen, die eine Benutzeroberfläche bereitstellen, dürfen aus Sicherheitsgründen nicht direkt vom Benutzer aufgerufen werden, sondern werden in das <<portal>> der Systemlandschaft eingebunden.
+xref:software-technisch/gateway.adoc[Gateways] von Geschäftsanwendungen implementieren die Kommunikation mit externen Systemen.
+Sie sind im <<api-gateway>> zusammengefasst.
+
+xref:software-technisch/frontend.adoc[Frontends] von Geschäftsanwendungen implementieren die grafische Benutzeroberfläche (GUI).
+Sie rufen über die Gateways der Geschäftsanwendung Services der Backends derselben Geschäftsanwendung auf.
+
+Geschäftsanwendungen, die eine grafische Benutzeroberfläche bereitstellen, dürfen aus Sicherheitsgründen nicht direkt vom Benutzer aufgerufen werden, sondern werden in das <<portal>> der Systemlandschaft eingebunden.
 
 [[querschnittsanwendungen]]
 === Querschnittsanwendungen
 
-xref:glossary::terms-definitions.adoc#glossar-querschnittsanwendung[Querschnittsanwendungen] bieten Geschäftsanwendungen querschnittlich genutzte Funktionalitäten an, etwa für die Bereitstellung von Schlüsseldaten.
+xref:glossary::terms-definitions.adoc#glossar-querschnittsanwendung[Querschnittsanwendungen] bieten von den Geschäftsanwendungen gemeinschaftlich genutzte Funktionalitäten an, etwa für die Bereitstellung von Schlüsseldaten.
 Querschnittsanwendungen können eine eigene Datenhaltung besitzen.
 
-Querschnittsanwendungen werden nur von internen Benutzern oder anderen IT-Systemen derselben Systemlandschaft aufgerufen. Sie rufen selbst nur andere Querschnittsanwendungen auf.
-Eine Ausnahme bilden Querschnittsanwendungen in Form eines xref:glossary::terms-definitions.adoc#gateway[Gateways], wie z.B. ein zentrales Mail-Gateway für den Versand von E-Mails an externe Empfänger.
+Sie sind strukturell gleich aufgebaut wie Geschäftsanwendungen, d.h. sie bestehen aus Backends, Batches, Gateways und Frontends.
+Allerdings werden Querschnittsanwendungen nur von internen Benutzern oder anderen IT-Systemen derselben Systemlandschaft aufgerufen.
+Sie rufen selbst nur andere Querschnittsanwendungen auf.
+
+Eine Ausnahme bilden Querschnittsanwendungen, die vorrangig aus xref:glossary::terms-definitions.adoc#gateway[Gateways] bestehen.
+Diese bilden eine bestimmte Kommunikationsbeziehung zwischen externen Systemen und der Systemlandschaft ab, wie z.B. ein zentrales Mail-Gateway für den Versand von E-Mails an externe Empfänger.
 
 [[portal]]
 === Portal
@@ -59,8 +66,8 @@ Es gibt weder einen systemübergreifenden Rahmen noch eine systemübergreifende 
 
 Das xref:glossary::terms-definitions.adoc#glossar-portal[Portal] im Sinne der Referenzarchitektur besteht aus:
 
-* Einem Web-Server-Cluster, der Aufrufe entgegennimmt und an die Application-Server der Geschäftsanwendungen weiterleitet.
-* Einer zentralen Startseite, welche den eingeloggten Benutzern die Geschäftsanwendungen der Anwendungslandschaft, für welche sie berechtigt sind, präsentiert.
+* einem Web-Server-Cluster, der Aufrufe entgegennimmt und an die Geschäftsanwendungen weiterleitet, sowie
+* einer zentralen Startseite, welche den eingeloggten Benutzern die Geschäftsanwendungen der Anwendungslandschaft, für welche sie berechtigt sind, präsentiert.
 
 Der Zweck eines Portals ist die gemeinsame Authentifizierung und Autorisierung für alle Geschäftsanwendungen und die Indirektion des Zugriffs von Nutzern auf die Geschäftsanwendungen.
 
@@ -86,9 +93,7 @@ Die software-technische Referenzarchitektur beschreibt im Weiteren den xref:soft
 [[servicekommunikation]]
 == Servicekommunikation
 
-include::documentation-guide::partial$content-revised.adoc[]
-
-xref:glossary::terms-definitions.adoc#service[Services] sind ein wesentlicher Bestandteil jeder <<strukturierung-der-systemlandschaft,Systemlandschaft>>.
+xref:glossary::terms-definitions.adoc#service[Services] sind ein wesentlicher Bestandteil jeder <<systemlandschaft,Systemlandschaft>>.
 Die software-technische Referenzarchitektur definiert HTTP als grundsätzliches Übertragungsprotokoll und xref:software-technisch/kommunikation.adoc[weitere Vorgaben für Services] zu den Themen:
 
 * Kommunikation mit Systemen innerhalb und außerhalb der Systemlandschaft,

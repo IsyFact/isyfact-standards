@@ -113,11 +113,11 @@ Das Thema Transaktionssteuerung wird nicht im Rahmen der Persistenzschicht behan
 [[versionierung]]
 == Versionierung von Datenbankschemas
 
-Die Struktur der Daten, die von einer Anwendung dauerhaft gespeichert werden, kann sich im Laufe des Lebenszyklus der Anwendung ändern.
-Das bedeutet, dass sich neben der Anwendung auch das Datenbankschema ändert.
-Die Anwendung und das Datenbankschema müssen zueinander passen.
+Die Struktur der Daten, die von einem Backend dauerhaft gespeichert werden, kann sich im Laufe des Lebenszyklus des Backends ändern.
+Das bedeutet, dass sich neben dem Backend auch das Datenbankschema ändert.
+Das Backend und das Datenbankschema müssen zueinander passen.
 
-Die Verwaltung von Versionsinformationen für ein Datenbankschema soll sicherstellen, dass die Anwendung und Skripte (zum Beispiel zur Datenmigration) erkennen können, ob ein Datenbankschema die erwartete Version hat.
+Die Verwaltung von Versionsinformationen für ein Datenbankschema soll sicherstellen, dass das Backend und Skripte (zum Beispiel zur Datenmigration) erkennen können, ob ein Datenbankschema die erwartete Version hat.
 Zusätzlich sollen die Datenbankadministratoren nachvollziehen können, welche Änderungen am Datenbankschema bereits erfolgt sind.
 
 Backends benutzen hierzu xref:software-technisch/backend/persistenz/liquibase.adoc[].
@@ -180,7 +180,7 @@ Ziel der Protokollierung ist das Nachvollziehen von Änderungen und Auskünften.
 Dazu werden je nach Bedarf die Suchschlüssel und Nettodaten von Aufrufen gespeichert.
 
 Logging::
-Beim Logging werden Notizen zu technischen Aufrufen innerhalb eines Systems oder zwischen Anwendungen in Dateien abgelegt.
+Beim Logging werden Notizen zu technischen Aufrufen innerhalb eines IT-Systems oder zwischen IT-Systemen in Dateien abgelegt.
 Das Logging hat einen technischen Fokus und dient in der Regel als Hilfsinstrument zur Fehlerbehebung.
 
 [[anforderungen-festlegungen]]
@@ -188,7 +188,7 @@ Das Logging hat einen technischen Fokus und dient in der Regel als Hilfsinstrume
 
 Die beabsichtigte Nutzung der Historisierung lässt sich mit Blick auf die Referenzarchitektur zu Anforderungen verallgemeinern, die in diesem Abschnitt dargestellt werden.
 
-Für die Historisierung von Datensätzen in einer Anwendung gelten folgende Anforderungen und Grundsätze:
+Für die Historisierung von Datensätzen in einem Backend gelten folgende Anforderungen und Grundsätze:
 
 * Es dürfen nur solche Daten historisiert werden, die auch angezeigt werden.
 * Die Speicherung von historischen Daten wird durch individuelle Löschfristen von Datensätzen begrenzt.

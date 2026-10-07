@@ -41,10 +41,10 @@ Im Vergleich zur xref:referenzarchitektur:software-technisch.adoc[allgemeinen Da
 
 [[software-technisch-frontend]]
 .Darstellung der Frontends in der softwaretechnischen Architektur inklusive Security
-image::referenzarchitektur:software-technisch/frontend/software-technisch-frontend.svg[width=50%,align=center]
+image::referenzarchitektur:software-technisch/frontend/software-technisch-frontend.drawio.svg[width=50%,align=center]
 
 Durch die Verwendung von SPAs befindet sich der Frontend-Teil der GA im Webbrowser des Anwenders, während der Backend-Teil weiterhin auf den Servern der Anwendungslandschaft betrieben wird.
-Zur strukturierten, sicheren und einheitlichen Anbindung der Frontends an die Backend-Systeme ist verpflichtend ein zentrales API-Gateway als querschnittliche Komponente vorzuschalten.
+Zur strukturierten, sicheren und einheitlichen Anbindung der Frontends an die Backend-Systeme ist verpflichtend, ein zentrales API-Gateway als querschnittliche Komponente vorzuschalten.
 Das API-Gateway ist ein Bestandteil der Systemlandschaft und wird in der xref:referenzarchitektur:software-technisch.adoc[software-technischen Referenzarchitektur] detailliert beschrieben.
 
 === Architekturvariante mit Backend-for-Frontend (BFF)
@@ -53,7 +53,7 @@ Das API-Gateway ist ein Bestandteil der Systemlandschaft und wird in der xref:re
 
 [[software-technisch-frontend-bff]]
 .Darstellung der Frontends in der softwaretechnischen Architektur mit der Variante BFF
-image::referenzarchitektur:software-technisch/frontend/software-technisch-frontend-bff.svg[width=50%,align=center]
+image::referenzarchitektur:software-technisch/frontend/software-technisch-frontend-bff.drawio.svg[width=50%,align=center]
 
 Dabei wird eine zusätzliche Anwendung zwischen Backend und Frontend auf der Serverseite vorgesehen, um das Backend über eine spezifische API vom Frontend zu entkoppeln.
 Diese Vorgehensweise erhöht zunächst die Komplexität, ist jedoch ein bewährtes Muster, um folgende Herausforderungen zu lösen:
@@ -96,7 +96,9 @@ Ein minimaler Rahmen umfasst:
 Sind diese Voraussetzungen nicht gegeben (z. B. nur ein bis zwei Teams, gemeinsamer Freigabezyklus, hohe funktionale Verflechtung), ist eine einfache SPA oder ein modular strukturierter Monolith (klare Modulgrenzen innerhalb eines gemeinsamen Build-Artefakts) in der Regel wirtschaftlicher und risikoärmer.
 
 Native Federation ist somit kein Standardvorgehen, sondern eine gezielte Architekturentscheidung zur Skalierung von Organisation, Lieferfähigkeit und Modernisierungsfähigkeit bei großen, langfristig betriebenen Anwendungen.
+
 == Architekturgrundsätze & -regeln für Frontends
+
 Dieses Kapitel beschreibt die übergreifenden Architekturgrundsätze und -regeln für die Gestaltung von Frontends im Geltungsbereich dieser Referenzarchitektur.
 
 Die hier formulierten Grundsätze sind verbindlich und dienen als normative Leitplanken für alle neu zu entwickelnden Frontends sowie für relevante Weiterentwicklungen bestehender Anwendungen.
@@ -219,7 +221,7 @@ Der Browser erhält ausschließlich ein Session-Cookie (`HttpOnly`, `Secure`, `S
 *Direkte SPA-zu-API-Architektur:*
 Access Tokens MÜSSEN ausschließlich im Arbeitsspeicher (JavaScript-Variable / In-Memory) gehalten werden.
 Refresh Tokens DÜRFEN NICHT im `localStorage` oder `sessionStorage` abgelegt werden.
-Sofern eine persistente Haltung des Refresh Tokens technisch erforderlich ist (z. B. für Silent Renewal), MUSS dieser ausschließlich in einem `HttpOnly`-Cookie gespeichert werden.
+Sofern eine persistente Haltung des Refresh-Tokens technisch erforderlich ist (z. B. für Silent Renewal), MUSS dieser ausschließlich in einem `HttpOnly`-Cookie gespeichert werden.
 
 NOTE: Eine reine In-Memory-Haltung von Access Tokens schützt nicht vollständig vor XSS-Angriffen: Bei erfolgreichem XSS-Angriff kann ein In-Memory-Token im laufenden Kontext missbraucht werden. In-Memory ist gegenüber `localStorage`/`sessionStorage` zu bevorzugen, ersetzt jedoch keine wirksame XSS-Prävention (siehe <<xss_pravention_im_code>>).
 
@@ -315,7 +317,7 @@ Die Content Security Policy MUSS mindestens die folgenden Direktiven enthalten:
 | `'none'` — Plugins (Flash, Java, etc.) DÜRFEN NICHT geladen werden
 
 | `base-uri`
-| `'self'` — Verhindert Manipulation der Basis-URL durch eingeschleustes `<base>`
+| `'self'` — verhindert Manipulation der Basis-URL durch eingeschleustes `<base>`
 
 | `frame-ancestors`
 | `'none'` oder explizite Origin-Liste — Schutz vor Clickjacking
@@ -526,7 +528,7 @@ Remote-Module DÜRFEN ausschließlich aus einer expliziten, organisationsweit ge
 
 Die erlaubten Origins MÜSSEN in der `script-src`- und `connect-src`-Direktive der CSP enumeriert sein (siehe <<http_sicherheits_header_cookies>>).
 
-Das Nachladen von Remote-Modulen aus beliebigen, vom Benutzer oder von externen Eingaben beeinflussbaren Origins DARF NICHT möglich sein.
+Das Nachladen von Remote-Modulen aus beliebigen, vom Benutzer oder von externen Eingaben beeinflussbaren Origins, DARF NICHT möglich sein.
 ****
 
 .icon:university[title=Architekturregel] Versionierung von Remote-Modulen
@@ -618,9 +620,315 @@ Eine Weitergabe an Drittdienste (z. B. externe Analyse- oder Tracking-Dienste) M
 Die Weitergabe von Daten an Drittdienste SOLLTE auf das notwendige Minimum beschränkt werden.
 ****
 
+[[qualitaetssicherung]]
 == Qualitätssicherung
 
-NOTE: Abschnitt ist noch WIP
+Dieses Kapitel beschreibt die verbindlichen Vorgaben zur Qualitätssicherung (QS) von Frontends im Geltungsbereich dieser Referenzarchitektur.
+Es konkretisiert <<AG-3>> (Standardisierung vor projektspezifischen Sonderlösungen) und <<AG-4>> (Evolvierbarkeit und Austauschbarkeit) für die Bereiche Teststrategie, statische Codeanalyse und automatisierte Qualitätsprüfungen.
+
+[[qs-ziele-abgrenzung]]
+=== Ziele und Abgrenzung
+
+* Zielsetzung: nachvollziehbare, reproduzierbare und automatisiert prüfbare Qualität von Frontends über den gesamten Lebenszyklus – als Voraussetzung für Wartbarkeit, Sicherheit und Barrierefreiheit.
+* *Werkzeugneutralität*: Verbindlich sind ausschließlich die Qualitätsziele, Prüfkriterien und Quality Gates.
+Vorgaben werden daher als prüfbare Kriterien formuliert (z. B. „Testausführung MUSS automatisiert in der CI/CD-Pipeline erfolgen“), nicht als Werkzeugkonfiguration.
+* *Werkzeugauswahl*: Vorgegebene und empfohlene Produkte sind im xref:einstieg:produkte.adoc#produktkatalog[Produktkatalog der IsyFact] festgelegt – für Frontends insbesondere im xref:einstieg:produktkatalog/technologiestackTypescriptAngular.adoc[Technologiestack Typescript/Angular]; die xref:einstieg:produktkatalog/negativliste.adoc[Negativliste] benennt untersagte Produkte.
+Innerhalb dieses Rahmens bleibt die Werkzeugwahl Projektentscheidung; Abweichungen vom Produktkatalog MÜSSEN begründet und dokumentiert werden (→ <<AG-3>>).
+* Alle in diesem Kapitel genannten Werkzeuge sind Beispiele zur Veranschaulichung der technischen Machbarkeit und haben keinen normativen Charakter.
+* Abgrenzung: Sicherheitsprüfungen der Lieferkette (Dependency-, Secret-Scanning, SBOM) sind bereits in <<Supply-Chain-Sicherheit>> geregelt und werden hier nur als Quality Gate referenziert, nicht erneut beschrieben.
+
+[[qs-grundsaetze]]
+=== Grundsätze der Qualitätssicherung
+
+* *Shift Left*: Qualitätsprüfungen SOLLEN so früh wie möglich greifen (lokal in der Entwicklungsumgebung, spätestens im Pull Request) statt erst in der Abnahme.
+* *Automatisierung vor manueller Prüfung*: Jede wiederholbare Prüfung MUSS automatisiert und in der CI/CD-Pipeline verankert sein; manuelle Tests bleiben auf explorative und fachliche Abnahmetests beschränkt.
+* *Verbindlichkeit statt Empfehlung*: Verletzte Quality Gates führen zum Abbruch der Pipeline; Ausnahmen MÜSSEN begründet, befristet und dokumentiert werden.
+* *Qualität ist Teamverantwortung*: QS ist integraler Bestandteil der Definition of Done und nicht an eine nachgelagerte Testphase delegierbar.
+* *Frontend-spezifische Risiken*: Da das Frontend gemäß <<AG-2>> nicht vertrauenswürdig ist, ersetzen Frontend-Tests keine serverseitige Validierung; sie sichern Darstellung, Bedienbarkeit und Integration ab.
+
+[[qs-teststrategie]]
+=== Teststrategie für Frontends
+
+Die Teststrategie legt fest, welche Eigenschaften eines Frontends auf welcher Teststufe abgesichert werden.
+Leitgedanke ist eine risikoorientierte Verteilung der Testfälle: Ein Fehler SOLL auf der niedrigsten Teststufe gefunden werden, auf der er feststellbar ist.
+
+Die Teststufen unterscheiden sich in Realitätsnähe und Kosten: Je höher die Stufe, desto aussagekräftiger ist das Ergebnis, desto langsamer, störanfälliger und wartungsintensiver ist der Test jedoch auch.
+Eine Konzentration auf hohe Teststufen – insbesondere auf End-to-End-Tests – führt zu langen Rückmeldezeiten, instabilen Testläufen und hohen Wartungskosten und widerspricht dem Grundsatz *Shift Left* (siehe <<qs-grundsaetze>>).
+Umgekehrt ersetzt eine hohe Abdeckung auf niedrigen Teststufen nicht den Nachweis, dass die Anwendung als Ganzes bedienbar ist.
+
+Die Verteilung ist kein Selbstzweck, sondern folgt dem fachlichen Risiko: Fachlich kritische Geschäftsvorfälle MÜSSEN durchgängig über alle Stufen abgesichert sein, während unkritische Oberflächenbereiche auf den unteren Stufen abgedeckt werden können.
+
+
+[[test-pyramide-frontend]]
+.Testpyramide für Frontends
+image::referenzarchitektur:software-technisch/frontend/testpyramide-frontend.drawio.svg[width=60%,align=center]
+
+
+<<qs-teststufen>> beschreibt die Teststufen der Pyramide von der Basis bis zur Spitze.
+
+.Teststufen der Frontend-Teststrategie
+[[qs-teststufen]]
+[cols="1,2,2,1,1",options="header"]
+|===
+|Teststufe |Prüfgegenstand |Abgrenzung und Testumgebung |Relativer Umfang |Quality Gate
+
+|Unit-Tests
+|Isolierte Logik ohne Oberflächenbezug: Services, Pipes, Utilities, Validierungen, Zustandsübergänge
+|Ohne DOM- und Netzwerkabhängigkeit; Fremdsysteme werden konsequent über Testdoubles ersetzt
+|hoch
+|<<qs-qg-0>>, <<qs-qg-1>>
+
+|Komponententests
+|UI-Komponenten inkl. Rendering, Eingabeverarbeitung, Ereignisbehandlung und Darstellung von Zuständen
+|Gerendertes Komponenten-DOM ohne echtes Backend; Interaktion SOLL über nutzerzentrierte Selektoren (Rollen, Beschriftungen) statt über Implementierungsdetails erfolgen
+|hoch
+|<<qs-qg-0>>, <<qs-qg-1>>
+
+|Integrations- und Contract-Tests
+|Zusammenspiel mehrerer Komponenten sowie die Backend-Anbindung gegen die vereinbarte Schnittstelle
+|Reale HTTP-Schicht gegen einen aus der OpenAPI-Spezifikation abgeleiteten Mock- bzw. Contract-Server (siehe xref:software-technisch/services/rest.adoc[REST-Vorgaben]), damit Schnittstellenänderungen im Build und nicht erst zur Laufzeit auffallen
+|mittel
+|<<qs-qg-2>>
+
+|End-to-End-Tests
+|Fachlich kritische Nutzerpfade über Komponentengrenzen hinweg, inklusive Authentifizierung und Autorisierung gegen den IAM-Service
+|Ausgelieferte Anwendung im realen Browser gegen eine produktionsnahe Umgebung; Tests MÜSSEN deterministisch und unabhängig von Testdatenreihenfolgen ablaufen
+|gering
+|<<qs-qg-3>>, <<qs-qg-4>>
+|===
+
+[[qs-nicht-funktionale-tests]]
+==== Nicht-funktionale Tests
+
+Neben der fachlichen Korrektheit MÜSSEN Frontends auch hinsichtlich ihrer nicht-funktionalen Eigenschaften abgesichert werden.
+Diese Eigenschaften sind für Nutzende unmittelbar erfahrbar und lassen sich nachträglich meist nur mit hohem Aufwand korrigieren, da sie strukturelle Änderungen an bereits abgenommenen Oberflächen erfordern.
+
+Die folgenden Prüfungen SOLLEN daher fester Bestandteil der automatisierten Testausführung sein und nicht als nachgelagerte Sonderaktivität behandelt werden.
+Sie ergänzen die Teststufen aus <<qs-teststufen>> und werden auf denselben Stufen ausgeführt.
+
+* *Performance*: Messung und Budgetierung von Bundle-Größen und Ladezeiten; Überschreitungen definierter Budgets SOLLEN die Pipeline verletzen.
+* *Sicherheit*: Automatisierte statische Sicherheitsanalyse (SAST) des Frontend-Codes zur Erkennung unsicherer Muster gemäß <<xss_pravention_im_code>>, insbesondere direkter DOM-Manipulation sowie der bewussten Umgehung der Framework-eigenen Sanitisierung.
+* *Kompatibilität*: Nachweis der Lauffähigkeit auf den für die Anwendung freigegebenen Browsern und Browser-Versionen.
+* *Barrierefreiheit*: Automatisierte Prüfung der maschinell entscheidbaren Kriterien (u. a. Alternativtexte, Label-Zuordnung, ARIA-Attribute, Kontrastwerte) auf Komponenten- und Seitenebene.
+Automatisierte Prüfungen decken nur einen Teil der Anforderungen ab; sie ersetzen weder die manuelle Prüfung noch eine formale Konformitätsbewertung (siehe <<ux-ui-accessibility>>).
+
+[[qs-modularisierte-frontends]]
+==== Besonderheiten modularisierter Frontends
+
+Wird ein Frontend gemäß <<AG-9>> als modularisierte Anwendung mit Native Federation umgesetzt, verschiebt sich das zentrale Qualitätsrisiko: Die einzelnen Fachmodule werden unabhängig voneinander gebaut und bereitgestellt, treffen aber erst zur Laufzeit in der Shell-Anwendung aufeinander.
+
+Fehler entstehen dadurch typischerweise nicht innerhalb eines Moduls, sondern an dessen Integrationsgrenzen – und werden von den QS-Maßnahmen eines einzelnen Moduls systematisch nicht erfasst.
+Die Teststrategie MUSS daher um eine übergreifende Absicherung des Zusammenspiels ergänzt werden.
+
+* Bei Native Federation MÜSSEN die Integrationsverträge zwischen Shell und Fachmodulen durch Contract-Tests abgesichert werden (→ <<AG-11>>).
+* Jede Frontend-Komponente durchläuft eine eigenständige QS-Pipeline; zusätzlich SOLL eine übergreifende Integrations- bzw. Smoke-Test-Stufe die Lauffähigkeit des Komposits nachweisen.
+* Versionswechsel eines Fachmoduls MÜSSEN vor produktiver Integration gegen die aktuell produktive Shell-Version verifiziert werden.
+* Bei Einsatz eines Backend-for-Frontend (BFF) gelten für dessen serverseitigen Anteil zusätzlich die QS-Vorgaben der xref:software-technisch/backend.adoc[Referenzarchitektur Backend].
+
+[[qs-statische-codeanalyse]]
+=== Statische Codeanalyse und Coding Standards
+
+Die statische Codeanalyse prüft den Quellcode ohne Ausführung der Anwendung gegen ein definiertes Regelwerk.
+Sie ist die kostengünstigste Qualitätsmaßnahme überhaupt, da sie unmittelbar an der Codestelle Rückmeldung gibt – bereits in der Entwicklungsumgebung und damit lange vor jeder Testausführung.
+
+Ihr Zweck ist zweigeteilt: Sie sichert die Einheitlichkeit des Codes über Teams und Auftragnehmer hinweg (→ <<AG-3>>) und erkennt zugleich fehleranfällige oder sicherheitskritische Muster, die durch Tests nur schwer aufzudecken sind.
+
+* Verbindliche Grundlage sind die xref:methodik:typescript-programmierkonventionen/master.adoc[TypeScript-Programmierkonventionen] der IsyFact inklusive der dort referenzierten öffentlichen Regelsets.
+* Das isy-eslint-plugin SOLL als Basis-Regelset für die statische Codeanalyse eingebunden werden; Abweichungen sind im Quellcode zu begründen und zu dokumentieren.
+* Ergänzend SOLL ein template-fähiges Regelset eingebunden werden, um Barrierefreiheits- und Sicherheitsprüfungen im Template abzudecken.
+* Einheitliche Formatierung SOLL werkzeuggestützt und automatisiert sichergestellt werden (z. B. über das https://github.com/IsyFact/isy-prettier-plugin[isy-prettier-plugin]), um formatbedingtes Diff-Rauschen in Reviews zu vermeiden.
+* Statische Codeanalyse SOLL als Pflichtschritt der CI/CD-Pipeline ausgeführt werden; Regelverstöße der Kategorie „Fehler“ führen zum Build-Abbruch.
+* Ergänzend SOLL eine statische Sicherheitsanalyse (_Static Application Security Testing_, SAST) erfolgen: die werkzeuggestützte Prüfung des Quellcodes auf sicherheitskritische Muster ohne Ausführung der Anwendung.
+
+[[qs-quality-gates]]
+=== Quality Gates
+
+Ein Quality Gate ist ein definierter Prüfpunkt im Entwicklungs- und Auslieferungsprozess, an dem ein Artefakt festgelegte Kriterien erfüllen MUSS, um die nächste Stufe zu erreichen.
+
+Quality Gates überführen die in den vorangegangenen Abschnitten beschriebenen Einzelmaßnahmen in eine verbindliche Reihenfolge: Sie legen fest, *wann* eine Prüfung stattfindet, *wer oder was* sie ausführt und *welche Konsequenz* ein Verstoß hat.
+
+* Gates werden als *Kriterien* beschrieben (Schwellwerte, Pflichtprüfungen, Nachweise), nicht als Werkzeugkonfiguration – die technische Umsetzung liegt beim Projekt.
+* Jede automatisierbare Prüfung eines Gates MUSS automatisiert und blockierend implementiert sein; ein nicht bestandenes Gate DARF NICHT übergangen werden.
+* Prüfungen SOLLEN am frühestmöglichen Gate stattfinden und auf späteren Gates nur wiederholt werden, wenn die neue Stufe zusätzliche Erkenntnis liefert (z. B. produktionsnahe Konfiguration).
+* Ausnahmen MÜSSEN als befristete, begründete und freigegebene Abweichung dokumentiert werden.
+
+[[qs-qg-einordnung]]
+==== Einordnung in den Auslieferungsprozess
+
+Die Quality Gates orientieren sich am Weg einer Änderung vom Entwicklungsrechner bis in die Produktivumgebung.
+Maßgeblich ist dabei nicht die konkrete Werkzeugkette, sondern die *Stufe im Prozess*: Quellcode-Verwaltung, Build und Paketierung, Ablage im Artefakt-Repository sowie die aufeinanderfolgenden Zielumgebungen.
+
+Frontends werden als Bundle statischer Auslieferungsartefakte gebaut und über einen Webserver ausgeliefert.
+Daraus folgt ein zentrales Prinzip:
+
+.icon:university[title=Architekturregel] Einmaliger Build über alle Umgebungen
+****
+Das in <<qs-qg-2>> erzeugte und im Artefakt-Repository abgelegte Bundle MUSS unverändert durch alle nachfolgenden Umgebungen befördert werden.
+
+Umgebungsspezifische Konfiguration MUSS zur Auslieferungs- oder Laufzeit erfolgen und DARF NICHT zu einem erneuten Build führen.
+
+Ein Rebuild je Umgebung DARF NICHT erfolgen, da die in vorangegangenen Gates erbrachten Nachweise (Testergebnisse, Schwachstellenbewertung, SBOM) sonst ihre Gültigkeit für das ausgelieferte Artefakt verlieren.
+****
+
+[[quality-gates-frontend]]
+.Darstellung Quality Gates für Frontends
+image::referenzarchitektur:software-technisch/frontend/quality-gates-frontend.drawio.svg[width=100%,align=center]
+
+
+
+<<qs-qg-uebersicht>> ordnet die Gates den Prozessstufen zu.
+
+.Übersicht der Quality Gates
+[[qs-qg-uebersicht]]
+[cols="1,2,2,2",options="header"]
+|===
+|Gate |Stufe im Prozess |Auslöser |Ausführung und Wirkung
+
+|<<qs-qg-0>>
+|Entwicklungsrechner
+|Speichern bzw. Erstellen eines Commits
+|Automatisiert und lokal; nicht pipelineblockierend, aber Voraussetzung für ein zügiges Bestehen von QG-1
+
+|<<qs-qg-1>>
+|Quellcode-Verwaltung
+|Erstellen oder Aktualisieren eines Änderungsantrags (Merge bzw. Pull Request)
+|Automatisiert, ergänzt um ein manuelles Review; blockiert die Übernahme in den Integrationszweig
+
+|<<qs-qg-2>>
+|Build, Paketierung und Artefakt-Repository
+|Übernahme in den Integrationszweig
+|Vollautomatisiert; blockiert die Ablage des Bundles im Artefakt-Repository
+
+|<<qs-qg-3>>
+|Testumgebung
+|Auslieferung des Bundles auf die Testumgebung
+|Vollautomatisiert; blockiert die Weitergabe an die Staging-Umgebung
+
+|<<qs-qg-4>>
+|Staging-Umgebung
+|Auslieferung des Bundles auf die produktionsnahe Umgebung
+|Automatisiert, ergänzt um manuelle Prüfungen; blockiert die Freigabe für die Produktion
+
+|<<qs-qg-5>>
+|Produktivumgebung
+|Auslieferung des freigegebenen Bundles in die Produktion
+|Vollautomatisiert; löst bei Verletzung ein Rollback aus
+|===
+
+[[qs-qg-zuordnung]]
+==== Zuordnung der Prüfungen zu den Quality Gates
+
+<<qs-qg-matrix>> zeigt, an welcher Stelle des Prozesses eine Prüfung optimalerweise ausgeführt wird und ob sie automatisiert oder manuell erfolgt.
+Die Zuordnung folgt dem Grundsatz, jede Prüfung so früh wie möglich auszuführen und später nur dann zu wiederholen, wenn die höhere Stufe zusätzliche Aussagekraft besitzt.
+
+.Prüfungen je Quality Gate
+[[qs-qg-matrix]]
+[cols="3,1,1,1,1,1,1,1",options="header"]
+|===
+|Prüfung |Art |QG-0 |QG-1 |QG-2 |QG-3 |QG-4 |QG-5
+
+|Formatierung und statische Codeanalyse |A |○ |● |– |– |– |–
+|Statische Sicherheitsanalyse (SAST) |A |○ |● |– |– |– |–
+|Unit- und Komponententests |A |○ |● |● |– |– |–
+|Testabdeckung geänderter Codezeilen |A |– |● |– |– |– |–
+|Fachliches Review (Vier-Augen-Prinzip) |M |– |● |– |– |– |–
+|Reproduzierbarer Build aus dem Lockfile |A |– |– |● |– |– |–
+|Integrations- und Contract-Tests |A |– |○ |● |– |– |–
+|Dependency- und Secret-Scanning, SBOM |A |– |○ |● |– |● |–
+|Performance-Budget (Bundle-Größe) |A |– |– |● |– |– |–
+|Barrierefreiheit, automatisiert |A |○ |● |– |● |– |–
+|End-to-End-Tests |A |– |– |– |● |● |–
+|Smoke-Test nach Auslieferung |A |– |– |– |● |● |●
+|Sicherheitsrelevante Auslieferungskonfiguration |A |– |– |– |● |● |●
+|Barrierefreiheit, manuell |M |– |– |– |– |● |–
+|Fachliche Abnahme |M |– |– |– |– |● |–
+|Freigabeentscheidung |M |– |– |– |– |● |–
+|Überwachung nach Auslieferung |A |– |– |– |– |– |●
+|===
+
+[.small]
+--
+Legende: `●` verbindlich · `○` inkrementell bzw. auf den geänderten Umfang beschränkt · `–` nicht vorgesehen · `A` automatisiert · `M` manuell
+--
+
+[[qs-qg-0]]
+==== QG-0: Entwicklungsrechner
+
+Ausführung: automatisiert, lokal.
+Dieses Gate blockiert die Pipeline nicht, verlagert aber den Großteil der Rückmeldung von Minuten auf Sekunden und setzt <<qs-grundsaetze>> („Shift Left“) praktisch um.
+
+* Formatierung und statische Codeanalyse inkrementell in der Entwicklungsumgebung, unmittelbar an der Codestelle.
+* Unit- und Komponententests des bearbeiteten Moduls vor Erstellung eines Commits.
+* Die Prüfungen SOLLEN über einen automatisierten Mechanismus (z. B. einen Commit-Hook) ausgelöst werden, damit sie nicht von der Disziplin Einzelner abhängen.
+* Die lokal ausgeführten Prüfungen MÜSSEN denselben Regelstand verwenden wie die Pipeline, damit lokale und zentrale Ergebnisse nicht auseinanderlaufen.
+
+[[qs-qg-1]]
+==== QG-1: Änderungsantrag
+
+Ausführung: automatisiert, ergänzt um ein manuelles Review.
+Dieses Gate entscheidet über die Übernahme einer Änderung in den Integrationszweig und ist der letzte Punkt, an dem eine Änderung ohne Folgekosten korrigiert werden kann.
+
+* Statische Codeanalyse und Formatierungsprüfung ohne Regelverstöße der Kategorie „Fehler“.
+* Erfolgreiche Ausführung aller Unit- und Komponententests des betroffenen Moduls.
+* Einhaltung eines projektweit definierten Mindestwerts für die Testabdeckung geänderter Codezeilen.
+* Keine neu eingeführten Verstöße gegen die automatisiert prüfbaren Barrierefreiheitskriterien.
+* Erfolgreiches Vier-Augen-Review inklusive Prüfung auf Einhaltung der Architekturgrundsätze und -regeln dieses Kapitels.
+
+[[qs-qg-2]]
+==== QG-2: Build und Artefakterzeugung
+
+Ausführung: vollautomatisiert.
+Dieses Gate erzeugt das unveränderliche Artefakt, das alle weiteren Stufen durchläuft; nicht bestandene Prüfungen verhindern dessen Ablage im Artefakt-Repository.
+
+* Reproduzierbarer Build ausschließlich auf Basis des Lockfiles (→ <<Supply-Chain-Sicherheit>>).
+* Erfolgreiche Ausführung der Integrations- und Contract-Tests gegen die spezifizierten Backend-Schnittstellen.
+* Bestandene Sicherheitsprüfungen: Dependency Scanning, Secret Scanning und SBOM-Erstellung gemäß <<Supply-Chain-Sicherheit>>.
+* Einhaltung der definierten Performance-Budgets (u. a. Bundle-Größe).
+* Das Artefakt MUSS eindeutig versioniert abgelegt und mit den zugehörigen Qualitätsnachweisen verknüpft werden.
+
+[[qs-qg-3]]
+==== QG-3: Testumgebung
+
+Ausführung: vollautomatisiert.
+Erstmals wird nicht der Quellcode, sondern das tatsächlich ausgelieferte Bundle im Zusammenspiel mit Webserver und echten Backend-Schnittstellen geprüft.
+
+* Smoke-Test unmittelbar nach der Auslieferung: Erreichbarkeit der Anwendung sowie korrektes Laden der umgebungsspezifischen Konfiguration.
+* Erfolgreiche Ausführung der End-to-End-Tests für die als kritisch klassifizierten Nutzerpfade.
+* Automatisierte Barrierefreiheitsprüfung im realen Browserkontext, einschließlich dynamischer Zustände wie Dialogen, Fehlermeldungen und Fokusverwaltung nach Navigation.
+* Nachweis, dass die sicherheitsrelevante Auslieferungskonfiguration des Webservers aktiv ist (insbesondere die HTTP-Sicherheits-Header gemäß <<http_sicherheits_header_cookies>>).
+
+[[qs-qg-4]]
+==== QG-4: Staging-Umgebung und Freigabe
+
+Ausführung: automatisiert, ergänzt um manuelle Prüfungen.
+Dieses Gate ist der einzige Punkt mit verpflichtenden manuellen Prüfungen und schließt mit einer dokumentierten Freigabeentscheidung ab.
+
+* Wiederholung der End-to-End- und Smoke-Tests unter produktionsnaher Konfiguration.
+* Manuelle Barrierefreiheitsprüfung für neue oder wesentlich geänderte Oberflächen (Tastaturbedienung, Screenreader-Ausgabe, Kontrast, Zoom).
+* Manuelle fachliche Abnahme der umgesetzten Anforderungen.
+* Erneute Schwachstellenbewertung des Artefakts zum Freigabezeitpunkt, da nach QG-2 neue Schwachstellen bekannt geworden sein können.
+* Vollständige und archivierte Qualitätsnachweise (Testberichte, Analyseergebnisse, SBOM) für das freizugebende Artefakt.
+* Keine offenen kritischen Befunde; verbleibende Befunde MÜSSEN bewertet, dokumentiert und freigegeben sein.
+
+[[qs-qg-5]]
+==== QG-5: Produktivumgebung
+
+Ausführung: vollautomatisiert.
+Dieses Gate stellt sicher, dass ausschließlich das geprüfte Artefakt produktiv geht und eine fehlerhafte Auslieferung erkannt und zurückgenommen wird.
+
+* Es DARF ausschließlich die in QG-4 freigegebene, unveränderte Artefaktversion ausgeliefert werden.
+* Smoke-Test unmittelbar nach der Auslieferung; ein Fehlschlag MUSS ein Rollback auf die zuvor produktive Version auslösen.
+* Nachweis der aktiven sicherheitsrelevanten Auslieferungskonfiguration in der Produktivumgebung.
+* Überwachung von Fehlerraten und Verfügbarkeit über ein definiertes Zeitfenster nach der Auslieferung (→ <<logging-monitoring-telemetrie>>); die Schwellwerte für ein Rollback MÜSSEN vorab festgelegt sein.
+
+[[qs-nachweise-metriken]]
+=== Nachweisführung und Qualitätsmetriken
+
+* Ergebnisse aller Quality Gates MÜSSEN maschinenlesbar erzeugt, versioniert und dem jeweiligen Build-Artefakt eindeutig zugeordnet archiviert werden.
+* Als Mindestmetriken SOLLEN erhoben werden: Testabdeckung, Anzahl und Schweregrad statischer Befunde, Anzahl offener Schwachstellen sowie Barrierefreiheits- und Performance-Befunde.
+* Metriken SOLLEN im Zeitverlauf beobachtet werden; eine Verschlechterung gegenüber dem letzten Release MUSS bewertet und begründet werden.
+* Qualitätsziele und Schwellwerte MÜSSEN projektspezifisch festgelegt und in der Systemdokumentation nachvollziehbar dokumentiert werden.
+* Nachweise MÜSSEN für Audits und Freigabeprozesse revisionssicher verfügbar sein.
 
 == Betrieb & Deployment von Frontends
 
@@ -628,8 +936,148 @@ NOTE: Abschnitt ist noch WIP
 
 == Daten & Zustandsmanagement
 
-NOTE: Abschnitt ist noch WIP
+Dieses Kapitel beschreibt verbindliche Leitlinien für den Umgang mit Daten, Zustand und clientseitigem Caching in Frontends.
+Ziel ist es, Frontends wartbar, sicher und nachvollziehbar zu gestalten und gleichzeitig unnötige Komplexität durch überdimensioniertes State Management zu vermeiden.
 
+Der Zustand eines Frontends ist grundsätzlich als abgeleiteter Zustand zu betrachten.
+Fachlich verbindliche Daten, Berechtigungen und sicherheitsrelevante Entscheidungen MÜSSEN im Backend bzw. in den dafür vorgesehenen serverseitigen Komponenten verbleiben.
+Das Frontend DARF Daten lediglich darstellen, für die Benutzerinteraktion vorbereiten, temporär zwischenspeichern oder zur Verbesserung der Bedienbarkeit verwenden.
+
+=== Grundsätze
+
+Frontends SOLLEN ihren Zustand bewusst und nachvollziehbar modellieren.
+Dabei SOLL zwischen lokalem UI-Zustand, fachlichem Feature-Zustand, globalem Anwendungszustand, URL-/Navigationszustand und serverseitig geladenen Daten unterschieden werden.
+
+Lokaler UI-Zustand, zum Beispiel geöffnete Panels, aktive Tabs, Eingabefokus oder temporäre Formularwerte, SOLL möglichst nah an der jeweiligen Komponente gehalten werden.
+Feature-Zustand, der von mehreren Komponenten innerhalb eines fachlichen Bereichs benötigt wird, SOLL in einem fachlich abgegrenzten Service oder Store gekapselt werden.
+Globaler Anwendungszustand SOLL nur verwendet werden, wenn ein Zustand tatsächlich von mehreren fachlichen Bereichen benötigt wird oder querschnittliche Bedeutung hat.
+
+Serverseitig geladene Daten SOLLEN nicht unnötig in globalen Stores dupliziert werden.
+Für API-Daten ist zu prüfen, ob ein einfacher, fachlich begrenzter Cache ausreichend ist.
+Abgeleiteter Zustand SOLL nicht dauerhaft gespeichert werden, sondern aus dem eigentlichen Quellzustand berechnet werden.
+
+=== State-Modelle
+
+State-Modelle SOLLEN fachlich verständlich, typisiert und möglichst klein gehalten werden.
+Sie SOLLEN nur die Daten enthalten, die für die jeweilige Darstellung oder Interaktion notwendig sind.
+
+Data Transfer Objects (DTOs) aus Backend-Schnittstellen SOLLEN nicht unreflektiert als internes Frontend-State-Modell verwendet werden.
+Bei Bedarf SOLL eine Trennung zwischen Schnittstellenmodell, fachlichem View-Modell und UI-Zustand erfolgen.
+Dadurch bleiben Änderungen an Backend-Schnittstellen besser beherrschbar und die Darstellungsschicht wird nicht unnötig an technische Datenstrukturen gekoppelt.
+
+Gemeinsam genutzter Zustand SOLL nur über definierte Schnittstellen geändert werden.
+Komponenten SOLLEN gemeinsamen Zustand nicht direkt manipulieren, sondern dafür vorgesehene Methoden eines Services, Stores oder einer Fassade verwenden.
+Dadurch bleiben Zustandsänderungen nachvollziehbar und testbar.
+
+Für Zustandsänderungen gelten folgende Vorgaben:
+
+* Zustandsänderungen SOLLEN explizit und nachvollziehbar erfolgen.
+* Gemeinsam genutzter Zustand SOLL nicht unkontrolliert aus beliebigen Komponenten verändert werden.
+* Abgeleiteter Zustand SOLL berechnet und nicht redundant gespeichert werden.
+* Zustände SOLLEN so modelliert werden, dass sie testbar sind.
+* Fehler-, Lade- und Leerzustände SOLLEN explizit berücksichtigt werden.
+* Fachliche Validierung und Autorisierung MÜSSEN serverseitig erfolgen.
+
+Zustand, der für Navigation, Wiederherstellbarkeit oder Teilbarkeit relevant ist, SOLL bevorzugt in der URL abgebildet werden, zum Beispiel Suchparameter, Filter, Sortierung oder Pagination.
+Dadurch bleiben Ansichten nachvollziehbar, bookmarkfähig und leichter testbar.
+Sensible Daten DÜRFEN dabei nicht in URL-Parametern abgelegt werden.
+
+=== Caching
+
+Clientseitiges Caching DARF nur als Performance- und Bedienbarkeitsoptimierung verstanden werden.
+Der Cache DARF NICHT als fachlich verbindliche Datenquelle betrachtet werden.
+
+Caching SOLL gezielt und fachlich begründet eingesetzt werden.
+Für zwischengespeicherte Daten MÜSSEN Gültigkeit, Invalidierung und Aktualisierung geregelt sein.
+Insbesondere bei personenbezogenen oder berechtigungsabhängigen Daten ist sicherzustellen, dass keine veralteten oder unzulässigen Daten angezeigt werden.
+
+Für clientseitiges Caching gelten folgende Vorgaben:
+
+* Caches SOLLEN fachlich abgegrenzt und möglichst klein gehalten werden.
+* Cache-Einträge SOLLEN eine definierte Gültigkeit besitzen.
+* Caches MÜSSEN bei Benutzerwechsel, Logout oder Berechtigungsänderungen invalidiert werden.
+* Fehlerhafte oder unvollständige Antworten DÜRFEN NICHT ungeprüft als gültiger Cache-Zustand übernommen werden.
+* Berechtigungsabhängige Daten DÜRFEN NICHT benutzerübergreifend wiederverwendet werden.
+* Caching von sensiblen Daten MUSS begründet und durch geeignete Schutzmaßnahmen abgesichert werden.
+* HTTP-Cache-Vorgaben des Backends, insbesondere `Cache-Control`, SOLLEN berücksichtigt werden.
+
+Offline-Fähigkeit oder persistentes Caching fachlicher Daten ist eine eigene Architekturentscheidung.
+Sie DARF nur umgesetzt werden, wenn Anforderungen, Sicherheitsbetrachtung, Datenschutz, Synchronisation, Konfliktbehandlung und Löschkonzept beschrieben sind.
+
+=== Speicherung von Daten im Client
+
+Die Speicherung von Daten im Browser ist restriktiv zu verwenden.
+Grundsätzlich SOLL Zustand nur im Arbeitsspeicher gehalten werden.
+Persistente Speicherung im Client SOLL nur erfolgen, wenn sie fachlich oder technisch notwendig ist.
+
+Folgende Einordnung ist zu verwenden:
+
+[cols="1,3,3",options="header"]
+|===
+| Speicherort | Geeignete Verwendung | Einschränkungen
+
+| Arbeitsspeicher
+| Lokaler UI-Zustand, temporärer Feature-Zustand, nicht persistenter Cache
+| Standardfall für Frontend-State; Daten gehen bei Reload verloren
+
+| URL
+| Navigation, Filter, Sortierung, Pagination, wiederherstellbare Ansichten
+| Keine sensiblen Daten; URLs können protokolliert, geteilt oder im Browser-Verlauf gespeichert werden
+
+| `sessionStorage`
+| Kurzlebige, nicht sensible Daten für eine Browser-Session oder einen Tab
+| Zugriff durch JavaScript möglich; nicht für Zugangsdaten, Token oder sensible fachliche Daten verwenden
+
+| `localStorage`
+| Nicht sensible Benutzereinstellungen, zum Beispiel UI-Präferenzen
+| Persistiert über Sitzungen hinweg; Zugriff durch JavaScript möglich; nicht für sensible Daten verwenden
+
+| `IndexedDB`
+| Größere strukturierte Datenmengen, zum Beispiel fachlich begründete Offline-Szenarien
+| Nur mit explizitem Konzept für Datenschutz, Löschung, Versionierung und Validierung verwenden
+
+| Cookies
+| Nur für klar definierte technische Zwecke, insbesondere im Rahmen des abgestimmten Sicherheitskonzepts
+| Fachliche Anwendungsdaten SOLLEN nicht in Cookies gespeichert werden
+|===
+
+Sensible Daten DÜRFEN grundsätzlich NICHT in `localStorage`, `sessionStorage` oder `IndexedDB` gespeichert werden.
+Dazu zählen insbesondere Zugangsdaten, Session-IDs, Tokens, personenbezogene Daten mit erhöhtem Schutzbedarf, Berechtigungsinformationen und fachlich besonders schützenswerte Daten.
+
+Daten aus clientseitiger Speicherung MÜSSEN beim Lesen als nicht vertrauenswürdig behandelt werden.
+Sie können durch Benutzer, Browser-Erweiterungen oder Schadcode verändert worden sein.
+Deshalb MÜSSEN gespeicherte Daten validiert und bei fachlicher Relevanz serverseitig erneut geprüft werden.
+
+Für persistierte Client-Daten SOLLEN Versionierung, Migration und Löschung berücksichtigt werden.
+Nicht mehr benötigte Daten MÜSSEN entfernt werden, insbesondere bei Logout, Benutzerwechsel oder Änderung des fachlichen Kontextes.
+
+=== Umgang mit State-Management-Frameworks
+
+Ein zusätzliches State-Management-Framework SOLL nur eingesetzt werden, wenn der Nutzen die zusätzliche Komplexität rechtfertigt.
+Dies kann insbesondere der Fall sein bei komplexem fachlichem Zustand, mehreren beteiligten Features, aufwendiger asynchroner Orchestrierung, Bedarf an Debugging-Werkzeugen oder einheitlichen Patterns für große Teams.
+
+Für einfache lokale oder feature-nahe Zustände SOLLEN leichtgewichtige Mechanismen bevorzugt werden, zum Beispiel Komponenten-State, reaktive Framework-Mechanismen wie Signals bei Angular-Anwendungen oder fachlich gekapselte Services.
+Dadurch bleibt die Architektur verständlich und vermeidet unnötigen Boilerplate-Code.
+
+.icon:university[title=Architekturregel] Backend als führende Datenquelle
+****
+Fachlich verbindliche Daten, Berechtigungen und sicherheitsrelevante Entscheidungen MÜSSEN serverseitig verwaltet und geprüft werden.
+Das Frontend DARF clientseitigen Zustand nicht als alleinige Grundlage für fachliche oder sicherheitskritische Entscheidungen verwenden.
+****
+
+.icon:university[title=Architekturregel] Restriktive Speicherung im Client
+****
+Sensible Daten, insbesondere Zugangsdaten, Tokens, Session-IDs und schützenswerte personenbezogene Daten, DÜRFEN NICHT in `localStorage`, `sessionStorage` oder `IndexedDB` gespeichert werden.
+Clientseitige Speicherung MUSS fachlich begründet, minimiert und bei Bedarf durch ein Lösch- und Sicherheitskonzept abgesichert sein.
+****
+
+.icon:university[title=Architekturregel] Kontrolliertes Caching
+****
+Clientseitiges Caching MUSS hinsichtlich Gültigkeit, Invalidierung und Benutzerkontext kontrolliert werden.
+Caches DÜRFEN NICHT zu veralteten, unzulässigen oder benutzerübergreifend sichtbaren Daten führen.
+****
+
+[[ux-ui-accessibility]]
 == UX, UI & Accessibility
 
 Die Gestaltung der xref:glossary::terms-definitions.adoc#frontend[Frontends] folgt verbindlichen Leitlinien zu User Interface (UI), User Experience (UX) sowie zur Barrierefreiheit.
@@ -637,6 +1085,170 @@ Diese Rahmenvorgaben sind im xref:isy-bedienkonzept-doc::bedienkonzept.adoc[Bedi
 Darin finden sich sowohl UI/UX-Richtlinien für Bedienelemente, Fenstertypen und Layoutstrukturen als auch zentrale Anforderungen zur Barrierefreiheit.
 Insbesondere werden relevante Akzeptanzkriterien der WCAG 2.2 berücksichtigt, um sicherzustellen, dass alle Anwendungen für Nutzende mit unterschiedlichen Fähigkeiten uneingeschränkt und normkonform zugänglich sind.
 
+[[logging-monitoring-telemetrie]]
 == Logging, Monitoring & Telemetrie
 
-NOTE: Abschnitt ist noch WIP
+Dieses Kapitel beschreibt verbindliche Leitlinien für Logging, Monitoring und Telemetrie in Frontends.
+Ziel ist es, technische Fehler und Qualitätsprobleme im Betrieb nachvollziehbar zu machen, ohne personenbezogene, sicherheitsrelevante oder unnötige Daten aus dem Browser zu übertragen.
+
+Die Vorgaben aus dem Abschnitt „Datenschutz & Datenminimierung im Browser“ gelten ergänzend.
+Clientseitige Telemetrie ersetzt weder das serverseitige Logging noch das Monitoring der Backend-Systeme.
+Sie ergänzt diese um Informationen, die ausschließlich im Browser verfügbar sind.
+
+=== Ziele und Abgrenzung
+
+Logging, Monitoring und Telemetrie erfüllen unterschiedliche Aufgaben:
+
+* Logging erfasst einzelne technische Ereignisse und Fehler.
+* Monitoring bewertet den Betriebszustand anhand zusammengeführter Messwerte und definierter Schwellwerte.
+* Telemetrie im Frontend bezeichnet die strukturierte Übermittlung technischer Ereignisse und Messwerte aus dem Frontend.
+
+Die Browser-Konsole ist kein zentraler Logging-Dienst.
+Ausgaben über `console.log`, `console.warn` oder `console.error` DÜRFEN NICHT ungefiltert an ein Backend oder einen Telemetrie-Dienst weitergeleitet werden.
+
+Debug- und Entwicklungsinformationen DÜRFEN in Produktivumgebungen nicht dauerhaft aktiviert sein.
+
+Die folgenden Vorgaben beziehen sich primär auf Single-Page Applications (SPA).
+Für serverseitig gerenderte oder hybride Frontend-Architekturen gelten sie sinngemäß, soweit nicht anders angegeben.
+
+=== Erfassung von Fehlern in der SPA
+
+Eine SPA SOLL nur solche technischen Fehler zentral erfassen, die für die Bewertung der Stabilität, Verfügbarkeit oder Nutzbarkeit der Anwendung relevant sind.
+
+Hierzu zählen insbesondere:
+
+* unbehandelte Laufzeitfehler und unbehandelte Promise-Abweisungen,
+* Fehler beim Starten oder Initialisieren der Anwendung,
+* Fehler beim Laden kritischer JavaScript-, CSS- oder Konfigurationsressourcen,
+* fehlgeschlagene API-Aufrufe, sofern sie einen fachlichen Ablauf oder eine zentrale Funktion beeinträchtigen,
+* Fehler beim Laden dynamischer Module oder Remote-Komponenten,
+* wiederkehrende technische Fehler, die auf eine fehlerhafte Frontend-Version oder eine Störung angebundener Systeme hinweisen.
+
+Erwartete fachliche Fehler und reguläre Benutzereingaben SOLLEN nicht als technische Fehler gemeldet werden.
+Hierzu zählen beispielsweise Validierungsfehler, fachlich erwartete Ablehnungen, bewusst abgebrochene Vorgänge oder fehlende optionale Eingaben.
+
+HTTP-Statuscodes MÜSSEN fachlich eingeordnet werden.
+Insbesondere DÜRFEN NICHT alle Antworten mit einem Statuscode aus dem Bereich `4xx` pauschal als technische Fehler behandelt werden.
+
+Ein erfasstes Fehlerereignis SOLL mindestens folgende strukturierte Angaben enthalten:
+
+* technische Fehlerkategorie und stabiler Fehlercode,
+* Schweregrad,
+* Zeitpunkt,
+* Anwendung und Anwendungsversion,
+* Umgebung,
+* betroffene Funktion oder abstrahierte Route,
+* Ergebnis der betroffenen technischen Operation,
+* Korrelations-ID, sofern verfügbar.
+
+Vollständige URLs, Request- und Response-Inhalte, Formulardaten, Tokens, Session-Informationen und andere personenbezogene oder sicherheitsrelevante Daten DÜRFEN NICHT Bestandteil des Fehlerereignisses sein.
+
+Stacktraces DÜRFEN nur übertragen werden, wenn sie vor der Übermittlung bereinigt und auf notwendige technische Informationen begrenzt wurden.
+Quellcode, Zugangsdaten, Inhalte aus Benutzereingaben oder interne Infrastrukturinformationen DÜRFEN dadurch nicht offengelegt werden.
+
+=== Übermittlung von Fehler- und Telemetriedaten
+
+Fehler- und Telemetriedaten MÜSSEN strukturiert über eine definierte und versionierte HTTPS-Schnittstelle übertragen werden.
+Die ungefilterte Übertragung von Konsolenausgaben oder beliebigen JavaScript-Objekten ist nicht zulässig.
+
+Die Schnittstelle MUSS insbesondere folgende Maßnahmen unterstützen:
+
+* Validierung des Datenformats,
+* Begrenzung der Größe einzelner Ereignisse und Übertragungen,
+* Filterung oder Verwerfung unzulässiger Inhalte,
+* Begrenzung der Übertragungsrate,
+* Schutz vor missbräuchlicher oder automatisierter Übermittlung,
+* Zuordnung zu Anwendung, Version und Umgebung,
+* kontrollierte Weiterleitung an die zentrale Logging- und Monitoring-Infrastruktur.
+
+Telemetrie-Endpunkte DÜRFEN NICHT als allgemeine Proxy-Schnittstelle zu externen Monitoring-Diensten verwendet werden.
+
+Übertragungsfehler DÜRFEN die eigentliche Nutzung der Anwendung nicht blockieren.
+Wiederholungsversuche MÜSSEN zeitlich und mengenmäßig begrenzt werden.
+
+Eine dauerhafte Speicherung von Telemetriedaten im Browser SOLL vermieden werden.
+Insbesondere fehlgeschlagene Übertragungen DÜRFEN NICHT zu einer unkontrollierten persistenten Sammlung von Fehlerdaten führen.
+
+=== Monitoring und Performance-Metriken
+
+Frontends SOLLEN technische Metriken erfassen, wenn diese zur Bewertung von Stabilität, Verfügbarkeit und wahrgenommener Performance benötigt werden.
+
+Geeignete Metriken sind insbesondere:
+
+* Dauer bis zur initialen Nutzbarkeit der Anwendung,
+* Lade- und Darstellungszeiten zentraler Ansichten,
+* Reaktionszeiten auf relevante Benutzerinteraktionen,
+* Dauer und Fehlerquote von API-Aufrufen,
+* Anzahl unbehandelter Frontend-Fehler,
+* Fehlerquote beim Laden kritischer Ressourcen oder dynamischer Module,
+* technische Abbruchquote zentraler Anwendungsabläufe,
+* Verteilung der eingesetzten Anwendungsversionen.
+
+Metriken SOLLEN aggregiert ausgewertet werden.
+Einzelne Messwerte DÜRFEN NICHT ohne fachliche und datenschutzrechtliche Begründung einem konkreten Benutzer zugeordnet werden.
+
+Metriken MÜSSEN mindestens nach Anwendung, Version und Umgebung unterscheidbar sein.
+Weitere Dimensionen, beispielsweise Browserfamilie oder Gerätetyp, DÜRFEN nur in der für die technische Analyse erforderlichen Genauigkeit übertragen werden.
+
+Für relevante Metriken SOLLEN Zielwerte, Warnschwellen und Alarmierungsregeln definiert werden.
+Alarmierungen SOLLEN auf aggregierten und wiederholt auftretenden Problemen basieren und nicht unkontrolliert für jedes einzelne Client-Ereignis ausgelöst werden.
+
+Neben der realen Nutzung SOLLEN für geschäftskritische Frontends synthetische Prüfungen berücksichtigt werden.
+Diese können beispielsweise die Erreichbarkeit, den erfolgreichen Anwendungsstart und zentrale technische Abläufe überprüfen.
+
+=== Korrelation und Nachvollziehbarkeit
+
+Fehler und Messwerte SOLLEN einer technischen Benutzeraktion oder Backend-Anfrage zugeordnet werden können, ohne personenbezogene Daten zu verwenden.
+
+Für HTTP-Anfragen ist die in der xref:software-technisch/backend/service/rest-querschnitt.adoc#rest-setzen-von-korrelations-id-in-header[Referenzarchitektur REST] definierte Korrelations-ID im Header `X-Correlation-Id` zu berücksichtigen.
+Vorhandene Korrelationsinformationen SOLLEN bei der Kommunikation zwischen Frontend, Backend-for-Frontend und Backend weitergegeben werden, soweit dies technisch und sicherheitlich vorgesehen ist.
+
+Vom Browser übermittelte Korrelations-IDs MÜSSEN als nicht vertrauenswürdig behandelt werden.
+Sie DÜRFEN NICHT als Grundlage für Autorisierung, Zugriffskontrolle oder andere sicherheitsrelevante Entscheidungen verwendet werden.
+
+Ein Backend-for-Frontend SOLL eingehende IDs validieren oder eigene vertrauenswürdige Korrelationsinformationen erzeugen.
+Die Zuordnung zwischen einem clientseitigen Ereignis und den zugehörigen serverseitigen Logs SOLL anschließend in der zentralen Observability-Infrastruktur möglich sein.
+
+=== Berücksichtigung des Backend-for-Frontend
+
+Bei Verwendung eines Backend-for-Frontend SOLL dieses als zentrale Annahmestelle für Frontend-Fehler und Telemetriedaten vorgesehen werden.
+
+Das Backend-for-Frontend SOLL insbesondere:
+
+* eine gleichartige, vorzugsweise Same-Origin-basierte Schnittstelle für die SPA bereitstellen,
+* eingehende Ereignisse anhand eines definierten Schemas validieren,
+* sensible oder unzulässige Inhalte filtern,
+* Größen- und Ratenbegrenzungen durchsetzen,
+* Anwendung, Version, Umgebung und technischen Kontext ergänzen,
+* Korrelationsinformationen erzeugen oder validieren,
+* Daten kontrolliert an zentrale Logging-, Monitoring- oder Tracing-Systeme weiterleiten.
+
+Benutzer- oder Sitzungsinformationen, die serverseitig bereits vorliegen, SOLLEN nicht zusätzlich durch das Frontend übertragen werden.
+Das Backend-for-Frontend DARF diese Informationen nur ergänzen, wenn dies für den festgelegten technischen Zweck erforderlich und datenschutzrechtlich zulässig ist.
+
+Ohne Backend-for-Frontend MUSS eine vergleichbare abgesicherte Telemetrie-Schnittstelle über das API-Gateway oder eine dafür vorgesehene Backend-Komponente bereitgestellt werden.
+Eine direkte Kopplung der SPA an interne Logging-Systeme ist nicht zulässig.
+
+.Architekturregel: Strukturierte Erfassung von Frontend-Fehlern
+****
+Frontends DÜRFEN Konsolenausgaben und beliebige Fehlerobjekte NICHT ungefiltert an Backend- oder Telemetrie-Dienste übertragen.
+Technisch relevante Fehler MÜSSEN klassifiziert, bereinigt und über ein definiertes Schema übermittelt werden.
+****
+
+.Architekturregel: Kontrollierte Telemetrie-Schnittstelle
+****
+Fehler- und Telemetriedaten MÜSSEN über eine abgesicherte, validierende und in ihrer Datenmenge begrenzte HTTPS-Schnittstelle übertragen werden.
+Bei Einsatz eines Backend-for-Frontend SOLL dieses die Annahme, Filterung, Korrelation und kontrollierte Weiterleitung übernehmen.
+****
+
+.Architekturregel: Datenschutzkonformes Monitoring
+****
+Personenbezogene und sicherheitsrelevante Daten DÜRFEN NICHT Bestandteil von Frontend-Logs, Metriken oder Traces sein.
+Metriken SOLLEN aggregiert und auf den für den technischen Betriebszweck notwendigen Umfang begrenzt werden.
+****
+
+.Architekturregel: Ende-zu-Ende-Nachvollziehbarkeit
+****
+Technische Ereignisse und Anfragen SOLLEN über Korrelationsinformationen zwischen Frontend, Backend-for-Frontend und Backend nachvollziehbar sein.
+Vom Client übermittelte IDs MÜSSEN als nicht vertrauenswürdig behandelt und serverseitig validiert oder ersetzt werden.
+****

@@ -106,7 +106,7 @@ Um Sicherheit und Stabilität zu gewährleisten, können DDL- und DML-Berechtigu
 * `app_dml` führt ausschließlich Datenmanipulationen aus (DML).
 
 Dadurch gilt:
-- Die Anwendung selbst hat niemals DDL-Rechte.
+- Das Backend selbst hat niemals DDL-Rechte.
 - Schlägt ein Deployment fehl, kann durch ein Rollback-Deployment sichergestellt werden, dass Datenkonsistenz erhalten bleibt (z. B. durch Trigger, die Daten zurückschreiben).
 
 [%header, cols="1,3,3"]
@@ -123,7 +123,7 @@ Dadurch gilt:
 | `app_dml`
 | `SELECT`, `INSERT`, `UPDATE`, `DELETE` auf produktiven Tabellen und Sequenzen
 (niemals DDL-Rechte)
-| Runtime-User der Anwendung führt ausschließlich Datenmanipulationen aus.
+| Runtime-User des Backends führt ausschließlich Datenmanipulationen aus.
 |===
 
 
@@ -232,12 +232,12 @@ Nachdem die Baseline erstellt wurde, sollten sowohl diese als auch das Root Chan
 Dies gewährleistet eine nachvollziehbare Historie der Datenbankänderungen.
 
 [[schema-drift-und-semantic-versioning]]
-=== Gefahr von Schema-Drift und semantische Versionskontrolle mit isy-utilities
+=== Gefahr von Schema-Drift und semantische Versionskontrolle mit dem Baustein Util
 Liquibase gewährleistet die Nachvollziehbarkeit aller Datenbankänderungen über die Tabellen `DATABASECHANGELOG` und `DATABASECHANGELOGLOCK`.
 Damit wird sichergestellt, dass jede definierte Änderung genau einmal und in der richtigen Reihenfolge ausgeführt wird.
 
-Liquibase prüft nicht, ob die tatsächliche Datenbankversion mit der vom Anwendungscode erwarteten Release-Version übereinstimmt.
-Dadurch kann es trotz konsistentem Changelog zu einem https://www.liquibase.com/blog/database-drift[Schema-Drift] kommen.
+Liquibase prüft nicht, ob die tatsächliche Datenbankversion mit der vom Code des Backends erwarteten Release-Version übereinstimmt.
+Dadurch kann es trotz konsistentem Changelog zu https://www.liquibase.com/blog/database-drift[Schema-Drift] kommen.
 
 Schema-Drift kann folgende Ursachen haben:
 
@@ -245,20 +245,20 @@ Schema-Drift kann folgende Ursachen haben:
 * Wiederherstellung eines Snapshots, ohne erneute Anwendung aller Changesets,
 * abgebrochene Deployments, bei denen einzelne Changesets übersprungen wurden.
 
-Solche Abweichungen führen dazu, dass die Anwendung gegen ein nicht kompatibles Schema startet.
+Solche Abweichungen führen dazu, dass das Backend gegen ein nicht kompatibles Schema startet.
 Dies birgt Risiken wie Laufzeitfehlern oder Datenverlust.
 
-==== Enforcement mit isy-utilities
-Um zu Verhindern, dass unbemerkte Schema-Abweichungen in Produktion zu Herausforderungen und Aufwand führen, und die Integrität zwischen Anwendung und Datenbank über alle Deployments hinweg gewährleistet ist oder die Durchsetzung von semantischen Schema-Versionen eine Anforderung ist, kann über die xref:util::konzept.adoc[isy-util] Bibliothek eine Schema-Versionskontrolle auf Anwendungsebene eingebunden werden:
+==== Enforcement mit dem Baustein Util
+Um zu Verhindern, dass unbemerkte Schema-Abweichungen in Produktion zu Herausforderungen und Aufwand führen, und die Integrität zwischen Backend und Datenbank über alle Deployments hinweg gewährleistet ist oder die Durchsetzung von semantischen Schema-Versionen eine Anforderung ist, kann über den xref:util::konzept.adoc[Baustein Util] eine Schema-Versionskontrolle auf Systemebene eingebunden werden:
 
 Eigene Properties
 
-* `isy.persistence.datasource.schema-version` definiert die von der Anwendung erwartete Schema-Version (z. B. `1.2.3`).
+* `isy.persistence.datasource.schema-version` definiert die vom Backend erwartete Schema-Version (z. B. `1.2.3`).
 * `isy.persistence.datasource.schema-invalid-version-action` bestimmt das Verhalten bei Abweichung (`fail` oder `warn`).
 
 Technischer Ablauf:
 
-* Beim Start prüft die Anwendung den Inhalt einer dedizierten Tabelle `m_schema_version`.
+* Beim Start prüft das Backend den Inhalt einer dedizierten Tabelle `m_schema_version`.
 * Stimmt die dort hinterlegte Version nicht mit der erwarteten überein, wird je nach Konfiguration:
 * der Start abgebrochen (`fail`) oder eine Warnung geloggt (`warn`).
 
@@ -266,7 +266,7 @@ Technischer Ablauf:
 
 Die Kombination aus *Liquibase Changelogs* und *isy-util Version Enforcement* bietet für großskalige Umgebungen Vorteile:
 
-* Deterministische Kompatibilität: Die Anwendung läuft nur gegen ein getestetes, freigegebenes Schema.
+* Deterministische Kompatibilität: Das Backend läuft nur gegen ein getestetes, freigegebenes Schema.
 * Früherkennung: Fehlkonfigurationen oder manuelle Eingriffe werden beim Start erkannt.
 * CaaS-Tauglichkeit: Auf einer Container-Plattform kann ein Init-Container die Schema-Version vor Pod-Start validieren.
 
@@ -520,8 +520,8 @@ Offizielle Dokumentation von Liquibase: https://contribute.liquibase.com/extensi
 [[db-update-management-drei-phasen-strategie-mit-liquibase]]
 == DB Update Management: Drei-Phasen-Strategie mit Liquibase
 Dieses Verfahren wird angewendet, wenn Daten in einem vorhandenen Datenbankfeld verändert werden müssen.
-Dabei wird die Anwendung so erweitert, dass sie auf dem neuen Feld arbeitet.
-Gleichzeitig bleibt die Datenbank in einem Zustand, in dem ältere Anwendungsversionen weiterhin ohne Anpassungen auf der Datenbank arbeiten können.
+Dabei wird das Backend so erweitert, dass sie auf dem neuen Feld arbeitet.
+Gleichzeitig bleibt die Datenbank in einem Zustand, in dem ältere Versionen des Backends weiterhin ohne Anpassungen auf der Datenbank arbeiten können.
 Sobald alle Altversionen abgeschaltet sind, wird in einer dritten Phase das alte Datenbankfeld aus der Datenbank entfernt.
 
 +1.+ Phase::
@@ -529,12 +529,12 @@ Schema- und Migration-Changeset mit Label `pre/db-deploy` nutzen (z.B. `<addColu
 Hier sollte die Rollback-SQL bereitgehalten werden.
 
 +2.+ Phase::
-Das Feature-Rollout findet in der Anwendung statt.
+Das Feature-Rollout findet im Backend statt.
 Hier wird auf neues Feld umgestellt.
 Falls nötig, ist ein Changeset für zusätzliche Indizes mit dem Label `app-deploy` zu nutzen.
 
 +3.+ Phase::
-Laufen alle Instanzen der Anwendung auf der neuen Version, ist mit einem Changeset mit dem Label `clean-up` das Datenbankschema zu bereinigen (z.B. `<dropColumn>`).
+Laufen alle Instanzen des Backends auf der neuen Version, ist mit einem Changeset mit dem Label `clean-up` das Datenbankschema zu bereinigen (z.B. `<dropColumn>`).
 
 [NOTE]
 ====
