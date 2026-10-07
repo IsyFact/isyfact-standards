@@ -199,7 +199,7 @@
                                         <copy todir="${project.basedir}/${pfad.methodik}/attachments/vorlage-generated">
                                             <fileset dir="${project.build.directory}" includes="*.zip,*.pdf"/>
                                         </copy>
-                                        <delete dir="${project.basedir}/${pfad.methodik}/pages/vorlage-systementwurf/vorlage-systemspezifikation"/>
+                                        <delete dir="${project.basedir}/${pfad.methodik}/pages/vorlage-systemspezifikation/vorlage-systemspezifikation"/>
                                         <delete dir="${project.basedir}/${pfad.methodik}/pages/vorlage-systementwurf/vorlage-systementwurf"/>
                                         <delete dir="${project.basedir}/${pfad.methodik}/pages/vorlage-systemhandbuch/vorlage-systemhandbuch"/>
                                     </target>
