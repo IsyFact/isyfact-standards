@@ -19,13 +19,28 @@ import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 public class PerformanceLoggingAspect {
 
     /** Helper for writing duration log entries. */
-    private LogHelper logHelper = new LogHelper(false, false, true, false,
-        false, 0, LogHelper.erstelleStandardKonverter());
+    private final LogHelper logHelper;
 
     /**
-     * Wether performance logging is enabled or not. If true the performance logging will be executed.
+     * Whether performance logging is enabled or not. If true the performance logging will be executed.
      */
     private boolean enabled;
+
+    public PerformanceLoggingAspect() {
+        this(new LogHelper(
+                false,
+                false,
+                true,
+                false,
+                false,
+                0,
+                LogHelper.erstelleStandardKonverter()
+        ));
+    }
+
+    PerformanceLoggingAspect(LogHelper logHelper) {
+        this.logHelper = logHelper;
+    }
 
     @Around("awfUndAfuKlassen()")
     public Object loggeDauer(ProceedingJoinPoint pjp) throws Throwable {
