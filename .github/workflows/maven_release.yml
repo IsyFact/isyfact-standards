@@ -5,44 +5,16 @@ on:
 
 jobs:
   Build:
-    uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_build_template.yml@v1.4.0
+    uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_build_template.yml@v3.0.0
     with:
-      version: ${{ github.ref_name }}
+      jdk-version: 17
+      version: ${{ github.event.release.tag_name }}
       sonar-skip: true
-
-  QualityGate:
-    runs-on: ubuntu-latest
-    needs: [Build]
-    env:
-      COMMIT_SHA: ${{ github.sha }}
-      BRANCH_REF: master
-      SONAR_HOST_URL: ${{ vars.SONAR_HOST_URL }}
-      SONAR_PROJECT_KEY: ${{ vars.SONAR_PROJECT_KEY }}
-    steps:
-      - name: SonarQube Quality Gate Check
-        run: |
-          ANALYSIS_ID=$( curl --silent "${SONAR_HOST_URL}/api/project_analyses/search?project=${SONAR_PROJECT_KEY}&branch=${BRANCH_REF/\//%2F}" | jq -r "first(.analyses[]|select(.revision==\"$COMMIT_SHA\").key)")
-          
-          if [[ -z $ANALYSIS_ID ]]; then
-            echo "No Sonar Scan result found for commit $COMMIT_SHA"
-            exit 1
-          fi
-          
-          QG_STATUS=$(curl --silent "${SONAR_HOST_URL}/api/qualitygates/project_status?analysisId=${ANALYSIS_ID}" | jq -r ".projectStatus.status")
-          
-          if [[ $QG_STATUS == "OK" ]]; then
-            echo "Quality Gate passed"
-            exit 0
-          elif [[ $QG_STATUS == "ERROR" ]]; then
-            echo "Quality Gate failed"
-            exit 1
-          else
-            echo "Could not find Quality Gate information for analysis id ${ANALYSIS_ID}"
-            exit 1
-          fi
+    secrets:
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
   DependencyScan:
-    uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_dependency_scan_template.yml@v1.4.0
+    uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_dependency_scan_template.yml@v3.0.0
     with:
       jdk-version: 17
       snyk-organization: ${{ vars.SNYK_ORG_ID }}
@@ -52,12 +24,13 @@ jobs:
       SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
   DeployReleaseVersion:
-    needs: [QualityGate, DependencyScan]
-    uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_deploy_template.yml@v1.6.0
+    needs: [DependencyScan]
+    uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_deploy_template.yml@v3.0.0
     with:
-      version: ${{ github.ref_name }}
+      version: ${{ github.event.release.tag_name }}
+      jdk-version: 17
       maven-opts: '-P centralRelease'
-      deploy-server-id: ossrh
+      deploy-server-id: central
       sbom: true
       sign: true
       environment: 'Release'
@@ -68,11 +41,11 @@ jobs:
       DEPLOY_SERVER_TOKEN: ${{ secrets.MAVEN_CENTRAL_TOKEN }}
 
   DependencyMonitor:
-    uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_dependency_scan_template.yml@v1.4.0
+    uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_dependency_scan_template.yml@v3.0.0
     with:
       jdk-version: 17
       snyk-organization: ${{ vars.SNYK_ORG_ID }}
-      snyk-reference: ${{ github.ref_name }}
+      snyk-reference: ${{ github.event.release.tag_name }}
       snyk-arguments: "--maven-aggregate-project"
     secrets:
       SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
