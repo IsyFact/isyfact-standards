@@ -52,7 +52,8 @@ jobs:
     with:
       snyk-organization: ${{ vars.SNYK_ORG_ID }}
       snyk-reference: main
-      snyk-arguments: "--maven-aggregate-project"
+      snyk-arguments: "--maven-aggregate-project -d -- -PcentralSnapshot"
+      pre-scan-script: "mvn clean install -DskipTests -Dmaven.javadoc.skip=true -PcentralSnapshot"
     secrets:
       SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
@@ -80,6 +81,7 @@ jobs:
     with:
       snyk-organization: ${{ vars.SNYK_ORG_ID }}
       snyk-reference: ${{ github.ref_name }}
-      snyk-arguments: "--maven-aggregate-project"
+      snyk-arguments: "--maven-aggregate-project -d -- -PcentralSnapshot"
+      pre-scan-script: "mvn clean install -DskipTests -Dmaven.javadoc.skip=true -PcentralSnapshot"
     secrets:
       SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
