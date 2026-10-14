@@ -65,7 +65,7 @@ jobs:
     uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_deploy_template.yml@v3.0.0
     with:
       version: ${{ github.ref_name }}
-      maven-opts: '-P centralRelease'
+      maven-opts: '-P centralRelease -T 1'
       deploy-server-id: central
       sbom: true
       sign: true
