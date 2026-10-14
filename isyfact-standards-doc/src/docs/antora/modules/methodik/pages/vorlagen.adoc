@@ -40,7 +40,8 @@ Die Vorlage Systemspezifikation enthält die Gliederung für eine V-Modell-konfo
 
 |Systemspezifikation
 |xref:vorlage-systemspezifikation/master.adoc[Ansehen icon:file-text-o[]]
-2+|
+|xref:methodik:attachment$vorlage-generated/IsyFact-Vorlage-Systemspezifikation.zip[Download icon:file-archive-o[]]
+|xref:methodik:attachment$vorlage-generated/IsyFact-Vorlage-Systemspezifikation.pdf[Download icon:file-pdf-o[]]
 |xref:methodik:attachment$spezifikation/IsyFact-Vorlage_Systemspezifikation.dotx[Download icon:file-word-o[]]
 
 |Systementwurf
