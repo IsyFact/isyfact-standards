@@ -65,12 +65,7 @@ jobs:
     uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_deploy_template.yml@v3.0.0
     with:
       version: ${{ github.ref_name }}
-      # workaround to remove files that shouldn't be created apache/maven#13388
-      maven-opts: >-
-        -P centralRelease
-        -Daether.priority.VersionsMetadataGeneratorFactory=NaN
-        -Daether.priority.EnhancedLocalRepositoryManagerFactory=NaN
-        -Daether.syncContext.named.factory=rwlock-local
+      maven-opts: '-P centralRelease'
       deploy-server-id: central
       sbom: true
       sign: true
