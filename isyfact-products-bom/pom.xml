@@ -41,7 +41,7 @@
         <tika-core.version>3.3.2</tika-core.version>
         <commons-io.version>2.22.0</commons-io.version>
         <resilience4j-bom.version>2.4.0</resilience4j-bom.version>
-        <nimbus-jose-jwt.version>10.9.1</nimbus-jose-jwt.version>
+        <nimbus-jose-jwt.version>10.10</nimbus-jose-jwt.version>
     </properties>
 
     <!-- Dependency management for IsyFact core technology stack. -->
