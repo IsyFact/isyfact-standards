@@ -7,7 +7,7 @@ jobs:
   Build:
     permissions:
       contents: read
-    uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_build_template.yml@v3.0.0
+    uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_build_template.yml@v3.1.0
     with:
       version: ${{ github.ref_name }}
       sonar-skip: false
@@ -19,7 +19,7 @@ jobs:
     needs: [Build]
     env:
       COMMIT_SHA: ${{ github.sha }}
-      BRANCH_REF: master
+      BRANCH_REF: main
       SONAR_HOST_URL: ${{ vars.SONAR_HOST_URL }}
       SONAR_PROJECT_KEY: ${{ vars.SONAR_PROJECT_KEY }}
     steps:
@@ -51,8 +51,9 @@ jobs:
     uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_dependency_scan_template.yml@v3.0.0
     with:
       snyk-organization: ${{ vars.SNYK_ORG_ID }}
-      snyk-reference: master
-      snyk-arguments: "--maven-aggregate-project"
+      snyk-reference: main
+      snyk-arguments: "--maven-aggregate-project -d -- -PcentralSnapshot"
+      pre-scan-script: "mvn clean install -DskipTests -Dmaven.javadoc.skip=true -PcentralSnapshot"
     secrets:
       SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
@@ -80,6 +81,7 @@ jobs:
     with:
       snyk-organization: ${{ vars.SNYK_ORG_ID }}
       snyk-reference: ${{ github.ref_name }}
-      snyk-arguments: "--maven-aggregate-project"
+      snyk-arguments: "--maven-aggregate-project -d -- -PcentralSnapshot"
+      pre-scan-script: "mvn clean install -DskipTests -Dmaven.javadoc.skip=true -PcentralSnapshot"
     secrets:
       SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
