@@ -4,6 +4,7 @@
 - Siehe [isy-security CHANGELOG](./isy-security/CHANGELOG.md)
 
 ### Umgesetzte Tickets
+- `IFS-5906`: [isy-logging] Performance Logging für Spring Data Repositories aktiviert
 
 #### Bug Fixes
 - `IFS-5784` isAlive-File des LoadBalancers in embedded Tomcat integrieren
