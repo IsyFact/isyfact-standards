@@ -930,9 +930,149 @@ Dieses Gate stellt sicher, dass ausschließlich das geprüfte Artefakt produktiv
 * Qualitätsziele und Schwellwerte MÜSSEN projektspezifisch festgelegt und in der Systemdokumentation nachvollziehbar dokumentiert werden.
 * Nachweise MÜSSEN für Audits und Freigabeprozesse revisionssicher verfügbar sein.
 
+[[betrieb-deployment-frontend]]
 == Betrieb & Deployment von Frontends
 
-NOTE: Abschnitt ist noch WIP
+Dieses Kapitel beschreibt die Bereitstellung und den Betrieb der Frontends für die oben beschriebenen SPA-, BFF- und Native-Federation-Zielbilder.
+Die Betriebsvarianten zeigen produktneutrale Umsetzungen; die bestehenden Architektur- und Sicherheitsvorgaben gelten unabhängig von der gewählten Infrastruktur.
+
+=== Deployment-Modell und Verantwortlichkeiten
+
+Beim Deployment einer SPA sind die Ausführung im Browser und die serverseitige Bereitstellung ihrer Artefakte zu unterscheiden.
+GKGUI bezeichnet das Frontend-IT-System einer Geschäftsanwendung: Seine HTML-, JavaScript- und CSS-Artefakte werden serverseitig bereitgestellt, während die geladene SPA im Browser des Anwenders ausgeführt wird.
+Das Backend GK stellt die fachliche Logik und die zugehörigen Services in einer serverseitigen Laufzeitumgebung bereit.
+Gemäß <<AG-1>> werden Frontend und Backend als eigenständige IT-Systeme entwickelt und betrieben.
+
+.Zuordnung von Komponenten und Artefakten zu ihren Umgebungen
+[cols="2,3,4", options="header"]
+|===
+| Umgebung | Komponenten und Artefakte | Aufgabe
+
+| Client mit Webbrowser
+| Geladene SPA; bei Native Federation einschließlich Shell und nachgeladener Frontend-Module
+| Ausführung der Benutzeroberfläche und Aufruf der vorgesehenen APIs
+
+| Serverseitige Bereitstellungsumgebung
+| Frontend-Artefakte und Auslieferungskomponente, beispielsweise ein Webserver; bei Bedarf ein vorgeschalteter Reverse Proxy
+| Bereitstellung und Auslieferung der Frontend-Ressourcen
+
+| Serverseitige Laufzeitumgebung der APIs
+| API-Gateway, Backend GK und optional BFF
+| Vermittlung der API-Aufrufe und Ausführung der serverseitigen Anwendungsfunktionen
+|===
+
+Die Tabelle beschreibt die Zuordnung zu Laufzeit- und Bereitstellungsumgebungen und legt keine Aufteilung auf dedizierte Hosts fest.
+Der Bezug der Frontend-Artefakte und die Kommunikation mit Backend-APIs sind getrennte Aufgaben, auch wenn beide über denselben öffentlich erreichbaren Einstiegspunkt angeboten werden.
+Für API-Aufrufe gilt die im <<software-technisch-frontend,SPA-Zielbild>> vorgesehene Anbindung über das zentrale API-Gateway.
+In der <<software-technisch-frontend-bff,BFF-Variante>> kommt eine zusätzliche serverseitige Anwendung hinzu; ihre Laufzeit und die Einbindung in den API-Aufrufpfad sind im konkreten Deployment zu berücksichtigen.
+
+Die Entwicklung liefert versionierte Frontend-Artefakte mit der erforderlichen Konfiguration und Dokumentation.
+Der Betrieb übernimmt ihre Bereitstellung und die Rücksetzbarkeit gemäß den xref:technisch-infrastrukturell/betriebliche-aspekte.adoc#auslieferung-installation-und-versionswechsel[übergreifenden Verantwortlichkeiten für Auslieferung, Installation und Versionswechsel].
+
+Die <<deployment-frontend,Deployment-Darstellung>> ordnet die ausgeführte SPA dem Browser und ihre Auslieferungsartefakte der jeweiligen Bereitstellungsumgebung zu.
+Die klassische Serverlaufzeit und die Container-Plattform zeigen alternative Ausprägungen der Frontend-Bereitstellung.
+Bei Native Federation ist die Bereitstellung je eigenständig lieferbarer Frontend-Komponente zu betrachten.
+
+[[deployment-frontend]]
+.Deployment von Frontends auf klassischer Infrastruktur und einer Container-Plattform
+image::referenzarchitektur:software-technisch/frontend/deployment-frontend.drawio.svg[Deployment von Frontends mit Browser-Laufzeit und zwei Varianten der serverseitigen Bereitstellung,width=100%,align=center]
+
+Die API-Laufzeitumgebungen gelten für beide Auslieferungsvarianten; ihre konkrete Zuordnung zu Hosts oder Containern bleibt anwendungsspezifisch.
+Die Pfeile unterscheiden den Bezug von Frontend-Artefakten und API-Aufrufe; optionale Funktionen sind gesondert gekennzeichnet.
+
+=== Auslieferung von Frontends und CDN
+
+Eine SPA wird als zusammengehöriger Satz statischer Ressourcen bereitgestellt.
+Dazu gehören insbesondere der HTML-Einstiegspunkt sowie JavaScript- und CSS-Dateien; weitere Ressourcen können während der Nutzung nachgeladen werden.
+Eine Auslieferungskomponente stellt diese Dateien über HTTPS bereit; ein Webserver ist eine mögliche Umsetzung.
+Ein vorgeschalteter Reverse Proxy kann die Anfragen an die zuständige Auslieferung weiterleiten und den Zugriff auf die vorgesehenen Ressourcen und APIs vermitteln.
+
+Bei clientseitigem Routing ist auch der direkte Aufruf einer Anwendungsroute zu berücksichtigen.
+Eine mögliche Umsetzung ist die Rückgabe des HTML-Einstiegspunkts für diese Routen.
+Eine solche Behandlung SOLL auf Anwendungsrouten begrenzt werden, damit fehlende statische Ressourcen und API-Fehler weiterhin als solche erkennbar bleiben.
+
+Ein Content Delivery Network (CDN) verteilt die Auslieferung von Inhalten auf mehrere Auslieferungsknoten und kann Ressourcen zwischenspeichern.
+Eine solche Funktion kann die Auslieferung der Frontend-Artefakte ergänzen.
+GKGUI bezeichnet dagegen das Frontend-IT-System; aus dieser Bezeichnung folgt weder eine verteilte Auslieferung noch eine Cache-Funktion.
+Der Einsatz einer CDN-Funktion ist anhand der Anforderungen an Erreichbarkeit, Last, Aktualität und Sicherheit zu bewerten; ein konkretes CDN-Produkt wird hier nicht festgelegt.
+
+Für die gesamte Auslieferungskette gelten die bestehenden Vorgaben zu HTTPS, zu <<http_sicherheits_header_cookies,HTTP-Sicherheits-Headern und Cookies>> sowie zu freigegebenen Bezugsquellen aus dem Abschnitt „Supply-Chain-Sicherheit“.
+Die dort geregelte Einbindung von Ressourcen aus öffentlichen CDNs ist von einer selbst betriebenen Auslieferung eigener Frontend-Artefakte zu unterscheiden.
+Caching ist abhängig von der Ressourcenart zu konfigurieren; die Anforderungen aus „Logout, Caching & Service Worker“ gelten auch bei zwischengeschalteten Caches.
+Empfehlungen für die Konsistenz beim Versionswechsel enthält <<frontend-versionswechsel>>.
+
+=== Betrieb auf klassischer Infrastruktur (On-Premise)
+
+Eine mögliche Umsetzung auf klassischer Infrastruktur ist die Bereitstellung der Frontend-Artefakte auf einem Server mit Webserver.
+Der Webserver übernimmt die Auslieferung; ein Reverse Proxy kann vorgeschaltet sein.
+API-Gateway, Backend und optional BFF werden in ihren jeweiligen serverseitigen Laufzeitumgebungen betrieben.
+Die Trennung der IT-Systeme ermöglicht eine unabhängige Bereitstellung, ohne für jedes IT-System einen eigenen physischen Server vorauszusetzen.
+
+Die Zuordnung zu Servern, Kommunikationsverbindungen und gegebenenfalls vorhandenen Sicherheitszonen richtet sich nach der xref:technisch-infrastrukturell.adoc#ti-architektur-anwendung[TI-Architektur der konkreten Anwendung].
+Anforderungen an Skalierung und Verfügbarkeit sind unter Berücksichtigung der xref:technisch-infrastrukturell/availability.adoc[übergreifenden Verfügbarkeitsbetrachtung] festzulegen.
+Aus der Bereitstellung einer SPA folgt keine zusätzliche Anwendungsserver-Laufzeit für die Ausführung ihres Browser-Codes.
+
+=== Betrieb auf Container-Plattformen (CaaS)
+
+Auch beim Betrieb auf einer Container-Plattform wird die SPA im Browser ausgeführt.
+Eine mögliche Umsetzung besteht darin, die Frontend-Artefakte zusammen mit der Software für ihre Auslieferung in einem versionierten Container-Image bereitzustellen.
+Die Plattform startet daraus Container, deren Auslieferungskomponente die Ressourcen bereitstellt.
+Die konkreten Mechanismen für die Erreichbarkeit und das Routing zu diesen Containern richten sich nach der Betriebsplattform.
+
+Die xref:software-technisch/api-gateway.adoc#image-api-gateway-produkt[Plattformvariante des API-Gateways] beschreibt die Übernahme von Gateway-Aufgaben durch Plattformmechanismen.
+Bei deren Nutzung ist festzulegen, welche Aufgaben die Plattform übernimmt und welche weiterhin durch Gateway-Systeme umgesetzt werden.
+Backend und optional BFF verbleiben serverseitige Anwendungen mit eigenen Deployment- und Laufzeitanforderungen.
+Ein bestimmter Orchestrierungsmechanismus oder eine konkrete Zuordnung zu Plattformressourcen wird hier nicht vorgegeben.
+
+Gegenüber dem klassischen Serverbetrieb ändern sich Verpackung, Bereitstellung und Verwaltung der Auslieferungssoftware; die Trennung zwischen Browser-Ausführung, Artefaktauslieferung und API-Kommunikation bleibt bestehen.
+Eine Container-Plattform kann auch On-Premise betrieben werden; die beiden beschriebenen Varianten unterscheiden die Art der Bereitstellung.
+
+[[frontend-versionswechsel]]
+=== Konfiguration, Versionswechsel und Rollback
+
+Der Build erzeugt einen versionierten, zusammengehörigen Satz von Frontend-Artefakten.
+Das Deployment stellt eine ausgewählte Version in einer Zielumgebung bereit.
+Für die Erstellung und Prüfung der Artefakte gelten die bestehenden Vorgaben aus „Supply-Chain-Sicherheit“.
+
+Gemäß der <<qs-qg-einordnung,Einordnung der Quality Gates in den Auslieferungsprozess>> MUSS das gebaute Bundle unverändert durch die Zielumgebungen befördert werden; umgebungsspezifische Konfiguration erfolgt zur Auslieferungs- oder Laufzeit.
+Eine mögliche Umsetzung ist eine beim Anwendungsstart geladene Konfigurationsdatei außerhalb der gebauten Anwendungsdateien, beispielsweise für API-Adressen.
+An den Browser ausgelieferte Konfiguration ist für den Anwender einsehbar und DARF KEINE Geheimnisse wie Zugangsdaten oder private Schlüssel enthalten.
+Die Zuordnung von Artefaktversion und Konfigurationsstand SOLL für jedes Deployment nachvollziehbar dokumentiert werden.
+
+Die Aktivierung einer neuen Frontend-Version SOLL einen vollständigen, zusammengehörigen Ressourcenstand bereitstellen.
+Für nicht sensible Ressourcen bieten sich folgende Cache-Strategien an; die bestehenden Sicherheitsvorgaben haben Vorrang:
+
+.Cache-Verhalten bei Versionswechseln
+[cols="2,4", options="header"]
+|===
+| Ressourcenart | Empfehlung
+
+| HTML-Einstiegspunkt und veränderliche Konfigurations- oder Manifestdateien
+| Vor Wiederverwendung validieren oder nur kurz zwischenspeichern, damit geänderte Ressourcenverweise und Konfigurationen wirksam werden.
+
+| Unveränderliche, eindeutig versionierte JavaScript-, CSS- und andere Ressourcendateien
+| Längeres Caching ermöglichen, beispielsweise bei einem Inhalts-Hash im Dateinamen. Geänderte Inhalte erhalten eine neue URL.
+|===
+
+Bereits geöffnete Browser können nach einem Deployment weitere Ressourcen einer älteren Version anfordern.
+Diese Ressourcen SOLLEN für die vorgesehene Übergangszeit weiterhin verfügbar sein; deren Dauer ist mit den Anforderungen an Sicherheitsupdates und die unterstützten Anwendungsversionen abzustimmen.
+Bei eingesetzten CDN- oder Proxy-Caches sind Ablauf beziehungsweise Invalidierung veränderlicher Ressourcen in den Versionswechsel einzubeziehen.
+Für Service Worker gelten zusätzlich die bereits beschriebenen Anforderungen an ihren Lebenszyklus.
+
+Ein Rollback umfasst die erneute Bereitstellung eines zuvor freigegebenen Artefaktstands mit der dazu passenden Konfiguration.
+Dabei ist die Kompatibilität mit den aktuell bereitgestellten Backend-APIs und gegebenenfalls dem BFF zu prüfen.
+Die Änderung der serverseitig bereitgestellten Version wirkt auf nachfolgende Abrufe; bereits im Browser geladener Code wird dadurch nicht unmittelbar ersetzt.
+Der Umgang mit noch aktiven Frontend-Versionen ist deshalb auch beim Rollback zu berücksichtigen.
+
+Bei Native Federation bilden Shell, Remote-Module und die zugehörige Integrationskonfiguration gemeinsam den zu betrachtenden Versionsstand.
+Für deren Versionsbindung, kontrollierte Änderung und unabhängige Rücksetzbarkeit gelten <<AG-11>> und die <<native_federation_security,Sicherheitsanforderungen an Native Federation>>.
+
+=== Betriebsüberwachung
+
+Die Betriebsüberwachung betrachtet sowohl die Erreichbarkeit der Frontend-Auslieferung als auch den erfolgreichen Start der SPA und das Nachladen benötigter Ressourcen.
+Bei BFF und Native Federation sind die zusätzlich beteiligten Anwendungen beziehungsweise Module einzubeziehen.
+Die Vorgaben zur Erfassung, Übermittlung und Auswertung von Fehlern und Metriken stehen im Kapitel <<logging-monitoring-telemetrie,Logging, Monitoring & Telemetrie>>.
+Die Überwachung der serverseitigen Laufzeit- und Infrastrukturkomponenten richtet sich ergänzend nach den xref:technisch-infrastrukturell/betriebliche-aspekte.adoc#betriebsueberwachung[übergreifenden betrieblichen Vorgaben].
 
 == Daten & Zustandsmanagement
 
