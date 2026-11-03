@@ -49,19 +49,15 @@ public class LoadbalancerServlet extends HttpServlet {
         LOG.info(LogKategorie.JOURNAL, EreignisSchluessel.PLUEB00001, "Initialisiere Loadbalancer-Servlet.");
 
         String isAliveFileLocation = getInitParameter(PARAM_IS_ALIVE_FILE_LOCATION);
-        if (isAliveFileLocation == null) {
-            LOG.info(LogKategorie.JOURNAL, EreignisSchluessel.PLUEB00001,
-                "Position der IsAliveDatei nicht konfiguriert. Verwende Standard-Einstellung: {}",
-                DEFAULT_IS_ALIVE_FILE_LOCATION);
-            isAliveFileLocation = DEFAULT_IS_ALIVE_FILE_LOCATION;
+        if (DEFAULT_IS_ALIVE_FILE_LOCATION.equals(isAliveFileLocation)) {
+            String realPath = getServletContext().getRealPath(isAliveFileLocation);
+            isAliveFile = new File(realPath);
+        } else {
+            isAliveFile = new File(isAliveFileLocation);
         }
-        String realPath = getServletContext().getRealPath(isAliveFileLocation);
-        isAliveFile = realPath != null
-                ? new File(realPath)
-                : new File(isAliveFileLocation);
 
         LOG.info(LogKategorie.JOURNAL, EreignisSchluessel.PLUEB00001, "IsAlive-Datei {} konfiguriert.",
-            isAliveFile.getAbsolutePath());
+                isAliveFile.getAbsolutePath());
     }
 
     /** GET-Request bearbeiten. Prüft, ob die IsAlive-Datei vorhanden ist und liefert dann HTTP OK zurück.
