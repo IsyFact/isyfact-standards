@@ -993,6 +993,7 @@ Eine Übersicht über die erfassten Klassen bietet die folgende Tabelle:
 |AWF-Klassen | `* * ..core..Awf*.*(..)`
 |AFU-Klassen | `* * ..core..Afu*.*(..)`
 |DAOs | `public * *..persistence..*DaoImpl.*(..)`
+|Spring Data Repositories | `this(org.springframework.data.repository.Repository)`
 |====
 
 Bei allen Aufrufen wird nur die Dauer des Aufrufs geloggt.
