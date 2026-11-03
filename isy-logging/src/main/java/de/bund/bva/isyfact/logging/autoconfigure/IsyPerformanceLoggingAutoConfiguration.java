@@ -21,7 +21,8 @@ public class IsyPerformanceLoggingAutoConfiguration {
     private final String[] pointcuts = {"execution(public * *..gui..*Controller.*(..))",
         "execution(public * *..service..*ServiceImpl.*(..))",
         "execution(public * *..core..*Impl.*(..))",
-        "execution(public * *..persistence..*DaoImpl.*(..))", // TODO: Mit Spring Data?
+        "execution(public * *..persistence..*DaoImpl.*(..))",
+        "this(org.springframework.data.repository.Repository)",
         "execution(@de.bund.bva.isyfact.logging.annotation.PerformanceLogging * *(..))"
     };
 
