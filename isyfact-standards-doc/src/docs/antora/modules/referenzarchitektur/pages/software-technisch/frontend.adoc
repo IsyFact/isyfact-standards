@@ -145,13 +145,14 @@ Diese Vorgehensweise erhöht zunächst die Komplexität, ist jedoch ein bewährt
 Ein typischer Einsatzfall für ein BFF ist die Darstellung einer fachlichen Gesamtsicht, deren Daten aus mehreren fachlich eigenständigen Quellen stammen – beispielsweise aus Services mehrerer Behörden oder mehrerer Fachverfahren.
 
 Ohne BFF müsste die SPA die beteiligten APIs einzeln aufrufen, die Teilergebnisse zusammenführen, Aufrufreihenfolgen und Abhängigkeiten steuern, Teilausfälle behandeln und die fachlichen Datenmodelle in eine Darstellungsform überführen.
-Diese fachliche Verarbeitungslogik läge damit im Client und widerspräche <<AG-2>>.
+Diese fachliche Verarbeitungslogik läge damit im Browser, also in einem Kontext, der gemäß <<AG-2>> nicht als vertrauenswürdig gilt.
+Ob das vertretbar ist, hängt vom Schutzbedarf des jeweiligen Anwendungsfalls ab: Bei fachlich unkritischen Abläufen kann eine clientseitige Verarbeitung angemessen sein, bei erhöhtem Schutzbedarf oder sensiblen Daten ist die serverseitige Verarbeitung geboten.
 
-Ein BFF übernimmt diese Aufgaben serverseitig:
+Ein BFF übernimmt diese Aufgaben serverseitig in der folgenden Verarbeitungsreihenfolge:
 
+Orchestrierung:: Steuerung von Aufrufreihenfolge, Abhängigkeiten, Parallelisierung, Zeitüberschreitungen und Teilausfällen, einschließlich einer definierten Degradation bei nicht verfügbaren Quellen.
 Aggregation:: Zusammenführen der Teilergebnisse mehrerer Behörden- bzw. Fachverfahrens-APIs zu einer fachlich zusammenhängenden Antwort.
 Transformation:: Überführung der fachlichen Datenmodelle in ein auf den Anwendungsfall zugeschnittenes, frontend-spezifisches Schema sowie Reduktion auf die tatsächlich benötigten Attribute.
-Orchestrierung:: Steuerung von Aufrufreihenfolge, Abhängigkeiten, Parallelisierung, Zeitüberschreitungen und Teilausfällen, einschließlich einer definierten Degradation bei nicht verfügbaren Quellen.
 
 Daraus ergeben sich die folgenden Vorteile:
 
@@ -160,11 +161,11 @@ Daraus ergeben sich die folgenden Vorteile:
 * Es werden ausschließlich die für die Darstellung erforderlichen Daten an den Browser übertragen (Datenminimierung gemäß <<AG-8>>).
 * Die Fachverfahrens-APIs müssen nicht frontend-spezifisch angepasst werden und bleiben für andere Konsumenten unverändert nutzbar (<<AG-1>>, <<AG-4>>).
 
-<<bff-aggregation-abbildung>> stellt diesen Einsatzfall dar.
+<<bff-aggregation-abbildung>> stellt die Verarbeitung ohne und mit BFF gegenüber und ordnet die drei Aufgaben jeweils dem Client bzw. dem Server zu.
 
 [[bff-aggregation-abbildung]]
-.Serverseitige Aggregation, Transformation und Orchestrierung mehrerer Fachverfahrens-APIs durch ein BFF
-image::referenzarchitektur:software-technisch/frontend/bff-aggregation-fachverfahren.drawio.svg[width=75%,align=center]
+.Orchestrierung, Aggregation und Transformation ohne und mit BFF
+image::referenzarchitektur:software-technisch/frontend/bff-aggregation-fachverfahren.drawio.svg[width=100%,align=center]
 
 CAUTION: Ein BFF ist kein fachliches Backend.
 Fachliche Entscheidungen, Validierungen und Berechtigungsprüfungen MÜSSEN in den fachlich zuständigen Backend-Systemen verbleiben.
