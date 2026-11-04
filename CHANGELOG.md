@@ -1,14 +1,14 @@
-# 4.3.2
+# 4.3.3
 
 ### Hinweise & bekannte Probleme
-- Siehe [isy-security CHANGELOG](./isy-security/CHANGELOG.md)
+- Es soll weiterhin die neueste IFE 4.3.x verwendet werden. Bei Bedarf kann lediglich isy-ueberwachung auf 4.3.3 angehoben werden.
 
 ### Umgesetzte Tickets
 #### Features
-- `IFS-5872`: [isy-security] Konfigurierbarkeit der OU pro Authentifizierung
+- keine
 
 #### Bug Fixes
-- keine
+- `IFS-5784`: [isy-ueberwachung] isAlive-File des LoadBalancers in embedded Tomcat integrieren
 
 #### Interne Anpassungen
 - keine
