@@ -1,17 +1,20 @@
-# 4.3.3
+# 4.4.0
 
 ### Hinweise & bekannte Probleme
-- Es soll weiterhin die neueste IFE 4.3.x verwendet werden. Bei Bedarf kann lediglich isy-ueberwachung auf 4.3.3 angehoben werden.
+- Siehe [isy-security CHANGELOG](./isy-security/CHANGELOG.md)
 
 ### Umgesetzte Tickets
-#### Features
-- keine
+- `IFS-5906`: [isy-logging] Performance Logging für Spring Data Repositories aktiviert
 
 #### Bug Fixes
-- `IFS-5784`: [isy-ueberwachung] isAlive-File des LoadBalancers in embedded Tomcat integrieren
+- `IFS-5784` isAlive-File des LoadBalancers in embedded Tomcat integrieren
+- `IFS-5872`: [isy-security] Konfigurierbarkeit der OU pro Authentifizierung
 
 #### Interne Anpassungen
 - keine
 
+#### Dokumentation
+- `IFS-5789`: Hinweis auf standardmäßig aktivierte Liquibase-Telemetrie in der Dokumentation ergänzt
+
 ### Durchzuführende Aktionen vor dem ersten Einsatz
-- keine
+- `IFS-5782`: Für die Nutzung des Performance-Loggings ist der Bau der nutzenden Anwendung anzupassen. Hierzu das Kapitel "Einbinden des Frameworks in der Anwendung" der Dokumentation von isy-logging beachten.

@@ -1,7 +1,7 @@
-# 4.3.3
+# 4.4.0
 
 #### Features
-- Keine
+- `IFS-5906`: Performance Logging für Spring Data Repositories aktiviert
 
 #### Interne Anpassungen
 - Keine
