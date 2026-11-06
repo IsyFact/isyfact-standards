@@ -32,7 +32,14 @@ Die unten beschriebenen Zielbilder sowie der Geltungsbereich der Referenzarchite
 Geschäftsanwendungen in der öffentlichen Verwaltung sind überwiegend Business-Anwendungen, die auf die Verarbeitung von Daten sowie eine geringe Anzahl von Anwendern (Sachbearbeitern) ausgelegt sind.
 Anforderungen wie schnelle LCP (Largest Contentful Paint) oder Search Engine Optimization (SEO) haben keine hohe Priorität, sodass der Architekturstil Server-Side Rendering (SSR) zunächst ausgeklammert werden kann.
 
-Auf Basis dieser Architekturvorgabe werden zwei konkrete Zielbilder besprochen: _Single-Page Application (SPA) mit direkter Backend-Anbindung_ sowie die _Architekturvariante mit Backend-for-Frontend (BFF)_.
+Auf Basis dieser Architekturvorgabe werden drei Architekturvarianten beschrieben:
+die _Single-Page Application (SPA) mit direkter Backend-Anbindung_ als Ausgangs- und Regelfall,
+die _modularisierte SPA mit Native Federation_ zur Laufzeit-Modularisierung
+sowie das _Backend-for-Frontend (BFF)_ als serverseitige, frontend-spezifische Ergänzung.
+
+Die Varianten schließen einander nicht aus:
+Native Federation betrifft die Strukturierung des Frontends, ein BFF die serverseitige Anbindung an die Backend-Systeme; beide Varianten können kombiniert werden.
+<<entscheidungsmatrix-architekturvarianten>> stellt Anwendungsfälle und Entscheidungskriterien der drei Varianten gegenüber.
 
 === Single-Page Application (SPA) mit direkter Backend-Anbindung
 
@@ -47,20 +54,39 @@ Durch die Verwendung von SPAs befindet sich der Frontend-Teil der GA im Webbrows
 Zur strukturierten, sicheren und einheitlichen Anbindung der Frontends an die Backend-Systeme ist verpflichtend, ein zentrales API-Gateway als querschnittliche Komponente vorzuschalten.
 Das API-Gateway ist ein Bestandteil der Systemlandschaft und wird in der xref:referenzarchitektur:software-technisch.adoc[software-technischen Referenzarchitektur] detailliert beschrieben.
 
-=== Architekturvariante mit Backend-for-Frontend (BFF)
+[[spa-direkte-anbindung-security]]
+==== Sicherheit der Kommunikation zwischen SPA und Server
 
-<<software-technisch-frontend-bff>> zeigt eine Variante für die Darstellung von SPAs in der softwaretechnischen Referenzarchitektur unter Verwendung eines Backend-for-Frontend (BFF).
+Eine SPA ist im Sinne von OAuth 2.0 ein _Public Client_: Sie kann keine Geheimnisse vertraulich speichern.
+Client Secrets, Refresh Tokens und sonstige OAuth-2.0-Geheimnisse DÜRFEN daher NICHT im Client abgelegt werden – weder im Quellcode oder Build-Artefakt noch in `localStorage` oder `sessionStorage`.
 
-[[software-technisch-frontend-bff]]
-.Darstellung der Frontends in der softwaretechnischen Architektur mit der Variante BFF
-image::referenzarchitektur:software-technisch/frontend/software-technisch-frontend-bff.drawio.svg[width=50%,align=center]
+Die übergreifenden Vorgaben zu Authentifizierung, Autorisierung und Token-Handling sind im xref:security::konzept.adoc[Baustein Security] sowie in der xref:software-technisch/sicherheit.adoc#authentifizierung[Referenzarchitektur Sicherheit] festgelegt und gelten uneingeschränkt.
+Die frontend-spezifische Schärfung dieser Vorgaben erfolgt in <<authentifizierung-token-handling>>.
 
-Dabei wird eine zusätzliche Anwendung zwischen Backend und Frontend auf der Serverseite vorgesehen, um das Backend über eine spezifische API vom Frontend zu entkoppeln.
-Diese Vorgehensweise erhöht zunächst die Komplexität, ist jedoch ein bewährtes Muster, um folgende Herausforderungen zu lösen:
+Die vertrauliche Haltung der OAuth-2.0-Geheimnisse MUSS serverseitig erfolgen.
+Hierfür stehen zwei Umsetzungsformen zur Verfügung:
 
-* Auslieferung unterschiedlicher Darstellungen je nach Endgerät (Smartphone, Tablet, Desktop).
-* Umsetzung von Performance-, Sicherheits- oder Skalierbarkeitsanforderungen, die speziell für die Kommunikation zwischen Frontend und Backend relevant sind.
-* Vorverarbeitung, Filterung und Validierung sensibler oder sicherheitskritischer Daten im Backend, bevor sie an das Frontend gesendet werden – ohne die Backend-API für andere Dienste einschränken zu müssen.
+Vorgeschalteter Webserver bzw. API- oder Service-Gateway::
+Die Auslieferung der SPA und die Vermittlung der Backend-Aufrufe erfolgen über eine dem Frontend vorgeschaltete, rein technische Komponente – etwa einen Webserver mit Reverse-Proxy-Funktion, das zentrale xref:software-technisch/api-gateway.adoc[API-Gateway] oder ein Service-Gateway.
+Diese Komponente führt den Authorization Code Flow mit PKCE durch, hält Access- und Refresh-Token ausschließlich serverseitig und stellt dem Browser lediglich ein sicheres Session-Cookie (`HttpOnly`, `Secure`, `SameSite`) bereit (_Token-Handler-_ bzw. _OAuth-2.0-Proxy-Muster_).
+Da SPA und API über denselben Origin ausgeliefert werden, entfallen zudem CORS-Ausnahmen.
+Die Komponente wird konfiguriert, nicht fachlich entwickelt, und enthält keine fachliche Logik.
+
+Backend-for-Frontend (BFF)::
+Ein BFF ist eine eigenständige, der Geschäftsanwendung zugeordnete Anwendung mit fachlicher Verantwortung (siehe <<software-technisch-frontend-bff>>).
+Es übernimmt dieselbe serverseitige Token-Haltung, geht aber inhaltlich darüber hinaus, indem es fachliche Daten für eine frontend-spezifische Sicht aggregiert, transformiert und orchestriert.
+
+[NOTE]
+.Abgrenzung vorgeschaltetes Gateway und BFF
+====
+Ein vorgeschalteter Webserver bzw. ein API- oder Service-Gateway ist eine querschnittliche Infrastrukturkomponente:
+Sie wird konfiguriert, ist fachlich neutral und besitzt keinen eigenen fachlichen Lebenszyklus.
+
+Ein BFF ist dagegen eine entwickelte, fachlich motivierte Anwendung mit eigener API, eigenem Deployment, eigener Versionierung und eigener Wartung.
+
+Besteht ausschließlich Bedarf an sicherer serverseitiger Token-Haltung und Same-Origin-Zugriff, ist die Gateway-Lösung zu bevorzugen, da sie ohne zusätzliche Anwendung auskommt.
+Erst ein fachlicher Aggregations-, Transformations- oder Orchestrierungsbedarf rechtfertigt ein BFF (siehe <<AG-7>>).
+====
 
 === Architekturvariante: Modularisierte Single Page Application mit Native Federation
 
@@ -96,6 +122,132 @@ Ein minimaler Rahmen umfasst:
 Sind diese Voraussetzungen nicht gegeben (z. B. nur ein bis zwei Teams, gemeinsamer Freigabezyklus, hohe funktionale Verflechtung), ist eine einfache SPA oder ein modular strukturierter Monolith (klare Modulgrenzen innerhalb eines gemeinsamen Build-Artefakts) in der Regel wirtschaftlicher und risikoärmer.
 
 Native Federation ist somit kein Standardvorgehen, sondern eine gezielte Architekturentscheidung zur Skalierung von Organisation, Lieferfähigkeit und Modernisierungsfähigkeit bei großen, langfristig betriebenen Anwendungen.
+
+=== Architekturvariante mit Backend-for-Frontend (BFF)
+
+<<software-technisch-frontend-bff>> zeigt eine Variante für die Darstellung von SPAs in der softwaretechnischen Referenzarchitektur unter Verwendung eines Backend-for-Frontend (BFF).
+
+[[software-technisch-frontend-bff]]
+.Darstellung der Frontends in der softwaretechnischen Architektur mit der Variante BFF
+image::referenzarchitektur:software-technisch/frontend/software-technisch-frontend-bff.drawio.svg[width=50%,align=center]
+
+Dabei wird eine zusätzliche Anwendung zwischen Backend und Frontend auf der Serverseite vorgesehen, um das Backend über eine spezifische API vom Frontend zu entkoppeln.
+Diese Vorgehensweise erhöht zunächst die Komplexität, ist jedoch ein bewährtes Muster, um folgende Herausforderungen zu lösen:
+
+* Serverseitige Aggregation, Transformation und Orchestrierung von Daten aus mehreren Behörden- bzw. Fachverfahrens-APIs zu einer frontend-spezifischen Sicht (siehe <<bff-aggregation>>).
+* Auslieferung unterschiedlicher Darstellungen je nach Endgerät (Smartphone, Tablet, Desktop).
+* Umsetzung von Performance-, Sicherheits- oder Skalierbarkeitsanforderungen, die speziell für die Kommunikation zwischen Frontend und Backend relevant sind.
+* Vorverarbeitung, Filterung und Validierung sensibler oder sicherheitskritischer Daten im Backend, bevor sie an das Frontend gesendet werden – ohne die Backend-API für andere Dienste einschränken zu müssen.
+
+[[bff-aggregation]]
+==== Einsatzfall: Aggregation und Orchestrierung mehrerer Fachverfahrens-APIs
+
+Ein typischer Einsatzfall für ein BFF ist die Darstellung einer fachlichen Gesamtsicht, deren Daten aus mehreren fachlich eigenständigen Quellen stammen – beispielsweise aus Services mehrerer Behörden oder mehrerer Fachverfahren.
+
+Ohne BFF müsste die SPA die beteiligten APIs einzeln aufrufen, die Teilergebnisse zusammenführen, Aufrufreihenfolgen und Abhängigkeiten steuern, Teilausfälle behandeln und die fachlichen Datenmodelle in eine Darstellungsform überführen.
+Diese fachliche Verarbeitungslogik läge damit im Browser, also in einem Kontext, der gemäß <<AG-2>> nicht als vertrauenswürdig gilt.
+Ob das vertretbar ist, hängt vom Schutzbedarf des jeweiligen Anwendungsfalls ab: Bei fachlich unkritischen Abläufen kann eine clientseitige Verarbeitung angemessen sein, bei erhöhtem Schutzbedarf oder sensiblen Daten ist die serverseitige Verarbeitung geboten.
+
+Ein BFF übernimmt diese Aufgaben serverseitig in der folgenden Verarbeitungsreihenfolge:
+
+Orchestrierung:: Steuerung von Aufrufreihenfolge, Abhängigkeiten, Parallelisierung, Zeitüberschreitungen und Teilausfällen, einschließlich einer definierten Degradation bei nicht verfügbaren Quellen.
+Aggregation:: Zusammenführen der Teilergebnisse mehrerer Behörden- bzw. Fachverfahrens-APIs zu einer fachlich zusammenhängenden Antwort.
+Transformation:: Überführung der fachlichen Datenmodelle in ein auf den Anwendungsfall zugeschnittenes, frontend-spezifisches Schema sowie Reduktion auf die tatsächlich benötigten Attribute.
+
+Daraus ergeben sich die folgenden Vorteile:
+
+* Die zugehörige fachliche Verarbeitungslogik muss nicht im Client implementiert werden; sie verbleibt serverseitig und bleibt dort prüf-, test- und versionierbar (<<AG-2>>).
+* Die Anzahl der aus dem Browser ausgehenden Netzwerkaufrufe sinkt; das Antwortverhalten wird unabhängiger von der Netzwerkqualität des Arbeitsplatzes.
+* Es werden ausschließlich die für die Darstellung erforderlichen Daten an den Browser übertragen (Datenminimierung gemäß <<AG-8>>).
+* Die Fachverfahrens-APIs müssen nicht frontend-spezifisch angepasst werden und bleiben für andere Konsumenten unverändert nutzbar (<<AG-1>>, <<AG-4>>).
+
+<<bff-aggregation-abbildung>> stellt die Verarbeitung ohne und mit BFF gegenüber und ordnet die drei Aufgaben jeweils dem Client bzw. dem Server zu.
+
+[[bff-aggregation-abbildung]]
+.Orchestrierung, Aggregation und Transformation ohne und mit BFF
+image::referenzarchitektur:software-technisch/frontend/bff-aggregation-fachverfahren.drawio.svg[width=100%,align=center]
+
+CAUTION: Ein BFF ist kein fachliches Backend.
+Fachliche Entscheidungen, Validierungen und Berechtigungsprüfungen MÜSSEN in den fachlich zuständigen Backend-Systemen verbleiben.
+Das BFF beschränkt sich auf Aggregation, Transformation und Orchestrierung für genau ein Frontend (<<AG-1>>).
+
+[[entscheidungsmatrix-architekturvarianten]]
+=== Entscheidungsmatrix der Architekturvarianten
+
+<<tabelle-entscheidungsmatrix>> stellt die Anwendungsfälle und Entscheidungskriterien der drei Architekturvarianten gegenüber.
+Die Varianten sind dabei nicht als sich ausschließende Alternativen zu verstehen:
+Native Federation adressiert die Strukturierung des Frontends, ein BFF die serverseitige Anbindung an die Backend-Systeme.
+Beide Varianten können gemeinsam eingesetzt werden, sofern die jeweiligen Entscheidungskriterien erfüllt sind.
+
+[[tabelle-entscheidungsmatrix]]
+.Gegenüberstellung der Anwendungsfälle und Entscheidungskriterien der Architekturvarianten
+[cols="1,2,2,2",options="header"]
+|===
+|Kriterium
+|SPA mit direkter Backend-Anbindung
+|Native Federation
+|Backend-for-Frontend (BFF)
+
+|Einordnung
+|Regelfall und Ausgangspunkt jeder Frontend-Architektur
+|Gezielte Architekturentscheidung zur Laufzeit-Modularisierung, kein Standardvorgehen
+|Optionale Architekturvariante auf der Serverseite (<<AG-7>>)
+
+|Typischer Anwendungsfall
+|Fachlich abgegrenzte Anwendung, deren Daten im Wesentlichen aus einem Backend stammen
+|Große, langfristig betriebene Anwendung mit mehreren fachlichen Domänen, die unabhängig geliefert werden müssen
+|Frontend-spezifische Sicht auf Daten aus mehreren Behörden- bzw. Fachverfahrens-APIs; erhöhter Schutzbedarf
+
+|Treibendes Entscheidungskriterium
+|Einfachheit und geringstmögliche Komplexität
+|Skalierung von Organisation und Lieferfähigkeit (mehrere Teams oder Auftragnehmer, getrennte Freigaben)
+|Fachliche Aggregation, Sicherheit, Performance und Entkopplung
+
+|Teams und Lieferanten
+|Ein bis zwei Teams mit gemeinsamem Freigabezyklus
+|Mindestens drei Teams bzw. mehrere Dienstleister mit unabhängigen Release-Zyklen
+|Unabhängig von der Anzahl der Teams
+
+|Datenbeschaffung
+|Die SPA ruft die Backend-API über das API-Gateway auf
+|Wie bei der SPA, jeweils aus den fachlichen Frontend-Komponenten heraus
+|Das BFF aggregiert, transformiert und orchestriert mehrere APIs serverseitig (<<bff-aggregation>>)
+
+|Fachliche Verarbeitungslogik
+|Vollständig im Backend; der Client stellt ausschließlich dar
+|Vollständig im Backend; der Client stellt ausschließlich dar
+|Frontend-spezifische Aufbereitung im BFF; fachliche Entscheidungen verbleiben im Backend
+
+|Umgang mit OAuth-2.0-Geheimnissen
+|Serverseitig über einen vorgeschalteten Webserver bzw. ein API- oder Service-Gateway; niemals im Client (<<spa-direkte-anbindung-security>>)
+|Wie bei der SPA; zentral über Shell und vorgeschaltetes Gateway
+|Serverseitig im BFF; der Browser erhält ausschließlich ein Session-Cookie
+
+|Zusätzliche Serverkomponente
+|Keine; das API-Gateway ist als querschnittliche Komponente ohnehin vorhanden
+|Keine zusätzliche Serveranwendung, jedoch zusätzliche Build- und Bereitstellungsstrecken je Komponente
+|Ja; eine eigenständig zu entwickelnde und zu betreibende Anwendung je Frontend
+
+|Zusätzlicher Aufwand
+|Gering
+|Hoch: Integrationsverträge, Versionierung, Deprecation, Shell-Integration sowie Contract- und Smoke-Tests
+|Mittel bis hoch: Entwicklung, Betrieb, Monitoring und Absicherung einer weiteren Anwendung
+
+|Zusätzliche Voraussetzungen
+|Keine besonderen
+|Governance- und Architekturvorgaben, belastbares Testkonzept, Supply-Chain-Kontrollen (<<AG-9>>, <<AG-10>>, <<AG-11>>)
+|Fachlich begründeter Aggregations-, Sicherheits- oder Performancebedarf (<<AG-7>>)
+
+|Nicht geeignet, wenn
+|Daten aus mehreren Fachverfahren clientseitig zusammengeführt werden müssten
+|Nur ein bis zwei Teams, gemeinsamer Freigabezyklus oder hohe funktionale Verflechtung bestehen
+|Ausschließlich sichere Token-Haltung und Same-Origin-Zugriff benötigt werden; dann genügt ein vorgeschalteter Webserver bzw. Gateway
+
+|Einschlägige Architekturgrundsätze
+|<<AG-1>>, <<AG-6>>
+|<<AG-5>>, <<AG-9>>, <<AG-10>>, <<AG-11>>
+|<<AG-2>>, <<AG-7>>, <<AG-8>>
+|===
 
 == Architekturgrundsätze & -regeln für Frontends
 
@@ -188,6 +340,7 @@ Sämtliche sicherheits- und fachkritischen Entscheidungen MÜSSEN im Backend get
 Clientseitige Prüfungen dienen ausschließlich der Nutzerführung (UX), nicht der Sicherheitsdurchsetzung.
 Dies entspricht dem Zero-Trust-Prinzip für Frontends: Jede Anfrage an ein Backend-System trägt explizit Authentifizierungs- und Autorisierungsnachweise; implizites Vertrauen aufgrund des Netzwerkstandorts oder einer vorherigen Sitzung genügt nicht.
 
+[[authentifizierung-token-handling]]
 === Authentifizierung & Token-Handling
 
 Frontends authentifizieren Nutzer über den zentralen IAM-Service der Systemlandschaft.
