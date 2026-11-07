@@ -1,5 +1,6 @@
 # 5.2.0
 ### FEATURES
+- `IFS-4989`: [isyfact-standards-doc] Kapitel "Betrieb & Deployment von Frontends" mit Kommunikationssicht und Deployment-Diagrammen ergänzt
 - `IFS-5822`: [isyfact-standards-doc] Vorlage Systemspezifikation als PDF und ZIP bereitstellen
 - `IFS-5906`: [isy-logging] Performance Logging für Spring Data Repositories aktiviert
 
