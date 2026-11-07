@@ -917,7 +917,7 @@ Ausführung: vollautomatisiert.
 Dieses Gate stellt sicher, dass ausschließlich das geprüfte Artefakt produktiv geht und eine fehlerhafte Auslieferung erkannt und zurückgenommen wird.
 
 * Es DARF ausschließlich die in QG-4 freigegebene, unveränderte Artefaktversion ausgeliefert werden.
-* Smoke-Test unmittelbar nach der Auslieferung; ein Fehlschlag MUSS ein Rollback auf die zuvor produktive Version auslösen.
+* Smoke-Test unmittelbar nach der Auslieferung; ein Fehlschlag MUSS ein Rollback auf die zuvor produktive Version auslösen. Der konkrete Ablauf ist in <<frontend-rollback>> beschrieben.
 * Nachweis der aktiven sicherheitsrelevanten Auslieferungskonfiguration in der Produktivumgebung.
 * Überwachung von Fehlerraten und Verfügbarkeit über ein definiertes Zeitfenster nach der Auslieferung (→ <<logging-monitoring-telemetrie>>); die Schwellwerte für ein Rollback MÜSSEN vorab festgelegt sein.
 
@@ -933,146 +933,322 @@ Dieses Gate stellt sicher, dass ausschließlich das geprüfte Artefakt produktiv
 [[betrieb-deployment-frontend]]
 == Betrieb & Deployment von Frontends
 
-Dieses Kapitel beschreibt die Bereitstellung und den Betrieb der Frontends für die oben beschriebenen SPA-, BFF- und Native-Federation-Zielbilder.
-Die Betriebsvarianten zeigen produktneutrale Umsetzungen; die bestehenden Architektur- und Sicherheitsvorgaben gelten unabhängig von der gewählten Infrastruktur.
+Dieses Kapitel konkretisiert die Bereitstellung der SPA-, BFF- und Native-Federation-Zielbilder.
+Die Varianten unterscheiden die technische Bereitstellungsart: klassischer Serverbetrieb und Container-Plattform (CaaS).
+Beide können On-Premise betrieben werden; CaaS kann auch Teil einer Private Cloud sein.
 
-=== Deployment-Modell und Verantwortlichkeiten
+[[frontend-deployment-modell]]
+=== Deployment-Modell und Lieferobjekt
 
-Beim Deployment einer SPA sind die Ausführung im Browser und die serverseitige Bereitstellung ihrer Artefakte zu unterscheiden.
-GKGUI bezeichnet das Frontend-IT-System einer Geschäftsanwendung: Seine HTML-, JavaScript- und CSS-Artefakte werden serverseitig bereitgestellt, während die geladene SPA im Browser des Anwenders ausgeführt wird.
-Das Backend GK stellt die fachliche Logik und die zugehörigen Services in einer serverseitigen Laufzeitumgebung bereit.
-Gemäß <<AG-1>> werden Frontend und Backend als eigenständige IT-Systeme entwickelt und betrieben.
+GKGUI ist das Frontend-IT-System; die geladene SPA wird im Browser ausgeführt.
+Serverseitig werden ihre HTML-, JavaScript- und CSS-Artefakte ausgeliefert.
+Backend GK und optional BFF laufen serverseitig und werden gemäß <<AG-1>> unabhängig vom Frontend bereitgestellt.
+Bei Native Federation sind Shell und Remote-Module eigenständig lieferbare Frontend-Komponenten.
 
-.Zuordnung von Komponenten und Artefakten zu ihren Umgebungen
-[cols="2,3,4", options="header"]
-|===
-| Umgebung | Komponenten und Artefakte | Aufgabe
-
-| Client mit Webbrowser
-| Geladene SPA; bei Native Federation einschließlich Shell und nachgeladener Frontend-Module
-| Ausführung der Benutzeroberfläche und Aufruf der vorgesehenen APIs
-
-| Serverseitige Bereitstellungsumgebung
-| Frontend-Artefakte und Auslieferungskomponente, beispielsweise ein Webserver; bei Bedarf ein vorgeschalteter Reverse Proxy
-| Bereitstellung und Auslieferung der Frontend-Ressourcen
-
-| Serverseitige Laufzeitumgebung der APIs
-| API-Gateway, Backend GK und optional BFF
-| Vermittlung der API-Aufrufe und Ausführung der serverseitigen Anwendungsfunktionen
-|===
-
-Die Tabelle beschreibt die Zuordnung zu Laufzeit- und Bereitstellungsumgebungen und legt keine Aufteilung auf dedizierte Hosts fest.
-Der Bezug der Frontend-Artefakte und die Kommunikation mit Backend-APIs sind getrennte Aufgaben, auch wenn beide über denselben öffentlich erreichbaren Einstiegspunkt angeboten werden.
-Für API-Aufrufe gilt die im <<software-technisch-frontend,SPA-Zielbild>> vorgesehene Anbindung über das zentrale API-Gateway.
-In der <<software-technisch-frontend-bff,BFF-Variante>> kommt eine zusätzliche serverseitige Anwendung hinzu; ihre Laufzeit und die Einbindung in den API-Aufrufpfad sind im konkreten Deployment zu berücksichtigen.
-
-Die Entwicklung liefert versionierte Frontend-Artefakte mit der erforderlichen Konfiguration und Dokumentation.
-Der Betrieb übernimmt ihre Bereitstellung und die Rücksetzbarkeit gemäß den xref:technisch-infrastrukturell/betriebliche-aspekte.adoc#auslieferung-installation-und-versionswechsel[übergreifenden Verantwortlichkeiten für Auslieferung, Installation und Versionswechsel].
-
-Die <<deployment-frontend,Deployment-Darstellung>> ordnet die ausgeführte SPA dem Browser und ihre Auslieferungsartefakte der jeweiligen Bereitstellungsumgebung zu.
-Die klassische Serverlaufzeit und die Container-Plattform zeigen alternative Ausprägungen der Frontend-Bereitstellung.
-Bei Native Federation ist die Bereitstellung je eigenständig lieferbarer Frontend-Komponente zu betrachten.
+Die <<deployment-frontend,Kommunikationssicht>> trennt Artefaktabrufe, API-Aufrufe und die IAM-Anbindung.
+Der Einstiegspunkt bündelt die öffentliche Erreichbarkeit, beispielsweise durch einen Reverse Proxy; er bezeichnet eine Funktion und erfordert kein zusätzliches IT-System.
+Für API-Aufrufe bleibt das zentrale API-Gateway aus dem <<software-technisch-frontend,SPA-Zielbild>> vorgeschaltet.
+Sein xref:software-technisch/api-gateway.adoc#iam[Authentication Gateway] bindet den IAM-Service an; die Abbildung ersetzt keine Beschreibung des OAuth-Ablaufs.
+Für die BFF-Variante gelten die serverseitige Token-Haltung und die Session-Cookie-Vorgaben aus „Authentifizierung & Token-Handling“.
 
 [[deployment-frontend]]
-.Deployment von Frontends auf klassischer Infrastruktur und einer Container-Plattform
-image::referenzarchitektur:software-technisch/frontend/deployment-frontend.drawio.svg[Deployment von Frontends mit Browser-Laufzeit und zwei Varianten der serverseitigen Bereitstellung,width=100%,align=center]
+.Logische Kommunikationssicht für Frontend-Auslieferung, APIs und IAM
+image::referenzarchitektur:software-technisch/frontend/deployment-frontend.drawio.svg[Logische Kommunikationssicht mit optionalem BFF und IAM-Anbindung,width=100%,align=center]
 
-Die API-Laufzeitumgebungen gelten für beide Auslieferungsvarianten; ihre konkrete Zuordnung zu Hosts oder Containern bleibt anwendungsspezifisch.
-Die Pfeile unterscheiden den Bezug von Frontend-Artefakten und API-Aufrufe; optionale Funktionen sind gesondert gekennzeichnet.
+Die xref:technisch-infrastrukturell/betriebliche-aspekte.adoc#auslieferung-installation-und-versionswechsel[Verantwortung für Installation, Konfigurationsnachweis und Rücksetzbarkeit] liegt beim Betrieb.
+Eine Lieferung enthält mindestens die eindeutige Artefaktversion, einen Integritätsnachweis, die Konfigurationsbeschreibung und die Installations- und Rollback-Anleitung.
+Der Release-Nachweis ordnet diese Angaben den verwendeten Stages zu, etwa Entwicklungs-, Abnahme- und Produktivumgebung.
 
-=== Auslieferung von Frontends und CDN
+NOTE: Die nachfolgenden technischen Referenzmuster konkretisieren die allgemeinen Vorgaben.
+RPM als Frontend-Lieferformat sowie Kubernetes, Helm und ConfigMaps sind hier nicht als allgemein verbindliche Kundenstandards nachgewiesen.
+Die Auswahl der Auslieferungssoftware richtet sich weiterhin nach dem xref:einstieg:produkte.adoc#produktkatalog[Produktkatalog]: Er weist Apache HTTP Server als Webserver und Apache Tomcat als Application-Server aus; für Tomcat enthält er den Hinweis auf Embedded-Betrieb.
+Daraus folgt keine zusätzliche Anwendungsserver-Pflicht für statische Frontend-Artefakte.
+Die konkrete Ausprägung ist anhand der xref:plattform:plattform.adoc[Betriebsplattform] mit dem Betreiber festzulegen und im Systemhandbuch zu dokumentieren.
 
-Eine SPA wird als zusammengehöriger Satz statischer Ressourcen bereitgestellt.
-Dazu gehören insbesondere der HTML-Einstiegspunkt sowie JavaScript- und CSS-Dateien; weitere Ressourcen können während der Nutzung nachgeladen werden.
-Eine Auslieferungskomponente stellt diese Dateien über HTTPS bereit; ein Webserver ist eine mögliche Umsetzung.
-Ein vorgeschalteter Reverse Proxy kann die Anfragen an die zuständige Auslieferung weiterleiten und den Zugriff auf die vorgesehenen Ressourcen und APIs vermitteln.
+[[frontend-auslieferung]]
+=== Auslieferung: Einstiegspunkt, Routing und Sicherheitskonfiguration
 
-Bei clientseitigem Routing ist auch der direkte Aufruf einer Anwendungsroute zu berücksichtigen.
-Eine mögliche Umsetzung ist die Rückgabe des HTML-Einstiegspunkts für diese Routen.
-Eine solche Behandlung SOLL auf Anwendungsrouten begrenzt werden, damit fehlende statische Ressourcen und API-Fehler weiterhin als solche erkennbar bleiben.
+[[frontend-same-origin]]
+==== Same-Origin und Pfad-Routing
 
-Ein Content Delivery Network (CDN) verteilt die Auslieferung von Inhalten auf mehrere Auslieferungsknoten und kann Ressourcen zwischenspeichern.
-Eine solche Funktion kann die Auslieferung der Frontend-Artefakte ergänzen.
-GKGUI bezeichnet dagegen das Frontend-IT-System; aus dieser Bezeichnung folgt weder eine verteilte Auslieferung noch eine Cache-Funktion.
-Der Einsatz einer CDN-Funktion ist anhand der Anforderungen an Erreichbarkeit, Last, Aktualität und Sicherheit zu bewerten; ein konkretes CDN-Produkt wird hier nicht festgelegt.
+Die Empfehlung aus <<frontend-betrieb-ar-2>> bündelt SPA und zugehöriges BFF beziehungsweise API-Gateway unter demselben Origin (Schema, Host und Port).
+Ein gemeinsamer Einstiegspunkt kann beispielsweise `/anwendung-a/` an die statische Auslieferung und `/anwendung-a/api/` an das API-Gateway routen.
+Für weitere Anwendungen sind getrennte, konfliktfreie Pfadpräfixe festzulegen.
+Dieses Beispiel legt weder einen Hostnamen noch eine bestimmte Proxy-Software fest.
 
-Für die gesamte Auslieferungskette gelten die bestehenden Vorgaben zu HTTPS, zu <<http_sicherheits_header_cookies,HTTP-Sicherheits-Headern und Cookies>> sowie zu freigegebenen Bezugsquellen aus dem Abschnitt „Supply-Chain-Sicherheit“.
-Die dort geregelte Einbindung von Ressourcen aus öffentlichen CDNs ist von einer selbst betriebenen Auslieferung eigener Frontend-Artefakte zu unterscheiden.
-Caching ist abhängig von der Ressourcenart zu konfigurieren; die Anforderungen aus „Logout, Caching & Service Worker“ gelten auch bei zwischengeschalteten Caches.
-Empfehlungen für die Konsistenz beim Versionswechsel enthält <<frontend-versionswechsel>>.
+Die Konfiguration umfasst die öffentliche Base-URL, bei Angular insbesondere `base-href`, die Ressourcen- und API-URLs sowie ein gegebenenfalls erforderliches Path-Rewriting.
+Ein Rewrite zum internen Auslieferungspfad ändert die im Browser aufgelösten URLs nicht.
+Für die unveränderte Promotion bietet sich dasselbe Pfadpräfix in allen Stages an.
+Abweichende Präfixe erfordern eine dafür ausgelegte Auslieferungs- oder Laufzeitkonfiguration; ein erneuter Build je Stage ist nicht zulässig.
+Direkte Aufrufe und Reloads verschachtelter Anwendungsrouten sowie nachgeladene Chunks sind unter dem öffentlichen Präfix zu testen.
 
-=== Betrieb auf klassischer Infrastruktur (On-Premise)
+Nur gültige clientseitige Anwendungsrouten erhalten den HTML-Einstiegspunkt als Fallback (<<frontend-betrieb-ar-3>>).
+API-, Konfigurations- und Asset-Anfragen behalten ihre eigenen Fehlerantworten und MIME-Typen; eine fehlende JavaScript-Datei darf nicht als HTML mit Status 200 erscheinen.
 
-Eine mögliche Umsetzung auf klassischer Infrastruktur ist die Bereitstellung der Frontend-Artefakte auf einem Server mit Webserver.
-Der Webserver übernimmt die Auslieferung; ein Reverse Proxy kann vorgeschaltet sein.
-API-Gateway, Backend und optional BFF werden in ihren jeweiligen serverseitigen Laufzeitumgebungen betrieben.
-Die Trennung der IT-Systeme ermöglicht eine unabhängige Bereitstellung, ohne für jedes IT-System einen eigenen physischen Server vorauszusetzen.
+Same-Origin vermeidet CORS für die zugehörigen API-Aufrufe, ersetzt aber weder Authentifizierung noch CSRF-Schutz.
+In der BFF-Variante verwendet der Browser das abgesicherte Session-Cookie; in der direkten SPA-Variante gelten die bestehenden Regeln zur Token-Haltung im Arbeitsspeicher.
+Für abweichende Origins gelten die expliziten Freigaben aus „CORS & CSRF“.
+`SameSite` und Same-Origin sind unterschiedliche Konzepte; auch Same-Site-Anfragen können CORS benötigen.
+Der Cookie-`Path` ist auf die benötigten BFF- und Callback-Pfade abzustimmen; `Secure`, `HttpOnly` und `SameSite` richten sich unverändert nach <<http_sicherheits_header_cookies>>.
+Pfadpräfixe und Cookie-`Path` schaffen keine Sicherheitsisolation zwischen Anwendungen desselben Origins.
 
-Die Zuordnung zu Servern, Kommunikationsverbindungen und gegebenenfalls vorhandenen Sicherheitszonen richtet sich nach der xref:technisch-infrastrukturell.adoc#ti-architektur-anwendung[TI-Architektur der konkreten Anwendung].
-Anforderungen an Skalierung und Verfügbarkeit sind unter Berücksichtigung der xref:technisch-infrastrukturell/availability.adoc[übergreifenden Verfügbarkeitsbetrachtung] festzulegen.
-Aus der Bereitstellung einer SPA folgt keine zusätzliche Anwendungsserver-Laufzeit für die Ausführung ihres Browser-Codes.
+[[frontend-csp-auslieferung]]
+==== CSP und unverändertes Bundle
 
-=== Betrieb auf Container-Plattformen (CaaS)
+Die Auslieferungskomponente beziehungsweise der Einstiegspunkt setzt die <<http_sicherheits_header_cookies,HTTP-Sicherheits-Header>> umgebungsspezifisch, einschließlich der zulässigen `connect-src`- und Remote-Origins.
+Das freigegebene Bundle bleibt dabei unverändert.
+Für Inline-Skripte kommen insbesondere zwei Muster infrage:
 
-Auch beim Betrieb auf einer Container-Plattform wird die SPA im Browser ausgeführt.
-Eine mögliche Umsetzung besteht darin, die Frontend-Artefakte zusammen mit der Software für ihre Auslieferung in einem versionierten Container-Image bereitzustellen.
-Die Plattform startet daraus Container, deren Auslieferungskomponente die Ressourcen bereitstellt.
-Die konkreten Mechanismen für die Erreichbarkeit und das Routing zu diesen Containern richten sich nach der Betriebsplattform.
+* *Nonce pro Antwort:* Eine serverseitige Vorlage ersetzt ausschließlich vorgesehene Platzhalter in der ausgelieferten `index.html` und setzt dieselbe kryptografisch zufällige Nonce im CSP-Header sowie an den freizugebenden Elementen.
+Die gespeicherten Build-Dateien bleiben unverändert; die Browser-Antwort wird zur Auslieferungszeit erzeugt.
+Bei Angular wird die Nonce an die Laufzeit weitergegeben, beispielsweise über `ngCspNonce`.
+Nonce-haltige HTML-Antworten werden mit `Cache-Control: no-store` ausgeliefert, damit Browser und Zwischen-Caches keine Nonce wiederverwenden.
+* *Hashes:* Die beim Build ermittelten Hashes der Inline-Skripte werden mit der Artefaktversion dokumentiert und im CSP-Header freigegeben.
+Änderungen an den betreffenden Skripten erfordern neue Hashes; umgebungsspezifische Endpunktlisten bleiben Header-Konfiguration.
+Dies ermöglicht statisches HTML-Caching; dynamisch eingefügte Styles benötigen eine gesondert passende Freigabe.
 
-Die xref:software-technisch/api-gateway.adoc#image-api-gateway-produkt[Plattformvariante des API-Gateways] beschreibt die Übernahme von Gateway-Aufgaben durch Plattformmechanismen.
-Bei deren Nutzung ist festzulegen, welche Aufgaben die Plattform übernimmt und welche weiterhin durch Gateway-Systeme umgesetzt werden.
-Backend und optional BFF verbleiben serverseitige Anwendungen mit eigenen Deployment- und Laufzeitanforderungen.
-Ein bestimmter Orchestrierungsmechanismus oder eine konkrete Zuordnung zu Plattformressourcen wird hier nicht vorgegeben.
+Die https://www.w3.org/TR/CSP3/[CSP-Spezifikation] und die https://angular.dev/best-practices/security[Angular-Sicherheitsdokumentation] beschreiben die Voraussetzungen.
+Angular `security.autoCsp` ist kein ungeprüft übernehmbares Muster: Die erzeugte Meta-Policy kann Fallbacks wie `'unsafe-inline'` enthalten und ersetzt das geforderte HTTP-Header-Mindestprofil nicht.
+Mehrere Policies gelten gleichzeitig; die Kombination ist mit der freigegebenen Angular-Version gegen das bestehende Mindestprofil zu prüfen.
+Eine automatische Aufweichung der Security-Vorgaben ist nicht zulässig.
 
-Gegenüber dem klassischen Serverbetrieb ändern sich Verpackung, Bereitstellung und Verwaltung der Auslieferungssoftware; die Trennung zwischen Browser-Ausführung, Artefaktauslieferung und API-Kommunikation bleibt bestehen.
-Eine Container-Plattform kann auch On-Premise betrieben werden; die beiden beschriebenen Varianten unterscheiden die Art der Bereitstellung.
+[[frontend-caching]]
+==== Cache-Verhalten
+
+Die folgende Zuordnung gilt für Browser, Reverse Proxy und gegebenenfalls CDN; die Sicherheitsvorgaben aus „Logout, Caching & Service Worker“ haben Vorrang.
+
+.Cache-Strategie für die Frontend-Auslieferung
+[cols="2,4", options="header"]
+|===
+| Ressourcenart | Auslieferung und Wiederverwendung
+
+| Nicht personalisierter HTML-Einstiegspunkt, veränderliche `config.json`, Versionsanzeige und veränderliche Integrationsmanifeste
+| Vor Wiederverwendung validieren, beispielsweise mit `Cache-Control: no-cache` und Validatoren. Eine kurze Cache-Dauer benötigt eine begründete Aktualitätsgrenze. Nonce-haltiges oder sensibles HTML erhält `no-store`.
+
+| Unveränderliche, nicht sensible Assets mit Inhalts-Hash oder eindeutiger Versions-URL
+| Längeres Caching, beispielsweise `Cache-Control: public, max-age=31536000, immutable`. Änderungen erhalten eine neue URL; die alte URL wird nicht überschrieben.
+
+| Personenbezogene oder sicherheitsrelevante Antworten
+| `Cache-Control: no-store` gemäß den bestehenden Sicherheitsregeln; keine Freigabe für gemeinsam genutzte Caches.
+|===
+
+`no-cache` erlaubt Speicherung mit verpflichtender Validierung; `no-store` untersagt die Speicherung (https://www.rfc-editor.org/rfc/rfc9111.html[RFC 9111]).
+Invalidierung beziehungsweise Ablauf veränderlicher Ressourcen ist über die gesamte Auslieferungskette zu prüfen.
+Ein Cache-Flush ersetzt nicht die <<frontend-versionswechsel,Verfügbarkeit älterer Assets>>.
+
+[[frontend-betrieb-server]]
+=== Betriebsvariante A: Klassischer Serverbetrieb
+
+Im klassischen Serverbetrieb liegen Auslieferungssoftware und Frontend-Artefakte in einer Serverlaufzeit, beispielsweise auf einer VM.
+Die SPA läuft weiterhin ausschließlich im Browser.
+Ein Webserver ist ein Auslieferungsmuster; Tomcat kann statische Frontend-Ressourcen ebenfalls bereitstellen, wenn diese Betriebsform freigegeben ist.
+Die xref:technisch-infrastrukturell.adoc#minimalanforderungen-an-die-ablaufumgebung[Tomcat-Vorgabe der TI-Architektur] betrifft ausdrücklich Backends und begründet keine allgemeine Tomcat-Pflicht für Frontends.
+
+[[deployment-frontend-server]]
+.Deployment im klassischen Serverbetrieb als technisches Referenzmuster
+image::referenzarchitektur:software-technisch/frontend/deployment-frontend-server.drawio.svg[Klassischer Serverbetrieb mit versioniertem Lieferobjekt und getrennter Konfiguration,width=100%,align=center]
+
+Ein konkreter Auslieferungsablauf lässt sich wie folgt umsetzen:
+
+. Die Entwicklung verpackt das freigegebene Bundle als versioniertes Lieferobjekt mit Prüfsumme und Stückliste.
+Bei einer RPM-basierten Betriebsumgebung kann ein RPM die Frontend-Dateien beziehungsweise eine für Tomcat vorgesehene Webanwendung enthalten.
+Das Paket wird versioniert im freigegebenen Paket-Repository abgelegt; ein bereits freigegebener Versionsstand wird nicht ersetzt.
+. Der Betrieb installiert in jeder Stage dieselbe geprüfte Paketversion und stellt Konfiguration sowie Header-Regeln getrennt vom unveränderten Paket bereit.
+Eine externe `config.json` muss über einen ausdrücklich konfigurierten Auslieferungspfad erreichbar sein; ihre Dateiexistenz allein reicht nicht aus.
+. Neue Assets werden vor der Umschaltung des HTML-Einstiegspunkts vollständig bereitgestellt und geprüft, beispielsweise in versionierten Verzeichnissen.
+Die Aktivierung wechselt Einstiegspunkt und passenden Konfigurationsstand konsistent; Assets noch unterstützter Versionen bleiben erreichbar.
+. Die Release-Automatisierung prüft den aktivierten Stand und kann auf den vorherigen Paket-, Aktivierungs- und Konfigurationsstand zurückschalten (<<frontend-rollback>>).
+
+Ein Neustart der Auslieferungssoftware kann eine Unterbrechung verursachen.
+Redundanz, Umschaltung und ein gegebenenfalls nötiges Wartungsfenster richten sich nach den xref:technisch-infrastrukturell/availability.adoc[Verfügbarkeitsanforderungen] der Anwendung.
+Weder RPM noch Tomcat allein gewährleisten einen unterbrechungsfreien Versionswechsel.
+
+[[frontend-betrieb-caas]]
+=== Betriebsvariante B: Container-Plattform
+
+Das unveränderte Bundle und die Auslieferungssoftware werden als Container-Image bereitgestellt.
+Die konkrete Plattform, Registry und Betriebswerkzeuge sind mit dem Betreiber festzulegen.
+Die folgende Darstellung konkretisiert dies als Kubernetes-/Helm-Referenzmuster und legt damit keinen verbindlichen Kundenstandard fest.
+
+[[deployment-frontend-caas]]
+.Deployment auf einer Container-Plattform am Beispiel Kubernetes und Helm
+image::referenzarchitektur:software-technisch/frontend/deployment-frontend-caas.drawio.svg[CaaS-Referenzmuster mit Image-Registry, Helm, Pod und getrennter ConfigMap,width=100%,align=center]
+
+. Das Image wird einmal gebaut, geprüft und in der freigegebenen Registry abgelegt.
+Die Promotion verwendet denselben https://kubernetes.io/docs/concepts/containers/images/[Image-Digest] in allen Stages statt eines veränderlichen Tags.
+. Eine feste Chart-Version beschreibt die Bereitstellung; die je Stage versionierten https://helm.sh/docs/chart_template_guide/values_files/[Helm-Values] referenzieren den freigegebenen Digest und den Konfigurationsstand.
+Eine https://kubernetes.io/docs/concepts/configuration/configmap/[ConfigMap] kann nicht geheime Laufzeitkonfiguration als Datei bereitstellen, beispielsweise `config.json`.
+Sie wird passend zur Release-Version gebunden; eine Änderung löst einen kontrollierten Rollout aus, statt eine sofortige atomare Aktualisierung aller laufenden Pods vorauszusetzen.
+. Ein Deployment verwaltet die Pods; eine Service-/Ingress-Konfiguration führt den öffentlichen Pfad auf die Auslieferungskomponente.
+Die Plattform kann außerdem xref:software-technisch/api-gateway.adoc#image-api-gateway-produkt[Gateway-Aufgaben übernehmen]; die Zuständigkeiten bleiben ausdrücklich festzulegen.
+. Rolling Updates oder Blue/Green-Umschaltung werden anhand der Verfügbarkeits- und Kompatibilitätsanforderungen ausgewählt und getestet.
+Beim Rolling Update können alte und neue Pods gleichzeitig Anfragen beantworten.
+Deshalb müssen die benötigten Asset-Versionen über alle möglichen Auslieferungspfade erreichbar bleiben, beispielsweise durch eine versionierte Asset-Ablage oder Routing auf die passende Release-Version.
+Das bloße Nebeneinander zweier Pod-Versionen reicht dafür nicht aus.
+
+Container SOLLEN ohne Root-Rechte, mit minimalen Berechtigungen und soweit möglich mit schreibgeschütztem Root-Dateisystem betrieben werden.
+Notwendige temporäre Schreibpfade sind gezielt freizugeben; ein unprivilegierter Port, beispielsweise 8080, kann hinter dem HTTPS-Einstiegspunkt verwendet werden.
+Basis-Images und Registry unterliegen den freigegebenen Bezugsquellen aus „Supply-Chain-Sicherheit“.
+Scanning und CycloneDX-SBOM MÜSSEN auch die Bestandteile des ausgelieferten Container-Images einschließlich Auslieferungssoftware und Basis-Image abdecken; die vorhandenen Freigabeschwellen gelten weiter.
+
+https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/[Readiness- und Liveness-Probes] erfüllen unterschiedliche Aufgaben: Readiness steuert die Teilnahme an der Auslieferung, Liveness erkennt einen nicht mehr funktionsfähigen Prozess und kann dessen Neustart auslösen.
+Die Prüfungen SOLLEN die Auslieferung benötigter Ressourcen beziehungsweise den lokalen Prozesszustand abbilden.
+Ein Backend-Ausfall darf nicht allein einen Neustart aller Frontend-Pods auslösen; der vollständige Browser-Start wird zusätzlich durch einen Smoke-Test geprüft.
+Ein Plattform-Rollout allein ersetzt weder diesen Test noch dessen Verknüpfung mit dem Rollback nach <<qs-qg-5>>.
 
 [[frontend-versionswechsel]]
 === Konfiguration, Versionswechsel und Rollback
 
-Der Build erzeugt einen versionierten, zusammengehörigen Satz von Frontend-Artefakten.
-Das Deployment stellt eine ausgewählte Version in einer Zielumgebung bereit.
-Für die Erstellung und Prüfung der Artefakte gelten die bestehenden Vorgaben aus „Supply-Chain-Sicherheit“.
+[[frontend-konfiguration-promotion]]
+==== Konfiguration und Promotion
 
-Gemäß der <<qs-qg-einordnung,Einordnung der Quality Gates in den Auslieferungsprozess>> MUSS das gebaute Bundle unverändert durch die Zielumgebungen befördert werden; umgebungsspezifische Konfiguration erfolgt zur Auslieferungs- oder Laufzeit.
-Eine mögliche Umsetzung ist eine beim Anwendungsstart geladene Konfigurationsdatei außerhalb der gebauten Anwendungsdateien, beispielsweise für API-Adressen.
-An den Browser ausgelieferte Konfiguration ist für den Anwender einsehbar und DARF KEINE Geheimnisse wie Zugangsdaten oder private Schlüssel enthalten.
-Die Zuordnung von Artefaktversion und Konfigurationsstand SOLL für jedes Deployment nachvollziehbar dokumentiert werden.
+Die Vorgaben zum <<qs-qg-einordnung,einmaligen Build>> gelten für beide Betriebsvarianten.
+Umgebungsspezifische API-Adressen, öffentliche Pfade, Header und gegebenenfalls Integrationskonfiguration werden zur Auslieferungs- oder Laufzeit bereitgestellt.
+Die Anwendung lädt benötigte Konfiguration vor ihrer Verwendung und zeigt bei fehlender oder inkompatibler Konfiguration einen kontrollierten Fehlerzustand.
+An den Browser ausgelieferte Konfiguration ist öffentlich einsehbar und enthält keine Geheimnisse.
+Artefaktkennung, Paketversion beziehungsweise Image-Digest, Konfigurationsstand und optional Chart-Version bilden gemeinsam den Deployment-Nachweis.
 
-Die Aktivierung einer neuen Frontend-Version SOLL einen vollständigen, zusammengehörigen Ressourcenstand bereitstellen.
-Für nicht sensible Ressourcen bieten sich folgende Cache-Strategien an; die bestehenden Sicherheitsvorgaben haben Vorrang:
+[[frontend-deployment-reihenfolge]]
+==== Reihenfolge und unterstützte Versionen
 
-.Cache-Verhalten bei Versionswechseln
-[cols="2,4", options="header"]
-|===
-| Ressourcenart | Empfehlung
+Benötigt das neue Frontend eine API-Erweiterung, wird zuerst das abwärtskompatible Backend einschließlich eines gegebenenfalls betroffenen BFF bereitgestellt und geprüft; anschließend wird das neue Frontend aktiviert.
+Das Backend unterstützt dabei auch noch aktive ältere Frontends.
+Inkompatible API-Änderungen erfordern eine abgestimmte Migration oder eine parallel angebotene xref:software-technisch/services/versionierung/services.adoc[Service-Version]; ein gleichzeitiger Austausch aller geöffneten Browser darf nicht vorausgesetzt werden.
 
-| HTML-Einstiegspunkt und veränderliche Konfigurations- oder Manifestdateien
-| Vor Wiederverwendung validieren oder nur kurz zwischenspeichern, damit geänderte Ressourcenverweise und Konfigurationen wirksam werden.
+Zunächst werden die neuen Assets vollständig erreichbar gemacht, danach die zugehörigen Einstiegspunkte und Konfigurationen aktiviert.
+Gehasht benannte Dateien werden weder überschrieben noch beim Austausch der aktiven Version ungeprüft entfernt.
+Ein Muster ist die gemeinsame Verfügbarkeit von `n` und `n-1`; bei länger aktiven Clients können weitere Versionen erforderlich sein.
+Die unterstützten Versionen und die Aufbewahrungsdauer richten sich nach Sitzungsdauer, Sicherheitsupdates und dem freigegebenen Rollback-Zeitraum (<<frontend-betrieb-ar-5>>).
 
-| Unveränderliche, eindeutig versionierte JavaScript-, CSS- und andere Ressourcendateien
-| Längeres Caching ermöglichen, beispielsweise bei einem Inhalts-Hash im Dateinamen. Geänderte Inhalte erhalten eine neue URL.
-|===
+[[frontend-versionserkennung]]
+==== Versionserkennung und Nachladefehler
 
-Bereits geöffnete Browser können nach einem Deployment weitere Ressourcen einer älteren Version anfordern.
-Diese Ressourcen SOLLEN für die vorgesehene Übergangszeit weiterhin verfügbar sein; deren Dauer ist mit den Anforderungen an Sicherheitsupdates und die unterstützten Anwendungsversionen abzustimmen.
-Bei eingesetzten CDN- oder Proxy-Caches sind Ablauf beziehungsweise Invalidierung veränderlicher Ressourcen in den Versionswechsel einzubeziehen.
-Für Service Worker gelten zusätzlich die bereits beschriebenen Anforderungen an ihren Lebenszyklus.
+Eine nicht sensible Versionsinformation, beispielsweise `version.json`, macht den aktivierten Artefakt- und Konfigurationsstand prüfbar.
+Ein Client kann seine Build-Kennung mit dieser Information vergleichen; Abfrageintervall und Aktualitätsanforderung werden festgelegt.
+Bei eingesetztem Service Worker werden dessen Update-Ereignisse und Cache-Lebenszyklus berücksichtigt (https://angular.dev/ecosystem/service-workers/communications[Angular-Service-Worker-Kommunikation]).
 
-Ein Rollback umfasst die erneute Bereitstellung eines zuvor freigegebenen Artefaktstands mit der dazu passenden Konfiguration.
-Dabei ist die Kompatibilität mit den aktuell bereitgestellten Backend-APIs und gegebenenfalls dem BFF zu prüfen.
-Die Änderung der serverseitig bereitgestellten Version wirkt auf nachfolgende Abrufe; bereits im Browser geladener Code wird dadurch nicht unmittelbar ersetzt.
-Der Umgang mit noch aktiven Frontend-Versionen ist deshalb auch beim Rollback zu berücksichtigen.
+Fehlgeschlagene Chunk-Abrufe, beispielsweise `ChunkLoadError`, sind als Nachladefehler zu behandeln und über die bestehende Telemetrie zu erfassen.
+Ein solcher Fehler kann auch durch Netzwerk- oder Cache-Probleme entstehen und beweist allein noch keinen Versionswechsel.
+Die Anwendung bietet nach Prüfung der Erreichbarkeit gegebenenfalls einen kontrollierten Reload an und vermeidet Reload-Schleifen.
+Vor einem Reload ist auf noch nicht gespeicherte Eingaben hinzuweisen; das unvermittelte Austauschen einzelner Module einer laufenden Version ist kein sicherer Aktualisierungsmechanismus.
 
-Bei Native Federation bilden Shell, Remote-Module und die zugehörige Integrationskonfiguration gemeinsam den zu betrachtenden Versionsstand.
-Für deren Versionsbindung, kontrollierte Änderung und unabhängige Rücksetzbarkeit gelten <<AG-11>> und die <<native_federation_security,Sicherheitsanforderungen an Native Federation>>.
+[[frontend-rollback]]
+==== Automatisierung und Rollback
 
-=== Betriebsüberwachung
+Ein Rollback aktiviert die zuvor freigegebene Version einschließlich passender Laufzeitkonfiguration, Header- und gegebenenfalls Integrationskonfiguration.
+Die Rücknahme des Frontends setzt die Kompatibilität mit dem weiterhin aktiven Backend und BFF voraus; ein Backend-Rollback erfolgt nur nach gesonderter Prüfung.
+Bereits geladener Browser-Code wird durch eine serverseitige Rücknahme nicht unmittelbar ersetzt.
 
-Die Betriebsüberwachung betrachtet sowohl die Erreichbarkeit der Frontend-Auslieferung als auch den erfolgreichen Start der SPA und das Nachladen benötigter Ressourcen.
-Bei BFF und Native Federation sind die zusätzlich beteiligten Anwendungen beziehungsweise Module einzubeziehen.
-Die Vorgaben zur Erfassung, Übermittlung und Auswertung von Fehlern und Metriken stehen im Kapitel <<logging-monitoring-telemetrie,Logging, Monitoring & Telemetrie>>.
-Die Überwachung der serverseitigen Laufzeit- und Infrastrukturkomponenten richtet sich ergänzend nach den xref:technisch-infrastrukturell/betriebliche-aspekte.adoc#betriebsueberwachung[übergreifenden betrieblichen Vorgaben].
+Der automatisierte Smoke-Test nach <<qs-qg-5>> prüft insbesondere den erwarteten Versionsstand, den Start der SPA und die Erreichbarkeit benötigter Ressourcen und APIs.
+Sein Fehlschlag MUSS das dort geforderte Rollback auf den zuvor produktiven Stand automatisiert auslösen.
+Hierfür ist die Release-Automatisierung mit dem tatsächlichen Umschalt- beziehungsweise Rücknahmeverfahren zu verbinden; ein dokumentierter manueller Befehl genügt nicht.
+Für das anschließende Beobachtungsfenster werden Fehlerraten, Verfügbarkeit und Schwellwerte vorab festgelegt.
+Welche Schwellwertverletzungen zusätzlich eine automatische Rücknahme auslösen, ist im Betriebs- und Freigabeprozess zu bestimmen; QG-5 schreibt nicht für jede Metrik eine pauschale automatische Rücknahme vor.
+
+[[frontend-native-federation-betrieb]]
+=== Besonderheiten bei Native Federation
+
+Shell, Remote-Module und ihre Integrationskonfiguration werden getrennt versioniert.
+Ein freigegebener Integrationsstand dokumentiert die kompatiblen Shell-, Remote-, Contract- und benötigten API-Versionen als Kompatibilitätsmatrix (<<AG-11>>).
+Remotes werden zunächst unter unveränderlichen Versions-URLs vollständig bereitgestellt und gegen die vorgesehenen Shell-Versionen geprüft; erst danach wird ihre Einbindung kontrolliert aktiviert.
+Erfordert ein Remote eine neue Shell-Schnittstelle, ist diese zuvor abwärtskompatibel bereitzustellen.
+
+Ein veränderliches Aktivierungsmanifest wird vor Wiederverwendung validiert, damit Freigaben und Rücknahmen wirksam werden.
+Versionsgebundene Metadaten wie `remoteEntry.json` werden zusammen mit der jeweiligen Remote-Version bereitgestellt; ihre URL darf nicht auf wechselnde Inhalte zeigen.
+Unveränderliche, versionsgebundene Remote-Ressourcen können entsprechend <<frontend-caching>> länger gecacht werden.
+Bei unterschiedlichen Origins gelten zusätzlich die CORS-Freigaben für die benötigten Modulabrufe sowie die CSP-Allowlist aus <<native_federation_security>>.
+
+Rollback und Deaktivierung eines einzelnen Remotes erfolgen durch kontrollierte Änderung der versionierten Integrationskonfiguration auf einen zuvor geprüften Stand, ohne ein vollständiges Re-Deployment der Shell zu verlangen.
+Vorherige Remote-Assets bleiben für unterstützte Clients erreichbar; die Rücknahme greift beim nächsten Auflösen beziehungsweise Laden und ersetzt bereits ausgeführten Code nicht sofort.
+Das Fehlerverhalten bei nicht erreichbaren oder inkompatiblen Pflicht- und optionalen Modulen ist festzulegen und zu testen, einschließlich einer kontrollierten Fehlermeldung beziehungsweise Deaktivierung betroffener Funktionen.
+Die bestehenden Sicherheitsregeln verlangen weiterhin einen kurzfristig ausführbaren Rücknahmeprozess.
+
+[[frontend-cdn]]
+=== CDN: Anwendungsfall und Einordnung
+
+Für die überwiegend internen Geschäftsanwendungen mit begrenztem Anwenderkreis im Geltungsbereich dieser Referenzarchitektur ist ein Content Delivery Network (CDN) im Regelfall nicht erforderlich.
+Bei öffentlich erreichbaren, stark exponierten Anwendungen können räumlich verteilte Auslieferung, stichtagsbedingte Lastspitzen oder ein besonderer DDoS-Schutzbedarf den Einsatz begründen.
+Die benötigten Schutzfunktionen sind ausdrücklich zu vereinbaren und zu prüfen; eine Cache-Funktion allein gewährleistet keinen DDoS-Schutz.
+
+In dieser Referenzarchitektur ist kein technischer CDN-Standardbaustein festgelegt.
+Auswahl und Einsatz sind im Einzelfall mit dem Betreiber abzustimmen; ein Referenzfall begründet keinen allgemeinen Kundenstandard.
+Ein Reverse-Proxy-Cache innerhalb der eigenen Infrastruktur speichert Antworten an einem vorhandenen Einstiegspunkt und ist von einer verteilten CDN-Auslieferung zu unterscheiden.
+
+Vor externer Auslieferung sind Schutzbedarf, erlaubte Inhalte, Cache-Invalidierung, Ausfallverhalten, Zertifikats- und TLS-Verantwortung sowie Überwachung und Protokollierung festzulegen.
+Ein externer Anbieter verarbeitet zumindest Verbindungsdaten wie IP-Adressen; Verarbeitungsorte, Aufbewahrung, mögliche Drittlandbezüge und vertragliche Pflichten sind mit den zuständigen Sicherheits- und Datenschutzstellen zu bewerten.
+Die Anwendbarkeit des https://www.bsi.bund.de/SharedDocs/Downloads/DE/BSI/Mindeststandards/Mindeststandard_Nutzung_externer_Cloud-Dienste_Version_2_1.pdf?__blob=publicationFile&v=4[BSI-Mindeststandards zur Nutzung externer Cloud-Dienste] ist dabei zu prüfen.
+Die bestehenden Vorgaben zu freigegebenen Bezugsquellen und zum Ausschluss sensibler Inhalte aus Caches gelten unverändert.
+
+[[frontend-betriebsueberwachung]]
+=== Frontend-spezifische Betriebsüberwachung
+
+Nach einer Auslieferung weist der Smoke-Test aus <<qs-qg-5>> den erfolgreichen Start der tatsächlich aktivierten Version nach.
+Dabei werden HTML-Einstiegspunkt, erforderliche Konfiguration, repräsentative Assets und die API-Anbindung über die öffentlichen Pfade geprüft; ein HTTP-Status 200 für HTML allein genügt nicht.
+Bei Native Federation sind die benötigten Manifest- und Remote-Abrufe einzubeziehen.
+Die Versionsinformation aus <<frontend-versionserkennung>> ermöglicht die Zuordnung zum Deployment-Nachweis.
+
+Während des Beobachtungsfensters werden insbesondere Start- und Nachladefehler, fehlgeschlagene Konfigurationsabrufe und nicht erreichbare Remotes ausgewertet.
+TLS-Zertifikatsgültigkeit und -ablauf sind für die verwendeten Auslieferungsendpunkte zu überwachen.
+Die Erfassung und bereinigte Übermittlung erfolgt gemäß <<logging-monitoring-telemetrie>> über die vorgesehene Telemetrie-Schnittstelle; die xref:technisch-infrastrukturell/betriebliche-aspekte.adoc#betriebsueberwachung[übergreifenden betrieblichen Vorgaben] gelten ergänzend.
+
+[[frontend-betriebsregeln]]
+=== Architekturregeln für den Frontend-Betrieb
+
+Die folgenden Regeln konkretisieren die beschriebenen Abläufe; bestehende Security- und Quality-Gate-Regeln gelten zusätzlich.
+
+[[frontend-betrieb-ar-1]]
+.icon:university[title=Architekturregel] B-1: Lieferobjekt und Konfigurationsnachweis
+****
+Für den unveränderten Build und seine Promotion gilt xref:software-technisch/frontend.adoc#qs-qg-einordnung[Einordnung der Quality Gates].
+Artefaktversion, Integritätsnachweis und umgebungsspezifischer Konfigurationsstand MÜSSEN jedem Deployment eindeutig zugeordnet sein.
+An den Browser ausgelieferte Konfiguration DARF KEINE Geheimnisse enthalten; es gelten xref:software-technisch/frontend.adoc#AG-2[AG-2] und die bestehenden Vorgaben zur Token-Speicherung.
+****
+
+[[frontend-betrieb-ar-2]]
+.icon:university[title=Architekturregel] B-2: Gemeinsamer Origin
+****
+SPA und zugehöriges BFF beziehungsweise API-Gateway SOLLEN über denselben Origin erreichbar sein.
+Erforderliche Abweichungen MÜSSEN einschließlich CORS-, Cookie- und CSRF-Konfiguration dokumentiert und gegen die bestehenden Sicherheitsvorgaben geprüft werden.
+****
+
+[[frontend-betrieb-ar-3]]
+.icon:university[title=Architekturregel] B-3: Abgegrenztes Fallback-Routing
+****
+Ein Fallback auf den HTML-Einstiegspunkt DARF ausschließlich für gültige clientseitige Anwendungsrouten verwendet werden.
+API-, Konfigurations- und Asset-Pfade MÜSSEN davon ausgenommen sein und ihre tatsächlichen Fehlerantworten liefern.
+****
+
+[[frontend-betrieb-ar-4]]
+.icon:university[title=Architekturregel] B-4: Ressourcenabhängige Cache-Steuerung
+****
+Veränderliche Einstiegspunkte und Konfigurations- beziehungsweise Versionsinformationen SOLLEN vor Wiederverwendung validiert werden.
+Unveränderliche, eindeutig versionierte und nicht sensible Assets SOLLEN langfristig cachebar sein; geänderte Inhalte MÜSSEN eine neue URL erhalten.
+Die Sicherheitsregeln zu `no-store` und die Behandlung Nonce-haltiger Antworten aus xref:software-technisch/frontend.adoc#frontend-csp-auslieferung[CSP bei der Auslieferung] haben Vorrang.
+****
+
+[[frontend-betrieb-ar-5]]
+.icon:university[title=Architekturregel] B-5: Verfügbarkeit unterstützter Asset-Versionen
+****
+Assets noch unterstützter Frontend-Versionen SOLLEN über die festgelegte Übergangs- und Rollback-Zeit erreichbar bleiben.
+Die Dauer und die Behandlung sicherheitskritischer Altstände MÜSSEN festgelegt werden.
+Eine Bereinigung DARF NICHT ungeprüft Ressourcen noch unterstützter Clients entfernen.
+****
+
+[[frontend-betrieb-ar-6]]
+.icon:university[title=Architekturregel] B-6: Kompatibilität bei Aktivierung und Rücknahme
+****
+Vor Aktivierung und Rollback MUSS die Kompatibilität der vorgesehenen Frontend-Versionen mit Backend, BFF und gegebenenfalls den Native-Federation-Komponenten nachgewiesen sein.
+Erforderliche abwärtskompatible API-Erweiterungen SOLLEN vor dem darauf angewiesenen Frontend aktiviert werden.
+Für Breaking Changes MUSS ein abgestimmter Migrations- beziehungsweise Parallelbetriebsplan vorliegen.
+****
+
+[[frontend-betrieb-ar-7]]
+.icon:university[title=Architekturregel] B-7: Ausführbare Rücknahme des vollständigen Deployment-Stands
+****
+Die Release-Automatisierung MUSS den zuvor freigegebenen Artefakt-, Aktivierungs- und Konfigurationsstand einschließlich relevanter Header und Integrationskonfiguration wiederherstellen können.
+Auslösung und Nachweise des produktiven Smoke-Tests richten sich nach xref:software-technisch/frontend.adoc#qs-qg-5[QG-5]; der konkrete Ablauf ist in xref:software-technisch/frontend.adoc#frontend-rollback[Automatisierung und Rollback] beschrieben.
+****
+
 
 == Daten & Zustandsmanagement
 
