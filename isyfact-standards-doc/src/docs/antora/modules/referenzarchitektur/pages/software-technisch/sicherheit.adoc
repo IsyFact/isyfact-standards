@@ -5,7 +5,14 @@
 
 Die IsyFact-Referenzarchitektur beinhaltet auch Vorgaben für die Sicherheitsarchitektur einer Systemlandschaft.
 Eine davon ist die Forderung, dass IsyFact-konforme IT-Systeme gegen unberechtigte Nutzung zu schützen sind.
-Folgende Prinzipien der Sicherheit liegen der Erstellung einer Systemlandschaft zugrunde:
+
+Das übergeordnete Architekturprinzip ist Zero Trust.
+Die Herkunft einer Anfrage begründet keine automatische Vertrauenswürdigkeit; dies gilt auch für Anfragen aus einem internen Netz oder IT-System.
+Die Identität des Aufrufers und die mitgegebenen Autorisierungsinformationen müssen an den jeweils dafür definierten Systemgrenzen geprüft werden.
+Die Identitätsprüfung erfolgt im Rahmen der vorgesehenen Authentifizierung; die aufgerufenen IT-Systeme prüfen die erhaltenen Autorisierungsinformationen.
+Berechtigungen sind nach dem Prinzip der minimalen Berechtigungen (Least Privilege) zu vergeben und im aufgerufenen IT-System durchzusetzen.
+
+Folgende Prinzipien der Sicherheit liegen der Erstellung einer Systemlandschaft zugrunde und konkretisieren dieses Vertrauensmodell:
 
 * Authentifizierungsinformationen, wie Benutzername und Passwort, werden nicht über IT-Systeme hinweg weitergegeben.
 Nur der Eigentümer der Authentifizierungsinformationen und der zentrale IAM-Service besitzen Kenntnis über diese Informationen.
@@ -56,12 +63,17 @@ Eine detaillierte Beschreibung der erwähnten Zugriffskomponenten (Portal, Servi
 [[authentifizierung]]
 === Authentifizierung
 
-NOTE: Authentifikation: Verifikation der Identität eines Benutzers als Zugangskontrolle zu einem geschützten System.
+NOTE: Authentifikation: Verifikation der Identität eines natürlichen Anwenders oder eines IT-Systems im Rahmen der Zugangskontrolle zu einem geschützten System.
 Dabei ist es erforderlich, eindeutige Eigenschaften (z.B. biometrische Daten) oder geheime Daten (z.B. Passwort) zur Überprüfung zu übergeben.
 
-Nach der erfolgreichen Authentifizierung eines Benutzers gibt der IAM-Service Autorisierungsinformationen zurück.
-Diese Autorisierungsinformationen dienen dann als Nachweis des Nutzungsrechts des aufgerufenen Dienstes (s. <<autorisierung>>).
-Die tatsächliche Identität und Authentifizierungsinformationen des Benutzers spielen ab hier keine Rolle mehr und sind deshalb nicht Teil der Autorisierungsinformationen.
+Authentifizierung und Autorisierung sind voneinander zu unterscheiden: Die Authentifizierung bestätigt die Identität des Aufrufers, die Autorisierung entscheidet über die Zulässigkeit eines bestimmten Zugriffs.
+Diese Unterscheidung gilt sowohl für natürliche Anwender als auch für IT-Systeme.
+Eine erfolgreiche Authentifizierung begründet daher keine automatische Zugriffsberechtigung.
+
+Nach der erfolgreichen Authentifizierung eines Aufrufers über den zentralen IAM-Service gibt dieser Autorisierungsinformationen zurück.
+Diese Autorisierungsinformationen bilden die Grundlage für die Prüfung des Nutzungsrechts des aufgerufenen Dienstes (s. <<autorisierung>>).
+Die nachgelagerte Autorisierung stützt sich auf diese Informationen und erfordert keine erneute Übertragung der geheimen Authentifizierungsinformationen.
+Autorisierungsinformationen können identitätsbezogene Angaben zum Aufrufer enthalten; geheime Authentifizierungsinformationen sind darin nicht enthalten.
 
 In der Regel erfolgt die Authentifizierung von Benutzern über eine zentrale Komponente der Systemlandschaft, in welche das IT-System eingebettet ist, dem IAM-Service.
 Die Authentifizierung darf auch lokal, d.h. vom IT-System selbst, durchgeführt werden, falls es beispielsweise nicht in eine Systemlandschaft eingebettet ist.
@@ -73,13 +85,18 @@ Für die zentrale Authentifizierung wird in der IsyFact ein OAuth 2.0 konformer 
 
 NOTE: Autorisierung: Zustimmung oder Erlaubnis, spezieller das Einräumen von Rechten gegenüber interessierten Rechtssubjekten, gegebenenfalls als Nutzungsrecht gegenüber Dritten.
 
-Im aufgerufenen IT-System wird die Anfrage – je nach Schutzbedarf und Funktionalität – autorisiert.
+Im Sinne des Zero-Trust-Prinzips setzt das aufgerufene IT-System die fachliche Zugriffsentscheidung für die jeweilige Anfrage und deren Kontext durch.
+Die Ausgestaltung der Autorisierung richtet sich nach Schutzbedarf und Funktionalität; eine erfolgreiche Authentifizierung allein berechtigt nicht zum Zugriff.
 Zwingend wird das Vorhandensein sowie die Authentizität und Gültigkeit der mit der Anfrage mitgegebenen Autorisierungsinformationen geprüft.
 In IsyFact ist eine feingranulare Autorisierung vorgesehen:
 Im Benutzerverzeichnis sind zu einem Benutzer die ihm zugewiesenen *Rollen* in der Systemlandschaft verknüpft und Bestandteil der Autorisierungsinformationen aus dem IAM-Service.
 Anhand dieser Rollen aus den Autorisierungsinformationen weist das IT-System einem Aufruf anwendungsspezifische *Rechte* zu und prüft diese gegen die für die Nutzung des angefragten Service benötigten Rechte.
 xref:
 Wie genau Rollen und Rechte spezifiziert werden, beschreibt das xref:security::konzept.adoc[] im Kapitel xref:security::konzept.adoc#rollen-und-rechte[Rollen und Rechte].
+
+Bei der Zuordnung von Rollen und Rechten ist Least Privilege zu beachten: Es werden nur die für die jeweilige Aufgabe erforderlichen Berechtigungen vergeben.
+Bei fehlenden, nicht authentischen oder ungültigen Autorisierungsinformationen sowie bei nicht ausreichenden Rechten wird der jeweilige Zugriff abgelehnt.
+Eine erfolgreiche Autorisierung gilt nur für den geprüften Zugriff und dessen Kontext.
 
 [[nutzung-von-zertifikaten]]
 === Nutzung von Zertifikaten
@@ -105,6 +122,10 @@ Dies ist für verschlüsselte Verbindungen obligatorisch.
 * Beidseitige Authentifizierung (mTLS):
 Zusätzlich weist sich auch der Service-Consumer gegenüber dem externen Service mit einem Client-Zertifikat aus.
 Dies sollte immer dann eingesetzt werden, wenn besonders schützenswerte Daten verarbeitet oder sicherheitskritische Domänen berührt werden.
+
+TLS und mTLS unterstützen das Zero-Trust-Prinzip durch die Transportverschlüsselung und die zuvor beschriebene Authentifizierung der Kommunikationspartner.
+Diese Maßnahmen sind von der fachlichen Autorisierung zu unterscheiden.
+Eine erfolgreiche TLS- oder mTLS-Verbindung ersetzt daher keine Prüfung der Berechtigungen im aufgerufenen IT-System (siehe <<autorisierung>>).
 
 [[zertifikatsbasierte-authentifizierung]]
 ==== Zertifikatsbasierte Client-Authentifizierung
