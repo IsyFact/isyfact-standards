@@ -12,5 +12,5 @@ jobs:
   DependencyReview:
     permissions:
       contents: read
-    uses: IsyFact/isy-github-actions-templates/.github/workflows/dependency_review_template.yml@v3.0.0
+    uses: IsyFact/isy-github-actions-templates/.github/workflows/dependency_review_template.yml@v3.1.0
 
