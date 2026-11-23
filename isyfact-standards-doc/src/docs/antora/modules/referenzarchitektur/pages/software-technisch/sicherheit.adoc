@@ -85,7 +85,8 @@ Für die zentrale Authentifizierung wird in der IsyFact ein OAuth 2.0 konformer 
 
 NOTE: Autorisierung: Zustimmung oder Erlaubnis, spezieller das Einräumen von Rechten gegenüber interessierten Rechtssubjekten, gegebenenfalls als Nutzungsrecht gegenüber Dritten.
 
-Im Sinne des Zero-Trust-Prinzips setzt das aufgerufene IT-System die fachliche Zugriffsentscheidung für die jeweilige Anfrage und deren Kontext durch.
+Im Sinne des Zero-Trust-Prinzips prüft das aufgerufene IT-System vor jedem fachlichen Zugriff die im Anfragekontext übergebenen Autorisierungsinformationen.
+Es lässt den Zugriff nur zu, wenn diese Informationen gültig und authentisch sind und die Berechtigungen für die konkrete Anfrage und deren Kontext ausreichen; andernfalls lehnt es die Anfrage ab.
 Die Ausgestaltung der Autorisierung richtet sich nach Schutzbedarf und Funktionalität; eine erfolgreiche Authentifizierung allein berechtigt nicht zum Zugriff.
 Zwingend wird das Vorhandensein sowie die Authentizität und Gültigkeit der mit der Anfrage mitgegebenen Autorisierungsinformationen geprüft.
 In IsyFact ist eine feingranulare Autorisierung vorgesehen:
@@ -123,8 +124,10 @@ Dies ist für verschlüsselte Verbindungen obligatorisch.
 Zusätzlich weist sich auch der Service-Consumer gegenüber dem externen Service mit einem Client-Zertifikat aus.
 Dies sollte immer dann eingesetzt werden, wenn besonders schützenswerte Daten verarbeitet oder sicherheitskritische Domänen berührt werden.
 
-TLS und mTLS unterstützen das Zero-Trust-Prinzip durch die Transportverschlüsselung und die zuvor beschriebene Authentifizierung der Kommunikationspartner.
-Diese Maßnahmen sind von der fachlichen Autorisierung zu unterscheiden.
+TLS schützt die Kommunikation durch Verschlüsselung und Integritätsschutz und authentifiziert typischerweise den Server.
+mTLS authentifiziert zusätzlich den Client über ein Zertifikat.
+Damit unterstützen TLS und mTLS das Zero-Trust-Prinzip.
+Die fachliche Autorisierung prüft unabhängig davon, ob der Aufrufer den konkreten Service beziehungsweise die angeforderte Ressource nutzen darf.
 Eine erfolgreiche TLS- oder mTLS-Verbindung ersetzt daher keine Prüfung der Berechtigungen im aufgerufenen IT-System (siehe <<autorisierung>>).
 
 [[zertifikatsbasierte-authentifizierung]]
