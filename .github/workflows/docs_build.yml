@@ -6,6 +6,10 @@ on:
     branches-ignore:
       - main
       - 'support/**'
+    #  Doku-Build läuft nur bei Änderungen an der Doku
+    paths:
+      - 'isyfact-standards-doc/**'
+      - '.github/workflows/docs_build.yml'
   push:
     tags:
       - '^\\d+\\.\\d+\\.\\d+$'
