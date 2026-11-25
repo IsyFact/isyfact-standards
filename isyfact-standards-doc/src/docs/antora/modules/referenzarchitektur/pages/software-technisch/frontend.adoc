@@ -1083,9 +1083,239 @@ Dieses Gate stellt sicher, dass ausschließlich das geprüfte Artefakt produktiv
 * Qualitätsziele und Schwellwerte MÜSSEN projektspezifisch festgelegt und in der Systemdokumentation nachvollziehbar dokumentiert werden.
 * Nachweise MÜSSEN für Audits und Freigabeprozesse revisionssicher verfügbar sein.
 
+[[betrieb-deployment]]
 == Betrieb & Deployment von Frontends
 
-NOTE: Abschnitt ist noch WIP
+Dieses Kapitel beschreibt, wie Frontends betrieben werden und auf welchem Weg sie vom Quellcode in die Zielumgebungen gelangen.
+Es beschreibt das empfohlene Zielbild für den Betrieb in der öffentlichen Verwaltung und nicht den Ist-Stand einzelner Betriebsumgebungen.
+
+Gegenstand des Betriebs ist das IT-System GKGUI: ein Bundle statischer Dateien (HTML, JavaScript, CSS, Schriften, Bilder), das ein Webserver an den Browser ausliefert.
+Ausgeführt wird das Frontend ausschließlich im Browser; serverseitig ist nur die Auslieferung zu betreiben.
+Backend (GK) und ein gegebenenfalls vorhandenes Backend-for-Frontend (BFF) sind gemäß <<AG-1>> eigenständige IT-Systeme mit eigenem Deployment.
+
+Betrachtet werden zwei Zielumgebungen, die beide im Rechenzentrum der Behörde bzw. ihres IT-Dienstleisters (on-Premise) betrieben werden:
+
+Container-Plattform (CaaS)::
+Zielbild für neue und modernisierte Frontends.
+Das Frontend wird als Container-Image bereitgestellt und von der Container-Plattform betrieben, skaliert und aktualisiert.
+
+Klassischer Serverbetrieb::
+Alternative für Betriebsumgebungen ohne Container-Plattform.
+Das Frontend wird als versioniertes Paket auf virtuellen Maschinen mit einem Webserver installiert.
+
+Die <<betrieb-grundprinzipien>> gelten für beide Zielumgebungen gleichermaßen.
+Die Zielumgebungen unterscheiden sich lediglich in Paketierung, Laufzeitumgebung und der Mechanik des Versionswechsels.
+
+[[betrieb-grundprinzipien]]
+=== Grundprinzipien
+
+Unveränderliches Artefakt::
+Das Bundle wird genau einmal gebaut und unverändert durch alle Umgebungen befördert (→ <<qs-qg-einordnung>>).
+
+Laufzeitkonfiguration::
+Umgebungsspezifische Werte (z. B. Basis-URL der APIs, Kennungen des IAM-Service, Feature-Flags) erhält das Frontend zur Laufzeit und nicht beim Build (→ <<qs-qg-einordnung>>).
+Der Mechanismus ist nicht vorgegeben; geeignet sind z. B. eine beim Start geladene Konfigurationsdatei, beim Start des Webservers bzw. Containers eingesetzte Werte oder ein Konfigurations-Endpunkt von BFF bzw. Backend.
+Der Umfang der Laufzeitkonfiguration ist gering zu halten: Bei gemeinsamem Origin genügen relative API-Pfade, beim Einsatz eines BFF liegt die IAM-Konfiguration serverseitig.
+Da das Frontend nicht vertrauenswürdig ist (<<AG-2>>), ist die Laufzeitkonfiguration für jeden Benutzer einsehbar und enthält keine Geheimnisse.
+
+Getrennte, zustandslose Auslieferung::
+Die Auslieferung des Frontends ist von BFF und Backend getrennt.
+Der Webserver führt keine Fachlogik aus und hält keinen Sitzungszustand; er ist dadurch beliebig horizontal skalierbar.
+
+Gemeinsamer Einstiegspunkt::
+Frontend und APIs werden über einen gemeinsamen Einstiegspunkt unter demselben Origin bereitgestellt und anhand des Pfads verteilt, z. B. `/anwendung/` an den Webserver und `/anwendung/api/` an das API-Gateway.
+Dadurch sind im Regelfall keine CORS-Freigaben erforderlich; die Vorgaben aus <<CORS & CSRF>> gelten unverändert.
+
+Sichere Auslieferungskonfiguration::
+Webserver bzw. Einstiegspunkt setzen die HTTP-Sicherheits-Header (→ <<http_sicherheits_header_cookies>>) und stellen TLS und HTTP/2 gemäß <<Transport-Sicherheit & Protokolle>> bereit.
+
+Cache-Steuerung::
+Gehashte Dateinamen erlauben eine dauerhafte Zwischenspeicherung der Assets, während Einstiegsdateien stets aktuell bleiben (siehe Tabelle).
+
+SPA-Fallback::
+Für Pfade des clientseitigen Routings liefert der Webserver die `index.html` aus.
+Für nicht vorhandene Assets antwortet er mit `404`, damit Ladefehler erkannt werden und nicht HTML anstelle von JavaScript ausgeliefert wird.
+
+Automatisierte Bereitstellung::
+Deployment, Smoke-Test und Rollback laufen automatisiert ab (→ <<qs-qg-3>> bis <<qs-qg-5>>).
+
+.Cache-Steuerung der Auslieferungsartefakte
+[cols="2,2,3",options="header"]
+|===
+|Ressource |`Cache-Control` |Begründung
+
+|`index.html`, als Datei ausgelieferte Laufzeitkonfiguration, Federation-Manifest
+|`no-cache`
+|Einstiegsdateien referenzieren die aktuelle Version und MÜSSEN bei jedem Aufruf revalidiert werden.
+
+|Assets mit Inhalts-Hash im Dateinamen (z. B. `main.3f2a9c.js`)
+|`public, max-age=31536000, immutable`
+|Der Inhalt ändert sich unter demselben Namen nie; eine neue Version erhält neue Dateinamen.
+
+|API-Antworten mit sensiblen Daten
+|`no-store`
+|Siehe <<_logout_caching_service_worker,Logout, Caching & Service Worker>>; sie werden nicht vom Webserver des Frontends, sondern von BFF bzw. Backend ausgeliefert.
+|===
+
+.icon:university[title=Architekturregel] Getrennte und unveränderliche Auslieferung
+****
+Das Frontend MUSS als eigenständiges, unveränderliches Artefakt über einen Webserver ohne Fachlogik und ohne Sitzungszustand ausgeliefert werden.
+
+Frontend und zugehörige APIs SOLLEN über einen gemeinsamen Einstiegspunkt unter demselben Origin bereitgestellt werden.
+
+Die Laufzeitkonfiguration des Frontends DARF NICHT Geheimnisse (z. B. Client-Secrets, API-Schlüssel, Passwörter) enthalten.
+****
+
+[[betrieb-caas]]
+=== Zielumgebung Container-Plattform (CaaS)
+
+Die Container-Plattform ist die bevorzugte Zielumgebung.
+Sie stellt Lastverteilung, Selbstheilung, Skalierung und Versionswechsel als Plattformfunktionen bereit, die im klassischen Serverbetrieb einzeln aufgebaut und betrieben werden müssen.
+
+[[image-deployment-frontend-caas]]
+.Deployment eines Frontends auf einer Container-Plattform
+image::referenzarchitektur:software-technisch/frontend/deployment-frontend-caas.drawio.svg[width=100%,align=center]
+
+Der Einstiegspunkt der Plattform (Ingress bzw. Route) terminiert TLS und verteilt Anfragen anhand des Pfads auf das Frontend und das API-Gateway.
+Moderne Plattformen können dabei auch Aufgaben des API-Gateways übernehmen (→ xref:software-technisch/api-gateway.adoc#image-api-gateway-produkt[API-Gateway auf Basis einer Plattform]).
+Das Frontend läuft in mehreren gleichartigen Pods.
+Jeder Pod enthält einen schlanken Webserver mit dem Bundle aus dem Container-Image; die umgebungsspezifische Laufzeitkonfiguration stellt die Plattform bereit (z. B. über eine ConfigMap).
+Das Container-Image stammt aus der Container-Registry und wird dort über seinen Digest referenziert.
+
+Für den Betrieb auf der Container-Plattform gelten folgende Vorgaben:
+
+* Das Container-Image enthält ausschließlich den Webserver, dessen Konfiguration und das Bundle.
+Build-Werkzeuge und eine Node.js-Laufzeitumgebung sind nicht enthalten (Multi-Stage-Build).
+* Das Image wird in der Build-Pipeline erstellt, nicht auf der Plattform selbst.
+* Das Basis-Image stammt aus einer freigegebenen Quelle, ist minimal und wird regelmäßig aktualisiert.
+Schwachstellenprüfung und SBOM umfassen das vollständige Image einschließlich Basis-Image (→ <<Supply-Chain-Sicherheit>>).
+* Der Container läuft ohne Root-Rechte mit beliebiger Benutzer-ID, auf einem unprivilegierten Port (z. B. `8080`) und mit schreibgeschütztem Root-Dateisystem.
+* Es laufen mindestens zwei Replikate, die auf unterschiedliche Knoten der Plattform verteilt sind.
+* Readiness- und Liveness-Probes prüfen ausschließlich den Webserver selbst (z. B. Abruf einer statischen Datei) und nicht die Erreichbarkeit von Backend oder IAM-Service, um Kaskadenausfälle zu vermeiden.
+* Neue Versionen werden per Rolling Update ausgerollt; neue Pods erhalten erst nach erfolgreicher Readiness-Probe Anfragen.
+* Ressourcenanforderungen und -grenzen (CPU, Arbeitsspeicher) sind festgelegt.
+* Zugriffsprotokolle des Webservers werden auf die Standardausgabe geschrieben und von der Plattform eingesammelt.
+
+.icon:university[title=Architekturregel] Betrieb auf Container-Plattformen
+****
+Container-Images für Frontends MÜSSEN in der Build-Pipeline erstellt werden und DÜRFEN ausschließlich Webserver, Webserver-Konfiguration und Bundle enthalten.
+
+Container MÜSSEN ohne Root-Rechte und SOLLEN mit schreibgeschütztem Root-Dateisystem betrieben werden.
+
+Health-Probes DÜRFEN NICHT von der Verfügbarkeit nachgelagerter Systeme abhängen.
+****
+
+[[betrieb-server]]
+=== Zielumgebung Klassischer Serverbetrieb
+
+Steht keine Container-Plattform zur Verfügung, wird das Frontend auf virtuellen Maschinen betrieben.
+Die Grundprinzipien bleiben unverändert; Aufgaben, die die Plattform automatisch übernimmt, werden hier durch Betriebsprozesse und Automatisierung abgedeckt.
+
+[[image-deployment-frontend-server]]
+.Deployment eines Frontends im klassischen Serverbetrieb
+image::referenzarchitektur:software-technisch/frontend/deployment-frontend-server.drawio.svg[width=100%,align=center]
+
+Ein Reverse Proxy bzw. Load Balancer bildet den Einstiegspunkt, terminiert TLS und verteilt Anfragen auf mindestens zwei Webserver-VMs.
+Als Webserver kommt der Apache HTTP Server gemäß xref:einstieg:produkte.adoc#produktkatalog[Produktkatalog] zum Einsatz.
+Für die Auslieferung statischer Dateien ist kein Servlet-Container (z. B. Apache Tomcat) erforderlich.
+
+Für den klassischen Serverbetrieb gelten folgende Vorgaben:
+
+* Das Frontend wird als versioniertes Paket (z. B. Archiv) aus dem Artefakt-Repository bezogen und automatisiert installiert.
+Manuelle Kopiervorgänge auf die Server finden nicht statt.
+* Jede Version wird in ein eigenes, versioniertes Verzeichnis installiert.
+Die aktive Version wird durch Umschalten (z. B. über einen symbolischen Link) aktiviert; ein Rollback erfolgt durch Zurückschalten auf das vorherige Verzeichnis.
+* Die Laufzeitkonfiguration wird je Umgebung getrennt vom Paket verwaltet und bei einem Versionswechsel nicht überschrieben.
+* Neue Versionen werden knotenweise ausgerollt: Ein Knoten wird aus der Lastverteilung genommen, aktualisiert, geprüft und wieder aufgenommen (→ xref:technisch-infrastrukturell/availability.adoc[Verfügbarkeit]).
+* Betriebssystem und Webserver werden durch den Betrieb aktuell gehalten; die Auslieferungskonfiguration des Webservers wird versioniert und automatisiert verteilt.
+
+.Vergleich der Zielumgebungen
+[cols="1,2,2",options="header"]
+|===
+|Aspekt |Container-Plattform (CaaS) |Klassischer Serverbetrieb
+
+|Artefakt |Container-Image (Webserver und Bundle) |Versioniertes Paket (Bundle)
+|Ablage |Container-Registry |Artefakt-Repository
+|Laufzeitkonfiguration |Von der Plattform bereitgestellt (z. B. ConfigMap) |Je Umgebung auf dem Server verwaltet
+|Einstiegspunkt |Ingress bzw. Route der Plattform |Reverse Proxy bzw. Load Balancer
+|Skalierung |Anzahl der Replikate, ggf. automatisch |Zusätzliche VMs
+|Versionswechsel |Rolling Update |Knotenweises Umschalten
+|Rollback |Vorheriges Image (Digest) |Vorheriges Versionsverzeichnis
+|Aktualisierung von Betriebssystem und Webserver |Über das Basis-Image im Build |Durch den Betrieb auf der VM
+|===
+
+[[betrieb-quellcode-zur-anwendung]]
+=== Vom Quellcode zur laufenden Anwendung
+
+Der Weg eines Frontends vom Quellcode in die Produktion ist in beiden Zielumgebungen gleich.
+Die Prüfungen auf diesem Weg sind in den <<qs-quality-gates>> festgelegt.
+
+. *Build*: Das Bundle wird einmalig aus dem versionierten Quellcode und dem Lockfile gebaut (→ <<qs-qg-2>>).
+. *Paketierung*: Das Bundle wird als Container-Image bzw. als Paket verpackt; dabei werden SBOM und Schwachstellenprüfung für das Artefakt erstellt.
+. *Ablage*: Das Artefakt wird mit einer unveränderlichen Version in der Container-Registry bzw. im Artefakt-Repository abgelegt.
+Container-Images werden über ihren Digest referenziert; Versionsbezeichner werden nicht überschrieben.
+. *Bereitstellung*: Dasselbe Artefakt wird automatisiert nacheinander in Test-, Staging- und Produktivumgebung bereitgestellt; nur die Laufzeitkonfiguration unterscheidet sich je Umgebung.
+. *Prüfung*: Nach jeder Bereitstellung wird das laufende Frontend geprüft (→ <<qs-qg-3>>, <<qs-qg-4>>, <<qs-qg-5>>).
+
+Die Übergabe von der Entwicklung an den Betrieb folgt den Vorgaben zu xref:technisch-infrastrukturell/betriebliche-aspekte.adoc#auslieferung-installation-und-versionswechsel[Auslieferung, Installation und Versionswechsel].
+Liefergegenstand ist hier das Container-Image bzw. Paket zusammen mit der Laufzeitkonfiguration je Umgebung.
+
+[[betrieb-versionswechsel-rollback]]
+==== Versionswechsel und Rollback
+
+Bei einer SPA läuft die geladene Version im Browser weiter, während der Server bereits eine neue Version ausliefert.
+Ein Versionswechsel muss daher Clients mit älterem Stand berücksichtigen:
+
+* Änderungen an Backend-Schnittstellen werden abwärtskompatibel und vor dem Frontend ausgerollt.
+* Gehashte Assets der Vorgängerversion bleiben für einen Übergangszeitraum abrufbar, z. B. indem sie im Image bzw. Paket der neuen Version mitgeliefert werden.
+* Schlägt das Nachladen eines Moduls fehl (z. B. `ChunkLoadError`), lädt das Frontend kontrolliert neu, statt in einem undefinierten Zustand zu verbleiben.
+* Das Frontend kann eine neue Version erkennen (z. B. über eine mit `no-cache` ausgelieferte `version.json`) und den Benutzer zum Neuladen auffordern, ohne Eingaben zu verwerfen.
+* Ein Rollback aktiviert das zuvor produktive Artefakt erneut, ohne es neu zu bauen, und wird bei einem fehlgeschlagenen Smoke-Test automatisch ausgelöst (→ <<qs-qg-5>>).
+
+.icon:university[title=Architekturregel] Versionswechsel und Rollback
+****
+Versionswechsel MÜSSEN ohne Unterbrechung der Verfügbarkeit erfolgen und Clients mit dem Stand der Vorgängerversion berücksichtigen.
+
+Ein Rollback MUSS das zuvor produktive, unveränderte Artefakt reaktivieren und DARF NICHT einen erneuten Build erfordern.
+****
+
+[[betrieb-architekturvarianten]]
+=== Besonderheiten der Architekturvarianten
+
+Backend-for-Frontend (BFF)::
+Das BFF ist ein eigenständiges IT-System mit eigenem Deployment und wird nach der xref:software-technisch/backend.adoc[Referenzarchitektur Backend] betrieben.
+Bei mehreren Instanzen MUSS der Sitzungszustand instanzübergreifend verfügbar sein (z. B. über einen gemeinsamen Session-Store), damit Lastverteilung und Versionswechsel keine Abmeldungen verursachen.
+
+Native Federation::
+Shell und jedes Remote-Modul werden als eigenständige Artefakte gebaut und mit eigenem Deployment betrieben (eigene Pods bzw. eigene Versionsverzeichnisse).
+Das Federation-Manifest ist versionierte Laufzeitkonfiguration der Shell und unterliegt denselben Vorgaben zu Auslieferung und Cache-Steuerung (→ <<native_federation_security>>).
+Remote-Module SOLLEN über den gemeinsamen Einstiegspunkt unter demselben Origin bereitgestellt werden (z. B. `/anwendung/remotes/<name>/`); bei abweichenden Origins sind CORS und CSP entsprechend zu konfigurieren.
+Ein einzelnes Remote-Modul wird über das Manifest zurückgerollt, ohne die Shell neu auszuliefern.
+
+[[betrieb-cdn]]
+=== Exkurs: Content Delivery Network (CDN)
+
+Ein Content Delivery Network ist ein geografisch verteiltes Netz von Servern, das statische Inhalte nah am Benutzer zwischenspeichert und ausliefert.
+CDNs werden in der Regel von externen Anbietern betrieben.
+
+Für Frontends im Behördenkontext ist ein CDN im Regelfall nicht erforderlich; die Auslieferung erfolgt durch die GKGUI selbst:
+
+* Die Benutzer arbeiten überwiegend in Behördennetzen und in räumlicher Nähe zum Rechenzentrum.
+* Das Bundle ist klein und wird dank der Cache-Steuerung nach dem ersten Aufruf aus dem Browser-Cache geladen.
+* Ein externer Anbieter verarbeitet IP-Adressen und Zugriffsdaten der Benutzer, schafft eine zusätzliche Abhängigkeit und Angriffsfläche und berührt die digitale Souveränität.
+
+Ein CDN kann für öffentlich erreichbare Frontends erwogen werden, etwa für Portale für Bürger und Unternehmen (z. B. Verwaltungsleistungen nach dem Onlinezugangsgesetz), wenn
+
+* viele Benutzer aus dem Internet zugreifen,
+* starke Lastspitzen auftreten (z. B. zu Antrags- oder Meldefristen) oder
+* Schutz vor volumetrischen DDoS-Angriffen benötigt wird.
+
+In diesem Fall sind die Anforderungen des https://www.bsi.bund.de/DE/Themen/Oeffentliche-Verwaltung/Mindeststandards/Externe_Cloud-Dienste/Externe_Cloud-Dienste.html[BSI-Mindeststandards zur Nutzung externer Cloud-Dienste] (u. a. C5-Testat) sowie der DSGVO (Auftragsverarbeitung, Drittlandübermittlung) zu prüfen.
+Über das CDN werden ausschließlich statische, nicht personenbezogene Inhalte ausgeliefert; API-Aufrufe laufen nicht über das CDN.
+Oft genügt bereits ein zwischenspeichernder Reverse Proxy im eigenen Rechenzentrum.
+
+Davon zu unterscheiden ist das Einbinden von Bibliotheken, Stylesheets oder Schriften aus öffentlichen CDNs zur Laufzeit.
+Dies ist durch die Regel „Reproduzierbare Builds & freigegebene Bezugsquellen“ in der <<Supply-Chain-Sicherheit>> geregelt.
 
 == Daten & Zustandsmanagement
 
