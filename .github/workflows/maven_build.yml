@@ -7,6 +7,12 @@ on:
       - 'main'
       - 'develop-**'
       - 'support/**'
+    # Reine Dokumentationsänderungen lösen keinen Maven-Build Pipeline aus (siehe docs_build.yml)
+    paths-ignore:
+      - 'isyfact-standards-doc/**'
+      - '**/*.adoc'
+      - '**/*.md'
+      - '.github/workflows/docs_build.yml'
   push:
     branches:
       - 'develop'
@@ -15,6 +21,9 @@ on:
       - 'support/**'
     paths-ignore:
       - 'isyfact-standards-doc/**'
+      - '**/*.adoc'
+      - '**/*.md'
+      - '.github/workflows/docs_build.yml'
 
 jobs:
   Version:
