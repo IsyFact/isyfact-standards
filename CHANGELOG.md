@@ -1,5 +1,6 @@
 # 5.2.0
 ### FEATURES
+- `IFS-5211`: [isyfact-standards-doc] Rahmen für die FAQ-Dokumentation im Bereich Sicherheit erstellt
 - `IFS-5917`: [isyfact-standards-doc] Bestehende Sicherheitsprinzipien als durchgängiges Zero-Trust-Vertrauensmodell beschrieben
 - `IFS-4989`: [isyfact-standards-doc] Kapitel "Betrieb & Deployment von Frontends" der Referenzarchitektur Frontend mit Zielumgebungen Container-Plattform (CaaS) und klassischer Serverbetrieb, Auslieferungsprozess sowie Exkurs CDN erstellt
 - `IFS-5786`: [isyfact-standards-doc] Abschnitt "Zielbild & Geltungsbereich" der Referenzarchitektur Frontend um Sicherheitsvorgaben zur Kommunikation zwischen SPA und Server, den BFF-Einsatzfall Aggregation sowie eine Entscheidungsmatrix der Architekturvarianten ergänzt

@@ -13,3 +13,5 @@
 ** xref:tutorial/master.adoc[Tutorial]
 ** xref:isyfact-standards-referenzimplementierung::index.adoc[Referenzimplementierung]
 ** xref:whitepaper.adoc[Whitepaper]
+** FAQ
+*** xref:faq/sicherheit.adoc[Sicherheit]
